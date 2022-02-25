@@ -6,24 +6,21 @@ import '/src/core/structures/render_object.dart';
 import '/src/core/structures/build_context.dart';
 import '/src/core/structures/widget_object.dart';
 
-abstract class AppWidget implements Widget {
+abstract class AppWidget<T> implements Widget {
   final String? id;
   final Widget child;
   final String targetId;
-  final String widgetType;
 
   AppWidget({
     this.id,
     required this.child,
     required this.targetId,
-    required this.widgetType,
   }) {
     Framework.init();
 
     Framework.buildWidget(
-      renderObject: AppWidgetRenderObject(
+      renderObject: AppWidgetRenderObject<T>(
         child: child,
-        widgetType: widgetType,
         context: BuildableContext(parentId: targetId),
       ),
     );
@@ -33,7 +30,6 @@ abstract class AppWidget implements Widget {
   RenderObject builder(BuildableContext context) {
     return AppWidgetRenderObject(
       child: child,
-      widgetType: widgetType,
       context: BuildableContext(
         id: id,
         parentId: targetId,
@@ -42,17 +38,15 @@ abstract class AppWidget implements Widget {
   }
 }
 
-class AppWidgetRenderObject extends RenderObject {
+class AppWidgetRenderObject<T> extends RenderObject<T> {
   final Widget child;
 
   AppWidgetRenderObject({
     required this.child,
-    required String widgetType,
     required BuildableContext context,
   }) : super(
           buildableContext: context,
           domTag: DomTag.span,
-          widgetType: widgetType,
         );
 
   @override

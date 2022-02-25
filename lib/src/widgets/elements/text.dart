@@ -20,32 +20,33 @@ class Text extends Widget {
   @override
   RenderObject builder(BuildableContext context) {
     return TextRenderObject(
-      classes: classes ?? '',
       text: text,
+      classes: classes,
       buildableContext: BuildableContext(parentId: context.parentId),
     );
   }
 }
 
-class TextRenderObject extends RenderObject {
+class TextRenderObject extends RenderObject<Text> {
   final String text;
   final bool? isHtml;
-  final String classes;
+  final String? classes;
 
   TextRenderObject({
     this.isHtml,
-    required this.classes,
     required this.text,
+    required this.classes,
     required BuildableContext buildableContext,
   }) : super(
           buildableContext: buildableContext,
           domTag: DomTag.span,
-          widgetType: (Text).toString(),
         );
 
   @override
   render(WidgetObject widgetObject) {
-    widgetObject.htmlElement.className = classes;
+    if (null != classes) {
+      widgetObject.htmlElement.className = classes!;
+    }
 
     var isHtml = this.isHtml;
 
