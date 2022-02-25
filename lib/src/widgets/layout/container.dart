@@ -6,12 +6,12 @@ import '/src/core/structures/build_context.dart';
 import '/src/core/structures/widget_object.dart';
 
 class Container extends Widget {
-  String? id;
+  String? key;
   String? classes;
   Widget child;
 
   Container({
-    this.id,
+    this.key,
     this.classes,
     required this.child,
   });
@@ -21,7 +21,7 @@ class Container extends Widget {
     return ContainerRenderObject(
       child: child,
       classes: classes,
-      buildableContext: BuildableContext(parentId: context.parentId),
+      buildableContext: BuildableContext(parentKey: context.parentKey),
     );
   }
 }

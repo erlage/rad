@@ -21,7 +21,7 @@ enum HitTestBehaviour {
 }
 
 class GestureDetector extends Widget {
-  String? id;
+  String? key;
   String? classes;
 
   Widget child;
@@ -29,7 +29,7 @@ class GestureDetector extends Widget {
   HitTestBehaviour? behaviour;
 
   GestureDetector({
-    this.id,
+    this.key,
     this.classes,
     this.onTap,
     this.behaviour,
@@ -43,7 +43,7 @@ class GestureDetector extends Widget {
       classes: classes,
       onTap: onTap,
       behaviour: behaviour,
-      buildableContext: BuildableContext(parentId: context.parentId),
+      buildableContext: BuildableContext(parentKey: context.parentKey),
     );
   }
 }

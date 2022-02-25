@@ -19,10 +19,10 @@ class WidgetObject {
   mount() {
     // we can't use node.parent here cus root widget's parent can be null
 
-    var parentElement = document.getElementById(renderObject.context.parentId);
+    var parentElement = document.getElementById(renderObject.context.parentKey);
 
     if (null == parentElement) {
-      throw "Unable to find parent widget of element #${context.id}. Either disposed or something went wrong;";
+      throw "Unable to find parent widget of element #${context.key}. Either disposed or something went wrong;";
     }
 
     parentElement.append(htmlElement);

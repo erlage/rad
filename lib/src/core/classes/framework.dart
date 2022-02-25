@@ -31,11 +31,11 @@ class Framework {
   }
 
   static WidgetObject? findAncestorOfType<WidgetType>(BuildContext context) {
-    if (Constants.inBuildPhase == context.id) {
+    if (Constants.inBuildPhase == context.key) {
       throw "Part of context are not ready for usage. This means that context is under construction and cannot be used.  Contexts contruction completes after render object for a widget is built.";
     }
 
-    var domNode = document.getElementById(context.id)?.closest("[data-wtype='" + WidgetType.toString() + "'");
+    var domNode = document.getElementById(context.key)?.closest("[data-wtype='" + WidgetType.toString() + "'");
 
     if (null == domNode) {
       return null;
@@ -58,13 +58,13 @@ class Framework {
       throw "Framework not initialized. If you're building your own AppWidget implementation, make sure to call Framework.init()";
     }
 
-    if (_tryRebuildingWidgetHavingId(renderObject.context.id)) {
+    if (_tryRebuildingWidgetHavingId(renderObject.context.key)) {
       return;
     }
 
     var htmlElement = document.createElement(mapDomTag(tag: renderObject.context.widgetDomTag)) as HtmlElement;
 
-    htmlElement.id = renderObject.context.id;
+    htmlElement.id = renderObject.context.key;
     htmlElement.dataset["wtype"] = renderObject.context.widgetType;
 
     var widgetObject = WidgetObject(
@@ -79,18 +79,18 @@ class Framework {
     if (!append) {
       // if root div
 
-      if (Constants.bigBang == renderObject.context.parentId) {
-        var rootElement = document.getElementById(renderObject.context.parentId);
+      if (Constants.bigBang == renderObject.context.parentKey) {
+        var rootElement = document.getElementById(renderObject.context.parentKey);
 
         if (null == rootElement) {
-          throw "Unable to find target to mount app. Make sure your DOM has element with id #${renderObject.context.parentId}";
+          throw "Unable to find target to mount app. Make sure your DOM has element with id #${renderObject.context.parentKey}";
         }
 
         rootElement.innerHtml = "";
       } else {
         // else it's in widget tree
 
-        disposeWidget(getWidgetObject(renderObject.context.parentId), preserveTarget: true);
+        disposeWidget(getWidgetObject(renderObject.context.parentKey), preserveTarget: true);
       }
     }
 
@@ -181,10 +181,10 @@ class Framework {
   }
 
   static void _registerWidgetObject(WidgetObject widgetObject) {
-    _registeredWidgetObjects[widgetObject.context.id] = widgetObject;
+    _registeredWidgetObjects[widgetObject.context.key] = widgetObject;
   }
 
   static void _unRegisterWidgetObject(WidgetObject widgetObject) {
-    _registeredWidgetObjects.remove(widgetObject.context.id);
+    _registeredWidgetObjects.remove(widgetObject.context.key);
   }
 }

@@ -3,11 +3,11 @@ import '/src/widgets/main/app_widget.dart';
 
 class CastorApp extends AppWidget<CastorApp> {
   CastorApp({
-    String? id,
+    String? key,
     required Widget child,
     required String targetId,
   }) : super(
-          id: id,
+          key: key,
           child: child,
           targetId: targetId,
         );

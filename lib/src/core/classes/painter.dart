@@ -13,7 +13,7 @@ class Painter {
       append: append,
       renderObject: widget.builder(
         BuildableContext(
-          parentId: widgetObject.context.id,
+          parentKey: widgetObject.context.key,
         ),
       ),
     );
@@ -26,7 +26,7 @@ class Painter {
         append: append,
         renderObject: widget.builder(
           BuildableContext(
-            parentId: widgetObject.context.id,
+            parentKey: widgetObject.context.key,
           ),
         ),
       );

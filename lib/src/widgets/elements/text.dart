@@ -5,14 +5,14 @@ import '/src/core/structures/build_context.dart';
 import '/src/core/structures/widget_object.dart';
 
 class Text extends Widget {
-  String? id;
+  String? key;
   String text;
   bool? isHtml;
   String? classes;
 
   Text(
     this.text, {
-    this.id,
+    this.key,
     this.isHtml,
     this.classes,
   });
@@ -22,7 +22,7 @@ class Text extends Widget {
     return TextRenderObject(
       text: text,
       classes: classes,
-      buildableContext: BuildableContext(parentId: context.parentId),
+      buildableContext: BuildableContext(parentKey: context.parentKey),
     );
   }
 }

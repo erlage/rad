@@ -7,12 +7,12 @@ import '/src/core/structures/build_context.dart';
 import '/src/core/structures/widget_object.dart';
 
 abstract class AppWidget<T> implements Widget {
-  final String? id;
+  final String? key;
   final Widget child;
   final String targetId;
 
   AppWidget({
-    this.id,
+    this.key,
     required this.child,
     required this.targetId,
   }) {
@@ -21,7 +21,7 @@ abstract class AppWidget<T> implements Widget {
     Framework.buildWidget(
       renderObject: AppWidgetRenderObject<T>(
         child: child,
-        context: BuildableContext(parentId: targetId),
+        context: BuildableContext(parentKey: targetId),
       ),
     );
   }
@@ -31,8 +31,8 @@ abstract class AppWidget<T> implements Widget {
     return AppWidgetRenderObject(
       child: child,
       context: BuildableContext(
-        id: id,
-        parentId: targetId,
+        key: key,
+        parentKey: targetId,
       ),
     );
   }

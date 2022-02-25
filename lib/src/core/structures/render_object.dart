@@ -13,8 +13,8 @@ abstract class RenderObject<T> {
     required this.domTag,
   }) {
     context = BuildContext(
-      id: buildableContext.id ?? Framework.generateId(),
-      parentId: buildableContext.parentId,
+      key: buildableContext.key ?? Framework.generateId(),
+      parentKey: buildableContext.parentKey,
       widgetType: T.toString(),
       widgetDomTag: domTag,
     );
