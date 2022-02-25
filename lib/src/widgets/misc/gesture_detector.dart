@@ -20,12 +20,12 @@ enum HitTestBehaviour {
 }
 
 class GestureDetector extends Widget {
-  String? key;
-  String? classes;
+  final String? key;
+  final String? classes;
 
-  Widget child;
-  OnTapCallback? onTap;
-  HitTestBehaviour? behaviour;
+  final Widget child;
+  final OnTapCallback? onTap;
+  final HitTestBehaviour? behaviour;
 
   GestureDetector({
     this.key,

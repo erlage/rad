@@ -4,10 +4,10 @@ import 'package:castor/src/core/structures/build_context.dart';
 import 'package:castor/src/core/structures/render_object.dart';
 
 class WidgetObject {
-  late BuildContext context;
+  late final BuildContext context;
 
-  RenderObject renderObject;
-  HtmlElement htmlElement;
+  final RenderObject renderObject;
+  final HtmlElement htmlElement;
 
   WidgetObject({
     required this.renderObject,
