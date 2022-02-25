@@ -1,0 +1,5 @@
+.dart_tool/
+.packages
+build/
+.vscode
+.dart_tool
