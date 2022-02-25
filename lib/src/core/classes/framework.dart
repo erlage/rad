@@ -1,11 +1,11 @@
 import 'dart:html';
 
-import 'package:castor/src/core/enums.dart';
-import 'package:castor/src/core/constants.dart';
-import 'package:castor/src/core/classes/utils.dart';
-import 'package:castor/src/core/structures/build_context.dart';
-import 'package:castor/src/core/structures/render_object.dart';
-import 'package:castor/src/core/structures/widget_object.dart';
+import 'package:tard/src/core/enums.dart';
+import 'package:tard/src/core/constants.dart';
+import 'package:tard/src/core/classes/utils.dart';
+import 'package:tard/src/core/structures/build_context.dart';
+import 'package:tard/src/core/structures/render_object.dart';
+import 'package:tard/src/core/structures/widget_object.dart';
 
 class Framework {
   static var _isInit = false;

@@ -1,12 +1,12 @@
 import 'dart:html';
 
-import 'package:castor/src/core/classes/painter.dart';
-import 'package:castor/src/core/enums.dart';
-import 'package:castor/src/core/structures/widget.dart';
-import 'package:castor/src/core/structures/render_object.dart';
-import 'package:castor/src/core/structures/build_context.dart';
-import 'package:castor/src/core/structures/widget_object.dart';
-import 'package:castor/src/core/types.dart';
+import 'package:tard/src/core/classes/painter.dart';
+import 'package:tard/src/core/enums.dart';
+import 'package:tard/src/core/structures/widget.dart';
+import 'package:tard/src/core/structures/render_object.dart';
+import 'package:tard/src/core/structures/build_context.dart';
+import 'package:tard/src/core/structures/widget_object.dart';
+import 'package:tard/src/core/types.dart';
 
 enum HitTestBehaviour {
   /// child gesture detectors will receive events and won't let them propagate to parents

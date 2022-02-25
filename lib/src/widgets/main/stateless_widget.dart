@@ -1,9 +1,9 @@
-import 'package:castor/castor.dart';
-import 'package:castor/src/core/enums.dart';
-import 'package:castor/src/core/classes/painter.dart';
-import 'package:castor/src/core/structures/render_object.dart';
-import 'package:castor/src/core/structures/build_context.dart';
-import 'package:castor/src/core/structures/widget_object.dart';
+import 'package:tard/tard.dart';
+import 'package:tard/src/core/enums.dart';
+import 'package:tard/src/core/classes/painter.dart';
+import 'package:tard/src/core/structures/render_object.dart';
+import 'package:tard/src/core/structures/build_context.dart';
+import 'package:tard/src/core/structures/widget_object.dart';
 
 abstract class StatelessWidget extends Widget {
   final String? key;

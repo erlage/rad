@@ -1,5 +1,5 @@
-import 'package:castor/src/core/structures/widget.dart';
-import 'package:castor/src/widgets/main/app_widget.dart';
+import 'package:tard/src/core/structures/widget.dart';
+import 'package:tard/src/widgets/main/app_widget.dart';
 
 class CastorApp extends AppWidget<CastorApp> {
   CastorApp({
