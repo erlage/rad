@@ -1,4 +1,4 @@
-import '/src/core/enums.dart';
+import 'package:castor/src/core/enums.dart';
 
 class BuildContext {
   final String key;
@@ -23,7 +23,9 @@ class BuildableContext {
     required this.parentKey,
   });
 
-  mergeKey(String? key) {
+  BuildableContext mergeKey(String? key) {
     this.key = key;
+
+    return this;
   }
 }

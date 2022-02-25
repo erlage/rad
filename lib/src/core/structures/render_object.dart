@@ -1,7 +1,7 @@
-import '/src/core/classes/framework.dart';
-import '/src/core/enums.dart';
-import '/src/core/structures/build_context.dart';
-import '/src/core/structures/widget_object.dart';
+import 'package:castor/src/core/classes/framework.dart';
+import 'package:castor/src/core/enums.dart';
+import 'package:castor/src/core/structures/build_context.dart';
+import 'package:castor/src/core/structures/widget_object.dart';
 
 abstract class RenderObject<T> {
   late final BuildContext context;

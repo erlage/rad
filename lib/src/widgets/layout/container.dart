@@ -1,9 +1,9 @@
-import '/src/core/enums.dart';
-import '/src/core/classes/painter.dart';
-import '/src/core/structures/widget.dart';
-import '/src/core/structures/render_object.dart';
-import '/src/core/structures/build_context.dart';
-import '/src/core/structures/widget_object.dart';
+import 'package:castor/src/core/enums.dart';
+import 'package:castor/src/core/classes/painter.dart';
+import 'package:castor/src/core/structures/widget.dart';
+import 'package:castor/src/core/structures/render_object.dart';
+import 'package:castor/src/core/structures/build_context.dart';
+import 'package:castor/src/core/structures/widget_object.dart';
 
 class Container extends Widget {
   final String? key;

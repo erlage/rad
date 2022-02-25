@@ -1,7 +1,7 @@
 import 'dart:html';
 
-import '/src/core/structures/build_context.dart';
-import '/src/core/structures/render_object.dart';
+import 'package:castor/src/core/structures/build_context.dart';
+import 'package:castor/src/core/structures/render_object.dart';
 
 class WidgetObject {
   late BuildContext context;
