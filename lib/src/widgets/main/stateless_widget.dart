@@ -5,14 +5,12 @@ import 'package:castor/src/core/structures/render_object.dart';
 import 'package:castor/src/core/structures/build_context.dart';
 import 'package:castor/src/core/structures/widget_object.dart';
 
-class StatelessWidget extends Widget {
+abstract class StatelessWidget extends Widget {
   final String? key;
 
   StatelessWidget(this.key);
 
-  Widget build(BuildContext context) {
-    throw UnimplementedError();
-  }
+  Widget build(BuildContext context);
 
   @override
   RenderObject builder(BuildableContext context) {
