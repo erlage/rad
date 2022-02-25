@@ -42,7 +42,7 @@ class GestureDetector extends Widget {
       child: child,
       classes: classes,
       onTap: onTap,
-      behaviour: behaviour,
+      behaviour: behaviour ?? HitTestBehaviour.deferToChild,
       buildableContext: BuildableContext(parentKey: context.parentKey),
     );
   }
@@ -53,7 +53,7 @@ class GestureDetectorRenderObject extends RenderObject<GestureDetector> {
 
   final Widget child;
   final OnTapCallback? onTap;
-  final HitTestBehaviour? behaviour;
+  final HitTestBehaviour behaviour;
 
   GestureDetectorRenderObject({
     required this.child,
@@ -95,9 +95,6 @@ class GestureDetectorRenderObject extends RenderObject<GestureDetector> {
 
       case HitTestBehaviour.translucent:
         break;
-
-      default:
-        return null;
     }
 
     userDefinedOnTap(event);
