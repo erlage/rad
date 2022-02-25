@@ -6,9 +6,10 @@ import '/src/core/structures/build_context.dart';
 import '/src/core/structures/widget_object.dart';
 
 class Container extends Widget {
-  String? key;
-  String? classes;
-  Widget child;
+  final String? key;
+  final String? classes;
+
+  final Widget child;
 
   Container({
     this.key,
@@ -21,7 +22,7 @@ class Container extends Widget {
     return ContainerRenderObject(
       child: child,
       classes: classes,
-      buildableContext: BuildableContext(parentKey: context.parentKey),
+      buildableContext: context.mergeKey(key),
     );
   }
 }

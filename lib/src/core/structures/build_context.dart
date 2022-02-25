@@ -1,10 +1,10 @@
 import '/src/core/enums.dart';
 
 class BuildContext {
-  String key;
-  String parentKey;
-  String widgetType;
-  DomTag widgetDomTag;
+  final String key;
+  final String parentKey;
+  final String widgetType;
+  final DomTag widgetDomTag;
 
   BuildContext({
     required this.key,
@@ -16,10 +16,14 @@ class BuildContext {
 
 class BuildableContext {
   String? key;
-  String parentKey;
+  final String parentKey;
 
   BuildableContext({
     this.key,
     required this.parentKey,
   });
+
+  mergeKey(String? key) {
+    this.key = key;
+  }
 }

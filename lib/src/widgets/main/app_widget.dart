@@ -21,7 +21,10 @@ abstract class AppWidget<T> implements Widget {
     Framework.buildWidget(
       renderObject: AppWidgetRenderObject<T>(
         child: child,
-        context: BuildableContext(parentKey: targetId),
+        context: BuildableContext(
+          key: key,
+          parentKey: targetId,
+        ),
       ),
     );
   }

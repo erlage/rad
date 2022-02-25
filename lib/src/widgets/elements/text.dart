@@ -5,10 +5,10 @@ import '/src/core/structures/build_context.dart';
 import '/src/core/structures/widget_object.dart';
 
 class Text extends Widget {
-  String? key;
-  String text;
-  bool? isHtml;
-  String? classes;
+  final String? key;
+  final String text;
+  final bool? isHtml;
+  final String? classes;
 
   Text(
     this.text, {
@@ -22,7 +22,7 @@ class Text extends Widget {
     return TextRenderObject(
       text: text,
       classes: classes,
-      buildableContext: BuildableContext(parentKey: context.parentKey),
+      buildableContext: context.mergeKey(key),
     );
   }
 }
