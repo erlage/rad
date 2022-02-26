@@ -94,5 +94,5 @@ Remember Tard is a web-framework and you don't have to install Flutter/or its pl
 - StatefulWidget 
 
 ## Contribution
-Tard is small and easy to work with. It allows anyone with basic knowledge of Javascript & DOM to create their own custom widgets in matter of minutes. PRs are welcomed<3 if you feel like missing a widget or something.
+Tard is a small project. It allows anyone with basic knowledge of Javascript & DOM to create their own custom widgets in matter of minutes. PRs are welcomed<3 if you feel like missing a widget or something.
 
