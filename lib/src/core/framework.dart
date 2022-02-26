@@ -202,9 +202,7 @@ class Framework {
     }
 
     if (widgetObject.htmlElement.hasChildNodes()) {
-      for (var childHtmlElement in widgetObject.htmlElement.childNodes) {
-        childHtmlElement as HtmlElement;
-
+      for (var childHtmlElement in widgetObject.htmlElement.children) {
         _disposeWidget(_getWidgetObject(childHtmlElement.id));
       }
     }
