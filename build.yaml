@@ -1,0 +1,17 @@
+targets: 
+  $default: 
+    builders: 
+      trad|stylesBuilder: 
+        generate_for: 
+         - lib/css/** 
+        enabled: True 
+
+builders: 
+  stylesBuilder: 
+    import: 'package:trad/code_gen/builders.dart' 
+    builder_factories: ['stylesBuilder'] 
+    build_extensions: 
+      .css: 
+       - .gen.dart 
+    build_to: source 
+    auto_apply: root_package
