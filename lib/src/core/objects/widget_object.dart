@@ -4,7 +4,7 @@ import 'package:trad/src/core/structures/build_context.dart';
 import 'package:trad/src/core/objects/render_object.dart';
 
 class WidgetObject {
-  late final BuildContext context;
+  final BuildContext context;
 
   final RenderObject renderObject;
   final HtmlElement htmlElement;
@@ -12,9 +12,7 @@ class WidgetObject {
   WidgetObject({
     required this.renderObject,
     required this.htmlElement,
-  }) {
-    context = renderObject.context;
-  }
+  }) : context = renderObject.context;
 
   mount() {
     // we can't use node.parent here cus root widget's parent can be null

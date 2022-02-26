@@ -6,19 +6,17 @@ import 'package:trad/src/core/structures/buildable_context.dart';
 
 abstract class RenderObject<T> {
   final DomTag domTag;
-  late final BuildContext context;
+  final BuildContext context;
 
   RenderObject({
     required this.domTag,
     required BuildableContext buildableContext,
-  }) {
-    context = BuildContext(
-      key: buildableContext.key ?? Framework.generateId(),
-      parentKey: buildableContext.parentKey,
-      widgetType: T.toString(),
-      widgetDomTag: domTag,
-    );
-  }
+  }) : context = BuildContext(
+          key: buildableContext.key ?? Framework.generateId(),
+          parentKey: buildableContext.parentKey,
+          widgetType: T.toString(),
+          widgetDomTag: domTag,
+        );
 
   void render(WidgetObject widgetObject);
 
