@@ -1,4 +1,4 @@
-import 'package:tard/src/core/enums.dart';
+import 'package:trad/src/core/enums.dart';
 
 class BuildContext {
   final String key;

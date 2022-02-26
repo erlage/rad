@@ -1,8 +1,8 @@
-name: tard
-version: 0.0.3
+name: trad
+version: 0.0.1
 description: A frontend framework for Dart.
-homepage: https://github.com/erlage/tard
-documentation: https://github.com/erlage/tard#readme
+homepage: https://github.com/erlage/trad
+documentation: https://github.com/erlage/trad#readme
 
 environment:
   sdk: '>=2.16.1 <3.0.0'

@@ -1,8 +1,8 @@
-import 'package:tard/src/core/structures/widget.dart';
-import 'package:tard/src/widgets/main/app_widget.dart';
+import 'package:trad/src/core/structures/widget.dart';
+import 'package:trad/src/widgets/main/app_widget.dart';
 
-class TardApp extends AppWidget<TardApp> {
-  TardApp({
+class TradApp extends AppWidget<TradApp> {
+  TradApp({
     String? key,
     required Widget child,
     required String targetId,
