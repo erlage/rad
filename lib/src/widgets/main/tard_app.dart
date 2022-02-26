@@ -1,8 +1,8 @@
 import 'package:tard/src/core/structures/widget.dart';
 import 'package:tard/src/widgets/main/app_widget.dart';
 
-class CastorApp extends AppWidget<CastorApp> {
-  CastorApp({
+class TardApp extends AppWidget<TardApp> {
+  TardApp({
     String? key,
     required Widget child,
     required String targetId,
