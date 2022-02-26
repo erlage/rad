@@ -1,6 +1,6 @@
 # Tard
 
-Tard is frontend framework for Dart. It's inspired from Flutter and shares same programming paradigm. Which means, again, you'll be working with Widgets and tress. Don't worry, widgets in Tard are similar to Flutter widgets but in many ways more flexible.
+Tard is a frontend framework for Dart. It's inspired from Flutter and shares same programming paradigm. Which means, again, you'll be working with Widgets and tress. Don't worry, widgets in Tard are similar to Flutter widgets but in many ways more flexible.
 
 Let's take a look at one of the widget from Tard: 
 
