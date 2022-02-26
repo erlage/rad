@@ -40,7 +40,7 @@ How about that? if you're familiar with Flutter it don't even need a explanation
     - Open `pubspec.yaml` and add `trad` to your dependencies:
       ```yaml
       dependencies:
-        trad: 0.0.3
+        trad: 0.0.1
       ```
 
 3. Import Trad widgets in your `main.dart`
