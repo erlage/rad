@@ -7,13 +7,13 @@ import 'package:tard/src/core/structures/widget_object.dart';
 
 class Container extends Widget {
   final String? key;
-  final String? classes;
+  final String? style;
 
   final Widget child;
 
   const Container({
     this.key,
-    this.classes,
+    this.style,
     required this.child,
   });
 
@@ -21,7 +21,7 @@ class Container extends Widget {
   RenderObject builder(BuildableContext context) {
     return ContainerRenderObject(
       child: child,
-      classes: classes,
+      style: style,
       buildableContext: context.mergeKey(key),
     );
   }
@@ -29,11 +29,11 @@ class Container extends Widget {
 
 class ContainerRenderObject extends RenderObject<Container> {
   final Widget child;
-  final String? classes;
+  final String? style;
 
   ContainerRenderObject({
     required this.child,
-    required this.classes,
+    required this.style,
     required BuildableContext buildableContext,
   }) : super(
           buildableContext: buildableContext,
@@ -42,8 +42,8 @@ class ContainerRenderObject extends RenderObject<Container> {
 
   @override
   render(WidgetObject widgetObject) {
-    if (null != classes) {
-      widgetObject.htmlElement.className = classes!;
+    if (null != style) {
+      widgetObject.htmlElement.className = style!;
     }
 
     Painter(widgetObject).renderSingleWidget(child);

@@ -8,20 +8,20 @@ class Text extends Widget {
   final String? key;
   final String text;
   final bool? isHtml;
-  final String? classes;
+  final String? style;
 
   const Text(
     this.text, {
     this.key,
     this.isHtml,
-    this.classes,
+    this.style,
   });
 
   @override
   RenderObject builder(BuildableContext context) {
     return TextRenderObject(
       text: text,
-      classes: classes,
+      style: style,
       buildableContext: context.mergeKey(key),
     );
   }
@@ -30,12 +30,12 @@ class Text extends Widget {
 class TextRenderObject extends RenderObject<Text> {
   final String text;
   final bool? isHtml;
-  final String? classes;
+  final String? style;
 
   TextRenderObject({
     this.isHtml,
     required this.text,
-    required this.classes,
+    required this.style,
     required BuildableContext buildableContext,
   }) : super(
           buildableContext: buildableContext,
@@ -44,8 +44,8 @@ class TextRenderObject extends RenderObject<Text> {
 
   @override
   render(WidgetObject widgetObject) {
-    if (null != classes) {
-      widgetObject.htmlElement.className = classes!;
+    if (null != style) {
+      widgetObject.htmlElement.className = style!;
     }
 
     var isHtml = this.isHtml;
