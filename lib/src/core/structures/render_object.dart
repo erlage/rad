@@ -20,7 +20,7 @@ abstract class RenderObject<T> {
     );
   }
 
-  render(WidgetObject widgetObject);
+  void render(WidgetObject widgetObject);
 
   void beforeMount() {}
 
@@ -28,7 +28,7 @@ abstract class RenderObject<T> {
 
   void beforeUnMount() {}
 
-  rebuild() {
+  void rebuild() {
     // Framework.build(this);
   }
 }
