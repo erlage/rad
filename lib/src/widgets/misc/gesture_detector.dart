@@ -8,14 +8,15 @@ import 'package:tard/src/core/structures/build_context.dart';
 import 'package:tard/src/core/structures/widget_object.dart';
 import 'package:tard/src/core/types.dart';
 
-enum HitTestBehaviour {
-  /// child gesture detectors will receive events and won't let them propagate to parents
+/// How to behave during hit tests.
+enum HitTestBehavior {
+  /// Child gesture detectors will receive events and won't let them propagate to parents
   deferToChild,
 
-  /// receive events and prevent child gesture detectors from receiving events
+  /// Receive events and prevent child gesture detectors from receiving events.
   opaque,
 
-  /// all of the detectors that are hit will receive events
+  /// All detectors that are hit will receive events.
   translucent,
 }
 
@@ -24,8 +25,13 @@ class GestureDetector extends Widget {
 
   final Widget child;
   final OnTapCallback? onTap;
-  final HitTestBehaviour? behaviour;
 
+  /// How this gesture detector should behave during hit testing.
+  ///
+  /// This defaults to [HitTestBehavior.deferToChild]
+  final HitTestBehavior? behaviour;
+
+  /// Creates a widget that detects gestures.
   GestureDetector({
     this.key,
     this.onTap,
@@ -38,7 +44,7 @@ class GestureDetector extends Widget {
     return GestureDetectorRenderObject(
       child: child,
       onTap: onTap,
-      behaviour: behaviour ?? HitTestBehaviour.deferToChild,
+      behaviour: behaviour ?? HitTestBehavior.deferToChild,
       buildableContext: BuildableContext(parentKey: context.parentKey),
     );
   }
@@ -47,7 +53,7 @@ class GestureDetector extends Widget {
 class GestureDetectorRenderObject extends RenderObject<GestureDetector> {
   final Widget child;
   final OnTapCallback? onTap;
-  final HitTestBehaviour behaviour;
+  final HitTestBehavior behaviour;
 
   GestureDetectorRenderObject({
     required this.child,
@@ -61,7 +67,7 @@ class GestureDetectorRenderObject extends RenderObject<GestureDetector> {
 
   @override
   render(WidgetObject widgetObject) {
-    widgetObject.htmlElement.addEventListener("click", _handleOnTap, behaviour == HitTestBehaviour.opaque);
+    widgetObject.htmlElement.addEventListener("click", _handleOnTap, behaviour == HitTestBehavior.opaque);
 
     Painter(widgetObject).renderSingleWidget(child);
   }
@@ -76,13 +82,13 @@ class GestureDetectorRenderObject extends RenderObject<GestureDetector> {
     }
 
     switch (behaviour) {
-      case HitTestBehaviour.opaque:
-      case HitTestBehaviour.deferToChild:
+      case HitTestBehavior.opaque:
+      case HitTestBehavior.deferToChild:
         event.stopPropagation();
 
         break;
 
-      case HitTestBehaviour.translucent:
+      case HitTestBehavior.translucent:
         break;
     }
 
