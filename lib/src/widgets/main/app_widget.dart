@@ -1,6 +1,6 @@
-import 'package:trad/css/main.gen.dart';
-import 'package:trad/css/trad_app.gen.dart';
-import 'package:trad/css/include/normalize.gen.dart';
+import 'package:trad/css/include/normalize.generated.dart';
+import 'package:trad/css/main.generated.dart';
+import 'package:trad/css/trad_app.generated.dart';
 import 'package:trad/src/core/enums.dart';
 import 'package:trad/src/core/framework.dart';
 import 'package:trad/src/core/structures/buildable_context.dart';
