@@ -95,6 +95,35 @@ Widgets that accept sizing props also have a optional parameter `sizingUnit`. Fo
 
 By default, `width: 20` will be mapped to `width: 20px`. But if you want to set width to some percentage of parent you can set `sizingUnit: MeasuringUnit.percentage`.
 
+## Api reference
+
+- [Tard library](https://pub.dev/documentation/tard/latest/tard/tard-library.html)
+- [Widgets library](https://pub.dev/documentation/tard/latest/widgets/widgets-library.html)
+
+## Widgets Index
+
+### Main
+
+- [TardApp](https://pub.dev/documentation/tard/latest/widgets/TardApp-class.html)
+
+### Elements
+
+- [Text](https://pub.dev/documentation/tard/latest/widgets/Text-class.html)
+
+### Layout
+
+- [Container](https://pub.dev/documentation/tard/latest/widgets/Container-class.html)
+
+### Misc
+
+- [GestureDetector](https://pub.dev/documentation/tard/latest/widgets/GestureDetector-class.html)
+
+## Abstract
+
+- [StatelessWidget](https://pub.dev/documentation/tard/latest/tard/StatelessWidget-class.html)
+- [StatefulWidget](https://pub.dev/documentation/tard/latest/tard/StatefulWidget-class.html)
+
+
 ## Contribution
 Tard is a small project. It allows anyone with basic knowledge of Javascript & DOM to create their own custom widgets in matter of minutes. PRs are welcomed<3 if you feel like missing a widget or something.
 
