@@ -43,7 +43,7 @@ class ContainerRenderObject extends RenderObject<Container> {
   @override
   render(WidgetObject widgetObject) {
     if (null != style) {
-      widgetObject.htmlElement.className = style!;
+      widgetObject.htmlElement.className = style!; // (!) https://dart.dev/tools/non-promotion-reasons
     }
 
     Painter(widgetObject).renderSingleWidget(child);

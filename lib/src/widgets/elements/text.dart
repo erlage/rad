@@ -45,7 +45,7 @@ class TextRenderObject extends RenderObject<Text> {
   @override
   render(WidgetObject widgetObject) {
     if (null != style) {
-      widgetObject.htmlElement.className = style!;
+      widgetObject.htmlElement.className = style!; // (!) https://dart.dev/tools/non-promotion-reasons
     }
 
     var isHtml = this.isHtml;
