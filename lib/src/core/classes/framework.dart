@@ -5,6 +5,7 @@ import 'package:trad/src/core/constants.dart';
 import 'package:trad/src/core/classes/utils.dart';
 import 'package:trad/src/core/structures/build_context.dart';
 import 'package:trad/src/core/structures/render_object.dart';
+import 'package:trad/src/core/structures/widget.dart';
 import 'package:trad/src/core/structures/widget_object.dart';
 
 class Framework {
@@ -26,8 +27,52 @@ class Framework {
     return _monotonicId.toString() + "_" + Utils.random();
   }
 
-  static WidgetObject? getWidgetObject(String widgetId) {
-    return _registeredWidgetObjects[widgetId];
+  static void insertStyles(String styles) {
+    var styleSheet = document.createElement("style");
+
+    styleSheet.innerText = styles;
+
+    if (null != document.head) {
+      document.head!.insertBefore(styleSheet, null);
+    } else if (null != document.body) {
+      document.head!.insertBefore(styleSheet, null);
+    } else {
+      throw "Unable to find a target for CSS styles. You must have either head or a body in your app.";
+    }
+  }
+
+  static void buildFromRenderObject(RenderObject renderObject) {
+    _buildWidget(
+      append: false,
+      renderObject: renderObject,
+    );
+  }
+
+  static void renderSingleChildWidget({
+    required Widget widget,
+    required BuildContext context,
+    append = false,
+  }) {
+    _buildWidget(
+      append: append,
+      renderObject: widget.builder(BuildableContext(parentKey: context.key)),
+    );
+  }
+
+  static void renderMultipleChildWidgets({
+    required List<Widget> widgets,
+    required BuildContext context,
+    append = false,
+  }) {
+    for (var widget in widgets) {
+      _buildWidget(
+        append: append,
+        renderObject: widget.builder(BuildableContext(parentKey: context.key)),
+      );
+
+      // remaining widgets will be appended
+      append = true;
+    }
   }
 
   static WidgetObject? findAncestorOfType<WidgetType>(BuildContext context) {
@@ -41,7 +86,7 @@ class Framework {
       return null;
     }
 
-    var widgetObject = getWidgetObject(domNode.id);
+    var widgetObject = _getWidgetObject(domNode.id);
 
     if (null == widgetObject) {
       throw "Trying to look up a disposed widget";
@@ -50,7 +95,9 @@ class Framework {
     return widgetObject;
   }
 
-  static buildWidget({
+  // internals
+
+  static _buildWidget({
     append = false,
     required RenderObject renderObject,
   }) {
@@ -58,7 +105,7 @@ class Framework {
       throw "Framework not initialized. If you're building your own AppWidget implementation, make sure to call Framework.init()";
     }
 
-    if (_tryRebuildingWidgetHavingId(renderObject.context.key)) {
+    if (_tryRebuildingWidgetHavingKey(renderObject.context.key)) {
       return;
     }
 
@@ -90,7 +137,7 @@ class Framework {
       } else {
         // else it's in widget tree
 
-        disposeWidget(getWidgetObject(renderObject.context.parentKey), preserveTarget: true);
+        _disposeWidget(_getWidgetObject(renderObject.context.parentKey), preserveTarget: true);
       }
     }
 
@@ -111,8 +158,8 @@ class Framework {
     widgetObject.renderObject.render(widgetObject);
   }
 
-  static _tryRebuildingWidgetHavingId(String widgetId) {
-    var widgetObject = getWidgetObject(widgetId);
+  static _tryRebuildingWidgetHavingKey(String widgetKey) {
+    var widgetObject = _getWidgetObject(widgetKey);
 
     if (null == widgetObject) {
       // widget doesn't exists
@@ -141,14 +188,14 @@ class Framework {
      * not so bad at building webpages. after all that's what they do
      */
 
-    disposeWidget(widgetObject, preserveTarget: true);
+    _disposeWidget(widgetObject, preserveTarget: true);
 
     widgetObject.renderObject.render(widgetObject);
 
     return true;
   }
 
-  static disposeWidget(WidgetObject? widgetObject, {bool preserveTarget = false}) {
+  static _disposeWidget(WidgetObject? widgetObject, {bool preserveTarget = false}) {
     if (null == widgetObject) {
       return;
     }
@@ -157,7 +204,7 @@ class Framework {
       for (var childHtmlElement in widgetObject.htmlElement.childNodes) {
         childHtmlElement as HtmlElement;
 
-        disposeWidget(getWidgetObject(childHtmlElement.id));
+        _disposeWidget(_getWidgetObject(childHtmlElement.id));
       }
     }
 
@@ -178,6 +225,10 @@ class Framework {
     // remove dom node
 
     widgetObject.htmlElement.remove();
+  }
+
+  static WidgetObject? _getWidgetObject(String widgetKey) {
+    return _registeredWidgetObjects[widgetKey];
   }
 
   static void _registerWidgetObject(WidgetObject widgetObject) {

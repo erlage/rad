@@ -1,6 +1,6 @@
 import 'package:trad/src/core/enums.dart';
+import 'package:trad/src/core/classes/framework.dart';
 import 'package:trad/src/core/structures/widget.dart';
-import 'package:trad/src/core/classes/painter.dart';
 import 'package:trad/src/core/structures/render_object.dart';
 import 'package:trad/src/core/structures/build_context.dart';
 
@@ -37,8 +37,9 @@ class StatelessWidgetRenderObject extends RenderObject<StatelessWidget> {
 
   @override
   render(widgetObject) {
-    var childWidget = child;
-
-    Painter(widgetObject).renderSingleWidget(childWidget);
+    Framework.renderSingleChildWidget(
+      context: context,
+      widget: child,
+    );
   }
 }

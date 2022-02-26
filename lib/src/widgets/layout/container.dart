@@ -1,5 +1,5 @@
+import 'package:trad/src/core/classes/framework.dart';
 import 'package:trad/src/core/enums.dart';
-import 'package:trad/src/core/classes/painter.dart';
 import 'package:trad/src/core/structures/widget.dart';
 import 'package:trad/src/core/structures/render_object.dart';
 import 'package:trad/src/core/structures/build_context.dart';
@@ -47,6 +47,9 @@ class ContainerRenderObject extends RenderObject<Container> {
       widgetObject.htmlElement.className = style;
     }
 
-    Painter(widgetObject).renderSingleWidget(child);
+    Framework.renderSingleChildWidget(
+      context: context,
+      widget: child,
+    );
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:html';
 
+import 'package:trad/src/core/classes/framework.dart';
 import 'package:trad/src/core/enums.dart';
-import 'package:trad/src/core/classes/painter.dart';
 import 'package:trad/src/core/structures/widget.dart';
 import 'package:trad/src/core/structures/render_object.dart';
 import 'package:trad/src/core/structures/build_context.dart';
@@ -69,7 +69,10 @@ class GestureDetectorRenderObject extends RenderObject<GestureDetector> {
   render(WidgetObject widgetObject) {
     widgetObject.htmlElement.addEventListener("click", _handleOnTap, behaviour == HitTestBehavior.opaque);
 
-    Painter(widgetObject).renderSingleWidget(child);
+    Framework.renderSingleChildWidget(
+      context: context,
+      widget: child,
+    );
   }
 
   _handleOnTap(Event event) {

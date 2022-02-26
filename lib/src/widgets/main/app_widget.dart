@@ -2,7 +2,6 @@ import 'package:trad/css/main.gen.dart';
 import 'package:trad/css/trad_app.gen.dart';
 import 'package:trad/css/include/normalize.gen.dart';
 import 'package:trad/src/core/enums.dart';
-import 'package:trad/src/core/classes/painter.dart';
 import 'package:trad/src/core/classes/framework.dart';
 import 'package:trad/src/core/structures/widget.dart';
 import 'package:trad/src/core/structures/render_object.dart';
@@ -22,8 +21,8 @@ abstract class AppWidget<T> implements Widget {
   }) {
     Framework.init();
 
-    Framework.buildWidget(
-      renderObject: AppWidgetRenderObject<T>(
+    Framework.buildFromRenderObject(
+      AppWidgetRenderObject<T>(
         child: child,
         buildableContext: BuildableContext(
           key: key,
@@ -70,12 +69,15 @@ class AppWidgetRenderObject<T> extends RenderObject<T> {
 
     // insert framework's CSS styles
 
-    Painter.insertStyles(GEN_STYLES_NORMALIZE_CSS + " " + GEN_STYLES_MAIN_CSS);
+    Framework.insertStyles(GEN_STYLES_NORMALIZE_CSS + " " + GEN_STYLES_MAIN_CSS);
 
     if (T.toString() == (TradApp).toString()) {
-      Painter.insertStyles(GEN_STYLES_TRAD_APP_CSS);
+      Framework.insertStyles(GEN_STYLES_TRAD_APP_CSS);
     }
 
-    Painter(widgetObject).renderSingleWidget(child);
+    Framework.renderSingleChildWidget(
+      context: context,
+      widget: child,
+    );
   }
 }
