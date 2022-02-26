@@ -1,5 +1,5 @@
 name: trad
-version: 0.0.1
+version: 0.0.2
 description: >
   A frontend framework for Dart. It's inspired from Flutter and shares same programming paradigm. Widgets in Trad are similar to Flutter widgets but in many ways more flexible.
 

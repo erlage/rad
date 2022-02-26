@@ -40,7 +40,7 @@ How about that? if you're familiar with Flutter it don't even need a explanation
     - Open `pubspec.yaml` and add `trad` to your dependencies:
       ```yaml
       dependencies:
-        trad: 0.0.1
+        trad: 0.0.2
       ```
 
 3. Import Trad widgets in your `main.dart`
@@ -113,6 +113,8 @@ By default, `width: 20` will be mapped to `width: 20px`. But if you want to set 
 ### Layout
 
 - [Container](https://pub.dev/documentation/trad/latest/widgets/Container-class.html)
+- [Stack](https://pub.dev/documentation/trad/latest/widgets/Stack-class.html)
+- [Align](https://pub.dev/documentation/trad/latest/widgets/Align-class.html)
 
 ### Misc
 
