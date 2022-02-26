@@ -1,12 +1,12 @@
 import 'dart:html';
 
-import 'package:trad/src/core/enums.dart';
 import 'package:trad/src/core/constants.dart';
-import 'package:trad/src/core/classes/utils.dart';
+import 'package:trad/src/core/structures/buildable_context.dart';
+import 'package:trad/src/core/utils.dart';
 import 'package:trad/src/core/structures/build_context.dart';
-import 'package:trad/src/core/structures/render_object.dart';
+import 'package:trad/src/core/objects/render_object.dart';
 import 'package:trad/src/core/structures/widget.dart';
-import 'package:trad/src/core/structures/widget_object.dart';
+import 'package:trad/src/core/objects/widget_object.dart';
 
 class Framework {
   static var _isInit = false;
@@ -109,7 +109,7 @@ class Framework {
       return;
     }
 
-    var htmlElement = document.createElement(mapDomTag(tag: renderObject.context.widgetDomTag)) as HtmlElement;
+    var htmlElement = document.createElement(Utils.mapDomTag(renderObject.context.widgetDomTag)) as HtmlElement;
 
     htmlElement.id = renderObject.context.key;
     htmlElement.dataset["wtype"] = renderObject.context.widgetType;

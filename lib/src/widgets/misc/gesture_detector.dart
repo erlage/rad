@@ -1,24 +1,11 @@
 import 'dart:html';
 
-import 'package:trad/src/core/classes/framework.dart';
+import 'package:trad/src/core/framework.dart';
 import 'package:trad/src/core/enums.dart';
+import 'package:trad/src/core/structures/buildable_context.dart';
 import 'package:trad/src/core/structures/widget.dart';
-import 'package:trad/src/core/structures/render_object.dart';
-import 'package:trad/src/core/structures/build_context.dart';
-import 'package:trad/src/core/structures/widget_object.dart';
+import 'package:trad/src/core/objects/render_object.dart';
 import 'package:trad/src/core/types.dart';
-
-/// How to behave during hit tests.
-enum HitTestBehavior {
-  /// Child gesture detectors will receive events and won't let them propagate to parents
-  deferToChild,
-
-  /// Receive events and prevent child gesture detectors from receiving events.
-  opaque,
-
-  /// All detectors that are hit will receive events.
-  translucent,
-}
 
 class GestureDetector extends Widget {
   final String? key;
@@ -40,7 +27,7 @@ class GestureDetector extends Widget {
   });
 
   @override
-  RenderObject builder(BuildableContext context) {
+  builder(context) {
     return GestureDetectorRenderObject(
       child: child,
       onTap: onTap,
@@ -66,7 +53,7 @@ class GestureDetectorRenderObject extends RenderObject<GestureDetector> {
         );
 
   @override
-  render(WidgetObject widgetObject) {
+  render(widgetObject) {
     widgetObject.htmlElement.addEventListener("click", _handleOnTap, behaviour == HitTestBehavior.opaque);
 
     Framework.renderSingleChildWidget(

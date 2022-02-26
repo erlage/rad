@@ -2,10 +2,10 @@ import 'package:trad/css/main.gen.dart';
 import 'package:trad/css/trad_app.gen.dart';
 import 'package:trad/css/include/normalize.gen.dart';
 import 'package:trad/src/core/enums.dart';
-import 'package:trad/src/core/classes/framework.dart';
+import 'package:trad/src/core/framework.dart';
+import 'package:trad/src/core/structures/buildable_context.dart';
 import 'package:trad/src/core/structures/widget.dart';
-import 'package:trad/src/core/structures/render_object.dart';
-import 'package:trad/src/core/structures/build_context.dart';
+import 'package:trad/src/core/objects/render_object.dart';
 import 'package:trad/src/widgets/main/trad_app.dart';
 
 abstract class AppWidget<T> implements Widget {

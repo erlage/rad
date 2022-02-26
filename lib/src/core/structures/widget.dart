@@ -1,5 +1,5 @@
-import 'package:trad/src/core/structures/build_context.dart';
-import 'package:trad/src/core/structures/render_object.dart';
+import 'package:trad/src/core/objects/render_object.dart';
+import 'package:trad/src/core/structures/buildable_context.dart';
 
 abstract class Widget {
   const Widget();

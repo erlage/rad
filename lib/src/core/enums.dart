@@ -8,24 +8,21 @@ enum MeasuringUnit {
   percent,
 }
 
-mapDomTag({required DomTag tag}) {
-  switch (tag) {
-    case DomTag.div:
-      return "div";
-
-    case DomTag.span:
-    default:
-      return "span";
-  }
+enum Alignment {
+  topLeft,
+  topRight,
+  bottomLeft,
+  bottomRight,
 }
 
-mapMeasuringUnit({required MeasuringUnit unit}) {
-  switch (unit) {
-    case MeasuringUnit.percent:
-      return "%";
+/// How to behave during hit tests.
+enum HitTestBehavior {
+  /// Child gesture detectors will receive events and won't let them propagate to parents
+  deferToChild,
 
-    case MeasuringUnit.pixel:
-    default:
-      return "px";
-  }
+  /// Receive events and prevent child gesture detectors from receiving events.
+  opaque,
+
+  /// All detectors that are hit will receive events.
+  translucent,
 }
