@@ -29,7 +29,6 @@ How about that? if you're familiar with Flutter it don't even need a explanation
 
 ## Get started
 
-
 1. Create a demo app:
     - `dart pub global activate webdev`
     - `dart create -t web-simple myapp`
@@ -41,12 +40,12 @@ How about that? if you're familiar with Flutter it don't even need a explanation
     - Open `pubspec.yaml` and add `tard` to your dependencies:
       ```yaml
       dependencies:
-        tard: any
+        tard: 0.0.2
       ```
 
-3. Import Tard in your `main.dart`
+3. Import Tard widgets in your `main.dart`
     ```dart
-    import 'package:tard/tard.dart';
+    import 'package:tard/widgets.dart';
     ```
 
 3. Create Tard app
@@ -73,25 +72,28 @@ How about that? if you're familiar with Flutter it don't even need a explanation
 Tooling in Dart is awesome. It's one of the reason I stopped Typescript. [Here's how](https://dart.dev/tools) you'd setup your favorite editor/IDE. If you happen to be using VS code you can head over to [Setting up editor](https://dart.dev/tools/vs-code). 
 Remember Tard is a web-framework and you don't have to install Flutter/or its plugins for it to work.
 
-## Widgets Index
+# Styling widgets
 
-### Elements
+## Using CSS
 
-- Text
+You can add CSS rules to widgets to style them. For example:
+```dart
+Container(
+  style: "css-class another-class",
+  child: const Text("styled text"),
+);
+```
+Note that some widgets such as StatelessWidget don't have a `style` parameter.
 
-### Layout
+## Sizing & Positioning units
 
-- Container
+Some widgets have parameters for their "size" or "position" or both. We refers to them as Sizing & Positioning props.
 
-### Misc
+Positioning props includes `left`, `right`, `top` and `bottom` parameters while `width` and `height` are Sizing props.
 
-- GestureDetector
+Widgets that accept sizing props also have a optional parameter `sizingUnit`. For positioning props there's `positioningUnit`.
 
-### Main
-
-- TardApp
-- StatelessWidget
-- StatefulWidget 
+By default, `width: 20` will be mapped to `width: 20px`. But if you want to set width to some percentage of parent you can set `sizingUnit: MeasuringUnit.percentage`.
 
 ## Contribution
 Tard is a small project. It allows anyone with basic knowledge of Javascript & DOM to create their own custom widgets in matter of minutes. PRs are welcomed<3 if you feel like missing a widget or something.
