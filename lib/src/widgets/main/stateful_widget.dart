@@ -15,11 +15,11 @@ abstract class StatefulWidget extends Widget {
 
   StatefulWidget({this.key});
 
-  void initState();
+  void initState() {}
 
   Widget build(BuildContext context);
 
-  void dispose();
+  void dispose() {}
 
   var _isRebuilding = false;
 
