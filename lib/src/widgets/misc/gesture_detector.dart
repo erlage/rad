@@ -1,7 +1,7 @@
 import 'dart:html';
 
-import 'package:tard/src/core/classes/painter.dart';
 import 'package:tard/src/core/enums.dart';
+import 'package:tard/src/core/classes/painter.dart';
 import 'package:tard/src/core/structures/widget.dart';
 import 'package:tard/src/core/structures/render_object.dart';
 import 'package:tard/src/core/structures/build_context.dart';
@@ -21,7 +21,6 @@ enum HitTestBehaviour {
 
 class GestureDetector extends Widget {
   final String? key;
-  final String? classes;
 
   final Widget child;
   final OnTapCallback? onTap;
@@ -29,7 +28,6 @@ class GestureDetector extends Widget {
 
   GestureDetector({
     this.key,
-    this.classes,
     this.onTap,
     this.behaviour,
     required this.child,
@@ -39,7 +37,6 @@ class GestureDetector extends Widget {
   RenderObject builder(BuildableContext context) {
     return GestureDetectorRenderObject(
       child: child,
-      classes: classes,
       onTap: onTap,
       behaviour: behaviour ?? HitTestBehaviour.deferToChild,
       buildableContext: BuildableContext(parentKey: context.parentKey),
@@ -48,15 +45,12 @@ class GestureDetector extends Widget {
 }
 
 class GestureDetectorRenderObject extends RenderObject<GestureDetector> {
-  final String? classes;
-
   final Widget child;
   final OnTapCallback? onTap;
   final HitTestBehaviour behaviour;
 
   GestureDetectorRenderObject({
     required this.child,
-    required this.classes,
     required this.onTap,
     required this.behaviour,
     required BuildableContext buildableContext,
@@ -67,10 +61,6 @@ class GestureDetectorRenderObject extends RenderObject<GestureDetector> {
 
   @override
   render(WidgetObject widgetObject) {
-    if (null != classes) {
-      widgetObject.htmlElement.className = classes!;
-    }
-
     widgetObject.htmlElement.addEventListener("click", _handleOnTap, behaviour == HitTestBehaviour.opaque);
 
     Painter(widgetObject).renderSingleWidget(child);
