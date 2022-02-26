@@ -4,13 +4,12 @@ import 'package:trad/src/core/structures/build_context.dart';
 import 'package:trad/src/core/structures/widget_object.dart';
 
 abstract class RenderObject<T> {
-  late final BuildContext context;
-  final BuildableContext buildableContext;
   final DomTag domTag;
+  late final BuildContext context;
 
   RenderObject({
-    required this.buildableContext,
     required this.domTag,
+    required BuildableContext buildableContext,
   }) {
     context = BuildContext(
       key: buildableContext.key ?? Framework.generateId(),
