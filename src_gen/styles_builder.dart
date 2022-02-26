@@ -7,14 +7,14 @@ class StylesBuilder implements Builder {
 
   @override
   final buildExtensions = const {
-    '.css': ['.gen.dart']
+    '.css': ['.generated.dart']
   };
 
   @override
   Future<void> build(BuildStep buildStep) async {
     var cssContents = await buildStep.readAsString(buildStep.inputId);
 
-    var genAssetId = buildStep.inputId.changeExtension('.gen.dart');
+    var genAssetId = buildStep.inputId.changeExtension('.generated.dart');
 
     var fileName = buildStep.inputId.pathSegments.last;
 
@@ -25,7 +25,7 @@ class StylesBuilder implements Builder {
           "File name '$fileName' is not allowed\n";
     }
 
-    genConstant.toUpperCase();
+    genConstant = genConstant.toUpperCase();
 
     var genContents = "// ignore_for_file: constant_identifier_names\n"
         "\n// auto-generated. please don't edit this file\n\n"
