@@ -45,7 +45,7 @@ class GestureDetector extends Widget {
       child: child,
       onTap: onTap,
       behaviour: behaviour ?? HitTestBehavior.deferToChild,
-      buildableContext: BuildableContext(parentKey: context.parentKey),
+      buildableContext: context.mergeKey(key),
     );
   }
 }
