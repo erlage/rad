@@ -10,7 +10,7 @@ class Text extends Widget {
   final bool? isHtml;
   final String? classes;
 
-  Text(
+  const Text(
     this.text, {
     this.key,
     this.isHtml,

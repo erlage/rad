@@ -11,7 +11,7 @@ class Container extends Widget {
 
   final Widget child;
 
-  Container({
+  const Container({
     this.key,
     this.classes,
     required this.child,

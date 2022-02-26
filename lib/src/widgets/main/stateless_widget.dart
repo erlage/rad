@@ -8,7 +8,7 @@ import 'package:tard/src/core/structures/widget_object.dart';
 abstract class StatelessWidget extends Widget {
   final String? key;
 
-  StatelessWidget(this.key);
+  const StatelessWidget(this.key);
 
   Widget build(BuildContext context);
 
