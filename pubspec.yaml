@@ -1,6 +1,8 @@
 name: trad
 version: 0.0.1
-description: A frontend framework for Dart.
+description: >
+  A frontend framework for Dart. It's inspired from Flutter and shares same programming paradigm. Widgets in Trad are similar to Flutter widgets but in many ways more flexible.
+
 homepage: https://github.com/erlage/trad
 documentation: https://github.com/erlage/trad#readme
 
