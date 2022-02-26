@@ -1,9 +1,8 @@
-import 'package:trad/src/core/structures/widget.dart';
 import 'package:trad/src/core/enums.dart';
+import 'package:trad/src/core/structures/widget.dart';
 import 'package:trad/src/core/classes/painter.dart';
 import 'package:trad/src/core/structures/render_object.dart';
 import 'package:trad/src/core/structures/build_context.dart';
-import 'package:trad/src/core/structures/widget_object.dart';
 
 abstract class StatelessWidget extends Widget {
   final String? key;
@@ -13,7 +12,7 @@ abstract class StatelessWidget extends Widget {
   Widget build(BuildContext context);
 
   @override
-  builder(BuildableContext context) {
+  builder(context) {
     var renderObject = StatelessWidgetRenderObject(
       buildableContext: context.mergeKey(key),
     );
@@ -27,15 +26,17 @@ abstract class StatelessWidget extends Widget {
 class StatelessWidgetRenderObject extends RenderObject<StatelessWidget> {
   late final Widget child;
 
+  final BuildableContext buildableContext;
+
   StatelessWidgetRenderObject({
-    required BuildableContext buildableContext,
+    required this.buildableContext,
   }) : super(
-          buildableContext: buildableContext,
           domTag: DomTag.span,
+          buildableContext: buildableContext,
         );
 
   @override
-  render(WidgetObject widgetObject) {
+  render(widgetObject) {
     var childWidget = child;
 
     Painter(widgetObject).renderSingleWidget(childWidget);

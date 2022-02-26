@@ -3,12 +3,11 @@ import 'package:trad/src/core/classes/painter.dart';
 import 'package:trad/src/core/structures/widget.dart';
 import 'package:trad/src/core/structures/render_object.dart';
 import 'package:trad/src/core/structures/build_context.dart';
-import 'package:trad/src/core/structures/widget_object.dart';
 
 class Stack extends Widget {
   final String? key;
-  final String? style;
 
+  final String? style;
   final List<Widget> children;
 
   const Stack({
@@ -18,9 +17,9 @@ class Stack extends Widget {
   });
 
   @override
-  builder(BuildableContext context) {
+  builder(context) {
     return StackRenderObject(
-      style: style,
+      style: style ?? '',
       children: children,
       context: context.mergeKey(key),
     );
@@ -28,7 +27,7 @@ class Stack extends Widget {
 }
 
 class StackRenderObject extends RenderObject<Stack> {
-  final String? style;
+  final String style;
   final List<Widget> children;
 
   StackRenderObject({
@@ -41,9 +40,9 @@ class StackRenderObject extends RenderObject<Stack> {
         );
 
   @override
-  render(WidgetObject widgetObject) {
-    if (null != style) {
-      widgetObject.htmlElement.className = style!; // (!) https://dart.dev/tools/non-promotion-reasons
+  render(widgetObject) {
+    if (style.isNotEmpty) {
+      widgetObject.htmlElement.className = style;
     }
 
     Painter(widgetObject).renderMultipleWidgets(children);

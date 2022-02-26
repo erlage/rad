@@ -1,17 +1,17 @@
-import 'package:trad/css/include/normalize.gen.dart';
 import 'package:trad/css/main.gen.dart';
 import 'package:trad/css/trad_app.gen.dart';
+import 'package:trad/css/include/normalize.gen.dart';
 import 'package:trad/src/core/enums.dart';
 import 'package:trad/src/core/classes/painter.dart';
 import 'package:trad/src/core/classes/framework.dart';
 import 'package:trad/src/core/structures/widget.dart';
 import 'package:trad/src/core/structures/render_object.dart';
 import 'package:trad/src/core/structures/build_context.dart';
-import 'package:trad/src/core/structures/widget_object.dart';
-import 'package:trad/widgets.dart';
+import 'package:trad/src/widgets/main/trad_app.dart';
 
 abstract class AppWidget<T> implements Widget {
   final String? key;
+
   final Widget child;
   final String targetId;
 
@@ -25,7 +25,7 @@ abstract class AppWidget<T> implements Widget {
     Framework.buildWidget(
       renderObject: AppWidgetRenderObject<T>(
         child: child,
-        context: BuildableContext(
+        buildableContext: BuildableContext(
           key: key,
           parentKey: targetId,
         ),
@@ -34,10 +34,10 @@ abstract class AppWidget<T> implements Widget {
   }
 
   @override
-  builder(BuildableContext context) {
+  builder(context) {
     return AppWidgetRenderObject<T>(
       child: child,
-      context: BuildableContext(
+      buildableContext: BuildableContext(
         key: key,
         parentKey: targetId,
       ),
@@ -48,16 +48,18 @@ abstract class AppWidget<T> implements Widget {
 class AppWidgetRenderObject<T> extends RenderObject<T> {
   final Widget child;
 
+  final BuildableContext buildableContext;
+
   AppWidgetRenderObject({
     required this.child,
-    required BuildableContext context,
+    required this.buildableContext,
   }) : super(
-          buildableContext: context,
           domTag: DomTag.div,
+          buildableContext: buildableContext,
         );
 
   @override
-  render(WidgetObject widgetObject) {
+  render(widgetObject) {
     var targetElement = widgetObject.htmlElement.parent;
 
     if (null == targetElement) {
@@ -72,7 +74,6 @@ class AppWidgetRenderObject<T> extends RenderObject<T> {
 
     if (T.toString() == (TradApp).toString()) {
       Painter.insertStyles(GEN_STYLES_TRAD_APP_CSS);
-      print("trad app");
     }
 
     Painter(widgetObject).renderSingleWidget(child);

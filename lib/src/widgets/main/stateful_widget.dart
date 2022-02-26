@@ -2,10 +2,9 @@ import 'dart:html';
 
 import 'package:trad/src/core/enums.dart';
 import 'package:trad/src/core/classes/painter.dart';
+import 'package:trad/src/core/structures/widget.dart';
 import 'package:trad/src/core/structures/render_object.dart';
 import 'package:trad/src/core/structures/build_context.dart';
-import 'package:trad/src/core/structures/widget.dart';
-import 'package:trad/src/core/structures/widget_object.dart';
 
 abstract class StatefulWidget extends Widget {
   final String? key;
@@ -24,7 +23,7 @@ abstract class StatefulWidget extends Widget {
   var _isRebuilding = false;
 
   @override
-  builder(BuildableContext context) {
+  builder(context) {
     renderObject = StatefulWidgetRenderObject(
       dispose: dispose,
       buildableContext: context.mergeKey(key),
@@ -66,12 +65,14 @@ class StatefulWidgetRenderObject extends RenderObject<StatefulWidget> {
   late Widget _child;
   final VoidCallback dispose;
 
+  final BuildableContext buildableContext;
+
   StatefulWidgetRenderObject({
     required this.dispose,
-    required BuildableContext buildableContext,
+    required this.buildableContext,
   }) : super(
-          buildableContext: buildableContext,
           domTag: DomTag.span,
+          buildableContext: buildableContext,
         );
 
   void setChildWidget(Widget widget) {
@@ -79,7 +80,7 @@ class StatefulWidgetRenderObject extends RenderObject<StatefulWidget> {
   }
 
   @override
-  render(WidgetObject widgetObject) {
+  render(widgetObject) {
     var childWidget = _child;
 
     Painter(widgetObject).renderSingleWidget(childWidget);
