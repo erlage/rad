@@ -1,10 +1,10 @@
 import 'dart:html';
 
-import 'package:tard/tard.dart';
 import 'package:tard/src/core/enums.dart';
 import 'package:tard/src/core/classes/painter.dart';
 import 'package:tard/src/core/structures/render_object.dart';
 import 'package:tard/src/core/structures/build_context.dart';
+import 'package:tard/src/core/structures/widget.dart';
 import 'package:tard/src/core/structures/widget_object.dart';
 
 abstract class StatefulWidget extends Widget {
@@ -13,7 +13,7 @@ abstract class StatefulWidget extends Widget {
   late final BuildContext context;
   late final StatefulWidgetRenderObject renderObject;
 
-  StatefulWidget(this.key);
+  StatefulWidget({this.key});
 
   void initState();
 
