@@ -18,7 +18,7 @@ class Container extends Widget {
   });
 
   @override
-  RenderObject builder(BuildableContext context) {
+  builder(BuildableContext context) {
     return ContainerRenderObject(
       child: child,
       style: style,

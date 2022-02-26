@@ -13,7 +13,7 @@ abstract class StatelessWidget extends Widget {
   Widget build(BuildContext context);
 
   @override
-  RenderObject builder(BuildableContext context) {
+  builder(BuildableContext context) {
     var renderObject = StatelessWidgetRenderObject(
       buildableContext: context.mergeKey(key),
     );

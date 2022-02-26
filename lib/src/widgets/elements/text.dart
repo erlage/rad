@@ -18,7 +18,7 @@ class Text extends Widget {
   });
 
   @override
-  RenderObject builder(BuildableContext context) {
+  builder(BuildableContext context) {
     return TextRenderObject(
       text: text,
       style: style,

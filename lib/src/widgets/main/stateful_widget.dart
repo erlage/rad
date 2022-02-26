@@ -24,7 +24,7 @@ abstract class StatefulWidget extends Widget {
   var _isRebuilding = false;
 
   @override
-  RenderObject builder(BuildableContext context) {
+  builder(BuildableContext context) {
     renderObject = StatefulWidgetRenderObject(
       dispose: dispose,
       buildableContext: context.mergeKey(key),

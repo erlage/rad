@@ -34,7 +34,7 @@ abstract class AppWidget<T> implements Widget {
   }
 
   @override
-  RenderObject builder(BuildableContext context) {
+  builder(BuildableContext context) {
     return AppWidgetRenderObject<T>(
       child: child,
       context: BuildableContext(

@@ -18,7 +18,7 @@ class Stack extends Widget {
   });
 
   @override
-  RenderObject builder(BuildableContext context) {
+  builder(BuildableContext context) {
     return StackRenderObject(
       style: style,
       children: children,
