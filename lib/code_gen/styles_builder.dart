@@ -16,12 +16,16 @@ class StylesBuilder implements Builder {
 
     var genAssetId = buildStep.inputId.changeExtension('.gen.dart');
 
-    var genConstant = buildStep.inputId.pathSegments.last.replaceAll('.css', '').toUpperCase();
+    var fileName = buildStep.inputId.pathSegments.last;
 
-    if (!RegExp(r'^[A-Z_]+$').hasMatch(genConstant)) {
+    var genConstant = fileName.replaceAll('.css', '');
+
+    if (!RegExp(r'^[a-zA-Z_]+$').hasMatch(genConstant)) {
       throw "\nTrad: Name of your CSS files can contains only alphabets and underscores\n"
-          "File name '${buildStep.inputId.pathSegments.last}' is not allowed\n";
+          "File name '$fileName' is not allowed\n";
     }
+
+    genConstant.toUpperCase();
 
     var genContents = "// ignore_for_file: constant_identifier_names\n"
         "\n// auto-generated. please don't edit this file\n\n"

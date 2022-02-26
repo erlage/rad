@@ -69,7 +69,8 @@ class AppWidgetRenderObject<T> extends RenderObject<T> {
 
     // insert framework's CSS styles
 
-    Framework.insertStyles(GEN_STYLES_NORMALIZE_CSS + " " + GEN_STYLES_MAIN_CSS);
+    Framework.insertStyles(GEN_STYLES_NORMALIZE_CSS);
+    Framework.insertStyles(GEN_STYLES_MAIN_CSS);
 
     if (T.toString() == (TradApp).toString()) {
       Framework.insertStyles(GEN_STYLES_TRAD_APP_CSS);

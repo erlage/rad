@@ -81,7 +81,9 @@ class Framework {
       throw "Part of build context is not ready. This means that context is under construction.";
     }
 
-    var domNode = document.getElementById(context.key)?.closest("[data-wtype='" + WidgetType.toString() + "'");
+    var domNode = document
+        .getElementById(context.key)
+        ?.closest("[data-wtype='" + WidgetType.toString() + "'");
 
     if (null == domNode) {
       return null;
@@ -110,7 +112,9 @@ class Framework {
       return;
     }
 
-    var htmlElement = document.createElement(Utils.mapDomTag(renderObject.context.widgetDomTag)) as HtmlElement;
+    var htmlElement = document.createElement(Utils.mapDomTag(renderObject.context.widgetDomTag));
+
+    htmlElement as HtmlElement;
 
     htmlElement.id = renderObject.context.key;
     htmlElement.dataset["wtype"] = renderObject.context.widgetType;
@@ -138,7 +142,10 @@ class Framework {
       } else {
         // else it's in widget tree
 
-        _disposeWidget(_getWidgetObject(renderObject.context.parentKey), preserveTarget: true);
+        _disposeWidget(
+          preserveTarget: true,
+          widgetObject: _getWidgetObject(renderObject.context.parentKey),
+        );
       }
     }
 
@@ -189,27 +196,38 @@ class Framework {
      * not so bad at building webpages. after all that's what they do
      */
 
-    _disposeWidget(widgetObject, preserveTarget: true);
+    _disposeWidget(widgetObject: widgetObject, preserveTarget: true);
 
     widgetObject.renderObject.render(widgetObject);
 
     return true;
   }
 
-  static _disposeWidget(WidgetObject? widgetObject, {bool preserveTarget = false}) {
+  static _disposeWidget({
+    WidgetObject? widgetObject,
+    bool preserveTarget = false,
+  }) {
     if (null == widgetObject) {
       return;
     }
 
     if (widgetObject.htmlElement.hasChildNodes()) {
       for (var childHtmlElement in widgetObject.htmlElement.children) {
-        _disposeWidget(_getWidgetObject(childHtmlElement.id));
+        _disposeWidget(widgetObject: _getWidgetObject(childHtmlElement.id));
       }
     }
 
     if (preserveTarget) return;
 
-    if (widgetObject.htmlElement == document.body || null == widgetObject.htmlElement.dataset["wtype"]) {
+    // if a body tag
+
+    if (widgetObject.htmlElement == document.body) {
+      return;
+    }
+
+    // if is not a framework's tag
+
+    if (null == widgetObject.htmlElement.dataset["wtype"]) {
       return;
     }
 

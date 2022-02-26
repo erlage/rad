@@ -25,8 +25,18 @@ class Utils {
     }
   }
 
-  static String random([int length = 6]) => String.fromCharCodes(Iterable.generate(
-      length,
-      (_) => 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890'
-          .codeUnitAt((Random()).nextInt('AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890'.length))));
+  static String random([int length = 6]) {
+    var cSet = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+
+    return String.fromCharCodes(
+      Iterable.generate(
+        length,
+        (_) => cSet.codeUnitAt(
+          (Random()).nextInt(
+            cSet.length,
+          ),
+        ),
+      ),
+    );
+  }
 }

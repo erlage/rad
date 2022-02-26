@@ -54,7 +54,11 @@ class GestureDetectorRenderObject extends RenderObject<GestureDetector> {
 
   @override
   render(widgetObject) {
-    widgetObject.htmlElement.addEventListener("click", _handleOnTap, behaviour == HitTestBehavior.opaque);
+    widgetObject.htmlElement.addEventListener(
+      "click",
+      _handleOnTap,
+      behaviour == HitTestBehavior.opaque,
+    );
 
     Framework.renderSingleChildWidget(
       context: context,
