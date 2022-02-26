@@ -2,10 +2,10 @@ import 'package:trad/src/core/enums.dart';
 import 'package:trad/src/core/structures/widget.dart';
 import 'package:trad/src/core/structures/render_object.dart';
 import 'package:trad/src/core/structures/build_context.dart';
-import 'package:trad/src/core/structures/widget_object.dart';
 
 class Text extends Widget {
   final String? key;
+
   final String text;
   final bool? isHtml;
   final String? style;
@@ -13,15 +13,16 @@ class Text extends Widget {
   const Text(
     this.text, {
     this.key,
-    this.isHtml,
     this.style,
+    this.isHtml,
   });
 
   @override
-  builder(BuildableContext context) {
+  builder(context) {
     return TextRenderObject(
       text: text,
-      style: style,
+      style: style ?? '',
+      isHtml: isHtml ?? false,
       buildableContext: context.mergeKey(key),
     );
   }
@@ -29,28 +30,28 @@ class Text extends Widget {
 
 class TextRenderObject extends RenderObject<Text> {
   final String text;
-  final bool? isHtml;
-  final String? style;
+  final bool isHtml;
+  final String style;
+
+  final BuildableContext buildableContext;
 
   TextRenderObject({
-    this.isHtml,
     required this.text,
     required this.style,
-    required BuildableContext buildableContext,
+    required this.isHtml,
+    required this.buildableContext,
   }) : super(
-          buildableContext: buildableContext,
           domTag: DomTag.span,
+          buildableContext: buildableContext,
         );
 
   @override
-  render(WidgetObject widgetObject) {
-    if (null != style) {
-      widgetObject.htmlElement.className = style!; // (!) https://dart.dev/tools/non-promotion-reasons
+  render(widgetObject) {
+    if (style.isNotEmpty) {
+      widgetObject.htmlElement.className = style;
     }
 
-    var isHtml = this.isHtml;
-
-    if (null != isHtml && isHtml) {
+    if (isHtml) {
       widgetObject.htmlElement.innerHtml = text;
 
       return;
