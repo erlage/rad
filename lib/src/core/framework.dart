@@ -37,7 +37,8 @@ class Framework {
     } else if (null != document.body) {
       document.head!.insertBefore(styleSheet, null);
     } else {
-      throw "Unable to find a target for CSS styles. You must have either head or a body in your app.";
+      throw "For Trad to work, your page must have either a head tag or a body."
+          "Creating a body(or head) in your page will fix this problem.";
     }
   }
 
@@ -77,7 +78,7 @@ class Framework {
 
   static WidgetObject? findAncestorOfType<WidgetType>(BuildContext context) {
     if (Constants.inBuildPhase == context.key) {
-      throw "Part of context are not ready for usage. This means that context is under construction and cannot be used.  Contexts contruction completes after render object for a widget is built.";
+      throw "Part of build context is not ready. This means that context is under construction.";
     }
 
     var domNode = document.getElementById(context.key)?.closest("[data-wtype='" + WidgetType.toString() + "'");
