@@ -40,7 +40,7 @@ How about that? if you're familiar with Flutter it don't even need a explanation
     - Open `pubspec.yaml` and add `tard` to your dependencies:
       ```yaml
       dependencies:
-        tard: 0.0.2
+        tard: 0.0.3
       ```
 
 3. Import Tard widgets in your `main.dart`
