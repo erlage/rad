@@ -15,6 +15,7 @@ body {
 [data-wtype="GestureDetector"],
 [data-wtype="Container"],
 [data-wtype="Stack"],
+[data-wtype="Align"],
 [data-wtype="Text"] {
     all: unset;
     overflow: hidden;
@@ -43,10 +44,37 @@ body {
 
 
 /**
-   * Widgets with absolute positioned childs
+   * Widgets with absolute position
+   * such as Stack childs
    */
 
+[data-wtype="Align"],
 [data-wtype="Stack"]>div,
 [data-wtype="Stack"]>span {
     position: absolute;
+}
+
+
+/**
+   * Align
+   */
+
+.trad-align-top-right {
+    top: 0;
+    right: 0;
+}
+
+.trad-align-top-left {
+    top: 0;
+    left: 0;
+}
+
+.trad-align-bottom-right {
+    bottom: 0;
+    right: 0;
+}
+
+.trad-align-bottom-left {
+    bottom: 0;
+    left: 0;
 }
