@@ -85,15 +85,11 @@ Container(
 ```
 Note that some widgets such as StatelessWidget don't have a `style` parameter.
 
-## Sizing & Positioning units
+## Sizing & Positioning
 
-Some widgets have parameters for their "size" or "position" or both. We refers to them as Sizing & Positioning props.
+Some widgets have parameters for their "size" or "position" or both. We refers to them as Sizing & Positioning props. Positioning props includes `left`, `right`, `top` and `bottom` parameters while `width` and `height` are Sizing props.
 
-Positioning props includes `left`, `right`, `top` and `bottom` parameters while `width` and `height` are Sizing props.
-
-Widgets that accept sizing props also have a optional parameter `sizingUnit`. For positioning props there's `positioningUnit`.
-
-By default, `width: 20` will be mapped to `width: 20px`. But if you want to set width to some percentage of parent you can set `sizingUnit: MeasuringUnit.percentage`.
+Widgets that accept sizing props also have a optional parameter `sizingUnit`. For positioning props there's `positioningUnit`. By default, `width: 20` will be mapped to `width: 20px`. But if you want to set width to some percentage of parent you can set `sizingUnit: MeasuringUnit.percentage` which will tell framework to map `width: 20` to `width: 20%`.
 
 ## Api reference
 
