@@ -3,6 +3,15 @@ import 'package:rad/src/core/structures/buildable_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 
+/// A run of text with a single style.
+///
+/// The [Text] widget displays a string of text with single style. The string
+/// might break across multiple lines or might all be displayed on the same line
+/// depending on the layout constraints.
+///
+/// It renders contents of [text] property as a string literal. It can be used to
+/// render HTML contents by setting [isHtml] to true.
+///
 class Text extends Widget {
   final String? key;
 

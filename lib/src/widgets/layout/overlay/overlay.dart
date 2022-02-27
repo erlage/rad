@@ -21,6 +21,7 @@ import 'package:rad/src/widgets/layout/overlay/overlay_state.dart';
 ///  * [OverlayEntry], the class that is used for describing the overlay entries.
 ///  * [OverlayState], which is used to insert the entries into the overlay.
 ///  * [Stack], which allows directly displaying a stack of widgets.
+///
 class Overlay extends Widget {
   final String? key;
 

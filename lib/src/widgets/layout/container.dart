@@ -5,6 +5,11 @@ import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/structures/buildable_context.dart';
 import 'package:rad/src/core/utils.dart';
 
+/// A widget to contain a widget in itself.
+///
+/// This widget will be as big as possible if [width]
+/// and/or [height] factors are not.
+///
 class Container extends Widget {
   final String? key;
 

@@ -188,27 +188,6 @@ class Framework {
       return false;
     }
 
-    /**
-     * we'are directly disposing all child nodes and then rebuilding
-     * whole subtree after this widget. this is the easiest way to
-     * ensure that all required childs are updated.
-     *
-     * more performant way would be to:
-     *
-     * - decouple interface and data part of a widget by creating
-     *   a implicit state element(object) for each widet. this way
-     *   rebuild process will be:
-     *
-     *    1. pass parent's element to immediate childs only
-     *    2. childs will merge parent's element with their elements
-     *    3. child then compare if they have to rebuild themselves
-     *    4. if yes: child pass element to its childs and so on
-     *       if no: child will ignore and won't cascade rebuilds
-     *
-     * for now goal is to make this thing work. moreover, browsers are
-     * not so bad at building webpages. after all that's what they do
-     */
-
     _disposeWidget(widgetObject: widgetObject, preserveTarget: true);
 
     widgetObject.renderObject.render(widgetObject);
