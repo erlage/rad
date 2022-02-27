@@ -1,12 +1,12 @@
-import 'package:trad/css/include/normalize.generated.dart';
-import 'package:trad/css/main.generated.dart';
-import 'package:trad/css/trad_app.generated.dart';
-import 'package:trad/src/core/enums.dart';
-import 'package:trad/src/core/framework.dart';
-import 'package:trad/src/core/structures/buildable_context.dart';
-import 'package:trad/src/core/structures/widget.dart';
-import 'package:trad/src/core/objects/render_object.dart';
-import 'package:trad/src/widgets/main/trad_app.dart';
+import 'package:rad/css/include/normalize.generated.dart';
+import 'package:rad/css/main.generated.dart';
+import 'package:rad/css/rad_app.generated.dart';
+import 'package:rad/src/core/enums.dart';
+import 'package:rad/src/core/framework.dart';
+import 'package:rad/src/core/structures/buildable_context.dart';
+import 'package:rad/src/core/structures/widget.dart';
+import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/widgets/main/rad_app.dart';
 
 abstract class AppWidget<T> implements Widget {
   final String? key;
@@ -72,8 +72,8 @@ class AppWidgetRenderObject<T> extends RenderObject<T> {
     Framework.insertStyles(GEN_STYLES_NORMALIZE_CSS);
     Framework.insertStyles(GEN_STYLES_MAIN_CSS);
 
-    if (T.toString() == (TradApp).toString()) {
-      Framework.insertStyles(GEN_STYLES_TRAD_APP_CSS);
+    if (T.toString() == (RadApp).toString()) {
+      Framework.insertStyles(GEN_STYLES_RAD_APP_CSS);
     }
 
     Framework.renderSingleChildWidget(

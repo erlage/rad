@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:trad/src/core/enums.dart';
+import 'package:rad/src/core/enums.dart';
 
 class Utils {
   static String mapDomTag(DomTag tag) {

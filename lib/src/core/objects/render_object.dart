@@ -1,8 +1,8 @@
-import 'package:trad/src/core/framework.dart';
-import 'package:trad/src/core/enums.dart';
-import 'package:trad/src/core/structures/build_context.dart';
-import 'package:trad/src/core/objects/widget_object.dart';
-import 'package:trad/src/core/structures/buildable_context.dart';
+import 'package:rad/src/core/framework.dart';
+import 'package:rad/src/core/enums.dart';
+import 'package:rad/src/core/structures/build_context.dart';
+import 'package:rad/src/core/objects/widget_object.dart';
+import 'package:rad/src/core/structures/buildable_context.dart';
 
 abstract class RenderObject<T> {
   final DomTag domTag;

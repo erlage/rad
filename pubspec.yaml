@@ -1,10 +1,10 @@
-name: trad
+name: rad
 version: 0.0.2
 description: >
-  A frontend framework for Dart. It's inspired from Flutter and shares same programming paradigm. Widgets in Trad are similar to Flutter widgets but in many ways more flexible.
+  A frontend framework for Dart. It's inspired from Flutter and shares same programming paradigm. Widgets in Rad are similar to Flutter widgets but in many ways more flexible.
 
-homepage: https://github.com/erlage/trad
-documentation: https://github.com/erlage/trad#readme
+homepage: https://github.com/erlage/rad
+documentation: https://github.com/erlage/rad#readme
 
 environment:
   sdk: '>=2.16.1 <3.0.0'

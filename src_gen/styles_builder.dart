@@ -21,7 +21,7 @@ class StylesBuilder implements Builder {
     var genConstant = fileName.replaceAll('.css', '');
 
     if (!RegExp(r'^[a-zA-Z_]+$').hasMatch(genConstant)) {
-      throw "\nTrad: Name of your CSS files can contains only alphabets and underscores\n"
+      throw "\nRad: Name of your CSS files can contains only alphabets and underscores\n"
           "File name '$fileName' is not allowed\n";
     }
 

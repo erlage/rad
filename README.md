@@ -1,8 +1,8 @@
-# Trad
+# Rad
 
-Trad is a frontend framework for Dart. It's inspired from Flutter and shares same programming paradigm. Which means, again, you'll be working with Widgets and tress. Don't worry, widgets in Trad are similar to Flutter widgets but in many ways more flexible.
+Rad is a frontend framework for Dart. It's inspired from Flutter and shares same programming paradigm. Which means, again, you'll be working with Widgets and tress. Don't worry, widgets in Rad are similar to Flutter widgets but in many ways more flexible.
 
-Let's take a look at one of the widget from Trad: 
+Let's take a look at one of the widget from Rad: 
 
 ```dart
 class HomePage extends StatelessWidget
@@ -21,11 +21,9 @@ class HomePage extends StatelessWidget
 How about that? if you're familiar with Flutter it don't even need a explanation. 
 
 
-### How it works?
+### Rad
 
-- Trad doesn't render pixels to build Wigets instead it maps widgets to HTML elements(tags), and takes care of managing DOM as whole.
-
-- Every widget has a optional `key` parameter. Which if not provided will be generated. Keys in Trad are global, and used both internally(to find objects) & in DOM(as value of id attribute of HTML element that a widget is mapped to)
+- Rad doesn't render pixels to build Wigets instead it maps widgets to HTML elements(tags), and takes care of managing DOM.
 
 ## Geting started
 
@@ -34,22 +32,22 @@ How about that? if you're familiar with Flutter it don't even need a explanation
   
     Having troubles? learn more [from official guide](https://dart.dev/tutorials/web/get-started)
     
-2. Add Trad as dependency:
-    - Open `pubspec.yaml` in newly created app folder and add `trad` to your dependencies:
+2. Add Rad as dependency:
+    - Open `pubspec.yaml` in newly created app folder and add `rad` to your dependencies:
       ```yaml
       dependencies:
-        trad: 0.0.2
+        rad: 0.0.2
       ```
 
-3. Import Trad widgets in your `main.dart`
+3. Import Rad widgets in your `main.dart`
     ```dart
-    import 'package:trad/widgets.dart';
+    import 'package:rad/widgets.dart';
     ```
 
-3. Create Trad app
+3. Create Rad app
     ```dart
     void main() {
-      TradApp(
+      RadApp(
                             // 'output' is the id of div in your web/index.html
                             // framework will mount your app inside that div
                             // if you don't have a div with id 'output' in web/index.html, 
@@ -74,12 +72,12 @@ How about that? if you're familiar with Flutter it don't even need a explanation
 
 ### Debugging
 
-Trad is a zero-dependency web framework which helps you write web apps in plain Dart(no-flutter). For debugging Dart web apps, you've follow your IDE/editor docs. See [official guide here](https://dart.dev/tools#general-purpose-tools).
+Rad is a zero-dependency web framework which helps you write web apps in plain Dart(no-flutter). For debugging Dart web apps, you've follow your IDE/editor docs. See [official guide here](https://dart.dev/tools#general-purpose-tools).
 
 If you happen to be using VS code,
 
 - Install [VS code Dart plugin](https://marketplace.visualstudio.com/items?itemName=Dart-Code.dart-code)
-- Create a `launch.json` inside `.vscode` folder - [see example](https://github.com/erlage/trad/blob/main/example/vscode/launch.json)
+- Create a `launch.json` inside `.vscode` folder - [see example](https://github.com/erlage/rad/blob/main/example/vscode/launch.json)
 - Start your app in debug mode - see [this](https://code.visualstudio.com/docs/editor/debugging) for more
 
 # Styling widgets
@@ -103,33 +101,33 @@ Widgets that accept sizing props also have a optional parameter `sizingUnit`. Fo
 
 ## Api reference
 
-- [Trad library](https://pub.dev/documentation/trad/latest/trad/trad-library.html)
-- [Widgets library](https://pub.dev/documentation/trad/latest/widgets/widgets-library.html)
+- [Rad library](https://pub.dev/documentation/rad/latest/rad/rad-library.html)
+- [Widgets library](https://pub.dev/documentation/rad/latest/widgets/widgets-library.html)
 
 ## Widgets Index
 
 ### Main
 
-- [TradApp](https://pub.dev/documentation/trad/latest/widgets/TradApp-class.html)
+- [RadApp](https://pub.dev/documentation/rad/latest/widgets/RadApp-class.html)
 
 ### Elements
 
-- [Text](https://pub.dev/documentation/trad/latest/widgets/Text-class.html)
+- [Text](https://pub.dev/documentation/rad/latest/widgets/Text-class.html)
 
 ### Layout
 
-- [Container](https://pub.dev/documentation/trad/latest/widgets/Container-class.html)
-- [Stack](https://pub.dev/documentation/trad/latest/widgets/Stack-class.html)
-- [Align](https://pub.dev/documentation/trad/latest/widgets/Align-class.html)
+- [Container](https://pub.dev/documentation/rad/latest/widgets/Container-class.html)
+- [Stack](https://pub.dev/documentation/rad/latest/widgets/Stack-class.html)
+- [Align](https://pub.dev/documentation/rad/latest/widgets/Align-class.html)
 
 ### Misc
 
-- [GestureDetector](https://pub.dev/documentation/trad/latest/widgets/GestureDetector-class.html)
+- [GestureDetector](https://pub.dev/documentation/rad/latest/widgets/GestureDetector-class.html)
 
 ### Abstract
 
-- [StatelessWidget](https://pub.dev/documentation/trad/latest/trad/StatelessWidget-class.html)
-- [StatefulWidget](https://pub.dev/documentation/trad/latest/trad/StatefulWidget-class.html)
+- [StatelessWidget](https://pub.dev/documentation/rad/latest/rad/StatelessWidget-class.html)
+- [StatefulWidget](https://pub.dev/documentation/rad/latest/rad/StatefulWidget-class.html)
 
 ## Contribution
-Trad is a hobby project, feel free to open pull requests if you feel like missing a widget or something. Trad's core(src/core) is extremely small and straightforward. Having [basic knowledge of DOM](https://dart.dev/tutorials/web/low-level-html/connect-dart-html) & [Dart](https://dart.dev/guides/language/language-tour) is enough to implement widgets(src/widgets).
+Rad is a hobby project, feel free to open pull requests if you feel like missing a widget or something. Rad's core(src/core) is extremely small and straightforward. Having [basic knowledge of DOM](https://dart.dev/tutorials/web/low-level-html/connect-dart-html) & [Dart](https://dart.dev/guides/language/language-tour) is enough to implement widgets(src/widgets).

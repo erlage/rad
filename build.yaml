@@ -1,7 +1,7 @@
 targets: 
   $default: 
     builders: 
-      trad|styles: 
+      rad|styles: 
         generate_for: 
          - lib/css/** 
         enabled: True 

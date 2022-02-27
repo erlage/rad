@@ -1,8 +1,8 @@
-import 'package:trad/src/core/framework.dart';
-import 'package:trad/src/core/enums.dart';
-import 'package:trad/src/core/structures/buildable_context.dart';
-import 'package:trad/src/core/structures/widget.dart';
-import 'package:trad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/framework.dart';
+import 'package:rad/src/core/enums.dart';
+import 'package:rad/src/core/structures/buildable_context.dart';
+import 'package:rad/src/core/structures/widget.dart';
+import 'package:rad/src/core/objects/render_object.dart';
 
 class Align extends Widget {
   final String? key;
@@ -45,19 +45,19 @@ class AlignRenderObject extends RenderObject<Align> {
   render(widgetObject) {
     switch (alignment) {
       case Alignment.topRight:
-        widgetObject.htmlElement.classes.add("trad-align-top-right");
+        widgetObject.htmlElement.classes.add("rad-align-top-right");
         break;
 
       case Alignment.bottomRight:
-        widgetObject.htmlElement.classes.add("trad-align-bottom-right");
+        widgetObject.htmlElement.classes.add("rad-align-bottom-right");
         break;
 
       case Alignment.bottomLeft:
-        widgetObject.htmlElement.classes.add("trad-align-bottom-left");
+        widgetObject.htmlElement.classes.add("rad-align-bottom-left");
         break;
 
       case Alignment.topLeft:
-        widgetObject.htmlElement.classes.add("trad-align-top-left");
+        widgetObject.htmlElement.classes.add("rad-align-top-left");
         break;
 
       // dart tooling supports exhaustive checking... that's cool!

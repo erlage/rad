@@ -1,12 +1,12 @@
 import 'dart:html';
 
-import 'package:trad/src/core/constants.dart';
-import 'package:trad/src/core/structures/buildable_context.dart';
-import 'package:trad/src/core/utils.dart';
-import 'package:trad/src/core/structures/build_context.dart';
-import 'package:trad/src/core/objects/render_object.dart';
-import 'package:trad/src/core/structures/widget.dart';
-import 'package:trad/src/core/objects/widget_object.dart';
+import 'package:rad/src/core/constants.dart';
+import 'package:rad/src/core/structures/buildable_context.dart';
+import 'package:rad/src/core/utils.dart';
+import 'package:rad/src/core/structures/build_context.dart';
+import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/structures/widget.dart';
+import 'package:rad/src/core/objects/widget_object.dart';
 
 class Framework {
   static var _isInit = false;
@@ -37,7 +37,7 @@ class Framework {
     } else if (null != document.body) {
       document.head!.insertBefore(styleSheet, null);
     } else {
-      throw "For Trad to work, your page must have either a head tag or a body."
+      throw "For Rad to work, your page must have either a head tag or a body."
           "Creating a body(or head) in your page will fix this problem.";
     }
   }

@@ -1,10 +1,10 @@
-A simple click testing demo using Trad:
+A simple click testing demo using Rad:
 ```dart
-import 'package:trad/trad.dart';
-import 'package:trad/widgets.dart';
+import 'package:rad/rad.dart';
+import 'package:rad/widgets.dart';
 
 void main() {
-  TradApp(
+  RadApp(
     targetId: "output",
     child: ClickTest(),
   );
@@ -29,4 +29,4 @@ class ClickTest extends StatefulWidget {
 }
 ```
 
-For installing Trad please refer to [package homepage](https://pub.dev/packages/trad)
+For installing Rad please refer to [package homepage](https://pub.dev/packages/rad)

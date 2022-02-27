@@ -1,8 +1,8 @@
-import 'package:trad/src/core/framework.dart';
-import 'package:trad/src/core/enums.dart';
-import 'package:trad/src/core/structures/widget.dart';
-import 'package:trad/src/core/objects/render_object.dart';
-import 'package:trad/src/core/structures/buildable_context.dart';
+import 'package:rad/src/core/framework.dart';
+import 'package:rad/src/core/enums.dart';
+import 'package:rad/src/core/structures/widget.dart';
+import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/structures/buildable_context.dart';
 
 class OverlayEntry extends Widget {
   final String? key;
