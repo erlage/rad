@@ -35,6 +35,7 @@ body {
    * widgets that should take as much space as possible
    */
 
+[data-wtype="Align"],
 [data-wtype="Stack"],
 [data-wtype="Container"],
 [data-wtype="Overlay"],
