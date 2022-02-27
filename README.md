@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget
   }
 }
 ```
-How about that? if you're familiar with Flutter it don't even need a explanation. Important to note here is that Rad doesn't render pixels to build widgets on-screen instead it maps widgets to HTML elements(tags).
+How about that? if you're familiar with Flutter it don't even need a explanation. Important to note here is that Rad doesn't render pixels to build widgets instead it maps widgets to HTML elements(tags).
 
 ## Geting started
 
@@ -31,7 +31,7 @@ How about that? if you're familiar with Flutter it don't even need a explanation
     - Open `pubspec.yaml` in newly created app folder and add `rad` to your dependencies:
       ```yaml
       dependencies:
-        rad: 0.0.2
+        rad: 0.0.1
       ```
 
 3. Import Rad widgets in your `main.dart`
@@ -75,9 +75,9 @@ If you happen to be using VS code,
 - Create a `launch.json` inside `.vscode` folder - [see example](https://github.com/erlage/rad/blob/main/example/vscode/launch.json)
 - Start your app in debug mode - see [this](https://code.visualstudio.com/docs/editor/debugging) for more
 
-# Styling widgets
+## Styling widgets
 
-## Using CSS
+### Using CSS
 
 You can add CSS rules to widgets to style them. For example:
 ```dart
@@ -88,7 +88,7 @@ Container(
 ```
 Note that some widgets such as StatelessWidget don't have a `style` parameter.
 
-## Sizing & Positioning
+### Sizing & Positioning
 
 Some widgets have parameters for their "size" or "position" or both. We refers to them as Sizing & Positioning props. Positioning props includes `left`, `right`, `top` and `bottom` parameters while `width` and `height` are Sizing props.
 
