@@ -29,15 +29,13 @@ How about that? if you're familiar with Flutter it don't even need a explanation
 
 ## Geting started
 
-1. Create a demo app:
-    - `dart pub global activate webdev`
+1. Create a demo web app:
     - `dart create -t web-simple myapp`
-    - `cd myapp`
   
     Having troubles? learn more [from official guide](https://dart.dev/tutorials/web/get-started)
     
 2. Add Trad as dependency:
-    - Open `pubspec.yaml` and add `trad` to your dependencies:
+    - Open `pubspec.yaml` in newly created app folder and add `trad` to your dependencies:
       ```yaml
       dependencies:
         trad: 0.0.2
@@ -52,7 +50,14 @@ How about that? if you're familiar with Flutter it don't even need a explanation
     ```dart
     void main() {
       TradApp(
-        targetId: "output",
+                            // 'output' is the id of div in your web/index.html
+                            // framework will mount your app inside that div
+                            // if you don't have a div with id 'output' in web/index.html, 
+        targetId: "output", // you've to create it
+                            // e.g
+                            //    <body>
+                            //      <div id="output"></div> 
+                            //    ...
         child: GestureDetector(
           onTap: (event) {
             print("working");
@@ -65,12 +70,17 @@ How about that? if you're familiar with Flutter it don't even need a explanation
     }
     ```
 
-3. Run `webdev serve` and follow onscreen instructions
+3. Run `webdev serve` and follow on-screen instructions
 
-## Debugging
+### Debugging
 
-Tooling in Dart is awesome. It's one of the reason I stopped Typescript. [Here's how](https://dart.dev/tools) you'd setup your favorite editor/IDE. If you happen to be using VS code you can head over to [Setting up editor](https://dart.dev/tools/vs-code). 
-Remember Trad is a web-framework and you don't have to install Flutter/or its plugins for it to work.
+Trad is a zero-dependency web framework which helps you write web apps in plain Dart(no-flutter). For debugging Dart web apps, you've follow your IDE/editor docs. See [official guide here](https://dart.dev/tools#general-purpose-tools).
+
+If you happen to be using VS code,
+
+- Install [VS code Dart plugin](https://marketplace.visualstudio.com/items?itemName=Dart-Code.dart-code)
+- Create a `launch.json` inside `.vscode` folder - [see example](https://github.com/erlage/trad/blob/main/example/vscode/launch.json)
+- Start your app in debug mode - see [this](https://code.visualstudio.com/docs/editor/debugging) for more
 
 # Styling widgets
 
@@ -116,12 +126,10 @@ Widgets that accept sizing props also have a optional parameter `sizingUnit`. Fo
 
 - [GestureDetector](https://pub.dev/documentation/trad/latest/widgets/GestureDetector-class.html)
 
-## Abstract
+### Abstract
 
 - [StatelessWidget](https://pub.dev/documentation/trad/latest/trad/StatelessWidget-class.html)
 - [StatefulWidget](https://pub.dev/documentation/trad/latest/trad/StatefulWidget-class.html)
 
-
 ## Contribution
-Trad is a small project. It allows anyone with basic knowledge of Javascript & DOM to create their own custom widgets in matter of minutes. PRs are welcomed<3 if you feel like missing a widget or something.
-
+Trad is a hobby project, feel free to open pull requests if you feel like missing a widget or something. Trad's core(src/core) is extremely small and straightforward. Having [basic knowledge of DOM](https://dart.dev/tutorials/web/low-level-html/connect-dart-html) & [Dart](https://dart.dev/guides/language/language-tour) is enough to implement widgets(src/widgets).
