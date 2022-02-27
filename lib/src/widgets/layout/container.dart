@@ -71,7 +71,7 @@ class ContainerRenderObject extends RenderObject<Container> {
     }
 
     if (style.isNotEmpty) {
-      widgetObject.htmlElement.className = style;
+      widgetObject.htmlElement.className += " $style";
     }
 
     Framework.renderSingleChildWidget(

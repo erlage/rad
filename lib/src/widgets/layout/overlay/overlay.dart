@@ -80,7 +80,7 @@ class OverlayRenderObject extends RenderObject<Overlay> {
   @override
   render(widgetObject) {
     if (style.isNotEmpty) {
-      widgetObject.htmlElement.className = style;
+      widgetObject.htmlElement.className += " $style";
     }
 
     Framework.renderMultipleChildWidgets(

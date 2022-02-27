@@ -48,7 +48,7 @@ class TextRenderObject extends RenderObject<Text> {
   @override
   render(widgetObject) {
     if (style.isNotEmpty) {
-      widgetObject.htmlElement.className = style;
+      widgetObject.htmlElement.className += " $style";
     }
 
     if (isHtml) {

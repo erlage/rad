@@ -42,7 +42,7 @@ class StackRenderObject extends RenderObject<Stack> {
   @override
   render(widgetObject) {
     if (style.isNotEmpty) {
-      widgetObject.htmlElement.className = style;
+      widgetObject.htmlElement.className += " $style";
     }
 
     Framework.renderMultipleChildWidgets(
