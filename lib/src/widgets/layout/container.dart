@@ -3,6 +3,7 @@ import 'package:trad/src/core/enums.dart';
 import 'package:trad/src/core/structures/widget.dart';
 import 'package:trad/src/core/objects/render_object.dart';
 import 'package:trad/src/core/structures/buildable_context.dart';
+import 'package:trad/src/core/utils.dart';
 
 class Container extends Widget {
   final String? key;
@@ -10,9 +11,16 @@ class Container extends Widget {
   final Widget child;
   final String? style;
 
+  final int? width;
+  final int? height;
+  final MeasuringUnit? sizingUnit;
+
   const Container({
     this.key,
     this.style,
+    this.width,
+    this.height,
+    this.sizingUnit,
     required this.child,
   });
 
@@ -21,6 +29,9 @@ class Container extends Widget {
     return ContainerRenderObject(
       child: child,
       style: style ?? '',
+      width: width,
+      height: height,
+      sizingUnit: sizingUnit ?? MeasuringUnit.pixel,
       buildableContext: context.mergeKey(key),
     );
   }
@@ -30,11 +41,18 @@ class ContainerRenderObject extends RenderObject<Container> {
   final Widget child;
   final String style;
 
+  final int? width;
+  final int? height;
+  final MeasuringUnit sizingUnit;
+
   final BuildableContext buildableContext;
 
   ContainerRenderObject({
     required this.child,
     required this.style,
+    this.width,
+    this.height,
+    required this.sizingUnit,
     required this.buildableContext,
   }) : super(
           domTag: DomTag.div,
@@ -43,6 +61,15 @@ class ContainerRenderObject extends RenderObject<Container> {
 
   @override
   render(widgetObject) {
+    var sizingUnit = Utils.mapMeasuringUnit(this.sizingUnit);
+
+    if (null != width) {
+      widgetObject.htmlElement.style.width = width.toString() + sizingUnit;
+    }
+    if (null != height) {
+      widgetObject.htmlElement.style.height = height.toString() + sizingUnit;
+    }
+
     if (style.isNotEmpty) {
       widgetObject.htmlElement.className = style;
     }
