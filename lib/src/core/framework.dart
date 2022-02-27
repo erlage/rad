@@ -134,14 +134,13 @@ class Framework {
       // if root div
 
       if (Constants.bigBang == renderObject.context.parentKey) {
-        var rootElement =
-            document.getElementById(renderObject.context.parentKey);
+        var element = document.getElementById(renderObject.context.parentKey);
 
-        if (null == rootElement) {
+        if (null == element) {
           throw "Unable to find target to mount app. Make sure your DOM has element with id #${renderObject.context.parentKey}";
         }
 
-        rootElement.innerHtml = "";
+        element.innerHtml = "";
       } else {
         // else it's in widget tree
 
