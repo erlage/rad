@@ -6,8 +6,18 @@ body {
 
 
 /**
-   * reset styles for wigets that otherwise might inherit defaults
-   * from their corresponding HTML tag in-use
+   * widgets that must not contain any style information
+   */
+
+[data-wtype="StatefulWidget"],
+[data-wtype="StatelessWidget"],
+[data-wtype="GestureDetector"] {
+    all: unset;
+}
+
+
+/**
+   * widgets with no scrolls(their inner content isn't scrollable overflow will be hidden) 
    */
 
 [data-wtype="StatefulWidget"],
@@ -18,7 +28,6 @@ body {
 [data-wtype="Align"],
 [data-wtype="Positioned"],
 [data-wtype="Text"] {
-    all: unset;
     overflow: hidden;
 }
 
@@ -28,6 +37,9 @@ body {
    */
 
 [data-wtype="Stack"],
+
+/* target is not a widget. it's referring to the div where App is mounted */
+
 [data-wtype="Target"] {
     width: 100%;
     height: 100%;
@@ -36,7 +48,17 @@ body {
 
 
 /**
-   * Widgets that exhibits overlaying behaviour
+   * widgets which are layed out as inline blocks
+   * allowing application of width/height properties
+   */
+
+[data-wtype="Container"] {
+    display: inline-block;
+}
+
+
+/**
+   * Widgets which allow childs to overlay on each other
    */
 
 [data-wtype="Stack"] {
@@ -46,7 +68,7 @@ body {
 
 /**
    * Widgets with absolute position
-   * such as Stack childs
+   * it allow widget to overlay on each other(such as Stack childs)
    */
 
 [data-wtype="Align"],

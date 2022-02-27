@@ -37,7 +37,7 @@ class ContainerRenderObject extends RenderObject<Container> {
     required this.style,
     required this.buildableContext,
   }) : super(
-          domTag: DomTag.span,
+          domTag: DomTag.div,
           buildableContext: buildableContext,
         );
 
