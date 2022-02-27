@@ -37,6 +37,7 @@ body {
 
 [data-wtype="Stack"],
 [data-wtype="Container"],
+[data-wtype="Overlay"],
 [data-wtype="OverlayEntry"],
 
 /* 
@@ -64,6 +65,7 @@ body {
    * widgets which that childs to overlay on each other
    */
 
+[data-wtype="Overlay"],
 [data-wtype="Stack"] {
     position: relative;
 }
