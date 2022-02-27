@@ -89,7 +89,7 @@ class PositionedRenderObject extends RenderObject<Positioned> {
     required this.child,
     required this.buildableContext,
   }) : super(
-          domTag: DomTag.span,
+          domTag: DomTag.div,
           buildableContext: buildableContext,
         );
 

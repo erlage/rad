@@ -72,7 +72,7 @@ class StatefulWidgetRenderObject extends RenderObject<StatefulWidget> {
     required this.dispose,
     required this.buildableContext,
   }) : super(
-          domTag: DomTag.span,
+          domTag: DomTag.div,
           buildableContext: buildableContext,
         );
 

@@ -37,7 +37,7 @@ class AlignRenderObject extends RenderObject<Align> {
     required this.alignment,
     required this.buildableContext,
   }) : super(
-          domTag: DomTag.span,
+          domTag: DomTag.div,
           buildableContext: buildableContext,
         );
 
@@ -45,19 +45,19 @@ class AlignRenderObject extends RenderObject<Align> {
   render(widgetObject) {
     switch (alignment) {
       case Alignment.topRight:
-        widgetObject.htmlElement.classes.add("tard-align-top-right");
+        widgetObject.htmlElement.classes.add("trad-align-top-right");
         break;
 
       case Alignment.bottomRight:
-        widgetObject.htmlElement.classes.add("tard-align-bottom-right");
+        widgetObject.htmlElement.classes.add("trad-align-bottom-right");
         break;
 
       case Alignment.bottomLeft:
-        widgetObject.htmlElement.classes.add("tard-align-bottom-left");
+        widgetObject.htmlElement.classes.add("trad-align-bottom-left");
         break;
 
       case Alignment.topLeft:
-        widgetObject.htmlElement.classes.add("tard-align-top-left");
+        widgetObject.htmlElement.classes.add("trad-align-top-left");
         break;
 
       // dart tooling supports exhaustive checking... that's cool!

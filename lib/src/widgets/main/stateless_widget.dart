@@ -32,7 +32,7 @@ class StatelessWidgetRenderObject extends RenderObject<StatelessWidget> {
   StatelessWidgetRenderObject({
     required this.buildableContext,
   }) : super(
-          domTag: DomTag.span,
+          domTag: DomTag.div,
           buildableContext: buildableContext,
         );
 
