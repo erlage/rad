@@ -80,7 +80,7 @@ You can add CSS rules to widgets to style them. For example:
 ```dart
 Container(
   style: "css-class another-class",
-  child: const Text("styled text"),
+  child: const Text("text inside a styled container"),
 );
 ```
 Note that some widgets such as StatelessWidget don't have a `style` parameter.
