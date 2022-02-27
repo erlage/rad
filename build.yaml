@@ -3,7 +3,7 @@ targets:
     builders: 
       rad|styles: 
         generate_for: 
-         - lib/css/** 
+         - lib/src/css/** 
         enabled: True 
 
 builders: 

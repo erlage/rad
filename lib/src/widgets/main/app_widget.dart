@@ -1,6 +1,6 @@
-import 'package:rad/css/include/normalize.generated.dart';
-import 'package:rad/css/main.generated.dart';
-import 'package:rad/css/rad_app.generated.dart';
+import 'package:rad/src/css/include/normalize.generated.dart';
+import 'package:rad/src/css/main.generated.dart';
+import 'package:rad/src/css/rad_app.generated.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/structures/buildable_context.dart';
