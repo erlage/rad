@@ -112,7 +112,9 @@ class Framework {
       return;
     }
 
-    var htmlElement = document.createElement(Utils.mapDomTag(renderObject.context.widgetDomTag));
+    var tag = Utils.mapDomTag(renderObject.context.widgetDomTag);
+
+    var htmlElement = document.createElement(tag);
 
     htmlElement as HtmlElement;
 
