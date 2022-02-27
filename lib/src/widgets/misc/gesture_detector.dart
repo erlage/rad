@@ -11,7 +11,10 @@ class GestureDetector extends Widget {
   final String? key;
 
   final Widget child;
-  final OnTapCallback? onTap;
+  final VoidCallback? onTap;
+
+  /// Same as onTap but it'll send a Pointer Event object to callback.
+  final OnTapEventCallback? onTapEvent;
 
   /// How this gesture detector should behave during hit testing.
   ///
@@ -22,6 +25,7 @@ class GestureDetector extends Widget {
   GestureDetector({
     this.key,
     this.onTap,
+    this.onTapEvent,
     this.behaviour,
     required this.child,
   });
@@ -31,6 +35,7 @@ class GestureDetector extends Widget {
     return GestureDetectorRenderObject(
       child: child,
       onTap: onTap,
+      onTapEvent: onTapEvent,
       behaviour: behaviour ?? HitTestBehavior.deferToChild,
       buildableContext: context.mergeKey(key),
     );
@@ -39,12 +44,14 @@ class GestureDetector extends Widget {
 
 class GestureDetectorRenderObject extends RenderObject<GestureDetector> {
   final Widget child;
-  final OnTapCallback? onTap;
+  final VoidCallback? onTap;
+  final OnTapEventCallback? onTapEvent;
   final HitTestBehavior behaviour;
 
   GestureDetectorRenderObject({
     required this.child,
     required this.onTap,
+    required this.onTapEvent,
     required this.behaviour,
     required BuildableContext buildableContext,
   }) : super(
@@ -70,8 +77,9 @@ class GestureDetectorRenderObject extends RenderObject<GestureDetector> {
     event.preventDefault();
 
     var userDefinedOnTap = onTap;
+    var userDefinedOnTapEvent = onTapEvent;
 
-    if (null == userDefinedOnTap) {
+    if (null == userDefinedOnTap && null == userDefinedOnTapEvent) {
       return;
     }
 
@@ -86,6 +94,12 @@ class GestureDetectorRenderObject extends RenderObject<GestureDetector> {
         break;
     }
 
-    userDefinedOnTap(event);
+    if (null != userDefinedOnTapEvent) {
+      userDefinedOnTapEvent(event);
+    }
+
+    if (null != userDefinedOnTap) {
+      userDefinedOnTap();
+    }
   }
 }

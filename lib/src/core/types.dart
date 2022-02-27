@@ -1,4 +1,4 @@
 import 'dart:html';
 
 typedef OnClickCallback = Function(MouseEvent event);
-typedef OnTapCallback = Function(Event event);
+typedef OnTapEventCallback = Function(Event event);

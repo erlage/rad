@@ -16,7 +16,7 @@ class ClickTest extends StatefulWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (_) => handleTap(),
+      onTap: _handleTap,
       child: Text(isClicked ? "clicked!" : "click me"),
     );
   }
