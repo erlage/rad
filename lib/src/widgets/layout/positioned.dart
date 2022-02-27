@@ -102,7 +102,8 @@ class PositionedRenderObject extends RenderObject<Positioned> {
       widgetObject.htmlElement.style.top = top.toString() + positioningUnit;
     }
     if (null != bottom) {
-      widgetObject.htmlElement.style.bottom = bottom.toString() + positioningUnit;
+      widgetObject.htmlElement.style.bottom =
+          bottom.toString() + positioningUnit;
     }
     if (null != left) {
       widgetObject.htmlElement.style.left = left.toString() + positioningUnit;

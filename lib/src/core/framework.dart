@@ -134,7 +134,8 @@ class Framework {
       // if root div
 
       if (Constants.bigBang == renderObject.context.parentKey) {
-        var rootElement = document.getElementById(renderObject.context.parentKey);
+        var rootElement =
+            document.getElementById(renderObject.context.parentKey);
 
         if (null == rootElement) {
           throw "Unable to find target to mount app. Make sure your DOM has element with id #${renderObject.context.parentKey}";
