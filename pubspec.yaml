@@ -1,7 +1,7 @@
 name: rad
-version: 0.0.2
+version: 0.0.1
 description: >
-  A frontend framework for Dart. It's inspired from Flutter and shares same programming paradigm. Widgets in Rad are similar to Flutter widgets but in many ways more flexible.
+  A zero-dependency frontend framework for writing web apps in plain Dart. Inspired from Flutter.
 
 homepage: https://github.com/erlage/rad
 documentation: https://github.com/erlage/rad#readme

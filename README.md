@@ -18,12 +18,7 @@ class HomePage extends StatelessWidget
   }
 }
 ```
-How about that? if you're familiar with Flutter it don't even need a explanation. 
-
-
-### Rad
-
-- Rad doesn't render pixels to build Wigets instead it maps widgets to HTML elements(tags), and takes care of managing DOM.
+How about that? if you're familiar with Flutter it don't even need a explanation. Important to note here is that Rad doesn't render pixels to build widgets on-screen instead it maps widgets to HTML elements(tags).
 
 ## Geting started
 
