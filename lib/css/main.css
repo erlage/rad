@@ -37,6 +37,7 @@ body {
 
 [data-wtype="Stack"],
 [data-wtype="Container"],
+[data-wtype="OverlayEntry"],
 
 /* 
  below widgets are not stylable. only way to
@@ -73,6 +74,7 @@ body {
    */
 
 [data-wtype="Align"],
+[data-wtype="OverlayEntry"],
 [data-wtype="Stack"]>div,
 [data-wtype="Stack"]>span {
     position: absolute;
