@@ -15,7 +15,7 @@ enum Alignment {
   bottomRight,
 }
 
-/// How to behave during hit tests.
+/// Defines [GestureDetector] behaviour
 enum HitTestBehavior {
   /// Child gesture detectors will receive events and won't let them propagate to parents
   deferToChild,

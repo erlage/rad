@@ -5,6 +5,10 @@ import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/structures/buildable_context.dart';
 import 'package:rad/src/core/utils.dart';
 
+/// A widget that controls position of it's child. Can be used
+/// anywhere but it's usually used inside a [Stack] or [OverlayEntry]
+/// widget.
+///
 class Positioned extends Widget {
   final String? key;
 
@@ -33,6 +37,8 @@ class Positioned extends Widget {
     required this.child,
   });
 
+  /// Creates a Positioned object with [width] and [height] set
+  /// to 100.
   Positioned.filled({
     this.key,
     this.top,

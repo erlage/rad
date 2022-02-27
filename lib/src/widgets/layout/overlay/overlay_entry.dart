@@ -4,6 +4,17 @@ import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/structures/buildable_context.dart';
 
+/// A place in an [Overlay] that can contain a widget.
+///
+/// Overlay entries are inserted into an [Overlay] using the
+/// [OverlayState.insert] or [OverlayState.insertAll] functions. To find the
+/// closest enclosing overlay for a given [BuildContext], use the [Overlay.of]
+/// function.
+///
+/// See also:
+///
+///  * [Overlay]
+///  * [OverlayState]
 class OverlayEntry extends Widget {
   final String? key;
 

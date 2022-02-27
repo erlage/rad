@@ -7,6 +7,13 @@ import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/types.dart';
 
+/// A widget that detects gestures.
+///
+/// Attempts to recognize gestures that correspond to its non-null callbacks.
+///
+/// See also:
+///
+///  * [HitTestBehavior], behaviour of a [GestureDetector]
 class GestureDetector extends Widget {
   final String? key;
 
