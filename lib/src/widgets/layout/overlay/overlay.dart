@@ -3,7 +3,7 @@ import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/structures/buildable_context.dart';
-import 'package:rad/src/widgets/layout/overlay_entry.dart';
+import 'package:rad/src/widgets/layout/overlay/overlay_entry.dart';
 
 class Overlay extends Widget {
   final String? key;
