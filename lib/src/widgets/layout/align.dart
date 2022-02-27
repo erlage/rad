@@ -4,6 +4,14 @@ import 'package:rad/src/core/structures/buildable_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 
+/// A widget that aligns its child within itself.
+///
+/// This widget will be as big as possible.
+///
+/// See also:
+///
+///  * [Alignment], widget's alignment
+///
 class Align extends Widget {
   final String? key;
 
@@ -43,29 +51,32 @@ class AlignRenderObject extends RenderObject<Align> {
 
   @override
   render(widgetObject) {
+    var stylesToInjectIntoChilds = <String>[];
+
     switch (alignment) {
       case Alignment.topRight:
-        widgetObject.htmlElement.classes.add("rad-align-top-right");
+        stylesToInjectIntoChilds.add("rad-align-top-right");
         break;
 
       case Alignment.bottomRight:
-        widgetObject.htmlElement.classes.add("rad-align-bottom-right");
+        stylesToInjectIntoChilds.add("rad-align-bottom-right");
         break;
 
       case Alignment.bottomLeft:
-        widgetObject.htmlElement.classes.add("rad-align-bottom-left");
+        stylesToInjectIntoChilds.add("rad-align-bottom-left");
         break;
 
       case Alignment.topLeft:
-        widgetObject.htmlElement.classes.add("rad-align-top-left");
+        stylesToInjectIntoChilds.add("rad-align-top-left");
         break;
 
       // dart tooling supports exhaustive checking... that's cool!
     }
 
     Framework.renderSingleChildWidget(
-      context: context,
       widget: child,
+      context: context,
+      injectStyles: stylesToInjectIntoChilds,
     );
   }
 }

@@ -76,7 +76,6 @@ body {
    * widgets with absolute position
    */
 
-[data-wtype="Align"],
 [data-wtype="OverlayEntry"],
 [data-wtype="Stack"]>div,
 [data-wtype="Stack"]>span {
@@ -85,25 +84,33 @@ body {
 
 
 /**
-   * Align
+   * alignments
    */
 
+.rad-align-top-right,
 .rad-align-top-right {
     top: 0;
     right: 0;
+    position: absolute;
 }
 
+.rad-align-top-left,
 .rad-align-top-left {
     top: 0;
     left: 0;
+    position: absolute;
 }
 
+.rad-align-bottom-right,
 .rad-align-bottom-right {
     bottom: 0;
     right: 0;
+    position: absolute;
 }
 
+.rad-align-bottom-left,
 .rad-align-bottom-left {
     bottom: 0;
     left: 0;
+    position: absolute;
 }
