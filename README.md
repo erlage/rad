@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget
     return Container(
       child: GestureDetector(
         child: const Text("click me"),
-        onTap: (event) => print("working!"),
+        onTap: () => print("working!"),
       ),
     );
   }
@@ -31,7 +31,7 @@ How about that? if you're familiar with Flutter it don't even need a explanation
     - Open `pubspec.yaml` in newly created app folder and add `rad` to your dependencies:
       ```yaml
       dependencies:
-        rad: 0.0.1
+        rad: 0.1.0
       ```
 
 3. Import Rad widgets in your `main.dart`
@@ -52,7 +52,7 @@ How about that? if you're familiar with Flutter it don't even need a explanation
                             //      <div id="output"></div> 
                             //    ...
         child: GestureDetector(
-          onTap: (event) {
+          onTap: () {
             print("working");
           },
           child: Container(
@@ -114,6 +114,10 @@ Widgets that accept sizing props also have a optional parameter `sizingUnit`. Fo
 - [Container](https://pub.dev/documentation/rad/latest/widgets/Container-class.html)
 - [Stack](https://pub.dev/documentation/rad/latest/widgets/Stack-class.html)
 - [Align](https://pub.dev/documentation/rad/latest/widgets/Align-class.html)
+- [Positioned](https://pub.dev/documentation/rad/latest/widgets/Positioned-class.html)
+  - [Positioned.fill](https://pub.dev/documentation/rad/latest/widgets/Positioned-class.html)
+- [Overlay](https://pub.dev/documentation/rad/latest/widgets/Overlay-class.html)
+  - [OverlayEntry](https://pub.dev/documentation/rad/latest/widgets/OverlayEntry-class.html)
 
 ### Misc
 
