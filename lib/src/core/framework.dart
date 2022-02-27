@@ -52,10 +52,12 @@ class Framework {
   static void renderSingleChildWidget({
     required Widget widget,
     required BuildContext context,
+    List<String>? injectStyles,
     append = false,
   }) {
     _buildWidget(
       append: append,
+      injectStyles: injectStyles,
       renderObject: widget.builder(BuildableContext(parentKey: context.key)),
     );
   }
@@ -63,11 +65,13 @@ class Framework {
   static void renderMultipleChildWidgets({
     required List<Widget> widgets,
     required BuildContext context,
+    List<String>? injectStyles,
     append = false,
   }) {
     for (var widget in widgets) {
       _buildWidget(
         append: append,
+        injectStyles: injectStyles,
         renderObject: widget.builder(BuildableContext(parentKey: context.key)),
       );
 
@@ -103,6 +107,7 @@ class Framework {
   static _buildWidget({
     append = false,
     required RenderObject renderObject,
+    List<String>? injectStyles,
   }) {
     if (!_isInit) {
       throw "Framework not initialized. If you're building your own AppWidget implementation, make sure to call Framework.init()";
@@ -120,6 +125,12 @@ class Framework {
 
     htmlElement.id = renderObject.context.key;
     htmlElement.dataset["wtype"] = renderObject.context.widgetType;
+
+    // if parent wants to inject styles
+
+    if (null != injectStyles && injectStyles.isNotEmpty) {
+      htmlElement.classes.addAll(injectStyles);
+    }
 
     var widgetObject = WidgetObject(
       renderObject: renderObject,
