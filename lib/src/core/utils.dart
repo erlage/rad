@@ -9,7 +9,6 @@ class Utils {
         return "div";
 
       case DomTag.span:
-      default:
         return "span";
     }
   }
@@ -20,7 +19,6 @@ class Utils {
         return "%";
 
       case MeasuringUnit.pixel:
-      default:
         return "px";
     }
   }
