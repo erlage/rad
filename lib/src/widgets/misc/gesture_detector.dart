@@ -74,9 +74,9 @@ class GestureDetectorRenderObject extends RenderObject<GestureDetector> {
       behaviour == HitTestBehavior.opaque,
     );
 
-    Framework.renderSingleChildWidget(
-      context: context,
+    Framework.buildWidget(
       widget: child,
+      parentContext: context,
     );
   }
 

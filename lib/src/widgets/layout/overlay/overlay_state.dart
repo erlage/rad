@@ -8,10 +8,10 @@ class OverlayState {
   OverlayState(this.widgetObject);
 
   insert(OverlayEntry overlayEntry) {
-    Framework.renderSingleChildWidget(
-      widget: overlayEntry,
-      context: widgetObject.context,
+    Framework.buildWidget(
       append: true,
+      widget: overlayEntry,
+      parentContext: widgetObject.context,
     );
   }
 

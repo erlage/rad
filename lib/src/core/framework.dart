@@ -42,20 +42,6 @@ class Framework {
     }
   }
 
-  static void renderSingleChildWidget({
-    required Widget widget,
-    required BuildContext context,
-    List<String>? injectStyles,
-    append = false,
-  }) {
-    buildWidget(
-      append: append,
-      injectStyles: injectStyles,
-      widget: widget,
-      parentContext: context,
-    );
-  }
-
   static void buildMultipleChildWidgets({
     required List<Widget> widgets,
     required BuildContext context,

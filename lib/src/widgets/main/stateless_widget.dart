@@ -58,9 +58,9 @@ class StatelessWidgetRenderObject extends RenderObject<StatelessWidget> {
 
   @override
   render(widgetObject) {
-    Framework.renderSingleChildWidget(
-      context: context,
+    Framework.buildWidget(
       widget: child,
+      parentContext: context,
     );
   }
 }

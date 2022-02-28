@@ -125,9 +125,9 @@ class PositionedRenderObject extends RenderObject<Positioned> {
       widgetObject.htmlElement.style.height = height.toString() + sizingUnit;
     }
 
-    Framework.renderSingleChildWidget(
-      context: context,
+    Framework.buildWidget(
       widget: child,
+      parentContext: context,
     );
   }
 }

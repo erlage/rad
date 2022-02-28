@@ -77,9 +77,9 @@ class AppWidgetRenderObject<T> extends RenderObject<T> {
       Framework.insertStyles(GEN_STYLES_RAD_APP_CSS);
     }
 
-    Framework.renderSingleChildWidget(
-      context: context,
+    Framework.buildWidget(
       widget: child,
+      parentContext: context,
     );
   }
 }

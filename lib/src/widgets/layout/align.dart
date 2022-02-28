@@ -73,9 +73,9 @@ class AlignRenderObject extends RenderObject<Align> {
       // dart tooling supports exhaustive checking... that's cool!
     }
 
-    Framework.renderSingleChildWidget(
+    Framework.buildWidget(
       widget: child,
-      context: context,
+      parentContext: context,
       injectStyles: stylesToInjectIntoChilds,
     );
   }
