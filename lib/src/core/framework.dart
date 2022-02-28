@@ -1,15 +1,15 @@
 import 'dart:html';
 
-import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/types.dart';
 import 'package:rad/src/core/utils.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/structures/widget.dart';
+import 'package:rad/src/core/objects/update_object.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 
 class Framework {
   static var _isInit = false;
-  static var _monotonicId = 0;
 
   static final _registeredWidgetObjects = <String, WidgetObject>{};
 
@@ -19,11 +19,6 @@ class Framework {
     }
 
     _isInit = true;
-  }
-
-  static generateId() {
-    _monotonicId++;
-    return _monotonicId.toString() + "_" + Utils.random();
   }
 
   static void addGlobalStyles(String styles) {
@@ -63,166 +58,273 @@ class Framework {
     return widgetObject;
   }
 
-  static void buildMultipleChildWidgets({
+  static buildChildren({
+    // widgets to build
     required List<Widget> widgets,
-    required BuildContext context,
-    List<String>? injectStyles,
-    append = false,
-  }) {
-    for (var widget in widgets) {
-      buildWidget(
-        append: append,
-        widget: widget,
-        parentContext: context,
-        styles: injectStyles,
-      );
-
-      // remaining widgets will be appended
-      append = true;
-    }
-  }
-
-  static buildWidget({
-    append = false,
-    update = false,
-    required Widget widget,
     required BuildContext parentContext,
-    List<String>? styles,
+    ElementCallback? elementCallback,
+    //
+    // -- flags --
+    //
+    flagCleanParentContents = true,
+    //
   }) {
     if (!_isInit) {
       throw "Framework not initialized. If you're building your own AppWidget implementation, make sure to call Framework.init()";
     }
 
-    // get render object for widget
+    for (var widget in widgets) {
+      var renderObject = widget.builder(
+        BuildContext(
+          key: Constants.keyNotSet,
+          parent: parentContext,
+          widgetType: widget.type,
+          widgetDomTag: widget.tag,
+        ),
+      );
 
-    var renderObject = widget.builder(
-      BuildContext(
-        key: Constants.keyNotSet,
-        parent: parentContext,
-        widgetType: widget.type,
-        widgetDomTag: widget.tag,
-      ),
-    );
+      if (Constants.keyNotSet == renderObject.context.key) {
+        renderObject.context.key = Utils.generateWidgetId();
+      }
 
-    // if a rebuild request
-    if (update) {
-      //
-      // try to find a existing widget object
-      var existingWidgetObject = _findExistingWidgetObject(
+      widget.createState(renderObject);
+
+      var widgetObject = WidgetObject(
         widget: widget,
         renderObject: renderObject,
       );
 
-      // if found
-      if (null != existingWidgetObject) {
-        //
-        // inject styles
-        //
-        existingWidgetObject.injectStyles(styles);
-        //
-        // let child decide what's need to be updated
-        return existingWidgetObject.renderObject.update(
-          existingWidgetObject,
-          renderObject,
-        );
+      widgetObject.createHtmlElement();
+
+      if (null != elementCallback) {
+        elementCallback(widgetObject.htmlElement);
       }
-    }
 
-    // if not a update request
+      _registerWidgetObject(widgetObject);
 
-    if (Constants.keyNotSet == renderObject.context.key) {
-      renderObject.context.key = generateId();
-    }
+      // dispose inner contents if flag is on
 
-    widget.createState(renderObject);
+      if (flagCleanParentContents) {
+        //
+        // if it's not a root widget
+        if (Constants.typeBigBang != widgetObject.context.parent.widgetType) {
+          _disposeWidget(
+            preserveTarget: true,
+            widgetObject: _getWidgetObject(widgetObject.context.parent.key),
+          );
 
-    var widgetObject = WidgetObject(widget: widget, renderObject: renderObject);
+          // else it's a root widget, simple clean the contents
+        } else {
+          var element = document.getElementById(
+            renderObject.context.parent.key,
+          );
 
-    widgetObject.createHtmlElement();
+          if (null == element) {
+            throw "Unable to find target to mount app. Make sure your DOM has element with id #${renderObject.context.parent}";
+          }
 
-    widgetObject.injectStyles(styles);
-
-    _registerWidgetObject(widgetObject);
-
-    // dispose inner contents if not appending
-
-    if (!append) {
-      // if root div
-
-      if (Constants.typeBigBang == widgetObject.context.parent.widgetType) {
-        var element = document.getElementById(renderObject.context.parent.key);
-
-        if (null == element) {
-          throw "Unable to find target to mount app. Make sure your DOM has element with id #${renderObject.context.parent}";
+          element.innerHtml = "";
         }
+      }
 
-        element.innerHtml = "";
-      } else {
-        // else it's in widget tree
+      widgetObject.renderObject.beforeMount();
 
-        _disposeWidget(
-          preserveTarget: true,
-          widgetObject: _getWidgetObject(widgetObject.context.parent.key),
-        );
+      widgetObject.mount();
+
+      widgetObject.renderObject.afterMount();
+
+      widgetObject.build();
+
+      // unset flag
+      // because remaining childs must not remove newly added childs
+      flagCleanParentContents = false;
+    }
+  }
+
+  static updateChildren({
+    // widgets to build
+    required List<Widget> widgets,
+    required BuildContext parentContext,
+    ElementCallback? elementCallback,
+    //
+    // -- flags for special nodes --
+    //
+    flagHideObsoluteChildren = false,
+    flagDisposeObsoluteChildren = true,
+    //
+    // -- flags for widgets that aren't found in tree --
+    //
+    flagAddIfNotFound = false,
+    //
+    // -- hard flags, can cause subtree rebuilds --
+    //
+    flagTolerateMissingChildren = false,
+    flagTolerateChildrenCountMisMatch = false,
+    //
+  }) {
+    if (!_isInit) {
+      throw "Framework not initialized. If you're building your own AppWidget implementation, make sure to call Framework.init()";
+    }
+
+    void dispatchCompleteRebuild() {
+      buildChildren(
+        widgets: widgets,
+        parentContext: parentContext,
+        elementCallback: elementCallback,
+      );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | get parent
+    |--------------------------------------------------------------------------
+    */
+
+    var parentElement = document.getElementById(parentContext.key);
+
+    if (null == parentElement) {
+      return dispatchCompleteRebuild();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | ensure children count match if flag is on
+    |--------------------------------------------------------------------------
+    */
+
+    if (!flagTolerateChildrenCountMisMatch) {
+      if (parentElement.children.length != widgets.length) {
+        return dispatchCompleteRebuild();
       }
     }
 
-    widgetObject.renderObject.beforeMount();
+    /*
+    |--------------------------------------------------------------------------
+    | list of updates  {Node index}: existing {WidgetObject}
+    |--------------------------------------------------------------------------
+    */
 
-    widgetObject.mount();
+    var updates = <String, UpdateObject>{};
 
-    widgetObject.renderObject.afterMount();
+    /*
+    |--------------------------------------------------------------------------
+    | prepare updates
+    |
+    | nested loops? can be improved. yes.
+    | 
+    | given the fact how this works, we can keep track of previously matched
+    | nodes and search just in the remaining nodes... 
+    | 
+    | updates.containsKey(childElement.id) is true most of the time and cases
+    | when its not, we usually hit the child we looking for.
+    |
+    | for now, we don't have any problem here, plus most widgets have only one
+    | child. 
+    | but if required, this loop can be improved.
+    |--------------------------------------------------------------------------
+    */
 
-    widgetObject.build();
-  }
-
-  /// partially apply [buildWidget]
-  /// set update flag to true
-  ///
-  static updateWidget({
-    required Widget widget,
-    required BuildContext parentContext,
-    List<String>? styles,
-  }) {
-    buildWidget(
-      append: false,
-      update: true,
-      widget: widget,
-      parentContext: parentContext,
-      styles: styles,
-    );
-  }
-
-  // internals
-
-  static WidgetObject? _findExistingWidgetObject({
-    required Widget widget,
-    required RenderObject renderObject,
-  }) {
-    var parentKey = renderObject.context.parent.key;
-
-    var parentElement = document.getElementById(parentKey);
-
-    // if parent exists
-    if (null != parentElement) {
-      //
-      // if parent has childs
-      if (parentElement.children.isNotEmpty) {
-        //
-        // for each child
-        for (var childElement in parentElement.children) {
+    widgetLoop:
+    for (var widget in widgets) {
+      for (var childElement in parentElement.children) {
+        // if not already selected
+        if (!updates.containsKey(childElement.id)) {
           //
           // if there's child that has same type
           if (childElement.dataset.isNotEmpty &&
               childElement.dataset["wtype"] == widget.type) {
-            return _getWidgetObject(childElement.id);
+            // add to updates list
+            updates[childElement.id] = UpdateObject(widget, childElement.id);
+
+            continue widgetLoop;
           }
         }
       }
+
+      // child is missing
+
+      if (!flagTolerateChildrenCountMisMatch) {
+        return dispatchCompleteRebuild();
+      }
+
+      // if flag is on for missing childs
+
+      if (flagAddIfNotFound) {
+        updates["_${Utils.generateMonotonicId()}"] = UpdateObject(widget, null);
+      }
     }
 
-    return null;
+    /*
+    |--------------------------------------------------------------------------
+    | publish widget updates
+    |--------------------------------------------------------------------------
+    */
+
+    updates.forEach((elementId, updateObject) {
+      if (null != updateObject.existingElementId) {
+        var existingWidgetObject = _getWidgetObject(elementId);
+
+        // if found
+        if (null != existingWidgetObject) {
+          // get updated render object
+          var renderObject = updateObject.widget.builder(
+            BuildContext(
+              key: Constants.keyNotSet,
+              parent: parentContext,
+              widgetType: updateObject.widget.type,
+              widgetDomTag: updateObject.widget.tag,
+            ),
+          );
+
+          //
+          // if there's element callback
+          //
+          if (null != elementCallback) {
+            elementCallback(existingWidgetObject.htmlElement);
+          }
+          //
+          // publish update
+          return existingWidgetObject.renderObject.update(
+            existingWidgetObject,
+            renderObject,
+          );
+        } else {
+          if (!flagTolerateChildrenCountMisMatch) {
+            return dispatchCompleteRebuild();
+          }
+        }
+      } else {
+        if (flagAddIfNotFound) {
+          buildChildren(
+            widgets: [updateObject.widget],
+            parentContext: parentContext,
+            elementCallback: elementCallback,
+          );
+        }
+      }
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | deal with obsolute nodes
+    |--------------------------------------------------------------------------
+    */
+
+    for (var childElement in parentElement.children) {
+      if (!updates.containsKey(childElement.id)) {
+        if (flagDisposeObsoluteChildren) {
+          _disposeWidget(
+            widgetObject: _getWidgetObject(childElement.id),
+            preserveTarget: false,
+          );
+        } else if (flagHideObsoluteChildren) {
+          _hideElement(childElement);
+        }
+      }
+    }
   }
+
+  // internals
 
   static _disposeWidget({
     WidgetObject? widgetObject,
@@ -263,6 +365,10 @@ class Framework {
     // remove dom node
 
     widgetObject.htmlElement.remove();
+  }
+
+  static _hideElement(Element element) {
+    element.classes.add('rad-hidden');
   }
 
   static WidgetObject? _getWidgetObject(String widgetKey) {

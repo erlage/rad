@@ -28,12 +28,6 @@ class WidgetObject {
     htmlElement.dataset["wtype"] = renderObject.context.widgetType;
   }
 
-  void injectStyles(List<String>? styles) {
-    if (null != styles && styles.isNotEmpty) {
-      htmlElement.classes.addAll(styles);
-    }
-  }
-
   void mount() {
     if (isMounted) {
       throw "Widget is already mounted.";

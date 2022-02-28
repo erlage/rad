@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
@@ -53,28 +55,35 @@ class AlignRenderObject extends RenderObject {
 
   @override
   build(widgetObject) {
-    Framework.buildWidget(
-      widget: child,
+    Framework.buildChildren(
+      widgets: [child],
       parentContext: context,
-      styles: [
-        getAlignmentStyle(this),
-      ],
+      elementCallback: (element) => updateStyleProps(this, element),
     );
   }
 
   @override
   update(widgetObject, updatedRenderObject) {
-    Framework.updateWidget(
-      widget: child,
+    Framework.updateChildren(
+      widgets: [child],
       parentContext: context,
-      styles: [
-        getAlignmentStyle(updatedRenderObject as AlignRenderObject),
-      ],
+      elementCallback: (element) => updateStyleProps(
+        updatedRenderObject as AlignRenderObject,
+        element,
+      ),
     );
   }
 
-  getAlignmentStyle(AlignRenderObject renderObject) {
-    switch (renderObject.alignment) {
+  updateStyleProps(AlignRenderObject renderObject, Element element) {
+    // remove previous
+    element.classes.remove(getAlignmentStyle(alignment));
+
+    // add current
+    element.classes.add(getAlignmentStyle(renderObject.alignment));
+  }
+
+  getAlignmentStyle(Alignment alignment) {
+    switch (alignment) {
       case Alignment.topRight:
         return "rad-align-top-right";
 

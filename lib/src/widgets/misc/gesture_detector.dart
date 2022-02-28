@@ -107,10 +107,7 @@ class GestureDetectorRenderObject extends RenderObject {
       behaviour == HitTestBehavior.opaque,
     );
 
-    Framework.buildWidget(
-      widget: child,
-      parentContext: context,
-    );
+    Framework.buildChildren(widgets: [child], parentContext: context);
   }
 
   @override
@@ -119,9 +116,6 @@ class GestureDetectorRenderObject extends RenderObject {
 
     // TODO implement
 
-    Framework.updateWidget(
-      widget: child,
-      parentContext: context,
-    );
+    Framework.updateChildren(widgets: [child], parentContext: context);
   }
 }

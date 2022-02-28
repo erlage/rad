@@ -69,10 +69,7 @@ class StackRenderObject extends RenderObject {
       widgetObject.htmlElement.className += " $style";
     }
 
-    Framework.buildMultipleChildWidgets(
-      context: context,
-      widgets: children,
-    );
+    Framework.buildChildren(widgets: children, parentContext: context);
   }
 
   @override

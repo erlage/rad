@@ -71,10 +71,7 @@ class ContainerRenderObject extends RenderObject {
   build(widgetObject) {
     applyProps(widgetObject, this);
 
-    Framework.buildWidget(
-      widget: child,
-      parentContext: context,
-    );
+    Framework.buildChildren(widgets: [child], parentContext: context);
   }
 
   @override
@@ -85,10 +82,7 @@ class ContainerRenderObject extends RenderObject {
 
     applyProps(widgetObject, updatedRenderObject);
 
-    Framework.updateWidget(
-      widget: child,
-      parentContext: context,
-    );
+    Framework.updateChildren(widgets: [child], parentContext: context);
   }
 
   void applyProps(

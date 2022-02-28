@@ -3,6 +3,19 @@ import 'dart:math';
 import 'package:rad/src/core/enums.dart';
 
 class Utils {
+  static var _widgetCount = 0;
+  static var _monotonicId = 0;
+
+  static generateWidgetId() {
+    _widgetCount++;
+    return _widgetCount.toString() + "_" + Utils.random();
+  }
+
+  static generateMonotonicId() {
+    _monotonicId++;
+    return _monotonicId.toString() + "_" + Utils.random();
+  }
+
   static String mapDomTag(DomTag tag) {
     switch (tag) {
       case DomTag.div:

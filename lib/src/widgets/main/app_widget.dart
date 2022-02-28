@@ -20,8 +20,8 @@ abstract class AppWidget<T> extends Widget {
   }) {
     Framework.init();
 
-    Framework.buildWidget(
-      widget: this,
+    Framework.buildChildren(
+      widgets: [this],
       parentContext: BuildContext.bigBang(targetId),
     );
   }
@@ -62,10 +62,7 @@ class AppWidgetRenderObject<T> extends RenderObject {
       Framework.addGlobalStyles(GEN_STYLES_RAD_APP_CSS);
     }
 
-    Framework.buildWidget(
-      widget: child,
-      parentContext: context,
-    );
+    Framework.buildChildren(widgets: [child], parentContext: context);
   }
 
   @override

@@ -8,18 +8,18 @@ class OverlayState {
   OverlayState(this.widgetObject);
 
   insert(OverlayEntry overlayEntry) {
-    Framework.buildWidget(
-      append: true,
-      widget: overlayEntry,
+    Framework.buildChildren(
+      flagCleanParentContents: false,
+      widgets: [overlayEntry],
       parentContext: widgetObject.context,
     );
   }
 
   insertAll(List<OverlayEntry> entries) {
-    Framework.buildMultipleChildWidgets(
+    Framework.buildChildren(
+      flagCleanParentContents: false,
       widgets: entries,
-      context: widgetObject.context,
-      append: true,
+      parentContext: widgetObject.context,
     );
   }
 }

@@ -149,10 +149,7 @@ abstract class StatefulWidget extends Widget {
       callable();
     }
 
-    Framework.updateWidget(
-      widget: build(context),
-      parentContext: context,
-    );
+    Framework.updateChildren(widgets: [build(context)], parentContext: context);
 
     _isRebuilding = false;
   }
@@ -192,20 +189,12 @@ class StatefulWidgetRenderObject extends RenderObject {
 
   @override
   build(widgetObject) {
-    Framework.buildWidget(
-      widget: child,
-      parentContext: context,
-    );
+    Framework.buildChildren(widgets: [child], parentContext: context);
   }
 
   @override
   update(widgetObject, updatedRenderObject) {
-    updatedRenderObject as StatefulWidgetRenderObject;
-
-    Framework.updateWidget(
-      widget: child,
-      parentContext: context,
-    );
+    Framework.updateChildren(widgets: [child], parentContext: context);
   }
 
   @override

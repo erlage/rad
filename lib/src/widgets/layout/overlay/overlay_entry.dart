@@ -59,8 +59,8 @@ class OverlayEntryRenderObject extends RenderObject {
       widgetObject.htmlElement.className += " $style";
     }
 
-    Framework.buildWidget(
-      widget: child,
+    Framework.buildChildren(
+      widgets: [child],
       parentContext: context,
     );
   }
@@ -71,8 +71,8 @@ class OverlayEntryRenderObject extends RenderObject {
 
     // TODO implement
 
-    Framework.updateWidget(
-      widget: child,
+    Framework.updateChildren(
+      widgets: [child],
       parentContext: context,
     );
   }
