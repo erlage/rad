@@ -1,8 +1,8 @@
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
+import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/structures/buildable_context.dart';
 import 'package:rad/src/core/utils.dart';
 
 /// A widget that controls position of it's child. Can be used
@@ -52,6 +52,12 @@ class Positioned extends Widget {
         sizingUnit = MeasuringUnit.percent;
 
   @override
+  String get type => (Positioned).toString();
+
+  @override
+  DomTag get tag => DomTag.div;
+
+  @override
   builder(context) {
     return PositionedRenderObject(
       top: top,
@@ -63,12 +69,12 @@ class Positioned extends Widget {
       sizingUnit: sizingUnit ?? MeasuringUnit.pixel,
       positioningUnit: positioningUnit ?? MeasuringUnit.pixel,
       child: child,
-      buildableContext: context.mergeKey(key),
+      context: context.mergeKey(key),
     );
   }
 }
 
-class PositionedRenderObject extends RenderObject<Positioned> {
+class PositionedRenderObject extends RenderObject {
   final Widget child;
 
   final int? top;
@@ -81,8 +87,6 @@ class PositionedRenderObject extends RenderObject<Positioned> {
   final int? height;
   final MeasuringUnit sizingUnit;
 
-  final BuildableContext buildableContext;
-
   PositionedRenderObject({
     this.top,
     this.bottom,
@@ -93,11 +97,8 @@ class PositionedRenderObject extends RenderObject<Positioned> {
     required this.positioningUnit,
     required this.sizingUnit,
     required this.child,
-    required this.buildableContext,
-  }) : super(
-          domTag: DomTag.div,
-          buildableContext: buildableContext,
-        );
+    required BuildContext context,
+  }) : super(context);
 
   @override
   render(widgetObject) {

@@ -20,7 +20,7 @@ class WidgetObject {
   }) : context = renderObject.context;
 
   void createHtmlElement() {
-    var tag = Utils.mapDomTag(renderObject.domTag);
+    var tag = Utils.mapDomTag(widget.tag);
 
     htmlElement = document.createElement(tag) as HtmlElement;
 
@@ -41,7 +41,9 @@ class WidgetObject {
 
     // we can't use node.parent here cus root widget's parent can be null
 
-    var parentElement = document.getElementById(renderObject.context.parentKey);
+    var parentElement = document.getElementById(
+      renderObject.context.parent.key,
+    );
 
     if (null == parentElement) {
       throw "Unable to find parent widget of element #${context.key}. Either disposed or something went wrong;";

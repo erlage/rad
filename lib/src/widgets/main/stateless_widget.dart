@@ -1,6 +1,5 @@
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/framework.dart';
-import 'package:rad/src/core/structures/buildable_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/structures/build_context.dart';
@@ -33,10 +32,14 @@ abstract class StatelessWidget extends Widget {
   Widget build(BuildContext context);
 
   @override
+  String get type => (StatelessWidget).toString();
+
+  @override
+  DomTag get tag => DomTag.div;
+
+  @override
   builder(context) {
-    var renderObject = StatelessWidgetRenderObject(
-      buildableContext: context.mergeKey(key),
-    );
+    var renderObject = StatelessWidgetRenderObject(context.mergeKey(key));
 
     renderObject.child = build(renderObject.context);
 
@@ -44,17 +47,10 @@ abstract class StatelessWidget extends Widget {
   }
 }
 
-class StatelessWidgetRenderObject extends RenderObject<StatelessWidget> {
+class StatelessWidgetRenderObject extends RenderObject {
   late final Widget child;
 
-  final BuildableContext buildableContext;
-
-  StatelessWidgetRenderObject({
-    required this.buildableContext,
-  }) : super(
-          domTag: DomTag.div,
-          buildableContext: buildableContext,
-        );
+  StatelessWidgetRenderObject(BuildContext context) : super(context);
 
   @override
   render(widgetObject) {

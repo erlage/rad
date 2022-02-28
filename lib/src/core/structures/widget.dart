@@ -1,5 +1,6 @@
+import 'package:rad/rad.dart';
+import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/structures/buildable_context.dart';
 
 /// Describes the configuration for an [RenderObject].
 ///
@@ -9,7 +10,10 @@ import 'package:rad/src/core/structures/buildable_context.dart';
 abstract class Widget {
   const Widget();
 
-  RenderObject builder(BuildableContext context);
+  DomTag get tag;
+  String get type;
+
+  RenderObject builder(BuildContext context);
 
   void createState(RenderObject renderObject) {}
 }

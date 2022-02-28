@@ -1,8 +1,8 @@
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
+import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/structures/buildable_context.dart';
 import 'package:rad/src/core/utils.dart';
 
 /// A widget to contain a widget in itself.
@@ -30,6 +30,12 @@ class Container extends Widget {
   });
 
   @override
+  String get type => (Container).toString();
+
+  @override
+  DomTag get tag => DomTag.div;
+
+  @override
   builder(context) {
     return ContainerRenderObject(
       child: child,
@@ -37,12 +43,12 @@ class Container extends Widget {
       width: width,
       height: height,
       sizingUnit: sizingUnit ?? MeasuringUnit.pixel,
-      buildableContext: context.mergeKey(key),
+      context: context.mergeKey(key),
     );
   }
 }
 
-class ContainerRenderObject extends RenderObject<Container> {
+class ContainerRenderObject extends RenderObject {
   final Widget child;
   final String style;
 
@@ -50,19 +56,14 @@ class ContainerRenderObject extends RenderObject<Container> {
   final int? height;
   final MeasuringUnit sizingUnit;
 
-  final BuildableContext buildableContext;
-
   ContainerRenderObject({
     required this.child,
     required this.style,
     this.width,
     this.height,
     required this.sizingUnit,
-    required this.buildableContext,
-  }) : super(
-          domTag: DomTag.div,
-          buildableContext: buildableContext,
-        );
+    required BuildContext context,
+  }) : super(context);
 
   @override
   render(widgetObject) {

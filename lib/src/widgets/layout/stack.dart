@@ -1,8 +1,8 @@
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/structures/buildable_context.dart';
-import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/framework.dart';
+import 'package:rad/src/core/structures/build_context.dart';
+import 'package:rad/src/core/structures/widget.dart';
 
 /// A widget that positions its children relative to the edges of its box.
 ///
@@ -37,6 +37,12 @@ class Stack extends Widget {
   });
 
   @override
+  String get type => (Stack).toString();
+
+  @override
+  DomTag get tag => DomTag.div;
+
+  @override
   builder(context) {
     return StackRenderObject(
       style: style ?? '',
@@ -46,18 +52,15 @@ class Stack extends Widget {
   }
 }
 
-class StackRenderObject extends RenderObject<Stack> {
+class StackRenderObject extends RenderObject {
   final String style;
   final List<Widget> children;
 
   StackRenderObject({
     required this.style,
     required this.children,
-    required BuildableContext context,
-  }) : super(
-          domTag: DomTag.div,
-          buildableContext: context,
-        );
+    required BuildContext context,
+  }) : super(context);
 
   @override
   render(widgetObject) {

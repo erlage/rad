@@ -2,10 +2,9 @@ import 'dart:html';
 
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/structures/buildable_context.dart';
-import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/structures/build_context.dart';
+import 'package:rad/src/core/structures/widget.dart';
 
 /// A widget that has mutable state.
 ///
@@ -150,18 +149,16 @@ abstract class StatefulWidget extends Widget {
       callable();
     }
 
-    // get new interface
-
-    _renderObject.child = build(context);
-
-    // do rebuild
-
-    _renderObject.rebuild();
-
     _isRebuilding = false;
   }
 
   void dispose() {}
+
+  @override
+  String get type => (StatefulWidget).toString();
+
+  @override
+  DomTag get tag => DomTag.div;
 
   @override
   builder(context) => StatefulWidgetRenderObject(context.mergeKey(key));
@@ -182,17 +179,11 @@ abstract class StatefulWidget extends Widget {
   }
 }
 
-class StatefulWidgetRenderObject extends RenderObject<StatefulWidget> {
+class StatefulWidgetRenderObject extends RenderObject {
   late final Widget child;
   late final VoidCallback dispose;
 
-  final BuildableContext buildableContext;
-
-  StatefulWidgetRenderObject(this.buildableContext)
-      : super(
-          domTag: DomTag.div,
-          buildableContext: buildableContext,
-        );
+  StatefulWidgetRenderObject(BuildContext context) : super(context);
 
   @override
   render(widgetObject) {

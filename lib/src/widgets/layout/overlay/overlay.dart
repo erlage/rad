@@ -2,7 +2,6 @@ import 'package:rad/rad.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/structures/buildable_context.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay_entry.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay_state.dart';
 
@@ -53,30 +52,31 @@ class Overlay extends Widget {
   }
 
   @override
+  String get type => (Overlay).toString();
+
+  @override
+  DomTag get tag => DomTag.div;
+
+  @override
   builder(context) {
     return OverlayRenderObject(
       style: style ?? '',
       initialEntries: initialEntries,
-      buildableContext: context.mergeKey(key),
+      context: context.mergeKey(key),
     );
   }
 }
 
-class OverlayRenderObject extends RenderObject<Overlay> {
+class OverlayRenderObject extends RenderObject {
   final String style;
 
   final List<OverlayEntry> initialEntries;
 
-  final BuildableContext buildableContext;
-
   OverlayRenderObject({
     required this.style,
     required this.initialEntries,
-    required this.buildableContext,
-  }) : super(
-          domTag: DomTag.div,
-          buildableContext: buildableContext,
-        );
+    required BuildContext context,
+  }) : super(context);
 
   @override
   render(widgetObject) {

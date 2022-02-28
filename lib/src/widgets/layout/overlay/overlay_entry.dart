@@ -1,8 +1,7 @@
+import 'package:rad/rad.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/structures/buildable_context.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay_state.dart';
 
 /// A place in an [Overlay] that can contain a widget.
@@ -29,29 +28,30 @@ class OverlayEntry extends Widget {
   });
 
   @override
+  String get type => (OverlayEntry).toString();
+
+  @override
+  DomTag get tag => DomTag.div;
+
+  @override
   builder(context) {
     return OverlayEntryRenderObject(
       child: child,
       style: style ?? '',
-      buildableContext: context.mergeKey(key),
+      context: context.mergeKey(key),
     );
   }
 }
 
-class OverlayEntryRenderObject extends RenderObject<OverlayEntry> {
+class OverlayEntryRenderObject extends RenderObject {
   final Widget child;
   final String style;
-
-  final BuildableContext buildableContext;
 
   OverlayEntryRenderObject({
     required this.child,
     required this.style,
-    required this.buildableContext,
-  }) : super(
-          domTag: DomTag.div,
-          buildableContext: buildableContext,
-        );
+    required BuildContext context,
+  }) : super(context);
 
   @override
   render(widgetObject) {

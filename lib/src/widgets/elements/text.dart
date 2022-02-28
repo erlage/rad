@@ -1,6 +1,5 @@
+import 'package:rad/rad.dart';
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/structures/buildable_context.dart';
-import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 
 /// A run of text with a single style.
@@ -27,32 +26,33 @@ class Text extends Widget {
   });
 
   @override
+  String get type => (Text).toString();
+
+  @override
+  DomTag get tag => DomTag.span;
+
+  @override
   builder(context) {
     return TextRenderObject(
       text: text,
       style: style ?? '',
       isHtml: isHtml ?? false,
-      buildableContext: context.mergeKey(key),
+      context: context.mergeKey(key),
     );
   }
 }
 
-class TextRenderObject extends RenderObject<Text> {
+class TextRenderObject extends RenderObject {
   final String text;
   final bool isHtml;
   final String style;
-
-  final BuildableContext buildableContext;
 
   TextRenderObject({
     required this.text,
     required this.style,
     required this.isHtml,
-    required this.buildableContext,
-  }) : super(
-          domTag: DomTag.span,
-          buildableContext: buildableContext,
-        );
+    required BuildContext context,
+  }) : super(context);
 
   @override
   render(widgetObject) {

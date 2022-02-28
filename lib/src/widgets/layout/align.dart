@@ -1,8 +1,8 @@
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/structures/buildable_context.dart';
-import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/structures/build_context.dart';
+import 'package:rad/src/core/structures/widget.dart';
 
 /// A widget that aligns its child within itself.
 ///
@@ -25,29 +25,30 @@ class Align extends Widget {
   });
 
   @override
+  String get type => (Align).toString();
+
+  @override
+  DomTag get tag => DomTag.div;
+
+  @override
   builder(context) {
     return AlignRenderObject(
       child: child,
       alignment: alignment,
-      buildableContext: context.mergeKey(key),
+      context: context.mergeKey(key),
     );
   }
 }
 
-class AlignRenderObject extends RenderObject<Align> {
+class AlignRenderObject extends RenderObject {
   final Widget child;
   final Alignment alignment;
-
-  final BuildableContext buildableContext;
 
   AlignRenderObject({
     required this.child,
     required this.alignment,
-    required this.buildableContext,
-  }) : super(
-          domTag: DomTag.div,
-          buildableContext: buildableContext,
-        );
+    required BuildContext context,
+  }) : super(context);
 
   @override
   render(widgetObject) {

@@ -1,10 +1,10 @@
 import 'dart:html';
 
-import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/structures/buildable_context.dart';
-import 'package:rad/src/core/structures/widget.dart';
+import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/structures/build_context.dart';
+import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/types.dart';
 
 /// A widget that detects gestures.
@@ -38,18 +38,24 @@ class GestureDetector extends Widget {
   });
 
   @override
+  String get type => (GestureDetector).toString();
+
+  @override
+  DomTag get tag => DomTag.div;
+
+  @override
   builder(context) {
     return GestureDetectorRenderObject(
       child: child,
       onTap: onTap,
       onTapEvent: onTapEvent,
       behaviour: behaviour ?? HitTestBehavior.deferToChild,
-      buildableContext: context.mergeKey(key),
+      context: context.mergeKey(key),
     );
   }
 }
 
-class GestureDetectorRenderObject extends RenderObject<GestureDetector> {
+class GestureDetectorRenderObject extends RenderObject {
   final Widget child;
   final VoidCallback? onTap;
   final OnTapEventCallback? onTapEvent;
@@ -60,11 +66,8 @@ class GestureDetectorRenderObject extends RenderObject<GestureDetector> {
     required this.onTap,
     required this.onTapEvent,
     required this.behaviour,
-    required BuildableContext buildableContext,
-  }) : super(
-          buildableContext: buildableContext,
-          domTag: DomTag.span,
-        );
+    required BuildContext context,
+  }) : super(context);
 
   @override
   render(widgetObject) {

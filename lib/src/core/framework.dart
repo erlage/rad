@@ -5,7 +5,6 @@ import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/structures/build_context.dart';
-import 'package:rad/src/core/structures/buildable_context.dart';
 
 class Framework {
   static var _isInit = false;
@@ -42,7 +41,7 @@ class Framework {
   }
 
   static WidgetObject? findAncestorOfType<WidgetType>(BuildContext context) {
-    if (Constants.inBuildPhase == context.key) {
+    if (Constants.keyNotSet == context.key) {
       throw "Part of build context is not ready. This means that context is under construction.";
     }
 
@@ -93,8 +92,17 @@ class Framework {
     }
 
     var renderObject = widget.builder(
-      BuildableContext(parentKey: parentContext.key),
+      BuildContext(
+        key: Constants.keyNotSet,
+        parent: parentContext,
+        widgetType: widget.type,
+        widgetDomTag: widget.tag,
+      ),
     );
+
+    if (Constants.keyNotSet == renderObject.context.key) {
+      renderObject.context.key = generateId();
+    }
 
     widget.createState(renderObject);
 
@@ -111,11 +119,11 @@ class Framework {
     if (!append) {
       // if root div
 
-      if (Constants.bigBang == widgetObject.context.parentKey) {
-        var element = document.getElementById(renderObject.context.parentKey);
+      if (Constants.typeBigBang == widgetObject.context.parent.widgetType) {
+        var element = document.getElementById(renderObject.context.parent.key);
 
         if (null == element) {
-          throw "Unable to find target to mount app. Make sure your DOM has element with id #${renderObject.context.parentKey}";
+          throw "Unable to find target to mount app. Make sure your DOM has element with id #${renderObject.context.parent}";
         }
 
         element.innerHtml = "";
@@ -124,7 +132,7 @@ class Framework {
 
         _disposeWidget(
           preserveTarget: true,
-          widgetObject: _getWidgetObject(widgetObject.context.parentKey),
+          widgetObject: _getWidgetObject(widgetObject.context.parent.key),
         );
       }
     }
