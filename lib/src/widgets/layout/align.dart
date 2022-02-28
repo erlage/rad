@@ -18,17 +18,17 @@ class Align extends Widget {
   final Widget child;
   final Alignment alignment;
 
-  const Align({
-    this.key,
-    required this.child,
-    required this.alignment,
-  });
-
   @override
   String get type => (Align).toString();
 
   @override
   DomTag get tag => DomTag.div;
+
+  const Align({
+    this.key,
+    required this.child,
+    required this.alignment,
+  });
 
   @override
   builder(context) {
@@ -52,32 +52,12 @@ class AlignRenderObject extends RenderObject {
 
   @override
   build(widgetObject) {
-    var stylesToInjectIntoChilds = <String>[];
-
-    switch (alignment) {
-      case Alignment.topRight:
-        stylesToInjectIntoChilds.add("rad-align-top-right");
-        break;
-
-      case Alignment.bottomRight:
-        stylesToInjectIntoChilds.add("rad-align-bottom-right");
-        break;
-
-      case Alignment.bottomLeft:
-        stylesToInjectIntoChilds.add("rad-align-bottom-left");
-        break;
-
-      case Alignment.topLeft:
-        stylesToInjectIntoChilds.add("rad-align-top-left");
-        break;
-
-      // dart tooling supports exhaustive checking... that's cool!
-    }
-
     Framework.buildWidget(
       widget: child,
       parentContext: context,
-      styles: stylesToInjectIntoChilds,
+      styles: [
+        getAlignmentStyle(this),
+      ],
     );
   }
 
@@ -85,11 +65,30 @@ class AlignRenderObject extends RenderObject {
   update(widgetObject, updatedRenderObject) {
     updatedRenderObject as AlignRenderObject;
 
-    // TODO implement
-
     Framework.updateWidget(
       widget: child,
       parentContext: context,
+      styles: [
+        getAlignmentStyle(updatedRenderObject),
+      ],
     );
+  }
+
+  getAlignmentStyle(AlignRenderObject renderObject) {
+    switch (renderObject.alignment) {
+      case Alignment.topRight:
+        return "rad-align-top-right";
+
+      case Alignment.bottomRight:
+        return "rad-align-bottom-right";
+
+      case Alignment.bottomLeft:
+        return "rad-align-bottom-left";
+
+      case Alignment.topLeft:
+        return "rad-align-top-left";
+
+      // dart tooling supports exhaustive checking... that's cool!
+    }
   }
 }
