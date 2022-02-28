@@ -64,4 +64,16 @@ class OverlayEntryRenderObject extends RenderObject {
       parentContext: context,
     );
   }
+
+  @override
+  update(widgetObject, updatedRenderObject) {
+    updatedRenderObject as OverlayEntryRenderObject;
+
+    // TODO implement
+
+    Framework.updateWidget(
+      widget: child,
+      parentContext: context,
+    );
+  }
 }

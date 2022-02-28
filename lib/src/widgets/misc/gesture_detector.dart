@@ -69,20 +69,6 @@ class GestureDetectorRenderObject extends RenderObject {
     required BuildContext context,
   }) : super(context);
 
-  @override
-  render(widgetObject) {
-    widgetObject.htmlElement.addEventListener(
-      "click",
-      _handleOnTap,
-      behaviour == HitTestBehavior.opaque,
-    );
-
-    Framework.buildWidget(
-      widget: child,
-      parentContext: context,
-    );
-  }
-
   _handleOnTap(Event event) {
     event.preventDefault();
 
@@ -111,5 +97,31 @@ class GestureDetectorRenderObject extends RenderObject {
     if (null != userDefinedOnTap) {
       userDefinedOnTap();
     }
+  }
+
+  @override
+  render(widgetObject) {
+    widgetObject.htmlElement.addEventListener(
+      "click",
+      _handleOnTap,
+      behaviour == HitTestBehavior.opaque,
+    );
+
+    Framework.buildWidget(
+      widget: child,
+      parentContext: context,
+    );
+  }
+
+  @override
+  update(widgetObject, updatedRenderObject) {
+    updatedRenderObject as GestureDetectorRenderObject;
+
+    // TODO implement
+
+    Framework.updateWidget(
+      widget: child,
+      parentContext: context,
+    );
   }
 }

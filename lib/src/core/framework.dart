@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/utils.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
@@ -83,6 +84,7 @@ class Framework {
 
   static buildWidget({
     append = false,
+    update = false,
     required Widget widget,
     required BuildContext parentContext,
     List<String>? styles,
@@ -90,6 +92,8 @@ class Framework {
     if (!_isInit) {
       throw "Framework not initialized. If you're building your own AppWidget implementation, make sure to call Framework.init()";
     }
+
+    // get render object for widget
 
     var renderObject = widget.builder(
       BuildContext(
@@ -99,6 +103,28 @@ class Framework {
         widgetDomTag: widget.tag,
       ),
     );
+
+    // if a rebuild request
+    if (update) {
+      //
+      // try to find a existing widget object
+      var existingWidgetObject = _findExistingWidgetObject(
+        widget: widget,
+        renderObject: renderObject,
+      );
+
+      // if found
+      if (null != existingWidgetObject) {
+        //
+        // let child decide what's need to be updated
+        return existingWidgetObject.renderObject.update(
+          existingWidgetObject,
+          renderObject,
+        );
+      }
+    }
+
+    // if not a update request
 
     if (Constants.keyNotSet == renderObject.context.key) {
       renderObject.context.key = generateId();
@@ -146,22 +172,52 @@ class Framework {
     widgetObject.render();
   }
 
+  /// partially apply [buildWidget]
+  /// set update flag to true
+  ///
+  static updateWidget({
+    required Widget widget,
+    required BuildContext parentContext,
+    List<String>? styles,
+  }) {
+    buildWidget(
+      append: false,
+      update: true,
+      widget: widget,
+      parentContext: parentContext,
+      styles: styles,
+    );
+  }
+
   // internals
 
-  static _tryRebuildingWidgetHavingKey(String widgetKey) {
-    var widgetObject = _getWidgetObject(widgetKey);
+  static WidgetObject? _findExistingWidgetObject({
+    required Widget widget,
+    required RenderObject renderObject,
+  }) {
+    var parentKey = renderObject.context.parent.key;
 
-    if (null == widgetObject) {
-      // widget doesn't exists
+    var parentElement = document.getElementById(parentKey);
 
-      return false;
+    // if parent exists
+    if (null != parentElement) {
+      //
+      // if parent has childs
+      if (parentElement.children.isNotEmpty) {
+        //
+        // for each child
+        for (var childElement in parentElement.children) {
+          //
+          // if there's child that has same type
+          if (childElement.dataset.isNotEmpty &&
+              childElement.dataset["wtype"] == widget.type) {
+            return _getWidgetObject(childElement.id);
+          }
+        }
+      }
     }
 
-    _disposeWidget(widgetObject: widgetObject, preserveTarget: true);
-
-    widgetObject.renderObject.render(widgetObject);
-
-    return true;
+    return null;
   }
 
   static _disposeWidget({

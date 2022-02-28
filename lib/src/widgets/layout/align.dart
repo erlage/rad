@@ -80,4 +80,16 @@ class AlignRenderObject extends RenderObject {
       styles: stylesToInjectIntoChilds,
     );
   }
+
+  @override
+  update(widgetObject, updatedRenderObject) {
+    updatedRenderObject as AlignRenderObject;
+
+    // TODO implement
+
+    Framework.updateWidget(
+      widget: child,
+      parentContext: context,
+    );
+  }
 }

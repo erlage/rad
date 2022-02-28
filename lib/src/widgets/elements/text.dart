@@ -68,4 +68,11 @@ class TextRenderObject extends RenderObject {
 
     widgetObject.htmlElement.innerText = text;
   }
+
+  @override
+  update(widgetObject, updatedRenderObject) {
+    updatedRenderObject as TextRenderObject;
+
+    // TODO implement
+  }
 }

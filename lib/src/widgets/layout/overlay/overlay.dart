@@ -89,4 +89,11 @@ class OverlayRenderObject extends RenderObject {
       widgets: initialEntries,
     );
   }
+
+  @override
+  update(widgetObject, updatedRenderObject) {
+    updatedRenderObject as OverlayRenderObject;
+
+    // TODO implement
+  }
 }

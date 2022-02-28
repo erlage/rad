@@ -59,4 +59,14 @@ class StatelessWidgetRenderObject extends RenderObject {
       parentContext: context,
     );
   }
+
+  @override
+  update(widgetObject, updatedRenderObject) {
+    updatedRenderObject as StatelessWidgetRenderObject;
+
+    Framework.updateWidget(
+      widget: child,
+      parentContext: context,
+    );
+  }
 }

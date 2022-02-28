@@ -14,7 +14,5 @@ abstract class RenderObject {
 
   void beforeUnMount() {}
 
-  void rebuild() {
-    // Framework.buildFromRenderObject(this);
-  }
+  void update(WidgetObject widgetObject, RenderObject updatedRenderObject);
 }

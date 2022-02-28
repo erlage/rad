@@ -131,4 +131,16 @@ class PositionedRenderObject extends RenderObject {
       parentContext: context,
     );
   }
+
+  @override
+  void update(widgetObject, updatedRenderObject) {
+    updatedRenderObject as PositionedRenderObject;
+
+    // TODO
+
+    Framework.updateWidget(
+      widget: child,
+      parentContext: context,
+    );
+  }
 }

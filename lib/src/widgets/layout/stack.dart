@@ -1,6 +1,7 @@
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/framework.dart';
+import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 
@@ -72,5 +73,10 @@ class StackRenderObject extends RenderObject {
       context: context,
       widgets: children,
     );
+  }
+
+  @override
+  void update(WidgetObject widgetObject, RenderObject updatedRenderObject) {
+    // TODO
   }
 }

@@ -1,5 +1,6 @@
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
+import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
@@ -56,6 +57,8 @@ class ContainerRenderObject extends RenderObject {
   final int? height;
   final MeasuringUnit sizingUnit;
 
+  late String defaultStyles;
+
   ContainerRenderObject({
     required this.child,
     required this.style,
@@ -65,22 +68,45 @@ class ContainerRenderObject extends RenderObject {
     required BuildContext context,
   }) : super(context);
 
-  @override
-  render(widgetObject) {
-    var sizingUnit = Utils.mapMeasuringUnit(this.sizingUnit);
+  void applyProperties(
+    WidgetObject widgetObj,
+    ContainerRenderObject renderObj,
+  ) {
+    var sizingUnit = Utils.mapMeasuringUnit(renderObj.sizingUnit);
 
     if (null != width) {
-      widgetObject.htmlElement.style.width = width.toString() + sizingUnit;
+      widgetObj.htmlElement.style.width =
+          renderObj.width.toString() + sizingUnit;
     }
     if (null != height) {
-      widgetObject.htmlElement.style.height = height.toString() + sizingUnit;
+      widgetObj.htmlElement.style.height =
+          renderObj.height.toString() + sizingUnit;
     }
 
-    if (style.isNotEmpty) {
-      widgetObject.htmlElement.className += " $style";
+    if (renderObj.style.isNotEmpty) {
+      widgetObj.htmlElement.className = " $defaultStyles ${renderObj.style}";
     }
+  }
+
+  @override
+  render(widgetObject) {
+    defaultStyles = widgetObject.htmlElement.className;
+
+    applyProperties(widgetObject, this);
 
     Framework.buildWidget(
+      widget: child,
+      parentContext: context,
+    );
+  }
+
+  @override
+  update(widgetObject, updatedRenderObject) {
+    updatedRenderObject as ContainerRenderObject;
+
+    applyProperties(widgetObject, updatedRenderObject);
+
+    Framework.updateWidget(
       widget: child,
       parentContext: context,
     );

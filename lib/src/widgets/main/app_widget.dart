@@ -67,4 +67,9 @@ class AppWidgetRenderObject<T> extends RenderObject {
       parentContext: context,
     );
   }
+
+  @override
+  update(widgetObject, updatedRenderObject) {
+    throw "Framework gone wild";
+  }
 }

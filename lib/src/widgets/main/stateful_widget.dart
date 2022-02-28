@@ -149,6 +149,11 @@ abstract class StatefulWidget extends Widget {
       callable();
     }
 
+    Framework.updateWidget(
+      widget: build(context),
+      parentContext: context,
+    );
+
     _isRebuilding = false;
   }
 
@@ -188,6 +193,16 @@ class StatefulWidgetRenderObject extends RenderObject {
   @override
   render(widgetObject) {
     Framework.buildWidget(
+      widget: child,
+      parentContext: context,
+    );
+  }
+
+  @override
+  update(widgetObject, updatedRenderObject) {
+    updatedRenderObject as StatefulWidgetRenderObject;
+
+    Framework.updateWidget(
       widget: child,
       parentContext: context,
     );
