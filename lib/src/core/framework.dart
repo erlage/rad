@@ -173,7 +173,7 @@ class Framework {
 
     widgetObject.renderObject.afterMount();
 
-    widgetObject.render();
+    widgetObject.build();
   }
 
   /// partially apply [buildWidget]

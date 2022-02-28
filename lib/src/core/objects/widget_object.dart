@@ -54,7 +54,7 @@ class WidgetObject {
     isMounted = true;
   }
 
-  void render() {
+  void build() {
     renderObject.build(this);
   }
 }

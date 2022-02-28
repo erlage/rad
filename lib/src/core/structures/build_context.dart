@@ -10,6 +10,10 @@ import 'package:rad/src/core/enums.dart';
 /// of the widget returned by the [StatelessWidget.build] or
 /// [StatefulWidget.build] function or builder's method of Rad widgets.
 ///
+/// [BuildContext] also contains a reference to it's parent's [BuildContext]
+/// which further contains it's parent reference and so on. This can be used
+/// to trace back origin of widget all the way to BigBang(where it all started)
+///
 class BuildContext {
   String key;
   late final String widgetType;
@@ -24,7 +28,15 @@ class BuildContext {
     required this.widgetDomTag,
   });
 
-  /// used for root context
+  /// Create root context.
+  ///
+  /// This is required to bootstrap framework.
+  ///
+  /// Root widget's can have a parent key which points to the place
+  /// where it all started(HTML div) but parent is not a widget and
+  /// its type is undefined because at the time of big bang there
+  /// are no widgets.
+  ///
   BuildContext.bigBang(this.key) {
     widgetDomTag = DomTag.div;
     widgetType = Constants.typeBigBang;
