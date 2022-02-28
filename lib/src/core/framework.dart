@@ -74,16 +74,18 @@ class Framework {
     }
 
     for (var widget in widgets) {
-      var renderObject = widget.buildRenderObject(
-        BuildContext(
-          key: Constants.keyNotSet == widget.initialKey
-              ? Utils.generateWidgetId()
-              : widget.initialKey,
-          parent: parentContext,
-          widgetType: widget.type,
-          widgetDomTag: widget.tag,
-        ),
+      var buildContext = BuildContext(
+        key: Constants.keyNotSet == widget.initialKey
+            ? Utils.generateWidgetId()
+            : widget.initialKey,
+        parent: parentContext,
+        widgetType: widget.type,
+        widgetDomTag: widget.tag,
       );
+      widget.onContextCreate(buildContext);
+
+      var renderObject = widget.buildRenderObject(buildContext);
+      widget.onRenderObjectCreate(renderObject);
 
       var widgetObject = WidgetObject(
         widget: widget,

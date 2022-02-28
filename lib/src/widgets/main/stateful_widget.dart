@@ -102,7 +102,6 @@ abstract class StatefulWidget extends Widget {
   final String? key;
 
   late final BuildContext context;
-  late final StatefulWidgetRenderObject _renderObject;
 
   var _isRebuilding = false;
 
@@ -167,30 +166,38 @@ abstract class StatefulWidget extends Widget {
   String get type => (StatefulWidget).toString();
 
   @override
-  buildRenderObject(context) =>
-      StatefulWidgetRenderObject(context.mergeKey(key));
-
-  @override
-  void createState(RenderObject renderObject) {
-    renderObject as StatefulWidgetRenderObject;
-
-    context = renderObject.context;
-
-    _renderObject = renderObject;
-
-    _renderObject.dispose = dispose;
+  onContextCreate(BuildContext context) {
+    this.context = context;
 
     initState();
+  }
 
-    _renderObject.child = build(context);
+  @override
+  buildRenderObject(context) {
+    this.context = context;
+
+    return StatefulWidgetRenderObject(
+      context: context,
+      child: build(context),
+    );
+  }
+
+  @override
+  onRenderObjectCreate(renderObject) {
+    renderObject as StatefulWidgetRenderObject;
+
+    renderObject.dispose = dispose;
   }
 }
 
 class StatefulWidgetRenderObject extends RenderObject {
-  late final Widget child;
+  final Widget child;
   late final VoidCallback dispose;
 
-  StatefulWidgetRenderObject(BuildContext context) : super(context);
+  StatefulWidgetRenderObject({
+    required this.child,
+    required BuildContext context,
+  }) : super(context);
 
   @override
   build(widgetObject) {

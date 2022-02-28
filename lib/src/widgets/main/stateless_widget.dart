@@ -43,18 +43,20 @@ abstract class StatelessWidget extends Widget {
 
   @override
   buildRenderObject(context) {
-    var renderObject = StatelessWidgetRenderObject(context.mergeKey(key));
-
-    renderObject.child = build(renderObject.context);
-
-    return renderObject;
+    return StatelessWidgetRenderObject(
+      context: context,
+      child: build(context),
+    );
   }
 }
 
 class StatelessWidgetRenderObject extends RenderObject {
-  late final Widget child;
+  final Widget child;
 
-  StatelessWidgetRenderObject(BuildContext context) : super(context);
+  StatelessWidgetRenderObject({
+    required this.child,
+    required BuildContext context,
+  }) : super(context);
 
   @override
   build(widgetObject) {
