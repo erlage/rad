@@ -26,6 +26,7 @@ class WidgetObject {
 
     htmlElement.id = renderObject.context.key;
     htmlElement.dataset["wtype"] = renderObject.context.widgetType;
+    htmlElement.dataset["wclass"] = renderObject.context.widgetClassName;
   }
 
   void mount() {

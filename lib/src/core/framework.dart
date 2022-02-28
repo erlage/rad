@@ -74,13 +74,17 @@ class Framework {
     }
 
     for (var widget in widgets) {
+      // generate key if not set
+      var widgetKey = Constants.keyNotSet == widget.initialKey
+          ? Utils.generateWidgetId()
+          : widget.initialKey;
+
       var buildContext = BuildContext(
-        key: Constants.keyNotSet == widget.initialKey
-            ? Utils.generateWidgetId()
-            : widget.initialKey,
+        key: widgetKey,
         parent: parentContext,
         widgetType: widget.type,
         widgetDomTag: widget.tag,
+        widgetClassName: widget.runtimeType.toString(),
       );
       widget.onContextCreate(buildContext);
 
@@ -232,7 +236,7 @@ class Framework {
           //
           // if there's child that has same type
           if (childElement.dataset.isNotEmpty &&
-              childElement.dataset["wtype"] == widget.type) {
+              childElement.dataset["wclass"] == widget.runtimeType.toString()) {
             // add to updates list
             updates[childElement.id] = UpdateObject(widget, childElement.id);
 

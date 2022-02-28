@@ -1,4 +1,3 @@
-import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/widgets/main/app_widget.dart';
 
@@ -22,13 +21,7 @@ import 'package:rad/src/widgets/main/app_widget.dart';
 /// )
 /// ```
 ///
-class RadApp extends AppWidget<RadApp> {
-  @override
-  DomTag get tag => DomTag.div;
-
-  @override
-  String get type => (RadApp).toString();
-
+class RadApp extends AppWidget {
   RadApp({
     String? key,
     required Widget child,

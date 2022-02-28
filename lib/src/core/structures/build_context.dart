@@ -18,6 +18,7 @@ class BuildContext {
   late final String key;
   late final String widgetType;
   late final DomTag widgetDomTag;
+  late final String widgetClassName;
 
   late final BuildContext parent;
 
@@ -26,6 +27,7 @@ class BuildContext {
     required this.parent,
     required this.widgetType,
     required this.widgetDomTag,
+    required this.widgetClassName,
   });
 
   /// Create root context.

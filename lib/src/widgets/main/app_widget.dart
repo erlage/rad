@@ -1,4 +1,5 @@
 import 'package:rad/src/core/constants.dart';
+import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/css/include/normalize.generated.dart';
@@ -8,7 +9,7 @@ import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/widgets/main/rad_app.dart';
 
-abstract class AppWidget<T> extends Widget {
+abstract class AppWidget extends Widget {
   final String? key;
 
   final Widget child;
@@ -28,20 +29,26 @@ abstract class AppWidget<T> extends Widget {
   }
 
   @override
+  DomTag get tag => DomTag.div;
+
+  @override
+  String get type => (AppWidget).toString();
+
+  @override
   String get initialKey => key ?? Constants.keyNotSet;
 
   @override
   buildRenderObject(context) {
     context.parent;
 
-    return AppWidgetRenderObject<T>(
+    return AppWidgetRenderObject(
       child: child,
       context: context,
     );
   }
 }
 
-class AppWidgetRenderObject<T> extends RenderObject {
+class AppWidgetRenderObject extends RenderObject {
   final Widget child;
 
   AppWidgetRenderObject({
@@ -64,7 +71,7 @@ class AppWidgetRenderObject<T> extends RenderObject {
     Framework.addGlobalStyles(GEN_STYLES_NORMALIZE_CSS);
     Framework.addGlobalStyles(GEN_STYLES_MAIN_CSS);
 
-    if (T.toString() == (RadApp).toString()) {
+    if (runtimeType is RadApp) {
       Framework.addGlobalStyles(GEN_STYLES_RAD_APP_CSS);
     }
 
