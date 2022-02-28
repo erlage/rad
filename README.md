@@ -1,6 +1,6 @@
 # Rad
 
-Rad is a frontend framework for Dart. It's inspired from Flutter and shares same programming paradigm. Which means, again, you'll be working with Widgets and tress. Don't worry, widgets in Rad are similar to Flutter widgets but in many ways more flexible.
+Rad is a frontend framework for Dart. It's inspired from Flutter and shares same programming paradigm. Similar to Flutter, widgets can be composed together to build more widgets. A widget can be describe static as well as dynamic part of user interface. Widgets in Rad are very similar to Flutter widgets.
 
 Let's take a look at one of the widget from Rad: 
 
@@ -12,13 +12,13 @@ class HomePage extends StatelessWidget
     return Container(
       child: GestureDetector(
         child: const Text("click me"),
-        onTap: () => print("working!"),
+        onTap: () => print("received a click!"),
       ),
     );
   }
 }
 ```
-How about that? if you're familiar with Flutter it don't even need a explanation. Important to note here is that Rad doesn't render pixels to build widgets instead it maps widgets to HTML elements(tags).
+How about that? if you're familiar with Flutter it don't even need an explanation.
 
 ## Geting started
 
@@ -67,7 +67,7 @@ How about that? if you're familiar with Flutter it don't even need a explanation
 
 ### Debugging
 
-Rad is a zero-dependency web framework which helps you write web apps in plain Dart(no-flutter). For debugging Dart web apps, you've follow your IDE/editor docs. See [official guide here](https://dart.dev/tools#general-purpose-tools).
+For debugging a Dart web app, you've to setup a debugger. See [official guide here](https://dart.dev/tools#general-purpose-tools). (remember you don't need Flutter SDK/or its plugins for Rad)
 
 If you happen to be using VS code,
 
@@ -77,7 +77,9 @@ If you happen to be using VS code,
 
 ## Styling widgets
 
-### Using CSS
+Rad doesn't use a rendering engine to render a widget or anything like that. Rad widgets are mapped to HTML tags and composed together they way you describe them. This allows you to style them the way you want.
+
+### Using CSS for styling
 
 You can add CSS rules to widgets to style them. For example:
 ```dart
@@ -86,13 +88,13 @@ Container(
   child: const Text("text inside a styled container"),
 );
 ```
-Note that some widgets such as StatelessWidget don't have a `style` parameter.
+Note: Some widgets such as StatelessWidget don't have a `style` property.
 
 ### Sizing & Positioning
 
-Some widgets have parameters for their "size" or "position" or both. We refers to them as Sizing & Positioning props. Positioning props includes `left`, `right`, `top` and `bottom` parameters while `width` and `height` are Sizing props.
+Some widgets have properties for their "size" or "position" or both. We refers to them as Sizing & Positioning props. Positioning props includes `left`, `right`, `top` and `bottom` properties while `width` and `height` are Sizing props.
 
-Widgets that accept sizing props also have a optional parameter `sizingUnit`. For positioning props there's `positioningUnit`. By default, `width: 20` will be mapped to `width: 20px`. But if you want to set width to some percentage of parent you can set `sizingUnit: MeasuringUnit.percentage` which will tell framework to map `width: 20` to `width: 20%`.
+Widgets that accept sizing props also have an optional property `sizingUnit`. For positioning props there's `positioningUnit`. By default, `width: 20` will be mapped to `width: 20px`. But if you want to set width to some percentage of parent you can set `sizingUnit:` to **`MeasuringUnit.percentage`**. This will tell framework to map `width: 20` to `width: 20%`.
 
 ## Api reference
 

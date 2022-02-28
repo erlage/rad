@@ -3,7 +3,7 @@
 - Add: Overlay widget
 
 - Improve: GestureDetector
-    - `onTapEvent` param is added in-place of `onTap`
+    - `onTapEvent` property is added in-place of `onTap`
     - `onTap` now handles `VoidCallback`s
 
 ## 0.0.1
