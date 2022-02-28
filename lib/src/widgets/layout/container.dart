@@ -38,32 +38,42 @@ class Container extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  builder(context) {
+  buildRenderObject(context) {
     return ContainerRenderObject(
       child: child,
-      width: width,
-      height: height,
-      styles: null != style ? style!.split(" ") : [],
-      sizingUnit: sizingUnit ?? MeasuringUnit.pixel,
       context: context.mergeKey(key),
+      props: ContainerProps(
+        width: width,
+        height: height,
+        styles: null != style ? style!.split(" ") : [],
+        sizingUnit: sizingUnit ?? MeasuringUnit.pixel,
+      ),
     );
   }
 }
 
-class ContainerRenderObject extends RenderObject {
-  final Widget child;
-  final List<String> styles;
+class ContainerProps {
+  int? width;
+  int? height;
+  List<String> styles;
+  MeasuringUnit sizingUnit;
 
-  final int? width;
-  final int? height;
-  final MeasuringUnit sizingUnit;
-
-  ContainerRenderObject({
+  ContainerProps({
     this.width,
     this.height,
-    required this.child,
     required this.styles,
     required this.sizingUnit,
+  });
+}
+
+class ContainerRenderObject extends RenderObject {
+  final Widget child;
+
+  ContainerProps props;
+
+  ContainerRenderObject({
+    required this.props,
+    required this.child,
     required BuildContext context,
   }) : super(context);
 
@@ -78,45 +88,50 @@ class ContainerRenderObject extends RenderObject {
   update(widgetObject, updatedRenderObject) {
     updatedRenderObject as ContainerRenderObject;
 
-    clearProps(widgetObject, this);
+    clearProps(widgetObject);
+
+    props = updatedRenderObject.props;
 
     applyProps(widgetObject, updatedRenderObject);
 
-    Framework.updateChildren(widgets: [child], parentContext: context);
+    Framework.updateChildren(
+      widgets: [updatedRenderObject.child],
+      parentContext: context,
+    );
   }
 
   void applyProps(
     WidgetObject widgetObject,
     ContainerRenderObject renderObject,
   ) {
-    var sizeUnit = Utils.mapMeasuringUnit(renderObject.sizingUnit);
+    var sizeUnit = Utils.mapMeasuringUnit(props.sizingUnit);
 
-    if (null != width) {
-      widgetObject.htmlElement.style.width = "${renderObject.width}$sizeUnit";
-    }
-    if (null != height) {
-      widgetObject.htmlElement.style.height = "${renderObject.height}$sizeUnit";
+    if (null != props.width) {
+      widgetObject.htmlElement.style.width = "${props.width}$sizeUnit";
     }
 
-    if (renderObject.styles.isNotEmpty) {
-      widgetObject.htmlElement.classes.addAll(renderObject.styles);
+    if (null != props.height) {
+      widgetObject.htmlElement.style.height = "${props.height}$sizeUnit";
+    }
+
+    if (props.styles.isNotEmpty) {
+      widgetObject.htmlElement.classes.addAll(props.styles);
     }
   }
 
   void clearProps(
     WidgetObject widgetObject,
-    ContainerRenderObject renderObject,
   ) {
-    if (null != renderObject.width) {
+    if (null == props.width) {
       widgetObject.htmlElement.style.width = '';
     }
 
-    if (null != renderObject.height) {
+    if (null == props.height) {
       widgetObject.htmlElement.style.height = '';
     }
 
-    if (renderObject.styles.isNotEmpty) {
-      widgetObject.htmlElement.classes.removeAll(renderObject.styles);
+    if (props.styles.isNotEmpty) {
+      widgetObject.htmlElement.classes.removeAll(props.styles);
     }
   }
 }

@@ -163,7 +163,8 @@ abstract class StatefulWidget extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  builder(context) => StatefulWidgetRenderObject(context.mergeKey(key));
+  buildRenderObject(context) =>
+      StatefulWidgetRenderObject(context.mergeKey(key));
 
   @override
   void createState(RenderObject renderObject) {

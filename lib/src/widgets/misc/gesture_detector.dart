@@ -44,7 +44,7 @@ class GestureDetector extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  builder(context) {
+  buildRenderObject(context) {
     return GestureDetectorRenderObject(
       child: child,
       onTap: onTap,

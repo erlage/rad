@@ -44,7 +44,7 @@ class Stack extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  builder(context) {
+  buildRenderObject(context) {
     return StackRenderObject(
       style: style ?? '',
       children: children,

@@ -27,7 +27,9 @@ abstract class AppWidget<T> extends Widget {
   }
 
   @override
-  builder(context) {
+  buildRenderObject(context) {
+    context.parent;
+
     return AppWidgetRenderObject<T>(
       child: child,
       context: context.mergeKey(key),

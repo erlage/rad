@@ -34,7 +34,7 @@ class Align extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  builder(context) {
+  buildRenderObject(context) {
     return AlignRenderObject(
       child: child,
       alignment: alignment,

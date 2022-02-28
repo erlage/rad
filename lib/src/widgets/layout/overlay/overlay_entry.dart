@@ -34,7 +34,7 @@ class OverlayEntry extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  builder(context) {
+  buildRenderObject(context) {
     return OverlayEntryRenderObject(
       child: child,
       style: style ?? '',

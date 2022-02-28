@@ -38,7 +38,7 @@ abstract class StatelessWidget extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  builder(context) {
+  buildRenderObject(context) {
     var renderObject = StatelessWidgetRenderObject(context.mergeKey(key));
 
     renderObject.child = build(renderObject.context);

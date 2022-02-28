@@ -58,7 +58,7 @@ class Overlay extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  builder(context) {
+  buildRenderObject(context) {
     return OverlayRenderObject(
       style: style ?? '',
       initialEntries: initialEntries,

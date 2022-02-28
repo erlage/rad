@@ -32,7 +32,7 @@ class Text extends Widget {
   DomTag get tag => DomTag.span;
 
   @override
-  builder(context) {
+  buildRenderObject(context) {
     return TextRenderObject(
       text: text,
       style: style ?? '',

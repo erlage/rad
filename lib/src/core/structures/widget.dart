@@ -18,7 +18,7 @@ abstract class Widget {
   /// It can be called multiple times to get [RenderObject] containing
   /// fresh state.
   ///
-  RenderObject builder(BuildContext context);
+  RenderObject buildRenderObject(BuildContext context);
 
   /// Create internal state of widget.
   ///

@@ -59,7 +59,7 @@ class Positioned extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  builder(context) {
+  buildRenderObject(context) {
     return PositionedRenderObject(
       top: top,
       bottom: bottom,

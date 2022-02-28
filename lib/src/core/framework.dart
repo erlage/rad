@@ -74,7 +74,7 @@ class Framework {
     }
 
     for (var widget in widgets) {
-      var renderObject = widget.builder(
+      var renderObject = widget.buildRenderObject(
         BuildContext(
           key: Constants.keyNotSet,
           parent: parentContext,
@@ -267,7 +267,7 @@ class Framework {
         // if found
         if (null != existingWidgetObject) {
           // get updated render object
-          var renderObject = updateObject.widget.builder(
+          var renderObject = updateObject.widget.buildRenderObject(
             BuildContext(
               key: Constants.keyNotSet,
               parent: parentContext,
