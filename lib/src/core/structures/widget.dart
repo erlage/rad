@@ -12,6 +12,7 @@ abstract class Widget {
 
   DomTag get tag;
   String get type;
+  String? get initialKey;
 
   /// Return widget's [RenderObject].
   ///

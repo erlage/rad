@@ -26,10 +26,13 @@ class Text extends Widget {
   });
 
   @override
+  DomTag get tag => DomTag.span;
+
+  @override
   String get type => (Text).toString();
 
   @override
-  DomTag get tag => DomTag.span;
+  String? get initialKey => key;
 
   @override
   buildRenderObject(context) {

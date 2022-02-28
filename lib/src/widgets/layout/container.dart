@@ -32,10 +32,13 @@ class Container extends Widget {
   });
 
   @override
+  DomTag get tag => DomTag.div;
+
+  @override
   String get type => (Container).toString();
 
   @override
-  DomTag get tag => DomTag.div;
+  String? get initialKey => key;
 
   @override
   buildRenderObject(context) {

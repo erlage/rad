@@ -24,10 +24,10 @@ import 'package:rad/src/widgets/main/app_widget.dart';
 ///
 class RadApp extends AppWidget<RadApp> {
   @override
-  String get type => (RadApp).toString();
+  DomTag get tag => DomTag.div;
 
   @override
-  DomTag get tag => DomTag.div;
+  String get type => (RadApp).toString();
 
   RadApp({
     String? key,

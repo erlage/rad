@@ -53,10 +53,13 @@ class Positioned extends Widget {
         sizingUnit = MeasuringUnit.percent;
 
   @override
+  DomTag get tag => DomTag.div;
+
+  @override
   String get type => (Positioned).toString();
 
   @override
-  DomTag get tag => DomTag.div;
+  String? get initialKey => key;
 
   @override
   buildRenderObject(context) {

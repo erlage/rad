@@ -27,6 +27,9 @@ abstract class AppWidget<T> extends Widget {
   }
 
   @override
+  String? get initialKey => key;
+
+  @override
   buildRenderObject(context) {
     context.parent;
 

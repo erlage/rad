@@ -32,10 +32,13 @@ abstract class StatelessWidget extends Widget {
   Widget build(BuildContext context);
 
   @override
-  String get type => (StatelessWidget).toString();
+  DomTag get tag => DomTag.div;
 
   @override
-  DomTag get tag => DomTag.div;
+  String? get initialKey => key;
+
+  @override
+  String get type => (StatelessWidget).toString();
 
   @override
   buildRenderObject(context) {

@@ -28,10 +28,13 @@ class Align extends Widget {
   });
 
   @override
+  DomTag get tag => DomTag.div;
+
+  @override
   String get type => (Align).toString();
 
   @override
-  DomTag get tag => DomTag.div;
+  String? get initialKey => key;
 
   @override
   buildRenderObject(context) {

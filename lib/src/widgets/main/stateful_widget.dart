@@ -157,10 +157,13 @@ abstract class StatefulWidget extends Widget {
   void dispose() {}
 
   @override
-  String get type => (StatefulWidget).toString();
+  DomTag get tag => DomTag.div;
 
   @override
-  DomTag get tag => DomTag.div;
+  String? get initialKey => key;
+
+  @override
+  String get type => (StatefulWidget).toString();
 
   @override
   buildRenderObject(context) =>
