@@ -104,6 +104,8 @@ abstract class StatefulWidget extends Widget {
   late final BuildContext context;
   late final StatefulWidgetRenderObject _renderObject;
 
+  var _isRebuilding = false;
+
   StatefulWidget({this.key});
 
   /// Called when this widget is inserted into the tree.
@@ -126,28 +128,6 @@ abstract class StatefulWidget extends Widget {
   /// this method should not have any side effects beyond building a widget.
   ///
   Widget build(BuildContext context);
-
-  void dispose() {}
-
-  var _isRebuilding = false;
-
-  @override
-  builder(context) => StatefulWidgetRenderObject(context.mergeKey(key));
-
-  @override
-  void createState(RenderObject renderObject) {
-    renderObject as StatefulWidgetRenderObject;
-
-    context = renderObject.context;
-
-    _renderObject = renderObject;
-
-    _renderObject.dispose = dispose;
-
-    initState();
-
-    _renderObject.child = build(context);
-  }
 
   /// Notify the framework that the internal state of this widget has changed.
   ///
@@ -179,6 +159,26 @@ abstract class StatefulWidget extends Widget {
     _renderObject.rebuild();
 
     _isRebuilding = false;
+  }
+
+  void dispose() {}
+
+  @override
+  builder(context) => StatefulWidgetRenderObject(context.mergeKey(key));
+
+  @override
+  void createState(RenderObject renderObject) {
+    renderObject as StatefulWidgetRenderObject;
+
+    context = renderObject.context;
+
+    _renderObject = renderObject;
+
+    _renderObject.dispose = dispose;
+
+    initState();
+
+    _renderObject.child = build(context);
   }
 }
 

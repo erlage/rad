@@ -1,12 +1,11 @@
 import 'dart:html';
 
-import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/structures/buildable_context.dart';
 import 'package:rad/src/core/utils.dart';
-import 'package:rad/src/core/structures/build_context.dart';
-import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/structures/widget.dart';
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
+import 'package:rad/src/core/structures/widget.dart';
+import 'package:rad/src/core/structures/build_context.dart';
+import 'package:rad/src/core/structures/buildable_context.dart';
 
 class Framework {
   static var _isInit = false;
@@ -82,8 +81,6 @@ class Framework {
 
     return widgetObject;
   }
-
-  // internals
 
   static buildWidget({
     append = false,
@@ -167,6 +164,8 @@ class Framework {
 
     widgetObject.renderObject.render(widgetObject);
   }
+
+  // internals
 
   static _tryRebuildingWidgetHavingKey(String widgetKey) {
     var widgetObject = _getWidgetObject(widgetKey);
