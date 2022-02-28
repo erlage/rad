@@ -104,7 +104,7 @@ class GestureDetectorRenderObject extends RenderObject {
   }
 
   @override
-  build(widgetObject) {
+  render(widgetObject) {
     widgetObject.htmlElement.addEventListener(
       "click",
       _handleOnTap,

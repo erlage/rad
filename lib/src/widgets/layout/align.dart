@@ -40,27 +40,37 @@ class Align extends Widget {
   @override
   buildRenderObject(context) {
     return AlignRenderObject(
-      child: child,
-      alignment: alignment,
       context: context,
+      props: AlignProps(
+        child: child,
+        alignment: alignment,
+      ),
     );
   }
 }
 
-class AlignRenderObject extends RenderObject {
+class AlignProps {
   final Widget child;
   final Alignment alignment;
 
-  AlignRenderObject({
+  AlignProps({
     required this.child,
     required this.alignment,
+  });
+}
+
+class AlignRenderObject extends RenderObject {
+  AlignProps props;
+
+  AlignRenderObject({
+    required this.props,
     required BuildContext context,
   }) : super(context);
 
   @override
-  build(widgetObject) {
+  render(widgetObject) {
     Framework.buildChildren(
-      widgets: [child],
+      widgets: [props.child],
       parentContext: context,
       elementCallback: (element) => updateStyleProps(this, element),
     );
@@ -68,22 +78,30 @@ class AlignRenderObject extends RenderObject {
 
   @override
   update(widgetObject, updatedRenderObject) {
+    updatedRenderObject as AlignRenderObject;
+
+    switchProps(updatedRenderObject.props);
+
     Framework.updateChildren(
-      widgets: [child],
+      widgets: [props.child],
       parentContext: context,
       elementCallback: (element) => updateStyleProps(
-        updatedRenderObject as AlignRenderObject,
+        updatedRenderObject,
         element,
       ),
     );
   }
 
+  void switchProps(AlignProps props) {
+    this.props = props;
+  }
+
   updateStyleProps(AlignRenderObject renderObject, Element element) {
     // remove previous
-    element.classes.remove(getAlignmentStyle(alignment));
+    element.classes.remove(getAlignmentStyle(props.alignment));
 
     // add current
-    element.classes.add(getAlignmentStyle(renderObject.alignment));
+    element.classes.add(getAlignmentStyle(renderObject.props.alignment));
   }
 
   getAlignmentStyle(Alignment alignment) {

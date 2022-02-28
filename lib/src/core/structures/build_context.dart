@@ -4,11 +4,11 @@ import 'package:rad/src/core/enums.dart';
 /// Widget's meta data that's required to locate a widget in the tree.
 ///
 /// [BuildContext] objects are passed to widget builder functions (such as
-/// [StatelessWidget.build]).
+/// [StatelessWidget.render]).
 ///
 /// Each widget has its own [BuildContext], part of which becomes the parent
-/// of the widget returned by the [StatelessWidget.build] or
-/// [StatefulWidget.build] function or builder's method of Rad widgets.
+/// of the widget returned by the [StatelessWidget.render] or
+/// [StatefulWidget.render] function or builder's method of Rad widgets.
 ///
 /// [BuildContext] also contains a reference to it's parent's [BuildContext]
 /// which further contains it's parent reference and so on. This can be used

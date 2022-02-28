@@ -1,7 +1,8 @@
+import 'dart:html';
+
+import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/framework.dart';
-import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
@@ -19,13 +20,13 @@ class Container extends Widget {
   final int? height;
   final MeasuringUnit? sizingUnit;
 
-  final String? style;
+  final String? styles;
 
   final Widget child;
 
   const Container({
     this.key,
-    this.style,
+    this.styles,
     this.width,
     this.height,
     this.sizingUnit,
@@ -44,12 +45,12 @@ class Container extends Widget {
   @override
   buildRenderObject(context) {
     return ContainerRenderObject(
-      child: child,
       context: context,
       props: ContainerProps(
+        child: child,
         width: width,
         height: height,
-        styles: null != style ? style!.split(" ") : [],
+        styles: null != styles ? styles!.split(" ") : [],
         sizingUnit: sizingUnit ?? MeasuringUnit.pixel,
       ),
     );
@@ -57,85 +58,75 @@ class Container extends Widget {
 }
 
 class ContainerProps {
-  int? width;
-  int? height;
-  List<String> styles;
-  MeasuringUnit sizingUnit;
+  final int? width;
+  final int? height;
+  final List<String> styles;
+  final MeasuringUnit sizingUnit;
+  final Widget child;
 
   ContainerProps({
     this.width,
     this.height,
     required this.styles,
     required this.sizingUnit,
+    required this.child,
   });
 }
 
 class ContainerRenderObject extends RenderObject {
-  final Widget child;
-
   ContainerProps props;
 
   ContainerRenderObject({
     required this.props,
-    required this.child,
     required BuildContext context,
   }) : super(context);
 
   @override
-  build(widgetObject) {
-    applyProps(widgetObject, this);
+  render(widgetObject) {
+    applyProps(widgetObject.htmlElement);
 
-    Framework.buildChildren(widgets: [child], parentContext: context);
+    Framework.buildChildren(widgets: [props.child], parentContext: context);
   }
 
   @override
   update(widgetObject, updatedRenderObject) {
     updatedRenderObject as ContainerRenderObject;
 
-    clearProps(widgetObject);
+    clearProps(widgetObject.htmlElement);
 
-    props = updatedRenderObject.props;
+    switchProps(updatedRenderObject.props);
 
-    applyProps(widgetObject, updatedRenderObject);
+    applyProps(widgetObject.htmlElement);
 
     Framework.updateChildren(
-      widgets: [updatedRenderObject.child],
+      widgets: [props.child],
       parentContext: context,
     );
   }
 
-  void applyProps(
-    WidgetObject widgetObject,
-    ContainerRenderObject renderObject,
-  ) {
+  void switchProps(ContainerProps props) {
+    this.props = props;
+  }
+
+  void applyProps(HtmlElement htmlElement) {
     var sizeUnit = Utils.mapMeasuringUnit(props.sizingUnit);
 
     if (null != props.width) {
-      widgetObject.htmlElement.style.width = "${props.width}$sizeUnit";
+      htmlElement.style.width = "${props.width}$sizeUnit";
     }
 
     if (null != props.height) {
-      widgetObject.htmlElement.style.height = "${props.height}$sizeUnit";
+      htmlElement.style.height = "${props.height}$sizeUnit";
     }
 
     if (props.styles.isNotEmpty) {
-      widgetObject.htmlElement.classes.addAll(props.styles);
+      htmlElement.classes.addAll(props.styles);
     }
   }
 
-  void clearProps(
-    WidgetObject widgetObject,
-  ) {
-    if (null == props.width) {
-      widgetObject.htmlElement.style.width = '';
-    }
-
-    if (null == props.height) {
-      widgetObject.htmlElement.style.height = '';
-    }
-
+  void clearProps(HtmlElement htmlElement) {
     if (props.styles.isNotEmpty) {
-      widgetObject.htmlElement.classes.removeAll(props.styles);
+      htmlElement.classes.removeAll(props.styles);
     }
   }
 }

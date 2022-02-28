@@ -1,7 +1,10 @@
+import 'dart:html';
+
 import 'package:rad/rad.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/utils.dart';
 
 /// A run of text with a single style.
 ///
@@ -17,12 +20,12 @@ class Text extends Widget {
 
   final String text;
   final bool? isHtml;
-  final String? style;
+  final String? styles;
 
   const Text(
     this.text, {
     this.key,
-    this.style,
+    this.styles,
     this.isHtml,
   });
 
@@ -38,45 +41,79 @@ class Text extends Widget {
   @override
   buildRenderObject(context) {
     return TextRenderObject(
-      text: text,
-      style: style ?? '',
-      isHtml: isHtml ?? false,
       context: context,
+      props: TextProps(
+        text: text,
+        styles: null != styles ? styles!.split(" ") : [],
+        isHtml: isHtml ?? false,
+      ),
     );
   }
 }
 
-class TextRenderObject extends RenderObject {
+class TextProps {
   final String text;
   final bool isHtml;
-  final String style;
+  final List<String> styles;
+
+  TextProps({
+    required this.text,
+    required this.isHtml,
+    required this.styles,
+  });
+}
+
+class TextRenderObject extends RenderObject {
+  TextProps props;
 
   TextRenderObject({
-    required this.text,
-    required this.style,
-    required this.isHtml,
+    required this.props,
     required BuildContext context,
   }) : super(context);
 
   @override
-  build(widgetObject) {
-    if (style.isNotEmpty) {
-      widgetObject.htmlElement.className += " $style";
-    }
+  render(widgetObject) {
+    applyProps(widgetObject.htmlElement);
 
-    if (isHtml) {
-      widgetObject.htmlElement.innerHtml = text;
-
+    if (props.isHtml) {
+      widgetObject.htmlElement.innerHtml = props.text;
       return;
     }
 
-    widgetObject.htmlElement.innerText = text;
+    widgetObject.htmlElement.innerText = props.text;
   }
 
   @override
   update(widgetObject, updatedRenderObject) {
     updatedRenderObject as TextRenderObject;
 
-    // TODO implement
+    clearProps(widgetObject.htmlElement);
+
+    switchProps(updatedRenderObject.props);
+
+    applyProps(widgetObject.htmlElement);
+
+    if (props.isHtml) {
+      widgetObject.htmlElement.innerHtml = props.text;
+      return;
+    }
+
+    widgetObject.htmlElement.innerText = props.text;
+  }
+
+  void switchProps(TextProps props) {
+    this.props = props;
+  }
+
+  void applyProps(HtmlElement htmlElement) {
+    if (props.styles.isNotEmpty) {
+      htmlElement.classes.addAll(props.styles);
+    }
+  }
+
+  void clearProps(HtmlElement htmlElement) {
+    if (props.styles.isNotEmpty) {
+      htmlElement.classes.removeAll(props.styles);
+    }
   }
 }

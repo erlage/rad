@@ -1,3 +1,5 @@
+import 'package:rad/src/widgets/layout/align.dart';
+
 enum DomTag {
   div,
   span,
@@ -8,6 +10,9 @@ enum MeasuringUnit {
   percent,
 }
 
+/// Alignment enum
+/// to be used with [Align] widget
+///
 enum Alignment {
   topLeft,
   topRight,

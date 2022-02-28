@@ -106,7 +106,7 @@ class PositionedRenderObject extends RenderObject {
   }) : super(context);
 
   @override
-  build(widgetObject) {
+  render(widgetObject) {
     applyProps(widgetObject, this);
 
     Framework.buildChildren(widgets: [child], parentContext: context);

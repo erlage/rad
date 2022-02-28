@@ -50,6 +50,6 @@ class WidgetObject {
   }
 
   void build() {
-    renderObject.build(this);
+    renderObject.render(this);
   }
 }

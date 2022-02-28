@@ -14,27 +14,26 @@ abstract class Widget {
   String get type;
   String get initialKey;
 
-  /// When context is ready.
+  /// Called when context for this widget is created.
   ///
   void onContextCreate(BuildContext context) {}
 
-  /// Return widget's [RenderObject].
+  /// Called when framework needs a [RenderObject] for current widget.
   ///
-  /// It can be called multiple times to get [RenderObject] containing
-  /// fresh state.
+  /// It can be called multiple times to get fresh [RenderObject].
   ///
   RenderObject buildRenderObject(BuildContext context);
 
   /// Called when first render object is created.
   ///
   /// Framework can request a fresh copy of [RenderObject] any time it
-  /// wants. Framework will fire this function only when first [RenderObject]
+  /// wants. But framwork will fire this function only when first [RenderObject]
   /// of this widget is created. For subsequent [RenderObject]s this won't
   /// get fired. Which means it can be used to initialize widget state that
-  /// depends on [RenderObject].
+  /// depends on initial [RenderObject] such as in [StatefulWidget].
   ///
   /// If you want to initialize something that depends on [BuildContext], you
-  /// can do that in [onContextCreate] hook.
+  /// can do that using [onContextCreate] hook.
   ///
   void onRenderObjectCreate(RenderObject renderObject) {}
 }

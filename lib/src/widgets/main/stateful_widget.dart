@@ -198,7 +198,7 @@ class StatefulWidgetRenderObject extends RenderObject {
   }) : super(context);
 
   @override
-  build(widgetObject) {
+  render(widgetObject) {
     Framework.buildChildren(widgets: [child], parentContext: context);
   }
 

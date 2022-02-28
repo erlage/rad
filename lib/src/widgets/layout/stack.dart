@@ -68,7 +68,7 @@ class StackRenderObject extends RenderObject {
   }) : super(context);
 
   @override
-  build(widgetObject) {
+  render(widgetObject) {
     if (style.isNotEmpty) {
       widgetObject.htmlElement.className += " $style";
     }

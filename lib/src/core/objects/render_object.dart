@@ -27,7 +27,7 @@ abstract class RenderObject {
   /// Implementation of this method is responsible for building
   /// its child widgets(if there are any).
   ///
-  void build(WidgetObject widgetObject);
+  void render(WidgetObject widgetObject);
 
   /// Update widget interface & state
   ///
@@ -36,10 +36,15 @@ abstract class RenderObject {
   /// [updatedRenderObject] contains fresh interface description of current
   /// widget. This can be used to update widget's internal state.
   ///
+
   /// Note: Widget must cascade update to its childs after updating
   /// its own state. Even if there's nothing to update in current widget's state,
   /// cascading update ensure that all required widget will update themselves
   /// if their interface description has changed.
+  ///
+  /// StatefulWidget should ignore this method because it has its own state
+  /// and [updatedRenderObject] doesn't know anything about it. Using this object
+  /// will results in loss of internal state in StatefulWidget
   ///
   void update(WidgetObject widgetObject, RenderObject updatedRenderObject);
 }

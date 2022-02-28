@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:rad/rad.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/framework.dart';
@@ -20,11 +22,11 @@ class OverlayEntry extends Widget {
   final String? key;
 
   final Widget child;
-  final String? style;
+  final String? styles;
 
   const OverlayEntry({
     this.key,
-    this.style,
+    this.styles,
     required this.child,
   });
 
@@ -40,31 +42,39 @@ class OverlayEntry extends Widget {
   @override
   buildRenderObject(context) {
     return OverlayEntryRenderObject(
-      child: child,
-      style: style ?? '',
       context: context,
+      props: OverlayEntryProps(
+        child: child,
+        styles: null != styles ? styles!.split(" ") : [],
+      ),
     );
   }
 }
 
-class OverlayEntryRenderObject extends RenderObject {
+class OverlayEntryProps {
   final Widget child;
-  final String style;
+  final List<String> styles;
+
+  OverlayEntryProps({
+    required this.child,
+    required this.styles,
+  });
+}
+
+class OverlayEntryRenderObject extends RenderObject {
+  OverlayEntryProps props;
 
   OverlayEntryRenderObject({
-    required this.child,
-    required this.style,
+    required this.props,
     required BuildContext context,
   }) : super(context);
 
   @override
-  build(widgetObject) {
-    if (style.isNotEmpty) {
-      widgetObject.htmlElement.className += " $style";
-    }
+  render(widgetObject) {
+    applyProps(widgetObject.htmlElement);
 
     Framework.buildChildren(
-      widgets: [child],
+      widgets: [props.child],
       parentContext: context,
     );
   }
@@ -73,11 +83,31 @@ class OverlayEntryRenderObject extends RenderObject {
   update(widgetObject, updatedRenderObject) {
     updatedRenderObject as OverlayEntryRenderObject;
 
-    // TODO implement
+    clearProps(widgetObject.htmlElement);
+
+    switchProps(updatedRenderObject.props);
+
+    applyProps(widgetObject.htmlElement);
 
     Framework.updateChildren(
-      widgets: [child],
+      widgets: [props.child],
       parentContext: context,
     );
+  }
+
+  void switchProps(OverlayEntryProps props) {
+    this.props = props;
+  }
+
+  void applyProps(HtmlElement htmlElement) {
+    if (props.styles.isNotEmpty) {
+      htmlElement.classes.addAll(props.styles);
+    }
+  }
+
+  void clearProps(HtmlElement htmlElement) {
+    if (props.styles.isNotEmpty) {
+      htmlElement.classes.removeAll(props.styles);
+    }
   }
 }

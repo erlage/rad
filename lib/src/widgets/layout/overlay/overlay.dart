@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:rad/rad.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/framework.dart';
@@ -25,13 +27,13 @@ import 'package:rad/src/widgets/layout/overlay/overlay_state.dart';
 class Overlay extends Widget {
   final String? key;
 
-  final String? style;
+  final String? styles;
 
   final List<OverlayEntry> initialEntries;
 
   const Overlay({
     this.key,
-    this.style,
+    this.styles,
     required this.initialEntries,
   });
 
@@ -64,32 +66,38 @@ class Overlay extends Widget {
   @override
   buildRenderObject(context) {
     return OverlayRenderObject(
-      style: style ?? '',
-      initialEntries: initialEntries,
-      context: context,
-    );
+        context: context,
+        props: OverlayProps(
+          styles: null != styles ? styles!.split(" ") : [],
+          initialEntries: initialEntries,
+        ));
   }
 }
 
-class OverlayRenderObject extends RenderObject {
-  final String style;
+class OverlayProps {
+  final List<String> styles;
+  final List<Widget> initialEntries;
 
-  final List<OverlayEntry> initialEntries;
+  OverlayProps({
+    required this.styles,
+    required this.initialEntries,
+  });
+}
+
+class OverlayRenderObject extends RenderObject {
+  OverlayProps props;
 
   OverlayRenderObject({
-    required this.style,
-    required this.initialEntries,
+    required this.props,
     required BuildContext context,
   }) : super(context);
 
   @override
-  build(widgetObject) {
-    if (style.isNotEmpty) {
-      widgetObject.htmlElement.className += " $style";
-    }
+  render(widgetObject) {
+    applyProps(widgetObject.htmlElement);
 
     Framework.buildChildren(
-      widgets: initialEntries,
+      widgets: props.initialEntries,
       parentContext: context,
     );
   }
@@ -98,6 +106,33 @@ class OverlayRenderObject extends RenderObject {
   update(widgetObject, updatedRenderObject) {
     updatedRenderObject as OverlayRenderObject;
 
-    // TODO implement
+    clearProps(widgetObject.htmlElement);
+
+    switchProps(updatedRenderObject.props);
+
+    applyProps(widgetObject.htmlElement);
+
+    // TODO update initial entries
+
+    Framework.updateChildren(
+      widgets: updatedRenderObject.props.initialEntries,
+      parentContext: context,
+    );
+  }
+
+  void switchProps(OverlayProps props) {
+    this.props = props;
+  }
+
+  void applyProps(HtmlElement htmlElement) {
+    if (props.styles.isNotEmpty) {
+      htmlElement.classes.addAll(props.styles);
+    }
+  }
+
+  void clearProps(HtmlElement htmlElement) {
+    if (props.styles.isNotEmpty) {
+      htmlElement.classes.removeAll(props.styles);
+    }
   }
 }
