@@ -1,3 +1,4 @@
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
@@ -38,13 +39,13 @@ class Container extends Widget {
   String get type => (Container).toString();
 
   @override
-  String? get initialKey => key;
+  String get initialKey => key ?? Constants.keyNotSet;
 
   @override
   buildRenderObject(context) {
     return ContainerRenderObject(
       child: child,
-      context: context.mergeKey(key),
+      context: context,
       props: ContainerProps(
         width: width,
         height: height,

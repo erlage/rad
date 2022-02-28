@@ -1,3 +1,4 @@
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
@@ -59,7 +60,7 @@ class Positioned extends Widget {
   String get type => (Positioned).toString();
 
   @override
-  String? get initialKey => key;
+  String get initialKey => key ?? Constants.keyNotSet;
 
   @override
   buildRenderObject(context) {
@@ -73,7 +74,7 @@ class Positioned extends Widget {
       sizingUnit: sizingUnit ?? MeasuringUnit.pixel,
       positioningUnit: positioningUnit ?? MeasuringUnit.pixel,
       child: child,
-      context: context.mergeKey(key),
+      context: context,
     );
   }
 }

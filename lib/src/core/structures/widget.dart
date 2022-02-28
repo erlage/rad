@@ -12,7 +12,7 @@ abstract class Widget {
 
   DomTag get tag;
   String get type;
-  String? get initialKey;
+  String get initialKey;
 
   /// Return widget's [RenderObject].
   ///
@@ -20,12 +20,4 @@ abstract class Widget {
   /// fresh state.
   ///
   RenderObject buildRenderObject(BuildContext context);
-
-  /// Create internal state of widget.
-  ///
-  /// Framework calls this method when it inflates a widget for
-  /// the first time. This method get's called exactly once in entire
-  /// lifetime of a widget.
-  ///
-  void createState(RenderObject renderObject) {}
 }

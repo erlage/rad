@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/objects/render_object.dart';
@@ -44,7 +45,7 @@ class GestureDetector extends Widget {
   String get type => (GestureDetector).toString();
 
   @override
-  String? get initialKey => key;
+  String get initialKey => key ?? Constants.keyNotSet;
 
   @override
   buildRenderObject(context) {
@@ -53,7 +54,7 @@ class GestureDetector extends Widget {
       onTap: onTap,
       onTapEvent: onTapEvent,
       behaviour: behaviour ?? HitTestBehavior.deferToChild,
-      context: context.mergeKey(key),
+      context: context,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:rad/rad.dart';
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 
@@ -32,7 +33,7 @@ class Text extends Widget {
   String get type => (Text).toString();
 
   @override
-  String? get initialKey => key;
+  String get initialKey => key ?? Constants.keyNotSet;
 
   @override
   buildRenderObject(context) {
@@ -40,7 +41,7 @@ class Text extends Widget {
       text: text,
       style: style ?? '',
       isHtml: isHtml ?? false,
-      context: context.mergeKey(key),
+      context: context,
     );
   }
 }

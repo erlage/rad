@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
@@ -34,14 +35,14 @@ class Align extends Widget {
   String get type => (Align).toString();
 
   @override
-  String? get initialKey => key;
+  String get initialKey => key ?? Constants.keyNotSet;
 
   @override
   buildRenderObject(context) {
     return AlignRenderObject(
       child: child,
       alignment: alignment,
-      context: context.mergeKey(key),
+      context: context,
     );
   }
 }

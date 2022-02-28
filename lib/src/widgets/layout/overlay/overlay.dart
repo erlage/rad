@@ -1,4 +1,5 @@
 import 'package:rad/rad.dart';
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
@@ -58,14 +59,14 @@ class Overlay extends Widget {
   String get type => (Overlay).toString();
 
   @override
-  String? get initialKey => key;
+  String get initialKey => key ?? Constants.keyNotSet;
 
   @override
   buildRenderObject(context) {
     return OverlayRenderObject(
       style: style ?? '',
       initialEntries: initialEntries,
-      context: context.mergeKey(key),
+      context: context,
     );
   }
 }

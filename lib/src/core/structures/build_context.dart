@@ -15,7 +15,7 @@ import 'package:rad/src/core/enums.dart';
 /// to trace back origin of widget all the way to BigBang(where it all started)
 ///
 class BuildContext {
-  String key;
+  late final String key;
   late final String widgetType;
   late final DomTag widgetDomTag;
 
@@ -40,13 +40,5 @@ class BuildContext {
   BuildContext.bigBang(this.key) {
     widgetDomTag = DomTag.div;
     widgetType = Constants.typeBigBang;
-  }
-
-  BuildContext mergeKey(String? key) {
-    if (null != key) {
-      this.key = key;
-    }
-
-    return this;
   }
 }

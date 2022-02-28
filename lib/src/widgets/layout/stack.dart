@@ -1,3 +1,4 @@
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/framework.dart';
@@ -44,14 +45,14 @@ class Stack extends Widget {
   String get type => (Stack).toString();
 
   @override
-  String? get initialKey => key;
+  String get initialKey => key ?? Constants.keyNotSet;
 
   @override
   buildRenderObject(context) {
     return StackRenderObject(
       style: style ?? '',
       children: children,
-      context: context.mergeKey(key),
+      context: context,
     );
   }
 }

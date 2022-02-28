@@ -76,18 +76,14 @@ class Framework {
     for (var widget in widgets) {
       var renderObject = widget.buildRenderObject(
         BuildContext(
-          key: Constants.keyNotSet,
+          key: Constants.keyNotSet == widget.initialKey
+              ? Utils.generateWidgetId()
+              : widget.initialKey,
           parent: parentContext,
           widgetType: widget.type,
           widgetDomTag: widget.tag,
         ),
       );
-
-      if (Constants.keyNotSet == renderObject.context.key) {
-        renderObject.context.key = Utils.generateWidgetId();
-      }
-
-      widget.createState(renderObject);
 
       var widgetObject = WidgetObject(
         widget: widget,
@@ -268,12 +264,7 @@ class Framework {
         if (null != existingWidgetObject) {
           // get updated render object
           var renderObject = updateObject.widget.buildRenderObject(
-            BuildContext(
-              key: Constants.keyNotSet,
-              parent: parentContext,
-              widgetType: updateObject.widget.type,
-              widgetDomTag: updateObject.widget.tag,
-            ),
+            existingWidgetObject.context,
           );
 
           //

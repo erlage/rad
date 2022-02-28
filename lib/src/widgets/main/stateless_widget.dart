@@ -1,3 +1,4 @@
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/structures/widget.dart';
@@ -35,7 +36,7 @@ abstract class StatelessWidget extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  String? get initialKey => key;
+  String get initialKey => key ?? Constants.keyNotSet;
 
   @override
   String get type => (StatelessWidget).toString();

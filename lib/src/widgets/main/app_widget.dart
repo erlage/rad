@@ -1,3 +1,4 @@
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/css/include/normalize.generated.dart';
@@ -27,7 +28,7 @@ abstract class AppWidget<T> extends Widget {
   }
 
   @override
-  String? get initialKey => key;
+  String get initialKey => key ?? Constants.keyNotSet;
 
   @override
   buildRenderObject(context) {
@@ -35,7 +36,7 @@ abstract class AppWidget<T> extends Widget {
 
     return AppWidgetRenderObject<T>(
       child: child,
-      context: context.mergeKey(key),
+      context: context,
     );
   }
 }
