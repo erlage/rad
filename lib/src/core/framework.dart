@@ -87,6 +87,8 @@ class Framework {
       var renderObject = widget.buildRenderObject(buildContext);
       widget.onRenderObjectCreate(renderObject);
 
+      print("Build widget: ${widget.type} #${buildContext.key}");
+
       var widgetObject = WidgetObject(
         widget: widget,
         renderObject: renderObject,

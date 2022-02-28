@@ -120,6 +120,9 @@ class GestureDetectorRenderObject extends RenderObject {
 
     // TODO implement
 
-    Framework.updateChildren(widgets: [child], parentContext: context);
+    Framework.updateChildren(
+      widgets: [updatedRenderObject.child],
+      parentContext: context,
+    );
   }
 }

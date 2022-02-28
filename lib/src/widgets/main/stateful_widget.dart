@@ -204,7 +204,9 @@ class StatefulWidgetRenderObject extends RenderObject {
 
   @override
   update(widgetObject, updatedRenderObject) {
-    Framework.updateChildren(widgets: [child], parentContext: context);
+    /// Stateful widgets in Rad don't listen to state changes in parents.
+    /// Only way to change state of a StatefulWidget is to dispose it off
+    /// and create a new one.
   }
 
   @override
