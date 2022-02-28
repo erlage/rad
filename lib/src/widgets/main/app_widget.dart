@@ -9,7 +9,7 @@ import 'package:rad/src/core/structures/buildable_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/widgets/main/rad_app.dart';
 
-abstract class AppWidget<T> implements Widget {
+abstract class AppWidget<T> extends Widget {
   final String? key;
 
   final Widget child;

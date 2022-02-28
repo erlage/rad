@@ -10,4 +10,6 @@ abstract class Widget {
   const Widget();
 
   RenderObject builder(BuildableContext context);
+
+  void createState(RenderObject renderObject) {}
 }

@@ -99,6 +99,8 @@ class Framework {
       BuildableContext(parentKey: parentContext.key),
     );
 
+    widget.createState(renderObject);
+
     if (_tryRebuildingWidgetHavingKey(renderObject.context.key)) {
       return;
     }

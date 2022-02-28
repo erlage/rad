@@ -102,7 +102,7 @@ abstract class StatefulWidget extends Widget {
   final String? key;
 
   late final BuildContext context;
-  late final StatefulWidgetRenderObject renderObject;
+  late final StatefulWidgetRenderObject _renderObject;
 
   StatefulWidget({this.key});
 
@@ -132,19 +132,21 @@ abstract class StatefulWidget extends Widget {
   var _isRebuilding = false;
 
   @override
-  builder(context) {
-    renderObject = StatefulWidgetRenderObject(
-      dispose: dispose,
-      buildableContext: context.mergeKey(key),
-    );
+  builder(context) => StatefulWidgetRenderObject(context.mergeKey(key));
 
-    this.context = renderObject.context;
+  @override
+  void createState(RenderObject renderObject) {
+    renderObject as StatefulWidgetRenderObject;
+
+    context = renderObject.context;
+
+    _renderObject = renderObject;
+
+    _renderObject.dispose = dispose;
 
     initState();
 
-    renderObject.setChildWidget(build(this.context));
-
-    return renderObject;
+    _renderObject.child = build(context);
   }
 
   /// Notify the framework that the internal state of this widget has changed.
@@ -170,38 +172,32 @@ abstract class StatefulWidget extends Widget {
 
     // get new interface
 
-    renderObject.setChildWidget(build(context));
+    _renderObject.child = build(context);
 
     // do rebuild
 
-    renderObject.rebuild();
+    _renderObject.rebuild();
 
     _isRebuilding = false;
   }
 }
 
 class StatefulWidgetRenderObject extends RenderObject<StatefulWidget> {
-  late Widget _child;
-  final VoidCallback dispose;
+  late final Widget child;
+  late final VoidCallback dispose;
 
   final BuildableContext buildableContext;
 
-  StatefulWidgetRenderObject({
-    required this.dispose,
-    required this.buildableContext,
-  }) : super(
+  StatefulWidgetRenderObject(this.buildableContext)
+      : super(
           domTag: DomTag.div,
           buildableContext: buildableContext,
         );
 
-  void setChildWidget(Widget widget) {
-    _child = widget;
-  }
-
   @override
   render(widgetObject) {
     Framework.buildWidget(
-      widget: _child,
+      widget: child,
       parentContext: context,
     );
   }
