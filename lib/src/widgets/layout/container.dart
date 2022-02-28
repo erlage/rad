@@ -21,6 +21,12 @@ class Container extends Widget {
   final int? height;
   final MeasuringUnit? sizingUnit;
 
+  @override
+  String get type => (Container).toString();
+
+  @override
+  DomTag get tag => DomTag.div;
+
   const Container({
     this.key,
     this.style,
@@ -31,18 +37,12 @@ class Container extends Widget {
   });
 
   @override
-  String get type => (Container).toString();
-
-  @override
-  DomTag get tag => DomTag.div;
-
-  @override
   builder(context) {
     return ContainerRenderObject(
       child: child,
-      style: style ?? '',
       width: width,
       height: height,
+      styles: null != style ? style!.split(" ") : [],
       sizingUnit: sizingUnit ?? MeasuringUnit.pixel,
       context: context.mergeKey(key),
     );
@@ -51,24 +51,44 @@ class Container extends Widget {
 
 class ContainerRenderObject extends RenderObject {
   final Widget child;
-  final String style;
+  final List<String> styles;
 
   final int? width;
   final int? height;
   final MeasuringUnit sizingUnit;
 
-  late String defaultStyles;
-
   ContainerRenderObject({
-    required this.child,
-    required this.style,
     this.width,
     this.height,
+    required this.child,
+    required this.styles,
     required this.sizingUnit,
     required BuildContext context,
   }) : super(context);
 
-  void applyProperties(
+  @override
+  build(widgetObject) {
+    applyProps(widgetObject, this);
+
+    Framework.buildWidget(
+      widget: child,
+      parentContext: context,
+    );
+  }
+
+  @override
+  update(widgetObject, updatedRenderObject) {
+    updatedRenderObject as ContainerRenderObject;
+
+    applyProps(widgetObject, updatedRenderObject);
+
+    Framework.updateWidget(
+      widget: child,
+      parentContext: context,
+    );
+  }
+
+  void applyProps(
     WidgetObject widgetObj,
     ContainerRenderObject renderObj,
   ) {
@@ -83,32 +103,8 @@ class ContainerRenderObject extends RenderObject {
           renderObj.height.toString() + sizingUnit;
     }
 
-    if (renderObj.style.isNotEmpty) {
-      widgetObj.htmlElement.className = " $defaultStyles ${renderObj.style}";
+    if (renderObj.styles.isNotEmpty) {
+      widgetObj.htmlElement.classes.addAll(renderObj.styles);
     }
-  }
-
-  @override
-  build(widgetObject) {
-    defaultStyles = widgetObject.htmlElement.className;
-
-    applyProperties(widgetObject, this);
-
-    Framework.buildWidget(
-      widget: child,
-      parentContext: context,
-    );
-  }
-
-  @override
-  update(widgetObject, updatedRenderObject) {
-    updatedRenderObject as ContainerRenderObject;
-
-    applyProperties(widgetObject, updatedRenderObject);
-
-    Framework.updateWidget(
-      widget: child,
-      parentContext: context,
-    );
   }
 }
