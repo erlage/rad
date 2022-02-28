@@ -84,7 +84,7 @@ class OverlayRenderObject extends RenderObject<Overlay> {
       widgetObject.htmlElement.className += " $style";
     }
 
-    Framework.renderMultipleChildWidgets(
+    Framework.buildMultipleChildWidgets(
       context: context,
       widgets: initialEntries,
     );

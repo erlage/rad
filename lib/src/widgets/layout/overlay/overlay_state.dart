@@ -16,7 +16,7 @@ class OverlayState {
   }
 
   insertAll(List<OverlayEntry> entries) {
-    Framework.renderMultipleChildWidgets(
+    Framework.buildMultipleChildWidgets(
       widgets: entries,
       context: widgetObject.context,
       append: true,

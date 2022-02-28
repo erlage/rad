@@ -56,7 +56,7 @@ class Framework {
     );
   }
 
-  static void renderMultipleChildWidgets({
+  static void buildMultipleChildWidgets({
     required List<Widget> widgets,
     required BuildContext context,
     List<String>? injectStyles,
