@@ -52,7 +52,7 @@ class Framework {
         append: append,
         widget: widget,
         parentContext: context,
-        injectStyles: injectStyles,
+        styles: injectStyles,
       );
 
       // remaining widgets will be appended
@@ -86,7 +86,7 @@ class Framework {
     append = false,
     required Widget widget,
     required BuildContext parentContext,
-    List<String>? injectStyles,
+    List<String>? styles,
   }) {
     if (!_isInit) {
       throw "Framework not initialized. If you're building your own AppWidget implementation, make sure to call Framework.init()";
@@ -98,30 +98,11 @@ class Framework {
 
     widget.createState(renderObject);
 
-    if (_tryRebuildingWidgetHavingKey(renderObject.context.key)) {
-      return;
-    }
+    var widgetObject = WidgetObject(widget: widget, renderObject: renderObject);
 
-    var tag = Utils.mapDomTag(renderObject.context.widgetDomTag);
+    widgetObject.createHtmlElement();
 
-    var htmlElement = document.createElement(tag);
-
-    htmlElement as HtmlElement;
-
-    htmlElement.id = renderObject.context.key;
-    htmlElement.dataset["wtype"] = renderObject.context.widgetType;
-
-    // if parent wants to inject styles
-
-    if (null != injectStyles && injectStyles.isNotEmpty) {
-      htmlElement.classes.addAll(injectStyles);
-    }
-
-    var widgetObject = WidgetObject(
-      widget: widget,
-      renderObject: renderObject,
-      htmlElement: htmlElement,
-    );
+    widgetObject.injectStyles(styles);
 
     _registerWidgetObject(widgetObject);
 
@@ -130,7 +111,7 @@ class Framework {
     if (!append) {
       // if root div
 
-      if (Constants.bigBang == renderObject.context.parentKey) {
+      if (Constants.bigBang == widgetObject.context.parentKey) {
         var element = document.getElementById(renderObject.context.parentKey);
 
         if (null == element) {
@@ -143,26 +124,18 @@ class Framework {
 
         _disposeWidget(
           preserveTarget: true,
-          widgetObject: _getWidgetObject(renderObject.context.parentKey),
+          widgetObject: _getWidgetObject(widgetObject.context.parentKey),
         );
       }
     }
 
-    // lifecycle hook
-
     widgetObject.renderObject.beforeMount();
-
-    // mount
 
     widgetObject.mount();
 
-    // lifecycle hook
-
     widgetObject.renderObject.afterMount();
 
-    // lifecycle hook, paint childs contents
-
-    widgetObject.renderObject.render(widgetObject);
+    widgetObject.render();
   }
 
   // internals

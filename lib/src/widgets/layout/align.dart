@@ -76,7 +76,7 @@ class AlignRenderObject extends RenderObject<Align> {
     Framework.buildWidget(
       widget: child,
       parentContext: context,
-      injectStyles: stylesToInjectIntoChilds,
+      styles: stylesToInjectIntoChilds,
     );
   }
 }

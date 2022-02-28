@@ -3,21 +3,42 @@ import 'dart:html';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/structures/widget.dart';
+import 'package:rad/src/core/utils.dart';
 
 class WidgetObject {
   final BuildContext context;
 
   final Widget widget;
   final RenderObject renderObject;
-  final HtmlElement htmlElement;
+  late final HtmlElement htmlElement;
+
+  var isMounted = false;
 
   WidgetObject({
     required this.widget,
     required this.renderObject,
-    required this.htmlElement,
   }) : context = renderObject.context;
 
-  mount() {
+  void createHtmlElement() {
+    var tag = Utils.mapDomTag(renderObject.domTag);
+
+    htmlElement = document.createElement(tag) as HtmlElement;
+
+    htmlElement.id = renderObject.context.key;
+    htmlElement.dataset["wtype"] = renderObject.context.widgetType;
+  }
+
+  void injectStyles(List<String>? styles) {
+    if (null != styles && styles.isNotEmpty) {
+      htmlElement.classes.addAll(styles);
+    }
+  }
+
+  void mount() {
+    if (isMounted) {
+      throw "Widget is already mounted.";
+    }
+
     // we can't use node.parent here cus root widget's parent can be null
 
     var parentElement = document.getElementById(renderObject.context.parentKey);
@@ -27,5 +48,11 @@ class WidgetObject {
     }
 
     parentElement.append(htmlElement);
+
+    isMounted = true;
+  }
+
+  void render() {
+    renderObject.render(this);
   }
 }
