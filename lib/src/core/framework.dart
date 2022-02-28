@@ -26,7 +26,7 @@ class Framework {
     return _monotonicId.toString() + "_" + Utils.random();
   }
 
-  static void insertStyles(String styles) {
+  static void addGlobalStyles(String styles) {
     var styleSheet = document.createElement("style");
 
     styleSheet.innerText = styles;
@@ -38,25 +38,6 @@ class Framework {
     } else {
       throw "For Rad to work, your page must have either a head tag or a body."
           "Creating a body(or head) in your page will fix this problem.";
-    }
-  }
-
-  static void buildMultipleChildWidgets({
-    required List<Widget> widgets,
-    required BuildContext context,
-    List<String>? injectStyles,
-    append = false,
-  }) {
-    for (var widget in widgets) {
-      buildWidget(
-        append: append,
-        widget: widget,
-        parentContext: context,
-        styles: injectStyles,
-      );
-
-      // remaining widgets will be appended
-      append = true;
     }
   }
 
@@ -80,6 +61,25 @@ class Framework {
     }
 
     return widgetObject;
+  }
+
+  static void buildMultipleChildWidgets({
+    required List<Widget> widgets,
+    required BuildContext context,
+    List<String>? injectStyles,
+    append = false,
+  }) {
+    for (var widget in widgets) {
+      buildWidget(
+        append: append,
+        widget: widget,
+        parentContext: context,
+        styles: injectStyles,
+      );
+
+      // remaining widgets will be appended
+      append = true;
+    }
   }
 
   static buildWidget({

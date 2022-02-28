@@ -70,11 +70,11 @@ class AppWidgetRenderObject<T> extends RenderObject<T> {
 
     // insert framework's CSS styles
 
-    Framework.insertStyles(GEN_STYLES_NORMALIZE_CSS);
-    Framework.insertStyles(GEN_STYLES_MAIN_CSS);
+    Framework.addGlobalStyles(GEN_STYLES_NORMALIZE_CSS);
+    Framework.addGlobalStyles(GEN_STYLES_MAIN_CSS);
 
     if (T.toString() == (RadApp).toString()) {
-      Framework.insertStyles(GEN_STYLES_RAD_APP_CSS);
+      Framework.addGlobalStyles(GEN_STYLES_RAD_APP_CSS);
     }
 
     Framework.buildWidget(
