@@ -116,6 +116,10 @@ class Framework {
       // if found
       if (null != existingWidgetObject) {
         //
+        // inject styles
+        //
+        existingWidgetObject.injectStyles(styles);
+        //
         // let child decide what's need to be updated
         return existingWidgetObject.renderObject.update(
           existingWidgetObject,
