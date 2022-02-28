@@ -15,20 +15,21 @@ import 'package:rad/src/core/structures/widget.dart';
 class Align extends Widget {
   final String? key;
 
-  final Widget child;
   final Alignment alignment;
 
-  @override
-  String get type => (Align).toString();
-
-  @override
-  DomTag get tag => DomTag.div;
+  final Widget child;
 
   const Align({
     this.key,
     required this.child,
     required this.alignment,
   });
+
+  @override
+  String get type => (Align).toString();
+
+  @override
+  DomTag get tag => DomTag.div;
 
   @override
   builder(context) {
@@ -63,13 +64,11 @@ class AlignRenderObject extends RenderObject {
 
   @override
   update(widgetObject, updatedRenderObject) {
-    updatedRenderObject as AlignRenderObject;
-
     Framework.updateWidget(
       widget: child,
       parentContext: context,
       styles: [
-        getAlignmentStyle(updatedRenderObject),
+        getAlignmentStyle(updatedRenderObject as AlignRenderObject),
       ],
     );
   }
@@ -87,8 +86,6 @@ class AlignRenderObject extends RenderObject {
 
       case Alignment.topLeft:
         return "rad-align-top-left";
-
-      // dart tooling supports exhaustive checking... that's cool!
     }
   }
 }

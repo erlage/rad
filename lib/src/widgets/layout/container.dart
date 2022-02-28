@@ -14,18 +14,13 @@ import 'package:rad/src/core/utils.dart';
 class Container extends Widget {
   final String? key;
 
-  final Widget child;
-  final String? style;
-
   final int? width;
   final int? height;
   final MeasuringUnit? sizingUnit;
 
-  @override
-  String get type => (Container).toString();
+  final String? style;
 
-  @override
-  DomTag get tag => DomTag.div;
+  final Widget child;
 
   const Container({
     this.key,
@@ -35,6 +30,12 @@ class Container extends Widget {
     this.sizingUnit,
     required this.child,
   });
+
+  @override
+  String get type => (Container).toString();
+
+  @override
+  DomTag get tag => DomTag.div;
 
   @override
   builder(context) {
@@ -80,6 +81,8 @@ class ContainerRenderObject extends RenderObject {
   update(widgetObject, updatedRenderObject) {
     updatedRenderObject as ContainerRenderObject;
 
+    clearProps(widgetObject, this);
+
     applyProps(widgetObject, updatedRenderObject);
 
     Framework.updateWidget(
@@ -89,22 +92,37 @@ class ContainerRenderObject extends RenderObject {
   }
 
   void applyProps(
-    WidgetObject widgetObj,
-    ContainerRenderObject renderObj,
+    WidgetObject widgetObject,
+    ContainerRenderObject renderObject,
   ) {
-    var sizingUnit = Utils.mapMeasuringUnit(renderObj.sizingUnit);
+    var sizeUnit = Utils.mapMeasuringUnit(renderObject.sizingUnit);
 
     if (null != width) {
-      widgetObj.htmlElement.style.width =
-          renderObj.width.toString() + sizingUnit;
+      widgetObject.htmlElement.style.width = "${renderObject.width}$sizeUnit";
     }
     if (null != height) {
-      widgetObj.htmlElement.style.height =
-          renderObj.height.toString() + sizingUnit;
+      widgetObject.htmlElement.style.height = "${renderObject.height}$sizeUnit";
     }
 
-    if (renderObj.styles.isNotEmpty) {
-      widgetObj.htmlElement.classes.addAll(renderObj.styles);
+    if (renderObject.styles.isNotEmpty) {
+      widgetObject.htmlElement.classes.addAll(renderObject.styles);
+    }
+  }
+
+  void clearProps(
+    WidgetObject widgetObject,
+    ContainerRenderObject renderObject,
+  ) {
+    if (null != renderObject.width) {
+      widgetObject.htmlElement.style.width = '';
+    }
+
+    if (null != renderObject.height) {
+      widgetObject.htmlElement.style.height = '';
+    }
+
+    if (renderObject.styles.isNotEmpty) {
+      widgetObject.htmlElement.classes.removeAll(renderObject.styles);
     }
   }
 }

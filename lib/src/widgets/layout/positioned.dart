@@ -1,5 +1,6 @@
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
+import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
@@ -102,29 +103,7 @@ class PositionedRenderObject extends RenderObject {
 
   @override
   build(widgetObject) {
-    var sizingUnit = Utils.mapMeasuringUnit(this.sizingUnit);
-    var positioningUnit = Utils.mapMeasuringUnit(this.positioningUnit);
-
-    if (null != top) {
-      widgetObject.htmlElement.style.top = top.toString() + positioningUnit;
-    }
-    if (null != bottom) {
-      widgetObject.htmlElement.style.bottom =
-          bottom.toString() + positioningUnit;
-    }
-    if (null != left) {
-      widgetObject.htmlElement.style.left = left.toString() + positioningUnit;
-    }
-    if (null != right) {
-      widgetObject.htmlElement.style.right = right.toString() + positioningUnit;
-    }
-
-    if (null != width) {
-      widgetObject.htmlElement.style.width = width.toString() + sizingUnit;
-    }
-    if (null != height) {
-      widgetObject.htmlElement.style.height = height.toString() + sizingUnit;
-    }
+    applyProps(widgetObject, this);
 
     Framework.buildWidget(
       widget: child,
@@ -136,11 +115,62 @@ class PositionedRenderObject extends RenderObject {
   void update(widgetObject, updatedRenderObject) {
     updatedRenderObject as PositionedRenderObject;
 
-    // TODO
+    clearProps(widgetObject, this);
+
+    applyProps(widgetObject, updatedRenderObject);
 
     Framework.updateWidget(
       widget: child,
       parentContext: context,
     );
+  }
+
+  applyProps(WidgetObject widgetObj, PositionedRenderObject renderObj) {
+    var sizeUnit = Utils.mapMeasuringUnit(renderObj.sizingUnit);
+    var posUnit = Utils.mapMeasuringUnit(renderObj.positioningUnit);
+
+    if (null != renderObj.top) {
+      widgetObj.htmlElement.style.top = "${renderObj.top}$posUnit";
+    }
+    if (null != renderObj.bottom) {
+      widgetObj.htmlElement.style.bottom = "${renderObj.bottom}$posUnit";
+    }
+    if (null != renderObj.left) {
+      widgetObj.htmlElement.style.left = "${renderObj.left}$posUnit";
+    }
+    if (null != renderObj.right) {
+      widgetObj.htmlElement.style.right = "${renderObj.right}$posUnit";
+    }
+
+    if (null != renderObj.width) {
+      widgetObj.htmlElement.style.width = "${renderObj.width}$sizeUnit";
+    }
+
+    if (null != renderObj.height) {
+      widgetObj.htmlElement.style.height = "${renderObj.height}$sizeUnit}";
+    }
+  }
+
+  clearProps(WidgetObject widgetObj, PositionedRenderObject renderObj) {
+    if (null != renderObj.top) {
+      widgetObj.htmlElement.style.top = "";
+    }
+    if (null != renderObj.bottom) {
+      widgetObj.htmlElement.style.bottom = "";
+    }
+    if (null != renderObj.left) {
+      widgetObj.htmlElement.style.left = "";
+    }
+    if (null != renderObj.right) {
+      widgetObj.htmlElement.style.right = "";
+    }
+
+    if (null != renderObj.width) {
+      widgetObj.htmlElement.style.width = "";
+    }
+
+    if (null != renderObj.height) {
+      widgetObj.htmlElement.style.height = "";
+    }
   }
 }
