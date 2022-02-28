@@ -43,7 +43,7 @@ class Framework {
   }
 
   static void buildFromRenderObject(RenderObject renderObject) {
-    _buildWidget(
+    buildWidget(
       append: false,
       renderObject: renderObject,
     );
@@ -55,7 +55,7 @@ class Framework {
     List<String>? injectStyles,
     append = false,
   }) {
-    _buildWidget(
+    buildWidget(
       append: append,
       injectStyles: injectStyles,
       renderObject: widget.builder(BuildableContext(parentKey: context.key)),
@@ -69,7 +69,7 @@ class Framework {
     append = false,
   }) {
     for (var widget in widgets) {
-      _buildWidget(
+      buildWidget(
         append: append,
         injectStyles: injectStyles,
         renderObject: widget.builder(BuildableContext(parentKey: context.key)),
@@ -104,7 +104,7 @@ class Framework {
 
   // internals
 
-  static _buildWidget({
+  static buildWidget({
     append = false,
     required RenderObject renderObject,
     List<String>? injectStyles,
