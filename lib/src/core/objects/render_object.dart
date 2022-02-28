@@ -27,6 +27,6 @@ abstract class RenderObject<T> {
   void beforeUnMount() {}
 
   void rebuild() {
-    Framework.buildFromRenderObject(this);
+    // Framework.buildFromRenderObject(this);
   }
 }

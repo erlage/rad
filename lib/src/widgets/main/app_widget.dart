@@ -1,10 +1,11 @@
+import 'package:rad/rad.dart';
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/css/include/normalize.generated.dart';
 import 'package:rad/src/css/main.generated.dart';
 import 'package:rad/src/css/rad_app.generated.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/structures/buildable_context.dart';
-import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/widgets/main/rad_app.dart';
 
@@ -21,13 +22,13 @@ abstract class AppWidget<T> implements Widget {
   }) {
     Framework.init();
 
-    Framework.buildFromRenderObject(
-      AppWidgetRenderObject<T>(
-        child: child,
-        buildableContext: BuildableContext(
-          key: key,
-          parentKey: targetId,
-        ),
+    Framework.buildWidget(
+      widget: this,
+      parentContext: BuildContext(
+        key: targetId,
+        parentKey: Constants.bigBang,
+        widgetType: Constants.bigBang,
+        widgetDomTag: DomTag.div,
       ),
     );
   }

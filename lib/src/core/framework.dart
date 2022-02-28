@@ -42,13 +42,6 @@ class Framework {
     }
   }
 
-  static void buildFromRenderObject(RenderObject renderObject) {
-    buildWidget(
-      append: false,
-      renderObject: renderObject,
-    );
-  }
-
   static void renderSingleChildWidget({
     required Widget widget,
     required BuildContext context,
@@ -58,7 +51,8 @@ class Framework {
     buildWidget(
       append: append,
       injectStyles: injectStyles,
-      renderObject: widget.builder(BuildableContext(parentKey: context.key)),
+      widget: widget,
+      parentContext: context,
     );
   }
 
@@ -71,8 +65,9 @@ class Framework {
     for (var widget in widgets) {
       buildWidget(
         append: append,
+        widget: widget,
+        parentContext: context,
         injectStyles: injectStyles,
-        renderObject: widget.builder(BuildableContext(parentKey: context.key)),
       );
 
       // remaining widgets will be appended
@@ -106,12 +101,17 @@ class Framework {
 
   static buildWidget({
     append = false,
-    required RenderObject renderObject,
+    required Widget widget,
+    required BuildContext parentContext,
     List<String>? injectStyles,
   }) {
     if (!_isInit) {
       throw "Framework not initialized. If you're building your own AppWidget implementation, make sure to call Framework.init()";
     }
+
+    var renderObject = widget.builder(
+      BuildableContext(parentKey: parentContext.key),
+    );
 
     if (_tryRebuildingWidgetHavingKey(renderObject.context.key)) {
       return;
