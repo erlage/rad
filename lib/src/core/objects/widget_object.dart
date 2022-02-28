@@ -2,14 +2,17 @@ import 'dart:html';
 
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/structures/widget.dart';
 
 class WidgetObject {
   final BuildContext context;
 
+  final Widget widget;
   final RenderObject renderObject;
   final HtmlElement htmlElement;
 
   WidgetObject({
+    required this.widget,
     required this.renderObject,
     required this.htmlElement,
   }) : context = renderObject.context;

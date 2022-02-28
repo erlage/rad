@@ -133,6 +133,7 @@ class Framework {
     }
 
     var widgetObject = WidgetObject(
+      widget: widget,
       renderObject: renderObject,
       htmlElement: htmlElement,
     );
