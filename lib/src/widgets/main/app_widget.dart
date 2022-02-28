@@ -44,7 +44,7 @@ class AppWidgetRenderObject<T> extends RenderObject {
   }) : super(context);
 
   @override
-  render(widgetObject) {
+  build(widgetObject) {
     var targetElement = widgetObject.htmlElement.parent;
 
     if (null == targetElement) {

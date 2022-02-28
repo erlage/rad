@@ -51,7 +51,7 @@ class AlignRenderObject extends RenderObject {
   }) : super(context);
 
   @override
-  render(widgetObject) {
+  build(widgetObject) {
     var stylesToInjectIntoChilds = <String>[];
 
     switch (alignment) {

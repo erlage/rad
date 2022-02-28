@@ -101,7 +101,7 @@ class PositionedRenderObject extends RenderObject {
   }) : super(context);
 
   @override
-  render(widgetObject) {
+  build(widgetObject) {
     var sizingUnit = Utils.mapMeasuringUnit(this.sizingUnit);
     var positioningUnit = Utils.mapMeasuringUnit(this.positioningUnit);
 

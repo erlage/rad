@@ -55,7 +55,7 @@ class TextRenderObject extends RenderObject {
   }) : super(context);
 
   @override
-  render(widgetObject) {
+  build(widgetObject) {
     if (style.isNotEmpty) {
       widgetObject.htmlElement.className += " $style";
     }

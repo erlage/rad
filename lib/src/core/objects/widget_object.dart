@@ -55,6 +55,6 @@ class WidgetObject {
   }
 
   void render() {
-    renderObject.render(this);
+    renderObject.build(this);
   }
 }

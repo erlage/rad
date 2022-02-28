@@ -89,7 +89,7 @@ class ContainerRenderObject extends RenderObject {
   }
 
   @override
-  render(widgetObject) {
+  build(widgetObject) {
     defaultStyles = widgetObject.htmlElement.className;
 
     applyProperties(widgetObject, this);

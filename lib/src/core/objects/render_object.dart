@@ -6,7 +6,7 @@ abstract class RenderObject {
 
   RenderObject(this.context);
 
-  void render(WidgetObject widgetObject);
+  void build(WidgetObject widgetObject);
 
   void beforeMount() {}
 
