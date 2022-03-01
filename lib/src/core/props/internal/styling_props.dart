@@ -13,7 +13,7 @@ class StylingProps {
   ///
   /// if [updatedProps] is not null, it'll do a update
   ///
-  void updateProps(HtmlElement element, [StylingProps? updatedProps]) {
+  void apply(HtmlElement element, [StylingProps? updatedProps]) {
     if (null == updatedProps) {
       return _applyProps(element, this);
     }

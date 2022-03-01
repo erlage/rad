@@ -22,7 +22,7 @@ class SizingProps {
   ///
   /// if [updatedProps] is not null, it'll do a update
   ///
-  void updateProps(HtmlElement element, [SizingProps? updatedProps]) {
+  void apply(HtmlElement element, [SizingProps? updatedProps]) {
     if (null == updatedProps) {
       return _applyProps(element, this);
     }
