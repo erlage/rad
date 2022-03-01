@@ -38,7 +38,7 @@ class WidgetObject {
     element = document.createElement(tag) as HtmlElement;
 
     element.id = renderObject.context.key;
-    element.dataset[Constants.attrClass] = renderObject.context.widgetType;
+    element.dataset[Constants.attrType] = renderObject.context.widgetType;
     element.dataset[Constants.attrClass] = renderObject.context.widgetClassName;
 
     _isCreated = true;
