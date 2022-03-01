@@ -1,8 +1,8 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: non_constant_identifier_names
 
 // auto-generated. please don't edit this file
 
-const GEN_STYLES_NORMALIZE_CSS = ""
+final GEN_STYLES_NORMALIZE_CSS = ""
     " /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */ "
     "  "
     "  "
