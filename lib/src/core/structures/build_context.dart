@@ -8,10 +8,10 @@ import 'package:rad/src/core/enums.dart';
 /// to trace back origin of widget all the way to BigBang(where it all started)
 ///
 class BuildContext {
-  late final String key;
-  late final String widgetType;
-  late final DomTag widgetDomTag;
-  late final String widgetClassName;
+  final String key;
+  final String widgetType;
+  final DomTag widgetDomTag;
+  final String widgetClassName;
 
   late final BuildContext parent;
 
@@ -32,8 +32,8 @@ class BuildContext {
   /// its type is undefined because at the time of big bang there
   /// are no widgets.
   ///
-  BuildContext.bigBang(this.key) {
-    widgetDomTag = DomTag.div;
-    widgetType = Constants.typeBigBang;
-  }
+  BuildContext.bigBang(this.key)
+      : widgetDomTag = DomTag.div,
+        widgetType = Constants.typeBigBang,
+        widgetClassName = Constants.typeBigBang;
 }

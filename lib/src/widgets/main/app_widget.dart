@@ -74,7 +74,10 @@ class AppWidgetRenderObject extends RenderObject {
       throw "Unable to locate target element in HTML document";
     }
 
-    targetElement.dataset.addAll({"wtype": "Target"});
+    targetElement.dataset.addAll({
+      "wtype": "Target",
+      "wclass": context.parent.widgetClassName,
+    });
 
     Framework.buildChildren(widgets: [child], parentContext: context);
   }
