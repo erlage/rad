@@ -31,7 +31,7 @@ How about that? if you're familiar with Flutter it don't even need an explanatio
     - Open `pubspec.yaml` in newly created app folder and add `rad` to your dependencies:
       ```yaml
       dependencies:
-        rad: 0.2.0
+        rad: 0.2.1
       ```
 
 3. Import Rad widgets in your `main.dart`

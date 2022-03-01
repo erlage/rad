@@ -1,3 +1,7 @@
+## 0.2.1
+
+- Allow creation of minified and optimized builds.
+
 ## 0.2.0
 
 - Core update 
