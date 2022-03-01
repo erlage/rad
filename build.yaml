@@ -8,7 +8,7 @@ targets:
 
 builders: 
   styles: 
-    import: 'src_gen/builders.dart' 
+    import: 'src_builders/builders.dart' 
     builder_factories: ['styles'] 
     build_extensions: 
       .css: 
