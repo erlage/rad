@@ -70,7 +70,7 @@ class Framework {
     for (var widget in widgets) {
       // generate key if not set
       var widgetKey = Constants.keyNotSet == widget.initialKey
-          ? Utils.generateWidgetId()
+          ? Utils.generateWidgetKey()
           : widget.initialKey;
 
       var buildContext = BuildContext(

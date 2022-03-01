@@ -6,7 +6,7 @@ class Utils {
   static var _widgetCount = 0;
   static var _monotonicId = 0;
 
-  static generateWidgetId() {
+  static generateWidgetKey() {
     _widgetCount++;
     return _widgetCount.toString() + "_" + Utils.random();
   }
