@@ -17,7 +17,7 @@ import 'package:rad/src/widgets/main/app_widget.dart';
 /// ```dart
 /// RadApp(
 ///   targetId: "id_of_a_div",
-///   home: Text("just a simple page"),
+///   child: Text("just a simple page"),
 /// )
 /// ```
 ///

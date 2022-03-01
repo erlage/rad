@@ -19,9 +19,9 @@ import 'package:rad/src/core/structures/widget.dart';
 ///
 /// Framework calls lifecycle hooks on particular events,
 ///
-/// 1. [initState] - called before widget build.
-/// 2. [build] - called when framework decides to build widget
-/// 3. [dispose] - called before framework disposes the widget.
+/// 1. [initState] - called when framework inlates the widget for the first time.
+/// 2. [build] - called when framework decides to build widget and can be called multiple times.
+/// 3. [dispose] - called before framework disposes off the widget.
 ///
 /// It's responsibility of concrete implementation of [StatefulWidget]
 /// to tell framework when to rebuild the interface. Apart from lifecycle
