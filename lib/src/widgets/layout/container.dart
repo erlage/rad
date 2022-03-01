@@ -16,8 +16,8 @@ import 'package:rad/src/core/utils.dart';
 class Container extends Widget {
   final String? key;
 
-  final int? width;
-  final int? height;
+  final double? width;
+  final double? height;
   final MeasuringUnit? sizingUnit;
 
   final String? styles;
@@ -58,8 +58,8 @@ class Container extends Widget {
 }
 
 class ContainerProps {
-  final int? width;
-  final int? height;
+  final double? width;
+  final double? height;
   final List<String> styles;
   final MeasuringUnit sizingUnit;
   final Widget child;

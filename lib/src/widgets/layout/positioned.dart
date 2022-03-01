@@ -15,14 +15,14 @@ import 'package:rad/src/core/utils.dart';
 class Positioned extends Widget {
   final String? key;
 
-  final int? top;
-  final int? bottom;
-  final int? left;
-  final int? right;
+  final double? top;
+  final double? bottom;
+  final double? left;
+  final double? right;
   final MeasuringUnit? positioningUnit;
 
-  final int? width;
-  final int? height;
+  final double? width;
+  final double? height;
   final MeasuringUnit? sizingUnit;
 
   final Widget child;
@@ -85,14 +85,14 @@ class Positioned extends Widget {
 class PositionedProps {
   final Widget child;
 
-  final int? top;
-  final int? bottom;
-  final int? left;
-  final int? right;
+  final double? top;
+  final double? bottom;
+  final double? left;
+  final double? right;
   final MeasuringUnit positioningUnit;
 
-  final int? width;
-  final int? height;
+  final double? width;
+  final double? height;
   final MeasuringUnit sizingUnit;
 
   PositionedProps({
