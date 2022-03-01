@@ -72,7 +72,11 @@ class AlignRenderObject extends RenderObject {
     Framework.buildChildren(
       widgets: [props.child],
       parentContext: context,
-      elementCallback: (element) => updateStyleProps(this, element),
+      elementCallback: (element) => updateStyleProps(
+        element: element,
+        previousAlignment: null,
+        updatedAlignment: props.alignment,
+      ),
     );
   }
 
@@ -80,14 +84,19 @@ class AlignRenderObject extends RenderObject {
   update(widgetObject, updatedRenderObject) {
     updatedRenderObject as AlignRenderObject;
 
+    var previousAlignment = props.alignment;
+
     switchProps(updatedRenderObject.props);
+
+    var updatedAlignment = props.alignment;
 
     Framework.updateChildren(
       widgets: [props.child],
       parentContext: context,
       elementCallback: (element) => updateStyleProps(
-        updatedRenderObject,
-        element,
+        element: element,
+        previousAlignment: previousAlignment,
+        updatedAlignment: updatedAlignment,
       ),
     );
   }
@@ -96,12 +105,16 @@ class AlignRenderObject extends RenderObject {
     this.props = props;
   }
 
-  updateStyleProps(AlignRenderObject renderObject, Element element) {
-    // remove previous
-    element.classes.remove(getAlignmentStyle(props.alignment));
+  updateStyleProps({
+    required Element element,
+    required Alignment updatedAlignment,
+    Alignment? previousAlignment,
+  }) {
+    if (null != previousAlignment) {
+      element.classes.remove(getAlignmentStyle(previousAlignment));
+    }
 
-    // add current
-    element.classes.add(getAlignmentStyle(renderObject.props.alignment));
+    element.classes.add(getAlignmentStyle(updatedAlignment));
   }
 
   getAlignmentStyle(Alignment alignment) {
