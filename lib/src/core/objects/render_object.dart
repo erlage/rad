@@ -36,7 +36,6 @@ abstract class RenderObject {
   /// [updatedRenderObject] contains fresh interface description of current
   /// widget. This can be used to update widget's internal state.
   ///
-
   /// Note: Widget must cascade update to its childs after updating
   /// its own state. Even if there's nothing to update in current widget's state,
   /// cascading update ensure that all required widget will update themselves

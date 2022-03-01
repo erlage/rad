@@ -19,13 +19,25 @@ import 'package:rad/src/core/structures/widget.dart';
 ///
 /// Framework calls lifecycle hooks on particular events,
 ///
-/// 1. [initState] - called when framework inlates the widget for the first time.
-/// 2. [build] - called when framework decides to build widget and can be called multiple times.
-/// 3. [dispose] - called before framework disposes off the widget.
+/// 1. [initState] - is called when framework decides to inflate the widget.
+/// It's called exactly once during lifetime of this widget.
+///
+///
+/// 2. [build] - is called when framework wants to build interface for widget.
+/// Whatever interface(widgets) this method return will be built. Note that,
+/// Framework can call this method multiple times to stay up-to-date with
+/// widget's interface description.
+///
+///
+/// 3. [dispose] - is called when framework is about to dispose widget and its
+/// state.
+///
+/// Apart from lifecycle hooks, there is a [setState] function which a widget
+/// can use to tell framework to rebuild widget's interface because some
+/// internal state of this widget has changed.
 ///
 /// It's responsibility of concrete implementation of [StatefulWidget]
-/// to tell framework when to rebuild the interface. Apart from lifecycle
-/// methods, there is a [setState] function which can be used for that.
+/// to tell framework when to rebuild the interface using [setState]
 ///
 /// ## Performance consideration
 ///
@@ -33,14 +45,14 @@ import 'package:rad/src/core/structures/widget.dart';
 ///   Child widgets then can cascade update to their childs and so on.
 ///
 ///
-/// * Having state at top-level of your application won't hurt you much(in most cases)
-///   but It's always better to have a your State at leaf nodes. Having less childs means,
+/// * Having state at top-level of your application won't hurt you performance(in most cases)
+///   but it's always better to have a your State at leaf nodes. Having less childs means,
 ///   updates can be dispatched and processed faster.
 ///
 ///
-/// * Update process is optimized for performance. Widget updates do not cause a
-///   complete rebuild of widget, instead widgets will update their parts that might be
-///   affected by its parent'state change.
+/// * Update process is optimized for performance. A widget update do not cause a
+///   complete widget's rebuild. Instead every widget will update only parts of its interface
+///   that might be affected by change in its parent's state.
 ///
 ///
 /// * Widgets that has internal state such as [StatefulWidget] and [Overlay] won't
