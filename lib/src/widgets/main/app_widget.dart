@@ -1,13 +1,13 @@
+import 'dart:html';
+
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/css/include/normalize.generated.dart';
 import 'package:rad/src/css/main.generated.dart';
-import 'package:rad/src/css/rad_app.generated.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/widgets/main/rad_app.dart';
 
 abstract class AppWidget extends Widget {
   final String? key;
@@ -15,12 +15,22 @@ abstract class AppWidget extends Widget {
   final Widget child;
   final String targetId;
 
+  final VoidCallback onInit;
+
   AppWidget({
     this.key,
     required this.child,
     required this.targetId,
+    required this.onInit,
   }) {
     Framework.init();
+
+    // insert framework's CSS styles
+
+    Framework.addGlobalStyles(GEN_STYLES_NORMALIZE_CSS, "Normalize");
+    Framework.addGlobalStyles(GEN_STYLES_MAIN_CSS, "Main");
+
+    onInit();
 
     Framework.buildChildren(
       widgets: [this],
@@ -65,15 +75,6 @@ class AppWidgetRenderObject extends RenderObject {
     }
 
     targetElement.dataset.addAll({"wtype": "Target"});
-
-    // insert framework's CSS styles
-
-    Framework.addGlobalStyles(GEN_STYLES_NORMALIZE_CSS);
-    Framework.addGlobalStyles(GEN_STYLES_MAIN_CSS);
-
-    if (runtimeType is RadApp) {
-      Framework.addGlobalStyles(GEN_STYLES_RAD_APP_CSS);
-    }
 
     Framework.buildChildren(widgets: [child], parentContext: context);
   }

@@ -1,4 +1,6 @@
+import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/structures/widget.dart';
+import 'package:rad/src/css/rad_app.generated.dart';
 import 'package:rad/src/widgets/main/app_widget.dart';
 
 /// an application widget.
@@ -27,8 +29,10 @@ class RadApp extends AppWidget {
     required Widget child,
     required String targetId,
   }) : super(
-          key: key,
-          child: child,
-          targetId: targetId,
-        );
+            key: key,
+            child: child,
+            targetId: targetId,
+            onInit: () {
+              Framework.addGlobalStyles(GEN_STYLES_RAD_APP_CSS, "RadApp");
+            });
 }

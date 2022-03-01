@@ -21,7 +21,7 @@ class Framework {
     _isInit = true;
   }
 
-  static void addGlobalStyles(String styles) {
+  static void addGlobalStyles(String styles, [String? logEntry]) {
     var styleSheet = document.createElement("style");
 
     styleSheet.innerText = styles;
@@ -33,6 +33,10 @@ class Framework {
     } else {
       throw "For Rad to work, your page must have either a head tag or a body."
           "Creating a body(or head) in your page will fix this problem.";
+    }
+
+    if (null != logEntry) {
+      print("Styles injected: $logEntry");
     }
   }
 
