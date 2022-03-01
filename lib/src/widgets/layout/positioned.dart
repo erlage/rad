@@ -18,11 +18,11 @@ class Positioned extends Widget {
   final double? bottom;
   final double? left;
   final double? right;
-  final MeasuringUnit? positioningUnit;
+  final MeasuringUnit? positionUnit;
 
   final double? width;
   final double? height;
-  final MeasuringUnit? sizingUnit;
+  final MeasuringUnit? sizeUnit;
 
   final Widget child;
 
@@ -34,8 +34,8 @@ class Positioned extends Widget {
     this.right,
     this.width,
     this.height,
-    this.sizingUnit,
-    this.positioningUnit,
+    this.sizeUnit,
+    this.positionUnit,
     required this.child,
   });
 
@@ -47,11 +47,11 @@ class Positioned extends Widget {
     this.bottom,
     this.left,
     this.right,
-    this.positioningUnit,
+    this.positionUnit,
     required this.child,
   })  : width = 100,
         height = 100,
-        sizingUnit = MeasuringUnit.percent;
+        sizeUnit = MeasuringUnit.percent;
 
   @override
   DomTag get tag => DomTag.div;
@@ -70,14 +70,14 @@ class Positioned extends Widget {
       sizeProps: SizeProps(
         width: width,
         height: height,
-        sizingUnit: sizingUnit,
+        sizeUnit: sizeUnit,
       ),
       posProps: PositionProps(
         top: top,
         bottom: bottom,
         left: left,
         right: right,
-        positioningUnit: positioningUnit,
+        positionUnit: positionUnit,
       ),
     );
   }

@@ -13,8 +13,8 @@ class SizeProps {
   SizeProps({
     this.width,
     this.height,
-    MeasuringUnit? sizingUnit,
-  }) : unit = Utils.mapMeasuringUnit(sizingUnit ?? MeasuringUnit.pixel);
+    MeasuringUnit? sizeUnit,
+  }) : unit = Utils.mapMeasuringUnit(sizeUnit ?? MeasuringUnit.pixel);
 
   // application
 

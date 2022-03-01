@@ -98,7 +98,7 @@ Note: Some widgets such as StatelessWidget don't have a `style` property.
 
 Some widgets have properties for their "size" or "position" or both. We refers to them as SizeProps & PositionProps respectively. PositionProps includes `left`, `right`, `top` and `bottom` properties while `width` and `height` are SizeProps.
 
-Widgets that accept SizeProps also have an optional property `sizingUnit`. For PositionProps there's `positioningUnit`. By default, `width: 20` will be mapped to `width: 20px`. But if you want to set width to some percentage of parent you can set `sizingUnit:` to **`MeasuringUnit.percentage`**. This will tell framework to map `width: 20` to `width: 20%`.
+Widgets that accept SizeProps also have an optional property `sizeUnit`. For PositionProps there's `positionUnit`. By default, `width: 20` will be mapped to `width: 20px`. But if you want to set width to some percentage of parent you can set `sizeUnit:` to **`MeasuringUnit.percentage`**. This will tell framework to map `width: 20` to `width: 20%`.
 
 ## Api reference
 

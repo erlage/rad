@@ -17,7 +17,7 @@ class Container extends Widget {
 
   final double? width;
   final double? height;
-  final MeasuringUnit? sizingUnit;
+  final MeasuringUnit? sizeUnit;
 
   final String? styles;
 
@@ -28,7 +28,7 @@ class Container extends Widget {
     this.styles,
     this.width,
     this.height,
-    this.sizingUnit,
+    this.sizeUnit,
     required this.child,
   });
 
@@ -49,7 +49,7 @@ class Container extends Widget {
       sizeProps: SizeProps(
         width: width,
         height: height,
-        sizingUnit: sizingUnit,
+        sizeUnit: sizeUnit,
       ),
       styleProps: StyleProps(styles),
     );
