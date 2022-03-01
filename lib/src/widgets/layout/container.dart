@@ -46,12 +46,12 @@ class Container extends Widget {
     return ContainerRenderObject(
       child: child,
       context: context,
-      sizingProps: SizingProps(
+      sizeProps: SizingProps(
         width: width,
         height: height,
-        sizingUnit: sizingUnit ?? MeasuringUnit.pixel,
+        sizingUnit: sizingUnit,
       ),
-      stylingProps: StylingProps(styles),
+      styleProps: StylingProps(styles),
     );
   }
 }
@@ -59,32 +59,35 @@ class Container extends Widget {
 class ContainerRenderObject extends RenderObject {
   final Widget child;
 
-  final SizingProps sizingProps;
-  final StylingProps stylingProps;
+  final SizingProps sizeProps;
+  final StylingProps styleProps;
 
   ContainerRenderObject({
     required this.child,
-    required this.sizingProps,
-    required this.stylingProps,
+    required this.sizeProps,
+    required this.styleProps,
     required BuildContext context,
   }) : super(context);
 
   @override
   render(widgetObject) {
-    sizingProps.apply(widgetObject.element);
+    sizeProps.apply(widgetObject.element);
 
-    stylingProps.apply(widgetObject.element);
+    styleProps.apply(widgetObject.element);
 
-    Framework.buildChildren(widgets: [child], parentContext: context);
+    Framework.buildChildren(
+      widgets: [child],
+      parentContext: context,
+    );
   }
 
   @override
   update(widgetObject, updatedRenderObject) {
     updatedRenderObject as ContainerRenderObject;
 
-    sizingProps.apply(widgetObject.element, updatedRenderObject.sizingProps);
+    sizeProps.apply(widgetObject.element, updatedRenderObject.sizeProps);
 
-    stylingProps.apply(widgetObject.element, updatedRenderObject.stylingProps);
+    styleProps.apply(widgetObject.element, updatedRenderObject.styleProps);
 
     Framework.updateChildren(
       widgets: [updatedRenderObject.child],

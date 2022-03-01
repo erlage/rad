@@ -1,9 +1,8 @@
-import 'dart:html';
-
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/props/internal/styling_props.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay_entry.dart';
@@ -67,38 +66,30 @@ class Overlay extends Widget {
   @override
   buildRenderObject(context) {
     return OverlayRenderObject(
-        context: context,
-        props: OverlayProps(
-          styles: null != styles ? styles!.split(" ") : [],
-          initialEntries: initialEntries,
-        ));
+      context: context,
+      initialEntries: initialEntries,
+      styleProps: StylingProps(styles),
+    );
   }
 }
 
-class OverlayProps {
-  final List<String> styles;
+class OverlayRenderObject extends RenderObject {
   final List<Widget> initialEntries;
 
-  OverlayProps({
-    required this.styles,
-    required this.initialEntries,
-  });
-}
-
-class OverlayRenderObject extends RenderObject {
-  final OverlayProps props;
+  final StylingProps styleProps;
 
   OverlayRenderObject({
-    required this.props,
+    required this.styleProps,
+    required this.initialEntries,
     required BuildContext context,
   }) : super(context);
 
   @override
   render(widgetObject) {
-    applyProps(widgetObject.element);
+    styleProps.apply(widgetObject.element);
 
     Framework.buildChildren(
-      widgets: props.initialEntries,
+      widgets: initialEntries,
       parentContext: context,
     );
   }
@@ -107,11 +98,5 @@ class OverlayRenderObject extends RenderObject {
   update(widgetObject, updatedRenderObject) {
     // overlay has its own state and can't be changed
     // by outer objects
-  }
-
-  void applyProps(HtmlElement element) {
-    if (props.styles.isNotEmpty) {
-      element.classes.addAll(props.styles);
-    }
   }
 }

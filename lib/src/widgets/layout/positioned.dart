@@ -1,12 +1,11 @@
-import 'dart:html';
-
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
+import 'package:rad/src/core/props/internal/positioning_props.dart';
+import 'package:rad/src/core/props/internal/sizing_props.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/utils.dart';
 
 /// A widget that controls position of it's child. Can be used
 /// anywhere but it's usually used inside a [Stack] or [OverlayEntry]
@@ -66,62 +65,45 @@ class Positioned extends Widget {
   @override
   buildRenderObject(context) {
     return PositionedRenderObject(
+      child: child,
       context: context,
-      props: PositionedProps(
+      sizeProps: SizingProps(
+        width: width,
+        height: height,
+        sizingUnit: sizingUnit,
+      ),
+      posProps: PositioningProps(
         top: top,
         bottom: bottom,
         left: left,
         right: right,
-        width: width,
-        height: height,
-        sizingUnit: sizingUnit ?? MeasuringUnit.pixel,
-        positioningUnit: positioningUnit ?? MeasuringUnit.pixel,
-        child: child,
+        positioningUnit: positioningUnit,
       ),
     );
   }
 }
 
-class PositionedProps {
+class PositionedRenderObject extends RenderObject {
   final Widget child;
 
-  final double? top;
-  final double? bottom;
-  final double? left;
-  final double? right;
-  final MeasuringUnit positioningUnit;
-
-  final double? width;
-  final double? height;
-  final MeasuringUnit sizingUnit;
-
-  PositionedProps({
-    this.top,
-    this.bottom,
-    this.left,
-    this.right,
-    this.width,
-    this.height,
-    required this.positioningUnit,
-    required this.sizingUnit,
-    required this.child,
-  });
-}
-
-class PositionedRenderObject extends RenderObject {
-  PositionedProps props;
+  final SizingProps sizeProps;
+  final PositioningProps posProps;
 
   PositionedRenderObject({
-    required this.props,
+    required this.child,
+    required this.sizeProps,
+    required this.posProps,
     required BuildContext context,
   }) : super(context);
 
   @override
   render(widgetObject) {
-    applyProps(widgetObject.element);
+    sizeProps.apply(widgetObject.element);
+
+    posProps.apply(widgetObject.element);
 
     Framework.buildChildren(
-      widgets: [props.child],
+      widgets: [child],
       parentContext: context,
     );
   }
@@ -130,68 +112,13 @@ class PositionedRenderObject extends RenderObject {
   void update(widgetObject, updatedRenderObject) {
     updatedRenderObject as PositionedRenderObject;
 
-    clearProps(widgetObject.element);
+    sizeProps.apply(widgetObject.element, updatedRenderObject.sizeProps);
 
-    switchProps(updatedRenderObject.props);
-
-    applyProps(widgetObject.element);
+    posProps.apply(widgetObject.element, updatedRenderObject.posProps);
 
     Framework.updateChildren(
-      widgets: [props.child],
+      widgets: [updatedRenderObject.child],
       parentContext: context,
     );
-  }
-
-  void switchProps(PositionedProps props) {
-    this.props = props;
-  }
-
-  applyProps(HtmlElement element) {
-    var sizeUnit = Utils.mapMeasuringUnit(props.sizingUnit);
-    var posUnit = Utils.mapMeasuringUnit(props.positioningUnit);
-
-    if (null != props.top) {
-      element.style.top = "${props.top}$posUnit";
-    }
-    if (null != props.bottom) {
-      element.style.bottom = "${props.bottom}$posUnit";
-    }
-    if (null != props.left) {
-      element.style.left = "${props.left}$posUnit";
-    }
-    if (null != props.right) {
-      element.style.right = "${props.right}$posUnit";
-    }
-
-    if (null != props.width) {
-      element.style.width = "${props.width}$sizeUnit";
-    }
-
-    if (null != props.height) {
-      element.style.height = "${props.height}$sizeUnit}";
-    }
-  }
-
-  clearProps(HtmlElement element) {
-    if (null != props.top) {
-      element.style.top = "";
-    }
-    if (null != props.bottom) {
-      element.style.bottom = "";
-    }
-    if (null != props.left) {
-      element.style.left = "";
-    }
-    if (null != props.right) {
-      element.style.right = "";
-    }
-
-    if (null != props.width) {
-      element.style.width = "";
-    }
-
-    if (null != props.height) {
-      element.style.height = "";
-    }
   }
 }

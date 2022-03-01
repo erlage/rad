@@ -51,8 +51,8 @@ import 'package:rad/src/core/structures/widget.dart';
 ///
 ///
 /// * Update process is optimized for performance. A widget update do not cause a
-///   complete widget's rebuild. Instead every widget will update only parts of its interface
-///   that might be affected by change in its parent's state.
+///   complete widget's rebuild. Every widget will update it's interface iff it's interface
+///   has changed.
 ///
 ///
 /// * Widgets that has internal state such as [StatefulWidget] and [Overlay] won't

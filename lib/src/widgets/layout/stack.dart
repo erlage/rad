@@ -1,9 +1,8 @@
-import 'dart:html';
-
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/framework.dart';
+import 'package:rad/src/core/props/internal/styling_props.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 
@@ -52,38 +51,29 @@ class Stack extends Widget {
   buildRenderObject(context) {
     return StackRenderObject(
       context: context,
-      props: StackProps(
-        children: children,
-        styles: null != styles ? styles!.split(" ") : [],
-      ),
+      children: children,
+      styleProps: StylingProps(styles),
     );
   }
 }
 
-class StackProps {
-  final List<String> styles;
+class StackRenderObject extends RenderObject {
   final List<Widget> children;
 
-  StackProps({
-    required this.styles,
-    required this.children,
-  });
-}
-
-class StackRenderObject extends RenderObject {
-  StackProps props;
+  final StylingProps styleProps;
 
   StackRenderObject({
-    required this.props,
+    required this.children,
+    required this.styleProps,
     required BuildContext context,
   }) : super(context);
 
   @override
   render(widgetObject) {
-    applyProps(widgetObject.element);
+    styleProps.apply(widgetObject.element);
 
     Framework.buildChildren(
-      widgets: props.children,
+      widgets: children,
       parentContext: context,
     );
   }
@@ -92,31 +82,11 @@ class StackRenderObject extends RenderObject {
   update(widgetObject, updatedRenderObject) {
     updatedRenderObject as StackRenderObject;
 
-    clearProps(widgetObject.element);
-
-    switchProps(updatedRenderObject.props);
-
-    applyProps(widgetObject.element);
+    styleProps.apply(widgetObject.element, updatedRenderObject.styleProps);
 
     Framework.updateChildren(
-      widgets: props.children,
+      widgets: updatedRenderObject.children,
       parentContext: context,
     );
-  }
-
-  void switchProps(StackProps props) {
-    this.props = props;
-  }
-
-  void applyProps(HtmlElement element) {
-    if (props.styles.isNotEmpty) {
-      element.classes.addAll(props.styles);
-    }
-  }
-
-  void clearProps(HtmlElement element) {
-    if (props.styles.isNotEmpty) {
-      element.classes.removeAll(props.styles);
-    }
   }
 }

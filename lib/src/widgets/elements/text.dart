@@ -1,8 +1,7 @@
-import 'dart:html';
-
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/props/internal/styling_props.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 
@@ -42,78 +41,56 @@ class Text extends Widget {
   buildRenderObject(context) {
     return TextRenderObject(
       context: context,
-      props: TextProps(
-        text: text,
-        isHtml: isHtml ?? false,
-        styles: null != styles ? styles!.split(" ") : [],
-      ),
+      text: text,
+      isHtml: isHtml ?? false,
+      styleProps: StylingProps(styles),
     );
   }
 }
 
-class TextProps {
+class TextRenderObject extends RenderObject {
   final String text;
   final bool isHtml;
-  final List<String> styles;
 
-  TextProps({
-    required this.text,
-    required this.isHtml,
-    required this.styles,
-  });
-}
-
-class TextRenderObject extends RenderObject {
-  TextProps props;
+  final StylingProps styleProps;
 
   TextRenderObject({
-    required this.props,
+    required this.text,
+    required this.isHtml,
+    required this.styleProps,
     required BuildContext context,
   }) : super(context);
 
   @override
   render(widgetObject) {
-    applyProps(widgetObject.element);
+    styleProps.apply(widgetObject.element);
 
-    if (props.isHtml) {
-      widgetObject.element.innerHtml = props.text;
+    if (isHtml) {
+      widgetObject.element.innerHtml = text;
       return;
     }
 
-    widgetObject.element.innerText = props.text;
+    widgetObject.element.innerText = text;
   }
 
   @override
   update(widgetObject, updatedRenderObject) {
     updatedRenderObject as TextRenderObject;
 
-    clearProps(widgetObject.element);
+    styleProps.apply(widgetObject.element, updatedRenderObject.styleProps);
 
-    switchProps(updatedRenderObject.props);
-
-    applyProps(widgetObject.element);
-
-    if (props.isHtml) {
-      widgetObject.element.innerHtml = props.text;
+    // if text has no change
+    if (isHtml == updatedRenderObject.isHtml &&
+        text == updatedRenderObject.text) {
       return;
     }
 
-    widgetObject.element.innerText = props.text;
-  }
+    if (updatedRenderObject.isHtml) {
+      widgetObject.element.innerHtml = updatedRenderObject.text;
 
-  void switchProps(TextProps props) {
-    this.props = props;
-  }
-
-  void applyProps(HtmlElement element) {
-    if (props.styles.isNotEmpty) {
-      element.classes.addAll(props.styles);
+      return;
     }
-  }
 
-  void clearProps(HtmlElement element) {
-    if (props.styles.isNotEmpty) {
-      element.classes.removeAll(props.styles);
-    }
+    widgetObject.element.innerText = updatedRenderObject.text;
   }
 }

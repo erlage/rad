@@ -17,8 +17,8 @@ class PositioningProps {
     this.bottom,
     this.left,
     this.right,
-    required MeasuringUnit positioningUnit,
-  }) : unit = Utils.mapMeasuringUnit(positioningUnit);
+    MeasuringUnit? positioningUnit,
+  }) : unit = Utils.mapMeasuringUnit(positioningUnit ?? MeasuringUnit.pixel);
 
   /// Apply props.
   ///

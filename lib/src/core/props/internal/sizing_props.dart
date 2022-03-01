@@ -13,8 +13,8 @@ class SizingProps {
   SizingProps({
     this.width,
     this.height,
-    required MeasuringUnit sizingUnit,
-  }) : unit = Utils.mapMeasuringUnit(sizingUnit);
+    MeasuringUnit? sizingUnit,
+  }) : unit = Utils.mapMeasuringUnit(sizingUnit ?? MeasuringUnit.pixel);
 
   // application
 
