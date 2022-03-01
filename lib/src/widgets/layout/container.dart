@@ -1,12 +1,11 @@
-import 'dart:html';
-
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/framework.dart';
+import 'package:rad/src/core/props/internal/sizing_props.dart';
+import 'package:rad/src/core/props/internal/styling_props.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/utils.dart';
 
 /// A widget to contain a widget in itself.
 ///
@@ -45,88 +44,51 @@ class Container extends Widget {
   @override
   buildRenderObject(context) {
     return ContainerRenderObject(
+      child: child,
       context: context,
-      props: ContainerProps(
-        child: child,
+      sizingProps: SizingProps(
         width: width,
         height: height,
-        styles: null != styles ? styles!.split(" ") : [],
         sizingUnit: sizingUnit ?? MeasuringUnit.pixel,
       ),
+      stylingProps: StylingProps(styles),
     );
   }
 }
 
-class ContainerProps {
-  final double? width;
-  final double? height;
-  final List<String> styles;
-  final MeasuringUnit sizingUnit;
+class ContainerRenderObject extends RenderObject {
   final Widget child;
 
-  ContainerProps({
-    this.width,
-    this.height,
-    required this.styles,
-    required this.sizingUnit,
-    required this.child,
-  });
-}
-
-class ContainerRenderObject extends RenderObject {
-  ContainerProps props;
+  final SizingProps sizingProps;
+  final StylingProps stylingProps;
 
   ContainerRenderObject({
-    required this.props,
+    required this.child,
+    required this.sizingProps,
+    required this.stylingProps,
     required BuildContext context,
   }) : super(context);
 
   @override
   render(widgetObject) {
-    applyProps(widgetObject.element);
+    sizingProps.apply(widgetObject.element);
 
-    Framework.buildChildren(widgets: [props.child], parentContext: context);
+    stylingProps.apply(widgetObject.element);
+
+    Framework.buildChildren(widgets: [child], parentContext: context);
   }
 
   @override
   update(widgetObject, updatedRenderObject) {
     updatedRenderObject as ContainerRenderObject;
 
-    clearProps(widgetObject.element);
+    sizingProps.apply(widgetObject.element, updatedRenderObject.sizingProps);
 
-    switchProps(updatedRenderObject.props);
-
-    applyProps(widgetObject.element);
+    stylingProps.apply(widgetObject.element, updatedRenderObject.stylingProps);
 
     Framework.updateChildren(
-      widgets: [props.child],
+      widgets: [updatedRenderObject.child],
       parentContext: context,
     );
-  }
-
-  void switchProps(ContainerProps props) {
-    this.props = props;
-  }
-
-  void applyProps(HtmlElement element) {
-    var sizeUnit = Utils.mapMeasuringUnit(props.sizingUnit);
-
-    if (null != props.width) {
-      element.style.width = "${props.width}$sizeUnit";
-    }
-
-    if (null != props.height) {
-      element.style.height = "${props.height}$sizeUnit";
-    }
-
-    if (props.styles.isNotEmpty) {
-      element.classes.addAll(props.styles);
-    }
-  }
-
-  void clearProps(HtmlElement element) {
-    if (props.styles.isNotEmpty) {
-      element.classes.removeAll(props.styles);
-    }
   }
 }
