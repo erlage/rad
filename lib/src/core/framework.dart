@@ -234,7 +234,9 @@ class Framework {
           //
           // if there's child that has same type
           if (childElement.dataset.isNotEmpty &&
-              childElement.dataset["wclass"] == widget.runtimeType.toString()) {
+              widget.runtimeType.toString() ==
+                  childElement.dataset[Constants.attrClass]) {
+            //
             // add to updates list
             updates[childElement.id] = UpdateObject(widget, childElement.id);
 
@@ -347,7 +349,7 @@ class Framework {
 
     // if is not a framework's tag
 
-    if (null == widgetObject.htmlElement.dataset["wtype"]) {
+    if (null == widgetObject.htmlElement.dataset[Constants.attrType]) {
       return;
     }
 

@@ -75,8 +75,8 @@ class AppWidgetRenderObject extends RenderObject {
     }
 
     targetElement.dataset.addAll({
-      "wtype": "Target",
-      "wclass": context.parent.widgetClassName,
+      Constants.attrType: "Target",
+      Constants.attrClass: context.parent.widgetClassName,
     });
 
     Framework.buildChildren(widgets: [child], parentContext: context);

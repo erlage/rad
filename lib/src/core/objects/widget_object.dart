@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/structures/widget.dart';
@@ -37,8 +38,9 @@ class WidgetObject {
     htmlElement = document.createElement(tag) as HtmlElement;
 
     htmlElement.id = renderObject.context.key;
-    htmlElement.dataset["wtype"] = renderObject.context.widgetType;
-    htmlElement.dataset["wclass"] = renderObject.context.widgetClassName;
+    htmlElement.dataset[Constants.attrClass] = renderObject.context.widgetType;
+    htmlElement.dataset[Constants.attrClass] =
+        renderObject.context.widgetClassName;
 
     _isCreated = true;
   }
