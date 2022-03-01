@@ -1,7 +1,7 @@
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/props/internal/styling_props.dart';
+import 'package:rad/src/core/props/internal/style_props.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 
@@ -43,7 +43,7 @@ class Text extends Widget {
       context: context,
       text: text,
       isHtml: isHtml ?? false,
-      styleProps: StylingProps(styles),
+      styleProps: StyleProps(styles),
     );
   }
 }
@@ -52,7 +52,7 @@ class TextRenderObject extends RenderObject {
   final String text;
   final bool isHtml;
 
-  final StylingProps styleProps;
+  final StyleProps styleProps;
 
   TextRenderObject({
     required this.text,

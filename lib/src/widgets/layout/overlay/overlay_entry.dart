@@ -2,7 +2,7 @@ import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/props/internal/styling_props.dart';
+import 'package:rad/src/core/props/internal/style_props.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay_state.dart';
@@ -44,14 +44,14 @@ class OverlayEntry extends Widget {
     return OverlayEntryRenderObject(
       context: context,
       child: child,
-      styleProps: StylingProps(styles),
+      styleProps: StyleProps(styles),
     );
   }
 }
 
 class OverlayEntryRenderObject extends RenderObject {
   final Widget child;
-  final StylingProps styleProps;
+  final StyleProps styleProps;
 
   OverlayEntryRenderObject({
     required this.child,

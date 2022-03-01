@@ -4,7 +4,7 @@ import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/props.dart';
 import 'package:rad/src/core/utils.dart';
 
-class PositioningProps {
+class PositionProps {
   double? top;
   double? bottom;
   double? left;
@@ -12,7 +12,7 @@ class PositioningProps {
 
   String unit;
 
-  PositioningProps({
+  PositionProps({
     this.top,
     this.bottom,
     this.left,
@@ -24,7 +24,7 @@ class PositioningProps {
   ///
   /// if [updatedProps] is not null, it'll do a update.
   ///
-  void apply(HtmlElement element, [PositioningProps? updatedProps]) {
+  void apply(HtmlElement element, [PositionProps? updatedProps]) {
     if (null == updatedProps) {
       return _applyProps(element, this);
     }
@@ -38,7 +38,7 @@ class PositioningProps {
 
   // internals
 
-  bool _isChanged(PositioningProps props) {
+  bool _isChanged(PositionProps props) {
     return top != props.top ||
         bottom != props.bottom ||
         right != props.right ||
@@ -46,7 +46,7 @@ class PositioningProps {
         unit != props.unit;
   }
 
-  void _switchProps(PositioningProps props) {
+  void _switchProps(PositionProps props) {
     top = props.top;
     bottom = props.bottom;
     left = props.left;
@@ -57,7 +57,7 @@ class PositioningProps {
 
   // statics
 
-  static void _applyProps(HtmlElement element, PositioningProps props) {
+  static void _applyProps(HtmlElement element, PositionProps props) {
     if (null != props.top) {
       element.style.setProperty(Props.top, "${props.top}${props.unit}");
     }
@@ -75,7 +75,7 @@ class PositioningProps {
     }
   }
 
-  static void _clearProps(HtmlElement element, PositioningProps props) {
+  static void _clearProps(HtmlElement element, PositionProps props) {
     if (null != props.top) {
       element.style.removeProperty(Props.top);
     }

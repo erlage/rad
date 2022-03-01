@@ -1,9 +1,9 @@
 import 'dart:html';
 
-class StylingProps {
+class StyleProps {
   List<String> stylesList = [];
 
-  StylingProps(String? styles) {
+  StyleProps(String? styles) {
     stylesList.addAll(null != styles ? styles.split(" ") : []);
   }
 
@@ -13,7 +13,7 @@ class StylingProps {
   ///
   /// if [updatedProps] is not null, it'll do a update
   ///
-  void apply(HtmlElement element, [StylingProps? updatedProps]) {
+  void apply(HtmlElement element, [StyleProps? updatedProps]) {
     if (null == updatedProps) {
       return _applyProps(element, this);
     }
@@ -25,23 +25,23 @@ class StylingProps {
     }
   }
 
-  bool _isChanged(StylingProps props) {
+  bool _isChanged(StyleProps props) {
     return stylesList.join() != props.stylesList.join();
   }
 
-  void _switchProps(StylingProps updatedProps) {
+  void _switchProps(StyleProps updatedProps) {
     stylesList = updatedProps.stylesList;
   }
 
   // statics
 
-  static void _applyProps(HtmlElement element, StylingProps props) {
+  static void _applyProps(HtmlElement element, StyleProps props) {
     if (props.stylesList.isNotEmpty) {
       element.classes.addAll(props.stylesList);
     }
   }
 
-  static void _clearProps(HtmlElement element, StylingProps props) {
+  static void _clearProps(HtmlElement element, StyleProps props) {
     if (props.stylesList.isNotEmpty) {
       element.classes.removeAll(props.stylesList);
     }

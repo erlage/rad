@@ -4,13 +4,13 @@ import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/props.dart';
 import 'package:rad/src/core/utils.dart';
 
-class SizingProps {
+class SizeProps {
   double? width;
   double? height;
 
   String unit;
 
-  SizingProps({
+  SizeProps({
     this.width,
     this.height,
     MeasuringUnit? sizingUnit,
@@ -22,7 +22,7 @@ class SizingProps {
   ///
   /// if [updatedProps] is not null, it'll do a update
   ///
-  void apply(HtmlElement element, [SizingProps? updatedProps]) {
+  void apply(HtmlElement element, [SizeProps? updatedProps]) {
     if (null == updatedProps) {
       return _applyProps(element, this);
     }
@@ -36,11 +36,11 @@ class SizingProps {
 
   // internals
 
-  bool _isChanged(SizingProps props) {
+  bool _isChanged(SizeProps props) {
     return width != props.width || height != props.height || unit != props.unit;
   }
 
-  void _switchProps(SizingProps props) {
+  void _switchProps(SizeProps props) {
     width = props.width;
     height = props.height;
     unit = props.unit;
@@ -48,7 +48,7 @@ class SizingProps {
 
   // statics
 
-  static void _applyProps(HtmlElement element, SizingProps props) {
+  static void _applyProps(HtmlElement element, SizeProps props) {
     if (null != props.width) {
       element.style.setProperty(Props.width, "${props.width}${props.unit}");
     }
@@ -58,7 +58,7 @@ class SizingProps {
     }
   }
 
-  static void _clearProps(HtmlElement element, SizingProps props) {
+  static void _clearProps(HtmlElement element, SizeProps props) {
     if (null != props.width) {
       element.style.removeProperty(Props.width);
     }

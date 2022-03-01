@@ -1,8 +1,8 @@
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/props/internal/positioning_props.dart';
-import 'package:rad/src/core/props/internal/sizing_props.dart';
+import 'package:rad/src/core/props/internal/position_props.dart';
+import 'package:rad/src/core/props/internal/size_props.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
@@ -67,12 +67,12 @@ class Positioned extends Widget {
     return PositionedRenderObject(
       child: child,
       context: context,
-      sizeProps: SizingProps(
+      sizeProps: SizeProps(
         width: width,
         height: height,
         sizingUnit: sizingUnit,
       ),
-      posProps: PositioningProps(
+      posProps: PositionProps(
         top: top,
         bottom: bottom,
         left: left,
@@ -86,8 +86,8 @@ class Positioned extends Widget {
 class PositionedRenderObject extends RenderObject {
   final Widget child;
 
-  final SizingProps sizeProps;
-  final PositioningProps posProps;
+  final SizeProps sizeProps;
+  final PositionProps posProps;
 
   PositionedRenderObject({
     required this.child,

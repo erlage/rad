@@ -1,8 +1,8 @@
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/framework.dart';
-import 'package:rad/src/core/props/internal/sizing_props.dart';
-import 'package:rad/src/core/props/internal/styling_props.dart';
+import 'package:rad/src/core/props/internal/size_props.dart';
+import 'package:rad/src/core/props/internal/style_props.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
@@ -46,12 +46,12 @@ class Container extends Widget {
     return ContainerRenderObject(
       child: child,
       context: context,
-      sizeProps: SizingProps(
+      sizeProps: SizeProps(
         width: width,
         height: height,
         sizingUnit: sizingUnit,
       ),
-      styleProps: StylingProps(styles),
+      styleProps: StyleProps(styles),
     );
   }
 }
@@ -59,8 +59,8 @@ class Container extends Widget {
 class ContainerRenderObject extends RenderObject {
   final Widget child;
 
-  final SizingProps sizeProps;
-  final StylingProps styleProps;
+  final SizeProps sizeProps;
+  final StyleProps styleProps;
 
   ContainerRenderObject({
     required this.child,
