@@ -31,7 +31,7 @@ How about that? if you're familiar with Flutter it don't even need an explanatio
     - Open `pubspec.yaml` in newly created app folder and add `rad` to your dependencies:
       ```yaml
       dependencies:
-        rad: 0.1.0
+        rad: 0.2.0
       ```
 
 3. Import Rad widgets in your `main.dart`
@@ -67,7 +67,7 @@ How about that? if you're familiar with Flutter it don't even need an explanatio
 
 ### Debugging
 
-For debugging a Dart web app, you've to setup a debugger. See [official guide here](https://dart.dev/tools#general-purpose-tools). (remember you don't need Flutter SDK/or its plugins for Rad)
+For debugging a Dart web app, you've to setup a debugger. See [official guide here](https://dart.dev/tools#general-purpose-tools). (remember you don't need Flutter SDK/or its plugins for using Rad)
 
 If you happen to be using VS code,
 
