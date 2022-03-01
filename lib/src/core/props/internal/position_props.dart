@@ -1,8 +1,8 @@
 import 'dart:html';
 
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/props.dart';
-import 'package:rad/src/core/utils.dart';
+import 'package:rad/src/core/classes/utils.dart';
 
 class PositionProps {
   double? top;

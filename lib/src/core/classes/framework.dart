@@ -1,7 +1,7 @@
 import 'dart:html';
 
 import 'package:rad/src/core/types.dart';
-import 'package:rad/src/core/utils.dart';
+import 'package:rad/src/core/classes/utils.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/structures/widget.dart';
@@ -41,7 +41,7 @@ class Framework {
   }
 
   static WidgetObject? findAncestorOfType<WidgetType>(BuildContext context) {
-    if (Constants.keyNotSet == context.key) {
+    if (System.keyNotSet == context.key) {
       throw "Part of build context is not ready. This means that context is under construction.";
     }
 
@@ -73,7 +73,7 @@ class Framework {
 
     for (var widget in widgets) {
       // generate key if not set
-      var widgetKey = Constants.keyNotSet == widget.initialKey
+      var widgetKey = System.keyNotSet == widget.initialKey
           ? Utils.generateWidgetKey()
           : widget.initialKey;
 
@@ -109,7 +109,7 @@ class Framework {
       if (flagCleanParentContents) {
         //
         // if it's not a root widget
-        if (Constants.typeBigBang != widgetObject.context.parent.widgetType) {
+        if (System.typeBigBang != widgetObject.context.parent.widgetType) {
           _disposeWidget(
             preserveTarget: true,
             widgetObject: _getWidgetObject(widgetObject.context.parent.key),
@@ -235,7 +235,7 @@ class Framework {
           // if there's child that has same type
           if (childElement.dataset.isNotEmpty &&
               widget.runtimeType.toString() ==
-                  childElement.dataset[Constants.attrClass]) {
+                  childElement.dataset[System.attrClass]) {
             //
             // add to updates list
             updates[childElement.id] = UpdateObject(widget, childElement.id);
@@ -349,7 +349,7 @@ class Framework {
 
     // if is not a framework's tag
 
-    if (null == widgetObject.element.dataset[Constants.attrType]) {
+    if (null == widgetObject.element.dataset[System.attrType]) {
       return;
     }
 

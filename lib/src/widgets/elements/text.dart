@@ -35,7 +35,7 @@ class Text extends Widget {
   String get type => (Text).toString();
 
   @override
-  String get initialKey => key ?? Constants.keyNotSet;
+  String get initialKey => key ?? System.keyNotSet;
 
   @override
   buildRenderObject(context) {

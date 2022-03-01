@@ -1,4 +1,4 @@
-import 'package:rad/src/core/framework.dart';
+import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay_entry.dart';
 

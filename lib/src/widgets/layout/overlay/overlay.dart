@@ -1,5 +1,5 @@
 import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/framework.dart';
+import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/props/internal/style_props.dart';
@@ -61,7 +61,7 @@ class Overlay extends Widget {
   String get type => (Overlay).toString();
 
   @override
-  String get initialKey => key ?? Constants.keyNotSet;
+  String get initialKey => key ?? System.keyNotSet;
 
   @override
   buildRenderObject(context) {

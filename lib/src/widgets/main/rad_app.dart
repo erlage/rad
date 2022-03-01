@@ -1,4 +1,4 @@
-import 'package:rad/src/core/framework.dart';
+import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/css/rad_app.generated.dart';
 import 'package:rad/src/widgets/main/app_widget.dart';

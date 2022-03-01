@@ -4,7 +4,7 @@ import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/structures/widget.dart';
-import 'package:rad/src/core/utils.dart';
+import 'package:rad/src/core/classes/utils.dart';
 
 /// A wrapper for containing everything that can belong to a single widget.
 ///
@@ -38,8 +38,8 @@ class WidgetObject {
     element = document.createElement(tag) as HtmlElement;
 
     element.id = renderObject.context.key;
-    element.dataset[Constants.attrType] = renderObject.context.widgetType;
-    element.dataset[Constants.attrClass] = renderObject.context.widgetClassName;
+    element.dataset[System.attrType] = renderObject.context.widgetType;
+    element.dataset[System.attrClass] = renderObject.context.widgetClassName;
 
     _isCreated = true;
   }

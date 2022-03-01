@@ -1,5 +1,5 @@
 import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/framework.dart';
+import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/props/internal/position_props.dart';
 import 'package:rad/src/core/props/internal/size_props.dart';
@@ -60,7 +60,7 @@ class Positioned extends Widget {
   String get type => (Positioned).toString();
 
   @override
-  String get initialKey => key ?? Constants.keyNotSet;
+  String get initialKey => key ?? System.keyNotSet;
 
   @override
   buildRenderObject(context) {

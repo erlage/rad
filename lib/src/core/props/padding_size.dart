@@ -1,7 +1,7 @@
 import 'dart:html';
 
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/props.dart';
+import 'package:rad/src/core/constants.dart';
 
 /// Padding property object.
 ///

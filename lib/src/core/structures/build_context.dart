@@ -15,7 +15,7 @@ class BuildContext {
 
   /// reference to context of parent's widget
   ///
-  /// accessing will results in error if [widgetClassName] is [Constants.typeBigBang]
+  /// accessing will results in error if [widgetClassName] is [System.typeBigBang]
   ///
   late final BuildContext parent;
 
@@ -38,6 +38,6 @@ class BuildContext {
   ///
   BuildContext.bigBang(this.key)
       : widgetDomTag = DomTag.div,
-        widgetType = Constants.typeBigBang,
-        widgetClassName = Constants.typeBigBang;
+        widgetType = System.typeBigBang,
+        widgetClassName = System.typeBigBang;
 }

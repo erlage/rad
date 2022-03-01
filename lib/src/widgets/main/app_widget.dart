@@ -6,7 +6,7 @@ import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/css/include/normalize.generated.dart';
 import 'package:rad/src/css/main.generated.dart';
-import 'package:rad/src/core/framework.dart';
+import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 
 abstract class AppWidget extends Widget {
@@ -45,7 +45,7 @@ abstract class AppWidget extends Widget {
   String get type => (AppWidget).toString();
 
   @override
-  String get initialKey => key ?? Constants.keyNotSet;
+  String get initialKey => key ?? System.keyNotSet;
 
   @override
   buildRenderObject(context) {
@@ -75,8 +75,8 @@ class AppWidgetRenderObject extends RenderObject {
     }
 
     targetElement.dataset.addAll({
-      Constants.attrType: "Target",
-      Constants.attrClass: context.parent.widgetClassName,
+      System.attrType: "Target",
+      System.attrClass: context.parent.widgetClassName,
     });
 
     Framework.buildChildren(widgets: [child], parentContext: context);
