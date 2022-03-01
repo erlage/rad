@@ -95,7 +95,7 @@ class OverlayRenderObject extends RenderObject {
 
   @override
   render(widgetObject) {
-    applyProps(widgetObject.htmlElement);
+    applyProps(widgetObject.element);
 
     Framework.buildChildren(
       widgets: props.initialEntries,
@@ -109,9 +109,9 @@ class OverlayRenderObject extends RenderObject {
     // by outer objects
   }
 
-  void applyProps(HtmlElement htmlElement) {
+  void applyProps(HtmlElement element) {
     if (props.styles.isNotEmpty) {
-      htmlElement.classes.addAll(props.styles);
+      element.classes.addAll(props.styles);
     }
   }
 }

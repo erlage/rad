@@ -118,7 +118,7 @@ class PositionedRenderObject extends RenderObject {
 
   @override
   render(widgetObject) {
-    applyProps(widgetObject.htmlElement);
+    applyProps(widgetObject.element);
 
     Framework.buildChildren(
       widgets: [props.child],
@@ -130,11 +130,11 @@ class PositionedRenderObject extends RenderObject {
   void update(widgetObject, updatedRenderObject) {
     updatedRenderObject as PositionedRenderObject;
 
-    clearProps(widgetObject.htmlElement);
+    clearProps(widgetObject.element);
 
     switchProps(updatedRenderObject.props);
 
-    applyProps(widgetObject.htmlElement);
+    applyProps(widgetObject.element);
 
     Framework.updateChildren(
       widgets: [props.child],
@@ -146,52 +146,52 @@ class PositionedRenderObject extends RenderObject {
     this.props = props;
   }
 
-  applyProps(HtmlElement htmlElement) {
+  applyProps(HtmlElement element) {
     var sizeUnit = Utils.mapMeasuringUnit(props.sizingUnit);
     var posUnit = Utils.mapMeasuringUnit(props.positioningUnit);
 
     if (null != props.top) {
-      htmlElement.style.top = "${props.top}$posUnit";
+      element.style.top = "${props.top}$posUnit";
     }
     if (null != props.bottom) {
-      htmlElement.style.bottom = "${props.bottom}$posUnit";
+      element.style.bottom = "${props.bottom}$posUnit";
     }
     if (null != props.left) {
-      htmlElement.style.left = "${props.left}$posUnit";
+      element.style.left = "${props.left}$posUnit";
     }
     if (null != props.right) {
-      htmlElement.style.right = "${props.right}$posUnit";
+      element.style.right = "${props.right}$posUnit";
     }
 
     if (null != props.width) {
-      htmlElement.style.width = "${props.width}$sizeUnit";
+      element.style.width = "${props.width}$sizeUnit";
     }
 
     if (null != props.height) {
-      htmlElement.style.height = "${props.height}$sizeUnit}";
+      element.style.height = "${props.height}$sizeUnit}";
     }
   }
 
-  clearProps(HtmlElement htmlElement) {
+  clearProps(HtmlElement element) {
     if (null != props.top) {
-      htmlElement.style.top = "";
+      element.style.top = "";
     }
     if (null != props.bottom) {
-      htmlElement.style.bottom = "";
+      element.style.bottom = "";
     }
     if (null != props.left) {
-      htmlElement.style.left = "";
+      element.style.left = "";
     }
     if (null != props.right) {
-      htmlElement.style.right = "";
+      element.style.right = "";
     }
 
     if (null != props.width) {
-      htmlElement.style.width = "";
+      element.style.width = "";
     }
 
     if (null != props.height) {
-      htmlElement.style.height = "";
+      element.style.height = "";
     }
   }
 }

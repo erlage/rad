@@ -72,7 +72,7 @@ class OverlayEntryRenderObject extends RenderObject {
 
   @override
   render(widgetObject) {
-    applyProps(widgetObject.htmlElement);
+    applyProps(widgetObject.element);
 
     Framework.buildChildren(
       widgets: [props.child],
@@ -84,11 +84,11 @@ class OverlayEntryRenderObject extends RenderObject {
   update(widgetObject, updatedRenderObject) {
     updatedRenderObject as OverlayEntryRenderObject;
 
-    clearProps(widgetObject.htmlElement);
+    clearProps(widgetObject.element);
 
     switchProps(updatedRenderObject.props);
 
-    applyProps(widgetObject.htmlElement);
+    applyProps(widgetObject.element);
 
     Framework.updateChildren(
       widgets: [props.child],
@@ -100,15 +100,15 @@ class OverlayEntryRenderObject extends RenderObject {
     this.props = props;
   }
 
-  void applyProps(HtmlElement htmlElement) {
+  void applyProps(HtmlElement element) {
     if (props.styles.isNotEmpty) {
-      htmlElement.classes.addAll(props.styles);
+      element.classes.addAll(props.styles);
     }
   }
 
-  void clearProps(HtmlElement htmlElement) {
+  void clearProps(HtmlElement element) {
     if (props.styles.isNotEmpty) {
-      htmlElement.classes.removeAll(props.styles);
+      element.classes.removeAll(props.styles);
     }
   }
 }

@@ -8,7 +8,7 @@ import 'package:rad/src/core/utils.dart';
 
 /// A wrapper for containing everything that can belong to a single widget.
 ///
-/// Before using [htmlElement] make sure to check if element is actually
+/// Before using [element] make sure to check if element is actually
 /// created or not using [isCreated] getter.
 ///
 /// Another getter [isMounted] can be used to check if element is actually
@@ -19,7 +19,7 @@ class WidgetObject {
 
   final Widget widget;
   final RenderObject renderObject;
-  late final HtmlElement htmlElement;
+  late final HtmlElement element;
 
   var _isMounted = false;
   var _isCreated = false;
@@ -32,15 +32,14 @@ class WidgetObject {
     required this.renderObject,
   }) : context = renderObject.context;
 
-  void createHtmlElement() {
+  void createElement() {
     var tag = Utils.mapDomTag(widget.tag);
 
-    htmlElement = document.createElement(tag) as HtmlElement;
+    element = document.createElement(tag) as HtmlElement;
 
-    htmlElement.id = renderObject.context.key;
-    htmlElement.dataset[Constants.attrClass] = renderObject.context.widgetType;
-    htmlElement.dataset[Constants.attrClass] =
-        renderObject.context.widgetClassName;
+    element.id = renderObject.context.key;
+    element.dataset[Constants.attrClass] = renderObject.context.widgetType;
+    element.dataset[Constants.attrClass] = renderObject.context.widgetClassName;
 
     _isCreated = true;
   }
@@ -60,7 +59,7 @@ class WidgetObject {
       throw "Unable to find parent widget of element #${context.key}. Either disposed or something went wrong;";
     }
 
-    parentElement.append(htmlElement);
+    parentElement.append(element);
 
     _isMounted = true;
   }

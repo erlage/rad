@@ -80,7 +80,7 @@ class StackRenderObject extends RenderObject {
 
   @override
   render(widgetObject) {
-    applyProps(widgetObject.htmlElement);
+    applyProps(widgetObject.element);
 
     Framework.buildChildren(
       widgets: props.children,
@@ -92,11 +92,11 @@ class StackRenderObject extends RenderObject {
   update(widgetObject, updatedRenderObject) {
     updatedRenderObject as StackRenderObject;
 
-    clearProps(widgetObject.htmlElement);
+    clearProps(widgetObject.element);
 
     switchProps(updatedRenderObject.props);
 
-    applyProps(widgetObject.htmlElement);
+    applyProps(widgetObject.element);
 
     Framework.updateChildren(
       widgets: props.children,
@@ -108,15 +108,15 @@ class StackRenderObject extends RenderObject {
     this.props = props;
   }
 
-  void applyProps(HtmlElement htmlElement) {
+  void applyProps(HtmlElement element) {
     if (props.styles.isNotEmpty) {
-      htmlElement.classes.addAll(props.styles);
+      element.classes.addAll(props.styles);
     }
   }
 
-  void clearProps(HtmlElement htmlElement) {
+  void clearProps(HtmlElement element) {
     if (props.styles.isNotEmpty) {
-      htmlElement.classes.removeAll(props.styles);
+      element.classes.removeAll(props.styles);
     }
   }
 }

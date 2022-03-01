@@ -96,10 +96,10 @@ class Framework {
         renderObject: renderObject,
       );
 
-      widgetObject.createHtmlElement();
+      widgetObject.createElement();
 
       if (null != elementCallback) {
-        elementCallback(widgetObject.htmlElement);
+        elementCallback(widgetObject.element);
       }
 
       _registerWidgetObject(widgetObject);
@@ -279,7 +279,7 @@ class Framework {
           // if there's element callback
           //
           if (null != elementCallback) {
-            elementCallback(existingWidgetObject.htmlElement);
+            elementCallback(existingWidgetObject.element);
           }
           //
           // publish update
@@ -333,9 +333,9 @@ class Framework {
       return;
     }
 
-    if (widgetObject.htmlElement.hasChildNodes()) {
-      for (var childHtmlElement in widgetObject.htmlElement.children) {
-        _disposeWidget(widgetObject: _getWidgetObject(childHtmlElement.id));
+    if (widgetObject.element.hasChildNodes()) {
+      for (var childElement in widgetObject.element.children) {
+        _disposeWidget(widgetObject: _getWidgetObject(childElement.id));
       }
     }
 
@@ -343,13 +343,13 @@ class Framework {
 
     // if a body tag
 
-    if (widgetObject.htmlElement == document.body) {
+    if (widgetObject.element == document.body) {
       return;
     }
 
     // if is not a framework's tag
 
-    if (null == widgetObject.htmlElement.dataset[Constants.attrType]) {
+    if (null == widgetObject.element.dataset[Constants.attrType]) {
       return;
     }
 
@@ -363,7 +363,7 @@ class Framework {
 
     // remove dom node
 
-    widgetObject.htmlElement.remove();
+    widgetObject.element.remove();
   }
 
   static _hideElement(Element element) {

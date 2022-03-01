@@ -68,7 +68,7 @@ class AppWidgetRenderObject extends RenderObject {
 
   @override
   render(widgetObject) {
-    var targetElement = widgetObject.htmlElement.parent;
+    var targetElement = widgetObject.element.parent;
 
     if (null == targetElement) {
       throw "Unable to locate target element in HTML document";

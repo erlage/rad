@@ -83,7 +83,7 @@ class ContainerRenderObject extends RenderObject {
 
   @override
   render(widgetObject) {
-    applyProps(widgetObject.htmlElement);
+    applyProps(widgetObject.element);
 
     Framework.buildChildren(widgets: [props.child], parentContext: context);
   }
@@ -92,11 +92,11 @@ class ContainerRenderObject extends RenderObject {
   update(widgetObject, updatedRenderObject) {
     updatedRenderObject as ContainerRenderObject;
 
-    clearProps(widgetObject.htmlElement);
+    clearProps(widgetObject.element);
 
     switchProps(updatedRenderObject.props);
 
-    applyProps(widgetObject.htmlElement);
+    applyProps(widgetObject.element);
 
     Framework.updateChildren(
       widgets: [props.child],
@@ -108,25 +108,25 @@ class ContainerRenderObject extends RenderObject {
     this.props = props;
   }
 
-  void applyProps(HtmlElement htmlElement) {
+  void applyProps(HtmlElement element) {
     var sizeUnit = Utils.mapMeasuringUnit(props.sizingUnit);
 
     if (null != props.width) {
-      htmlElement.style.width = "${props.width}$sizeUnit";
+      element.style.width = "${props.width}$sizeUnit";
     }
 
     if (null != props.height) {
-      htmlElement.style.height = "${props.height}$sizeUnit";
+      element.style.height = "${props.height}$sizeUnit";
     }
 
     if (props.styles.isNotEmpty) {
-      htmlElement.classes.addAll(props.styles);
+      element.classes.addAll(props.styles);
     }
   }
 
-  void clearProps(HtmlElement htmlElement) {
+  void clearProps(HtmlElement element) {
     if (props.styles.isNotEmpty) {
-      htmlElement.classes.removeAll(props.styles);
+      element.classes.removeAll(props.styles);
     }
   }
 }
