@@ -68,9 +68,14 @@ import 'package:rad/src/core/structures/widget.dart';
 ///   of state change in parent.
 ///   Rebuilds might be bad if Rad has to render pixel multiple times a second. Luckly in Rad
 ///   framework, building and updating interface is a one-step process. Framework handles the
-///   description of widgets(which is always available) and browser handles the building process
-///   because browsers are not bad at building pages. After all that's what they do.
+///   description of widgets and building process is carried out by the browser. We can rely
+///   on browsers for building big parts of tree when needed. After all that's what they do.
+///   By widget description, we mean 'data' that's required to build a widget. This means even
+///   if you remove child nodes/or part of DOM tree using browser inspector, calling setState()
+///   in a parent widget will bring back everything back in DOM.
 ///
+///
+/// * Widget descriptions are never lost.
 ///
 /// ## A Stateful widget example: 'click to toggle'
 ///

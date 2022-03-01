@@ -10,8 +10,16 @@ import 'package:rad/src/core/structures/build_context.dart';
 abstract class Widget {
   const Widget();
 
+  /// corresponding HTML tag to use to render this widget
+  ///
   DomTag get tag;
+
+  /// widget's type
+  ///
   String get type;
+
+  /// key provided in widget constructor(if any)
+  ///
   String get initialKey;
 
   /// Called when context for this widget is created.

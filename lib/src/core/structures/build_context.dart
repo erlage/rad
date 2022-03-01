@@ -13,6 +13,10 @@ class BuildContext {
   final DomTag widgetDomTag;
   final String widgetClassName;
 
+  /// reference to context of parent's widget
+  ///
+  /// accessing will results in error if [widgetClassName] is [Constants.typeBigBang]
+  ///
   late final BuildContext parent;
 
   BuildContext({

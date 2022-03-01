@@ -9,10 +9,10 @@ import 'package:rad/src/core/utils.dart';
 /// A wrapper for containing everything that can belong to a single widget.
 ///
 /// Before using [element] make sure to check if element is actually
-/// created or not using [isCreated] getter.
+/// created using [isCreated] getter.
 ///
 /// Another getter [isMounted] can be used to check if element is actually
-/// mounted inside DOM or not.
+/// mounted.
 ///
 class WidgetObject {
   final BuildContext context;
