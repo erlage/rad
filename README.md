@@ -84,7 +84,7 @@ Rad doesn't use a rendering engine to render a widget or anything like that. Rad
 You can add CSS rules to widgets to style them. For example:
 ```dart
 Container(
-  style: "css-class another-class",
+  styles: "css-class another-class",
   child: const Text("text inside a styled container"),
 );
 ```

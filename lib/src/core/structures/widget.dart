@@ -1,6 +1,6 @@
-import 'package:rad/rad.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/structures/build_context.dart';
 
 /// Describes the configuration for an [RenderObject].
 ///

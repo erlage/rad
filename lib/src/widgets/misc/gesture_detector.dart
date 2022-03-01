@@ -50,40 +50,80 @@ class GestureDetector extends Widget {
   @override
   buildRenderObject(context) {
     return GestureDetectorRenderObject(
-      child: child,
-      onTap: onTap,
-      onTapEvent: onTapEvent,
-      behaviour: behaviour ?? HitTestBehavior.deferToChild,
       context: context,
+      props: GestureDetectorProps(
+        child: child,
+        onTap: onTap,
+        onTapEvent: onTapEvent,
+        behaviour: behaviour ?? HitTestBehavior.deferToChild,
+      ),
     );
   }
 }
 
-class GestureDetectorRenderObject extends RenderObject {
+class GestureDetectorProps {
   final Widget child;
   final VoidCallback? onTap;
   final OnTapEventCallback? onTapEvent;
   final HitTestBehavior behaviour;
 
-  GestureDetectorRenderObject({
+  GestureDetectorProps({
     required this.child,
     required this.onTap,
     required this.onTapEvent,
     required this.behaviour,
+  });
+}
+
+class GestureDetectorRenderObject extends RenderObject {
+  GestureDetectorProps props;
+
+  GestureDetectorRenderObject({
+    required this.props,
     required BuildContext context,
   }) : super(context);
+
+  @override
+  render(widgetObject) {
+    widgetObject.htmlElement.addEventListener(
+      "click",
+      _handleOnTap,
+      props.behaviour == HitTestBehavior.opaque,
+    );
+
+    Framework.buildChildren(
+      widgets: [props.child],
+      parentContext: context,
+    );
+  }
+
+  @override
+  update(widgetObject, updatedRenderObject) {
+    updatedRenderObject as GestureDetectorRenderObject;
+
+    switchProps(updatedRenderObject.props);
+
+    Framework.updateChildren(
+      widgets: [props.child],
+      parentContext: context,
+    );
+  }
+
+  void switchProps(GestureDetectorProps props) {
+    this.props = props;
+  }
 
   _handleOnTap(Event event) {
     event.preventDefault();
 
-    var userDefinedOnTap = onTap;
-    var userDefinedOnTapEvent = onTapEvent;
+    var userDefinedOnTap = props.onTap;
+    var userDefinedOnTapEvent = props.onTapEvent;
 
     if (null == userDefinedOnTap && null == userDefinedOnTapEvent) {
       return;
     }
 
-    switch (behaviour) {
+    switch (props.behaviour) {
       case HitTestBehavior.opaque:
       case HitTestBehavior.deferToChild:
         event.stopPropagation();
@@ -101,28 +141,5 @@ class GestureDetectorRenderObject extends RenderObject {
     if (null != userDefinedOnTap) {
       userDefinedOnTap();
     }
-  }
-
-  @override
-  render(widgetObject) {
-    widgetObject.htmlElement.addEventListener(
-      "click",
-      _handleOnTap,
-      behaviour == HitTestBehavior.opaque,
-    );
-
-    Framework.buildChildren(widgets: [child], parentContext: context);
-  }
-
-  @override
-  update(widgetObject, updatedRenderObject) {
-    updatedRenderObject as GestureDetectorRenderObject;
-
-    // TODO implement
-
-    Framework.updateChildren(
-      widgets: [updatedRenderObject.child],
-      parentContext: context,
-    );
   }
 }

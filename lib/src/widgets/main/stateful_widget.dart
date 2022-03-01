@@ -12,27 +12,55 @@ import 'package:rad/src/core/structures/widget.dart';
 /// A stateful widget is a widget that describes dynamic user interface.
 /// Stateful widgets are useful when the part of the user interface you are
 /// describing can change dynamically, e.g. due to having an internal
-/// clock-driven state, or depending on some system state.
+/// state, or depending on some system state.
 ///
-/// [StatefulWidget] has three lifecycle methods and one state function
+/// [StatefulWidget] has three lifecycle hooks and one state function
 /// [setState].
 ///
-/// Framework calls lifecycle methods on particular events,
+/// Framework calls lifecycle hooks on particular events,
 ///
 /// 1. [initState] - called before widget build.
-/// 2. [build] - called when framework decides to render widget
+/// 2. [build] - called when framework decides to build widget
 /// 3. [dispose] - called before framework disposes the widget.
 ///
 /// It's responsibility of concrete implementation of [StatefulWidget]
 /// to tell framework when to rebuild the interface. Apart from lifecycle
-/// methods, there is a [setState] function which helps with that.
+/// methods, there is a [setState] function which can be used for that.
 ///
-/// Please note that [setState] cascade rebuilds i.e it forces every child
-/// widget to rebuild itself. Which means if you've any [StatefulWidget]
-/// in child tree then it'll be disposed off and rebuilt.
+/// ## Performance consideration
+///
+/// * A widget rebuild process involves cascading a update call to all child widgets.
+///   Child widgets then can cascade update to their childs and so on.
 ///
 ///
-/// This is a 'click to toggle' example:
+/// * Having state at top-level of your application won't hurt you much(in most cases)
+///   but It's always better to have a your State at leaf nodes. Having less childs means,
+///   updates can be dispatched and processed faster.
+///
+///
+/// * Update process is optimized for performance. Widget updates do not cause a
+///   complete rebuild of widget, instead widgets will update their parts that might be
+///   affected by its parent'state change.
+///
+///
+/// * Widgets that has internal state such as [StatefulWidget] and [Overlay] won't
+///   listen to state changes in their parents. This means [setState] in a parent widget
+///   will not affect any [StatefulWidget] that's in subtree(a child). A stateful child
+///   also stops propagation of update call further down the tree because it's not required
+///   at this point.
+///
+///
+/// * There are cases where child widgets has to rebuild themselves from scratch. Complete
+///   rebuild involves disposing off current childs and rebuilding new ones with new state.
+///   Usually happens when child that framework is looking for is not there anymore because
+///   of state change in parent.
+///   Rebuilds might be bad if Rad has to render pixel multiple times a second. Luckly in Rad
+///   framework, building and updating interface is a one-step process. Framework handles the
+///   description of widgets(which is always available) and browser handles the building process
+///   because browsers are not bad at building pages. After all that's what they do.
+///
+///
+/// ## A Stateful widget example: 'click to toggle'
 ///
 /// ```dart
 /// class ClickTest extends StatefulWidget {
@@ -54,20 +82,7 @@ import 'package:rad/src/core/structures/widget.dart';
 /// }
 /// ```
 ///
-/// See also:
-///
-///  * [StatelessWidget], for widgets that always build the same way given a
-///    particular configuration.
-///
-/// # Performance consideration
-///
-/// A widget rebuild process involves rebuilding all child widgets. This is the
-/// easiest way to ensure that all required childs are updated. It might sound
-/// bad at first but Browsers are not bad at building webpages. After all that's
-/// what they do. Choosing a simple rendering process removes a lot of complexity
-/// both from the framework and [StatefulWidget].
-///
-/// Here's above example implemented in Flutter:
+/// ## Same 'click to toggle' example using Flutter:
 ///
 /// ```
 /// class ClickToggle extends StatefulWidget {
@@ -94,9 +109,11 @@ import 'package:rad/src/core/structures/widget.dart';
 ///   }
 /// }
 /// ```
-/// You can probably see a lot of biolerplate as compares to Rad's example.
-/// Don't get me wrong, it's required in Flutter because Flutter has to render
-/// widgets pixel by pixel and do the whole process multiple times in a second.
+///
+/// See also:
+///
+///  * [StatelessWidget], for widgets that always build the same way given a
+///    particular configuration.
 ///
 abstract class StatefulWidget extends Widget {
   final String? key;
@@ -204,9 +221,13 @@ class StatefulWidgetRenderObject extends RenderObject {
 
   @override
   update(widgetObject, updatedRenderObject) {
-    /// Stateful widgets in Rad don't listen to state changes in parents.
-    /// Only way to change state of a StatefulWidget is to dispose it off
-    /// and create a new one.
+    //
+    // Widgets that has internal state such as StatefulWidget and Overylay
+    // don't listen to changes in outer objects.
+    //
+    // Only way to change state of a StatefulWidget is to dispose it off
+    // and create a new one or if widget itself calls a setState()
+    //
   }
 
   @override

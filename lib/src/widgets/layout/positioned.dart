@@ -1,7 +1,8 @@
+import 'dart:html';
+
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
@@ -65,21 +66,23 @@ class Positioned extends Widget {
   @override
   buildRenderObject(context) {
     return PositionedRenderObject(
-      top: top,
-      bottom: bottom,
-      left: left,
-      right: right,
-      width: width,
-      height: height,
-      sizingUnit: sizingUnit ?? MeasuringUnit.pixel,
-      positioningUnit: positioningUnit ?? MeasuringUnit.pixel,
-      child: child,
       context: context,
+      props: PositionedProps(
+        top: top,
+        bottom: bottom,
+        left: left,
+        right: right,
+        width: width,
+        height: height,
+        sizingUnit: sizingUnit ?? MeasuringUnit.pixel,
+        positioningUnit: positioningUnit ?? MeasuringUnit.pixel,
+        child: child,
+      ),
     );
   }
 }
 
-class PositionedRenderObject extends RenderObject {
+class PositionedProps {
   final Widget child;
 
   final int? top;
@@ -92,7 +95,7 @@ class PositionedRenderObject extends RenderObject {
   final int? height;
   final MeasuringUnit sizingUnit;
 
-  PositionedRenderObject({
+  PositionedProps({
     this.top,
     this.bottom,
     this.left,
@@ -102,73 +105,93 @@ class PositionedRenderObject extends RenderObject {
     required this.positioningUnit,
     required this.sizingUnit,
     required this.child,
+  });
+}
+
+class PositionedRenderObject extends RenderObject {
+  PositionedProps props;
+
+  PositionedRenderObject({
+    required this.props,
     required BuildContext context,
   }) : super(context);
 
   @override
   render(widgetObject) {
-    applyProps(widgetObject, this);
+    applyProps(widgetObject.htmlElement);
 
-    Framework.buildChildren(widgets: [child], parentContext: context);
+    Framework.buildChildren(
+      widgets: [props.child],
+      parentContext: context,
+    );
   }
 
   @override
   void update(widgetObject, updatedRenderObject) {
     updatedRenderObject as PositionedRenderObject;
 
-    clearProps(widgetObject, this);
+    clearProps(widgetObject.htmlElement);
 
-    applyProps(widgetObject, updatedRenderObject);
+    switchProps(updatedRenderObject.props);
 
-    Framework.updateChildren(widgets: [child], parentContext: context);
+    applyProps(widgetObject.htmlElement);
+
+    Framework.updateChildren(
+      widgets: [props.child],
+      parentContext: context,
+    );
   }
 
-  applyProps(WidgetObject widgetObj, PositionedRenderObject renderObj) {
-    var sizeUnit = Utils.mapMeasuringUnit(renderObj.sizingUnit);
-    var posUnit = Utils.mapMeasuringUnit(renderObj.positioningUnit);
+  void switchProps(PositionedProps props) {
+    this.props = props;
+  }
 
-    if (null != renderObj.top) {
-      widgetObj.htmlElement.style.top = "${renderObj.top}$posUnit";
+  applyProps(HtmlElement htmlElement) {
+    var sizeUnit = Utils.mapMeasuringUnit(props.sizingUnit);
+    var posUnit = Utils.mapMeasuringUnit(props.positioningUnit);
+
+    if (null != props.top) {
+      htmlElement.style.top = "${props.top}$posUnit";
     }
-    if (null != renderObj.bottom) {
-      widgetObj.htmlElement.style.bottom = "${renderObj.bottom}$posUnit";
+    if (null != props.bottom) {
+      htmlElement.style.bottom = "${props.bottom}$posUnit";
     }
-    if (null != renderObj.left) {
-      widgetObj.htmlElement.style.left = "${renderObj.left}$posUnit";
+    if (null != props.left) {
+      htmlElement.style.left = "${props.left}$posUnit";
     }
-    if (null != renderObj.right) {
-      widgetObj.htmlElement.style.right = "${renderObj.right}$posUnit";
+    if (null != props.right) {
+      htmlElement.style.right = "${props.right}$posUnit";
     }
 
-    if (null != renderObj.width) {
-      widgetObj.htmlElement.style.width = "${renderObj.width}$sizeUnit";
+    if (null != props.width) {
+      htmlElement.style.width = "${props.width}$sizeUnit";
     }
 
-    if (null != renderObj.height) {
-      widgetObj.htmlElement.style.height = "${renderObj.height}$sizeUnit}";
+    if (null != props.height) {
+      htmlElement.style.height = "${props.height}$sizeUnit}";
     }
   }
 
-  clearProps(WidgetObject widgetObj, PositionedRenderObject renderObj) {
-    if (null != renderObj.top) {
-      widgetObj.htmlElement.style.top = "";
+  clearProps(HtmlElement htmlElement) {
+    if (null != props.top) {
+      htmlElement.style.top = "";
     }
-    if (null != renderObj.bottom) {
-      widgetObj.htmlElement.style.bottom = "";
+    if (null != props.bottom) {
+      htmlElement.style.bottom = "";
     }
-    if (null != renderObj.left) {
-      widgetObj.htmlElement.style.left = "";
+    if (null != props.left) {
+      htmlElement.style.left = "";
     }
-    if (null != renderObj.right) {
-      widgetObj.htmlElement.style.right = "";
-    }
-
-    if (null != renderObj.width) {
-      widgetObj.htmlElement.style.width = "";
+    if (null != props.right) {
+      htmlElement.style.right = "";
     }
 
-    if (null != renderObj.height) {
-      widgetObj.htmlElement.style.height = "";
+    if (null != props.width) {
+      htmlElement.style.width = "";
+    }
+
+    if (null != props.height) {
+      htmlElement.style.height = "";
     }
   }
 }

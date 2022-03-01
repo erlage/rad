@@ -13,8 +13,8 @@ import 'package:rad/src/core/structures/build_context.dart';
 /// describing does not depend on anything other than the configuration
 /// information in the object itself and the [BuildContext] in which the widget
 /// is inflated. For compositions that can change dynamically, e.g. due to
-/// having an internal clock-driven state, or depending on some system state,
-/// consider using [StatefulWidget].
+/// having an internal state, or depending on some system state, consider
+/// using a [StatefulWidget].
 ///
 /// See also:
 ///
@@ -29,6 +29,9 @@ abstract class StatelessWidget extends Widget {
   ///
   /// The framework calls this method when this widget is inserted into the tree
   /// in a given [BuildContext].
+  ///
+  /// Avoid adding side effects into this method because Framework can call this
+  /// method multiple times to get fresh state of interface.
   ///
   Widget build(BuildContext context);
 
@@ -45,26 +48,46 @@ abstract class StatelessWidget extends Widget {
   buildRenderObject(context) {
     return StatelessWidgetRenderObject(
       context: context,
-      child: build(context),
+      props: StatelessWidgetProps(build(context)),
     );
   }
 }
 
-class StatelessWidgetRenderObject extends RenderObject {
+class StatelessWidgetProps {
   final Widget child;
 
+  StatelessWidgetProps(this.child);
+}
+
+class StatelessWidgetRenderObject extends RenderObject {
+  StatelessWidgetProps props;
+
   StatelessWidgetRenderObject({
-    required this.child,
+    required this.props,
     required BuildContext context,
   }) : super(context);
 
   @override
   render(widgetObject) {
-    Framework.buildChildren(widgets: [child], parentContext: context);
+    Framework.buildChildren(
+      widgets: [props.child],
+      parentContext: context,
+    );
   }
 
   @override
   update(widgetObject, updatedRenderObject) {
-    Framework.updateChildren(widgets: [child], parentContext: context);
+    updatedRenderObject as StatelessWidgetRenderObject;
+
+    switchProps(updatedRenderObject.props);
+
+    Framework.updateChildren(
+      widgets: [props.child],
+      parentContext: context,
+    );
+  }
+
+  void switchProps(StatelessWidgetProps props) {
+    this.props = props;
   }
 }

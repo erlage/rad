@@ -1,10 +1,11 @@
 import 'dart:html';
 
-import 'package:rad/rad.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/structures/build_context.dart';
+import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay_state.dart';
 
 /// A place in an [Overlay] that can contain a widget.

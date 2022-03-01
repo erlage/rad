@@ -5,6 +5,14 @@ import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/utils.dart';
 
+/// A wrapper for containing everything that can belong to a single widget.
+///
+/// Before using [htmlElement] make sure to check if element is actually
+/// created or not using [isCreated] getter.
+///
+/// Another getter [isMounted] can be used to check if element is actually
+/// mounted inside DOM or not.
+///
 class WidgetObject {
   final BuildContext context;
 
@@ -12,7 +20,11 @@ class WidgetObject {
   final RenderObject renderObject;
   late final HtmlElement htmlElement;
 
-  var isMounted = false;
+  var _isMounted = false;
+  var _isCreated = false;
+
+  bool get isCreated => _isCreated;
+  bool get isMounted => _isMounted;
 
   WidgetObject({
     required this.widget,
@@ -27,11 +39,13 @@ class WidgetObject {
     htmlElement.id = renderObject.context.key;
     htmlElement.dataset["wtype"] = renderObject.context.widgetType;
     htmlElement.dataset["wclass"] = renderObject.context.widgetClassName;
+
+    _isCreated = true;
   }
 
   void mount() {
-    if (isMounted) {
-      throw "Widget is already mounted.";
+    if (_isMounted) {
+      throw "Widget's element already mounted.";
     }
 
     // we can't use node.parent here cus root widget's parent can be null
@@ -46,7 +60,7 @@ class WidgetObject {
 
     parentElement.append(htmlElement);
 
-    isMounted = true;
+    _isMounted = true;
   }
 
   void build() {

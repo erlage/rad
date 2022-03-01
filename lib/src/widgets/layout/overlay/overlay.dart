@@ -1,10 +1,11 @@
 import 'dart:html';
 
-import 'package:rad/rad.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/structures/build_context.dart';
+import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay_entry.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay_state.dart';
 
@@ -85,7 +86,7 @@ class OverlayProps {
 }
 
 class OverlayRenderObject extends RenderObject {
-  OverlayProps props;
+  final OverlayProps props;
 
   OverlayRenderObject({
     required this.props,
@@ -104,35 +105,13 @@ class OverlayRenderObject extends RenderObject {
 
   @override
   update(widgetObject, updatedRenderObject) {
-    updatedRenderObject as OverlayRenderObject;
-
-    clearProps(widgetObject.htmlElement);
-
-    switchProps(updatedRenderObject.props);
-
-    applyProps(widgetObject.htmlElement);
-
-    // TODO update initial entries
-
-    Framework.updateChildren(
-      widgets: updatedRenderObject.props.initialEntries,
-      parentContext: context,
-    );
-  }
-
-  void switchProps(OverlayProps props) {
-    this.props = props;
+    // overlay has its own state and can't be changed
+    // by outer objects
   }
 
   void applyProps(HtmlElement htmlElement) {
     if (props.styles.isNotEmpty) {
       htmlElement.classes.addAll(props.styles);
-    }
-  }
-
-  void clearProps(HtmlElement htmlElement) {
-    if (props.styles.isNotEmpty) {
-      htmlElement.classes.removeAll(props.styles);
     }
   }
 }

@@ -1,10 +1,10 @@
 import 'dart:html';
 
-import 'package:rad/rad.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/utils.dart';
+import 'package:rad/src/core/structures/build_context.dart';
+import 'package:rad/src/core/structures/widget.dart';
 
 /// A run of text with a single style.
 ///
@@ -44,8 +44,8 @@ class Text extends Widget {
       context: context,
       props: TextProps(
         text: text,
-        styles: null != styles ? styles!.split(" ") : [],
         isHtml: isHtml ?? false,
+        styles: null != styles ? styles!.split(" ") : [],
       ),
     );
   }

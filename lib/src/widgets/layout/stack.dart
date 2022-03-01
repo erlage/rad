@@ -1,8 +1,9 @@
+import 'dart:html';
+
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/framework.dart';
-import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 
@@ -29,12 +30,12 @@ import 'package:rad/src/core/structures/widget.dart';
 class Stack extends Widget {
   final String? key;
 
-  final String? style;
+  final String? styles;
   final List<Widget> children;
 
   const Stack({
     this.key,
-    this.style,
+    this.styles,
     required this.children,
   });
 
@@ -50,34 +51,72 @@ class Stack extends Widget {
   @override
   buildRenderObject(context) {
     return StackRenderObject(
-      style: style ?? '',
-      children: children,
       context: context,
+      props: StackProps(
+        children: children,
+        styles: null != styles ? styles!.split(" ") : [],
+      ),
     );
   }
 }
 
-class StackRenderObject extends RenderObject {
-  final String style;
+class StackProps {
+  final List<String> styles;
   final List<Widget> children;
 
-  StackRenderObject({
-    required this.style,
+  StackProps({
+    required this.styles,
     required this.children,
+  });
+}
+
+class StackRenderObject extends RenderObject {
+  StackProps props;
+
+  StackRenderObject({
+    required this.props,
     required BuildContext context,
   }) : super(context);
 
   @override
   render(widgetObject) {
-    if (style.isNotEmpty) {
-      widgetObject.htmlElement.className += " $style";
-    }
+    applyProps(widgetObject.htmlElement);
 
-    Framework.buildChildren(widgets: children, parentContext: context);
+    Framework.buildChildren(
+      widgets: props.children,
+      parentContext: context,
+    );
   }
 
   @override
-  void update(WidgetObject widgetObject, RenderObject updatedRenderObject) {
-    // TODO
+  update(widgetObject, updatedRenderObject) {
+    updatedRenderObject as StackRenderObject;
+
+    clearProps(widgetObject.htmlElement);
+
+    switchProps(updatedRenderObject.props);
+
+    applyProps(widgetObject.htmlElement);
+
+    Framework.updateChildren(
+      widgets: props.children,
+      parentContext: context,
+    );
+  }
+
+  void switchProps(StackProps props) {
+    this.props = props;
+  }
+
+  void applyProps(HtmlElement htmlElement) {
+    if (props.styles.isNotEmpty) {
+      htmlElement.classes.addAll(props.styles);
+    }
+  }
+
+  void clearProps(HtmlElement htmlElement) {
+    if (props.styles.isNotEmpty) {
+      htmlElement.classes.removeAll(props.styles);
+    }
   }
 }
