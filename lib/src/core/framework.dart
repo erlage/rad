@@ -49,13 +49,7 @@ class Framework {
       return null;
     }
 
-    var widgetObject = _getWidgetObject(domNode.id);
-
-    if (null == widgetObject) {
-      throw "Trying to look up a disposed widget";
-    }
-
-    return widgetObject;
+    return _getWidgetObject(domNode.id);
   }
 
   static buildChildren({
