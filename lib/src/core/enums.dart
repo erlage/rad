@@ -31,3 +31,25 @@ enum HitTestBehavior {
   /// All detectors that are hit will receive events.
   translucent,
 }
+
+/// Type of margin.
+///
+/// Setting margin to zero can be problem in some layouts. Therefore
+/// we try to set only side whos values are provided by the user. Remaining
+/// sides are ignored.
+///
+enum MarginType {
+  only,
+  symmetric,
+  allSame,
+  allDifferent,
+}
+
+/// Type of padding.
+///
+enum PaddingType {
+  only,
+  symmetric,
+  allSame,
+  allDifferent,
+}
