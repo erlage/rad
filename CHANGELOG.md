@@ -9,15 +9,20 @@ Update
     - Added `padding` property, that let's you set padding space inside Container.
 
 - Custom alignments for positioning a widget on desired locations.
-    - ```dart
-        Align(
-            alignment: Alignment(80, 40); // top 80% & left 40% 
-            ...
-      ```
+    ```dart
+    Align(
+        alignment: Alignment(80, 40); // top 80% & left 40% 
+        ...
+    ```
+
+Changes
+
+- `sizingUnit` is renamed to `sizeUnit`
+- `positioninUnit` is renamed to `positionUnit`
 
 Core update
 
-- Widget are now smart enough to issue changes to DOM only when required. Previously a widget always issue update to part of its interface that might or might not have affected by state change in parent because this is the easiest way to ensuret that its corresponding DOM is always up-to-date. From now, widgets will issue updates to DOM only if there description has changed. 
+- Widget are now smart enough to issue changes to DOM only when required. Previously a widget always issue update to part of its interface that might or might not have affected by state change in parent because this is the easiest way to ensure that its corresponding DOM is always up-to-date. From now, widgets will issue updates to DOM only if their description has changed. 
 
     For example, in below code, Text widget will never issue a update no matter how many times you do toggle.
 
@@ -39,10 +44,6 @@ Core update
 
     Above Align widget will affect DOM only once when its being built. It'll never issue a DOM update during rest of its lifetime.
 
-Changes:
-
-- `sizingUnit` is renamed to `sizeUnit`
-- `positioninUnit` is renamed to `positionUnit`
 
 
 ## 0.2.1
@@ -63,7 +64,7 @@ Core update
 
 Update
 
-- Add: Overlay widget
+- Added: Overlay widget
 
 Changes
 
