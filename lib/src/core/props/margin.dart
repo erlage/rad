@@ -13,6 +13,10 @@ class Margin {
   double left;
   double right;
 
+  /// Whether margin has to be included in box's size
+  ///
+  bool flagContainInBoxSize = false;
+
   /// Margin around an element.
   ///
   Margin({
@@ -119,6 +123,20 @@ class Margin {
         );
 
         break;
+    }
+
+    // contain margin in box size by reducing box size
+
+    if (margin.flagContainInBoxSize) {
+      element.style.setProperty(
+        Props.width,
+        'calc(100% - ${(margin.left + margin.right) * 2})',
+      );
+
+      element.style.setProperty(
+        Props.height,
+        'calc(100% - ${(margin.top + margin.top) * 2})',
+      );
     }
   }
 
