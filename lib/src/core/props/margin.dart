@@ -5,7 +5,7 @@ import 'package:rad/src/core/constants.dart';
 
 /// Margin property object.
 ///
-class MarginSize {
+class Margin {
   MarginType type;
 
   double top;
@@ -15,7 +15,7 @@ class MarginSize {
 
   /// Margin around an element.
   ///
-  MarginSize({
+  Margin({
     required this.top,
     required this.bottom,
     required this.left,
@@ -24,7 +24,7 @@ class MarginSize {
 
   /// Margin with only the given values.
   ///
-  MarginSize.only({
+  Margin.only({
     this.top = 0.0,
     this.bottom = 0.0,
     this.left = 0.0,
@@ -33,7 +33,7 @@ class MarginSize {
 
   /// Symmetrical margin.
   ///
-  MarginSize.symmetric({
+  Margin.symmetric({
     double vertical = 0.0,
     double horizontal = 0.0,
   })  : type = MarginType.symmetric,
@@ -44,7 +44,7 @@ class MarginSize {
 
   /// Same margin for all four sides.
   ///
-  MarginSize.all(double value)
+  Margin.all(double value)
       : type = MarginType.allSame,
         top = value,
         bottom = value,
@@ -53,59 +53,59 @@ class MarginSize {
 
   // application
 
-  /// Apply size.
+  /// Apply margin.
   ///
-  /// if [updatedMarginSize] is not null, it'll do a update.
+  /// if [updatedMargin] is not null, it'll do a update.
   ///
-  void apply(HtmlElement element, [MarginSize? updatedMarginSize]) {
-    if (null == updatedMarginSize) {
-      return _applySize(element, this);
+  void apply(HtmlElement element, [Margin? updatedMargin]) {
+    if (null == updatedMargin) {
+      return _applyMargin(element, this);
     }
 
-    if (_isChanged(updatedMarginSize)) {
-      _clearSize(element, this);
-      _updateSize(updatedMarginSize);
-      _applySize(element, this);
+    if (_isChanged(updatedMargin)) {
+      _clearMargin(element, this);
+      _updateMargin(updatedMargin);
+      _applyMargin(element, this);
     }
   }
 
   // internals
 
-  bool _isChanged(MarginSize marginSize) {
-    return top != marginSize.top ||
-        bottom != marginSize.bottom ||
-        right != marginSize.right ||
-        left != marginSize.left ||
-        type != marginSize.type;
+  bool _isChanged(Margin margin) {
+    return top != margin.top ||
+        bottom != margin.bottom ||
+        right != margin.right ||
+        left != margin.left ||
+        type != margin.type;
   }
 
-  void _updateSize(MarginSize marginSize) {
+  void _updateMargin(Margin margin) {
     this
-      ..top = marginSize.top
-      ..bottom = marginSize.bottom
-      ..right = marginSize.right
-      ..left = marginSize.left;
+      ..top = margin.top
+      ..bottom = margin.bottom
+      ..right = margin.right
+      ..left = margin.left;
   }
 
   // statics
 
-  static void _applySize(HtmlElement element, MarginSize size) {
-    switch (size.type) {
+  static void _applyMargin(HtmlElement element, Margin margin) {
+    switch (margin.type) {
       case MarginType.only:
-        if (size.top != 0.0) {
-          element.style.setProperty(Props.marginTop, "${size.top}px");
+        if (margin.top != 0.0) {
+          element.style.setProperty(Props.marginTop, "${margin.top}px");
         }
 
-        if (size.bottom != 0.0) {
-          element.style.setProperty(Props.marginBottom, "${size.bottom}px");
+        if (margin.bottom != 0.0) {
+          element.style.setProperty(Props.marginBottom, "${margin.bottom}px");
         }
 
-        if (size.left != 0.0) {
-          element.style.setProperty(Props.marginLeft, "${size.left}px");
+        if (margin.left != 0.0) {
+          element.style.setProperty(Props.marginLeft, "${margin.left}px");
         }
 
-        if (size.right != 0.0) {
-          element.style.setProperty(Props.marginRight, "${size.right}px");
+        if (margin.right != 0.0) {
+          element.style.setProperty(Props.marginRight, "${margin.right}px");
         }
 
         break;
@@ -115,29 +115,29 @@ class MarginSize {
       case MarginType.allDifferent:
         element.style.setProperty(
           Props.margin,
-          "${size.top}px ${size.right}px ${size.bottom}px ${size.left}px",
+          "${margin.top}px ${margin.right}px ${margin.bottom}px ${margin.left}px",
         );
 
         break;
     }
   }
 
-  static void _clearSize(HtmlElement element, MarginSize size) {
-    switch (size.type) {
+  static void _clearMargin(HtmlElement element, Margin margin) {
+    switch (margin.type) {
       case MarginType.only:
-        if (size.top != 0.0) {
+        if (margin.top != 0.0) {
           element.style.removeProperty(Props.marginTop);
         }
 
-        if (size.bottom != 0.0) {
+        if (margin.bottom != 0.0) {
           element.style.removeProperty(Props.marginBottom);
         }
 
-        if (size.left != 0.0) {
+        if (margin.left != 0.0) {
           element.style.removeProperty(Props.marginLeft);
         }
 
-        if (size.right != 0.0) {
+        if (margin.right != 0.0) {
           element.style.removeProperty(Props.marginRight);
         }
 
