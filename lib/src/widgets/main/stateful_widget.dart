@@ -45,14 +45,14 @@ import 'package:rad/src/core/structures/widget.dart';
 ///   Child widgets then can cascade update to their childs and so on.
 ///
 ///
-/// * Having state at top-level of your application won't hurt you performance(in most cases)
+/// * Update process is optimized for performance. A widget update do not cause a
+///   complete widget's rebuild. Every widget will update it's DOM interface only if its
+///   description has changed.
+///
+///
+/// * Having state at top-level of your application won't hurt performance(in most cases)
 ///   but it's always better to have a your State at leaf nodes. Having less childs means,
 ///   updates can be dispatched and processed faster.
-///
-///
-/// * Update process is optimized for performance. A widget update do not cause a
-///   complete widget's rebuild. Every widget will update it's interface iff it's interface
-///   has changed.
 ///
 ///
 /// * Widgets that has internal state such as [StatefulWidget] and [Overlay] won't
@@ -74,8 +74,6 @@ import 'package:rad/src/core/structures/widget.dart';
 ///   if you remove child nodes/or part of DOM tree using browser inspector, calling setState()
 ///   in a parent widget will bring back everything back in DOM.
 ///
-///
-/// * Widget descriptions are never lost.
 ///
 /// ## A Stateful widget example: 'click to toggle'
 ///
