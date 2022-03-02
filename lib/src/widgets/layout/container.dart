@@ -3,6 +3,7 @@ import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/props/internal/size_props.dart';
 import 'package:rad/src/core/props/internal/style_props.dart';
+import 'package:rad/src/core/props/padding.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
@@ -15,13 +16,15 @@ import 'package:rad/src/core/objects/render_object.dart';
 class Container extends Widget {
   final String? key;
 
+  final Widget child;
+
   final double? width;
   final double? height;
   final MeasuringUnit? sizeUnit;
 
   final String? styles;
 
-  final Widget child;
+  final Padding? padding;
 
   const Container({
     this.key,
@@ -29,6 +32,7 @@ class Container extends Widget {
     this.width,
     this.height,
     this.sizeUnit,
+    this.padding,
     required this.child,
   });
 
@@ -52,6 +56,7 @@ class Container extends Widget {
         sizeUnit: sizeUnit,
       ),
       styleProps: StyleProps(styles),
+      padding: padding,
     );
   }
 }
@@ -62,10 +67,13 @@ class ContainerRenderObject extends RenderObject {
   final SizeProps sizeProps;
   final StyleProps styleProps;
 
+  final Padding? padding;
+
   ContainerRenderObject({
     required this.child,
     required this.sizeProps,
     required this.styleProps,
+    required this.padding,
     required BuildContext context,
   }) : super(context);
 
@@ -74,6 +82,10 @@ class ContainerRenderObject extends RenderObject {
     sizeProps.apply(widgetObject.element);
 
     styleProps.apply(widgetObject.element);
+
+    if (null != padding) {
+      padding!.apply(widgetObject.element);
+    }
 
     Framework.buildChildren(
       widgets: [child],
@@ -88,6 +100,10 @@ class ContainerRenderObject extends RenderObject {
     sizeProps.apply(widgetObject.element, updatedRenderObject.sizeProps);
 
     styleProps.apply(widgetObject.element, updatedRenderObject.styleProps);
+
+    if (null != padding) {
+      padding!.apply(widgetObject.element, updatedRenderObject.padding);
+    }
 
     Framework.updateChildren(
       widgets: [updatedRenderObject.child],

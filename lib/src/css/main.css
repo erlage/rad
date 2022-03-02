@@ -18,6 +18,15 @@ body {
 
 
 /**
+   * Widgets that can have padding and/or border
+   */
+
+[data-wtype="Container"] {
+    box-sizing: border-box;
+}
+
+
+/**
    * widgets without scrolls
    * i.e widget's inner content will not be scrollable
    */
@@ -93,7 +102,7 @@ body {
 
 
 /**
-   * system
+   * system (not-in-use for now)
    */
 
 .rad-hidden {
