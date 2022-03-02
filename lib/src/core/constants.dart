@@ -16,16 +16,16 @@ class Props {
   static const left = 'left';
 
   static const padding = 'padding';
-  static const paddingTop = 'paddingTop';
-  static const paddingBottom = 'paddingBottom';
-  static const paddingRight = 'paddingRight';
-  static const paddingLeft = 'paddingLeft';
+  static const paddingTop = 'padding-top';
+  static const paddingBottom = 'padding-bottom';
+  static const paddingRight = 'padding-right';
+  static const paddingLeft = 'padding-left';
 
   static const margin = 'margin';
-  static const marginTop = 'marginTop';
-  static const marginBottom = 'marginBottom';
-  static const marginRight = 'marginRight';
-  static const marginLeft = 'marginLeft';
+  static const marginTop = 'margin-top';
+  static const marginBottom = 'margin-bottom';
+  static const marginRight = 'margin-right';
+  static const marginLeft = 'margin-left';
 
   static const transform = 'transform';
 }
