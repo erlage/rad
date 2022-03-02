@@ -83,8 +83,10 @@ class ContainerRenderObject extends RenderObject {
 
     styleProps.apply(widgetObject.element);
 
+    var padding = this.padding;
+
     if (null != padding) {
-      padding!.apply(widgetObject.element);
+      padding.apply(widgetObject.element);
     }
 
     Framework.buildChildren(
@@ -101,8 +103,10 @@ class ContainerRenderObject extends RenderObject {
 
     styleProps.apply(widgetObject.element, updatedRenderObject.styleProps);
 
+    var padding = this.padding;
+
     if (null != padding) {
-      padding!.apply(widgetObject.element, updatedRenderObject.padding);
+      padding.apply(widgetObject.element, updatedRenderObject.padding);
     }
 
     Framework.updateChildren(
