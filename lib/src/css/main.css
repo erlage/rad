@@ -26,7 +26,6 @@ body {
 [data-wtype="Stack"],
 [data-wtype="Align"],
 [data-wtype="Positioned"] {
-    display: block;
     overflow: hidden;
 }
 
@@ -63,9 +62,11 @@ body {
 
 
 /**
-   * widgets which that childs to overlay on each other
+   * widgets that has relative position
+   * this allow child widgets to absolutly position themselves
    */
 
+[data-wtype="Align"],
 [data-wtype="Overlay"],
 [data-wtype="Stack"] {
     position: relative;
@@ -77,6 +78,14 @@ body {
    */
 
 [data-wtype="OverlayEntry"],
+
+/* align childs */
+
+[data-wtype="Align"]>div,
+[data-wtype="Align"]>span,
+
+/* stack childs */
+
 [data-wtype="Stack"]>div,
 [data-wtype="Stack"]>span {
     position: absolute;
@@ -90,37 +99,4 @@ body {
 .rad-hidden {
     display: none!important;
     visibility: hidden!important;
-}
-
-
-/**
-   * alignments
-   */
-
-.rad-align-top-right,
-.rad-align-top-right {
-    top: 0;
-    right: 0;
-    position: absolute;
-}
-
-.rad-align-top-left,
-.rad-align-top-left {
-    top: 0;
-    left: 0;
-    position: absolute;
-}
-
-.rad-align-bottom-right,
-.rad-align-bottom-right {
-    bottom: 0;
-    right: 0;
-    position: absolute;
-}
-
-.rad-align-bottom-left,
-.rad-align-bottom-left {
-    bottom: 0;
-    left: 0;
-    position: absolute;
 }
