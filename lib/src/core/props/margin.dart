@@ -130,12 +130,12 @@ class Margin {
     if (margin.flagContainInBoxSize) {
       element.style.setProperty(
         Props.width,
-        'calc(100% - ${(margin.left + margin.right) * 2})',
+        'calc(100% - ${(margin.left + margin.right)}px)',
       );
 
       element.style.setProperty(
         Props.height,
-        'calc(100% - ${(margin.top + margin.top) * 2})',
+        'calc(100% - ${(margin.top + margin.bottom)}px)',
       );
     }
   }
