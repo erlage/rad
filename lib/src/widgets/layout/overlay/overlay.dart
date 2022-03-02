@@ -37,23 +37,6 @@ class Overlay extends Widget {
     required this.initialEntries,
   });
 
-  /// The state from the closest instance of this class that encloses the given context.
-  ///
-  /// Typical usage is as follows:
-  ///
-  /// ```dart
-  /// OverlayState overlay = Overlay.of(context);
-  /// ```
-  static OverlayState of(BuildContext context) {
-    var widgetObject = Framework.findAncestorOfType<Overlay>(context);
-
-    if (null == widgetObject) {
-      throw "Overlay.of(context) called with the context that doesn't contains Overylay";
-    }
-
-    return OverlayState(widgetObject);
-  }
-
   @override
   DomTag get tag => DomTag.div;
 
@@ -70,6 +53,23 @@ class Overlay extends Widget {
       initialEntries: initialEntries,
       styleProps: StyleProps(styles),
     );
+  }
+
+  /// The state from the closest instance of this class that encloses the given context.
+  ///
+  /// Typical usage is as follows:
+  ///
+  /// ```dart
+  /// OverlayState overlay = Overlay.of(context);
+  /// ```
+  static OverlayState of(BuildContext context) {
+    var widgetObject = Framework.findAncestorOfType<Overlay>(context);
+
+    if (null == widgetObject) {
+      throw "Overlay.of(context) called with the context that doesn't contains Overylay";
+    }
+
+    return OverlayState(widgetObject);
   }
 }
 
