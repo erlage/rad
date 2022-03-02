@@ -45,5 +45,5 @@ abstract class RenderObject {
   /// and [updatedRenderObject] doesn't know anything about it. Using this object
   /// will results in loss of internal state in StatefulWidget
   ///
-  void update(WidgetObject widgetObject, RenderObject updatedRenderObject);
+  void update(WidgetObject widgetObject, RenderObject updatedRenderObject) {}
 }
