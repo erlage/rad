@@ -31,6 +31,14 @@ class Align extends Widget {
   ///
   /// It can be used in-place of Flutter's Center widget.
   ///
+  /// Example
+  ///
+  /// ```dart
+  /// Align.center(
+  ///   child: Text("at center"),
+  /// );
+  /// ```
+  ///
   /// It's a shorthand for:
   ///
   /// ```dart

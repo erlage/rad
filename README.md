@@ -120,6 +120,7 @@ Widgets that accept SizeProps also have an optional property `sizeUnit`. For Pos
 - [Container](https://pub.dev/documentation/rad/latest/widgets/Container-class.html)
 - [Stack](https://pub.dev/documentation/rad/latest/widgets/Stack-class.html)
 - [Align](https://pub.dev/documentation/rad/latest/widgets/Align-class.html)
+  - [Align.center](https://pub.dev/documentation/rad/latest/widgets/Align/Align.center.html)
 - [Positioned](https://pub.dev/documentation/rad/latest/widgets/Positioned-class.html)
   - [Positioned.fill](https://pub.dev/documentation/rad/latest/widgets/Positioned-class.html)
 - [Overlay](https://pub.dev/documentation/rad/latest/widgets/Overlay-class.html)
@@ -135,4 +136,6 @@ Widgets that accept SizeProps also have an optional property `sizeUnit`. For Pos
 - [StatefulWidget](https://pub.dev/documentation/rad/latest/rad/StatefulWidget-class.html)
 
 ## Contribution
-Rad is a hobby project. Rad's core(src/core) is extremely small and straightforward. Having [basic knowledge of DOM](https://dart.dev/tutorials/web/low-level-html/connect-dart-html) & [Dart](https://dart.dev/guides/language/language-tour) is enough to implement widgets(src/widgets). In any case, feel free to open a issue, if you feel like missing a widget or something. 
+
+Rad is a hobby project. Core(src/core) of this framework is extremely small and straightforward. Having just the [basic knowledge of DOM](https://dart.dev/tutorials/web/low-level-html/connect-dart-html) & [Dart](https://dart.dev/guides/language/language-tour) is enough to implement widgets(src/widgets). 
+
