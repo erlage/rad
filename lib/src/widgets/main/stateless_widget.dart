@@ -45,7 +45,7 @@ abstract class StatelessWidget extends Widget {
   String get type => (StatelessWidget).toString();
 
   @override
-  buildRenderObject(context) {
+  createRenderObject(context) {
     return StatelessWidgetRenderObject(
       context: context,
       props: StatelessWidgetProps(build(context)),

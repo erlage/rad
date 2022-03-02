@@ -30,7 +30,7 @@ abstract class Widget {
   ///
   /// It can be called multiple times to get fresh [RenderObject].
   ///
-  RenderObject buildRenderObject(BuildContext context);
+  RenderObject createRenderObject(BuildContext context);
 
   /// Called when first render object is created.
   ///

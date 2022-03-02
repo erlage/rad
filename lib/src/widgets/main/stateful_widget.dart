@@ -207,7 +207,7 @@ abstract class StatefulWidget extends Widget {
   }
 
   @override
-  buildRenderObject(context) {
+  createRenderObject(context) {
     return StatefulWidgetRenderObject(
       context: context,
       child: build(context),

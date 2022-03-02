@@ -48,7 +48,7 @@ abstract class AppWidget extends Widget {
   String get initialKey => key ?? System.keyNotSet;
 
   @override
-  buildRenderObject(context) {
+  createRenderObject(context) {
     context.parent;
 
     return AppWidgetRenderObject(

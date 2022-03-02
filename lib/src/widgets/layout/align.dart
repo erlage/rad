@@ -38,7 +38,7 @@ class Align extends Widget {
   String get initialKey => key ?? System.keyNotSet;
 
   @override
-  buildRenderObject(context) {
+  createRenderObject(context) {
     return AlignRenderObject(
       context: context,
       props: AlignProps(

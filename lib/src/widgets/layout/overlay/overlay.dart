@@ -64,7 +64,7 @@ class Overlay extends Widget {
   String get initialKey => key ?? System.keyNotSet;
 
   @override
-  buildRenderObject(context) {
+  createRenderObject(context) {
     return OverlayRenderObject(
       context: context,
       initialEntries: initialEntries,

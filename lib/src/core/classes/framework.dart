@@ -86,7 +86,7 @@ class Framework {
       );
       widget.onContextCreate(buildContext);
 
-      var renderObject = widget.buildRenderObject(buildContext);
+      var renderObject = widget.createRenderObject(buildContext);
       widget.onRenderObjectCreate(renderObject);
 
       print("Build widget: ${widget.type} #${buildContext.key}");
@@ -271,7 +271,7 @@ class Framework {
         // if found
         if (null != existingWidgetObject) {
           // get updated render object
-          var renderObject = updateObject.widget.buildRenderObject(
+          var renderObject = updateObject.widget.createRenderObject(
             existingWidgetObject.context,
           );
 

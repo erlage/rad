@@ -38,7 +38,7 @@ class Text extends Widget {
   String get initialKey => key ?? System.keyNotSet;
 
   @override
-  buildRenderObject(context) {
+  createRenderObject(context) {
     return TextRenderObject(
       context: context,
       text: text,

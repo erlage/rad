@@ -47,12 +47,12 @@ class PositionProps {
   }
 
   void _switchProps(PositionProps props) {
-    top = props.top;
-    bottom = props.bottom;
-    left = props.left;
-    right = props.right;
-
-    unit = props.unit;
+    this
+      ..top = props.top
+      ..bottom = props.bottom
+      ..left = props.left
+      ..right = props.right
+      ..unit = props.unit;
   }
 
   // statics
