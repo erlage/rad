@@ -1,7 +1,7 @@
-import 'dart:html';
+import "dart:html";
 
-import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/constants.dart';
+import "package:rad/src/core/enums.dart";
+import "package:rad/src/core/constants.dart";
 
 /// Padding property object.
 ///
@@ -55,7 +55,7 @@ class Padding {
 
   /// Apply padding.
   ///
-  /// if [updatedPadding] is not null, it'll do a update.
+  /// if [updatedPadding] is not null, it"ll do a update.
   ///
   void apply(HtmlElement element, [Padding? updatedPadding]) {
     if (null == updatedPadding) {

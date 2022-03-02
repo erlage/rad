@@ -1,7 +1,7 @@
-import 'dart:html';
+import "dart:html";
 
-import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/constants.dart';
+import "package:rad/src/core/enums.dart";
+import "package:rad/src/core/constants.dart";
 
 /// Margin property object.
 ///
@@ -13,7 +13,7 @@ class Margin {
   double left;
   double right;
 
-  /// Whether margin has to be included in box's size
+  /// Whether margin has to be included in box"s size
   ///
   bool flagContainInBoxSize = false;
 
@@ -59,7 +59,7 @@ class Margin {
 
   /// Apply margin.
   ///
-  /// if [updatedMargin] is not null, it'll do a update.
+  /// if [updatedMargin] is not null, it"ll do a update.
   ///
   void apply(HtmlElement element, [Margin? updatedMargin]) {
     if (null == updatedMargin) {
@@ -130,12 +130,12 @@ class Margin {
     if (margin.flagContainInBoxSize) {
       element.style.setProperty(
         Props.width,
-        'calc(100% - ${(margin.left + margin.right)}px)',
+        "calc(100% - ${(margin.left + margin.right)}px)",
       );
 
       element.style.setProperty(
         Props.height,
-        'calc(100% - ${(margin.top + margin.bottom)}px)',
+        "calc(100% - ${(margin.top + margin.bottom)}px)",
       );
     }
   }
