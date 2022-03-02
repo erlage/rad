@@ -47,7 +47,7 @@ class Framework {
 
     var domNode = document
         .getElementById(context.key)
-        ?.closest("[data-wtype='" + WidgetType.toString() + "'");
+        ?.closest("[data-wtype='$WidgetType']");
 
     if (null == domNode) {
       return null;
