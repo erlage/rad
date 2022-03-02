@@ -135,4 +135,4 @@ Widgets that accept SizeProps also have an optional property `sizeUnit`. For Pos
 - [StatefulWidget](https://pub.dev/documentation/rad/latest/rad/StatefulWidget-class.html)
 
 ## Contribution
-Rad is a hobby project, feel free to open pull requests if you feel like missing a widget or something. Rad's core(src/core) is extremely small and straightforward. Having [basic knowledge of DOM](https://dart.dev/tutorials/web/low-level-html/connect-dart-html) & [Dart](https://dart.dev/guides/language/language-tour) is enough to implement widgets(src/widgets).
+Rad is a hobby project. Rad's core(src/core) is extremely small and straightforward. Having [basic knowledge of DOM](https://dart.dev/tutorials/web/low-level-html/connect-dart-html) & [Dart](https://dart.dev/guides/language/language-tour) is enough to implement widgets(src/widgets). In any case, feel free to open a issue, if you feel like missing a widget or something. 
