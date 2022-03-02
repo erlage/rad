@@ -41,9 +41,10 @@ class SizeProps {
   }
 
   void _switchProps(SizeProps props) {
-    width = props.width;
-    height = props.height;
-    unit = props.unit;
+    this
+      ..width = props.width
+      ..height = props.height
+      ..unit = props.unit;
   }
 
   // statics

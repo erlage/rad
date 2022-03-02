@@ -80,12 +80,11 @@ class MarginSize {
   }
 
   void _updateSize(MarginSize marginSize) {
-    top = marginSize.top;
-    bottom = marginSize.bottom;
-    right = marginSize.right;
-    left = marginSize.left;
-
-    type = marginSize.type;
+    this
+      ..top = marginSize.top
+      ..bottom = marginSize.bottom
+      ..right = marginSize.right
+      ..left = marginSize.left;
   }
 
   // statics

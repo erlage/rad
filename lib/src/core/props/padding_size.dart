@@ -80,12 +80,12 @@ class PaddingSize {
   }
 
   void _updateSize(PaddingSize paddingSize) {
-    top = paddingSize.top;
-    bottom = paddingSize.bottom;
-    right = paddingSize.right;
-    left = paddingSize.left;
-
-    type = paddingSize.type;
+    this
+      ..top = paddingSize.top
+      ..bottom = paddingSize.bottom
+      ..right = paddingSize.right
+      ..left = paddingSize.left
+      ..type = paddingSize.type;
   }
 
   // statics
