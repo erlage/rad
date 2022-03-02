@@ -4,6 +4,9 @@ export 'src/core/enums.dart' show HitTestBehavior;
 
 // props
 
+export 'package:rad/src/core/props/padding.dart' show Padding;
+export 'package:rad/src/core/props/margin.dart' show Margin;
+
 export 'package:rad/src/core/props/alignment.dart' show Alignment;
 
 // widgets
