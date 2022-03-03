@@ -1,6 +1,6 @@
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/objects/debug_options.dart';
-import 'package:rad/src/core/classes/widget.dart';
+import 'package:rad/src/core/classes/abstract/widget.dart';
 import 'package:rad/src/css/rad_app.generated.dart';
 import 'package:rad/src/widgets/main/app_widget.dart';
 

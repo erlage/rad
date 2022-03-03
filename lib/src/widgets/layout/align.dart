@@ -3,8 +3,8 @@ import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/props/alignment.dart';
-import 'package:rad/src/core/classes/build_context.dart';
-import 'package:rad/src/core/classes/widget.dart';
+import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/core/classes/abstract/widget.dart';
 
 /// A widget that aligns its child within itself.
 ///

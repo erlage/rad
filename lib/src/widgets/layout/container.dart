@@ -5,8 +5,8 @@ import 'package:rad/src/core/props/internal/size_props.dart';
 import 'package:rad/src/core/props/internal/style_props.dart';
 import 'package:rad/src/core/props/margin.dart';
 import 'package:rad/src/core/props/padding.dart';
-import 'package:rad/src/core/classes/build_context.dart';
-import 'package:rad/src/core/classes/widget.dart';
+import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/core/classes/abstract/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 
 /// A widget to contain a widget in itself.

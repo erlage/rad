@@ -3,8 +3,8 @@ import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/props/internal/position_props.dart';
 import 'package:rad/src/core/props/internal/size_props.dart';
-import 'package:rad/src/core/classes/build_context.dart';
-import 'package:rad/src/core/classes/widget.dart';
+import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/core/classes/abstract/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 
 /// A widget that controls position of it's child. Can be used
