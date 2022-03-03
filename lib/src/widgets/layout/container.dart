@@ -102,6 +102,8 @@ class ContainerRenderObject extends RenderObject {
 
     var margin = this.margin;
     if (null != margin) {
+      margin.size = sizeProps;
+
       margin.apply(widgetObject.element);
     }
 
@@ -126,6 +128,8 @@ class ContainerRenderObject extends RenderObject {
 
     var margin = this.margin;
     if (null != margin) {
+      margin.size = updatedRenderObject.sizeProps;
+
       margin.apply(widgetObject.element, updatedRenderObject.margin);
     }
 
