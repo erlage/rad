@@ -21,9 +21,10 @@ abstract class AppWidget extends Widget {
     this.key,
     required this.child,
     required this.targetId,
+    required String routingPath,
     required this.onInit,
   }) {
-    Framework.init();
+    Framework.init(routingPath: routingPath);
 
     // insert framework's CSS styles
 

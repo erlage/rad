@@ -28,10 +28,12 @@ class RadApp extends AppWidget {
     String? key,
     required Widget child,
     required String targetId,
+    String routingPath = '/',
   }) : super(
             key: key,
             child: child,
             targetId: targetId,
+            routingPath: routingPath,
             onInit: () {
               Framework.addGlobalStyles(GEN_STYLES_RAD_APP_CSS, "RadApp");
             });

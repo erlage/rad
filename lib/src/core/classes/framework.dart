@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:rad/src/core/classes/router.dart';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/core/classes/utils.dart';
 import 'package:rad/src/core/constants.dart';
@@ -13,10 +14,14 @@ class Framework {
 
   static final _registeredWidgetObjects = <String, WidgetObject>{};
 
-  static init() {
+  static init({
+    required String routingPath,
+  }) {
     if (_isInit) {
       throw "Framework aleady initialized.";
     }
+
+    Router.init(routingPath);
 
     _isInit = true;
   }
