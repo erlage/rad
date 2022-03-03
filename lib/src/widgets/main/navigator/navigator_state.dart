@@ -1,4 +1,5 @@
 import 'package:rad/rad.dart';
+import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/classes/router.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
@@ -116,12 +117,14 @@ class NavigatorState {
     widget = widgetObject.widget as Navigator;
 
     for (var route in widget.routes) {
-      var isDuplicate = nameToPathMap.containsKey(route.name) ||
-          pathToRouteMap.containsKey(route.path);
+      if (Debug.developmentMode) {
+        var isDuplicate = nameToPathMap.containsKey(route.name) ||
+            pathToRouteMap.containsKey(route.path);
 
-      if (isDuplicate) {
-        throw "Please remove Duplicate routes from your Navigator."
-            "Part of your route, name: '${route.name}' => path: '${route.path}', already exists";
+        if (isDuplicate) {
+          throw "Please remove Duplicate routes from your Navigator."
+              "Part of your route, name: '${route.name}' => path: '${route.path}', already exists";
+        }
       }
 
       nameToPathMap[route.name] = route.path;
