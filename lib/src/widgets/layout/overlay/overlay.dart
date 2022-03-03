@@ -2,7 +2,6 @@ import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/props/internal/style_props.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay_entry.dart';
@@ -47,12 +46,13 @@ class Overlay extends Widget {
   String get initialKey => key ?? System.keyNotSet;
 
   @override
-  createRenderObject(context) {
-    return OverlayRenderObject(
-      context: context,
-      initialEntries: initialEntries,
-      styleProps: StyleProps(styles),
-    );
+  createRenderObject(context) => OverlayRenderObject(context);
+
+  @override
+  onRenderObjectCreate(renderObject) {
+    renderObject as OverlayRenderObject;
+
+    renderObject.state = OverlayState();
   }
 
   /// The state from the closest instance of this class that encloses the given context.
@@ -69,34 +69,15 @@ class Overlay extends Widget {
       throw "Overlay.of(context) called with the context that doesn't contains Overylay";
     }
 
-    return OverlayState(widgetObject);
+    return (widgetObject.renderObject as OverlayRenderObject).state;
   }
 }
 
 class OverlayRenderObject extends RenderObject {
-  final List<Widget> initialEntries;
+  late final OverlayState state;
 
-  final StyleProps styleProps;
-
-  OverlayRenderObject({
-    required this.styleProps,
-    required this.initialEntries,
-    required BuildContext context,
-  }) : super(context);
+  OverlayRenderObject(BuildContext context) : super(context);
 
   @override
-  render(widgetObject) {
-    styleProps.apply(widgetObject.element);
-
-    Framework.buildChildren(
-      widgets: initialEntries,
-      parentContext: context,
-    );
-  }
-
-  @override
-  update(widgetObject, updatedRenderObject) {
-    // overlay has its own state and can't be changed
-    // by outer objects
-  }
+  render(widgetObject) => state.render(widgetObject);
 }
