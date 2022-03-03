@@ -2,8 +2,8 @@ import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/props/internal/style_props.dart';
-import 'package:rad/src/core/structures/build_context.dart';
-import 'package:rad/src/core/structures/widget.dart';
+import 'package:rad/src/core/classes/build_context.dart';
+import 'package:rad/src/core/classes/widget.dart';
 
 /// A run of text with a single style.
 ///

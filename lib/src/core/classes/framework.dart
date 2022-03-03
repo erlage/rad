@@ -7,9 +7,9 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/core/classes/utils.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
-import 'package:rad/src/core/structures/widget.dart';
+import 'package:rad/src/core/classes/widget.dart';
 import 'package:rad/src/core/objects/update_object.dart';
-import 'package:rad/src/core/structures/build_context.dart';
+import 'package:rad/src/core/classes/build_context.dart';
 
 class Framework {
   static var _isInit = false;

@@ -1,4 +1,4 @@
-import 'package:rad/src/core/structures/widget.dart';
+import 'package:rad/src/core/classes/widget.dart';
 
 /// A simple object used to wrap Update entries
 /// before dispatching them.

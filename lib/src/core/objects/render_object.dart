@@ -1,4 +1,4 @@
-import 'package:rad/src/core/structures/build_context.dart';
+import 'package:rad/src/core/classes/build_context.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 
 /// [RenderObject] contains logic to build a widget's interface.

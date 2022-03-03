@@ -3,8 +3,8 @@ import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/props/internal/style_props.dart';
-import 'package:rad/src/core/structures/build_context.dart';
-import 'package:rad/src/core/structures/widget.dart';
+import 'package:rad/src/core/classes/build_context.dart';
+import 'package:rad/src/core/classes/widget.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay_state.dart';
 
 /// A place in an [Overlay] that can contain a widget.
