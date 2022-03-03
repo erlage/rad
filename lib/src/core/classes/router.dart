@@ -85,9 +85,19 @@ class Router {
       if (navigatorPathList.contains(segment)) {
         systemPathList.removeAt(systemPathList.indexOf(segment));
         navigatorPathList.removeAt(navigatorPathList.indexOf(segment));
+
+        continue;
+      }
+
+      if (_debugMode) {
+        print("Navigator(#$navigatorKey) path provided: $segment");
       }
 
       return segment;
+    }
+
+    if (_debugMode) {
+      print("Navigator(#$navigatorKey) path provided: ''");
     }
 
     return '';
@@ -124,7 +134,7 @@ class Router {
       _navigators[context.key] = NavigatorPath([_routingPath]);
 
       if (_debugMode) {
-        print("Navigator Registered: #${context.key} at $_routingPath");
+        print("Navigator Registered: #${context.key} at ${[_routingPath]}");
       }
 
       return;
@@ -145,7 +155,7 @@ class Router {
     _navigators[context.key] = NavigatorPath(segments);
 
     if (_debugMode) {
-      print("Navigator Registered: #${context.key} at ${segments.join("/")}");
+      print("Navigator Registered: #${context.key} at $segments");
     }
   }
 }
