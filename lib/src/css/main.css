@@ -34,6 +34,7 @@ body {
 [data-wtype="Container"],
 [data-wtype="Stack"],
 [data-wtype="Align"],
+[data-wtype="Route"],
 [data-wtype="Positioned"] {
     overflow: hidden;
 }
@@ -55,6 +56,8 @@ body {
  widget such as container.
 */
 
+[data-wtype="Route"],
+[data-wtype="Navigator"],
 [data-wtype="StatefulWidget"],
 [data-wtype="StatelessWidget"],
 [data-wtype="GestureDetector"],
@@ -66,6 +69,22 @@ body {
 [data-wtype="Target"] {
     width: 100%;
     height: 100%;
+}
+
+
+/**
+   * widgets with flex display
+   */
+
+[data-wtype="Align"],
+[data-wtype="Stack"],
+[data-wtype="Container"],
+[data-wtype="Overlay"],
+[data-wtype="Navigator"],
+[data-wtype="StatefulWidget"],
+[data-wtype="StatelessWidget"],
+[data-wtype="GestureDetector"],
+[data-wtype="Target"] {
     display: flex;
 }
 
@@ -75,6 +94,7 @@ body {
    * this allow child widgets to absolutly position themselves
    */
 
+[data-wtype="Navigator"],
 [data-wtype="Align"],
 [data-wtype="Overlay"],
 [data-wtype="Stack"] {
@@ -86,6 +106,7 @@ body {
    * widgets with absolute position
    */
 
+[data-wtype="Route"],
 [data-wtype="OverlayEntry"],
 
 /* align childs */
