@@ -4,6 +4,7 @@ import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/objects/navigator_path.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/widgets/main/navigator/navigator.dart';
+import 'package:rad/src/widgets/main/navigator/navigator_state.dart';
 
 class Router {
   static var _isInit = false;
@@ -71,8 +72,8 @@ class Router {
   /// Returns empty string, if matches nothing. Navigators should display
   /// default page when [getPath] returns empty string.
   ///
-  static String getPath(String navigatorKey) {
-    var navigatorPath = _navigators[navigatorKey];
+  static String getPath(NavigatorState state) {
+    var navigatorPath = _navigators[state.context.key];
 
     if (null == navigatorPath) {
       throw "Navigator you trying to look-up must register itself before accessing Router.";
@@ -80,6 +81,8 @@ class Router {
 
     var systemPathList = [..._currentPathSegments];
     var navigatorPathList = [...navigatorPath.segments];
+
+    // prevent access to routes that are not available to current navigator
 
     for (var segment in _currentPathSegments) {
       if (navigatorPathList.contains(segment)) {
@@ -89,15 +92,17 @@ class Router {
         continue;
       }
 
-      if (_debugMode) {
-        print("Navigator(#$navigatorKey) path provided: $segment");
-      }
+      if (state.pathToRouteMap.containsKey(segment)) {
+        if (_debugMode) {
+          print("Navigator(#${state.context.key}) path provided: $segment");
+        }
 
-      return segment;
+        return segment;
+      }
     }
 
     if (_debugMode) {
-      print("Navigator(#$navigatorKey) path provided: ''");
+      print("Navigator(#${state.context.key}) path provided: ''");
     }
 
     return '';
