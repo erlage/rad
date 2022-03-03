@@ -64,7 +64,7 @@ class StatelessWidgetRenderObject extends RenderObject {
 
   @override
   render(widgetObject) {
-    var widget = widgetBuilder(widgetObject.context);
+    var widget = widgetBuilder(context);
 
     Framework.buildChildren(
       widgets: [widget],
@@ -76,7 +76,7 @@ class StatelessWidgetRenderObject extends RenderObject {
   update(widgetObject, updatedRenderObject) {
     updatedRenderObject as StatelessWidgetRenderObject;
 
-    var widget = updatedRenderObject.widgetBuilder(widgetObject.context);
+    var widget = updatedRenderObject.widgetBuilder(updatedRenderObject.context);
 
     Framework.updateChildren(
       widgets: [widget],

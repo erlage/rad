@@ -6,6 +6,7 @@ import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
+import 'package:rad/src/core/types.dart';
 
 /// A widget that has mutable state.
 ///
@@ -200,15 +201,13 @@ abstract class StatefulWidget extends Widget {
   @override
   onContextCreate(BuildContext context) {
     this.context = context;
-
-    initState();
   }
 
   @override
   createRenderObject(context) {
     return StatefulWidgetRenderObject(
       context: context,
-      child: build(context),
+      widgetBuilder: build,
     );
   }
 
@@ -216,37 +215,31 @@ abstract class StatefulWidget extends Widget {
   onRenderObjectCreate(renderObject) {
     renderObject as StatefulWidgetRenderObject;
 
+    renderObject.initState = initState;
     renderObject.dispose = dispose;
   }
 }
 
 class StatefulWidgetRenderObject extends RenderObject {
-  final Widget child;
+  final WidgetBuilderCallback widgetBuilder;
+  late final VoidCallback initState;
   late final VoidCallback dispose;
 
   StatefulWidgetRenderObject({
-    required this.child,
+    required this.widgetBuilder,
     required BuildContext context,
   }) : super(context);
 
   @override
+  void afterMount() => initState();
+
+  @override
   render(widgetObject) {
-    Framework.buildChildren(widgets: [child], parentContext: context);
+    var widget = widgetBuilder(context);
+
+    Framework.buildChildren(widgets: [widget], parentContext: context);
   }
 
   @override
-  update(widgetObject, updatedRenderObject) {
-    //
-    // Widgets that has internal state such as StatefulWidget and Overylay
-    // don't listen to changes in outer objects.
-    //
-    // Only way to change state of a StatefulWidget is to dispose it off
-    // and create a new one or if widget itself calls a setState()
-    //
-  }
-
-  @override
-  void beforeUnMount() {
-    dispose();
-  }
+  void beforeUnMount() => dispose();
 }
