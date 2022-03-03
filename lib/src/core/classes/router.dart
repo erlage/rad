@@ -196,7 +196,7 @@ class Router {
       return _currentSegments;
     }
 
-    // else use regex to limit part of path for give navigator
+    // else limit part of path that's visible to current navigator
 
     var matcher = "";
 
