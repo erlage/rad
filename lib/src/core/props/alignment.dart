@@ -70,7 +70,11 @@ class Alignment {
     }
   }
 
-  // internals
+  /*
+  |--------------------------------------------------------------------------
+  | internals
+  |--------------------------------------------------------------------------
+  */
 
   bool _isChanged(Alignment alignment) {
     return top != alignment.top || left != alignment.left;

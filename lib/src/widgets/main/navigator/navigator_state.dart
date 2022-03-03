@@ -72,35 +72,17 @@ class NavigatorState {
   /// Calling this mannually will results in undesired behaviour.
   ///
   void render(WidgetObject widgetObject) {
-    /*
-    |--------------------------------------------------------------------------
-    | initialize navigator state
-    |--------------------------------------------------------------------------
-    */
-
     _initState(widgetObject);
 
-    /*
-    |--------------------------------------------------------------------------
-    | get matching path from Router
-    |--------------------------------------------------------------------------
-    */
+    // get matching path from Router
 
     _currentPath = Router.getPath(this);
 
-    /*
-    |--------------------------------------------------------------------------
-    | prepare route. if not matched select first as default
-    |--------------------------------------------------------------------------
-    */
+    // prepare route. if not matched select first as default
 
     var route = pathToRouteMap[_currentPath] ?? widget.routes.first;
 
-    /*
-    |--------------------------------------------------------------------------
-    | build selected route
-    |--------------------------------------------------------------------------
-    */
+    // build selected route
 
     Framework.buildChildren(
       widgets: [route],
@@ -114,19 +96,7 @@ class NavigatorState {
   /// Calling this mannually will results in undesired behaviour.
   ///
   void dispose() {
-    /*
-    |--------------------------------------------------------------------------
-    | unregister navigator routes
-    |--------------------------------------------------------------------------
-    */
-
     Router.unRegisterRoutes(context);
-
-    /*
-    |--------------------------------------------------------------------------
-    | unregister navigator state
-    |--------------------------------------------------------------------------
-    */
 
     Router.unRegisterState(context);
   }
@@ -142,53 +112,25 @@ class NavigatorState {
   /// Prepare routes, checks for duplicates.
   ///
   _initState(WidgetObject widgetObject) {
-    /*
-    |--------------------------------------------------------------------------
-    | initialize properties
-    |--------------------------------------------------------------------------
-    */
-
     context = widgetObject.context;
-
     widget = widgetObject.widget as Navigator;
 
-    /*
-    |--------------------------------------------------------------------------
-    | prepare routes
-    |--------------------------------------------------------------------------
-    */
-
     for (var route in widget.routes) {
-      /*
-      |--------------------------------------------------------------------------
-      | check for duplicates
-      |--------------------------------------------------------------------------
-      */
+      var isDuplicate = nameToPathMap.containsKey(route.name) ||
+          pathToRouteMap.containsKey(route.path);
 
-      if (nameToPathMap.containsKey(route.name) ||
-          pathToRouteMap.containsKey(route.path)) {
+      if (isDuplicate) {
         throw "Please remove Duplicate routes from your Navigator."
             "Part of your route, name: '${route.name}' => path: '${route.path}', already exists";
       }
-
-      /*
-      |--------------------------------------------------------------------------
-      | populate jump maps
-      |--------------------------------------------------------------------------
-      */
 
       nameToPathMap[route.name] = route.path;
 
       pathToRouteMap[route.path] = route;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | register navigator state.
-    |
-    | so that router can use above jump tables and speed up route selection.
-    |--------------------------------------------------------------------------
-    */
+    // register navigator state.
+    // so that router can use above jump tables and speed up route selection.
 
     Router.registerState(context, this);
   }

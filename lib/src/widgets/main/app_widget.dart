@@ -26,39 +26,15 @@ abstract class AppWidget extends Widget {
     required this.onInit,
     required this.debugMode,
   }) {
-    /*
-    |--------------------------------------------------------------------------
-    | initialize framework
-    |--------------------------------------------------------------------------
-    */
-
     Framework.init(
       debugMode: debugMode,
       routingPath: routingPath,
     );
 
-    /*
-    |--------------------------------------------------------------------------
-    | insert framework default styles
-    |--------------------------------------------------------------------------
-    */
-
     Framework.addGlobalStyles(GEN_STYLES_NORMALIZE_CSS, "Normalize");
     Framework.addGlobalStyles(GEN_STYLES_MAIN_CSS, "Main");
 
-    /*
-    |--------------------------------------------------------------------------
-    | call onInit hook
-    |--------------------------------------------------------------------------
-    */
-
     onInit();
-
-    /*
-    |--------------------------------------------------------------------------
-    | start building
-    |--------------------------------------------------------------------------
-    */
 
     Framework.buildChildren(
       widgets: [this],

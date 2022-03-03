@@ -27,8 +27,6 @@ class Router {
   ///
   static final Map<String, NavigatorState> _stateObjects = {};
 
-  /// Initialize Router.
-  ///
   static init({
     required bool debugMode,
     required String routingPath,
@@ -46,15 +44,11 @@ class Router {
     _isInit = true;
   }
 
-  /// Register Navigator routes.
+  /// Register Navigator's routes.
   ///
   /// Registration is mandatory if a Navigator want access to routing.
   ///
   static void registerRoutes(BuildContext context, List<Route> routes) {
-    if (_debugMode) {
-      print("Navigator Registeration request: #${context.key}");
-    }
-
     if (!_isInit) {
       throw "Router not initialized.";
     }
@@ -64,7 +58,10 @@ class Router {
     _register(context, routes);
   }
 
-  /// Register navigator's state
+  /// Register navigator's state.
+  ///
+  /// As state objects are created after Navigator routes are registered,
+  /// state has to register itself using this method.
   ///
   static void registerState(BuildContext context, NavigatorState state) {
     if (_debugMode) {
@@ -76,15 +73,10 @@ class Router {
     _stateObjects[context.key] = state;
   }
 
-  /// UnRegister a Navigator routes
-  ///
   static void unRegisterRoutes(BuildContext context) {
     _routeObjects.remove(context.key);
-    _stateObjects.remove(context.key);
   }
 
-  /// UnRegister a Navigator state
-  ///
   static void unRegisterState(BuildContext context) {
     _stateObjects.remove(context.key);
   }
@@ -95,19 +87,7 @@ class Router {
   /// default page when [getPath] returns empty string.
   ///
   static String getPath(NavigatorState state) {
-    /*
-    |--------------------------------------------------------------------------
-    | get path segments that current navigator can access
-    |--------------------------------------------------------------------------
-    */
-
     var segments = _accessibleSegments(state.context.key);
-
-    /*
-    |--------------------------------------------------------------------------
-    |  try finding a matching path segment
-    |--------------------------------------------------------------------------
-    */
 
     var matchedPathSegment = '';
 
@@ -129,19 +109,9 @@ class Router {
   /// Get value following the provided segment in URL.
   ///
   static String getValue(NavigatorState state, String segment) {
-    /*
-    |--------------------------------------------------------------------------
-    | get accessible path
-    |--------------------------------------------------------------------------
-    */
-
     var path = _accessibleSegments(state.context.key).join("/");
 
-    /*
-    |--------------------------------------------------------------------------
-    | try to find a value that's following the provided segment in path
-    |--------------------------------------------------------------------------
-    */
+    // try to find a value that's following the provided segment in path
 
     var match = RegExp(segment + r"\/+(\w+)").firstMatch(path);
 
@@ -155,7 +125,6 @@ class Router {
   */
 
   static void _initRouterState() {
-    // get current path from window object
     var path = window.location.pathname;
 
     if (null == path || _routingPath == path) {
@@ -171,23 +140,16 @@ class Router {
   }
 
   static void _register(BuildContext context, List<Route> routes) {
-    /*
-    |--------------------------------------------------------------------------
-    | try finding a Navigator in ancestors
-    |
-    | we've to use context.parent here because navigators are required to register
-    | themselves in onContextCreate hook but at the point when onContextCreate
-    | hook is fired, context.key is not present in DOM.
-    |--------------------------------------------------------------------------
-    */
+    //
+    // try finding a Navigator in ancestors
+    //
+    // we've to use context.parent here because navigators are required to register
+    // themselves in onContextCreate hook but at the point when onContextCreate
+    // hook is fired, context.key is not present in DOM.
 
     var parent = Framework.findAncestorOfType<Navigator>(context.parent);
 
-    /*
-    |--------------------------------------------------------------------------
-    | if no Navigator in ancestors i.e we're dealing with a root navigator
-    |--------------------------------------------------------------------------
-    */
+    // if no Navigator in ancestors i.e we're dealing with a root navigator
 
     if (null == parent) {
       _routeObjects[context.key] = NavigatorRouteObject(
@@ -202,11 +164,7 @@ class Router {
       return;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | else its a nested navigator
-    |--------------------------------------------------------------------------
-    */
+    // else it's nested navigator
 
     var parentState = (parent.renderObject as NavigatorRenderObject).state;
 
@@ -227,34 +185,23 @@ class Router {
     }
   }
 
+  /// Part of path(window.location.pathName) that navigator with
+  /// [navigatorKey] can access.
+  ///
   static List<String> _accessibleSegments(String navigatorKey) {
-    /*
-    |--------------------------------------------------------------------------
-    | get registered route and state objects of navigator
-    |--------------------------------------------------------------------------
-    */
-
     var routeObject = _routeObjects[navigatorKey];
     var stateObject = _stateObjects[navigatorKey];
 
     if (null == routeObject) throw System.coreError;
     if (null == stateObject) throw System.coreError;
 
-    /*
-    |--------------------------------------------------------------------------
-    | all segments are accessible, if it's a root navigator
-    |--------------------------------------------------------------------------
-    */
+    // if root navigator, all segments are available
 
     if (null == routeObject.parent) {
       return _currentSegments;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | else if it's a nested navigator
-    |--------------------------------------------------------------------------
-    */
+    // else use regex to limit part of path for give navigator
 
     var matcher = "";
 

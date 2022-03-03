@@ -34,7 +34,11 @@ class SizeProps {
     }
   }
 
-  // internals
+  /*
+  |--------------------------------------------------------------------------
+  | internals
+  |--------------------------------------------------------------------------
+  */
 
   bool _isChanged(SizeProps props) {
     return width != props.width || height != props.height || unit != props.unit;

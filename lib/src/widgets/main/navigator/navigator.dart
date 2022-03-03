@@ -70,11 +70,7 @@ class NavigatorRenderObject extends RenderObject {
 
   NavigatorRenderObject(BuildContext context) : super(context);
 
-  /*
-  |--------------------------------------------------------------------------
-  | delegate everything to state object
-  |--------------------------------------------------------------------------
-  */
+  // delegate everything to state object
 
   @override
   render(widgetObject) => state.render(widgetObject);

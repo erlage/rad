@@ -36,7 +36,11 @@ class PositionProps {
     }
   }
 
-  // internals
+  /*
+  |--------------------------------------------------------------------------
+  | internals
+  |--------------------------------------------------------------------------
+  */
 
   bool _isChanged(PositionProps props) {
     return top != props.top ||
