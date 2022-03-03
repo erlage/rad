@@ -66,7 +66,7 @@ class Overlay extends Widget {
     var widgetObject = Framework.findAncestorOfType<Overlay>(context);
 
     if (null == widgetObject) {
-      throw "Overlay.of(context) called with the context that doesn't contains Overylay";
+      throw "Overlay.of(context) called with the context that doesn't contains Overlay";
     }
 
     return (widgetObject.renderObject as OverlayRenderObject).state;
