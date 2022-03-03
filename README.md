@@ -1,6 +1,6 @@
 # Rad
 
-Rad is a frontend framework for Dart. It's inspired from Flutter and shares same programming paradigm. In Rad, widgets are the centeral concept. A widget can describe static as well as dynamic part of user interface. Widgets can be composed together to build more widgets and complex layouts. Rad widgets are similar to Flutter widgets. 
+Rad is a frontend framework for Dart. It's inspired from Flutter and shares same programming paradigm. In Rad, applications are created using widgets. A widget can describe static as well as dynamic part of user interface. Widgets can be composed together to build more widgets and complex layouts. Rad widgets are similar to Flutter widgets. 
 
 Let's take a look at an example written using Rad:
 
