@@ -22,10 +22,19 @@ class DebugOptions {
   ///
   final bool widgetLogs;
 
-  DebugOptions({
+  const DebugOptions({
     this.routerLogs = false,
     this.widgetLogs = false,
     this.frameworkLogs = false,
     this.developmentMode = false,
   });
+
+  /// Enable all debugging options, logs everything to console.
+  ///
+  static const DebugOptions development = DebugOptions(
+    routerLogs: true,
+    widgetLogs: true,
+    frameworkLogs: true,
+    developmentMode: true,
+  );
 }
