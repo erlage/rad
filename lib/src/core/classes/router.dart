@@ -81,13 +81,17 @@ class Router {
   /// Returns empty string, if matches nothing. Navigators should display
   /// default page when [getPath] returns empty string.
   ///
-  static String getPath(NavigatorState state) {
-    var segments = _accessibleSegments(state.context.key);
+  static String getPath(String navigatorKey) {
+    var stateObject = _stateObjects[navigatorKey];
+
+    if (null == stateObject) throw System.coreError;
+
+    var segments = _accessibleSegments(navigatorKey);
 
     var matchedPathSegment = '';
 
     for (var segment in segments) {
-      if (state.pathToRouteMap.containsKey(segment)) {
+      if (stateObject.pathToRouteMap.containsKey(segment)) {
         matchedPathSegment = segment;
 
         break;
@@ -95,7 +99,7 @@ class Router {
     }
 
     if (Debug.routerLogs) {
-      print("Navigator(#${state.context.key}) matched: '$matchedPathSegment'");
+      print("Navigator(#$navigatorKey) matched: '$matchedPathSegment'");
     }
 
     return matchedPathSegment;
@@ -103,8 +107,8 @@ class Router {
 
   /// Get value following the provided segment in URL.
   ///
-  static String getValue(NavigatorState state, String segment) {
-    var path = _accessibleSegments(state.context.key).join("/");
+  static String getValue(String navigatorKey, String segment) {
+    var path = _accessibleSegments(navigatorKey).join("/");
 
     // try to find a value that's following the provided segment in path
 

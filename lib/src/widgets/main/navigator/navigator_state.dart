@@ -59,7 +59,7 @@ class NavigatorState {
   /// // because current navigator is registered on posts page
   /// ```
   ///
-  String getValue(String segment) => Router.getValue(this, segment);
+  String getValue(String segment) => Router.getValue(context.key, segment);
 
   /*
   |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ class NavigatorState {
 
     // get matching path from Router
 
-    _currentPath = Router.getPath(this);
+    _currentPath = Router.getPath(context.key);
 
     // prepare route. if not matched select first as default
 
