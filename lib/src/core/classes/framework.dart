@@ -35,7 +35,7 @@ class Framework {
       developmentMode: false,
     );
 
-    Debug.set(debugOptions);
+    Debug.update(debugOptions);
 
     Router.init(routingPath);
 
