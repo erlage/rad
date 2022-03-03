@@ -4,6 +4,7 @@ import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/structures/build_context.dart';
+import 'package:rad/src/core/types.dart';
 
 /// A widget that does not require mutable state.
 ///
@@ -48,29 +49,25 @@ abstract class StatelessWidget extends Widget {
   createRenderObject(context) {
     return StatelessWidgetRenderObject(
       context: context,
-      props: StatelessWidgetProps(build(context)),
+      widgetBuilder: build,
     );
   }
 }
 
-class StatelessWidgetProps {
-  final Widget child;
-
-  StatelessWidgetProps(this.child);
-}
-
 class StatelessWidgetRenderObject extends RenderObject {
-  StatelessWidgetProps props;
+  final WidgetBuilderCallback widgetBuilder;
 
   StatelessWidgetRenderObject({
-    required this.props,
+    required this.widgetBuilder,
     required BuildContext context,
   }) : super(context);
 
   @override
   render(widgetObject) {
+    var widget = widgetBuilder(widgetObject.context);
+
     Framework.buildChildren(
-      widgets: [props.child],
+      widgets: [widget],
       parentContext: context,
     );
   }
@@ -79,15 +76,11 @@ class StatelessWidgetRenderObject extends RenderObject {
   update(widgetObject, updatedRenderObject) {
     updatedRenderObject as StatelessWidgetRenderObject;
 
-    switchProps(updatedRenderObject.props);
+    var widget = updatedRenderObject.widgetBuilder(widgetObject.context);
 
     Framework.updateChildren(
-      widgets: [props.child],
+      widgets: [widget],
       parentContext: context,
     );
-  }
-
-  void switchProps(StatelessWidgetProps props) {
-    this.props = props;
   }
 }
