@@ -3,6 +3,8 @@ import 'dart:async';
 
 import 'package:build/build.dart';
 
+Builder styles(BuilderOptions options) => StylesBuilder(options);
+
 ///
 /// Styles builder
 ///
