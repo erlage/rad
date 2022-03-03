@@ -11,17 +11,24 @@ import 'package:rad/src/core/structures/build_context.dart';
 
 class Framework {
   static var _isInit = false;
+  static var _debugMode = false;
 
   static final _registeredWidgetObjects = <String, WidgetObject>{};
 
   static init({
+    required bool debugMode,
     required String routingPath,
   }) {
     if (_isInit) {
       throw "Framework aleady initialized.";
     }
 
-    Router.init(routingPath);
+    _debugMode = debugMode;
+
+    Router.init(
+      debugMode: debugMode,
+      routingPath: routingPath,
+    );
 
     _isInit = true;
   }
@@ -40,8 +47,10 @@ class Framework {
           "Creating a body(or head) in your page will fix this problem.";
     }
 
-    if (null != logEntry) {
-      print("Styles injected: $logEntry");
+    if (_debugMode) {
+      if (null != logEntry) {
+        print("Styles injected: $logEntry");
+      }
     }
   }
 
@@ -94,7 +103,9 @@ class Framework {
       var renderObject = widget.createRenderObject(buildContext);
       widget.onRenderObjectCreate(renderObject);
 
-      print("Build widget: ${widget.type} #${buildContext.key}");
+      if (_debugMode) {
+        print("Build widget: ${widget.type} #${buildContext.key}");
+      }
 
       var widgetObject = WidgetObject(
         widget: widget,

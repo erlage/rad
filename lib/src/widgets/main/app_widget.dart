@@ -15,16 +15,21 @@ abstract class AppWidget extends Widget {
   final Widget child;
   final String targetId;
 
+  final bool debugMode;
   final VoidCallback onInit;
 
   AppWidget({
     this.key,
+    required String routingPath,
     required this.child,
     required this.targetId,
-    required String routingPath,
     required this.onInit,
+    required this.debugMode,
   }) {
-    Framework.init(routingPath: routingPath);
+    Framework.init(
+      debugMode: debugMode,
+      routingPath: routingPath,
+    );
 
     // insert framework's CSS styles
 

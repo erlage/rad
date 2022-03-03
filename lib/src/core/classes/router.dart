@@ -7,6 +7,7 @@ import 'package:rad/src/widgets/main/navigator/navigator.dart';
 
 class Router {
   static var _isInit = false;
+  static var _debugMode = false;
   static late final String _routingPath;
 
   static var _currentPathSegments = <String>[];
@@ -17,12 +18,19 @@ class Router {
 
   /// Initialize Router.
   ///
-  static init(String routingPath) {
+  static init({
+    required bool debugMode,
+    required String routingPath,
+  }) {
     if (_isInit) {
       throw "Router aleady initialized.";
     }
 
-    _initPath(routingPath);
+    _debugMode = debugMode;
+
+    _routingPath = routingPath;
+
+    _initRouterState();
 
     _isInit = true;
   }
@@ -33,6 +41,10 @@ class Router {
   /// Navigator's context is enough to register a Navigator.
   ///
   static void register(BuildContext context) {
+    if (_debugMode) {
+      print("Navigator Registeration request: #${context.key}");
+    }
+
     if (!_isInit) {
       throw "Router not initialized.";
     }
@@ -83,14 +95,11 @@ class Router {
 
   // internals
 
-  static void _initPath(String routingPath) {
-    // update initial path
-    _routingPath = routingPath;
-
+  static void _initRouterState() {
     // get current path from window object
     var path = window.location.pathname;
 
-    if (null == path || routingPath == path) {
+    if (null == path || _routingPath == path) {
       _currentPathSegments = [];
 
       return;
@@ -98,7 +107,7 @@ class Router {
 
     _currentPathSegments = path.split('/')
       ..removeWhere(
-          (sgmt) => sgmt == '/' || sgmt == routingPath || sgmt.trim().isEmpty);
+          (sgmt) => sgmt == '/' || sgmt == _routingPath || sgmt.trim().isEmpty);
   }
 
   static void _register(BuildContext context) {
@@ -110,9 +119,13 @@ class Router {
     // try to find a parent Navigator
     var parent = Framework.findAncestorOfType<Navigator>(context.parent);
 
-    // if root its navigator
+    // if its a navigator
     if (null == parent) {
       _navigators[context.key] = NavigatorPath([_routingPath]);
+
+      if (_debugMode) {
+        print("Navigator Registered: #${context.key} at $_routingPath");
+      }
 
       return;
     }
@@ -130,5 +143,9 @@ class Router {
     var segments = [...parentPath.segments, parentState.currentPath];
 
     _navigators[context.key] = NavigatorPath(segments);
+
+    if (_debugMode) {
+      print("Navigator Registered: #${context.key} at ${segments.join("/")}");
+    }
   }
 }

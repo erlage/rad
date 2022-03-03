@@ -14,6 +14,8 @@ import 'package:rad/src/widgets/main/app_widget.dart';
 /// tag in your HTML page but note that it must be present in your HTML page
 /// before app mount initiate.
 ///
+/// setting [debugMode] to true will print useful logs in Browser console.
+///
 /// Your app contents will go in the [child] property.
 ///
 /// ```dart
@@ -26,6 +28,7 @@ import 'package:rad/src/widgets/main/app_widget.dart';
 class RadApp extends AppWidget {
   RadApp({
     String? key,
+    bool? debugMode,
     required Widget child,
     required String targetId,
     String routingPath = '/',
@@ -33,6 +36,7 @@ class RadApp extends AppWidget {
             key: key,
             child: child,
             targetId: targetId,
+            debugMode: debugMode ?? false,
             routingPath: routingPath,
             onInit: () {
               Framework.addGlobalStyles(GEN_STYLES_RAD_APP_CSS, "RadApp");
