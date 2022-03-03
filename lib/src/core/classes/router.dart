@@ -17,12 +17,12 @@ class Router {
 
   /// Initialize Router.
   ///
-  static init(String initialPath) {
+  static init(String routingPath) {
     if (_isInit) {
       throw "Router aleady initialized.";
     }
 
-    _initPath(initialPath);
+    _initPath(routingPath);
 
     _isInit = true;
   }
@@ -83,14 +83,14 @@ class Router {
 
   // internals
 
-  static void _initPath(String initialPath) {
+  static void _initPath(String routingPath) {
     // update initial path
-    _routingPath = initialPath;
+    _routingPath = routingPath;
 
     // get current path from window object
     var path = window.location.pathname;
 
-    if (null == path || initialPath == path) {
+    if (null == path || routingPath == path) {
       _currentPathSegments = [];
 
       return;
@@ -98,7 +98,7 @@ class Router {
 
     _currentPathSegments = path.split('/')
       ..removeWhere(
-          (sgmt) => sgmt == '/' || sgmt == initialPath || sgmt.trim().isEmpty);
+          (sgmt) => sgmt == '/' || sgmt == routingPath || sgmt.trim().isEmpty);
   }
 
   static void _register(BuildContext context) {
