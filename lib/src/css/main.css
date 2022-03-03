@@ -73,18 +73,27 @@ body {
 
 
 /**
-   * widgets with flex display
+   * widgets with block display
    */
 
 [data-wtype="Align"],
 [data-wtype="Stack"],
-[data-wtype="Container"],
 [data-wtype="Overlay"],
 [data-wtype="Navigator"],
 [data-wtype="StatefulWidget"],
 [data-wtype="StatelessWidget"],
 [data-wtype="GestureDetector"],
+[data-wtype="Overlay"],
 [data-wtype="Target"] {
+    display: block;
+}
+
+
+/**
+   * widgets with flex display
+   */
+
+[data-wtype="Container"] {
     display: flex;
 }
 
