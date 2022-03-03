@@ -25,7 +25,7 @@ class Navigator extends Widget {
   String get initialKey => key ?? System.keyNotSet;
 
   @override
-  onContextCreate(context) => Router.register(context);
+  onContextCreate(context) => Router.registerRoutes(context, routes);
 
   @override
   createRenderObject(context) => NavigatorRenderObject(context);
@@ -70,7 +70,11 @@ class NavigatorRenderObject extends RenderObject {
 
   NavigatorRenderObject(BuildContext context) : super(context);
 
-  // delegate everything to state object.
+  /*
+  |--------------------------------------------------------------------------
+  | delegate everything to state object
+  |--------------------------------------------------------------------------
+  */
 
   @override
   render(widgetObject) => state.render(widgetObject);

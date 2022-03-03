@@ -15,28 +15,71 @@ class Framework {
 
   static final _registeredWidgetObjects = <String, WidgetObject>{};
 
+  /// Initialize framework.
+  ///
+  /// It's AppWidget job to call this method as first task. Initialization
+  /// process will initialize other important components such as Router.
+  ///
   static init({
     required bool debugMode,
     required String routingPath,
   }) {
+    /*
+    |--------------------------------------------------------------------------
+    | check initialization state
+    |--------------------------------------------------------------------------
+    */
+
     if (_isInit) {
       throw "Framework aleady initialized.";
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | set debug mode
+    |--------------------------------------------------------------------------
+    */
+
     _debugMode = debugMode;
+
+    /*
+    |--------------------------------------------------------------------------
+    | initialize router
+    |--------------------------------------------------------------------------
+    */
 
     Router.init(
       debugMode: debugMode,
       routingPath: routingPath,
     );
 
+    /*
+    |--------------------------------------------------------------------------
+    | done
+    |--------------------------------------------------------------------------
+    */
+
     _isInit = true;
   }
 
-  static void addGlobalStyles(String styles, [String? logEntry]) {
+  /// Inject styles into DOM.
+  ///
+  static void addGlobalStyles(String styles, [String? flagLogEntry]) {
+    /*
+    |--------------------------------------------------------------------------
+    | create dom element
+    |--------------------------------------------------------------------------
+    */
+
     var styleSheet = document.createElement("style");
 
     styleSheet.innerText = styles;
+
+    /*
+    |--------------------------------------------------------------------------
+    | insert where possible
+    |--------------------------------------------------------------------------
+    */
 
     if (null != document.head) {
       document.head!.insertBefore(styleSheet, null);
@@ -47,29 +90,63 @@ class Framework {
           "Creating a body(or head) in your page will fix this problem.";
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | log if flag is on
+    |--------------------------------------------------------------------------
+    */
+
     if (_debugMode) {
-      if (null != logEntry) {
-        print("Styles injected: $logEntry");
+      if (null != flagLogEntry) {
+        print("Styles injected: $flagLogEntry");
       }
     }
   }
 
   static WidgetObject? findAncestorOfType<WidgetType>(BuildContext context) {
+    /*
+    |--------------------------------------------------------------------------
+    | ensure context is ready for processing.
+    |
+    | this happens when user .of(context) is called inside a constructor.
+    |--------------------------------------------------------------------------
+    */
+
     if (System.keyNotSet == context.key) {
       throw "Part of build context is not ready. This means that context is under construction.";
     }
 
-    var domNode = document
-        .getElementById(context.key)
-        ?.closest("[data-wtype='$WidgetType']");
+    /*
+    |--------------------------------------------------------------------------
+    | find dom node having 'widget type' in ancestors
+    |--------------------------------------------------------------------------
+    */
+
+    var match = "[data-wtype='$WidgetType']";
+
+    var domNode = document.getElementById(context.key)?.closest(match);
+
+    /*
+    |--------------------------------------------------------------------------
+    | not found
+    |--------------------------------------------------------------------------
+    */
 
     if (null == domNode) {
       return null;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | found. return corresponding widget's object
+    |--------------------------------------------------------------------------
+    */
+
     return _getWidgetObject(domNode.id);
   }
 
+  /// Build children under given context.
+  ///
   static buildChildren({
     // widgets to build
     required List<Widget> widgets,
@@ -81,15 +158,38 @@ class Framework {
     flagCleanParentContents = true,
     //
   }) {
+    /*
+    |--------------------------------------------------------------------------
+    | ensure framework is initialized
+    |--------------------------------------------------------------------------
+    */
+
     if (!_isInit) {
       throw "Framework not initialized. If you're building your own AppWidget implementation, make sure to call Framework.init()";
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | for each widget we going to build
+    |--------------------------------------------------------------------------
+    */
+
     for (var widget in widgets) {
-      // generate key if not set
+      /*
+      |--------------------------------------------------------------------------
+      | generate key if not set
+      |--------------------------------------------------------------------------
+      */
+
       var widgetKey = System.keyNotSet == widget.initialKey
           ? Utils.generateWidgetKey()
           : widget.initialKey;
+
+      /*
+      |--------------------------------------------------------------------------
+      | create build context
+      |--------------------------------------------------------------------------
+      */
 
       var buildContext = BuildContext(
         key: widgetKey,
@@ -98,19 +198,39 @@ class Framework {
         widgetDomTag: widget.tag,
         widgetClassName: widget.runtimeType.toString(),
       );
+
       widget.onContextCreate(buildContext);
 
+      /*
+      |--------------------------------------------------------------------------
+      | create render object
+      |--------------------------------------------------------------------------
+      */
+
       var renderObject = widget.createRenderObject(buildContext);
+
       widget.onRenderObjectCreate(renderObject);
 
       if (_debugMode) {
         print("Build widget: ${widget.type} #${buildContext.key}");
       }
 
+      /*
+      |--------------------------------------------------------------------------
+      | create widget object
+      |--------------------------------------------------------------------------
+      */
+
       var widgetObject = WidgetObject(
         widget: widget,
         renderObject: renderObject,
       );
+
+      /*
+      |--------------------------------------------------------------------------
+      | create dom element
+      |--------------------------------------------------------------------------
+      */
 
       widgetObject.createElement();
 
@@ -118,21 +238,52 @@ class Framework {
         elementCallback(widgetObject.element);
       }
 
+      /*
+      |--------------------------------------------------------------------------
+      | register widget object
+      |--------------------------------------------------------------------------
+      */
+
       _registerWidgetObject(widgetObject);
 
-      // dispose inner contents if flag is on
+      /*
+      |--------------------------------------------------------------------------
+      | dispose inner contents if flag is on
+      |--------------------------------------------------------------------------
+      */
 
       if (flagCleanParentContents) {
-        //
-        // if it's not a root widget
+        /*
+        |--------------------------------------------------------------------------
+        | if its not a root widget
+        |--------------------------------------------------------------------------
+        */
+
         if (System.typeBigBang != widgetObject.context.parent.widgetType) {
+          /*
+          |--------------------------------------------------------------------------
+          | dispose contents, but keep the target
+          |--------------------------------------------------------------------------
+          */
+
           _disposeWidget(
             preserveTarget: true,
             widgetObject: _getWidgetObject(widgetObject.context.parent.key),
           );
 
-          // else it's a root widget, simple clean the contents
+          /*
+          |--------------------------------------------------------------------------
+          | else its a root widget
+          |--------------------------------------------------------------------------
+          */
+
         } else {
+          /*
+          |--------------------------------------------------------------------------
+          | find target div/body
+          |--------------------------------------------------------------------------
+          */
+
           var element = document.getElementById(
             renderObject.context.parent.key,
           );
@@ -141,9 +292,21 @@ class Framework {
             throw "Unable to find target to mount app. Make sure your DOM has element with id #${renderObject.context.parent}";
           }
 
+          /*
+          |--------------------------------------------------------------------------
+          | clear contents
+          |--------------------------------------------------------------------------
+          */
+
           element.innerHtml = "";
         }
       }
+
+      /*
+      |--------------------------------------------------------------------------
+      | mount element on dom
+      |--------------------------------------------------------------------------
+      */
 
       widgetObject.renderObject.beforeMount();
 
@@ -151,14 +314,27 @@ class Framework {
 
       widgetObject.renderObject.afterMount();
 
+      /*
+      |--------------------------------------------------------------------------
+      | call widget's renderer so that it can build its inner content(widgets)
+      |--------------------------------------------------------------------------
+      */
+
       widgetObject.build();
 
-      // unset flag
-      // because remaining childs must not remove newly added childs
+      /*
+      |--------------------------------------------------------------------------
+      | unset clean flag.
+      | because remaining childs must not remove newly added childs
+      |--------------------------------------------------------------------------
+      */
+
       flagCleanParentContents = false;
     }
   }
 
+  /// Update childrens under provided context.
+  ///
   static updateChildren({
     // widgets to build
     required List<Widget> widgets,
@@ -183,6 +359,12 @@ class Framework {
     if (!_isInit) {
       throw "Framework not initialized. If you're building your own AppWidget implementation, make sure to call Framework.init()";
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | convenience function that dispatches complete rebuild.
+    |--------------------------------------------------------------------------
+    */
 
     void dispatchCompleteRebuild() {
       buildChildren(
@@ -339,15 +521,33 @@ class Framework {
     }
   }
 
-  // internals
+  /*
+  |--------------------------------------------------------------------------
+  | internals
+  |--------------------------------------------------------------------------
+  */
 
+  /// Dispose widgets and its child widgets.
+  ///
   static _disposeWidget({
     WidgetObject? widgetObject,
     bool preserveTarget = false,
   }) {
+    /*
+    |--------------------------------------------------------------------------
+    | if widget exists
+    |--------------------------------------------------------------------------
+    */
+
     if (null == widgetObject) {
       return;
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | cascade dispose to its childs first
+    |--------------------------------------------------------------------------
+    */
 
     if (widgetObject.element.hasChildNodes()) {
       for (var childElement in widgetObject.element.children) {
@@ -355,29 +555,55 @@ class Framework {
       }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | if target has to be prevented
+    |--------------------------------------------------------------------------
+    */
+
     if (preserveTarget) return;
 
-    // if a body tag
+    /*
+    |--------------------------------------------------------------------------
+    | nothing to dispose if its a body tag
+    |--------------------------------------------------------------------------
+    */
 
     if (widgetObject.element == document.body) {
       return;
     }
 
-    // if is not a framework's tag
+    /*
+    |--------------------------------------------------------------------------
+    | nothing to dispose if its not a widget
+    |--------------------------------------------------------------------------
+    */
 
     if (null == widgetObject.element.dataset[System.attrType]) {
       return;
     }
 
-    // lifecycle hook, about to remove dom node
+    /*
+    |--------------------------------------------------------------------------
+    | fire lifecycle hook
+    |--------------------------------------------------------------------------
+    */
 
     widgetObject.renderObject.beforeUnMount();
 
-    // unregister both render and dom node
+    /*
+    |--------------------------------------------------------------------------
+    | unregister widget object
+    |--------------------------------------------------------------------------
+    */
 
     _unRegisterWidgetObject(widgetObject);
 
-    // remove dom node
+    /*
+    |--------------------------------------------------------------------------
+    | remove from dom
+    |--------------------------------------------------------------------------
+    */
 
     widgetObject.element.remove();
   }

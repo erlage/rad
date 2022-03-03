@@ -5,6 +5,8 @@ class System {
 
   static const typeBigBang = 'BigBang';
   static const keyNotSet = 'not-set';
+
+  static const coreError = 'Framework has gone wild.';
 }
 
 class Props {
