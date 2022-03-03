@@ -1,4 +1,5 @@
 import 'package:rad/src/core/classes/framework.dart';
+import 'package:rad/src/core/objects/debug_options.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/css/rad_app.generated.dart';
 import 'package:rad/src/widgets/main/app_widget.dart';
@@ -28,15 +29,15 @@ import 'package:rad/src/widgets/main/app_widget.dart';
 class RadApp extends AppWidget {
   RadApp({
     String? key,
-    bool? debugMode,
     required Widget child,
     required String targetId,
     String routingPath = '/',
+    DebugOptions? debugOptions,
   }) : super(
             key: key,
             child: child,
             targetId: targetId,
-            debugMode: debugMode ?? false,
+            debugOptions: debugOptions,
             routingPath: routingPath,
             onInit: () {
               Framework.addGlobalStyles(GEN_STYLES_RAD_APP_CSS, "RadApp");

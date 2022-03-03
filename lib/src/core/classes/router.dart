@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/objects/navigator_route_object.dart';
@@ -10,7 +11,6 @@ import 'package:rad/src/widgets/main/navigator/route.dart';
 
 class Router {
   static var _isInit = false;
-  static var _debugMode = false;
   static late final String _routingPath;
 
   static var _currentSegments = <String>[];
@@ -27,15 +27,10 @@ class Router {
   ///
   static final Map<String, NavigatorState> _stateObjects = {};
 
-  static init({
-    required bool debugMode,
-    required String routingPath,
-  }) {
+  static init(String routingPath) {
     if (_isInit) {
       throw "Router aleady initialized.";
     }
-
-    _debugMode = debugMode;
 
     _routingPath = routingPath;
 
@@ -64,7 +59,7 @@ class Router {
   /// state has to register itself using this method.
   ///
   static void registerState(BuildContext context, NavigatorState state) {
-    if (_debugMode) {
+    if (Debug.routerLogs) {
       print("Navigator State's Registeration request: #${context.key}");
     }
 
@@ -99,7 +94,7 @@ class Router {
       }
     }
 
-    if (_debugMode) {
+    if (Debug.routerLogs) {
       print("Navigator(#${state.context.key}) matched: '$matchedPathSegment'");
     }
 
@@ -157,7 +152,7 @@ class Router {
         segments: [_routingPath],
       );
 
-      if (_debugMode) {
+      if (Debug.routerLogs) {
         print("Navigator Registered: #${context.key} at ${[_routingPath]}");
       }
 
@@ -180,7 +175,7 @@ class Router {
       parent: parentObject,
     );
 
-    if (_debugMode) {
+    if (Debug.routerLogs) {
       print("Navigator Registered: #${context.key} at $segments");
     }
   }

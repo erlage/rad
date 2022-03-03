@@ -1,6 +1,8 @@
 import 'dart:html';
 
+import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/classes/router.dart';
+import 'package:rad/src/core/objects/debug_options.dart';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/core/classes/utils.dart';
 import 'package:rad/src/core/constants.dart';
@@ -11,7 +13,6 @@ import 'package:rad/src/core/structures/build_context.dart';
 
 class Framework {
   static var _isInit = false;
-  static var _debugMode = false;
 
   static final _registeredWidgetObjects = <String, WidgetObject>{};
 
@@ -21,19 +22,22 @@ class Framework {
   /// process will initialize other important components such as Router.
   ///
   static init({
-    required bool debugMode,
     required String routingPath,
+    DebugOptions? debugOptions,
   }) {
     if (_isInit) {
       throw "Framework aleady initialized.";
     }
 
-    Router.init(
-      debugMode: debugMode,
-      routingPath: routingPath,
+    debugOptions ??= DebugOptions(
+      routerLogs: false,
+      frameworkLogs: false,
+      developmentMode: false,
     );
 
-    _debugMode = debugMode;
+    Debug.set(debugOptions);
+
+    Router.init(routingPath);
 
     _isInit = true;
   }
@@ -60,7 +64,7 @@ class Framework {
 
     // log if flag is on
 
-    if (_debugMode) {
+    if (Debug.frameworkLogs) {
       if (null != flagLogEntry) {
         print("Styles injected: $flagLogEntry");
       }
@@ -130,7 +134,7 @@ class Framework {
       var renderObject = widget.createRenderObject(buildContext);
       widget.onRenderObjectCreate(renderObject);
 
-      if (_debugMode) {
+      if (Debug.widgetLogs) {
         print("Build widget: ${widget.type} #${buildContext.key}");
       }
 

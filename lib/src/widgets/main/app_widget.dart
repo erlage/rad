@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
+import 'package:rad/src/core/objects/debug_options.dart';
 import 'package:rad/src/core/structures/build_context.dart';
 import 'package:rad/src/core/structures/widget.dart';
 import 'package:rad/src/css/include/normalize.generated.dart';
@@ -15,21 +16,17 @@ abstract class AppWidget extends Widget {
   final Widget child;
   final String targetId;
 
-  final bool debugMode;
   final VoidCallback onInit;
 
   AppWidget({
     this.key,
-    required String routingPath,
     required this.child,
     required this.targetId,
     required this.onInit,
-    required this.debugMode,
+    required String routingPath,
+    DebugOptions? debugOptions,
   }) {
-    Framework.init(
-      debugMode: debugMode,
-      routingPath: routingPath,
-    );
+    Framework.init(routingPath: routingPath, debugOptions: debugOptions);
 
     Framework.addGlobalStyles(GEN_STYLES_NORMALIZE_CSS, "Normalize");
     Framework.addGlobalStyles(GEN_STYLES_MAIN_CSS, "Main");
