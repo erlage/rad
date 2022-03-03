@@ -1,3 +1,4 @@
+import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/classes/router.dart';
@@ -42,6 +43,23 @@ class Navigator extends Widget {
     renderObject as NavigatorRenderObject;
 
     renderObject.state = NavigatorState();
+  }
+
+  /// The state from the closest instance of this class that encloses the given context.
+  ///
+  /// Typical usage is as follows:
+  ///
+  /// ```dart
+  /// NavigatorState navigator = Navigator.of(context);
+  /// ```
+  static NavigatorState of(BuildContext context) {
+    var widgetObject = Framework.findAncestorOfType<Navigator>(context);
+
+    if (null == widgetObject) {
+      throw "Navigator.of(context) called with the context that doesn't contains Navigator";
+    }
+
+    return (widgetObject.renderObject as NavigatorRenderObject).state;
   }
 }
 
