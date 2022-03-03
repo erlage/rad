@@ -31,7 +31,7 @@ class DebugOptions {
 
   /// Enable all debugging options, logs everything to console.
   ///
-  static const DebugOptions development = DebugOptions(
+  static const development = DebugOptions(
     routerLogs: true,
     widgetLogs: true,
     frameworkLogs: true,
