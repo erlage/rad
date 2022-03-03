@@ -14,26 +14,26 @@ class NavigatorState {
 
   String get currentPath => _currentPath;
 
-  final _nameToPathMap = <String, String>{};
-  final _pathToRouteMap = <String, Route>{};
+  late final Navigator widget;
+  late final BuildContext context;
 
-  late final Navigator _widget;
-  late final BuildContext _context;
+  final nameToPathMap = <String, String>{};
+  final pathToRouteMap = <String, Route>{};
 
   // handles for delegated functionality
 
   void render(WidgetObject widgetObject) {
     _initState(widgetObject);
 
-    var route = _pathToRouteMap[_currentPath] ?? _widget.routes.first;
+    var route = pathToRouteMap[_currentPath] ?? widget.routes.first;
 
     Framework.buildChildren(
       widgets: [route],
-      parentContext: _context,
+      parentContext: context,
     );
   }
 
-  void dispose() => Router.unRegister(_context);
+  void dispose() => Router.unRegister(context);
 
   /// Initialize navigator state.
   ///
@@ -43,23 +43,23 @@ class NavigatorState {
     //
     // set properties.
     //
-    _context = widgetObject.context;
-    _widget = widgetObject.widget as Navigator;
+    context = widgetObject.context;
+    widget = widgetObject.widget as Navigator;
 
     // prepare routes
 
-    for (var route in _widget.routes) {
-      if (_nameToPathMap.containsKey(route.name) ||
-          _pathToRouteMap.containsKey(route.path)) {
+    for (var route in widget.routes) {
+      if (nameToPathMap.containsKey(route.name) ||
+          pathToRouteMap.containsKey(route.path)) {
         throw "Please remove Duplicate routes from your Navigator."
             "Part of your route, name: '${route.name}' => path: '${route.path}', already exists";
       }
 
-      _nameToPathMap[route.name] = route.path;
-      _pathToRouteMap[route.path] = route;
+      nameToPathMap[route.name] = route.path;
+      pathToRouteMap[route.path] = route;
     }
 
     // update current path from Router
-    _currentPath = Router.getPath(_context.key);
+    _currentPath = Router.getPath(this);
   }
 }
