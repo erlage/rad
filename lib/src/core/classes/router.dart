@@ -1,11 +1,13 @@
 import 'dart:html';
 
+import 'package:rad/rad.dart';
 import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/constants.dart';
+import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/router/navigator_route_object.dart';
-import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/router/router_stack.dart';
+import 'package:rad/src/core/objects/router/router_stack_entry.dart';
 import 'package:rad/src/widgets/main/navigator/navigator.dart';
 import 'package:rad/src/widgets/main/navigator/navigator_state.dart';
 import 'package:rad/src/widgets/main/navigator/route.dart';
@@ -81,6 +83,22 @@ class Router {
     _routerStack.remove(context.key);
 
     _stateObjects.remove(context.key);
+  }
+
+  /// Push page entry.
+  ///
+  static void pushEntry(String navigatorKey, String name, String? values) {
+    values = values ?? '';
+
+    var protectedSegments = _protectedSegments(navigatorKey);
+
+    var historyEntry = protectedSegments.join("/") + "/$name$values";
+
+    window.history.pushState(null, '', historyEntry);
+
+    var routeEntry = RouterStackEntry(navigatorKey, RouterStackEntryType.push);
+
+    _routerStack.push(routeEntry);
   }
 
   /// Get current path based on Navigator's access.

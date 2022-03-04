@@ -2,6 +2,7 @@ import 'package:rad/rad.dart';
 import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/classes/router.dart';
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/widgets/main/navigator/navigator.dart';
 import 'package:rad/src/widgets/main/navigator/route.dart';
@@ -20,6 +21,8 @@ class NavigatorState {
 
   late final Navigator widget;
   late final BuildContext context;
+
+  final List<String> _pushStack = [];
 
   final nameToPathMap = <String, String>{};
   final pathToRouteMap = <String, Route>{};
@@ -60,6 +63,72 @@ class NavigatorState {
   /// ```
   ///
   String getValue(String segment) => Router.getValue(context.key, segment);
+
+  /// Push a page on Navigator's stack.
+  ///
+  /// Will throw exception if Navigator doesn't have a route with the provided name.
+  ///
+  /// If [name] is prefixed with a forward slash '/', and if current navigator doesn't have
+  /// a matching named route, then it'll delegate push to a parent navigator(if exists). If
+  /// there are no navigator in ancestors, it'll throw an exception.
+  ///
+  void push({
+    required String name,
+    String? values,
+  }) {
+    var traverseAncestors = name.startsWith("../");
+
+    // if current navigator doesn't have a matching '$name' route
+
+    if (!nameToPathMap.containsKey(name)) {
+      if (!traverseAncestors) {
+        throw "Navigator: Named routes that are not registered in Navigator's routes are not allowed."
+            "If you're trying to push to a parent navigator, add prefix '../' to name of the route. "
+            "e.g Navgator.of(context).push(name: '../home')."
+            "It'll first tries a push to current navigator, if it doesn't find a matching route, "
+            "then it'll try push to a parent navigator and so on. If there are no navigators in ancestors, "
+            "then it'll throw an exception";
+      } else {
+        // push to parent navigator.
+
+        NavigatorState parent;
+
+        try {
+          parent = Navigator.of(context);
+        } catch (_) {
+          throw "Route named '$name' not defined. Make sure you've declared a named route '$name' in Navigator's routes.";
+        }
+
+        parent.push(name: name, values: values);
+
+        return;
+      }
+    }
+
+    if (traverseAncestors) {
+      name = name.substring(1);
+    }
+
+    // push a new entry
+
+    _changeCurrentPath(name);
+
+    _pushEntry(name, values);
+
+    // get route details
+
+    var page = pathToRouteMap[nameToPathMap[name]];
+
+    if (null == page) throw System.coreError;
+
+    // build
+
+    Framework.buildChildren(
+      widgets: [page],
+      parentContext: context,
+      flagCleanParentContents: false,
+    );
+  }
 
   /*
   |--------------------------------------------------------------------------
@@ -132,5 +201,15 @@ class NavigatorState {
     // so that router can use above jump tables and speed up route selection.
 
     Router.registerState(context, this);
+  }
+
+  void _changeCurrentPath(String name) {
+    _currentPath = name;
+  }
+
+  void _pushEntry(String name, String? values) {
+    _pushStack.add(name);
+
+    Router.pushEntry(context.key, name, values);
   }
 }
