@@ -109,7 +109,7 @@ class NavigatorState {
 
   /// Whether current active stack contains a route with matching [name].
   ///
-  bool containsInStack({required String name}) => _stack.contains(name);
+  bool isPageStacked({required String name}) => _stack.contains(name);
 
   /// Whether navigator can pop a page from stack.
   ///

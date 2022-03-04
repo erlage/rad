@@ -265,7 +265,7 @@ class Router {
 
         // if navigator has page in active stack
 
-        if (navigatorState.containsInStack(name: entry.name)) {
+        if (navigatorState.isPageStacked(name: entry.name)) {
           //
           // pop until that page comes at top
           //
