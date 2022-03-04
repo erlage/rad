@@ -27,32 +27,6 @@ class Align extends Widget {
     required this.alignment,
   });
 
-  /// Create a Align widget that places its child at center.
-  ///
-  /// It can be used in-place of Flutter's Center widget.
-  ///
-  /// Example
-  ///
-  /// ```dart
-  /// Align.center(
-  ///   child: Text("at center"),
-  /// );
-  /// ```
-  ///
-  /// It's a shorthand for:
-  ///
-  /// ```dart
-  /// Align(
-  ///   alignment: Alignment.center,
-  ///   child: SomeChildWidget(),
-  /// );
-  /// ```
-  ///
-  const Align.center({
-    this.key,
-    required this.child,
-  }) : alignment = Alignment.center;
-
   @override
   DomTag get tag => DomTag.div;
 

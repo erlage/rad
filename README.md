@@ -120,7 +120,6 @@ Widgets that accept SizeProps also have an optional property `sizeUnit`. For Pos
 - [Container](https://pub.dev/documentation/rad/latest/widgets/Container-class.html)
 - [Stack](https://pub.dev/documentation/rad/latest/widgets/Stack-class.html)
 - [Align](https://pub.dev/documentation/rad/latest/widgets/Align-class.html)
-  - [Align.center](https://pub.dev/documentation/rad/latest/widgets/Align/Align.center.html)
 - [Positioned](https://pub.dev/documentation/rad/latest/widgets/Positioned-class.html)
   - [Positioned.fill](https://pub.dev/documentation/rad/latest/widgets/Positioned-class.html)
 - [Overlay](https://pub.dev/documentation/rad/latest/widgets/Overlay-class.html)
