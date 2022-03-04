@@ -11,7 +11,6 @@ export 'src/core/props/alignment.dart' show Alignment;
 
 // widgets
 
-export 'src/widgets/elements/text.dart' show Text;
 export 'src/widgets/layout/container.dart' show Container;
 export 'src/widgets/layout/stack.dart' show Stack;
 export 'src/widgets/layout/align.dart' show Align;
@@ -26,6 +25,10 @@ export 'src/widgets/main/rad_app.dart' show RadApp;
 
 // navigator
 
-export 'src/widgets/main/navigator/navigator.dart' show Navigator;
 export 'src/widgets/main/navigator/route.dart' show Route;
-export 'src/widgets/main/navigator/navigator_state.dart' show NavigatorState;
+export 'src/widgets/main/navigator/navigator.dart' show Navigator;
+
+// elements
+
+export 'src/widgets/elements/text.dart' show Text;
+export 'src/widgets/elements/markup.dart' show MarkUp;
