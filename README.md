@@ -36,7 +36,7 @@ How about that? if you're familiar with Flutter it don't even need an explanatio
 
 3. Import Rad widgets in your `main.dart`
     ```dart
-    import 'package:rad/widgets.dart';
+    import 'package:rad/rad.dart';
     ```
 
 3. Create Rad app
