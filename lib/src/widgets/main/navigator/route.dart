@@ -4,7 +4,13 @@ import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/classes/abstract/widget.dart';
+import 'package:rad/src/widgets/main/navigator/navigator.dart';
 
+/// Route is a [Navigator] specific widget.
+///
+/// A [Route] act as a wrapper for your page. Along with page,
+/// it contains routing specific information.
+///
 class Route extends Widget {
   final String? key;
 

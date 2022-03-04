@@ -25,7 +25,12 @@ class NavigatorState {
 
   final _stack = <String>[];
 
+  /// Route name to route path map.
+  ///
   final nameToPathMap = <String, String>{};
+
+  /// Route path to Route instance map.
+  ///
   final pathToRouteMap = <String, Route>{};
 
   /*
