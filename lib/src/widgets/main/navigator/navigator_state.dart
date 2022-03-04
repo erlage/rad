@@ -33,37 +33,6 @@ class NavigatorState {
   |--------------------------------------------------------------------------
   */
 
-  /// Get value from URL following the provided segment.
-  ///
-  /// for example,
-  ///
-  /// if browser URI is pointing to: https://domain.com/profile/123/posts
-  ///
-  /// ```dart
-  /// Navigator.of(context).getValue('profile'); //-> 123
-  /// ```
-  ///
-  /// Please note that calling getValue on a Navigator who's context is
-  /// enclosed on posts pages can only access values past its registration
-  /// path.
-  ///
-  /// for example, if a Navigator is registered posts page it can
-  /// only access parts of URI after posts pages.
-  ///
-  /// In `domain.com/profile/123/posts/456/edit/789`
-  /// allowed part is `/posts/456/edit/789`
-  ///
-  /// ```dart
-  /// Navigator.of(context).getValue('posts') // -> '456'
-  /// Navigator.of(context).getValue('edit') // -> '789'
-  ///
-  /// // accessing protected values:
-  /// Navigator.of(context).getValue('profile') // -> '', empty,
-  /// // because current navigator is registered on posts page
-  /// ```
-  ///
-  String getValue(String segment) => Router.getValue(context.key, segment);
-
   /// Push a page on Navigator's stack.
   ///
   /// Will throw exception if Navigator doesn't have a route with the provided name.
@@ -129,6 +98,37 @@ class NavigatorState {
       flagCleanParentContents: false,
     );
   }
+
+  /// Get value from URL following the provided segment.
+  ///
+  /// for example,
+  ///
+  /// if browser URI is pointing to: https://domain.com/profile/123/posts
+  ///
+  /// ```dart
+  /// Navigator.of(context).getValue('profile'); //-> 123
+  /// ```
+  ///
+  /// Please note that calling getValue on a Navigator who's context is
+  /// enclosed on posts pages can only access values past its registration
+  /// path.
+  ///
+  /// for example, if a Navigator is registered posts page it can
+  /// only access parts of URI after posts pages.
+  ///
+  /// In `domain.com/profile/123/posts/456/edit/789`
+  /// allowed part is `/posts/456/edit/789`
+  ///
+  /// ```dart
+  /// Navigator.of(context).getValue('posts') // -> '456'
+  /// Navigator.of(context).getValue('edit') // -> '789'
+  ///
+  /// // accessing protected values:
+  /// Navigator.of(context).getValue('profile') // -> '', empty,
+  /// // because current navigator is registered on posts page
+  /// ```
+  ///
+  String getValue(String segment) => Router.getValue(context.key, segment);
 
   /*
   |--------------------------------------------------------------------------
