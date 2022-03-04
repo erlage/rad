@@ -20,13 +20,13 @@ class Router {
   ///
   /// navigator key: navigator route object
   ///
-  static final Map<String, NavigatorRouteObject> _routeObjects = {};
+  static final _routeObjects = <String, NavigatorRouteObject>{};
 
   /// Registered state objects.
   ///
   /// navigator key: navigator state
   ///
-  static final Map<String, NavigatorState> _stateObjects = {};
+  static final _stateObjects = <String, NavigatorState>{};
 
   /// Router stack.
   ///
@@ -200,10 +200,8 @@ class Router {
   ///
   static List<String> _accessibleSegments(String navigatorKey) {
     var routeObject = _routeObjects[navigatorKey];
-    var stateObject = _stateObjects[navigatorKey];
 
     if (null == routeObject) throw System.coreError;
-    if (null == stateObject) throw System.coreError;
 
     // if root navigator, all segments are available
 
