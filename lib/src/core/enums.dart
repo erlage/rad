@@ -46,3 +46,9 @@ enum PaddingType {
   allSame,
   allDifferent,
 }
+
+/// Type of route entry.
+///
+enum RouteEntryType {
+  push,
+}
