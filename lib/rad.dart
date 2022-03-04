@@ -1,6 +1,9 @@
 // structures
 
+export 'src/core/classes/abstract/widget.dart' show Widget;
+
 export 'src/core/objects/build_context.dart' show BuildContext;
+
 export '/src/core/objects/debug_options.dart' show DebugOptions;
 
 // main
