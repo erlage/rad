@@ -2,11 +2,13 @@ class System {
   static const attrType = "wtype";
   static const attrClass = "wclass";
   static const attrRoute = "wroute";
+  static const attrPageId = "wpageid";
 
   static const typeBigBang = "BigBang";
   static const keyNotSet = "not-set";
 
   static const coreError = "Framework has gone wild.";
+  static const routerError = "Router has gone wild.";
 }
 
 class Props {

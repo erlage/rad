@@ -4,7 +4,6 @@ import 'package:rad/rad.dart';
 import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/router/navigator_route_object.dart';
 import 'package:rad/src/core/objects/router/router_stack.dart';
 import 'package:rad/src/core/objects/router/router_stack_entry.dart';
@@ -15,6 +14,14 @@ import 'package:rad/src/widgets/main/navigator/route.dart';
 class Router {
   static var _isInit = false;
   static late final String _routingPath;
+
+  static final _initialLocation = window.location.href;
+
+  /// Tells that user will left site if they press back button once again.
+  ///
+  /// For handling [_onPopState]
+  ///
+  static var _flagUserIsLeaving = true;
 
   /// Path list: [window.location.path]
   ///
@@ -70,11 +77,9 @@ class Router {
   /// state has to register itself using this method.
   ///
   static void registerState(BuildContext context, NavigatorState state) {
-    if (Debug.routerLogs) {
-      print("Navigator State's Registeration request: #${context.key}");
+    if (_stateObjects.containsKey(context.key)) {
+      throw System.coreError;
     }
-
-    if (_stateObjects.containsKey(context.key)) throw System.coreError;
 
     _stateObjects[context.key] = state;
   }
@@ -89,20 +94,32 @@ class Router {
 
   /// Push page entry.
   ///
-  static void pushEntry(String navigatorKey, String name, String? values) {
-    values = values ?? '';
+  static void pushEntry({
+    required String name,
+    required String values,
+    required String navigatorKey,
+    required bool updateHistory,
+  }) {
+    if (updateHistory) {
+      var protectedSegments = _protectedSegments(navigatorKey);
 
-    var protectedSegments = _protectedSegments(navigatorKey);
+      var historyEntry = protectedSegments.join("/") + "/$name$values";
 
-    var historyEntry = protectedSegments.join("/") + "/$name$values";
+      window.history.pushState(null, '', historyEntry);
 
-    window.history.pushState(null, '', historyEntry);
+      _updateCurrentSegments();
+    }
 
-    var routeEntry = RouterStackEntry(navigatorKey, RouterStackEntryType.push);
+    var entry = RouterStackEntry(
+      name: name,
+      values: values,
+      navigatorKey: navigatorKey,
+      location: window.location.href,
+    );
 
-    _routerStack.push(routeEntry);
+    _routerStack.push(entry);
 
-    _updateCurrentSegments();
+    _flagUserIsLeaving = false;
   }
 
   /// Get current path based on Navigator's access.
@@ -128,7 +145,9 @@ class Router {
     }
 
     if (Debug.routerLogs) {
-      print("Navigator(#$navigatorKey) matched: '$matchedPathSegment'");
+      print(
+        "Navigator(#$navigatorKey) matched: '$matchedPathSegment' from '${segments.join("/")}'",
+      );
     }
 
     return matchedPathSegment;
@@ -155,7 +174,7 @@ class Router {
   static void _initRouterState() {
     _routerStack = RouterStack();
 
-    window.addEventListener("popstate", _handlePopState, false);
+    window.addEventListener("popstate", _onPopState, false);
 
     _updateCurrentSegments();
   }
@@ -179,25 +198,91 @@ class Router {
     );
   }
 
-  static _handlePopState(Event event) {
-    while (_routerStack.canPop()) {
-      var stackEntry = _routerStack.pop();
+  static _onPopState(Event event) {
+    try {
+      var location = window.location.href;
 
-      var navigatorState = _stateObjects[stackEntry.navigatorKey];
+      //  if user is back on homepage
 
-      if (null == navigatorState) continue;
+      if (location == _initialLocation) {
+        //
+        // user left.
+        //
+        if (_flagUserIsLeaving) {
+          window.history.back();
 
-      switch (stackEntry.type) {
-        case RouterStackEntryType.push:
-          if (navigatorState.canPop()) {
-            return navigatorState.pop();
+          return;
+        }
+
+        // flag that user will left site if they press back button once again.
+
+        _flagUserIsLeaving = true;
+
+        // rollback interface to initial page
+        // to go to initial page, clean page stacks of all navigators while keeping one
+        // entry at top.
+
+        for (var entry in _routerStack.entries.values.toList().reversed) {
+          var navigatorState = _stateObjects[entry.navigatorKey];
+
+          if (null != navigatorState) {
+            while (navigatorState.canPop()) {
+              navigatorState.pop();
+            }
           }
+        }
+
+        return;
       }
+
+      // else we're not at initial page.
+      // find or manage user history entry
+
+      var entry = _routerStack.get(location);
+
+      // user is traversing passive history.
+
+      if (null == entry) {
+        //
+        // passive history is 'state' that browser kept after user had left the site.
+        // this is to allow user navigate between sites using back button.
+        //
+        // since at this point, our state is lost, our entries are lost too.
+        // and reloading window will build the correct interface.
+
+        window.location.reload();
+
+        // another method,
+        //
+        // calling rebuild on AppWidget can also rebuild the required interface. plus
+        // in a much nicer way. for now, we'll do a reload if user is traversing passive
+        // history().
+
+        // for active history, our implementation is ready, which you can see below.
+
+      } else {
+        var navigatorState = _stateObjects[entry.navigatorKey]!;
+
+        // if navigator has page in active stack
+
+        if (navigatorState.containsInStack(name: entry.name)) {
+          //
+          // pop until that page comes at top
+          //
+          navigatorState.popUntil(name: entry.name);
+          //
+        } else {
+          //
+          // else do a dynamic push
+          //
+          navigatorState.push(name: entry.name, values: entry.values);
+        }
+      }
+    } catch (e) {
+      // reload window if anything goes wrong with dynamic management of history.
+
+      window.location.reload();
     }
-
-    // there's nothing in stack to pop.
-
-    window.history.back();
   }
 
   static void _register(BuildContext context, List<Route> routes) {
@@ -234,7 +319,7 @@ class Router {
 
     if (null == parentObject) throw System.coreError;
 
-    var segments = [...parentObject.segments, parentState.currentPath];
+    var segments = [...parentObject.segments, parentState.currentName];
 
     _routeObjects[context.key] = NavigatorRouteObject(
       context: context,

@@ -277,7 +277,7 @@ class Framework {
       // if flag is on for missing childs
 
       if (flagAddIfNotFound) {
-        updates["_${Utils.generateMonotonicId()}"] = UpdateObject(widget, null);
+        updates["_${Utils.generateRandomId()}"] = UpdateObject(widget, null);
       }
     }
 

@@ -3,17 +3,17 @@ import 'dart:math';
 import 'package:rad/src/core/enums.dart';
 
 class Utils {
-  static var _widgetCount = 0;
-  static var _monotonicId = 0;
+  static var _extraCounter = 0;
+  static var _widgetCounter = 0;
 
-  static generateWidgetKey() {
-    _widgetCount++;
-    return _widgetCount.toString() + "_" + Utils.random();
+  static String generateWidgetKey() {
+    _widgetCounter++;
+    return _widgetCounter.toString() + "_" + Utils.random();
   }
 
-  static generateMonotonicId() {
-    _monotonicId++;
-    return _monotonicId.toString() + "_" + Utils.random();
+  static String generateRandomId() {
+    _extraCounter++;
+    return _extraCounter.toString() + "_" + Utils.random();
   }
 
   static String mapDomTag(DomTag tag) {

@@ -12,18 +12,18 @@ import 'package:rad/src/widgets/main/navigator/route.dart';
 /// Handles the delegated functionality of a [Navigator] widget.
 ///
 class NavigatorState {
-  var _currentPath = '';
+  var _currentName = '';
 
-  /// Current path points to the Route's path. Route, that's currently on top of
+  // Name of the active route. Route, that's currently on top of
   /// Navigator stack.
   ///
-  String get currentPath => _currentPath;
+  String get currentName => _currentName;
 
   late final Navigator widget;
   late final BuildContext context;
   late final WidgetObject widgetObject;
 
-  final List<String> _pushStack = [];
+  final _stack = <String>[];
 
   final nameToPathMap = <String, String>{};
   final pathToRouteMap = <String, Route>{};
@@ -43,8 +43,9 @@ class NavigatorState {
   /// there are no navigator in ancestors, it'll throw an exception.
   ///
   void push({
-    required String name,
     String? values,
+    required String name,
+    bool updateHistory = true,
   }) {
     var traverseAncestors = name.startsWith("../");
 
@@ -56,7 +57,8 @@ class NavigatorState {
 
     if (!nameToPathMap.containsKey(cleanedName)) {
       if (!traverseAncestors) {
-        throw "Navigator: Named routes that are not registered in Navigator's routes are not allowed."
+        throw "Navigator: '$cleanedName' is not declared."
+            "Named routes that are not registered in Navigator's routes are not allowed."
             "If you're trying to push to a parent navigator, add prefix '../' to name of the route. "
             "e.g Navgator.of(context).push(name: '../home')."
             "It'll first tries a push to current navigator, if it doesn't find a matching route, "
@@ -79,19 +81,22 @@ class NavigatorState {
       }
     }
 
-    _changeCurrentPath(cleanedName);
-
-    // push a new entry
-
-    _pushStack.add(name);
-
-    Router.pushEntry(context.key, name, values);
+    _updateCurrentName(cleanedName);
 
     // get route details
 
     var page = pathToRouteMap[nameToPathMap[cleanedName]];
 
     if (null == page) throw System.coreError;
+
+    _stack.add(name);
+
+    Router.pushEntry(
+      name: name,
+      values: values ?? '',
+      navigatorKey: context.key,
+      updateHistory: updateHistory,
+    );
 
     // build
 
@@ -102,16 +107,24 @@ class NavigatorState {
     );
   }
 
+  /// Whether current active stack contains a route with matching [name].
+  ///
+  bool containsInStack({required String name}) => _stack.contains(name);
+
   /// Whether navigator can pop a page from stack.
   ///
-  bool canPop() => _pushStack.isNotEmpty;
+  /// A navigator must have at least one entry in stack. This means
+  /// calling [canPop] on a Navigator, that has one entry, will return
+  /// false.
+  ///
+  bool canPop() => _stack.length > 1;
 
   /// Pop the most recent page from Navigator's stack.
   ///
   void pop() {
-    _pushStack.removeLast();
+    _stack.removeLast();
 
-    // dispose last children
+    _updateCurrentName(_stack.last);
 
     Framework.disposeChildren(
       maxDisposals: 1,
@@ -119,6 +132,14 @@ class NavigatorState {
       parentContext: context,
       canRemoveCallback: (_) => true,
     );
+  }
+
+  /// Pop routes until a route with matching [name] is on top.
+  ///
+  void popUntil({required String name}) {
+    while (canPop() && currentName != name) {
+      pop();
+    }
   }
 
   /// Get value from URL following the provided segment.
@@ -166,20 +187,13 @@ class NavigatorState {
   void render(WidgetObject widgetObject) {
     _initState(widgetObject);
 
-    // get matching path from Router
+    var name = Router.getPath(context.key);
 
-    _changeCurrentPath(Router.getPath(context.key));
+    if (name.isEmpty) {
+      name = widget.routes.first.name;
+    }
 
-    // prepare route. if not matched select first as default
-
-    var route = pathToRouteMap[_currentPath] ?? widget.routes.first;
-
-    // build selected route
-
-    Framework.buildChildren(
-      widgets: [route],
-      parentContext: context,
-    );
+    push(name: name, updateHistory: false);
   }
 
   /// Dispose handle.
@@ -225,7 +239,7 @@ class NavigatorState {
     Router.registerState(context, this);
   }
 
-  void _changeCurrentPath(String name) {
-    _currentPath = name;
+  void _updateCurrentName(String name) {
+    _currentName = name;
   }
 }

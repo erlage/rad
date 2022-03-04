@@ -5,15 +5,15 @@ import 'package:rad/src/core/objects/router/router_stack_entry.dart';
 /// For managing page history.
 ///
 class RouterStack {
-  final _entries = <RouterStackEntry>[];
+  /// Entries on router stack.
+  ///
+  /// window.location.href => entry
+  ///
+  final entries = <String, RouterStackEntry>{};
 
   /// Whether a dynamic pop is possible.
   ///
-  bool canPop() => _entries.isNotEmpty;
-
-  /// Returns the most recent stack entry.
-  ///
-  RouterStackEntry pop() => _entries.removeLast();
+  bool canPop() => entries.isNotEmpty;
 
   /// Push a new entry on stack.
   ///
@@ -21,11 +21,15 @@ class RouterStack {
   /// When browser fires onPopState event, this allows framework to find the navigator
   /// that recently pushed a entry on stack.
   ///
-  void push(RouterStackEntry entry) => _entries.add(entry);
+  void push(RouterStackEntry entry) => entries[entry.location] = entry;
+
+  /// Get entry for a given location.
+  ///
+  RouterStackEntry? get(String location) => entries[location];
 
   /// Clean all entries of Navigator.
   ///
   void remove(String navigatorKey) {
-    _entries.removeWhere((entry) => entry.navigatorKey == navigatorKey);
+    entries.removeWhere((pageId, entry) => entry.navigatorKey == navigatorKey);
   }
 }

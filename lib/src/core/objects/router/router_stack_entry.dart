@@ -1,8 +1,13 @@
-import 'package:rad/src/core/enums.dart';
-
 class RouterStackEntry {
+  final String name;
+  final String values;
   final String navigatorKey;
-  final RouterStackEntryType type;
+  final String location;
 
-  RouterStackEntry(this.navigatorKey, this.type);
+  RouterStackEntry({
+    required this.name,
+    required this.values,
+    required this.navigatorKey,
+    required this.location,
+  });
 }
