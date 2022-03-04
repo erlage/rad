@@ -75,11 +75,11 @@ class Router {
     _stateObjects[context.key] = state;
   }
 
-  static void unRegisterRoutes(BuildContext context) {
+  static void unRegister(BuildContext context) {
     _routeObjects.remove(context.key);
-  }
 
-  static void unRegisterState(BuildContext context) {
+    _routerStack.remove(context.key);
+
     _stateObjects.remove(context.key);
   }
 

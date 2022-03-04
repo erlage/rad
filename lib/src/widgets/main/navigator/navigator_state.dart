@@ -96,11 +96,7 @@ class NavigatorState {
   /// Framework will call this when required.
   /// Calling this mannually will results in undesired behaviour.
   ///
-  void dispose() {
-    Router.unRegisterRoutes(context);
-
-    Router.unRegisterState(context);
-  }
+  void dispose() => Router.unRegister(context);
 
   /*
   |--------------------------------------------------------------------------
