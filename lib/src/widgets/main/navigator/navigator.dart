@@ -11,21 +11,10 @@ import 'package:rad/src/widgets/main/navigator/route.dart';
 class Navigator extends Widget {
   final String? key;
 
-  /// Whether strict mode is on.
-  ///
-  /// In strict mode,
-  ///
-  /// 1) Navigator will reject un-named pushes.
-  /// 2) Named routes that are not present in initial
-  /// configuration, will also be rejected.
-  ///
-  final bool? strictMode;
-
   final List<Route> routes;
 
   const Navigator({
     this.key,
-    this.strictMode = true,
     required this.routes,
   });
 
