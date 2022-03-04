@@ -1,3 +1,9 @@
+/*
+|--------------------------------------------------------------------------
+| core
+|--------------------------------------------------------------------------
+*/
+
 // structures
 
 export 'src/core/classes/abstract/widget.dart' show Widget;
@@ -5,6 +11,24 @@ export 'src/core/classes/abstract/widget.dart' show Widget;
 export 'src/core/objects/build_context.dart' show BuildContext;
 
 export '/src/core/objects/debug_options.dart' show DebugOptions;
+
+// enums
+
+export 'package:rad/src/core/enums.dart' show HitTestBehavior;
+
+// props
+
+export 'package:rad/src/core/props/margin.dart' show Margin;
+
+export 'package:rad/src/core/props/padding.dart' show Padding;
+
+export 'package:rad/src/core/props/alignment.dart' show Alignment;
+
+/*
+|--------------------------------------------------------------------------
+| widgets
+|--------------------------------------------------------------------------
+*/
 
 // main
 
