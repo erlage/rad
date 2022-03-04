@@ -18,14 +18,12 @@ class Text extends Widget {
   final String? key;
 
   final String text;
-  final bool? isHtml;
   final String? styles;
 
   const Text(
     this.text, {
     this.key,
     this.styles,
-    this.isHtml,
   });
 
   @override
@@ -42,7 +40,6 @@ class Text extends Widget {
     return TextRenderObject(
       context: context,
       text: text,
-      isHtml: isHtml ?? false,
       styleProps: StyleProps(styles),
     );
   }
@@ -50,13 +47,11 @@ class Text extends Widget {
 
 class TextRenderObject extends RenderObject {
   final String text;
-  final bool isHtml;
 
   final StyleProps styleProps;
 
   TextRenderObject({
     required this.text,
-    required this.isHtml,
     required this.styleProps,
     required BuildContext context,
   }) : super(context);
@@ -64,11 +59,6 @@ class TextRenderObject extends RenderObject {
   @override
   render(widgetObject) {
     styleProps.apply(widgetObject.element);
-
-    if (isHtml) {
-      widgetObject.element.innerHtml = text;
-      return;
-    }
 
     widgetObject.element.innerText = text;
   }
@@ -79,15 +69,7 @@ class TextRenderObject extends RenderObject {
 
     styleProps.apply(widgetObject.element, updatedRenderObject.styleProps);
 
-    // if text has no change
-    if (isHtml == updatedRenderObject.isHtml &&
-        text == updatedRenderObject.text) {
-      return;
-    }
-
-    if (updatedRenderObject.isHtml) {
-      widgetObject.element.innerHtml = updatedRenderObject.text;
-
+    if (text == updatedRenderObject.text) {
       return;
     }
 
