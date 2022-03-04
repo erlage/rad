@@ -83,7 +83,7 @@ class Framework {
 
     var match = "[data-wtype='$WidgetType']";
 
-    var domNode = document.getElementById(context.key)?.closest(match);
+    var domNode = document.getElementById(context.key)?.parent?.closest(match);
 
     if (null == domNode) {
       return null;
