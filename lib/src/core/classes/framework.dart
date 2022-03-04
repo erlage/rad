@@ -360,7 +360,7 @@ class Framework {
 
     if (null == widgetObject) return;
 
-    var childsRemovedCount = 0;
+    var childrenToDispose = <WidgetObject>[];
 
     for (var child in flagReversed
         ? widgetObject.element.children.reversed
@@ -368,7 +368,7 @@ class Framework {
       //
       // if already removed the max number allowed
       //
-      if (childsRemovedCount >= maxDisposals) {
+      if (childrenToDispose.length >= maxDisposals) {
         return;
       }
 
@@ -378,11 +378,13 @@ class Framework {
         var canRemove = canRemoveCallback(childWidgetObject);
 
         if (canRemove) {
-          _disposeWidget(widgetObject: childWidgetObject);
-
-          childsRemovedCount++;
+          childrenToDispose.add(childWidgetObject);
         }
       }
+    }
+
+    for (var childWidgetObject in childrenToDispose) {
+      _disposeWidget(widgetObject: childWidgetObject);
     }
   }
 
