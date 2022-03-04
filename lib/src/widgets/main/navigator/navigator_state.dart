@@ -78,9 +78,13 @@ class NavigatorState {
   }) {
     var traverseAncestors = name.startsWith("../");
 
+    // clean traversal flag
+
+    var cleanedName = traverseAncestors ? name.substring(3) : name;
+
     // if current navigator doesn't have a matching '$name' route
 
-    if (!nameToPathMap.containsKey(name)) {
+    if (!nameToPathMap.containsKey(cleanedName)) {
       if (!traverseAncestors) {
         throw "Navigator: Named routes that are not registered in Navigator's routes are not allowed."
             "If you're trying to push to a parent navigator, add prefix '../' to name of the route. "
@@ -96,7 +100,7 @@ class NavigatorState {
         try {
           parent = Navigator.of(context);
         } catch (_) {
-          throw "Route named '$name' not defined. Make sure you've declared a named route '$name' in Navigator's routes.";
+          throw "Route named '$cleanedName' not defined. Make sure you've declared a named route '$cleanedName' in Navigator's routes.";
         }
 
         parent.push(name: name, values: values);
@@ -105,19 +109,15 @@ class NavigatorState {
       }
     }
 
-    if (traverseAncestors) {
-      name = name.substring(1);
-    }
-
     // push a new entry
 
-    _changeCurrentPath(name);
+    _changeCurrentPath(cleanedName);
 
-    _pushEntry(name, values);
+    _pushEntry(cleanedName, values);
 
     // get route details
 
-    var page = pathToRouteMap[nameToPathMap[name]];
+    var page = pathToRouteMap[nameToPathMap[cleanedName]];
 
     if (null == page) throw System.coreError;
 
