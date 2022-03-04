@@ -235,4 +235,45 @@ class Router {
 
     return group.split("/");
   }
+
+  /// Part of path(window.location.pathName) that navigator with
+  /// [navigatorKey] can't access.
+  ///
+  static List<String> _protectedSegments(String navigatorKey) {
+    var routeObject = _routeObjects[navigatorKey];
+
+    if (null == routeObject) throw System.coreError;
+
+    // if root navigator, no segments are protected
+
+    if (null == routeObject.parent) {
+      return [];
+    }
+
+    // else find protected part
+
+    var matcher = "";
+
+    if (routeObject.segments.length < 3) {
+      matcher = r"^(\/+[\w\/]*" + routeObject.segments.last + r")";
+    } else {
+      matcher = r"(^\/+" +
+          routeObject.segments[1] +
+          r"[\w\/]*" +
+          routeObject.segments.last +
+          r")";
+    }
+
+    var path = window.location.pathname ?? _currentSegments.join("/");
+
+    var match = RegExp(matcher).firstMatch(path);
+
+    if (null == match) return [];
+
+    var group = match.group(1);
+
+    if (null == group) return [];
+
+    return group.split("/");
+  }
 }
