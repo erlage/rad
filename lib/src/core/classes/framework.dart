@@ -369,7 +369,7 @@ class Framework {
       // if already removed the max number allowed
       //
       if (childrenToDispose.length >= maxDisposals) {
-        return;
+        break;
       }
 
       var childWidgetObject = _getWidgetObject(child.id);
