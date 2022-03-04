@@ -21,6 +21,7 @@ class NavigatorState {
 
   late final Navigator widget;
   late final BuildContext context;
+  late final WidgetObject widgetObject;
 
   final List<String> _pushStack = [];
 
@@ -78,11 +79,13 @@ class NavigatorState {
       }
     }
 
-    // push a new entry
-
     _changeCurrentPath(cleanedName);
 
-    _pushEntry(cleanedName, values);
+    // push a new entry
+
+    _pushStack.add(name);
+
+    Router.pushEntry(context.key, name, values);
 
     // get route details
 
@@ -96,6 +99,25 @@ class NavigatorState {
       widgets: [page],
       parentContext: context,
       flagCleanParentContents: false,
+    );
+  }
+
+  /// Whether navigator can pop a page from stack.
+  ///
+  bool canPop() => _pushStack.isNotEmpty;
+
+  /// Pop the most recent page from Navigator's stack.
+  ///
+  void pop() {
+    _pushStack.removeLast();
+
+    // dispose last children
+
+    Framework.disposeChildren(
+      maxDisposals: 1,
+      flagReversed: true,
+      parentContext: context,
+      canRemoveCallback: (_) => true,
     );
   }
 
@@ -205,11 +227,5 @@ class NavigatorState {
 
   void _changeCurrentPath(String name) {
     _currentPath = name;
-  }
-
-  void _pushEntry(String name, String? values) {
-    _pushStack.add(name);
-
-    Router.pushEntry(context.key, name, values);
   }
 }

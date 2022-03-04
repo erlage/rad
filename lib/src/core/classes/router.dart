@@ -155,6 +155,8 @@ class Router {
   static void _initRouterState() {
     _routerStack = RouterStack();
 
+    window.addEventListener("popstate", _handlePopState, false);
+
     _updateCurrentSegments();
   }
 
@@ -175,6 +177,27 @@ class Router {
           (sgmt) => sgmt == _routingPath || sgmt.trim().isEmpty,
         ),
     );
+  }
+
+  static _handlePopState(Event event) {
+    while (_routerStack.canPop()) {
+      var stackEntry = _routerStack.pop();
+
+      var navigatorState = _stateObjects[stackEntry.navigatorKey];
+
+      if (null == navigatorState) continue;
+
+      switch (stackEntry.type) {
+        case RouterStackEntryType.push:
+          if (navigatorState.canPop()) {
+            return navigatorState.pop();
+          }
+      }
+    }
+
+    // there's nothing in stack to pop.
+
+    window.history.back();
   }
 
   static void _register(BuildContext context, List<Route> routes) {
