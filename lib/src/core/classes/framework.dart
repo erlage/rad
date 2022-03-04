@@ -172,7 +172,7 @@ class Framework {
 
           element.innerHtml = "";
         } else {
-          disposeWidget(
+          _disposeWidget(
             preserveTarget: true,
             widgetObject: _getWidgetObject(widgetObject.context.parent.key),
           );
@@ -328,7 +328,7 @@ class Framework {
     for (var childElement in parent.children) {
       if (!updates.containsKey(childElement.id)) {
         if (flagDisposeObsoluteChildren) {
-          disposeWidget(
+          _disposeWidget(
             widgetObject: _getWidgetObject(childElement.id),
             preserveTarget: false,
           );
@@ -339,9 +339,62 @@ class Framework {
     }
   }
 
+  /// Remove child widgets.
+  ///
+  /// Method will call [canRemoveCallback] for each element's widget object. Widget will be removed
+  /// only if callback returns true.
+  ///
+  static disposeChildren({
+    required BuildContext parentContext,
+    required WidgetObjectCallback canRemoveCallback,
+    //
+    // -- options --
+    //
+    required int maxDisposals,
+    //
+    // -- flags --
+    //
+    bool flagReversed = false,
+  }) {
+    var widgetObject = _getWidgetObject(parentContext.key);
+
+    if (null == widgetObject) return;
+
+    var childsRemovedCount = 0;
+
+    for (var child in flagReversed
+        ? widgetObject.element.children.reversed
+        : widgetObject.element.children) {
+      //
+      // if already removed the max number allowed
+      //
+      if (childsRemovedCount >= maxDisposals) {
+        return;
+      }
+
+      var childWidgetObject = _getWidgetObject(child.id);
+
+      if (null != childWidgetObject) {
+        var canRemove = canRemoveCallback(childWidgetObject);
+
+        if (canRemove) {
+          _disposeWidget(widgetObject: childWidgetObject);
+
+          childsRemovedCount++;
+        }
+      }
+    }
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | internals
+  |--------------------------------------------------------------------------
+  */
+
   /// Dispose widgets and its child widgets.
   ///
-  static disposeWidget({
+  static _disposeWidget({
     WidgetObject? widgetObject,
     bool preserveTarget = false,
   }) {
@@ -353,7 +406,7 @@ class Framework {
 
     if (widgetObject.element.hasChildNodes()) {
       for (var childElement in widgetObject.element.children) {
-        disposeWidget(widgetObject: _getWidgetObject(childElement.id));
+        _disposeWidget(widgetObject: _getWidgetObject(childElement.id));
       }
     }
 
@@ -377,12 +430,6 @@ class Framework {
 
     widgetObject.element.remove();
   }
-
-  /*
-  |--------------------------------------------------------------------------
-  | internals
-  |--------------------------------------------------------------------------
-  */
 
   static _hideElement(Element element) {
     element.classes.add('rad-hidden');
