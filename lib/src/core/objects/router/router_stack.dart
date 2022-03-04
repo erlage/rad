@@ -5,23 +5,23 @@ import 'package:rad/src/core/objects/router/router_stack_entry.dart';
 /// For managing page history.
 ///
 class RouterStack {
-  final _entries = <RouteStackEntry>[];
+  final _entries = <RouterStackEntry>[];
 
   /// Whether a dynamic pop is possible.
   ///
   bool canPop() => _entries.isNotEmpty;
 
-  /// Returns navigator key that has the most recent push.
+  /// Returns the most recent stack entry.
   ///
-  RouteStackEntry pop() => _entries.removeLast();
+  RouterStackEntry pop() => _entries.removeLast();
 
-  /// Push navigator's key.
+  /// Push a new entry on stack.
   ///
   /// This is to keep track of Navigators that are pushing state to browser history.
   /// When browser fires onPopState event, this allows framework to find the navigator
-  /// that recently pushed and call pop() on that navigator.
+  /// that recently pushed a entry on stack.
   ///
-  void push(RouteStackEntry entry) => _entries.add(entry);
+  void push(RouterStackEntry entry) => _entries.add(entry);
 
   /// Clean all entries of Navigator.
   ///

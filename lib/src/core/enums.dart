@@ -49,6 +49,6 @@ enum PaddingType {
 
 /// Type of route entry.
 ///
-enum RouteEntryType {
+enum RouterStackEntryType {
   push,
 }
