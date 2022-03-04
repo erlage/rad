@@ -172,7 +172,7 @@ class Framework {
 
           element.innerHtml = "";
         } else {
-          _disposeWidget(
+          disposeWidget(
             preserveTarget: true,
             widgetObject: _getWidgetObject(widgetObject.context.parent.key),
           );
@@ -328,7 +328,7 @@ class Framework {
     for (var childElement in parent.children) {
       if (!updates.containsKey(childElement.id)) {
         if (flagDisposeObsoluteChildren) {
-          _disposeWidget(
+          disposeWidget(
             widgetObject: _getWidgetObject(childElement.id),
             preserveTarget: false,
           );
@@ -339,15 +339,9 @@ class Framework {
     }
   }
 
-  /*
-  |--------------------------------------------------------------------------
-  | internals
-  |--------------------------------------------------------------------------
-  */
-
   /// Dispose widgets and its child widgets.
   ///
-  static _disposeWidget({
+  static disposeWidget({
     WidgetObject? widgetObject,
     bool preserveTarget = false,
   }) {
@@ -359,7 +353,7 @@ class Framework {
 
     if (widgetObject.element.hasChildNodes()) {
       for (var childElement in widgetObject.element.children) {
-        _disposeWidget(widgetObject: _getWidgetObject(childElement.id));
+        disposeWidget(widgetObject: _getWidgetObject(childElement.id));
       }
     }
 
@@ -383,6 +377,12 @@ class Framework {
 
     widgetObject.element.remove();
   }
+
+  /*
+  |--------------------------------------------------------------------------
+  | internals
+  |--------------------------------------------------------------------------
+  */
 
   static _hideElement(Element element) {
     element.classes.add('rad-hidden');
