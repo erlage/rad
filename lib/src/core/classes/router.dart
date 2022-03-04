@@ -50,6 +50,10 @@ class Router {
       throw "Router aleady initialized.";
     }
 
+    if (Debug.routerLogs) {
+      print("Router: onPopState: initialized at: $_initialLocation");
+    }
+
     _routingPath = routingPath;
 
     _initRouterState();
@@ -202,6 +206,10 @@ class Router {
     try {
       var location = window.location.href;
 
+      if (Debug.routerLogs) {
+        print("Router: onPopState: location: $location");
+      }
+
       //  if user is back on homepage
 
       if (location == _initialLocation) {
@@ -215,6 +223,10 @@ class Router {
         }
 
         // flag that user will left site if they press back button once again.
+
+        if (Debug.routerLogs) {
+          print("Router: onPopState: flagged for leave: $_initialLocation");
+        }
 
         _flagUserIsLeaving = true;
 
@@ -250,6 +262,10 @@ class Router {
         // since at this point, our state is lost, our entries are lost too.
         // and reloading window will build the correct interface.
 
+        if (Debug.routerLogs) {
+          print("Router: onPopState: entry doesnt exists: $entry");
+        }
+
         window.location.reload();
 
         // another method,
@@ -266,15 +282,17 @@ class Router {
         // if navigator has page in active stack
 
         if (navigatorState.isPageStacked(name: entry.name)) {
-          //
-          // pop until that page comes at top
-          //
+          if (Debug.routerLogs) {
+            print("Router: onPopState: pop-until: ${entry.name}");
+          }
+
           navigatorState.popUntil(name: entry.name);
           //
         } else {
-          //
-          // else do a dynamic push
-          //
+          if (Debug.routerLogs) {
+            print("Router: onPopState: synthetic-push: ${entry.name}");
+          }
+
           navigatorState.push(name: entry.name, values: entry.values);
         }
       }
