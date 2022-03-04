@@ -3,7 +3,7 @@ import 'dart:html';
 import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/objects/navigator_route_object.dart';
+import 'package:rad/src/core/objects/router/navigator_route_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/widgets/main/navigator/navigator.dart';
 import 'package:rad/src/widgets/main/navigator/navigator_state.dart';
