@@ -16,7 +16,9 @@ class Router {
   static var _isInit = false;
   static late final String _routingPath;
 
-  static var _currentSegments = <String>[];
+  /// Path list: [window.location.path]
+  ///
+  static final _currentSegments = <String>[];
 
   /// Registered navigators.
   ///
@@ -99,6 +101,8 @@ class Router {
     var routeEntry = RouterStackEntry(navigatorKey, RouterStackEntryType.push);
 
     _routerStack.push(routeEntry);
+
+    _updateCurrentSegments();
   }
 
   /// Get current path based on Navigator's access.
@@ -149,20 +153,28 @@ class Router {
   */
 
   static void _initRouterState() {
+    _routerStack = RouterStack();
+
+    _updateCurrentSegments();
+  }
+
+  static void _updateCurrentSegments() {
+    _currentSegments.clear();
+
+    _currentSegments.add(_routingPath);
+
     var path = window.location.pathname;
 
     if (null == path || _routingPath == path) {
-      _currentSegments = [];
-
       return;
     }
 
-    _currentSegments = path.split('/')
-      ..removeWhere(
-        (sgmt) => sgmt == _routingPath || sgmt.trim().isEmpty,
-      );
-
-    _routerStack = RouterStack();
+    _currentSegments.addAll(
+      path.split('/')
+        ..removeWhere(
+          (sgmt) => sgmt == _routingPath || sgmt.trim().isEmpty,
+        ),
+    );
   }
 
   static void _register(BuildContext context, List<Route> routes) {
@@ -241,7 +253,7 @@ class Router {
           r"[\/\w]*)";
     }
 
-    var path = window.location.pathname ?? _currentSegments.join("/");
+    var path = _currentSegments.join("/");
 
     var match = RegExp(matcher).firstMatch(path);
 
@@ -255,12 +267,17 @@ class Router {
   }
 
   /// Part of path(window.location.pathName) that navigator with
-  /// [navigatorKey] can't access.
+  /// [navigatorKey] can't change.
+  ///
+  /// Note that, navigator still can access **some parts** of protected
+  /// segements using [_accessibleSegments]
   ///
   static List<String> _protectedSegments(String navigatorKey) {
     var routeObject = _routeObjects[navigatorKey];
+    var stateObject = _stateObjects[navigatorKey];
 
     if (null == routeObject) throw System.coreError;
+    if (null == stateObject) throw System.coreError;
 
     // if root navigator, no segments are protected
 
@@ -272,25 +289,33 @@ class Router {
 
     var matcher = "";
 
+    var matchRoutes = stateObject.nameToPathMap.values.join(r"|\/");
+
     if (routeObject.segments.length < 3) {
-      matcher = r"^(\/+[\w\/]*" + routeObject.segments.last + r")";
+      matcher = r"(^\/+[\w\/]*" +
+          routeObject.segments.last +
+          r"[\w\/]*(?=\/" +
+          matchRoutes +
+          r"))";
     } else {
       matcher = r"(^\/+" +
           routeObject.segments[1] +
           r"[\w\/]*" +
           routeObject.segments.last +
-          r")";
+          r"[\w\/]*(?=\/" +
+          matchRoutes +
+          r"))";
     }
 
-    var path = window.location.pathname ?? _currentSegments.join("/");
+    var path = _currentSegments.join("/");
 
     var match = RegExp(matcher).firstMatch(path);
 
-    if (null == match) return [];
+    if (null == match) return _currentSegments;
 
     var group = match.group(1);
 
-    if (null == group) return [];
+    if (null == group) return _currentSegments;
 
     return group.split("/");
   }

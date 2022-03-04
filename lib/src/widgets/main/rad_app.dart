@@ -31,7 +31,7 @@ class RadApp extends AppWidget {
     String? key,
     required Widget child,
     required String targetId,
-    String routingPath = '/',
+    String routingPath = '',
     DebugOptions? debugOptions,
   }) : super(
             key: key,
