@@ -152,6 +152,7 @@ class Router {
 
     if (null == parent) {
       _routeObjects[context.key] = NavigatorRouteObject(
+        context: context,
         routes: routes,
         segments: [_routingPath],
       );
@@ -174,6 +175,7 @@ class Router {
     var segments = [...parentObject.segments, parentState.currentPath];
 
     _routeObjects[context.key] = NavigatorRouteObject(
+      context: context,
       routes: routes,
       segments: segments,
       parent: parentObject,

@@ -1,3 +1,4 @@
+import 'package:rad/rad.dart';
 import 'package:rad/widgets.dart';
 
 /// Information about a navigator and its routing description.
@@ -6,12 +7,14 @@ import 'package:rad/widgets.dart';
 /// Navigator.
 ///
 class NavigatorRouteObject {
+  final BuildContext context;
   final List<Route> routes;
   final List<String> segments;
   final NavigatorRouteObject? parent;
 
   NavigatorRouteObject({
     this.parent,
+    required this.context,
     required this.routes,
     required this.segments,
   });
