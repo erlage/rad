@@ -146,7 +146,7 @@ class NavigatorState {
 
     // get matching path from Router
 
-    _currentPath = Router.getPath(context.key);
+    _changeCurrentPath(Router.getPath(context.key));
 
     // prepare route. if not matched select first as default
 
