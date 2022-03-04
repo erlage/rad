@@ -10,9 +10,6 @@ class Alignment {
 
   /// Element's Alignment.
   ///
-  /// Rad uses a sane alignment values that are staightforward
-  /// to understand and work with.
-  ///
   /// `Alignment(0, 0)` represents the top left point..
   ///
   /// `Alignment(100, 100)` represents the bottom right point.
