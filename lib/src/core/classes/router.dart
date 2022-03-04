@@ -5,6 +5,7 @@ import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/objects/router/navigator_route_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/core/objects/router/router_stack.dart';
 import 'package:rad/src/widgets/main/navigator/navigator.dart';
 import 'package:rad/src/widgets/main/navigator/navigator_state.dart';
 import 'package:rad/src/widgets/main/navigator/route.dart';
@@ -26,6 +27,12 @@ class Router {
   /// navigator key: navigator state
   ///
   static final Map<String, NavigatorState> _stateObjects = {};
+
+  /// Router stack.
+  ///
+  /// For keeping track of page push/pop
+  ///
+  static late final RouterStack _routerStack;
 
   static init(String routingPath) {
     if (_isInit) {
@@ -136,6 +143,8 @@ class Router {
       ..removeWhere(
         (sgmt) => sgmt == _routingPath || sgmt.trim().isEmpty,
       );
+
+    _routerStack = RouterStack();
   }
 
   static void _register(BuildContext context, List<Route> routes) {
