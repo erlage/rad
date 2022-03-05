@@ -34,11 +34,6 @@ class StylesBuilder implements Builder {
         .readAsStringSync()
         .split("\n")
         .forEach(addToAvailableImports);
-
-    File('lib/widgets.dart')
-        .readAsStringSync()
-        .split("\n")
-        .forEach(addToAvailableImports);
   }
 
   void addToAvailableImports(String exportDetails) {
