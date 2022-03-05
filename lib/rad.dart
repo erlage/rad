@@ -16,6 +16,11 @@ export '/src/core/objects/debug_options.dart' show DebugOptions;
 
 export 'package:rad/src/core/enums.dart' show HitTestBehavior;
 
+export 'package:rad/src/core/enums.dart' show Axis;
+export 'package:rad/src/core/enums.dart' show FlexWrap;
+export 'package:rad/src/core/enums.dart' show MainAxisAlignment;
+export 'package:rad/src/core/enums.dart' show CrossAxisAlignment;
+
 // props
 
 export 'package:rad/src/core/props/margin.dart' show Margin;
@@ -53,6 +58,7 @@ export 'src/widgets/misc/gesture_detector.dart' show GestureDetector;
 
 // layout
 
+export 'src/widgets/layout/flex.dart' show Flex;
 export 'src/widgets/layout/stack.dart' show Stack;
 export 'src/widgets/layout/align.dart' show Align;
 export 'src/widgets/layout/center.dart' show Center;
