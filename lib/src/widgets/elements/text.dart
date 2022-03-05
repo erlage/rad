@@ -64,9 +64,7 @@ class TextRenderObject extends RenderObject {
   }
 
   @override
-  update(widgetObject, updatedRenderObject) {
-    updatedRenderObject as TextRenderObject;
-
+  update(widgetObject, covariant TextRenderObject updatedRenderObject) {
     styleProps.apply(widgetObject.element, updatedRenderObject.styleProps);
 
     if (text == updatedRenderObject.text) {

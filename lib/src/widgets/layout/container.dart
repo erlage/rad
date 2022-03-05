@@ -114,9 +114,7 @@ class ContainerRenderObject extends RenderObject {
   }
 
   @override
-  update(widgetObject, updatedRenderObject) {
-    updatedRenderObject as ContainerRenderObject;
-
+  update(widgetObject, covariant ContainerRenderObject updatedRenderObject) {
     sizeProps.apply(widgetObject.element, updatedRenderObject.sizeProps);
 
     styleProps.apply(widgetObject.element, updatedRenderObject.styleProps);

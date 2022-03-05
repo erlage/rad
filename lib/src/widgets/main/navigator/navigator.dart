@@ -34,7 +34,7 @@ class Navigator extends Widget {
   createRenderObject(context) => NavigatorRenderObject(context);
 
   @override
-  onRenderObjectCreate(renderObject) {
+  onRenderObjectCreate(covariant NavigatorRenderObject renderObject) {
     //
     // If we create state in RenderObject then state will be created
     // multiple times because framework can create RenderObject anytime
@@ -42,8 +42,6 @@ class Navigator extends Widget {
     // appropriate for performance reasons as this hook gets called
     // only when first RenderObject of this widget is created.
     //
-
-    renderObject as NavigatorRenderObject;
 
     renderObject.state = NavigatorState();
   }

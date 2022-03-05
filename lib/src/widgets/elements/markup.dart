@@ -57,9 +57,7 @@ class MarkupRenderObject extends RenderObject {
       widgetObject.element.setInnerHtml(html, validator: _None());
 
   @override
-  update(widgetObject, updatedRenderObject) {
-    updatedRenderObject as MarkupRenderObject;
-
+  update(widgetObject, covariant MarkupRenderObject updatedRenderObject) {
     if (html != updatedRenderObject.html) {
       widgetObject.element.setInnerHtml(
         updatedRenderObject.html,

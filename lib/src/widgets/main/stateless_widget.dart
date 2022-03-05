@@ -73,9 +73,10 @@ class StatelessWidgetRenderObject extends RenderObject {
   }
 
   @override
-  update(widgetObject, updatedRenderObject) {
-    updatedRenderObject as StatelessWidgetRenderObject;
-
+  update(
+    widgetObject,
+    covariant StatelessWidgetRenderObject updatedRenderObject,
+  ) {
     var widget = updatedRenderObject.widgetBuilder(updatedRenderObject.context);
 
     Framework.updateChildren(

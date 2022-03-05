@@ -49,9 +49,7 @@ class Overlay extends Widget {
   createRenderObject(context) => OverlayRenderObject(context);
 
   @override
-  onRenderObjectCreate(renderObject) {
-    renderObject as OverlayRenderObject;
-
+  onRenderObjectCreate(covariant OverlayRenderObject renderObject) {
     renderObject.state = OverlayState();
   }
 

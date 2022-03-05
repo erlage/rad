@@ -212,9 +212,7 @@ abstract class StatefulWidget extends Widget {
   }
 
   @override
-  onRenderObjectCreate(renderObject) {
-    renderObject as StatefulWidgetRenderObject;
-
+  onRenderObjectCreate(covariant StatefulWidgetRenderObject renderObject) {
     renderObject.initState = initState;
     renderObject.dispose = dispose;
   }

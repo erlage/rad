@@ -98,9 +98,10 @@ class GestureDetectorRenderObject extends RenderObject {
   }
 
   @override
-  update(widgetObject, updatedRenderObject) {
-    updatedRenderObject as GestureDetectorRenderObject;
-
+  update(
+    widgetObject,
+    covariant GestureDetectorRenderObject updatedRenderObject,
+  ) {
     switchProps(updatedRenderObject.props);
 
     Framework.updateChildren(
