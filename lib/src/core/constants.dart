@@ -33,7 +33,11 @@ class Props {
 
   static const transform = "transform";
 
-  // flex
+  // flex item related
+
+  static const flex = 'flex';
+
+  // flex box related
 
   static const gap = 'gap';
   static const flexWrap = 'flex-wrap';
