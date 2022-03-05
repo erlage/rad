@@ -48,6 +48,7 @@ body {
    */
 
 [data-wtype="Flex"],
+[data-wtype="Flexible"],
 [data-wtype="Align"],
 [data-wtype="Stack"],
 [data-wtype="Container"],

@@ -35,7 +35,7 @@ class Flexible extends Widget {
   const Flexible({
     this.key,
     this.styles,
-    required this.flex,
+    this.flex = 1,
     required this.child,
   });
 
