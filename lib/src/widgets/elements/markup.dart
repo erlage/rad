@@ -71,12 +71,8 @@ class MarkupRenderObject extends RenderObject {
 
 class _None implements NodeValidator {
   @override
-  bool allowsAttribute(Element element, String attributeName, String value) {
-    return true;
-  }
+  allowsElement(_) => true;
 
   @override
-  bool allowsElement(Element element) {
-    return true;
-  }
+  allowsAttribute(_, __, ___) => true;
 }
