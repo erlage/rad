@@ -50,12 +50,6 @@ class Container extends Widget {
 
   @override
   createRenderObject(context) {
-    var margin = this.margin;
-
-    if (null != margin) {
-      margin.flagContainInBoxSize = true;
-    }
-
     return ContainerRenderObject(
       child: child,
       context: context,
@@ -103,7 +97,7 @@ class ContainerRenderObject extends RenderObject {
     var margin = this.margin;
     if (null != margin) {
       margin.size = sizeProps;
-
+      margin.flagContainInBoxSize = true;
       margin.apply(widgetObject.element);
     }
 
