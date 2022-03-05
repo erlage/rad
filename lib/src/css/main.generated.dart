@@ -9,6 +9,7 @@ import 'package:rad/src/widgets/layout/align.dart';
 import 'package:rad/src/widgets/main/navigator/route.dart';
 import 'package:rad/src/widgets/elements/markup.dart';
 import 'package:rad/src/widgets/layout/positioned.dart';
+import 'package:rad/src/widgets/layout/flex.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay_entry.dart';
 import 'package:rad/src/widgets/main/navigator/navigator.dart';
@@ -64,6 +65,7 @@ final GEN_STYLES_MAIN_CSS = ""
     "    * widgets that should take as much space as possible "
     "    */ "
     "  "
+    " [data-wtype=\"$Flex\"], "
     " [data-wtype=\"$Align\"], "
     " [data-wtype=\"$Stack\"], "
     " [data-wtype=\"$Container\"], "
@@ -108,6 +110,15 @@ final GEN_STYLES_MAIN_CSS = ""
     " [data-wtype=\"$Container\"], "
     " [data-wtype=\"Target\"] { "
     "     display: block; "
+    " } "
+    "  "
+    "  "
+    " /** "
+    "    * widgets with flex display "
+    "    */ "
+    "  "
+    " [data-wtype=\"$Flex\"] { "
+    "     display: flex; "
     " } "
     "  "
     "  "

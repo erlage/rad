@@ -45,6 +45,7 @@ body {
    * widgets that should take as much space as possible
    */
 
+[data-wtype="Flex"],
 [data-wtype="Align"],
 [data-wtype="Stack"],
 [data-wtype="Container"],
@@ -89,6 +90,15 @@ body {
 [data-wtype="Container"],
 [data-wtype="Target"] {
     display: block;
+}
+
+
+/**
+   * widgets with flex display
+   */
+
+[data-wtype="Flex"] {
+    display: flex;
 }
 
 
