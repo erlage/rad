@@ -9,14 +9,18 @@ enum MeasuringUnit {
 }
 
 /// Defines [GestureDetector] behaviour
+///
 enum HitTestBehavior {
   /// Child gesture detectors will receive events and won't let them propagate to parents
+  ///
   deferToChild,
 
   /// Receive events and prevent child gesture detectors from receiving events.
+  ///
   opaque,
 
   /// All detectors that are hit will receive events.
+  ///
   translucent,
 }
 
@@ -44,17 +48,21 @@ enum MainAxisAlignment {
   end,
 
   /// Place the children as close to the middle of the main axis as possible.
+  ///
   center,
 
   /// Place the free space evenly between the children.
+  ///
   spaceBetween,
 
   /// Place the free space evenly between the children as well as half of that
   /// space before and after the first and last child.
+  ///
   spaceAround,
 
   /// Place the free space evenly between the children as well as before and
   /// after the first and last child.
+  ///
   spaceEvenly,
 }
 
@@ -72,6 +80,7 @@ enum CrossAxisAlignment {
 
   /// Place the children so that their centers align with the middle of the
   /// cross axis.
+  ///
   center,
 
   /// Require the children to fill the cross axis.
@@ -87,15 +96,16 @@ enum CrossAxisAlignment {
 /// that and allow the items to wrap as needed with this property.
 ///
 enum FlexWrap {
-  /// (default): all flex items will be on one line
+  /// All flex items will be on one line
+  /// (default)
   ///
   nowrap,
 
-  /// flex items will wrap onto multiple lines, from top to bottom.
+  /// Flex items will wrap onto multiple lines, from top to bottom.
   ///
   wrap,
 
-  /// flex items will wrap onto multiple lines from bottom to top.
+  /// Flex items will wrap onto multiple lines from bottom to top.
   ///
   wrapReverse,
 }
