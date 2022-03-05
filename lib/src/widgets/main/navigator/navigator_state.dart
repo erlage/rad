@@ -246,5 +246,11 @@ class NavigatorState {
 
   void _updateCurrentName(String name) {
     _currentName = name;
+
+    var onChangeCallback = widget.onChange;
+
+    if (null != onChangeCallback) {
+      onChangeCallback(_currentName);
+    }
   }
 }
