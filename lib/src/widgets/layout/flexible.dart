@@ -6,7 +6,23 @@ import 'package:rad/src/core/props/internal/style_props.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/classes/abstract/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/widgets/layout/column.dart';
+import 'package:rad/src/widgets/layout/expanded.dart';
+import 'package:rad/src/widgets/layout/flex.dart';
+import 'package:rad/src/widgets/layout/row.dart';
 
+/// A widget that controls how a child of a [Row], [Column], or [Flex] flexes.
+///
+/// Using a [Flexible] widget gives a child of a [Row], [Column], or [Flex]
+/// the flexibility to expand to fill the available space in the main axis
+/// (e.g., horizontally for a [Row] or vertically for a [Column]), but, unlike
+/// [Expanded], [Flexible] does not require the child to fill the available
+/// space.
+///
+/// See also:
+///
+///  * [Expanded]
+///
 class Flexible extends Widget {
   final String? key;
 

@@ -6,7 +6,32 @@ import 'package:rad/src/core/props/internal/style_props.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/classes/abstract/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/widgets/layout/align.dart';
+import 'package:rad/src/widgets/layout/center.dart';
+import 'package:rad/src/widgets/layout/column.dart';
+import 'package:rad/src/widgets/layout/row.dart';
 
+/// A widget that displays its children in a one-dimensional array.
+///
+/// The [Flex] widget allows you to control the axis along which the children are
+/// placed (horizontal or vertical). This is referred to as the _main axis_. If
+/// you know the main axis in advance, then consider using a [Row] (if it's
+/// horizontal) or [Column] (if it's vertical) instead, because that will be less
+/// verbose.
+///
+/// The [Flex] widget does not scroll (and in general it is considered an error
+/// to have more children in a [Flex] than will fit in the available room).
+///
+/// If you only have one child, then rather than using [Flex], [Row], or
+/// [Column], consider using [Align] or [Center] to position the child.
+///
+/// See also:
+///
+///  * [Row], for a version of this widget that is always horizontal.
+///  * [Column], for a version of this widget that is always vertical.
+///  * [Expanded]
+///  * [Flexible]
+///
 class Flex extends Widget {
   final String? key;
 
