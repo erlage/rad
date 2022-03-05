@@ -10,24 +10,24 @@ export 'src/core/classes/abstract/widget.dart' show Widget;
 
 export 'src/core/objects/build_context.dart' show BuildContext;
 
-export '/src/core/objects/debug_options.dart' show DebugOptions;
+export 'src/core/objects/debug_options.dart' show DebugOptions;
 
 // enums
 
-export 'package:rad/src/core/enums.dart' show HitTestBehavior;
+export 'src/core/enums.dart' show HitTestBehavior;
 
-export 'package:rad/src/core/enums.dart' show Axis;
-export 'package:rad/src/core/enums.dart' show FlexWrap;
-export 'package:rad/src/core/enums.dart' show MainAxisAlignment;
-export 'package:rad/src/core/enums.dart' show CrossAxisAlignment;
+export 'src/core/enums.dart' show Axis;
+export 'src/core/enums.dart' show FlexWrap;
+export 'src/core/enums.dart' show MainAxisAlignment;
+export 'src/core/enums.dart' show CrossAxisAlignment;
 
 // props
 
-export 'package:rad/src/core/props/margin.dart' show Margin;
+export 'src/core/props/margin.dart' show Margin;
 
-export 'package:rad/src/core/props/padding.dart' show Padding;
+export 'src/core/props/padding.dart' show Padding;
 
-export 'package:rad/src/core/props/alignment.dart' show Alignment;
+export 'src/core/props/alignment.dart' show Alignment;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +59,7 @@ export 'src/widgets/misc/gesture_detector.dart' show GestureDetector;
 // layout
 
 export 'src/widgets/layout/container.dart' show Container;
+export 'src/widgets/layout/sized_box.dart' show SizedBox;
 
 export 'src/widgets/layout/stack.dart' show Stack;
 export 'src/widgets/layout/overlay/overlay.dart' show Overlay;
@@ -72,5 +73,5 @@ export 'src/widgets/layout/flex.dart' show Flex;
 export 'src/widgets/layout/row.dart' show Row;
 export 'src/widgets/layout/column.dart' show Column;
 
-export 'package:rad/src/widgets/layout/flexible.dart' show Flexible;
-export 'package:rad/src/widgets/layout/expanded.dart' show Expanded;
+export 'src/widgets/layout/flexible.dart' show Flexible;
+export 'src/widgets/layout/expanded.dart' show Expanded;

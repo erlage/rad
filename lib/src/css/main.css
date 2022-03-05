@@ -21,6 +21,7 @@ body {
    * Widgets that can have padding and/or border
    */
 
+[data-wtype="SizedBox"],
 [data-wtype="Container"] {
     box-sizing: border-box;
 }
@@ -31,6 +32,7 @@ body {
    * i.e widget's inner content will not be scrollable
    */
 
+[data-wtype="SizedBox"],
 [data-wtype="Container"],
 [data-wtype="Stack"],
 [data-wtype="Align"],
@@ -90,6 +92,15 @@ body {
 [data-wtype="Container"],
 [data-wtype="Target"] {
     display: block;
+}
+
+
+/**
+   * widgets with infline-block display
+   */
+
+[data-wtype="SizedBox"] {
+    display: inline-block;
 }
 
 

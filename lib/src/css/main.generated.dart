@@ -3,6 +3,7 @@
 // auto-generated. please don't edit this file
 
 import 'package:rad/src/widgets/elements/text.dart';
+import 'package:rad/src/widgets/layout/sized_box.dart';
 import 'package:rad/src/widgets/layout/container.dart';
 import 'package:rad/src/widgets/layout/stack.dart';
 import 'package:rad/src/widgets/layout/align.dart';
@@ -41,6 +42,7 @@ final GEN_STYLES_MAIN_CSS = ""
     "    * Widgets that can have padding and/or border "
     "    */ "
     "  "
+    " [data-wtype=\"$SizedBox\"], "
     " [data-wtype=\"$Container\"] { "
     "     box-sizing: border-box; "
     " } "
@@ -51,6 +53,7 @@ final GEN_STYLES_MAIN_CSS = ""
     "    * i.e widget's inner content will not be scrollable "
     "    */ "
     "  "
+    " [data-wtype=\"$SizedBox\"], "
     " [data-wtype=\"$Container\"], "
     " [data-wtype=\"$Stack\"], "
     " [data-wtype=\"$Align\"], "
@@ -110,6 +113,15 @@ final GEN_STYLES_MAIN_CSS = ""
     " [data-wtype=\"$Container\"], "
     " [data-wtype=\"Target\"] { "
     "     display: block; "
+    " } "
+    "  "
+    "  "
+    " /** "
+    "    * widgets with infline-block display "
+    "    */ "
+    "  "
+    " [data-wtype=\"$SizedBox\"] { "
+    "     display: inline-block; "
     " } "
     "  "
     "  "
