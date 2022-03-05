@@ -1,7 +1,6 @@
 A simple click testing demo using Rad:
 ```dart
 import 'package:rad/rad.dart';
-import 'package:rad/widgets.dart';
 
 void main() {
   RadApp(
