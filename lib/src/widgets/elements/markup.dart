@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
@@ -28,7 +30,7 @@ class MarkUp extends Widget {
   });
 
   @override
-  DomTag get tag => DomTag.span;
+  DomTag get tag => DomTag.div;
 
   @override
   String get type => (MarkUp).toString();
@@ -51,14 +53,30 @@ class MarkupRenderObject extends RenderObject {
   }) : super(context);
 
   @override
-  render(widgetObject) => widgetObject.element.innerHtml = html;
+  render(widgetObject) =>
+      widgetObject.element.setInnerHtml(html, validator: _None());
 
   @override
   update(widgetObject, updatedRenderObject) {
     updatedRenderObject as MarkupRenderObject;
 
     if (html != updatedRenderObject.html) {
-      widgetObject.element.innerHtml = updatedRenderObject.html;
+      widgetObject.element.setInnerHtml(
+        updatedRenderObject.html,
+        validator: _None(),
+      );
     }
+  }
+}
+
+class _None implements NodeValidator {
+  @override
+  bool allowsAttribute(Element element, String attributeName, String value) {
+    return true;
+  }
+
+  @override
+  bool allowsElement(Element element) {
+    return true;
   }
 }
