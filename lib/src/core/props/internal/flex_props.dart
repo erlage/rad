@@ -5,9 +5,9 @@ import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/constants.dart';
 
 class FlexProps {
-  double? gap;
-
   Axis axis;
+
+  double? gap;
 
   FlexWrap flexWrap;
 
