@@ -58,12 +58,16 @@ export 'src/widgets/misc/gesture_detector.dart' show GestureDetector;
 
 // layout
 
-export 'src/widgets/layout/row.dart' show Row;
-export 'src/widgets/layout/flex.dart' show Flex;
-export 'src/widgets/layout/stack.dart' show Stack;
-export 'src/widgets/layout/align.dart' show Align;
-export 'src/widgets/layout/center.dart' show Center;
 export 'src/widgets/layout/container.dart' show Container;
-export 'src/widgets/layout/positioned.dart' show Positioned;
+
+export 'src/widgets/layout/stack.dart' show Stack;
 export 'src/widgets/layout/overlay/overlay.dart' show Overlay;
 export 'src/widgets/layout/overlay/overlay_entry.dart' show OverlayEntry;
+
+export 'src/widgets/layout/align.dart' show Align;
+export 'src/widgets/layout/center.dart' show Center;
+export 'src/widgets/layout/positioned.dart' show Positioned;
+
+export 'src/widgets/layout/flex.dart' show Flex;
+export 'src/widgets/layout/row.dart' show Row;
+export 'src/widgets/layout/column.dart' show Column;
