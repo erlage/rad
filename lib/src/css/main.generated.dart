@@ -7,6 +7,7 @@ import 'package:rad/src/widgets/layout/container.dart';
 import 'package:rad/src/widgets/layout/stack.dart';
 import 'package:rad/src/widgets/layout/align.dart';
 import 'package:rad/src/widgets/main/navigator/route.dart';
+import 'package:rad/src/widgets/elements/markup.dart';
 import 'package:rad/src/widgets/layout/positioned.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay_entry.dart';
@@ -53,6 +54,7 @@ final GEN_STYLES_MAIN_CSS = ""
     " [data-wtype=\"$Stack\"], "
     " [data-wtype=\"$Align\"], "
     " [data-wtype=\"$Route\"], "
+    " [data-wtype=\"$MarkUp\"], "
     " [data-wtype=\"$Positioned\"] { "
     "     overflow: hidden; "
     " } "
@@ -79,6 +81,7 @@ final GEN_STYLES_MAIN_CSS = ""
     " [data-wtype=\"$StatefulWidget\"], "
     " [data-wtype=\"$StatelessWidget\"], "
     " [data-wtype=\"$GestureDetector\"], "
+    " [data-wtype=\"$MarkUp\"], "
     "  "
     " /*  "
     "  target is not a widget it refers to the div where app is mounted "
