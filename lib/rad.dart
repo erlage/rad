@@ -58,6 +58,7 @@ export 'src/widgets/misc/gesture_detector.dart' show GestureDetector;
 
 // layout
 
+export 'src/widgets/layout/row.dart' show Row;
 export 'src/widgets/layout/flex.dart' show Flex;
 export 'src/widgets/layout/stack.dart' show Stack;
 export 'src/widgets/layout/align.dart' show Align;
