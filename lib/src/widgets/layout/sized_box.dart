@@ -26,9 +26,9 @@ class SizedBox extends Widget {
     this.key,
     this.styles,
     this.child,
+    this.sizeUnit,
     required this.width,
     required this.height,
-    required this.sizeUnit,
   });
 
   /// Creates a box that will become as small as its parent allows.
