@@ -16,6 +16,8 @@ export 'src/core/objects/debug_options.dart' show DebugOptions;
 
 export 'src/core/enums.dart' show HitTestBehavior;
 
+export 'src/core/enums.dart' show MeasuringUnit;
+
 export 'src/core/enums.dart' show Axis;
 export 'src/core/enums.dart' show FlexWrap;
 export 'src/core/enums.dart' show MainAxisAlignment;
