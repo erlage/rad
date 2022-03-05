@@ -32,4 +32,12 @@ class Props {
   static const marginLeft = "margin-left";
 
   static const transform = "transform";
+
+  // flex
+
+  static const gap = 'gap';
+  static const flexWrap = 'flex-wrap';
+  static const alignItems = 'align-items';
+  static const flexDirection = 'flex-direction';
+  static const justifyContent = 'justify-content';
 }
