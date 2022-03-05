@@ -73,3 +73,4 @@ export 'src/widgets/layout/row.dart' show Row;
 export 'src/widgets/layout/column.dart' show Column;
 
 export 'package:rad/src/widgets/layout/flexible.dart' show Flexible;
+export 'package:rad/src/widgets/layout/expanded.dart' show Expanded;
