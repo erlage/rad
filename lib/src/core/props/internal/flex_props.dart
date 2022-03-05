@@ -70,7 +70,7 @@ class FlexProps {
 
     element.style.setProperty(
       Props.flexDirection,
-      Utils.mapAxis(props.axis),
+      Utils.mapAxisForFlex(props.axis),
     );
 
     element.style.setProperty(

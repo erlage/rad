@@ -36,6 +36,70 @@ class Utils {
     }
   }
 
+  static String mapAxisForFlex(Axis axis) {
+    switch (axis) {
+      case Axis.horizontal:
+        return "row";
+
+      case Axis.vertical:
+        return "column";
+    }
+  }
+
+  static String mapFlexWrap(FlexWrap flexWrap) {
+    switch (flexWrap) {
+      case FlexWrap.nowrap:
+        return "nowrap";
+
+      case FlexWrap.wrap:
+        return "wrap";
+
+      case FlexWrap.wrapReverse:
+        return "wrap-reverse";
+    }
+  }
+
+  static String mapMainAxisAlignment(MainAxisAlignment mainAxisAlignment) {
+    switch (mainAxisAlignment) {
+      case MainAxisAlignment.start:
+        return "flex-start";
+
+      case MainAxisAlignment.end:
+        return "flex-end";
+
+      case MainAxisAlignment.center:
+        return "center";
+
+      case MainAxisAlignment.spaceBetween:
+        return "space-between";
+
+      case MainAxisAlignment.spaceAround:
+        return "space-around";
+
+      case MainAxisAlignment.spaceEvenly:
+        return "space-evenly";
+    }
+  }
+
+  static String mapCrossAxisAlignment(CrossAxisAlignment crossAxisAlignment) {
+    switch (crossAxisAlignment) {
+      case CrossAxisAlignment.baseline:
+        return "baseline";
+
+      case CrossAxisAlignment.start:
+        return "flex-start";
+
+      case CrossAxisAlignment.end:
+        return "flex-end";
+
+      case CrossAxisAlignment.center:
+        return "center";
+
+      case CrossAxisAlignment.stretch:
+        return "stretch";
+    }
+  }
+
   static String random([int length = 6]) {
     var cSet = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 
