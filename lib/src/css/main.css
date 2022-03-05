@@ -86,17 +86,9 @@ body {
 [data-wtype="StatelessWidget"],
 [data-wtype="GestureDetector"],
 [data-wtype="Overlay"],
+[data-wtype="Container"],
 [data-wtype="Target"] {
     display: block;
-}
-
-
-/**
-   * widgets with flex display
-   */
-
-[data-wtype="Container"] {
-    display: flex;
 }
 
 
