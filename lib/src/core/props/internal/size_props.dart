@@ -3,6 +3,9 @@ import 'dart:html';
 import 'package:rad/src/core/constants.dart';
 
 class SizeProps {
+  String? margin;
+  String? padding;
+
   String? width;
   String? height;
   String? size;
@@ -38,14 +41,20 @@ class SizeProps {
   */
 
   bool _isChanged(SizeProps props) {
-    return size != props.size || width != props.width || height != props.height;
+    return size != props.size ||
+        width != props.width ||
+        height != props.height ||
+        margin != props.margin ||
+        padding != props.padding;
   }
 
   void _switchProps(SizeProps props) {
     this
       ..size = props.size
       ..width = props.width
-      ..height = props.height;
+      ..height = props.height
+      ..margin = props.margin
+      ..padding = props.padding;
   }
 
   // statics
@@ -74,6 +83,14 @@ class SizeProps {
         element.style.setProperty(Props.height, props.height);
       }
     }
+
+    if (null != props.margin) {
+      element.style.setProperty(Props.margin, props.margin);
+    }
+
+    if (null != props.padding) {
+      element.style.setProperty(Props.padding, props.padding);
+    }
   }
 
   static void _clearProps(HtmlElement element, SizeProps props) {
@@ -99,6 +116,14 @@ class SizeProps {
       if (null != props.height) {
         element.style.removeProperty(Props.height);
       }
+    }
+
+    if (null != props.margin) {
+      element.style.removeProperty(Props.margin);
+    }
+
+    if (null != props.padding) {
+      element.style.removeProperty(Props.padding);
     }
   }
 }
