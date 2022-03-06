@@ -25,6 +25,7 @@ class Spacer extends Expanded {
     int flex = 1,
   }) : super(
           key: key,
+          flex: flex,
           child: SizedBox.shrink(),
         );
 }
