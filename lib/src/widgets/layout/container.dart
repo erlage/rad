@@ -3,8 +3,6 @@ import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/props/internal/size_props.dart';
 import 'package:rad/src/core/props/internal/style_props.dart';
-import 'package:rad/src/core/props/margin.dart';
-import 'package:rad/src/core/props/padding.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/classes/abstract/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
@@ -23,14 +21,15 @@ class Container extends Widget {
 
   final Widget child;
 
+  // size props
+
   final String? size;
   final String? width;
   final String? height;
+  final String? margin;
+  final String? padding;
 
   final String? styles;
-
-  final Margin? margin;
-  final Padding? padding;
 
   const Container({
     this.key,
@@ -57,10 +56,14 @@ class Container extends Widget {
     return ContainerRenderObject(
       child: child,
       context: context,
-      margin: margin,
-      padding: padding,
       styleProps: StyleProps(styles),
-      sizeProps: SizeProps(size: size, width: width, height: height),
+      sizeProps: SizeProps(
+        size: size,
+        width: width,
+        height: height,
+        margin: margin,
+        padding: padding,
+      ),
     );
   }
 }
@@ -71,13 +74,8 @@ class ContainerRenderObject extends RenderObject {
   final SizeProps sizeProps;
   final StyleProps styleProps;
 
-  final Margin? margin;
-  final Padding? padding;
-
   ContainerRenderObject({
     required this.child,
-    required this.margin,
-    required this.padding,
     required this.sizeProps,
     required this.styleProps,
     required BuildContext context,
@@ -88,16 +86,6 @@ class ContainerRenderObject extends RenderObject {
     sizeProps.apply(widgetObject.element);
 
     styleProps.apply(widgetObject.element);
-
-    var padding = this.padding;
-    if (null != padding) {
-      padding.apply(widgetObject.element);
-    }
-
-    var margin = this.margin;
-    if (null != margin) {
-      margin.apply(widgetObject.element);
-    }
 
     Framework.buildChildren(
       widgets: [child],
@@ -110,16 +98,6 @@ class ContainerRenderObject extends RenderObject {
     sizeProps.apply(widgetObject.element, updatedRenderObject.sizeProps);
 
     styleProps.apply(widgetObject.element, updatedRenderObject.styleProps);
-
-    var padding = this.padding;
-    if (null != padding) {
-      padding.apply(widgetObject.element, updatedRenderObject.padding);
-    }
-
-    var margin = this.margin;
-    if (null != margin) {
-      margin.apply(widgetObject.element, updatedRenderObject.margin);
-    }
 
     Framework.updateChildren(
       widgets: [updatedRenderObject.child],

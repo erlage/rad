@@ -14,6 +14,8 @@ class SizeProps {
     this.size,
     this.width,
     this.height,
+    this.margin,
+    this.padding,
   });
 
   // application
