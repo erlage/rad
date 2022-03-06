@@ -4,7 +4,9 @@ class StyleProps {
   List<String> stylesList = [];
 
   StyleProps(String? styles) {
-    stylesList.addAll(null != styles ? styles.split(" ") : []);
+    if (null != styles && styles.trim().isNotEmpty) {
+      stylesList.addAll(styles.split(" "));
+    }
   }
 
   // application
