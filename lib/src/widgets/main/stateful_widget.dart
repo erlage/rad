@@ -264,9 +264,11 @@ class StatefulWidgetRenderObject extends RenderObject {
     WidgetObject widgetObject,
     covariant StatefulWidgetRenderObject updatedRenderObject,
   ) {
-    var widget = widgetBuilder(context);
+    if (rebuildOnUpdate()) {
+      var widget = widgetBuilder(context);
 
-    Framework.updateChildren(widgets: [widget], parentContext: context);
+      Framework.updateChildren(widgets: [widget], parentContext: context);
+    }
   }
 
   @override
