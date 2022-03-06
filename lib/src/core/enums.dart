@@ -1,13 +1,3 @@
-/// Units of measurement
-///
-/// [MeasuringUnit.pixel] means values will be translated to px
-/// [MeasuringUnit.percent] means values will be translated to %
-///
-enum MeasuringUnit {
-  pixel,
-  percent,
-}
-
 /// Defines [GestureDetector] behaviour
 ///
 enum HitTestBehavior {

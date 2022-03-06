@@ -26,16 +26,6 @@ class Utils {
     }
   }
 
-  static String mapMeasuringUnit(MeasuringUnit unit) {
-    switch (unit) {
-      case MeasuringUnit.percent:
-        return "%";
-
-      case MeasuringUnit.pixel:
-        return "px";
-    }
-  }
-
   static String mapAxisForFlex(Axis axis) {
     switch (axis) {
       case Axis.horizontal:

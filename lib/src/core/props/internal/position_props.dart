@@ -1,24 +1,21 @@
 import 'dart:html';
 
 import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/classes/utils.dart';
 
 class PositionProps {
-  double? top;
-  double? bottom;
-  double? left;
-  double? right;
-
-  String unit;
+  String? top;
+  String? bottom;
+  String? left;
+  String? right;
+  String? position;
 
   PositionProps({
     this.top,
     this.bottom,
     this.left,
     this.right,
-    MeasuringUnit? positionUnit,
-  }) : unit = Utils.mapMeasuringUnit(positionUnit ?? MeasuringUnit.pixel);
+    this.position,
+  });
 
   /// Apply props.
   ///
@@ -47,7 +44,7 @@ class PositionProps {
         bottom != props.bottom ||
         right != props.right ||
         left != props.left ||
-        unit != props.unit;
+        position != props.position;
   }
 
   void _switchProps(PositionProps props) {
@@ -56,44 +53,84 @@ class PositionProps {
       ..bottom = props.bottom
       ..left = props.left
       ..right = props.right
-      ..unit = props.unit;
+      ..position = props.position;
   }
 
   // statics
 
   static void _applyProps(HtmlElement element, PositionProps props) {
-    if (null != props.top) {
-      element.style.setProperty(Props.top, "${props.top}${props.unit}");
-    }
+    var position = props.position;
 
-    if (null != props.bottom) {
-      element.style.setProperty(Props.bottom, "${props.bottom}${props.unit}");
-    }
+    if (null != position && position.isNotEmpty) {
+      var positionProps = position.split(" ");
 
-    if (null != props.left) {
-      element.style.setProperty(Props.left, "${props.left}${props.unit}");
-    }
+      var propertyList = [Props.top, Props.right, Props.bottom, Props.left];
 
-    if (null != props.right) {
-      element.style.setProperty(Props.right, "${props.right}${props.unit}");
+      for (var property in propertyList) {
+        var propertyIndex = propertyList.indexOf(property);
+
+        if (positionProps.length > propertyIndex) {
+          var propValue = positionProps.elementAt(propertyIndex);
+
+          if ("unset" != propValue) {
+            element.style.setProperty(property, propValue);
+          }
+        }
+      }
+    } else {
+      if (null != props.top) {
+        element.style.setProperty(Props.top, props.top);
+      }
+
+      if (null != props.bottom) {
+        element.style.setProperty(Props.bottom, props.bottom);
+      }
+
+      if (null != props.left) {
+        element.style.setProperty(Props.left, props.left);
+      }
+
+      if (null != props.right) {
+        element.style.setProperty(Props.right, props.right);
+      }
     }
   }
 
   static void _clearProps(HtmlElement element, PositionProps props) {
-    if (null != props.top) {
-      element.style.removeProperty(Props.top);
-    }
+    var position = props.position;
 
-    if (null != props.bottom) {
-      element.style.removeProperty(Props.bottom);
-    }
+    if (null != position && position.isNotEmpty) {
+      var positionProps = position.split(" ");
 
-    if (null != props.left) {
-      element.style.removeProperty(Props.left);
-    }
+      var propertyList = [Props.top, Props.right, Props.bottom, Props.left];
 
-    if (null != props.right) {
-      element.style.removeProperty(Props.right);
+      for (var property in propertyList) {
+        var propertyIndex = propertyList.indexOf(property);
+
+        if (positionProps.length > propertyIndex) {
+          var propValue = positionProps.elementAt(propertyIndex);
+
+          if ("unset" != propValue) {
+            element.style.removeProperty(property);
+          }
+        }
+      }
+    } else {
+      if (null != props.top) {
+        element.style.removeProperty(Props.top);
+      }
+
+      if (null != props.bottom) {
+        element.style.removeProperty(Props.bottom);
+      }
+
+      if (null != props.left) {
+        element.style.removeProperty(Props.left);
+      }
+
+      if (null != props.right) {
+        element.style.removeProperty(Props.right);
+      }
     }
   }
 }

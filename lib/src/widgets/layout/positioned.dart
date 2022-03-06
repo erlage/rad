@@ -14,11 +14,11 @@ import 'package:rad/src/core/objects/render_object.dart';
 class Positioned extends Widget {
   final String? key;
 
-  final double? top;
-  final double? bottom;
-  final double? left;
-  final double? right;
-  final MeasuringUnit? positionUnit;
+  final String? top;
+  final String? bottom;
+  final String? left;
+  final String? right;
+  final String? position;
 
   final String? size;
   final String? width;
@@ -32,22 +32,22 @@ class Positioned extends Widget {
     this.bottom,
     this.left,
     this.right,
+    this.position,
     this.size,
     this.width,
     this.height,
-    this.positionUnit,
     required this.child,
   });
 
-  /// Creates a Positioned object with [width] and [height] set
-  /// to 100.
+  /// Creats a full sized Positioned widget.
+  ///
   Positioned.filled({
     this.key,
     this.top,
     this.bottom,
     this.left,
     this.right,
-    this.positionUnit,
+    this.position,
     required this.child,
   })  : size = '0px 0px',
         width = null,
@@ -73,7 +73,7 @@ class Positioned extends Widget {
         bottom: bottom,
         left: left,
         right: right,
-        positionUnit: positionUnit,
+        position: position,
       ),
     );
   }
