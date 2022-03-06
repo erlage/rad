@@ -31,6 +31,10 @@ export 'src/core/props/padding.dart' show Padding;
 
 export 'src/core/props/alignment.dart' show Alignment;
 
+// states
+
+export 'src/widgets/main/navigator/navigator_state.dart' show NavigatorState;
+
 /*
 |--------------------------------------------------------------------------
 | widgets
