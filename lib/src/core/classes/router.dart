@@ -309,7 +309,7 @@ class Router {
 
     if (null == parentObject) throw System.coreError;
 
-    var segments = [...parentObject.segments, parentState.currentName];
+    var segments = [...parentObject.segments, parentState.currentRouteName];
 
     _routeObjects[context.key] = NavigatorRouteObject(
       context: context,

@@ -18,7 +18,7 @@ class NavigatorState {
   // Name of the active route. Route, that's currently on top of
   /// Navigator stack.
   ///
-  String get currentName => _currentName;
+  String get currentRouteName => _currentName;
 
   late final Navigator widget;
   late final BuildContext context;
@@ -64,7 +64,7 @@ class NavigatorState {
     var cleanedName = traverseAncestors ? name.substring(3) : name;
 
     // if already on same page
-    if (currentName == cleanedName) {
+    if (currentRouteName == cleanedName) {
       return;
     }
 
