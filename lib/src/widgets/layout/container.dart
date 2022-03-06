@@ -24,9 +24,8 @@ class Container extends Widget {
   final Widget child;
 
   final String? size;
-  final double? width;
-  final double? height;
-  final MeasuringUnit? sizeUnit;
+  final String? width;
+  final String? height;
 
   final String? styles;
 
@@ -39,7 +38,6 @@ class Container extends Widget {
     this.size,
     this.width,
     this.height,
-    this.sizeUnit,
     this.margin,
     this.padding,
     required this.child,
@@ -62,12 +60,7 @@ class Container extends Widget {
       margin: margin,
       padding: padding,
       styleProps: StyleProps(styles),
-      sizeProps: SizeProps(
-        size: size,
-        width: width,
-        height: height,
-        sizeUnit: sizeUnit,
-      ),
+      sizeProps: SizeProps(size: size, width: width, height: height),
     );
   }
 }
@@ -103,8 +96,6 @@ class ContainerRenderObject extends RenderObject {
 
     var margin = this.margin;
     if (null != margin) {
-      margin.size = sizeProps;
-      margin.flagContainInBoxSize = true;
       margin.apply(widgetObject.element);
     }
 
@@ -127,8 +118,6 @@ class ContainerRenderObject extends RenderObject {
 
     var margin = this.margin;
     if (null != margin) {
-      margin.size = updatedRenderObject.sizeProps;
-
       margin.apply(widgetObject.element, updatedRenderObject.margin);
     }
 

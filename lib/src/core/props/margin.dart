@@ -2,7 +2,6 @@ import "dart:html";
 
 import "package:rad/src/core/enums.dart";
 import "package:rad/src/core/constants.dart";
-import 'package:rad/src/core/props/internal/size_props.dart';
 
 /// Margin property object.
 ///
@@ -13,17 +12,6 @@ class Margin {
   double bottom;
   double left;
   double right;
-
-  /// Whether margin has to be included in box"s size
-  ///
-  bool flagContainInBoxSize = false;
-
-  /// Size props of box.
-  ///
-  /// Used when [flagContainInBoxSize] true. Because for including margin
-  /// into the box size we must know the exact size of box.
-  ///
-  late SizeProps size;
 
   /// Margin around an element.
   ///
@@ -71,13 +59,13 @@ class Margin {
   ///
   void apply(HtmlElement element, [Margin? updatedMargin]) {
     if (null == updatedMargin) {
-      return _applyMargin(element, this, size);
+      return _applyMargin(element, this);
     }
 
     if (_isChanged(updatedMargin)) {
       _clearMargin(element, this);
       _updateMargin(updatedMargin);
-      _applyMargin(element, this, size);
+      _applyMargin(element, this);
     }
   }
 
@@ -105,7 +93,7 @@ class Margin {
 
   // statics
 
-  static void _applyMargin(HtmlElement element, Margin margin, SizeProps size) {
+  static void _applyMargin(HtmlElement element, Margin margin) {
     switch (margin.type) {
       case MarginType.only:
         if (margin.top != 0.0) {
@@ -135,25 +123,6 @@ class Margin {
         );
 
         break;
-    }
-
-    // contain margin in box size by reducing box size
-
-    if (margin.flagContainInBoxSize) {
-      // get box width and height values
-
-      var width = null != size.width ? "${size.width}${size.unit}" : "100%";
-      var height = null != size.height ? "${size.height}${size.unit}" : "100%";
-
-      element.style.setProperty(
-        Props.width,
-        "calc($width - ${(margin.left + margin.right)}px)",
-      );
-
-      element.style.setProperty(
-        Props.height,
-        "calc($height - ${(margin.top + margin.bottom)}px)",
-      );
     }
   }
 

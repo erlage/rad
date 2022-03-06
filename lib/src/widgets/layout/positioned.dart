@@ -21,9 +21,8 @@ class Positioned extends Widget {
   final MeasuringUnit? positionUnit;
 
   final String? size;
-  final double? width;
-  final double? height;
-  final MeasuringUnit? sizeUnit;
+  final String? width;
+  final String? height;
 
   final Widget child;
 
@@ -36,7 +35,6 @@ class Positioned extends Widget {
     this.size,
     this.width,
     this.height,
-    this.sizeUnit,
     this.positionUnit,
     required this.child,
   });
@@ -53,8 +51,7 @@ class Positioned extends Widget {
     required this.child,
   })  : size = '0px 0px',
         width = null,
-        height = null,
-        sizeUnit = null;
+        height = null;
 
   @override
   DomTag get tag => DomTag.div;
@@ -70,12 +67,7 @@ class Positioned extends Widget {
     return PositionedRenderObject(
       child: child,
       context: context,
-      sizeProps: SizeProps(
-        size: size,
-        width: width,
-        height: height,
-        sizeUnit: sizeUnit,
-      ),
+      sizeProps: SizeProps(size: size, width: width, height: height),
       posProps: PositionProps(
         top: top,
         bottom: bottom,

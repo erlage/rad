@@ -1,23 +1,17 @@
 import 'dart:html';
 
-import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/classes/utils.dart';
 
 class SizeProps {
-  double? width;
-  double? height;
-
+  String? width;
+  String? height;
   String? size;
-
-  String unit;
 
   SizeProps({
     this.size,
     this.width,
     this.height,
-    MeasuringUnit? sizeUnit,
-  }) : unit = Utils.mapMeasuringUnit(sizeUnit ?? MeasuringUnit.pixel);
+  });
 
   // application
 
@@ -44,18 +38,14 @@ class SizeProps {
   */
 
   bool _isChanged(SizeProps props) {
-    return size != props.size ||
-        width != props.width ||
-        height != props.height ||
-        unit != props.unit;
+    return size != props.size || width != props.width || height != props.height;
   }
 
   void _switchProps(SizeProps props) {
     this
       ..size = props.size
       ..width = props.width
-      ..height = props.height
-      ..unit = props.unit;
+      ..height = props.height;
   }
 
   // statics
@@ -77,11 +67,11 @@ class SizeProps {
       }
     } else {
       if (null != props.width) {
-        element.style.setProperty(Props.width, "${props.width}${props.unit}");
+        element.style.setProperty(Props.width, props.width);
       }
 
       if (null != props.height) {
-        element.style.setProperty(Props.height, "${props.height}${props.unit}");
+        element.style.setProperty(Props.height, props.height);
       }
     }
   }
