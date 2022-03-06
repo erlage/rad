@@ -63,6 +63,11 @@ class NavigatorState {
 
     var cleanedName = traverseAncestors ? name.substring(3) : name;
 
+    // if already on same page
+    if (currentName == cleanedName) {
+      return;
+    }
+
     // if current navigator doesn't have a matching '$name' route
 
     if (!nameToPathMap.containsKey(cleanedName)) {
