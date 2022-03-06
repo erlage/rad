@@ -110,31 +110,3 @@ enum DomTag {
   div,
   span,
 }
-
-/// Type of margin.
-///
-/// Setting margin to zero can be problem in some layouts. Therefore
-/// we try to set only side whos values are provided by the user. Remaining
-/// sides are ignored.
-///
-enum MarginType {
-  only,
-  symmetric,
-  allSame,
-  allDifferent,
-}
-
-/// Type of padding.
-///
-enum PaddingType {
-  only,
-  symmetric,
-  allSame,
-  allDifferent,
-}
-
-/// Type of route entry.
-///
-enum RouterStackEntryType {
-  push,
-}
