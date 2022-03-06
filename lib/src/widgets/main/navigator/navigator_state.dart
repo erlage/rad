@@ -252,10 +252,10 @@ class NavigatorState {
   void _updateCurrentName(String name) {
     _currentName = name;
 
-    var onChangeCallback = widget.onChange;
+    var onRouteChangeCallback = widget.onRouteChange;
 
-    if (null != onChangeCallback) {
-      onChangeCallback(_currentName);
+    if (null != onRouteChangeCallback) {
+      onRouteChangeCallback(_currentName);
     }
   }
 }
