@@ -171,3 +171,12 @@ body {
     display: none!important;
     visibility: hidden!important;
 }
+
+
+/**
+   * widgets having pointer cursor
+   */
+
+[data-wtype="GestureDetector"] {
+    cursor: pointer;
+}
