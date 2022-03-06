@@ -278,17 +278,17 @@ class Router {
 
         if (navigatorState.isPageStacked(name: entry.name)) {
           if (Debug.routerLogs) {
-            print("Router: onPopState: pop-until: ${entry.name}");
+            print("Router: onPopState: open: ${entry.name}");
           }
 
-          navigatorState.popUntil(name: entry.name);
+          navigatorState.open(name: entry.name, updateHistory: false);
           //
         } else {
           if (Debug.routerLogs) {
-            print("Router: onPopState: synthetic-push: ${entry.name}");
+            print("Router: onPopState: synthetic-open: ${entry.name}");
           }
 
-          navigatorState.push(
+          navigatorState.open(
             name: entry.name,
             values: entry.values,
             updateHistory: false,

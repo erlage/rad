@@ -24,7 +24,8 @@ class NavigatorState {
   late final BuildContext context;
   late final WidgetObject widgetObject;
 
-  final _stack = <String>[];
+  final _activeStack = <String>[];
+  final _historyStack = <String>[];
 
   /// Route name to route path map.
   ///
@@ -40,18 +41,18 @@ class NavigatorState {
   |--------------------------------------------------------------------------
   */
 
-  /// Push a page on Navigator's stack.
+  /// Open a page on Navigator's stack.
   ///
-  /// Please note that if a Page with same name already exists, it'll push that to top
+  /// Please note that if a Page with same name already exists, it'll bring that to top
   /// rather than creating new one.
   ///
   /// Will throw exception if Navigator doesn't have a route with the provided name.
   ///
   /// If [name] is prefixed with a forward slash '/', and if current navigator doesn't have
-  /// a matching named route, then it'll delegate push to a parent navigator(if exists). If
-  /// there are no navigator in ancestors, it'll throw an exception.
+  /// a matching named route, then it'll delegate open call to a parent navigator(if exists).
+  /// If there are no navigator in ancestors, it'll throw an exception.
   ///
-  void push({
+  void open({
     String? values,
     required String name,
     bool updateHistory = true,
@@ -84,7 +85,7 @@ class NavigatorState {
           throw "Route named '$cleanedName' not defined. Make sure you've declared a named route '$cleanedName' in Navigator's routes.";
         }
 
-        parent.push(name: name, values: values);
+        parent.open(name: name, values: values);
 
         return;
       }
@@ -95,6 +96,8 @@ class NavigatorState {
     // if already in stack
 
     if (isPageStacked(name: cleanedName)) {
+      _historyStack.add(cleanedName);
+
       Framework.manageChildren(
         parentContext: context,
         flagIterateInReverseOrder: true,
@@ -120,7 +123,7 @@ class NavigatorState {
 
       if (null == page) throw System.coreError;
 
-      _stack.add(name);
+      _activeStack.add(name);
 
       Framework.buildChildren(
         widgets: [page],
@@ -139,7 +142,7 @@ class NavigatorState {
 
   /// Whether current active stack contains a route with matching [name].
   ///
-  bool isPageStacked({required String name}) => _stack.contains(name);
+  bool isPageStacked({required String name}) => _activeStack.contains(name);
 
   /// Whether navigator can pop a page from stack.
   ///
@@ -147,31 +150,40 @@ class NavigatorState {
   /// calling [canPop] on a Navigator, that has one entry, will return
   /// false.
   ///
-  bool canPop() => _stack.length > 1;
+  bool canPop() => _activeStack.length > 1;
 
   /// Pop the most recent page from Navigator's stack.
   ///
   void pop() {
-    _stack.removeLast();
+    var nameToRemove = _historyStack.removeLast();
 
-    _updateCurrentName(_stack.last);
+    _activeStack.remove(nameToRemove);
+
+    _updateCurrentName(_historyStack.last);
+
+    // dispose page
 
     Framework.manageChildren(
       parentContext: context,
       flagIterateInReverseOrder: true,
-      widgetActionCallback: (_) => [
-        WidgetAction.dispose,
-        WidgetAction.skipRest,
-      ],
-    );
-  }
+      widgetActionCallback: (WidgetObject widgetObject) {
+        var routeName =
+            widgetObject.element.dataset[System.attrRouteName] ?? "";
 
-  /// Pop routes until a route with matching [name] is on top.
-  ///
-  void popUntil({required String name}) {
-    while (canPop() && currentName != name) {
-      pop();
-    }
+        if (nameToRemove == routeName) {
+          return [
+            WidgetAction.dispose,
+            WidgetAction.skipRest,
+          ];
+        }
+
+        return [];
+      },
+    );
+
+    // make sure last pused route is now visible
+
+    open(name: _historyStack.last);
   }
 
   /// Get value from URL following the provided segment.
@@ -230,7 +242,7 @@ class NavigatorState {
       onInitCallback(this);
     }
 
-    push(name: name, updateHistory: false);
+    open(name: name, updateHistory: false);
   }
 
   /// Dispose handle.
