@@ -15,6 +15,6 @@ typedef WidgetBuilderCallback = Widget Function(BuildContext context);
 
 typedef WidgetObjectCallback = bool Function(WidgetObject widgetObject);
 
-typedef RouteNameCallback = void Function(String name);
+typedef NavigatorRouteChangeCallback = void Function(String name);
 
 typedef NavigatorStateCallback = void Function(NavigatorState state);

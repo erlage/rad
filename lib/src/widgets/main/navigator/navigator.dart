@@ -12,9 +12,9 @@ import 'package:rad/src/widgets/main/navigator/route.dart';
 class Navigator extends Widget {
   final String? key;
 
-  final RouteNameCallback? onChange;
-
   final NavigatorStateCallback? onInit;
+
+  final NavigatorRouteChangeCallback? onChange;
 
   final List<Route> routes;
 
