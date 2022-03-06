@@ -78,6 +78,7 @@ export 'src/widgets/layout/positioned.dart' show Positioned;
 export 'src/widgets/layout/flex.dart' show Flex;
 export 'src/widgets/layout/row.dart' show Row;
 export 'src/widgets/layout/column.dart' show Column;
+export 'src/widgets/layout/spacer.dart' show Spacer;
 
 export 'src/widgets/layout/flexible.dart' show Flexible;
 export 'src/widgets/layout/expanded.dart' show Expanded;
