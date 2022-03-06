@@ -18,9 +18,11 @@ import 'package:rad/src/core/classes/abstract/widget.dart';
 ///
 class Expanded extends Flexible {
   Expanded({
+    String? key,
     int flex = 1,
     required Widget child,
   }) : super(
+          key: key,
           flex: flex,
           child: child,
         );
