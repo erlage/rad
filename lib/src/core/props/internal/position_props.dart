@@ -72,7 +72,7 @@ class PositionProps {
         if (positionProps.length > propertyIndex) {
           var propValue = positionProps.elementAt(propertyIndex);
 
-          if ("unset" != propValue) {
+          if ("_" != propValue) {
             element.style.setProperty(property, propValue);
           }
         }
@@ -110,7 +110,7 @@ class PositionProps {
         if (positionProps.length > propertyIndex) {
           var propValue = positionProps.elementAt(propertyIndex);
 
-          if ("unset" != propValue) {
+          if ("_" != propValue) {
             element.style.removeProperty(property);
           }
         }

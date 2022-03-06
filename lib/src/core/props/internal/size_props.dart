@@ -68,7 +68,7 @@ class SizeProps {
       var sizeProps = size.split(" ");
 
       if (sizeProps.isNotEmpty) {
-        if ("unset" != sizeProps.first) {
+        if ("_" != sizeProps.first) {
           element.style.setProperty(Props.width, sizeProps.first);
         }
 
@@ -102,7 +102,7 @@ class SizeProps {
       var sizeProps = size.split(" ");
 
       if (sizeProps.isNotEmpty) {
-        if ("unset" != sizeProps.first) {
+        if ("_" != sizeProps.first) {
           element.style.removeProperty(Props.width);
         }
 
