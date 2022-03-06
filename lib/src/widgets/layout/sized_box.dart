@@ -16,8 +16,8 @@ class SizedBox extends Widget {
 
   final Widget? child;
 
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final MeasuringUnit? sizeUnit;
 
   final String? styles;
@@ -27,8 +27,8 @@ class SizedBox extends Widget {
     this.styles,
     this.child,
     this.sizeUnit,
-    required this.width,
-    required this.height,
+    this.width,
+    this.height,
   });
 
   /// Creates a box that will become as small as its parent allows.
