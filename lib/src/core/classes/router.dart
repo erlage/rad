@@ -17,12 +17,6 @@ class Router {
 
   static final _initialLocation = window.location.href;
 
-  /// Tells that user will left site if they press back button once again.
-  ///
-  /// For handling [_onPopState]
-  ///
-  static var _flagUserIsLeaving = true;
-
   /// Path list: [window.location.path]
   ///
   static final _currentSegments = <String>[];
@@ -122,8 +116,6 @@ class Router {
     );
 
     _routerStack.push(entry);
-
-    _flagUserIsLeaving = false;
   }
 
   /// Get current path based on Navigator's access.
@@ -210,45 +202,6 @@ class Router {
         print("Router: onPopState: location: $location");
       }
 
-      //  if user is back on homepage
-
-      if (location == _initialLocation) {
-        //
-        // user either left or they had pressed back button
-        // after reload
-        //
-        if (_flagUserIsLeaving) {
-          window.location.reload();
-
-          return;
-        }
-
-        // flag that user will left site if they press back button once again.
-
-        if (Debug.routerLogs) {
-          print("Router: onPopState: flagged for leave: $_initialLocation");
-        }
-
-        _flagUserIsLeaving = true;
-
-        // rollback interface to initial page
-        // to go to initial page, clean page stacks of all navigators while keeping one
-        // entry at top.
-
-        for (var entry in _routerStack.entries.values.toList().reversed) {
-          var navigatorState = _stateObjects[entry.navigatorKey];
-
-          if (null != navigatorState) {
-            while (navigatorState.canPop()) {
-              navigatorState.pop();
-            }
-          }
-        }
-
-        return;
-      }
-
-      // else we're not at initial page.
       // find or manage user history entry
 
       var entry = _routerStack.get(location);
