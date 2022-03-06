@@ -15,9 +15,12 @@ import 'package:rad/src/widgets/layout/row.dart';
 ///
 /// Using a [Flexible] widget gives a child of a [Row], [Column], or [Flex]
 /// the flexibility to expand to fill the available space in the main axis
-/// (e.g., horizontally for a [Row] or vertically for a [Column]), but, unlike
-/// [Expanded], [Flexible] does not require the child to fill the available
-/// space.
+/// (e.g., horizontally for a [Row] or vertically for a [Column]).
+///
+/// Actually difference betweeok [Expanded] and [Flexible] widget is that [Flexible]
+/// widget does not require the child to fill the available space. Unfortunately this
+/// behaviour is not implemented yet, and technically, both [Expanded] and [Flexible]
+/// widgets are same in Rad.
 ///
 /// See also:
 ///

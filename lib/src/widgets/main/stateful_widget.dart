@@ -41,6 +41,12 @@ import 'package:rad/src/core/types.dart';
 /// It's responsibility of concrete implementation of [StatefulWidget]
 /// to tell framework when to rebuild the interface using [setState]
 ///
+/// There's one special hook that get's called when [setState] happens in parent tree
+/// or when Framework wants a update to widget its interface because something has changed
+/// in parent tree.
+/// By default [StatefulWidget] will ignore update calls. This can be controlled by overriding
+/// [rebuildOnUpdate] hook.
+///
 /// ## Performance consideration
 ///
 /// * A widget rebuild process involves cascading a update call to all child widgets.
