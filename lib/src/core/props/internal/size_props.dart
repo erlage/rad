@@ -67,7 +67,9 @@ class SizeProps {
       var sizeProps = size.split(" ");
 
       if (sizeProps.isNotEmpty) {
-        element.style.setProperty(Props.width, sizeProps.first);
+        if ("unset" != sizeProps.first) {
+          element.style.setProperty(Props.width, sizeProps.first);
+        }
 
         if (sizeProps.length > 1) {
           element.style.setProperty(Props.height, sizeProps[1]);
@@ -91,7 +93,9 @@ class SizeProps {
       var sizeProps = size.split(" ");
 
       if (sizeProps.isNotEmpty) {
-        element.style.removeProperty(Props.width);
+        if ("unset" != sizeProps.first) {
+          element.style.removeProperty(Props.width);
+        }
 
         if (sizeProps.length > 1) {
           element.style.removeProperty(Props.height);
