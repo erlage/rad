@@ -105,6 +105,7 @@ class NavigatorState {
           if (name == routeName) {
             return [
               WidgetAction.showWidget,
+              WidgetAction.updateWidget,
               WidgetAction.skipRest,
             ];
           }
