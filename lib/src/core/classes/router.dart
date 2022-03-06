@@ -214,10 +214,11 @@ class Router {
 
       if (location == _initialLocation) {
         //
-        // user left.
+        // user either left or they had pressed back button
+        // after reload
         //
         if (_flagUserIsLeaving) {
-          window.history.back();
+          window.location.reload();
 
           return;
         }
@@ -268,13 +269,7 @@ class Router {
 
         window.location.reload();
 
-        // another method,
-        //
-        // calling rebuild on AppWidget can also rebuild the required interface. plus
-        // in a much nicer way. for now, we'll do a reload if user is traversing passive
-        // history().
-
-        // for active history, our implementation is ready, which you can see below.
+        // for active history, our implementation is ready, see below.
 
       } else {
         var navigatorState = _stateObjects[entry.navigatorKey]!;
@@ -293,7 +288,11 @@ class Router {
             print("Router: onPopState: synthetic-push: ${entry.name}");
           }
 
-          navigatorState.push(name: entry.name, values: entry.values);
+          navigatorState.push(
+            name: entry.name,
+            values: entry.values,
+            updateHistory: false,
+          );
         }
       }
     } catch (e) {
