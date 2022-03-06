@@ -6,7 +6,6 @@ void main() {
   RadApp(
     targetId: "output",
     child: RootPage(),
-    debugOptions: DebugOptions(routerLogs: true),
   );
 }
 
@@ -44,11 +43,9 @@ class RootPage extends StatefulWidget {
         gap: 20,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Spacer(flex: 2),
           _headerItem(text: "Home", routeName: "home"),
           _headerItem(text: "Posts", routeName: "posts"),
           _headerItem(text: "Settings", routeName: "settings"),
-          // Spacer(flex: 2),
         ],
       ),
     );
