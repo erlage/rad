@@ -404,6 +404,21 @@ class Framework {
           _disposeWidget(widgetObject: widgetActionObject.widgetObject);
 
           break;
+
+        case WidgetAction.updateWidget:
+          var widgetObject = widgetActionObject.widgetObject;
+
+          // get updated render object
+
+          var renderObject = widgetObject.widget.createRenderObject(
+            widgetObject.context,
+          );
+
+          // publish update
+
+          widgetObject.renderObject.update(widgetObject, renderObject);
+
+          break;
       }
     }
   }

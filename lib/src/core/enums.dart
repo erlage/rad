@@ -115,5 +115,6 @@ enum WidgetAction {
   dispose,
   hideWidget,
   showWidget,
+  updateWidget,
   skipRest,
 }
