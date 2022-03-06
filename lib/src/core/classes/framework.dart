@@ -365,6 +365,7 @@ class Framework {
 
     // actions that alert framework to stop processing childs further
 
+    childrenLoop:
     for (var child in flagIterateInReverseOrder
         ? widgetObject.element.children.reversed
         : widgetObject.element.children) {
@@ -375,11 +376,11 @@ class Framework {
 
         for (var widgetAction in widgetActions) {
           widgetActionObjects.add(
-            WidgetActionObject(widgetAction, widgetObject),
+            WidgetActionObject(widgetAction, childWidgetObject),
           );
 
           if (WidgetAction.skipRest == widgetAction) {
-            break;
+            break childrenLoop;
           }
         }
       }

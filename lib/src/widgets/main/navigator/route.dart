@@ -59,6 +59,7 @@ class RouteRenderObject extends RenderObject {
 
   @override
   render(widgetObject) {
+    widgetObject.element.dataset[System.attrRouteName] = name;
     widgetObject.element.dataset[System.attrRoutePath] = path;
 
     Framework.buildChildren(
