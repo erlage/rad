@@ -42,6 +42,9 @@ class NavigatorState {
 
   /// Push a page on Navigator's stack.
   ///
+  /// Please note that if a Page with same name already exists, it'll push that to top
+  /// rather than creating new one.
+  ///
   /// Will throw exception if Navigator doesn't have a route with the provided name.
   ///
   /// If [name] is prefixed with a forward slash '/', and if current navigator doesn't have
@@ -89,27 +92,47 @@ class NavigatorState {
 
     _updateCurrentName(cleanedName);
 
-    // get route details
+    // if already in stack
 
-    var page = pathToRouteMap[nameToPathMap[cleanedName]];
+    if (isPageStacked(name: cleanedName)) {
+      Framework.manageChildren(
+        parentContext: context,
+        flagIterateInReverseOrder: true,
+        widgetActionCallback: (WidgetObject widgetObject) {
+          var routeName =
+              widgetObject.element.dataset[System.attrRouteName] ?? "";
 
-    if (null == page) throw System.coreError;
+          if (name == routeName) {
+            return [
+              WidgetAction.showWidget,
+              WidgetAction.skipRest,
+            ];
+          }
 
-    _stack.add(name);
+          return [WidgetAction.hideWidget];
+        },
+      );
+    } else {
+      // else build
+
+      var page = pathToRouteMap[nameToPathMap[cleanedName]];
+
+      if (null == page) throw System.coreError;
+
+      _stack.add(name);
+
+      Framework.buildChildren(
+        widgets: [page],
+        parentContext: context,
+        flagCleanParentContents: false,
+      );
+    }
 
     Router.pushEntry(
       name: name,
       values: values ?? '',
       navigatorKey: context.key,
       updateHistory: updateHistory,
-    );
-
-    // build
-
-    Framework.buildChildren(
-      widgets: [page],
-      parentContext: context,
-      flagCleanParentContents: false,
     );
   }
 
