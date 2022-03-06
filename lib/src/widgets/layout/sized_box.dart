@@ -16,6 +16,7 @@ class SizedBox extends Widget {
 
   final Widget? child;
 
+  final String? size;
   final double? width;
   final double? height;
   final MeasuringUnit? sizeUnit;
@@ -26,9 +27,10 @@ class SizedBox extends Widget {
     this.key,
     this.styles,
     this.child,
-    this.sizeUnit,
+    this.size,
     this.width,
     this.height,
+    this.sizeUnit,
   });
 
   /// Creates a box that will become as small as its parent allows.
@@ -37,9 +39,10 @@ class SizedBox extends Widget {
     this.key,
     this.styles,
   })  : child = null,
-        width = 0,
-        height = 0,
-        sizeUnit = MeasuringUnit.pixel;
+        size = '0px 0px',
+        width = null,
+        height = null,
+        sizeUnit = null;
 
   @override
   DomTag get tag => DomTag.div;
@@ -57,6 +60,7 @@ class SizedBox extends Widget {
       context: context,
       styleProps: StyleProps(styles),
       sizeProps: SizeProps(
+        size: size,
         width: width,
         height: height,
         sizeUnit: sizeUnit,

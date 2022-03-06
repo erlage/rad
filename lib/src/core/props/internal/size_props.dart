@@ -66,12 +66,12 @@ class SizeProps {
     if (null != size && size.isNotEmpty) {
       var sizeProps = size.split(" ");
 
-      if (null != props.width) {
+      if (sizeProps.isNotEmpty) {
         element.style.setProperty(Props.width, sizeProps.first);
-      }
 
-      if (sizeProps.length > 1) {
-        element.style.setProperty(Props.height, sizeProps[1]);
+        if (sizeProps.length > 1) {
+          element.style.setProperty(Props.height, sizeProps[1]);
+        }
       }
     } else {
       if (null != props.width) {
@@ -90,12 +90,12 @@ class SizeProps {
     if (null != size && size.isNotEmpty) {
       var sizeProps = size.split(" ");
 
-      if (null != props.width) {
+      if (sizeProps.isNotEmpty) {
         element.style.removeProperty(Props.width);
-      }
 
-      if (sizeProps.length > 1) {
-        element.style.removeProperty(Props.height);
+        if (sizeProps.length > 1) {
+          element.style.removeProperty(Props.height);
+        }
       }
     } else {
       if (null != props.width) {

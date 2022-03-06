@@ -11,14 +11,19 @@ import 'package:rad/src/core/objects/render_object.dart';
 
 /// A widget to contain a widget in itself.
 ///
-/// This widget will be as big as possible if [width]
-/// and/or [height] factors are not.
+/// This widget will be as big as possible.
+///
+/// Note that if both [margin] and [size] are set, then margin will not be
+/// included in the box size. if [size] is not set, [margin] will always be
+/// included in the box size doesn't matter whether [height] or [width] are
+/// set or not.
 ///
 class Container extends Widget {
   final String? key;
 
   final Widget child;
 
+  final String? size;
   final double? width;
   final double? height;
   final MeasuringUnit? sizeUnit;
@@ -31,6 +36,7 @@ class Container extends Widget {
   const Container({
     this.key,
     this.styles,
+    this.size,
     this.width,
     this.height,
     this.sizeUnit,
@@ -57,6 +63,7 @@ class Container extends Widget {
       padding: padding,
       styleProps: StyleProps(styles),
       sizeProps: SizeProps(
+        size: size,
         width: width,
         height: height,
         sizeUnit: sizeUnit,

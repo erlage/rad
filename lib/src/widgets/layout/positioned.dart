@@ -20,6 +20,7 @@ class Positioned extends Widget {
   final double? right;
   final MeasuringUnit? positionUnit;
 
+  final String? size;
   final double? width;
   final double? height;
   final MeasuringUnit? sizeUnit;
@@ -32,6 +33,7 @@ class Positioned extends Widget {
     this.bottom,
     this.left,
     this.right,
+    this.size,
     this.width,
     this.height,
     this.sizeUnit,
@@ -49,9 +51,10 @@ class Positioned extends Widget {
     this.right,
     this.positionUnit,
     required this.child,
-  })  : width = 100,
-        height = 100,
-        sizeUnit = MeasuringUnit.percent;
+  })  : size = '0px 0px',
+        width = null,
+        height = null,
+        sizeUnit = null;
 
   @override
   DomTag get tag => DomTag.div;
@@ -68,6 +71,7 @@ class Positioned extends Widget {
       child: child,
       context: context,
       sizeProps: SizeProps(
+        size: size,
         width: width,
         height: height,
         sizeUnit: sizeUnit,
