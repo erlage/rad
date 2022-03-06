@@ -272,6 +272,10 @@ class Router {
         // for active history, our implementation is ready, see below.
 
       } else {
+        var routeObject = _routeObjects[entry.navigatorKey]!;
+
+        _ensureNavigatorIsVisible(routeObject);
+
         var navigatorState = _stateObjects[entry.navigatorKey]!;
 
         // if navigator has page in active stack
@@ -299,6 +303,22 @@ class Router {
       // reload window if anything goes wrong with dynamic management of history.
 
       window.location.reload();
+    }
+  }
+
+  static void _ensureNavigatorIsVisible(NavigatorRouteObject routeObject) {
+    var parent = routeObject.parent;
+
+    if (null != parent) {
+      _ensureNavigatorIsVisible(parent);
+
+      var parentState = _stateObjects[parent.context.key];
+
+      if (null != parentState) {
+        var parentRouteNameToOpen = routeObject.segments.last;
+
+        parentState.open(name: parentRouteNameToOpen, updateHistory: false);
+      }
     }
   }
 
