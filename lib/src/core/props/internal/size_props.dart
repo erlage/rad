@@ -8,9 +8,12 @@ class SizeProps {
   double? width;
   double? height;
 
+  String? size;
+
   String unit;
 
   SizeProps({
+    this.size,
     this.width,
     this.height,
     MeasuringUnit? sizeUnit,
@@ -41,11 +44,15 @@ class SizeProps {
   */
 
   bool _isChanged(SizeProps props) {
-    return width != props.width || height != props.height || unit != props.unit;
+    return size != props.size ||
+        width != props.width ||
+        height != props.height ||
+        unit != props.unit;
   }
 
   void _switchProps(SizeProps props) {
     this
+      ..size = props.size
       ..width = props.width
       ..height = props.height
       ..unit = props.unit;
@@ -54,22 +61,50 @@ class SizeProps {
   // statics
 
   static void _applyProps(HtmlElement element, SizeProps props) {
-    if (null != props.width) {
-      element.style.setProperty(Props.width, "${props.width}${props.unit}");
-    }
+    var size = props.size;
 
-    if (null != props.height) {
-      element.style.setProperty(Props.height, "${props.height}${props.unit}");
+    if (null != size && size.isNotEmpty) {
+      var sizeProps = size.split(" ");
+
+      if (null != props.width) {
+        element.style.setProperty(Props.width, sizeProps.first);
+      }
+
+      if (sizeProps.length > 1) {
+        element.style.setProperty(Props.height, sizeProps[1]);
+      }
+    } else {
+      if (null != props.width) {
+        element.style.setProperty(Props.width, "${props.width}${props.unit}");
+      }
+
+      if (null != props.height) {
+        element.style.setProperty(Props.height, "${props.height}${props.unit}");
+      }
     }
   }
 
   static void _clearProps(HtmlElement element, SizeProps props) {
-    if (null != props.width) {
-      element.style.removeProperty(Props.width);
-    }
+    var size = props.size;
 
-    if (null != props.height) {
-      element.style.removeProperty(Props.height);
+    if (null != size && size.isNotEmpty) {
+      var sizeProps = size.split(" ");
+
+      if (null != props.width) {
+        element.style.removeProperty(Props.width);
+      }
+
+      if (sizeProps.length > 1) {
+        element.style.removeProperty(Props.height);
+      }
+    } else {
+      if (null != props.width) {
+        element.style.removeProperty(Props.width);
+      }
+
+      if (null != props.height) {
+        element.style.removeProperty(Props.height);
+      }
     }
   }
 }
