@@ -37,7 +37,6 @@ body {
 [data-wtype="Stack"],
 [data-wtype="Align"],
 [data-wtype="Route"],
-[data-wtype="MarkUp"],
 [data-wtype="Positioned"] {
     overflow: hidden;
 }
@@ -63,10 +62,6 @@ body {
 
 [data-wtype="Route"],
 [data-wtype="Navigator"],
-[data-wtype="StatefulWidget"],
-[data-wtype="StatelessWidget"],
-[data-wtype="GestureDetector"],
-[data-wtype="MarkUp"],
 
 /* 
  target is not a widget it refers to the div where app is mounted
@@ -115,6 +110,7 @@ body {
    * widgets without styles
    */
 
+[data-wtype="MarkUp"],
 [data-wtype="StatefulWidget"],
 [data-wtype="StatelessWidget"],
 [data-wtype="GestureDetector"] {
