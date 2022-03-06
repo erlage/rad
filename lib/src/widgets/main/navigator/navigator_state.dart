@@ -2,6 +2,7 @@ import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/classes/router.dart';
+import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/widgets/main/navigator/navigator.dart';
@@ -131,11 +132,13 @@ class NavigatorState {
 
     _updateCurrentName(_stack.last);
 
-    Framework.disposeChildren(
-      maxDisposals: 1,
-      flagReversed: true,
+    Framework.manageChildren(
       parentContext: context,
-      canRemoveCallback: (_) => true,
+      flagIterateInReverseOrder: true,
+      widgetActionCallback: (_) => [
+        WidgetAction.dispose,
+        WidgetAction.skipRest,
+      ],
     );
   }
 

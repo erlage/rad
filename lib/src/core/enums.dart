@@ -110,3 +110,10 @@ enum DomTag {
   div,
   span,
 }
+
+enum WidgetAction {
+  dispose,
+  hideWidget,
+  showWidget,
+  skipRest,
+}

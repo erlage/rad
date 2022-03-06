@@ -2,7 +2,9 @@ import 'dart:html';
 
 import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/classes/router.dart';
+import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/debug_options.dart';
+import 'package:rad/src/core/objects/widget_action_object.dart';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/core/classes/utils.dart';
 import 'package:rad/src/core/constants.dart';
@@ -339,52 +341,68 @@ class Framework {
     }
   }
 
-  /// Remove child widgets.
+  /// Manage child widgets.
   ///
-  /// Method will call [canRemoveCallback] for each element's widget object. Widget will be removed
-  /// only if callback returns true.
+  /// Method will call [actionCallback] for each child's widget object.
+  /// Whatever action the [actionCallback] callback returns, framework
+  /// will execute it.
   ///
-  static disposeChildren({
+  static manageChildren({
     required BuildContext parentContext,
-    required WidgetObjectCallback canRemoveCallback,
-    //
-    // -- options --
-    //
-    required int maxDisposals,
+    required WidgetActionCallback widgetActionCallback,
     //
     // -- flags --
     //
-    bool flagReversed = false,
+    bool flagIterateInReverseOrder = false,
   }) {
     var widgetObject = _getWidgetObject(parentContext.key);
 
     if (null == widgetObject) return;
 
-    var childrenToDispose = <WidgetObject>[];
+    var widgetActionObjects = <WidgetActionObject>[];
 
-    for (var child in flagReversed
+    // actions that alert framework to stop processing childs further
+
+    for (var child in flagIterateInReverseOrder
         ? widgetObject.element.children.reversed
         : widgetObject.element.children) {
-      //
-      // if already removed the max number allowed
-      //
-      if (childrenToDispose.length >= maxDisposals) {
-        break;
-      }
-
       var childWidgetObject = _getWidgetObject(child.id);
 
       if (null != childWidgetObject) {
-        var canRemove = canRemoveCallback(childWidgetObject);
+        var widgetActions = widgetActionCallback(childWidgetObject);
 
-        if (canRemove) {
-          childrenToDispose.add(childWidgetObject);
+        for (var widgetAction in widgetActions) {
+          widgetActionObjects.add(
+            WidgetActionObject(widgetAction, widgetObject),
+          );
+
+          if (WidgetAction.skipRest == widgetAction) {
+            break;
+          }
         }
       }
     }
 
-    for (var childWidgetObject in childrenToDispose) {
-      _disposeWidget(widgetObject: childWidgetObject);
+    for (var widgetActionObject in widgetActionObjects) {
+      switch (widgetActionObject.widgetAction) {
+        case WidgetAction.skipRest:
+          break;
+
+        case WidgetAction.showWidget:
+          _showElement(widgetActionObject.widgetObject.element);
+
+          break;
+
+        case WidgetAction.hideWidget:
+          _hideElement(widgetActionObject.widgetObject.element);
+
+          break;
+
+        case WidgetAction.dispose:
+          _disposeWidget(widgetObject: widgetActionObject.widgetObject);
+
+          break;
+      }
     }
   }
 
@@ -435,6 +453,10 @@ class Framework {
 
   static _hideElement(Element element) {
     element.classes.add('rad-hidden');
+  }
+
+  static _showElement(Element element) {
+    element.classes.remove('rad-hidden');
   }
 
   static WidgetObject? _getWidgetObject(String widgetKey) {
