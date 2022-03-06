@@ -72,7 +72,7 @@ class SizeProps {
           element.style.setProperty(Props.width, sizeProps.first);
         }
 
-        if (sizeProps.length > 1) {
+        if (sizeProps.length > 1 && "_" != sizeProps[1]) {
           element.style.setProperty(Props.height, sizeProps[1]);
         }
       }
@@ -106,7 +106,7 @@ class SizeProps {
           element.style.removeProperty(Props.width);
         }
 
-        if (sizeProps.length > 1) {
+        if (sizeProps.length > 1 && "_" != sizeProps[1]) {
           element.style.removeProperty(Props.height);
         }
       }
