@@ -198,6 +198,11 @@ class NavigatorState {
       name = widget.routes.first.name;
     }
 
+    var onInitCallback = widget.onInit;
+    if (null != onInitCallback) {
+      onInitCallback(this);
+    }
+
     push(name: name, updateHistory: false);
   }
 

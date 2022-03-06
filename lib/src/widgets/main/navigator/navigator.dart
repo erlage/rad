@@ -14,10 +14,13 @@ class Navigator extends Widget {
 
   final RouteNameCallback? onChange;
 
+  final NavigatorStateCallback? onInit;
+
   final List<Route> routes;
 
   const Navigator({
     this.key,
+    this.onInit,
     this.onChange,
     required this.routes,
   });
