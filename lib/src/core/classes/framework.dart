@@ -10,7 +10,7 @@ import 'package:rad/src/core/classes/utils.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/classes/abstract/widget.dart';
-import 'package:rad/src/core/objects/update_object.dart';
+import 'package:rad/src/core/objects/widget_update_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 
 class Framework {
@@ -249,21 +249,21 @@ class Framework {
 
     // list of updates  {Node index}: existing {WidgetObject}
 
-    var updates = <String, UpdateObject>{};
+    var updateObjects = <String, WidgetUpdateObject>{};
 
     // prepare updates
 
     widgetLoop:
     for (var widget in widgets) {
       for (var child in parent.children) {
-        var alreadySelected = updates.containsKey(child.id);
+        var alreadySelected = updateObjects.containsKey(child.id);
 
         if (!alreadySelected) {
           var hasSameType = child.dataset.isNotEmpty &&
               widget.runtimeType.toString() == child.dataset[System.attrClass];
 
           if (hasSameType) {
-            updates[child.id] = UpdateObject(widget, child.id);
+            updateObjects[child.id] = WidgetUpdateObject(widget, child.id);
 
             continue widgetLoop;
           }
@@ -279,13 +279,15 @@ class Framework {
       // if flag is on for missing childs
 
       if (flagAddIfNotFound) {
-        updates["_${Utils.generateRandomId()}"] = UpdateObject(widget, null);
+        var randomId = "_${Utils.generateRandomId()}";
+
+        updateObjects[randomId] = WidgetUpdateObject(widget, null);
       }
     }
 
     // publish widget updates
 
-    updates.forEach((elementId, updateObject) {
+    updateObjects.forEach((elementId, updateObject) {
       if (null != updateObject.existingElementId) {
         var existingWidgetObject = _getWidgetObject(elementId);
 
@@ -328,7 +330,7 @@ class Framework {
     // deal with obsolute nodes
 
     for (var childElement in parent.children) {
-      if (!updates.containsKey(childElement.id)) {
+      if (!updateObjects.containsKey(childElement.id)) {
         if (flagDisposeObsoluteChildren) {
           _disposeWidget(
             widgetObject: _getWidgetObject(childElement.id),
