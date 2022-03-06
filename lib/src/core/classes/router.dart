@@ -118,6 +118,37 @@ class Router {
     _routerStack.push(entry);
   }
 
+  /// Push page entry as replacement.
+  ///
+  /// This allows nested navigators to do initial linking.
+  ///
+  static void pushReplacement({
+    required String name,
+    required String values,
+    required String navigatorKey,
+  }) {
+    var currentLocation = window.location.href;
+
+    _routerStack.entries.remove(currentLocation);
+
+    var protectedSegments = _protectedSegments(navigatorKey);
+
+    var historyEntry = protectedSegments.join("/") + "/$name$values";
+
+    window.history.replaceState(null, '', historyEntry);
+
+    _updateCurrentSegments();
+
+    var entry = RouterStackEntry(
+      name: name,
+      values: values,
+      navigatorKey: navigatorKey,
+      location: window.location.href,
+    );
+
+    _routerStack.push(entry);
+  }
+
   /// Get current path based on Navigator's access.
   ///
   /// Returns empty string, if matches nothing. Navigators should display

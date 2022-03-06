@@ -13,7 +13,7 @@ import 'package:rad/src/widgets/main/navigator/route.dart';
 /// Handles the delegated functionality of a [Navigator] widget.
 ///
 class NavigatorState {
-  var _currentName = '';
+  var _currentName = '_';
 
   // Name of the active route. Route, that's currently on top of
   /// Navigator stack.
@@ -96,13 +96,48 @@ class NavigatorState {
       }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | first update global state
+    |--------------------------------------------------------------------------
+    */
+
+    if (_historyStack.isEmpty) {
+      print("${context.key}: Push replacement: $name");
+
+      Router.pushReplacement(
+        name: name,
+        values: values ?? '',
+        navigatorKey: context.key,
+      );
+    } else if (updateHistory) {
+      print("${context.key}: Push entry: $name");
+
+      Router.pushEntry(
+        name: name,
+        values: values ?? '',
+        navigatorKey: context.key,
+        updateHistory: updateHistory,
+      );
+    }
+
+    _historyStack.add(cleanedName);
+
+    /*
+    |--------------------------------------------------------------------------
+    | callbacks
+    |--------------------------------------------------------------------------
+    */
+
     _updateCurrentName(cleanedName);
 
-    // if already in stack
+    /*
+    |--------------------------------------------------------------------------
+    | if route is already in stack, bring it to the top of stack
+    |--------------------------------------------------------------------------
+    */
 
     if (isPageStacked(name: cleanedName)) {
-      _historyStack.add(cleanedName);
-
       Framework.manageChildren(
         parentContext: context,
         flagIterateInReverseOrder: true,
@@ -122,7 +157,11 @@ class NavigatorState {
         },
       );
     } else {
-      // else build
+      /*
+      |--------------------------------------------------------------------------
+      | else build the route
+      |--------------------------------------------------------------------------
+      */
 
       var page = pathToRouteMap[nameToPathMap[cleanedName]];
 
@@ -136,13 +175,6 @@ class NavigatorState {
         flagCleanParentContents: false,
       );
     }
-
-    Router.pushEntry(
-      name: name,
-      values: values ?? '',
-      navigatorKey: context.key,
-      updateHistory: updateHistory,
-    );
   }
 
   /// Whether current active stack contains a route with matching [name].

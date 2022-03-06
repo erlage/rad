@@ -11,10 +11,6 @@ class RouterStack {
   ///
   final entries = <String, RouterStackEntry>{};
 
-  /// Whether a dynamic pop is possible.
-  ///
-  bool canPop() => entries.isNotEmpty;
-
   /// Push a new entry on stack.
   ///
   /// This is to keep track of Navigators that are pushing state to browser history.
