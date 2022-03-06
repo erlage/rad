@@ -6,6 +6,8 @@ import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/widgets/main/navigator/navigator_state.dart';
 
+typedef BoolCallback = bool Function();
+
 typedef OnClickCallback = void Function(MouseEvent event);
 
 typedef OnTapEventCallback = void Function(Event event);

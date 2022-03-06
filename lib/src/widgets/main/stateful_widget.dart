@@ -6,6 +6,7 @@ import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/classes/abstract/widget.dart';
+import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/types.dart';
 
 /// A widget that has mutable state.
@@ -60,7 +61,7 @@ import 'package:rad/src/core/types.dart';
 ///   listen to state changes in their parents. This means [setState] in a parent widget
 ///   will not affect any [StatefulWidget] that's in subtree(a child). A stateful child
 ///   also stops propagation of update call further down the tree because it's not required
-///   at this point.
+///   at this point. This behaviour can be changed by overiding [rebuildOnUpdate] method.
 ///
 ///
 /// * There are cases where child widgets has to rebuild themselves from scratch. Complete
@@ -138,6 +139,18 @@ abstract class StatefulWidget extends Widget {
 
   var _isRebuilding = false;
 
+  /// Whether to rebuild widget when a state change happens in parent tree.
+  /// or when Framework calls for update.
+  ///
+  /// By default [StatefulWidget] ignore update call. This can be turned on
+  /// by overriding [rebuildOnUpdate] method.
+  ///
+  /// Rebuilding won't lead to state loose instead Framework will calls
+  /// [build] method to get up-to-date interface and rebuild parts of interface
+  /// that are required.
+  ///
+  bool rebuildOnUpdate() => false;
+
   StatefulWidget({this.key});
 
   /// Called when this widget is inserted into the tree.
@@ -213,8 +226,9 @@ abstract class StatefulWidget extends Widget {
 
   @override
   onRenderObjectCreate(covariant StatefulWidgetRenderObject renderObject) {
-    renderObject.initState = initState;
     renderObject.dispose = dispose;
+    renderObject.initState = initState;
+    renderObject.rebuildOnUpdate = rebuildOnUpdate;
   }
 }
 
@@ -222,6 +236,7 @@ class StatefulWidgetRenderObject extends RenderObject {
   final WidgetBuilderCallback widgetBuilder;
   late final VoidCallback initState;
   late final VoidCallback dispose;
+  late final BoolCallback rebuildOnUpdate;
 
   StatefulWidgetRenderObject({
     required this.widgetBuilder,
@@ -236,6 +251,16 @@ class StatefulWidgetRenderObject extends RenderObject {
     var widget = widgetBuilder(context);
 
     Framework.buildChildren(widgets: [widget], parentContext: context);
+  }
+
+  @override
+  update(
+    WidgetObject widgetObject,
+    covariant StatefulWidgetRenderObject updatedRenderObject,
+  ) {
+    var widget = widgetBuilder(context);
+
+    Framework.updateChildren(widgets: [widget], parentContext: context);
   }
 
   @override
