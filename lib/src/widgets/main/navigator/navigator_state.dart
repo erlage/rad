@@ -102,16 +102,10 @@ class NavigatorState {
     |--------------------------------------------------------------------------
     */
 
-    if (_historyStack.isEmpty) {
-      print("${context.key}: Push replacement: $name");
-
-      Router.pushReplacement(
-        name: name,
-        values: values ?? '',
-        navigatorKey: context.key,
-      );
-    } else if (updateHistory) {
-      print("${context.key}: Push entry: $name");
+    if (updateHistory) {
+      if (Debug.routerLogs) {
+        print("${context.key}: Push entry: $name");
+      }
 
       Router.pushEntry(
         name: name,
@@ -270,6 +264,8 @@ class NavigatorState {
 
     var name = Router.getPath(context.key);
 
+    var needsReplacement = name.isEmpty;
+
     if (name.isEmpty) {
       name = widget.routes.first.name;
     }
@@ -277,6 +273,18 @@ class NavigatorState {
     var onInitCallback = widget.onInit;
     if (null != onInitCallback) {
       onInitCallback(this);
+    }
+
+    if (needsReplacement && name.isNotEmpty) {
+      if (Debug.routerLogs) {
+        print("${context.key}: Push replacement: $name");
+      }
+
+      Router.pushReplacement(
+        name: name,
+        values: '',
+        navigatorKey: context.key,
+      );
     }
 
     open(name: name, updateHistory: false);
