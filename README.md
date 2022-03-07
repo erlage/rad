@@ -31,7 +31,7 @@ How about that? if you're familiar with Flutter it don't even need an explanatio
     - Open `pubspec.yaml` in newly created app folder and add `rad` to your dependencies:
       ```yaml
       dependencies:
-        rad: 0.3.0
+        rad: 0.4.0
       ```
 
 3. Import Rad widgets in your `main.dart`
@@ -285,39 +285,59 @@ Navigator(
 
 That's pretty much it. Source of demo shown at top of this section can be found in example/routing folder. 
 
-## Api reference
-
-- [Rad library](https://pub.dev/documentation/rad/latest/rad/rad-library.html)
-- [Widgets library](https://pub.dev/documentation/rad/latest/widgets/widgets-library.html)
-
 ## Widgets Index
 
 ### Main
 
-- [RadApp](https://pub.dev/documentation/rad/latest/widgets/RadApp-class.html)
+- [RadApp](https://pub.dev/documentation/rad/latest/rad/RadApp-class.html)
 
-### Elements
+### Navigator
 
-- [Text](https://pub.dev/documentation/rad/latest/widgets/Text-class.html)
+- [Navigator](https://pub.dev/documentation/rad/latest/rad/Navigator-class.html)
+- [Route](https://pub.dev/documentation/rad/latest/rad/Route-class.html)
 
 ### Layout
 
-- [Container](https://pub.dev/documentation/rad/latest/widgets/Container-class.html)
-- [Stack](https://pub.dev/documentation/rad/latest/widgets/Stack-class.html)
-- [Align](https://pub.dev/documentation/rad/latest/widgets/Align-class.html)
-- [Positioned](https://pub.dev/documentation/rad/latest/widgets/Positioned-class.html)
-  - [Positioned.fill](https://pub.dev/documentation/rad/latest/widgets/Positioned-class.html)
-- [Overlay](https://pub.dev/documentation/rad/latest/widgets/Overlay-class.html)
-  - [OverlayEntry](https://pub.dev/documentation/rad/latest/widgets/OverlayEntry-class.html)
+Boxes
+
+- [Container](https://pub.dev/documentation/rad/latest/rad/Container-class.html)
+- [SizedBox](https://pub.dev/documentation/rad/latest/rad/SizedBox-class.html)
+
+Alignment
+
+- [Align](https://pub.dev/documentation/rad/latest/rad/Align-class.html)
+- [Center](https://pub.dev/documentation/rad/latest/rad/Center-class.html)
+- [Positioned](https://pub.dev/documentation/rad/latest/rad/Positioned-class.html)
+
+Overlays
+
+- [Stack](https://pub.dev/documentation/rad/latest/rad/Stack-class.html)
+
+- [Overlay](https://pub.dev/documentation/rad/latest/rad/Overlay-class.html)
+- [OverlayEntry](https://pub.dev/documentation/rad/latest/rad/OverlayEntry-class.html)
+
+Flex
+
+- [Row](https://pub.dev/documentation/rad/latest/rad/Row-class.html)
+- [Column](https://pub.dev/documentation/rad/latest/rad/Column-class.html)
+- [Flex](https://pub.dev/documentation/rad/latest/rad/Flex-class.html)
+- [Flexible](https://pub.dev/documentation/rad/latest/rad/Flexible-class.html)
+- [Expanded](https://pub.dev/documentation/rad/latest/rad/Expanded-class.html)
+- [Spacer](https://pub.dev/documentation/rad/latest/rad/Spacer-class.html)
 
 ### Misc
 
-- [GestureDetector](https://pub.dev/documentation/rad/latest/widgets/GestureDetector-class.html)
+- [GestureDetector](https://pub.dev/documentation/rad/latest/rad/GestureDetector-class.html)
 
 ### Abstract
 
 - [StatelessWidget](https://pub.dev/documentation/rad/latest/rad/StatelessWidget-class.html)
 - [StatefulWidget](https://pub.dev/documentation/rad/latest/rad/StatefulWidget-class.html)
+
+### Elements
+
+- [Text](https://pub.dev/documentation/rad/latest/rad/Text-class.html)
+- [MarkUp](https://pub.dev/documentation/rad/latest/rad/MarkUp-class.html)
 
 ## Contribution
 
