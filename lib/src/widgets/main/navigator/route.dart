@@ -8,14 +8,23 @@ import 'package:rad/src/widgets/main/navigator/navigator.dart';
 
 /// Route is a [Navigator] specific widget.
 ///
-/// A [Route] act as a wrapper for your page. Along with page,
-/// it contains routing specific information.
+/// A [Route] act as a wrapper for your page contents. Along with page,
+/// it contains routing specific information that helps [Navigator] manage
+/// this widget position in tree.
 ///
 class Route extends Widget {
   final String? key;
 
+  /// Name of the Route path.
+  ///
   final String path;
+
+  /// Name of the Route.
+  ///
   final String name;
+
+  /// Route's contents.
+  ///
   final Widget page;
 
   const Route({

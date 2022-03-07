@@ -100,6 +100,156 @@ Some widgets have properties for their "size" or "position" or both. We refers t
 
 Widgets that accept SizeProps also have an optional property `sizeUnit`. For PositionProps there's `positionUnit`. By default, `width: 20` will be mapped to `width: 20px`. But if you want to set width to some percentage of parent you can set `sizeUnit:` to **`MeasuringUnit.percentage`**. This will tell framework to map `width: 20` to `width: 20%`.
 
+## Routing
+
+Rad framework comes with a in-built Router that offers 
+
+- Auto Routing
+- Auto Deep linking
+- Auto Single page experience (no page reloads when user hit forward/back buttons)
+
+![Deep linking and Single page experience in action](https://github.com/erlage/rad/raw/cf0797fa4d86a0ce1e2dc7eda0c32cdbc02e379b/example/routing/routing.gif)
+
+Everything you're seeing in above demo, works out of the box. That is, you'll be using just the Navigator widget and framework will take care of wiring things up. Even if you've Navigators nested inside other Navigators, or your Navigators are placed somewhere deep inside Pages, framework will take care of finding them and routing requests to them when needed.
+
+
+### Navigator widget
+
+```dart
+Navigator(
+    
+    // required
+
+    routes: [
+        ...
+    ],
+
+    
+    // both are optional
+
+    onInit: (NavigatorState state) {
+
+    }
+
+    onRouteChange: (String name) {
+
+    }
+)
+```
+
+Let's discuss these properties one by one,
+
+### routes:[]
+
+This property takes list of Routes. A Route is more like an isolated Page that Navigator can manage. To define a Route, there's actually a Route widget:
+
+```dart
+routes: [
+
+    Route(name: "home", page: HomePage()),
+
+    Route(name: "edit", page: SomeOtherWidget())
+
+    ...
+]
+```
+Above, we've defined two routes, home and edit. A Route widget simply wraps a another widget. Route widget has a `name` property, that is used to give Route a name. Route's name is helpful in finding route, and navigating to it when needed, from application side.
+
+### NavigatorState
+
+Navigator widget creates a state object. State object provides methods which you can use to jump between routes, pop routes and things like that. To access a Navigator's state object, there are two methods:
+
+1. If widget from where you accessing NavigatorState is in child tree of Navigator then use `Navigator.of(context)`. This method will return NavigatorState of the nearest ancestor Navigator from the given `BuildContext`.
+
+2. For accessing state in parent widget of Navigator, use `onInit` hook of Navigator:
+    ```dart
+    class SomeWidget extends StatelessWidget
+    {
+        @override
+        build(context)
+        {
+            return Navigator(
+                onInit: _onInit,
+                ...
+            )
+        }
+
+        _onInit(NavigatorState state)
+        {
+            // do something with state
+        }
+    }
+    ```
+
+### Jumping to a Route
+
+Navigator in Rad won't stack duplicate pages on top of each other, instead it'll create a route page only once. To go to a route, use `open` method of Navigator state. We could've named it `push` but `open` conveys what Navigator actually do when you jump to a route. When you call `open`, Navigator will create route page if it's not already created. Once ready, it'll bring it tp the top.
+
+```dart
+Navigator.of(context).open(name: "home");
+```
+
+### Going back
+
+To go to previously visited route, use `Navigator.of(context).back()`. Make sure to check whether you can actually go back by calling `canGoBack()` on state.
+
+### Passing values between routes
+
+Values can be passed to a route through `open` method.
+
+```dart
+Navigator.of(context).open(name: "home", values: "/somevalue"); // leading slash is important
+```
+
+Then on homepage, value can be accessed on home page using:
+
+```dart
+var value = Navigator.of(context).getValue("home");
+// "somevalue"
+```
+
+Passing multiple values:
+
+```dart
+Navigator.of(context).open(name: "home", values: "/somevalue/profile/123");
+```
+
+On homepage,
+
+```dart
+var valueOne = Navigator.of(context).getValue("home"); // -> "somevalue"
+var valueTwo = Navigator.of(context).getValue("profile"); // -> "123"
+```
+
+Cool thing about Navigator is that values passed to a route will presist during browser reloads. If you've pushed some values while opening a route, those will presist in browser history too. This means you don't have to parameterize your page content, instead pass values on `open`:
+
+```dart
+// rather than doing this
+Route(name: "profile", page: Profile(id: 123));
+
+// do this
+Route(name: "profile", page: Profile());
+
+// and when opening profile route
+Navigator.of(context).open(name: "profile", value: "/123");
+
+// on profile page
+var id = Navigator.of(context).getValue("profile");
+```
+
+### onRouteChange hook:
+
+This hooks gets called when Navigator opens a route. This allows Navigator's parent to do something when Navigator that it's enclosing has changed. for example, you could've a header and you can change active tab when Navigator's route has changed.
+
+```dart
+Navigator(
+    onRouteChange: (name) => print("changed to $name");
+    ...
+);
+```
+
+That's pretty much it. Source of demo shown at top of this section can be found in example/routing folder. 
+
 ## Api reference
 
 - [Rad library](https://pub.dev/documentation/rad/latest/rad/rad-library.html)

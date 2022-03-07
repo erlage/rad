@@ -206,47 +206,6 @@ class NavigatorState {
     );
   }
 
-  /// Whether navigator can pop a page from stack.
-  ///
-  /// A navigator must have at least one entry in stack. This means
-  /// calling [canPop] on a Navigator, that has one entry, will return
-  /// false.
-  ///
-  bool canPop() => _activeStack.length > 1;
-
-  /// Pop the most recent page from Navigator's stack.
-  ///
-  void pop() {
-    var nameToRemove = _historyStack.removeLast();
-
-    _activeStack.remove(nameToRemove);
-
-    _updateCurrentName(_historyStack.last);
-
-    // dispose page
-
-    Framework.manageChildren(
-      parentContext: context,
-      flagIterateInReverseOrder: true,
-      widgetActionCallback: (WidgetObject widgetObject) {
-        var name = widgetObject.element.dataset[System.attrRouteName] ?? "";
-
-        if (nameToRemove == name) {
-          return [
-            WidgetAction.dispose,
-            WidgetAction.skipRest,
-          ];
-        }
-
-        return [];
-      },
-    );
-
-    // make sure last pushed route is now visible
-
-    open(name: _historyStack.last);
-  }
-
   /// Get value from URL following the provided segment.
   ///
   /// for example,

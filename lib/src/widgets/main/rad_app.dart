@@ -15,8 +15,6 @@ import 'package:rad/src/widgets/main/app_widget.dart';
 /// tag in your HTML page but note that it must be present in your HTML page
 /// before app mount initiate.
 ///
-/// setting [debugMode] to true will print useful logs in Browser console.
-///
 /// Your app contents will go in the [child] property.
 ///
 /// ```dart

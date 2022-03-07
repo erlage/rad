@@ -17,7 +17,7 @@ class Router {
 
   static final _initialLocation = window.location.href;
 
-  /// Path list: [window.location.path]
+  /// Path list
   ///
   static final _currentSegments = <String>[];
 

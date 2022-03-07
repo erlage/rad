@@ -11,8 +11,7 @@ import 'package:rad/src/core/classes/abstract/widget.dart';
 /// might break across multiple lines or might all be displayed on the same line
 /// depending on the layout constraints.
 ///
-/// It renders contents of [text] property as a string literal. It can be used to
-/// render HTML contents by setting [isHtml] to true.
+/// It renders contents of [text] property as a string literal.
 ///
 class Text extends Widget {
   final String? key;
