@@ -8,10 +8,10 @@ Let's take a look at an example written using Rad:
 class HomePage extends StatelessWidget
 {
   @override
-  Widget build(BuildContext context) {
+  build(context) {
     return Container(
       child: GestureDetector(
-        child: const Text("click me"),
+        child: Text("click me"),
         onTap: () => print("received a click!"),
       ),
     );
@@ -94,11 +94,48 @@ Container(
 ```
 Note: Some widgets such as StatelessWidget don't have a `style` property.
 
-### Size & Position
+### Size properties
 
-Some widgets have properties for their "size" or "position" or both. We refers to them as SizeProps & PositionProps respectively. PositionProps includes `left`, `right`, `top` and `bottom` properties while `width` and `height` are SizeProps.
+Some widgets have properties that can be used to give these widgets a predefined size. These properties are: width, height, margin and padding. These properties are directly mapped to CSS properties. If you're familer with CSS, below example will explain what we mean:
+```dart
+Container(
+  width: "10px",
+  height: "20px",
+);
+```
+These properties allows you to pass literally anything:
+```dart
+Container(
+  width: "10%",
+  height: "20px",
+);
+```
+There's also a optional `size` property for all widgets that has width and height properties. It allows defining both width and height in a less verbose way:
+```dart
+Container(
+  size: "10% 20px",
+  // syntax :- size: "width height"
+);
+```
+### Position properties
 
-Widgets that accept SizeProps also have an optional property `sizeUnit`. For PositionProps there's `positionUnit`. By default, `width: 20` will be mapped to `width: 20px`. But if you want to set width to some percentage of parent you can set `sizeUnit:` to **`MeasuringUnit.percentage`**. This will tell framework to map `width: 20` to `width: 20%`.
+Similar to size properties there are top, right, bottom, left properties that deals with position of a widget.
+```dart
+Positioned(
+  top: "10px",
+  left: "20px",
+);
+```
+There's also a optional `position` property for all widgets that has top, left.. properties:
+```dart
+Positioned(
+  positon: "10px _ _ 20px",
+  // syntax :- position: "top right bottom left"
+
+  // underscore means ignore this
+  // applies to size prop as well.
+);
+```
 
 ## Routing
 
@@ -119,7 +156,6 @@ Everything you're seeing in above demo, works out of the box. That is, you'll be
 Navigator(
     
     // required
-
     routes: [
         ...
     ],
@@ -130,7 +166,6 @@ Navigator(
     onInit: (NavigatorState state) {
 
     }
-
     onRouteChange: (String name) {
 
     }
@@ -139,9 +174,9 @@ Navigator(
 
 Let's discuss these properties one by one,
 
-### routes:[]
+### routes[]
 
-This property takes list of Routes. A Route is more like an isolated Page that Navigator can manage. To define a Route, there's actually a Route widget:
+This property takes list of Routes. A Route is kind of an isolated Page that Navigator can manage. To define a Route, there's actually a Route widget:
 
 ```dart
 routes: [
@@ -153,13 +188,13 @@ routes: [
     ...
 ]
 ```
-Above, we've defined two routes, home and edit. A Route widget simply wraps a another widget. Route widget has a `name` property, that is used to give Route a name. Route's name is helpful in finding route, and navigating to it when needed, from application side.
+Above, we've defined two routes, home and edit. A Route widget simply wraps a another widget. Route widget has a `name` property, that is used to give Route a name. Route's name is helpful in finding route from application side, and navigating to it when needed.
 
 ### NavigatorState
 
 Navigator widget creates a state object. State object provides methods which you can use to jump between routes, pop routes and things like that. To access a Navigator's state object, there are two methods:
 
-1. If widget from where you accessing NavigatorState is in child tree of Navigator then use `Navigator.of(context)`. This method will return NavigatorState of the nearest ancestor Navigator from the given `BuildContext`.
+1. If widget from where you accessing NavigatorState is in child tree of Navigator then use `Navigator.of(context)`. This method will return NavigatorState of the nearest ancestor Navigator from the given context.
 
 2. For accessing state in parent widget of Navigator, use `onInit` hook of Navigator:
     ```dart
@@ -183,7 +218,7 @@ Navigator widget creates a state object. State object provides methods which you
 
 ### Jumping to a Route
 
-Navigator in Rad won't stack duplicate pages on top of each other, instead it'll create a route page only once. To go to a route, use `open` method of Navigator state. We could've named it `push` but `open` conveys what Navigator actually do when you jump to a route. When you call `open`, Navigator will create route page if it's not already created. Once ready, it'll bring it tp the top.
+Navigator in Rad doesn't stack duplicate pages on top of each other, instead it'll create a route page only once. To go to a route, use `open` method of Navigator state. When you call `open`, Navigator will create route page if it's not already created. Once ready, it'll bring it to the top.
 
 ```dart
 Navigator.of(context).open(name: "home");
