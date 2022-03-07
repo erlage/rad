@@ -1,11 +1,10 @@
 import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/props/internal/position_props.dart';
 import 'package:rad/src/core/props/internal/size_props.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/classes/abstract/widget.dart';
-import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/widgets/abstract/single_child_render_object.dart';
 
 /// A widget that controls position of it's child. Can be used
 /// anywhere but it's usually used inside a [Stack] or [OverlayEntry]
@@ -79,47 +78,31 @@ class Positioned extends Widget {
   }
 }
 
-class PositionedRenderObject extends RenderObject {
-  final Widget child;
-
+class PositionedRenderObject extends SingleChildRenderObject {
   final SizeProps sizeProps;
   final PositionProps posProps;
 
   PositionedRenderObject({
-    required this.child,
+    required Widget child,
     required this.sizeProps,
     required this.posProps,
     required BuildContext context,
-  }) : super(context);
+  }) : super(child, context);
 
   @override
-  render(widgetObject) {
+  beforeRender(widgetObject) {
     sizeProps.apply(widgetObject.element);
 
     posProps.apply(widgetObject.element);
-
-    Framework.buildChildren(
-      widgets: [child],
-      parentContext: context,
-    );
   }
 
   @override
-  void update(
-    updateType,
+  void beforeUpdate(
     widgetObject,
-    updatedRenderObject,
+    covariant PositionedRenderObject updatedRenderObject,
   ) {
-    updatedRenderObject as PositionedRenderObject;
-
     sizeProps.apply(widgetObject.element, updatedRenderObject.sizeProps);
 
     posProps.apply(widgetObject.element, updatedRenderObject.posProps);
-
-    Framework.updateChildren(
-      widgets: [updatedRenderObject.child],
-      updateType: updateType,
-      parentContext: context,
-    );
   }
 }

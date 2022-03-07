@@ -1,11 +1,10 @@
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/props/internal/size_props.dart';
 import 'package:rad/src/core/props/internal/style_props.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/classes/abstract/widget.dart';
-import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/widgets/abstract/single_child_render_object.dart';
 
 /// A widget to contain a widget in itself.
 ///
@@ -68,45 +67,31 @@ class Container extends Widget {
   }
 }
 
-class ContainerRenderObject extends RenderObject {
-  final Widget child;
-
+class ContainerRenderObject extends SingleChildRenderObject {
   final SizeProps sizeProps;
   final StyleProps styleProps;
 
   ContainerRenderObject({
-    required this.child,
+    required Widget child,
     required this.sizeProps,
     required this.styleProps,
     required BuildContext context,
-  }) : super(context);
+  }) : super(child, context);
 
   @override
-  render(widgetObject) {
+  beforeRender(widgetObject) {
     sizeProps.apply(widgetObject.element);
 
     styleProps.apply(widgetObject.element);
-
-    Framework.buildChildren(
-      widgets: [child],
-      parentContext: context,
-    );
   }
 
   @override
-  update(
-    updateType,
+  beforeUpdate(
     widgetObject,
     covariant ContainerRenderObject updatedRenderObject,
   ) {
     sizeProps.apply(widgetObject.element, updatedRenderObject.sizeProps);
 
     styleProps.apply(widgetObject.element, updatedRenderObject.styleProps);
-
-    Framework.updateChildren(
-      widgets: [updatedRenderObject.child],
-      updateType: updateType,
-      parentContext: context,
-    );
   }
 }
