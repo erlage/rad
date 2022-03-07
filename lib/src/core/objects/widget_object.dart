@@ -19,29 +19,29 @@ class WidgetObject {
 
   final Widget widget;
   final RenderObject renderObject;
-  late final HtmlElement element;
+  final HtmlElement element;
 
   var _isMounted = false;
-  var _isCreated = false;
 
-  bool get isCreated => _isCreated;
   bool get isMounted => _isMounted;
 
   WidgetObject({
     required this.widget,
     required this.renderObject,
-  }) : context = renderObject.context;
+  })  :
+        // create dom element
+        element = document.createElement(
+          Utils.mapDomTag(widget.tag),
+        ) as HtmlElement,
 
-  void createElement() {
-    var tag = Utils.mapDomTag(widget.tag);
-
-    element = document.createElement(tag) as HtmlElement;
+        // assign context
+        context = renderObject.context {
+    //
+    // add properties to element
 
     element.id = renderObject.context.key;
     element.dataset[System.attrType] = renderObject.context.widgetType;
     element.dataset[System.attrClass] = renderObject.context.widgetClassName;
-
-    _isCreated = true;
   }
 
   void mount() {

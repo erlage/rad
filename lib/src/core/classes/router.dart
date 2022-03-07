@@ -37,7 +37,7 @@ class Router {
   ///
   /// For keeping track of page push/pop
   ///
-  static late final RouterStack _routerStack;
+  static final _routerStack = RouterStack();
 
   static init(String routingPath) {
     if (_isInit) {
@@ -211,8 +211,6 @@ class Router {
   */
 
   static void _initRouterState() {
-    _routerStack = RouterStack();
-
     window.addEventListener("popstate", _onPopState, false);
 
     _updateCurrentSegments();

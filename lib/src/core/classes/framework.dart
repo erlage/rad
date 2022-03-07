@@ -147,10 +147,6 @@ class Framework {
         renderObject: renderObject,
       );
 
-      // create dom element(node)
-
-      widgetObject.createElement();
-
       if (null != elementCallback) {
         elementCallback(widgetObject.element);
       }
