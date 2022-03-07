@@ -175,6 +175,37 @@ class NavigatorState {
   ///
   bool isPageStacked({required String name}) => _activeStack.contains(name);
 
+  /// Whether navigator can go back to a page.
+  ///
+  bool canGoBack() => _historyStack.length > 1;
+
+  /// Go back.
+  ///
+  void back() {
+    var previousPage = _historyStack.removeLast();
+
+    _updateCurrentName(_historyStack.last);
+
+    // dispose page
+
+    Framework.manageChildren(
+      parentContext: context,
+      flagIterateInReverseOrder: true,
+      widgetActionCallback: (WidgetObject widgetObject) {
+        var name = widgetObject.element.dataset[System.attrRouteName] ?? "";
+
+        if (previousPage == name) {
+          return [
+            WidgetAction.showWidget,
+            WidgetAction.skipRest,
+          ];
+        }
+
+        return [WidgetAction.hideWidget];
+      },
+    );
+  }
+
   /// Whether navigator can pop a page from stack.
   ///
   /// A navigator must have at least one entry in stack. This means
@@ -198,10 +229,9 @@ class NavigatorState {
       parentContext: context,
       flagIterateInReverseOrder: true,
       widgetActionCallback: (WidgetObject widgetObject) {
-        var routeName =
-            widgetObject.element.dataset[System.attrRouteName] ?? "";
+        var name = widgetObject.element.dataset[System.attrRouteName] ?? "";
 
-        if (nameToRemove == routeName) {
+        if (nameToRemove == name) {
           return [
             WidgetAction.dispose,
             WidgetAction.skipRest,
@@ -212,7 +242,7 @@ class NavigatorState {
       },
     );
 
-    // make sure last pused route is now visible
+    // make sure last pushed route is now visible
 
     open(name: _historyStack.last);
   }
