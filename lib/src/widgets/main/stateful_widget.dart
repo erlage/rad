@@ -65,9 +65,9 @@ import 'package:rad/src/core/types.dart';
 ///   updates can be dispatched and processed faster.
 ///
 ///
-/// * Widgets that has internal state such as [StatefulWidget] and [Overlay] won't
-///   listen to state changes in their parents(except for few exceptions such as Navigator open).
-///   This means generally means that [setState] in a parent widget will not affect any
+/// * Widgets that has internal state such as [StatefulWidget] doesn't listen to all update
+///   or all state changes in their parents(except for few exceptions such as Navigator open).
+///   This in general, means that [setState] in a parent widget will not affect any
 ///   [StatefulWidget] that's in subtree(a child). A stateful child also stops propagation
 ///   of update call further down the tree because it's not required at this point. This
 ///   behaviour can be changed by overiding [rebuildOnUpdate] method.

@@ -78,4 +78,16 @@ class OverlayRenderObject extends RenderObject {
 
   @override
   render(widgetObject) => state.render(widgetObject);
+
+  @override
+  update(
+    updateType,
+    widgetObject,
+    updatedRenderObject,
+  ) =>
+      state.update(
+        updateType,
+        widgetObject,
+        updatedRenderObject,
+      );
 }

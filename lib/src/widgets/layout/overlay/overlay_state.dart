@@ -1,7 +1,9 @@
 import 'dart:html';
 
 import 'package:rad/src/core/classes/framework.dart';
+import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/props/internal/style_props.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay.dart';
@@ -51,6 +53,18 @@ class OverlayState {
     Framework.buildChildren(
       widgets: widget.initialEntries,
       parentContext: context,
+    );
+  }
+
+  void update(
+    UpdateType updateType,
+    WidgetObject widgetObject,
+    RenderObject updatedRenderObject,
+  ) {
+    Framework.manageChildren(
+      parentContext: context,
+      updateTypeWhenNecessary: updateType,
+      widgetActionCallback: (_) => [WidgetAction.updateWidget],
     );
   }
 
