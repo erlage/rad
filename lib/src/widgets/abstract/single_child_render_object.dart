@@ -1,42 +1,11 @@
 import 'package:rad/rad.dart';
-import 'package:rad/src/core/classes/framework.dart';
-import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/objects/widget_object.dart';
+import 'package:rad/src/widgets/abstract/multi_child_render_object.dart';
 
-abstract class SingleChildRenderObject extends RenderObject {
+abstract class SingleChildRenderObject extends MultiChildRenderObject {
   final Widget child;
 
-  SingleChildRenderObject(this.child, BuildContext context) : super(context);
-
-  void beforeRender(WidgetObject widgetObject) {}
-
-  void beforeUpdate(
-    WidgetObject widgetObject,
-    SingleChildRenderObject updatedRenderObject,
-  ) {}
-
-  @override
-  render(widgetObject) {
-    beforeRender(widgetObject);
-
-    Framework.buildChildren(
-      widgets: [child],
-      parentContext: context,
-    );
-  }
-
-  @override
-  update(
-    updateType,
-    widgetObject,
-    covariant SingleChildRenderObject updatedRenderObject,
-  ) {
-    beforeUpdate(widgetObject, updatedRenderObject);
-
-    Framework.updateChildren(
-      widgets: [updatedRenderObject.child],
-      updateType: updateType,
-      parentContext: context,
-    );
-  }
+  SingleChildRenderObject(
+    this.child,
+    BuildContext context,
+  ) : super([child], context);
 }

@@ -1,10 +1,9 @@
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/props/internal/style_props.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/classes/abstract/widget.dart';
+import 'package:rad/src/widgets/abstract/multi_child_render_object.dart';
 
 /// A widget that positions its children relative to the edges of its box.
 ///
@@ -57,39 +56,25 @@ class Stack extends Widget {
   }
 }
 
-class StackRenderObject extends RenderObject {
-  final List<Widget> children;
-
+class StackRenderObject extends MultiChildRenderObject {
   final StyleProps styleProps;
 
   StackRenderObject({
-    required this.children,
+    required List<Widget> children,
     required this.styleProps,
     required BuildContext context,
-  }) : super(context);
+  }) : super(children, context);
 
   @override
-  render(widgetObject) {
+  beforeRender(widgetObject) {
     styleProps.apply(widgetObject.element);
-
-    Framework.buildChildren(
-      widgets: children,
-      parentContext: context,
-    );
   }
 
   @override
-  update(
-    updateType,
+  beforeUpdate(
     widgetObject,
     covariant StackRenderObject updatedRenderObject,
   ) {
     styleProps.apply(widgetObject.element, updatedRenderObject.styleProps);
-
-    Framework.updateChildren(
-      widgets: updatedRenderObject.children,
-      updateType: updateType,
-      parentContext: context,
-    );
   }
 }

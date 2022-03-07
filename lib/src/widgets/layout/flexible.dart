@@ -1,11 +1,10 @@
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/props/internal/flex_item_props.dart';
 import 'package:rad/src/core/props/internal/style_props.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/classes/abstract/widget.dart';
-import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/widgets/abstract/single_child_render_object.dart';
 import 'package:rad/src/widgets/layout/column.dart';
 import 'package:rad/src/widgets/layout/expanded.dart';
 import 'package:rad/src/widgets/layout/flex.dart';
@@ -62,35 +61,27 @@ class Flexible extends Widget {
   }
 }
 
-class FlexibleRenderObject extends RenderObject {
-  final Widget child;
-
+class FlexibleRenderObject extends SingleChildRenderObject {
   final StyleProps styleProps;
 
   final FlexItemProps flexItemProps;
 
   FlexibleRenderObject({
-    required this.child,
+    required Widget child,
     required this.styleProps,
     required this.flexItemProps,
     required BuildContext context,
-  }) : super(context);
+  }) : super(child, context);
 
   @override
-  render(widgetObject) {
+  beforeRender(widgetObject) {
     styleProps.apply(widgetObject.element);
 
     flexItemProps.apply(widgetObject.element);
-
-    Framework.buildChildren(
-      widgets: [child],
-      parentContext: context,
-    );
   }
 
   @override
-  update(
-    updateType,
+  beforeUpdate(
     widgetObject,
     covariant FlexibleRenderObject updatedRenderObject,
   ) {
@@ -99,12 +90,6 @@ class FlexibleRenderObject extends RenderObject {
     flexItemProps.apply(
       widgetObject.element,
       updatedRenderObject.flexItemProps,
-    );
-
-    Framework.updateChildren(
-      widgets: [updatedRenderObject.child],
-      updateType: updateType,
-      parentContext: context,
     );
   }
 }
