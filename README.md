@@ -108,7 +108,7 @@ Rad framework comes with a in-built Router that offers
 - Auto Deep linking
 - Auto Single page experience (no page reloads when user hit forward/back buttons)
 
-![Deep linking and Single page experience in action](https://github.com/erlage/rad/raw/cf0797fa4d86a0ce1e2dc7eda0c32cdbc02e379b/example/routing/routing.gif)
+![Deep linking and Single page experience in action](https://github.com/erlage/rad/raw/main/example/routing/routing.gif)
 
 Everything you're seeing in above demo, works out of the box. That is, you'll be using just the Navigator widget and framework will take care of wiring things up. Even if you've Navigators nested inside other Navigators, or your Navigators are placed somewhere deep inside Pages, framework will take care of finding them and routing requests to them when needed.
 
