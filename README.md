@@ -341,5 +341,4 @@ Flex
 
 ## Contribution
 
-Rad is a hobby project. Core(src/core) of this framework is extremely small and straightforward. Having just the [basic knowledge of DOM](https://dart.dev/tutorials/web/low-level-html/connect-dart-html) & [Dart](https://dart.dev/guides/language/language-tour) is enough to implement widgets(src/widgets). 
-
+Rad is a hobby project. Core(src/core) of this framework is extremely small and straightforward. Having just the [basic knowledge of DOM](https://dart.dev/tutorials/web/low-level-html/connect-dart-html) & [Dart](https://dart.dev/guides/language/language-tour) is enough to implement widgets(src/widgets). Feel free to open issue/PRs but do note that this framework is in its initial development phase which means anything can change anytime.
