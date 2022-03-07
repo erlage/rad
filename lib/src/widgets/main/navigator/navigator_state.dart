@@ -144,7 +144,6 @@ class NavigatorState {
             return [
               WidgetAction.showWidget,
               WidgetAction.updateWidget,
-              WidgetAction.skipRest,
             ];
           }
 
@@ -194,10 +193,7 @@ class NavigatorState {
         var name = widgetObject.element.dataset[System.attrRouteName] ?? "";
 
         if (previousPage == name) {
-          return [
-            WidgetAction.showWidget,
-            WidgetAction.skipRest,
-          ];
+          return [WidgetAction.showWidget];
         }
 
         return [WidgetAction.hideWidget];
