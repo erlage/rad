@@ -1,13 +1,9 @@
 import 'dart:html';
 
 class StyleProps {
-  List<String> stylesList = [];
+  String? classes;
 
-  StyleProps(String? styles) {
-    if (null != styles && styles.trim().isNotEmpty) {
-      stylesList.addAll(styles.split(" "));
-    }
-  }
+  StyleProps(this.classes);
 
   // application
 
@@ -28,24 +24,32 @@ class StyleProps {
   }
 
   bool _isChanged(StyleProps props) {
-    return stylesList.join() != props.stylesList.join();
+    return classes != props.classes;
   }
 
   void _switchProps(StyleProps updatedProps) {
-    stylesList = updatedProps.stylesList;
+    classes = updatedProps.classes;
   }
 
   // statics
 
   static void _applyProps(HtmlElement element, StyleProps props) {
-    if (props.stylesList.isNotEmpty) {
-      element.classes.addAll(props.stylesList);
+    if (null != props.classes) {
+      var classes = props.classes?.split(" ") ?? [];
+
+      if (classes.isNotEmpty) {
+        element.classes.addAll(classes);
+      }
     }
   }
 
   static void _clearProps(HtmlElement element, StyleProps props) {
-    if (props.stylesList.isNotEmpty) {
-      element.classes.removeAll(props.stylesList);
+    if (null != props.classes) {
+      var classes = props.classes?.split(" ") ?? [];
+
+      if (classes.isNotEmpty) {
+        element.classes.removeAll(classes);
+      }
     }
   }
 }
