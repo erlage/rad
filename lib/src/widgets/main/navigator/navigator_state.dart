@@ -20,9 +20,10 @@ class NavigatorState {
   ///
   String get currentRouteName => _currentName;
 
-  late final Navigator widget;
-  late final BuildContext context;
-  late final WidgetObject widgetObject;
+  late Navigator widget;
+  late BuildContext context;
+  late WidgetObject widgetObject;
+  // mark final in next release. dart2js-not-working-as-expected at this moment.
 
   final _activeStack = <String>[];
   final _historyStack = <String>[];

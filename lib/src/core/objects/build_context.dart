@@ -17,7 +17,8 @@ class BuildContext {
   ///
   /// accessing will results in error if [widgetClassName] is [System.typeBigBang]
   ///
-  late final BuildContext parent;
+  late BuildContext parent;
+  // mark final in next release. dart2js-not-working-as-expected at this moment.
 
   BuildContext({
     required this.key,
