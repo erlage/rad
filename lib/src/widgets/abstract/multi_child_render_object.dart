@@ -19,10 +19,12 @@ abstract class MultiChildRenderObject extends RenderObject {
   render(widgetObject) {
     beforeRender(widgetObject);
 
-    Framework.buildChildren(
-      widgets: children,
-      parentContext: context,
-    );
+    if (children.isNotEmpty) {
+      Framework.buildChildren(
+        widgets: children,
+        parentContext: context,
+      );
+    }
   }
 
   @override
@@ -33,10 +35,12 @@ abstract class MultiChildRenderObject extends RenderObject {
   ) {
     beforeUpdate(widgetObject, updatedRenderObject);
 
-    Framework.updateChildren(
-      widgets: updatedRenderObject.children,
-      updateType: updateType,
-      parentContext: context,
-    );
+    if (updatedRenderObject.children.isNotEmpty) {
+      Framework.updateChildren(
+        widgets: updatedRenderObject.children,
+        updateType: updateType,
+        parentContext: context,
+      );
+    }
   }
 }
