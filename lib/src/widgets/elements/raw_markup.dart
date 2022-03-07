@@ -19,12 +19,12 @@ import 'package:rad/src/core/classes/abstract/widget.dart';
 /// )
 /// ```
 ///
-class MarkUp extends Widget {
+class RawMarkUp extends Widget {
   final String? key;
 
   final String html;
 
-  const MarkUp(
+  const RawMarkUp(
     this.html, {
     this.key,
   });
@@ -33,21 +33,21 @@ class MarkUp extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  String get type => (MarkUp).toString();
+  String get type => (RawMarkUp).toString();
 
   @override
   String get initialKey => key ?? System.keyNotSet;
 
   @override
   createRenderObject(context) {
-    return MarkupRenderObject(html: html, context: context);
+    return RawMarkupRenderObject(html: html, context: context);
   }
 }
 
-class MarkupRenderObject extends RenderObject {
+class RawMarkupRenderObject extends RenderObject {
   final String html;
 
-  MarkupRenderObject({
+  RawMarkupRenderObject({
     required this.html,
     required BuildContext context,
   }) : super(context);
@@ -60,7 +60,7 @@ class MarkupRenderObject extends RenderObject {
   update(
     updateType,
     widgetObject,
-    covariant MarkupRenderObject updatedRenderObject,
+    covariant RawMarkupRenderObject updatedRenderObject,
   ) {
     if (html != updatedRenderObject.html) {
       widgetObject.element.setInnerHtml(

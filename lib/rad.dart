@@ -52,7 +52,7 @@ export 'src/widgets/main/navigator/navigator.dart' show Navigator;
 // elements
 
 export 'src/widgets/elements/text.dart' show Text;
-export 'src/widgets/elements/markup.dart' show MarkUp;
+export 'src/widgets/elements/raw_markup.dart' show RawMarkUp;
 
 // misc
 

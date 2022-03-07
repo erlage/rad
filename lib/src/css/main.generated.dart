@@ -14,7 +14,7 @@ import 'package:rad/src/widgets/layout/flexible.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay_entry.dart';
 import 'package:rad/src/widgets/main/navigator/navigator.dart';
-import 'package:rad/src/widgets/elements/markup.dart';
+import 'package:rad/src/widgets/elements/raw_markup.dart';
 import 'package:rad/src/widgets/main/stateful_widget.dart';
 import 'package:rad/src/widgets/main/stateless_widget.dart';
 import 'package:rad/src/widgets/misc/gesture_detector.dart';
@@ -132,7 +132,7 @@ final GEN_STYLES_MAIN_CSS = ""
     "    * widgets without styles "
     "    */ "
     "  "
-    " [data-wtype=\"$MarkUp\"], "
+    " [data-wtype=\"$RawMarkUp\"], "
     " [data-wtype=\"$StatefulWidget\"], "
     " [data-wtype=\"$StatelessWidget\"], "
     " [data-wtype=\"$GestureDetector\"] { "

@@ -110,7 +110,7 @@ body {
    * widgets without styles
    */
 
-[data-wtype="MarkUp"],
+[data-wtype="RawMarkUp"],
 [data-wtype="StatefulWidget"],
 [data-wtype="StatelessWidget"],
 [data-wtype="GestureDetector"] {
