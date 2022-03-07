@@ -94,13 +94,18 @@ class ContainerRenderObject extends RenderObject {
   }
 
   @override
-  update(widgetObject, covariant ContainerRenderObject updatedRenderObject) {
+  update(
+    updateType,
+    widgetObject,
+    covariant ContainerRenderObject updatedRenderObject,
+  ) {
     sizeProps.apply(widgetObject.element, updatedRenderObject.sizeProps);
 
     styleProps.apply(widgetObject.element, updatedRenderObject.styleProps);
 
     Framework.updateChildren(
       widgets: [updatedRenderObject.child],
+      updateType: updateType,
       parentContext: context,
     );
   }

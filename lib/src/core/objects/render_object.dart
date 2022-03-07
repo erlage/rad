@@ -1,3 +1,4 @@
+import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 
@@ -45,5 +46,9 @@ abstract class RenderObject {
   /// and [updatedRenderObject] doesn't know anything about it. Using this object
   /// will results in loss of internal state in StatefulWidget
   ///
-  void update(WidgetObject widgetObject, RenderObject updatedRenderObject) {}
+  void update(
+    UpdateType updateType,
+    WidgetObject widgetObject,
+    RenderObject updatedRenderObject,
+  ) {}
 }

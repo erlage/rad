@@ -135,6 +135,7 @@ class NavigatorState {
       Framework.manageChildren(
         parentContext: context,
         flagIterateInReverseOrder: true,
+        updateTypeWhenNecessary: UpdateType.navigatorOpen,
         widgetActionCallback: (WidgetObject widgetObject) {
           var routeName =
               widgetObject.element.dataset[System.attrRouteName] ?? "";

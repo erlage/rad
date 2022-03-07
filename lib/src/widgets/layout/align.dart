@@ -66,9 +66,14 @@ class AlignRenderObject extends RenderObject {
   }
 
   @override
-  update(widgetObject, covariant AlignRenderObject updatedRenderObject) {
+  update(
+    updateType,
+    widgetObject,
+    covariant AlignRenderObject updatedRenderObject,
+  ) {
     Framework.updateChildren(
       widgets: [updatedRenderObject.child],
+      updateType: updateType,
       parentContext: context,
       elementCallback: (element) => alignment.apply(
         element,

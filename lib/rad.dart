@@ -21,6 +21,8 @@ export 'src/core/enums.dart' show FlexWrap;
 export 'src/core/enums.dart' show MainAxisAlignment;
 export 'src/core/enums.dart' show CrossAxisAlignment;
 
+export 'src/core/enums.dart' show UpdateType;
+
 // props
 
 export 'src/core/props/alignment.dart' show Alignment;

@@ -79,11 +79,16 @@ class StackRenderObject extends RenderObject {
   }
 
   @override
-  update(widgetObject, covariant StackRenderObject updatedRenderObject) {
+  update(
+    updateType,
+    widgetObject,
+    covariant StackRenderObject updatedRenderObject,
+  ) {
     styleProps.apply(widgetObject.element, updatedRenderObject.styleProps);
 
     Framework.updateChildren(
       widgets: updatedRenderObject.children,
+      updateType: updateType,
       parentContext: context,
     );
   }

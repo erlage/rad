@@ -105,7 +105,11 @@ class PositionedRenderObject extends RenderObject {
   }
 
   @override
-  void update(widgetObject, updatedRenderObject) {
+  void update(
+    updateType,
+    widgetObject,
+    updatedRenderObject,
+  ) {
     updatedRenderObject as PositionedRenderObject;
 
     sizeProps.apply(widgetObject.element, updatedRenderObject.sizeProps);
@@ -114,6 +118,7 @@ class PositionedRenderObject extends RenderObject {
 
     Framework.updateChildren(
       widgets: [updatedRenderObject.child],
+      updateType: updateType,
       parentContext: context,
     );
   }

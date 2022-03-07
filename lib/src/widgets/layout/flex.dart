@@ -112,13 +112,18 @@ class FlexRenderObject extends RenderObject {
   }
 
   @override
-  update(widgetObject, covariant FlexRenderObject updatedRenderObject) {
+  update(
+    updateType,
+    widgetObject,
+    covariant FlexRenderObject updatedRenderObject,
+  ) {
     styleProps.apply(widgetObject.element, updatedRenderObject.styleProps);
 
     flexProps.apply(widgetObject.element, updatedRenderObject.flexProps);
 
     Framework.updateChildren(
       widgets: updatedRenderObject.children,
+      updateType: updateType,
       parentContext: context,
     );
   }

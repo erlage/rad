@@ -74,6 +74,7 @@ class StatelessWidgetRenderObject extends RenderObject {
 
   @override
   update(
+    updateType,
     widgetObject,
     covariant StatelessWidgetRenderObject updatedRenderObject,
   ) {
@@ -81,6 +82,7 @@ class StatelessWidgetRenderObject extends RenderObject {
 
     Framework.updateChildren(
       widgets: [widget],
+      updateType: updateType,
       parentContext: context,
     );
   }

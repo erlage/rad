@@ -100,6 +100,20 @@ enum FlexWrap {
   wrapReverse,
 }
 
+/// Type of update event that's happend in parent tree.
+///
+/// Widgets can act according to type of update events.
+///
+enum UpdateType {
+  /// A setState is called in parent tree.
+  ///
+  setState,
+
+  /// A Navigator called open on page that this widget is in.
+  ///
+  navigatorOpen,
+}
+
 /*
 |--------------------------------------------------------------------------
 | internals

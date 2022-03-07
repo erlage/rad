@@ -200,6 +200,10 @@ class Framework {
     required BuildContext parentContext,
     ElementCallback? elementCallback,
     //
+    // -- options --
+    //
+    required UpdateType updateType,
+    //
     // -- flags for special nodes --
     //
     flagHideObsoluteChildren = false,
@@ -291,7 +295,7 @@ class Framework {
 
         if (null != existingWidgetObject) {
           // get updated render object
-          var renderObject = updateObject.widget.createRenderObject(
+          var updatedRenderObject = updateObject.widget.createRenderObject(
             existingWidgetObject.context,
           );
 
@@ -304,8 +308,9 @@ class Framework {
           // publish update
 
           return existingWidgetObject.renderObject.update(
+            updateType,
             existingWidgetObject,
-            renderObject,
+            updatedRenderObject,
           );
         } else {
           if (!flagTolerateChildrenCountMisMatch) {
@@ -349,6 +354,10 @@ class Framework {
     required BuildContext parentContext,
     required WidgetActionCallback widgetActionCallback,
     //
+    // -- options --
+    //
+    UpdateType? updateTypeWhenNecessary,
+    //
     // -- flags --
     //
     bool flagIterateInReverseOrder = false,
@@ -358,8 +367,6 @@ class Framework {
     if (null == widgetObject) return;
 
     var widgetActionObjects = <WidgetActionObject>[];
-
-    // actions that alert framework to stop processing childs further
 
     childrenLoop:
     for (var child in flagIterateInReverseOrder
@@ -403,17 +410,26 @@ class Framework {
           break;
 
         case WidgetAction.updateWidget:
-          var widgetObject = widgetActionObject.widgetObject;
+          var existingWidgetObject = widgetActionObject.widgetObject;
 
           // get updated render object
 
-          var renderObject = widgetObject.widget.createRenderObject(
-            widgetObject.context,
+          var updatedRenderObject =
+              existingWidgetObject.widget.createRenderObject(
+            existingWidgetObject.context,
           );
 
           // publish update
 
-          widgetObject.renderObject.update(widgetObject, renderObject);
+          if (null == updateTypeWhenNecessary) {
+            throw "Update type note set for publishing update.";
+          }
+
+          existingWidgetObject.renderObject.update(
+            updateTypeWhenNecessary,
+            existingWidgetObject,
+            updatedRenderObject,
+          );
 
           break;
       }

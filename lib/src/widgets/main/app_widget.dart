@@ -84,7 +84,7 @@ class AppWidgetRenderObject extends RenderObject {
   }
 
   @override
-  update(widgetObject, updatedRenderObject) {
+  update(updateType, widgetObject, updatedRenderObject) {
     throw System.coreError;
   }
 }

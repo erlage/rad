@@ -78,9 +78,14 @@ class RouteRenderObject extends RenderObject {
   }
 
   @override
-  update(widgetObject, covariant RouteRenderObject updatedRenderObject) {
+  update(
+    updateType,
+    widgetObject,
+    covariant RouteRenderObject updatedRenderObject,
+  ) {
     Framework.updateChildren(
       widgets: [updatedRenderObject.page],
+      updateType: updateType,
       parentContext: context,
     );
   }

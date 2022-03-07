@@ -99,6 +99,7 @@ class GestureDetectorRenderObject extends RenderObject {
 
   @override
   update(
+    updateType,
     widgetObject,
     covariant GestureDetectorRenderObject updatedRenderObject,
   ) {
@@ -106,6 +107,7 @@ class GestureDetectorRenderObject extends RenderObject {
 
     Framework.updateChildren(
       widgets: [props.child],
+      updateType: updateType,
       parentContext: context,
     );
   }

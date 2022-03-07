@@ -70,11 +70,16 @@ class OverlayEntryRenderObject extends RenderObject {
   }
 
   @override
-  update(widgetObject, covariant OverlayEntryRenderObject updatedRenderObject) {
+  update(
+    updateType,
+    widgetObject,
+    covariant OverlayEntryRenderObject updatedRenderObject,
+  ) {
     styleProps.apply(widgetObject.element, updatedRenderObject.styleProps);
 
     Framework.updateChildren(
       widgets: [updatedRenderObject.child],
+      updateType: updateType,
       parentContext: context,
     );
   }

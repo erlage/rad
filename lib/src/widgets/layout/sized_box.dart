@@ -90,7 +90,11 @@ class SizedBoxRenderObject extends RenderObject {
   }
 
   @override
-  update(widgetObject, covariant SizedBoxRenderObject updatedRenderObject) {
+  update(
+    updateType,
+    widgetObject,
+    covariant SizedBoxRenderObject updatedRenderObject,
+  ) {
     sizeProps.apply(widgetObject.element, updatedRenderObject.sizeProps);
 
     styleProps.apply(widgetObject.element, updatedRenderObject.styleProps);
@@ -99,6 +103,7 @@ class SizedBoxRenderObject extends RenderObject {
     if (null != child) {
       Framework.updateChildren(
         widgets: [child],
+        updateType: updateType,
         parentContext: context,
       );
     }

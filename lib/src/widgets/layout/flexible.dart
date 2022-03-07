@@ -89,7 +89,11 @@ class FlexibleRenderObject extends RenderObject {
   }
 
   @override
-  update(widgetObject, covariant FlexibleRenderObject updatedRenderObject) {
+  update(
+    updateType,
+    widgetObject,
+    covariant FlexibleRenderObject updatedRenderObject,
+  ) {
     styleProps.apply(widgetObject.element, updatedRenderObject.styleProps);
 
     flexItemProps.apply(
@@ -99,6 +103,7 @@ class FlexibleRenderObject extends RenderObject {
 
     Framework.updateChildren(
       widgets: [updatedRenderObject.child],
+      updateType: updateType,
       parentContext: context,
     );
   }

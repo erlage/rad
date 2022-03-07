@@ -6,7 +6,6 @@ import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/classes/abstract/widget.dart';
-import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/types.dart';
 
 /// A widget that has mutable state.
@@ -67,10 +66,11 @@ import 'package:rad/src/core/types.dart';
 ///
 ///
 /// * Widgets that has internal state such as [StatefulWidget] and [Overlay] won't
-///   listen to state changes in their parents. This means [setState] in a parent widget
-///   will not affect any [StatefulWidget] that's in subtree(a child). A stateful child
-///   also stops propagation of update call further down the tree because it's not required
-///   at this point. This behaviour can be changed by overiding [rebuildOnUpdate] method.
+///   listen to state changes in their parents(except for few exceptions such as Navigator open).
+///   This means generally means that [setState] in a parent widget will not affect any
+///   [StatefulWidget] that's in subtree(a child). A stateful child also stops propagation
+///   of update call further down the tree because it's not required at this point. This
+///   behaviour can be changed by overiding [rebuildOnUpdate] method.
 ///
 ///
 /// * There are cases where child widgets has to rebuild themselves from scratch. Complete
@@ -151,14 +151,16 @@ abstract class StatefulWidget extends Widget {
   /// Whether to rebuild widget when a state change happens in parent tree.
   /// or when Framework calls for update.
   ///
-  /// By default [StatefulWidget] ignore update call. This can be turned on
-  /// by overriding [rebuildOnUpdate] method.
+  /// By default [StatefulWidget] ignore all updates except from Navigator.
+  /// This can be turned on by overriding [rebuildOnUpdate] method.
   ///
   /// Rebuilding won't lead to state loose instead Framework will calls
   /// [build] method to get up-to-date interface and rebuild parts of interface
   /// that are required.
   ///
-  bool rebuildOnUpdate() => false;
+  bool rebuildOnUpdate(UpdateType updateType) {
+    return UpdateType.navigatorOpen == updateType;
+  }
 
   StatefulWidget({this.key});
 
@@ -204,7 +206,11 @@ abstract class StatefulWidget extends Widget {
       callable();
     }
 
-    Framework.updateChildren(widgets: [build(context)], parentContext: context);
+    Framework.updateChildren(
+      widgets: [build(context)],
+      updateType: UpdateType.setState,
+      parentContext: context,
+    );
 
     _isRebuilding = false;
   }
@@ -245,7 +251,7 @@ class StatefulWidgetRenderObject extends RenderObject {
   final WidgetBuilderCallback widgetBuilder;
   late final VoidCallback initState;
   late final VoidCallback dispose;
-  late final BoolCallback rebuildOnUpdate;
+  late final UpdateTypeCallback rebuildOnUpdate;
 
   StatefulWidgetRenderObject({
     required this.widgetBuilder,
@@ -264,13 +270,18 @@ class StatefulWidgetRenderObject extends RenderObject {
 
   @override
   update(
-    WidgetObject widgetObject,
+    updateType,
+    widgetObject,
     covariant StatefulWidgetRenderObject updatedRenderObject,
   ) {
-    if (rebuildOnUpdate()) {
+    if (rebuildOnUpdate(updateType)) {
       var widget = widgetBuilder(context);
 
-      Framework.updateChildren(widgets: [widget], parentContext: context);
+      Framework.updateChildren(
+        widgets: [widget],
+        updateType: updateType,
+        parentContext: context,
+      );
     }
   }
 
