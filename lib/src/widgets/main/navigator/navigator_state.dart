@@ -186,8 +186,6 @@ class NavigatorState {
 
     _updateCurrentName(_historyStack.last);
 
-    // dispose page
-
     Framework.manageChildren(
       parentContext: context,
       flagIterateInReverseOrder: true,

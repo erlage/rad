@@ -46,6 +46,9 @@ import 'package:rad/src/core/types.dart';
 /// in parent tree.
 /// By default [StatefulWidget] will ignore update calls. This can be controlled by overriding
 /// [rebuildOnUpdate] hook.
+/// This hook helps a when you've a StatefulWidget in a Navigator's page, and you want to
+/// rebuild that widget when user comes back from a different page. Returning true from
+/// [rebuildOnUpdate] hook will make sure that end user isn't looking at a stalled interface.
 ///
 /// ## Performance consideration
 ///
