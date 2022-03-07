@@ -72,8 +72,7 @@ class Overlay extends Widget {
 }
 
 class OverlayRenderObject extends RenderObject {
-  late OverlayState state;
-  // mark final in next release. dart2js-not-working-as-expected at this moment.
+  late final OverlayState state;
 
   OverlayRenderObject(BuildContext context) : super(context);
 

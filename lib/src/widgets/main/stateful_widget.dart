@@ -141,8 +141,7 @@ import 'package:rad/src/core/types.dart';
 abstract class StatefulWidget extends Widget {
   final String? key;
 
-  late BuildContext context;
-  // mark final in next release. dart2js-not-working-as-expected at this moment.
+  late final BuildContext context;
 
   var _isRebuilding = false;
 
@@ -241,10 +240,9 @@ abstract class StatefulWidget extends Widget {
 
 class StatefulWidgetRenderObject extends RenderObject {
   final WidgetBuilderCallback widgetBuilder;
-  late VoidCallback initState;
-  late VoidCallback dispose;
-  late BoolCallback rebuildOnUpdate;
-  // mark final in next release. dart2js-not-working-as-expected at this moment.
+  late final VoidCallback initState;
+  late final VoidCallback dispose;
+  late final BoolCallback rebuildOnUpdate;
 
   StatefulWidgetRenderObject({
     required this.widgetBuilder,

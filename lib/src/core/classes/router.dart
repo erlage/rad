@@ -13,8 +13,7 @@ import 'package:rad/src/widgets/main/navigator/route.dart';
 
 class Router {
   static var _isInit = false;
-  static late String _routingPath;
-  // mark final in next release. dart2js-not-working-as-expected at this moment.
+  static late final String _routingPath;
 
   static final _initialLocation = window.location.href;
 

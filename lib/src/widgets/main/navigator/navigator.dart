@@ -227,8 +227,7 @@ class Navigator extends Widget {
 class NavigatorRenderObject extends RenderObject {
   /// State of navigator.
   ///
-  late NavigatorState state;
-  // mark final in next release. dart2js-not-working-as-expected at this moment.
+  late final NavigatorState state;
 
   NavigatorRenderObject(BuildContext context) : super(context);
 

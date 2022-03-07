@@ -8,11 +8,10 @@ import 'package:rad/src/widgets/layout/overlay/overlay.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay_entry.dart';
 
 class OverlayState {
-  late Overlay widget;
-  late HtmlElement element;
-  late BuildContext context;
-  late OverlayRenderObject renderObject;
-  // mark final in next release. dart2js-not-working-as-expected at this moment.
+  late final Overlay widget;
+  late final HtmlElement element;
+  late final BuildContext context;
+  late final OverlayRenderObject renderObject;
 
   /*
   |--------------------------------------------------------------------------
