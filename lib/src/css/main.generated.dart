@@ -2,7 +2,6 @@
 
 // auto-generated. please don't edit this file
 
-import 'package:rad/src/widgets/elements/text.dart';
 import 'package:rad/src/widgets/layout/sized_box.dart';
 import 'package:rad/src/widgets/layout/container.dart';
 import 'package:rad/src/widgets/layout/stack.dart';
@@ -14,6 +13,7 @@ import 'package:rad/src/widgets/layout/flexible.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay.dart';
 import 'package:rad/src/widgets/layout/overlay/overlay_entry.dart';
 import 'package:rad/src/widgets/main/navigator/navigator.dart';
+import 'package:rad/src/widgets/elements/text.dart';
 import 'package:rad/src/widgets/elements/raw_markup.dart';
 import 'package:rad/src/widgets/main/stateful_widget.dart';
 import 'package:rad/src/widgets/main/stateless_widget.dart';
@@ -25,17 +25,6 @@ final GEN_STYLES_MAIN_CSS = ""
     "     width: 100%; "
     "     height: 100%; "
     "     white-space: nowrap; "
-    " } "
-    "  "
-    "  "
-    " /** "
-    "    * default text style "
-    "    */ "
-    "  "
-    " [data-wtype=\"$Text\"] { "
-    "     width: auto; "
-    "     white-space: normal; "
-    "     word-wrap: break-word; "
     " } "
     "  "
     "  "
@@ -132,6 +121,7 @@ final GEN_STYLES_MAIN_CSS = ""
     "    * widgets without styles "
     "    */ "
     "  "
+    " [data-wtype=\"$Text\"], "
     " [data-wtype=\"$RawMarkUp\"], "
     " [data-wtype=\"$StatefulWidget\"], "
     " [data-wtype=\"$StatelessWidget\"], "

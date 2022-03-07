@@ -7,17 +7,6 @@ body {
 
 
 /**
-   * default text style
-   */
-
-[data-wtype="Text"] {
-    width: auto;
-    white-space: normal;
-    word-wrap: break-word;
-}
-
-
-/**
    * Widgets that can have padding and/or border
    */
 
@@ -110,6 +99,7 @@ body {
    * widgets without styles
    */
 
+[data-wtype="Text"],
 [data-wtype="RawMarkUp"],
 [data-wtype="StatefulWidget"],
 [data-wtype="StatelessWidget"],
