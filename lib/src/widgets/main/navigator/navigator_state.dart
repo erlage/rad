@@ -98,7 +98,15 @@ class NavigatorState {
 
     /*
     |--------------------------------------------------------------------------
-    | first update global state
+    | callbacks
+    |--------------------------------------------------------------------------
+    */
+
+    _updateCurrentName(cleanedName);
+
+    /*
+    |--------------------------------------------------------------------------
+    | update global state
     |--------------------------------------------------------------------------
     */
 
@@ -116,14 +124,6 @@ class NavigatorState {
     }
 
     _historyStack.add(cleanedName);
-
-    /*
-    |--------------------------------------------------------------------------
-    | callbacks
-    |--------------------------------------------------------------------------
-    */
-
-    _updateCurrentName(cleanedName);
 
     /*
     |--------------------------------------------------------------------------
@@ -288,6 +288,24 @@ class NavigatorState {
     }
 
     open(name: name, updateHistory: false);
+  }
+
+  /// Framework fires this when parent route changes.
+  ///
+  void onParentRouteChange(String name) {
+    var routeName = Router.getPath(context.key);
+
+    if (routeName != currentRouteName) {
+      if (Debug.routerLogs) {
+        print("${context.key}: Push replacement: $routeName");
+      }
+
+      Router.pushReplacement(
+        name: currentRouteName,
+        values: '',
+        navigatorKey: context.key,
+      );
+    }
   }
 
   /// Dispose handle.

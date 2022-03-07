@@ -11,9 +11,11 @@ class NavigatorRouteObject {
   final List<Route> routes;
   final List<String> segments;
   final NavigatorRouteObject? parent;
+  final NavigatorRouteObject? child;
 
   NavigatorRouteObject({
     this.parent,
+    this.child,
     required this.context,
     required this.routes,
     required this.segments,

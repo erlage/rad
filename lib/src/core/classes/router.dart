@@ -106,6 +106,18 @@ class Router {
       window.history.pushState(null, '', historyEntry);
 
       _updateCurrentSegments();
+
+      var routeObject = _routeObjects[navigatorKey];
+      var state = _stateObjects[navigatorKey];
+      var childRouteObject = routeObject?.child;
+
+      if (null != childRouteObject && null != state) {
+        if (state.currentRouteName == childRouteObject.segments.last) {
+          var childState = _stateObjects[childRouteObject.context.key];
+
+          childState?.onParentRouteChange(name);
+        }
+      }
     }
 
     var entry = RouterStackEntry(
@@ -342,11 +354,23 @@ class Router {
 
     var segments = [...parentObject.segments, parentState.currentRouteName];
 
+    // add route object for current navigator
+
     _routeObjects[context.key] = NavigatorRouteObject(
       context: context,
       routes: routes,
       segments: segments,
       parent: parentObject,
+    );
+
+    // recreate parent object with child reference
+
+    _routeObjects[parent.context.key] = NavigatorRouteObject(
+      context: parentObject.context,
+      routes: parentObject.routes,
+      segments: parentObject.segments,
+      parent: parentObject.parent,
+      child: _routeObjects[context.key],
     );
 
     if (Debug.routerLogs) {
