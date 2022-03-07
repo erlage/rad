@@ -110,7 +110,7 @@ Container(
   height: "20px",
 );
 ```
-There's also a optional `size` property for all widgets that has width and height properties. It allows defining both width and height in a less verbose way:
+There's also a less-verbose way. All widgets that has width and height properties also has a `size` property: 
 ```dart
 Container(
   size: "10% 20px",
@@ -126,7 +126,7 @@ Positioned(
   left: "20px",
 );
 ```
-There's also a optional `position` property for all widgets that has top, left.. properties:
+And there's a optional `position` property:
 ```dart
 Positioned(
   positon: "10px _ _ 20px",
@@ -236,7 +236,7 @@ Values can be passed to a route through `open` method.
 Navigator.of(context).open(name: "home", values: "/somevalue"); // leading slash is important
 ```
 
-Then on homepage, value can be accessed on home page using:
+Then on homepage, value can be accessed using:
 
 ```dart
 var value = Navigator.of(context).getValue("home");
