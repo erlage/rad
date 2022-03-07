@@ -78,3 +78,7 @@ export 'src/widgets/layout/spacer.dart' show Spacer;
 
 export 'src/widgets/layout/flexible.dart' show Flexible;
 export 'src/widgets/layout/expanded.dart' show Expanded;
+
+// html widgets
+
+export 'src/widgets/html/tags/tag_span.dart' show TagSpan;
