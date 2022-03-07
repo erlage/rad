@@ -29,7 +29,7 @@ class Text extends Widget {
   DomTag get tag => DomTag.span;
 
   @override
-  String get type => (Text).toString();
+  String get type => "$Text";
 
   @override
   String get initialKey => key ?? System.keyNotSet;

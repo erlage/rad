@@ -224,7 +224,7 @@ abstract class StatefulWidget extends Widget {
   String get initialKey => key ?? System.keyNotSet;
 
   @override
-  String get type => (StatefulWidget).toString();
+  String get type => "$StatefulWidget";
 
   @override
   onContextCreate(BuildContext context) {

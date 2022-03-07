@@ -45,7 +45,7 @@ class Container extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  String get type => (Container).toString();
+  String get type => "$Container";
 
   @override
   String get initialKey => key ?? System.keyNotSet;

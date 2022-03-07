@@ -33,7 +33,7 @@ class RawMarkUp extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  String get type => (RawMarkUp).toString();
+  String get type => "$RawMarkUp";
 
   @override
   String get initialKey => key ?? System.keyNotSet;

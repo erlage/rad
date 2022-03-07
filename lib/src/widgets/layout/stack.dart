@@ -41,7 +41,7 @@ class Stack extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  String get type => (Stack).toString();
+  String get type => "$Stack";
 
   @override
   String get initialKey => key ?? System.keyNotSet;

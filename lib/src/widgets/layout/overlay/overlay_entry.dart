@@ -33,7 +33,7 @@ class OverlayEntry extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  String get type => (OverlayEntry).toString();
+  String get type => "$OverlayEntry";
 
   @override
   String get initialKey => key ?? System.keyNotSet;

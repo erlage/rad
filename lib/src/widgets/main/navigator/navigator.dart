@@ -182,7 +182,7 @@ class Navigator extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  String get type => (Navigator).toString();
+  String get type => "$Navigator";
 
   @override
   String get initialKey => key ?? System.keyNotSet;

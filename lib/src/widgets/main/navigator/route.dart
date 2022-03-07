@@ -38,7 +38,7 @@ class Route extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  String get type => (Route).toString();
+  String get type => "$Route";
 
   @override
   String get initialKey => key ?? System.keyNotSet;

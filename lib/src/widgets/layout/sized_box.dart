@@ -45,7 +45,7 @@ class SizedBox extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  String get type => (SizedBox).toString();
+  String get type => "$SizedBox";
 
   @override
   String get initialKey => key ?? System.keyNotSet;

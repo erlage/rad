@@ -31,7 +31,7 @@ class Align extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  String get type => (Align).toString();
+  String get type => "$Align";
 
   @override
   String get initialKey => key ?? System.keyNotSet;

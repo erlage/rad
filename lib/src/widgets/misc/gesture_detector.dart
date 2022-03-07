@@ -42,7 +42,7 @@ class GestureDetector extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  String get type => (GestureDetector).toString();
+  String get type => "$GestureDetector";
 
   @override
   String get initialKey => key ?? System.keyNotSet;

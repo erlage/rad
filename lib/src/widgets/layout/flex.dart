@@ -62,7 +62,7 @@ class Flex extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  String get type => (Flex).toString();
+  String get type => "$Flex";
 
   @override
   String get initialKey => key ?? System.keyNotSet;

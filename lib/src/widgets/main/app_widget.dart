@@ -43,7 +43,7 @@ abstract class AppWidget extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  String get type => (AppWidget).toString();
+  String get type => "$AppWidget";
 
   @override
   String get initialKey => key ?? System.keyNotSet;

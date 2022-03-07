@@ -45,7 +45,7 @@ class Flexible extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  String get type => (Flexible).toString();
+  String get type => "$Flexible";
 
   @override
   String get initialKey => key ?? System.keyNotSet;

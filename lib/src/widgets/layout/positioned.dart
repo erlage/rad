@@ -56,7 +56,7 @@ class Positioned extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  String get type => (Positioned).toString();
+  String get type => "$Positioned";
 
   @override
   String get initialKey => key ?? System.keyNotSet;

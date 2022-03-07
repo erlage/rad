@@ -43,7 +43,7 @@ abstract class StatelessWidget extends Widget {
   String get initialKey => key ?? System.keyNotSet;
 
   @override
-  String get type => (StatelessWidget).toString();
+  String get type => "$StatelessWidget";
 
   @override
   createRenderObject(context) {
