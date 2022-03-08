@@ -91,8 +91,8 @@ class MarkUpTagRenderObject extends MultiChildRenderObject {
     required this.markUpTagProps,
     required BuildContext context,
   }) : super(
-          children ?? [],
-          context,
+          children: children ?? [],
+          context: context,
         );
 
   @override
