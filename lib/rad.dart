@@ -68,6 +68,8 @@ export 'src/core/enums.dart' show DomTag;
 
 export 'src/core/constants.dart' show System;
 
+export 'src/widgets/props/size_props.dart' show SizeProps;
+
 export 'src/widgets/props/class_attribute_prop.dart' show ClassAttributeProp;
 
 export 'src/core/interface/style_component.dart' show StyleComponent;
