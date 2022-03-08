@@ -1,14 +1,11 @@
 import 'package:rad/rad.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_attributes.dart';
 import 'package:rad/src/widgets/props/html/anchor_props.dart';
+import 'package:rad/src/widgets/props/html/markup_tag_props.dart';
 
 /// HTML Anchor tag.
 ///
-class Anchor extends Widget {
-  /// The key attribute specifies a unique id for an HTML
-  /// element (the value must be unique within the HTML document).
-  ///
-  final String? key;
-
+class Anchor extends MarkUpTagWithGlobalAttributes {
   /// The URL that the hyperlink points to.
   ///
   final String? href;
@@ -26,29 +23,31 @@ class Anchor extends Widget {
   ///
   final String? download;
 
-  /// The classes attribute specifies one or more class names for an element.
-  ///
-  final String? classes;
-
-  /// The data-* attributes is used to store custom data
-  /// private to the page or application.
-  ///
-  final Map<String, String>? dataset;
-
-  /// Children tags.
-  ///
-  final List<Widget>? children;
-
   const Anchor({
-    this.key,
+    String? key,
     this.href,
     this.rel,
     this.target,
     this.download,
-    this.classes,
-    this.dataset,
-    this.children,
-  });
+    bool? hidden,
+    bool? draggable,
+    bool? contenteditable,
+    int? tabIndex,
+    String? title,
+    String? classes,
+    Map<String, String>? dataset,
+    List<Widget>? children,
+  }) : super(
+          key: key,
+          title: title,
+          tabIndex: tabIndex,
+          draggable: draggable,
+          contenteditable: contenteditable,
+          hidden: hidden,
+          classes: classes,
+          dataset: dataset,
+          children: children,
+        );
 
   @override
   String get initialKey => key ?? System.keyNotSet;
@@ -64,32 +63,34 @@ class Anchor extends Widget {
     return AnchorRenderObject(
       context: context,
       children: children,
+      markUpTagProps: props(),
       anchorTagProps: AnchorProps(
         href: href,
         rel: rel,
         target: target,
         download: download,
-        classes: classes,
-        dataset: dataset,
       ),
     );
   }
 }
 
 class AnchorRenderObject extends MultiChildRenderObject {
+  MarkUpTagProps markUpTagProps;
   AnchorProps anchorTagProps;
 
   AnchorRenderObject({
     List<Widget>? children,
     required this.anchorTagProps,
+    required this.markUpTagProps,
     required BuildContext context,
   }) : super(
-          children: children ?? [],
           context: context,
+          children: children ?? [],
         );
 
   @override
   beforeRender(widgetObject) {
+    markUpTagProps.apply(widgetObject.element);
     anchorTagProps.apply(widgetObject.element);
   }
 
@@ -98,6 +99,11 @@ class AnchorRenderObject extends MultiChildRenderObject {
     widgetObject,
     covariant AnchorRenderObject updatedRenderObject,
   ) {
+    markUpTagProps.apply(
+      widgetObject.element,
+      updatedRenderObject.markUpTagProps,
+    );
+
     anchorTagProps.apply(
       widgetObject.element,
       updatedRenderObject.anchorTagProps,

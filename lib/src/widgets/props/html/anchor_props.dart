@@ -1,26 +1,19 @@
 import 'dart:html';
 
-import 'package:rad/src/widgets/props/common_props.dart';
-
 class AnchorProps {
   String? href;
+
   String? rel;
 
   String? download;
 
   String? target;
 
-  String? classes;
-
-  Map<String, String>? dataset;
-
   AnchorProps({
     this.href,
     this.rel,
     this.download,
-    this.classes,
     this.target,
-    this.dataset,
   });
 
   // application
@@ -45,9 +38,7 @@ class AnchorProps {
     return href != props.href ||
         rel != props.rel ||
         download != props.download ||
-        classes != props.classes ||
-        target != props.target ||
-        dataset != props.dataset;
+        target != props.target;
   }
 
   void _switchProps(AnchorProps updatedProps) {
@@ -55,9 +46,7 @@ class AnchorProps {
       ..href = updatedProps.href
       ..rel = updatedProps.rel
       ..download = updatedProps.download
-      ..classes = updatedProps.classes
-      ..target = updatedProps.target
-      ..dataset = updatedProps.dataset;
+      ..target = updatedProps.target;
   }
 
   // statics
@@ -80,9 +69,6 @@ class AnchorProps {
     if (null != props.target) {
       element.target = props.target!;
     }
-
-    CommonProps.applyClasses(element, props.classes);
-    CommonProps.applyDataset(element, props.dataset);
   }
 
   static void _clearProps(HtmlElement element, AnchorProps props) {
@@ -99,8 +85,5 @@ class AnchorProps {
     if (null != props.target) {
       element.target = "";
     }
-
-    CommonProps.clearClasses(element, props.classes);
-    CommonProps.clearDataset(element, props.dataset);
   }
 }
