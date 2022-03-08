@@ -49,6 +49,14 @@ export 'src/widgets/gesture_detector.dart' show GestureDetector;
 export 'src/widgets/text.dart' show Text;
 export 'src/widgets/raw_markup.dart' show RawMarkUp;
 
+// async
+
+export 'src/widgets/async/connection_state.dart' show ConnectionState;
+
+export 'src/widgets/async/async_snapshot.dart' show AsyncSnapshot;
+
+export 'src/widgets/future_builder.dart' show FutureBuilder;
+
 // html
 
 export 'src/widgets/html/span.dart' show Span;
