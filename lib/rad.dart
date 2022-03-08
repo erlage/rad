@@ -64,6 +64,8 @@ export 'src/core/enums.dart' show DomTag;
 
 export 'src/core/constants.dart' show System;
 
+export 'src/widgets/props/style_props.dart' show StyleProps;
+
 export 'src/core/interface/style_component.dart' show StyleComponent;
 
 export 'src/core/objects/render_object.dart' show RenderObject;
