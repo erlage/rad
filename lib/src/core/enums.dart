@@ -64,6 +64,10 @@ enum DomTag {
   /// Iframe tag.
   ///
   iFrame,
+
+  /// Break line tag.
+  ///
+  breakLine,
 }
 
 enum WidgetAction {

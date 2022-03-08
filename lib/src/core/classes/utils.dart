@@ -38,6 +38,9 @@ class Utils {
 
       case DomTag.iFrame:
         return "iframe";
+
+      case DomTag.breakLine:
+        return "br";
     }
   }
 

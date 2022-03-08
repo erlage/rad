@@ -68,6 +68,7 @@ export 'src/widgets/html/blockquote.dart' show Blockquote;
 export 'src/widgets/html/horizontal_rule.dart' show HorizontalRule;
 export 'src/widgets/html/label.dart' show Label;
 export 'src/widgets/html/iframe.dart' show IFrame;
+export 'src/widgets/html/break_line.dart' show BreakLine;
 
 /*
 |--------------------------------------------------------------------------
