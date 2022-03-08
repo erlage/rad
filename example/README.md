@@ -29,3 +29,5 @@ class ClickTest extends StatefulWidget {
 ```
 
 For installing Rad please refer to [package homepage](https://pub.dev/packages/rad)
+
+Examples are moved to [this repo](https://github.com/rad-framework/examples)

@@ -72,7 +72,7 @@ For debugging a Dart web app, you've to setup a debugger for your IDE/editor. Se
 If you happen to be using VS code,
 
 - Install [VS code Dart plugin](https://marketplace.visualstudio.com/items?itemName=Dart-Code.dart-code)
-- Create a `launch.json` inside `.vscode` folder - [see example](https://github.com/erlage/rad/blob/main/example/vscode/launch.json)
+- Create a `launch.json` inside `.vscode` folder - [see example](https://github.com/rad-framework/examples/raw/main/vscode/launch.json)
 - Start your app in debug mode - see [this](https://code.visualstudio.com/docs/editor/debugging) for more
 
 ### Deployment
@@ -145,7 +145,7 @@ Rad framework comes with a in-built Router that offers
 - Auto Deep linking
 - Auto Single page experience (no page reloads when user hit forward/back buttons)
 
-![Deep linking and Single page experience in action](https://github.com/erlage/rad/raw/main/example/routing/routing.gif)
+![Deep linking and Single page experience in action](https://github.com/rad-framework/examples/raw/main/routing/routing.gif)
 
 Everything you're seeing in above demo, works out of the box. That is, you'll be using just the Navigator widget and framework will take care of wiring things up. Even if you've Navigators nested inside other Navigators, or your Navigators are placed somewhere deep inside Pages, framework will take care of finding them and routing requests to them when needed.
 
