@@ -1,5 +1,7 @@
 import 'dart:html';
 
+import 'package:rad/src/widgets/props/common_tag_props.dart';
+
 class AnchorTagProps {
   String? href;
   String? rel;
@@ -79,17 +81,8 @@ class AnchorTagProps {
       element.target = props.target!;
     }
 
-    if (null != props.classes) {
-      var classes = props.classes?.split(" ") ?? [];
-
-      if (classes.isNotEmpty) {
-        element.classes.addAll(classes);
-      }
-    }
-
-    if (null != props.dataset && props.dataset!.isNotEmpty) {
-      element.dataset.addAll(props.dataset!);
-    }
+    CommonTagProps.applyClasses(element, props.classes);
+    CommonTagProps.applyDataset(element, props.dataset);
   }
 
   static void _clearProps(HtmlElement element, AnchorTagProps props) {
@@ -107,18 +100,7 @@ class AnchorTagProps {
       element.target = "";
     }
 
-    if (null != props.classes) {
-      var classes = props.classes?.split(" ") ?? [];
-
-      if (classes.isNotEmpty) {
-        element.classes.removeAll(classes);
-      }
-    }
-
-    if (null != props.dataset && props.dataset!.isNotEmpty) {
-      element.dataset.removeWhere(
-        ((key, value) => props.dataset!.containsKey(key)),
-      );
-    }
+    CommonTagProps.clearClasses(element, props.classes);
+    CommonTagProps.clearDataset(element, props.dataset);
   }
 }
