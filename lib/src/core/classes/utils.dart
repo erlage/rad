@@ -26,6 +26,9 @@ class Utils {
 
       case DomTag.anchor:
         return "a";
+
+      case DomTag.blockquote:
+        return "blockquote";
     }
   }
 

@@ -48,6 +48,10 @@ enum DomTag {
   /// Anchor.
   ///
   anchor,
+
+  /// Blockquote.
+  ///
+  blockquote,
 }
 
 enum WidgetAction {
