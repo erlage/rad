@@ -3,8 +3,8 @@ import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/classes/abstract/widget.dart';
-import 'package:rad/src/widgets/main/navigator/navigator.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/widgets/navigator.dart';
 
 /// Route is a [Navigator] specific widget.
 ///

@@ -9,7 +9,7 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/core/classes/utils.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
-import 'package:rad/src/core/classes/abstract/widget.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/objects/widget_update_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 
@@ -46,7 +46,7 @@ class Framework {
 
   /// Inject styles into DOM.
   ///
-  static void addGlobalStyles(String styles, [String? flagLogEntry]) {
+  static void addGlobalStyles(String styles, String flagLogEntry) {
     // create dom element
 
     var styleSheet = document.createElement("style");
@@ -67,9 +67,7 @@ class Framework {
     // log if flag is on
 
     if (Debug.frameworkLogs) {
-      if (null != flagLogEntry) {
-        print("Styles injected: $flagLogEntry");
-      }
+      print("Styles injected: $flagLogEntry");
     }
   }
 

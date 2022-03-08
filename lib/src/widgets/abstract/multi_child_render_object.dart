@@ -1,6 +1,5 @@
 import 'package:rad/rad.dart';
 import 'package:rad/src/core/classes/framework.dart';
-import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 
 abstract class MultiChildRenderObject extends RenderObject {

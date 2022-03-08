@@ -1,11 +1,10 @@
 import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/classes/abstract/widget.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/objects/build_context.dart';
-
-import 'package:rad/src/core/props/internal/markup_tag_props.dart';
+import 'package:rad/src/widgets/props/markup_tag_props.dart';
 import 'package:rad/src/widgets/abstract/multi_child_render_object.dart';
 
-/// HTML tag with global atrributes.
+/// HTML tag.
 ///
 abstract class MarkUpTag extends Widget {
   /// The key attribute specifies a unique id for an HTML

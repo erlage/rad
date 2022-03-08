@@ -5,8 +5,8 @@ import 'package:rad/src/core/classes/router.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
-import 'package:rad/src/widgets/main/navigator/navigator.dart';
-import 'package:rad/src/widgets/main/navigator/route.dart';
+import 'package:rad/src/widgets/navigator.dart';
+import 'package:rad/src/widgets/route.dart';
 
 /// Navigator's state object.
 ///

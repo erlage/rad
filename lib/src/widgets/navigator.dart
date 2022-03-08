@@ -4,10 +4,10 @@ import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/classes/router.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/classes/abstract/widget.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/types.dart';
-import 'package:rad/src/widgets/main/navigator/navigator_state.dart';
-import 'package:rad/src/widgets/main/navigator/route.dart';
+import 'package:rad/src/widgets/navigator/navigator_state.dart';
+import 'package:rad/src/widgets/route.dart';
 
 /// Navigator widget including Router.
 ///

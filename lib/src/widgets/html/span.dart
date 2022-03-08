@@ -1,9 +1,9 @@
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/classes/abstract/widget.dart';
-import 'package:rad/src/widgets/html/abstract/markup_tag.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/widgets/abstract/markup_tag.dart';
 
-class TagSpan extends MarkUpTag {
-  TagSpan({
+class Span extends MarkUpTag {
+  Span({
     String? key,
     String? title,
     String? classes,
@@ -29,5 +29,5 @@ class TagSpan extends MarkUpTag {
   DomTag get tag => DomTag.span;
 
   @override
-  String get type => "$TagSpan";
+  String get type => "$Span";
 }

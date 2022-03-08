@@ -7,9 +7,9 @@ import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/router/navigator_route_object.dart';
 import 'package:rad/src/core/objects/router/router_stack.dart';
 import 'package:rad/src/core/objects/router/router_stack_entry.dart';
-import 'package:rad/src/widgets/main/navigator/navigator.dart';
-import 'package:rad/src/widgets/main/navigator/navigator_state.dart';
-import 'package:rad/src/widgets/main/navigator/route.dart';
+import 'package:rad/src/widgets/navigator.dart';
+import 'package:rad/src/widgets/navigator/navigator_state.dart';
+import 'package:rad/src/widgets/route.dart';
 
 class Router {
   static var _isInit = false;

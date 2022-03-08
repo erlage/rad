@@ -1,9 +1,9 @@
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/props/internal/style_props.dart';
+import 'package:rad/src/widgets/props/style_props.dart';
 import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/classes/abstract/widget.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// A run of text with a single style.
 ///
@@ -17,12 +17,12 @@ class Text extends Widget {
   final String? key;
 
   final String text;
-  final String? styles;
+  final String? classes;
 
   const Text(
     this.text, {
     this.key,
-    this.styles,
+    this.classes,
   });
 
   @override
@@ -39,7 +39,7 @@ class Text extends Widget {
     return TextRenderObject(
       context: context,
       text: text,
-      styleProps: StyleProps(styles),
+      styleProps: StyleProps(classes),
     );
   }
 }

@@ -1,10 +1,10 @@
 import 'dart:html';
 
-import 'package:rad/src/core/classes/abstract/widget.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
-import 'package:rad/src/widgets/main/navigator/navigator_state.dart';
+import 'package:rad/src/widgets/navigator/navigator_state.dart';
 
 typedef UpdateTypeCallback = bool Function(UpdateType updateType);
 

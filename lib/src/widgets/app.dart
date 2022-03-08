@@ -1,29 +1,28 @@
-import 'dart:html';
-
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
+import 'package:rad/src/core/interface/app_component.dart';
 import 'package:rad/src/core/objects/debug_options.dart';
 import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/classes/abstract/widget.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/css/include/normalize.generated.dart';
 import 'package:rad/src/css/main.generated.dart';
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 
-abstract class AppWidget extends Widget {
+class App extends Widget {
   final String? key;
 
   final Widget child;
   final String targetId;
 
-  final VoidCallback onInit;
+  final AppComponents? components;
 
-  AppWidget({
+  App({
     this.key,
+    this.components,
     required this.child,
     required this.targetId,
-    required this.onInit,
-    required String routingPath,
+    String routingPath = "",
     DebugOptions? debugOptions,
   }) {
     Framework.init(routingPath: routingPath, debugOptions: debugOptions);
@@ -31,7 +30,8 @@ abstract class AppWidget extends Widget {
     Framework.addGlobalStyles(GEN_STYLES_NORMALIZE_CSS, "Normalize");
     Framework.addGlobalStyles(GEN_STYLES_MAIN_CSS, "Main");
 
-    onInit();
+    var components = this.components;
+    components?.load();
 
     Framework.buildChildren(
       widgets: [this],
@@ -43,7 +43,7 @@ abstract class AppWidget extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  String get type => "$AppWidget";
+  String get type => "$App";
 
   @override
   String get initialKey => key ?? System.keyNotSet;
