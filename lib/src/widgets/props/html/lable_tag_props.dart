@@ -1,9 +1,9 @@
 import 'dart:html';
 
 class LabelTagProps {
-  String? htmlFor;
+  String? forAttribute;
 
-  LabelTagProps(this.htmlFor);
+  LabelTagProps(this.forAttribute);
 
   // application
 
@@ -24,11 +24,11 @@ class LabelTagProps {
   }
 
   bool _isChanged(LabelTagProps props) {
-    return htmlFor != props.htmlFor;
+    return forAttribute != props.forAttribute;
   }
 
   void _switchProps(LabelTagProps updatedProps) {
-    htmlFor = updatedProps.htmlFor;
+    forAttribute = updatedProps.forAttribute;
   }
 
   // statics
@@ -36,15 +36,15 @@ class LabelTagProps {
   static void _applyProps(HtmlElement element, LabelTagProps props) {
     element as LabelElement;
 
-    if (null != props.htmlFor) {
-      element.htmlFor = props.htmlFor!;
+    if (null != props.forAttribute) {
+      element.htmlFor = props.forAttribute!;
     }
   }
 
   static void _clearProps(HtmlElement element, LabelTagProps props) {
     element as LabelElement;
 
-    if (null != props.htmlFor) {
+    if (null != props.forAttribute) {
       element.htmlFor = "";
     }
   }

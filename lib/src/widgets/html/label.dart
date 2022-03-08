@@ -10,14 +10,14 @@ import 'package:rad/src/widgets/props/html/lable_tag_props.dart';
 /// The Label tag.
 ///
 class Label extends TagWithGlobalProps {
-  /// The value of the [htmlFor] attribute must be a single id for a labelable
+  /// The value of the [forAttribute] attribute must be a single id for a labelable
   /// form-related element in the same document as the <label> element.
   ///
-  final String? htmlFor;
+  final String? forAttribute;
 
   const Label({
     String? key,
-    this.htmlFor,
+    this.forAttribute,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,
@@ -53,7 +53,7 @@ class Label extends TagWithGlobalProps {
       context: context,
       children: children,
       globalTagProps: globalTagProps(),
-      labelTagProps: LabelTagProps(htmlFor),
+      labelTagProps: LabelTagProps(forAttribute),
     );
   }
 }
