@@ -23,13 +23,13 @@ class Router {
 
   /// Registered navigators.
   ///
-  /// navigator key: navigator route object
+  /// navigator id: navigator route object
   ///
   static final _routeObjects = <String, NavigatorRouteObject>{};
 
   /// Registered state objects.
   ///
-  /// navigator key: navigator state
+  /// navigator id: navigator state
   ///
   static final _stateObjects = <String, NavigatorState>{};
 
@@ -64,7 +64,7 @@ class Router {
       throw "Router not initialized.";
     }
 
-    if (_routeObjects.containsKey(context.key)) throw System.coreError;
+    if (_routeObjects.containsKey(context.id)) throw System.coreError;
 
     _register(context, routes);
   }
@@ -75,19 +75,19 @@ class Router {
   /// state has to register itself using this method.
   ///
   static void registerState(BuildContext context, NavigatorState state) {
-    if (_stateObjects.containsKey(context.key)) {
+    if (_stateObjects.containsKey(context.id)) {
       throw System.coreError;
     }
 
-    _stateObjects[context.key] = state;
+    _stateObjects[context.id] = state;
   }
 
   static void unRegister(BuildContext context) {
-    _routeObjects.remove(context.key);
+    _routeObjects.remove(context.id);
 
-    _routerStack.remove(context.key);
+    _routerStack.remove(context.id);
 
-    _stateObjects.remove(context.key);
+    _stateObjects.remove(context.id);
   }
 
   /// Push page entry.
@@ -95,11 +95,11 @@ class Router {
   static void pushEntry({
     required String name,
     required String values,
-    required String navigatorKey,
+    required String navigatorId,
     required bool updateHistory,
   }) {
     if (updateHistory) {
-      var protectedSegments = _protectedSegments(navigatorKey);
+      var protectedSegments = _protectedSegments(navigatorId);
 
       var historyEntry = protectedSegments.join("/") + "/$name$values";
 
@@ -107,13 +107,13 @@ class Router {
 
       _updateCurrentSegments();
 
-      var routeObject = _routeObjects[navigatorKey];
-      var state = _stateObjects[navigatorKey];
+      var routeObject = _routeObjects[navigatorId];
+      var state = _stateObjects[navigatorId];
       var childRouteObject = routeObject?.child;
 
       if (null != childRouteObject && null != state) {
         if (state.currentRouteName == childRouteObject.segments.last) {
-          var childState = _stateObjects[childRouteObject.context.key];
+          var childState = _stateObjects[childRouteObject.context.id];
 
           childState?.onParentRouteChange(name);
         }
@@ -123,7 +123,7 @@ class Router {
     var entry = RouterStackEntry(
       name: name,
       values: values,
-      navigatorKey: navigatorKey,
+      navigatorId: navigatorId,
       location: window.location.href,
     );
 
@@ -137,13 +137,13 @@ class Router {
   static void pushReplacement({
     required String name,
     required String values,
-    required String navigatorKey,
+    required String navigatorId,
   }) {
     var currentLocation = window.location.href;
 
     _routerStack.entries.remove(currentLocation);
 
-    var protectedSegments = _protectedSegments(navigatorKey);
+    var protectedSegments = _protectedSegments(navigatorId);
 
     var historyEntry = protectedSegments.join("/") + "/$name$values";
 
@@ -154,7 +154,7 @@ class Router {
     var entry = RouterStackEntry(
       name: name,
       values: values,
-      navigatorKey: navigatorKey,
+      navigatorId: navigatorId,
       location: window.location.href,
     );
 
@@ -166,12 +166,12 @@ class Router {
   /// Returns empty string, if matches nothing. Navigators should display
   /// default page when [getPath] returns empty string.
   ///
-  static String getPath(String navigatorKey) {
-    var stateObject = _stateObjects[navigatorKey];
+  static String getPath(String navigatorId) {
+    var stateObject = _stateObjects[navigatorId];
 
     if (null == stateObject) throw System.coreError;
 
-    var segments = _accessibleSegments(navigatorKey);
+    var segments = _accessibleSegments(navigatorId);
 
     var matchedPathSegment = '';
 
@@ -185,7 +185,7 @@ class Router {
 
     if (Debug.routerLogs) {
       print(
-        "Navigator(#$navigatorKey) matched: '$matchedPathSegment' from '${segments.join("/")}'",
+        "Navigator(#$navigatorId) matched: '$matchedPathSegment' from '${segments.join("/")}'",
       );
     }
 
@@ -194,8 +194,8 @@ class Router {
 
   /// Get value following the provided segment in URL.
   ///
-  static String getValue(String navigatorKey, String segment) {
-    var path = _accessibleSegments(navigatorKey).join("/");
+  static String getValue(String navigatorId, String segment) {
+    var path = _accessibleSegments(navigatorId).join("/");
 
     // try to find a value that's following the provided segment in path
 
@@ -266,11 +266,11 @@ class Router {
         // for active history, our implementation is ready, see below.
 
       } else {
-        var routeObject = _routeObjects[entry.navigatorKey]!;
+        var routeObject = _routeObjects[entry.navigatorId]!;
 
         _ensureNavigatorIsVisible(routeObject);
 
-        var navigatorState = _stateObjects[entry.navigatorKey]!;
+        var navigatorState = _stateObjects[entry.navigatorId]!;
 
         // if navigator has page in active stack
 
@@ -306,7 +306,7 @@ class Router {
     if (null != parent) {
       _ensureNavigatorIsVisible(parent);
 
-      var parentState = _stateObjects[parent.context.key];
+      var parentState = _stateObjects[parent.context.id];
 
       if (null != parentState) {
         var parentRouteNameToOpen = routeObject.segments.last;
@@ -322,21 +322,21 @@ class Router {
     //
     // we've to use context.parent here because navigators are required to register
     // themselves in onContextCreate hook but at the point when onContextCreate
-    // hook is fired, context.key is not present in DOM.
+    // hook is fired, context.id is not present in DOM.
 
     var parent = Framework.findAncestorOfType<Navigator>(context.parent);
 
     // if no Navigator in ancestors i.e we're dealing with a root navigator
 
     if (null == parent) {
-      _routeObjects[context.key] = NavigatorRouteObject(
+      _routeObjects[context.id] = NavigatorRouteObject(
         context: context,
         routes: routes,
         segments: [_routingPath],
       );
 
       if (Debug.routerLogs) {
-        print("Navigator Registered: #${context.key} at ${[_routingPath]}");
+        print("Navigator Registered: #${context.id} at ${[_routingPath]}");
       }
 
       return;
@@ -346,7 +346,7 @@ class Router {
 
     var parentState = (parent.renderObject as NavigatorRenderObject).state;
 
-    var parentObject = _routeObjects[parent.context.key];
+    var parentObject = _routeObjects[parent.context.id];
 
     if (null == parentObject) throw System.coreError;
 
@@ -354,7 +354,7 @@ class Router {
 
     // add route object for current navigator
 
-    _routeObjects[context.key] = NavigatorRouteObject(
+    _routeObjects[context.id] = NavigatorRouteObject(
       context: context,
       routes: routes,
       segments: segments,
@@ -363,24 +363,24 @@ class Router {
 
     // recreate parent object with child reference
 
-    _routeObjects[parent.context.key] = NavigatorRouteObject(
+    _routeObjects[parent.context.id] = NavigatorRouteObject(
       context: parentObject.context,
       routes: parentObject.routes,
       segments: parentObject.segments,
       parent: parentObject.parent,
-      child: _routeObjects[context.key],
+      child: _routeObjects[context.id],
     );
 
     if (Debug.routerLogs) {
-      print("Navigator Registered: #${context.key} at $segments");
+      print("Navigator Registered: #${context.id} at $segments");
     }
   }
 
   /// Part of path(window.location.pathName) that navigator with
-  /// [navigatorKey] can access.
+  /// [navigatorId] can access.
   ///
-  static List<String> _accessibleSegments(String navigatorKey) {
-    var routeObject = _routeObjects[navigatorKey];
+  static List<String> _accessibleSegments(String navigatorId) {
+    var routeObject = _routeObjects[navigatorId];
 
     if (null == routeObject) throw System.coreError;
 
@@ -418,14 +418,14 @@ class Router {
   }
 
   /// Part of path(window.location.pathName) that navigator with
-  /// [navigatorKey] can't change.
+  /// [navigatorId] can't change.
   ///
   /// Note that, navigator still can access **some parts** of protected
   /// segements using [_accessibleSegments]
   ///
-  static List<String> _protectedSegments(String navigatorKey) {
-    var routeObject = _routeObjects[navigatorKey];
-    var stateObject = _stateObjects[navigatorKey];
+  static List<String> _protectedSegments(String navigatorId) {
+    var routeObject = _routeObjects[navigatorId];
+    var stateObject = _stateObjects[navigatorId];
 
     if (null == routeObject) throw System.coreError;
     if (null == stateObject) throw System.coreError;

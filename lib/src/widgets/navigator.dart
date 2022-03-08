@@ -157,7 +157,7 @@ import 'package:rad/src/widgets/route.dart';
 /// ```
 ///
 class Navigator extends Widget {
-  final String? key;
+  final String? id;
 
   /// Called when Navigator state is created.
   ///
@@ -172,7 +172,7 @@ class Navigator extends Widget {
   final List<Route> routes;
 
   const Navigator({
-    this.key,
+    this.id,
     this.onInit,
     this.onRouteChange,
     required this.routes,
@@ -185,7 +185,7 @@ class Navigator extends Widget {
   String get type => "$Navigator";
 
   @override
-  String get initialKey => key ?? System.keyNotSet;
+  String get initialId => id ?? System.idNotSet;
 
   @override
   onContextCreate(context) => Router.registerRoutes(context, routes);

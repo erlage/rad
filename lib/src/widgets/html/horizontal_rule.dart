@@ -7,13 +7,13 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/props/style_props.dart';
 
 class HorizontalRule extends Widget {
-  final String? key;
+  final String? id;
 
-  final String? classes;
+  final String? classAttribute;
 
   HorizontalRule({
-    this.key,
-    this.classes,
+    this.id,
+    this.classAttribute,
   });
 
   @override
@@ -23,12 +23,12 @@ class HorizontalRule extends Widget {
   String get type => "$HorizontalRule";
 
   @override
-  String get initialKey => key ?? System.keyNotSet;
+  String get initialId => id ?? System.idNotSet;
 
   @override
   RenderObject createRenderObject(BuildContext context) {
     return HorizontalRuleRenderObject(
-      styleProps: StyleProps(classes),
+      styleProps: StyleProps(classAttribute),
       context: context,
     );
   }

@@ -15,30 +15,30 @@ class Blockquote extends TagWithGlobalProps {
   final String? cite;
 
   const Blockquote({
-    String? key,
+    String? id,
     this.cite,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,
     int? tabIndex,
     String? title,
-    String? classes,
-    Map<String, String>? dataset,
+    String? classAttribute,
+    Map<String, String>? dataAttributes,
     List<Widget>? children,
   }) : super(
-          key: key,
+          id: id,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
-          contenteditable: contenteditable,
           hidden: hidden,
-          classes: classes,
-          dataset: dataset,
+          classAttribute: classAttribute,
+          contenteditable: contenteditable,
+          dataAttributes: dataAttributes,
           children: children,
         );
 
   @override
-  String get initialKey => key ?? System.keyNotSet;
+  String get initialId => id ?? System.idNotSet;
 
   @override
   String get type => "$Blockquote";

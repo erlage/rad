@@ -22,9 +22,9 @@ import 'package:rad/src/core/types.dart';
 ///  * [StatefulWidget], A widget that has mutable state.
 ///
 abstract class StatelessWidget extends Widget {
-  final String? key;
+  final String? id;
 
-  const StatelessWidget({this.key});
+  const StatelessWidget({this.id});
 
   /// Describes the part of the user interface represented by this widget.
   ///
@@ -40,7 +40,7 @@ abstract class StatelessWidget extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  String get initialKey => key ?? System.keyNotSet;
+  String get initialId => id ?? System.idNotSet;
 
   @override
   String get type => "$StatelessWidget";

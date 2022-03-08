@@ -75,7 +75,7 @@ class Framework {
     // ensure context is ready for processing.
     // this happens when user .of(context) is called inside a constructor.
 
-    if (System.keyNotSet == context.key) {
+    if (System.idNotSet == context.id) {
       throw "Part of build context is not ready. This means that context is under construction.";
     }
 
@@ -83,7 +83,7 @@ class Framework {
 
     var match = "[data-wtype='$WidgetType']";
 
-    var domNode = document.getElementById(context.key)?.parent?.closest(match);
+    var domNode = document.getElementById(context.id)?.parent?.closest(match);
 
     if (null == domNode) {
       return null;
@@ -112,16 +112,16 @@ class Framework {
     }
 
     for (var widget in widgets) {
-      // generate key if not set
+      // generate id if not set
 
-      var widgetKey = System.keyNotSet == widget.initialKey
-          ? Utils.generateWidgetKey()
-          : widget.initialKey;
+      var widgetId = System.idNotSet == widget.initialId
+          ? Utils.generateWidgetId()
+          : widget.initialId;
 
       // create build context
 
       var buildContext = BuildContext(
-        key: widgetKey,
+        id: widgetId,
         parent: parentContext,
         widgetType: widget.type,
         widgetDomTag: widget.tag,
@@ -135,7 +135,7 @@ class Framework {
       widget.onRenderObjectCreate(renderObject);
 
       if (Debug.widgetLogs) {
-        print("Build widget: ${widget.type} #${buildContext.key}");
+        print("Build widget: ${widget.type} #${buildContext.id}");
       }
 
       // create widget object
@@ -159,7 +159,7 @@ class Framework {
 
         if (isRoot) {
           var element = document.getElementById(
-            renderObject.context.parent.key,
+            renderObject.context.parent.id,
           );
 
           if (null == element) {
@@ -170,7 +170,7 @@ class Framework {
         } else {
           _disposeWidget(
             preserveTarget: true,
-            widgetObject: _getWidgetObject(widgetObject.context.parent.key),
+            widgetObject: _getWidgetObject(widgetObject.context.parent.id),
           );
         }
       }
@@ -231,7 +231,7 @@ class Framework {
       );
     }
 
-    var parent = document.getElementById(parentContext.key);
+    var parent = document.getElementById(parentContext.id);
 
     if (null == parent) {
       return dispatchCompleteRebuild();
@@ -360,7 +360,7 @@ class Framework {
     //
     bool flagIterateInReverseOrder = false,
   }) {
-    var widgetObject = _getWidgetObject(parentContext.key);
+    var widgetObject = _getWidgetObject(parentContext.id);
 
     if (null == widgetObject) return;
 
@@ -487,15 +487,15 @@ class Framework {
     element.classes.remove('rad-hidden');
   }
 
-  static WidgetObject? _getWidgetObject(String widgetKey) {
-    return _registeredWidgetObjects[widgetKey];
+  static WidgetObject? _getWidgetObject(String widgetId) {
+    return _registeredWidgetObjects[widgetId];
   }
 
   static void _registerWidgetObject(WidgetObject widgetObject) {
-    _registeredWidgetObjects[widgetObject.context.key] = widgetObject;
+    _registeredWidgetObjects[widgetObject.context.id] = widgetObject;
   }
 
   static void _unRegisterWidgetObject(WidgetObject widgetObject) {
-    _registeredWidgetObjects.remove(widgetObject.context.key);
+    _registeredWidgetObjects.remove(widgetObject.context.id);
   }
 }

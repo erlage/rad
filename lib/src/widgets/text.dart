@@ -14,15 +14,15 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// It renders contents of [text] property as a string literal.
 ///
 class Text extends Widget {
-  final String? key;
+  final String? id;
 
   final String text;
-  final String? classes;
+  final String? classAttribute;
 
   const Text(
     this.text, {
-    this.key,
-    this.classes,
+    this.id,
+    this.classAttribute,
   });
 
   @override
@@ -32,14 +32,14 @@ class Text extends Widget {
   String get type => "$Text";
 
   @override
-  String get initialKey => key ?? System.keyNotSet;
+  String get initialId => id ?? System.idNotSet;
 
   @override
   createRenderObject(context) {
     return TextRenderObject(
       context: context,
       text: text,
-      styleProps: StyleProps(classes),
+      styleProps: StyleProps(classAttribute),
     );
   }
 }

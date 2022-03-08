@@ -1,13 +1,13 @@
 class RouterStackEntry {
   final String name;
   final String values;
-  final String navigatorKey;
+  final String navigatorId;
   final String location;
 
   RouterStackEntry({
     required this.name,
     required this.values,
-    required this.navigatorKey,
+    required this.navigatorId,
     required this.location,
   });
 }

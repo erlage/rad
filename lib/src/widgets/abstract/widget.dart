@@ -18,9 +18,9 @@ abstract class Widget {
   ///
   String get type;
 
-  /// key provided in widget constructor(if any)
+  /// id provided in widget constructor(if any)
   ///
-  String get initialKey;
+  String get initialId;
 
   /// Called when context for this widget is created.
   ///

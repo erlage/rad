@@ -13,7 +13,7 @@ import 'package:rad/src/widgets/navigator.dart';
 /// this widget position in tree.
 ///
 class Route extends Widget {
-  final String? key;
+  final String? id;
 
   /// Name of the Route path.
   ///
@@ -28,7 +28,7 @@ class Route extends Widget {
   final Widget page;
 
   const Route({
-    this.key,
+    this.id,
     String? path,
     required this.name,
     required this.page,
@@ -41,7 +41,7 @@ class Route extends Widget {
   String get type => "$Route";
 
   @override
-  String get initialKey => key ?? System.keyNotSet;
+  String get initialId => id ?? System.idNotSet;
 
   @override
   createRenderObject(context) {

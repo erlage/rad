@@ -5,7 +5,7 @@ import 'package:rad/src/widgets/props/common_props.dart';
 class GlobalTagProps {
   String? title;
 
-  String? classes;
+  String? classAttribute;
 
   int? tabIndex;
 
@@ -15,16 +15,16 @@ class GlobalTagProps {
 
   bool? contenteditable;
 
-  Map<String, String>? dataset;
+  Map<String, String>? dataAttributes;
 
   GlobalTagProps({
     this.title,
     this.tabIndex,
-    this.classes,
+    this.classAttribute,
     this.hidden,
     this.draggable,
     this.contenteditable,
-    this.dataset,
+    this.dataAttributes,
   });
 
   // application
@@ -48,22 +48,22 @@ class GlobalTagProps {
   bool _isChanged(GlobalTagProps props) {
     return title != props.title ||
         tabIndex != props.tabIndex ||
-        classes != props.classes ||
+        classAttribute != props.classAttribute ||
         hidden != props.hidden ||
         draggable != props.draggable ||
         contenteditable != props.contenteditable ||
-        dataset != props.dataset;
+        dataAttributes != props.dataAttributes;
   }
 
   void _switchProps(GlobalTagProps updatedProps) {
     this
       ..title = updatedProps.title
       ..tabIndex = updatedProps.tabIndex
-      ..classes = updatedProps.classes
+      ..classAttribute = updatedProps.classAttribute
       ..hidden = updatedProps.hidden
       ..draggable = updatedProps.draggable
       ..contenteditable = updatedProps.contenteditable
-      ..dataset = updatedProps.dataset;
+      ..dataAttributes = updatedProps.dataAttributes;
   }
 
   // statics
@@ -90,8 +90,8 @@ class GlobalTagProps {
       element.contentEditable = editable ? "true" : "false";
     }
 
-    CommonProps.applyClasses(element, props.classes);
-    CommonProps.applyDataset(element, props.dataset);
+    CommonProps.applyClassAttribute(element, props.classAttribute);
+    CommonProps.applyDataAttributes(element, props.dataAttributes);
   }
 
   static void _clearProps(HtmlElement element, GlobalTagProps props) {
@@ -112,7 +112,7 @@ class GlobalTagProps {
       element.contentEditable = "false";
     }
 
-    CommonProps.clearClasses(element, props.classes);
-    CommonProps.clearDataset(element, props.dataset);
+    CommonProps.clearClassAttribute(element, props.classAttribute);
+    CommonProps.clearDataAttributes(element, props.dataAttributes);
   }
 }

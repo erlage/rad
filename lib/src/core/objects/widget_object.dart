@@ -39,7 +39,7 @@ class WidgetObject {
     //
     // add properties to element
 
-    element.id = renderObject.context.key;
+    element.id = renderObject.context.id;
     element.dataset[System.attrType] = renderObject.context.widgetType;
     element.dataset[System.attrClass] = renderObject.context.widgetClassName;
   }
@@ -52,11 +52,11 @@ class WidgetObject {
     // we can't use node.parent here cus root widget's parent can be null
 
     var parentElement = document.getElementById(
-      renderObject.context.parent.key,
+      renderObject.context.parent.id,
     );
 
     if (null == parentElement) {
-      throw "Unable to find parent widget of element #${context.key}. Either disposed or something went wrong;";
+      throw "Unable to find parent widget of element #${context.id}. Either disposed or something went wrong;";
     }
 
     parentElement.append(element);

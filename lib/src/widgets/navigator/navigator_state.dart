@@ -112,13 +112,13 @@ class NavigatorState {
 
     if (updateHistory) {
       if (Debug.routerLogs) {
-        print("${context.key}: Push entry: $name");
+        print("${context.id}: Push entry: $name");
       }
 
       Router.pushEntry(
         name: name,
         values: values ?? '',
-        navigatorKey: context.key,
+        navigatorId: context.id,
         updateHistory: updateHistory,
       );
     }
@@ -230,7 +230,7 @@ class NavigatorState {
   /// // because current navigator is registered on posts page
   /// ```
   ///
-  String getValue(String segment) => Router.getValue(context.key, segment);
+  String getValue(String segment) => Router.getValue(context.id, segment);
 
   /*
   |--------------------------------------------------------------------------
@@ -246,7 +246,7 @@ class NavigatorState {
   void render(WidgetObject widgetObject) {
     _initState(widgetObject);
 
-    var name = Router.getPath(context.key);
+    var name = Router.getPath(context.id);
 
     var needsReplacement = name.isEmpty;
 
@@ -261,13 +261,13 @@ class NavigatorState {
 
     if (needsReplacement && name.isNotEmpty) {
       if (Debug.routerLogs) {
-        print("${context.key}: Push replacement: $name");
+        print("${context.id}: Push replacement: $name");
       }
 
       Router.pushReplacement(
         name: name,
         values: '',
-        navigatorKey: context.key,
+        navigatorId: context.id,
       );
     }
 
@@ -277,17 +277,17 @@ class NavigatorState {
   /// Framework fires this when parent route changes.
   ///
   void onParentRouteChange(String name) {
-    var routeName = Router.getPath(context.key);
+    var routeName = Router.getPath(context.id);
 
     if (routeName != currentRouteName) {
       if (Debug.routerLogs) {
-        print("${context.key}: Push replacement: $routeName");
+        print("${context.id}: Push replacement: $routeName");
       }
 
       Router.pushReplacement(
         name: currentRouteName,
         values: '',
-        navigatorKey: context.key,
+        navigatorId: context.id,
       );
     }
   }

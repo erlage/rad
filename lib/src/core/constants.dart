@@ -5,7 +5,7 @@ class System {
   static const attrRoutePath = "wroutepath";
 
   static const typeBigBang = "BigBang";
-  static const keyNotSet = "not-set";
+  static const idNotSet = "not-set";
 
   static const coreError = "Framework has gone wild.";
   static const routerError = "Router has gone wild.";

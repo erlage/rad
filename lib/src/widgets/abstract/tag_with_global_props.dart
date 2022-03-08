@@ -3,10 +3,10 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/props/html/global_tag_props.dart';
 
 abstract class TagWithGlobalProps extends Widget {
-  /// The key attribute specifies a unique id for an HTML
+  /// The id attribute specifies a unique id for an HTML
   /// element (the value must be unique within the HTML document).
   ///
-  final String? key;
+  final String? id;
 
   /// The title attribute specifies extra information about an element.
   ///
@@ -14,7 +14,7 @@ abstract class TagWithGlobalProps extends Widget {
 
   /// The classes attribute specifies one or more class names for an element.
   ///
-  final String? classes;
+  final String? classAttribute;
 
   /// The tabindex attribute specifies the tab order of an
   /// element (when the "tab" button is used for navigating).
@@ -34,7 +34,7 @@ abstract class TagWithGlobalProps extends Widget {
   /// The data-* attributes is used to store custom data
   /// private to the page or application.
   ///
-  final Map<String, String>? dataset;
+  final Map<String, String>? dataAttributes;
 
   /// The hidden attribute is a boolean attribute.
   /// When present, it specifies that an element is not yet, or
@@ -47,11 +47,11 @@ abstract class TagWithGlobalProps extends Widget {
   final List<Widget>? children;
 
   const TagWithGlobalProps({
-    this.key,
+    this.id,
     this.title,
     this.tabIndex,
-    this.classes,
-    this.dataset,
+    this.classAttribute,
+    this.dataAttributes,
     this.hidden,
     this.draggable,
     this.contenteditable,
@@ -59,13 +59,13 @@ abstract class TagWithGlobalProps extends Widget {
   });
 
   @override
-  String get initialKey => key ?? System.keyNotSet;
+  String get initialId => id ?? System.idNotSet;
 
   GlobalTagProps globalTagProps() => GlobalTagProps(
         title: title,
         tabIndex: tabIndex,
-        classes: classes,
-        dataset: dataset,
+        classAttribute: classAttribute,
+        dataAttributes: dataAttributes,
         hidden: hidden,
         draggable: draggable,
         contenteditable: contenteditable,

@@ -142,7 +142,7 @@ import 'package:rad/src/core/types.dart';
 ///    particular configuration.
 ///
 abstract class StatefulWidget extends Widget {
-  final String? key;
+  final String? id;
 
   late final BuildContext context;
 
@@ -162,7 +162,7 @@ abstract class StatefulWidget extends Widget {
     return UpdateType.navigatorOpen == updateType;
   }
 
-  StatefulWidget({this.key});
+  StatefulWidget({this.id});
 
   /// Called when this widget is inserted into the tree.
   ///
@@ -221,7 +221,7 @@ abstract class StatefulWidget extends Widget {
   DomTag get tag => DomTag.div;
 
   @override
-  String get initialKey => key ?? System.keyNotSet;
+  String get initialId => id ?? System.idNotSet;
 
   @override
   String get type => "$StatefulWidget";

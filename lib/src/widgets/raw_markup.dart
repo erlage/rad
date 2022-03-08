@@ -20,13 +20,13 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// ```
 ///
 class RawMarkUp extends Widget {
-  final String? key;
+  final String? id;
 
   final String html;
 
   const RawMarkUp(
     this.html, {
-    this.key,
+    this.id,
   });
 
   @override
@@ -36,7 +36,7 @@ class RawMarkUp extends Widget {
   String get type => "$RawMarkUp";
 
   @override
-  String get initialKey => key ?? System.keyNotSet;
+  String get initialId => id ?? System.idNotSet;
 
   @override
   createRenderObject(context) {

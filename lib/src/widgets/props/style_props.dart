@@ -3,9 +3,9 @@ import 'dart:html';
 import 'package:rad/src/widgets/props/common_props.dart';
 
 class StyleProps {
-  String? classes;
+  String? classAttribute;
 
-  StyleProps(this.classes);
+  StyleProps(this.classAttribute);
 
   // application
 
@@ -15,23 +15,23 @@ class StyleProps {
   ///
   void apply(HtmlElement element, [StyleProps? updatedProps]) {
     if (null == updatedProps) {
-      return CommonProps.applyClasses(element, classes);
+      return CommonProps.applyClassAttribute(element, classAttribute);
     }
 
     if (_isChanged(updatedProps)) {
-      CommonProps.clearClasses(element, classes);
+      CommonProps.clearClassAttribute(element, classAttribute);
 
       _switchProps(updatedProps);
 
-      CommonProps.applyClasses(element, classes);
+      CommonProps.applyClassAttribute(element, classAttribute);
     }
   }
 
   bool _isChanged(StyleProps props) {
-    return classes != props.classes;
+    return classAttribute != props.classAttribute;
   }
 
   void _switchProps(StyleProps updatedProps) {
-    classes = updatedProps.classes;
+    classAttribute = updatedProps.classAttribute;
   }
 }

@@ -7,23 +7,23 @@ import 'package:rad/src/widgets/props/html/global_tag_props.dart';
 
 class Division extends TagWithGlobalProps {
   Division({
-    String? key,
+    String? id,
     String? title,
-    String? classes,
+    String? classAttribute,
     int? tabIndex,
     bool? draggable,
     bool? contenteditable,
-    Map<String, String>? dataset,
+    Map<String, String>? dataAttributes,
     bool? hidden,
     List<Widget>? children,
   }) : super(
-          key: key,
+          id: id,
           title: title,
-          classes: classes,
+          classAttribute: classAttribute,
           tabIndex: tabIndex,
           draggable: draggable,
           contenteditable: contenteditable,
-          dataset: dataset,
+          dataAttributes: dataAttributes,
           hidden: hidden,
           children: children,
         );

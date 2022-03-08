@@ -24,7 +24,7 @@ class Anchor extends TagWithGlobalProps {
   final String? download;
 
   const Anchor({
-    String? key,
+    String? id,
     this.href,
     this.rel,
     this.target,
@@ -34,23 +34,23 @@ class Anchor extends TagWithGlobalProps {
     bool? contenteditable,
     int? tabIndex,
     String? title,
-    String? classes,
+    String? classAttribute,
     Map<String, String>? dataset,
     List<Widget>? children,
   }) : super(
-          key: key,
+          id: id,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
           contenteditable: contenteditable,
           hidden: hidden,
-          classes: classes,
-          dataset: dataset,
+          classAttribute: classAttribute,
+          dataAttributes: dataset,
           children: children,
         );
 
   @override
-  String get initialKey => key ?? System.keyNotSet;
+  String get initialId => id ?? System.idNotSet;
 
   @override
   String get type => "$Anchor";

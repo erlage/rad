@@ -10,7 +10,7 @@ import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 
 class App extends Widget {
-  final String? key;
+  final String? id;
 
   final Widget child;
   final String targetId;
@@ -18,7 +18,7 @@ class App extends Widget {
   final AppComponents? components;
 
   App({
-    this.key,
+    this.id,
     this.components,
     required this.child,
     required this.targetId,
@@ -46,7 +46,7 @@ class App extends Widget {
   String get type => "$App";
 
   @override
-  String get initialKey => key ?? System.keyNotSet;
+  String get initialId => id ?? System.idNotSet;
 
   @override
   createRenderObject(context) {

@@ -1,9 +1,9 @@
 import 'dart:html';
 
 class CommonProps {
-  static void applyClasses(HtmlElement element, String? classes) {
-    if (null != classes) {
-      var classList = classes.split(" ");
+  static void applyClassAttribute(HtmlElement element, String? classAttribute) {
+    if (null != classAttribute) {
+      var classList = classAttribute.split(" ");
 
       if (classList.isNotEmpty) {
         element.classes.addAll(classList);
@@ -11,15 +11,18 @@ class CommonProps {
     }
   }
 
-  static void applyDataset(HtmlElement element, Map<String, String>? dataset) {
-    if (null != dataset && dataset.isNotEmpty) {
-      element.dataset.addAll(dataset);
+  static void applyDataAttributes(
+    HtmlElement element,
+    Map<String, String>? dataAttributes,
+  ) {
+    if (null != dataAttributes && dataAttributes.isNotEmpty) {
+      element.dataset.addAll(dataAttributes);
     }
   }
 
-  static void clearClasses(HtmlElement element, String? classes) {
-    if (null != classes) {
-      var classList = classes.split(" ");
+  static void clearClassAttribute(HtmlElement element, String? classAttribute) {
+    if (null != classAttribute) {
+      var classList = classAttribute.split(" ");
 
       if (classList.isNotEmpty) {
         element.classes.removeAll(classList);
@@ -27,11 +30,14 @@ class CommonProps {
     }
   }
 
-  static void clearDataset(HtmlElement element, Map<String, String>? dataset) {
-    if (null != dataset) {
-      if (dataset.isNotEmpty) {
+  static void clearDataAttributes(
+    HtmlElement element,
+    Map<String, String>? dataAttributes,
+  ) {
+    if (null != dataAttributes) {
+      if (dataAttributes.isNotEmpty) {
         element.dataset.removeWhere(
-          ((key, value) => dataset.containsKey(key)),
+          ((key, value) => dataAttributes.containsKey(key)),
         );
       }
     }
