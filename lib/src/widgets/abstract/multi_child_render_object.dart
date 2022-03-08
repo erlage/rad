@@ -6,10 +6,12 @@ import 'package:rad/src/core/types.dart';
 abstract class MultiChildRenderObject extends RenderObject {
   final List<Widget> children;
 
-  final ElementCallback? elementCallback;
+  final ElementCallback? renderElementCallback;
+  final RenderElementCallback? updateElementCallback;
 
   MultiChildRenderObject({
-    this.elementCallback,
+    this.renderElementCallback,
+    this.updateElementCallback,
     required this.children,
     required BuildContext context,
   }) : super(context);
@@ -29,7 +31,7 @@ abstract class MultiChildRenderObject extends RenderObject {
       Framework.buildChildren(
         widgets: children,
         parentContext: context,
-        elementCallback: elementCallback,
+        elementCallback: renderElementCallback,
       );
     }
   }
@@ -47,7 +49,9 @@ abstract class MultiChildRenderObject extends RenderObject {
         widgets: updatedRenderObject.children,
         updateType: updateType,
         parentContext: context,
-        elementCallback: elementCallback,
+        elementCallback: null == updateElementCallback
+            ? null
+            : (element) => updateElementCallback!(updatedRenderObject, element),
       );
     }
   }

@@ -1,10 +1,8 @@
 import 'dart:html';
 
-import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/rad.dart';
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
-import 'package:rad/src/widgets/navigator/navigator_state.dart';
 
 typedef UpdateTypeCallback = bool Function(UpdateType updateType);
 
@@ -22,4 +20,9 @@ typedef WidgetBuilderCallback = Widget Function(BuildContext context);
 
 typedef WidgetActionCallback = List<WidgetAction> Function(
   WidgetObject widgetObject,
+);
+
+typedef RenderElementCallback = void Function(
+  RenderObject renderObject,
+  HtmlElement element,
 );

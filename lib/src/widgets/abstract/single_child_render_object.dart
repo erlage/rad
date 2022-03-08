@@ -8,9 +8,11 @@ abstract class SingleChildRenderObject extends MultiChildRenderObject {
     required this.child,
     required BuildContext context,
     ElementCallback? elementCallback,
+    RenderElementCallback? updateElementCallback,
   }) : super(
           context: context,
           children: [child],
-          elementCallback: elementCallback,
+          renderElementCallback: elementCallback,
+          updateElementCallback: updateElementCallback,
         );
 }

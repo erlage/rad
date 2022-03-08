@@ -68,6 +68,8 @@ export 'src/core/interface/style_component.dart' show StyleComponent;
 
 export 'src/core/objects/render_object.dart' show RenderObject;
 
+export 'src/core/types.dart' show RenderElementCallback;
+
 export 'src/widgets/abstract/single_child_render_object.dart'
     show SingleChildRenderObject;
 
