@@ -32,6 +32,9 @@ class Utils {
 
       case DomTag.horizontalRule:
         return "hr";
+
+      case DomTag.label:
+        return "label";
     }
   }
 

@@ -56,6 +56,10 @@ enum DomTag {
   /// Horizontal rule. (hr)
   ///
   horizontalRule,
+
+  /// Label tag.
+  ///
+  label,
 }
 
 enum WidgetAction {
