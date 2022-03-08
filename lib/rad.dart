@@ -57,6 +57,8 @@ export 'src/widgets/async/async_snapshot.dart' show AsyncSnapshot;
 
 export 'src/widgets/future_builder.dart' show FutureBuilder;
 
+export 'src/widgets/stream_builder.dart' show StreamBuilder;
+
 // html
 
 export 'src/widgets/html/span.dart' show Span;
