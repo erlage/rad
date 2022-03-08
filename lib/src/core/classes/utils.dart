@@ -41,6 +41,9 @@ class Utils {
 
       case DomTag.breakLine:
         return "br";
+
+      case DomTag.image:
+        return "img";
     }
   }
 

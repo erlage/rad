@@ -68,6 +68,10 @@ enum DomTag {
   /// Break line tag.
   ///
   breakLine,
+
+  /// Image tag.
+  ///
+  image,
 }
 
 enum WidgetAction {
