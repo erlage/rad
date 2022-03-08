@@ -1,5 +1,7 @@
 import 'dart:html';
 
+import 'package:rad/src/widgets/props/common_tag_props.dart';
+
 class StyleProps {
   String? classes;
 
@@ -13,13 +15,15 @@ class StyleProps {
   ///
   void apply(HtmlElement element, [StyleProps? updatedProps]) {
     if (null == updatedProps) {
-      return _applyProps(element, this);
+      return CommonTagProps.applyClasses(element, classes);
     }
 
     if (_isChanged(updatedProps)) {
-      _clearProps(element, this);
+      CommonTagProps.clearClasses(element, classes);
+
       _switchProps(updatedProps);
-      _applyProps(element, this);
+
+      CommonTagProps.applyClasses(element, classes);
     }
   }
 
@@ -29,27 +33,5 @@ class StyleProps {
 
   void _switchProps(StyleProps updatedProps) {
     classes = updatedProps.classes;
-  }
-
-  // statics
-
-  static void _applyProps(HtmlElement element, StyleProps props) {
-    if (null != props.classes) {
-      var classes = props.classes?.split(" ") ?? [];
-
-      if (classes.isNotEmpty) {
-        element.classes.addAll(classes);
-      }
-    }
-  }
-
-  static void _clearProps(HtmlElement element, StyleProps props) {
-    if (null != props.classes) {
-      var classes = props.classes?.split(" ") ?? [];
-
-      if (classes.isNotEmpty) {
-        element.classes.removeAll(classes);
-      }
-    }
   }
 }

@@ -1,5 +1,7 @@
 import 'dart:html';
 
+import 'package:rad/src/widgets/props/common_tag_props.dart';
+
 class MarkUpTagProps {
   String? title;
 
@@ -75,14 +77,6 @@ class MarkUpTagProps {
       element.tabIndex = props.tabIndex;
     }
 
-    if (null != props.classes) {
-      var classes = props.classes?.split(" ") ?? [];
-
-      if (classes.isNotEmpty) {
-        element.classes.addAll(classes);
-      }
-    }
-
     if (null != props.hidden) {
       element.hidden = props.hidden!;
     }
@@ -96,30 +90,13 @@ class MarkUpTagProps {
       element.contentEditable = editable ? "true" : "false";
     }
 
-    if (null != props.classes) {
-      var classes = props.classes?.split(" ") ?? [];
-
-      if (classes.isNotEmpty) {
-        element.classes.addAll(classes);
-      }
-    }
-
-    if (null != props.dataset && props.dataset!.isNotEmpty) {
-      element.dataset.addAll(props.dataset!);
-    }
+    CommonTagProps.applyClasses(element, props.classes);
+    CommonTagProps.applyDataset(element, props.dataset);
   }
 
   static void _clearProps(HtmlElement element, MarkUpTagProps props) {
     if (null != props.title) {
       element.title = "";
-    }
-
-    if (null != props.classes) {
-      var classes = props.classes?.split(" ") ?? [];
-
-      if (classes.isNotEmpty) {
-        element.classes.removeAll(classes);
-      }
     }
 
     if (null != props.hidden) {
@@ -135,10 +112,7 @@ class MarkUpTagProps {
       element.contentEditable = "false";
     }
 
-    if (null != props.dataset && props.dataset!.isNotEmpty) {
-      element.dataset.removeWhere(
-        ((key, value) => props.dataset!.containsKey(key)),
-      );
-    }
+    CommonTagProps.clearClasses(element, props.classes);
+    CommonTagProps.clearDataset(element, props.dataset);
   }
 }
