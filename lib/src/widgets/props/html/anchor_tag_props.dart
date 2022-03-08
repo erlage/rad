@@ -82,6 +82,10 @@ class AnchorTagProps {
       element.rel = "";
     }
 
+    if (null != props.download) {
+      element.download = "";
+    }
+
     if (null != props.target) {
       element.target = "";
     }
