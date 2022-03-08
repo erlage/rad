@@ -72,6 +72,10 @@ enum DomTag {
   /// Image tag.
   ///
   image,
+
+  /// Paragraph tag.
+  ///
+  paragraph,
 }
 
 enum WidgetAction {

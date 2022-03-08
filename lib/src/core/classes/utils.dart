@@ -44,6 +44,9 @@ class Utils {
 
       case DomTag.image:
         return "img";
+
+      case DomTag.paragraph:
+        return "p";
     }
   }
 

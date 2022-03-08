@@ -70,6 +70,7 @@ export 'src/widgets/html/label.dart' show Label;
 export 'src/widgets/html/iframe.dart' show IFrame;
 export 'src/widgets/html/break_line.dart' show BreakLine;
 export 'src/widgets/html/image.dart' show Image;
+export 'src/widgets/html/paragraph.dart' show Paragraph;
 
 /*
 |--------------------------------------------------------------------------
