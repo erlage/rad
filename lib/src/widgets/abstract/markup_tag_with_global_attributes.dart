@@ -1,12 +1,8 @@
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/widgets/props/html/markup_tag_props.dart';
-import 'package:rad/src/widgets/abstract/multi_child_render_object.dart';
 
-/// HTML tag.
-///
-abstract class MarkUpTag extends Widget {
+abstract class MarkUpTagWithGlobalAttributes extends Widget {
   /// The key attribute specifies a unique id for an HTML
   /// element (the value must be unique within the HTML document).
   ///
@@ -50,7 +46,7 @@ abstract class MarkUpTag extends Widget {
   ///
   final List<Widget>? children;
 
-  const MarkUpTag({
+  const MarkUpTagWithGlobalAttributes({
     this.key,
     this.title,
     this.tabIndex,
@@ -65,12 +61,7 @@ abstract class MarkUpTag extends Widget {
   @override
   String get initialKey => key ?? System.keyNotSet;
 
-  @override
-  createRenderObject(context) {
-    return MarkUpTagRenderObject(
-      context: context,
-      children: children,
-      markUpTagProps: MarkUpTagProps(
+  MarkUpTagProps props() => MarkUpTagProps(
         title: title,
         tabIndex: tabIndex,
         classes: classes,
@@ -78,36 +69,5 @@ abstract class MarkUpTag extends Widget {
         hidden: hidden,
         draggable: draggable,
         contenteditable: contenteditable,
-      ),
-    );
-  }
-}
-
-class MarkUpTagRenderObject extends MultiChildRenderObject {
-  MarkUpTagProps markUpTagProps;
-
-  MarkUpTagRenderObject({
-    List<Widget>? children,
-    required this.markUpTagProps,
-    required BuildContext context,
-  }) : super(
-          children: children ?? [],
-          context: context,
-        );
-
-  @override
-  beforeRender(widgetObject) {
-    markUpTagProps.apply(widgetObject.element);
-  }
-
-  @override
-  beforeUpdate(
-    widgetObject,
-    covariant MarkUpTagRenderObject updatedRenderObject,
-  ) {
-    markUpTagProps.apply(
-      widgetObject.element,
-      updatedRenderObject.markUpTagProps,
-    );
-  }
+      );
 }

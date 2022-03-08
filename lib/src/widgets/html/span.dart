@@ -1,8 +1,8 @@
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/abstract/markup_tag.dart';
+import 'package:rad/src/widgets/html/division.dart';
 
-class Span extends MarkUpTag {
+class Span extends Division {
   Span({
     String? key,
     String? title,
