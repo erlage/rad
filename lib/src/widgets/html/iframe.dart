@@ -79,7 +79,7 @@ class IFrame extends TagWithGlobalProps {
   String get type => "$IFrame";
 
   @override
-  DomTag get tag => DomTag.label;
+  DomTag get tag => DomTag.iframe;
 
   @override
   createRenderObject(context) {

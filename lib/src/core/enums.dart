@@ -60,6 +60,10 @@ enum DomTag {
   /// Label tag.
   ///
   label,
+
+  /// Iframe tag.
+  ///
+  iframe,
 }
 
 enum WidgetAction {
