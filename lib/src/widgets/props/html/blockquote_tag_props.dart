@@ -1,16 +1,9 @@
 import 'dart:html';
 
-import 'package:rad/src/widgets/props/common_props.dart';
-
 class BlockquoteProps {
   String? cite;
 
-  String? classes;
-
-  BlockquoteProps({
-    this.cite,
-    this.classes,
-  });
+  BlockquoteProps(this.cite);
 
   // application
 
@@ -31,13 +24,11 @@ class BlockquoteProps {
   }
 
   bool _isChanged(BlockquoteProps props) {
-    return cite != props.cite || classes != props.classes;
+    return cite != props.cite;
   }
 
   void _switchProps(BlockquoteProps updatedProps) {
-    this
-      ..cite = updatedProps.cite
-      ..classes = updatedProps.classes;
+    cite = updatedProps.cite;
   }
 
   // statics
@@ -48,8 +39,6 @@ class BlockquoteProps {
     if (null != props.cite) {
       element.cite = props.cite!;
     }
-
-    CommonProps.applyClasses(element, props.classes);
   }
 
   static void _clearProps(HtmlElement element, BlockquoteProps props) {
@@ -58,7 +47,5 @@ class BlockquoteProps {
     if (null != props.cite) {
       element.cite = "";
     }
-
-    CommonProps.clearClasses(element, props.classes);
   }
 }
