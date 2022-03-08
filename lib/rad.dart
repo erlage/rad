@@ -60,6 +60,10 @@ export 'src/widgets/html/division.dart' show Division;
 |--------------------------------------------------------------------------
 */
 
+export 'src/core/enums.dart' show DomTag;
+
+export 'src/core/constants.dart' show System;
+
 export 'src/core/interface/style_component.dart' show StyleComponent;
 
 export 'src/core/objects/render_object.dart' show RenderObject;
