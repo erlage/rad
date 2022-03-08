@@ -2,6 +2,7 @@ import 'package:rad/src/widgets/async/async_snapshot.dart';
 import 'package:rad/src/widgets/async/async_widget_builder.dart';
 import 'package:rad/src/widgets/async/connection_state.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
+import 'package:rad/src/widgets/stream_builder.dart';
 
 /// Source taken from:
 /// https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/async.dart

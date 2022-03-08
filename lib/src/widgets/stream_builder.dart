@@ -106,7 +106,10 @@ class StreamBuilder<T> extends StreamBuilderBase<T, AsyncSnapshot<T>> {
   AsyncSnapshot<T> afterError(
       AsyncSnapshot<T> current, Object error, StackTrace stackTrace) {
     return AsyncSnapshot<T>.withError(
-        ConnectionState.active, error, stackTrace);
+      ConnectionState.active,
+      error,
+      stackTrace,
+    );
   }
 
   @override
