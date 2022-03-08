@@ -1,8 +1,8 @@
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/props/html/markup_tag_props.dart';
+import 'package:rad/src/widgets/props/html/global_tag_props.dart';
 
-abstract class MarkUpTagWithGlobalAttributes extends Widget {
+abstract class TagWithGlobalProps extends Widget {
   /// The key attribute specifies a unique id for an HTML
   /// element (the value must be unique within the HTML document).
   ///
@@ -46,7 +46,7 @@ abstract class MarkUpTagWithGlobalAttributes extends Widget {
   ///
   final List<Widget>? children;
 
-  const MarkUpTagWithGlobalAttributes({
+  const TagWithGlobalProps({
     this.key,
     this.title,
     this.tabIndex,
@@ -61,7 +61,7 @@ abstract class MarkUpTagWithGlobalAttributes extends Widget {
   @override
   String get initialKey => key ?? System.keyNotSet;
 
-  MarkUpTagProps props() => MarkUpTagProps(
+  GlobalTagProps globalTagProps() => GlobalTagProps(
         title: title,
         tabIndex: tabIndex,
         classes: classes,

@@ -3,7 +3,7 @@ import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/multi_child_render_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/props/blockquote_props.dart';
+import 'package:rad/src/widgets/props/html/blockquote_tag_props.dart';
 
 /// The Block Quotation tag.
 ///

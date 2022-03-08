@@ -2,7 +2,7 @@ import 'dart:html';
 
 import 'package:rad/src/widgets/props/common_props.dart';
 
-class MarkUpTagProps {
+class GlobalTagProps {
   String? title;
 
   String? classes;
@@ -17,7 +17,7 @@ class MarkUpTagProps {
 
   Map<String, String>? dataset;
 
-  MarkUpTagProps({
+  GlobalTagProps({
     this.title,
     this.tabIndex,
     this.classes,
@@ -33,7 +33,7 @@ class MarkUpTagProps {
   ///
   /// if [updatedProps] is not null, it'll do a update
   ///
-  void apply(HtmlElement element, [MarkUpTagProps? updatedProps]) {
+  void apply(HtmlElement element, [GlobalTagProps? updatedProps]) {
     if (null == updatedProps) {
       return _applyProps(element, this);
     }
@@ -45,7 +45,7 @@ class MarkUpTagProps {
     }
   }
 
-  bool _isChanged(MarkUpTagProps props) {
+  bool _isChanged(GlobalTagProps props) {
     return title != props.title ||
         tabIndex != props.tabIndex ||
         classes != props.classes ||
@@ -55,7 +55,7 @@ class MarkUpTagProps {
         dataset != props.dataset;
   }
 
-  void _switchProps(MarkUpTagProps updatedProps) {
+  void _switchProps(GlobalTagProps updatedProps) {
     this
       ..title = updatedProps.title
       ..tabIndex = updatedProps.tabIndex
@@ -68,7 +68,7 @@ class MarkUpTagProps {
 
   // statics
 
-  static void _applyProps(HtmlElement element, MarkUpTagProps props) {
+  static void _applyProps(HtmlElement element, GlobalTagProps props) {
     if (null != props.title) {
       element.title = props.title;
     }
@@ -94,7 +94,7 @@ class MarkUpTagProps {
     CommonProps.applyDataset(element, props.dataset);
   }
 
-  static void _clearProps(HtmlElement element, MarkUpTagProps props) {
+  static void _clearProps(HtmlElement element, GlobalTagProps props) {
     if (null != props.title) {
       element.title = "";
     }

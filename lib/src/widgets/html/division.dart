@@ -1,11 +1,11 @@
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_attributes.dart';
+import 'package:rad/src/widgets/abstract/tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/multi_child_render_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/props/html/markup_tag_props.dart';
+import 'package:rad/src/widgets/props/html/global_tag_props.dart';
 
-class Division extends MarkUpTagWithGlobalAttributes {
+class Division extends TagWithGlobalProps {
   Division({
     String? key,
     String? title,
@@ -38,14 +38,14 @@ class Division extends MarkUpTagWithGlobalAttributes {
   createRenderObject(context) {
     return DivisionRenderObject(
       context: context,
-      markUpTagProps: props(),
+      markUpTagProps: globalTagProps(),
       children: children ?? [],
     );
   }
 }
 
 class DivisionRenderObject extends MultiChildRenderObject {
-  MarkUpTagProps markUpTagProps;
+  GlobalTagProps markUpTagProps;
 
   DivisionRenderObject({
     required this.markUpTagProps,

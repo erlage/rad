@@ -1,6 +1,6 @@
 import 'dart:html';
 
-class AnchorProps {
+class AnchorTagProps {
   String? href;
 
   String? rel;
@@ -9,7 +9,7 @@ class AnchorProps {
 
   String? target;
 
-  AnchorProps({
+  AnchorTagProps({
     this.href,
     this.rel,
     this.download,
@@ -22,7 +22,7 @@ class AnchorProps {
   ///
   /// if [updatedProps] is not null, it'll do a update
   ///
-  void apply(HtmlElement element, [AnchorProps? updatedProps]) {
+  void apply(HtmlElement element, [AnchorTagProps? updatedProps]) {
     if (null == updatedProps) {
       return _applyProps(element, this);
     }
@@ -34,14 +34,14 @@ class AnchorProps {
     }
   }
 
-  bool _isChanged(AnchorProps props) {
+  bool _isChanged(AnchorTagProps props) {
     return href != props.href ||
         rel != props.rel ||
         download != props.download ||
         target != props.target;
   }
 
-  void _switchProps(AnchorProps updatedProps) {
+  void _switchProps(AnchorTagProps updatedProps) {
     this
       ..href = updatedProps.href
       ..rel = updatedProps.rel
@@ -51,7 +51,7 @@ class AnchorProps {
 
   // statics
 
-  static void _applyProps(HtmlElement element, AnchorProps props) {
+  static void _applyProps(HtmlElement element, AnchorTagProps props) {
     element as AnchorElement;
 
     if (null != props.href) {
@@ -71,7 +71,7 @@ class AnchorProps {
     }
   }
 
-  static void _clearProps(HtmlElement element, AnchorProps props) {
+  static void _clearProps(HtmlElement element, AnchorTagProps props) {
     element as AnchorElement;
 
     if (null != props.href) {

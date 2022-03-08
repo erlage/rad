@@ -1,11 +1,11 @@
 import 'package:rad/rad.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_attributes.dart';
-import 'package:rad/src/widgets/props/html/anchor_props.dart';
-import 'package:rad/src/widgets/props/html/markup_tag_props.dart';
+import 'package:rad/src/widgets/abstract/tag_with_global_props.dart';
+import 'package:rad/src/widgets/props/html/anchor_tag_props.dart';
+import 'package:rad/src/widgets/props/html/global_tag_props.dart';
 
 /// HTML Anchor tag.
 ///
-class Anchor extends MarkUpTagWithGlobalAttributes {
+class Anchor extends TagWithGlobalProps {
   /// The URL that the hyperlink points to.
   ///
   final String? href;
@@ -63,8 +63,8 @@ class Anchor extends MarkUpTagWithGlobalAttributes {
     return AnchorRenderObject(
       context: context,
       children: children,
-      markUpTagProps: props(),
-      anchorTagProps: AnchorProps(
+      globalTagProps: globalTagProps(),
+      anchorTagProps: AnchorTagProps(
         href: href,
         rel: rel,
         target: target,
@@ -75,13 +75,13 @@ class Anchor extends MarkUpTagWithGlobalAttributes {
 }
 
 class AnchorRenderObject extends MultiChildRenderObject {
-  MarkUpTagProps markUpTagProps;
-  AnchorProps anchorTagProps;
+  GlobalTagProps globalTagProps;
+  AnchorTagProps anchorTagProps;
 
   AnchorRenderObject({
     List<Widget>? children,
     required this.anchorTagProps,
-    required this.markUpTagProps,
+    required this.globalTagProps,
     required BuildContext context,
   }) : super(
           context: context,
@@ -90,7 +90,7 @@ class AnchorRenderObject extends MultiChildRenderObject {
 
   @override
   beforeRender(widgetObject) {
-    markUpTagProps.apply(widgetObject.element);
+    globalTagProps.apply(widgetObject.element);
     anchorTagProps.apply(widgetObject.element);
   }
 
@@ -99,9 +99,9 @@ class AnchorRenderObject extends MultiChildRenderObject {
     widgetObject,
     covariant AnchorRenderObject updatedRenderObject,
   ) {
-    markUpTagProps.apply(
+    globalTagProps.apply(
       widgetObject.element,
-      updatedRenderObject.markUpTagProps,
+      updatedRenderObject.globalTagProps,
     );
 
     anchorTagProps.apply(
