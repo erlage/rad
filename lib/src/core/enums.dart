@@ -52,6 +52,10 @@ enum DomTag {
   /// Blockquote.
   ///
   blockquote,
+
+  /// Horizontal rule. (hr)
+  ///
+  horizontalRule,
 }
 
 enum WidgetAction {

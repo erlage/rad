@@ -29,6 +29,9 @@ class Utils {
 
       case DomTag.blockquote:
         return "blockquote";
+
+      case DomTag.horizontalRule:
+        return "hr";
     }
   }
 
