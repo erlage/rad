@@ -34,9 +34,20 @@ enum UpdateType {
 |--------------------------------------------------------------------------
 */
 
+/// Widget's corresponding DOM tag.
+///
 enum DomTag {
+  /// Division.
+  ///
   div,
+
+  /// Span.
+  ///
   span,
+
+  /// Anchor.
+  ///
+  anchor,
 }
 
 enum WidgetAction {

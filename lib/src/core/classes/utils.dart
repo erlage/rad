@@ -23,6 +23,9 @@ class Utils {
 
       case DomTag.span:
         return "span";
+
+      case DomTag.anchor:
+        return "a";
     }
   }
 

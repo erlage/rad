@@ -53,6 +53,7 @@ export 'src/widgets/raw_markup.dart' show RawMarkUp;
 
 export 'src/widgets/html/span.dart' show Span;
 export 'src/widgets/html/division.dart' show Division;
+export 'src/widgets/html/anchor.dart' show Anchor;
 
 /*
 |--------------------------------------------------------------------------
