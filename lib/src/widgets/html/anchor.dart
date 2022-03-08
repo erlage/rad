@@ -1,5 +1,5 @@
 import 'package:rad/rad.dart';
-import 'package:rad/src/widgets/props/anchor_tag_props.dart';
+import 'package:rad/src/widgets/props/html/anchor_props.dart';
 
 /// HTML Anchor tag.
 ///
@@ -61,10 +61,10 @@ class Anchor extends Widget {
 
   @override
   createRenderObject(context) {
-    return AnchorTagRenderObject(
+    return AnchorRenderObject(
       context: context,
       children: children,
-      anchorTagProps: AnchorTagProps(
+      anchorTagProps: AnchorProps(
         href: href,
         rel: rel,
         target: target,
@@ -76,10 +76,10 @@ class Anchor extends Widget {
   }
 }
 
-class AnchorTagRenderObject extends MultiChildRenderObject {
-  AnchorTagProps anchorTagProps;
+class AnchorRenderObject extends MultiChildRenderObject {
+  AnchorProps anchorTagProps;
 
-  AnchorTagRenderObject({
+  AnchorRenderObject({
     List<Widget>? children,
     required this.anchorTagProps,
     required BuildContext context,
@@ -96,7 +96,7 @@ class AnchorTagRenderObject extends MultiChildRenderObject {
   @override
   beforeUpdate(
     widgetObject,
-    covariant AnchorTagRenderObject updatedRenderObject,
+    covariant AnchorRenderObject updatedRenderObject,
   ) {
     anchorTagProps.apply(
       widgetObject.element,

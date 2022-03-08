@@ -1,6 +1,6 @@
 import 'dart:html';
 
-import 'package:rad/src/widgets/props/common_tag_props.dart';
+import 'package:rad/src/widgets/props/common_props.dart';
 
 class StyleProps {
   String? classes;
@@ -15,15 +15,15 @@ class StyleProps {
   ///
   void apply(HtmlElement element, [StyleProps? updatedProps]) {
     if (null == updatedProps) {
-      return CommonTagProps.applyClasses(element, classes);
+      return CommonProps.applyClasses(element, classes);
     }
 
     if (_isChanged(updatedProps)) {
-      CommonTagProps.clearClasses(element, classes);
+      CommonProps.clearClasses(element, classes);
 
       _switchProps(updatedProps);
 
-      CommonTagProps.applyClasses(element, classes);
+      CommonProps.applyClasses(element, classes);
     }
   }
 

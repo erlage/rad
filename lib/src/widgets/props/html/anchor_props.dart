@@ -1,8 +1,8 @@
 import 'dart:html';
 
-import 'package:rad/src/widgets/props/common_tag_props.dart';
+import 'package:rad/src/widgets/props/common_props.dart';
 
-class AnchorTagProps {
+class AnchorProps {
   String? href;
   String? rel;
 
@@ -14,7 +14,7 @@ class AnchorTagProps {
 
   Map<String, String>? dataset;
 
-  AnchorTagProps({
+  AnchorProps({
     this.href,
     this.rel,
     this.download,
@@ -29,7 +29,7 @@ class AnchorTagProps {
   ///
   /// if [updatedProps] is not null, it'll do a update
   ///
-  void apply(HtmlElement element, [AnchorTagProps? updatedProps]) {
+  void apply(HtmlElement element, [AnchorProps? updatedProps]) {
     if (null == updatedProps) {
       return _applyProps(element, this);
     }
@@ -41,7 +41,7 @@ class AnchorTagProps {
     }
   }
 
-  bool _isChanged(AnchorTagProps props) {
+  bool _isChanged(AnchorProps props) {
     return href != props.href ||
         rel != props.rel ||
         download != props.download ||
@@ -50,7 +50,7 @@ class AnchorTagProps {
         dataset != props.dataset;
   }
 
-  void _switchProps(AnchorTagProps updatedProps) {
+  void _switchProps(AnchorProps updatedProps) {
     this
       ..href = updatedProps.href
       ..rel = updatedProps.rel
@@ -62,7 +62,7 @@ class AnchorTagProps {
 
   // statics
 
-  static void _applyProps(HtmlElement element, AnchorTagProps props) {
+  static void _applyProps(HtmlElement element, AnchorProps props) {
     element as AnchorElement;
 
     if (null != props.href) {
@@ -81,11 +81,11 @@ class AnchorTagProps {
       element.target = props.target!;
     }
 
-    CommonTagProps.applyClasses(element, props.classes);
-    CommonTagProps.applyDataset(element, props.dataset);
+    CommonProps.applyClasses(element, props.classes);
+    CommonProps.applyDataset(element, props.dataset);
   }
 
-  static void _clearProps(HtmlElement element, AnchorTagProps props) {
+  static void _clearProps(HtmlElement element, AnchorProps props) {
     element as AnchorElement;
 
     if (null != props.href) {
@@ -100,7 +100,7 @@ class AnchorTagProps {
       element.target = "";
     }
 
-    CommonTagProps.clearClasses(element, props.classes);
-    CommonTagProps.clearDataset(element, props.dataset);
+    CommonProps.clearClasses(element, props.classes);
+    CommonProps.clearDataset(element, props.dataset);
   }
 }

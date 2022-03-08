@@ -1,7 +1,7 @@
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/widgets/props/markup_tag_props.dart';
+import 'package:rad/src/widgets/props/html/markup_tag_props.dart';
 import 'package:rad/src/widgets/abstract/multi_child_render_object.dart';
 
 /// HTML tag.

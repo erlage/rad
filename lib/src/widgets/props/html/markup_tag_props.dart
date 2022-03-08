@@ -1,6 +1,6 @@
 import 'dart:html';
 
-import 'package:rad/src/widgets/props/common_tag_props.dart';
+import 'package:rad/src/widgets/props/common_props.dart';
 
 class MarkUpTagProps {
   String? title;
@@ -90,8 +90,8 @@ class MarkUpTagProps {
       element.contentEditable = editable ? "true" : "false";
     }
 
-    CommonTagProps.applyClasses(element, props.classes);
-    CommonTagProps.applyDataset(element, props.dataset);
+    CommonProps.applyClasses(element, props.classes);
+    CommonProps.applyDataset(element, props.dataset);
   }
 
   static void _clearProps(HtmlElement element, MarkUpTagProps props) {
@@ -112,7 +112,7 @@ class MarkUpTagProps {
       element.contentEditable = "false";
     }
 
-    CommonTagProps.clearClasses(element, props.classes);
-    CommonTagProps.clearDataset(element, props.dataset);
+    CommonProps.clearClasses(element, props.classes);
+    CommonProps.clearDataset(element, props.dataset);
   }
 }

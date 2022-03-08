@@ -1,6 +1,6 @@
 import 'dart:html';
 
-class CommonTagProps {
+class CommonProps {
   static void applyClasses(HtmlElement element, String? classes) {
     if (null != classes) {
       var classList = classes.split(" ");
