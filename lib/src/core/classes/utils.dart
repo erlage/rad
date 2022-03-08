@@ -36,7 +36,7 @@ class Utils {
       case DomTag.label:
         return "label";
 
-      case DomTag.iframe:
+      case DomTag.iFrame:
         return "iframe";
     }
   }

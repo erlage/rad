@@ -63,7 +63,7 @@ enum DomTag {
 
   /// Iframe tag.
   ///
-  iframe,
+  iFrame,
 }
 
 enum WidgetAction {
