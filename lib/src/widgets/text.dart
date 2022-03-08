@@ -1,7 +1,7 @@
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/widgets/props/style_props.dart';
+import 'package:rad/src/widgets/props/class_attribute_prop.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
@@ -39,7 +39,7 @@ class Text extends Widget {
     return TextRenderObject(
       context: context,
       text: text,
-      styleProps: StyleProps(classAttribute),
+      styleProps: ClassAttributeProp(classAttribute),
     );
   }
 }
@@ -47,7 +47,7 @@ class Text extends Widget {
 class TextRenderObject extends RenderObject {
   final String text;
 
-  final StyleProps styleProps;
+  final ClassAttributeProp styleProps;
 
   TextRenderObject({
     required this.text,

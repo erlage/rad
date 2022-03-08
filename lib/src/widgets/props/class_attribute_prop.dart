@@ -2,18 +2,18 @@ import 'dart:html';
 
 import 'package:rad/src/widgets/props/common_props.dart';
 
-class StyleProps {
+/// Attribute class property.
+///
+class ClassAttributeProp {
   String? classAttribute;
 
-  StyleProps(this.classAttribute);
+  ClassAttributeProp(this.classAttribute);
 
-  // application
-
-  /// Apply props.
+  /// Apply.
   ///
   /// if [updatedProps] is not null, it'll do a update
   ///
-  void apply(HtmlElement element, [StyleProps? updatedProps]) {
+  void apply(HtmlElement element, [ClassAttributeProp? updatedProps]) {
     if (null == updatedProps) {
       return CommonProps.applyClassAttribute(element, classAttribute);
     }
@@ -27,11 +27,11 @@ class StyleProps {
     }
   }
 
-  bool _isChanged(StyleProps props) {
+  bool _isChanged(ClassAttributeProp props) {
     return classAttribute != props.classAttribute;
   }
 
-  void _switchProps(StyleProps updatedProps) {
+  void _switchProps(ClassAttributeProp updatedProps) {
     classAttribute = updatedProps.classAttribute;
   }
 }

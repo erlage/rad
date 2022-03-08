@@ -4,7 +4,7 @@ import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/props/style_props.dart';
+import 'package:rad/src/widgets/props/class_attribute_prop.dart';
 
 class HorizontalRule extends Widget {
   final String? id;
@@ -28,14 +28,14 @@ class HorizontalRule extends Widget {
   @override
   RenderObject createRenderObject(BuildContext context) {
     return HorizontalRuleRenderObject(
-      styleProps: StyleProps(classAttribute),
+      styleProps: ClassAttributeProp(classAttribute),
       context: context,
     );
   }
 }
 
 class HorizontalRuleRenderObject extends RenderObject {
-  StyleProps styleProps;
+  ClassAttributeProp styleProps;
 
   HorizontalRuleRenderObject({
     required this.styleProps,
