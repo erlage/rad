@@ -10,21 +10,19 @@ import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 
 class App extends Widget {
-  final String? id;
-
   final Widget child;
   final String targetId;
 
   final AppComponents? components;
 
   App({
-    this.id,
+    String? id,
     this.components,
     required this.child,
     required this.targetId,
     String routingPath = "",
     DebugOptions? debugOptions,
-  }) {
+  }) : super(id) {
     Framework.init(routingPath: routingPath, debugOptions: debugOptions);
 
     Framework.addGlobalStyles(GEN_STYLES_NORMALIZE_CSS, "Normalize");
@@ -44,9 +42,6 @@ class App extends Widget {
 
   @override
   String get type => "$App";
-
-  @override
-  String get initialId => id ?? System.idNotSet;
 
   @override
   createRenderObject(context) {

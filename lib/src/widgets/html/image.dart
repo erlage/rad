@@ -53,9 +53,6 @@ class Image extends TagWithGlobalProps {
         );
 
   @override
-  String get initialId => id ?? System.idNotSet;
-
-  @override
   String get type => "$Image";
 
   @override

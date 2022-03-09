@@ -20,23 +20,18 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// ```
 ///
 class RawMarkUp extends Widget {
-  final String? id;
-
   final String html;
 
   const RawMarkUp(
     this.html, {
-    this.id,
-  });
+    String? id,
+  }) : super(id);
 
   @override
   DomTag get tag => DomTag.div;
 
   @override
   String get type => "$RawMarkUp";
-
-  @override
-  String get initialId => id ?? System.idNotSet;
 
   @override
   createRenderObject(context) {

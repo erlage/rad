@@ -143,9 +143,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 ///    particular configuration.
 ///
 abstract class StatefulWidget extends Widget {
-  final String? id;
-
-  const StatefulWidget({this.id});
+  const StatefulWidget({String? id}) : super(id);
 
   /// Creates the mutable state for this widget at a given location in the tree.
   ///
@@ -153,9 +151,6 @@ abstract class StatefulWidget extends Widget {
 
   @override
   DomTag get tag => DomTag.div;
-
-  @override
-  String get initialId => id ?? System.idNotSet;
 
   @override
   String get type => "$StatefulWidget";

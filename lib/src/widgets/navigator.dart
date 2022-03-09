@@ -157,8 +157,6 @@ import 'package:rad/src/widgets/route.dart';
 /// ```
 ///
 class Navigator extends Widget {
-  final String? id;
-
   /// Called when Navigator state is created.
   ///
   final NavigatorStateCallback? onInit;
@@ -172,20 +170,17 @@ class Navigator extends Widget {
   final List<Route> routes;
 
   const Navigator({
-    this.id,
+    String? id,
     this.onInit,
     this.onRouteChange,
     required this.routes,
-  });
+  }) : super(id);
 
   @override
   DomTag get tag => DomTag.div;
 
   @override
   String get type => "$Navigator";
-
-  @override
-  String get initialId => id ?? System.idNotSet;
 
   @override
   onContextCreate(context) => Router.registerRoutes(context, routes);

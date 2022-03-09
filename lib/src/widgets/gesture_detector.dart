@@ -17,8 +17,6 @@ import 'package:rad/src/core/types.dart';
 ///  * [HitTestBehavior], behaviour of a [GestureDetector]
 ///
 class GestureDetector extends Widget {
-  final String? id;
-
   final Widget child;
   final VoidCallback? onTap;
 
@@ -32,21 +30,18 @@ class GestureDetector extends Widget {
 
   /// Creates a widget that detects gestures.
   GestureDetector({
-    this.id,
+    String? id,
     this.onTap,
     this.onTapEvent,
     this.behaviour,
     required this.child,
-  });
+  }) : super(id);
 
   @override
   DomTag get tag => DomTag.div;
 
   @override
   String get type => "$GestureDetector";
-
-  @override
-  String get initialId => id ?? System.idNotSet;
 
   @override
   createRenderObject(context) {

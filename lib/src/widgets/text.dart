@@ -14,25 +14,20 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// It renders contents of [text] property as a string literal.
 ///
 class Text extends Widget {
-  final String? id;
-
   final String text;
   final String? classAttribute;
 
   const Text(
     this.text, {
-    this.id,
+    String? id,
     this.classAttribute,
-  });
+  }) : super(id);
 
   @override
   DomTag get tag => DomTag.span;
 
   @override
   String get type => "$Text";
-
-  @override
-  String get initialId => id ?? System.idNotSet;
 
   @override
   createRenderObject(context) {

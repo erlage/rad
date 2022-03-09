@@ -1,4 +1,3 @@
-import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/multi_child_render_object.dart';
@@ -36,9 +35,6 @@ class Blockquote extends TagWithGlobalProps {
           dataAttributes: dataAttributes,
           children: children,
         );
-
-  @override
-  String get initialId => id ?? System.idNotSet;
 
   @override
   String get type => "$Blockquote";

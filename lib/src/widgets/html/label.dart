@@ -39,9 +39,6 @@ class Label extends TagWithGlobalProps {
         );
 
   @override
-  String get initialId => id ?? System.idNotSet;
-
-  @override
   String get type => "$Label";
 
   @override

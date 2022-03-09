@@ -1,4 +1,3 @@
-import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
@@ -7,23 +6,18 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/props/class_attribute_prop.dart';
 
 class HorizontalRule extends Widget {
-  final String? id;
-
   final String? classAttribute;
 
   HorizontalRule({
-    this.id,
+    String? id,
     this.classAttribute,
-  });
+  }) : super(id);
 
   @override
   DomTag get tag => DomTag.horizontalRule;
 
   @override
   String get type => "$HorizontalRule";
-
-  @override
-  String get initialId => id ?? System.idNotSet;
 
   @override
   RenderObject createRenderObject(BuildContext context) {

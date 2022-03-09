@@ -3,11 +3,6 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/props/html/global_tag_props.dart';
 
 abstract class TagWithGlobalProps extends Widget {
-  /// The id attribute specifies a unique id for an HTML
-  /// element (the value must be unique within the HTML document).
-  ///
-  final String? id;
-
   /// The title attribute specifies extra information about an element.
   ///
   final String? title;
@@ -47,7 +42,7 @@ abstract class TagWithGlobalProps extends Widget {
   final List<Widget>? children;
 
   const TagWithGlobalProps({
-    this.id,
+    String? id,
     this.title,
     this.tabIndex,
     this.classAttribute,
@@ -56,10 +51,7 @@ abstract class TagWithGlobalProps extends Widget {
     this.draggable,
     this.contenteditable,
     this.children,
-  });
-
-  @override
-  String get initialId => id ?? System.idNotSet;
+  }) : super(id);
 
   GlobalTagProps globalTagProps() => GlobalTagProps(
         title: title,

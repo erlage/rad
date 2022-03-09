@@ -1,3 +1,4 @@
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
@@ -8,7 +9,9 @@ import 'package:rad/src/core/objects/build_context.dart';
 /// extends. A widget is an immutable description of user interface.
 ///
 abstract class Widget {
-  const Widget();
+  final String? _initialId;
+
+  const Widget(this._initialId);
 
   /// corresponding HTML tag to use to render this widget
   ///
@@ -20,7 +23,7 @@ abstract class Widget {
 
   /// id provided in widget constructor(if any)
   ///
-  String get initialId;
+  String get initialId => _initialId ?? System.idNotSet;
 
   /// Called when context for this widget is created.
   ///
