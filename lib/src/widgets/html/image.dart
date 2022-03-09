@@ -1,5 +1,4 @@
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/multi_child_render_object.dart';
 import 'package:rad/src/widgets/abstract/tag_with_global_props.dart';

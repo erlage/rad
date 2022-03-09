@@ -1,4 +1,3 @@
-import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/widgets/props/class_attribute_prop.dart';
@@ -6,12 +5,6 @@ import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// A run of text with a single style.
-///
-/// The [Text] widget displays a string of text with single style. The string
-/// might break across multiple lines or might all be displayed on the same line
-/// depending on the layout constraints.
-///
-/// It renders contents of [text] property as a string literal.
 ///
 class Text extends Widget {
   final String text;

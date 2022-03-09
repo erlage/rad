@@ -1,4 +1,3 @@
-import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/props/html/global_tag_props.dart';
 
