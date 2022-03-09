@@ -45,7 +45,7 @@ class Text extends Widget {
 }
 
 class TextRenderObject extends RenderObject {
-  final String text;
+  String text;
 
   final ClassAttributeProp styleProps;
 
@@ -73,6 +73,8 @@ class TextRenderObject extends RenderObject {
     if (text == updatedRenderObject.text) {
       return;
     }
+
+    text = updatedRenderObject.text;
 
     widgetObject.element.innerText = updatedRenderObject.text;
   }
