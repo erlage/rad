@@ -418,25 +418,15 @@ class Framework {
         case WidgetAction.updateWidget:
           var existingWidgetObject = widgetActionObject.widgetObject;
 
-          // get updated render object
-
-// TODO
-          // var updatedRenderObject =
-          //     existingWidgetObject..createRenderObject(
-          //   existingWidgetObject.context,
-          // );
-
-          // publish update
-
           if (null == updateTypeWhenNecessary) {
             throw "Update type note set for publishing update.";
           }
 
-          // existingWidgetObject.renderObject.update(
-          //   updateTypeWhenNecessary,
-          //   existingWidgetObject,
-          //   updatedRenderObject,
-          // );
+          existingWidgetObject.renderObject.update(
+            updateTypeWhenNecessary,
+            existingWidgetObject,
+            existingWidgetObject.reCreateRenderObject(),
+          );
 
           break;
       }
