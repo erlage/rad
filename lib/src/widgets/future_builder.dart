@@ -7,11 +7,33 @@ import 'package:rad/src/widgets/stream_builder.dart';
 /// Source taken from:
 /// https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/async.dart
 
-/// Todo: didUpdateWidget()
-/// Right now: If a state change happens in parent, a future builder ignores it.
-
 /// Widget that builds itself based on the latest snapshot of interaction with
 /// a [Future].
+///
+/// The [future] must have been obtained earlier, e.g. during [State.initState],
+/// [State.didUpdateWidget], or [State.didChangeDependencies]. It must not be
+/// created during the [State.build] or [StatelessWidget.build] method call when
+/// constructing the [FutureBuilder]. If the [future] is created at the same
+/// time as the [FutureBuilder], then every time the [FutureBuilder]'s parent is
+/// rebuilt, the asynchronous task will be restarted.
+///
+/// A general guideline is to assume that every `build` method could get called
+/// every frame, and to treat omitted calls as an optimization.
+///
+/// {@youtube 560 315 https://www.youtube.com/watch?v=ek8ZPdWj4Qo}
+///
+/// ## Timing
+///
+/// Widget rebuilding is scheduled by the completion of the future, using
+/// [State.setState], but is otherwise decoupled from the timing of the future.
+/// The [builder] callback is called at the discretion of the Flutter pipeline, and
+/// will thus receive a timing-dependent sub-sequence of the snapshots that
+/// represent the interaction with the future.
+///
+/// A side-effect of this is that providing a new but already-completed future
+/// to a [FutureBuilder] will result in a single frame in the
+/// [ConnectionState.waiting] state. This is because there is no way to
+/// synchronously determine that a [Future] has already completed.
 ///
 /// ## Builder contract
 ///
@@ -49,12 +71,19 @@ import 'package:rad/src/widgets/stream_builder.dart';
 /// `future?.asStream()`, except that snapshots with `ConnectionState.active`
 /// may appear for the latter, depending on how the stream is implemented.
 ///
+/// {@tool dartpad}
+/// This sample shows a [FutureBuilder] that displays a loading spinner while it
+/// loads data. It displays a success icon and text if the [Future] completes
+/// with a result, or an error icon and text if the [Future] completes with an
+/// error. Assume the `_calculation` field is set by pressing a button elsewhere
+/// in the UI.
+///
 class FutureBuilder<T> extends StatefulWidget {
   /// Creates a widget that builds itself based on the latest snapshot of
   /// interaction with a [Future].
   ///
   /// The [builder] must not be null.
-  FutureBuilder({
+  const FutureBuilder({
     String? id,
     this.future,
     this.initialData,
@@ -110,6 +139,12 @@ class FutureBuilder<T> extends StatefulWidget {
   /// Defaults to `false`, resulting in swallowing of errors.
   static bool debugRethrowError = false;
 
+  @override
+  State<FutureBuilder<T>> createState() => _FutureBuilderState<T>();
+}
+
+/// State for [FutureBuilder].
+class _FutureBuilderState<T> extends State<FutureBuilder<T>> {
   /// An object that identifies the currently active callbacks. Used to avoid
   /// calling setState from stale callbacks, e.g. after disposal of this state,
   /// or after widget reconfiguration to a new Future.
@@ -118,18 +153,27 @@ class FutureBuilder<T> extends StatefulWidget {
 
   @override
   void initState() {
-    super.initState();
-    _snapshot = initialData == null
+    _snapshot = widget.initialData == null
         ? AsyncSnapshot<T>.nothing()
-        : AsyncSnapshot<T>.withData(ConnectionState.none, initialData as T);
+        : AsyncSnapshot<T>.withData(
+            ConnectionState.none, widget.initialData as T);
     _subscribe();
   }
 
   @override
-  rebuildOnUpdate(updateType) => false;
+  void didUpdateWidget(FutureBuilder<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.future != widget.future) {
+      if (_activeCallbackIdentity != null) {
+        _unsubscribe();
+        _snapshot = _snapshot.inState(ConnectionState.none);
+      }
+      _subscribe();
+    }
+  }
 
   @override
-  build(context) => builder(context, _snapshot);
+  build(context) => widget.builder(context, _snapshot);
 
   @override
   void dispose() {
@@ -138,10 +182,10 @@ class FutureBuilder<T> extends StatefulWidget {
   }
 
   void _subscribe() {
-    if (future != null) {
+    if (widget.future != null) {
       final Object callbackIdentity = Object();
       _activeCallbackIdentity = callbackIdentity;
-      future!.then<void>((T data) {
+      widget.future!.then<void>((T data) {
         if (_activeCallbackIdentity == callbackIdentity) {
           setState(() {
             _snapshot = AsyncSnapshot<T>.withData(ConnectionState.done, data);

@@ -42,7 +42,7 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///    recent interaction is needed for widget building.
 abstract class StreamBuilderBase<T, S> extends StatefulWidget {
   /// Creates a [StreamBuilderBase] connected to the specified [stream].
-  StreamBuilderBase({String? id, this.stream}) : super(id: id);
+  const StreamBuilderBase({String? id, this.stream}) : super(id: id);
 
   /// The asynchronous computation to which this builder is currently connected,
   /// possibly null. When changed, the current summary is updated using
@@ -88,23 +88,37 @@ abstract class StreamBuilderBase<T, S> extends StatefulWidget {
   S afterDisconnected(S current) => current;
 
   /// Returns a Widget based on the [currentSummary].
-  Widget widgetBuilder(BuildContext context, S currentSummary);
+  Widget build(BuildContext context, S currentSummary);
 
+  @override
+  State<StreamBuilderBase<T, S>> createState() =>
+      _StreamBuilderBaseState<T, S>();
+}
+
+/// State for [StreamBuilderBase].
+class _StreamBuilderBaseState<T, S> extends State<StreamBuilderBase<T, S>> {
   StreamSubscription<T>? _subscription; // ignore: cancel_subscriptions
   late S _summary;
 
   @override
   void initState() {
-    super.initState();
-    _summary = initial();
+    _summary = widget.initial();
     _subscribe();
   }
 
   @override
-  rebuildOnUpdate(updateType) => false;
+  void didUpdateWidget(covariant StreamBuilderBase<T, S> oldWidget) {
+    if (oldWidget.stream != widget.stream) {
+      if (_subscription != null) {
+        _unsubscribe();
+        _summary = widget.afterDisconnected(_summary);
+      }
+      _subscribe();
+    }
+  }
 
   @override
-  Widget build(BuildContext context) => widgetBuilder(context, _summary);
+  Widget build(BuildContext context) => widget.build(context, _summary);
 
   @override
   void dispose() {
@@ -113,21 +127,21 @@ abstract class StreamBuilderBase<T, S> extends StatefulWidget {
   }
 
   void _subscribe() {
-    if (stream != null) {
-      _subscription = stream!.listen((T data) {
+    if (widget.stream != null) {
+      _subscription = widget.stream!.listen((T data) {
         setState(() {
-          _summary = afterData(_summary, data);
+          _summary = widget.afterData(_summary, data);
         });
       }, onError: (Object error, StackTrace stackTrace) {
         setState(() {
-          _summary = afterError(_summary, error, stackTrace);
+          _summary = widget.afterError(_summary, error, stackTrace);
         });
       }, onDone: () {
         setState(() {
-          _summary = afterDone(_summary);
+          _summary = widget.afterDone(_summary);
         });
       });
-      _summary = afterConnected(_summary);
+      _summary = widget.afterConnected(_summary);
     }
   }
 

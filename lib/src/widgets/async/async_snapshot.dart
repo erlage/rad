@@ -10,6 +10,8 @@ import 'package:rad/src/widgets/async/connection_state.dart';
 ///
 ///  * [StreamBuilder], which builds itself based on a snapshot from interacting
 ///    with a [Stream].
+///  * [FutureBuilder], which builds itself based on a snapshot from interacting
+///    with a [Future].
 class AsyncSnapshot<T> {
   /// Creates an [AsyncSnapshot] with the specified [connectionState],
   /// and optionally either [data] or [error] with an optional [stackTrace]
@@ -19,7 +21,8 @@ class AsyncSnapshot<T> {
     this.data,
     this.error,
     this.stackTrace,
-  );
+  )   : assert(!(data != null && error != null)),
+        assert(stackTrace == null || error != null);
 
   /// Creates an [AsyncSnapshot] in [ConnectionState.none] with null data and error.
   const AsyncSnapshot.nothing()
@@ -103,4 +106,19 @@ class AsyncSnapshot<T> {
   /// This is always true if the asynchronous computation's last result was
   /// failure.
   bool get hasError => error != null;
+
+  // todo
+
+  // @override
+  // bool operator ==(Object other) {
+  //   if (identical(this, other)) return true;
+  //   return other is AsyncSnapshot<T> &&
+  //       other.connectionState == connectionState &&
+  //       other.data == data &&
+  //       other.error == error &&
+  //       other.stackTrace == stackTrace;
+  // }
+
+  // @override
+  // int get hashCode => hashValues(connectionState, data, error);
 }
