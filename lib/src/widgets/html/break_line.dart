@@ -1,25 +1,33 @@
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 class BreakLine extends Widget {
-  BreakLine({String? id}) : super(id);
+  const BreakLine({String? id}) : super(id);
 
   @override
-  DomTag get tag => DomTag.breakLine;
+  String get concreteType => "$BreakLine";
 
   @override
-  String get type => "$BreakLine";
+  DomTag get correspondingTag => DomTag.breakLine;
 
   @override
-  createRenderObject(context) => BreakLineRenderObject(context);
+  createConfiguration() => WidgetConfiguration();
+
+  @override
+  isConfigurationChanged(oldConfiguration) => false;
+
+  @override
+  createRenderObject(context) => _BreakLineRenderObject(context);
 }
 
-class BreakLineRenderObject extends RenderObject {
-  BreakLineRenderObject(BuildContext context) : super(context);
+/*
+|--------------------------------------------------------------------------
+| render object
+|--------------------------------------------------------------------------
+*/
 
-  @override
-  void render(WidgetObject widgetObject) {}
+class _BreakLineRenderObject extends RenderObject {
+  const _BreakLineRenderObject(BuildContext context) : super(context);
 }

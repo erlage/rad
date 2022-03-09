@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/interface/app_component.dart';
@@ -8,9 +10,11 @@ import 'package:rad/src/css/include/normalize.generated.dart';
 import 'package:rad/src/css/main.generated.dart';
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/widgets/props/common_props.dart';
 
 class App extends Widget {
   final Widget child;
+
   final String targetId;
 
   final AppComponents? components;
@@ -23,13 +27,48 @@ class App extends Widget {
     String routingPath = "",
     DebugOptions? debugOptions,
   }) : super(id) {
+    /*
+    |--------------------------------------------------------------------------
+    | initialize
+    |--------------------------------------------------------------------------
+    */
+
     Framework.init(routingPath: routingPath, debugOptions: debugOptions);
 
     Framework.addGlobalStyles(GEN_STYLES_NORMALIZE_CSS, "Normalize");
     Framework.addGlobalStyles(GEN_STYLES_MAIN_CSS, "Main");
 
+    /*
+    |--------------------------------------------------------------------------
+    | prepare target element from DOM
+    |--------------------------------------------------------------------------
+    */
+
+    var targetElement = document.getElementById(targetId) as HtmlElement?;
+
+    if (null == targetElement) {
+      throw "Unable to locate target element in HTML document";
+    }
+
+    CommonProps.applyDataAttributes(targetElement, {
+      System.attrConcreteType: "Target",
+      System.attrRuntimeType: System.contextTypeBigBang,
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | load components
+    |--------------------------------------------------------------------------
+    */
+
     var components = this.components;
     components?.load();
+
+    /*
+    |--------------------------------------------------------------------------
+    | bootstrap
+    |--------------------------------------------------------------------------
+    */
 
     Framework.buildChildren(
       widgets: [this],
@@ -38,48 +77,50 @@ class App extends Widget {
   }
 
   @override
-  DomTag get tag => DomTag.div;
+  get concreteType => "$App";
 
   @override
-  String get type => "$App";
+  get correspondingTag => DomTag.div;
 
   @override
-  createRenderObject(context) {
-    context.parent;
+  createConfiguration() => _AppConfiguration(child);
 
-    return AppWidgetRenderObject(
-      child: child,
-      context: context,
-    );
-  }
+  @override
+  isConfigurationChanged(oldConfiguration) => false;
+
+  @override
+  createRenderObject(context) => AppWidgetRenderObject(context);
 }
 
-class AppWidgetRenderObject extends RenderObject {
+/*
+|--------------------------------------------------------------------------
+| configuration
+|--------------------------------------------------------------------------
+*/
+
+class _AppConfiguration extends WidgetConfiguration {
   final Widget child;
 
-  AppWidgetRenderObject({
-    required this.child,
-    required BuildContext context,
-  }) : super(context);
+  const _AppConfiguration(this.child);
+}
+
+/*
+|--------------------------------------------------------------------------
+| render object
+|--------------------------------------------------------------------------
+*/
+
+class AppWidgetRenderObject extends RenderObject {
+  const AppWidgetRenderObject(BuildContext context) : super(context);
 
   @override
-  render(widgetObject) {
-    var targetElement = widgetObject.element.parent;
-
-    if (null == targetElement) {
-      throw "Unable to locate target element in HTML document";
-    }
-
-    targetElement.dataset.addAll({
-      System.attrType: "Target",
-      System.attrClass: context.parent.widgetClassName,
-    });
-
-    Framework.buildChildren(widgets: [child], parentContext: context);
-  }
-
-  @override
-  update(updateType, widgetObject, updatedRenderObject) {
-    throw System.coreError;
+  render(
+    element,
+    covariant _AppConfiguration configuration,
+  ) {
+    Framework.buildChildren(
+      widgets: [configuration.child],
+      parentContext: context,
+    );
   }
 }

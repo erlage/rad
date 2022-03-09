@@ -12,6 +12,7 @@ import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/objects/widget_update_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/widgets/stateful_widget.dart';
 
 class Framework {
   static var _isInit = false;
@@ -71,27 +72,55 @@ class Framework {
     }
   }
 
-  static WidgetObject? findAncestorOfType<WidgetType>(BuildContext context) {
-    // ensure context is ready for processing.
-    // this happens when user .of(context) is called inside a constructor.
+  static T? findAncestorWidgetOfExactType<T>(
+    BuildContext context,
+  ) {
+    var selector = "[data-${System.attrRuntimeType}='$T']";
 
-    if (System.idNotSet == context.id) {
-      throw "Part of build context is not ready. This means that context is under construction.";
+    var widgetObject = _findAncestorWidgetObjectFromSelector(selector, context);
+
+    if (null != widgetObject) {
+      return widgetObject.widget as T;
     }
 
+    return null;
+  }
+
+  static T? findAncestorStateOfType<T>(
+    BuildContext context,
+  ) {
+    var selector = "[data-${System.attrStateType}='$T']";
+
+    var widgetObject = _findAncestorWidgetObjectFromSelector(selector, context);
+
+    if (null != widgetObject) {
+      var renderObject =
+          widgetObject.renderObject as StatefulWidgetRenderObject;
+
+      return (renderObject).state as T;
+    }
+
+    return null;
+  }
+
+  static WidgetObject? findAncestorWidgetObjectOfType<T>(
+    BuildContext context,
+  ) {
     // find dom node having provided 'widget type' in ancestors
 
-    var match = "[data-wtype='$WidgetType']";
+    var selector = "[data-${System.attrRuntimeType}='$T']";
 
-    var domNode = document.getElementById(context.id)?.parent?.closest(match);
+    return _findAncestorWidgetObjectFromSelector(selector, context);
+  }
 
-    if (null == domNode) {
-      return null;
-    }
+  static WidgetObject? findAncestorWidgetObjectOfClass<T>(
+    BuildContext context,
+  ) {
+    // find dom node having provided 'widget class' in ancestors
 
-    // found. return corresponding widget's object.
+    var selector = "[data-${System.attrConcreteType}='$T']";
 
-    return _getWidgetObject(domNode.id);
+    return _findAncestorWidgetObjectFromSelector(selector, context);
   }
 
   /// Build children under given context.
@@ -100,13 +129,14 @@ class Framework {
     // widgets to build
     required List<Widget> widgets,
     required BuildContext parentContext,
-    ElementCallback? elementCallback,
     //
     // -- flags --
     //
     flagCleanParentContents = true,
     //
   }) {
+    if (widgets.isEmpty) return;
+
     if (!_isInit) {
       throw "Framework not initialized. If you're building your own AppWidget implementation, make sure to call Framework.init()";
     }
@@ -114,9 +144,11 @@ class Framework {
     for (var widget in widgets) {
       // generate id if not set
 
-      var widgetId = System.idNotSet == widget.initialId
+      var widgetId = System.contextIdNotSet == widget.initialId
           ? Utils.generateWidgetId()
           : widget.initialId;
+
+      var configuration = widget.createConfiguration();
 
       // create build context
 
@@ -124,37 +156,35 @@ class Framework {
         id: widgetId,
         widget: widget,
         parent: parentContext,
-        widgetType: widget.type,
-        widgetDomTag: widget.tag,
-        widgetClassName: "${widget.runtimeType}",
+        widgetConcreteType: widget.concreteType,
+        widgetCorrespondingTag: widget.correspondingTag,
+        widgetRuntimeType: "${widget.runtimeType}",
       );
-      widget.onContextCreate(buildContext);
 
       // create render object
 
       var renderObject = widget.createRenderObject(buildContext);
-      widget.onRenderObjectCreate(renderObject);
 
       if (Debug.widgetLogs) {
-        print("Build widget: ${widget.type} #${buildContext.id}");
+        print("Build: $buildContext");
       }
 
       // create widget object
 
-      var widgetObject = WidgetObject(renderObject);
-
-      if (null != elementCallback) {
-        elementCallback(widgetObject.element);
-      }
+      var widgetObject = WidgetObject(
+        configuration: configuration,
+        renderObject: renderObject,
+      );
 
       _registerWidgetObject(widgetObject);
 
       // dispose inner contents if flag is on
 
       if (flagCleanParentContents) {
-        var widgetType = widgetObject.renderObject.context.parent.widgetType;
+        var widgetType =
+            widgetObject.renderObject.context.parent.widgetConcreteType;
 
-        if (System.typeBigBang != widgetType) {
+        if (System.contextTypeBigBang != widgetType) {
           var element = document.getElementById(
             renderObject.context.parent.id,
           );
@@ -180,7 +210,15 @@ class Framework {
 
       widgetObject.renderObject.afterMount();
 
-      widgetObject.build();
+      widgetObject.renderObject.dispatchRender(
+        widgetObject.element,
+        widgetObject.configuration,
+      );
+
+      Framework.buildChildren(
+        widgets: widgetObject.widget.widgetChildren,
+        parentContext: widgetObject.context,
+      );
 
       // unset clean flag.
       // because remaining childs must not remove newly added childs
@@ -195,7 +233,6 @@ class Framework {
     // widgets to build
     required List<Widget> widgets,
     required BuildContext parentContext,
-    ElementCallback? elementCallback,
     //
     // -- options --
     //
@@ -216,6 +253,8 @@ class Framework {
     flagTolerateChildrenCountMisMatch = false,
     //
   }) {
+    if (widgets.isEmpty) return;
+
     if (!_isInit) {
       throw "Framework not initialized. If you're building your own AppWidget implementation, make sure to call Framework.init()";
     }
@@ -226,7 +265,6 @@ class Framework {
       buildChildren(
         widgets: widgets,
         parentContext: parentContext,
-        elementCallback: elementCallback,
       );
     }
 
@@ -251,13 +289,13 @@ class Framework {
     // prepare updates
 
     widgetLoop:
-    for (var widget in widgets) {
-      for (var child in parent.children) {
+    for (final widget in widgets) {
+      for (final child in parent.children) {
         var alreadySelected = updateObjects.containsKey(child.id);
 
         if (!alreadySelected) {
           var hasSameType = child.dataset.isNotEmpty &&
-              "${widget.runtimeType}" == child.dataset[System.attrClass];
+              "${widget.runtimeType}" == child.dataset[System.attrRuntimeType];
 
           if (hasSameType) {
             updateObjects[child.id] = WidgetUpdateObject(widget, child.id);
@@ -286,37 +324,54 @@ class Framework {
 
     updateObjects.forEach((elementId, updateObject) {
       if (null != updateObject.existingElementId) {
-        var existingWidgetObject = _getWidgetObject(elementId);
+        var widgetObject = _getWidgetObject(elementId);
 
         // if found
 
-        if (null != existingWidgetObject) {
-          // keep reference of old widget
-
-          var oldWidget = existingWidgetObject.renderObject.context.widget;
-
-          // switch to new widget instance
-
+        if (null != widgetObject) {
           var newWidget = updateObject.widget;
 
-          existingWidgetObject.renderObject.context.updateWidget(newWidget);
+          var oldConfiguration = widgetObject.configuration;
 
-          // call hook
+          var isChanged = newWidget.isConfigurationChanged(oldConfiguration);
 
-          existingWidgetObject.renderObject.didUpdateWidget(oldWidget);
+          if (isChanged) {
+            // keep reference of old widget for didUpdateWidget
 
-          // if there's element callback
+            var oldWidget = widgetObject.renderObject.context.widget;
 
-          if (null != elementCallback) {
-            elementCallback(existingWidgetObject.element);
+            // switch to new widget and configuration
+
+            var newConfiguration = newWidget.createConfiguration();
+
+            widgetObject.rebindConfiguration(newConfiguration);
+
+            widgetObject.renderObject.context.rebindWidget(newWidget);
+
+            // call hook
+
+            widgetObject.renderObject.afterWidgetRebind(updateType, oldWidget);
+
+            // publish update
+
+            widgetObject.renderObject.dispatchUpdate(
+              element: widgetObject.element,
+              updateType: updateType,
+              newConfiguration: newConfiguration,
+              oldConfiguration: oldConfiguration,
+            );
+          } else {
+            if (Debug.widgetLogs) {
+              print("Skipped: ${widgetObject.context}");
+            }
           }
 
-          // publish update
+          // update childs
 
-          return existingWidgetObject.renderObject.update(
-            updateType,
-            existingWidgetObject,
-            existingWidgetObject.reCreateRenderObject(),
+          Framework.updateChildren(
+            widgets: updateObject.widget.widgetChildren,
+            parentContext: widgetObject.context,
+            updateType: updateType,
           );
         } else {
           if (!flagTolerateChildrenCountMisMatch) {
@@ -328,7 +383,6 @@ class Framework {
           buildChildren(
             widgets: [updateObject.widget],
             parentContext: parentContext,
-            elementCallback: elementCallback,
           );
         }
       }
@@ -416,16 +470,25 @@ class Framework {
           break;
 
         case WidgetAction.updateWidget:
-          var existingWidgetObject = widgetActionObject.widgetObject;
-
           if (null == updateTypeWhenNecessary) {
             throw "Update type note set for publishing update.";
           }
 
-          existingWidgetObject.renderObject.update(
-            updateTypeWhenNecessary,
-            existingWidgetObject,
-            existingWidgetObject.reCreateRenderObject(),
+          var widgetObject = widgetActionObject.widgetObject;
+
+          // publish update
+
+          widgetActionObject.widgetObject.renderObject.dispatchUpdate(
+            element: widgetObject.element,
+            updateType: updateTypeWhenNecessary,
+            newConfiguration: widgetObject.configuration,
+            oldConfiguration: widgetObject.configuration,
+          ); // bit of mess ^ but required
+
+          Framework.updateChildren(
+            widgets: widgetObject.renderObject.context.widget.widgetChildren,
+            parentContext: widgetObject.context,
+            updateType: updateTypeWhenNecessary,
           );
 
           break;
@@ -467,7 +530,7 @@ class Framework {
 
     // nothing to dispose if its not a widget
 
-    if (null == widgetObject.element.dataset[System.attrType]) {
+    if (null == widgetObject.element.dataset[System.attrConcreteType]) {
       return;
     }
 
@@ -476,6 +539,29 @@ class Framework {
     _unRegisterWidgetObject(widgetObject);
 
     widgetObject.element.remove();
+  }
+
+  static WidgetObject? _findAncestorWidgetObjectFromSelector(
+    String selector,
+    BuildContext context,
+  ) {
+    // ensure context is ready for processing.
+    // this happens when user .of(context) is called inside a constructor.
+
+    if (System.contextIdNotSet == context.id) {
+      throw "Part of build context is not ready. This means that context is under construction.";
+    }
+
+    var domNode =
+        document.getElementById(context.id)?.parent?.closest(selector);
+
+    if (null == domNode) {
+      return null;
+    }
+
+    // found. return corresponding widget's object.
+
+    return _getWidgetObject(domNode.id);
   }
 
   static _hideElement(Element element) {

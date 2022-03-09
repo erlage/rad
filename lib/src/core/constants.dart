@@ -1,11 +1,21 @@
 class System {
-  static const attrType = "wtype";
-  static const attrClass = "wclass";
+  // widget attributes
+
+  static const attrRuntimeType = "wruntype";
+  static const attrConcreteType = "wcontype";
+  static const attrStateType = "wstatetype";
+
+  // route specific
+
   static const attrRouteName = "wroutename";
   static const attrRoutePath = "wroutepath";
 
-  static const typeBigBang = "BigBang";
-  static const idNotSet = "not-set";
+  // context specific
+
+  static const contextTypeBigBang = "BigBang";
+  static const contextIdNotSet = "not-set";
+
+  // errors
 
   static const coreError = "Framework has gone wild.";
   static const routerError = "Router has gone wild.";

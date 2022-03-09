@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
@@ -8,15 +9,14 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// A wrapper for containing everything that can belong to a single widget.
 ///
-/// Before using [element] make sure to check if element is actually
-/// created using [isCreated] getter.
-///
-/// Another getter [isMounted] can be used to check if element is actually
+/// Getter [isMounted] can be used to check if element is actually
 /// mounted.
 ///
 class WidgetObject {
   final HtmlElement element;
   final RenderObject renderObject;
+
+  WidgetConfiguration configuration;
 
   var _isMounted = false;
 
@@ -24,18 +24,22 @@ class WidgetObject {
   Widget get widget => renderObject.context.widget;
   BuildContext get context => renderObject.context;
 
-  WidgetObject(this.renderObject)
-      :
+  WidgetObject({
+    required this.configuration,
+    required this.renderObject,
+  }) :
         // create dom element
         element = document.createElement(
-          Utils.mapDomTag(renderObject.context.widget.tag),
+          Utils.mapDomTag(renderObject.context.widget.correspondingTag),
         ) as HtmlElement {
     //
     // add properties to element
 
     element.id = renderObject.context.id;
-    element.dataset[System.attrType] = renderObject.context.widgetType;
-    element.dataset[System.attrClass] = renderObject.context.widgetClassName;
+    element.dataset[System.attrConcreteType] =
+        renderObject.context.widgetConcreteType;
+    element.dataset[System.attrRuntimeType] =
+        renderObject.context.widgetRuntimeType;
   }
 
   void mount() {
@@ -53,14 +57,14 @@ class WidgetObject {
       parentElement.append(element);
 
       _isMounted = true;
+    } else {
+      if (Debug.developmentMode) {
+        print("Element not found: #${renderObject.context.parent.id}");
+      }
     }
   }
 
-  RenderObject reCreateRenderObject() {
-    return renderObject.context.widget.createRenderObject(renderObject.context);
-  }
-
-  void build() {
-    renderObject.render(this);
+  void rebindConfiguration(WidgetConfiguration newConfiguration) {
+    configuration = newConfiguration;
   }
 }

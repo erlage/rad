@@ -1,14 +1,14 @@
+import 'dart:html';
+
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/widgets/abstract/multi_child_render_object.dart';
-import 'package:rad/src/widgets/abstract/tag_with_global_props.dart';
+import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/props/html/global_tag_props.dart';
-import 'package:rad/src/widgets/props/html/lable_tag_props.dart';
 
 /// The Label tag.
 ///
-class Label extends TagWithGlobalProps {
+class Label extends MarkUpTagWithGlobalProps {
   /// The value of the [forAttribute] attribute must be a single id for a labelable
   /// form-related element in the same document as the <label> element.
   ///
@@ -38,55 +38,100 @@ class Label extends TagWithGlobalProps {
         );
 
   @override
-  String get type => "$Label";
+  String get concreteType => "$Label";
 
   @override
-  DomTag get tag => DomTag.label;
+  DomTag get correspondingTag => DomTag.label;
 
   @override
-  createRenderObject(context) {
-    return LabelRenderObject(
-      context: context,
-      children: children,
-      globalTagProps: globalTagProps(),
-      labelTagProps: LabelTagProps(forAttribute),
+  createConfiguration() {
+    return _LabelConfiguration(
+      forAttribute: forAttribute,
+      globalPropsConfiguration:
+          super.createConfiguration() as MarkUpGlobalConfiguration,
     );
+  }
+
+  @override
+  isConfigurationChanged(covariant _LabelConfiguration oldConfiguration) {
+    return forAttribute != oldConfiguration.forAttribute ||
+        super.isChanged(oldConfiguration.globalPropsConfiguration);
+  }
+
+  @override
+  createRenderObject(context) => _LabelRenderObject(context);
+}
+
+/*
+|--------------------------------------------------------------------------
+| configuration
+|--------------------------------------------------------------------------
+*/
+
+class _LabelConfiguration extends WidgetConfiguration {
+  final MarkUpGlobalConfiguration globalPropsConfiguration;
+
+  final String? forAttribute;
+
+  const _LabelConfiguration({
+    this.forAttribute,
+    required this.globalPropsConfiguration,
+  });
+}
+
+/*
+|--------------------------------------------------------------------------
+| render object
+|--------------------------------------------------------------------------
+*/
+
+class _LabelRenderObject extends RenderObject {
+  const _LabelRenderObject(BuildContext context) : super(context);
+
+  @override
+  render(
+    element,
+    covariant _LabelConfiguration configuration,
+  ) {
+    _LabelProps.apply(element, configuration);
+  }
+
+  @override
+  update({
+    required element,
+    required updateType,
+    required covariant _LabelConfiguration oldConfiguration,
+    required covariant _LabelConfiguration newConfiguration,
+  }) {
+    _LabelProps.clear(element, oldConfiguration);
+    _LabelProps.apply(element, newConfiguration);
   }
 }
 
-class LabelRenderObject extends MultiChildRenderObject {
-  GlobalTagProps globalTagProps;
-  LabelTagProps labelTagProps;
+/*
+|--------------------------------------------------------------------------
+| props
+|--------------------------------------------------------------------------
+*/
 
-  LabelRenderObject({
-    List<Widget>? children,
-    required this.globalTagProps,
-    required this.labelTagProps,
-    required BuildContext context,
-  }) : super(
-          children: children ?? [],
-          context: context,
-        );
+class _LabelProps {
+  static void apply(HtmlElement element, _LabelConfiguration props) {
+    element as LabelElement;
 
-  @override
-  beforeRender(widgetObject) {
-    globalTagProps.apply(widgetObject.element);
-    labelTagProps.apply(widgetObject.element);
+    MarkUpGlobalProps.apply(element, props.globalPropsConfiguration);
+
+    if (null != props.forAttribute) {
+      element.htmlFor = props.forAttribute!;
+    }
   }
 
-  @override
-  beforeUpdate(
-    widgetObject,
-    covariant LabelRenderObject updatedRenderObject,
-  ) {
-    globalTagProps.apply(
-      widgetObject.element,
-      updatedRenderObject.globalTagProps,
-    );
+  static void clear(HtmlElement element, _LabelConfiguration props) {
+    element as LabelElement;
 
-    labelTagProps.apply(
-      widgetObject.element,
-      updatedRenderObject.labelTagProps,
-    );
+    MarkUpGlobalProps.clear(element, props.globalPropsConfiguration);
+
+    if (null != props.forAttribute) {
+      element.htmlFor = "";
+    }
   }
 }

@@ -1,12 +1,13 @@
+import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/classes/framework.dart';
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/classes/router.dart';
-import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/types.dart';
-import 'package:rad/src/widgets/navigator/navigator_state.dart';
 import 'package:rad/src/widgets/route.dart';
+import 'package:rad/src/widgets/stateful_widget.dart';
 
 /// Navigator widget including Router.
 ///
@@ -155,7 +156,7 @@ import 'package:rad/src/widgets/route.dart';
 /// );
 /// ```
 ///
-class Navigator extends Widget {
+class Navigator extends StatefulWidget {
   /// Called when Navigator state is created.
   ///
   final NavigatorStateCallback? onInit;
@@ -173,34 +174,12 @@ class Navigator extends Widget {
     this.onInit,
     this.onRouteChange,
     required this.routes,
-  }) : super(id);
+  }) : super(id: id);
 
   @override
-  DomTag get tag => DomTag.div;
+  State<Navigator> createState() => NavigatorState();
 
-  @override
-  String get type => "$Navigator";
-
-  @override
-  onContextCreate(context) => Router.registerRoutes(context, routes);
-
-  @override
-  createRenderObject(context) => NavigatorRenderObject(context);
-
-  @override
-  onRenderObjectCreate(covariant NavigatorRenderObject renderObject) {
-    //
-    // If we create state in RenderObject then state will be created
-    // multiple times because framework can create RenderObject anytime
-    // it wants a up-to-date interface. Creating state here is more
-    // appropriate for performance reasons as this hook gets called
-    // only when first RenderObject of this widget is created.
-    //
-
-    renderObject.state = NavigatorState();
-  }
-
-  /// The state from the closest instance of this class that encloses the given context.
+  /// The state from the closest instance of Navigator state that encloses the given context.
   ///
   /// Typical usage is as follows:
   ///
@@ -208,28 +187,319 @@ class Navigator extends Widget {
   /// NavigatorState navigator = Navigator.of(context);
   /// ```
   static NavigatorState of(BuildContext context) {
-    var widgetObject = Framework.findAncestorOfType<Navigator>(context);
+    var navigatorState = context.findAncestorStateOfType<NavigatorState>();
 
-    if (null == widgetObject) {
+    if (null == navigatorState) {
       throw "Navigator.of(context) called with the context that doesn't contains Navigator";
     }
 
-    return (widgetObject.renderObject as NavigatorRenderObject).state;
+    return navigatorState;
   }
 }
 
-class NavigatorRenderObject extends RenderObject {
-  /// State of navigator.
+// since Navigator widget is part of framework, it has access
+// to Router and Framework core classes.
+
+class NavigatorState extends State<Navigator> {
+  final routes = <Route>[];
+
+  final _activeStack = <String>[];
+  final _historyStack = <String>[];
+
+  /// Route name to route path map.
   ///
-  late final NavigatorState state;
+  final nameToPathMap = <String, String>{};
 
-  NavigatorRenderObject(BuildContext context) : super(context);
+  /// Route path to Route instance map.
+  ///
+  final pathToRouteMap = <String, Route>{};
 
-  // delegate everything to state object
+  var _currentName = '_';
+
+  // Name of the active route. Route, that's currently on top of
+  /// Navigator stack.
+  ///
+  String get currentRouteName => _currentName;
 
   @override
-  render(widgetObject) => state.render(widgetObject);
+  initState() {
+    routes.addAll(widget.routes);
+
+    for (var route in routes) {
+      if (Debug.developmentMode) {
+        var isDuplicate = nameToPathMap.containsKey(route.name) ||
+            pathToRouteMap.containsKey(route.path);
+
+        if (isDuplicate) {
+          throw "Please remove Duplicate routes from your Navigator."
+              "Part of your route, name: '${route.name}' => path: '${route.path}', already exists";
+        }
+      }
+
+      nameToPathMap[route.name] = route.path;
+
+      pathToRouteMap[route.path] = route;
+    }
+
+    // register navigator state.
+
+    Router.register(context, this);
+  }
 
   @override
-  void beforeUnMount() => state.dispose();
+  dispose() => Router.unRegister(context);
+
+  @override
+  bool get frameworkIsBuildEnabled => false;
+
+  @override
+  build(context) => throw "Navigator uses Framework API for widget building.";
+
+  void render() {
+    var name = Router.getPath(context.id);
+
+    var needsReplacement = name.isEmpty;
+
+    if (name.isEmpty) {
+      name = widget.routes.first.name;
+    }
+
+    var onInitCallback = widget.onInit;
+    if (null != onInitCallback) {
+      onInitCallback(this);
+    }
+
+    if (needsReplacement && name.isNotEmpty) {
+      if (Debug.routerLogs) {
+        print("${context.id}: Push replacement: $name");
+      }
+
+      Router.pushReplacement(
+        name: name,
+        values: '',
+        navigatorId: context.id,
+      );
+    }
+
+    open(name: name, updateHistory: false);
+  }
+
+  /// Open a page on Navigator's stack.
+  ///
+  /// Please note that if a Page with same name already exists, it'll bring that to top
+  /// rather than creating new one.
+  ///
+  /// Will throw exception if Navigator doesn't have a route with the provided name.
+  ///
+  /// If [name] is prefixed with a forward slash '/', and if current navigator doesn't have
+  /// a matching named route, then it'll delegate open call to a parent navigator(if exists).
+  /// If there are no navigator in ancestors, it'll throw an exception.
+  ///
+  void open({
+    String? values,
+    required String name,
+    bool updateHistory = true,
+  }) {
+    var traverseAncestors = name.startsWith("../");
+
+    // clean traversal flag
+
+    var cleanedName = traverseAncestors ? name.substring(3) : name;
+
+    // if already on same page
+    if (currentRouteName == cleanedName) {
+      return;
+    }
+
+    // if current navigator doesn't have a matching '$name' route
+
+    if (!nameToPathMap.containsKey(cleanedName)) {
+      if (!traverseAncestors) {
+        throw "Navigator: '$cleanedName' is not declared."
+            "Named routes that are not registered in Navigator's routes are not allowed."
+            "If you're trying to push to a parent navigator, add prefix '../' to name of the route. "
+            "e.g Navgator.of(context).push(name: '../home')."
+            "It'll first tries a push to current navigator, if it doesn't find a matching route, "
+            "then it'll try push to a parent navigator and so on. If there are no navigators in ancestors, "
+            "then it'll throw an exception";
+      } else {
+        // push to parent navigator.
+
+        NavigatorState parent;
+
+        try {
+          parent = Navigator.of(context);
+        } catch (_) {
+          throw "Route named '$cleanedName' not defined. Make sure you've declared a named route '$cleanedName' in Navigator's routes.";
+        }
+
+        parent.open(name: name, values: values);
+
+        return;
+      }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | callbacks
+    |--------------------------------------------------------------------------
+    */
+
+    _updateCurrentName(cleanedName);
+
+    /*
+    |--------------------------------------------------------------------------
+    | update global state
+    |--------------------------------------------------------------------------
+    */
+
+    if (updateHistory) {
+      if (Debug.routerLogs) {
+        print("${context.id}: Push entry: $name");
+      }
+
+      Router.pushEntry(
+        name: name,
+        values: values ?? '',
+        navigatorId: context.id,
+        updateHistory: updateHistory,
+      );
+    }
+
+    _historyStack.add(cleanedName);
+
+    /*
+    |--------------------------------------------------------------------------
+    | if route is already in stack, bring it to the top of stack
+    |--------------------------------------------------------------------------
+    */
+
+    if (isPageStacked(name: cleanedName)) {
+      Framework.manageChildren(
+        parentContext: context,
+        flagIterateInReverseOrder: true,
+        updateTypeWhenNecessary: UpdateType.navigatorOpen,
+        widgetActionCallback: (WidgetObject widgetObject) {
+          var routeName =
+              widgetObject.element.dataset[System.attrRouteName] ?? "";
+
+          if (name == routeName) {
+            return [
+              WidgetAction.showWidget,
+              WidgetAction.updateWidget,
+            ];
+          }
+
+          return [WidgetAction.hideWidget];
+        },
+      );
+    } else {
+      /*
+      |--------------------------------------------------------------------------
+      | else build the route
+      |--------------------------------------------------------------------------
+      */
+
+      var page = pathToRouteMap[nameToPathMap[cleanedName]];
+
+      if (null == page) throw System.coreError;
+
+      _activeStack.add(name);
+
+      Framework.buildChildren(
+        widgets: [page],
+        parentContext: context,
+        flagCleanParentContents: false,
+      );
+    }
+  }
+
+  /// Whether current active stack contains a route with matching [name].
+  ///
+  bool isPageStacked({required String name}) => _activeStack.contains(name);
+
+  /// Whether navigator can go back to a page.
+  ///
+  bool canGoBack() => _historyStack.length > 1;
+
+  /// Go back.
+  ///
+  void back() {
+    var previousPage = _historyStack.removeLast();
+
+    _updateCurrentName(_historyStack.last);
+
+    Framework.manageChildren(
+      parentContext: context,
+      flagIterateInReverseOrder: true,
+      widgetActionCallback: (WidgetObject widgetObject) {
+        var name = widgetObject.element.dataset[System.attrRouteName] ?? "";
+
+        if (previousPage == name) {
+          return [WidgetAction.showWidget];
+        }
+
+        return [WidgetAction.hideWidget];
+      },
+    );
+  }
+
+  /// Framework fires this when parent route changes.
+  ///
+  void onParentRouteChange(String name) {
+    var routeName = Router.getPath(context.id);
+
+    if (routeName != currentRouteName) {
+      if (Debug.routerLogs) {
+        print("${context.id}: Push replacement: $routeName");
+      }
+
+      Router.pushReplacement(
+        name: currentRouteName,
+        values: '',
+        navigatorId: context.id,
+      );
+    }
+  }
+
+  /// Get value from URL following the provided segment.
+  ///
+  /// for example,
+  ///
+  /// if browser URI is pointing to: https://domain.com/profile/123/posts
+  ///
+  /// ```dart
+  /// Navigator.of(context).getValue('profile'); //-> 123
+  /// ```
+  ///
+  /// Please note that calling getValue on a Navigator who's context is
+  /// enclosed on posts pages can only access values past its registration
+  /// path.
+  ///
+  /// for example, if a Navigator is registered posts page it can
+  /// only access parts of URI after posts pages.
+  ///
+  /// In `domain.com/profile/123/posts/456/edit/789`
+  /// allowed part is `/posts/456/edit/789`
+  ///
+  /// ```dart
+  /// Navigator.of(context).getValue('posts') // -> '456'
+  /// Navigator.of(context).getValue('edit') // -> '789'
+  ///
+  /// // accessing protected values:
+  /// Navigator.of(context).getValue('profile') // -> '', empty,
+  /// // because current navigator is registered on posts page
+  /// ```
+  ///
+  String getValue(String segment) => Router.getValue(context.id, segment);
+
+  void _updateCurrentName(String name) {
+    _currentName = name;
+
+    var onRouteChangeCallback = widget.onRouteChange;
+
+    if (null != onRouteChangeCallback) {
+      onRouteChangeCallback(_currentName);
+    }
+  }
 }

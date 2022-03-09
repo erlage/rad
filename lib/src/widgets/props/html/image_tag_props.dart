@@ -39,14 +39,6 @@ class ImageTagProps {
 
   static void _applyProps(HtmlElement element, ImageTagProps props) {
     element as ImageElement;
-
-    if (null != props.src) {
-      element.src = props.src!;
-    }
-
-    if (null != props.alt) {
-      element.alt = props.alt!;
-    }
   }
 
   static void _clearProps(HtmlElement element, ImageTagProps props) {

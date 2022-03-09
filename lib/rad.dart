@@ -20,7 +20,7 @@ export 'src/core/enums.dart' show UpdateType;
 
 // states
 
-export 'src/widgets/navigator/navigator_state.dart' show NavigatorState;
+export 'src/widgets/navigator.dart' show NavigatorState;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,18 +82,6 @@ export 'src/core/enums.dart' show DomTag;
 
 export 'src/core/constants.dart' show System;
 
-export 'src/widgets/props/size_props.dart' show SizeProps;
-
-export 'src/widgets/props/class_attribute_prop.dart' show ClassAttributeProp;
-
 export 'src/core/interface/style_component.dart' show StyleComponent;
 
 export 'src/core/objects/render_object.dart' show RenderObject;
-
-export 'src/core/types.dart' show RenderElementCallback;
-
-export 'src/widgets/abstract/single_child_render_object.dart'
-    show SingleChildRenderObject;
-
-export 'src/widgets/abstract/multi_child_render_object.dart'
-    show MultiChildRenderObject;

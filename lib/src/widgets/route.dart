@@ -1,10 +1,10 @@
 import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/navigator.dart';
+import 'package:rad/src/widgets/props/common_props.dart';
 
 /// Route is a [Navigator] specific widget.
 ///
@@ -34,55 +34,74 @@ class Route extends Widget {
         super(id);
 
   @override
-  DomTag get tag => DomTag.div;
+  get concreteType => "$Route";
 
   @override
-  String get type => "$Route";
+  get correspondingTag => DomTag.div;
 
   @override
-  createRenderObject(context) {
-    return RouteRenderObject(
-      name: name,
-      path: path,
-      page: page,
-      context: context,
-    );
+  get widgetChildren => [page];
+
+  @override
+  createRenderObject(context) => _RouteRenderObject(context);
+
+  @override
+  createConfiguration() => _RouteConfiguration(name: name, path: path);
+
+  @override
+  isConfigurationChanged(covariant _RouteConfiguration oldConfiguration) {
+    return path != oldConfiguration.path || name != oldConfiguration.name;
   }
 }
 
-class RouteRenderObject extends RenderObject {
+/*
+|--------------------------------------------------------------------------
+| configuration
+|--------------------------------------------------------------------------
+*/
+
+class _RouteConfiguration extends WidgetConfiguration {
   final String name;
   final String path;
-  final Widget page;
 
-  RouteRenderObject({
-    required this.name,
-    required this.path,
-    required this.page,
-    required BuildContext context,
-  }) : super(context);
+  const _RouteConfiguration({required this.name, required this.path});
+}
+
+/*
+|--------------------------------------------------------------------------
+| render object
+|--------------------------------------------------------------------------
+*/
+
+class _RouteRenderObject extends RenderObject {
+  const _RouteRenderObject(BuildContext context) : super(context);
 
   @override
-  render(widgetObject) {
-    widgetObject.element.dataset[System.attrRouteName] = name;
-    widgetObject.element.dataset[System.attrRoutePath] = path;
-
-    Framework.buildChildren(
-      widgets: [page],
-      parentContext: context,
-    );
+  render(
+    element,
+    covariant _RouteConfiguration configuration,
+  ) {
+    CommonProps.applyDataAttributes(element, {
+      System.attrRouteName: configuration.name,
+      System.attrRoutePath: configuration.path,
+    });
   }
 
   @override
-  update(
-    updateType,
-    widgetObject,
-    covariant RouteRenderObject updatedRenderObject,
-  ) {
-    Framework.updateChildren(
-      widgets: [updatedRenderObject.page],
-      updateType: updateType,
-      parentContext: context,
-    );
+  update({
+    required element,
+    required updateType,
+    required covariant _RouteConfiguration oldConfiguration,
+    required covariant _RouteConfiguration newConfiguration,
+  }) {
+    CommonProps.clearDataAttributes(element, {
+      System.attrRouteName: oldConfiguration.name,
+      System.attrRoutePath: oldConfiguration.path,
+    });
+
+    CommonProps.applyDataAttributes(element, {
+      System.attrRouteName: newConfiguration.name,
+      System.attrRoutePath: newConfiguration.path,
+    });
   }
 }

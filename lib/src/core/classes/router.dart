@@ -8,8 +8,8 @@ import 'package:rad/src/core/objects/router/navigator_route_object.dart';
 import 'package:rad/src/core/objects/router/router_stack.dart';
 import 'package:rad/src/core/objects/router/router_stack_entry.dart';
 import 'package:rad/src/widgets/navigator.dart';
-import 'package:rad/src/widgets/navigator/navigator_state.dart';
 import 'package:rad/src/widgets/route.dart';
+import 'package:rad/src/widgets/stateful_widget.dart';
 
 class Router {
   static var _isInit = false;
@@ -55,29 +55,18 @@ class Router {
     _isInit = true;
   }
 
-  /// Register Navigator's routes.
+  /// Register navigator's state.
   ///
-  /// Registration is mandatory if a Navigator want access to routing.
-  ///
-  static void registerRoutes(BuildContext context, List<Route> routes) {
+  static void register(BuildContext context, NavigatorState state) {
     if (!_isInit) {
       throw "Router not initialized.";
     }
 
     if (_routeObjects.containsKey(context.id)) throw System.coreError;
 
-    _register(context, routes);
-  }
+    if (_stateObjects.containsKey(context.id)) throw System.coreError;
 
-  /// Register navigator's state.
-  ///
-  /// As state objects are created after Navigator routes are registered,
-  /// state has to register itself using this method.
-  ///
-  static void registerState(BuildContext context, NavigatorState state) {
-    if (_stateObjects.containsKey(context.id)) {
-      throw System.coreError;
-    }
+    _register(context, state.routes);
 
     _stateObjects[context.id] = state;
   }
@@ -88,6 +77,10 @@ class Router {
     _routerStack.remove(context.id);
 
     _stateObjects.remove(context.id);
+  }
+
+  static NavigatorState getNavigatorState(String navigatorId) {
+    return _stateObjects[navigatorId]!;
   }
 
   /// Push page entry.
@@ -324,7 +317,8 @@ class Router {
     // themselves in onContextCreate hook but at the point when onContextCreate
     // hook is fired, context.id is not present in DOM.
 
-    var parent = Framework.findAncestorOfType<Navigator>(context.parent);
+    var parent =
+        Framework.findAncestorWidgetObjectOfType<Navigator>(context.parent);
 
     // if no Navigator in ancestors i.e we're dealing with a root navigator
 
@@ -344,7 +338,9 @@ class Router {
 
     // else it's nested navigator
 
-    var parentState = (parent.renderObject as NavigatorRenderObject).state;
+    var widgetState = (parent.renderObject as StatefulWidgetRenderObject);
+
+    var parentState = widgetState.state as NavigatorState;
 
     var parentObject = _routeObjects[parent.context.id];
 

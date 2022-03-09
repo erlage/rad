@@ -1,11 +1,12 @@
+import 'dart:html';
+
 import 'package:rad/rad.dart';
-import 'package:rad/src/widgets/abstract/tag_with_global_props.dart';
-import 'package:rad/src/widgets/props/html/anchor_tag_props.dart';
-import 'package:rad/src/widgets/props/html/global_tag_props.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// HTML Anchor tag.
 ///
-class Anchor extends TagWithGlobalProps {
+class Anchor extends MarkUpTagWithGlobalProps {
   /// The URL that the hyperlink points to.
   ///
   final String? href;
@@ -50,60 +51,139 @@ class Anchor extends TagWithGlobalProps {
         );
 
   @override
-  String get type => "$Anchor";
+  String get concreteType => "$Anchor";
 
   @override
-  DomTag get tag => DomTag.anchor;
+  DomTag get correspondingTag => DomTag.anchor;
 
   @override
-  createRenderObject(context) {
-    return AnchorRenderObject(
-      context: context,
-      children: children,
-      globalTagProps: globalTagProps(),
-      anchorTagProps: AnchorTagProps(
-        href: href,
-        rel: rel,
-        target: target,
-        download: download,
-      ),
+  createConfiguration() {
+    return _AnchorConfiguration(
+      href: href,
+      rel: rel,
+      target: target,
+      download: download,
+      globalPropsConfiguration:
+          super.createConfiguration() as MarkUpGlobalConfiguration,
     );
+  }
+
+  @override
+  isConfigurationChanged(covariant _AnchorConfiguration oldConfiguration) {
+    return href != oldConfiguration.href ||
+        rel != oldConfiguration.rel ||
+        target != oldConfiguration.target ||
+        download != oldConfiguration.download ||
+        super.isChanged(oldConfiguration.globalPropsConfiguration);
+  }
+
+  @override
+  createRenderObject(context) => _AnchorRenderObject(context);
+}
+
+/*
+|--------------------------------------------------------------------------
+| configuration
+|--------------------------------------------------------------------------
+*/
+
+class _AnchorConfiguration extends WidgetConfiguration {
+  final MarkUpGlobalConfiguration globalPropsConfiguration;
+
+  final String? href;
+
+  final String? rel;
+
+  final String? target;
+
+  final String? download;
+
+  const _AnchorConfiguration({
+    this.href,
+    this.rel,
+    this.target,
+    this.download,
+    required this.globalPropsConfiguration,
+  });
+}
+
+/*
+|--------------------------------------------------------------------------
+| render object
+|--------------------------------------------------------------------------
+*/
+
+class _AnchorRenderObject extends RenderObject {
+  const _AnchorRenderObject(BuildContext context) : super(context);
+
+  @override
+  render(
+    element,
+    covariant _AnchorConfiguration configuration,
+  ) {
+    _AnchorProps.apply(element, configuration);
+  }
+
+  @override
+  update({
+    required element,
+    required updateType,
+    required covariant _AnchorConfiguration oldConfiguration,
+    required covariant _AnchorConfiguration newConfiguration,
+  }) {
+    _AnchorProps.clear(element, oldConfiguration);
+    _AnchorProps.apply(element, newConfiguration);
   }
 }
 
-class AnchorRenderObject extends MultiChildRenderObject {
-  GlobalTagProps globalTagProps;
-  AnchorTagProps anchorTagProps;
+/*
+|--------------------------------------------------------------------------
+| props
+|--------------------------------------------------------------------------
+*/
 
-  AnchorRenderObject({
-    List<Widget>? children,
-    required this.anchorTagProps,
-    required this.globalTagProps,
-    required BuildContext context,
-  }) : super(
-          context: context,
-          children: children ?? [],
-        );
+class _AnchorProps {
+  static void apply(HtmlElement element, _AnchorConfiguration props) {
+    element as AnchorElement;
 
-  @override
-  beforeRender(widgetObject) {
-    globalTagProps.apply(widgetObject.element);
-    anchorTagProps.apply(widgetObject.element);
+    MarkUpGlobalProps.apply(element, props.globalPropsConfiguration);
+
+    if (null != props.href) {
+      element.href = props.href;
+    }
+
+    if (null != props.rel) {
+      element.rel = props.rel!;
+    }
+
+    if (null != props.download) {
+      element.download = props.download;
+    }
+
+    if (null != props.target) {
+      element.target = props.target!;
+    }
   }
 
-  @override
-  beforeUpdate(
-    widgetObject,
-    covariant AnchorRenderObject updatedRenderObject,
-  ) {
-    globalTagProps.apply(
-      widgetObject.element,
-      updatedRenderObject.globalTagProps,
-    );
+  static void clear(HtmlElement element, _AnchorConfiguration props) {
+    element as AnchorElement;
 
-    anchorTagProps.apply(
-      widgetObject.element,
-      updatedRenderObject.anchorTagProps,
-    );
+    MarkUpGlobalProps.clear(element, props.globalPropsConfiguration);
+
+    if (null != props.href) {
+      element.href = "";
+    }
+
+    if (null != props.rel) {
+      element.rel = "";
+    }
+
+    if (null != props.download) {
+      element.download = "";
+    }
+
+    if (null != props.target) {
+      element.target = "";
+    }
   }
 }

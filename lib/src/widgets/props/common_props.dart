@@ -1,5 +1,10 @@
 import 'dart:html';
 
+class _Props {
+  static const width = "width";
+  static const height = "height";
+}
+
 class CommonProps {
   static void applyClassAttribute(HtmlElement element, String? classAttribute) {
     if (null != classAttribute) {
@@ -39,6 +44,64 @@ class CommonProps {
         element.dataset.removeWhere(
           ((key, value) => dataAttributes.containsKey(key)),
         );
+      }
+    }
+  }
+
+  static void applySizeProps(
+    HtmlElement element, {
+    String? width,
+    String? height,
+    String? size,
+  }) {
+    if (null != size && size.isNotEmpty) {
+      var sizeProps = size.split(" ");
+
+      if (sizeProps.isNotEmpty) {
+        if ("_" != sizeProps.first) {
+          element.style.setProperty(_Props.width, sizeProps.first);
+        }
+
+        if (sizeProps.length > 1 && "_" != sizeProps[1]) {
+          element.style.setProperty(_Props.height, sizeProps[1]);
+        }
+      }
+    } else {
+      if (null != width) {
+        element.style.setProperty(_Props.width, width);
+      }
+
+      if (null != height) {
+        element.style.setProperty(_Props.height, height);
+      }
+    }
+  }
+
+  static void clearSizeProps(
+    HtmlElement element, {
+    String? width,
+    String? height,
+    String? size,
+  }) {
+    if (null != size && size.isNotEmpty) {
+      var sizeProps = size.split(" ");
+
+      if (sizeProps.isNotEmpty) {
+        if ("_" != sizeProps.first) {
+          element.style.removeProperty(_Props.width);
+        }
+
+        if (sizeProps.length > 1 && "_" != sizeProps[1]) {
+          element.style.removeProperty(_Props.height);
+        }
+      }
+    } else {
+      if (null != width) {
+        element.style.removeProperty(_Props.width);
+      }
+
+      if (null != height) {
+        element.style.removeProperty(_Props.height);
       }
     }
   }

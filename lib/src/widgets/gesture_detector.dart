@@ -1,11 +1,9 @@
 import 'dart:html';
 
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/classes/framework.dart';
-import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/types.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/widgets/stateful_widget.dart';
 
 /// A widget that detects gestures.
 ///
@@ -15,113 +13,79 @@ import 'package:rad/src/core/types.dart';
 ///
 ///  * [HitTestBehavior], behaviour of a [GestureDetector]
 ///
-class GestureDetector extends Widget {
+class GestureDetector extends StatefulWidget {
   final Widget child;
-  final VoidCallback? onTap;
 
-  /// Same as onTap but it'll send a Pointer Event object to callback.
-  final OnTapEventCallback? onTapEvent;
-
-  /// How this gesture detector should behave during hit testing.
-  ///
-  /// This defaults to [HitTestBehavior.deferToChild]
-  final HitTestBehavior? behaviour;
-
-  /// Creates a widget that detects gestures.
-  GestureDetector({
-    String? id,
-    this.onTap,
-    this.onTapEvent,
-    this.behaviour,
-    required this.child,
-  }) : super(id);
-
-  @override
-  DomTag get tag => DomTag.div;
-
-  @override
-  String get type => "$GestureDetector";
-
-  @override
-  createRenderObject(context) {
-    return GestureDetectorRenderObject(
-      context: context,
-      props: GestureDetectorProps(
-        child: child,
-        onTap: onTap,
-        onTapEvent: onTapEvent,
-        behaviour: behaviour ?? HitTestBehavior.deferToChild,
-      ),
-    );
-  }
-}
-
-class GestureDetectorProps {
-  final Widget child;
   final VoidCallback? onTap;
   final OnTapEventCallback? onTapEvent;
   final HitTestBehavior behaviour;
 
-  GestureDetectorProps({
+  const GestureDetector({
+    String? id,
     required this.child,
-    required this.onTap,
-    required this.onTapEvent,
-    required this.behaviour,
-  });
+    this.onTap,
+    this.onTapEvent,
+    this.behaviour = HitTestBehavior.deferToChild,
+  }) : super(id: id);
+
+  @override
+  State<GestureDetector> createState() => _GestureDetectorState();
 }
 
-class GestureDetectorRenderObject extends RenderObject {
-  GestureDetectorProps props;
-
-  GestureDetectorRenderObject({
-    required this.props,
-    required BuildContext context,
-  }) : super(context);
+class _GestureDetectorState extends State<GestureDetector> {
+  @override
+  initState() => _addListeners();
 
   @override
-  render(widgetObject) {
-    widgetObject.element.addEventListener(
-      "click",
-      _handleOnTap,
-      props.behaviour == HitTestBehavior.opaque,
-    );
-
-    Framework.buildChildren(
-      widgets: [props.child],
-      parentContext: context,
-    );
-  }
+  dispose() => _removeListeners();
 
   @override
-  update(
-    updateType,
-    widgetObject,
-    covariant GestureDetectorRenderObject updatedRenderObject,
-  ) {
-    switchProps(updatedRenderObject.props);
+  build(context) => widget.child;
 
-    Framework.updateChildren(
-      widgets: [props.child],
-      updateType: updateType,
-      parentContext: context,
-    );
+  @override
+  didUpdateWidget(oldWidget) {
+    var hadTap = hasOnTap(oldWidget);
+    var hasTap = hasOnTap(widget);
+
+    if (hadTap != hasTap) {
+      if (hasTap) {
+        _addOnTap();
+      } else {
+        _removeOnTap();
+      }
+    }
   }
 
-  void switchProps(GestureDetectorProps props) {
-    this.props = props;
+  bool hasOnTap(GestureDetector detector) {
+    return null != detector.onTap || null != detector.onTapEvent;
   }
 
-  _handleOnTap(Event event) {
+  void _addListeners() {
+    if (hasOnTap(widget)) {
+      _addOnTap();
+    }
+  }
+
+  void _removeListeners() {
+    if (hasOnTap(widget)) {
+      _removeOnTap();
+    }
+  }
+
+  void _addOnTap() {
+    var useCapture = HitTestBehavior.opaque == widget.behaviour;
+
+    element.addEventListener("click", _handleOnTap, useCapture);
+  }
+
+  void _removeOnTap() {
+    element.removeEventListener("click", _handleOnTap);
+  }
+
+  void _handleOnTap(Event event) {
     event.preventDefault();
 
-    var userDefinedOnTap = props.onTap;
-    var userDefinedOnTapEvent = props.onTapEvent;
-
-    if (null == userDefinedOnTap && null == userDefinedOnTapEvent) {
-      return;
-    }
-
-    switch (props.behaviour) {
+    switch (widget.behaviour) {
       case HitTestBehavior.opaque:
       case HitTestBehavior.deferToChild:
         event.stopPropagation();
@@ -131,6 +95,9 @@ class GestureDetectorRenderObject extends RenderObject {
       case HitTestBehavior.translucent:
         break;
     }
+
+    var userDefinedOnTap = widget.onTap;
+    var userDefinedOnTapEvent = widget.onTapEvent;
 
     if (null != userDefinedOnTapEvent) {
       userDefinedOnTapEvent(event);

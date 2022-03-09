@@ -21,51 +21,75 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 class RawMarkUp extends Widget {
   final String html;
 
-  const RawMarkUp(
-    this.html, {
-    String? id,
-  }) : super(id);
+  const RawMarkUp(this.html, {String? id}) : super(id);
 
   @override
-  DomTag get tag => DomTag.div;
+  get concreteType => "$RawMarkUp";
 
   @override
-  String get type => "$RawMarkUp";
+  get correspondingTag => DomTag.div;
 
   @override
-  createRenderObject(context) {
-    return RawMarkupRenderObject(html: html, context: context);
+  createConfiguration() => _RawMarkUpConfiguration(html);
+
+  @override
+  isConfigurationChanged(covariant _RawMarkUpConfiguration oldConfiguration) {
+    return html != oldConfiguration.html;
   }
+
+  @override
+  createRenderObject(context) => _RawMarkupRenderObject(context);
 }
 
-class RawMarkupRenderObject extends RenderObject {
+/*
+|--------------------------------------------------------------------------
+| configuration
+|--------------------------------------------------------------------------
+*/
+
+class _RawMarkUpConfiguration extends WidgetConfiguration {
   final String html;
 
-  RawMarkupRenderObject({
-    required this.html,
-    required BuildContext context,
-  }) : super(context);
+  const _RawMarkUpConfiguration(this.html);
+}
+
+/*
+|--------------------------------------------------------------------------
+| render object
+|--------------------------------------------------------------------------
+*/
+
+class _RawMarkupRenderObject extends RenderObject {
+  const _RawMarkupRenderObject(BuildContext context) : super(context);
 
   @override
-  render(widgetObject) =>
-      widgetObject.element.setInnerHtml(html, validator: _None());
-
-  @override
-  update(
-    updateType,
-    widgetObject,
-    covariant RawMarkupRenderObject updatedRenderObject,
+  render(
+    element,
+    covariant _RawMarkUpConfiguration configuration,
   ) {
-    if (html != updatedRenderObject.html) {
-      widgetObject.element.setInnerHtml(
-        updatedRenderObject.html,
-        validator: _None(),
-      );
-    }
+    element.setInnerHtml(configuration.html, validator: const _None());
+  }
+
+  @override
+  update({
+    required element,
+    required updateType,
+    required oldConfiguration,
+    required covariant _RawMarkUpConfiguration newConfiguration,
+  }) {
+    element.setInnerHtml(newConfiguration.html, validator: const _None());
   }
 }
 
+/*
+|--------------------------------------------------------------------------
+| validator
+|--------------------------------------------------------------------------
+*/
+
 class _None implements NodeValidator {
+  const _None();
+
   @override
   allowsElement(_) => true;
 

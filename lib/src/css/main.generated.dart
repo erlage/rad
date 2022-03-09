@@ -5,7 +5,6 @@
 import 'package:rad/src/widgets/text.dart';
 import 'package:rad/src/widgets/route.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
-import 'package:rad/src/widgets/gesture_detector.dart';
 import 'package:rad/src/widgets/stateless_widget.dart';
 import 'package:rad/src/widgets/navigator.dart';
 
@@ -35,11 +34,10 @@ final GEN_STYLES_MAIN_CSS = ""
     "    * widgets without styles "
     "    */ "
     "  "
-    " [data-wtype=\"$Text\"], "
-    " [data-wtype=\"$Route\"], "
-    " [data-wtype=\"$StatefulWidget\"], "
-    " [data-wtype=\"$GestureDetector\"], "
-    " [data-wtype=\"$StatelessWidget\"] { "
+    " [data-wcontype=\"$Text\"], "
+    " [data-wcontype=\"$Route\"], "
+    " [data-wcontype=\"$StatefulWidget\"], "
+    " [data-wcontype=\"$StatelessWidget\"] { "
     "     /*  "
     "      "
     "     It's important to have each element present inside DOM because "
@@ -58,10 +56,11 @@ final GEN_STYLES_MAIN_CSS = ""
     "    * navigator is the only widget that has default styles "
     "    */ "
     "  "
-    " [data-wtype=\"$Navigator\"] { "
+    " [data-wruntype=\"$Navigator\"] { "
     "     width: 100%; "
     "     height: 100%; "
-    "     display: block; "
+    "     /* override StatefulWidget's display prop */ "
+    "     display: block !important; "
     " } "
     "  "
     "  "

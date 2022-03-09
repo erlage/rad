@@ -68,7 +68,7 @@ class StylesBuilder implements Builder {
   // gets cleared for each asset
   final importsForCurrentAsset = <String>{};
 
-  static final classRegExp = RegExp(r'(wtype|wclass)="([a-zA-Z]*)"');
+  static final classRegExp = RegExp(r'(wcontype|wruntype)="([a-zA-Z]*)"');
   static final exportRegExp = RegExp(
     r"'([a-zA-Z_\/]*.dart)' show (.+?)(?:,|$)*;",
   );

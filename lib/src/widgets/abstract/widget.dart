@@ -5,46 +5,58 @@ import 'package:rad/src/core/objects/build_context.dart';
 
 /// Describes the configuration for an [RenderObject].
 ///
-/// Widget is the super class in the Rad framework from which all widgets
-/// extends. A widget is an immutable description of user interface.
-///
 abstract class Widget {
   final String? _initialId;
 
   const Widget(this._initialId);
 
-  /// corresponding HTML tag to use to render this widget
-  ///
-  DomTag get tag;
-
-  /// widget's type
-  ///
-  String get type;
-
   /// id provided in widget constructor(if any)
   ///
-  String get initialId => _initialId ?? System.idNotSet;
+  String get initialId => _initialId ?? System.contextIdNotSet;
 
-  /// Called when context for this widget is created.
+  /*
+  |--------------------------------------------------------------------------
+  | widget specific
+  |--------------------------------------------------------------------------
+  */
+
+  /// widget's actual type
   ///
-  void onContextCreate(BuildContext context) {}
+  String get concreteType;
+
+  /// corresponding HTML tag to use to render this widget
+  ///
+  DomTag get correspondingTag;
+
+  /// Child widgets if any.
+  ///
+  List<Widget> get widgetChildren => [];
+
+  /*
+  |--------------------------------------------------------------------------
+  | configuration
+  |--------------------------------------------------------------------------
+  */
+
+  /// Create widget's configuration.
+  ///
+  WidgetConfiguration createConfiguration();
+
+  /// Whether configuration has changed.
+  ///
+  bool isConfigurationChanged(WidgetConfiguration oldConfiguration);
+
+  /*
+  |--------------------------------------------------------------------------
+  | render object
+  |--------------------------------------------------------------------------
+  */
 
   /// Called when framework needs a [RenderObject] for current widget.
   ///
-  /// It can be called multiple times to get fresh [RenderObject].
-  ///
   RenderObject createRenderObject(BuildContext context);
+}
 
-  /// Called when first render object is created.
-  ///
-  /// Framework can request a fresh copy of [RenderObject] any time it
-  /// wants. But framwork will fire this function only when first [RenderObject]
-  /// of this widget is created. For subsequent [RenderObject]s this won't
-  /// get fired. Which means it can be used to initialize widget state that
-  /// depends on initial [RenderObject] such as in [StatefulWidget].
-  ///
-  /// If you want to initialize something that depends on [BuildContext], you
-  /// can do that using [onContextCreate] hook.
-  ///
-  void onRenderObjectCreate(RenderObject renderObject) {}
+class WidgetConfiguration {
+  const WidgetConfiguration();
 }

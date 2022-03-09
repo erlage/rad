@@ -1,15 +1,15 @@
+import 'dart:html';
+
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/widgets/abstract/multi_child_render_object.dart';
-import 'package:rad/src/widgets/abstract/tag_with_global_props.dart';
+import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/props/html/global_tag_props.dart';
-import 'package:rad/src/widgets/props/html/iframe_tag_props.dart';
-import 'package:rad/src/widgets/props/size_props.dart';
+import 'package:rad/src/widgets/props/common_props.dart';
 
 /// The IFrame tag.
 ///
-class IFrame extends TagWithGlobalProps {
+class IFrame extends MarkUpTagWithGlobalProps {
   /// src of Iframe.
   ///
   final String? src;
@@ -36,8 +36,6 @@ class IFrame extends TagWithGlobalProps {
   final String? width;
   final String? height;
   final String? size;
-  final String? margin;
-  final String? padding;
 
   const IFrame({
     this.src,
@@ -48,8 +46,6 @@ class IFrame extends TagWithGlobalProps {
     this.width,
     this.height,
     this.size,
-    this.margin,
-    this.padding,
     String? id,
     bool? hidden,
     bool? draggable,
@@ -72,80 +68,179 @@ class IFrame extends TagWithGlobalProps {
         );
 
   @override
-  String get type => "$IFrame";
+  String get concreteType => "$IFrame";
 
   @override
-  DomTag get tag => DomTag.iFrame;
+  DomTag get correspondingTag => DomTag.iFrame;
 
   @override
-  createRenderObject(context) {
-    return IFrameRenderObject(
-      context: context,
-      children: children,
-      globalTagProps: globalTagProps(),
-      sizeProps: SizeProps(
-        width: width,
-        height: height,
-        size: size,
-        padding: padding,
-        margin: margin,
-      ),
-      iFrameTagProps: IFrameTagProps(
-        src: src,
-        name: name,
-        allow: allow,
-        allowFullscreen: allowFullscreen,
-        allowPaymentRequest: allowPaymentRequest,
-      ),
+  createConfiguration() {
+    return _IFrameConfiguration(
+      src: src,
+      name: name,
+      allow: allow,
+      allowFullscreen: allowFullscreen,
+      allowPaymentRequest: allowPaymentRequest,
+      width: width,
+      height: height,
+      size: size,
+      globalPropsConfiguration:
+          super.createConfiguration() as MarkUpGlobalConfiguration,
     );
+  }
+
+  @override
+  isConfigurationChanged(covariant _IFrameConfiguration oldConfiguration) {
+    return src != oldConfiguration.src ||
+        name != oldConfiguration.name ||
+        allow != oldConfiguration.allow ||
+        allowFullscreen != oldConfiguration.allowFullscreen ||
+        allowPaymentRequest != oldConfiguration.allowPaymentRequest ||
+        width != oldConfiguration.width ||
+        height != oldConfiguration.height ||
+        size != oldConfiguration.size ||
+        super.isChanged(oldConfiguration.globalPropsConfiguration);
+  }
+
+  @override
+  createRenderObject(context) => _IFrameRenderObject(context);
+}
+
+/*
+|--------------------------------------------------------------------------
+| configuration
+|--------------------------------------------------------------------------
+*/
+
+class _IFrameConfiguration extends WidgetConfiguration {
+  final MarkUpGlobalConfiguration globalPropsConfiguration;
+
+  final String? src;
+
+  final String? name;
+
+  final String? allow;
+
+  final bool? allowFullscreen;
+
+  final bool? allowPaymentRequest;
+
+  final String? width;
+  final String? height;
+  final String? size;
+
+  const _IFrameConfiguration({
+    this.src,
+    this.name,
+    this.allow,
+    this.allowFullscreen,
+    this.allowPaymentRequest,
+    this.width,
+    this.height,
+    this.size,
+    required this.globalPropsConfiguration,
+  });
+}
+
+/*
+|--------------------------------------------------------------------------
+| render object
+|--------------------------------------------------------------------------
+*/
+
+class _IFrameRenderObject extends RenderObject {
+  const _IFrameRenderObject(BuildContext context) : super(context);
+
+  @override
+  render(
+    element,
+    covariant _IFrameConfiguration configuration,
+  ) {
+    _IFrameProps.apply(element, configuration);
+  }
+
+  @override
+  update({
+    required element,
+    required updateType,
+    required covariant _IFrameConfiguration oldConfiguration,
+    required covariant _IFrameConfiguration newConfiguration,
+  }) {
+    _IFrameProps.clear(element, oldConfiguration);
+    _IFrameProps.apply(element, newConfiguration);
   }
 }
 
-class IFrameRenderObject extends MultiChildRenderObject {
-  GlobalTagProps globalTagProps;
+/*
+|--------------------------------------------------------------------------
+| props
+|--------------------------------------------------------------------------
+*/
 
-  IFrameTagProps iFrameTagProps;
+class _IFrameProps {
+  static void apply(HtmlElement element, _IFrameConfiguration props) {
+    element as IFrameElement;
 
-  SizeProps sizeProps;
+    MarkUpGlobalProps.apply(element, props.globalPropsConfiguration);
 
-  IFrameRenderObject({
-    List<Widget>? children,
-    required this.sizeProps,
-    required this.globalTagProps,
-    required this.iFrameTagProps,
-    required BuildContext context,
-  }) : super(
-          children: children ?? [],
-          context: context,
-        );
+    CommonProps.applySizeProps(
+      element,
+      width: props.width,
+      height: props.height,
+      size: props.size,
+    );
 
-  @override
-  beforeRender(widgetObject) {
-    globalTagProps.apply(widgetObject.element);
+    if (null != props.src) {
+      element.src = props.src!;
+    }
 
-    sizeProps.apply(widgetObject.element);
+    if (null != props.name) {
+      element.name = props.name!;
+    }
 
-    iFrameTagProps.apply(widgetObject.element);
+    if (null != props.allow) {
+      element.allow = props.allow;
+    }
+
+    if (null != props.allowFullscreen) {
+      element.allowFullscreen = props.allowFullscreen!;
+    }
+
+    if (null != props.allowPaymentRequest) {
+      element.allowPaymentRequest = props.allowPaymentRequest;
+    }
   }
 
-  @override
-  beforeUpdate(
-    widgetObject,
-    covariant IFrameRenderObject updatedRenderObject,
-  ) {
-    globalTagProps.apply(
-      widgetObject.element,
-      updatedRenderObject.globalTagProps,
+  static void clear(HtmlElement element, _IFrameConfiguration props) {
+    element as IFrameElement;
+
+    MarkUpGlobalProps.clear(element, props.globalPropsConfiguration);
+
+    CommonProps.clearSizeProps(
+      element,
+      width: props.width,
+      height: props.height,
+      size: props.size,
     );
 
-    sizeProps.apply(
-      widgetObject.element,
-      updatedRenderObject.sizeProps,
-    );
+    if (null != props.src) {
+      element.src = "";
+    }
 
-    iFrameTagProps.apply(
-      widgetObject.element,
-      updatedRenderObject.iFrameTagProps,
-    );
+    if (null != props.name) {
+      element.name = "";
+    }
+
+    if (null != props.allow) {
+      element.allow = "";
+    }
+
+    if (null != props.allowFullscreen) {
+      element.allowFullscreen = false;
+    }
+
+    if (null != props.allowPaymentRequest) {
+      element.allowPaymentRequest = false;
+    }
   }
 }

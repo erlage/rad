@@ -1,9 +1,9 @@
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/classes/framework.dart';
+import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/types.dart';
 
 /// A widget that does not require mutable state.
 ///
@@ -14,50 +14,70 @@ abstract class StatelessWidget extends Widget {
   ///
   Widget build(BuildContext context);
 
-  @override
-  DomTag get tag => DomTag.div;
+  /*
+  |--------------------------------------------------------------------------
+  | widget internals
+  |--------------------------------------------------------------------------
+  */
 
   @override
-  String get type => "$StatelessWidget";
+  get concreteType => "$StatelessWidget";
 
   @override
-  createRenderObject(context) {
-    return StatelessWidgetRenderObject(
-      context: context,
-      widgetBuilder: build,
-    );
-  }
+  get correspondingTag => DomTag.div;
+
+  @override
+  createConfiguration() => _StatelessWidgetConfiguration(build);
+
+  @override
+  isConfigurationChanged(oldConfiguration) => true;
+
+  @override
+  createRenderObject(context) => _StatelessWidgetRenderObject(context);
 }
 
-class StatelessWidgetRenderObject extends RenderObject {
+/*
+|--------------------------------------------------------------------------
+| configuration
+|--------------------------------------------------------------------------
+*/
+
+class _StatelessWidgetConfiguration extends WidgetConfiguration {
   final WidgetBuilderCallback widgetBuilder;
 
-  StatelessWidgetRenderObject({
-    required this.widgetBuilder,
-    required BuildContext context,
-  }) : super(context);
+  const _StatelessWidgetConfiguration(this.widgetBuilder);
+}
+
+/*
+|--------------------------------------------------------------------------
+| render object
+|--------------------------------------------------------------------------
+*/
+
+class _StatelessWidgetRenderObject extends RenderObject {
+  const _StatelessWidgetRenderObject(BuildContext context) : super(context);
 
   @override
-  render(widgetObject) {
-    var widget = widgetBuilder(context);
-
+  render(
+    element,
+    covariant _StatelessWidgetConfiguration configuration,
+  ) {
     Framework.buildChildren(
-      widgets: [widget],
+      widgets: [configuration.widgetBuilder(context)],
       parentContext: context,
     );
   }
 
   @override
-  update(
-    updateType,
-    widgetObject,
-    covariant StatelessWidgetRenderObject updatedRenderObject,
-  ) {
-    var widget = updatedRenderObject.widgetBuilder(updatedRenderObject.context);
-
+  void update({
+    required element,
+    required updateType,
+    required oldConfiguration,
+    required covariant _StatelessWidgetConfiguration newConfiguration,
+  }) {
     Framework.updateChildren(
-      widgets: [widget],
       updateType: updateType,
+      widgets: [newConfiguration.widgetBuilder(context)],
       parentContext: context,
     );
   }

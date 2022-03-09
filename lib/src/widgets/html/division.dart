@@ -1,12 +1,11 @@
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/widgets/abstract/tag_with_global_props.dart';
-import 'package:rad/src/widgets/abstract/multi_child_render_object.dart';
+import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/props/html/global_tag_props.dart';
 
-class Division extends TagWithGlobalProps {
-  Division({
+class Division extends MarkUpTagWithGlobalProps {
+  const Division({
     String? id,
     String? title,
     String? classAttribute,
@@ -29,43 +28,45 @@ class Division extends TagWithGlobalProps {
         );
 
   @override
-  DomTag get tag => DomTag.div;
+  String get concreteType => "$Division";
 
   @override
-  String get type => "$Division";
+  DomTag get correspondingTag => DomTag.div;
 
   @override
-  createRenderObject(context) {
-    return DivisionRenderObject(
-      context: context,
-      markUpTagProps: globalTagProps(),
-      children: children ?? [],
-    );
+  isConfigurationChanged(covariant MarkUpGlobalConfiguration oldConfiguration) {
+    return super.isChanged(oldConfiguration);
   }
+
+  @override
+  createRenderObject(context) => _DivisionRenderObject(context);
 }
 
-class DivisionRenderObject extends MultiChildRenderObject {
-  GlobalTagProps markUpTagProps;
+/*
+|--------------------------------------------------------------------------
+| render object
+|--------------------------------------------------------------------------
+*/
 
-  DivisionRenderObject({
-    required this.markUpTagProps,
-    required List<Widget> children,
-    required BuildContext context,
-  }) : super(children: children, context: context);
+class _DivisionRenderObject extends RenderObject {
+  const _DivisionRenderObject(BuildContext context) : super(context);
 
   @override
-  beforeRender(widgetObject) {
-    markUpTagProps.apply(widgetObject.element);
+  render(
+    element,
+    covariant MarkUpGlobalConfiguration configuration,
+  ) {
+    MarkUpGlobalProps.apply(element, configuration);
   }
 
   @override
-  beforeUpdate(
-    widgetObject,
-    covariant DivisionRenderObject updatedRenderObject,
-  ) {
-    markUpTagProps.apply(
-      widgetObject.element,
-      updatedRenderObject.markUpTagProps,
-    );
+  update({
+    required element,
+    required updateType,
+    required covariant MarkUpGlobalConfiguration oldConfiguration,
+    required covariant MarkUpGlobalConfiguration newConfiguration,
+  }) {
+    MarkUpGlobalProps.clear(element, oldConfiguration);
+    MarkUpGlobalProps.apply(element, newConfiguration);
   }
 }

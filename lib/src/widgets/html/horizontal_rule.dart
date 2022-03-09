@@ -1,9 +1,8 @@
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/props/class_attribute_prop.dart';
+import 'package:rad/src/widgets/props/common_props.dart';
 
 class HorizontalRule extends Widget {
   final String? classAttribute;
@@ -14,39 +13,62 @@ class HorizontalRule extends Widget {
   }) : super(id);
 
   @override
-  DomTag get tag => DomTag.horizontalRule;
+  DomTag get correspondingTag => DomTag.horizontalRule;
 
   @override
-  String get type => "$HorizontalRule";
+  String get concreteType => "$HorizontalRule";
 
   @override
-  RenderObject createRenderObject(BuildContext context) {
-    return HorizontalRuleRenderObject(
-      styleProps: ClassAttributeProp(classAttribute),
-      context: context,
-    );
+  createConfiguration() => _HorizontalRuleConfiguration(classAttribute);
+
+  @override
+  isConfigurationChanged(
+    covariant _HorizontalRuleConfiguration oldConfiguration,
+  ) {
+    return classAttribute != oldConfiguration.classAttribute;
   }
+
+  @override
+  createRenderObject(context) => _HorizontalRuleRenderObject(context);
 }
 
-class HorizontalRuleRenderObject extends RenderObject {
-  ClassAttributeProp styleProps;
+/*
+|--------------------------------------------------------------------------
+| configuration
+|--------------------------------------------------------------------------
+*/
 
-  HorizontalRuleRenderObject({
-    required this.styleProps,
-    required BuildContext context,
-  }) : super(context);
+class _HorizontalRuleConfiguration extends WidgetConfiguration {
+  final String? classAttribute;
+
+  const _HorizontalRuleConfiguration(this.classAttribute);
+}
+
+/*
+|--------------------------------------------------------------------------
+| render object
+|--------------------------------------------------------------------------
+*/
+
+class _HorizontalRuleRenderObject extends RenderObject {
+  const _HorizontalRuleRenderObject(BuildContext context) : super(context);
 
   @override
-  void render(WidgetObject widgetObject) {
-    styleProps.apply(widgetObject.element);
+  render(
+    element,
+    covariant _HorizontalRuleConfiguration configuration,
+  ) {
+    CommonProps.applyClassAttribute(element, configuration.classAttribute);
   }
 
   @override
-  void update(
-    updateType,
-    widgetObject,
-    covariant HorizontalRuleRenderObject updatedRenderObject,
-  ) {
-    styleProps.apply(widgetObject.element, updatedRenderObject.styleProps);
+  update({
+    required element,
+    required updateType,
+    required covariant _HorizontalRuleConfiguration oldConfiguration,
+    required covariant _HorizontalRuleConfiguration newConfiguration,
+  }) {
+    CommonProps.clearClassAttribute(element, oldConfiguration.classAttribute);
+    CommonProps.applyClassAttribute(element, newConfiguration.classAttribute);
   }
 }
