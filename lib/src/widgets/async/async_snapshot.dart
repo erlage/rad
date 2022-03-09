@@ -1,4 +1,5 @@
 import 'package:rad/src/widgets/async/connection_state.dart';
+import 'package:rad/src/widgets/utils/hash_codes.dart';
 
 /// Source taken from:
 /// https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/async.dart
@@ -109,16 +110,16 @@ class AsyncSnapshot<T> {
 
   // todo
 
-  // @override
-  // bool operator ==(Object other) {
-  //   if (identical(this, other)) return true;
-  //   return other is AsyncSnapshot<T> &&
-  //       other.connectionState == connectionState &&
-  //       other.data == data &&
-  //       other.error == error &&
-  //       other.stackTrace == stackTrace;
-  // }
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is AsyncSnapshot<T> &&
+        other.connectionState == connectionState &&
+        other.data == data &&
+        other.error == error &&
+        other.stackTrace == stackTrace;
+  }
 
-  // @override
-  // int get hashCode => hashValues(connectionState, data, error);
+  @override
+  int get hashCode => hashValues(connectionState, data, error);
 }
