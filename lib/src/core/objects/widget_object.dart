@@ -55,13 +55,11 @@ class WidgetObject {
       renderObject.context.parent.id,
     );
 
-    if (null == parentElement) {
-      throw "Unable to find parent widget of element #${context.id}. Either disposed or something went wrong;";
+    if (null != parentElement) {
+      parentElement.append(element);
+
+      _isMounted = true;
     }
-
-    parentElement.append(element);
-
-    _isMounted = true;
   }
 
   void build() {
