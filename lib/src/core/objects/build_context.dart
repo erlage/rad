@@ -17,15 +17,16 @@ class BuildContext {
   ///
   /// accessing will results in error if [widgetClassName] is [System.typeBigBang]
   ///
-  late final BuildContext parent;
+  BuildContext get parent => _parent!;
+  final BuildContext? _parent;
 
   BuildContext({
     required this.id,
-    required this.parent,
     required this.widgetType,
     required this.widgetDomTag,
     required this.widgetClassName,
-  });
+    required BuildContext parent,
+  }) : _parent = parent;
 
   /// Create root context.
   ///
@@ -37,7 +38,8 @@ class BuildContext {
   /// are no widgets.
   ///
   BuildContext.bigBang(this.id)
-      : widgetDomTag = DomTag.div,
+      : _parent = null,
+        widgetDomTag = DomTag.div,
         widgetType = System.typeBigBang,
         widgetClassName = System.typeBigBang;
 }
