@@ -1,5 +1,6 @@
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Widget's meta data that's required to locate a widget in the tree.
 ///
@@ -9,6 +10,7 @@ import 'package:rad/src/core/enums.dart';
 ///
 class BuildContext {
   final String id;
+
   final String widgetType;
   final DomTag widgetDomTag;
   final String widgetClassName;
@@ -20,13 +22,24 @@ class BuildContext {
   BuildContext get parent => _parent!;
   final BuildContext? _parent;
 
+  /// Widget is the only mutable property in build context.
+  ///
+  Widget get widget => _widget!;
+  Widget? _widget;
+  void updateWidget(Widget widget) => _widget = widget;
+
+  bool hasParent() => null != _parent;
+  bool hasWidget() => null != _widget;
+
   BuildContext({
     required this.id,
     required this.widgetType,
     required this.widgetDomTag,
     required this.widgetClassName,
+    required Widget widget,
     required BuildContext parent,
-  }) : _parent = parent;
+  })  : _widget = widget,
+        _parent = parent;
 
   /// Create root context.
   ///
@@ -38,7 +51,8 @@ class BuildContext {
   /// are no widgets.
   ///
   BuildContext.bigBang(this.id)
-      : _parent = null,
+      : _widget = null,
+        _parent = null,
         widgetDomTag = DomTag.div,
         widgetType = System.typeBigBang,
         widgetClassName = System.typeBigBang;

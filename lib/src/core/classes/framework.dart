@@ -122,10 +122,11 @@ class Framework {
 
       var buildContext = BuildContext(
         id: widgetId,
+        widget: widget,
         parent: parentContext,
         widgetType: widget.type,
         widgetDomTag: widget.tag,
-        widgetClassName: widget.runtimeType.toString(),
+        widgetClassName: "${widget.runtimeType}",
       );
       widget.onContextCreate(buildContext);
 
@@ -140,10 +141,7 @@ class Framework {
 
       // create widget object
 
-      var widgetObject = WidgetObject(
-        widget: widget,
-        renderObject: renderObject,
-      );
+      var widgetObject = WidgetObject(renderObject);
 
       if (null != elementCallback) {
         elementCallback(widgetObject.element);
@@ -154,10 +152,9 @@ class Framework {
       // dispose inner contents if flag is on
 
       if (flagCleanParentContents) {
-        var isRoot =
-            System.typeBigBang != widgetObject.context.parent.widgetType;
+        var widgetType = widgetObject.renderObject.context.parent.widgetType;
 
-        if (isRoot) {
+        if (System.typeBigBang != widgetType) {
           var element = document.getElementById(
             renderObject.context.parent.id,
           );
@@ -168,9 +165,11 @@ class Framework {
 
           element.innerHtml = "";
         } else {
+          var parentId = widgetObject.renderObject.context.parent.id;
+
           _disposeWidget(
             preserveTarget: true,
-            widgetObject: _getWidgetObject(widgetObject.context.parent.id),
+            widgetObject: _getWidgetObject(parentId),
           );
         }
       }
@@ -258,7 +257,7 @@ class Framework {
 
         if (!alreadySelected) {
           var hasSameType = child.dataset.isNotEmpty &&
-              widget.runtimeType.toString() == child.dataset[System.attrClass];
+              "${widget.runtimeType}" == child.dataset[System.attrClass];
 
           if (hasSameType) {
             updateObjects[child.id] = WidgetUpdateObject(widget, child.id);
@@ -292,10 +291,19 @@ class Framework {
         // if found
 
         if (null != existingWidgetObject) {
-          // get updated render object
-          var updatedRenderObject = updateObject.widget.createRenderObject(
-            existingWidgetObject.context,
-          );
+          // keep reference of old widget
+
+          var oldWidget = existingWidgetObject.renderObject.context.widget;
+
+          // switch to new widget instance
+
+          var newWidget = updateObject.widget;
+
+          existingWidgetObject.renderObject.context.updateWidget(newWidget);
+
+          // call hook
+
+          existingWidgetObject.renderObject.didUpdateWidget(oldWidget);
 
           // if there's element callback
 
@@ -308,7 +316,7 @@ class Framework {
           return existingWidgetObject.renderObject.update(
             updateType,
             existingWidgetObject,
-            updatedRenderObject,
+            existingWidgetObject.reCreateRenderObject(),
           );
         } else {
           if (!flagTolerateChildrenCountMisMatch) {
@@ -412,10 +420,11 @@ class Framework {
 
           // get updated render object
 
-          var updatedRenderObject =
-              existingWidgetObject.widget.createRenderObject(
-            existingWidgetObject.context,
-          );
+// TODO
+          // var updatedRenderObject =
+          //     existingWidgetObject..createRenderObject(
+          //   existingWidgetObject.context,
+          // );
 
           // publish update
 
@@ -423,11 +432,11 @@ class Framework {
             throw "Update type note set for publishing update.";
           }
 
-          existingWidgetObject.renderObject.update(
-            updateTypeWhenNecessary,
-            existingWidgetObject,
-            updatedRenderObject,
-          );
+          // existingWidgetObject.renderObject.update(
+          //   updateTypeWhenNecessary,
+          //   existingWidgetObject,
+          //   updatedRenderObject,
+          // );
 
           break;
       }
@@ -492,10 +501,14 @@ class Framework {
   }
 
   static void _registerWidgetObject(WidgetObject widgetObject) {
-    _registeredWidgetObjects[widgetObject.context.id] = widgetObject;
+    var widgetId = widgetObject.renderObject.context.id;
+
+    _registeredWidgetObjects[widgetId] = widgetObject;
   }
 
   static void _unRegisterWidgetObject(WidgetObject widgetObject) {
-    _registeredWidgetObjects.remove(widgetObject.context.id);
+    var widgetId = widgetObject.renderObject.context.id;
+
+    _registeredWidgetObjects.remove(widgetId);
   }
 }

@@ -3,8 +3,8 @@ import 'dart:html';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/classes/utils.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// A wrapper for containing everything that can belong to a single widget.
 ///
@@ -15,27 +15,21 @@ import 'package:rad/src/core/classes/utils.dart';
 /// mounted.
 ///
 class WidgetObject {
-  final BuildContext context;
-
-  final Widget widget;
-  final RenderObject renderObject;
   final HtmlElement element;
+  final RenderObject renderObject;
 
   var _isMounted = false;
 
   bool get isMounted => _isMounted;
+  Widget get widget => renderObject.context.widget;
+  BuildContext get context => renderObject.context;
 
-  WidgetObject({
-    required this.widget,
-    required this.renderObject,
-  })  :
+  WidgetObject(this.renderObject)
+      :
         // create dom element
         element = document.createElement(
-          Utils.mapDomTag(widget.tag),
-        ) as HtmlElement,
-
-        // assign context
-        context = renderObject.context {
+          Utils.mapDomTag(renderObject.context.widget.tag),
+        ) as HtmlElement {
     //
     // add properties to element
 
@@ -60,6 +54,10 @@ class WidgetObject {
 
       _isMounted = true;
     }
+  }
+
+  RenderObject reCreateRenderObject() {
+    return renderObject.context.widget.createRenderObject(renderObject.context);
   }
 
   void build() {

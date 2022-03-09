@@ -32,7 +32,7 @@ export 'src/widgets/navigator/navigator_state.dart' show NavigatorState;
 
 export 'src/widgets/app.dart' show App;
 
-export 'src/widgets/stateful_widget.dart' show StatefulWidget;
+export 'src/widgets/stateful_widget.dart' show StatefulWidget, State;
 export 'src/widgets/stateless_widget.dart' show StatelessWidget;
 
 // navigator

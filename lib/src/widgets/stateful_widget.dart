@@ -1,12 +1,13 @@
 import 'dart:html';
 
+import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/core/types.dart';
 
 /// A widget that has mutable state.
 ///
@@ -144,25 +145,44 @@ import 'package:rad/src/core/types.dart';
 abstract class StatefulWidget extends Widget {
   final String? id;
 
-  late final BuildContext context;
+  const StatefulWidget({this.id});
 
+  /// Creates the mutable state for this widget at a given location in the tree.
+  ///
+  State createState();
+
+  @override
+  DomTag get tag => DomTag.div;
+
+  @override
+  String get initialId => id ?? System.idNotSet;
+
+  @override
+  String get type => "$StatefulWidget";
+
+  @override
+  createRenderObject(context) => StatefulWidgetRenderObject(context);
+}
+
+abstract class State<T> {
   var _isRebuilding = false;
 
-  /// Whether to rebuild widget when a state change happens in parent tree.
-  /// or when Framework calls for update.
-  ///
-  /// By default [StatefulWidget] ignore all updates except from Navigator.
-  /// This can be turned on by overriding [rebuildOnUpdate] method.
-  ///
-  /// Rebuilding won't lead to state loose instead Framework will calls
-  /// [build] method to get up-to-date interface and rebuild parts of interface
-  /// that are required.
-  ///
-  bool rebuildOnUpdate(UpdateType updateType) {
-    return UpdateType.navigatorOpen == updateType;
+  T get widget => _widget!;
+  T? _widget;
+
+  BuildContext get context => _context!;
+  BuildContext? _context;
+
+  void bindContext(BuildContext context) {
+    _context = context;
+    _widget = _context!.widget as T;
   }
 
-  StatefulWidget({this.id});
+  /*
+  |--------------------------------------------------------------------------
+  | lifecycle hooks
+  |--------------------------------------------------------------------------
+  */
 
   /// Called when this widget is inserted into the tree.
   ///
@@ -178,12 +198,14 @@ abstract class StatefulWidget extends Widget {
   /// The framework calls this method in a number of different situations. For
   /// example:
   ///
-  ///  * After calling [initState].
+  ///  * After calling [bindContext].
   ///  * After receiving a call to [setState] in current widget or in parents.
   ///
   /// this method should not have any side effects beyond building a widget.
   ///
   Widget build(BuildContext context);
+
+  void dispose() {}
 
   /// Notify the framework that the internal state of this widget has changed.
   ///
@@ -197,7 +219,13 @@ abstract class StatefulWidget extends Widget {
   ///
   void setState(VoidCallback? callable) {
     if (_isRebuilding) {
-      throw "setState() called while widget was building. Usually happens when you call setState() in build()";
+      if (Debug.developmentMode) {
+        print(
+          "setState() called while widget was building. Usually happens when you call setState() in build()",
+        );
+      }
+
+      return;
     }
 
     _isRebuilding = true;
@@ -215,58 +243,71 @@ abstract class StatefulWidget extends Widget {
     _isRebuilding = false;
   }
 
-  void dispose() {}
+  /// Called whenever the widget configuration changes.
+  ///
+  /// If the parent widget rebuilds and request that this location in the tree
+  /// update to display a new widget with the same type. the framework will
+  /// update the [widget] property of this [State] object to refer to the new
+  /// widget and then call this method with the previous widget as an argument.
+  ///
+  /// Override this method to respond when the [widget] changes.
+  ///
+  /// The framework always calls [build] after calling [didUpdateWidget], which
+  /// means any calls to [setState] in [didUpdateWidget] are redundant.
+  ///
+  void didUpdateWidget(T oldWidget) {}
 
-  @override
-  DomTag get tag => DomTag.div;
+  /*
+  |--------------------------------------------------------------------------
+  | delegated functionality handlers
+  |--------------------------------------------------------------------------
+  */
 
-  @override
-  String get initialId => id ?? System.idNotSet;
-
-  @override
-  String get type => "$StatefulWidget";
-
-  @override
-  onContextCreate(BuildContext context) {
-    this.context = context;
-  }
-
-  @override
-  createRenderObject(context) {
-    return StatefulWidgetRenderObject(
-      context: context,
-      widgetBuilder: build,
+  void render(WidgetObject widgetObject) {
+    Framework.buildChildren(
+      widgets: [build(context)],
+      parentContext: context,
     );
   }
 
-  @override
-  onRenderObjectCreate(covariant StatefulWidgetRenderObject renderObject) {
-    renderObject.dispose = dispose;
-    renderObject.initState = initState;
-    renderObject.rebuildOnUpdate = rebuildOnUpdate;
+  void update(
+    UpdateType updateType,
+    WidgetObject widgetObject,
+    StatefulWidgetRenderObject updatedRenderObject,
+  ) {
+    var oldWidget = _widget!;
+
+    bindContext(updatedRenderObject.context);
+
+    didUpdateWidget(oldWidget);
+
+    Framework.updateChildren(
+      updateType: updateType,
+      parentContext: context,
+      widgets: [build(context)],
+    );
   }
 }
 
 class StatefulWidgetRenderObject extends RenderObject {
-  final WidgetBuilderCallback widgetBuilder;
-  late final VoidCallback initState;
-  late final VoidCallback dispose;
-  late final UpdateTypeCallback rebuildOnUpdate;
+  late final State state;
 
-  StatefulWidgetRenderObject({
-    required this.widgetBuilder,
-    required BuildContext context,
-  }) : super(context);
+  StatefulWidgetRenderObject(BuildContext context) : super(context);
 
   @override
-  void afterMount() => initState();
-
-  @override
-  render(widgetObject) {
-    var widget = widgetBuilder(context);
-
-    Framework.buildChildren(widgets: [widget], parentContext: context);
+  void beforeMount() {
+    state = (context.widget as StatefulWidget).createState()
+      ..bindContext(context);
   }
+
+  @override
+  void afterMount() => state.initState();
+
+  @override
+  void didUpdateWidget(Widget oldWidget) => state.didUpdateWidget(oldWidget);
+
+  @override
+  render(widgetObject) => state.render(widgetObject);
 
   @override
   update(
@@ -274,17 +315,9 @@ class StatefulWidgetRenderObject extends RenderObject {
     widgetObject,
     covariant StatefulWidgetRenderObject updatedRenderObject,
   ) {
-    if (rebuildOnUpdate(updateType)) {
-      var widget = widgetBuilder(context);
-
-      Framework.updateChildren(
-        widgets: [widget],
-        updateType: updateType,
-        parentContext: context,
-      );
-    }
+    return state.update(updateType, widgetObject, updatedRenderObject);
   }
 
   @override
-  void beforeUnMount() => dispose();
+  void beforeUnMount() => state.dispose();
 }

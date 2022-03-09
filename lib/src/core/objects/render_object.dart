@@ -1,6 +1,7 @@
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// [RenderObject] contains logic to build a widget's interface.
 ///
@@ -17,6 +18,8 @@ abstract class RenderObject {
   void beforeMount() {}
 
   void afterMount() {}
+
+  void didUpdateWidget(Widget oldWidget) {}
 
   void beforeUnMount() {}
 
