@@ -76,6 +76,10 @@ enum DomTag {
   /// Paragraph tag.
   ///
   paragraph,
+
+  /// Form input tag.
+  ///
+  input,
 }
 
 enum WidgetAction {

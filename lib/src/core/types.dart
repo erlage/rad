@@ -30,3 +30,7 @@ typedef RenderElementCallback = void Function(
   RenderObject renderObject,
   HtmlElement element,
 );
+
+// input related
+
+typedef OnInputTextChange = void Function(Event event);

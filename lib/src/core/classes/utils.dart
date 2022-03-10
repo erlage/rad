@@ -47,6 +47,9 @@ class Utils {
 
       case DomTag.paragraph:
         return "p";
+
+      case DomTag.input:
+        return "input";
     }
   }
 
