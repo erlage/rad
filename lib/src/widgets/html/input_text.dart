@@ -84,7 +84,7 @@ class InputText extends InputTag {
         pattern != oldConfiguration.pattern ||
         placeholder != oldConfiguration.placeholder ||
         onChange.runtimeType != oldConfiguration.onChange.runtimeType ||
-        super.isConfigurationChanged(oldConfiguration);
+        super.isConfigurationChanged(oldConfiguration.inputConfiguration);
   }
 
   @override
@@ -190,7 +190,7 @@ class _InputTextProps {
     }
 
     if (null != props.onChange) {
-      element.addEventListener("change", props.onChange);
+      element.addEventListener("input", props.onChange);
     }
   }
 
@@ -224,7 +224,7 @@ class _InputTextProps {
     }
 
     if (null != props.onChange) {
-      element.removeEventListener("change", props.onChange);
+      element.removeEventListener("input", props.onChange);
     }
   }
 }
