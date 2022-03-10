@@ -14,6 +14,7 @@ abstract class StatelessWidget extends Widget {
 
   /// Describes the part of the user interface represented by this widget.
   ///
+  @protected
   Widget build(BuildContext context);
 
   /*
@@ -22,18 +23,23 @@ abstract class StatelessWidget extends Widget {
   |--------------------------------------------------------------------------
   */
 
+  @nonVirtual
   @override
   get concreteType => "$StatelessWidget";
 
+  @nonVirtual
   @override
   get correspondingTag => DomTag.div;
 
+  @nonVirtual
   @override
   createConfiguration() => _StatelessWidgetConfiguration(build);
 
+  @nonVirtual
   @override
   isConfigurationChanged(oldConfiguration) => true;
 
+  @nonVirtual
   @override
   createRenderObject(context) => _StatelessWidgetRenderObject(context);
 }

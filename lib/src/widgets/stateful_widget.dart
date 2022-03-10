@@ -1,5 +1,4 @@
 import 'dart:html';
-
 import 'package:meta/meta.dart';
 import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/classes/framework.dart';
@@ -19,6 +18,7 @@ abstract class StatefulWidget extends Widget {
 
   /// Creates the mutable state for this widget at a given location in the tree.
   ///
+  @protected
   State createState(); // ignore: no_logic_in_create_state
 
   /*
@@ -27,18 +27,23 @@ abstract class StatefulWidget extends Widget {
   |--------------------------------------------------------------------------
   */
 
+  @nonVirtual
   @override
   get concreteType => "$StatefulWidget";
 
+  @nonVirtual
   @override
   get correspondingTag => DomTag.div;
 
+  @nonVirtual
   @override
   createConfiguration() => _StatefulWidgetConfiguration(createState);
 
+  @nonVirtual
   @override
   isConfigurationChanged(oldConfiguration) => true;
 
+  @nonVirtual
   @override
   createRenderObject(context) => StatefulWidgetRenderObject(context);
 }
@@ -127,7 +132,6 @@ class StatefulWidgetRenderObject extends RenderObject {
 | state
 |--------------------------------------------------------------------------
 */
-
 abstract class State<T extends StatefulWidget> {
   /*
   |--------------------------------------------------------------------------
@@ -152,16 +156,20 @@ abstract class State<T extends StatefulWidget> {
 
   /// Called when this widget is inserted into the tree.
   ///
+  @protected
   void initState() {}
 
   /// Describes the part of the user interface represented by this widget.
   ///
+  @protected
   Widget build(BuildContext context);
 
+  @protected
   void dispose() {}
 
   /// Called whenever the widget configuration changes.
   ///
+  @protected
   void didUpdateWidget(T oldWidget) {}
 
   /*
@@ -172,6 +180,8 @@ abstract class State<T extends StatefulWidget> {
 
   /// Notify the framework that the internal state of this widget has changed.
   ///
+  @nonVirtual
+  @protected
   void setState(VoidCallback? callable) {
     if (_isRebuilding) {
       if (Debug.developmentMode) {
@@ -211,20 +221,28 @@ abstract class State<T extends StatefulWidget> {
 
   var _isRebuilding = false;
 
+  @nonVirtual
+  @protected
   void frameworkBindContext(BuildContext context) {
     frameworkUpdateContextBinding(context);
   }
 
+  @nonVirtual
+  @protected
   void frameworkUpdateContextBinding(BuildContext context) {
     _context = context;
 
     _widget = _context!.widget as T;
   }
 
+  @nonVirtual
+  @protected
   void frameworkBindElement(HtmlElement element) {
     _element = element;
   }
 
+  @nonVirtual
+  @protected
   void frameworkBindUpdateHook(Function(UpdateType type) updateHook) {
     _updateHook = updateHook;
   }
