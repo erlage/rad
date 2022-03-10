@@ -44,6 +44,17 @@ enum InputType {
   submit,
 }
 
+enum FormEncType {
+  applicationXwwFormUrlEncoded,
+  multipartFormData,
+  textPlain,
+}
+
+enum FormMethod {
+  post,
+  get,
+}
+
 /*
 |--------------------------------------------------------------------------
 | internals

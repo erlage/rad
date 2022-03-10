@@ -16,7 +16,7 @@ export 'src/widgets/abstract/widget.dart' show Widget;
 
 // enums
 
-export 'src/core/enums.dart' show UpdateType;
+export 'src/core/enums.dart' show UpdateType, FormEncType, FormMethod;
 
 // states
 
@@ -65,6 +65,8 @@ export 'src/widgets/html/iframe.dart' show IFrame;
 export 'src/widgets/html/break_line.dart' show BreakLine;
 export 'src/widgets/html/image.dart' show Image;
 export 'src/widgets/html/paragraph.dart' show Paragraph;
+
+export 'src/widgets/form.dart' show Form;
 
 export 'src/widgets/html/input_text.dart' show InputText;
 export 'src/widgets/html/input_checkbox.dart' show InputCheckBox;

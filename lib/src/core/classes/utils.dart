@@ -52,7 +52,7 @@ class Utils {
         return "input";
 
       case DomTag.form:
-        return "for";
+        return "form";
     }
   }
 
@@ -91,6 +91,29 @@ class Utils {
 
       case InputType.submit:
         return "submit";
+    }
+  }
+
+  static String mapFormEncType(FormEncType type) {
+    switch (type) {
+      case FormEncType.applicationXwwFormUrlEncoded:
+        return "application/x-www-form-urlencoded";
+
+      case FormEncType.multipartFormData:
+        return "multipart/form-data";
+
+      case FormEncType.textPlain:
+        return "text/plain";
+    }
+  }
+
+  static String mapFormMethod(FormMethod method) {
+    switch (method) {
+      case FormMethod.post:
+        return "post";
+
+      case FormMethod.get:
+        return "get";
     }
   }
 
