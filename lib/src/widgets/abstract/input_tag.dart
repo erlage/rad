@@ -2,6 +2,9 @@ import 'dart:html';
 
 import 'package:meta/meta.dart';
 import 'package:rad/src/core/enums.dart';
+import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
@@ -27,12 +30,22 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
   ///
   final bool? disabled;
 
+  /// Whether control is checked.
+  ///
+  final bool? checked;
+
+  /// when checkbox changes
+  ///
+  final OnInputChangeCallback? onChange;
+
   const InputTag({
     this.type,
     this.name,
     this.value,
     this.required,
+    this.checked,
     this.disabled,
+    this.onChange,
     String? id,
     String? title,
     String? classAttribute,
@@ -66,6 +79,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
       value: value,
       required: required,
       disabled: disabled,
+      onChange: onChange,
       globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
@@ -78,10 +92,15 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
     return type != oldConfiguration.type ||
         name != oldConfiguration.name ||
         value != oldConfiguration.value ||
+        checked != oldConfiguration.checked ||
         required != oldConfiguration.required ||
         disabled != oldConfiguration.disabled ||
+        onChange.runtimeType != oldConfiguration.onChange.runtimeType ||
         super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }
+
+  @override
+  createRenderObject(context) => InputRenderObject(context);
 }
 
 /*
@@ -97,17 +116,50 @@ class InputConfiguration extends WidgetConfiguration {
 
   final String? name;
   final String? value;
+  final bool? checked;
   final bool? required;
   final bool? disabled;
+  final OnInputChangeCallback? onChange;
 
   const InputConfiguration({
     this.type,
     this.name,
     this.value,
+    this.checked,
     this.disabled,
     this.required,
+    this.onChange,
     required this.globalConfiguration,
   });
+}
+
+/*
+|--------------------------------------------------------------------------
+| render object
+|--------------------------------------------------------------------------
+*/
+
+class InputRenderObject extends RenderObject {
+  const InputRenderObject(BuildContext context) : super(context);
+
+  @override
+  render(
+    element,
+    covariant InputConfiguration configuration,
+  ) {
+    InputProps.apply(element, configuration);
+  }
+
+  @override
+  update({
+    required element,
+    required updateType,
+    required covariant InputConfiguration oldConfiguration,
+    required covariant InputConfiguration newConfiguration,
+  }) {
+    InputProps.clear(element, oldConfiguration);
+    InputProps.apply(element, newConfiguration);
+  }
 }
 
 /*
@@ -134,12 +186,20 @@ class InputProps {
       element.value = props.value;
     }
 
+    if (null != props.checked) {
+      element.checked = props.checked;
+    }
+
     if (null != props.disabled) {
       element.disabled = props.disabled;
     }
 
     if (null != props.required) {
       element.required = props.required!;
+    }
+
+    if (null != props.onChange) {
+      element.addEventListener("input", props.onChange);
     }
   }
 
@@ -160,12 +220,20 @@ class InputProps {
       element.removeAttribute(_Attributes.value);
     }
 
+    if (null != props.checked) {
+      element.removeAttribute(_Attributes.checked);
+    }
+
     if (null != props.disabled) {
       element.removeAttribute(_Attributes.disabled);
     }
 
     if (null != props.required) {
       element.removeAttribute(_Attributes.required);
+    }
+
+    if (null != props.onChange) {
+      element.removeEventListener("input", props.onChange);
     }
   }
 }
@@ -176,4 +244,5 @@ class _Attributes {
   static const value = "value";
   static const disabled = "disabled";
   static const required = "required";
+  static const checked = "checked";
 }
