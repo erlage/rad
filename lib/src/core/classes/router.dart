@@ -13,7 +13,7 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 
 class Router {
   static var _isInit = false;
-  static late final String _routingPath;
+  static var _routingPath = '';
 
   static final _initialLocation = window.location.href;
 
