@@ -11,8 +11,6 @@ import 'package:rad/src/widgets/async/stream_builder_base.dart';
 /// Widget that builds itself based on the latest snapshot of interaction with
 /// a [Stream].
 ///
-/// {@youtube 560 315 https://www.youtube.com/watch?v=MkKEWHfy99Y}
-///
 /// Widget rebuilding is scheduled by each interaction, using [State.setState],
 /// but is otherwise decoupled from the timing of the stream. The [builder]
 /// is called at the discretion of the Flutter pipeline, and will thus receive a
@@ -56,22 +54,7 @@ import 'package:rad/src/widgets/async/stream_builder_base.dart';
 /// as the builder will always be called before the stream listener has a chance
 /// to be processed.
 ///
-/// {@tool dartpad}
-/// This sample shows a [StreamBuilder] that listens to a Stream that emits bids
-/// for an auction. Every time the StreamBuilder receives a bid from the Stream,
-/// it will display the price of the bid below an icon. If the Stream emits an
-/// error, the error is displayed below an error icon. When the Stream finishes
-/// emitting bids, the final price is displayed.
 ///
-/// ** See code in examples/api/lib/widgets/async/stream_builder.0.dart **
-/// {@end-tool}
-///
-/// See also:
-///
-///  * [ValueListenableBuilder], which wraps a [ValueListenable] instead of a
-///    [Stream].
-///  * [StreamBuilderBase], which supports widget building based on a computation
-///    that spans all interactions made with the stream.
 class StreamBuilder<T> extends StreamBuilderBase<T, AsyncSnapshot<T>> {
   /// Creates a new [StreamBuilder] that builds itself based on the latest
   /// snapshot of interaction with the specified [stream] and whose build

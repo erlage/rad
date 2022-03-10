@@ -43,15 +43,15 @@ class Route extends Widget {
   get widgetChildren => [page];
 
   @override
-  createRenderObject(context) => _RouteRenderObject(context);
-
-  @override
   createConfiguration() => _RouteConfiguration(name: name, path: path);
 
   @override
   isConfigurationChanged(covariant _RouteConfiguration oldConfiguration) {
     return path != oldConfiguration.path || name != oldConfiguration.name;
   }
+
+  @override
+  createRenderObject(context) => _RouteRenderObject(context);
 }
 
 /*

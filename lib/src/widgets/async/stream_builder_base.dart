@@ -1,9 +1,6 @@
 /// Source taken from:
 /// https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/async.dart
 
-/// Widgets that handle interaction with asynchronous computations.
-///
-
 import 'dart:async' show StreamSubscription;
 
 import 'package:rad/src/core/objects/build_context.dart';

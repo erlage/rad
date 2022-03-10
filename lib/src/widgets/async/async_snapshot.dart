@@ -1,4 +1,6 @@
 import 'package:rad/src/widgets/async/connection_state.dart';
+import 'package:rad/src/widgets/future_builder.dart';
+import 'package:rad/src/widgets/stream_builder.dart';
 import 'package:rad/src/widgets/utils/hash_codes.dart';
 
 /// Source taken from:
@@ -13,6 +15,7 @@ import 'package:rad/src/widgets/utils/hash_codes.dart';
 ///    with a [Stream].
 ///  * [FutureBuilder], which builds itself based on a snapshot from interacting
 ///    with a [Future].
+///
 class AsyncSnapshot<T> {
   /// Creates an [AsyncSnapshot] with the specified [connectionState],
   /// and optionally either [data] or [error] with an optional [stackTrace]

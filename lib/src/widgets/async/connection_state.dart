@@ -17,6 +17,7 @@ import 'package:rad/src/widgets/async/async_snapshot.dart';
 ///
 ///  * [AsyncSnapshot], which augments a connection state with information
 ///    received from the asynchronous computation.
+///
 enum ConnectionState {
   /// Not currently connected to any asynchronous computation.
   ///

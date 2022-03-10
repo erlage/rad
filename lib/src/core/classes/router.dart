@@ -287,7 +287,7 @@ class Router {
         }
       }
     } catch (e) {
-      // reload window if anything goes wrong with dynamic management of history.
+      // reload window if anything goes wrong
 
       window.location.reload();
     }
