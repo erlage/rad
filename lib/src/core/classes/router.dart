@@ -168,7 +168,7 @@ class Router {
 
     var matchedPathSegment = '';
 
-    for (var segment in segments) {
+    for (final segment in segments) {
       if (stateObject.pathToRouteMap.containsKey(segment)) {
         matchedPathSegment = segment;
 

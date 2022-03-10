@@ -49,7 +49,7 @@ class StylesBuilder implements Builder {
 
       importStatement = "import '$importStatement';";
 
-      for (var classInShow in classesExported) {
+      for (final classInShow in classesExported) {
         if (!availableImports.containsKey(classInShow)) {
           availableImports[classInShow] = importStatement;
         }
@@ -124,7 +124,7 @@ class StylesBuilder implements Builder {
 
     importsForCurrentAsset.clear();
 
-    for (var line in cssContents.split('\n')) {
+    for (final line in cssContents.split('\n')) {
       genContents += "\n    \" ${parseLine(line)} \"";
     }
 

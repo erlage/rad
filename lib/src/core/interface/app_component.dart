@@ -31,7 +31,7 @@ class AppComponents {
     var styleComponents = this.styleComponents;
 
     if (null != styleComponents && styleComponents.isNotEmpty) {
-      for (var styleComponent in styleComponents) {
+      for (final styleComponent in styleComponents) {
         Framework.addGlobalStyles(
           styleComponent.styleSheetContents,
           "From ${styleComponent.name} (v ${styleComponent.version}). Author: ${styleComponent.author}",

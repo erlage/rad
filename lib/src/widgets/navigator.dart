@@ -225,7 +225,7 @@ class NavigatorState extends State<Navigator> {
   initState() {
     routes.addAll(widget.routes);
 
-    for (var route in routes) {
+    for (final route in routes) {
       if (Debug.developmentMode) {
         var isDuplicate = nameToPathMap.containsKey(route.name) ||
             pathToRouteMap.containsKey(route.path);

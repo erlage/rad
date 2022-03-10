@@ -9,7 +9,6 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-@immutable
 abstract class InputTag extends MarkUpTagWithGlobalProps {
   /// Type of input tag.
   final String? type;

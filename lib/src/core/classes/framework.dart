@@ -141,7 +141,7 @@ class Framework {
       throw "Framework not initialized. If you're building your own AppWidget implementation, make sure to call Framework.init()";
     }
 
-    for (var widget in widgets) {
+    for (final widget in widgets) {
       // generate id if not set
 
       var widgetId = System.contextIdNotSet == widget.initialId
@@ -390,7 +390,7 @@ class Framework {
 
     // deal with obsolute nodes
 
-    for (var childElement in parent.children) {
+    for (final childElement in parent.children) {
       if (!updateObjects.containsKey(childElement.id)) {
         if (flagDisposeObsoluteChildren) {
           _disposeWidget(
@@ -429,7 +429,7 @@ class Framework {
     var widgetActionObjects = <WidgetActionObject>[];
 
     childrenLoop:
-    for (var child in flagIterateInReverseOrder
+    for (final child in flagIterateInReverseOrder
         ? widgetObject.element.children.reversed
         : widgetObject.element.children) {
       var childWidgetObject = _getWidgetObject(child.id);
@@ -437,7 +437,7 @@ class Framework {
       if (null != childWidgetObject) {
         var widgetActions = widgetActionCallback(childWidgetObject);
 
-        for (var widgetAction in widgetActions) {
+        for (final widgetAction in widgetActions) {
           widgetActionObjects.add(
             WidgetActionObject(widgetAction, childWidgetObject),
           );
@@ -449,7 +449,7 @@ class Framework {
       }
     }
 
-    for (var widgetActionObject in widgetActionObjects) {
+    for (final widgetActionObject in widgetActionObjects) {
       switch (widgetActionObject.widgetAction) {
         case WidgetAction.skipRest:
           break;
@@ -515,7 +515,7 @@ class Framework {
     // cascade dispose to its childs first
 
     if (widgetObject.element.hasChildNodes()) {
-      for (var childElement in widgetObject.element.children) {
+      for (final childElement in widgetObject.element.children) {
         _disposeWidget(widgetObject: _getWidgetObject(childElement.id));
       }
     }
