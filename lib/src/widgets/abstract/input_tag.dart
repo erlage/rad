@@ -22,6 +22,10 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
   ///
   final String? value;
 
+  /// Defines the file types the file input should accept.
+  ///
+  final String? accept;
+
   /// Whether control is required.
   ///
   final bool? required;
@@ -42,6 +46,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
     this.type,
     this.name,
     this.value,
+    this.accept,
     this.required,
     this.checked,
     this.disabled,
@@ -77,6 +82,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
       type: type,
       name: name,
       value: value,
+      accept: accept,
       required: required,
       disabled: disabled,
       onChange: onChange,
@@ -92,6 +98,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
     return type != oldConfiguration.type ||
         name != oldConfiguration.name ||
         value != oldConfiguration.value ||
+        accept != oldConfiguration.accept ||
         checked != oldConfiguration.checked ||
         required != oldConfiguration.required ||
         disabled != oldConfiguration.disabled ||
@@ -116,6 +123,7 @@ class InputConfiguration extends WidgetConfiguration {
 
   final String? name;
   final String? value;
+  final String? accept;
   final bool? checked;
   final bool? required;
   final bool? disabled;
@@ -125,6 +133,7 @@ class InputConfiguration extends WidgetConfiguration {
     this.type,
     this.name,
     this.value,
+    this.accept,
     this.checked,
     this.disabled,
     this.required,
@@ -186,6 +195,10 @@ class InputProps {
       element.value = props.value;
     }
 
+    if (null != props.accept) {
+      element.accept = props.accept;
+    }
+
     if (null != props.checked) {
       element.checked = props.checked;
     }
@@ -224,6 +237,10 @@ class InputProps {
       element.removeAttribute(_Attributes.checked);
     }
 
+    if (null != props.accept) {
+      element.removeAttribute(_Attributes.accept);
+    }
+
     if (null != props.disabled) {
       element.removeAttribute(_Attributes.disabled);
     }
@@ -242,6 +259,7 @@ class _Attributes {
   static const type = "type";
   static const name = "name";
   static const value = "value";
+  static const accept = "accept";
   static const disabled = "disabled";
   static const required = "required";
   static const checked = "checked";
