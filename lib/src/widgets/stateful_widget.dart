@@ -37,7 +37,7 @@ abstract class StatefulWidget extends Widget {
 
   @nonVirtual
   @override
-  createConfiguration() => _StatefulWidgetConfiguration(createState);
+  createConfiguration() => WidgetConfiguration();
 
   @nonVirtual
   @override
@@ -45,19 +45,10 @@ abstract class StatefulWidget extends Widget {
 
   @nonVirtual
   @override
-  createRenderObject(context) => StatefulWidgetRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _StatefulWidgetConfiguration extends WidgetConfiguration {
-  final StateBuilderCallback stateBuilder;
-
-  const _StatefulWidgetConfiguration(this.stateBuilder);
+  createRenderObject(context) => StatefulWidgetRenderObject(
+        context: context,
+        state: createState(),
+      );
 }
 
 /*
@@ -67,9 +58,12 @@ class _StatefulWidgetConfiguration extends WidgetConfiguration {
 */
 
 class StatefulWidgetRenderObject extends RenderObject {
-  late final State state;
+  final State state;
 
-  StatefulWidgetRenderObject(BuildContext context) : super(context);
+  StatefulWidgetRenderObject({
+    required this.state,
+    required BuildContext context,
+  }) : super(context);
 
   void updateHook(UpdateType updateType) {
     Framework.updateChildren(
@@ -80,12 +74,7 @@ class StatefulWidgetRenderObject extends RenderObject {
   }
 
   @override
-  render(
-    element,
-    covariant _StatefulWidgetConfiguration configuration,
-  ) {
-    state = configuration.stateBuilder();
-
+  render(element, configuration) {
     CommonProps.applyDataAttributes(element, {
       System.attrStateType: "${state.runtimeType}",
     });

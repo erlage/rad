@@ -6,7 +6,6 @@ import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/navigator.dart';
-import 'package:rad/src/widgets/stateful_widget.dart';
 
 typedef UpdateTypeCallback = bool Function(UpdateType updateType);
 
@@ -19,8 +18,6 @@ typedef NavigatorRouteChangeCallback = void Function(String name);
 typedef NavigatorStateCallback = void Function(NavigatorState state);
 
 typedef WidgetBuilderCallback = Widget Function(BuildContext context);
-
-typedef StateBuilderCallback = State Function();
 
 typedef WidgetActionCallback = List<WidgetAction> Function(
   WidgetObject widgetObject,
