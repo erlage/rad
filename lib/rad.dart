@@ -68,6 +68,7 @@ export 'src/widgets/html/paragraph.dart' show Paragraph;
 
 export 'src/core/types.dart' show OnInputChangeCallback;
 export 'src/widgets/html/input_text.dart' show InputText;
+export 'src/widgets/html/input_checkbox.dart' show InputCheckBox;
 
 // imported widgets impls
 
