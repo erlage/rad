@@ -108,8 +108,6 @@ class AsyncSnapshot<T> {
   /// failure.
   bool get hasError => error != null;
 
-  // todo
-
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

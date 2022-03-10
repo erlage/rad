@@ -117,7 +117,6 @@ class _StreamBuilderBaseState<T, S> extends State<StreamBuilderBase<T, S>> {
   @override
   void dispose() {
     _unsubscribe();
-    super.dispose();
   }
 
   void _subscribe() {
