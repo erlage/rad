@@ -190,15 +190,25 @@ class _IFrameProps {
       size: props.size,
     );
 
-    element.src = props.src;
+    if (null != props.src) {
+      element.src = props.src;
+    }
 
-    element.name = props.name;
+    if (null != props.name) {
+      element.name = props.name;
+    }
 
-    element.allow = props.allow;
+    if (null != props.allow) {
+      element.allow = props.allow;
+    }
 
-    element.allowFullscreen = props.allowFullscreen;
+    if (null != props.allowFullscreen) {
+      element.allowFullscreen = props.allowFullscreen;
+    }
 
-    element.allowPaymentRequest = props.allowPaymentRequest;
+    if (null != props.allowPaymentRequest) {
+      element.allowPaymentRequest = props.allowPaymentRequest;
+    }
   }
 
   static void clear(HtmlElement element, _IFrameConfiguration props) {
@@ -212,5 +222,21 @@ class _IFrameProps {
       height: props.height,
       size: props.size,
     );
+
+    if (null != props.src) {
+      element.removeAttribute(_Attributes.src);
+    }
+
+    if (null != props.name) {
+      element.removeAttribute(_Attributes.name);
+    }
+
+    element.removeAttribute(_Attributes.allow);
   }
+}
+
+class _Attributes {
+  static const src = "src";
+  static const name = "name";
+  static const allow = "allow";
 }

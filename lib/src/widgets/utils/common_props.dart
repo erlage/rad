@@ -1,10 +1,5 @@
 import 'dart:html';
 
-class _Props {
-  static const width = "width";
-  static const height = "height";
-}
-
 class CommonProps {
   static void applyClassAttribute(HtmlElement element, String? classAttribute) {
     if (null != classAttribute) {
@@ -59,20 +54,20 @@ class CommonProps {
 
       if (sizeProps.isNotEmpty) {
         if ("_" != sizeProps.first) {
-          element.style.setProperty(_Props.width, sizeProps.first);
+          element.style.width = sizeProps.first;
         }
 
         if (sizeProps.length > 1 && "_" != sizeProps[1]) {
-          element.style.setProperty(_Props.height, sizeProps[1]);
+          element.style.height = sizeProps[1];
         }
       }
     } else {
       if (null != width) {
-        element.style.setProperty(_Props.width, width);
+        element.style.width = width;
       }
 
       if (null != height) {
-        element.style.setProperty(_Props.height, height);
+        element.style.height = height;
       }
     }
   }
@@ -105,4 +100,9 @@ class CommonProps {
       }
     }
   }
+}
+
+class _Props {
+  static const width = "width";
+  static const height = "height";
 }

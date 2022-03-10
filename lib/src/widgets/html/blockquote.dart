@@ -130,7 +130,11 @@ class _BlockquoteProps {
     MarkUpGlobalProps.clear(element, props.globalConfiguration);
 
     if (null != props.cite) {
-      element.cite = "";
+      element.removeAttribute(_Attributes.cite);
     }
   }
+}
+
+class _Attributes {
+  static const cite = "cite";
 }

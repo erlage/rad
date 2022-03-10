@@ -161,9 +161,13 @@ class _ImageProps {
       size: props.size,
     );
 
-    element.src = props.src;
+    if (null != props.src) {
+      element.src = props.src;
+    }
 
-    element.alt = props.alt!;
+    if (null != props.alt) {
+      element.alt = props.alt;
+    }
   }
 
   static void clear(HtmlElement element, _ImageConfiguration props) {
@@ -177,5 +181,18 @@ class _ImageProps {
       height: props.height,
       size: props.size,
     );
+
+    if (null != props.src) {
+      element.removeAttribute(_Attributes.src);
+    }
+
+    if (null != props.alt) {
+      element.removeAttribute(_Attributes.alt);
+    }
   }
+}
+
+class _Attributes {
+  static const src = "src";
+  static const alt = "alt";
 }

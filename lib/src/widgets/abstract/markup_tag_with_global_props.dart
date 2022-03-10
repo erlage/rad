@@ -71,7 +71,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
   }
 
   @override
-  isConfigurationChanged(WidgetConfiguration oldConfiguration) {
+  isConfigurationChanged(oldConfiguration) {
     oldConfiguration as MarkUpGlobalConfiguration;
 
     return title != oldConfiguration.title ||
@@ -128,9 +128,13 @@ class MarkUpGlobalProps {
 
     CommonProps.applyDataAttributes(element, props.dataAttributes);
 
-    element.title = props.title;
+    if (null != props.title) {
+      element.title = props.title;
+    }
 
-    element.tabIndex = props.tabIndex;
+    if (null != props.tabIndex) {
+      element.tabIndex = props.tabIndex;
+    }
 
     if (null != props.hidden) {
       element.hidden = props.hidden!;
@@ -151,17 +155,32 @@ class MarkUpGlobalProps {
 
     CommonProps.clearDataAttributes(element, props.dataAttributes);
 
+    if (null != props.title) {
+      element.removeAttribute(_Attributes.title);
+    }
+
     if (null != props.hidden) {
-      element.hidden = false;
+      element.removeAttribute(_Attributes.hidden);
+    }
+
+    if (null != props.tabIndex) {
+      element.removeAttribute(_Attributes.tabindex);
     }
 
     if (null != props.draggable) {
-      element.draggable = false;
+      element.removeAttribute(_Attributes.draggable);
     }
 
-    var editable = props.contenteditable;
-    if (null != editable) {
-      element.contentEditable = "false";
+    if (null != props.contenteditable) {
+      element.removeAttribute(_Attributes.contenteditable);
     }
   }
+}
+
+class _Attributes {
+  static const title = "title";
+  static const hidden = "hidden";
+  static const tabindex = "tabindex";
+  static const draggable = "draggable";
+  static const contenteditable = "contenteditable";
 }

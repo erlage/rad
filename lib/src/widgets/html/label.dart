@@ -131,7 +131,11 @@ class _LabelProps {
     MarkUpGlobalProps.clear(element, props.globalConfiguration);
 
     if (null != props.forAttribute) {
-      element.htmlFor = "";
+      element.removeAttribute(_Attributes.forAttribute);
     }
   }
+}
+
+class _Attributes {
+  static const forAttribute = "for";
 }

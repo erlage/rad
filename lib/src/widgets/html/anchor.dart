@@ -150,9 +150,13 @@ class _AnchorProps {
 
     MarkUpGlobalProps.apply(element, props.globalConfiguration);
 
-    element.href = props.href;
+    if (null != props.href) {
+      element.href = props.href;
+    }
 
-    element.download = props.download;
+    if (null != props.download) {
+      element.download = props.download;
+    }
 
     if (null != props.rel) {
       element.rel = props.rel!;
@@ -169,11 +173,26 @@ class _AnchorProps {
     MarkUpGlobalProps.clear(element, props.globalConfiguration);
 
     if (null != props.rel) {
-      element.rel = "";
+      element.removeAttribute(_Attributes.rel);
     }
 
     if (null != props.target) {
-      element.target = "";
+      element.removeAttribute(_Attributes.target);
+    }
+
+    if (null != props.href) {
+      element.removeAttribute(_Attributes.href);
+    }
+
+    if (null != props.download) {
+      element.removeAttribute(_Attributes.download);
     }
   }
+}
+
+class _Attributes {
+  static const rel = "rel";
+  static const target = "target";
+  static const href = "href";
+  static const download = "download";
 }
