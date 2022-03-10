@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/types.dart';
@@ -15,21 +16,17 @@ class InputText extends InputTag {
   final String? pattern;
   final String? placeholder;
 
-  /// when input changes
-  ///
-  final OnInputChangeCallback? onChange;
-
   const InputText({
     this.readOnly,
     this.minLength,
     this.maxLength,
     this.pattern,
     this.placeholder,
-    this.onChange,
     bool isPassword = false,
     String? id,
     String? name,
     String? value,
+    OnInputChangeCallback? onChange,
     bool? required,
     bool? disabled,
     String? title,
@@ -42,9 +39,10 @@ class InputText extends InputTag {
     List<Widget>? children,
   }) : super(
           id: id,
-          type: isPassword ? "password" : "text",
+          type: isPassword ? System.inputPassword : System.inputText,
           name: name,
           value: value,
+          eventCallback: onChange,
           disabled: disabled,
           required: required,
           title: title,
@@ -68,7 +66,6 @@ class InputText extends InputTag {
       maxLength: maxLength,
       pattern: pattern,
       placeholder: placeholder,
-      onChange: onChange,
       inputConfiguration: super.createConfiguration() as InputConfiguration,
     );
   }
@@ -82,7 +79,6 @@ class InputText extends InputTag {
         maxLength != oldConfiguration.maxLength ||
         pattern != oldConfiguration.pattern ||
         placeholder != oldConfiguration.placeholder ||
-        onChange.runtimeType != oldConfiguration.onChange.runtimeType ||
         super.isConfigurationChanged(oldConfiguration.inputConfiguration);
   }
 
@@ -107,15 +103,12 @@ class _InputTextConfiguration extends WidgetConfiguration {
   final String? pattern;
   final String? placeholder;
 
-  final OnInputChangeCallback? onChange;
-
   const _InputTextConfiguration({
     this.readOnly,
     this.minLength,
     this.maxLength,
     this.pattern,
     this.placeholder,
-    this.onChange,
     required this.inputConfiguration,
   });
 }
@@ -180,10 +173,6 @@ class _InputTextProps {
     if (null != props.placeholder) {
       element.placeholder = props.placeholder!;
     }
-
-    if (null != props.onChange) {
-      element.addEventListener("input", props.onChange);
-    }
   }
 
   static void clear(HtmlElement element, _InputTextConfiguration props) {
@@ -209,10 +198,6 @@ class _InputTextProps {
 
     if (null != props.placeholder) {
       element.removeAttribute(_Attributes.placeholder);
-    }
-
-    if (null != props.onChange) {
-      element.removeEventListener("input", props.onChange);
     }
   }
 }

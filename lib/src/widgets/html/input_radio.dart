@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/input_tag.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
@@ -22,12 +23,12 @@ class InputRadio extends InputTag {
     List<Widget>? children,
   }) : super(
           id: id,
-          type: "radio",
+          type: System.inputRadio,
           name: name,
           value: value,
           checked: checked,
           disabled: disabled,
-          onChange: onChange,
+          eventCallback: onChange,
           required: required,
           title: title,
           classAttribute: classAttribute,

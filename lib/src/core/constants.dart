@@ -19,4 +19,19 @@ class System {
 
   static const coreError = "Framework has gone wild.";
   static const routerError = "Router has gone wild.";
+
+  // events
+
+  static const eventClick = "click";
+  static const eventChange = "change";
+  static const eventInput = "input";
+
+  // input types
+
+  static const inputText = "text";
+  static const inputPassword = "password";
+  static const inputFile = "file";
+  static const inputRadio = "radio";
+  static const inputSubmit = "submit";
+  static const inputCheckbox = "checkbox";
 }

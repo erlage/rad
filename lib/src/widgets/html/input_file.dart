@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/input_tag.dart';
 
@@ -20,12 +21,12 @@ class InputFile extends InputTag {
     bool? hidden,
   }) : super(
           id: id,
-          type: "file",
+          type: System.inputFile,
           name: name,
           accept: accept,
           multiple: multiple,
           disabled: disabled,
-          onChange: onChange,
+          eventCallback: onChange,
           required: required,
           title: title,
           classAttribute: classAttribute,

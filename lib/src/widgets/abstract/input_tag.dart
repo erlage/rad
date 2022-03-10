@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
+import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
@@ -42,9 +43,13 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
   ///
   final bool? checked;
 
-  /// when checkbox changes
+  /// Overloaded.
   ///
-  final OnInputChangeCallback? onChange;
+  /// 1. if [type] is "submit", this is "onClick" event
+  /// 2. if [type] is "text", this is "onInput" event
+  /// 3. if [type] is "checkbox" or "radio", this is "onChange" event
+  ///
+  final OnInputChangeCallback? eventCallback;
 
   const InputTag({
     this.type,
@@ -55,7 +60,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
     this.required,
     this.checked,
     this.disabled,
-    this.onChange,
+    this.eventCallback,
     String? id,
     String? title,
     String? classAttribute,
@@ -91,7 +96,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
       multiple: multiple,
       required: required,
       disabled: disabled,
-      onChange: onChange,
+      eventCallback: eventCallback,
       globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
@@ -109,7 +114,8 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
         checked != oldConfiguration.checked ||
         required != oldConfiguration.required ||
         disabled != oldConfiguration.disabled ||
-        onChange.runtimeType != oldConfiguration.onChange.runtimeType ||
+        eventCallback.runtimeType !=
+            oldConfiguration.eventCallback.runtimeType ||
         super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }
 
@@ -135,7 +141,7 @@ class InputConfiguration extends WidgetConfiguration {
   final bool? checked;
   final bool? required;
   final bool? disabled;
-  final OnInputChangeCallback? onChange;
+  final OnInputChangeCallback? eventCallback;
 
   const InputConfiguration({
     this.type,
@@ -146,7 +152,7 @@ class InputConfiguration extends WidgetConfiguration {
     this.checked,
     this.disabled,
     this.required,
-    this.onChange,
+    this.eventCallback,
     required this.globalConfiguration,
   });
 }
@@ -187,6 +193,22 @@ class InputRenderObject extends RenderObject {
 */
 
 class InputProps {
+  static String eventType(String? inputType) {
+    switch (inputType) {
+      case System.inputSubmit:
+        return System.eventClick;
+
+      case System.inputRadio:
+      case System.inputCheckbox:
+        return System.eventChange;
+
+      case System.inputText:
+      case System.inputPassword:
+      default:
+        return System.eventInput;
+    }
+  }
+
   static void apply(HtmlElement element, InputConfiguration props) {
     element as InputElement;
 
@@ -224,8 +246,8 @@ class InputProps {
       element.required = props.required!;
     }
 
-    if (null != props.onChange) {
-      element.addEventListener("input", props.onChange);
+    if (null != props.eventCallback) {
+      element.addEventListener(eventType(props.type), props.eventCallback);
     }
   }
 
@@ -266,8 +288,8 @@ class InputProps {
       element.removeAttribute(_Attributes.required);
     }
 
-    if (null != props.onChange) {
-      element.removeEventListener("input", props.onChange);
+    if (null != props.eventCallback) {
+      element.removeEventListener(eventType(props.type), props.eventCallback);
     }
   }
 }
