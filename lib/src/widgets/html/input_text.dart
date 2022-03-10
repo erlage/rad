@@ -1,6 +1,6 @@
 import 'dart:html';
 
-import 'package:rad/src/core/constants.dart';
+import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/types.dart';
@@ -26,7 +26,7 @@ class InputText extends InputTag {
     String? id,
     String? name,
     String? value,
-    OnInputChangeCallback? onChange,
+    EventCallback? onChange,
     bool? required,
     bool? disabled,
     String? title,
@@ -39,7 +39,7 @@ class InputText extends InputTag {
     List<Widget>? children,
   }) : super(
           id: id,
-          type: isPassword ? System.inputPassword : System.inputText,
+          type: isPassword ? InputType.password : InputType.text,
           name: name,
           value: value,
           eventCallback: onChange,

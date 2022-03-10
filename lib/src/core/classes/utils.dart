@@ -50,6 +50,47 @@ class Utils {
 
       case DomTag.input:
         return "input";
+
+      case DomTag.form:
+        return "for";
+    }
+  }
+
+  static String mapDomEventType(DomEventType eventType) {
+    switch (eventType) {
+      case DomEventType.click:
+        return "click";
+
+      case DomEventType.change:
+        return "change";
+
+      case DomEventType.input:
+        return "input";
+
+      case DomEventType.submit:
+        return "submit";
+    }
+  }
+
+  static String mapInputType(InputType type) {
+    switch (type) {
+      case InputType.text:
+        return "text";
+
+      case InputType.password:
+        return "password";
+
+      case InputType.file:
+        return "file";
+
+      case InputType.radio:
+        return "radio";
+
+      case InputType.checkbox:
+        return "checkbox";
+
+      case InputType.submit:
+        return "submit";
     }
   }
 

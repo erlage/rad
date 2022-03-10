@@ -1,5 +1,5 @@
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/constants.dart';
+import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/input_tag.dart';
 
@@ -10,7 +10,7 @@ class InputSubmit extends InputTag {
     String? value,
     bool? required,
     bool? disabled,
-    OnInputChangeCallback? onClick,
+    EventCallback? onClick,
     String? title,
     String? classAttribute,
     int? tabIndex,
@@ -20,7 +20,7 @@ class InputSubmit extends InputTag {
     bool? hidden,
   }) : super(
           id: id,
-          type: System.inputSubmit,
+          type: InputType.submit,
           name: name,
           disabled: disabled,
           eventCallback: onClick,

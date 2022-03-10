@@ -1,7 +1,7 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/constants.dart';
+import 'package:rad/src/core/classes/utils.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
@@ -11,7 +11,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 abstract class InputTag extends MarkUpTagWithGlobalProps {
   /// Type of input tag.
-  final String? type;
+  final InputType? type;
 
   /// Name of the input. It's very common to use same name as [id]
   /// for inputs.
@@ -48,7 +48,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
   /// 2. if [type] is "text", this is "onInput" event
   /// 3. if [type] is "checkbox" or "radio", this is "onChange" event
   ///
-  final OnInputChangeCallback? eventCallback;
+  final EventCallback? eventCallback;
 
   const InputTag({
     this.type,
@@ -131,7 +131,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
 class InputConfiguration extends WidgetConfiguration {
   final MarkUpGlobalConfiguration globalConfiguration;
 
-  final String? type;
+  final InputType? type;
 
   final String? name;
   final String? value;
@@ -140,7 +140,7 @@ class InputConfiguration extends WidgetConfiguration {
   final bool? checked;
   final bool? required;
   final bool? disabled;
-  final OnInputChangeCallback? eventCallback;
+  final EventCallback? eventCallback;
 
   const InputConfiguration({
     this.type,
@@ -192,19 +192,19 @@ class InputRenderObject extends RenderObject {
 */
 
 class InputProps {
-  static String eventType(String? inputType) {
+  static DomEventType getRequiredEventType(InputType inputType) {
     switch (inputType) {
-      case System.inputSubmit:
-        return System.eventClick;
+      case InputType.submit:
+        return DomEventType.click;
 
-      case System.inputRadio:
-      case System.inputCheckbox:
-        return System.eventChange;
+      case InputType.radio:
+      case InputType.checkbox:
+        return DomEventType.change;
 
-      case System.inputText:
-      case System.inputPassword:
+      case InputType.text:
+      case InputType.password:
       default:
-        return System.eventInput;
+        return DomEventType.input;
     }
   }
 
@@ -214,7 +214,7 @@ class InputProps {
     MarkUpGlobalProps.apply(element, props.globalConfiguration);
 
     if (null != props.type) {
-      element.type = props.type;
+      element.type = Utils.mapInputType(props.type!);
     }
 
     if (null != props.name) {
@@ -246,7 +246,12 @@ class InputProps {
     }
 
     if (null != props.eventCallback) {
-      element.addEventListener(eventType(props.type), props.eventCallback);
+      var eventType = getRequiredEventType(props.type!);
+
+      element.addEventListener(
+        Utils.mapDomEventType(eventType),
+        props.eventCallback,
+      );
     }
   }
 
@@ -288,7 +293,12 @@ class InputProps {
     }
 
     if (null != props.eventCallback) {
-      element.removeEventListener(eventType(props.type), props.eventCallback);
+      var eventType = getRequiredEventType(props.type!);
+
+      element.removeEventListener(
+        Utils.mapDomEventType(eventType),
+        props.eventCallback,
+      );
     }
   }
 }

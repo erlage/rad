@@ -28,6 +28,22 @@ enum UpdateType {
   navigatorOpen,
 }
 
+enum DomEventType {
+  click,
+  change,
+  input,
+  submit,
+}
+
+enum InputType {
+  text,
+  password,
+  file,
+  radio,
+  checkbox,
+  submit,
+}
+
 /*
 |--------------------------------------------------------------------------
 | internals
@@ -80,6 +96,10 @@ enum DomTag {
   /// Form input tag.
   ///
   input,
+
+  /// Form tag.
+  ///
+  form,
 }
 
 enum WidgetAction {

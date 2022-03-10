@@ -1,5 +1,5 @@
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/constants.dart';
+import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/input_tag.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
@@ -12,7 +12,7 @@ class InputCheckBox extends InputTag {
     bool? checked,
     bool? required,
     bool? disabled,
-    OnInputChangeCallback? onChange,
+    EventCallback? onChange,
     String? title,
     String? classAttribute,
     int? tabIndex,
@@ -23,7 +23,7 @@ class InputCheckBox extends InputTag {
     List<Widget>? children,
   }) : super(
           id: id,
-          type: System.inputCheckbox,
+          type: InputType.checkbox,
           name: name,
           value: value,
           checked: checked,
