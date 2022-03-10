@@ -5,7 +5,7 @@ import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/props/common_props.dart';
+import 'package:rad/src/widgets/utils/common_props.dart';
 
 /// The Image tag.
 ///

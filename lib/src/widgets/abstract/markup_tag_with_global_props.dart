@@ -1,7 +1,7 @@
 import 'dart:html';
 
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/props/common_props.dart';
+import 'package:rad/src/widgets/utils/common_props.dart';
 
 abstract class MarkUpTagWithGlobalProps extends Widget {
   /// The title attribute specifies extra information about an element.

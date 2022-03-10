@@ -2,7 +2,7 @@ import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/props/common_props.dart';
+import 'package:rad/src/widgets/utils/common_props.dart';
 
 class HorizontalRule extends Widget {
   final String? classAttribute;

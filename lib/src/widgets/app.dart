@@ -10,7 +10,7 @@ import 'package:rad/src/css/include/normalize.generated.dart';
 import 'package:rad/src/css/main.generated.dart';
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/widgets/props/common_props.dart';
+import 'package:rad/src/widgets/utils/common_props.dart';
 
 class App extends Widget {
   final Widget child;

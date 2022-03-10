@@ -1,5 +1,5 @@
-import 'package:rad/rad.dart';
 import 'package:rad/src/core/classes/framework.dart';
+import 'package:rad/src/core/interface/style_component.dart';
 
 /// Interface for external components.
 ///
