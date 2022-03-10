@@ -55,7 +55,7 @@ class Label extends MarkUpTagWithGlobalProps {
   @override
   isConfigurationChanged(covariant _LabelConfiguration oldConfiguration) {
     return forAttribute != oldConfiguration.forAttribute ||
-        super.isChanged(oldConfiguration.globalPropsConfiguration);
+        super.isConfigurationChanged(oldConfiguration.globalPropsConfiguration);
   }
 
   @override

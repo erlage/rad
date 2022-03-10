@@ -76,7 +76,7 @@ class Anchor extends MarkUpTagWithGlobalProps {
         rel != oldConfiguration.rel ||
         target != oldConfiguration.target ||
         download != oldConfiguration.download ||
-        super.isChanged(oldConfiguration.globalPropsConfiguration);
+        super.isConfigurationChanged(oldConfiguration.globalPropsConfiguration);
   }
 
   @override
@@ -150,16 +150,12 @@ class _AnchorProps {
 
     MarkUpGlobalProps.apply(element, props.globalPropsConfiguration);
 
-    if (null != props.href) {
-      element.href = props.href;
-    }
+    element.href = props.href;
+
+    element.download = props.download;
 
     if (null != props.rel) {
       element.rel = props.rel!;
-    }
-
-    if (null != props.download) {
-      element.download = props.download;
     }
 
     if (null != props.target) {
@@ -172,16 +168,8 @@ class _AnchorProps {
 
     MarkUpGlobalProps.clear(element, props.globalPropsConfiguration);
 
-    if (null != props.href) {
-      element.href = "";
-    }
-
     if (null != props.rel) {
       element.rel = "";
-    }
-
-    if (null != props.download) {
-      element.download = "";
     }
 
     if (null != props.target) {

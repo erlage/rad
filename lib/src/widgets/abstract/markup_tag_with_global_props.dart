@@ -72,7 +72,10 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
     );
   }
 
-  isChanged(MarkUpGlobalConfiguration oldConfiguration) {
+  @override
+  isConfigurationChanged(WidgetConfiguration oldConfiguration) {
+    oldConfiguration as MarkUpGlobalConfiguration;
+
     return title != oldConfiguration.title ||
         tabIndex != oldConfiguration.tabIndex ||
         classAttribute != oldConfiguration.classAttribute ||
@@ -123,13 +126,13 @@ class MarkUpGlobalConfiguration extends WidgetConfiguration {
 
 class MarkUpGlobalProps {
   static void apply(HtmlElement element, MarkUpGlobalConfiguration props) {
-    if (null != props.title) {
-      element.title = props.title;
-    }
+    CommonProps.applyClassAttribute(element, props.classAttribute);
 
-    if (null != props.tabIndex) {
-      element.tabIndex = props.tabIndex;
-    }
+    CommonProps.applyDataAttributes(element, props.dataAttributes);
+
+    element.title = props.title;
+
+    element.tabIndex = props.tabIndex;
 
     if (null != props.hidden) {
       element.hidden = props.hidden!;
@@ -143,15 +146,12 @@ class MarkUpGlobalProps {
     if (null != editable) {
       element.contentEditable = editable ? "true" : "false";
     }
-
-    CommonProps.applyClassAttribute(element, props.classAttribute);
-    CommonProps.applyDataAttributes(element, props.dataAttributes);
   }
 
   static void clear(HtmlElement element, MarkUpGlobalConfiguration props) {
-    if (null != props.title) {
-      element.title = "";
-    }
+    CommonProps.clearClassAttribute(element, props.classAttribute);
+
+    CommonProps.clearDataAttributes(element, props.dataAttributes);
 
     if (null != props.hidden) {
       element.hidden = false;
@@ -165,8 +165,5 @@ class MarkUpGlobalProps {
     if (null != editable) {
       element.contentEditable = "false";
     }
-
-    CommonProps.clearClassAttribute(element, props.classAttribute);
-    CommonProps.clearDataAttributes(element, props.dataAttributes);
   }
 }

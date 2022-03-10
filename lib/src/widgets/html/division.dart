@@ -34,11 +34,6 @@ class Division extends MarkUpTagWithGlobalProps {
   DomTag get correspondingTag => DomTag.div;
 
   @override
-  isConfigurationChanged(covariant MarkUpGlobalConfiguration oldConfiguration) {
-    return super.isChanged(oldConfiguration);
-  }
-
-  @override
   createRenderObject(context) => _DivisionRenderObject(context);
 }
 

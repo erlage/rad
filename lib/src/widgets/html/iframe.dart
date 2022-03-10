@@ -99,7 +99,7 @@ class IFrame extends MarkUpTagWithGlobalProps {
         width != oldConfiguration.width ||
         height != oldConfiguration.height ||
         size != oldConfiguration.size ||
-        super.isChanged(oldConfiguration.globalPropsConfiguration);
+        super.isConfigurationChanged(oldConfiguration.globalPropsConfiguration);
   }
 
   @override
@@ -190,25 +190,15 @@ class _IFrameProps {
       size: props.size,
     );
 
-    if (null != props.src) {
-      element.src = props.src!;
-    }
+    element.src = props.src;
 
-    if (null != props.name) {
-      element.name = props.name!;
-    }
+    element.name = props.name;
 
-    if (null != props.allow) {
-      element.allow = props.allow;
-    }
+    element.allow = props.allow;
 
-    if (null != props.allowFullscreen) {
-      element.allowFullscreen = props.allowFullscreen!;
-    }
+    element.allowFullscreen = props.allowFullscreen;
 
-    if (null != props.allowPaymentRequest) {
-      element.allowPaymentRequest = props.allowPaymentRequest;
-    }
+    element.allowPaymentRequest = props.allowPaymentRequest;
   }
 
   static void clear(HtmlElement element, _IFrameConfiguration props) {
@@ -222,25 +212,5 @@ class _IFrameProps {
       height: props.height,
       size: props.size,
     );
-
-    if (null != props.src) {
-      element.src = "";
-    }
-
-    if (null != props.name) {
-      element.name = "";
-    }
-
-    if (null != props.allow) {
-      element.allow = "";
-    }
-
-    if (null != props.allowFullscreen) {
-      element.allowFullscreen = false;
-    }
-
-    if (null != props.allowPaymentRequest) {
-      element.allowPaymentRequest = false;
-    }
   }
 }

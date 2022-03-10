@@ -77,7 +77,7 @@ class Image extends MarkUpTagWithGlobalProps {
         width != oldConfiguration.width ||
         height != oldConfiguration.height ||
         size != oldConfiguration.size ||
-        super.isChanged(oldConfiguration.globalPropsConfiguration);
+        super.isConfigurationChanged(oldConfiguration.globalPropsConfiguration);
   }
 
   @override
@@ -161,13 +161,9 @@ class _ImageProps {
       size: props.size,
     );
 
-    if (null != props.src) {
-      element.src = props.src;
-    }
+    element.src = props.src;
 
-    if (null != props.alt) {
-      element.alt = props.alt!;
-    }
+    element.alt = props.alt!;
   }
 
   static void clear(HtmlElement element, _ImageConfiguration props) {
@@ -181,13 +177,5 @@ class _ImageProps {
       height: props.height,
       size: props.size,
     );
-
-    if (null != props.src) {
-      element.src = "";
-    }
-
-    if (null != props.alt) {
-      element.alt = "";
-    }
   }
 }

@@ -54,7 +54,7 @@ class Blockquote extends MarkUpTagWithGlobalProps {
   @override
   isConfigurationChanged(covariant _BlockquoteConfiguration oldConfiguration) {
     return cite != oldConfiguration.cite ||
-        super.isChanged(oldConfiguration.globalPropsConfiguration);
+        super.isConfigurationChanged(oldConfiguration.globalPropsConfiguration);
   }
 
   @override
