@@ -12,10 +12,11 @@ environment:
 platforms:
   web:
 
+dependencies: 
+  meta: ^1.7.0
+
 dev_dependencies:
   build: ^2.2.1
   build_runner: ^2.1.4
   build_web_compilers: ^3.2.1
   lints: ^1.0.0
-
-

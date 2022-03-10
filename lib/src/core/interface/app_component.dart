@@ -1,8 +1,10 @@
+import 'package:meta/meta.dart';
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/interface/style_component.dart';
 
 /// Interface for external components.
 ///
+@immutable
 abstract class AppComponent {
   /// Name of the component.
   ///
@@ -19,6 +21,7 @@ abstract class AppComponent {
 
 /// App components.
 ///
+@immutable
 class AppComponents {
   final List<StyleComponent>? styleComponents;
 

@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/types.dart';
@@ -7,6 +8,7 @@ import 'package:rad/src/core/objects/build_context.dart';
 
 /// A widget that does not require mutable state.
 ///
+@immutable
 abstract class StatelessWidget extends Widget {
   const StatelessWidget({String? id}) : super(id);
 

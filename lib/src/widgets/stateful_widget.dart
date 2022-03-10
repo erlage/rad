@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:meta/meta.dart';
 import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/constants.dart';
@@ -12,12 +13,13 @@ import 'package:rad/src/widgets/utils/common_props.dart';
 
 /// A widget that has mutable state.
 ///
+@immutable
 abstract class StatefulWidget extends Widget {
   const StatefulWidget({String? id}) : super(id);
 
   /// Creates the mutable state for this widget at a given location in the tree.
   ///
-  State createState();
+  State createState(); // ignore: no_logic_in_create_state
 
   /*
   |--------------------------------------------------------------------------

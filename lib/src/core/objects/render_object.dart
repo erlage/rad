@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:meta/meta.dart';
 import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
@@ -10,6 +11,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// It also contains logic for handling updates and cascading them
 /// to its childs.
 ///
+@immutable
 abstract class RenderObject {
   final BuildContext context;
 
