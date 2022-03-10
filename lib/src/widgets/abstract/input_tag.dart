@@ -26,6 +26,10 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
   ///
   final String? accept;
 
+  /// Allows the user to select more than one file.
+  ///
+  final bool? multiple;
+
   /// Whether control is required.
   ///
   final bool? required;
@@ -47,6 +51,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
     this.name,
     this.value,
     this.accept,
+    this.multiple,
     this.required,
     this.checked,
     this.disabled,
@@ -83,6 +88,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
       name: name,
       value: value,
       accept: accept,
+      multiple: multiple,
       required: required,
       disabled: disabled,
       onChange: onChange,
@@ -99,6 +105,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
         name != oldConfiguration.name ||
         value != oldConfiguration.value ||
         accept != oldConfiguration.accept ||
+        multiple != oldConfiguration.multiple ||
         checked != oldConfiguration.checked ||
         required != oldConfiguration.required ||
         disabled != oldConfiguration.disabled ||
@@ -124,6 +131,7 @@ class InputConfiguration extends WidgetConfiguration {
   final String? name;
   final String? value;
   final String? accept;
+  final bool? multiple;
   final bool? checked;
   final bool? required;
   final bool? disabled;
@@ -134,6 +142,7 @@ class InputConfiguration extends WidgetConfiguration {
     this.name,
     this.value,
     this.accept,
+    this.multiple,
     this.checked,
     this.disabled,
     this.required,
@@ -199,6 +208,10 @@ class InputProps {
       element.accept = props.accept;
     }
 
+    if (null != props.multiple) {
+      element.multiple = props.multiple;
+    }
+
     if (null != props.checked) {
       element.checked = props.checked;
     }
@@ -241,6 +254,10 @@ class InputProps {
       element.removeAttribute(_Attributes.accept);
     }
 
+    if (null != props.multiple) {
+      element.removeAttribute(_Attributes.multiple);
+    }
+
     if (null != props.disabled) {
       element.removeAttribute(_Attributes.disabled);
     }
@@ -260,6 +277,7 @@ class _Attributes {
   static const name = "name";
   static const value = "value";
   static const accept = "accept";
+  static const multiple = "multiple";
   static const disabled = "disabled";
   static const required = "required";
   static const checked = "checked";
