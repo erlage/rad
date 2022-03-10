@@ -59,6 +59,10 @@ export 'src/widgets/future_builder.dart' show FutureBuilder;
 
 export 'src/widgets/stream_builder.dart' show StreamBuilder;
 
+// utility widgets
+
+export 'src/widgets/stateless_provider.dart' show StatelessProvider;
+
 // html
 
 export 'src/widgets/html/span.dart' show Span;
