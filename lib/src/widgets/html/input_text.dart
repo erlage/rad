@@ -63,7 +63,6 @@ class InputText extends InputTag {
   @override
   createConfiguration() {
     return _InputTextConfiguration(
-      type: type,
       readOnly: readOnly,
       minLength: minLength,
       maxLength: maxLength,
@@ -100,8 +99,6 @@ class InputText extends InputTag {
 class _InputTextConfiguration extends WidgetConfiguration {
   final InputConfiguration inputConfiguration;
 
-  final String? type;
-
   final bool? readOnly;
 
   final int? minLength;
@@ -113,7 +110,6 @@ class _InputTextConfiguration extends WidgetConfiguration {
   final OnInputChangeCallback? onChange;
 
   const _InputTextConfiguration({
-    this.type,
     this.readOnly,
     this.minLength,
     this.maxLength,
@@ -165,10 +161,6 @@ class _InputTextProps {
 
     InputProps.apply(element, props.inputConfiguration);
 
-    if (null != props.type) {
-      element.type = props.type;
-    }
-
     if (null != props.readOnly) {
       element.readOnly = props.readOnly;
     }
@@ -199,10 +191,6 @@ class _InputTextProps {
 
     InputProps.clear(element, props.inputConfiguration);
 
-    if (null != props.type) {
-      element.removeAttribute(_Attributes.type);
-    }
-
     if (null != props.readOnly) {
       element.removeAttribute(_Attributes.readOnly);
     }
@@ -230,7 +218,6 @@ class _InputTextProps {
 }
 
 class _Attributes {
-  static const type = "type";
   static const readOnly = "readonly";
   static const minLength = "minlength";
   static const maxLength = "maxlength";
