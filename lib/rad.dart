@@ -49,16 +49,6 @@ export 'src/widgets/gesture_detector.dart' show GestureDetector;
 export 'src/widgets/text.dart' show Text;
 export 'src/widgets/raw_markup.dart' show RawMarkUp;
 
-// async
-
-export 'src/widgets/async/connection_state.dart' show ConnectionState;
-
-export 'src/widgets/async/async_snapshot.dart' show AsyncSnapshot;
-
-export 'src/widgets/future_builder.dart' show FutureBuilder;
-
-export 'src/widgets/stream_builder.dart' show StreamBuilder;
-
 // utility widgets
 
 export 'src/widgets/stateless_provider.dart' show StatelessProvider;
@@ -75,6 +65,22 @@ export 'src/widgets/html/iframe.dart' show IFrame;
 export 'src/widgets/html/break_line.dart' show BreakLine;
 export 'src/widgets/html/image.dart' show Image;
 export 'src/widgets/html/paragraph.dart' show Paragraph;
+
+// imported widgets impls
+
+export 'src/include/async/connection_state.dart' show ConnectionState;
+
+export 'src/include/async/async_snapshot.dart' show AsyncSnapshot;
+
+export 'src/include/widgets/future_builder.dart' show FutureBuilder;
+
+export 'src/include/widgets/stream_builder.dart' show StreamBuilder;
+
+export 'src/include/foundation/change_notifier.dart' show ChangeNotifier;
+
+export 'src/include/foundation/change_notifier.dart' show ValueNotifier;
+
+export 'src/include/widgets/value_listenable_builder.dart';
 
 /*
 |--------------------------------------------------------------------------

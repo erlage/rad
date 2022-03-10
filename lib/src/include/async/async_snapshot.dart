@@ -1,10 +1,7 @@
-import 'package:rad/src/widgets/async/connection_state.dart';
-import 'package:rad/src/widgets/future_builder.dart';
-import 'package:rad/src/widgets/stream_builder.dart';
-import 'package:rad/src/widgets/utils/hash_codes.dart';
-
-/// Source taken from:
-/// https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/async.dart
+import 'package:rad/src/include/async/connection_state.dart';
+import 'package:rad/src/include/widgets/future_builder.dart';
+import 'package:rad/src/include/widgets/stream_builder.dart';
+import 'package:rad/src/include/foundation/hash_codes.dart';
 
 /// Immutable representation of the most recent interaction with an asynchronous
 /// computation.

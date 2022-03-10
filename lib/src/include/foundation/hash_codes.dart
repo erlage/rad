@@ -1,5 +1,3 @@
-// Source taken from Flutter SDK.
-
 class _HashEnd {
   const _HashEnd();
 }

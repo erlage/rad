@@ -1,7 +1,4 @@
-import 'package:rad/src/widgets/async/async_snapshot.dart';
-
-/// Source taken from:
-/// https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/async.dart
+import 'package:rad/src/include/async/async_snapshot.dart';
 
 /// The state of connection to an asynchronous computation.
 ///

@@ -1,6 +1,3 @@
-/// Source taken from:
-/// https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/async.dart
-
 import 'dart:async' show StreamSubscription;
 
 import 'package:rad/src/core/objects/build_context.dart';
