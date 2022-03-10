@@ -13,10 +13,10 @@ class HorizontalRule extends Widget {
   }) : super(id);
 
   @override
-  DomTag get correspondingTag => DomTag.horizontalRule;
+  get correspondingTag => DomTag.horizontalRule;
 
   @override
-  String get concreteType => "$HorizontalRule";
+  get concreteType => "$HorizontalRule";
 
   @override
   createConfiguration() => _HorizontalRuleConfiguration(classAttribute);

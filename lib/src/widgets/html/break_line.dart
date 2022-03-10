@@ -7,10 +7,10 @@ class BreakLine extends Widget {
   const BreakLine({String? id}) : super(id);
 
   @override
-  String get concreteType => "$BreakLine";
+  get concreteType => "$BreakLine";
 
   @override
-  DomTag get correspondingTag => DomTag.breakLine;
+  get correspondingTag => DomTag.breakLine;
 
   @override
   createConfiguration() => WidgetConfiguration();

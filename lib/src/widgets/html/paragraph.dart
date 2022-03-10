@@ -26,8 +26,8 @@ class Paragraph extends Division {
         );
 
   @override
-  DomTag get correspondingTag => DomTag.paragraph;
+  get correspondingTag => DomTag.paragraph;
 
   @override
-  String get concreteType => "$Paragraph";
+  get concreteType => "$Paragraph";
 }

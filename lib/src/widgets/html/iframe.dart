@@ -68,10 +68,10 @@ class IFrame extends MarkUpTagWithGlobalProps {
         );
 
   @override
-  String get concreteType => "$IFrame";
+  get concreteType => "$IFrame";
 
   @override
-  DomTag get correspondingTag => DomTag.iFrame;
+  get correspondingTag => DomTag.iFrame;
 
   @override
   createConfiguration() {

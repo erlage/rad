@@ -28,10 +28,10 @@ class Division extends MarkUpTagWithGlobalProps {
         );
 
   @override
-  String get concreteType => "$Division";
+  get concreteType => "$Division";
 
   @override
-  DomTag get correspondingTag => DomTag.div;
+  get correspondingTag => DomTag.div;
 
   @override
   createRenderObject(context) => _DivisionRenderObject(context);

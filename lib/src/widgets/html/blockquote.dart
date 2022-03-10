@@ -37,10 +37,10 @@ class Blockquote extends MarkUpTagWithGlobalProps {
         );
 
   @override
-  String get concreteType => "$Blockquote";
+  get concreteType => "$Blockquote";
 
   @override
-  DomTag get correspondingTag => DomTag.blockquote;
+  get correspondingTag => DomTag.blockquote;
 
   @override
   createConfiguration() {

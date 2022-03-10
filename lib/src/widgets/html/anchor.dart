@@ -53,10 +53,10 @@ class Anchor extends MarkUpTagWithGlobalProps {
         );
 
   @override
-  String get concreteType => "$Anchor";
+  get concreteType => "$Anchor";
 
   @override
-  DomTag get correspondingTag => DomTag.anchor;
+  get correspondingTag => DomTag.anchor;
 
   @override
   createConfiguration() {

@@ -52,10 +52,10 @@ class Image extends MarkUpTagWithGlobalProps {
         );
 
   @override
-  String get concreteType => "$Image";
+  get concreteType => "$Image";
 
   @override
-  DomTag get correspondingTag => DomTag.image;
+  get correspondingTag => DomTag.image;
 
   @override
   createConfiguration() {

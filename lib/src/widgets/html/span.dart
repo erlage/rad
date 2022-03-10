@@ -26,8 +26,8 @@ class Span extends Division {
         );
 
   @override
-  String get concreteType => "$Span";
+  get concreteType => "$Span";
 
   @override
-  DomTag get correspondingTag => DomTag.span;
+  get correspondingTag => DomTag.span;
 }

@@ -38,10 +38,10 @@ class Label extends MarkUpTagWithGlobalProps {
         );
 
   @override
-  String get concreteType => "$Label";
+  get concreteType => "$Label";
 
   @override
-  DomTag get correspondingTag => DomTag.label;
+  get correspondingTag => DomTag.label;
 
   @override
   createConfiguration() {
