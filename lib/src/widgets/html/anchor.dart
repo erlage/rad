@@ -65,7 +65,7 @@ class Anchor extends MarkUpTagWithGlobalProps {
       rel: rel,
       target: target,
       download: download,
-      globalPropsConfiguration:
+      globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
   }
@@ -76,7 +76,7 @@ class Anchor extends MarkUpTagWithGlobalProps {
         rel != oldConfiguration.rel ||
         target != oldConfiguration.target ||
         download != oldConfiguration.download ||
-        super.isConfigurationChanged(oldConfiguration.globalPropsConfiguration);
+        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }
 
   @override
@@ -90,7 +90,7 @@ class Anchor extends MarkUpTagWithGlobalProps {
 */
 
 class _AnchorConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalPropsConfiguration;
+  final MarkUpGlobalConfiguration globalConfiguration;
 
   final String? href;
 
@@ -105,7 +105,7 @@ class _AnchorConfiguration extends WidgetConfiguration {
     this.rel,
     this.target,
     this.download,
-    required this.globalPropsConfiguration,
+    required this.globalConfiguration,
   });
 }
 
@@ -148,7 +148,7 @@ class _AnchorProps {
   static void apply(HtmlElement element, _AnchorConfiguration props) {
     element as AnchorElement;
 
-    MarkUpGlobalProps.apply(element, props.globalPropsConfiguration);
+    MarkUpGlobalProps.apply(element, props.globalConfiguration);
 
     element.href = props.href;
 
@@ -166,7 +166,7 @@ class _AnchorProps {
   static void clear(HtmlElement element, _AnchorConfiguration props) {
     element as AnchorElement;
 
-    MarkUpGlobalProps.clear(element, props.globalPropsConfiguration);
+    MarkUpGlobalProps.clear(element, props.globalConfiguration);
 
     if (null != props.rel) {
       element.rel = "";

@@ -47,7 +47,7 @@ class Label extends MarkUpTagWithGlobalProps {
   createConfiguration() {
     return _LabelConfiguration(
       forAttribute: forAttribute,
-      globalPropsConfiguration:
+      globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
   }
@@ -55,7 +55,7 @@ class Label extends MarkUpTagWithGlobalProps {
   @override
   isConfigurationChanged(covariant _LabelConfiguration oldConfiguration) {
     return forAttribute != oldConfiguration.forAttribute ||
-        super.isConfigurationChanged(oldConfiguration.globalPropsConfiguration);
+        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }
 
   @override
@@ -69,13 +69,13 @@ class Label extends MarkUpTagWithGlobalProps {
 */
 
 class _LabelConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalPropsConfiguration;
+  final MarkUpGlobalConfiguration globalConfiguration;
 
   final String? forAttribute;
 
   const _LabelConfiguration({
     this.forAttribute,
-    required this.globalPropsConfiguration,
+    required this.globalConfiguration,
   });
 }
 
@@ -118,7 +118,7 @@ class _LabelProps {
   static void apply(HtmlElement element, _LabelConfiguration props) {
     element as LabelElement;
 
-    MarkUpGlobalProps.apply(element, props.globalPropsConfiguration);
+    MarkUpGlobalProps.apply(element, props.globalConfiguration);
 
     if (null != props.forAttribute) {
       element.htmlFor = props.forAttribute!;
@@ -128,7 +128,7 @@ class _LabelProps {
   static void clear(HtmlElement element, _LabelConfiguration props) {
     element as LabelElement;
 
-    MarkUpGlobalProps.clear(element, props.globalPropsConfiguration);
+    MarkUpGlobalProps.clear(element, props.globalConfiguration);
 
     if (null != props.forAttribute) {
       element.htmlFor = "";

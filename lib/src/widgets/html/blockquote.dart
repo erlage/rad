@@ -46,7 +46,7 @@ class Blockquote extends MarkUpTagWithGlobalProps {
   createConfiguration() {
     return _BlockquoteConfiguration(
       cite: cite,
-      globalPropsConfiguration:
+      globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
   }
@@ -54,7 +54,7 @@ class Blockquote extends MarkUpTagWithGlobalProps {
   @override
   isConfigurationChanged(covariant _BlockquoteConfiguration oldConfiguration) {
     return cite != oldConfiguration.cite ||
-        super.isConfigurationChanged(oldConfiguration.globalPropsConfiguration);
+        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }
 
   @override
@@ -68,13 +68,13 @@ class Blockquote extends MarkUpTagWithGlobalProps {
 */
 
 class _BlockquoteConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalPropsConfiguration;
+  final MarkUpGlobalConfiguration globalConfiguration;
 
   final String? cite;
 
   const _BlockquoteConfiguration({
     this.cite,
-    required this.globalPropsConfiguration,
+    required this.globalConfiguration,
   });
 }
 
@@ -117,7 +117,7 @@ class _BlockquoteProps {
   static void apply(HtmlElement element, _BlockquoteConfiguration props) {
     element as QuoteElement;
 
-    MarkUpGlobalProps.apply(element, props.globalPropsConfiguration);
+    MarkUpGlobalProps.apply(element, props.globalConfiguration);
 
     if (null != props.cite) {
       element.cite = props.cite!;
@@ -127,7 +127,7 @@ class _BlockquoteProps {
   static void clear(HtmlElement element, _BlockquoteConfiguration props) {
     element as QuoteElement;
 
-    MarkUpGlobalProps.clear(element, props.globalPropsConfiguration);
+    MarkUpGlobalProps.clear(element, props.globalConfiguration);
 
     if (null != props.cite) {
       element.cite = "";

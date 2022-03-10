@@ -65,7 +65,7 @@ class Image extends MarkUpTagWithGlobalProps {
       width: width,
       height: height,
       size: size,
-      globalPropsConfiguration:
+      globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
   }
@@ -77,7 +77,7 @@ class Image extends MarkUpTagWithGlobalProps {
         width != oldConfiguration.width ||
         height != oldConfiguration.height ||
         size != oldConfiguration.size ||
-        super.isConfigurationChanged(oldConfiguration.globalPropsConfiguration);
+        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }
 
   @override
@@ -91,7 +91,7 @@ class Image extends MarkUpTagWithGlobalProps {
 */
 
 class _ImageConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalPropsConfiguration;
+  final MarkUpGlobalConfiguration globalConfiguration;
 
   final String? src;
 
@@ -109,7 +109,7 @@ class _ImageConfiguration extends WidgetConfiguration {
     this.width,
     this.height,
     this.size,
-    required this.globalPropsConfiguration,
+    required this.globalConfiguration,
   });
 }
 
@@ -152,7 +152,7 @@ class _ImageProps {
   static void apply(HtmlElement element, _ImageConfiguration props) {
     element as ImageElement;
 
-    MarkUpGlobalProps.apply(element, props.globalPropsConfiguration);
+    MarkUpGlobalProps.apply(element, props.globalConfiguration);
 
     CommonProps.applySizeProps(
       element,
@@ -169,7 +169,7 @@ class _ImageProps {
   static void clear(HtmlElement element, _ImageConfiguration props) {
     element as ImageElement;
 
-    MarkUpGlobalProps.clear(element, props.globalPropsConfiguration);
+    MarkUpGlobalProps.clear(element, props.globalConfiguration);
 
     CommonProps.clearSizeProps(
       element,

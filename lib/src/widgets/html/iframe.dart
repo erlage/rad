@@ -84,7 +84,7 @@ class IFrame extends MarkUpTagWithGlobalProps {
       width: width,
       height: height,
       size: size,
-      globalPropsConfiguration:
+      globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
   }
@@ -99,7 +99,7 @@ class IFrame extends MarkUpTagWithGlobalProps {
         width != oldConfiguration.width ||
         height != oldConfiguration.height ||
         size != oldConfiguration.size ||
-        super.isConfigurationChanged(oldConfiguration.globalPropsConfiguration);
+        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }
 
   @override
@@ -113,7 +113,7 @@ class IFrame extends MarkUpTagWithGlobalProps {
 */
 
 class _IFrameConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalPropsConfiguration;
+  final MarkUpGlobalConfiguration globalConfiguration;
 
   final String? src;
 
@@ -138,7 +138,7 @@ class _IFrameConfiguration extends WidgetConfiguration {
     this.width,
     this.height,
     this.size,
-    required this.globalPropsConfiguration,
+    required this.globalConfiguration,
   });
 }
 
@@ -181,7 +181,7 @@ class _IFrameProps {
   static void apply(HtmlElement element, _IFrameConfiguration props) {
     element as IFrameElement;
 
-    MarkUpGlobalProps.apply(element, props.globalPropsConfiguration);
+    MarkUpGlobalProps.apply(element, props.globalConfiguration);
 
     CommonProps.applySizeProps(
       element,
@@ -204,7 +204,7 @@ class _IFrameProps {
   static void clear(HtmlElement element, _IFrameConfiguration props) {
     element as IFrameElement;
 
-    MarkUpGlobalProps.clear(element, props.globalPropsConfiguration);
+    MarkUpGlobalProps.clear(element, props.globalConfiguration);
 
     CommonProps.clearSizeProps(
       element,
