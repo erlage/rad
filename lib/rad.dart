@@ -66,11 +66,11 @@ export 'src/widgets/html/break_line.dart' show BreakLine;
 export 'src/widgets/html/image.dart' show Image;
 export 'src/widgets/html/paragraph.dart' show Paragraph;
 
-export 'src/core/types.dart' show OnInputChangeCallback;
 export 'src/widgets/html/input_text.dart' show InputText;
 export 'src/widgets/html/input_checkbox.dart' show InputCheckBox;
 export 'src/widgets/html/input_radio.dart' show InputRadio;
 export 'src/widgets/html/input_file.dart' show InputFile;
+export 'src/widgets/html/input_submit.dart' show InputSubmit;
 
 // imported widgets impls
 
