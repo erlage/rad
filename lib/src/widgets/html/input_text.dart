@@ -17,7 +17,7 @@ class InputText extends InputTag {
 
   /// when input changes
   ///
-  final OnInputTextChange? onChange;
+  final OnInputChangeCallback? onChange;
 
   const InputText({
     this.readOnly,
@@ -110,7 +110,7 @@ class _InputTextConfiguration extends WidgetConfiguration {
   final String? pattern;
   final String? placeholder;
 
-  final OnInputTextChange? onChange;
+  final OnInputChangeCallback? onChange;
 
   const _InputTextConfiguration({
     this.type,

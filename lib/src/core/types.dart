@@ -30,4 +30,4 @@ typedef RenderElementCallback = void Function(
 
 // input related
 
-typedef OnInputTextChange = void Function(Event event);
+typedef OnInputChangeCallback = void Function(Event event);

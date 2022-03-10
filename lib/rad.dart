@@ -66,7 +66,7 @@ export 'src/widgets/html/break_line.dart' show BreakLine;
 export 'src/widgets/html/image.dart' show Image;
 export 'src/widgets/html/paragraph.dart' show Paragraph;
 
-export 'src/core/types.dart' show OnInputTextChange;
+export 'src/core/types.dart' show OnInputChangeCallback;
 export 'src/widgets/html/input_text.dart' show InputText;
 
 // imported widgets impls
