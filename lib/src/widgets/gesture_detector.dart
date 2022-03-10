@@ -44,6 +44,12 @@ class _GestureDetectorState extends State<GestureDetector> {
 
   @override
   didUpdateWidget(oldWidget) {
+    //
+    // we don't rebind onTap callback.
+    // i.e in -> onTap: someVar ? () { A } : () { B }, Callback containing
+    // B will never binds as onTap handler
+    //
+
     var hadTap = hasOnTap(oldWidget);
     var hasTap = hasOnTap(widget);
 
