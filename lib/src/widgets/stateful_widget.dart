@@ -96,7 +96,7 @@ class StatefulWidgetRenderObject extends RenderObject {
   }
 
   @override
-  afterWidgetRebind(updateType, oldWidget) {
+  afterWidgetRebind(updateType, covariant StatefulWidget oldWidget) {
     // widget rebinding rebinds widget instance in renderObject.context
 
     state
@@ -126,7 +126,7 @@ class StatefulWidgetRenderObject extends RenderObject {
 |--------------------------------------------------------------------------
 */
 
-abstract class State<T> {
+abstract class State<T extends StatefulWidget> {
   /*
   |--------------------------------------------------------------------------
   | useful getters
