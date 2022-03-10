@@ -138,7 +138,7 @@ class _InputCheckBoxProps {
     }
 
     if (null != props.onChange) {
-      element.addEventListener("input", props.onChange);
+      element.addEventListener("change", props.onChange);
     }
   }
 
@@ -152,7 +152,7 @@ class _InputCheckBoxProps {
     }
 
     if (null != props.onChange) {
-      element.removeEventListener("input", props.onChange);
+      element.removeEventListener("change", props.onChange);
     }
   }
 }
