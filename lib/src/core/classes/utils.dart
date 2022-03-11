@@ -53,6 +53,9 @@ class Utils {
 
       case DomTag.form:
         return "form";
+
+      case DomTag.fieldSet:
+        return "fieldset";
     }
   }
 

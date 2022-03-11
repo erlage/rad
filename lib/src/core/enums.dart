@@ -111,6 +111,10 @@ enum DomTag {
   /// Form tag.
   ///
   form,
+
+  /// Form field set.
+  ///
+  fieldSet,
 }
 
 enum WidgetAction {
