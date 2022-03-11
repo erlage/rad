@@ -57,6 +57,7 @@ export 'src/widgets/stateless_provider.dart' show StatelessProvider;
 
 export 'src/widgets/html/header.dart' show Header;
 export 'src/widgets/html/footer.dart' show Footer;
+export 'src/widgets/html/navigation.dart' show Navigation;
 
 export 'src/widgets/html/headings.dart';
 

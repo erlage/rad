@@ -64,6 +64,12 @@ enum ButtonType {
 /// Widget's corresponding DOM tag.
 ///
 enum DomTag {
+  header,
+
+  footer,
+
+  navigation,
+
   division,
 
   span,
@@ -117,10 +123,6 @@ enum DomTag {
   progress,
 
   textArea,
-
-  header,
-
-  footer,
 
   // headings
   heading1,

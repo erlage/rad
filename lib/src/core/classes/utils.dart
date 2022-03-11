@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:rad/rad.dart';
 import 'package:rad/src/core/enums.dart';
 
 class Utils {
@@ -24,6 +23,9 @@ class Utils {
 
       case DomTag.footer:
         return "footer";
+
+      case DomTag.navigation:
+        return "nav";
 
       case DomTag.division:
         return "div";
