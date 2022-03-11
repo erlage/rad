@@ -5,22 +5,28 @@ import 'package:rad/rad.dart';
 void main() {
   RadApp(
     targetId: "output",
-    child: ClickTest(),
+    child: ClickToggle(),
   );
 }
 
-class ClickTest extends StatefulWidget {
+class ClickToggle extends StatefulWidget {
+
+  @override
+  _ClickToggleState createState() => _ClickToggleState();
+}
+
+class _ClickToggleState extends State<ClickToggle> {
   bool isClicked = false;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: _handleTap,
-      child: Text(isClicked ? "clicked!" : "click me"),
+      child: Text(isClicked ? "on! click to turn off." : "click to turn on."),
     );
   }
 
-  handleTap() {
+  _handleTap() {
     setState(() {
       isClicked = !isClicked;
     });
@@ -29,5 +35,3 @@ class ClickTest extends StatefulWidget {
 ```
 
 For installing Rad please refer to [package homepage](https://pub.dev/packages/rad)
-
-Examples are moved to [this repo](https://github.com/rad-framework/examples)

@@ -13,9 +13,9 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///
 /// Rad framework comes with a in-built Router that offers
 ///
-/// - Auto Routing
-/// - Auto Deep linking
-/// - Auto Single page experience (no page reloads when user hit forward/back buttons)
+/// - Routing
+/// - Deep linking
+/// - Single page experience (no page reloads when user hit forward/back buttons)
 ///
 /// Syntax
 ///
