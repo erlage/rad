@@ -4,7 +4,7 @@ import 'package:rad/src/widgets/html/division.dart';
 
 class Paragraph extends Division {
   Paragraph({
-    String? id,
+    String? key,
     String? title,
     String? classAttribute,
     int? tabIndex,
@@ -14,7 +14,7 @@ class Paragraph extends Division {
     bool? hidden,
     List<Widget>? children,
   }) : super(
-          id: id,
+          key: key,
           title: title,
           classAttribute: classAttribute,
           tabIndex: tabIndex,

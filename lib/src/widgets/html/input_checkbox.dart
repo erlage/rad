@@ -6,7 +6,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 class InputCheckBox extends InputTag {
   const InputCheckBox({
-    String? id,
+    String? key,
     String? name,
     String? value,
     bool? checked,
@@ -22,7 +22,7 @@ class InputCheckBox extends InputTag {
     bool? hidden,
     List<Widget>? children,
   }) : super(
-          id: id,
+          key: key,
           type: InputType.checkbox,
           name: name,
           value: value,

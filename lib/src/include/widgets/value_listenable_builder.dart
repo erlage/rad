@@ -41,11 +41,11 @@ class ValueListenableBuilder<T> extends StatefulWidget {
   /// The [child] is optional but is good practice to use if part of the widget
   /// subtree does not depend on the value of the [valueListenable].
   const ValueListenableBuilder({
-    String? id,
+    String? key,
     required this.valueListenable,
     required this.builder,
     this.child,
-  }) : super(id: id);
+  }) : super(key: key);
 
   /// The [ValueListenable] whose value you depend on in order to build.
   ///

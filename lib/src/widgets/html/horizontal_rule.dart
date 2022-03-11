@@ -8,9 +8,9 @@ class HorizontalRule extends Widget {
   final String? classAttribute;
 
   HorizontalRule({
-    String? id,
+    String? key,
     this.classAttribute,
-  }) : super(id);
+  }) : super(key);
 
   @override
   get correspondingTag => DomTag.horizontalRule;

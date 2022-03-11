@@ -4,7 +4,7 @@ import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 class BreakLine extends Widget {
-  const BreakLine({String? id}) : super(id);
+  const BreakLine({String? key}) : super(key);
 
   @override
   get concreteType => "$BreakLine";

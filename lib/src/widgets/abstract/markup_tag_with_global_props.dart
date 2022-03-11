@@ -43,7 +43,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
   final List<Widget>? children;
 
   const MarkUpTagWithGlobalProps({
-    String? id,
+    String? key,
     this.title,
     this.tabIndex,
     this.classAttribute,
@@ -52,7 +52,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
     this.draggable,
     this.contenteditable,
     this.children,
-  }) : super(id);
+  }) : super(key);
 
   @override
   get widgetChildren => children ?? [];

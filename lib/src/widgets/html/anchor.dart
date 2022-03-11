@@ -27,7 +27,7 @@ class Anchor extends MarkUpTagWithGlobalProps {
   final String? download;
 
   const Anchor({
-    String? id,
+    String? key,
     this.href,
     this.rel,
     this.target,
@@ -41,7 +41,7 @@ class Anchor extends MarkUpTagWithGlobalProps {
     Map<String, String>? dataset,
     List<Widget>? children,
   }) : super(
-          id: id,
+          key: key,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,

@@ -21,12 +21,12 @@ class GestureDetector extends StatefulWidget {
   final HitTestBehavior behaviour;
 
   const GestureDetector({
-    String? id,
+    String? key,
     required this.child,
     this.onTap,
     this.onTapEvent,
     this.behaviour = HitTestBehavior.deferToChild,
-  }) : super(id: id);
+  }) : super(key: key);
 
   @override
   State<GestureDetector> createState() => _GestureDetectorState();

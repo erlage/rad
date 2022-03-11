@@ -142,18 +142,18 @@ class Framework {
     }
 
     for (final widget in widgets) {
-      // generate id if not set
+      // generate key if not set
 
-      var widgetId = System.contextIdNotSet == widget.initialId
-          ? Utils.generateWidgetId()
-          : widget.initialId;
+      var widgetKey = System.contextKeyNotSet == widget.initialKey
+          ? Utils.generateWidgetKey()
+          : widget.initialKey;
 
       var configuration = widget.createConfiguration();
 
       // create build context
 
       var buildContext = BuildContext(
-        id: widgetId,
+        key: widgetKey,
         widget: widget,
         parent: parentContext,
         widgetConcreteType: widget.concreteType,
@@ -186,20 +186,20 @@ class Framework {
 
         if (System.contextTypeBigBang != widgetType) {
           var element = document.getElementById(
-            renderObject.context.parent.id,
+            renderObject.context.parent.key,
           );
 
           if (null == element) {
-            throw "Unable to find target to mount app. Make sure your DOM has element with id #${renderObject.context.parent}";
+            throw "Unable to find target to mount app. Make sure your DOM has element with key #${renderObject.context.parent}";
           }
 
           element.innerHtml = "";
         } else {
-          var parentId = widgetObject.renderObject.context.parent.id;
+          var parentKey = widgetObject.renderObject.context.parent.key;
 
           _disposeWidget(
             preserveTarget: true,
-            widgetObject: _getWidgetObject(parentId),
+            widgetObject: _getWidgetObject(parentKey),
           );
         }
       }
@@ -268,7 +268,7 @@ class Framework {
       );
     }
 
-    var parent = document.getElementById(parentContext.id);
+    var parent = document.getElementById(parentContext.key);
 
     if (null == parent) {
       return dispatchCompleteRebuild();
@@ -314,9 +314,9 @@ class Framework {
       // if flag is on for missing childs
 
       if (flagAddIfNotFound) {
-        var randomId = "_${Utils.generateRandomId()}";
+        var randomKey = "_${Utils.generateRandomKey()}";
 
-        updateObjects[randomId] = WidgetUpdateObject(widget, null);
+        updateObjects[randomKey] = WidgetUpdateObject(widget, null);
       }
     }
 
@@ -422,7 +422,7 @@ class Framework {
     //
     bool flagIterateInReverseOrder = false,
   }) {
-    var widgetObject = _getWidgetObject(parentContext.id);
+    var widgetObject = _getWidgetObject(parentContext.key);
 
     if (null == widgetObject) return;
 
@@ -548,12 +548,12 @@ class Framework {
     // ensure context is ready for processing.
     // this happens when user .of(context) is called inside a constructor.
 
-    if (System.contextIdNotSet == context.id) {
+    if (System.contextKeyNotSet == context.key) {
       throw "Part of build context is not ready. This means that context is under construction.";
     }
 
     var domNode =
-        document.getElementById(context.id)?.parent?.closest(selector);
+        document.getElementById(context.key)?.parent?.closest(selector);
 
     if (null == domNode) {
       return null;
@@ -577,14 +577,14 @@ class Framework {
   }
 
   static void _registerWidgetObject(WidgetObject widgetObject) {
-    var widgetId = widgetObject.renderObject.context.id;
+    var widgetKey = widgetObject.renderObject.context.key;
 
-    _registeredWidgetObjects[widgetId] = widgetObject;
+    _registeredWidgetObjects[widgetKey] = widgetObject;
   }
 
   static void _unRegisterWidgetObject(WidgetObject widgetObject) {
-    var widgetId = widgetObject.renderObject.context.id;
+    var widgetKey = widgetObject.renderObject.context.key;
 
-    _registeredWidgetObjects.remove(widgetId);
+    _registeredWidgetObjects.remove(widgetKey);
   }
 }

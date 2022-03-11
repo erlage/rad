@@ -12,9 +12,9 @@ class Text extends Widget {
 
   const Text(
     this.text, {
-    String? id,
+    String? key,
     this.classAttribute,
-  }) : super(id);
+  }) : super(key);
 
   @override
   get concreteType => "$Text";

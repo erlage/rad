@@ -35,7 +35,7 @@ class WidgetObject {
     //
     // add properties to element
 
-    element.id = renderObject.context.id;
+    element.id = renderObject.context.key;
     element.dataset[System.attrConcreteType] =
         renderObject.context.widgetConcreteType;
     element.dataset[System.attrRuntimeType] =
@@ -50,7 +50,7 @@ class WidgetObject {
     // we can't use node.parent here cus root widget's parent can be null
 
     var parentElement = document.getElementById(
-      renderObject.context.parent.id,
+      renderObject.context.parent.key,
     );
 
     if (null != parentElement) {
@@ -59,7 +59,7 @@ class WidgetObject {
       _isMounted = true;
     } else {
       if (Debug.developmentMode) {
-        print("Element not found: #${renderObject.context.parent.id}");
+        print("Element not found: #${renderObject.context.parent.key}");
       }
     }
   }

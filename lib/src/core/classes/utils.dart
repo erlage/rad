@@ -6,12 +6,12 @@ class Utils {
   static var _extraCounter = 0;
   static var _widgetCounter = 0;
 
-  static String generateWidgetId() {
+  static String generateWidgetKey() {
     _widgetCounter++;
     return _widgetCounter.toString() + "_" + Utils.random();
   }
 
-  static String generateRandomId() {
+  static String generateRandomKey() {
     _extraCounter++;
     return _extraCounter.toString() + "_" + Utils.random();
   }

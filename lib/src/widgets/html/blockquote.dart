@@ -14,7 +14,7 @@ class Blockquote extends MarkUpTagWithGlobalProps {
   final String? cite;
 
   const Blockquote({
-    String? id,
+    String? key,
     this.cite,
     bool? hidden,
     bool? draggable,
@@ -25,7 +25,7 @@ class Blockquote extends MarkUpTagWithGlobalProps {
     Map<String, String>? dataAttributes,
     List<Widget>? children,
   }) : super(
-          id: id,
+          key: key,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,

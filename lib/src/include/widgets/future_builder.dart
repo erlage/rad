@@ -49,11 +49,11 @@ class FutureBuilder<T> extends StatefulWidget {
   ///
   /// The [builder] must not be null.
   const FutureBuilder({
-    String? id,
+    String? key,
     this.future,
     this.initialData,
     required this.builder,
-  }) : super(id: id);
+  }) : super(key: key);
 
   /// The asynchronous computation to which this builder is currently connected,
   /// possibly null.

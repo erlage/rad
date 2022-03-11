@@ -5,7 +5,7 @@ import 'package:rad/src/widgets/abstract/input_tag.dart';
 
 class InputSubmit extends InputTag {
   const InputSubmit({
-    String? id,
+    String? key,
     String? name,
     String? value,
     bool? required,
@@ -19,7 +19,7 @@ class InputSubmit extends InputTag {
     Map<String, String>? dataAttributes,
     bool? hidden,
   }) : super(
-          id: id,
+          key: key,
           type: InputType.submit,
           name: name,
           disabled: disabled,

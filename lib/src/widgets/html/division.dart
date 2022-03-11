@@ -6,7 +6,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 class Division extends MarkUpTagWithGlobalProps {
   const Division({
-    String? id,
+    String? key,
     String? title,
     String? classAttribute,
     int? tabIndex,
@@ -16,7 +16,7 @@ class Division extends MarkUpTagWithGlobalProps {
     bool? hidden,
     List<Widget>? children,
   }) : super(
-          id: id,
+          key: key,
           title: title,
           classAttribute: classAttribute,
           tabIndex: tabIndex,

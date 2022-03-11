@@ -10,9 +10,9 @@ class StatelessProvider extends StatelessWidget {
   final Widget child;
 
   const StatelessProvider({
-    String? id,
+    String? key,
     required this.child,
-  }) : super(id: id);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => child;

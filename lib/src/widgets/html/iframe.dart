@@ -46,7 +46,7 @@ class IFrame extends MarkUpTagWithGlobalProps {
     this.width,
     this.height,
     this.size,
-    String? id,
+    String? key,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,
@@ -56,7 +56,7 @@ class IFrame extends MarkUpTagWithGlobalProps {
     Map<String, String>? dataAttributes,
     List<Widget>? children,
   }) : super(
-          id: id,
+          key: key,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,

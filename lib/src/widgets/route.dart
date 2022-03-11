@@ -26,12 +26,12 @@ class Route extends Widget {
   final Widget page;
 
   const Route({
-    String? id,
+    String? key,
     String? path,
     required this.name,
     required this.page,
   })  : path = path ?? name,
-        super(id);
+        super(key);
 
   @override
   get concreteType => "$Route";

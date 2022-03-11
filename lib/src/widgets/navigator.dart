@@ -131,7 +131,7 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///
 /// ```dart
 /// // rather than doing this
-/// Route(name: "profile", page: Profile(id: 123));
+/// Route(name: "profile", page: Profile(key: 123));
 ///
 /// // do this
 /// Route(name: "profile", page: Profile());
@@ -140,7 +140,7 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 /// Navigator.of(context).open(name: "profile", value: "/123");
 ///
 /// // on profile page
-/// var id = Navigator.of(context).getValue("profile");
+/// var key = Navigator.of(context).getValue("profile");
 /// ```
 ///
 /// ### onRouteChange hook:
@@ -170,11 +170,11 @@ class Navigator extends StatefulWidget {
   final List<Route> routes;
 
   const Navigator({
-    String? id,
+    String? key,
     this.onInit,
     this.onRouteChange,
     required this.routes,
-  }) : super(id: id);
+  }) : super(key: key);
 
   @override
   State<Navigator> createState() => NavigatorState();
@@ -256,7 +256,7 @@ class NavigatorState extends State<Navigator> {
   build(context) => throw "Navigator uses Framework API for widget building.";
 
   void render() {
-    var name = Router.getPath(context.id);
+    var name = Router.getPath(context.key);
 
     var needsReplacement = name.isEmpty;
 
@@ -271,13 +271,13 @@ class NavigatorState extends State<Navigator> {
 
     if (needsReplacement && name.isNotEmpty) {
       if (Debug.routerLogs) {
-        print("${context.id}: Push replacement: $name");
+        print("${context.key}: Push replacement: $name");
       }
 
       Router.pushReplacement(
         name: name,
         values: '',
-        navigatorId: context.id,
+        navigatorKey: context.key,
       );
     }
 
@@ -355,13 +355,13 @@ class NavigatorState extends State<Navigator> {
 
     if (updateHistory) {
       if (Debug.routerLogs) {
-        print("${context.id}: Push entry: $name");
+        print("${context.key}: Push entry: $name");
       }
 
       Router.pushEntry(
         name: name,
         values: values ?? '',
-        navigatorId: context.id,
+        navigatorKey: context.key,
         updateHistory: updateHistory,
       );
     }
@@ -447,17 +447,17 @@ class NavigatorState extends State<Navigator> {
   /// Framework fires this when parent route changes.
   ///
   void onParentRouteChange(String name) {
-    var routeName = Router.getPath(context.id);
+    var routeName = Router.getPath(context.key);
 
     if (routeName != currentRouteName) {
       if (Debug.routerLogs) {
-        print("${context.id}: Push replacement: $routeName");
+        print("${context.key}: Push replacement: $routeName");
       }
 
       Router.pushReplacement(
         name: currentRouteName,
         values: '',
-        navigatorId: context.id,
+        navigatorKey: context.key,
       );
     }
   }
@@ -491,7 +491,7 @@ class NavigatorState extends State<Navigator> {
   /// // because current navigator is registered on posts page
   /// ```
   ///
-  String getValue(String segment) => Router.getValue(context.id, segment);
+  String getValue(String segment) => Router.getValue(context.key, segment);
 
   void _updateCurrentName(String name) {
     _currentName = name;

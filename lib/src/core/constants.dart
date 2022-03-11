@@ -13,7 +13,7 @@ class System {
   // context specific
 
   static const contextTypeBigBang = "BigBang";
-  static const contextIdNotSet = "not-set";
+  static const contextKeyNotSet = "not-set";
 
   // errors
 

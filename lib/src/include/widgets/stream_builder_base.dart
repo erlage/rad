@@ -36,7 +36,7 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///    recent interaction is needed for widget building.
 abstract class StreamBuilderBase<T, S> extends StatefulWidget {
   /// Creates a [StreamBuilderBase] connected to the specified [stream].
-  const StreamBuilderBase({String? id, this.stream}) : super(id: id);
+  const StreamBuilderBase({String? key, this.stream}) : super(key: key);
 
   /// The asynchronous computation to which this builder is currently connected,
   /// possibly null. When changed, the current summary is updated using

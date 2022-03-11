@@ -6,7 +6,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 class InputRadio extends InputTag {
   const InputRadio({
-    String? id,
+    String? key,
     String? name,
     String? value,
     bool? checked,
@@ -22,7 +22,7 @@ class InputRadio extends InputTag {
     bool? hidden,
     List<Widget>? children,
   }) : super(
-          id: id,
+          key: key,
           type: InputType.radio,
           name: name,
           value: value,

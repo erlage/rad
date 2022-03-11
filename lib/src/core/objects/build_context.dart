@@ -11,7 +11,7 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 /// to trace back origin of widget all the way to BigBang(where it all started)
 ///
 class BuildContext {
-  final String id;
+  final String key;
 
   /// Runtime type of widget class.
   ///
@@ -45,7 +45,7 @@ class BuildContext {
   bool hasWidget() => null != _widget;
 
   BuildContext({
-    required this.id,
+    required this.key,
     required this.widgetConcreteType,
     required this.widgetCorrespondingTag,
     required this.widgetRuntimeType,
@@ -58,12 +58,12 @@ class BuildContext {
   ///
   /// This is required to bootstrap framework.
   ///
-  /// Root widget's can have a parent id which points to the place
+  /// Root widget's can have a parent key which points to the place
   /// where it all started(HTML div) but parent is not a widget and
   /// its type is undefined because at the time of big bang there
   /// are no widgets.
   ///
-  BuildContext.bigBang(this.id)
+  BuildContext.bigBang(this.key)
       : _widget = null,
         _parent = null,
         widgetCorrespondingTag = DomTag.div,
@@ -91,6 +91,6 @@ class BuildContext {
 
     var pType = cType != rType ? "$rType ($cType)" : rType;
 
-    return "#$id $pType < #${parent.id}";
+    return "#$key $pType < #${parent.key}";
   }
 }

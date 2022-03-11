@@ -10,7 +10,7 @@ import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 class Form extends MarkUpTagWithGlobalProps {
-  /// Name of the form. It's very common to use same name as [id]
+  /// Name of the form. It's very common to use same name as [key]
   /// for inputs.
   ///
   final String? name;
@@ -49,7 +49,7 @@ class Form extends MarkUpTagWithGlobalProps {
     this.target,
     this.method,
     this.onSubmit,
-    String? id,
+    String? key,
     String? title,
     String? classAttribute,
     int? tabIndex,
@@ -59,7 +59,7 @@ class Form extends MarkUpTagWithGlobalProps {
     bool? hidden,
     List<Widget>? children,
   }) : super(
-          id: id,
+          key: key,
           title: title,
           classAttribute: classAttribute,
           tabIndex: tabIndex,

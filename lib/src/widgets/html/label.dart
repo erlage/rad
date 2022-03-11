@@ -9,13 +9,13 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// The Label tag.
 ///
 class Label extends MarkUpTagWithGlobalProps {
-  /// The value of the [forAttribute] attribute must be a single id for a labelable
+  /// The value of the [forAttribute] attribute must be a single key for a labelable
   /// form-related element in the same document as the <label> element.
   ///
   final String? forAttribute;
 
   const Label({
-    String? id,
+    String? key,
     this.forAttribute,
     bool? hidden,
     bool? draggable,
@@ -26,7 +26,7 @@ class Label extends MarkUpTagWithGlobalProps {
     Map<String, String>? dataAttributes,
     List<Widget>? children,
   }) : super(
-          id: id,
+          key: key,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,

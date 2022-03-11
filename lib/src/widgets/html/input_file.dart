@@ -5,7 +5,7 @@ import 'package:rad/src/widgets/abstract/input_tag.dart';
 
 class InputFile extends InputTag {
   const InputFile({
-    String? id,
+    String? key,
     String? name,
     String? accept,
     bool? multiple,
@@ -20,7 +20,7 @@ class InputFile extends InputTag {
     Map<String, String>? dataAttributes,
     bool? hidden,
   }) : super(
-          id: id,
+          key: key,
           type: InputType.file,
           name: name,
           accept: accept,

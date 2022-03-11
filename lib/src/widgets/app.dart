@@ -15,18 +15,18 @@ import 'package:rad/src/widgets/utils/common_props.dart';
 class App extends Widget {
   final Widget child;
 
-  final String targetId;
+  final String targetKey;
 
   final AppComponents? components;
 
   App({
-    String? id,
+    String? key,
     this.components,
     required this.child,
-    required this.targetId,
+    required this.targetKey,
     String routingPath = "",
     DebugOptions? debugOptions,
-  }) : super(id) {
+  }) : super(key) {
     /*
     |--------------------------------------------------------------------------
     | initialize
@@ -44,7 +44,7 @@ class App extends Widget {
     |--------------------------------------------------------------------------
     */
 
-    var targetElement = document.getElementById(targetId) as HtmlElement?;
+    var targetElement = document.getElementById(targetKey) as HtmlElement?;
 
     if (null == targetElement) {
       throw "Unable to locate target element in HTML document";
@@ -72,7 +72,7 @@ class App extends Widget {
 
     Framework.buildChildren(
       widgets: [this],
-      parentContext: BuildContext.bigBang(targetId),
+      parentContext: BuildContext.bigBang(targetKey),
     );
   }
 

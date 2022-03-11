@@ -23,7 +23,7 @@ class InputText extends InputTag {
     this.pattern,
     this.placeholder,
     bool isPassword = false,
-    String? id,
+    String? key,
     String? name,
     String? value,
     EventCallback? onChange,
@@ -38,7 +38,7 @@ class InputText extends InputTag {
     bool? hidden,
     List<Widget>? children,
   }) : super(
-          id: id,
+          key: key,
           type: isPassword ? InputType.password : InputType.text,
           name: name,
           value: value,

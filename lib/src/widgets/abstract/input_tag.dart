@@ -13,7 +13,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
   /// Type of input tag.
   final InputType? type;
 
-  /// Name of the input. It's very common to use same name as [id]
+  /// Name of the input. It's very common to use same name as [key]
   /// for inputs.
   ///
   final String? name;
@@ -60,7 +60,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
     this.checked,
     this.disabled,
     this.eventCallback,
-    String? id,
+    String? key,
     String? title,
     String? classAttribute,
     int? tabIndex,
@@ -70,7 +70,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
     bool? hidden,
     List<Widget>? children,
   }) : super(
-          id: id,
+          key: key,
           title: title,
           classAttribute: classAttribute,
           tabIndex: tabIndex,

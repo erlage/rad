@@ -13,7 +13,7 @@ import 'package:rad/src/widgets/utils/common_props.dart';
 ///
 @immutable
 abstract class StatefulWidget extends Widget {
-  const StatefulWidget({String? id}) : super(id);
+  const StatefulWidget({String? key}) : super(key);
 
   /// Creates the mutable state for this widget at a given location in the tree.
   ///

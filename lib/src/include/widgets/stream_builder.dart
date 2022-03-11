@@ -61,11 +61,11 @@ class StreamBuilder<T> extends StreamBuilderBase<T, AsyncSnapshot<T>> {
   ///
   /// The [builder] must not be null.
   const StreamBuilder({
-    String? id,
+    String? key,
     this.initialData,
     Stream<T>? stream,
     required this.builder,
-  }) : super(id: id, stream: stream);
+  }) : super(key: key, stream: stream);
 
   /// The build strategy currently used by this builder.
   ///
