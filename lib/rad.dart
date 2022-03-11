@@ -56,6 +56,7 @@ export 'src/widgets/stateless_provider.dart' show StatelessProvider;
 // html
 
 export 'src/widgets/html/span.dart' show Span;
+export 'src/widgets/html/idiomatic.dart' show Idiomatic;
 export 'src/widgets/html/division.dart' show Division;
 export 'src/widgets/html/anchor.dart' show Anchor;
 export 'src/widgets/html/blockquote.dart' show Blockquote;

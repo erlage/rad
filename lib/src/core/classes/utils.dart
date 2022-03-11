@@ -56,6 +56,9 @@ class Utils {
 
       case DomTag.fieldSet:
         return "fieldset";
+
+      case DomTag.idiomatic:
+        return "i";
     }
   }
 

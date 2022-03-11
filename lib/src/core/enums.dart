@@ -115,6 +115,10 @@ enum DomTag {
   /// Form field set.
   ///
   fieldSet,
+
+  /// Idiomatic text.
+  ///
+  idiomatic,
 }
 
 enum WidgetAction {
