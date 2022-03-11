@@ -80,6 +80,12 @@ class Utils {
 
       case DomTag.button:
         return "button";
+
+      case DomTag.select:
+        return "select";
+
+      case DomTag.option:
+        return "option";
     }
   }
 

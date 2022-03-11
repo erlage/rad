@@ -153,6 +153,14 @@ enum DomTag {
   /// Button tag.
   ///
   button,
+
+  /// Select tag.
+  ///
+  select,
+
+  /// Option tag.
+  ///
+  option,
 }
 
 enum WidgetAction {

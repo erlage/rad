@@ -73,6 +73,8 @@ export 'src/widgets/html/paragraph.dart' show Paragraph;
 export 'src/widgets/html/unordered_list.dart' show UnOrderedList;
 export 'src/widgets/html/list_item.dart' show ListItem;
 export 'src/widgets/html/button.dart' show Button;
+export 'src/widgets/html/select.dart' show Select;
+export 'src/widgets/html/option.dart' show Option;
 
 export 'src/widgets/html/form.dart' show Form;
 export 'src/widgets/html/fieldset.dart' show FieldSet;
