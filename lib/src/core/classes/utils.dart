@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:rad/rad.dart';
 import 'package:rad/src/core/enums.dart';
 
 class Utils {
@@ -18,6 +19,12 @@ class Utils {
 
   static String mapDomTag(DomTag tag) {
     switch (tag) {
+      case DomTag.header:
+        return "header";
+
+      case DomTag.footer:
+        return "footer";
+
       case DomTag.division:
         return "div";
 
@@ -96,11 +103,25 @@ class Utils {
       case DomTag.textArea:
         return "textarea";
 
-      case DomTag.header:
-        return "header";
+      // headings
 
-      case DomTag.footer:
-        return "footer";
+      case DomTag.heading1:
+        return "h1";
+
+      case DomTag.heading2:
+        return "h2";
+
+      case DomTag.heading3:
+        return "h3";
+
+      case DomTag.heading4:
+        return "h4";
+
+      case DomTag.heading5:
+        return "h5";
+
+      case DomTag.heading6:
+        return "h6";
     }
   }
 
