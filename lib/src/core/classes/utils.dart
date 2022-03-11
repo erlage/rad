@@ -59,6 +59,9 @@ class Utils {
 
       case DomTag.idiomatic:
         return "i";
+
+      case DomTag.strong:
+        return "strong";
     }
   }
 

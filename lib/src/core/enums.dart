@@ -119,6 +119,10 @@ enum DomTag {
   /// Idiomatic text.
   ///
   idiomatic,
+
+  /// Strong text.
+  ///
+  strong,
 }
 
 enum WidgetAction {
