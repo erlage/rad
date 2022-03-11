@@ -1,3 +1,41 @@
+## 0.5.0
+
+### New widgets
+
+- StatelessProvider
+- HTML tag widgets
+- FutureBuilder, StreamBuilder, ValueListenableBuilder
+
+### Changes
+
+- Following widgets are removed: Center, Align, Positioned, Center, Flex,
+Row, Column, Stack, Spacer, Expanded, Flexible, Align, Container, SizedBox.
+
+### Core Update
+
+Major changes:
+
+- Both Widgets and RenderObjects are now immutable
+- Plus, A RenderObject is created exactly once.
+
+For above two things, we've delegated some of the mutable parts to DOM
+and a super lightweight widget configuration API is added that handles
+mutability on widget's constructor level
+
+Improvements:
+
+- Added findAncestor* methods to BuildContext
+- Navigator and GestureDetector are now subclassing StatefulWidget
+- A lot of mess has been cleaned. Including 'late final' modifier combos
+that has problems with dart2js. 
+
+### Comments
+
+A lot has been changed. We've now reached our first milestone. State management
+that's required to build real world apps is complete. I'm currently going back 
+to create web version of my Flutter app using this framework and see where it can
+be improved.
+
 ## 0.4.0
 
 ### New widgets!
