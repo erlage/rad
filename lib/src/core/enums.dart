@@ -45,7 +45,7 @@ enum InputType {
 }
 
 enum FormEncType {
-  applicationXwwFormUrlEncoded,
+  applicationXwwwFormUrlEncoded,
   multipartFormData,
   textPlain,
 }
@@ -61,124 +61,82 @@ enum ButtonType {
   reset,
 }
 
-/*
-|--------------------------------------------------------------------------
-| internals
-|--------------------------------------------------------------------------
-*/
-
 /// Widget's corresponding DOM tag.
 ///
 enum DomTag {
-  /// Division.
-  ///
-  div,
+  division,
 
-  /// Span.
-  ///
   span,
 
-  /// Anchor.
-  ///
   anchor,
 
-  /// Blockquote.
-  ///
   blockquote,
 
   /// Horizontal rule. (hr)
   ///
   horizontalRule,
 
-  /// Label tag.
-  ///
   label,
 
-  /// Iframe tag.
-  ///
   iFrame,
 
-  /// Break line tag.
-  ///
   breakLine,
 
-  /// Image tag.
-  ///
   image,
 
-  /// Paragraph tag.
-  ///
   paragraph,
 
-  /// Form input tag.
-  ///
   input,
 
-  /// Form tag.
-  ///
   form,
 
-  /// Form field set.
-  ///
   fieldSet,
 
-  /// Idiomatic text.
-  ///
   idiomatic,
 
-  /// Strong text.
-  ///
   strong,
 
-  /// Small text.
-  ///
   small,
 
-  /// Subscript element.
-  ///
   subScript,
 
-  /// Super script element.
-  ///
   superScript,
 
-  /// Un-ordered list
-  ///
   unOrderedList,
 
-  /// List item.
-  ///
   listItem,
 
-  /// Button tag.
-  ///
   button,
 
-  /// Select tag.
-  ///
   select,
 
-  /// Option tag.
-  ///
   option,
 
-  /// Legend tag.
-  ///
   legend,
 
-  /// Progress tag.
-  ///
   progress,
 
-  /// TextArea tag.
-  ///
   textArea,
+
+  header,
+
+  footer,
 }
+
+/*
+|--------------------------------------------------------------------------
+| internals
+|--------------------------------------------------------------------------
+*/
 
 enum WidgetAction {
   dispose,
+
   hideWidget,
+
   showWidget,
+
   updateWidget,
+
   skipRest,
 }

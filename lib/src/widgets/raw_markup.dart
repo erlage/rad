@@ -27,7 +27,7 @@ class RawMarkUp extends Widget {
   get concreteType => "$RawMarkUp";
 
   @override
-  get correspondingTag => DomTag.div;
+  get correspondingTag => DomTag.division;
 
   @override
   createConfiguration() => _RawMarkUpConfiguration(html);

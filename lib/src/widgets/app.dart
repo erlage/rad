@@ -80,7 +80,7 @@ class App extends Widget {
   get concreteType => "$App";
 
   @override
-  get correspondingTag => DomTag.div;
+  get correspondingTag => DomTag.division;
 
   @override
   createConfiguration() => _AppConfiguration(child);

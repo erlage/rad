@@ -37,7 +37,7 @@ class Route extends Widget {
   get concreteType => "$Route";
 
   @override
-  get correspondingTag => DomTag.div;
+  get correspondingTag => DomTag.division;
 
   @override
   get widgetChildren => [page];

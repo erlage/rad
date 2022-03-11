@@ -66,7 +66,7 @@ class BuildContext {
   BuildContext.bigBang(this.key)
       : _widget = null,
         _parent = null,
-        widgetCorrespondingTag = DomTag.div,
+        widgetCorrespondingTag = DomTag.division,
         widgetConcreteType = System.contextTypeBigBang,
         widgetRuntimeType = System.contextTypeBigBang;
 

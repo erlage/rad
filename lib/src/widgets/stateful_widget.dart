@@ -32,7 +32,7 @@ abstract class StatefulWidget extends Widget {
 
   @nonVirtual
   @override
-  get correspondingTag => DomTag.div;
+  get correspondingTag => DomTag.division;
 
   @nonVirtual
   @override

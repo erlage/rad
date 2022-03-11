@@ -18,7 +18,7 @@ class Utils {
 
   static String mapDomTag(DomTag tag) {
     switch (tag) {
-      case DomTag.div:
+      case DomTag.division:
         return "div";
 
       case DomTag.span:
@@ -95,6 +95,12 @@ class Utils {
 
       case DomTag.textArea:
         return "textarea";
+
+      case DomTag.header:
+        return "header";
+
+      case DomTag.footer:
+        return "footer";
     }
   }
 
@@ -151,7 +157,7 @@ class Utils {
 
   static String mapFormEncType(FormEncType type) {
     switch (type) {
-      case FormEncType.applicationXwwFormUrlEncoded:
+      case FormEncType.applicationXwwwFormUrlEncoded:
         return "application/x-www-form-urlencoded";
 
       case FormEncType.multipartFormData:
