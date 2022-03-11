@@ -92,6 +92,9 @@ class Utils {
 
       case DomTag.progress:
         return "progress";
+
+      case DomTag.textArea:
+        return "textarea";
     }
   }
 

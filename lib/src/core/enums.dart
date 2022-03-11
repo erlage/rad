@@ -169,6 +169,10 @@ enum DomTag {
   /// Progress tag.
   ///
   progress,
+
+  /// TextArea tag.
+  ///
+  textArea,
 }
 
 enum WidgetAction {
