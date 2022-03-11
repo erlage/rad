@@ -48,4 +48,4 @@ If you happen to be using VS code,
 
 ### Deployment
 
-For getting a release build run `webdev build --release`. It'll generate a ready-to-deploy build of your app inside `build` folder. To customize your build, read [this official deployment guide](https://dart.dev/web/deployment). Alternatively, you can also follow [webdev documentation](https://dart.dev/tools/webdev).
+For getting a release build run `webdev build --release`. It'll generate a ready-to-deploy build of your app inside `build` folder. To customize your build, read [this official deployment guide](https://dart.dev/web/deployment). Note that optimization level can be controlled. Refer to [dart2js docs](https://dart.dev/tools/dart2js) for options available. Alternatively, you can also follow [webdev documentation](https://dart.dev/tools/webdev).
