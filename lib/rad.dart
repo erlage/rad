@@ -60,6 +60,7 @@ export 'src/widgets/html/small.dart' show Small;
 export 'src/widgets/html/strong.dart' show Strong;
 export 'src/widgets/html/idiomatic.dart' show Idiomatic;
 export 'src/widgets/html/sub_script.dart' show SubScript;
+export 'src/widgets/html/super_script.dart' show SuperScript;
 export 'src/widgets/html/division.dart' show Division;
 export 'src/widgets/html/anchor.dart' show Anchor;
 export 'src/widgets/html/blockquote.dart' show Blockquote;

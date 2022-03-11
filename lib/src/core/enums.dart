@@ -131,6 +131,10 @@ enum DomTag {
   /// Subscript element.
   ///
   subScript,
+
+  /// Super script element.
+  ///
+  superScript,
 }
 
 enum WidgetAction {
