@@ -89,6 +89,9 @@ class Utils {
 
       case DomTag.option:
         return "option";
+
+      case DomTag.progress:
+        return "progress";
     }
   }
 

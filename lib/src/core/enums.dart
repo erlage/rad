@@ -165,6 +165,10 @@ enum DomTag {
   /// Legend tag.
   ///
   legend,
+
+  /// Progress tag.
+  ///
+  progress,
 }
 
 enum WidgetAction {
