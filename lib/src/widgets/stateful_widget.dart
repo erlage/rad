@@ -18,7 +18,7 @@ abstract class StatefulWidget extends Widget {
   /// Creates the mutable state for this widget at a given location in the tree.
   ///
   @protected
-  State createState(); // ignore: no_logic_in_create_state
+  State createState();
 
   /*
   |--------------------------------------------------------------------------
