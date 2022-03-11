@@ -161,6 +161,10 @@ enum DomTag {
   /// Option tag.
   ///
   option,
+
+  /// Legend tag.
+  ///
+  legend,
 }
 
 enum WidgetAction {

@@ -78,6 +78,7 @@ export 'src/widgets/html/option.dart' show Option;
 
 export 'src/widgets/html/form.dart' show Form;
 export 'src/widgets/html/fieldset.dart' show FieldSet;
+export 'src/widgets/html/legend.dart' show Legend;
 export 'src/widgets/html/input_text.dart' show InputText;
 export 'src/widgets/html/input_checkbox.dart' show InputCheckBox;
 export 'src/widgets/html/input_radio.dart' show InputRadio;
