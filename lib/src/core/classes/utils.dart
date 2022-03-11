@@ -62,6 +62,9 @@ class Utils {
 
       case DomTag.strong:
         return "strong";
+
+      case DomTag.small:
+        return "small";
     }
   }
 

@@ -123,6 +123,10 @@ enum DomTag {
   /// Strong text.
   ///
   strong,
+
+  /// Small text.
+  ///
+  small,
 }
 
 enum WidgetAction {
