@@ -12,6 +12,7 @@ class Span extends Division {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
+    String? innerText,
     List<Widget>? children,
   }) : super(
           key: key,
@@ -22,6 +23,7 @@ class Span extends Division {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
+          innerText: innerText,
           children: children,
         );
 

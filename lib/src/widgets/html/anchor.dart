@@ -39,6 +39,7 @@ class Anchor extends MarkUpTagWithGlobalProps {
     String? title,
     String? classAttribute,
     Map<String, String>? dataset,
+    String? innerText,
     List<Widget>? children,
   }) : super(
           key: key,
@@ -49,6 +50,7 @@ class Anchor extends MarkUpTagWithGlobalProps {
           hidden: hidden,
           classAttribute: classAttribute,
           dataAttributes: dataset,
+          innerText: innerText,
           children: children,
         );
 

@@ -14,6 +14,7 @@ class Division extends MarkUpTagWithGlobalProps {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
+    String? innerText,
     List<Widget>? children,
   }) : super(
           key: key,
@@ -24,6 +25,7 @@ class Division extends MarkUpTagWithGlobalProps {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
+          innerText: innerText,
           children: children,
         );
 

@@ -38,6 +38,13 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
   ///
   final bool? hidden;
 
+  /// Element's inner text.
+  ///
+  /// Only one thing can be set at a time between [innerText]
+  /// and [children]
+  ///
+  final String? innerText;
+
   /// Children tags.
   ///
   final List<Widget>? children;
@@ -51,8 +58,10 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
     this.hidden,
     this.draggable,
     this.contenteditable,
+    this.innerText,
     this.children,
-  }) : super(key);
+  })  : assert(null == children || null == innerText),
+        super(key);
 
   @override
   get widgetChildren => children ?? [];
@@ -67,6 +76,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
       hidden: hidden,
       draggable: draggable,
       contenteditable: contenteditable,
+      innerText: innerText,
     );
   }
 
@@ -80,7 +90,8 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
         dataAttributes != oldConfiguration.dataAttributes ||
         hidden != oldConfiguration.hidden ||
         draggable != oldConfiguration.draggable ||
-        contenteditable != oldConfiguration.contenteditable;
+        contenteditable != oldConfiguration.contenteditable ||
+        innerText != oldConfiguration.innerText;
   }
 }
 
@@ -105,6 +116,8 @@ class MarkUpGlobalConfiguration extends WidgetConfiguration {
 
   final bool? hidden;
 
+  final String? innerText;
+
   const MarkUpGlobalConfiguration({
     this.title,
     this.tabIndex,
@@ -113,6 +126,7 @@ class MarkUpGlobalConfiguration extends WidgetConfiguration {
     this.hidden,
     this.draggable,
     this.contenteditable,
+    this.innerText,
   });
 }
 
@@ -148,6 +162,10 @@ class MarkUpGlobalProps {
     if (null != editable) {
       element.contentEditable = editable ? "true" : "false";
     }
+
+    if (null != props.innerText) {
+      element.innerText = props.innerText!;
+    }
   }
 
   static void clear(HtmlElement element, MarkUpGlobalConfiguration props) {
@@ -173,6 +191,10 @@ class MarkUpGlobalProps {
 
     if (null != props.contenteditable) {
       element.removeAttribute(_Attributes.contenteditable);
+    }
+
+    if (null != props.innerText) {
+      element.innerText = "";
     }
   }
 }

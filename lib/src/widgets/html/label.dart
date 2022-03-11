@@ -24,6 +24,7 @@ class Label extends MarkUpTagWithGlobalProps {
     String? title,
     String? classAttribute,
     Map<String, String>? dataAttributes,
+    String? innerText,
     List<Widget>? children,
   }) : super(
           key: key,
@@ -34,6 +35,7 @@ class Label extends MarkUpTagWithGlobalProps {
           hidden: hidden,
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
+          innerText: innerText,
           children: children,
         );
 
