@@ -55,6 +55,12 @@ enum FormMethod {
   get,
 }
 
+enum ButtonType {
+  button,
+  submit,
+  reset,
+}
+
 /*
 |--------------------------------------------------------------------------
 | internals
@@ -143,6 +149,10 @@ enum DomTag {
   /// List item.
   ///
   listItem,
+
+  /// Button tag.
+  ///
+  button,
 }
 
 enum WidgetAction {

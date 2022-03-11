@@ -77,6 +77,9 @@ class Utils {
 
       case DomTag.listItem:
         return "li";
+
+      case DomTag.button:
+        return "button";
     }
   }
 
@@ -115,6 +118,19 @@ class Utils {
 
       case InputType.submit:
         return "submit";
+    }
+  }
+
+  static String mapButtonType(ButtonType buttonType) {
+    switch (buttonType) {
+      case ButtonType.button:
+        return "button";
+
+      case ButtonType.submit:
+        return "submit";
+
+      case ButtonType.reset:
+        return "reset";
     }
   }
 

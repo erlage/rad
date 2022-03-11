@@ -16,7 +16,7 @@ export 'src/widgets/abstract/widget.dart' show Widget;
 
 // enums
 
-export 'src/core/enums.dart' show UpdateType, FormEncType, FormMethod;
+export 'src/core/enums.dart' show UpdateType;
 
 // states
 
@@ -72,16 +72,19 @@ export 'src/widgets/html/image.dart' show Image;
 export 'src/widgets/html/paragraph.dart' show Paragraph;
 export 'src/widgets/html/unordered_list.dart' show UnOrderedList;
 export 'src/widgets/html/list_item.dart' show ListItem;
+export 'src/widgets/html/button.dart' show Button;
 
 export 'src/widgets/html/form.dart' show Form;
-
 export 'src/widgets/html/fieldset.dart' show FieldSet;
-
 export 'src/widgets/html/input_text.dart' show InputText;
 export 'src/widgets/html/input_checkbox.dart' show InputCheckBox;
 export 'src/widgets/html/input_radio.dart' show InputRadio;
 export 'src/widgets/html/input_file.dart' show InputFile;
 export 'src/widgets/html/input_submit.dart' show InputSubmit;
+
+// html enums
+
+export 'src/core/enums.dart' show ButtonType, FormEncType, FormMethod;
 
 // imported widgets impls
 
