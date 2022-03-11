@@ -51,6 +51,7 @@ class Form extends MarkUpTagWithGlobalProps {
     this.onSubmit,
     String? key,
     String? title,
+    String? style,
     String? classAttribute,
     int? tabIndex,
     bool? draggable,
@@ -61,6 +62,7 @@ class Form extends MarkUpTagWithGlobalProps {
   }) : super(
           key: key,
           title: title,
+          style: style,
           classAttribute: classAttribute,
           tabIndex: tabIndex,
           draggable: draggable,

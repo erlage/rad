@@ -12,6 +12,10 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
   ///
   final String? classAttribute;
 
+  /// The style attribute for inline CSS.
+  ///
+  final String? style;
+
   /// The tabindex attribute specifies the tab order of an
   /// element (when the "tab" button is used for navigating).
   ///
@@ -53,6 +57,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
     String? key,
     this.title,
     this.tabIndex,
+    this.style,
     this.classAttribute,
     this.dataAttributes,
     this.hidden,
@@ -71,6 +76,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
     return MarkUpGlobalConfiguration(
       title: title,
       tabIndex: tabIndex,
+      style: style,
       classAttribute: classAttribute,
       dataAttributes: dataAttributes,
       hidden: hidden,
@@ -86,6 +92,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
 
     return title != oldConfiguration.title ||
         tabIndex != oldConfiguration.tabIndex ||
+        style != oldConfiguration.style ||
         classAttribute != oldConfiguration.classAttribute ||
         dataAttributes != oldConfiguration.dataAttributes ||
         hidden != oldConfiguration.hidden ||
@@ -104,6 +111,8 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
 class MarkUpGlobalConfiguration extends WidgetConfiguration {
   final String? title;
 
+  final String? style;
+
   final String? classAttribute;
 
   final int? tabIndex;
@@ -121,6 +130,7 @@ class MarkUpGlobalConfiguration extends WidgetConfiguration {
   const MarkUpGlobalConfiguration({
     this.title,
     this.tabIndex,
+    this.style,
     this.classAttribute,
     this.dataAttributes,
     this.hidden,
@@ -144,6 +154,10 @@ class MarkUpGlobalProps {
 
     if (null != props.title) {
       element.title = props.title;
+    }
+
+    if (null != props.style) {
+      element.setAttribute(_Attributes.style, props.style!);
     }
 
     if (null != props.tabIndex) {
@@ -177,6 +191,10 @@ class MarkUpGlobalProps {
       element.removeAttribute(_Attributes.title);
     }
 
+    if (null != props.style) {
+      element.removeAttribute(_Attributes.style);
+    }
+
     if (null != props.hidden) {
       element.removeAttribute(_Attributes.hidden);
     }
@@ -201,6 +219,7 @@ class MarkUpGlobalProps {
 
 class _Attributes {
   static const title = "title";
+  static const style = "style";
   static const hidden = "hidden";
   static const tabindex = "tabindex";
   static const draggable = "draggable";

@@ -6,6 +6,7 @@ class Small extends Division {
   Small({
     String? key,
     String? title,
+    String? style,
     String? classAttribute,
     int? tabIndex,
     bool? draggable,
@@ -17,6 +18,7 @@ class Small extends Division {
   }) : super(
           key: key,
           title: title,
+          style: style,
           classAttribute: classAttribute,
           tabIndex: tabIndex,
           draggable: draggable,

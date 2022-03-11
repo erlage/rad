@@ -6,6 +6,7 @@ class Heading1 extends Division {
   Heading1({
     String? key,
     String? title,
+    String? style,
     String? classAttribute,
     int? tabIndex,
     bool? draggable,
@@ -17,6 +18,7 @@ class Heading1 extends Division {
   }) : super(
           key: key,
           title: title,
+          style: style,
           classAttribute: classAttribute,
           tabIndex: tabIndex,
           draggable: draggable,
@@ -38,6 +40,7 @@ class Heading2 extends Heading1 {
   Heading2({
     String? key,
     String? title,
+    String? style,
     String? classAttribute,
     int? tabIndex,
     bool? draggable,
@@ -49,6 +52,7 @@ class Heading2 extends Heading1 {
   }) : super(
           key: key,
           title: title,
+          style: style,
           classAttribute: classAttribute,
           tabIndex: tabIndex,
           draggable: draggable,
@@ -70,6 +74,7 @@ class Heading3 extends Heading1 {
   Heading3({
     String? key,
     String? title,
+    String? style,
     String? classAttribute,
     int? tabIndex,
     bool? draggable,
@@ -81,6 +86,7 @@ class Heading3 extends Heading1 {
   }) : super(
           key: key,
           title: title,
+          style: style,
           classAttribute: classAttribute,
           tabIndex: tabIndex,
           draggable: draggable,
@@ -102,6 +108,7 @@ class Heading4 extends Heading1 {
   Heading4({
     String? key,
     String? title,
+    String? style,
     String? classAttribute,
     int? tabIndex,
     bool? draggable,
@@ -113,6 +120,7 @@ class Heading4 extends Heading1 {
   }) : super(
           key: key,
           title: title,
+          style: style,
           classAttribute: classAttribute,
           tabIndex: tabIndex,
           draggable: draggable,
@@ -134,6 +142,7 @@ class Heading5 extends Heading1 {
   Heading5({
     String? key,
     String? title,
+    String? style,
     String? classAttribute,
     int? tabIndex,
     bool? draggable,
@@ -145,6 +154,7 @@ class Heading5 extends Heading1 {
   }) : super(
           key: key,
           title: title,
+          style: style,
           classAttribute: classAttribute,
           tabIndex: tabIndex,
           draggable: draggable,
@@ -166,6 +176,7 @@ class Heading6 extends Heading1 {
   Heading6({
     String? key,
     String? title,
+    String? style,
     String? classAttribute,
     int? tabIndex,
     bool? draggable,
@@ -177,6 +188,7 @@ class Heading6 extends Heading1 {
   }) : super(
           key: key,
           title: title,
+          style: style,
           classAttribute: classAttribute,
           tabIndex: tabIndex,
           draggable: draggable,

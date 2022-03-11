@@ -6,6 +6,7 @@ class Idiomatic extends Division {
   Idiomatic({
     String? key,
     String? title,
+    String? style,
     String? classAttribute,
     int? tabIndex,
     bool? draggable,
@@ -17,6 +18,7 @@ class Idiomatic extends Division {
   }) : super(
           key: key,
           title: title,
+          style: style,
           classAttribute: classAttribute,
           tabIndex: tabIndex,
           draggable: draggable,

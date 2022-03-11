@@ -8,6 +8,7 @@ class Division extends MarkUpTagWithGlobalProps {
   const Division({
     String? key,
     String? title,
+    String? style,
     String? classAttribute,
     int? tabIndex,
     bool? draggable,
@@ -19,6 +20,7 @@ class Division extends MarkUpTagWithGlobalProps {
   }) : super(
           key: key,
           title: title,
+          style: style,
           classAttribute: classAttribute,
           tabIndex: tabIndex,
           draggable: draggable,

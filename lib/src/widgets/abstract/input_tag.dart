@@ -62,6 +62,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
     this.eventCallback,
     String? key,
     String? title,
+    String? style,
     String? classAttribute,
     int? tabIndex,
     bool? draggable,
@@ -72,6 +73,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
   }) : super(
           key: key,
           title: title,
+          style: style,
           classAttribute: classAttribute,
           tabIndex: tabIndex,
           draggable: draggable,

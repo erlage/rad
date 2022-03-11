@@ -6,6 +6,7 @@ class UnOrderedList extends Division {
   UnOrderedList({
     String? key,
     String? title,
+    String? style,
     String? classAttribute,
     int? tabIndex,
     bool? draggable,
@@ -16,6 +17,7 @@ class UnOrderedList extends Division {
   }) : super(
           key: key,
           title: title,
+          style: style,
           classAttribute: classAttribute,
           tabIndex: tabIndex,
           draggable: draggable,
