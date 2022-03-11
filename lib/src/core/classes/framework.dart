@@ -45,31 +45,40 @@ class Framework {
     _isInit = true;
   }
 
-  /// Inject styles into DOM.
+  /// Link a Stylesheet.
   ///
-  static void addGlobalStyles(String styles, String flagLogEntry) {
+  static void linkStylesheet(String href) {
     // create dom element
 
-    var styleSheet = document.createElement("style");
+    var stylesheet = LinkElement()
+      ..type = "text/css"
+      ..rel = "stylesheet"
+      ..href = href;
 
-    styleSheet.innerText = styles;
+    _insertIntoDocument(stylesheet, "Stylesheet linked: $href");
+  }
 
-    // insert styles where possible
+  /// Link a Javascript.
+  ///
+  static void linkJavascript(String href) {
+    // create dom element
 
-    if (null != document.head) {
-      document.head!.insertBefore(styleSheet, null);
-    } else if (null != document.body) {
-      document.head!.insertBefore(styleSheet, null);
-    } else {
-      throw "For Rad to work, your page must have either a head tag or a body."
-          "Creating a body(or head) in your page will fix this problem.";
-    }
+    var script = ScriptElement()
+      ..defer = true
+      ..type = "javascript/js"
+      ..src = href;
 
-    // log if flag is on
+    _insertIntoDocument(script, "Javascript linked: $href");
+  }
 
-    if (Debug.frameworkLogs) {
-      print("Styles injected: $flagLogEntry");
-    }
+  /// Inject styles into DOM using <style> tag.
+  ///
+  static void injectStyles(String styles, String flagLogEntry) {
+    // create dom element
+
+    var stylesheet = StyleElement()..innerText = styles;
+
+    _insertIntoDocument(stylesheet, "Styles injected: $flagLogEntry");
   }
 
   static T? findAncestorWidgetOfExactType<T>(
@@ -570,6 +579,25 @@ class Framework {
 
   static _showElement(Element element) {
     element.classes.remove('rad-hidden');
+  }
+
+  static void _insertIntoDocument(HtmlElement element, String flagLogEntry) {
+    // insert stylesheet where possible
+
+    if (null != document.head) {
+      document.head!.insertBefore(element, null);
+    } else if (null != document.body) {
+      document.head!.insertBefore(element, null);
+    } else {
+      throw "For Rad to work, your page must have either a head tag or a body."
+          "Creating a body(or head) in your page will fix this problem.";
+    }
+
+    // log if flag is on
+
+    if (Debug.frameworkLogs) {
+      print(flagLogEntry);
+    }
   }
 
   static WidgetObject? _getWidgetObject(String widgetId) {

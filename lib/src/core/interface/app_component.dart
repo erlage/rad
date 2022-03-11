@@ -17,25 +17,48 @@ abstract class AppComponent {
   /// Component version.
   ///
   String get version;
+
+  @override
+  toString() => "From $name (v$version). Author: $author";
 }
 
 /// App components.
 ///
 @immutable
-class AppComponents {
+class Components {
+  final List<String>? scripts;
+  final List<String>? stylesheets;
   final List<StyleComponent>? styleComponents;
 
-  AppComponents({this.styleComponents});
+  Components({
+    this.scripts,
+    this.stylesheets,
+    this.styleComponents,
+  });
 
   load() {
+    scripts?.forEach(Framework.linkJavascript);
+
+    stylesheets?.forEach(Framework.linkStylesheet);
+
+    _loadStyleComponents();
+  }
+
+  _loadStyleComponents() {
     var styleComponents = this.styleComponents;
 
     if (null != styleComponents && styleComponents.isNotEmpty) {
       for (final styleComponent in styleComponents) {
-        Framework.addGlobalStyles(
-          styleComponent.styleSheetContents,
-          "From ${styleComponent.name} (v ${styleComponent.version}). Author: ${styleComponent.author}",
-        );
+        var contents = styleComponent.styleSheetContents;
+        if (null != contents) {
+          if (contents.length > 200) {
+            throw "Package is trying to inject larger stylesheet than allowed. "
+                "Please use your HTML page to inject stylesheets larger than 200 characters. \n\n"
+                "Package details: $styleComponent";
+          }
+
+          Framework.injectStyles(contents, "$styleComponent");
+        }
       }
     }
   }

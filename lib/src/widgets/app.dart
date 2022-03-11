@@ -17,15 +17,15 @@ class App extends Widget {
 
   final String targetKey;
 
-  final AppComponents? components;
+  final Components? additionalComponents;
 
   App({
     String? key,
-    this.components,
     required this.child,
     required this.targetKey,
     String routingPath = "",
     DebugOptions? debugOptions,
+    this.additionalComponents,
   }) : super(key) {
     /*
     |--------------------------------------------------------------------------
@@ -35,8 +35,8 @@ class App extends Widget {
 
     Framework.init(routingPath: routingPath, debugOptions: debugOptions);
 
-    Framework.addGlobalStyles(GEN_STYLES_NORMALIZE_CSS, "Normalize");
-    Framework.addGlobalStyles(GEN_STYLES_MAIN_CSS, "Main");
+    Framework.injectStyles(GEN_STYLES_NORMALIZE_CSS, "Normalize");
+    Framework.injectStyles(GEN_STYLES_MAIN_CSS, "Main");
 
     /*
     |--------------------------------------------------------------------------
@@ -61,8 +61,7 @@ class App extends Widget {
     |--------------------------------------------------------------------------
     */
 
-    var components = this.components;
-    components?.load();
+    additionalComponents?.load();
 
     /*
     |--------------------------------------------------------------------------

@@ -7,5 +7,8 @@ import 'package:rad/src/core/interface/app_component.dart';
 abstract class StyleComponent extends AppComponent {
   /// CSS contents to inject in DOM
   ///
-  String get styleSheetContents;
+  String? get styleSheetContents;
+
+  @override
+  toString() => "From $name (v$version). Author: $author";
 }
