@@ -6,7 +6,6 @@ import 'package:rad/src/core/interface/app_component.dart';
 import 'package:rad/src/core/objects/debug_options.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/css/include/normalize.generated.dart';
 import 'package:rad/src/css/main.generated.dart';
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/objects/render_object.dart';
@@ -35,7 +34,6 @@ class App extends Widget {
 
     Framework.init(routingPath: routingPath, debugOptions: debugOptions);
 
-    Framework.injectStyles(GEN_STYLES_NORMALIZE_CSS, "Normalize");
     Framework.injectStyles(GEN_STYLES_MAIN_CSS, "Main");
 
     /*
