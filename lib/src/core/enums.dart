@@ -135,6 +135,14 @@ enum DomTag {
   /// Super script element.
   ///
   superScript,
+
+  /// Un-ordered list
+  ///
+  unOrderedList,
+
+  /// List item.
+  ///
+  listItem,
 }
 
 enum WidgetAction {

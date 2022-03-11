@@ -71,6 +71,12 @@ class Utils {
 
       case DomTag.superScript:
         return "sup";
+
+      case DomTag.unOrderedList:
+        return "ul";
+
+      case DomTag.listItem:
+        return "li";
     }
   }
 

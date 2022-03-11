@@ -70,6 +70,8 @@ export 'src/widgets/html/iframe.dart' show IFrame;
 export 'src/widgets/html/break_line.dart' show BreakLine;
 export 'src/widgets/html/image.dart' show Image;
 export 'src/widgets/html/paragraph.dart' show Paragraph;
+export 'src/widgets/html/unordered_list.dart' show UnOrderedList;
+export 'src/widgets/html/list_item.dart' show ListItem;
 
 export 'src/widgets/html/form.dart' show Form;
 
