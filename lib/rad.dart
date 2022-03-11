@@ -16,7 +16,7 @@ export 'src/widgets/abstract/widget.dart' show Widget;
 
 // enums
 
-export 'src/core/enums.dart' show UpdateType;
+export 'src/core/enums.dart' show UpdateType, HitTestBehavior;
 
 // states
 

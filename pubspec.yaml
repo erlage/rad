@@ -1,5 +1,5 @@
 name: rad
-version: 0.5.0
+version: 0.5.1
 description: >
   A zero-dependency frontend framework for writing web apps in plain Dart. Inspired from Flutter.
 
