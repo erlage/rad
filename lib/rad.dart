@@ -59,6 +59,7 @@ export 'src/widgets/html/span.dart' show Span;
 export 'src/widgets/html/small.dart' show Small;
 export 'src/widgets/html/strong.dart' show Strong;
 export 'src/widgets/html/idiomatic.dart' show Idiomatic;
+export 'src/widgets/html/subscript.dart' show SubScript;
 export 'src/widgets/html/division.dart' show Division;
 export 'src/widgets/html/anchor.dart' show Anchor;
 export 'src/widgets/html/blockquote.dart' show Blockquote;

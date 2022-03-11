@@ -65,6 +65,9 @@ class Utils {
 
       case DomTag.small:
         return "small";
+
+      case DomTag.subScript:
+        return "sub";
     }
   }
 

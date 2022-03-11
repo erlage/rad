@@ -127,6 +127,10 @@ enum DomTag {
   /// Small text.
   ///
   small,
+
+  /// Subscript element.
+  ///
+  subScript,
 }
 
 enum WidgetAction {
