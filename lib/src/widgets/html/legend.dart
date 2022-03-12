@@ -1,12 +1,12 @@
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/types.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/html/division.dart';
 
 /// The <legend> HTML element represents a caption for the content of
 /// its parent <fieldset>.
 ///
-class Legend extends Division {
+class Legend extends MarkUpTagWithGlobalProps {
   Legend({
     String? key,
     String? title,

@@ -1,9 +1,9 @@
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/types.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/html/division.dart';
 
-class UnOrderedList extends Division {
+class UnOrderedList extends MarkUpTagWithGlobalProps {
   UnOrderedList({
     String? key,
     String? title,
