@@ -82,48 +82,7 @@ Talking about differences, well there are number of them,
           ]
         )
         ```
-  You can compose widgets the way you want and style them according to your liking.
-
-## Components
-
-Let's make it short. This is a utility that allows dynamic loading of CSS/JS assets.
-
-```dart
-App(
-
-  // in your app widget,
-
-  additionalComponents: Components(
-
-    // CSS files (method 1)
-
-    stylesheets: [
-      "https://some..css",
-      "https://another..css",
-      ...
-    ],
-
-    // JS files
-    
-    scripts: [
-      "https://some..js",
-      "https://another..js",
-      ...
-    ],
-
-    // CSS (method 2)
-    // To be used for external packages.
-
-    styleComponents: [
-
-      SomePackageComponent(),
-      
-      AnotherPackageComponent(),
-
-    ]
-  )
-)
-```
+  Just like that, you can compose widgets the way you want and style them according to your liking.
 
 ## Widgets Index
 
