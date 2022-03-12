@@ -1,3 +1,7 @@
+## 0.5.4
+
+- Patch Navigator initial Render
+
 ## 0.5.2
 
 - Added innertText, onClick and onClickEventHanlder property for HTML tags.
