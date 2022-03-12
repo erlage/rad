@@ -48,7 +48,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
   /// 2. if [type] is "text", this is "onInput" event
   /// 3. if [type] is "checkbox" or "radio", this is "onChange" event
   ///
-  final EventCallback? eventCallback;
+  final EventCallback? eventListenerCallback;
 
   const InputTag({
     this.type,
@@ -59,7 +59,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
     this.required,
     this.checked,
     this.disabled,
-    this.eventCallback,
+    this.eventListenerCallback,
     String? key,
     String? title,
     String? style,
@@ -97,7 +97,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
       multiple: multiple,
       required: required,
       disabled: disabled,
-      eventCallback: eventCallback,
+      eventCallback: eventListenerCallback,
       globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
@@ -115,7 +115,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
         checked != oldConfiguration.checked ||
         required != oldConfiguration.required ||
         disabled != oldConfiguration.disabled ||
-        eventCallback.runtimeType !=
+        eventListenerCallback.runtimeType !=
             oldConfiguration.eventCallback.runtimeType ||
         super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }

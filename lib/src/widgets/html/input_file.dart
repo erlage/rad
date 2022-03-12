@@ -27,7 +27,7 @@ class InputFile extends InputTag {
           accept: accept,
           multiple: multiple,
           disabled: disabled,
-          eventCallback: onChange,
+          eventListenerCallback: onChange,
           required: required,
           title: title,
           style: style,

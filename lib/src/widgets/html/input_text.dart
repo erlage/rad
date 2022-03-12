@@ -43,7 +43,7 @@ class InputText extends InputTag {
           type: isPassword ? InputType.password : InputType.text,
           name: name,
           value: value,
-          eventCallback: onChange,
+          eventListenerCallback: onChange,
           disabled: disabled,
           required: required,
           title: title,

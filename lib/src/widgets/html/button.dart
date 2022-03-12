@@ -29,16 +29,16 @@ class Button extends MarkUpTagWithGlobalProps {
   ///
   final bool? disabled;
 
-  /// Button's onClick event capture callback.
+  /// Button's onClick event listener.
   ///
-  final EventCallback? onClick;
+  final EventCallback? onClickEventListener;
 
   const Button({
     this.name,
     this.value,
     this.type,
     this.disabled,
-    this.onClick,
+    this.onClickEventListener,
     String? key,
     bool? hidden,
     bool? draggable,
@@ -77,7 +77,7 @@ class Button extends MarkUpTagWithGlobalProps {
       value: value,
       type: type,
       disabled: disabled,
-      onClick: onClick,
+      onClickEventListener: onClickEventListener,
       globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
@@ -89,7 +89,8 @@ class Button extends MarkUpTagWithGlobalProps {
         value != oldConfiguration.value ||
         type != oldConfiguration.type ||
         disabled != oldConfiguration.disabled ||
-        onClick.runtimeType != oldConfiguration.onClick.runtimeType ||
+        onClickEventListener.runtimeType !=
+            oldConfiguration.onClickEventListener.runtimeType ||
         super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }
 
@@ -113,14 +114,14 @@ class _ButtonConfiguration extends WidgetConfiguration {
 
   final bool? disabled;
 
-  final EventCallback? onClick;
+  final EventCallback? onClickEventListener;
 
   const _ButtonConfiguration({
     this.name,
     this.type,
     this.value,
     this.disabled,
-    this.onClick,
+    this.onClickEventListener,
     required this.globalConfiguration,
   });
 }
@@ -182,10 +183,10 @@ class _ButtonProps {
       element.disabled = props.disabled!;
     }
 
-    if (null != props.onClick) {
+    if (null != props.onClickEventListener) {
       element.addEventListener(
         Utils.mapDomEventType(DomEventType.click),
-        props.onClick,
+        props.onClickEventListener,
       );
     }
   }
@@ -211,10 +212,10 @@ class _ButtonProps {
       element.removeAttribute(_Attributes.disabled);
     }
 
-    if (null != props.onClick) {
+    if (null != props.onClickEventListener) {
       element.removeEventListener(
         Utils.mapDomEventType(DomEventType.click),
-        props.onClick,
+        props.onClickEventListener,
       );
     }
   }

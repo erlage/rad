@@ -29,7 +29,7 @@ class InputRadio extends InputTag {
           value: value,
           checked: checked,
           disabled: disabled,
-          eventCallback: onChange,
+          eventListenerCallback: onChange,
           required: required,
           title: title,
           style: style,

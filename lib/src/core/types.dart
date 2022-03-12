@@ -9,8 +9,6 @@ import 'package:rad/src/widgets/navigator.dart';
 
 typedef UpdateTypeCallback = bool Function(UpdateType updateType);
 
-typedef OnClickCallback = void Function(MouseEvent event);
-
 typedef OnTapEventCallback = void Function(Event event);
 
 typedef NavigatorRouteChangeCallback = void Function(String name);
