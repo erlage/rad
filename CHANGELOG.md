@@ -1,3 +1,7 @@
+## 0.5.2
+
+- Added innertText, onClick and onClickEventHanlder property for HTML tags.
+
 ## 0.5.1
 
 - Update public API
