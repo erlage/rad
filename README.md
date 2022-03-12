@@ -206,8 +206,3 @@ Below is the list of available widgets in this framework.
 ## Why Dart?
 
 I actually tried writing [this in TypeScript before](https://github.com/erlage/proton-framework). While we can do awesome things with types in TS, it also inherits craziness from JS (has to bind 'this', use arrow fun, and more things like that). Later I decided to give Dart a try and I quickly realized that Dart is a very underrated language. You don't have to trust me on that. I had wrote a lot of Dart code with Flutter, but the fact that I choosed TS at first place really shows how underrated Dart actually is. I am thankful to all the people who helped create Dart and/or contributing to it, one way or the other.
-
-## Contribution
-
-Rad is a hobby project. Core(src/core) of this framework is extremely small and straightforward. Having just the [basic knowledge of DOM](https://dart.dev/tutorials/web/low-level-html/connect-dart-html) & [Dart](https://dart.dev/guides/language/language-tour) is enough to implement widgets(src/widgets).
-
