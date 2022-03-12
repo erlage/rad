@@ -25,7 +25,7 @@ class TextArea extends MarkUpTagWithGlobalProps {
   final bool? readOnly;
   final bool? disabled;
 
-  final EventCallback? onChange;
+  final EventCallback? onChangeEventListener;
 
   const TextArea({
     this.name,
@@ -37,7 +37,7 @@ class TextArea extends MarkUpTagWithGlobalProps {
     this.required,
     this.readOnly,
     this.disabled,
-    this.onChange,
+    this.onChangeEventListener,
     String? key,
     bool? hidden,
     bool? draggable,
@@ -81,7 +81,7 @@ class TextArea extends MarkUpTagWithGlobalProps {
       required: required,
       readOnly: readOnly,
       disabled: disabled,
-      onChange: onChange,
+      onChange: onChangeEventListener,
       globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
@@ -98,7 +98,7 @@ class TextArea extends MarkUpTagWithGlobalProps {
         required != oldConfiguration.required ||
         readOnly != oldConfiguration.readOnly ||
         disabled != oldConfiguration.disabled ||
-        onChange != oldConfiguration.onChange ||
+        onChangeEventListener != oldConfiguration.onChange ||
         super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }
 

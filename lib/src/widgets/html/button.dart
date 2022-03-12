@@ -29,6 +29,10 @@ class Button extends MarkUpTagWithGlobalProps {
   ///
   final bool? disabled;
 
+  /// Raw onClick attribute.
+  ///
+  final String? onClick;
+
   /// Button's onClick event listener.
   ///
   final EventCallback? onClickEventListener;
@@ -38,6 +42,7 @@ class Button extends MarkUpTagWithGlobalProps {
     this.value,
     this.type,
     this.disabled,
+    this.onClick,
     this.onClickEventListener,
     String? key,
     bool? hidden,
@@ -89,6 +94,7 @@ class Button extends MarkUpTagWithGlobalProps {
         value != oldConfiguration.value ||
         type != oldConfiguration.type ||
         disabled != oldConfiguration.disabled ||
+        onClick != oldConfiguration.onClick ||
         onClickEventListener.runtimeType !=
             oldConfiguration.onClickEventListener.runtimeType ||
         super.isConfigurationChanged(oldConfiguration.globalConfiguration);
@@ -114,6 +120,8 @@ class _ButtonConfiguration extends WidgetConfiguration {
 
   final bool? disabled;
 
+  final String? onClick;
+
   final EventCallback? onClickEventListener;
 
   const _ButtonConfiguration({
@@ -121,6 +129,7 @@ class _ButtonConfiguration extends WidgetConfiguration {
     this.type,
     this.value,
     this.disabled,
+    this.onClick,
     this.onClickEventListener,
     required this.globalConfiguration,
   });
@@ -183,6 +192,10 @@ class _ButtonProps {
       element.disabled = props.disabled!;
     }
 
+    if (null != props.onClick) {
+      element.setAttribute(_Attributes.onClick, props.onClick!);
+    }
+
     if (null != props.onClickEventListener) {
       element.addEventListener(
         Utils.mapDomEventType(DomEventType.click),
@@ -212,6 +225,10 @@ class _ButtonProps {
       element.removeAttribute(_Attributes.disabled);
     }
 
+    if (null != props.onClick) {
+      element.removeAttribute(_Attributes.onClick);
+    }
+
     if (null != props.onClickEventListener) {
       element.removeEventListener(
         Utils.mapDomEventType(DomEventType.click),
@@ -225,5 +242,6 @@ class _Attributes {
   static const name = "name";
   static const value = "value";
   static const type = "type";
+  static const onClick = "onclick";
   static const disabled = "disabled";
 }

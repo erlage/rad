@@ -42,6 +42,10 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
   ///
   final bool? checked;
 
+  /// OnClick raw attribute.
+  ///
+  final String? onClick;
+
   /// Overloaded.
   ///
   /// 1. if [type] is "submit", this is "onClick" event
@@ -59,6 +63,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
     this.required,
     this.checked,
     this.disabled,
+    this.onClick,
     this.eventListenerCallback,
     String? key,
     String? title,
@@ -97,6 +102,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
       multiple: multiple,
       required: required,
       disabled: disabled,
+      onClick: onClick,
       eventCallback: eventListenerCallback,
       globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
@@ -115,6 +121,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
         checked != oldConfiguration.checked ||
         required != oldConfiguration.required ||
         disabled != oldConfiguration.disabled ||
+        onClick != oldConfiguration.onClick ||
         eventListenerCallback.runtimeType !=
             oldConfiguration.eventCallback.runtimeType ||
         super.isConfigurationChanged(oldConfiguration.globalConfiguration);
@@ -142,6 +149,7 @@ class InputConfiguration extends WidgetConfiguration {
   final bool? checked;
   final bool? required;
   final bool? disabled;
+  final String? onClick;
   final EventCallback? eventCallback;
 
   const InputConfiguration({
@@ -153,6 +161,7 @@ class InputConfiguration extends WidgetConfiguration {
     this.checked,
     this.disabled,
     this.required,
+    this.onClick,
     this.eventCallback,
     required this.globalConfiguration,
   });
@@ -247,6 +256,10 @@ class InputProps {
       element.required = props.required!;
     }
 
+    if (null != props.onClick) {
+      element.setAttribute(_Attributes.onClick, props.onClick!);
+    }
+
     if (null != props.eventCallback) {
       var eventType = getRequiredEventType(props.type!);
 
@@ -294,6 +307,10 @@ class InputProps {
       element.removeAttribute(_Attributes.required);
     }
 
+    if (null != props.onClick) {
+      element.removeAttribute(_Attributes.onClick);
+    }
+
     if (null != props.eventCallback) {
       var eventType = getRequiredEventType(props.type!);
 
@@ -313,5 +330,6 @@ class _Attributes {
   static const multiple = "multiple";
   static const disabled = "disabled";
   static const required = "required";
+  static const onClick = "onclick";
   static const checked = "checked";
 }

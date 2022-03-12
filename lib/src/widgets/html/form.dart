@@ -39,7 +39,7 @@ class Form extends MarkUpTagWithGlobalProps {
   ///
   /// Use event.preventDefault() to prevent default action.
   ///
-  final EventCallback? onSubmit;
+  final EventCallback? onSubmitEventListener;
 
   const Form({
     this.name,
@@ -48,7 +48,7 @@ class Form extends MarkUpTagWithGlobalProps {
     this.enctype,
     this.target,
     this.method,
-    this.onSubmit,
+    this.onSubmitEventListener,
     String? key,
     String? title,
     String? style,
@@ -87,7 +87,7 @@ class Form extends MarkUpTagWithGlobalProps {
       accept: accept,
       enctype: enctype,
       method: method,
-      onSubmit: onSubmit,
+      onSubmitEventListener: onSubmitEventListener,
       globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
@@ -103,7 +103,8 @@ class Form extends MarkUpTagWithGlobalProps {
         target != oldConfiguration.target ||
         enctype != oldConfiguration.enctype ||
         method != oldConfiguration.method ||
-        onSubmit.runtimeType != oldConfiguration.onSubmit.runtimeType ||
+        onSubmitEventListener.runtimeType !=
+            oldConfiguration.onSubmitEventListener.runtimeType ||
         super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }
 
@@ -126,7 +127,7 @@ class _FormConfiguration extends WidgetConfiguration {
   final String? target;
   final FormEncType? enctype;
   final FormMethod? method;
-  final EventCallback? onSubmit;
+  final EventCallback? onSubmitEventListener;
 
   const _FormConfiguration({
     this.name,
@@ -135,7 +136,7 @@ class _FormConfiguration extends WidgetConfiguration {
     this.target,
     this.method,
     this.enctype,
-    this.onSubmit,
+    this.onSubmitEventListener,
     required this.globalConfiguration,
   });
 }
@@ -201,10 +202,10 @@ class _FormProps {
       element.enctype = Utils.mapFormEncType(props.enctype!);
     }
 
-    if (null != props.onSubmit) {
+    if (null != props.onSubmitEventListener) {
       element.addEventListener(
         Utils.mapDomEventType(DomEventType.submit),
-        props.onSubmit,
+        props.onSubmitEventListener,
       );
     }
   }
@@ -234,10 +235,10 @@ class _FormProps {
       element.removeAttribute(_Attributes.enctype);
     }
 
-    if (null != props.onSubmit) {
+    if (null != props.onSubmitEventListener) {
       element.removeEventListener(
         Utils.mapDomEventType(DomEventType.submit),
-        props.onSubmit,
+        props.onSubmitEventListener,
       );
     }
   }

@@ -28,13 +28,13 @@ class Select extends MarkUpTagWithGlobalProps {
 
   /// When Select's value changes.
   ///
-  final EventCallback? onChange;
+  final EventCallback? onChangeEventListener;
 
   const Select({
     this.name,
     this.multiple,
     this.disabled,
-    this.onChange,
+    this.onChangeEventListener,
     String? key,
     bool? hidden,
     bool? draggable,
@@ -72,7 +72,7 @@ class Select extends MarkUpTagWithGlobalProps {
       name: name,
       multiple: multiple,
       disabled: disabled,
-      onChange: onChange,
+      onChange: onChangeEventListener,
       globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
@@ -83,7 +83,8 @@ class Select extends MarkUpTagWithGlobalProps {
     return name != oldConfiguration.name ||
         multiple != oldConfiguration.multiple ||
         disabled != oldConfiguration.disabled ||
-        onChange.runtimeType != oldConfiguration.onChange.runtimeType ||
+        onChangeEventListener.runtimeType !=
+            oldConfiguration.onChange.runtimeType ||
         super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }
 
