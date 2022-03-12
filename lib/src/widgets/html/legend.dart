@@ -1,4 +1,5 @@
 import 'package:rad/src/core/enums.dart';
+import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/html/division.dart';
 
@@ -16,6 +17,8 @@ class Legend extends Division {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
+    String? onClick,
+    EventCallback? onClickEventListener,
     String? innerText,
     List<Widget>? children,
   }) : super(
@@ -28,6 +31,8 @@ class Legend extends Division {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
+          onClick: onClick,
+          onClickEventListener: onClickEventListener,
           innerText: innerText,
           children: children,
         );

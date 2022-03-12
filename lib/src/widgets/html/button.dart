@@ -29,21 +29,11 @@ class Button extends MarkUpTagWithGlobalProps {
   ///
   final bool? disabled;
 
-  /// Raw onClick attribute.
-  ///
-  final String? onClick;
-
-  /// Button's onClick event listener.
-  ///
-  final EventCallback? onClickEventListener;
-
   const Button({
     this.name,
     this.value,
     this.type,
     this.disabled,
-    this.onClick,
-    this.onClickEventListener,
     String? key,
     bool? hidden,
     bool? draggable,
@@ -53,6 +43,8 @@ class Button extends MarkUpTagWithGlobalProps {
     String? style,
     String? classAttribute,
     Map<String, String>? dataAttributes,
+    String? onClick,
+    EventCallback? onClickEventListener,
     String? innerText,
     List<Widget>? children,
   }) : super(
@@ -65,6 +57,8 @@ class Button extends MarkUpTagWithGlobalProps {
           style: style,
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
+          onClick: onClick,
+          onClickEventListener: onClickEventListener,
           innerText: innerText,
           children: children,
         );
@@ -82,7 +76,6 @@ class Button extends MarkUpTagWithGlobalProps {
       value: value,
       type: type,
       disabled: disabled,
-      onClickEventListener: onClickEventListener,
       globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
@@ -94,9 +87,6 @@ class Button extends MarkUpTagWithGlobalProps {
         value != oldConfiguration.value ||
         type != oldConfiguration.type ||
         disabled != oldConfiguration.disabled ||
-        onClick != oldConfiguration.onClick ||
-        onClickEventListener.runtimeType !=
-            oldConfiguration.onClickEventListener.runtimeType ||
         super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }
 
@@ -120,17 +110,11 @@ class _ButtonConfiguration extends WidgetConfiguration {
 
   final bool? disabled;
 
-  final String? onClick;
-
-  final EventCallback? onClickEventListener;
-
   const _ButtonConfiguration({
     this.name,
     this.type,
     this.value,
     this.disabled,
-    this.onClick,
-    this.onClickEventListener,
     required this.globalConfiguration,
   });
 }
@@ -191,17 +175,6 @@ class _ButtonProps {
     if (null != props.disabled) {
       element.disabled = props.disabled!;
     }
-
-    if (null != props.onClick) {
-      element.setAttribute(_Attributes.onClick, props.onClick!);
-    }
-
-    if (null != props.onClickEventListener) {
-      element.addEventListener(
-        Utils.mapDomEventType(DomEventType.click),
-        props.onClickEventListener,
-      );
-    }
   }
 
   static void clear(HtmlElement element, _ButtonConfiguration props) {
@@ -224,17 +197,6 @@ class _ButtonProps {
     if (null != props.disabled) {
       element.removeAttribute(_Attributes.disabled);
     }
-
-    if (null != props.onClick) {
-      element.removeAttribute(_Attributes.onClick);
-    }
-
-    if (null != props.onClickEventListener) {
-      element.removeEventListener(
-        Utils.mapDomEventType(DomEventType.click),
-        props.onClickEventListener,
-      );
-    }
   }
 }
 
@@ -242,6 +204,5 @@ class _Attributes {
   static const name = "name";
   static const value = "value";
   static const type = "type";
-  static const onClick = "onclick";
   static const disabled = "disabled";
 }

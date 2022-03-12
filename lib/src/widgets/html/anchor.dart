@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
@@ -40,6 +41,8 @@ class Anchor extends MarkUpTagWithGlobalProps {
     String? style,
     String? classAttribute,
     Map<String, String>? dataset,
+    String? onClick,
+    EventCallback? onClickEventListener,
     String? innerText,
     List<Widget>? children,
   }) : super(
@@ -52,6 +55,8 @@ class Anchor extends MarkUpTagWithGlobalProps {
           style: style,
           classAttribute: classAttribute,
           dataAttributes: dataset,
+          onClick: onClick,
+          onClickEventListener: onClickEventListener,
           innerText: innerText,
           children: children,
         );

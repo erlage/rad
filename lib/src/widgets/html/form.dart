@@ -58,6 +58,9 @@ class Form extends MarkUpTagWithGlobalProps {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
+    String? onClick,
+    EventCallback? onClickEventListener,
+    String? innerText,
     List<Widget>? children,
   }) : super(
           key: key,
@@ -69,6 +72,8 @@ class Form extends MarkUpTagWithGlobalProps {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
+          onClick: onClick,
+          onClickEventListener: onClickEventListener,
           children: children,
         );
 

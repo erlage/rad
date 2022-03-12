@@ -1,4 +1,5 @@
 import 'package:rad/src/core/enums.dart';
+import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/html/division.dart';
 
@@ -13,6 +14,8 @@ class Heading1 extends Division {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
+    String? onClick,
+    EventCallback? onClickEventListener,
     String? innerText,
     List<Widget>? children,
   }) : super(
@@ -25,6 +28,8 @@ class Heading1 extends Division {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
+          onClick: onClick,
+          onClickEventListener: onClickEventListener,
           innerText: innerText,
           children: children,
         );
@@ -47,6 +52,8 @@ class Heading2 extends Heading1 {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
+    String? onClick,
+    EventCallback? onClickEventListener,
     String? innerText,
     List<Widget>? children,
   }) : super(
@@ -59,6 +66,8 @@ class Heading2 extends Heading1 {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
+          onClick: onClick,
+          onClickEventListener: onClickEventListener,
           innerText: innerText,
           children: children,
         );
@@ -81,6 +90,8 @@ class Heading3 extends Heading1 {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
+    String? onClick,
+    EventCallback? onClickEventListener,
     String? innerText,
     List<Widget>? children,
   }) : super(
@@ -93,6 +104,8 @@ class Heading3 extends Heading1 {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
+          onClick: onClick,
+          onClickEventListener: onClickEventListener,
           innerText: innerText,
           children: children,
         );
@@ -115,6 +128,8 @@ class Heading4 extends Heading1 {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
+    String? onClick,
+    EventCallback? onClickEventListener,
     String? innerText,
     List<Widget>? children,
   }) : super(
@@ -127,6 +142,8 @@ class Heading4 extends Heading1 {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
+          onClick: onClick,
+          onClickEventListener: onClickEventListener,
           innerText: innerText,
           children: children,
         );
@@ -149,6 +166,8 @@ class Heading5 extends Heading1 {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
+    String? onClick,
+    EventCallback? onClickEventListener,
     String? innerText,
     List<Widget>? children,
   }) : super(
@@ -161,6 +180,8 @@ class Heading5 extends Heading1 {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
+          onClick: onClick,
+          onClickEventListener: onClickEventListener,
           innerText: innerText,
           children: children,
         );
@@ -183,6 +204,8 @@ class Heading6 extends Heading1 {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
+    String? onClick,
+    EventCallback? onClickEventListener,
     String? innerText,
     List<Widget>? children,
   }) : super(
@@ -195,6 +218,8 @@ class Heading6 extends Heading1 {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
+          onClick: onClick,
+          onClickEventListener: onClickEventListener,
           innerText: innerText,
           children: children,
         );

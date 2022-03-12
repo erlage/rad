@@ -44,6 +44,8 @@ class Select extends MarkUpTagWithGlobalProps {
     String? style,
     String? classAttribute,
     Map<String, String>? dataAttributes,
+    String? onClick,
+    EventCallback? onClickEventListener,
     String? innerText,
     List<Widget>? children,
   }) : super(
@@ -56,6 +58,8 @@ class Select extends MarkUpTagWithGlobalProps {
           style: style,
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
+          onClick: onClick,
+          onClickEventListener: onClickEventListener,
           innerText: innerText,
           children: children,
         );

@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/input_tag.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
 
 class InputSubmit extends InputTag {
   const InputSubmit({
@@ -10,8 +11,6 @@ class InputSubmit extends InputTag {
     String? value,
     bool? required,
     bool? disabled,
-    String? onClick,
-    EventCallback? onClickEventListener,
     String? title,
     String? style,
     String? classAttribute,
@@ -20,13 +19,15 @@ class InputSubmit extends InputTag {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
+    String? onClick,
+    EventCallback? onClickEventListener,
+    String? innerText,
+    List<Widget>? children,
   }) : super(
           key: key,
           type: InputType.submit,
           name: name,
           disabled: disabled,
-          onClick: onClick,
-          eventListenerCallback: onClickEventListener,
           value: value,
           required: required,
           title: title,
@@ -37,6 +38,11 @@ class InputSubmit extends InputTag {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
+          onClick: onClick,
+          onClickEventListener: onClickEventListener,
+          eventListenerCallback: onClickEventListener,
+          innerText: innerText,
+          children: children,
         );
 
   @nonVirtual

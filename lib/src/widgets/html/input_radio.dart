@@ -12,7 +12,6 @@ class InputRadio extends InputTag {
     bool? checked,
     bool? required,
     bool? disabled,
-    EventCallback? onChangeEventListener,
     String? title,
     String? style,
     String? classAttribute,
@@ -21,6 +20,10 @@ class InputRadio extends InputTag {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
+    String? onClick,
+    EventCallback? onClickEventListener,
+    EventCallback? onChangeEventListener,
+    String? innerText,
     List<Widget>? children,
   }) : super(
           key: key,
@@ -29,7 +32,6 @@ class InputRadio extends InputTag {
           value: value,
           checked: checked,
           disabled: disabled,
-          eventListenerCallback: onChangeEventListener,
           required: required,
           title: title,
           style: style,
@@ -39,6 +41,10 @@ class InputRadio extends InputTag {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
+          onClick: onClick,
+          onClickEventListener: onClickEventListener,
+          eventListenerCallback: onChangeEventListener,
+          innerText: innerText,
           children: children,
         );
 

@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/input_tag.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
 
 class InputFile extends InputTag {
   const InputFile({
@@ -11,7 +12,6 @@ class InputFile extends InputTag {
     bool? multiple,
     bool? required,
     bool? disabled,
-    EventCallback? onChangeEventListener,
     String? title,
     String? style,
     String? classAttribute,
@@ -20,6 +20,11 @@ class InputFile extends InputTag {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
+    String? onClick,
+    EventCallback? onClickEventListener,
+    EventCallback? onChangeEventListener,
+    String? innerText,
+    List<Widget>? children,
   }) : super(
           key: key,
           type: InputType.file,
@@ -27,7 +32,6 @@ class InputFile extends InputTag {
           accept: accept,
           multiple: multiple,
           disabled: disabled,
-          eventListenerCallback: onChangeEventListener,
           required: required,
           title: title,
           style: style,
@@ -37,6 +41,11 @@ class InputFile extends InputTag {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
+          onClick: onClick,
+          onClickEventListener: onClickEventListener,
+          eventListenerCallback: onChangeEventListener,
+          innerText: innerText,
+          children: children,
         );
 
   @nonVirtual

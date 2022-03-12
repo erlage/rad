@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
@@ -39,6 +40,9 @@ class Image extends MarkUpTagWithGlobalProps {
     String? style,
     String? classAttribute,
     Map<String, String>? dataAttributes,
+    String? onClick,
+    EventCallback? onClickEventListener,
+    String? innerText,
     List<Widget>? children,
   }) : super(
           key: key,
@@ -50,6 +54,9 @@ class Image extends MarkUpTagWithGlobalProps {
           style: style,
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
+          onClick: onClick,
+          onClickEventListener: onClickEventListener,
+          innerText: innerText,
           children: children,
         );
 
