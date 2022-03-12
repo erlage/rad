@@ -244,6 +244,8 @@ class NavigatorState extends State<Navigator> {
     // register navigator state.
 
     Router.register(context, this);
+
+    render();
   }
 
   @override

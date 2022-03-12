@@ -84,10 +84,12 @@ class StatefulWidgetRenderObject extends RenderObject {
       ..frameworkBindUpdateHook(updateHook)
       ..initState();
 
-    Framework.buildChildren(
-      widgets: [state.build(context)],
-      parentContext: context,
-    );
+    if (state.frameworkIsBuildEnabled) {
+      Framework.buildChildren(
+        widgets: [state.build(context)],
+        parentContext: context,
+      );
+    }
   }
 
   @override
