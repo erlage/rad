@@ -1,5 +1,10 @@
 import 'dart:html';
 
+import 'package:rad/src/core/classes/utils.dart';
+import 'package:rad/src/core/enums.dart';
+import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
 
@@ -42,6 +47,14 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
   ///
   final bool? hidden;
 
+  /// onClick raw attribute. for inlined JS callback: onclick="<someJS>"
+  ///
+  final String? onClick;
+
+  /// Tag's onClick event listener. For adding Dart callback on click event.
+  ///
+  final EventCallback? onClickEventListener;
+
   /// Element's inner text.
   ///
   /// Only one thing can be set at a time between [innerText]
@@ -63,6 +76,8 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
     this.hidden,
     this.draggable,
     this.contenteditable,
+    this.onClick,
+    this.onClickEventListener,
     this.innerText,
     this.children,
   })  : assert(null == children || null == innerText),
@@ -82,6 +97,8 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
       hidden: hidden,
       draggable: draggable,
       contenteditable: contenteditable,
+      onClick: onClick,
+      onClickEventListener: onClickEventListener,
       innerText: innerText,
     );
   }
@@ -98,8 +115,14 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
         hidden != oldConfiguration.hidden ||
         draggable != oldConfiguration.draggable ||
         contenteditable != oldConfiguration.contenteditable ||
+        onClick != oldConfiguration.onClick ||
+        onClickEventListener.runtimeType !=
+            oldConfiguration.onClickEventListener.runtimeType ||
         innerText != oldConfiguration.innerText;
   }
+
+  @override
+  createRenderObject(context) => MarkUpGlobalRenderObject(context);
 }
 
 /*
@@ -125,6 +148,10 @@ class MarkUpGlobalConfiguration extends WidgetConfiguration {
 
   final bool? hidden;
 
+  final String? onClick;
+
+  final EventCallback? onClickEventListener;
+
   final String? innerText;
 
   const MarkUpGlobalConfiguration({
@@ -136,8 +163,39 @@ class MarkUpGlobalConfiguration extends WidgetConfiguration {
     this.hidden,
     this.draggable,
     this.contenteditable,
+    this.onClick,
+    this.onClickEventListener,
     this.innerText,
   });
+}
+
+/*
+|--------------------------------------------------------------------------
+| render object
+|--------------------------------------------------------------------------
+*/
+
+class MarkUpGlobalRenderObject extends RenderObject {
+  const MarkUpGlobalRenderObject(BuildContext context) : super(context);
+
+  @override
+  render(
+    element,
+    covariant MarkUpGlobalConfiguration configuration,
+  ) {
+    MarkUpGlobalProps.apply(element, configuration);
+  }
+
+  @override
+  update({
+    required element,
+    required updateType,
+    required covariant MarkUpGlobalConfiguration oldConfiguration,
+    required covariant MarkUpGlobalConfiguration newConfiguration,
+  }) {
+    MarkUpGlobalProps.clear(element, oldConfiguration);
+    MarkUpGlobalProps.apply(element, newConfiguration);
+  }
 }
 
 /*
@@ -177,6 +235,17 @@ class MarkUpGlobalProps {
       element.contentEditable = editable ? "true" : "false";
     }
 
+    if (null != props.onClick) {
+      element.setAttribute(_Attributes.onClick, props.onClick!);
+    }
+
+    if (null != props.onClickEventListener) {
+      element.addEventListener(
+        Utils.mapDomEventType(DomEventType.click),
+        props.onClickEventListener,
+      );
+    }
+
     if (null != props.innerText) {
       element.innerText = props.innerText!;
     }
@@ -211,6 +280,17 @@ class MarkUpGlobalProps {
       element.removeAttribute(_Attributes.contenteditable);
     }
 
+    if (null != props.onClick) {
+      element.removeAttribute(_Attributes.onClick);
+    }
+
+    if (null != props.onClickEventListener) {
+      element.removeEventListener(
+        Utils.mapDomEventType(DomEventType.click),
+        props.onClickEventListener,
+      );
+    }
+
     if (null != props.innerText) {
       element.innerText = "";
     }
@@ -224,4 +304,5 @@ class _Attributes {
   static const tabindex = "tabindex";
   static const draggable = "draggable";
   static const contenteditable = "contenteditable";
+  static const onClick = "onclick";
 }
