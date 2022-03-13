@@ -60,7 +60,7 @@ class StreamBuilder<T> extends StreamBuilderBase<T, AsyncSnapshot<T>> {
   /// The [initialData] is used to create the initial snapshot.
   ///
   /// The [builder] must not be null.
-  StreamBuilder({
+  const StreamBuilder({
     String? key,
     this.initialData,
     Stream<T>? stream,

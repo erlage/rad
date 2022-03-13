@@ -33,7 +33,7 @@ class Framework {
       throw "Framework aleady initialized.";
     }
 
-    debugOptions ??= DebugOptions(
+    debugOptions ??= const DebugOptions(
       routerLogs: false,
       frameworkLogs: false,
       developmentMode: false,

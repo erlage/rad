@@ -169,7 +169,7 @@ class Navigator extends StatefulWidget {
   ///
   final List<Route> routes;
 
-  Navigator({
+  const Navigator({
     String? key,
     this.onInit,
     this.onRouteChange,

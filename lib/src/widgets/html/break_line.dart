@@ -13,7 +13,7 @@ class BreakLine extends Widget {
   get correspondingTag => DomTag.breakLine;
 
   @override
-  createConfiguration() => WidgetConfiguration();
+  createConfiguration() => const WidgetConfiguration();
 
   @override
   isConfigurationChanged(oldConfiguration) => false;

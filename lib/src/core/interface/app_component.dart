@@ -30,7 +30,7 @@ class Components {
   final List<String>? stylesheets;
   final List<StyleComponent>? styleComponents;
 
-  Components({
+  const Components({
     this.scripts,
     this.stylesheets,
     this.styleComponents,

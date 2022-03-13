@@ -13,7 +13,7 @@ import 'package:rad/src/widgets/utils/common_props.dart';
 ///
 @immutable
 abstract class StatefulWidget extends Widget {
-  StatefulWidget({String? key}) : super(key);
+  const StatefulWidget({String? key}) : super(key);
 
   /// Creates the mutable state for this widget at a given location in the tree.
   ///
@@ -36,7 +36,7 @@ abstract class StatefulWidget extends Widget {
 
   @nonVirtual
   @override
-  createConfiguration() => WidgetConfiguration();
+  createConfiguration() => const WidgetConfiguration();
 
   @nonVirtual
   @override
@@ -59,7 +59,7 @@ abstract class StatefulWidget extends Widget {
 class StatefulWidgetRenderObject extends RenderObject {
   final State state;
 
-  StatefulWidgetRenderObject({
+  const StatefulWidgetRenderObject({
     required this.state,
     required BuildContext context,
   }) : super(context);
