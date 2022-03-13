@@ -25,6 +25,7 @@ body {
 
 [data-wcontype="Text"],
 [data-wcontype="Route"],
+[data-wcontype="InheritedWidget"],
 [data-wcontype="StatefulWidget"],
 [data-wcontype="StatelessWidget"] {
     /* 

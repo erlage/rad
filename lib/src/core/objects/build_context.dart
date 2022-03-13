@@ -2,6 +2,7 @@ import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 
 /// Widget's meta data that's required to locate a widget in the tree.
@@ -82,6 +83,16 @@ class BuildContext {
   ///
   T? findAncestorStateOfType<T extends State>() {
     return Framework.findAncestorStateOfType<T>(this);
+  }
+
+  /// Obtains the nearest widget of the given type `T`, which must be the type of a
+  /// concrete [InheritedWidget] subclass, and registers this build context with
+  /// that widget such that when that widget changes (or a new widget of that
+  /// type is introduced, or the widget goes away), this build context is
+  /// rebuilt so that it can obtain new values from that widget.
+  ///
+  T? dependOnInheritedWidgetOfExactType<T extends InheritedWidget>() {
+    return Framework.dependOnInheritedWidgetOfExactType<T>(this);
   }
 
   @override

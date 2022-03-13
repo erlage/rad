@@ -12,6 +12,7 @@ import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/objects/widget_update_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 
 class Framework {
@@ -130,6 +131,27 @@ class Framework {
     var selector = "[data-${System.attrConcreteType}='$T']";
 
     return _findAncestorWidgetObjectFromSelector(selector, context);
+  }
+
+  static T? dependOnInheritedWidgetOfExactType<T>(
+    BuildContext context,
+  ) {
+    var selector = "[data-${System.attrRuntimeType}='$T']"
+        "[data-${System.attrConcreteType}='$InheritedWidget']";
+
+    var widgetObject = _findAncestorWidgetObjectFromSelector(selector, context);
+
+    if (null != widgetObject) {
+      var inheritedRenderObject = widgetObject.renderObject;
+
+      inheritedRenderObject as InheritedWidgetRenderObject;
+
+      inheritedRenderObject.addDependent(context);
+
+      return widgetObject.widget as T;
+    }
+
+    return null;
   }
 
   /// Build children under given context.
@@ -342,13 +364,15 @@ class Framework {
 
           var oldWidget = widgetObject.renderObject.context.widget;
 
-          if (oldWidget == newWidget) {
-            if (Debug.frameworkLogs) {
-              print(
-                "Short-circuit rebuild: ${widgetObject.renderObject.context}",
-              );
+          if (UpdateType.dependencyChanged != updateType) {
+            if (oldWidget == newWidget) {
+              if (Debug.frameworkLogs) {
+                print(
+                  "Short-circuit rebuild: ${widgetObject.renderObject.context}",
+                );
 
-              return;
+                return;
+              }
             }
           }
 
@@ -511,6 +535,24 @@ class Framework {
           break;
       }
     }
+  }
+
+  /// Update a specific widget.
+  ///
+  static bool updateWidgetHavingContext(BuildContext existingWidgetContext) {
+    var widgetObject = _getWidgetObject(existingWidgetContext.key);
+
+    if (null != widgetObject) {
+      updateChildren(
+        widgets: [widgetObject.widget],
+        parentContext: existingWidgetContext.parent,
+        updateType: UpdateType.dependencyChanged,
+      );
+
+      return true;
+    }
+
+    return false;
   }
 
   /*
