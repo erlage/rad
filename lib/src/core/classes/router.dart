@@ -108,7 +108,7 @@ class Router {
         if (state.currentRouteName == childRouteObject.segments.last) {
           var childState = _stateObjects[childRouteObject.context.key];
 
-          childState?.onParentRouteChange(name);
+          childState?.frameworkOnParentRouteChange(name);
         }
       }
     }

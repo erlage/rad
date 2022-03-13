@@ -6,8 +6,63 @@ import 'package:rad/src/core/classes/router.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/types.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/route.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
+
+/*
+|--------------------------------------------------------------------------
+| Navigator's scope (Inherited widget)
+|--------------------------------------------------------------------------
+*/
+
+class _NavigatorScope extends InheritedWidget {
+  final NavigatorState navigatorState;
+
+  const _NavigatorScope({
+    String? key,
+    required Widget child,
+    required this.navigatorState,
+  }) : super(key: key, child: child);
+
+  @override
+  updateShouldNotify(oldWidget) => true;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Navigator's Scope Bootstrapper.
+|--------------------------------------------------------------------------
+*/
+
+class _NavigatorScopeBootstrapper extends StatefulWidget {
+  const _NavigatorScopeBootstrapper({String? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _NavigatorBootstrapState();
+}
+
+class _NavigatorBootstrapState extends State<_NavigatorScopeBootstrapper> {
+  @override
+  initState() {
+    Navigator.of(context)
+      ..frameworkBindScopeContext(context.parent)
+      ..frameworkBootstrapRender();
+  }
+
+  @override
+  get frameworkIsBuildEnabled => false;
+
+  @override
+  build(context) => throw "Navigator uses Framework.x-api to render widgets";
+}
+
+/*
+|--------------------------------------------------------------------------
+| At top, is our actual Navigator widget with state
+|--------------------------------------------------------------------------
+*/
 
 /// Navigator widget including Router.
 ///
@@ -176,9 +231,6 @@ class Navigator extends StatefulWidget {
     required this.routes,
   }) : super(key: key);
 
-  @override
-  State<Navigator> createState() => NavigatorState();
-
   /// The state from the closest instance of Navigator state that encloses the given context.
   ///
   /// Typical usage is as follows:
@@ -187,24 +239,22 @@ class Navigator extends StatefulWidget {
   /// NavigatorState navigator = Navigator.of(context);
   /// ```
   static NavigatorState of(BuildContext context) {
-    var navigatorState = context.findAncestorStateOfType<NavigatorState>();
-
-    if (null == navigatorState) {
-      throw "Navigator.of(context) called with the context that doesn't contains Navigator";
-    }
-
-    return navigatorState;
+    return context
+        .dependOnInheritedWidgetOfExactType<_NavigatorScope>()!
+        .navigatorState;
   }
+
+  @override
+  State<StatefulWidget> createState() => NavigatorState();
 }
 
 // since Navigator widget is part of framework, it has access
 // to Router and Framework core classes.
 
 class NavigatorState extends State<Navigator> {
+  /// Routes that this Navigator instance handles.
+  ///
   final routes = <Route>[];
-
-  final _activeStack = <String>[];
-  final _historyStack = <String>[];
 
   /// Route name to route path map.
   ///
@@ -214,12 +264,21 @@ class NavigatorState extends State<Navigator> {
   ///
   final pathToRouteMap = <String, Route>{};
 
-  var _currentName = '_';
-
   // Name of the active route. Route, that's currently on top of
   /// Navigator stack.
   ///
   String get currentRouteName => _currentName;
+  var _currentName = '_';
+
+  /// Navigator's scope context.
+  ///
+  BuildContext get scopeContext => _scopeContext!;
+  BuildContext? _scopeContext;
+
+  // internal stack data
+
+  final _activeStack = <String>[];
+  final _historyStack = <String>[];
 
   @override
   initState() {
@@ -241,50 +300,25 @@ class NavigatorState extends State<Navigator> {
       pathToRouteMap[route.path] = route;
     }
 
-    // register navigator state.
-
     Router.register(context, this);
+  }
 
-    render();
+  @override
+  build(context) {
+    return _NavigatorScope(
+      navigatorState: this,
+      child: const _NavigatorScopeBootstrapper(),
+    );
   }
 
   @override
   dispose() => Router.unRegister(context);
 
-  @override
-  bool get frameworkIsBuildEnabled => false;
-
-  @override
-  build(context) => throw "Navigator uses Framework API for widget building.";
-
-  void render() {
-    var name = Router.getPath(context.key);
-
-    var needsReplacement = name.isEmpty;
-
-    if (name.isEmpty) {
-      name = widget.routes.first.name;
-    }
-
-    var onInitCallback = widget.onInit;
-    if (null != onInitCallback) {
-      onInitCallback(this);
-    }
-
-    if (needsReplacement && name.isNotEmpty) {
-      if (Debug.routerLogs) {
-        print("${context.key}: Push replacement: $name");
-      }
-
-      Router.pushReplacement(
-        name: name,
-        values: '',
-        navigatorKey: context.key,
-      );
-    }
-
-    open(name: name, updateHistory: false);
-  }
+  /*
+  |--------------------------------------------------------------------------
+  | Methods available on Navigator's state
+  |--------------------------------------------------------------------------
+  */
 
   /// Open a page on Navigator's stack.
   ///
@@ -341,19 +375,11 @@ class NavigatorState extends State<Navigator> {
       }
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | callbacks
-    |--------------------------------------------------------------------------
-    */
+    // callbacks
 
     _updateCurrentName(cleanedName);
 
-    /*
-    |--------------------------------------------------------------------------
-    | update global state
-    |--------------------------------------------------------------------------
-    */
+    // update global state
 
     if (updateHistory) {
       if (Debug.routerLogs) {
@@ -370,37 +396,33 @@ class NavigatorState extends State<Navigator> {
 
     _historyStack.add(cleanedName);
 
-    /*
-    |--------------------------------------------------------------------------
-    | if route is already in stack, bring it to the top of stack
-    |--------------------------------------------------------------------------
-    */
+    // if route is already in stack, bring it to the top of stack
 
     if (isPageStacked(name: cleanedName)) {
       Framework.manageChildren(
-        parentContext: context,
+        parentContext: scopeContext,
         flagIterateInReverseOrder: true,
-        updateTypeWhenNecessary: UpdateType.navigatorOpen,
+        updateTypeWhenNecessary: UpdateType.setState,
         widgetActionCallback: (WidgetObject widgetObject) {
           var routeName =
               widgetObject.element.dataset[System.attrRouteName] ?? "";
 
           if (name == routeName) {
-            return [
-              WidgetAction.showWidget,
-              WidgetAction.updateWidget,
-            ];
+            return [WidgetAction.showWidget];
           }
 
           return [WidgetAction.hideWidget];
         },
       );
+
+      // calling setState will rebuild Navigator's scope.
+      // scope being an inherited widget, will notify all widgets
+      // that are dependent on current Navigator state.
+
+      setState(() {});
     } else {
-      /*
-      |--------------------------------------------------------------------------
-      | else build the route
-      |--------------------------------------------------------------------------
-      */
+      //
+      // else build the route
 
       var page = pathToRouteMap[nameToPathMap[cleanedName]];
 
@@ -410,19 +432,11 @@ class NavigatorState extends State<Navigator> {
 
       Framework.buildChildren(
         widgets: [page],
-        parentContext: context,
-        flagCleanParentContents: false,
+        parentContext: scopeContext,
+        flagCleanParentContents: _historyStack.isEmpty,
       );
     }
   }
-
-  /// Whether current active stack contains a route with matching [name].
-  ///
-  bool isPageStacked({required String name}) => _activeStack.contains(name);
-
-  /// Whether navigator can go back to a page.
-  ///
-  bool canGoBack() => _historyStack.length > 1;
 
   /// Go back.
   ///
@@ -444,24 +458,8 @@ class NavigatorState extends State<Navigator> {
         return [WidgetAction.hideWidget];
       },
     );
-  }
 
-  /// Framework fires this when parent route changes.
-  ///
-  void onParentRouteChange(String name) {
-    var routeName = Router.getPath(context.key);
-
-    if (routeName != currentRouteName) {
-      if (Debug.routerLogs) {
-        print("${context.key}: Push replacement: $routeName");
-      }
-
-      Router.pushReplacement(
-        name: currentRouteName,
-        values: '',
-        navigatorKey: context.key,
-      );
-    }
+    setState(() {});
   }
 
   /// Get value from URL following the provided segment.
@@ -494,6 +492,76 @@ class NavigatorState extends State<Navigator> {
   /// ```
   ///
   String getValue(String segment) => Router.getValue(context.key, segment);
+
+  /// Whether current active stack contains a route with matching [name].
+  ///
+  bool isPageStacked({required String name}) => _activeStack.contains(name);
+
+  /// Whether navigator can go back to a page.
+  ///
+  bool canGoBack() => _historyStack.length > 1;
+
+  /*
+  |--------------------------------------------------------------------------
+  | internals
+  |--------------------------------------------------------------------------
+  */
+
+  /// Bootstrapper provides its parent context(which effectively is scope of current
+  /// navigator).
+  ///
+  void frameworkBindScopeContext(BuildContext scopeContext) {
+    _scopeContext = scopeContext;
+  }
+
+  /// Bootstrapper fires this when it wants the initial render of Navigator.
+  ///
+  void frameworkBootstrapRender() {
+    var name = Router.getPath(context.key);
+
+    var needsReplacement = name.isEmpty;
+
+    if (name.isEmpty) {
+      name = widget.routes.first.name;
+    }
+
+    var onInitCallback = widget.onInit;
+    if (null != onInitCallback) {
+      onInitCallback(this);
+    }
+
+    if (needsReplacement && name.isNotEmpty) {
+      if (Debug.routerLogs) {
+        print("${context.key}: Push replacement: $name");
+      }
+
+      Router.pushReplacement(
+        name: name,
+        values: '',
+        navigatorKey: context.key,
+      );
+    }
+
+    open(name: name, updateHistory: false);
+  }
+
+  /// Framework fires this when parent route changes.
+  ///
+  void frameworkOnParentRouteChange(String name) {
+    var routeName = Router.getPath(context.key);
+
+    if (routeName != currentRouteName) {
+      if (Debug.routerLogs) {
+        print("${context.key}: Push replacement: $routeName");
+      }
+
+      Router.pushReplacement(
+        name: currentRouteName,
+        values: '',
+        navigatorKey: context.key,
+      );
+    }
+  }
 
   void _updateCurrentName(String name) {
     _currentName = name;

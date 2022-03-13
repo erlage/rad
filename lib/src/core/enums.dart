@@ -23,10 +23,6 @@ enum UpdateType {
   ///
   setState,
 
-  /// A Navigator called open on page that this widget is in.
-  ///
-  navigatorOpen,
-
   /// When a inherited dependency changes.
   ///
   dependencyChanged,
