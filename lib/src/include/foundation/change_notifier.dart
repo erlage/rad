@@ -1,54 +1,13 @@
 import 'dart:html';
 
-import 'package:rad/src/include/widgets/value_listenable_builder.dart';
-
 /// An object that maintains a list of listeners.
 ///
-/// The listeners are typically used to notify clients that the object has been
-/// updated.
-///
-/// There are two variants of this interface:
-///
-///  * [ValueListenable], an interface that augments the [Listenable] interface
-///    with the concept of a _current value_.
-///
-///  * [Animation], an interface that augments the [ValueListenable] interface
-///    to add the concept of direction (forward or reverse).
-///
-/// Many classes in the Flutter API use or implement these interfaces. The
-/// following subclasses are especially relevant:
-///
-///  * [ChangeNotifier], which can be subclassed or mixed in to create objects
-///    that implement the [Listenable] interface.
-///
-///  * [ValueNotifier], which implements the [ValueListenable] interface with
-///    a mutable value that triggers the notifications when modified.
-///
-/// The terms "notify clients", "send notifications", "trigger notifications",
-/// and "fire notifications" are used interchangeably.
-///
-/// See also:
-///
-///  * [ValueListenableBuilder], a widget that uses a builder callback to
-///    rebuild whenever a [ValueListenable] object triggers its notifications,
-///    providing the builder with the value of the object.
-///  * [ Listenable.merge], which creates a [Listenable] that triggers
-///    notifications whenever any of a list of other [Listenable]s trigger their
-///    notifications.
-///
-
 abstract class Listenable {
-  /// Abstract const constructor. This constructor enables subclasses to provide
-  /// const constructors so that they can be used in const expressions.
   const Listenable();
 
   /// Return a [Listenable] that triggers when any of the given [Listenable]s
   /// themselves trigger.
   ///
-  /// The list must not be changed after this method has been called. Doing so
-  /// will lead to memory leaks or exceptions.
-  ///
-  /// The list may contain nulls; they are ignored.
   factory Listenable.merge(List<Listenable?> listenables) = _MergingListenable;
 
   /// Register a closure to be called when the object notifies its listeners.
@@ -61,34 +20,14 @@ abstract class Listenable {
 
 /// An interface for subclasses of [Listenable] that expose a [value].
 ///
-/// This interface is implemented by [ValueNotifier<T>] and [Animation<T>], and
-/// allows other APIs to accept either of those implementations interchangeably.
-///
-/// See also:
-///
-///  * [ValueListenableBuilder], a widget that uses a builder callback to
-///    rebuild whenever a [ValueListenable] object triggers its notifications,
-///    providing the builder with the value of the object.
-///
 abstract class ValueListenable<T> extends Listenable {
-  /// Abstract const constructor. This constructor enables subclasses to provide
-  /// const constructors so that they can be used in const expressions.
   const ValueListenable();
 
-  /// The current value of the object. When the value changes, the callbacks
-  /// registered with [addListener] will be invoked.
   T get value;
 }
 
 /// A class that can be extended or mixed in that provides a change notification
 /// API using [VoidCallback] for notifications.
-///
-/// It is O(1) for adding listeners and O(N) for removing listeners and dispatching
-/// notifications (where N is the number of listeners).
-///
-/// See also:
-///
-///  * [ValueNotifier], which is a [ChangeNotifier] that wraps a single value.
 ///
 class ChangeNotifier implements Listenable {
   int _count = 0;
@@ -110,50 +49,12 @@ class ChangeNotifier implements Listenable {
 
   /// Whether any listeners are currently registered.
   ///
-  /// Clients should not depend on this value for their behavior, because having
-  /// one listener's logic change when another listener happens to start or stop
-  /// listening will lead to extremely hard-to-track bugs. Subclasses might use
-  /// this information to determine whether to do any work when there are no
-  /// listeners, however; for example, resuming a [Stream] when a listener is
-  /// added and pausing it when a listener is removed.
-  ///
-  /// Typically this is used by overriding [addListener], checking if
-  /// [hasListeners] is false before calling `super.addListener()`, and if so,
-  /// starting whatever work is needed to determine when to call
-  /// [notifyListeners]; and similarly, by overriding [removeListener], checking
-  /// if [hasListeners] is false after calling `super.removeListener()`, and if
-  /// so, stopping that same work.
   bool get hasListeners {
     assert(_debugAssertNotDisposed());
     return _count > 0;
   }
 
   /// Register a closure to be called when the object changes.
-  ///
-  /// If the given closure is already registered, an additional instance is
-  /// added, and must be removed the same number of times it is added before it
-  /// will stop being called.
-  ///
-  /// This method must not be called after [dispose] has been called.
-  ///
-  /// {@template flutter.foundation.ChangeNotifier.addListener}
-  /// If a listener is added twice, and is removed once during an iteration
-  /// (e.g. in response to a notification), it will still be called again. If,
-  /// on the other hand, it is removed as many times as it was registered, then
-  /// it will no longer be called. This odd behavior is the result of the
-  /// [ChangeNotifier] not being able to determine which listener is being
-  /// removed, since they are identical, therefore it will conservatively still
-  /// call all the listeners when it knows that any are still registered.
-  ///
-  /// This surprising behavior can be unexpectedly observed when registering a
-  /// listener on two separate objects which are both forwarding all
-  /// registrations to a common upstream object.
-  /// {@endtemplate}
-  ///
-  /// See also:
-  ///
-  ///  * [removeListener], which removes a previously registered closure from
-  ///    the list of closures that are notified when the object changes.
   ///
   @override
   void addListener(VoidCallback listener) {
@@ -174,12 +75,8 @@ class ChangeNotifier implements Listenable {
   }
 
   void _removeAt(int index) {
-    // The list holding the listeners is not growable for performances reasons.
-    // We still want to shrink this list if a lot of listeners have been added
-    // and then removed outside a notifyListeners iteration.
-    // We do this only when the real number of listeners is half the length
-    // of our list.
     _count -= 1;
+
     if (_count * 2 <= _listeners.length) {
       final List<VoidCallback?> newListeners =
           List<VoidCallback?>.filled(_count, null);
@@ -207,18 +104,6 @@ class ChangeNotifier implements Listenable {
   }
 
   /// Remove a previously registered closure from the list of closures that are
-  /// notified when the object changes.
-  ///
-  /// If the given listener is not registered, the call is ignored.
-  ///
-  /// This method must not be called after [dispose] has been called.
-  ///
-  /// {@macro flutter.foundation.ChangeNotifier.addListener}
-  ///
-  /// See also:
-  ///
-  ///  * [addListener], which registers a closure to be called when the object
-  ///    changes.
   ///
   @override
   void removeListener(VoidCallback listener) {
@@ -227,15 +112,9 @@ class ChangeNotifier implements Listenable {
       final VoidCallback? _listener = _listeners[i];
       if (_listener == listener) {
         if (_notificationCallStackDepth > 0) {
-          // We don't resize the list during notifyListeners iterations
-          // but we set to null, the listeners we want to remove. We will
-          // effectively resize the list at the end of all notifyListeners
-          // iterations.
           _listeners[i] = null;
           _reentrantlyRemovedListeners++;
         } else {
-          // When we are outside the notifyListeners iterations we can
-          // effectively shrink the list.
           _removeAt(i);
         }
         break;
@@ -248,7 +127,6 @@ class ChangeNotifier implements Listenable {
   /// [addListener] and [removeListener] will throw after the object is
   /// disposed).
   ///
-  /// This method should only be called by the object's owner.
   void dispose() {
     assert(_debugAssertNotDisposed());
     assert(() {
@@ -259,33 +137,9 @@ class ChangeNotifier implements Listenable {
 
   /// Call all the registered listeners.
   ///
-  /// Call this method whenever the object changes, to notify any clients the
-  /// object may have changed. Listeners that are added during this iteration
-  /// will not be visited. Listeners that are removed during this iteration will
-  /// not be visited after they are removed.
-  ///
-  /// Exceptions thrown by listeners will be caught and reported using
-  /// [FlutterError.reportError].
-  ///
-  /// This method must not be called after [dispose] has been called.
-  ///
-  /// Surprising behavior can result when reentrantly removing a listener (e.g.
-  /// in response to a notification) that has been registered multiple times.
-  /// See the discussion at [removeListener].
   void notifyListeners() {
     assert(_debugAssertNotDisposed());
     if (_count == 0) return;
-
-    // To make sure that listeners removed during this iteration are not called,
-    // we set them to null, but we don't shrink the list right away.
-    // By doing this, we can continue to iterate on our list until it reaches
-    // the last listener added before the call to this method.
-
-    // To allow potential listeners to recursively call notifyListener, we track
-    // the number of times this method is called in _notificationCallStackDepth.
-    // Once every recursive iteration is finished (i.e. when _notificationCallStackDepth == 0),
-    // we can safely shrink our list so that it will only contain not null
-    // listeners.
 
     _notificationCallStackDepth++;
 
@@ -374,11 +228,6 @@ class ValueNotifier<T> extends ChangeNotifier implements ValueListenable<T> {
   /// Creates a [ChangeNotifier] that wraps this value.
   ValueNotifier(this._value);
 
-  /// The current value stored in this notifier.
-  ///
-  /// When the value is replaced with something that is not equal to the old
-  /// value as evaluated by the equality operator ==, this class notifies its
-  /// listeners.
   @override
   T get value => _value;
   T _value;

@@ -40,6 +40,7 @@ class ValueListenableBuilder<T> extends StatefulWidget {
   /// The [valueListenable] and [builder] arguments must not be null.
   /// The [child] is optional but is good practice to use if part of the widget
   /// subtree does not depend on the value of the [valueListenable].
+  ///
   const ValueListenableBuilder({
     String? key,
     required this.valueListenable,
@@ -62,6 +63,7 @@ class ValueListenableBuilder<T> extends StatefulWidget {
   /// from the [child] parameter into the returned widget tree.
   ///
   /// Must not be null.
+  ///
   final ValueWidgetBuilder<T> builder;
 
   /// A [valueListenable]-independent widget which is passed back to the [builder].
@@ -70,6 +72,7 @@ class ValueListenableBuilder<T> extends StatefulWidget {
   /// the [builder] builds depends on the value of the [valueListenable]. For
   /// example, if the [valueListenable] is a [String] and the [builder] simply
   /// returns a [Text] widget with the [String] value.
+  ///
   final Widget? child;
 
   @override
