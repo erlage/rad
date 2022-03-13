@@ -109,9 +109,9 @@ class InheritedWidgetRenderObject extends RenderObject {
       oldConfiguration.widget,
     );
 
-    var unavailableWidgetKeys = <String>[];
-
     if (updateShouldNotify) {
+      var unavailableWidgetKeys = <String>[];
+
       dependents.forEach((widgetKey, widgetContext) {
         var isUpdated = Framework.updateWidgetHavingContext(widgetContext);
 
@@ -119,16 +119,16 @@ class InheritedWidgetRenderObject extends RenderObject {
           unavailableWidgetKeys.add(widgetContext.key);
         }
       });
-    }
 
-    if (unavailableWidgetKeys.isNotEmpty) {
-      if (Debug.widgetLogs) {
-        print("Following dependents of Inherited widget($context) are lost.");
+      if (unavailableWidgetKeys.isNotEmpty) {
+        if (Debug.widgetLogs) {
+          print("Following dependents of Inherited widget($context) are lost.");
 
-        unavailableWidgetKeys.forEach(print);
+          unavailableWidgetKeys.forEach(print);
+        }
+
+        unavailableWidgetKeys.forEach(dependents.remove);
       }
-
-      unavailableWidgetKeys.forEach(dependents.remove);
     }
   }
 }
