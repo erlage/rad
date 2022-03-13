@@ -50,10 +50,6 @@ export 'src/widgets/gesture_detector.dart' show GestureDetector;
 export 'src/widgets/text.dart' show Text;
 export 'src/widgets/raw_markup.dart' show RawMarkUp;
 
-// utility widgets
-
-export 'src/widgets/stateless_provider.dart' show StatelessProvider;
-
 // html
 
 export 'src/widgets/html/header.dart' show Header;
