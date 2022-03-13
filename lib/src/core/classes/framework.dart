@@ -340,15 +340,23 @@ class Framework {
         if (null != widgetObject) {
           var newWidget = updateObject.widget;
 
+          var oldWidget = widgetObject.renderObject.context.widget;
+
+          if (oldWidget == newWidget) {
+            if (Debug.frameworkLogs) {
+              print(
+                "Short-circuit rebuild: ${widgetObject.renderObject.context}",
+              );
+
+              return;
+            }
+          }
+
           var oldConfiguration = widgetObject.configuration;
 
           var isChanged = newWidget.isConfigurationChanged(oldConfiguration);
 
           if (isChanged) {
-            // keep reference of old widget for didUpdateWidget
-
-            var oldWidget = widgetObject.renderObject.context.widget;
-
             // switch to new widget and configuration
 
             var newConfiguration = newWidget.createConfiguration();
