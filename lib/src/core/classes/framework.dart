@@ -369,10 +369,10 @@ class Framework {
             // to build without checking whether they are const or not.
 
             // but if they further have child widgets of their owns, we want
-            // the framework to short-circuit rebuild if possible, therefore
-            // we are changing update type to setState.
+            // the framework to short-circuit rebuild if possible, this can be
+            // acheived by resetting update type to something else
 
-            updateType = UpdateType.setState;
+            updateType = UpdateType.undefined;
           } else {
             if (oldWidget == newWidget) {
               if (Debug.frameworkLogs) {

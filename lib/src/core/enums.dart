@@ -30,6 +30,10 @@ enum UpdateType {
   /// When a inherited dependency changes.
   ///
   dependencyChanged,
+
+  /// Undefined.
+  ///
+  undefined,
 }
 
 enum DomEventType {
