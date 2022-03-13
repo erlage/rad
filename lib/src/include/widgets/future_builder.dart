@@ -48,7 +48,7 @@ class FutureBuilder<T> extends StatefulWidget {
   /// interaction with a [Future].
   ///
   /// The [builder] must not be null.
-  const FutureBuilder({
+  FutureBuilder({
     String? key,
     this.future,
     this.initialData,
