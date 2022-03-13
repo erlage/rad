@@ -364,7 +364,16 @@ class Framework {
 
           var oldWidget = widgetObject.renderObject.context.widget;
 
-          if (UpdateType.dependencyChanged != updateType) {
+          if (UpdateType.dependencyChanged == updateType) {
+            // if it's a inherited widget update, we allow immediate childs
+            // to build without checking whether they are const or not.
+
+            // but if they further have child widgets of their owns, we want
+            // the framework to short-circuit rebuild if possible, therefore
+            // we are changing update type to setState.
+
+            updateType = UpdateType.setState;
+          } else {
             if (oldWidget == newWidget) {
               if (Debug.frameworkLogs) {
                 print(
