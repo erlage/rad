@@ -4,7 +4,7 @@ import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 class Heading1 extends MarkUpTagWithGlobalProps {
-  Heading1({
+  const Heading1({
     String? key,
     String? title,
     String? style,
@@ -42,7 +42,7 @@ class Heading1 extends MarkUpTagWithGlobalProps {
 }
 
 class Heading2 extends Heading1 {
-  Heading2({
+  const Heading2({
     String? key,
     String? title,
     String? style,
@@ -80,7 +80,7 @@ class Heading2 extends Heading1 {
 }
 
 class Heading3 extends Heading1 {
-  Heading3({
+  const Heading3({
     String? key,
     String? title,
     String? style,
@@ -118,7 +118,7 @@ class Heading3 extends Heading1 {
 }
 
 class Heading4 extends Heading1 {
-  Heading4({
+  const Heading4({
     String? key,
     String? title,
     String? style,
@@ -156,7 +156,7 @@ class Heading4 extends Heading1 {
 }
 
 class Heading5 extends Heading1 {
-  Heading5({
+  const Heading5({
     String? key,
     String? title,
     String? style,
@@ -194,7 +194,7 @@ class Heading5 extends Heading1 {
 }
 
 class Heading6 extends Heading1 {
-  Heading6({
+  const Heading6({
     String? key,
     String? title,
     String? style,

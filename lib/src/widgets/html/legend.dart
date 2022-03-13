@@ -7,7 +7,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// its parent <fieldset>.
 ///
 class Legend extends MarkUpTagWithGlobalProps {
-  Legend({
+  const Legend({
     String? key,
     String? title,
     String? style,

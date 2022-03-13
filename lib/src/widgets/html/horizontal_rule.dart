@@ -7,7 +7,7 @@ import 'package:rad/src/widgets/utils/common_props.dart';
 class HorizontalRule extends Widget {
   final String? classAttribute;
 
-  HorizontalRule({
+  const HorizontalRule({
     String? key,
     this.classAttribute,
   }) : super(key);

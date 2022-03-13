@@ -4,7 +4,7 @@ import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 class SuperScript extends MarkUpTagWithGlobalProps {
-  SuperScript({
+  const SuperScript({
     String? key,
     String? title,
     String? style,
