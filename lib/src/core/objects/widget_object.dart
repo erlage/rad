@@ -42,7 +42,7 @@ class WidgetObject {
         renderObject.context.widgetRuntimeType;
   }
 
-  void mount() {
+  void mount({int? mountAtIndex}) {
     if (_isMounted) {
       throw "Widget's element already mounted.";
     }
@@ -54,7 +54,15 @@ class WidgetObject {
     );
 
     if (null != parentElement) {
-      parentElement.append(element);
+      if (null != mountAtIndex &&
+          parentElement.children.length > mountAtIndex) {
+        parentElement.insertBefore(
+          element,
+          parentElement.children[mountAtIndex],
+        );
+      } else {
+        parentElement.append(element);
+      }
 
       _isMounted = true;
     } else {

@@ -161,6 +161,10 @@ class Framework {
     required List<Widget> widgets,
     required BuildContext parentContext,
     //
+    // -- options --
+    //
+    int? mountAtIndex, // Parent's children list index
+    //
     // -- flags --
     //
     flagCleanParentContents = true,
@@ -237,7 +241,7 @@ class Framework {
 
       widgetObject.renderObject.beforeMount();
 
-      widgetObject.mount();
+      widgetObject.mount(mountAtIndex: mountAtIndex);
 
       widgetObject.renderObject.afterMount();
 
@@ -276,12 +280,11 @@ class Framework {
     //
     // -- flags for widgets that aren't found in tree --
     //
-    flagAddIfNotFound = false,
+    flagAddIfNotFound = true,
     //
     // -- hard flags, can cause subtree rebuilds --
     //
-    flagTolerateMissingChildren = false,
-    flagTolerateChildrenCountMisMatch = false,
+    flagTolerateChildrenCountMisMatch = true,
     //
   }) {
     if (widgets.isEmpty) return;
@@ -351,9 +354,28 @@ class Framework {
       }
     }
 
+    // deal with obsolute nodes
+
+    for (final childElement in parent.children) {
+      if (!updateObjects.containsKey(childElement.id)) {
+        if (flagDisposeObsoluteChildren) {
+          _disposeWidget(
+            widgetObject: _getWidgetObject(childElement.id),
+            preserveTarget: false,
+          );
+        } else if (flagHideObsoluteChildren) {
+          _hideElement(childElement);
+        }
+      }
+    }
+
     // publish widget updates
 
-    updateObjects.forEach((elementId, updateObject) {
+    var updateIndex = updateObjects.keys.toList();
+
+    updateIndex.asMap().forEach((index, elementId) {
+      var updateObject = updateObjects[elementId]!;
+
       if (null != updateObject.existingElementId) {
         var widgetObject = _getWidgetObject(elementId);
 
@@ -453,25 +475,12 @@ class Framework {
           buildChildren(
             widgets: [updateObject.widget],
             parentContext: parentContext,
+            flagCleanParentContents: false,
+            mountAtIndex: index,
           );
         }
       }
     });
-
-    // deal with obsolute nodes
-
-    for (final childElement in parent.children) {
-      if (!updateObjects.containsKey(childElement.id)) {
-        if (flagDisposeObsoluteChildren) {
-          _disposeWidget(
-            widgetObject: _getWidgetObject(childElement.id),
-            preserveTarget: false,
-          );
-        } else if (flagHideObsoluteChildren) {
-          _hideElement(childElement);
-        }
-      }
-    }
   }
 
   /// Manage child widgets.
