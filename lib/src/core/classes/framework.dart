@@ -444,6 +444,12 @@ class Framework {
         }
       } else {
         if (flagAddIfNotFound) {
+          if (Debug.widgetLogs) {
+            print(
+              "Add missing child of type: ${updateObject.widget.runtimeType} under: $parentContext",
+            );
+          }
+
           buildChildren(
             widgets: [updateObject.widget],
             parentContext: parentContext,
@@ -621,6 +627,10 @@ class Framework {
     _unRegisterWidgetObject(widgetObject);
 
     widgetObject.element.remove();
+
+    if (Debug.widgetLogs) {
+      print("Dispose: ${widgetObject.context}");
+    }
   }
 
   static WidgetObject? _findAncestorWidgetObjectFromSelector(
