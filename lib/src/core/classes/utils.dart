@@ -5,6 +5,7 @@ import 'package:rad/src/core/enums.dart';
 class Utils {
   static var _extraCounter = 0;
   static var _widgetCounter = 0;
+  static final _random = Random();
 
   static String generateWidgetKey() {
     _widgetCounter++;
@@ -208,7 +209,7 @@ class Utils {
       Iterable.generate(
         length,
         (_) => cSet.codeUnitAt(
-          (Random()).nextInt(
+          (_random).nextInt(
             cSet.length,
           ),
         ),
