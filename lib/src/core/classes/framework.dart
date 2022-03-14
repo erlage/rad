@@ -416,13 +416,27 @@ class Framework {
             }
           }
 
-          // update childs
+          // whether old widget happen to have child widgets
+          var hadChilds = oldWidget.widgetChildren.isEmpty;
 
-          Framework.updateChildren(
-            widgets: updateObject.widget.widgetChildren,
-            parentContext: widgetObject.context,
-            updateType: updateType,
-          );
+          // whether new widget has any childs
+          var hasChilds = updateObject.widget.widgetChildren.isNotEmpty;
+
+          // if new widget has no childs but old had, we have to remove
+          // those orphan childs.
+
+          if (hadChilds && !hasChilds) {
+            _disposeWidget(widgetObject: widgetObject, preserveTarget: true);
+          } else {
+            // else update childs
+            // doesn't matter whether new has or not.
+
+            Framework.updateChildren(
+              widgets: updateObject.widget.widgetChildren,
+              parentContext: widgetObject.context,
+              updateType: updateType,
+            );
+          }
         } else {
           if (!flagTolerateChildrenCountMisMatch) {
             return dispatchCompleteRebuild();
