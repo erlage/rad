@@ -194,9 +194,16 @@ class Framework {
     for (final widget in widgets) {
       // generate key if not set
 
-      var widgetKey = System.contextKeyNotSet == widget.initialKey
-          ? Utils.generateWidgetKey()
-          : widget.initialKey;
+      var isKeyProvided = System.contextKeyNotSet != widget.initialKey;
+
+      if (Debug.developmentMode) {
+        if (isKeyProvided && widget.initialKey.startsWith("_gen_")) {
+          throw "Keys starting with _gen_ are reserved for framework.";
+        }
+      }
+
+      var widgetKey =
+          isKeyProvided ? widget.initialKey : Utils.generateWidgetKey();
 
       var configuration = widget.createConfiguration();
 
