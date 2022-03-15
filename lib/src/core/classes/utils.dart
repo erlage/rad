@@ -9,7 +9,7 @@ class Utils {
 
   static String generateWidgetKey() {
     _widgetCounter++;
-    return _widgetCounter.toString() + "_" + Utils.random();
+    return "_gen_" + _widgetCounter.toString() + "_" + Utils.random();
   }
 
   static String generateRandomKey() {

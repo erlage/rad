@@ -172,6 +172,25 @@ class Framework {
       throw "Framework not initialized. If you're building your own AppWidget implementation, make sure to call Framework.init()";
     }
 
+    if (flagCleanParentContents) {
+      var widgetType = parentContext.widgetConcreteType;
+
+      if (System.contextTypeBigBang == widgetType) {
+        var element = document.getElementById(parentContext.key);
+
+        if (null == element) {
+          throw "Unable to find target to mount app. Make sure your DOM has element with key #$parentContext";
+        }
+
+        element.innerHtml = "";
+      } else {
+        _disposeWidget(
+          preserveTarget: true,
+          widgetObject: _getWidgetObject(parentContext.key),
+        );
+      }
+    }
+
     for (final widget in widgets) {
       // generate key if not set
 
@@ -209,32 +228,6 @@ class Framework {
 
       _registerWidgetObject(widgetObject);
 
-      // dispose inner contents if flag is on
-
-      if (flagCleanParentContents) {
-        var widgetType =
-            widgetObject.renderObject.context.parent.widgetConcreteType;
-
-        if (System.contextTypeBigBang == widgetType) {
-          var element = document.getElementById(
-            renderObject.context.parent.key,
-          );
-
-          if (null == element) {
-            throw "Unable to find target to mount app. Make sure your DOM has element with key #${renderObject.context.parent}";
-          }
-
-          element.innerHtml = "";
-        } else {
-          var parentKey = widgetObject.renderObject.context.parent.key;
-
-          _disposeWidget(
-            preserveTarget: true,
-            widgetObject: _getWidgetObject(parentKey),
-          );
-        }
-      }
-
       widgetObject.renderObject.beforeMount();
 
       widgetObject.mount(mountAtIndex: mountAtIndex);
@@ -250,11 +243,6 @@ class Framework {
         widgets: widgetObject.widget.widgetChildren,
         parentContext: widgetObject.context,
       );
-
-      // unset clean flag.
-      // because remaining childs must not remove newly added childs
-
-      flagCleanParentContents = false;
     }
   }
 
@@ -328,9 +316,16 @@ class Framework {
               "${widget.runtimeType}" == child.dataset[System.attrRuntimeType];
 
           if (hasSameType) {
-            updateObjects[child.id] = WidgetUpdateObject(widget, child.id);
+            var hadKey = !child.id.startsWith("_gen_");
+            var hasKey = System.contextKeyNotSet != widget.initialKey;
 
-            continue widgetLoop;
+            if ((hasKey || hadKey) && widget.initialKey != child.id) {
+              // skip this one
+            } else {
+              updateObjects[child.id] = WidgetUpdateObject(widget, child.id);
+
+              continue widgetLoop;
+            }
           }
         }
       }
@@ -694,6 +689,16 @@ class Framework {
 
   static void _registerWidgetObject(WidgetObject widgetObject) {
     var widgetKey = widgetObject.renderObject.context.key;
+
+    if (Debug.developmentMode) {
+      if (_registeredWidgetObjects.containsKey(widgetKey)) {
+        throw "Key $widgetKey already exists."
+            "\n\nThis usually happens in two scenarios,"
+            "\n\n1. When you have duplicate keys in your code."
+            "\n\nor\n\n2. When you've two adjacent widgets of same type and one of them is optional."
+            "\n\nCorrect way to fix (2): Use explicit keys on one of the widgets that are of same type.";
+      }
+    }
 
     _registeredWidgetObjects[widgetKey] = widgetObject;
   }
