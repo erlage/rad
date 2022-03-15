@@ -82,7 +82,7 @@ Talking about differences, well there are number of them,
           ]
         )
         ```
-  Just like that, you can compose widgets the way you want and style them according to your liking.
+  This was just an example, you don't really need these type of widgets while using Rad.Just use a CSS framework of your choice and build whatever design you want. 
 
 ## Widgets Index
 
@@ -92,23 +92,25 @@ Below is the list of available widgets in this framework.
 > 
 > Markings:
 >   - *exact*: Works exactly same.
->   - *same*: Works nearly the same way.
->   - *differ*: Works different.
+>   - *same*: Works nearly the same way. 
+>   - *different*: Works different.
+>
+> Please note that these markings are based on what I know about Flutter widgets. If you happen to find any big differences, do let me know.
 
 ### Main
 
-- [App](https://pub.dev/documentation/rad/latest/rad/App-class.html)
+- [RadApp](https://pub.dev/documentation/rad/latest/rad/RadApp-class.html)
 
 ### Navigator/Routing
 
-- [Navigator](https://pub.dev/documentation/rad/latest/rad/Navigator-class.html) \[*differ*\]
+- [Navigator](https://pub.dev/documentation/rad/latest/rad/Navigator-class.html) \[*different*\]
 - [Route](https://pub.dev/documentation/rad/latest/rad/Route-class.html)
 
 ### Abstract
 
-- [StatelessWidget](https://pub.dev/documentation/rad/latest/rad/StatelessWidget-class.html) \[*same*\]
+- [InheritedWidget](https://pub.dev/documentation/rad/latest/rad/InheritedWidget-class.html) \[*exact*\]
+- [StatelessWidget](https://pub.dev/documentation/rad/latest/rad/StatelessWidget-class.html) \[*exact*\]
 - [StatefulWidget](https://pub.dev/documentation/rad/latest/rad/StatefulWidget-class.html) \[*same*\]
-- [StatelessProvider](https://pub.dev/documentation/rad/latest/rad/StatelessProvider-class.html)
 
 ### Builders
 
@@ -118,7 +120,7 @@ Below is the list of available widgets in this framework.
 
 ### Elements
 
-- [Text](https://pub.dev/documentation/rad/latest/rad/Text-class.html) \[*differ*\]
+- [Text](https://pub.dev/documentation/rad/latest/rad/Text-class.html) \[*different*\]
 - [RawMarkUp](https://pub.dev/documentation/rad/latest/rad/RawMarkUp-class.html)
 - [GestureDetector](https://pub.dev/documentation/rad/latest/rad/GestureDetector-class.html)
 

@@ -1,3 +1,27 @@
+## 0.6.0
+
+- Added InheritedWidget
+
+### Changes
+
+- 'App' widget has been renamed to 'RadApp'.
+- StatelessProvider widget has been removed. Alternative: InheritedWidget 
+
+### Core update
+
+- Core is now able short-circuit widget rebuilds. This makes Rad a blazingly fast frontend framework.
+- Now keys can be used to distinguish between correct widgets while rebuilding. Something like that: https://www.youtube.com/watch?v=kn0EOS-ZiIc
+- From now, `const` contructors can drastically improves performance. Try to use them where possible.
+    To get linter help on this, use following rules in your `analysis_options.yaml`
+    ```yaml
+    linter:
+        rules:
+            - prefer_const_constructors
+            - prefer_const_declarations
+            - prefer_const_constructors_in_immutables
+            - prefer_const_literals_to_create_immutables
+    ```
+
 ## 0.5.4
 
 - Patch Navigator initial Render
