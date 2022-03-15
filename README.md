@@ -1,13 +1,13 @@
 # Rad
 
-Rad is a frontend framework for Dart. It's inspired from Flutter and shares same programming paradigm. In Rad, applications are created using widgets. A widget can describe static as well as dynamic part of user interface. Widgets can be composed together to build more widgets and complex layouts.
+Rad is a frontend framework for creating fast and interactive websites using Dart. It's inspired from Flutter and shares same programming paradigm. It has all the best bits of Flutter(StatefulWidgets, Builders) and allows you to use web technologies(HTML and CSS) in your app.
 
 ## Quick links
 
 - [Getting started](https://github.com/erlage/rad/blob/main/doc/getting_started.md)
 - [API reference](https://pub.dev/documentation/rad/latest/rad/rad-library.html)
 
-### Example
+## Example
 
 Let's take a look at an example written using Rad:
 
@@ -20,13 +20,13 @@ class HomePage extends StatelessWidget
   }
 }
 ```
-How about that? if you're familiar with Flutter it don't even need an explanation.
+How about that? if you're familiar with Flutter it don't even need an explanation. Well there are some differences that should be discussed before you begin using Rad,
 
-Talking about differences, well there are number of them,
+## Differences
 
 1. First off, we don't use a rendering engine to render a widget or anything like that. Widgets are mapped to HTML tags and composed together they way you describe them. This means every widget has a corresponding HTML tag in DOM, and your application has complete access to document(DOM).
 
-2. To make things manageble, there are widgets for commonly used HTML tags.
+2. For designing a interface, you've to use HTML. And guess what? there are widgets for that.
   
     Let's take this HTML snippet:
     ```html
@@ -47,7 +47,7 @@ Talking about differences, well there are number of them,
     ```
     Note: Since `class` is a reserved word in Dart we're using suffix "Attribute" with it. There are a few more attributes that are reserved, and those can be used with the same suffix "Attribute".
 
-3. Lastly, there are no layout/style specific widgets for example in Flutter we've Container, Stack etc. Just think about it for a sec? we don't really need them as most of things can be done using HTML tags and CSS.
+    This means, there are no layout/style specific widgets like you've in Container, Stack etc in Flutter. Just think about it for a sec? we don't really need them as most of things can be done using HTML tags and CSS.
 
     Just for sake of example, let's say you want a Stack widget,
 
@@ -82,7 +82,12 @@ Talking about differences, well there are number of them,
           ]
         )
         ```
-  This was just an example, you don't really need these type of widgets while using Rad.Just use a CSS framework of your choice and build whatever design you want. 
+    This was just an example, you don't really need these type of widgets while using Rad since you can now use a CSS framework of your choice.
+
+
+3. Rad's doesn't rebuild widgets multiple times a second, which means for animations you've to turn to CSS.
+
+4. Lastly, Rad is fast, thanks to its tiny core and number of optimizations on top of that.
 
 ## Widgets Index
 
@@ -95,7 +100,7 @@ Below is the list of available widgets in this framework.
 >   - *same*: Works nearly the same way. 
 >   - *different*: Works different.
 >
-> Please note that these markings are based on what I know about Flutter widgets. If you happen to find any big differences, do let me know.
+> Please note that these markings are based on my understanding of Flutter widgets/src. If you happen to find any big differences, do let me know.
 
 ### Main
 
