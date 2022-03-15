@@ -11,14 +11,14 @@ import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
 
-class App extends Widget {
+class RadApp extends Widget {
   final Widget child;
 
   final String targetKey;
 
   final Components? additionalComponents;
 
-  App({
+  RadApp({
     String? key,
     required this.child,
     required this.targetKey,
@@ -77,7 +77,7 @@ class App extends Widget {
   get widgetChildren => [child];
 
   @override
-  get concreteType => "$App";
+  get concreteType => "$RadApp";
 
   @override
   get correspondingTag => DomTag.division;

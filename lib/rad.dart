@@ -30,7 +30,7 @@ export 'src/widgets/navigator.dart' show NavigatorState;
 
 // main
 
-export 'src/widgets/app.dart' show App;
+export 'src/widgets/rad_app.dart' show RadApp;
 
 export 'src/widgets/inherited_widget.dart' show InheritedWidget;
 export 'src/widgets/stateful_widget.dart' show StatefulWidget, State;
