@@ -74,13 +74,16 @@ class App extends Widget {
   }
 
   @override
+  get widgetChildren => [child];
+
+  @override
   get concreteType => "$App";
 
   @override
   get correspondingTag => DomTag.division;
 
   @override
-  createConfiguration() => _AppConfiguration(child);
+  createConfiguration() => const WidgetConfiguration();
 
   @override
   isConfigurationChanged(oldConfiguration) => false;
@@ -91,33 +94,10 @@ class App extends Widget {
 
 /*
 |--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _AppConfiguration extends WidgetConfiguration {
-  final Widget child;
-
-  const _AppConfiguration(this.child);
-}
-
-/*
-|--------------------------------------------------------------------------
 | render object
 |--------------------------------------------------------------------------
 */
 
 class AppWidgetRenderObject extends RenderObject {
   const AppWidgetRenderObject(BuildContext context) : super(context);
-
-  @override
-  render(
-    element,
-    covariant _AppConfiguration configuration,
-  ) {
-    Framework.buildChildren(
-      widgets: [configuration.child],
-      parentContext: context,
-    );
-  }
 }
