@@ -9,7 +9,6 @@ import 'package:rad/src/core/objects/router/router_stack.dart';
 import 'package:rad/src/core/objects/router/router_stack_entry.dart';
 import 'package:rad/src/widgets/navigator.dart';
 import 'package:rad/src/widgets/route.dart';
-import 'package:rad/src/widgets/stateful_widget.dart';
 
 class Router {
   static var _isInit = false;
@@ -338,9 +337,9 @@ class Router {
 
     // else it's nested navigator
 
-    var widgetState = (parent.renderObject as StatefulWidgetRenderObject);
+    var widgetState = (parent.renderObject as NavigatorRenderObject);
 
-    var parentState = widgetState.state as NavigatorState;
+    var parentState = widgetState.state;
 
     var parentObject = _routeObjects[parent.context.key];
 

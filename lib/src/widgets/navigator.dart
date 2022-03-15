@@ -1,68 +1,17 @@
+import 'dart:html';
+
+import 'package:meta/meta.dart';
 import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/classes/framework.dart';
+import 'package:rad/src/core/classes/router.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/classes/router.dart';
+import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/route.dart';
-import 'package:rad/src/widgets/stateful_widget.dart';
-
-/*
-|--------------------------------------------------------------------------
-| Navigator's scope (Inherited widget)
-|--------------------------------------------------------------------------
-*/
-
-class _NavigatorScope extends InheritedWidget {
-  final NavigatorState navigatorState;
-
-  const _NavigatorScope({
-    String? key,
-    required Widget child,
-    required this.navigatorState,
-  }) : super(key: key, child: child);
-
-  @override
-  updateShouldNotify(oldWidget) => true;
-}
-
-/*
-|--------------------------------------------------------------------------
-| Navigator's Scope Bootstrapper.
-|--------------------------------------------------------------------------
-*/
-
-class _NavigatorScopeBootstrapper extends StatefulWidget {
-  const _NavigatorScopeBootstrapper({String? key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => _NavigatorBootstrapState();
-}
-
-class _NavigatorBootstrapState extends State<_NavigatorScopeBootstrapper> {
-  @override
-  initState() {
-    Navigator.of(context)
-      ..frameworkBindScopeContext(context.parent)
-      ..frameworkBootstrapRender();
-  }
-
-  @override
-  get frameworkIsBuildEnabled => false;
-
-  @override
-  build(context) => throw "Navigator uses Framework.x-api to render widgets";
-}
-
-/*
-|--------------------------------------------------------------------------
-| At top, is our actual Navigator widget with state
-|--------------------------------------------------------------------------
-*/
 
 /// Navigator widget.
 ///
@@ -250,7 +199,11 @@ class _NavigatorBootstrapState extends State<_NavigatorScopeBootstrapper> {
 /// );
 /// ```
 ///
-class Navigator extends StatefulWidget {
+class Navigator extends Widget {
+  /// Routes that this Navigator instance handles.
+  ///
+  final List<Route> routes;
+
   /// Called when Navigator state is created.
   ///
   final NavigatorStateCallback? onInit;
@@ -259,38 +212,144 @@ class Navigator extends StatefulWidget {
   ///
   final NavigatorRouteChangeCallback? onRouteChange;
 
-  /// List of [Route] that this Navigator handles.
-  ///
-  final List<Route> routes;
-
   const Navigator({
-    String? key,
+    required this.routes,
     this.onInit,
     this.onRouteChange,
-    required this.routes,
-  }) : super(key: key);
+    String? key,
+  }) : super(key);
 
-  /// The state from the closest instance of Navigator state that encloses the given context.
+  /// Navigator's state from the closest instance of this class
+  /// that encloses the given context.
   ///
-  /// Typical usage is as follows:
-  ///
-  /// ```dart
-  /// NavigatorState navigator = Navigator.of(context);
-  /// ```
   static NavigatorState of(BuildContext context) {
-    return context
-        .dependOnInheritedWidgetOfExactType<_NavigatorScope>()!
-        .navigatorState;
+    var widgetObject =
+        Framework.findAncestorWidgetObjectOfType<Navigator>(context);
+
+    if (null == widgetObject) {
+      throw "Navigator operation requested with a context that does not include a Navigator.\n"
+          "The context used to push or pop routes from the Navigator must be that of a "
+          "widget that is a descendant of a Navigator widget.";
+    }
+
+    var renderObject = widgetObject.renderObject as NavigatorRenderObject;
+
+    renderObject.addDependent(context);
+
+    return renderObject.state;
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | widget internals
+  |--------------------------------------------------------------------------
+  */
+
+  @nonVirtual
+  @override
+  get concreteType => "$Navigator";
+
+  @nonVirtual
+  @override
+  get correspondingTag => DomTag.division;
+
+  @nonVirtual
+  @override
+  createConfiguration() => const WidgetConfiguration();
+
+  @nonVirtual
+  @override
+  isConfigurationChanged(oldConfiguration) => true;
+
+  @override
+  createRenderObject(context) => NavigatorRenderObject(context, this);
+}
+
+/*
+|--------------------------------------------------------------------------
+| render object
+|--------------------------------------------------------------------------
+*/
+
+class NavigatorRenderObject extends RenderObject {
+  final NavigatorState state;
+
+  /// currentPage => {widgetKey => widgetContext}
+  ///
+  final dependents = <String, Map<String, BuildContext>>{};
+
+  NavigatorRenderObject(BuildContext context, Navigator widget)
+      : state = NavigatorState(context, widget),
+        super(context);
+
+  void addDependent(BuildContext dependentContext) {
+    var dependentsOnCurrentPage = dependents[state.currentRouteName];
+
+    if (null == dependentsOnCurrentPage) {
+      dependents[state.currentRouteName] = {
+        dependentContext.key: dependentContext
+      };
+
+      return;
+    }
+
+    if (!dependentsOnCurrentPage.containsKey(dependentContext.key)) {
+      dependentsOnCurrentPage[dependentContext.key] = dependentContext;
+    }
+  }
+
+  void _updateHook() {
+    var dependentsOnCurrentPage = dependents[state.currentRouteName];
+
+    if (null != dependentsOnCurrentPage) {
+      var unavailableWidgetKeys = <String>[];
+
+      dependentsOnCurrentPage.forEach((widgetKey, widgetContext) {
+        var isUpdated = Framework.updateWidgetHavingContext(widgetContext);
+
+        if (!isUpdated) {
+          unavailableWidgetKeys.add(widgetContext.key);
+        }
+      });
+
+      if (unavailableWidgetKeys.isNotEmpty) {
+        if (Debug.widgetLogs) {
+          print("Following dependents of Inherited widget($context) are lost.");
+
+          unavailableWidgetKeys.forEach(print);
+        }
+
+        unavailableWidgetKeys.forEach(dependents.remove);
+      }
+    }
   }
 
   @override
-  State<StatefulWidget> createState() => NavigatorState();
+  render(element, configuration) => state
+    ..frameworkInitState()
+    ..frameworkRender(_updateHook);
+
+  @override
+  update({
+    required element,
+    required updateType,
+    required oldConfiguration,
+    required newConfiguration,
+  }) {
+    state.frameworkUpdate(updateType);
+  }
+
+  @override
+  beforeUnMount() => state.frameworkDispose();
 }
 
-// since Navigator widget is part of framework, it has access
-// to Router and Framework core classes.
+/*
+|--------------------------------------------------------------------------
+| Navigator's state
+|--------------------------------------------------------------------------
+*/
 
-class NavigatorState extends State<Navigator> {
+class NavigatorState {
   /// Routes that this Navigator instance handles.
   ///
   final routes = <Route>[];
@@ -309,65 +368,20 @@ class NavigatorState extends State<Navigator> {
   String get currentRouteName => _currentName;
   var _currentName = '_';
 
-  /// Navigator's scope context.
+  /// Navigator widget's instance.
   ///
-  BuildContext get scopeContext => _scopeContext!;
-  BuildContext? _scopeContext;
+  final Navigator widget;
+
+  /// Navigator's context.
+  ///
+  final BuildContext context;
 
   // internal stack data
 
   final _activeStack = <String>[];
   final _historyStack = <String>[];
 
-  @override
-  initState() {
-    if (Debug.developmentMode) {
-      if (widget.routes.isEmpty) {
-        throw "Navigator instance must have at least one route.";
-      }
-    }
-
-    routes.addAll(widget.routes);
-
-    for (final route in routes) {
-      if (Debug.developmentMode) {
-        if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(route.path)) {
-          if (route.path.isEmpty) {
-            throw "Navigator's Route's path can't be empty."
-                "\n Route: ${route.name} -> ${route.path} is not allowed";
-          }
-
-          throw "Navigator's Route can contains only alphanumeric characters and underscores"
-              "\n Route: ${route.name} -> ${route.path} is not allowed";
-        }
-
-        var isDuplicate = nameToPathMap.containsKey(route.name) ||
-            pathToRouteMap.containsKey(route.path);
-
-        if (isDuplicate) {
-          throw "Please remove Duplicate routes from your Navigator."
-              "Part of your route, name: '${route.name}' => path: '${route.path}', already exists";
-        }
-      }
-
-      nameToPathMap[route.name] = route.path;
-
-      pathToRouteMap[route.path] = route;
-    }
-
-    Router.register(context, this);
-  }
-
-  @override
-  build(context) {
-    return _NavigatorScope(
-      navigatorState: this,
-      child: const _NavigatorScopeBootstrapper(),
-    );
-  }
-
-  @override
-  dispose() => Router.unRegister(context);
+  NavigatorState(this.context, this.widget);
 
   /*
   |--------------------------------------------------------------------------
@@ -455,7 +469,7 @@ class NavigatorState extends State<Navigator> {
 
     if (isPageStacked(name: cleanedName)) {
       Framework.manageChildren(
-        parentContext: scopeContext,
+        parentContext: context,
         flagIterateInReverseOrder: true,
         updateTypeWhenNecessary: UpdateType.setState,
         widgetActionCallback: (WidgetObject widgetObject) {
@@ -470,11 +484,7 @@ class NavigatorState extends State<Navigator> {
         },
       );
 
-      // calling setState will rebuild Navigator's scope.
-      // scope being an inherited widget, will notify all widgets
-      // that are dependent on current Navigator state.
-
-      setState(() {});
+      _updateHook!();
     } else {
       //
       // else build the route
@@ -485,10 +495,19 @@ class NavigatorState extends State<Navigator> {
 
       _activeStack.add(name);
 
+      // hide all existing widgets
+      Framework.manageChildren(
+        parentContext: context,
+        flagIterateInReverseOrder: true,
+        updateTypeWhenNecessary: UpdateType.setState,
+        widgetActionCallback: (WidgetObject widgetObject) =>
+            [WidgetAction.hideWidget],
+      );
+
       Framework.buildChildren(
         widgets: [page],
-        parentContext: scopeContext,
-        flagCleanParentContents: _historyStack.isEmpty,
+        parentContext: context,
+        flagCleanParentContents: 1 == _historyStack.length,
       );
     }
   }
@@ -514,7 +533,7 @@ class NavigatorState extends State<Navigator> {
       },
     );
 
-    setState(() {});
+    _updateHook!();
   }
 
   /// Get value from URL following the provided segment.
@@ -562,16 +581,49 @@ class NavigatorState extends State<Navigator> {
   |--------------------------------------------------------------------------
   */
 
-  /// Bootstrapper provides its parent context(which effectively is scope of current
-  /// navigator).
-  ///
-  void frameworkBindScopeContext(BuildContext scopeContext) {
-    _scopeContext = scopeContext;
+  VoidCallback? _updateHook;
+
+  frameworkInitState() {
+    if (Debug.developmentMode) {
+      if (widget.routes.isEmpty) {
+        throw "Navigator instance must have at least one route.";
+      }
+    }
+
+    routes.addAll(widget.routes);
+
+    for (final route in routes) {
+      if (Debug.developmentMode) {
+        if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(route.path)) {
+          if (route.path.isEmpty) {
+            throw "Navigator's Route's path can't be empty."
+                "\n Route: ${route.name} -> ${route.path} is not allowed";
+          }
+
+          throw "Navigator's Route can contains only alphanumeric characters and underscores"
+              "\n Route: ${route.name} -> ${route.path} is not allowed";
+        }
+
+        var isDuplicate = nameToPathMap.containsKey(route.name) ||
+            pathToRouteMap.containsKey(route.path);
+
+        if (isDuplicate) {
+          throw "Please remove Duplicate routes from your Navigator."
+              "Part of your route, name: '${route.name}' => path: '${route.path}', already exists";
+        }
+      }
+
+      nameToPathMap[route.name] = route.path;
+
+      pathToRouteMap[route.path] = route;
+    }
+
+    Router.register(context, this);
   }
 
-  /// Bootstrapper fires this when it wants the initial render of Navigator.
-  ///
-  void frameworkBootstrapRender() {
+  void frameworkRender(VoidCallback updateHook) {
+    _updateHook = updateHook;
+
     var name = Router.getPath(context.key);
 
     var needsReplacement = name.isEmpty;
@@ -599,6 +651,25 @@ class NavigatorState extends State<Navigator> {
 
     open(name: name, updateHistory: false);
   }
+
+  void frameworkUpdate(UpdateType updateType) {
+    Framework.manageChildren(
+      parentContext: context,
+      flagIterateInReverseOrder: true,
+      updateTypeWhenNecessary: updateType,
+      widgetActionCallback: (WidgetObject widgetObject) {
+        var name = widgetObject.element.dataset[System.attrRouteName] ?? "";
+
+        if (currentRouteName == name) {
+          return [WidgetAction.updateWidget];
+        }
+
+        return [];
+      },
+    );
+  }
+
+  void frameworkDispose() => Router.unRegister(context);
 
   /// Framework fires this when parent route changes.
   ///
