@@ -140,6 +140,8 @@ import 'package:rad/src/widgets/route.dart';
 ///
 /// Navigator.of(context).canGoBack() // ->  false, since no previous route
 ///
+/// ```
+///
 /// ### Passing values between routes
 ///
 /// Values can be passed to a route while opening that route:

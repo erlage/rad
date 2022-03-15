@@ -1,4 +1,10 @@
+## 0.6.1
+
+- Minor Doc fixes.
+
 ## 0.6.0
+
+### New!
 
 - Added InheritedWidget
 

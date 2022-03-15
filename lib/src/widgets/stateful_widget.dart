@@ -50,28 +50,6 @@ import 'package:rad/src/widgets/utils/common_props.dart';
 ///
 /// ## A Stateful widget example: 'click to toggle'
 ///
-/// ```dart
-/// class ClickTest extends StatefulWidget {
-///   bool isClicked = false;
-///
-///   @override
-///   Widget build(BuildContext context) {
-///     return GestureDetector(
-///       onTap: handleTap,
-///       child: Text(isClicked ? "on! click to turn off." : "click to turn on."),
-///     );
-///   }
-///
-///   handleTap() {
-///     setState(() {
-///       isClicked = !isClicked;
-///     });
-///   }
-/// }
-/// ```
-///
-/// ## Same 'click to toggle' example using Flutter:
-///
 /// ```
 /// class ClickToggle extends StatefulWidget {
 ///
