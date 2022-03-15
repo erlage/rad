@@ -22,6 +22,8 @@ import 'package:rad/src/widgets/route.dart';
 /// - Deep linking
 /// - Single page experience (no page reloads when user hit forward/back buttons)
 ///
+/// ![Deep linking and Single page experience in action](https://github.com/erlage/rad/raw/main/example/routing/routing.gif)
+///
 /// And all three tasks are carried out without any special configuration or management from
 /// developer side. That is, Framework will automatically deep link your Navigators, and
 /// route requests to the correct ones when requested no matter how deeply nested your
