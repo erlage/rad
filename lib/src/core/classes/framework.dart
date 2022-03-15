@@ -215,7 +215,7 @@ class Framework {
         var widgetType =
             widgetObject.renderObject.context.parent.widgetConcreteType;
 
-        if (System.contextTypeBigBang != widgetType) {
+        if (System.contextTypeBigBang == widgetType) {
           var element = document.getElementById(
             renderObject.context.parent.key,
           );
@@ -435,7 +435,7 @@ class Framework {
           }
 
           // whether old widget happen to have child widgets
-          var hadChilds = oldWidget.widgetChildren.isEmpty;
+          var hadChilds = oldWidget.widgetChildren.isNotEmpty;
 
           // whether new widget has any childs
           var hasChilds = updateObject.widget.widgetChildren.isNotEmpty;
