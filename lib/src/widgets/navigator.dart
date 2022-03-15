@@ -321,10 +321,26 @@ class NavigatorState extends State<Navigator> {
 
   @override
   initState() {
+    if (Debug.developmentMode) {
+      if (widget.routes.isEmpty) {
+        throw "Navigator instance must have at least one route.";
+      }
+    }
+
     routes.addAll(widget.routes);
 
     for (final route in routes) {
       if (Debug.developmentMode) {
+        if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(route.path)) {
+          if (route.path.isEmpty) {
+            throw "Navigator's Route's path can't be empty."
+                "\n Route: ${route.name} -> ${route.path} is not allowed";
+          }
+
+          throw "Navigator's Route can contains only alphanumeric characters and underscores"
+              "\n Route: ${route.name} -> ${route.path} is not allowed";
+        }
+
         var isDuplicate = nameToPathMap.containsKey(route.name) ||
             pathToRouteMap.containsKey(route.path);
 
