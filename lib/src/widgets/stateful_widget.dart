@@ -7,9 +7,101 @@ import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/widgets/stateless_widget.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
 
 /// A widget that has mutable state.
+///
+////// A stateful widget is a widget that describes dynamic user interface.
+/// Stateful widgets are useful when the part of the user interface you are
+/// describing can change dynamically, e.g. due to having an internal
+/// state, or depending on some system state.
+///
+/// ## Performance consideration
+///
+/// * In worst case, a widget rebuild process involves cascading a update call to all child
+///   widgets. Child widgets then can cascade update to their childs and so on. This case
+///   usually doesn't happen but it's worth mentioning. Update process is optimized for
+///   performance in worst case. A widget update do not cause a complete widget's rebuild.
+///   Every widget will update it's DOM interface only if  its description has changed.
+///
+///
+/// * Normally, having state at top-level of your application won't hurt performance.
+///   But it's always better to have a your State at leaf nodes. Having less childs means,
+///   updates can be dispatched and processed faster.
+///
+///
+/// * Use const constructors where possible. Framework is capable of short-circuiting rebuild
+///   process when it encounters a constant.
+///
+///
+/// * There are cases where child widgets has to rebuild themselves from scratch. Complete
+///   rebuild involves disposing off current childs and rebuilding new ones with new state.
+///   Usually happens when child that framework is looking for is not there anymore because
+///   of state change in parent.
+///   Rebuilds might be bad if Rad has to render pixel multiple times a second. Luckly in Rad
+///   framework, building and updating interface is a one-step process. Framework handles the
+///   description of widgets and building process is carried out by the browser. We can rely
+///   on browsers for building big parts of tree when needed. After all that's what they do.
+///   By widget description, we mean 'data' that's required to build a widget. This means even
+///   if you remove child nodes/or part of DOM tree using browser inspector, calling setState()
+///   in a parent widget will bring back everything back in DOM.
+///
+///
+/// ## A Stateful widget example: 'click to toggle'
+///
+/// ```dart
+/// class ClickTest extends StatefulWidget {
+///   bool isClicked = false;
+///
+///   @override
+///   Widget build(BuildContext context) {
+///     return GestureDetector(
+///       onTap: handleTap,
+///       child: Text(isClicked ? "on! click to turn off." : "click to turn on."),
+///     );
+///   }
+///
+///   handleTap() {
+///     setState(() {
+///       isClicked = !isClicked;
+///     });
+///   }
+/// }
+/// ```
+///
+/// ## Same 'click to toggle' example using Flutter:
+///
+/// ```
+/// class ClickToggle extends StatefulWidget {
+///
+///   @override
+///   _ClickToggleState createState() => _ClickToggleState();
+/// }
+///
+/// class _ClickToggleState extends State<ClickToggle> {
+///   bool isClicked = false;
+///
+///   @override
+///   Widget build(BuildContext context) {
+///     return GestureDetector(
+///       onTap: _handleTap,
+///       child: Text(isClicked ? "on! click to turn off." : "click to turn on."),
+///     );
+///   }
+///
+///   _handleTap() {
+///     setState(() {
+///       isClicked = !isClicked;
+///     });
+///   }
+/// }
+/// ```
+///
+/// See also:
+///
+///  * [StatelessWidget], for widgets that always build the same way given a
+///    particular configuration.
 ///
 @immutable
 abstract class StatefulWidget extends Widget {
@@ -122,6 +214,38 @@ class StatefulWidgetRenderObject extends RenderObject {
 | state
 |--------------------------------------------------------------------------
 */
+
+/// The logic and internal state for a [StatefulWidget].
+///
+/// [State] has three main lifecycle hooks and one state function
+/// [setState].
+///
+/// Framework calls lifecycle hooks on particular events,
+///
+/// 1. [State.initState] - is called when framework decides to inflate the widget.
+/// It's called exactly once during lifetime of this widget.
+///
+///
+/// 2. [State.build] - is called when framework wants to build interface for widget.
+/// Whatever interface(widgets) this method return will be built. Note that,
+/// Framework can call this method multiple times to stay up-to-date with
+/// widget's interface description.
+///
+///
+/// 3. [State.dispose] - is called when framework is about to dispose widget and its
+/// state.
+///
+/// Apart from lifecycle hooks, there is a [State.setState] function which a widget
+/// can use to tell framework to rebuild widget's interface because some
+/// internal state of this widget has changed.
+///
+/// It's responsibility of concrete implementation of [StatefulWidget]
+/// to tell framework when to rebuild the interface using [State.setState]
+///
+/// Apart from three main hooks, there's [didUpdateWidget] hook.
+/// One difference from Flutter's StatefulWidget is that we don't have a
+/// didChangeDependencies hook.
+///
 abstract class State<T extends StatefulWidget> {
   /*
   |--------------------------------------------------------------------------
