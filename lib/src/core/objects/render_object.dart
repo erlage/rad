@@ -8,8 +8,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// [RenderObject] contains logic to build a widget's interface.
 ///
-/// It also contains logic for handling updates and cascading them
-/// to its childs.
+/// These objects also contains logic for handling updates.
 ///
 @immutable
 abstract class RenderObject {

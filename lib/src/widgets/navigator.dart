@@ -64,15 +64,21 @@ class _NavigatorBootstrapState extends State<_NavigatorScopeBootstrapper> {
 |--------------------------------------------------------------------------
 */
 
-/// Navigator widget including Router.
+/// Navigator widget.
 ///
-/// Rad framework comes with a in-built Router that offers
+/// Navigators basic usage is to allow navigating between pages. But Rad's Navigator
+/// is bit different. It also carries out three big tasks for you,
 ///
 /// - Routing
 /// - Deep linking
 /// - Single page experience (no page reloads when user hit forward/back buttons)
 ///
-/// Syntax
+/// And all three tasks are carried out without any special configuration or management from
+/// developer side. That is, Framework will automatically deep link your Navigators, and
+/// route requests to the correct ones when requested no matter how deeply nested your
+/// Navigators are.
+///
+/// Let's talk about Navigator's syntax:
 ///
 /// ```dart
 /// Navigator(
@@ -98,7 +104,14 @@ class _NavigatorBootstrapState extends State<_NavigatorScopeBootstrapper> {
 ///
 /// ### routes:[]
 ///
-/// This property takes list of Routes. A Route is more like an isolated Page that Navigator can manage. To define a Route, there's actually a Route widget:
+/// This property takes list of Routes. What is a Route? in simplified view, a Route consists of two things,
+///
+/// 1. Name of the route e.g 'home', 'settings'
+///
+/// 2. Contents to show on route e.g some widget
+///
+/// To declare a route, there's actually a `Route` widget which simply wraps both parts of route into a single
+/// widget that Navigator can manage.
 ///
 /// ```dart
 /// routes: [
@@ -110,11 +123,20 @@ class _NavigatorBootstrapState extends State<_NavigatorScopeBootstrapper> {
 ///     ...
 /// ]
 /// ```
-/// Above, we've defined two routes, home and edit. A Route widget simply wraps a another widget. Route widget has a `name` property, that is used to give Route a name. Route's name is helpful in finding route, and navigating to it when needed, from application side.
+/// Above, we've defined two routes, home and edit.
+///
+/// ### Navigator basic Understanding
+///
+/// Since Navigator's route is basically a widget that have a name attached to it, those routes will be treated as child
+/// widgets of Navigator just like Span can have its childs. Difference being, Navigator's childs(Route widgets) are built
+/// in a lazy fashion(only when requested). This also means that Navigator do not stack duplicate pages. All Route widgets
+/// are built only once. That is when you open a route, if route widget doesn't exists, it'll create it else it'll use the
+/// Route widget that's already built.
 ///
 /// ### NavigatorState
 ///
-/// Navigator widget creates a state object. State object provides methods which you can use to jump between routes, pop routes and things like that. To access a Navigator's state object, there are two methods:
+/// Navigator widget creates a state object. State object provides methods which you can use to jump between routes, open
+/// routes and things like that. To access a Navigator's state object, there are two methods:
 ///
 /// 1. If widget from where you accessing NavigatorState is in child tree of Navigator then use `Navigator.of(context)`. This method will return NavigatorState of the nearest ancestor Navigator from the given `BuildContext`.
 ///
@@ -140,7 +162,10 @@ class _NavigatorBootstrapState extends State<_NavigatorScopeBootstrapper> {
 ///
 /// ### Jumping to a Route
 ///
-/// Navigator in Rad won't stack duplicate pages on top of each other, instead it'll create a route page only once. To go to a route, use `open` method of Navigator state. We could've named it `push` but `open` conveys what Navigator actually do when you jump to a route. When you call `open`, Navigator will create route page if it's not already created. Once ready, it'll bring it tp the top.
+/// To go to a route, use `open` method of Navigator state. We could've named it `push` but `open` conveys what exactly
+/// Navigator do when you jump to a route. When you call `open`, Navigator will build route widget if it's not already
+/// created. Once ready, it'll bring it to the top simply by hiding all other Route widgets that this Navigator is
+/// managing.
 ///
 /// ```dart
 /// Navigator.of(context).open(name: "home");
@@ -148,18 +173,32 @@ class _NavigatorBootstrapState extends State<_NavigatorScopeBootstrapper> {
 ///
 /// ### Going back
 ///
-/// To go to previously visited route, use `Navigator.of(context).back()`. Make sure to check whether you can actually go back by calling `canGoBack()` on state.
+/// Going back means, going to the Route that's previously visited.
+///
+/// ```dart
+///
+/// Navigator.of(context).open(name: "home")
+/// Navigator.of(context).open(name: "profile")
+/// Navigator.of(context).open(name: "home")
+///
+/// Navigator.of(context).back() // ->  go to profile
+/// Navigator.of(context).back() // ->  go to home
+/// Navigator.of(context).back() // ->  error, no previous route!
+///
+/// // helper method to prevent above case:
+///
+/// Navigator.of(context).canGoBack() // ->  false, since no previous route
 ///
 /// ### Passing values between routes
 ///
-/// Values can be passed to a route through `open` method.
+/// Values can be passed to a route while opening that route:
 ///
 /// ```dart
-/// Navigator.of(context).open(name: "home", values: "/somevalue");
-/// // leading slash is important
+/// Navigator.of(context).open(name: "home", values: "/somevalue"); // leading slash is important
+///
 /// ```
 ///
-/// Then on homepage, value can be accessed on home page using:
+/// Then on homepage, value can be accessed using `getValue`:
 ///
 /// ```dart
 /// var value = Navigator.of(context).getValue("home");
