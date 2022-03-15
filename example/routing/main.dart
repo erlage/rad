@@ -97,19 +97,13 @@ class _RootPageState extends State<RootPage> {
 class HomePage extends StatelessWidget {
   @override
   build(context) {
-    return Division(
-      style: "margin: 0 auto;",
-      innerText: "Home page",
-    );
+    return Text("Home page");
   }
 }
 
 class PostsPage extends StatelessWidget {
   @override
   build(context) {
-    return Division(
-      style: "margin: 0 auto;",
-      innerText: "Posts page",
-    );
+    return Text("Posts page");
   }
 }

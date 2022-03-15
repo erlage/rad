@@ -93,9 +93,6 @@ class Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Division(
-      style: "margin: 0 auto;",
-      children: [Text(title)],
-    );
+    return Text(title);
   }
 }
