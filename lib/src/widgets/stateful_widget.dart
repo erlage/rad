@@ -173,6 +173,10 @@ abstract class State<T extends StatefulWidget> {
   @nonVirtual
   @protected
   void setState(VoidCallback? callable) {
+    if (Debug.widgetLogs) {
+      print("setState: $context");
+    }
+
     if (_isRebuilding) {
       if (Debug.developmentMode) {
         print(
