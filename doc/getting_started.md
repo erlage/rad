@@ -9,7 +9,7 @@
     - Open `pubspec.yaml` in newly created app folder and add `rad` to your dependencies:
       ```yaml
       dependencies:
-        rad: 0.6.1
+        rad: 0.6.2
       ```
 
 3. Import Rad widgets in your `main.dart`

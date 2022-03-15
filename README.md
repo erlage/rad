@@ -20,11 +20,12 @@ class HomePage extends StatelessWidget
   }
 }
 ```
-How about that? if you're familiar with Flutter it don't even need an explanation. Well there are some differences that should be discussed before you begin using Rad,
+How about that? if you're familiar with Flutter it don't even need an explanation. But there are some differences that should be discussed before you begin using Rad,
 
 ## Differences
 
 1. First off, we don't use a rendering engine to render a widget or anything like that. Widgets are mapped to HTML tags and composed together they way you describe them. This means every widget has a corresponding HTML tag in DOM, and your application has complete access to document(DOM).
+
 
 2. For designing a interface, you've to use HTML. And guess what? there are widgets for that.
   
@@ -45,9 +46,8 @@ How about that? if you're familiar with Flutter it don't even need an explanatio
       ],
     );
     ```
-    Note: Since `class` is a reserved word in Dart we're using suffix "Attribute" with it. There are a few more attributes that are reserved, and those can be used with the same suffix "Attribute".
 
-    This means, there are no layout/style specific widgets like you've in Container, Stack etc in Flutter. Just think about it for a sec? we don't really need them as most of things can be done using HTML tags and CSS.
+    Talking more about UI, there are no layout/style specific widgets like you've Container and Stack widgets in Flutter. Just think about it for a sec? we don't really need them as most of things can be done using HTML tags and CSS.
 
     Just for sake of example, let's say you want a Stack widget,
 
@@ -82,8 +82,7 @@ How about that? if you're familiar with Flutter it don't even need an explanatio
           ]
         )
         ```
-    This was just an example, you don't really need these type of widgets while using Rad since you can now use a CSS framework of your choice.
-
+    This was just an example, you don't really need these type of widgets when you can use a CSS framework of your choice.
 
 3. Rad's doesn't rebuild widgets multiple times a second, which means for animations you've to turn to CSS.
 
