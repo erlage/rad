@@ -29,12 +29,33 @@ class DebugOptions {
     this.developmentMode = false,
   });
 
+  /// Development mode.
   /// Enable all debugging options, logs everything to console.
   ///
   static const development = DebugOptions(
     routerLogs: true,
     widgetLogs: true,
     frameworkLogs: true,
+    developmentMode: true,
+  );
+
+  /// Production Mode.
+  /// Disable all debugging options.
+  ///
+  static const production = DebugOptions(
+    routerLogs: false,
+    widgetLogs: false,
+    frameworkLogs: false,
+    developmentMode: false,
+  );
+
+  /// Default Mode.
+  /// Disable logging but enable dev checks.
+  ///
+  static const defaultMode = DebugOptions(
+    routerLogs: false,
+    widgetLogs: false,
+    frameworkLogs: false,
     developmentMode: true,
   );
 }
