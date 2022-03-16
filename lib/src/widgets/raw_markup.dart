@@ -21,7 +21,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 class RawMarkUp extends Widget {
   final String html;
 
-  const RawMarkUp(this.html, {String? key}) : super(key);
+  const RawMarkUp(this.html, {String? key}) : super(key: key);
 
   @override
   get concreteType => "$RawMarkUp";

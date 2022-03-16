@@ -81,7 +81,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
     this.innerText,
     this.children,
   })  : assert(null == children || null == innerText),
-        super(key);
+        super(key: key);
 
   @override
   get widgetChildren => children ?? [];

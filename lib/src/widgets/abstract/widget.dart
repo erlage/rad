@@ -8,13 +8,9 @@ import 'package:rad/src/core/objects/build_context.dart';
 ///
 @immutable
 abstract class Widget {
-  final String? _initialKey;
+  final String initialKey;
 
-  const Widget(this._initialKey);
-
-  /// key provided in widget constructor(if any)
-  ///
-  String get initialKey => _initialKey ?? System.contextKeyNotSet;
+  const Widget({String? key}) : initialKey = key ?? System.contextKeyNotSet;
 
   /*
   |--------------------------------------------------------------------------

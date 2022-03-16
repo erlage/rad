@@ -25,7 +25,7 @@ class RadApp extends Widget {
     String routingPath = "",
     DebugOptions? debugOptions,
     this.additionalComponents,
-  }) : super(key) {
+  }) : super(key: key) {
     /*
     |--------------------------------------------------------------------------
     | initialize

@@ -221,7 +221,7 @@ class Navigator extends Widget {
     this.onInit,
     this.onRouteChange,
     String? key,
-  }) : super(key);
+  }) : super(key: key);
 
   /// Navigator's state from the closest instance of this class
   /// that encloses the given context.

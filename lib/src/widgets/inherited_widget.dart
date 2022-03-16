@@ -21,7 +21,7 @@ abstract class InheritedWidget extends Widget {
   const InheritedWidget({
     String? key,
     required this.child,
-  }) : super(key);
+  }) : super(key: key);
 
   /// Whether the framework should notify widgets that inherit from this widget.
   ///

@@ -10,7 +10,7 @@ import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 class Form extends MarkUpTagWithGlobalProps {
-  /// Name of the form. It's very common to use same name as [key]
+  /// Name of the form. It's very common to use same name as [initialKey]
   /// for inputs.
   ///
   final String? name;

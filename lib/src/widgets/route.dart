@@ -31,7 +31,7 @@ class Route extends Widget {
     required this.name,
     required this.page,
   })  : path = path ?? name,
-        super(key);
+        super(key: key);
 
   @override
   get concreteType => "$Route";

@@ -10,7 +10,7 @@ class HorizontalRule extends Widget {
   const HorizontalRule({
     String? key,
     this.classAttribute,
-  }) : super(key);
+  }) : super(key: key);
 
   @override
   get correspondingTag => DomTag.horizontalRule;

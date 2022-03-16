@@ -14,7 +14,7 @@ class Text extends Widget {
     this.text, {
     String? key,
     this.classAttribute,
-  }) : super(key);
+  }) : super(key: key);
 
   @override
   get concreteType => "$Text";

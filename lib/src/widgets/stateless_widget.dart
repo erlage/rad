@@ -10,7 +10,7 @@ import 'package:rad/src/core/objects/build_context.dart';
 ///
 @immutable
 abstract class StatelessWidget extends Widget {
-  const StatelessWidget({String? key}) : super(key);
+  const StatelessWidget({String? key}) : super(key: key);
 
   /// Describes the part of the user interface represented by this widget.
   ///
