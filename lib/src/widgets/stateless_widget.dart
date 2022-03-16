@@ -77,7 +77,7 @@ class _StatelessWidgetRenderObject extends RenderObject {
   }
 
   @override
-  void update({
+  update({
     required element,
     required updateType,
     required oldConfiguration,
