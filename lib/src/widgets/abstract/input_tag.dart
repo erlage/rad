@@ -13,7 +13,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
   /// Type of input tag.
   final InputType? type;
 
-  /// Name of the input. It's very common to use same name as [initialKey]
+  /// Name of the input. It's very common to use same name as key
   /// for inputs.
   ///
   final String? name;
