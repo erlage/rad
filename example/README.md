@@ -4,7 +4,7 @@ import 'package:rad/rad.dart';
 
 void main() {
   RadApp(
-    targetId: "output",
+    targetKey: "output",
     child: ClickToggle(),
   );
 }

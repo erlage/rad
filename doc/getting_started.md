@@ -20,7 +20,7 @@
 3. Create App
     ```dart
     void main() {
-      App(
+      RadApp(
                             // 'output' is the id of div in your web/index.html
                             // framework will mount your app inside that div
                             // if you don't have a div with id 'output' in web/index.html, 
