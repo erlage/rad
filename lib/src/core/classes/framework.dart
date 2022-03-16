@@ -112,8 +112,6 @@ class Framework {
   static WidgetObject? findAncestorWidgetObjectOfType<T>(
     BuildContext context,
   ) {
-    // find dom node having provided 'widget type' in ancestors
-
     var selector = "[data-${System.attrRuntimeType}='$T']";
 
     return _findAncestorWidgetObjectFromSelector(selector, context);
@@ -122,8 +120,6 @@ class Framework {
   static WidgetObject? findAncestorWidgetObjectOfClass<T>(
     BuildContext context,
   ) {
-    // find dom node having provided 'widget class' in ancestors
-
     var selector = "[data-${System.attrConcreteType}='$T']";
 
     return _findAncestorWidgetObjectFromSelector(selector, context);
@@ -483,8 +479,8 @@ class Framework {
 
   /// Manage child widgets.
   ///
-  /// Method will call [actionCallback] for each child's widget object.
-  /// Whatever action the [actionCallback] callback returns, framework
+  /// Method will call [widgetActionCallback] for each child's widget object.
+  /// Whatever action the [widgetActionCallback] callback returns, framework
   /// will execute it.
   ///
   static manageChildren({
