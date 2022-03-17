@@ -3,7 +3,8 @@ import 'dart:html';
 class CommonProps {
   static void applyClassAttribute(HtmlElement element, String? classAttribute) {
     if (null != classAttribute && classAttribute.isNotEmpty) {
-      var classList = classAttribute.split(" ");
+      var classList = classAttribute.split(" ")
+        ..removeWhere((element) => element.isEmpty);
 
       if (classList.isNotEmpty) {
         element.classes.addAll(classList);
@@ -22,7 +23,8 @@ class CommonProps {
 
   static void clearClassAttribute(HtmlElement element, String? classAttribute) {
     if (null != classAttribute && classAttribute.isNotEmpty) {
-      var classList = classAttribute.split(" ");
+      var classList = classAttribute.split(" ")
+        ..removeWhere((element) => element.isEmpty);
 
       if (classList.isNotEmpty) {
         element.classes.removeAll(classList);
