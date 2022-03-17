@@ -47,6 +47,7 @@ class Select extends MarkUpTagWithGlobalProps {
     String? onClick,
     EventCallback? onClickEventListener,
     String? innerText,
+    Widget? child,
     List<Widget>? children,
   }) : super(
           key: key,
@@ -61,6 +62,7 @@ class Select extends MarkUpTagWithGlobalProps {
           onClick: onClick,
           onClickEventListener: onClickEventListener,
           innerText: innerText,
+          child: child,
           children: children,
         );
 

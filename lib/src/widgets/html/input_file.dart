@@ -24,6 +24,7 @@ class InputFile extends InputTag {
     EventCallback? onClickEventListener,
     EventCallback? onChangeEventListener,
     String? innerText,
+    Widget? child,
     List<Widget>? children,
   }) : super(
           key: key,
@@ -45,6 +46,7 @@ class InputFile extends InputTag {
           onClickEventListener: onClickEventListener,
           eventListenerCallback: onChangeEventListener,
           innerText: innerText,
+          child: child,
           children: children,
         );
 

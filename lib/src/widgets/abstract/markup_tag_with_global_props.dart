@@ -58,11 +58,23 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
   /// Element's inner text.
   ///
   /// Only one thing can be set at a time between [innerText]
-  /// and [children]
+  /// , [children] and [child]
   ///
   final String? innerText;
 
+  /// Single child tag.
+  ///
+  /// If you want to add multiple child widgets, then use [children]
+  ///
+  /// Only one thing can be set at a time between [innerText]
+  /// , [children] and [child]
+  ///
+  final Widget? child;
+
   /// Children tags.
+  ///
+  /// Only one thing can be set at a time between [innerText]
+  /// , [children] and [child]
   ///
   final List<Widget>? children;
 
@@ -79,12 +91,18 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
     this.onClick,
     this.onClickEventListener,
     this.innerText,
+    this.child,
     this.children,
-  })  : assert(null == children || null == innerText),
+
+    // at least two thing from child, children & innerText has to be null.
+    //
+  })  : assert((null == children && null == child) ||
+            (null == child && null == innerText) ||
+            (null == children && null == innerText)),
         super(key: key);
 
   @override
-  get widgetChildren => children ?? [];
+  get widgetChildren => children ?? (null != child ? [child!] : []);
 
   @override
   createConfiguration() {

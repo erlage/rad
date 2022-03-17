@@ -17,6 +17,7 @@ class Heading1 extends MarkUpTagWithGlobalProps {
     String? onClick,
     EventCallback? onClickEventListener,
     String? innerText,
+    Widget? child,
     List<Widget>? children,
   }) : super(
           key: key,
@@ -31,6 +32,7 @@ class Heading1 extends MarkUpTagWithGlobalProps {
           onClick: onClick,
           onClickEventListener: onClickEventListener,
           innerText: innerText,
+          child: child,
           children: children,
         );
 
@@ -55,6 +57,7 @@ class Heading2 extends Heading1 {
     String? onClick,
     EventCallback? onClickEventListener,
     String? innerText,
+    Widget? child,
     List<Widget>? children,
   }) : super(
           key: key,
@@ -69,6 +72,7 @@ class Heading2 extends Heading1 {
           onClick: onClick,
           onClickEventListener: onClickEventListener,
           innerText: innerText,
+          child: child,
           children: children,
         );
 
@@ -93,6 +97,7 @@ class Heading3 extends Heading1 {
     String? onClick,
     EventCallback? onClickEventListener,
     String? innerText,
+    Widget? child,
     List<Widget>? children,
   }) : super(
           key: key,
@@ -107,6 +112,7 @@ class Heading3 extends Heading1 {
           onClick: onClick,
           onClickEventListener: onClickEventListener,
           innerText: innerText,
+          child: child,
           children: children,
         );
 
@@ -131,6 +137,7 @@ class Heading4 extends Heading1 {
     String? onClick,
     EventCallback? onClickEventListener,
     String? innerText,
+    Widget? child,
     List<Widget>? children,
   }) : super(
           key: key,
@@ -145,6 +152,7 @@ class Heading4 extends Heading1 {
           onClick: onClick,
           onClickEventListener: onClickEventListener,
           innerText: innerText,
+          child: child,
           children: children,
         );
 
@@ -169,6 +177,7 @@ class Heading5 extends Heading1 {
     String? onClick,
     EventCallback? onClickEventListener,
     String? innerText,
+    Widget? child,
     List<Widget>? children,
   }) : super(
           key: key,
@@ -183,6 +192,7 @@ class Heading5 extends Heading1 {
           onClick: onClick,
           onClickEventListener: onClickEventListener,
           innerText: innerText,
+          child: child,
           children: children,
         );
 
@@ -207,6 +217,7 @@ class Heading6 extends Heading1 {
     String? onClick,
     EventCallback? onClickEventListener,
     String? innerText,
+    Widget? child,
     List<Widget>? children,
   }) : super(
           key: key,
@@ -221,6 +232,7 @@ class Heading6 extends Heading1 {
           onClick: onClick,
           onClickEventListener: onClickEventListener,
           innerText: innerText,
+          child: child,
           children: children,
         );
 

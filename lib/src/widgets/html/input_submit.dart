@@ -22,6 +22,7 @@ class InputSubmit extends InputTag {
     String? onClick,
     EventCallback? onClickEventListener,
     String? innerText,
+    Widget? child,
     List<Widget>? children,
   }) : super(
           key: key,
@@ -42,6 +43,7 @@ class InputSubmit extends InputTag {
           onClickEventListener: onClickEventListener,
           eventListenerCallback: onClickEventListener,
           innerText: innerText,
+          child: child,
           children: children,
         );
 

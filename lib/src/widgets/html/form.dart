@@ -60,6 +60,7 @@ class Form extends MarkUpTagWithGlobalProps {
     String? onClick,
     EventCallback? onClickEventListener,
     String? innerText,
+    Widget? child,
     List<Widget>? children,
   }) : super(
           key: key,
@@ -73,6 +74,7 @@ class Form extends MarkUpTagWithGlobalProps {
           hidden: hidden,
           onClick: onClick,
           onClickEventListener: onClickEventListener,
+          child: child,
           children: children,
         );
 
