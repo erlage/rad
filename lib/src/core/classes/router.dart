@@ -43,11 +43,12 @@ class Router {
       throw "Router aleady initialized.";
     }
 
+    _routingPath = routingPath;
+
     if (Debug.routerLogs) {
       print("Router: onPopState: initialized at: $_initialLocation");
+      print("Router: routingPath: initialized at: $_routingPath");
     }
-
-    _routingPath = routingPath;
 
     _initRouterState();
 
@@ -211,20 +212,13 @@ class Router {
   static void _updateCurrentSegments() {
     _currentSegments.clear();
 
-    _currentSegments.add(_routingPath);
-
     var path = window.location.pathname;
 
-    if (null == path || _routingPath == path) {
-      return;
+    if (null != path) {
+      _currentSegments.addAll(
+        path.split('/')..removeWhere((sgmt) => sgmt.trim().isEmpty),
+      );
     }
-
-    _currentSegments.addAll(
-      path.split('/')
-        ..removeWhere(
-          (sgmt) => sgmt == _routingPath || sgmt.trim().isEmpty,
-        ),
-    );
   }
 
   static _onPopState(Event event) {
@@ -428,7 +422,7 @@ class Router {
     // if root navigator, no segments are protected
 
     if (null == routeObject.parent) {
-      return [];
+      return _routingPath.split("/");
     }
 
     // else find protected part
