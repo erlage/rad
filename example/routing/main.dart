@@ -3,7 +3,7 @@ import 'package:rad/rad.dart';
 import 'settings_page.dart';
 
 void main() {
-  App(
+  RadApp(
     targetKey: "output",
     child: RootPage(),
     debugOptions: DebugOptions(
