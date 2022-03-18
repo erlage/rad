@@ -101,6 +101,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
       name: name,
       value: value,
       accept: accept,
+      checked: checked,
       multiple: multiple,
       required: required,
       disabled: disabled,
