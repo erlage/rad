@@ -1,25 +1,4 @@
 /**
-   * sensible defaults
-   */
-
-html,
-body {
-    width: 100%;
-    height: 100%;
-    white-space: nowrap;
-}
-
-
-/**
-   * include padding in box size
-   */
-
-* {
-    box-sizing: border-box;
-}
-
-
-/**
    * widgets without styles
    */
 
