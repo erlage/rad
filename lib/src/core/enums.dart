@@ -94,6 +94,8 @@ enum DomTag {
 
   image,
 
+  canvas,
+
   paragraph,
 
   input,

@@ -55,6 +55,9 @@ class Utils {
       case DomTag.image:
         return "img";
 
+      case DomTag.canvas:
+        return "canvas";
+
       case DomTag.paragraph:
         return "p";
 
