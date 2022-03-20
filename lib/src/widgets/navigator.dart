@@ -8,6 +8,7 @@ import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/core/objects/router/open_history_entry.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
@@ -383,7 +384,7 @@ class NavigatorState {
   // internal stack data
 
   final _activeStack = <String>[];
-  final _historyStack = <String>[];
+  final _historyStack = <OpenHistoryEntry>[];
 
   NavigatorState(this.context, this.widget);
 
@@ -416,8 +417,12 @@ class NavigatorState {
     var cleanedName = traverseAncestors ? name.substring(3) : name;
 
     // if already on same page
-    if (currentRouteName == cleanedName) {
-      return;
+    if (_historyStack.isNotEmpty) {
+      var lastOpened = _historyStack.last;
+
+      if (lastOpened.name == cleanedName && lastOpened.values == values) {
+        return;
+      }
     }
 
     // if current navigator doesn't have a matching '$name' route
@@ -467,7 +472,7 @@ class NavigatorState {
       );
     }
 
-    _historyStack.add(cleanedName);
+    _historyStack.add(OpenHistoryEntry(name, values));
 
     // if route is already in stack, bring it to the top of stack
 
@@ -521,7 +526,7 @@ class NavigatorState {
   void back() {
     var previousPage = _historyStack.removeLast();
 
-    _updateCurrentName(_historyStack.last);
+    _updateCurrentName(_historyStack.last.name);
 
     Framework.manageChildren(
       parentContext: context,
@@ -529,7 +534,7 @@ class NavigatorState {
       widgetActionCallback: (WidgetObject widgetObject) {
         var name = widgetObject.element.dataset[System.attrRouteName] ?? "";
 
-        if (previousPage == name) {
+        if (previousPage.name == name) {
           return [WidgetAction.showWidget];
         }
 
