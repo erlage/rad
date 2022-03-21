@@ -408,11 +408,9 @@ class NavigatorState {
   ///
   void open({
     required String name,
-    Map<String, String>? values,
+    Map<String, String> values = const {},
     bool updateHistory = true,
   }) {
-    values ??= {};
-
     var traverseAncestors = name.startsWith("../");
 
     // clean traversal flag
