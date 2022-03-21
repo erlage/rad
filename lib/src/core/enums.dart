@@ -27,6 +27,10 @@ enum UpdateType {
   ///
   dependencyChanged,
 
+  /// When lazy builder append new childs.
+  ///
+  lazyBuild,
+
   /// Undefined.
   ///
   undefined,

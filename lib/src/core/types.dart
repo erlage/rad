@@ -17,6 +17,8 @@ typedef NavigatorStateCallback = void Function(NavigatorState state);
 
 typedef WidgetBuilderCallback = Widget Function(BuildContext context);
 
+typedef LazyItemBuilderCallback = Widget Function(int index);
+
 typedef WidgetActionCallback = List<WidgetAction> Function(
   WidgetObject widgetObject,
 );
