@@ -232,4 +232,18 @@ class Utils {
 
     return true;
   }
+
+  static String encodeKeyValueMap(Map<String, String> valueMap) {
+    var encodedMap = '';
+
+    for (var key in valueMap.keys) {
+      if (key.isNotEmpty) {
+        encodedMap += '/${Uri.encodeFull(key)}';
+      }
+
+      encodedMap += '/${Uri.encodeFull(valueMap[key]!)}';
+    }
+
+    return encodedMap;
+  }
 }

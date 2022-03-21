@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/classes/framework.dart';
+import 'package:rad/src/core/classes/utils.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/router/navigator_route_object.dart';
@@ -94,15 +95,7 @@ class Router {
     if (updateHistory) {
       var protectedSegments = _protectedSegments(navigatorKey);
 
-      var encodedValues = '';
-
-      for (var key in values.keys) {
-        if (key.isNotEmpty) {
-          encodedValues += '/${Uri.encodeFull(key)}';
-        }
-
-        encodedValues += '/${Uri.encodeFull(values[key]!)}';
-      }
+      var encodedValues = Utils.encodeKeyValueMap(values);
 
       var historyEntry = protectedSegments.join("/") + "/$name$encodedValues";
 
@@ -148,15 +141,7 @@ class Router {
 
     var protectedSegments = _protectedSegments(navigatorKey);
 
-    var encodedValues = '';
-
-    for (var key in values.keys) {
-      if (key.isNotEmpty) {
-        encodedValues += '/${Uri.encodeFull(key)}';
-      }
-
-      encodedValues += '/${Uri.encodeFull(values[key]!)}';
-    }
+    var encodedValues = Utils.encodeKeyValueMap(values);
 
     var historyEntry = protectedSegments.join("/") + "/$name$encodedValues";
 
