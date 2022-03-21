@@ -1,6 +1,6 @@
 class RouterStackEntry {
   final String name;
-  final String values;
+  final Map<String, String> values;
   final String navigatorKey;
   final String location;
 

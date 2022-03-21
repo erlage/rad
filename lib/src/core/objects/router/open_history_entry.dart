@@ -2,7 +2,7 @@
 ///
 class OpenHistoryEntry {
   String name;
-  String? values;
+  Map<String, String> values;
 
-  OpenHistoryEntry(this.name, [this.values]);
+  OpenHistoryEntry(this.name, this.values);
 }

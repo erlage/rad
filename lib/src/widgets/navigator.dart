@@ -4,6 +4,7 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/classes/router.dart';
+import 'package:rad/src/core/classes/utils.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
@@ -406,10 +407,12 @@ class NavigatorState {
   /// If there are no navigator in ancestors, it'll throw an exception.
   ///
   void open({
-    String? values,
     required String name,
+    Map<String, String>? values,
     bool updateHistory = true,
   }) {
+    values ??= {};
+
     var traverseAncestors = name.startsWith("../");
 
     // clean traversal flag
@@ -420,8 +423,10 @@ class NavigatorState {
     if (_historyStack.isNotEmpty) {
       var lastOpened = _historyStack.last;
 
-      if (lastOpened.name == cleanedName && lastOpened.values == values) {
-        return;
+      if (lastOpened.name == cleanedName) {
+        if (Utils.isKeyValueMapEqual(lastOpened.values, values)) {
+          return;
+        }
       }
     }
 
@@ -466,7 +471,7 @@ class NavigatorState {
 
       Router.pushEntry(
         name: name,
-        values: values ?? '',
+        values: values,
         navigatorKey: context.key,
         updateHistory: updateHistory,
       );
@@ -653,7 +658,7 @@ class NavigatorState {
 
       Router.pushReplacement(
         name: name,
-        values: '',
+        values: {},
         navigatorKey: context.key,
       );
     }
@@ -692,7 +697,7 @@ class NavigatorState {
 
       Router.pushReplacement(
         name: currentRouteName,
-        values: '',
+        values: {},
         navigatorKey: context.key,
       );
     }

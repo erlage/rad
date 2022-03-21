@@ -219,4 +219,17 @@ class Utils {
       ),
     );
   }
+
+  static bool isKeyValueMapEqual(
+    Map<String, String> mapOne,
+    Map<String, String> mapTwo,
+  ) {
+    if (mapOne.length != mapTwo.length) return false;
+
+    for (var key in mapOne.keys) {
+      if (mapOne[key] != mapTwo[key]) return false;
+    }
+
+    return true;
+  }
 }

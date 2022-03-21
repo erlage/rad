@@ -87,14 +87,24 @@ class Router {
   ///
   static void pushEntry({
     required String name,
-    required String values,
+    required Map<String, String> values,
     required String navigatorKey,
     required bool updateHistory,
   }) {
     if (updateHistory) {
       var protectedSegments = _protectedSegments(navigatorKey);
 
-      var historyEntry = protectedSegments.join("/") + "/$name$values";
+      var encodedValues = '';
+
+      for (var key in values.keys) {
+        if (key.isNotEmpty) {
+          encodedValues += '/${Uri.encodeFull(key)}';
+        }
+
+        encodedValues += '/${Uri.encodeFull(values[key]!)}';
+      }
+
+      var historyEntry = protectedSegments.join("/") + "/$name$encodedValues";
 
       window.history.pushState(null, '', historyEntry);
 
@@ -129,7 +139,7 @@ class Router {
   ///
   static void pushReplacement({
     required String name,
-    required String values,
+    required Map<String, String> values,
     required String navigatorKey,
   }) {
     var currentLocation = window.location.href;
@@ -138,7 +148,17 @@ class Router {
 
     var protectedSegments = _protectedSegments(navigatorKey);
 
-    var historyEntry = protectedSegments.join("/") + "/$name$values";
+    var encodedValues = '';
+
+    for (var key in values.keys) {
+      if (key.isNotEmpty) {
+        encodedValues += '/${Uri.encodeFull(key)}';
+      }
+
+      encodedValues += '/${Uri.encodeFull(values[key]!)}';
+    }
+
+    var historyEntry = protectedSegments.join("/") + "/$name$encodedValues";
 
     window.history.replaceState(null, '', historyEntry);
 
@@ -192,9 +212,9 @@ class Router {
 
     // try to find a value that's following the provided segment in path
 
-    var match = RegExp(segment + r"\/+(\w+)").firstMatch(path);
+    var match = RegExp(segment + r"\/+([^\/]+)").firstMatch(path);
 
-    return (null == match) ? '' : match.group(1) ?? '';
+    return (null == match) ? '' : Uri.decodeFull(match.group(1) ?? '');
   }
 
   /*
