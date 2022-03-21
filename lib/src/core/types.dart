@@ -5,6 +5,7 @@ import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/widgets/list_view.dart';
 import 'package:rad/src/widgets/navigator.dart';
 
 typedef UpdateTypeCallback = bool Function(UpdateType updateType);
@@ -17,6 +18,12 @@ typedef NavigatorStateCallback = void Function(NavigatorState state);
 
 typedef WidgetBuilderCallback = Widget Function(BuildContext context);
 
+/// Signature for a function that creates a widget for a given index, e.g., in a
+/// list.
+///
+/// Used by [ListView.builder].
+///
+typedef IndexedWidgetBuilder = Widget Function(BuildContext context, int index);
 
 typedef WidgetActionCallback = List<WidgetAction> Function(
   WidgetObject widgetObject,

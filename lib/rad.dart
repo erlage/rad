@@ -16,7 +16,7 @@ export 'src/widgets/abstract/widget.dart' show Widget;
 
 // enums
 
-export 'src/core/enums.dart' show UpdateType, HitTestBehavior;
+export 'src/core/enums.dart' show UpdateType, HitTestBehavior, Axis;
 
 // states
 
@@ -35,6 +35,8 @@ export 'src/widgets/rad_app.dart' show RadApp;
 export 'src/widgets/inherited_widget.dart' show InheritedWidget;
 export 'src/widgets/stateful_widget.dart' show StatefulWidget, State;
 export 'src/widgets/stateless_widget.dart' show StatelessWidget;
+
+export 'src/widgets/list_view.dart' show ListView;
 
 // navigator
 

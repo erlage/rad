@@ -27,13 +27,25 @@ enum UpdateType {
   ///
   dependencyChanged,
 
-  /// When lazy builder append new childs.
+  /// When lazy builder(such as ListView.builder) append new childs.
   ///
   lazyBuild,
 
   /// Undefined.
   ///
   undefined,
+}
+
+/// The two cardinal directions in two dimensions.
+///
+enum Axis {
+  /// Left and right.
+  ///
+  horizontal,
+
+  /// Up and down.
+  ///
+  vertical,
 }
 
 enum DomEventType {
