@@ -263,26 +263,17 @@ class Router {
 
         var navigatorState = _stateObjects[entry.navigatorKey]!;
 
-        // if navigator has page in active stack
+        _updateCurrentSegments();
 
-        if (navigatorState.isPageStacked(name: entry.name)) {
-          if (Debug.routerLogs) {
-            print("Router: onPopState: open: ${entry.name}");
-          }
-
-          navigatorState.open(name: entry.name, updateHistory: false);
-          //
-        } else {
-          if (Debug.routerLogs) {
-            print("Router: onPopState: synthetic-open: ${entry.name}");
-          }
-
-          navigatorState.open(
-            name: entry.name,
-            values: entry.values,
-            updateHistory: false,
-          );
+        if (Debug.routerLogs) {
+          print("Router: onPopState: open: ${entry.name}");
         }
+
+        navigatorState.open(
+          name: entry.name,
+          values: entry.values,
+          updateHistory: false,
+        );
       }
     } catch (e) {
       // reload window if anything goes wrong
