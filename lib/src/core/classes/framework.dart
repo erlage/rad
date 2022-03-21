@@ -267,7 +267,8 @@ class Framework {
     //
     // -- flags for widgets that aren't found in tree --
     //
-    flagAddIfNotFound = true,
+    flagAddIfNotFound = true, // add childs right where they are missing
+    flagAddAsAppendMode = false, // append mode, always add childs to the end
     //
     // -- hard flags, can cause subtree rebuilds --
     //
@@ -350,15 +351,17 @@ class Framework {
 
     // deal with obsolute nodes
 
-    for (final childElement in parent.children) {
-      if (!updateObjects.containsKey(childElement.id)) {
-        if (flagDisposeObsoluteChildren) {
-          _disposeWidget(
-            widgetObject: _getWidgetObject(childElement.id),
-            preserveTarget: false,
-          );
-        } else if (flagHideObsoluteChildren) {
-          _hideElement(childElement);
+    if (flagHideObsoluteChildren || flagDisposeObsoluteChildren) {
+      for (final childElement in parent.children) {
+        if (!updateObjects.containsKey(childElement.id)) {
+          if (flagDisposeObsoluteChildren) {
+            _disposeWidget(
+              widgetObject: _getWidgetObject(childElement.id),
+              preserveTarget: false,
+            );
+          } else if (flagHideObsoluteChildren) {
+            _hideElement(childElement);
+          }
         }
       }
     }
@@ -470,7 +473,7 @@ class Framework {
             widgets: [updateObject.widget],
             parentContext: parentContext,
             flagCleanParentContents: false,
-            mountAtIndex: index,
+            mountAtIndex: flagAddAsAppendMode ? null : index,
           );
         }
       }
