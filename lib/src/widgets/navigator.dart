@@ -149,28 +149,28 @@ import 'package:rad/src/widgets/route.dart';
 /// Values can be passed to a route while opening that route:
 ///
 /// ```dart
-/// Navigator.of(context).open(name: "home", values: "/somevalue"); // leading slash is important
+/// Navigator.of(context).open(name: "home", values: {"id": "123"});
 ///
 /// ```
 ///
 /// Then on homepage, value can be accessed using `getValue`:
 ///
 /// ```dart
-/// var value = Navigator.of(context).getValue("home");
-/// // "somevalue"
+/// var value = Navigator.of(context).getValue("id");
+/// // "123"
 /// ```
 ///
 /// Passing multiple values:
 ///
 /// ```dart
-/// Navigator.of(context).open(name: "home", values: "/somevalue/profile/123");
+/// Navigator.of(context).open(name: "home", values: {"id": "123", "username" : "adamback"});
 /// ```
 ///
 /// On homepage,
 ///
 /// ```dart
-/// var valueOne = Navigator.of(context).getValue("home"); // -> "somevalue"
-/// var valueTwo = Navigator.of(context).getValue("profile"); // -> "123"
+/// var valueOne = Navigator.of(context).getValue("id"); // -> "123"
+/// var valueTwo = Navigator.of(context).getValue("username"); // -> "adamback"
 /// ```
 ///
 /// Cool thing about Navigator is that values passed to a route will presist
