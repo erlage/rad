@@ -5,7 +5,6 @@
 import 'package:rad/src/widgets/text.dart';
 import 'package:rad/src/widgets/route.dart';
 import 'package:rad/src/widgets/navigator.dart';
-import 'package:rad/src/widgets/lazy_builder.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 import 'package:rad/src/widgets/stateless_widget.dart';
@@ -18,7 +17,6 @@ final GEN_STYLES_MAIN_CSS = ""
     " [data-wcontype=\"$Text\"], "
     " [data-wcontype=\"$Route\"], "
     " [data-wcontype=\"$Navigator\"], "
-    " [data-wcontype=\"$LazyBuilder\"], "
     " [data-wcontype=\"$InheritedWidget\"], "
     " [data-wcontype=\"$StatefulWidget\"], "
     " [data-wcontype=\"$StatelessWidget\"] { "

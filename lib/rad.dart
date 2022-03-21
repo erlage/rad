@@ -36,8 +36,6 @@ export 'src/widgets/inherited_widget.dart' show InheritedWidget;
 export 'src/widgets/stateful_widget.dart' show StatefulWidget, State;
 export 'src/widgets/stateless_widget.dart' show StatelessWidget;
 
-export 'src/widgets/lazy_builder.dart' show LazyBuilder;
-
 // navigator
 
 export 'src/widgets/route.dart' show Route;

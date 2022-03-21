@@ -5,7 +5,6 @@
 [data-wcontype="Text"],
 [data-wcontype="Route"],
 [data-wcontype="Navigator"],
-[data-wcontype="LazyBuilder"],
 [data-wcontype="InheritedWidget"],
 [data-wcontype="StatefulWidget"],
 [data-wcontype="StatelessWidget"] {
