@@ -32,6 +32,11 @@
     display: flex;
 }
 
+
+/**
+   * Make sure flex do not shrink/grow ListView's childs
+   */
+
 [data-wcontype="ListView"]>*,
 .rad-list-view-item-container>* {
     flex-grow: 0;

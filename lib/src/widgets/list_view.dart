@@ -100,14 +100,14 @@ class ListView extends Widget {
   @override
   isConfigurationChanged(oldConfiguration) {
     if (isListViewBuilder) {
-      oldConfiguration as _ListViewConfiguration;
-
-      return style != oldConfiguration.style ||
-          classAttribute != oldConfiguration.classAttribute ||
-          scrollDirection != oldConfiguration.scrollDirection;
+      return true;
     }
 
-    return true;
+    oldConfiguration as _ListViewConfiguration;
+
+    return style != oldConfiguration.style ||
+        classAttribute != oldConfiguration.classAttribute ||
+        scrollDirection != oldConfiguration.scrollDirection;
   }
 
   @nonVirtual
