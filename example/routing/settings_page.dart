@@ -93,6 +93,6 @@ class Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(title);
+    return Span(innerText: title);
   }
 }

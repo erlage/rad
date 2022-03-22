@@ -29,7 +29,7 @@
                             //    <body>
                             //      <div id="output"></div> 
                             //    ...
-        child: Text("hello"),
+        child: Span(innerText: "hello"),
       );
     }
     ```

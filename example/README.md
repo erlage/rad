@@ -22,7 +22,7 @@ class _ClickToggleState extends State<ClickToggle> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: _handleTap,
-      child: Text(isClicked ? "on! click to turn off." : "click to turn on."),
+      child: Span(innerText: isClicked ? "on! click to turn off." : "click to turn on."),
     );
   }
 
