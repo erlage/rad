@@ -49,6 +49,7 @@ export 'src/widgets/gesture_detector.dart' show GestureDetector;
 
 // elements
 
+export 'src/widgets/text.dart' show Text;
 export 'src/widgets/raw_markup.dart' show RawMarkUp;
 
 // html
@@ -70,6 +71,7 @@ export 'src/widgets/html/anchor.dart' show Anchor;
 export 'src/widgets/html/blockquote.dart' show Blockquote;
 export 'src/widgets/html/horizontal_rule.dart' show HorizontalRule;
 export 'src/widgets/html/label.dart' show Label;
+export 'src/widgets/html/legend.dart' show Legend;
 export 'src/widgets/html/iframe.dart' show IFrame;
 export 'src/widgets/html/break_line.dart' show BreakLine;
 export 'src/widgets/html/image.dart' show Image;
@@ -85,7 +87,6 @@ export 'src/widgets/html/textarea.dart' show TextArea;
 
 export 'src/widgets/html/form.dart' show Form;
 export 'src/widgets/html/fieldset.dart' show FieldSet;
-export 'src/widgets/html/legend.dart' show Legend;
 export 'src/widgets/html/input_text.dart' show InputText;
 export 'src/widgets/html/input_checkbox.dart' show InputCheckBox;
 export 'src/widgets/html/input_radio.dart' show InputRadio;

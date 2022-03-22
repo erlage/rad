@@ -194,7 +194,7 @@ This hook helps a lot when you've a StatefulWidget in a Navigator's page, and yo
     For example, in below code, Text widget will never issue a update no matter how many times you do toggle.
 
     ```dart
-    Span(innerText: isClicked ? "hey" : "hey")
+    Text(isClicked ? "hey" : "hey")
     ```
     
     This feature gets more effective in nested widgets. Take a look at another example,
@@ -204,7 +204,7 @@ This hook helps a lot when you've a StatefulWidget in a Navigator's page, and yo
         alignment: isClicked ? Alignment.center : Alignment.center,
         child: Container(
             style: isClicked ? "red" : "red",
-            child: Span(innerText:isClicked ? "hey" : "hey"),
+            child: Text(isClicked ? "hey" : "hey"),
         ),
     ),
     ```

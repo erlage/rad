@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget
 {
   @override
   build(context) {
-    return Span(innerText: "hello world");
+    return Text("hello world");
   }
 }
 ```
@@ -77,8 +77,8 @@ How about that? if you're familiar with Flutter it don't even need an explanatio
         ```dart
         Stack(
           children: [
-            StackEntry(Span(innerText: "hellow 1")),
-            StackEntry(Span(innerText: "hellow 2")),
+            StackEntry(Text("hellow 1")),
+            StackEntry(Text("hellow 2")),
           ]
         )
         ```

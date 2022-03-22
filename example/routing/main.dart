@@ -76,7 +76,7 @@ class _RootPageState extends State<RootPage> {
         children: [
           Division(
             style: "margin: 0 auto;",
-            children: [Span(innerText: text)],
+            child: Text(text),
           ),
         ],
       ),
@@ -97,13 +97,13 @@ class _RootPageState extends State<RootPage> {
 class HomePage extends StatelessWidget {
   @override
   build(context) {
-    return Span(innerText: "Home page");
+    return Text("Home page");
   }
 }
 
 class PostsPage extends StatelessWidget {
   @override
   build(context) {
-    return Span(innerText: "Posts page");
+    return Text("Posts page");
   }
 }
