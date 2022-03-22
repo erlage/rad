@@ -49,7 +49,6 @@ export 'src/widgets/gesture_detector.dart' show GestureDetector;
 
 // elements
 
-export 'src/widgets/text.dart' show Text;
 export 'src/widgets/raw_markup.dart' show RawMarkUp;
 
 // html

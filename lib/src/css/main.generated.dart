@@ -2,7 +2,6 @@
 
 // auto-generated. please don't edit this file
 
-import 'package:rad/src/widgets/text.dart';
 import 'package:rad/src/widgets/route.dart';
 import 'package:rad/src/widgets/navigator.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
@@ -15,7 +14,6 @@ final GEN_STYLES_MAIN_CSS = ""
     "    * widgets without styles "
     "    */ "
     "  "
-    " [data-wcontype=\"$Text\"], "
     " [data-wcontype=\"$Route\"], "
     " [data-wcontype=\"$Navigator\"], "
     " [data-wcontype=\"$InheritedWidget\"], "

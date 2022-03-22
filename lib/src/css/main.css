@@ -2,7 +2,6 @@
    * widgets without styles
    */
 
-[data-wcontype="Text"],
 [data-wcontype="Route"],
 [data-wcontype="Navigator"],
 [data-wcontype="InheritedWidget"],
