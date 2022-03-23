@@ -1,3 +1,27 @@
+## 0.7.0
+
+### New
+
+- ListView widget. Along with `ListView.builder` version that build items in a lazy fashion. This widget can be used to create infinite scrolling lists/pages.
+
+### Changes
+
+- key is now a named parameter. Use `super(key: key)` instead of `super(key)`
+- Brought sanity to Navigator's values API. Now instead of passing values as string, use Map to pass values.
+
+### Improvements
+
+- Added Canvas widget for HTML's Canvas tag.
+
+- Added `child` property to all MarkUp tag widgets.
+
+- Added `didChangeDependencies` hook to StatefulWidget.
+
+- Navigator:
+    - Uri encoding/decoding for values passed.
+    - Ability to look up specific instance in ancestors.
+    - Fixed Uri replacement issue when app is installed under sub dir(path).
+
 ## 0.6.2
 
 ### New!

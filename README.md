@@ -26,8 +26,9 @@ How about that? if you're familiar with Flutter it don't even need an explanatio
 
 1. First off, we don't use a rendering engine to render a widget or anything like that. Widgets are mapped to HTML tags and composed together they way you describe them. This means every widget has a corresponding HTML tag in DOM, and your application has complete access to document(DOM).
 
+2. Rad's doesn't rebuild widgets multiple times a second, which means for animations you've to turn to CSS.
 
-2. For designing a interface, you've to use HTML. And guess what? there are widgets for that.
+3. For designing a interface, you've to use HTML. And guess what? there are widgets for that.
   
     Let's take this HTML snippet:
     ```html
@@ -73,7 +74,7 @@ How about that? if you're familiar with Flutter it don't even need an explanatio
             );
         }
         ```
-    3. Well done! Here's our newly created Stack widget
+    3. Well done! here's our newly created Stack widget
         ```dart
         Stack(
           children: [
@@ -84,10 +85,6 @@ How about that? if you're familiar with Flutter it don't even need an explanatio
         ```
     This was just an example, you don't really need these type of widgets when you can use a CSS framework of your choice.
 
-3. Rad's doesn't rebuild widgets multiple times a second, which means for animations you've to turn to CSS.
-
-4. Lastly, Rad is fast, thanks to its tiny core and number of optimizations on top of that.
-
 ## Widgets Index
 
 Below is the list of available widgets in this framework.
@@ -95,11 +92,12 @@ Below is the list of available widgets in this framework.
 > Some widgets are named after Flutter widgets because they either works exactly same or can be used to acheive same things but in a differnet way(more or less). All those widgets are marked according to their similarity level.
 > 
 > Markings:
->   - *exact*: Works exactly same.
->   - *same*: Works nearly the same way. 
->   - *different*: Works different.
+>   - *exact*: Exact syntax, similar semantics.
+>   - *same*: Exact syntax with few exceptions, similar semantics.
+>   - *different*: Different syntax, different semantics.
+>   - *experimental*: --
 >
-> Please note that these markings are based on my understanding of Flutter widgets/src. If you happen to find any big differences, do let me know.
+> Please note that these markings are based solely on my understanding of Flutter widgets/src. If you happen to find any big differences, do let me know.
 
 ### Main
 
@@ -108,32 +106,33 @@ Below is the list of available widgets in this framework.
 ### Navigator/Routing
 
 - [Navigator](https://pub.dev/documentation/rad/latest/rad/Navigator-class.html) \[*different*\]
-- [Route](https://pub.dev/documentation/rad/latest/rad/Route-class.html)
+- [Route](https://pub.dev/documentation/rad/latest/rad/Route-class.html) \[*different*\]
 
 ### Abstract
 
 - [InheritedWidget](https://pub.dev/documentation/rad/latest/rad/InheritedWidget-class.html) \[*exact*\]
 - [StatelessWidget](https://pub.dev/documentation/rad/latest/rad/StatelessWidget-class.html) \[*exact*\]
-- [StatefulWidget](https://pub.dev/documentation/rad/latest/rad/StatefulWidget-class.html) \[*same*\]
+- [StatefulWidget](https://pub.dev/documentation/rad/latest/rad/StatefulWidget-class.html) \[*exact*\]
 
 ### Builders
 
 - [FutureBuilder](https://pub.dev/documentation/rad/latest/rad/FutureBuilder-class.html) \[*exact*\]
 - [StreamBuilder](https://pub.dev/documentation/rad/latest/rad/StreamBuilder-class.html) \[*exact*\]
 - [ValueListenableBuilder](https://pub.dev/documentation/rad/latest/rad/ValueListenableBuilder-class.html) \[*exact*\]
+- [ListView.builder](https://pub.dev/documentation/rad/latest/rad/ListView-class.html) \[*same*\]
 
 ### Elements
 
 - [Text](https://pub.dev/documentation/rad/latest/rad/Text-class.html) \[*different*\]
 - [RawMarkUp](https://pub.dev/documentation/rad/latest/rad/RawMarkUp-class.html)
-- [GestureDetector](https://pub.dev/documentation/rad/latest/rad/GestureDetector-class.html)
+- [ListView](https://pub.dev/documentation/rad/latest/rad/ListView-class.html) \[*same*\]
+- [GestureDetector](https://pub.dev/documentation/rad/latest/rad/GestureDetector-class.html) \[*experimental*\]
 
 ### HTML
 
 - [Header](https://pub.dev/documentation/rad/latest/rad/Header-class.html)
 - [Footer](https://pub.dev/documentation/rad/latest/rad/Footer-class.html)
 - [Navigation](https://pub.dev/documentation/rad/latest/rad/Navigation-class.html)
-
 - [Span](https://pub.dev/documentation/rad/latest/rad/Span-class.html)
 - [Small](https://pub.dev/documentation/rad/latest/rad/Small-class.html)
 - [Strong](https://pub.dev/documentation/rad/latest/rad/Strong-class.html)
@@ -145,29 +144,30 @@ Below is the list of available widgets in this framework.
 - [Blockquote](https://pub.dev/documentation/rad/latest/rad/Blockquote-class.html)
 - [HorizontalRule](https://pub.dev/documentation/rad/latest/rad/HorizontalRule-class.html)
 - [Label](https://pub.dev/documentation/rad/latest/rad/Label-class.html)
+- [Legend](https://pub.dev/documentation/rad/latest/rad/Legend-class.html)
 - [IFrame](https://pub.dev/documentation/rad/latest/rad/IFrame-class.html)
 - [BreakLine](https://pub.dev/documentation/rad/latest/rad/BreakLine-class.html)
 - [Image](https://pub.dev/documentation/rad/latest/rad/Image-class.html)
+- [Canvas](https://pub.dev/documentation/rad/latest/rad/Canvas-class.html)
 - [Paragraph](https://pub.dev/documentation/rad/latest/rad/Paragraph-class.html)
+- [Progress](https://pub.dev/documentation/rad/latest/rad/Progress-class.html)
 - [UnOrderedList](https://pub.dev/documentation/rad/latest/rad/UnOrderedList-class.html)
 - [ListItem](https://pub.dev/documentation/rad/latest/rad/ListItem-class.html)
 - [Button](https://pub.dev/documentation/rad/latest/rad/Button-class.html)
 - [Select](https://pub.dev/documentation/rad/latest/rad/Select-class.html)
 - [Option](https://pub.dev/documentation/rad/latest/rad/Option-class.html)
-- [Progress](https://pub.dev/documentation/rad/latest/rad/Progress-class.html)
-- [TextArea](https://pub.dev/documentation/rad/latest/rad/TextArea-class.html)
 
 - [Form](https://pub.dev/documentation/rad/latest/rad/Form-class.html)
 - [FieldSet](https://pub.dev/documentation/rad/latest/rad/FieldSet-class.html)
-- [Legend](https://pub.dev/documentation/rad/latest/rad/Legend-class.html)
 - [InputText](https://pub.dev/documentation/rad/latest/rad/InputText-class.html)
 - [InputCheckBox](https://pub.dev/documentation/rad/latest/rad/InputCheckBox-class.html)
 - [InputRadio](https://pub.dev/documentation/rad/latest/rad/InputRadio-class.html)
 - [InputFile](https://pub.dev/documentation/rad/latest/rad/InputFile-class.html)
 - [InputSubmit](https://pub.dev/documentation/rad/latest/rad/InputSubmit-class.html)
+- [TextArea](https://pub.dev/documentation/rad/latest/rad/TextArea-class.html)
 
 - [Heading(1-6)](https://pub.dev/documentation/rad/latest/rad/Heading1-class.html)
 
 ## Why Dart?
 
-I actually tried writing [this in TypeScript before](https://github.com/erlage/proton-framework). While we can do awesome things with types in TS, it also inherits craziness from JS (has to bind 'this', use arrow fun, and more things like that). Later I decided to give Dart a try and I quickly realized that Dart is a very underrated language. You don't have to trust me on that. I had wrote a lot of Dart code with Flutter, but the fact that I choosed TS at first place really shows how underrated Dart actually is. I am thankful to all the people who helped create Dart and/or contributing to it, one way or the other.
+I actually tried writing [this in TypeScript before](https://github.com/erlage/proton-framework). While we can do awesome things with types in TS, it also inherits craziness from JS (has to bind 'this', use arrow fun, and more things like that). Later I decided to give Dart a try and I quickly realized that Dart is a very underrated language. You don't have to trust me on that. I had wrote a lot of Dart code with Flutter, but the fact that I choosed TS at first place really shows how underrated Dart actually is. I deeply believe Dart is a amazing language, and I am thankful to all the people who helped create Dart and/or contributing to it, one way or the other.
