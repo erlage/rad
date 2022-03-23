@@ -154,12 +154,10 @@ class StatefulWidgetRenderObject extends RenderObject {
       ..frameworkBindUpdateHook(updateHook)
       ..initState();
 
-    if (state.frameworkIsBuildEnabled) {
-      Framework.buildChildren(
-        widgets: [state.build(context)],
-        parentContext: context,
-      );
-    }
+    Framework.buildChildren(
+      widgets: [state.build(context)],
+      parentContext: context,
+    );
   }
 
   @override
@@ -178,9 +176,7 @@ class StatefulWidgetRenderObject extends RenderObject {
     required oldConfiguration,
     required newConfiguration,
   }) {
-    if (state.frameworkIsBuildEnabled) {
-      updateHook(updateType);
-    }
+    updateHook(updateType);
   }
 
   @override
@@ -305,13 +301,6 @@ abstract class State<T extends StatefulWidget> {
   | for internal use
   |--------------------------------------------------------------------------
   */
-
-  /// Whether build method is disabled.
-  ///
-  /// Used by internal framework widgets that uses Stateful widget but render
-  /// widgets through Framework.x-api
-  ///
-  bool get frameworkIsBuildEnabled => true;
 
   Function(UpdateType type)? _updateHook;
 
