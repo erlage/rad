@@ -192,6 +192,17 @@ import 'package:rad/src/widgets/route.dart';
 /// var key = Navigator.of(context).getValue("profile");
 /// ```
 ///
+/// Looking for a specific Navigator instance is ancestors:
+///
+/// ```dart
+/// // 1. Give Navigator instance a key
+///
+/// Navigator(key: 'my-navigator')
+///
+/// // 2. Use of(context, key) anywhere in the subtree of that Navigator,
+///
+/// Navigator.of(context, 'my-navigator');
+/// ```
 /// ### onRouteChange hook:
 ///
 /// This hooks gets called when Navigator opens a route. This allows Navigator's parent
@@ -228,21 +239,32 @@ class Navigator extends Widget {
   /// Navigator's state from the closest instance of this class
   /// that encloses the given context.
   ///
-  static NavigatorState of(BuildContext context) {
-    var widgetObject =
-        Framework.findAncestorWidgetObjectOfType<Navigator>(context);
+  static NavigatorState of(BuildContext context, [String? navigatorKey]) {
+    var targetContext = context;
 
-    if (null == widgetObject) {
-      throw "Navigator operation requested with a context that does not include a Navigator.\n"
-          "The context used to push or pop routes from the Navigator must be that of a "
-          "widget that is a descendant of a Navigator widget.";
+    while (true) {
+      var widgetObject = Framework.findAncestorWidgetObjectOfType<Navigator>(
+        targetContext,
+      );
+
+      if (null == widgetObject) {
+        throw "Navigator operation requested with a context that does not include a Navigator.\n"
+            "The context used to push or pop routes from the Navigator must be that of a "
+            "widget that is a descendant of a Navigator widget.";
+      }
+
+      if (null != navigatorKey && navigatorKey != widgetObject.context.key) {
+        targetContext = widgetObject.context;
+
+        continue;
+      }
+
+      var renderObject = widgetObject.renderObject as NavigatorRenderObject;
+
+      renderObject.addDependent(context);
+
+      return renderObject.state;
     }
-
-    var renderObject = widgetObject.renderObject as NavigatorRenderObject;
-
-    renderObject.addDependent(context);
-
-    return renderObject.state;
   }
 
   /*
@@ -411,17 +433,11 @@ class NavigatorState {
     Map<String, String> values = const {},
     bool updateHistory = true,
   }) {
-    var traverseAncestors = name.startsWith("../");
-
-    // clean traversal flag
-
-    var cleanedName = traverseAncestors ? name.substring(3) : name;
-
     // if already on same page
     if (_historyStack.isNotEmpty) {
       var lastOpened = _historyStack.last;
 
-      if (lastOpened.name == cleanedName) {
+      if (lastOpened.name == name) {
         if (Utils.isKeyValueMapEqual(lastOpened.values, values)) {
           return;
         }
@@ -430,35 +446,19 @@ class NavigatorState {
 
     // if current navigator doesn't have a matching '$name' route
 
-    if (!nameToPathMap.containsKey(cleanedName)) {
-      if (!traverseAncestors) {
-        throw "Navigator: '$cleanedName' is not declared."
-            "Named routes that are not registered in Navigator's routes are not allowed."
-            "If you're trying to push to a parent navigator, add prefix '../' to name of the route. "
-            "e.g Navgator.of(context).push(name: '../home')."
-            "It'll first tries a push to current navigator, if it doesn't find a matching route, "
-            "then it'll try push to a parent navigator and so on. If there are no navigators in ancestors, "
-            "then it'll throw an exception";
-      } else {
-        // push to parent navigator.
-
-        NavigatorState parent;
-
-        try {
-          parent = Navigator.of(context);
-        } catch (_) {
-          throw "Route named '$cleanedName' not defined. Make sure you've declared a named route '$cleanedName' in Navigator's routes.";
-        }
-
-        parent.open(name: name, values: values);
-
-        return;
-      }
+    if (!nameToPathMap.containsKey(name)) {
+      throw "Navigator: '$name' is not declared."
+          "Named routes that are not registered in Navigator's routes are not allowed."
+          "If you're trying to push to a parent navigator, add prefix '../' to name of the route. "
+          "e.g Navgator.of(context).push(name: '../home')."
+          "It'll first tries a push to current navigator, if it doesn't find a matching route, "
+          "then it'll try push to a parent navigator and so on. If there are no navigators in ancestors, "
+          "then it'll throw an exception";
     }
 
     // callbacks
 
-    _updateCurrentName(cleanedName);
+    _updateCurrentName(name);
 
     // update global state
 
@@ -479,7 +479,7 @@ class NavigatorState {
 
     // if route is already in stack, bring it to the top of stack
 
-    if (isPageStacked(name: cleanedName)) {
+    if (isPageStacked(name: name)) {
       Framework.manageChildren(
         parentContext: context,
         flagIterateInReverseOrder: true,
@@ -501,7 +501,7 @@ class NavigatorState {
       //
       // else build the route
 
-      var page = pathToRouteMap[nameToPathMap[cleanedName]];
+      var page = pathToRouteMap[nameToPathMap[name]];
 
       if (null == page) throw System.coreError;
 
