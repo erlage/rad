@@ -80,10 +80,6 @@ class Router {
     _stateObjects.remove(context.key);
   }
 
-  static NavigatorState getNavigatorState(String navigatorKey) {
-    return _stateObjects[navigatorKey]!;
-  }
-
   /// Push page entry.
   ///
   static void pushEntry({
@@ -273,13 +269,12 @@ class Router {
         // for active history, our implementation is ready, see below.
 
       } else {
+        _updateCurrentSegments();
+
         var routeObject = _routeObjects[entry.navigatorKey]!;
-
-        _ensureNavigatorIsVisible(routeObject);
-
         var navigatorState = _stateObjects[entry.navigatorKey]!;
 
-        _updateCurrentSegments();
+        _ensureNavigatorIsVisible(routeObject);
 
         if (Debug.routerLogs) {
           print("Router: onPopState: open: ${entry.name}");
