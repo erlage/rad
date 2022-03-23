@@ -215,16 +215,19 @@ class StatefulWidgetRenderObject extends RenderObject {
 /// 3. [State.dispose] - is called when framework is about to dispose widget and its
 /// state.
 ///
+/// Apart from three main hooks, [State] has two additional hooks that implementations
+/// can override when needed. These are,
+///
+/// [State.didUpdateWidget] - Called whenever the widget configuration changes.
+///
+/// [State.didChangeDependencies]- Called when a dependency of this [State] object changes.
+///
 /// Apart from lifecycle hooks, there is a [State.setState] function which a widget
 /// can use to tell framework to rebuild widget's interface because some
 /// internal state of this widget has changed.
 ///
 /// It's responsibility of concrete implementation of [StatefulWidget]
 /// to tell framework when to rebuild the interface using [State.setState]
-///
-/// Apart from three main hooks, there's [didUpdateWidget] hook.
-/// One difference from Flutter's StatefulWidget is that we don't have a
-/// didChangeDependencies hook.
 ///
 abstract class State<T extends StatefulWidget> {
   /*
