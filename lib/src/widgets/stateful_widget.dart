@@ -331,6 +331,10 @@ abstract class State<T extends StatefulWidget> {
 
   var _isRebuilding = false;
 
+  /// Whether widget of current state object is rebuilding.
+  ///
+  bool get isRebuilding => _isRebuilding;
+
   @nonVirtual
   @protected
   void frameworkBindContext(BuildContext context) {
