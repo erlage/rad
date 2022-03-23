@@ -578,10 +578,11 @@ class Framework {
     var widgetObject = _getWidgetObject(existingWidgetContext.key);
 
     if (null != widgetObject) {
-      updateChildren(
-        widgets: [widgetObject.widget],
-        parentContext: existingWidgetContext.parent,
+      widgetObject.renderObject.update(
+        element: widgetObject.element,
         updateType: UpdateType.dependencyChanged,
+        oldConfiguration: widgetObject.configuration,
+        newConfiguration: widgetObject.widget.createConfiguration(),
       );
 
       return true;

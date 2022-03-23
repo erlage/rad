@@ -7,6 +7,7 @@ import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateless_widget.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
 
@@ -152,7 +153,8 @@ class StatefulWidgetRenderObject extends RenderObject {
       ..frameworkBindContext(context)
       ..frameworkBindElement(element)
       ..frameworkBindUpdateHook(updateHook)
-      ..initState();
+      ..initState()
+      ..didChangeDependencies();
 
     Framework.buildChildren(
       widgets: [state.build(context)],
@@ -176,6 +178,10 @@ class StatefulWidgetRenderObject extends RenderObject {
     required oldConfiguration,
     required newConfiguration,
   }) {
+    if (UpdateType.dependencyChanged == updateType) {
+      state.didChangeDependencies();
+    }
+
     updateHook(updateType);
   }
 
@@ -257,8 +263,24 @@ abstract class State<T extends StatefulWidget> {
 
   /// Called whenever the widget configuration changes.
   ///
+  /// The framework always calls [build] after calling [didUpdateWidget], which
+  /// means any calls to [setState] in [didUpdateWidget] are redundant.
+  ///
   @protected
   void didUpdateWidget(T oldWidget) {}
+
+  /// Called when a dependency of this [State] object changes.
+  ///
+  /// For example, if the previous call to [build] referenced an
+  /// [InheritedWidget] that later changed, the framework would call this
+  /// method to notify this object about the change. This method is also
+  /// called immediately after [initState].
+  ///
+  /// The framework always calls [build] after calling [didChangeDependencies],
+  /// which means any calls to [setState] in [didChangeDependencies] are redundant.
+  ///
+  @protected
+  void didChangeDependencies() {}
 
   /*
   |--------------------------------------------------------------------------
