@@ -99,6 +99,14 @@ class Router {
 
       var historyEntry = protectedSegments.join("/") + "/$name$encodedValues";
 
+      var currentPath = window.location.pathname;
+
+      if (null != currentPath && currentPath.isNotEmpty) {
+        if (!historyEntry.startsWith('/')) {
+          historyEntry = '/$historyEntry';
+        }
+      }
+
       window.history.pushState(null, '', historyEntry);
 
       _updateCurrentSegments();
@@ -144,6 +152,14 @@ class Router {
     var encodedValues = Utils.encodeKeyValueMap(values);
 
     var historyEntry = protectedSegments.join("/") + "/$name$encodedValues";
+
+    var currentPath = window.location.pathname;
+
+    if (null != currentPath && currentPath.isNotEmpty) {
+      if (!historyEntry.startsWith('/')) {
+        historyEntry = '/$historyEntry';
+      }
+    }
 
     window.history.replaceState(null, '', historyEntry);
 
@@ -380,9 +396,9 @@ class Router {
     var matcher = "";
 
     if (routeObject.segments.length < 3) {
-      matcher = r"^\/+[\w\/]*(" + routeObject.segments.last + r"[\/\w]*)";
+      matcher = r"^\/*[\w\/]*(" + routeObject.segments.last + r"[\/\w]*)";
     } else {
-      matcher = r"^\/+" +
+      matcher = r"^\/*" +
           routeObject.segments[1] +
           r"[\w\/]*(" +
           routeObject.segments.last +
@@ -428,13 +444,13 @@ class Router {
     var matchRoutes = stateObject.nameToPathMap.values.join(r"|\/");
 
     if (routeObject.segments.length < 3) {
-      matcher = r"(^\/+[\w\/]*" +
+      matcher = r"(^\/*[\w\/]*" +
           routeObject.segments.last +
           r"[\w\/]*(?=\/" +
           matchRoutes +
           r"))";
     } else {
-      matcher = r"(^\/+" +
+      matcher = r"(^\/*" +
           routeObject.segments[1] +
           r"[\w\/]*" +
           routeObject.segments.last +
