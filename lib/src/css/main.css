@@ -2,6 +2,16 @@
    * widgets without styles
    */
 
+[data-wcontype="RadApp"] {
+    width: 100%;
+    height: 100%;
+}
+
+
+/**
+   * widgets without styles
+   */
+
 [data-wcontype="Route"],
 [data-wcontype="Navigator"],
 [data-wcontype="InheritedWidget"],
