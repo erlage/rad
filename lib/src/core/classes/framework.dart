@@ -581,8 +581,12 @@ class Framework {
       widgetObject.renderObject.update(
         element: widgetObject.element,
         updateType: UpdateType.dependencyChanged,
+        //
+        // it's a change in dependency not configuration,
+        // so both are same
+        //
         oldConfiguration: widgetObject.configuration,
-        newConfiguration: widgetObject.widget.createConfiguration(),
+        newConfiguration: widgetObject.configuration,
       );
 
       return true;
