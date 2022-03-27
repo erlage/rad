@@ -14,6 +14,7 @@ import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/route.dart';
+import 'package:rad/src/widgets/stateful_widget.dart';
 
 /// Navigator widget.
 ///
@@ -113,6 +114,30 @@ import 'package:rad/src/widgets/route.dart';
 ///     }
 ///     ```
 ///
+/// ### Looking for a specific Navigator instance is ancestors:
+///
+/// ```dart
+/// // 1. Give Navigator instance a key
+///
+/// Navigator(key: 'my-navigator')
+///
+/// // 2. Use of(context, key) anywhere in the subtree of that Navigator,
+///
+/// Navigator.of(context, 'my-navigator');
+/// ```
+/// ### onRouteChange hook:
+///
+/// This hooks gets called when Navigator opens a route. This allows Navigator's parent
+/// to do something when Navigator that it's enclosing has changed. for example, you
+/// could've a header and you can change active tab when Navigator's route has changed.
+///
+/// ```dart
+/// Navigator(
+///     onRouteChange: (name) => print("changed to $name");
+///     ...
+/// );
+/// ```
+///
 /// ### Jumping to a Route
 ///
 /// To go to a route, use `open` method of Navigator state. We could've named it `push` but `open` conveys what exactly
@@ -160,7 +185,7 @@ import 'package:rad/src/widgets/route.dart';
 /// // "123"
 /// ```
 ///
-/// Passing multiple values:
+/// ### Passing multiple values:
 ///
 /// ```dart
 /// Navigator.of(context).open(name: "home", values: {"id": "123", "username" : "adamback"});
@@ -175,12 +200,16 @@ import 'package:rad/src/widgets/route.dart';
 ///
 /// Cool thing about Navigator is that values passed to a route will presist
 /// during browser reloads. If you've pushed some values while opening a route,
-/// those will presist in browser history too. This means you don't have to parameterize
+/// those will presist in browser history too.
+///
+/// ## Mangaging state in Routes:
+///
+/// Since Navigator do not duplicate pages, you don't have to parameterize
 /// your page content, instead pass values on `open`:
 ///
 /// ```dart
 /// // rather than doing this
-/// Route(name: "profile", page: Profile(key: 123));
+/// Route(name: "profile", page: Profile(id: 123));
 ///
 /// // do this
 /// Route(name: "profile", page: Profile());
@@ -192,28 +221,45 @@ import 'package:rad/src/widgets/route.dart';
 /// var key = Navigator.of(context).getValue("id");
 /// ```
 ///
-/// Looking for a specific Navigator instance is ancestors:
+/// But remember since routes are built only once, you've to re-initialize state in
+/// your `ProfilePage` widget when `id` changes. One way is to make your `ProfilePage` a
+/// [StatefulWidget] and re-initialize state in [State.didChangeDependencies] when you
+/// see that `id` has changed.
+///
+/// Here's an example:
 ///
 /// ```dart
-/// // 1. Give Navigator instance a key
+/// class ProfilePageState ...
+/// {
+///   var _userId = '0';
 ///
-/// Navigator(key: 'my-navigator')
+///   @override
+///   void initState() {
+///     // intialize state that doesn't depend on Navigator
+///   }
 ///
-/// // 2. Use of(context, key) anywhere in the subtree of that Navigator,
+///   @override
+///   void didChangeDependencies()
+///   {
+///     // initialize state here that depend Navigator
+///     var newValue = Navigator.of(context).getValue('id');
 ///
-/// Navigator.of(context, 'my-navigator');
-/// ```
-/// ### onRouteChange hook:
+///     // if user id has changed(means your app has opened profile page with
+///     // a different id value)
+///     if(newValue != _userId) {
+///       // change widget state
+///       _userId = newValue;
+///       // fetch user from server, or other things that depends
+///       // on user id.
+///     }
 ///
-/// This hooks gets called when Navigator opens a route. This allows Navigator's parent
-/// to do something when Navigator that it's enclosing has changed. for example, you
-/// could've a header and you can change active tab when Navigator's route has changed.
+///     // this method gets called when your app do Navigator.open(name: 'profile')
+///     // you can re-initialize page state if page is opened with different values
 ///
-/// ```dart
-/// Navigator(
-///     onRouteChange: (name) => print("changed to $name");
-///     ...
-/// );
+///     // remember, you don't have to call setState inside this method. framework always
+///     // call build method on this widget after calling this method.
+///   }
+/// }
 /// ```
 ///
 class Navigator extends Widget {
