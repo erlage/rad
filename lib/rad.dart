@@ -4,23 +4,11 @@
 |--------------------------------------------------------------------------
 */
 
-// structures
-
-export 'src/core/objects/render_object.dart' show RenderObject;
+export 'src/widgets/abstract/widget.dart' show Widget;
 
 export 'src/core/objects/build_context.dart' show BuildContext;
 
 export 'src/core/objects/debug_options.dart' show DebugOptions;
-
-export 'src/widgets/abstract/widget.dart' show Widget;
-
-// enums
-
-export 'src/core/enums.dart' show UpdateType, HitTestBehavior, Axis;
-
-// states
-
-export 'src/widgets/navigator.dart' show NavigatorState;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,29 +24,29 @@ export 'src/widgets/inherited_widget.dart' show InheritedWidget;
 export 'src/widgets/stateful_widget.dart' show StatefulWidget, State;
 export 'src/widgets/stateless_widget.dart' show StatelessWidget;
 
-export 'src/widgets/list_view.dart' show ListView;
-
 // navigator
 
 export 'src/widgets/route.dart' show Route;
-export 'src/widgets/navigator.dart' show Navigator;
-
-// gestures
-
-export 'src/widgets/gesture_detector.dart' show GestureDetector;
+export 'src/widgets/navigator.dart' show Navigator, NavigatorState;
 
 // elements
 
 export 'src/widgets/text.dart' show Text;
 export 'src/widgets/raw_markup.dart' show RawMarkUp;
 
+export 'src/widgets/gesture_detector.dart' show GestureDetector;
+export 'src/core/enums.dart' show HitTestBehavior;
+
+export 'src/widgets/list_view.dart' show ListView;
+export 'src/core/enums.dart' show Axis;
+
 // html
+
+export 'src/widgets/html/headings.dart';
 
 export 'src/widgets/html/header.dart' show Header;
 export 'src/widgets/html/footer.dart' show Footer;
 export 'src/widgets/html/navigation.dart' show Navigation;
-
-export 'src/widgets/html/headings.dart';
 
 export 'src/widgets/html/span.dart' show Span;
 export 'src/widgets/html/small.dart' show Small;
@@ -97,7 +85,11 @@ export 'src/widgets/html/input_submit.dart' show InputSubmit;
 
 export 'src/core/enums.dart' show ButtonType, FormEncType, FormMethod;
 
-// imported widgets impls
+/*
+|--------------------------------------------------------------------------
+| included widgets
+|--------------------------------------------------------------------------
+*/
 
 export 'src/include/async/connection_state.dart' show ConnectionState;
 
@@ -121,8 +113,8 @@ export 'src/include/widgets/value_listenable_builder.dart';
 
 export 'src/core/enums.dart' show DomTag;
 
-export 'src/core/constants.dart' show System;
+export 'src/core/enums.dart' show UpdateType;
 
-export 'src/core/interface/style_component.dart' show StyleComponent;
+export 'src/core/constants.dart' show System;
 
 export 'src/core/objects/render_object.dart' show RenderObject;
