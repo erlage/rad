@@ -121,7 +121,7 @@ Below is the list of available widgets in this framework.
 - [FutureBuilder](https://pub.dev/documentation/rad/latest/rad/FutureBuilder-class.html) \[*exact*\]
 - [StreamBuilder](https://pub.dev/documentation/rad/latest/rad/StreamBuilder-class.html) \[*exact*\]
 - [ValueListenableBuilder](https://pub.dev/documentation/rad/latest/rad/ValueListenableBuilder-class.html) \[*exact*\]
-- [ListView.builder](https://pub.dev/documentation/rad/latest/rad/ListView-class.html) \[*same*\]
+- [ListView.builder](https://pub.dev/documentation/rad/latest/rad/ListView/ListView.builder.html) \[*same*\]
 
 ### Elements
 
