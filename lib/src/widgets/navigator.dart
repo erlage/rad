@@ -596,10 +596,12 @@ class NavigatorState {
 
   VoidCallback? _updateHook;
 
+  @protected
   void frameworkBindUpdateHook(VoidCallback updateHook) {
     _updateHook = updateHook;
   }
 
+  @protected
   void frameworkInitState() {
     if (Debug.developmentMode) {
       if (widget.routes.isEmpty) {
@@ -638,6 +640,7 @@ class NavigatorState {
     Router.register(context, this);
   }
 
+  @protected
   void frameworkRender() {
     var name = Router.getPath(context.key);
 
@@ -667,6 +670,7 @@ class NavigatorState {
     open(name: name, updateHistory: false);
   }
 
+  @protected
   void frameworkUpdate(UpdateType updateType) {
     Framework.manageChildren(
       parentContext: context,
@@ -684,10 +688,12 @@ class NavigatorState {
     );
   }
 
+  @protected
   void frameworkDispose() => Router.unRegister(context);
 
   /// Framework fires this when parent route changes.
   ///
+  @protected
   void frameworkOnParentRouteChange(String name) {
     var routeName = Router.getPath(context.key);
 
@@ -704,6 +710,7 @@ class NavigatorState {
     }
   }
 
+  @protected
   void frameworkUpdateCurrentName(String name) {
     _currentName = name;
 
