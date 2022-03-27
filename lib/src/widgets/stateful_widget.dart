@@ -135,14 +135,6 @@ class StatefulWidgetRenderObject extends RenderObject {
     required BuildContext context,
   }) : super(context);
 
-  void updateHook(UpdateType updateType) {
-    Framework.updateChildren(
-      updateType: updateType,
-      widgets: [state.build(context)],
-      parentContext: context,
-    );
-  }
-
   @override
   render(element, configuration) {
     CommonProps.applyDataAttributes(element, {
@@ -185,8 +177,16 @@ class StatefulWidgetRenderObject extends RenderObject {
     updateHook(updateType);
   }
 
+  void updateHook(UpdateType updateType) {
+    Framework.updateChildren(
+      updateType: updateType,
+      widgets: [state.build(context)],
+      parentContext: context,
+    );
+  }
+
   @override
-  beforeUnMount() => state.dispose();
+  beforeUnMount() => state.frameworkDispose();
 }
 
 /*
@@ -359,5 +359,11 @@ abstract class State<T extends StatefulWidget> {
   @protected
   void frameworkBindUpdateHook(Function(UpdateType type) updateHook) {
     _updateHook = updateHook;
+  }
+
+  @nonVirtual
+  @protected
+  void frameworkDispose() {
+    dispose();
   }
 }

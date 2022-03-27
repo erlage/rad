@@ -310,6 +310,25 @@ class NavigatorRenderObject extends RenderObject {
       : state = NavigatorState(context, widget),
         super(context);
 
+  @override
+  render(element, configuration) => state
+    ..frameworkBindUpdateHook(updateHook)
+    ..frameworkInitState()
+    ..frameworkRender();
+
+  @override
+  update({
+    required element,
+    required updateType,
+    required oldConfiguration,
+    required newConfiguration,
+  }) {
+    state.frameworkUpdate(updateType);
+  }
+
+  @override
+  beforeUnMount() => state.frameworkDispose();
+
   void addDependent(BuildContext dependentContext) {
     var dependentsOnCurrentPage = dependents[state.currentRouteName];
 
@@ -326,7 +345,7 @@ class NavigatorRenderObject extends RenderObject {
     }
   }
 
-  void _updateHook() {
+  void updateHook() {
     var dependentsOnCurrentPage = dependents[state.currentRouteName];
 
     if (null != dependentsOnCurrentPage) {
@@ -351,24 +370,6 @@ class NavigatorRenderObject extends RenderObject {
       }
     }
   }
-
-  @override
-  render(element, configuration) => state
-    ..frameworkInitState()
-    ..frameworkRender(_updateHook);
-
-  @override
-  update({
-    required element,
-    required updateType,
-    required oldConfiguration,
-    required newConfiguration,
-  }) {
-    state.frameworkUpdate(updateType);
-  }
-
-  @override
-  beforeUnMount() => state.frameworkDispose();
 }
 
 /*
@@ -458,7 +459,7 @@ class NavigatorState {
 
     // callbacks
 
-    _updateCurrentName(name);
+    frameworkUpdateCurrentName(name);
 
     // update global state
 
@@ -529,7 +530,7 @@ class NavigatorState {
   void back() {
     var previousPage = _historyStack.removeLast();
 
-    _updateCurrentName(_historyStack.last.name);
+    frameworkUpdateCurrentName(_historyStack.last.name);
 
     Framework.manageChildren(
       parentContext: context,
@@ -595,7 +596,11 @@ class NavigatorState {
 
   VoidCallback? _updateHook;
 
-  frameworkInitState() {
+  void frameworkBindUpdateHook(VoidCallback updateHook) {
+    _updateHook = updateHook;
+  }
+
+  void frameworkInitState() {
     if (Debug.developmentMode) {
       if (widget.routes.isEmpty) {
         throw "Navigator instance must have at least one route.";
@@ -633,9 +638,7 @@ class NavigatorState {
     Router.register(context, this);
   }
 
-  void frameworkRender(VoidCallback updateHook) {
-    _updateHook = updateHook;
-
+  void frameworkRender() {
     var name = Router.getPath(context.key);
 
     var needsReplacement = name.isEmpty;
@@ -701,7 +704,7 @@ class NavigatorState {
     }
   }
 
-  void _updateCurrentName(String name) {
+  void frameworkUpdateCurrentName(String name) {
     _currentName = name;
 
     var onRouteChangeCallback = widget.onRouteChange;
