@@ -5,7 +5,9 @@ Rad is a frontend framework for creating fast and interactive websites using Dar
 ## Quick links
 
 - [Getting started](https://github.com/erlage/rad/blob/main/doc/getting_started.md)
-- [API reference](https://pub.dev/documentation/rad/latest/rad/rad-library.html)
+- [Package @ pub.dev](https://pub.dev/packages/rad)
+- [API reference @ pub.dev](https://pub.dev/documentation/rad/latest/rad/rad-library.html)
+- [Repository @ github.com](https://github.com/erlage/rad)
 
 ## Example
 
