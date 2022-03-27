@@ -12,13 +12,13 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   build(context) {
     return Division(
-      style:
-          "display: flex; flex-direction: row; gap:20px; justify-content: center;",
+      style: "display: flex; flex-direction: row; "
+          "gap:20px; justify-content: center;",
       children: [
         _settingsPageVeritcalNav(),
         Division(
           style: "flex: 1",
-          children: [_settingsPageNavigator()],
+          child: _settingsPageNavigator(),
         ),
       ],
     );
@@ -41,19 +41,17 @@ class _SettingsPageState extends State<SettingsPage> {
     return Division(
       style: "width:250px; height: 100%;",
       classAttribute: "vertical-header",
-      children: [
-        Division(
-          style:
-              "display: flex; flex-direction: column; justify-content: flex-start; gap: 10px;",
-          children: [
-            Division(style: "width: 100%; height: 20px;"),
-            _headerItem(text: "Account settings", routeName: "account"),
-            _headerItem(text: "Photos settings", routeName: "photos"),
-            _headerItem(text: "Videos settings", routeName: "videos"),
-            _headerItem(text: "Personal information", routeName: "personal"),
-          ],
-        ),
-      ],
+      child: Division(
+        style: "display: flex; flex-direction: column;"
+            "justify-content: flex-start; gap: 10px;",
+        children: [
+          Division(style: "width: 100%; height: 20px;"),
+          _headerItem(text: "Account settings", routeName: "account"),
+          _headerItem(text: "Photos settings", routeName: "photos"),
+          _headerItem(text: "Videos settings", routeName: "videos"),
+          _headerItem(text: "Personal information", routeName: "personal"),
+        ],
+      ),
     );
   }
 
@@ -63,7 +61,7 @@ class _SettingsPageState extends State<SettingsPage> {
         _navigatorState?.open(name: routeName);
       },
       child: Division(
-        style: "widht: 100%",
+        style: "widht: 100%;",
         classAttribute: _activeRoute == routeName ? "active" : "",
         children: [
           Division(

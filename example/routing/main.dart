@@ -28,11 +28,7 @@ class _RootPageState extends State<RootPage> {
       style: "display: flex; flex-direction: column;",
       children: [
         _rootPageTopNav(),
-        Division(
-          children: [
-            _rootPageNavigator(),
-          ],
-        ),
+        _rootPageNavigator(),
       ],
     );
   }
@@ -42,8 +38,8 @@ class _RootPageState extends State<RootPage> {
       onInit: _onNavigatorInit,
       onRouteChange: _onNavigatorRouteChange,
       routes: [
-        Route(name: 'home', page: HomePage()),
-        Route(name: 'posts', page: PostsPage()),
+        Route(name: 'home', page: Text("Home page")),
+        Route(name: 'posts', page: Text("Posts page")),
         Route(name: 'settings', page: SettingsPage()),
       ],
     );
@@ -53,17 +49,15 @@ class _RootPageState extends State<RootPage> {
     return Division(
       classAttribute: "header",
       style: "width:100%; height:50px;",
-      children: [
-        Division(
-          style:
-              "display: flex; flex-direction: row; gap:20px; justify-content: center;",
-          children: [
-            _headerItem(text: "Home", routeName: "home"),
-            _headerItem(text: "Posts", routeName: "posts"),
-            _headerItem(text: "Settings", routeName: "settings"),
-          ],
-        ),
-      ],
+      child: Division(
+        style: "display: flex; flex-direction: row;"
+            "gap: 20px; justify-content: center;",
+        children: [
+          _headerItem(text: "Home", routeName: "home"),
+          _headerItem(text: "Posts", routeName: "posts"),
+          _headerItem(text: "Settings", routeName: "settings"),
+        ],
+      ),
     );
   }
 
@@ -71,14 +65,12 @@ class _RootPageState extends State<RootPage> {
     return GestureDetector(
       onTap: () => _navigatorState?.open(name: routeName),
       child: Division(
-        style: "width: 100px;padding:15px",
+        style: "width: 100px; padding: 15px;",
         classAttribute: _activeRoute == routeName ? "active" : "",
-        children: [
-          Division(
-            style: "margin: 0 auto;",
-            child: Text(text),
-          ),
-        ],
+        child: Division(
+          style: "margin: 0 auto;",
+          child: Text(text),
+        ),
       ),
     );
   }
@@ -91,19 +83,5 @@ class _RootPageState extends State<RootPage> {
     setState(() {
       _activeRoute = name;
     });
-  }
-}
-
-class HomePage extends StatelessWidget {
-  @override
-  build(context) {
-    return Text("Home page");
-  }
-}
-
-class PostsPage extends StatelessWidget {
-  @override
-  build(context) {
-    return Text("Posts page");
   }
 }
