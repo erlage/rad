@@ -693,7 +693,6 @@ class NavigatorState {
 
   /// Framework fires this when parent route changes.
   ///
-  @protected
   void frameworkOnParentRouteChange(String name) {
     var routeName = Router.getPath(context.key);
 
