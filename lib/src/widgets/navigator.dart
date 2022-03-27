@@ -186,10 +186,10 @@ import 'package:rad/src/widgets/route.dart';
 /// Route(name: "profile", page: Profile());
 ///
 /// // and when opening profile route
-/// Navigator.of(context).open(name: "profile", value: "/123");
+/// Navigator.of(context).open(name: "profile", values: {"id": "123"});
 ///
 /// // on profile page
-/// var key = Navigator.of(context).getValue("profile");
+/// var key = Navigator.of(context).getValue("id");
 /// ```
 ///
 /// Looking for a specific Navigator instance is ancestors:
