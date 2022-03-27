@@ -144,7 +144,7 @@ class StatefulWidgetRenderObject extends RenderObject {
     state
       ..frameworkBindContext(context)
       ..frameworkBindElement(element)
-      ..frameworkBindUpdateHook(updateHook)
+      ..frameworkBindUpdateProcedure(updateProcedure)
       ..initState()
       ..didChangeDependencies();
 
@@ -174,10 +174,10 @@ class StatefulWidgetRenderObject extends RenderObject {
       state.didChangeDependencies();
     }
 
-    updateHook(updateType);
+    updateProcedure(updateType);
   }
 
-  void updateHook(UpdateType updateType) {
+  void updateProcedure(UpdateType updateType) {
     Framework.updateChildren(
       updateType: updateType,
       widgets: [state.build(context)],
@@ -316,7 +316,7 @@ abstract class State<T extends StatefulWidget> {
       callable();
     }
 
-    _updateHook!(UpdateType.setState);
+    _updateProcedure!(UpdateType.setState);
 
     _isRebuilding = false;
   }
@@ -327,7 +327,7 @@ abstract class State<T extends StatefulWidget> {
   |--------------------------------------------------------------------------
   */
 
-  Function(UpdateType type)? _updateHook;
+  Function(UpdateType type)? _updateProcedure;
 
   var _isRebuilding = false;
 
@@ -357,8 +357,8 @@ abstract class State<T extends StatefulWidget> {
 
   @nonVirtual
   @protected
-  void frameworkBindUpdateHook(Function(UpdateType type) updateHook) {
-    _updateHook = updateHook;
+  void frameworkBindUpdateProcedure(Function(UpdateType type) updateProcedure) {
+    _updateProcedure = updateProcedure;
   }
 
   @nonVirtual

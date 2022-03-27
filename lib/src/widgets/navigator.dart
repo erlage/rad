@@ -312,7 +312,7 @@ class NavigatorRenderObject extends RenderObject {
 
   @override
   render(element, configuration) => state
-    ..frameworkBindUpdateHook(updateHook)
+    ..frameworkBindUpdateProcedure(updateProcedure)
     ..frameworkInitState()
     ..frameworkRender();
 
@@ -345,7 +345,7 @@ class NavigatorRenderObject extends RenderObject {
     }
   }
 
-  void updateHook() {
+  void updateProcedure() {
     var dependentsOnCurrentPage = dependents[state.currentRouteName];
 
     if (null != dependentsOnCurrentPage) {
@@ -497,7 +497,7 @@ class NavigatorState {
         },
       );
 
-      _updateHook!();
+      _updateProcedure!();
     } else {
       //
       // else build the route
@@ -546,7 +546,7 @@ class NavigatorState {
       },
     );
 
-    _updateHook!();
+    _updateProcedure!();
   }
 
   /// Get value from URL following the provided segment.
@@ -594,11 +594,11 @@ class NavigatorState {
   |--------------------------------------------------------------------------
   */
 
-  VoidCallback? _updateHook;
+  VoidCallback? _updateProcedure;
 
   @protected
-  void frameworkBindUpdateHook(VoidCallback updateHook) {
-    _updateHook = updateHook;
+  void frameworkBindUpdateProcedure(VoidCallback updateProcedure) {
+    _updateProcedure = updateProcedure;
   }
 
   @protected
