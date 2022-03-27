@@ -11,6 +11,31 @@ import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
 
+/// The App Widget.
+///
+/// This widget is a bridge between DOM and framework. It mounts itself to a pre-exisiting DOM
+/// element and act as a root widget in your app.
+///
+/// Two main properties are:
+///
+/// 1. [child] - app's contents(a widget).
+/// 2. [targetKey] - id of one of the element in DOM where you want your app to mount.
+///
+/// Additionally, if your app is installed in a sub directory/path on a domain, for example,
+/// if your app is situated at `x.com/y_folder/index.html` then set `routingPath`
+/// to `/y_folder`:
+///
+/// ```dart
+/// RadApp(
+///   ...
+///   routingPath: '/y_folder',
+///   ...
+/// )
+/// ```
+///
+/// Note, if your app is situated on main domain(`x.com`)/or on a subdomain(`y.x.com`), then
+/// you don't need to change `routingPath`.
+///
 class RadApp extends Widget {
   final Widget child;
 
