@@ -7,7 +7,7 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-/// The FieldSet tag.
+/// The FieldSet widget (HTML's `fieldset` tag).
 ///
 /// Group several controls as well as labels (<label>) within a web form.
 ///

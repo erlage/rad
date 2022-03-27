@@ -75,6 +75,10 @@ enum FormMethod {
   get,
 }
 
+/// Type of Button.
+///
+/// Possible values are [button], [submit] and [reset]
+///
 enum ButtonType {
   button,
   submit,

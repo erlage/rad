@@ -3,6 +3,11 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
+/// The Strong widget (HTML's `strong` tag).
+///
+/// This HTML element indicates that its contents have strong importance,
+/// seriousness, or urgency. Browsers typically render the contents in bold type.
+///
 class Strong extends MarkUpTagWithGlobalProps {
   const Strong({
     String? key,

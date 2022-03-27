@@ -3,6 +3,8 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
+/// The Legend widget (HTML's `legend` tag).
+///
 /// The legend HTML element represents a caption for the content of
 /// its parent fieldset.
 ///

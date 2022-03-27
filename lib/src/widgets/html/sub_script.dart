@@ -3,6 +3,12 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
+/// The SubScript widget (HTML's `sub` tag).
+///
+/// This HTML element specifies inline text which should be displayed as
+/// subscript for solely typographical reasons. Subscripts are typically
+/// rendered with a lowered baseline using smaller text.
+///
 class SubScript extends MarkUpTagWithGlobalProps {
   const SubScript({
     String? key,

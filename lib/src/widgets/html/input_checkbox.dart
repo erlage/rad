@@ -4,6 +4,8 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/input_tag.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
+/// The InputCheckBox widget (HTML's `input` tag with `type = 'checkbox'`).
+///
 class InputCheckBox extends InputTag {
   const InputCheckBox({
     String? key,

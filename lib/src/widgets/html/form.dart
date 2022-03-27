@@ -9,6 +9,8 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
+/// The Form widget (HTML's `form` tag).
+///
 class Form extends MarkUpTagWithGlobalProps {
   /// Name of the form.
   ///

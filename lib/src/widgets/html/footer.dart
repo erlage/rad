@@ -3,6 +3,8 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
+/// The Footer widget (HTML's `footer` tag).
+///
 class Footer extends MarkUpTagWithGlobalProps {
   const Footer({
     String? key,

@@ -8,8 +8,11 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-/// The TextArea tag.
+/// The TextArea widget (HTML's `textarea` tag).
 ///
+/// This HTML element represents a multi-line plain-text editing control, useful
+/// when you want to allow users to enter a sizeable amount of free-form
+/// text, for example a comment on a review or feedback form.
 ///
 class TextArea extends MarkUpTagWithGlobalProps {
   final String? name;

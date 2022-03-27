@@ -7,7 +7,7 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-/// The Label tag.
+/// The Label widget (HTML's `label` tag).
 ///
 class Label extends MarkUpTagWithGlobalProps {
   /// The value of the [forAttribute] attribute must be a single key for a labelable

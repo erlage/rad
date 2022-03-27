@@ -4,6 +4,8 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/input_tag.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
+/// The InputSubmit widget (HTML's `input` tag with `type = 'submit'`).
+///
 class InputSubmit extends InputTag {
   const InputSubmit({
     String? key,

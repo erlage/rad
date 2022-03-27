@@ -7,8 +7,7 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-/// The Option tag.
-///
+/// The Option widget (HTML's `option` tag).
 ///
 class Option extends MarkUpTagWithGlobalProps {
   /// he content of this attribute represents the value

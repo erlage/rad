@@ -3,6 +3,8 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
+/// The Header widget (HTML's `header` tag).
+///
 class Header extends MarkUpTagWithGlobalProps {
   const Header({
     String? key,

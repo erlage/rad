@@ -3,6 +3,10 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
+/// The UnOrderedList widget (HTML's `ul` tag).
+///
+/// This HTML element represents an unordered list of items.
+///
 class UnOrderedList extends MarkUpTagWithGlobalProps {
   const UnOrderedList({
     String? key,

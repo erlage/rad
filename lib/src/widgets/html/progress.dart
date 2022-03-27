@@ -7,8 +7,7 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-/// The Progress tag.
-///
+/// The Progress widget (HTML's `progress` tag).
 ///
 class Progress extends MarkUpTagWithGlobalProps {
   /// This attribute specifies how much of the task that has

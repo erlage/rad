@@ -4,6 +4,8 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/input_tag.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
+/// The InputRadio widget (HTML's `input` tag with `type = 'radio'`).
+///
 class InputRadio extends InputTag {
   const InputRadio({
     String? key,

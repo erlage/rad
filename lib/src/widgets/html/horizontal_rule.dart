@@ -4,6 +4,8 @@ import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
 
+/// The HorizontalRule widget (HTML's `hr` tag).
+///
 class HorizontalRule extends Widget {
   final String? classAttribute;
 

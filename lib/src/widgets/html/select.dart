@@ -8,8 +8,9 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-/// The Select tag.
+/// The Select widget (HTML's `select` tag).
 ///
+/// This HTML element represents a control that provides a menu of options.
 ///
 class Select extends MarkUpTagWithGlobalProps {
   /// Associated Name.

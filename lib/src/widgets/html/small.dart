@@ -3,6 +3,11 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
+/// The Small widget (HTML's `small` tag).
+///
+/// This HTML element represents side-comments and small print, like copyright
+/// and legal text, independent of its styled presentation.
+///
 class Small extends MarkUpTagWithGlobalProps {
   const Small({
     String? key,

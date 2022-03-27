@@ -3,6 +3,8 @@ import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
+/// The BreakLine widget (HTML's `br` tag).
+///
 class BreakLine extends Widget {
   const BreakLine({String? key}) : super(key: key);
 

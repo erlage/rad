@@ -3,6 +3,8 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
+/// The Navigation widget (HTML's `nav` tag).
+///
 class Navigation extends MarkUpTagWithGlobalProps {
   const Navigation({
     String? key,

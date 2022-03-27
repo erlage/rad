@@ -7,6 +7,8 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/input_tag.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
+/// The InputText widget (HTML's `input` tag with `type = 'text'`).
+///
 class InputText extends InputTag {
   final bool? readOnly;
 

@@ -3,6 +3,12 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
+/// The SuperScript widget (HTML's `sup` tag).
+///
+/// This HTML element specifies inline text which is to be displayed as
+/// superscript for solely typographical reasons. Superscripts are usually
+/// rendered with a raised baseline using smaller text.
+///
 class SuperScript extends MarkUpTagWithGlobalProps {
   const SuperScript({
     String? key,

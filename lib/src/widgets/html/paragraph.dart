@@ -3,6 +3,8 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
+/// The Paragraph widget (HTML's `pr` tag).
+///
 class Paragraph extends MarkUpTagWithGlobalProps {
   const Paragraph({
     String? key,

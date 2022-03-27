@@ -1,3 +1,5 @@
+/// Class containing framework specific attributes and constants.
+///
 class System {
   // widget attributes
 

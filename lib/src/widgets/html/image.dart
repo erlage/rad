@@ -8,7 +8,7 @@ import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
 
-/// The Image tag.
+/// The Image widget (HTML's `img` tag).
 ///
 class Image extends MarkUpTagWithGlobalProps {
   /// Image src.

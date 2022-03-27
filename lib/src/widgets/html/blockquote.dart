@@ -7,7 +7,7 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-/// The Block Quotation tag.
+/// The Blockquote widget (HTML's `blockquote` tag).
 ///
 class Blockquote extends MarkUpTagWithGlobalProps {
   /// A URL for the source of the quotation may be given using the cite attribute.
