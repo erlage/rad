@@ -4,6 +4,8 @@
 |--------------------------------------------------------------------------
 */
 
+export 'src/core/types.dart';
+
 export 'src/widgets/abstract/widget.dart' show Widget;
 
 export 'src/core/objects/build_context.dart' show BuildContext;
@@ -105,6 +107,8 @@ export 'src/include/foundation/change_notifier.dart' show ValueNotifier;
 
 export 'src/include/widgets/value_listenable_builder.dart';
 
+export 'src/include/foundation/change_notifier.dart' show ValueListenable;
+
 /*
 |--------------------------------------------------------------------------
 | allow external components and widget implementations
@@ -116,5 +120,7 @@ export 'src/core/enums.dart' show DomTag;
 export 'src/core/enums.dart' show UpdateType;
 
 export 'src/core/constants.dart' show System;
+
+export 'src/widgets/abstract/widget.dart' show WidgetConfiguration;
 
 export 'src/core/objects/render_object.dart' show RenderObject;
