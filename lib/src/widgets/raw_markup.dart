@@ -13,8 +13,8 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// Example:
 ///
 /// ```dart
-/// Container(
-///   child: Markup('<table> {...} </table>'),
+/// Span(
+///   child: RawMarkup('<table> {...} </table>'),
 /// )
 /// ```
 ///
