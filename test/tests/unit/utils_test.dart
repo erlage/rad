@@ -26,25 +26,29 @@ void main() {
   */
 
   group(' Utils.mapDomEventType()', () {
-    for (var element in DomEventType.values) {
-      test(':: mapped dom event is available', () {
+    test(':: mapped dom events are available', () {
+      for (var element in DomEventType.values) {
         expect(
           Utils.mapDomEventType(element),
           RT_IsInKnownItems<String>(RT_DomEvents.available),
         );
-      });
+      }
+    });
 
-      test(':: mapped dom event is implemented', () {
+    test(':: mapped dom events are implemented', () {
+      for (var element in DomEventType.values) {
         expect(
           Utils.mapDomEventType(element),
           RT_IsInKnownItems<String>(RT_DomEvents.implemented),
         );
-      });
+      }
+    });
 
-      test(':: mapped dom event is lowercase', () {
+    test(':: mapped dom events are lowercase', () {
+      for (var element in DomEventType.values) {
         expect(Utils.mapDomEventType(element), RT_IsLowerCase());
-      });
-    }
+      }
+    });
   });
 
   /*
@@ -54,25 +58,29 @@ void main() {
   */
 
   group('Utils.mapInputType()', () {
-    for (var element in InputType.values) {
-      test(':: mapped input type is available', () {
+    test(':: mapped input types are available', () {
+      for (var element in InputType.values) {
         expect(
           Utils.mapInputType(element),
           RT_IsInKnownItems<String>(RT_InputTypes.available),
         );
-      });
+      }
+    });
 
-      test(':: mapped input type is implemented', () {
+    test(':: mapped input types are implemented', () {
+      for (var element in InputType.values) {
         expect(
           Utils.mapInputType(element),
           RT_IsInKnownItems<String>(RT_InputTypes.implemented),
         );
-      });
+      }
+    });
 
-      test(':: mapped input type is lowercase', () {
+    test(':: mapped input types are lowercase', () {
+      for (var element in InputType.values) {
         expect(Utils.mapInputType(element), RT_IsLowerCase());
-      });
-    }
+      }
+    });
   });
 
   /*
@@ -82,25 +90,29 @@ void main() {
   */
 
   group('Utils.mapButtonType()', () {
-    for (var element in ButtonType.values) {
-      test(':: mapped button type is available', () {
+    test(':: mapped button types are available', () {
+      for (var element in ButtonType.values) {
         expect(
           Utils.mapButtonType(element),
           RT_IsInKnownItems<String>(RT_ButtonTypes.available),
         );
-      });
+      }
+    });
 
-      test(':: mapped button type is implemented', () {
+    test(':: mapped button types are implemented', () {
+      for (var element in ButtonType.values) {
         expect(
           Utils.mapButtonType(element),
           RT_IsInKnownItems<String>(RT_ButtonTypes.implemented),
         );
-      });
+      }
+    });
 
-      test(':: mapped button type is lowercase', () {
+    test(':: mapped button types are lowercase', () {
+      for (var element in ButtonType.values) {
         expect(Utils.mapButtonType(element), RT_IsLowerCase());
-      });
-    }
+      }
+    });
   });
 
   /*
@@ -110,25 +122,29 @@ void main() {
   */
 
   group('Utils.mapFormEncType()', () {
-    for (var element in FormEncType.values) {
-      test(':: mapped form type is available', () {
+    test(':: mapped form types are available', () {
+      for (var element in FormEncType.values) {
         expect(
           Utils.mapFormEncType(element),
           RT_IsInKnownItems<String>(RT_FormTypes.available),
         );
-      });
+      }
+    });
 
-      test(':: mapped form type is implemented', () {
+    test(':: mapped form types are implemented', () {
+      for (var element in FormEncType.values) {
         expect(
           Utils.mapFormEncType(element),
           RT_IsInKnownItems<String>(RT_FormTypes.implemented),
         );
-      });
+      }
+    });
 
-      test(':: mapped form type is lowercase', () {
+    test(':: mapped form types are lowercase', () {
+      for (var element in FormEncType.values) {
         expect(Utils.mapFormEncType(element), RT_IsLowerCase());
-      });
-    }
+      }
+    });
   });
 
   /*
@@ -138,25 +154,29 @@ void main() {
   */
 
   group('Utils.mapFormMethod()', () {
-    for (var element in FormMethod.values) {
-      test(':: mapped form method is available', () {
+    test(':: mapped form methods are available', () {
+      for (var element in FormMethod.values) {
         expect(
           Utils.mapFormMethod(element),
           RT_IsInKnownItems<String>(RT_FormMethods.available),
         );
-      });
+      }
+    });
 
-      test(':: mapped form method is implemented', () {
+    test(':: mapped form methods are implemented', () {
+      for (var element in FormMethod.values) {
         expect(
           Utils.mapFormMethod(element),
           RT_IsInKnownItems<String>(RT_FormMethods.implemented),
         );
-      });
+      }
+    });
 
-      test(':: mapped form method is lowercase', () {
+    test(':: mapped form methods are lowercase', () {
+      for (var element in FormMethod.values) {
         expect(Utils.mapFormMethod(element), RT_IsLowerCase());
-      });
-    }
+      }
+    });
   });
 
   /*
@@ -166,29 +186,35 @@ void main() {
   */
 
   group('Utils.mapDomTag()', () {
-    for (var element in DomTag.values) {
-      test(':: mapped dom tag is available', () {
+    test(':: mapped dom tags are available', () {
+      for (var element in DomTag.values) {
         expect(
           Utils.mapDomTag(element),
           RT_IsInKnownItems<String>(RT_DomTags.available),
         );
-      });
+      }
+    });
 
-      test(':: mapped dom tag is implemented', () {
+    test(':: mapped dom tags are implemented', () {
+      for (var element in DomTag.values) {
         expect(
           Utils.mapDomTag(element),
           RT_IsInKnownItems<String>(RT_DomTags.implemented),
         );
-      });
+      }
+    });
 
-      test(':: mapped dom tag is lowercase', () {
+    test(':: mapped dom tags are lowercase', () {
+      for (var element in DomTag.values) {
         expect(Utils.mapDomTag(element), RT_IsLowerCase());
-      });
+      }
+    });
 
-      test(':: mapped dom tag is without space', () {
+    test(':: mapped dom tags are without space', () {
+      for (var element in DomTag.values) {
         expect(Utils.mapDomTag(element), RT_IsWithoutSpace());
-      });
-    }
+      }
+    });
   });
 
   /*
