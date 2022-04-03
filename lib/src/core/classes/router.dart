@@ -39,6 +39,56 @@ class Router {
   ///
   static final _routerStack = RouterStack();
 
+  /// Initialize router state.
+  ///
+  /// Main tasks are:
+  /// 1. Setup routing path
+  /// 2. add onPopStateEventListener
+  ///
+  static init(String routingPath) {
+    if (_isInit) {
+      throw "Router aleady initialized.";
+    }
+
+    _routingPath = routingPath;
+
+    if (Debug.routerLogs) {
+      print("Router: onPopState: initialized at: $_initialLocation");
+      print("Router: routingPath: initialized at: $_routingPath");
+    }
+
+    window.addEventListener("popstate", _onPopState, false);
+
+    updateCurrentSegments();
+
+    _isInit = true;
+  }
+
+  /// Tear down Router state.(used by tests)
+  ///
+  /// Since methods in this class are static, we need a way to initialize
+  /// and destroy framework state.
+  ///
+  static tearDown() {
+    if (!_isInit) {
+      throw "Router is not initialized.";
+    }
+
+    _currentSegments.clear();
+
+    _routeObjects.clear();
+
+    _stateObjects.clear();
+
+    _routerStack.clear();
+
+    _routingPath = '';
+
+    window.removeEventListener("popstate", _onPopState);
+
+    _isInit = false;
+  }
+
   /// Register navigator's state.
   ///
   static void register(BuildContext context, NavigatorState state) {
@@ -72,11 +122,11 @@ class Router {
     required bool updateHistory,
   }) {
     if (updateHistory) {
-      var protectedSegments = _protectedSegments(navigatorKey);
+      var protectedSegs = protectedSegments(navigatorKey);
 
       var encodedValues = Utils.encodeKeyValueMap(values);
 
-      var historyEntry = protectedSegments.join("/") + "/$name$encodedValues";
+      var historyEntry = protectedSegs.join("/") + "/$name$encodedValues";
 
       var currentPath = window.location.pathname;
 
@@ -88,7 +138,7 @@ class Router {
 
       window.history.pushState(null, '', historyEntry);
 
-      _updateCurrentSegments();
+      updateCurrentSegments();
 
       var routeObject = _routeObjects[navigatorKey];
       var state = _stateObjects[navigatorKey];
@@ -126,11 +176,11 @@ class Router {
 
     _routerStack.entries.remove(currentLocation);
 
-    var protectedSegments = _protectedSegments(navigatorKey);
+    var protectedSegs = protectedSegments(navigatorKey);
 
     var encodedValues = Utils.encodeKeyValueMap(values);
 
-    var historyEntry = protectedSegments.join("/") + "/$name$encodedValues";
+    var historyEntry = protectedSegs.join("/") + "/$name$encodedValues";
 
     var currentPath = window.location.pathname;
 
@@ -142,7 +192,7 @@ class Router {
 
     window.history.replaceState(null, '', historyEntry);
 
-    _updateCurrentSegments();
+    updateCurrentSegments();
 
     var entry = RouterStackEntry(
       name: name,
@@ -164,7 +214,7 @@ class Router {
 
     if (null == stateObject) throw System.coreError;
 
-    var segments = _accessibleSegments(navigatorKey);
+    var segments = accessibleSegments(navigatorKey);
 
     var matchedPathSegment = '';
 
@@ -188,7 +238,7 @@ class Router {
   /// Get value following the provided segment in URL.
   ///
   static String getValue(String navigatorKey, String segment) {
-    var path = _accessibleSegments(navigatorKey).join("/");
+    var path = accessibleSegments(navigatorKey).join("/");
 
     // try to find a value that's following the provided segment in path
 
@@ -197,19 +247,7 @@ class Router {
     return (null == match) ? '' : Uri.decodeFull(match.group(1) ?? '');
   }
 
-  /*
-  |--------------------------------------------------------------------------
-  | internals
-  |--------------------------------------------------------------------------
-  */
-
-  static void _initRouterState() {
-    window.addEventListener("popstate", _onPopState, false);
-
-    _updateCurrentSegments();
-  }
-
-  static void _updateCurrentSegments() {
+  static void updateCurrentSegments() {
     _currentSegments.clear();
 
     var path = window.location.pathname;
@@ -220,6 +258,123 @@ class Router {
       );
     }
   }
+
+  static void ensureNavigatorIsVisible(NavigatorRouteObject routeObject) {
+    var parent = routeObject.parent;
+
+    if (null != parent) {
+      ensureNavigatorIsVisible(parent);
+
+      var parentState = _stateObjects[parent.context.key];
+
+      if (null != parentState) {
+        var parentRouteNameToOpen = routeObject.segments.last;
+
+        parentState.open(name: parentRouteNameToOpen, updateHistory: false);
+      }
+    }
+  }
+
+  /// Part of path(window.location.pathName) that navigator with
+  /// [navigatorKey] can access.
+  ///
+  static List<String> accessibleSegments(String navigatorKey) {
+    var routeObject = _routeObjects[navigatorKey];
+
+    if (null == routeObject) throw System.coreError;
+
+    // if root navigator, all segments are available
+
+    if (null == routeObject.parent) {
+      return _currentSegments;
+    }
+
+    // else limit part of path that's visible to current navigator
+
+    var matcher = "";
+
+    if (routeObject.segments.length < 3) {
+      matcher = r"^\/*[\w\/]*(" + routeObject.segments.last + r"[\/\w]*)";
+    } else {
+      matcher = r"^\/*" +
+          routeObject.segments[1] +
+          r"[\w\/]*(" +
+          routeObject.segments.last +
+          r"[\/\w]*)";
+    }
+
+    var path = _currentSegments.join("/");
+
+    var match = RegExp(matcher).firstMatch(path);
+
+    if (null == match) return [];
+
+    var group = match.group(1);
+
+    if (null == group) return [];
+
+    return group.split("/");
+  }
+
+  /// Part of path(window.location.pathName) that navigator with
+  /// [navigatorKey] can't change.
+  ///
+  /// Note that, navigator still can access **some parts** of protected
+  /// segements using [accessibleSegments]
+  ///
+  static List<String> protectedSegments(String navigatorKey) {
+    var routeObject = _routeObjects[navigatorKey];
+    var stateObject = _stateObjects[navigatorKey];
+
+    if (null == routeObject) throw System.coreError;
+    if (null == stateObject) throw System.coreError;
+
+    // if root navigator, no segments are protected
+
+    if (null == routeObject.parent) {
+      return _routingPath.split("/");
+    }
+
+    // else find protected part
+
+    var matcher = "";
+
+    var matchRoutes = stateObject.nameToPathMap.values.join(r"|\/");
+
+    if (routeObject.segments.length < 3) {
+      matcher = r"(^\/*[\w\/]*" +
+          routeObject.segments.last +
+          r"[\w\/]*(?=\/" +
+          matchRoutes +
+          r"))";
+    } else {
+      matcher = r"(^\/*" +
+          routeObject.segments[1] +
+          r"[\w\/]*" +
+          routeObject.segments.last +
+          r"[\w\/]*(?=\/" +
+          matchRoutes +
+          r"))";
+    }
+
+    var path = _currentSegments.join("/");
+
+    var match = RegExp(matcher).firstMatch(path);
+
+    if (null == match) return _currentSegments;
+
+    var group = match.group(1);
+
+    if (null == group) return _currentSegments;
+
+    return group.split("/");
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | internals
+  |--------------------------------------------------------------------------
+  */
 
   static _onPopState(Event event) {
     try {
@@ -252,12 +407,12 @@ class Router {
         // for active history, our implementation is ready, see below.
 
       } else {
-        _updateCurrentSegments();
+        updateCurrentSegments();
 
         var routeObject = _routeObjects[entry.navigatorKey]!;
         var navigatorState = _stateObjects[entry.navigatorKey]!;
 
-        _ensureNavigatorIsVisible(routeObject);
+        ensureNavigatorIsVisible(routeObject);
 
         if (Debug.routerLogs) {
           print("Router: onPopState: open: ${entry.name}");
@@ -276,22 +431,8 @@ class Router {
     }
   }
 
-  static void _ensureNavigatorIsVisible(NavigatorRouteObject routeObject) {
-    var parent = routeObject.parent;
-
-    if (null != parent) {
-      _ensureNavigatorIsVisible(parent);
-
-      var parentState = _stateObjects[parent.context.key];
-
-      if (null != parentState) {
-        var parentRouteNameToOpen = routeObject.segments.last;
-
-        parentState.open(name: parentRouteNameToOpen, updateHistory: false);
-      }
-    }
-  }
-
+  /// Register logic, actual.
+  ///
   static void _register(BuildContext context, List<Route> routes) {
     //
     // try finding a Navigator in ancestors
@@ -353,148 +494,5 @@ class Router {
     if (Debug.routerLogs) {
       print("Navigator Registered: #${context.key} at $segments");
     }
-  }
-
-  /// Part of path(window.location.pathName) that navigator with
-  /// [navigatorKey] can access.
-  ///
-  static List<String> _accessibleSegments(String navigatorKey) {
-    var routeObject = _routeObjects[navigatorKey];
-
-    if (null == routeObject) throw System.coreError;
-
-    // if root navigator, all segments are available
-
-    if (null == routeObject.parent) {
-      return _currentSegments;
-    }
-
-    // else limit part of path that's visible to current navigator
-
-    var matcher = "";
-
-    if (routeObject.segments.length < 3) {
-      matcher = r"^\/*[\w\/]*(" + routeObject.segments.last + r"[\/\w]*)";
-    } else {
-      matcher = r"^\/*" +
-          routeObject.segments[1] +
-          r"[\w\/]*(" +
-          routeObject.segments.last +
-          r"[\/\w]*)";
-    }
-
-    var path = _currentSegments.join("/");
-
-    var match = RegExp(matcher).firstMatch(path);
-
-    if (null == match) return [];
-
-    var group = match.group(1);
-
-    if (null == group) return [];
-
-    return group.split("/");
-  }
-
-  /// Part of path(window.location.pathName) that navigator with
-  /// [navigatorKey] can't change.
-  ///
-  /// Note that, navigator still can access **some parts** of protected
-  /// segements using [_accessibleSegments]
-  ///
-  static List<String> _protectedSegments(String navigatorKey) {
-    var routeObject = _routeObjects[navigatorKey];
-    var stateObject = _stateObjects[navigatorKey];
-
-    if (null == routeObject) throw System.coreError;
-    if (null == stateObject) throw System.coreError;
-
-    // if root navigator, no segments are protected
-
-    if (null == routeObject.parent) {
-      return _routingPath.split("/");
-    }
-
-    // else find protected part
-
-    var matcher = "";
-
-    var matchRoutes = stateObject.nameToPathMap.values.join(r"|\/");
-
-    if (routeObject.segments.length < 3) {
-      matcher = r"(^\/*[\w\/]*" +
-          routeObject.segments.last +
-          r"[\w\/]*(?=\/" +
-          matchRoutes +
-          r"))";
-    } else {
-      matcher = r"(^\/*" +
-          routeObject.segments[1] +
-          r"[\w\/]*" +
-          routeObject.segments.last +
-          r"[\w\/]*(?=\/" +
-          matchRoutes +
-          r"))";
-    }
-
-    var path = _currentSegments.join("/");
-
-    var match = RegExp(matcher).firstMatch(path);
-
-    if (null == match) return _currentSegments;
-
-    var group = match.group(1);
-
-    if (null == group) return _currentSegments;
-
-    return group.split("/");
-  }
-
-  /// Initialize router state.
-  ///
-  /// Main tasks are:
-  /// 1. Setup routing path
-  /// 2. add onPopStateEventListener
-  ///
-  static init(String routingPath) {
-    if (_isInit) {
-      throw "Router aleady initialized.";
-    }
-
-    _routingPath = routingPath;
-
-    if (Debug.routerLogs) {
-      print("Router: onPopState: initialized at: $_initialLocation");
-      print("Router: routingPath: initialized at: $_routingPath");
-    }
-
-    _initRouterState();
-
-    _isInit = true;
-  }
-
-  /// Tear down Router state.(used by tests)
-  ///
-  /// Since methods in this class are static, we need a way to initialize
-  /// and destroy framework state.
-  ///
-  static tearDown() {
-    if (!_isInit) {
-      throw "Router is not initialized.";
-    }
-
-    _currentSegments.clear();
-
-    _routeObjects.clear();
-
-    _stateObjects.clear();
-
-    _routerStack.clear();
-
-    _routingPath = '';
-
-    window.removeEventListener("popstate", _onPopState);
-
-    _isInit = false;
   }
 }

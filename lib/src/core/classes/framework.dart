@@ -20,6 +20,45 @@ class Framework {
 
   static final _registeredWidgetObjects = <String, WidgetObject>{};
 
+  /// Initialize framework.
+  ///
+  /// It's AppWidget job to call this method as first task. Initialization
+  /// process will initialize other important components such as Router.
+  ///
+  static init({
+    required String routingPath,
+    DebugOptions? debugOptions,
+  }) {
+    if (_isInit) {
+      throw "Framework aleady initialized.";
+    }
+
+    debugOptions ??= DebugOptions.defaultMode;
+
+    Debug.update(debugOptions);
+
+    Router.init(routingPath);
+
+    _isInit = true;
+  }
+
+  /// Tear down framework state.
+  ///
+  /// Since methods in this class are static, we need a way to initialize
+  /// and destroy framework state.
+  ///
+  static tearDown() {
+    if (!_isInit) {
+      throw "Framework is not initialized.";
+    }
+
+    Router.tearDown();
+
+    _registeredWidgetObjects.clear();
+
+    _isInit = false;
+  }
+
   /// Link a Stylesheet.
   ///
   static void linkStylesheet(String href) {
@@ -30,7 +69,7 @@ class Framework {
       ..rel = "stylesheet"
       ..href = href;
 
-    _insertIntoDocument(stylesheet, "Stylesheet linked: $href");
+    insertIntoDocument(stylesheet, "Stylesheet linked: $href");
   }
 
   /// Link a Javascript.
@@ -43,7 +82,7 @@ class Framework {
       ..type = "javascript/js"
       ..src = href;
 
-    _insertIntoDocument(script, "Javascript linked: $href");
+    insertIntoDocument(script, "Javascript linked: $href");
   }
 
   /// Inject styles into DOM using <style> tag.
@@ -53,7 +92,7 @@ class Framework {
 
     var stylesheet = StyleElement()..innerText = styles;
 
-    _insertIntoDocument(stylesheet, "Styles injected: $flagLogEntry");
+    insertIntoDocument(stylesheet, "Styles injected: $flagLogEntry");
   }
 
   static T? findAncestorWidgetOfExactType<T>(
@@ -61,7 +100,7 @@ class Framework {
   ) {
     var selector = "[data-${System.attrRuntimeType}='$T']";
 
-    var widgetObject = _findAncestorWidgetObjectFromSelector(selector, context);
+    var widgetObject = findAncestorWidgetObjectFromSelector(selector, context);
 
     if (null != widgetObject) {
       return widgetObject.widget as T;
@@ -75,7 +114,7 @@ class Framework {
   ) {
     var selector = "[data-${System.attrStateType}='$T']";
 
-    var widgetObject = _findAncestorWidgetObjectFromSelector(selector, context);
+    var widgetObject = findAncestorWidgetObjectFromSelector(selector, context);
 
     if (null != widgetObject) {
       var renderObject =
@@ -92,7 +131,7 @@ class Framework {
   ) {
     var selector = "[data-${System.attrRuntimeType}='$T']";
 
-    return _findAncestorWidgetObjectFromSelector(selector, context);
+    return findAncestorWidgetObjectFromSelector(selector, context);
   }
 
   static WidgetObject? findAncestorWidgetObjectOfClass<T>(
@@ -100,7 +139,7 @@ class Framework {
   ) {
     var selector = "[data-${System.attrConcreteType}='$T']";
 
-    return _findAncestorWidgetObjectFromSelector(selector, context);
+    return findAncestorWidgetObjectFromSelector(selector, context);
   }
 
   static T? dependOnInheritedWidgetOfExactType<T>(
@@ -109,7 +148,7 @@ class Framework {
     var selector = "[data-${System.attrRuntimeType}='$T']"
         "[data-${System.attrConcreteType}='$InheritedWidget']";
 
-    var widgetObject = _findAncestorWidgetObjectFromSelector(selector, context);
+    var widgetObject = findAncestorWidgetObjectFromSelector(selector, context);
 
     if (null != widgetObject) {
       var inheritedRenderObject = widgetObject.renderObject;
@@ -158,9 +197,9 @@ class Framework {
 
         element.innerHtml = "";
       } else {
-        _disposeWidget(
+        disposeWidget(
           preserveTarget: true,
-          widgetObject: _getWidgetObject(parentContext.key),
+          widgetObject: getWidgetObject(parentContext.key),
         );
       }
     }
@@ -207,7 +246,7 @@ class Framework {
         renderObject: renderObject,
       );
 
-      _registerWidgetObject(widgetObject);
+      registerWidgetObject(widgetObject);
 
       widgetObject.renderObject.beforeMount();
 
@@ -333,8 +372,8 @@ class Framework {
       for (final childElement in parent.children) {
         if (!updateObjects.containsKey(childElement.id)) {
           if (flagDisposeObsoluteChildren) {
-            _disposeWidget(
-              widgetObject: _getWidgetObject(childElement.id),
+            disposeWidget(
+              widgetObject: getWidgetObject(childElement.id),
               preserveTarget: false,
             );
           } else if (flagHideObsoluteChildren) {
@@ -352,7 +391,7 @@ class Framework {
       var updateObject = updateObjects[elementId]!;
 
       if (null != updateObject.existingElementId) {
-        var widgetObject = _getWidgetObject(elementId);
+        var widgetObject = getWidgetObject(elementId);
 
         // if found
 
@@ -423,7 +462,7 @@ class Framework {
           // those orphan childs.
 
           if (hadChilds && !hasChilds) {
-            _disposeWidget(widgetObject: widgetObject, preserveTarget: true);
+            disposeWidget(widgetObject: widgetObject, preserveTarget: true);
           } else {
             // else update childs
             // doesn't matter whether new has or not.
@@ -476,7 +515,7 @@ class Framework {
     //
     bool flagIterateInReverseOrder = false,
   }) {
-    var widgetObject = _getWidgetObject(parentContext.key);
+    var widgetObject = getWidgetObject(parentContext.key);
 
     if (null == widgetObject) return;
 
@@ -486,7 +525,7 @@ class Framework {
     for (final child in flagIterateInReverseOrder
         ? widgetObject.element.children.reversed
         : widgetObject.element.children) {
-      var childWidgetObject = _getWidgetObject(child.id);
+      var childWidgetObject = getWidgetObject(child.id);
 
       if (null != childWidgetObject) {
         var widgetActions = widgetActionCallback(childWidgetObject);
@@ -519,7 +558,7 @@ class Framework {
           break;
 
         case WidgetAction.dispose:
-          _disposeWidget(widgetObject: widgetActionObject.widgetObject);
+          disposeWidget(widgetObject: widgetActionObject.widgetObject);
 
           break;
 
@@ -553,7 +592,7 @@ class Framework {
   /// Update a specific widget.
   ///
   static bool updateWidgetHavingContext(BuildContext existingWidgetContext) {
-    var widgetObject = _getWidgetObject(existingWidgetContext.key);
+    var widgetObject = getWidgetObject(existingWidgetContext.key);
 
     if (null != widgetObject) {
       widgetObject.renderObject.update(
@@ -573,15 +612,9 @@ class Framework {
     return false;
   }
 
-  /*
-  |--------------------------------------------------------------------------
-  | internals
-  |--------------------------------------------------------------------------
-  */
-
   /// Dispose widgets and its child widgets.
   ///
-  static _disposeWidget({
+  static disposeWidget({
     WidgetObject? widgetObject,
     bool preserveTarget = false,
   }) {
@@ -593,7 +626,7 @@ class Framework {
 
     if (widgetObject.element.hasChildNodes()) {
       for (final childElement in widgetObject.element.children) {
-        _disposeWidget(widgetObject: _getWidgetObject(childElement.id));
+        disposeWidget(widgetObject: getWidgetObject(childElement.id));
       }
     }
 
@@ -613,7 +646,7 @@ class Framework {
 
     widgetObject.renderObject.beforeUnMount();
 
-    _unRegisterWidgetObject(widgetObject);
+    unRegisterWidgetObject(widgetObject);
 
     widgetObject.element.remove();
 
@@ -622,7 +655,7 @@ class Framework {
     }
   }
 
-  static WidgetObject? _findAncestorWidgetObjectFromSelector(
+  static WidgetObject? findAncestorWidgetObjectFromSelector(
     String selector,
     BuildContext context,
   ) {
@@ -642,7 +675,7 @@ class Framework {
 
     // found. return corresponding widget's object.
 
-    return _getWidgetObject(domNode.id);
+    return getWidgetObject(domNode.id);
   }
 
   static _hideElement(Element element) {
@@ -653,7 +686,7 @@ class Framework {
     element.classes.remove('rad-hidden');
   }
 
-  static void _insertIntoDocument(HtmlElement element, String flagLogEntry) {
+  static void insertIntoDocument(HtmlElement element, String flagLogEntry) {
     // insert stylesheet where possible
 
     if (null != document.head) {
@@ -672,11 +705,11 @@ class Framework {
     }
   }
 
-  static WidgetObject? _getWidgetObject(String widgetId) {
+  static WidgetObject? getWidgetObject(String widgetId) {
     return _registeredWidgetObjects[widgetId];
   }
 
-  static void _registerWidgetObject(WidgetObject widgetObject) {
+  static void registerWidgetObject(WidgetObject widgetObject) {
     var widgetKey = widgetObject.renderObject.context.key;
 
     if (Debug.developmentMode) {
@@ -692,48 +725,9 @@ class Framework {
     _registeredWidgetObjects[widgetKey] = widgetObject;
   }
 
-  static void _unRegisterWidgetObject(WidgetObject widgetObject) {
+  static void unRegisterWidgetObject(WidgetObject widgetObject) {
     var widgetKey = widgetObject.renderObject.context.key;
 
     _registeredWidgetObjects.remove(widgetKey);
-  }
-
-  /// Initialize framework.
-  ///
-  /// It's AppWidget job to call this method as first task. Initialization
-  /// process will initialize other important components such as Router.
-  ///
-  static init({
-    required String routingPath,
-    DebugOptions? debugOptions,
-  }) {
-    if (_isInit) {
-      throw "Framework aleady initialized.";
-    }
-
-    debugOptions ??= DebugOptions.defaultMode;
-
-    Debug.update(debugOptions);
-
-    Router.init(routingPath);
-
-    _isInit = true;
-  }
-
-  /// Tear down framework state.
-  ///
-  /// Since methods in this class are static, we need a way to initialize
-  /// and destroy framework state.
-  ///
-  static tearDown() {
-    if (!_isInit) {
-      throw "Framework is not initialized.";
-    }
-
-    Router.tearDown();
-
-    _registeredWidgetObjects.clear();
-
-    _isInit = false;
   }
 }
