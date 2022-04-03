@@ -238,10 +238,14 @@ class Utils {
 
     for (var key in valueMap.keys) {
       if (key.isNotEmpty) {
-        encodedMap += '/${Uri.encodeFull(key)}';
+        encodedMap += '/${Uri.encodeComponent(key)}';
       }
 
-      encodedMap += '/${Uri.encodeFull(valueMap[key]!)}';
+      var value = valueMap[key];
+
+      if (null != value && value.isNotEmpty) {
+        encodedMap += '/${Uri.encodeComponent(valueMap[key]!)}';
+      }
     }
 
     return encodedMap;
