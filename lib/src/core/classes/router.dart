@@ -39,23 +39,6 @@ class Router {
   ///
   static final _routerStack = RouterStack();
 
-  static init(String routingPath) {
-    if (_isInit) {
-      throw "Router aleady initialized.";
-    }
-
-    _routingPath = routingPath;
-
-    if (Debug.routerLogs) {
-      print("Router: onPopState: initialized at: $_initialLocation");
-      print("Router: routingPath: initialized at: $_routingPath");
-    }
-
-    _initRouterState();
-
-    _isInit = true;
-  }
-
   /// Register navigator's state.
   ///
   static void register(BuildContext context, NavigatorState state) {
@@ -465,5 +448,53 @@ class Router {
     if (null == group) return _currentSegments;
 
     return group.split("/");
+  }
+
+  /// Initialize router state.
+  ///
+  /// Main tasks are:
+  /// 1. Setup routing path
+  /// 2. add onPopStateEventListener
+  ///
+  static init(String routingPath) {
+    if (_isInit) {
+      throw "Router aleady initialized.";
+    }
+
+    _routingPath = routingPath;
+
+    if (Debug.routerLogs) {
+      print("Router: onPopState: initialized at: $_initialLocation");
+      print("Router: routingPath: initialized at: $_routingPath");
+    }
+
+    _initRouterState();
+
+    _isInit = true;
+  }
+
+  /// Tear down Router state.(used by tests)
+  ///
+  /// Since methods in this class are static, we need a way to initialize
+  /// and destroy framework state.
+  ///
+  static tearDown() {
+    if (!_isInit) {
+      throw "Router is not initialized.";
+    }
+
+    _currentSegments.clear();
+
+    _routeObjects.clear();
+
+    _stateObjects.clear();
+
+    _routerStack.clear();
+
+    _routingPath = '';
+
+    window.removeEventListener("popstate", _onPopState);
+
+    _isInit = false;
   }
 }

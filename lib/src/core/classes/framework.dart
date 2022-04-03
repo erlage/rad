@@ -20,28 +20,6 @@ class Framework {
 
   static final _registeredWidgetObjects = <String, WidgetObject>{};
 
-  /// Initialize framework.
-  ///
-  /// It's AppWidget job to call this method as first task. Initialization
-  /// process will initialize other important components such as Router.
-  ///
-  static init({
-    required String routingPath,
-    DebugOptions? debugOptions,
-  }) {
-    if (_isInit) {
-      throw "Framework aleady initialized.";
-    }
-
-    debugOptions ??= DebugOptions.defaultMode;
-
-    Debug.update(debugOptions);
-
-    Router.init(routingPath);
-
-    _isInit = true;
-  }
-
   /// Link a Stylesheet.
   ///
   static void linkStylesheet(String href) {
@@ -718,5 +696,44 @@ class Framework {
     var widgetKey = widgetObject.renderObject.context.key;
 
     _registeredWidgetObjects.remove(widgetKey);
+  }
+
+  /// Initialize framework.
+  ///
+  /// It's AppWidget job to call this method as first task. Initialization
+  /// process will initialize other important components such as Router.
+  ///
+  static init({
+    required String routingPath,
+    DebugOptions? debugOptions,
+  }) {
+    if (_isInit) {
+      throw "Framework aleady initialized.";
+    }
+
+    debugOptions ??= DebugOptions.defaultMode;
+
+    Debug.update(debugOptions);
+
+    Router.init(routingPath);
+
+    _isInit = true;
+  }
+
+  /// Tear down framework state.
+  ///
+  /// Since methods in this class are static, we need a way to initialize
+  /// and destroy framework state.
+  ///
+  static tearDown() {
+    if (!_isInit) {
+      throw "Framework is not initialized.";
+    }
+
+    Router.tearDown();
+
+    _registeredWidgetObjects.clear();
+
+    _isInit = false;
   }
 }

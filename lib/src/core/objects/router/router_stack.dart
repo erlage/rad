@@ -28,4 +28,8 @@ class RouterStack {
   void remove(String navigatorKey) {
     entries.removeWhere((pageId, entry) => entry.navigatorKey == navigatorKey);
   }
+
+  /// Clear all entries in stack.
+  ///
+  void clear() => entries.clear();
 }
