@@ -26,7 +26,7 @@ void main() {
   */
 
   group(' Utils.mapDomEventType()', () {
-    test(':: mapped dom events are available', () {
+    test(':: mapped dom events should be available', () {
       for (var element in DomEventType.values) {
         expect(
           Utils.mapDomEventType(element),
@@ -35,7 +35,7 @@ void main() {
       }
     });
 
-    test(':: mapped dom events are implemented', () {
+    test(':: mapped dom events should be implemented', () {
       for (var element in DomEventType.values) {
         expect(
           Utils.mapDomEventType(element),
@@ -44,7 +44,7 @@ void main() {
       }
     });
 
-    test(':: mapped dom events are lowercase', () {
+    test(':: mapped dom events should be lowercase', () {
       for (var element in DomEventType.values) {
         expect(Utils.mapDomEventType(element), RT_IsLowerCase());
       }
@@ -58,7 +58,7 @@ void main() {
   */
 
   group('Utils.mapInputType()', () {
-    test(':: mapped input types are available', () {
+    test(':: mapped input types should be available', () {
       for (var element in InputType.values) {
         expect(
           Utils.mapInputType(element),
@@ -67,7 +67,7 @@ void main() {
       }
     });
 
-    test(':: mapped input types are implemented', () {
+    test(':: mapped input types should be implemented', () {
       for (var element in InputType.values) {
         expect(
           Utils.mapInputType(element),
@@ -76,7 +76,7 @@ void main() {
       }
     });
 
-    test(':: mapped input types are lowercase', () {
+    test(':: mapped input types should be lowercase', () {
       for (var element in InputType.values) {
         expect(Utils.mapInputType(element), RT_IsLowerCase());
       }
@@ -90,7 +90,7 @@ void main() {
   */
 
   group('Utils.mapButtonType()', () {
-    test(':: mapped button types are available', () {
+    test(':: mapped button types should be available', () {
       for (var element in ButtonType.values) {
         expect(
           Utils.mapButtonType(element),
@@ -99,7 +99,7 @@ void main() {
       }
     });
 
-    test(':: mapped button types are implemented', () {
+    test(':: mapped button types should be implemented', () {
       for (var element in ButtonType.values) {
         expect(
           Utils.mapButtonType(element),
@@ -108,7 +108,7 @@ void main() {
       }
     });
 
-    test(':: mapped button types are lowercase', () {
+    test(':: mapped button types should be lowercase', () {
       for (var element in ButtonType.values) {
         expect(Utils.mapButtonType(element), RT_IsLowerCase());
       }
@@ -122,7 +122,7 @@ void main() {
   */
 
   group('Utils.mapFormEncType()', () {
-    test(':: mapped form types are available', () {
+    test(':: mapped form types should be available', () {
       for (var element in FormEncType.values) {
         expect(
           Utils.mapFormEncType(element),
@@ -131,7 +131,7 @@ void main() {
       }
     });
 
-    test(':: mapped form types are implemented', () {
+    test(':: mapped form types should be implemented', () {
       for (var element in FormEncType.values) {
         expect(
           Utils.mapFormEncType(element),
@@ -140,7 +140,7 @@ void main() {
       }
     });
 
-    test(':: mapped form types are lowercase', () {
+    test(':: mapped form types should be lowercase', () {
       for (var element in FormEncType.values) {
         expect(Utils.mapFormEncType(element), RT_IsLowerCase());
       }
@@ -154,7 +154,7 @@ void main() {
   */
 
   group('Utils.mapFormMethod()', () {
-    test(':: mapped form methods are available', () {
+    test(':: mapped form methods should be available', () {
       for (var element in FormMethod.values) {
         expect(
           Utils.mapFormMethod(element),
@@ -163,7 +163,7 @@ void main() {
       }
     });
 
-    test(':: mapped form methods are implemented', () {
+    test(':: mapped form methods should be implemented', () {
       for (var element in FormMethod.values) {
         expect(
           Utils.mapFormMethod(element),
@@ -172,7 +172,7 @@ void main() {
       }
     });
 
-    test(':: mapped form methods are lowercase', () {
+    test(':: mapped form methods should be lowercase', () {
       for (var element in FormMethod.values) {
         expect(Utils.mapFormMethod(element), RT_IsLowerCase());
       }
@@ -186,7 +186,7 @@ void main() {
   */
 
   group('Utils.mapDomTag()', () {
-    test(':: mapped dom tags are available', () {
+    test(':: mapped dom tags should be available', () {
       for (var element in DomTag.values) {
         expect(
           Utils.mapDomTag(element),
@@ -195,7 +195,7 @@ void main() {
       }
     });
 
-    test(':: mapped dom tags are implemented', () {
+    test(':: mapped dom tags should be implemented', () {
       for (var element in DomTag.values) {
         expect(
           Utils.mapDomTag(element),
@@ -204,13 +204,13 @@ void main() {
       }
     });
 
-    test(':: mapped dom tags are lowercase', () {
+    test(':: mapped dom tags should be lowercase', () {
       for (var element in DomTag.values) {
         expect(Utils.mapDomTag(element), RT_IsLowerCase());
       }
     });
 
-    test(':: mapped dom tags are without space', () {
+    test(':: mapped dom tags should be without space', () {
       for (var element in DomTag.values) {
         expect(Utils.mapDomTag(element), RT_IsWithoutSpace());
       }
@@ -231,14 +231,15 @@ void main() {
       generatedWidgetKeys.add(Utils.generateWidgetKey());
     }
 
-    test('generated widget keys are unqiue', () {
+    test('should generate unique keys', () {
       expect(
         generatedWidgetKeys.length,
         equals({...generatedWidgetKeys}.length),
       );
     });
 
-    test('generated widget keys starts with system a identifier(_gen_)', () {
+    test('should generate keys that starts with system a identifier(_gen_)',
+        () {
       for (var key in generatedWidgetKeys) {
         expect(key.startsWith('_gen_'), equals(true));
       }
@@ -259,7 +260,7 @@ void main() {
       generatedRandomKeys.add(Utils.generateRandomKey());
     }
 
-    test('generated random keys are unqiue', () {
+    test('should generate unique keys', () {
       expect(
         generatedRandomKeys.length,
         equals({...generatedRandomKeys}.length),
@@ -281,7 +282,7 @@ void main() {
       generatedRandomItems.add(Utils.random());
     }
 
-    test('generated random items are unqiue', () {
+    test('should generate unqiue values', () {
       expect(
         generatedRandomItems.length,
         equals({...generatedRandomItems}.length),
@@ -296,7 +297,7 @@ void main() {
   */
 
   group('Utils.isKeyValueMapEqual()', () {
-    test('pass: if both keys & values has 1-1 relationship', () {
+    test('should be equal if both keys & values are 1-1', () {
       expect(
         Utils.isKeyValueMapEqual(
           {'a': '1'},
@@ -306,7 +307,8 @@ void main() {
       );
     });
 
-    test('pass: if both keys & values are 1-1, irrespective of the order', () {
+    test('should be equal if order is different but both keys & values are 1-1',
+        () {
       expect(
         Utils.isKeyValueMapEqual(
           {'a': '1', 'b': '1'},
@@ -316,7 +318,7 @@ void main() {
       );
     });
 
-    test('fail: if maps are of different length', () {
+    test('should be unequal if map has different lengths', () {
       expect(
         Utils.isKeyValueMapEqual(
           {'a': '1', 'b': '1'},
@@ -334,7 +336,7 @@ void main() {
       );
     });
 
-    test('fail: if a key is different', () {
+    test('should be unequal if a key is different', () {
       expect(
         Utils.isKeyValueMapEqual(
           {'b': '1'},
@@ -352,7 +354,7 @@ void main() {
       );
     });
 
-    test('fail: if a key is missing', () {
+    test('should be unequal if a key is missing', () {
       expect(
         Utils.isKeyValueMapEqual(
           {'a': '1'},
@@ -364,7 +366,7 @@ void main() {
 
     // value
 
-    test('fail: if a value is different', () {
+    test('should be unequal if a value is different', () {
       expect(
         Utils.isKeyValueMapEqual(
           {'a': '2'},

@@ -23,11 +23,11 @@ void main() {
     });
     tearDown(Framework.tearDown);
 
-    test(':: is in development mode', () {
+    test(':: shoudl enable development mode', () {
       expect(Debug.developmentMode, equals(true));
     });
 
-    test(':: logging is disabled', () {
+    test(':: shoudl disable logging', () {
       expect(Debug.frameworkLogs, equals(false));
       expect(Debug.widgetLogs, equals(false));
       expect(Debug.routerLogs, equals(false));
@@ -40,11 +40,11 @@ void main() {
     });
     tearDown(Framework.tearDown);
 
-    test(':: is in development mode', () {
+    test(':: should enable development mode', () {
       expect(Debug.developmentMode, equals(true));
     });
 
-    test(':: logging is disabled', () {
+    test(':: should disable logging', () {
       expect(Debug.frameworkLogs, equals(false));
       expect(Debug.widgetLogs, equals(false));
       expect(Debug.routerLogs, equals(false));
@@ -57,11 +57,11 @@ void main() {
     });
     tearDown(Framework.tearDown);
 
-    test(':: is in production mode', () {
+    test(':: should disable development mode', () {
       expect(Debug.developmentMode, equals(false));
     });
 
-    test(':: logging is disabled', () {
+    test(':: should disable logging', () {
       expect(Debug.frameworkLogs, equals(false));
       expect(Debug.widgetLogs, equals(false));
       expect(Debug.routerLogs, equals(false));
@@ -74,11 +74,11 @@ void main() {
     });
     tearDown(Framework.tearDown);
 
-    test(':: is in development mode', () {
+    test(':: shoudl enable development mode', () {
       expect(Debug.developmentMode, equals(true));
     });
 
-    test(':: logging is enabled', () {
+    test(':: shoudl enable logging', () {
       expect(Debug.frameworkLogs, equals(true));
       expect(Debug.widgetLogs, equals(true));
       expect(Debug.routerLogs, equals(true));
