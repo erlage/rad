@@ -7,14 +7,13 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  analyze: 
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
-
       - uses: dart-lang/setup-dart@v1
-      
+
       - name: Install dependencies
         run: dart pub get
 
@@ -25,6 +24,16 @@ jobs:
       # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze project source
         run: dart analyze --fatal-infos
+
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
+      
+      - name: Install dependencies
+        run: dart pub get
 
       - name: Run tests
         run: dart test
