@@ -4,19 +4,19 @@ import 'package:test/expect.dart';
 
 class RT_IsLowerCase extends Matcher {
   @override
-  bool matches(covariant String item, void _) => item.toLowerCase() == item;
+  matches(covariant String item, void _) => item.toLowerCase() == item;
 
   @override
-  Description describe(Description description) {
+  describe(Description description) {
     description.add('is lowercase');
 
     return description;
   }
 
   @override
-  Description describeMismatch(
+  describeMismatch(
     item,
-    Description mismatchDescription,
+    mismatchDescription,
     void _,
     void __,
   ) {
@@ -28,19 +28,19 @@ class RT_IsLowerCase extends Matcher {
 
 class RT_IsWithoutSpace extends Matcher {
   @override
-  bool matches(covariant String item, void _) => 1 == item.split(" ").length;
+  matches(covariant String item, void _) => 1 == item.split(" ").length;
 
   @override
-  Description describe(Description description) {
+  describe(description) {
     description.add('is without space');
 
     return description;
   }
 
   @override
-  Description describeMismatch(
+  describeMismatch(
     item,
-    Description mismatchDescription,
+    mismatchDescription,
     void _,
     void __,
   ) {
