@@ -1,0 +1,8 @@
+platforms:
+  - chrome
+
+custom_html_template_path: test/templates/common.html.tpl
+
+tags:
+  browser:
+    test_on: browser
