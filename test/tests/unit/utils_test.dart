@@ -392,23 +392,23 @@ void main() {
   */
 
   group('Utils.encodeKeyValueMap()', () {
-    test('encode empty map to empty string literal', () {
+    test('should encode empty map to empty string literal', () {
       expect(Utils.encodeKeyValueMap({}), equals(''));
     });
 
-    test('encode key value map to slash joined string literal', () {
+    test('should encode key value map to slash joined string literal', () {
       expect(Utils.encodeKeyValueMap({'a': 'b'}), equals('/a/b'));
     });
 
-    test('skip empty keys', () {
+    test('should skip empty keys', () {
       expect(Utils.encodeKeyValueMap({'': 'b', 'c': 'd'}), equals('/b/c/d'));
     });
 
-    test('skip empty value', () {
+    test('should skip empty value', () {
       expect(Utils.encodeKeyValueMap({'a': '', 'c': 'd'}), equals('/a/c/d'));
     });
 
-    test('escape special characters', () {
+    test('should escape special characters', () {
       expect(Utils.encodeKeyValueMap({'a/b': 'c/d'}), equals('/a%2Fb/c%2Fd'));
       expect(Utils.encodeKeyValueMap({'a///b': ''}), equals('/a%2F%2F%2Fb'));
 
