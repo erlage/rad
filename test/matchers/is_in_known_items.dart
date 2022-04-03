@@ -8,19 +8,19 @@ class RT_IsInKnownItems<T> extends Matcher {
   RT_IsInKnownItems(this._knownItems);
 
   @override
-  bool matches(covariant T item, void _) => _knownItems.contains(item);
+  matches(covariant T item, void _) => _knownItems.contains(item);
 
   @override
-  Description describe(Description description) {
+  describe(description) {
     description.add('item part of expected list');
 
     return description;
   }
 
   @override
-  Description describeMismatch(
+  describeMismatch(
     item,
-    Description mismatchDescription,
+    mismatchDescription,
     void _,
     void __,
   ) {
