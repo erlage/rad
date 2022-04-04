@@ -1,5 +1,7 @@
 import 'dart:html';
 
+import 'package:rad/src/core/classes/diagnostics.dart';
+
 /// An object that maintains a list of listeners.
 ///
 abstract class Listenable {
@@ -39,8 +41,12 @@ class ChangeNotifier implements Listenable {
   bool _debugAssertNotDisposed() {
     assert(() {
       if (_debugDisposed) {
-        throw 'A $runtimeType was used after being disposed.\n'
-            'Once you have called dispose() on a $runtimeType, it can no longer be used.';
+        Diagnostics.exception(
+          'A $runtimeType was used after being disposed.\n'
+          'Once you have called dispose() on a $runtimeType, it can no longer be used.',
+        );
+
+        return false;
       }
       return true;
     }());

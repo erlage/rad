@@ -1,7 +1,7 @@
 import 'dart:html';
 
 import 'package:rad/src/core/classes/debug.dart';
-import 'package:rad/src/core/classes/framework_error.dart';
+import 'package:rad/src/core/classes/diagnostics.dart';
 import 'package:rad/src/core/classes/router.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/debug_options.dart';
@@ -31,7 +31,7 @@ class Framework {
     DebugOptions? debugOptions,
   }) {
     if (_isInit) {
-      throw "Framework aleady initialized.";
+      return Diagnostics.exception("Framework aleady initialized.");
     }
 
     debugOptions ??= DebugOptions.defaultMode;
@@ -50,7 +50,7 @@ class Framework {
   ///
   static void tearDown() {
     if (!_isInit) {
-      throw "Framework is not initialized.";
+      return Diagnostics.exception("Framework is not initialized.");
     }
 
     Router.tearDown();
@@ -183,7 +183,10 @@ class Framework {
     if (widgets.isEmpty) return;
 
     if (!_isInit) {
-      throw "Framework not initialized. If you're building your own AppWidget implementation, make sure to call Framework.init()";
+      return Diagnostics.exception(
+        "Framework not initialized. If you're building your own AppWidget "
+        "implementation, make sure to call Framework.init()",
+      );
     }
 
     if (flagCleanParentContents) {
@@ -193,7 +196,10 @@ class Framework {
         var element = document.getElementById(parentContext.key);
 
         if (null == element) {
-          throw "Unable to find target to mount app. Make sure your DOM has element with key #$parentContext";
+          return Diagnostics.exception(
+            "Unable to find target to mount app. Make sure your DOM has "
+            "element with key #$parentContext",
+          );
         }
 
         element.innerHtml = "";
@@ -212,7 +218,9 @@ class Framework {
 
       if (Debug.developmentMode) {
         if (isKeyProvided && widget.initialKey.startsWith("_gen_")) {
-          throw "Keys starting with _gen_ are reserved for framework.";
+          return Diagnostics.exception(
+            "Keys starting with _gen_ are reserved for framework.",
+          );
         }
       }
 
@@ -296,7 +304,10 @@ class Framework {
     if (widgets.isEmpty) return;
 
     if (!_isInit) {
-      throw "Framework not initialized. If you're building your own AppWidget implementation, make sure to call Framework.init()";
+      return Diagnostics.exception(
+        "Framework not initialized. If you're building your own AppWidget "
+        "implementation, make sure to call Framework.init()",
+      );
     }
 
     // convenience function that dispatches complete rebuild.
@@ -565,7 +576,9 @@ class Framework {
 
         case WidgetAction.updateWidget:
           if (null == updateTypeWhenNecessary) {
-            throw "Update type note set for publishing update.";
+            return Diagnostics.exception(
+              "Update type note set for publishing update.",
+            );
           }
 
           var widgetObject = widgetActionObject.widgetObject;
@@ -664,7 +677,11 @@ class Framework {
     // this happens when user .of(context) is called inside a constructor.
 
     if (System.contextKeyNotSet == context.key) {
-      throw "Part of build context is not ready. This means that context is under construction.";
+      Diagnostics.exception(
+        "Part of build context is not ready. This means that context is under construction.",
+      );
+
+      return null;
     }
 
     var domNode =
@@ -695,8 +712,10 @@ class Framework {
     } else if (null != document.body) {
       document.head!.insertBefore(element, null);
     } else {
-      throw "For Rad to work, your page must have either a head tag or a body."
-          "Creating a body(or head) in your page will fix this problem.";
+      return Diagnostics.exception(
+        "For Rad to work, your page must have either a head tag or a body."
+        "Creating a body(or head) in your page will fix this problem.",
+      );
     }
 
     // log if flag is on
@@ -715,11 +734,13 @@ class Framework {
 
     if (Debug.developmentMode) {
       if (_registeredWidgetObjects.containsKey(widgetKey)) {
-        throw "Key $widgetKey already exists."
-            "\n\nThis usually happens in two scenarios,"
-            "\n\n1. When you have duplicate keys in your code."
-            "\n\nor\n\n2. When you've two adjacent widgets of same type and one of them is optional."
-            "\n\nCorrect way to fix (2): Use explicit keys on one of the widgets that are of same type.";
+        return Diagnostics.exception(
+          "Key $widgetKey already exists."
+          "\n\nThis usually happens in two scenarios,"
+          "\n\n1. When you have duplicate keys in your code."
+          "\n\nor\n\n2. When you've two adjacent widgets of same type and one of them is optional."
+          "\n\nCorrect way to fix (2): Use explicit keys on one of the widgets that are of same type.",
+        );
       }
     }
 

@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:rad/src/core/classes/debug.dart';
+import 'package:rad/src/core/classes/diagnostics.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
@@ -44,7 +45,7 @@ class WidgetObject {
 
   void mount({int? mountAtIndex}) {
     if (_isMounted) {
-      throw "Widget's element already mounted.";
+      return Diagnostics.exception("Widget's element already mounted.");
     }
 
     // we can't use node.parent here cus root widget's parent can be null
