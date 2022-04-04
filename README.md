@@ -98,7 +98,7 @@ Not only these widgets works similar to flutter widgets, they all has same synta
 
 ## HTML widgets
 
-HTML widgets are not 'just HTML'. There are two important characteristics of HTML widgets that we'd like to talk about:
+There are two important characteristics of HTML widgets that we'd like to talk about:
 
 ### 1. HTML widgets are composable
 
