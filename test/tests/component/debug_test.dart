@@ -93,27 +93,33 @@ void main() {
 
   test('should throw with correct message', () {
     expect(
-      () => Debug.exception('a exception'),
+      () => Debug.exception('correct message'),
       throwsA(
         predicate(
-          (Exception e) => e.toString() == 'Exception: a exception',
+          (Exception e) => "$e" == 'Exception: correct message',
         ),
       ),
     );
   });
 
   test('external code should be able to override', () {
+    // kill exception handler
+
     Debug.onException = (exception) {};
 
-    Debug.exception('this exception should not do any harm');
+    // try an exception
+
+    Debug.exception('this exception should be ignored');
+
+    // revive handler
 
     Debug.onException = Debug.presentException;
 
     expect(
-      () => Debug.exception('exceptions are revived'),
+      () => Debug.exception('this exception should be thrown'),
       throwsA(
         predicate(
-          (Exception e) => e.toString() == 'Exception: exceptions are revived',
+          (Exception e) => "$e" == 'Exception: this exception should be thrown',
         ),
       ),
     );
