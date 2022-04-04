@@ -3,7 +3,6 @@ import 'dart:html';
 import 'package:meta/meta.dart';
 import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/classes/framework.dart';
-import 'package:rad/src/core/classes/diagnostics.dart';
 import 'package:rad/src/core/classes/router.dart';
 import 'package:rad/src/core/classes/utils.dart';
 import 'package:rad/src/core/constants.dart';
@@ -295,7 +294,7 @@ class Navigator extends Widget {
       );
 
       if (null == widgetObject) {
-        Diagnostics.exception(
+        Debug.exception(
           "Navigator operation requested with a context that does not include a Navigator.\n"
           "The context used to push or pop routes from the Navigator must be that of a "
           "widget that is a descendant of a Navigator widget.",
@@ -502,7 +501,7 @@ class NavigatorState {
     // if current navigator doesn't have a matching '$name' route
 
     if (!nameToPathMap.containsKey(name)) {
-      return Diagnostics.exception(
+      return Debug.exception(
         "Navigator: '$name' is not declared."
         "Named routes that are not registered in Navigator's routes are not allowed."
         "If you're trying to push to a parent navigator, add prefix '../' to name of the route. "
@@ -561,7 +560,7 @@ class NavigatorState {
       var page = pathToRouteMap[nameToPathMap[name]];
 
       if (null == page) {
-        return Diagnostics.exception(System.coreError);
+        return Debug.exception(System.coreError);
       }
 
       _activeStack.add(name);
@@ -663,7 +662,7 @@ class NavigatorState {
   void frameworkInitState() {
     if (Debug.developmentMode) {
       if (widget.routes.isEmpty) {
-        return Diagnostics.exception(
+        return Debug.exception(
           "Navigator instance must have at least one route.",
         );
       }
@@ -675,13 +674,13 @@ class NavigatorState {
       if (Debug.developmentMode) {
         if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(route.path)) {
           if (route.path.isEmpty) {
-            return Diagnostics.exception(
+            return Debug.exception(
               "Navigator's Route's path can't be empty."
               "\n Route: ${route.name} -> ${route.path} is not allowed",
             );
           }
 
-          return Diagnostics.exception(
+          return Debug.exception(
             "Navigator's Route can contains only alphanumeric characters and underscores"
             "\n Route: ${route.name} -> ${route.path} is not allowed",
           );
@@ -691,7 +690,7 @@ class NavigatorState {
             pathToRouteMap.containsKey(route.path);
 
         if (isDuplicate) {
-          return Diagnostics.exception(
+          return Debug.exception(
             "Please remove Duplicate routes from your Navigator."
             "Part of your route, name: '${route.name}' => path: '${route.path}', already exists",
           );

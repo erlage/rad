@@ -1,6 +1,6 @@
 import 'dart:html';
 
-import 'package:rad/src/core/classes/diagnostics.dart';
+import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/interface/app_component.dart';
@@ -71,7 +71,7 @@ class RadApp extends Widget {
     var targetElement = document.getElementById(targetKey) as HtmlElement?;
 
     if (null == targetElement) {
-      Diagnostics.exception(
+      Debug.exception(
         "Unable to locate target element in HTML document",
       );
 

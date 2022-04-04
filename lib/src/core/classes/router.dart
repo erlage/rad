@@ -2,7 +2,6 @@ import 'dart:html';
 
 import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/classes/framework.dart';
-import 'package:rad/src/core/classes/diagnostics.dart';
 import 'package:rad/src/core/classes/utils.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/objects/build_context.dart';
@@ -48,7 +47,7 @@ class Router {
   ///
   static void init(String routingPath) {
     if (_isInit) {
-      return Diagnostics.exception("Router aleady initialized.");
+      return Debug.exception("Router aleady initialized.");
     }
 
     _routingPath = routingPath;
@@ -72,7 +71,7 @@ class Router {
   ///
   static void tearDown() {
     if (!_isInit) {
-      return Diagnostics.exception("Router is not initialized.");
+      return Debug.exception("Router is not initialized.");
     }
 
     _currentSegments.clear();
@@ -94,15 +93,15 @@ class Router {
   ///
   static void register(BuildContext context, NavigatorState state) {
     if (!_isInit) {
-      return Diagnostics.exception("Router not initialized.");
+      return Debug.exception("Router not initialized.");
     }
 
     if (_routeObjects.containsKey(context.key)) {
-      return Diagnostics.exception(System.coreError);
+      return Debug.exception(System.coreError);
     }
 
     if (_stateObjects.containsKey(context.key)) {
-      return Diagnostics.exception(System.coreError);
+      return Debug.exception(System.coreError);
     }
 
     _register(context, state.routes);
@@ -218,7 +217,7 @@ class Router {
     var stateObject = _stateObjects[navigatorKey];
 
     if (null == stateObject) {
-      Diagnostics.exception(System.coreError);
+      Debug.exception(System.coreError);
 
       return '';
     }
@@ -291,7 +290,7 @@ class Router {
     var routeObject = _routeObjects[navigatorKey];
 
     if (null == routeObject) {
-      Diagnostics.exception(System.coreError);
+      Debug.exception(System.coreError);
 
       return [];
     }
@@ -340,13 +339,13 @@ class Router {
     var stateObject = _stateObjects[navigatorKey];
 
     if (null == routeObject) {
-      Diagnostics.exception(System.coreError);
+      Debug.exception(System.coreError);
 
       return [];
     }
 
     if (null == stateObject) {
-      Diagnostics.exception(System.coreError);
+      Debug.exception(System.coreError);
 
       return [];
     }
@@ -491,7 +490,7 @@ class Router {
     var parentObject = _routeObjects[parent.context.key];
 
     if (null == parentObject) {
-      return Diagnostics.exception(System.coreError);
+      return Debug.exception(System.coreError);
     }
 
     var segments = [...parentObject.segments, parentState.currentRouteName];

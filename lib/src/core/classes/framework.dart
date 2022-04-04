@@ -1,7 +1,6 @@
 import 'dart:html';
 
 import 'package:rad/src/core/classes/debug.dart';
-import 'package:rad/src/core/classes/diagnostics.dart';
 import 'package:rad/src/core/classes/router.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/debug_options.dart';
@@ -31,7 +30,7 @@ class Framework {
     DebugOptions? debugOptions,
   }) {
     if (_isInit) {
-      return Diagnostics.exception("Framework aleady initialized.");
+      return Debug.exception("Framework aleady initialized.");
     }
 
     debugOptions ??= DebugOptions.defaultMode;
@@ -50,7 +49,7 @@ class Framework {
   ///
   static void tearDown() {
     if (!_isInit) {
-      return Diagnostics.exception("Framework is not initialized.");
+      return Debug.exception("Framework is not initialized.");
     }
 
     Router.tearDown();
@@ -183,7 +182,7 @@ class Framework {
     if (widgets.isEmpty) return;
 
     if (!_isInit) {
-      return Diagnostics.exception(
+      return Debug.exception(
         "Framework not initialized. If you're building your own AppWidget "
         "implementation, make sure to call Framework.init()",
       );
@@ -196,7 +195,7 @@ class Framework {
         var element = document.getElementById(parentContext.key);
 
         if (null == element) {
-          return Diagnostics.exception(
+          return Debug.exception(
             "Unable to find target to mount app. Make sure your DOM has "
             "element with key #$parentContext",
           );
@@ -218,7 +217,7 @@ class Framework {
 
       if (Debug.developmentMode) {
         if (isKeyProvided && widget.initialKey.startsWith("_gen_")) {
-          return Diagnostics.exception(
+          return Debug.exception(
             "Keys starting with _gen_ are reserved for framework.",
           );
         }
@@ -304,7 +303,7 @@ class Framework {
     if (widgets.isEmpty) return;
 
     if (!_isInit) {
-      return Diagnostics.exception(
+      return Debug.exception(
         "Framework not initialized. If you're building your own AppWidget "
         "implementation, make sure to call Framework.init()",
       );
@@ -576,7 +575,7 @@ class Framework {
 
         case WidgetAction.updateWidget:
           if (null == updateTypeWhenNecessary) {
-            return Diagnostics.exception(
+            return Debug.exception(
               "Update type note set for publishing update.",
             );
           }
@@ -677,7 +676,7 @@ class Framework {
     // this happens when user .of(context) is called inside a constructor.
 
     if (System.contextKeyNotSet == context.key) {
-      Diagnostics.exception(
+      Debug.exception(
         "Part of build context is not ready. This means that context is under construction.",
       );
 
@@ -712,7 +711,7 @@ class Framework {
     } else if (null != document.body) {
       document.head!.insertBefore(element, null);
     } else {
-      return Diagnostics.exception(
+      return Debug.exception(
         "For Rad to work, your page must have either a head tag or a body."
         "Creating a body(or head) in your page will fix this problem.",
       );
@@ -734,7 +733,7 @@ class Framework {
 
     if (Debug.developmentMode) {
       if (_registeredWidgetObjects.containsKey(widgetKey)) {
-        return Diagnostics.exception(
+        return Debug.exception(
           "Key $widgetKey already exists."
           "\n\nThis usually happens in two scenarios,"
           "\n\n1. When you have duplicate keys in your code."

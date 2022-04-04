@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
+import 'package:rad/src/core/classes/debug.dart';
 import 'package:rad/src/core/classes/framework.dart';
-import 'package:rad/src/core/classes/diagnostics.dart';
 import 'package:rad/src/core/interface/style_component.dart';
 
 /// Interface for external components.
@@ -53,7 +53,7 @@ class Components {
         var contents = styleComponent.styleSheetContents;
         if (null != contents) {
           if (contents.length > 200) {
-            return Diagnostics.exception(
+            return Debug.exception(
               "Package is trying to inject larger stylesheet than allowed. "
               "Please use your HTML page to inject stylesheets larger than 200 characters. \n\n"
               "Package details: $styleComponent",

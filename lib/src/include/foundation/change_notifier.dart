@@ -1,6 +1,6 @@
 import 'dart:html';
 
-import 'package:rad/src/core/classes/diagnostics.dart';
+import 'package:rad/src/core/classes/debug.dart';
 
 /// An object that maintains a list of listeners.
 ///
@@ -41,7 +41,7 @@ class ChangeNotifier implements Listenable {
   bool _debugAssertNotDisposed() {
     assert(() {
       if (_debugDisposed) {
-        Diagnostics.exception(
+        Debug.exception(
           'A $runtimeType was used after being disposed.\n'
           'Once you have called dispose() on a $runtimeType, it can no longer be used.',
         );
