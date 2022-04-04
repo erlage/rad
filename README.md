@@ -1,6 +1,6 @@
 # Rad
 
-Rad is a frontend framework for creating fast and interactive websites using Dart. It's inspired from Flutter and shares same programming paradigm. It has all the best bits of Flutter(StatefulWidgets, Builders) and allows you to use web technologies(HTML and CSS) in your app.
+Rad is a frontend framework for creating fast and interactive web apps using Dart. It's inspired from Flutter and shares same programming paradigm. It has all the best bits of Flutter(StatefulWidgets, Builders) and allows you to use web technologies(HTML and CSS) in your app.
 
 ## Quick links
 
@@ -28,9 +28,9 @@ How about that? if you're familiar with Flutter it don't even need an explanatio
 
 1. First off, we don't use a rendering engine to render a widget or anything like that. Widgets are mapped to HTML tags and composed together they way you describe them. This means every widget has a corresponding HTML tag in DOM, and your application has complete access to document(DOM).
 
-2. Rad's doesn't rebuild widgets multiple times a second, which means for animations you've to turn to CSS.
+2. Rad's won't be rebuilding your widgets multiple times a second, which means for animations you've to turn to CSS.
 
-3. For designing a interface, you've to use HTML. And guess what? there are widgets for that.
+3. Lastly, for designing UIs, you've to use HTML. And guess what? there are widgets for that.
   
     Let's take this HTML snippet:
     ```html
@@ -50,7 +50,7 @@ How about that? if you're familiar with Flutter it don't even need an explanatio
     );
     ```
 
-    Talking more about UI, there are no layout/style specific widgets like you've Container and Stack widgets in Flutter. Just think about it for a sec? we don't really need them as most of things can be done using HTML tags and CSS.
+    Talking more about UI, there are no layout/style specific widgets like you've Container and Stack widgets in Flutter. Just think about it for a sec? we don't really need them as most of things can be done using HTML and CSS.
 
     Just for sake of example, let's say you want a Stack widget,
 
@@ -72,7 +72,7 @@ How about that? if you're familiar with Flutter it don't even need an explanatio
         {
           return Division(
               style: "position:relative;",
-              children: entries,
+              children: children,
             );
         }
         ```
@@ -85,7 +85,111 @@ How about that? if you're familiar with Flutter it don't even need an explanatio
           ]
         )
         ```
-    This was just an example, you don't really need these type of widgets when you can use a CSS framework of your choice.
+    This was just an example, you don't really need these type of widgets since now you can use a CSS framework of your choice. Also, we know that Stack is not actually a widget, it's a function that returns widget. Continue reading further, we'll show you how to actually make a widget out of it and how simple that'll be.
+
+## Flutter widgets
+
+Rad has following widgets from Flutter:
+
+- StatelessWidget, StatefulWidget, InheritedWidget.
+- FutureBuilder, StreamBuilder and ValueListenableBuilder.
+
+Not only these widgets works similar to flutter widgets, they all has same syntax too. Which means you don't have to learn anything new to be able to use them. Assuming that you're already familiar with how to use them, we're going to skip this section.
+
+## HTML widgets
+
+HTML widgets are not 'just HTML'. There are two important characteristics of HTML widgets that we'd like to talk about:
+
+### 1. HTML widgets are composable
+
+Just like other widgets, HTML widgets are composable and has same semantics in the sense that they can be composed and mixed together with other widgets. For example,
+
+```dart
+Span(
+  child: ListView(
+    children: [
+      SomeStatefulWidget(),
+      Span(),
+      ...
+    ]
+  ),
+);
+```
+As you can see above, a Span widget is containing a ListView widget. Further, that ListView is containing a StatefulWidget and a Span widget. The point we're trying to make is that HTML widgets won't restrict you to 'just HTML'. You can mix HTML widgets with other widgets the way you want.
+
+### 2. HTML widgets are extendable
+
+As designing and reusing interfaces is a common requirement of every project, we tried to make it as easy as possible. HTML widgets are designed in such a way that you can solve this problem a lot easier than you think.
+
+How about re-writing our Stack example at top?
+
+Here's our StackEntry that we created earlier:
+
+```dart
+Widget StackEntry(Widget widget)
+{
+  return Division( 
+    style: "position:absolute;top:0;left:0;",
+    children: [widget],
+  );
+}
+```
+
+We can unwrap it by extending inner Division:
+
+```dart
+class StackEntry extends Division
+{
+  const StackEntry(Widget widget): super( 
+    style: "position:absolute;top:0;left:0;",
+    children: [widget],
+  );
+}
+```
+
+Let's do the same with Stack container:
+
+```dart
+
+// from
+
+Widget Stack({required List<Widget> children})
+{
+  return Division(
+      style: "position:relative;",
+      children: children,
+    );
+}
+
+// to
+
+class Stack extends Division
+{
+  const Stack({required List<Widget> children}): super( 
+    style: "position:relative;",
+    children: children,
+  );
+}
+```
+This might not look like a big improvement at first but think again, we've actually created a brand new HTML widget that has its own identity and semantics. Unlike other frameworks where you've to extend a component and override bunch of methods to get things done, in Rad you can simply extend widgets to create new widgets. You can extend already extended widgets as well. If you feel like missing something in Rad's HTML widgets, you can even create your own version of HTML widgets simply by extending Rad's HTML widgets. Not only that, you can even create your entire UI as a separate package, and completely decouple UIs from logic. There are no limits to it, we better move on to next section ;)
+
+## FAQ
+
+> Can we use it to create a static website?
+
+  Yes.
+
+> Can we use it to create a dynamic website?
+
+  Yes, that's something this framework is good at.
+
+> Can we use it to create a single page application/web app?
+
+  Yes, that's something this framework is best at. Rad has widgets with powerful mechanics for dealing with nested routing, deep linking, history and state management.
+
+> Is it SEO friendly?
+
+  No it's not. Server side rendering is a must for better SEOs, which unfortunately we don't have at the moment.  However you can use a backend technology(PHP, Node, Erlang etc.) to stuff meta information in Rad's root page before serving it to clients. We assure you, this approach is sane, simple, and effective until we add SSR :)
 
 ## Widgets Index
 
