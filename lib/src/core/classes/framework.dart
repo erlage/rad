@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:rad/src/core/classes/debug.dart';
+import 'package:rad/src/core/classes/framework_error.dart';
 import 'package:rad/src/core/classes/router.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/debug_options.dart';
@@ -25,7 +26,7 @@ class Framework {
   /// It's AppWidget job to call this method as first task. Initialization
   /// process will initialize other important components such as Router.
   ///
-  static init({
+  static void init({
     required String routingPath,
     DebugOptions? debugOptions,
   }) {
@@ -47,7 +48,7 @@ class Framework {
   /// Since methods in this class are static, we need a way to initialize
   /// and destroy framework state.
   ///
-  static tearDown() {
+  static void tearDown() {
     if (!_isInit) {
       throw "Framework is not initialized.";
     }
@@ -165,7 +166,7 @@ class Framework {
 
   /// Build children under given context.
   ///
-  static buildChildren({
+  static void buildChildren({
     // widgets to build
     required List<Widget> widgets,
     required BuildContext parentContext,
@@ -268,7 +269,7 @@ class Framework {
 
   /// Update childrens under provided context.
   ///
-  static updateChildren({
+  static void updateChildren({
     // widgets to build
     required List<Widget> widgets,
     required BuildContext parentContext,
@@ -503,7 +504,7 @@ class Framework {
   /// Whatever action the [widgetActionCallback] callback returns, framework
   /// will execute it.
   ///
-  static manageChildren({
+  static void manageChildren({
     required BuildContext parentContext,
     required WidgetActionCallback widgetActionCallback,
     //
@@ -614,7 +615,7 @@ class Framework {
 
   /// Dispose widgets and its child widgets.
   ///
-  static disposeWidget({
+  static void disposeWidget({
     WidgetObject? widgetObject,
     bool preserveTarget = false,
   }) {

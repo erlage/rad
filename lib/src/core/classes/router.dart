@@ -45,7 +45,7 @@ class Router {
   /// 1. Setup routing path
   /// 2. add onPopStateEventListener
   ///
-  static init(String routingPath) {
+  static void init(String routingPath) {
     if (_isInit) {
       throw "Router aleady initialized.";
     }
@@ -69,7 +69,7 @@ class Router {
   /// Since methods in this class are static, we need a way to initialize
   /// and destroy framework state.
   ///
-  static tearDown() {
+  static void tearDown() {
     if (!_isInit) {
       throw "Router is not initialized.";
     }
@@ -376,7 +376,7 @@ class Router {
   |--------------------------------------------------------------------------
   */
 
-  static _onPopState(Event event) {
+  static void _onPopState(Event event) {
     try {
       var location = window.location.href;
 
