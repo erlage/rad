@@ -171,7 +171,7 @@ class Stack extends Division
   );
 }
 ```
-This might not look like a big improvement at first but think again, we've actually created a brand new HTML widget that has its own identity and semantics. Unlike other frameworks where you've to extend a component and override bunch of methods to get things done, in Rad you can simply extend widgets to create new widgets. You can extend already extended widgets as well. If you feel like missing something in Rad's HTML widgets, you can even create your own version of HTML widgets simply by extending Rad's HTML widgets. Not only that, you can even create your entire UI as a separate package, and completely decouple UIs from logic. There are no limits to it, we better move on to next section ;)
+This might not look like a big improvement at first but think again, we've actually created a brand new HTML widget that has its own identity and semantics. Unlike other frameworks where you've to extend a component and override bunch of methods to get things done, in Rad you can simply extend widgets to create new widgets. You can extend already extended widgets as well. If you feel like missing something in Rad's HTML widgets, guess what? you can create your own version of HTML widgets simply by extending Rad's HTML widgets. You can even create your entire UI as a separate package and completely decouple UIs from logic. There are no limits to it, we better move on to next section ;)
 
 ## FAQ
 
