@@ -179,14 +179,14 @@ class Framework {
     flagCleanParentContents = true,
     //
   }) {
-    if (widgets.isEmpty) return;
-
     if (!_isInit) {
       return Debug.exception(
         "Framework not initialized. If you're building your own AppWidget "
         "implementation, make sure to call Framework.init()",
       );
     }
+
+    if (widgets.isEmpty) return;
 
     if (flagCleanParentContents) {
       var widgetType = parentContext.widgetConcreteType;
@@ -301,13 +301,6 @@ class Framework {
     //
   }) {
     if (widgets.isEmpty) return;
-
-    if (!_isInit) {
-      return Debug.exception(
-        "Framework not initialized. If you're building your own AppWidget "
-        "implementation, make sure to call Framework.init()",
-      );
-    }
 
     // convenience function that dispatches complete rebuild.
 
