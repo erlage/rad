@@ -84,4 +84,38 @@ void main() {
       expect(Debug.routerLogs, equals(true));
     });
   });
+
+  /*
+  |--------------------------------------------------------------------------
+  | Debug exception tests
+  |--------------------------------------------------------------------------
+  */
+
+  test('should throw with correct message', () {
+    expect(
+      () => Debug.exception('a exception'),
+      throwsA(
+        predicate(
+          (Exception e) => e.toString() == 'Exception: a exception',
+        ),
+      ),
+    );
+  });
+
+  test('external code should be able to override', () {
+    Debug.onException = (exception) {};
+
+    Debug.exception('this exception should not do any harm');
+
+    Debug.onException = Debug.presentException;
+
+    expect(
+      () => Debug.exception('exceptions are revived'),
+      throwsA(
+        predicate(
+          (Exception e) => e.toString() == 'Exception: exceptions are revived',
+        ),
+      ),
+    );
+  });
 }
