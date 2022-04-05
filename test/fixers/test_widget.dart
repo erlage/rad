@@ -7,7 +7,7 @@ import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-/// Test widget that allows hooking its internals.
+/// A widget that allows hooking its internals.
 ///
 class RT_TestWidget extends Widget {
   final VoidCallback? roEventHookRender;

@@ -2,9 +2,9 @@
 
 /// Test Stack.
 ///
-/// Used by tests for logging order in which particular event occurs,
-/// procedure, or any detail that requires state so they can be
-/// verified later.
+/// Used by tests for logging 'order in which particular event occurs',
+/// procedure, or any detail that requires some sort of state so it
+/// they can be verified later.
 ///
 class RT_TestStack {
   final _entries = <String>[];
