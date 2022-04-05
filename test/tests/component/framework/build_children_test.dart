@@ -288,5 +288,209 @@ void main() {
       // confirm there are no duplicate calls.
       expect(testStack.canPop(), equals(false));
     });
+
+    test('should build widgets, in order, starting from top', () {
+      var testStack = RT_TestStack();
+
+      // create a test app widget.
+      // containing some child widgets to test.
+
+      Framework.buildChildren(
+        widgets: [
+          RT_TestWidget(
+            key: 'app-widget',
+            roEventHookRender: () {
+              testStack.push('render-app-widget');
+            },
+            children: [
+              RT_TestWidget(
+                key: 'app-child-0',
+                roEventHookRender: () {
+                  testStack.push('render-0');
+                },
+                children: [
+                  RT_TestWidget(
+                    key: 'app-child-0-0',
+                    roEventHookRender: () {
+                      testStack.push('render-0-0');
+                    },
+                  ),
+                  RT_TestWidget(
+                    key: 'app-child-0-1',
+                    roEventHookRender: () {
+                      testStack.push('render-0-1');
+                    },
+                    children: [
+                      RT_TestWidget(
+                        key: 'app-child-0-1-0',
+                        roEventHookRender: () {
+                          testStack.push('render-0-1-0');
+                        },
+                      ),
+                      RT_TestWidget(
+                        key: 'app-child-0-1-1',
+                        roEventHookRender: () {
+                          testStack.push('render-0-1-1');
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              RT_TestWidget(
+                key: 'app-child-1',
+                roEventHookRender: () {
+                  testStack.push('render-1');
+                },
+                children: [
+                  // nested child widgets
+                  RT_TestWidget(
+                    key: 'app-child-1-0',
+                    roEventHookRender: () {
+                      testStack.push('render-1-0');
+                    },
+                  ),
+                  RT_TestWidget(
+                    key: 'app-child-1-1',
+                    roEventHookRender: () {
+                      testStack.push('render-1-1');
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      expect(testStack.popFromStart(), equals('render-app-widget'));
+      expect(testStack.popFromStart(), equals('render-0'));
+      expect(testStack.popFromStart(), equals('render-0-0'));
+      expect(testStack.popFromStart(), equals('render-0-1'));
+      expect(testStack.popFromStart(), equals('render-0-1-0'));
+      expect(testStack.popFromStart(), equals('render-0-1-1'));
+      expect(testStack.popFromStart(), equals('render-1'));
+      expect(testStack.popFromStart(), equals('render-1-0'));
+      expect(testStack.popFromStart(), equals('render-1-1'));
+
+      expect(testStack.canPop(), equals(false));
+    });
+
+    test('should dispose existing widgets', () {
+      // create a test app widget.
+      // containing some child widgets to test.
+
+      Framework.buildChildren(
+        widgets: [
+          //
+          // this is test app widget. we don't expect it to be disposed.
+          //
+          // we always assume that there are no exisiting widgets in document while building
+          // a app widget and therefore user can have only one root widget in entire app.
+          //
+          RT_TestWidget(
+            key: 'app-widget',
+            children: [
+              //
+              // these are child widgets and we expect all widgets below this point in tree
+              // to get disposed off correctly by the framework when a app widget's immediate
+              // child widgets are changed.
+              //
+              RT_TestWidget(
+                key: 'child-0',
+                children: [
+                  RT_TestWidget(key: 'child-0-0'),
+                  RT_TestWidget(
+                    key: 'child-0-1',
+                    children: [
+                      RT_TestWidget(key: 'child-0-1-0'),
+                      RT_TestWidget(key: 'child-0-1-1'),
+                    ],
+                  ),
+                ],
+              ),
+              RT_TestWidget(
+                key: 'child-1',
+                children: [
+                  // nested child widgets
+                  RT_TestWidget(key: 'child-1-0'),
+                  RT_TestWidget(key: 'child-1-1'),
+                ],
+              ),
+            ],
+          ),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      // ensure all are built
+
+      expect(null == Framework.getWidgetObject('app-widget'), equals(false));
+      expect(null == Framework.getWidgetObject('child-0'), equals(false));
+      expect(null == Framework.getWidgetObject('child-0-0'), equals(false));
+      expect(null == Framework.getWidgetObject('child-0-1'), equals(false));
+      expect(null == Framework.getWidgetObject('child-0-1-0'), equals(false));
+      expect(null == Framework.getWidgetObject('child-0-1-1'), equals(false));
+      expect(null == Framework.getWidgetObject('child-1'), equals(false));
+      expect(null == Framework.getWidgetObject('child-1-0'), equals(false));
+      expect(null == Framework.getWidgetObject('child-1-1'), equals(false));
+
+      // build new child widgets under app widget. we expect this operation to
+      // dispose off exisiting child widgets of app widget.
+
+      Framework.buildChildren(
+        widgets: [
+          RT_TestWidget(
+            key: 'new-child',
+            roEventHookBeforeMount: () {
+              // existing widgets should be disposed at this point
+
+              expect(
+                null == Framework.getWidgetObject('child-0'),
+                equals(true),
+              );
+              expect(
+                null == Framework.getWidgetObject('child-0-0'),
+                equals(true),
+              );
+              expect(
+                null == Framework.getWidgetObject('child-0-1'),
+                equals(true),
+              );
+              expect(
+                null == Framework.getWidgetObject('child-0-1-0'),
+                equals(true),
+              );
+              expect(
+                null == Framework.getWidgetObject('child-0-1-1'),
+                equals(true),
+              );
+              expect(
+                null == Framework.getWidgetObject('child-1'),
+                equals(true),
+              );
+              expect(
+                null == Framework.getWidgetObject('child-1-0'),
+                equals(true),
+              );
+              expect(
+                null == Framework.getWidgetObject('child-1-1'),
+                equals(true),
+              );
+            },
+          ),
+        ],
+        parentContext: Framework.getWidgetObject('app-widget')!.context,
+      );
+
+      // app widget should not have any impact
+
+      expect(null == Framework.getWidgetObject('app-widget'), equals(false));
+
+      // newer child should be built
+
+      expect(null == Framework.getWidgetObject('new-child'), equals(false));
+    });
   });
 }
