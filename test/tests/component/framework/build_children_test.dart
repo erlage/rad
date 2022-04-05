@@ -11,7 +11,7 @@ import '../../../matchers/has_contents.dart';
 
 /*
 |--------------------------------------------------------------------------
-| Component test for core/classes/router.dart
+| Component test for core/classes/framework.dart
 |
 | buildChildren() tests
 |--------------------------------------------------------------------------
