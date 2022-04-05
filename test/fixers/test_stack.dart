@@ -4,7 +4,7 @@
 ///
 /// Used by tests for logging 'order in which particular event occurs',
 /// procedure, or any detail that requires some sort of state so it
-/// they can be verified later.
+/// can be verified later.
 ///
 class RT_TestStack {
   final _entries = <String>[];
