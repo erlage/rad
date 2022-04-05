@@ -9,15 +9,15 @@ Rad is a frontend framework for creating fast and interactive web apps using Dar
 - [API reference @ pub.dev](https://pub.dev/documentation/rad/latest/rad/rad-library.html)
 - [Repository @ github.com](https://github.com/erlage/rad)
 
-## Example
+## Let's start with a Widget
 
-Let's take a look at an very basic example written using Rad:
+Let's take a look at a StatelessWidget from Rad:
 
 ```dart
 class HomePage extends StatelessWidget
 {
   @override
-  build(context) {
+  Widget build(BuildContext context) {
     return Text("hello world");
   }
 }
@@ -89,12 +89,12 @@ If you're familiar with Flutter it don't even need an explanation but there are 
 
 ## Flutter widgets
 
-Following widgets are inspired from their Flutter's counterparts:
+Following widgets in Rad are inspired from Flutter:
 
 - StatelessWidget, StatefulWidget, InheritedWidget.
 - FutureBuilder, StreamBuilder and ValueListenableBuilder.
 
-Not only these widgets has same syntax, they also works exactly same as if they would in Flutter. Which means you don't have to learn anything new to be able to use them.
+These widgets has same syntax as their Flutter's counterparts. Not just syntax, they also works exactly same as if they would in Flutter. Which means you don't have to learn anything new to be able to use them.
 
 ## HTML widgets
 
@@ -169,7 +169,7 @@ class Stack extends Division
   );
 }
 ```
-That's pretty much it. This might not look like a big improvement at first but above we've actually created a brand new HTML widget that has its own identity and semantics. Unlike other frameworks where you'd create a component by implementing bunch of methods, in Rad you can extend widgets to create new widgets.
+That's pretty much it. This might not look like a big improvement at first but we've actually created a brand new HTML widget that has its own identity and semantics. Unlike other frameworks where you'd create a component by implementing bunch of methods, in Rad you can extend widgets to create new widgets.
 
 ## FAQ
 
