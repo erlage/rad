@@ -21,6 +21,7 @@ void main() {
     setUp(() {
       Framework.init(routingPath: '');
     });
+
     tearDown(Framework.tearDown);
 
     test(':: should enable development mode', () {
@@ -38,6 +39,7 @@ void main() {
     setUp(() {
       Framework.init(routingPath: '', debugOptions: DebugOptions.defaultMode);
     });
+
     tearDown(Framework.tearDown);
 
     test(':: should enable development mode', () {
@@ -55,6 +57,7 @@ void main() {
     setUp(() {
       Framework.init(routingPath: '', debugOptions: DebugOptions.production);
     });
+
     tearDown(Framework.tearDown);
 
     test(':: should disable development mode', () {
@@ -72,6 +75,7 @@ void main() {
     setUp(() {
       Framework.init(routingPath: '', debugOptions: DebugOptions.development);
     });
+
     tearDown(Framework.tearDown);
 
     test(':: should enable development mode', () {
@@ -96,7 +100,7 @@ void main() {
       () => Debug.exception('correct message'),
       throwsA(
         predicate(
-          (Exception e) => "$e" == 'Exception: correct message',
+          (e) => '$e' == 'Exception: correct message',
         ),
       ),
     );
@@ -119,7 +123,7 @@ void main() {
       () => Debug.exception('this exception should be thrown'),
       throwsA(
         predicate(
-          (Exception e) => "$e" == 'Exception: this exception should be thrown',
+          (e) => '$e' == 'Exception: this exception should be thrown',
         ),
       ),
     );
