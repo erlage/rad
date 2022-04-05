@@ -444,7 +444,7 @@ void main() {
           RT_TestWidget(
             key: 'new-child',
             roEventHookBeforeMount: () {
-              // existing widgets should be disposed at this point
+              // existing widgets should already got disposed by this point
 
               expect(
                 null == Framework.getWidgetObject('child-0'),
