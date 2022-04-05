@@ -21,8 +21,11 @@ class RT_TestWidget extends Widget {
   final VoidCallback? wEventHookCreateWidgetConfiguration;
   final VoidCallback? wEventHookIsConfigurationChanged;
 
+  final List<Widget>? children;
+
   const RT_TestWidget({
     String? key,
+    this.children,
     this.roEventHookRender,
     this.roEventHookUpdate,
     this.roEventHookBeforeMount,
@@ -39,6 +42,9 @@ class RT_TestWidget extends Widget {
 
   @override
   get correspondingTag => DomTag.division;
+
+  @override
+  get widgetChildren => children ?? [];
 
   @override
   createConfiguration() {
