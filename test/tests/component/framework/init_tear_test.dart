@@ -15,7 +15,7 @@ import '../../../fixers/test_bed.dart';
 */
 
 void main() {
-  group('Framework initialization/teardown', () {
+  group('Framework state tests:', () {
     test('init() should throw if already initialized', () {
       Framework.init(routingPath: '');
 
@@ -42,7 +42,7 @@ void main() {
       );
     });
 
-    test('framework buildChildren() should throw if not initialized', () {
+    test('buildChildren() should throw if not initialized', () {
       expect(
         () => Framework.buildChildren(
           widgets: [],

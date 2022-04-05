@@ -24,14 +24,14 @@ void main() {
   |--------------------------------------------------------------------------
   */
 
-  group('dev mode tests', () {
+  group('dev mode tests:', () {
     setUp(() {
       Framework.init(routingPath: '', debugOptions: DebugOptions.defaultMode);
     });
 
     tearDown(Framework.tearDown);
 
-    test('dev mode: should throw if a key contains reserved prefix _gen_', () {
+    test('should throw if a key contains reserved prefix _gen_', () {
       expect(
         () => Framework.buildChildren(
           widgets: [Text('some text', key: '_gen_is_a_reserved_previx')],
@@ -54,14 +54,14 @@ void main() {
   |--------------------------------------------------------------------------
   */
 
-  group('prod mode tests', () {
+  group('prod mode tests:', () {
     setUp(() {
       Framework.init(routingPath: '', debugOptions: DebugOptions.production);
     });
 
     tearDown(Framework.tearDown);
 
-    test('prod mode: should not throw if a key contains reserved prefix', () {
+    test('should not throw if a key contains reserved prefix', () {
       Framework.buildChildren(
         widgets: [Text('some text', key: '_gen_is_a_reserved_previx')],
         parentContext: RT_TestBed.rootContext,
@@ -77,7 +77,7 @@ void main() {
   |--------------------------------------------------------------------------
   */
 
-  group('common tests', () {
+  group('common tests:', () {
     setUp(() {
       Framework.init(routingPath: '');
     });
