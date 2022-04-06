@@ -496,5 +496,136 @@ void main() {
 
       expect(null == Framework.getWidgetObject('new-child'), equals(false));
     });
+
+    test('should not dispose widgets when flagCleanParentContents is off', () {
+      Framework.buildChildren(
+        widgets: [
+          Text('1'),
+          Text('2'),
+          Text('3'),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      Framework.buildChildren(
+        widgets: [Text('4')],
+        parentContext: RT_TestBed.rootContext,
+        flagCleanParentContents: false,
+      );
+
+      expect(RT_TestBed.rootElement, RT_hasContents('1|2|3|4'));
+    });
+
+    test('should continue to append new widgets when clean flag is off', () {
+      Framework.buildChildren(
+        widgets: [Text('1')],
+        parentContext: RT_TestBed.rootContext,
+        flagCleanParentContents: true,
+      );
+
+      Framework.buildChildren(
+        widgets: [
+          Text('2'),
+          Text('3'),
+        ],
+        parentContext: RT_TestBed.rootContext,
+        flagCleanParentContents: false,
+      );
+
+      Framework.buildChildren(
+        widgets: [Text('4')],
+        parentContext: RT_TestBed.rootContext,
+        flagCleanParentContents: false,
+      );
+
+      expect(RT_TestBed.rootElement, RT_hasContents('1|2|3|4'));
+    });
+
+    test('should mount at given index when clean flag is off', () {
+      Framework.buildChildren(
+        widgets: [
+          Text('1'),
+          Text('3'),
+          Text('4'),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      Framework.buildChildren(
+        widgets: [Text('2')],
+        parentContext: RT_TestBed.rootContext,
+        mountAtIndex: 1,
+        flagCleanParentContents: false,
+      );
+
+      expect(RT_TestBed.rootElement, RT_hasContents('1|2|3|4'));
+    });
+
+    test('should append if mount index is out of bounds', () {
+      Framework.buildChildren(
+        widgets: [
+          Text('1'),
+          Text('3'),
+          Text('4'),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      Framework.buildChildren(
+        widgets: [Text('2')],
+        parentContext: RT_TestBed.rootContext,
+        mountAtIndex: 5,
+        flagCleanParentContents: false,
+      );
+
+      Framework.buildChildren(
+        widgets: [Text('-1')],
+        parentContext: RT_TestBed.rootContext,
+        mountAtIndex: -5,
+        flagCleanParentContents: false,
+      );
+
+      expect(RT_TestBed.rootElement, RT_hasContents('1|3|4|2|-1'));
+    });
+
+    test('should append if mount index is provided but clean flag is not set',
+        () {
+      Framework.buildChildren(
+        widgets: [
+          Text('1'),
+          Text('3'),
+          Text('4'),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      Framework.buildChildren(
+        widgets: [Text('2')],
+        parentContext: RT_TestBed.rootContext,
+        mountAtIndex: 5,
+      );
+
+      expect(RT_TestBed.rootElement, RT_hasContents('2'));
+    });
+
+    test('should append if mount index is provided but clean flag is on', () {
+      Framework.buildChildren(
+        widgets: [
+          Text('1'),
+          Text('3'),
+          Text('4'),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      Framework.buildChildren(
+        widgets: [Text('2')],
+        parentContext: RT_TestBed.rootContext,
+        mountAtIndex: 5,
+        flagCleanParentContents: true,
+      );
+
+      expect(RT_TestBed.rootElement, RT_hasContents('2'));
+    });
   });
 }
