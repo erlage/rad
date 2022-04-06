@@ -139,6 +139,32 @@ void main() {
       );
     });
 
+    test('method call should be idempotent', () {
+      Framework.buildChildren(
+        widgets: [
+          RT_TestWidget(key: 'app-widget'),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      Framework.disposeWidget(
+        widgetObject: Framework.getWidgetObject('app-widget'),
+        preserveTarget: false,
+      );
+
+      Framework.disposeWidget(
+        widgetObject: Framework.getWidgetObject('app-widget'),
+        preserveTarget: false,
+      );
+
+      Framework.disposeWidget(
+        widgetObject: Framework.getWidgetObject('app-widget'),
+        preserveTarget: false,
+      );
+
+      expect(null == Framework.getWidgetObject('app-widget'), equals(true));
+    });
+
     test('should preserve target(parent) when asked to', () {
       Framework.buildChildren(
         widgets: [
