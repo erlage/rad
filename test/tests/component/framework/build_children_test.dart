@@ -561,6 +561,42 @@ void main() {
       expect(RT_TestBed.rootElement, RT_hasContents('1|2|3|4'));
     });
 
+    test('should mount at start', () {
+      Framework.buildChildren(
+        widgets: [
+          Text('0'),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      Framework.buildChildren(
+        widgets: [Text('insert at start')],
+        parentContext: RT_TestBed.rootContext,
+        mountAtIndex: 0,
+        flagCleanParentContents: false,
+      );
+
+      expect(RT_TestBed.rootElement, RT_hasContents('insert at start|0'));
+    });
+
+    test('should mount at end', () {
+      Framework.buildChildren(
+        widgets: [
+          Text('0'),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      Framework.buildChildren(
+        widgets: [Text('insert at end')],
+        parentContext: RT_TestBed.rootContext,
+        mountAtIndex: 1,
+        flagCleanParentContents: false,
+      );
+
+      expect(RT_TestBed.rootElement, RT_hasContents('0|insert at end'));
+    });
+
     test('should append if mount index is out of bounds', () {
       Framework.buildChildren(
         widgets: [
