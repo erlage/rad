@@ -54,15 +54,28 @@ class WidgetObject {
     );
 
     if (null != parentElement) {
-      if (null != mountAtIndex &&
-          parentElement.children.length > mountAtIndex) {
-        parentElement.insertBefore(
-          element,
-          parentElement.children[mountAtIndex],
-        );
-      } else {
-        parentElement.append(element);
+      // if mount is requested at a specific index
+
+      if (null != mountAtIndex) {
+        // if index is available
+
+        if (mountAtIndex > 0 && parentElement.children.length > mountAtIndex) {
+          // mount at specific index
+
+          parentElement.insertBefore(
+            element,
+            parentElement.children[mountAtIndex],
+          );
+
+          _isMounted = true;
+
+          return;
+        }
       }
+
+      // else append
+
+      parentElement.append(element);
 
       _isMounted = true;
     } else {
