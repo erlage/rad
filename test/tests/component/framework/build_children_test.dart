@@ -597,6 +597,42 @@ void main() {
       expect(RT_TestBed.rootElement, RT_hasContents('0|insert at end'));
     });
 
+    test('should mount at start if there are no exisiting widgets', () {
+      Framework.buildChildren(
+        widgets: [],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      expect(RT_TestBed.rootElement, RT_hasContents(''));
+
+      Framework.buildChildren(
+        widgets: [Text('insert at start')],
+        parentContext: RT_TestBed.rootContext,
+        mountAtIndex: 0,
+        flagCleanParentContents: false,
+      );
+
+      expect(RT_TestBed.rootElement, RT_hasContents('insert at start'));
+    });
+
+    test('should mount at start if no exisiting widgets and index is OOBs', () {
+      Framework.buildChildren(
+        widgets: [],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      expect(RT_TestBed.rootElement, RT_hasContents(''));
+
+      Framework.buildChildren(
+        widgets: [Text('insert at start')],
+        parentContext: RT_TestBed.rootContext,
+        mountAtIndex: 10,
+        flagCleanParentContents: false,
+      );
+
+      expect(RT_TestBed.rootElement, RT_hasContents('insert at start'));
+    });
+
     test('should append if mount index is out of bounds', () {
       Framework.buildChildren(
         widgets: [
