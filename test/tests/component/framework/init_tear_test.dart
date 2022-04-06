@@ -7,9 +7,9 @@ import '../../../fixers/test_bed.dart';
 
 /*
 |--------------------------------------------------------------------------
-| Component test for core/classes/framework.dart
+| Component tests for core/classes/framework.dart
 |
-| Initialization and Tear down tests.
+| Methods to test in this file: init() and tearDown()
 |--------------------------------------------------------------------------
 */
 
