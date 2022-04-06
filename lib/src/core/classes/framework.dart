@@ -54,7 +54,7 @@ class Framework {
 
     Router.tearDown();
 
-    _registeredWidgetObjects.clear();
+    clearWidgetObjects();
 
     _isInit = false;
   }
@@ -743,5 +743,13 @@ class Framework {
     var widgetKey = widgetObject.renderObject.context.key;
 
     _registeredWidgetObjects.remove(widgetKey);
+  }
+
+  static void clearWidgetObjects() {
+    var widgetKeys = _registeredWidgetObjects.keys.toList();
+
+    for (var widgetKey in widgetKeys) {
+      disposeWidget(widgetObject: getWidgetObject(widgetKey));
+    }
   }
 }
