@@ -147,6 +147,10 @@ void main() {
         parentContext: RT_TestBed.rootContext,
       );
 
+      // widget should be ready for dispose by now
+
+      expect(null == Framework.getWidgetObject('app-widget'), equals(false));
+
       Framework.disposeWidget(
         widgetObject: Framework.getWidgetObject('app-widget'),
         preserveTarget: false,
