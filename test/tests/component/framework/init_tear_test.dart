@@ -10,7 +10,6 @@ import '../../../fixers/test_bed.dart';
 | Component test for core/classes/framework.dart
 |
 | Initialization and Tear down tests.
-|
 |--------------------------------------------------------------------------
 */
 

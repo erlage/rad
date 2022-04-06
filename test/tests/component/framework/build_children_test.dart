@@ -141,31 +141,6 @@ void main() {
       expect(RT_TestBed.rootElement, RT_hasContents('c1|c2|c3|c4|c5|c6'));
     });
 
-    test('should not build/clean when provided no widgets', () {
-      // Why not?
-      //
-      // 1. buildChildren is meant for the initial render, and it should contains
-      //    as little work as possible.
-      //
-      // 2. since updateChildren is dealing with the updates and dispatching cleaning
-      //    jobs we can skip that in this method.
-      //
-
-      Framework.buildChildren(
-        widgets: [
-          Text('this should presist'),
-        ],
-        parentContext: RT_TestBed.rootContext,
-      );
-
-      Framework.buildChildren(
-        widgets: [],
-        parentContext: RT_TestBed.rootContext,
-      );
-
-      expect(RT_TestBed.rootElement, RT_hasContents('this should presist'));
-    });
-
     test('should register widget object', () {
       Framework.buildChildren(
         widgets: [
@@ -377,7 +352,36 @@ void main() {
       expect(testStack.canPop(), equals(false));
     });
 
-    test('should dispose existing widgets', () {
+    test('should not dispose existing widgets when provided empty widget list',
+        () {
+      // Why not?
+      //
+      // 1. buildChildren is mostly used for the initial render, and it should contains
+      //    as little work as possible.
+      //
+      // 2. since updateChildren is dealing with the updates and dispatching cleaning
+      //    jobs we can skip that in this method.
+      //
+
+      Framework.buildChildren(
+        widgets: [
+          Text('this should presist'),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      // try building, and provide no widgets to build
+
+      Framework.buildChildren(
+        widgets: [],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      expect(RT_TestBed.rootElement, RT_hasContents('this should presist'));
+    });
+
+    test('should dispose existing widgets when provided non-empty widgets list',
+        () {
       // create a test app widget.
       // containing some child widgets to test.
 
