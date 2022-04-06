@@ -59,7 +59,7 @@ class WidgetObject {
       if (null != mountAtIndex) {
         // if index is available
 
-        if (mountAtIndex > 0 && parentElement.children.length > mountAtIndex) {
+        if (mountAtIndex >= 0 && parentElement.children.length > mountAtIndex) {
           // mount at specific index
 
           parentElement.insertBefore(
