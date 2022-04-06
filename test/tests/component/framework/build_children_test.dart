@@ -624,7 +624,7 @@ void main() {
       expect(RT_TestBed.rootElement, RT_hasContents('1|3|4|2|-1'));
     });
 
-    test('should append if mount index is provided but clean flag is not set',
+    test('should append if mount index is provided and clean flag is not set',
         () {
       Framework.buildChildren(
         widgets: [
@@ -644,7 +644,8 @@ void main() {
       expect(RT_TestBed.rootElement, RT_hasContents('2'));
     });
 
-    test('should append if mount index is provided but clean flag is on', () {
+    test('should clean & build if mount index is provided but clean flag is on',
+        () {
       Framework.buildChildren(
         widgets: [
           Text('1'),
