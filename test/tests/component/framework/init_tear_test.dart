@@ -1,9 +1,11 @@
+import 'package:rad/rad.dart';
 import 'package:test/scaffolding.dart';
 import 'package:test/expect.dart';
 
 import 'package:rad/src/core/classes/framework.dart';
 
 import '../../../fixers/test_bed.dart';
+import '../../../matchers/has_contents.dart';
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +41,33 @@ void main() {
           ),
         ),
       );
+    });
+
+    test('tearDown() should dispose widgets from document', () {
+      Framework.init(routingPath: '');
+
+      // build widgets to test
+
+      Framework.buildChildren(
+        widgets: [
+          Text('some text from widget', key: 'test-widget'),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      // test widget should be built by now
+
+      expect(null == Framework.getWidgetObject('test-widget'), equals(false));
+
+      expect(RT_TestBed.rootElement, RT_hasContents('some text from widget'));
+
+      Framework.tearDown();
+
+      // test widget built above should be disposed by now
+
+      expect(null == Framework.getWidgetObject('test-widget'), equals(true));
+
+      expect(RT_TestBed.rootElement, RT_hasContents(''));
     });
 
     test('buildChildren() should throw if not initialized', () {
