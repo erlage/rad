@@ -1,10 +1,11 @@
 import 'dart:html';
 
+import 'package:rad/src/core/enums.dart';
+import 'package:rad/src/core/constants.dart';
+import 'package:rad/src/core/services/utils.dart';
+import 'package:rad/src/core/foundation/walker/walker.dart';
 import 'package:rad/src/core/services/debug.dart';
 import 'package:rad/src/core/services/registry.dart';
-import 'package:rad/src/core/services/utils.dart';
-import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/common/widget_action_object.dart';
 import 'package:rad/src/core/foundation/common/widget_object.dart';
@@ -17,14 +18,12 @@ import 'package:rad/src/core/foundation/scheduler/tasks/widgets_dispose_task.dar
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_manage_task.dart';
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_update_dependent_task.dart';
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_update_task.dart';
-import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/inherited_widget.dart';
-import 'package:rad/src/widgets/stateful_widget.dart';
+import 'package:rad/src/core/types.dart';
 
 class Framework {
+  final _treeWalker = Walker();
   final _taskScheduler = Scheduler();
-  final _registeredWidgetObjects = <String, WidgetObject>{};
 
   /// Whether a framework task is in processing.
   ///
@@ -43,8 +42,10 @@ class Framework {
   void init(BuildContext context) {
     _rootContext = context;
 
+    _treeWalker.init();
     _taskScheduler.init(_taskProcessor);
 
+    Registry.instance.registerTreeWalker(rootContext, _treeWalker);
     Registry.instance.registerTaskScheduler(rootContext, _taskScheduler);
   }
 
@@ -53,79 +54,24 @@ class Framework {
   /// Should be called only during testing.
   ///
   void tearDown() {
-    clearWidgetObjects();
+    // gracefully dispose widgets
+
+    var widgetKeys = _treeWalker.dumpWidgetKeys();
+
+    for (var widgetKey in widgetKeys) {
+      disposeWidget(widgetObject: _treeWalker.getWidgetObject(widgetKey));
+    }
+
+    // dispose instances
+
+    _treeWalker.tearDown();
 
     _taskScheduler.tearDown();
 
+    // un register instances from global registry
+
+    Registry.instance.unRegisterTreeWalker(rootContext);
     Registry.instance.unRegisterTaskScheduler(rootContext);
-  }
-
-  T? findAncestorWidgetOfExactType<T>(
-    BuildContext context,
-  ) {
-    var selector = "[data-${System.attrRuntimeType}='$T']";
-
-    var widgetObject = findAncestorWidgetObjectFromSelector(selector, context);
-
-    if (null != widgetObject) {
-      return widgetObject.widget as T;
-    }
-
-    return null;
-  }
-
-  T? findAncestorStateOfType<T>(
-    BuildContext context,
-  ) {
-    var selector = "[data-${System.attrStateType}='$T']";
-
-    var widgetObject = findAncestorWidgetObjectFromSelector(selector, context);
-
-    if (null != widgetObject) {
-      var renderObject =
-          widgetObject.renderObject as StatefulWidgetRenderObject;
-
-      return (renderObject).state as T;
-    }
-
-    return null;
-  }
-
-  WidgetObject? findAncestorWidgetObjectOfType<T>(
-    BuildContext context,
-  ) {
-    var selector = "[data-${System.attrRuntimeType}='$T']";
-
-    return findAncestorWidgetObjectFromSelector(selector, context);
-  }
-
-  WidgetObject? findAncestorWidgetObjectOfClass<T>(
-    BuildContext context,
-  ) {
-    var selector = "[data-${System.attrConcreteType}='$T']";
-
-    return findAncestorWidgetObjectFromSelector(selector, context);
-  }
-
-  T? dependOnInheritedWidgetOfExactType<T>(
-    BuildContext context,
-  ) {
-    var selector = "[data-${System.attrRuntimeType}='$T']"
-        "[data-${System.attrConcreteType}='$InheritedWidget']";
-
-    var widgetObject = findAncestorWidgetObjectFromSelector(selector, context);
-
-    if (null != widgetObject) {
-      var inheritedRenderObject = widgetObject.renderObject;
-
-      inheritedRenderObject as InheritedWidgetRenderObject;
-
-      inheritedRenderObject.addDependent(context);
-
-      return widgetObject.widget as T;
-    }
-
-    return null;
   }
 
   /// Build children under given context.
@@ -163,7 +109,7 @@ class Framework {
       } else {
         disposeWidget(
           flagPreserveTarget: true,
-          widgetObject: getWidgetObject(parentContext.key),
+          widgetObject: _treeWalker.getWidgetObject(parentContext.key),
         );
       }
     }
@@ -213,7 +159,7 @@ class Framework {
         renderObject: renderObject,
       );
 
-      registerWidgetObject(widgetObject);
+      _treeWalker.registerWidgetObject(widgetObject);
 
       widgetObject.renderObject.beforeMount();
 
@@ -336,7 +282,7 @@ class Framework {
         if (!updateObjects.containsKey(childElement.id)) {
           if (flagDisposeObsoluteChildren) {
             disposeWidget(
-              widgetObject: getWidgetObject(childElement.id),
+              widgetObject: _treeWalker.getWidgetObject(childElement.id),
               flagPreserveTarget: false,
             );
           } else if (flagHideObsoluteChildren) {
@@ -354,7 +300,7 @@ class Framework {
       var updateObject = updateObjects[elementId]!;
 
       if (null != updateObject.existingElementId) {
-        var widgetObject = getWidgetObject(elementId);
+        var widgetObject = _treeWalker.getWidgetObject(elementId);
 
         // if found
 
@@ -478,7 +424,7 @@ class Framework {
     //
     bool flagIterateInReverseOrder = false,
   }) {
-    var widgetObject = getWidgetObject(parentContext.key);
+    var widgetObject = _treeWalker.getWidgetObject(parentContext.key);
 
     if (null == widgetObject) return;
 
@@ -488,7 +434,7 @@ class Framework {
     for (final child in flagIterateInReverseOrder
         ? widgetObject.element.children.reversed
         : widgetObject.element.children) {
-      var childWidgetObject = getWidgetObject(child.id);
+      var childWidgetObject = _treeWalker.getWidgetObject(child.id);
 
       if (null != childWidgetObject) {
         var widgetActions = widgetActionCallback(childWidgetObject);
@@ -557,7 +503,7 @@ class Framework {
   /// Update a dependent widget(using its context).
   ///
   void updateDependentContext(BuildContext context) {
-    var widgetObject = getWidgetObject(context.key);
+    var widgetObject = _treeWalker.getWidgetObject(context.key);
 
     if (null != widgetObject) {
       widgetObject.renderObject.update(
@@ -587,7 +533,9 @@ class Framework {
 
     if (widgetObject.element.hasChildNodes()) {
       for (final childElement in widgetObject.element.children) {
-        disposeWidget(widgetObject: getWidgetObject(childElement.id));
+        disposeWidget(
+          widgetObject: _treeWalker.getWidgetObject(childElement.id),
+        );
       }
     }
 
@@ -607,83 +555,12 @@ class Framework {
 
     widgetObject.renderObject.beforeUnMount();
 
-    unRegisterWidgetObject(widgetObject);
+    _treeWalker.unRegisterWidgetObject(widgetObject);
 
     widgetObject.element.remove();
 
     if (Debug.widgetLogs) {
       print("Dispose: ${widgetObject.context}");
-    }
-  }
-
-  WidgetObject? findAncestorWidgetObjectFromSelector(
-    String selector,
-    BuildContext context,
-  ) {
-    // ensure context is ready for processing.
-    // this happens when user .of(context) is called inside a constructor.
-
-    if (System.contextKeyNotSet == context.key) {
-      Debug.exception(
-        "Part of build context is not ready. This means that context is under construction.",
-      );
-
-      return null;
-    }
-
-    var domNode =
-        document.getElementById(context.key)?.parent?.closest(selector);
-
-    if (null == domNode) {
-      return null;
-    }
-
-    // found. return corresponding widget's object.
-
-    return getWidgetObject(domNode.id);
-  }
-
-  void _hideElement(Element element) {
-    element.classes.add('rad-hidden');
-  }
-
-  void _showElement(Element element) {
-    element.classes.remove('rad-hidden');
-  }
-
-  WidgetObject? getWidgetObject(String widgetId) {
-    return _registeredWidgetObjects[widgetId];
-  }
-
-  void registerWidgetObject(WidgetObject widgetObject) {
-    var widgetKey = widgetObject.renderObject.context.key;
-
-    if (Debug.developmentMode) {
-      if (_registeredWidgetObjects.containsKey(widgetKey)) {
-        return Debug.exception(
-          "Key $widgetKey already exists."
-          "\n\nThis usually happens in two scenarios,"
-          "\n\n1. When you have duplicate keys in your code."
-          "\n\nor\n\n2. When you've two adjacent widgets of same type and one of them is optional."
-          "\n\nCorrect way to fix (2): Use explicit keys on one of the widgets that are of same type.",
-        );
-      }
-    }
-
-    _registeredWidgetObjects[widgetKey] = widgetObject;
-  }
-
-  void unRegisterWidgetObject(WidgetObject widgetObject) {
-    var widgetKey = widgetObject.renderObject.context.key;
-
-    _registeredWidgetObjects.remove(widgetKey);
-  }
-
-  void clearWidgetObjects() {
-    var widgetKeys = _registeredWidgetObjects.keys.toList();
-
-    for (var widgetKey in widgetKeys) {
-      disposeWidget(widgetObject: getWidgetObject(widgetKey));
     }
   }
 
@@ -762,5 +639,13 @@ class Framework {
 
       _taskScheduler.addEvent(SendNextTaskEvent());
     }
+  }
+
+  void _hideElement(Element element) {
+    element.classes.add('rad-hidden');
+  }
+
+  void _showElement(Element element) {
+    element.classes.remove('rad-hidden');
   }
 }

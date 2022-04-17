@@ -294,8 +294,9 @@ class Navigator extends Widget {
     var targetContext = context;
 
     while (true) {
-      var widgetObject =
-          context.framework.findAncestorWidgetObjectOfType<Navigator>(
+      var walker = Registry.instance.getTreeWalker(context);
+
+      var widgetObject = walker.findAncestorWidgetObjectOfType<Navigator>(
         targetContext,
       );
 

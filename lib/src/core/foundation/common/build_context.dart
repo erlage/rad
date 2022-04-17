@@ -1,6 +1,7 @@
 import 'package:rad/src/core/foundation/framework.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
+import 'package:rad/src/core/services/registry.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
@@ -109,14 +110,18 @@ class BuildContext {
   /// type of a concrete [Widget] subclass.
   ///
   T? findAncestorWidgetOfExactType<T extends Widget>() {
-    return framework.findAncestorWidgetOfExactType<T>(this);
+    var walker = Registry.instance.getTreeWalker(this);
+
+    return walker.findAncestorWidgetOfExactType<T>(this);
   }
 
   /// Returns the [State] object of the nearest ancestor [StatefulWidget] widget
   /// that is an instance of the given type `T`.
   ///
   T? findAncestorStateOfType<T extends State>() {
-    return framework.findAncestorStateOfType<T>(this);
+    var walker = Registry.instance.getTreeWalker(this);
+
+    return walker.findAncestorStateOfType<T>(this);
   }
 
   /// Obtains the nearest widget of the given type `T`, which must be the type of a
@@ -126,7 +131,9 @@ class BuildContext {
   /// rebuilt so that it can obtain new values from that widget.
   ///
   T? dependOnInheritedWidgetOfExactType<T extends InheritedWidget>() {
-    return framework.dependOnInheritedWidgetOfExactType<T>(this);
+    var walker = Registry.instance.getTreeWalker(this);
+
+    return walker.dependOnInheritedWidgetOfExactType<T>(this);
   }
 
   @override
