@@ -19,7 +19,11 @@ class Scheduler {
   ///
   final _eventStream = StreamController<SchedulerEvent>();
 
-  Scheduler(SchedulerTaskCallback listener) {
+  /// Initialize scheduler.
+  ///
+  /// This process involved setting up listeners and task streams.
+  ///
+  void init(SchedulerTaskCallback listener) {
     _tasksStream.stream.listen(listener);
     _eventStream.stream.listen(_eventListener);
   }
