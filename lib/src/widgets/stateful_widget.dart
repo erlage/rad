@@ -2,10 +2,14 @@ import 'dart:html';
 
 import 'package:meta/meta.dart';
 import 'package:rad/src/core/classes/debug.dart';
+import 'package:rad/src/core/classes/registry.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/scheduler/scheduler.dart';
+import 'package:rad/src/core/scheduler/tasks/widgets_build_task.dart';
+import 'package:rad/src/core/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateless_widget.dart';
@@ -118,6 +122,7 @@ abstract class StatefulWidget extends Widget {
   createRenderObject(context) => StatefulWidgetRenderObject(
         context: context,
         state: createState(),
+        scheduler: Registry.instance.getTaskScheduler(context),
       );
 }
 
@@ -129,9 +134,11 @@ abstract class StatefulWidget extends Widget {
 
 class StatefulWidgetRenderObject extends RenderObject {
   final State state;
+  final Scheduler scheduler;
 
   const StatefulWidgetRenderObject({
     required this.state,
+    required this.scheduler,
     required BuildContext context,
   }) : super(context);
 
@@ -148,9 +155,11 @@ class StatefulWidgetRenderObject extends RenderObject {
       ..initState()
       ..didChangeDependencies();
 
-    context.framework.buildChildren(
-      widgets: [state.build(context)],
-      parentContext: context,
+    scheduler.addTask(
+      WidgetsBuildTask(
+        parentContext: context,
+        widgets: [state.build(context)],
+      ),
     );
   }
 
@@ -178,10 +187,12 @@ class StatefulWidgetRenderObject extends RenderObject {
   }
 
   void updateProcedure(UpdateType updateType) {
-    context.framework.updateChildren(
-      updateType: updateType,
-      widgets: [state.build(context)],
-      parentContext: context,
+    scheduler.addTask(
+      WidgetsUpdateTask(
+        parentContext: context,
+        updateType: updateType,
+        widgets: [state.build(context)],
+      ),
     );
   }
 

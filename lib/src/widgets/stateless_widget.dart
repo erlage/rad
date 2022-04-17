@@ -1,7 +1,11 @@
 import 'package:meta/meta.dart';
+import 'package:rad/src/core/classes/registry.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/scheduler/scheduler.dart';
+import 'package:rad/src/core/scheduler/tasks/widgets_build_task.dart';
+import 'package:rad/src/core/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
@@ -40,7 +44,10 @@ abstract class StatelessWidget extends Widget {
 
   @nonVirtual
   @override
-  createRenderObject(context) => _StatelessWidgetRenderObject(context);
+  createRenderObject(context) => _StatelessWidgetRenderObject(
+        context: context,
+        scheduler: Registry.instance.getTaskScheduler(context),
+      );
 }
 
 /*
@@ -62,16 +69,23 @@ class _StatelessWidgetConfiguration extends WidgetConfiguration {
 */
 
 class _StatelessWidgetRenderObject extends RenderObject {
-  const _StatelessWidgetRenderObject(BuildContext context) : super(context);
+  final Scheduler scheduler;
+
+  const _StatelessWidgetRenderObject({
+    required this.scheduler,
+    required BuildContext context,
+  }) : super(context);
 
   @override
   render(
     element,
     covariant _StatelessWidgetConfiguration configuration,
   ) {
-    context.framework.buildChildren(
-      widgets: [configuration.widgetBuilder(context)],
-      parentContext: context,
+    scheduler.addTask(
+      WidgetsBuildTask(
+        parentContext: context,
+        widgets: [configuration.widgetBuilder(context)],
+      ),
     );
   }
 
@@ -82,10 +96,12 @@ class _StatelessWidgetRenderObject extends RenderObject {
     required oldConfiguration,
     required covariant _StatelessWidgetConfiguration newConfiguration,
   }) {
-    context.framework.updateChildren(
-      updateType: updateType,
-      widgets: [newConfiguration.widgetBuilder(context)],
-      parentContext: context,
+    scheduler.addTask(
+      WidgetsUpdateTask(
+        updateType: updateType,
+        parentContext: context,
+        widgets: [newConfiguration.widgetBuilder(context)],
+      ),
     );
   }
 }
