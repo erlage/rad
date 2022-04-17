@@ -14,6 +14,10 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 class BuildContext {
   final String key;
 
+  /// ID of root HTML element where App(that's enclosing this context) is mounted.
+  ///
+  final String appTargetKey;
+
   /// Runtime type of widget class.
   ///
   final String widgetRuntimeType;
@@ -54,7 +58,8 @@ class BuildContext {
     required Widget widget,
     required BuildContext parentContext,
   })  : _widget = widget,
-        _parent = parentContext;
+        _parent = parentContext,
+        appTargetKey = parentContext.appTargetKey;
 
   /// Create root context.
   ///
@@ -68,6 +73,7 @@ class BuildContext {
   BuildContext.bigBang(this.key, this.framework)
       : _widget = null,
         _parent = null,
+        appTargetKey = key,
         widgetCorrespondingTag = DomTag.division,
         widgetConcreteType = System.contextTypeBigBang,
         widgetRuntimeType = System.contextTypeBigBang;
