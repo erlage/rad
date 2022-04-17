@@ -3,14 +3,18 @@ import 'package:rad/rad.dart';
 import 'settings_page.dart';
 
 void main() {
-  RadApp(
-    targetKey: "output",
-    child: RootPage(),
+  startApp(
+    RadApp(child: RootPage()),
+    'output',
     debugOptions: DebugOptions(
       widgetLogs: true,
       developmentMode: true,
     ),
+    beforeMount: () {
+      // loading additional Components eg. reset CSS, update global meta tags etc
+    },
   );
+  // additionalComponents?.load()
 }
 
 class RootPage extends StatefulWidget {

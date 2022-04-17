@@ -1,7 +1,6 @@
-name: rad
-version: 0.8.0-dev
-description: >
-  A zero-dependency frontend framework for writing web apps in plain Dart. Inspired from Flutter.
+name: rad_example
+
+version: 0.7.1
 
 homepage: https://github.com/erlage/rad
 documentation: https://github.com/erlage/rad#readme
@@ -12,8 +11,8 @@ environment:
 platforms:
   web:
 
-dependencies: 
-  meta: ^1.7.0
+dependencies:
+  rad:
 
 dev_dependencies:
   build: ^2.2.1
@@ -21,3 +20,7 @@ dev_dependencies:
   build_web_compilers: ^3.2.1
   lints: ^1.0.0
   test: ^1.20.2
+
+dependency_overrides:
+  rad:
+    path: ../

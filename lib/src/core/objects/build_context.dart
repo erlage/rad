@@ -44,12 +44,15 @@ class BuildContext {
 
   bool hasParent() => null != _parent;
   bool hasWidget() => null != _widget;
+  
+  final Framework framework;
 
   BuildContext({
     required this.key,
     required this.widgetConcreteType,
     required this.widgetCorrespondingTag,
     required this.widgetRuntimeType,
+    required this.framework,
     required Widget widget,
     required BuildContext parent,
   })  : _widget = widget,
@@ -64,7 +67,7 @@ class BuildContext {
   /// its type is undefined because at the time of big bang there
   /// are no widgets.
   ///
-  BuildContext.bigBang(this.key)
+  BuildContext.bigBang(this.key, this.framework)
       : _widget = null,
         _parent = null,
         widgetCorrespondingTag = DomTag.division,
@@ -75,14 +78,14 @@ class BuildContext {
   /// type of a concrete [Widget] subclass.
   ///
   T? findAncestorWidgetOfExactType<T extends Widget>() {
-    return Framework.findAncestorWidgetOfExactType<T>(this);
+    return framework.findAncestorWidgetOfExactType<T>(this);
   }
 
   /// Returns the [State] object of the nearest ancestor [StatefulWidget] widget
   /// that is an instance of the given type `T`.
   ///
   T? findAncestorStateOfType<T extends State>() {
-    return Framework.findAncestorStateOfType<T>(this);
+    return framework.findAncestorStateOfType<T>(this);
   }
 
   /// Obtains the nearest widget of the given type `T`, which must be the type of a
@@ -92,16 +95,16 @@ class BuildContext {
   /// rebuilt so that it can obtain new values from that widget.
   ///
   T? dependOnInheritedWidgetOfExactType<T extends InheritedWidget>() {
-    return Framework.dependOnInheritedWidgetOfExactType<T>(this);
+    return framework.dependOnInheritedWidgetOfExactType<T>(this);
   }
 
   @override
   String toString() {
-    var cType = widget.concreteType;
-    var rType = "${widget.runtimeType}";
+    var cType = _widget?.concreteType;
+    var rType = "${_widget?.runtimeType}";
 
     var pType = cType != rType ? "$rType ($cType)" : rType;
 
-    return "#$key $pType < #${parent.key}";
+    return "#$key $pType < #${_parent?.key}";
   }
 }

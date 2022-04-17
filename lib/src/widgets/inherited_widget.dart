@@ -1,9 +1,8 @@
 import 'package:meta/meta.dart';
 import 'package:rad/src/core/classes/debug.dart';
-import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Base class for widgets that efficiently propagate information down the tree.
@@ -113,7 +112,7 @@ class InheritedWidgetRenderObject extends RenderObject {
       var unavailableWidgetKeys = <String>[];
 
       dependents.forEach((widgetKey, widgetContext) {
-        var isUpdated = Framework.updateWidgetHavingContext(widgetContext);
+        var isUpdated = widgetContext.framework.updateWidgetHavingContext(widgetContext);
 
         if (!isUpdated) {
           unavailableWidgetKeys.add(widgetContext.key);

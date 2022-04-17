@@ -1,18 +1,18 @@
-targets: 
-  $default: 
-    builders: 
-      rad|styles: 
-        generate_for: 
-         - lib/src/css/** 
-        enabled: True 
+targets:
+  $default:
+    builders:
+      rad|styles:
+        generate_for:
+         - lib/src/css/**
+        enabled: False
 
-builders: 
+builders:
 
-  styles: 
-    import: 'tool/styles_builder.dart' 
-    builder_factories: ['styles'] 
-    build_extensions: 
-      .css: 
-       - .generated.dart 
-    build_to: source 
+  styles:
+    import: 'tool/styles_builder.dart'
+    builder_factories: ['styles']
+    build_extensions:
+      .css:
+       - .generated.dart
+    build_to: source
     auto_apply: root_package

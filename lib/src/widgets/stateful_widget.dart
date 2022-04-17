@@ -1,11 +1,11 @@
 import 'dart:html';
+
 import 'package:meta/meta.dart';
 import 'package:rad/src/core/classes/debug.dart';
-import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateless_widget.dart';
@@ -148,7 +148,7 @@ class StatefulWidgetRenderObject extends RenderObject {
       ..initState()
       ..didChangeDependencies();
 
-    Framework.buildChildren(
+    context.framework.buildChildren(
       widgets: [state.build(context)],
       parentContext: context,
     );
@@ -178,7 +178,7 @@ class StatefulWidgetRenderObject extends RenderObject {
   }
 
   void updateProcedure(UpdateType updateType) {
-    Framework.updateChildren(
+    context.framework.updateChildren(
       updateType: updateType,
       widgets: [state.build(context)],
       parentContext: context,

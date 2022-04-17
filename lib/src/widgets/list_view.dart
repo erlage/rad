@@ -1,12 +1,10 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/types.dart';
-
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/html/division.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
@@ -319,7 +317,7 @@ class _ListViewBuilderState {
         var itemsToGenerate = renderUptoIndex - currentIndex;
 
         if (itemsToGenerate > 0) {
-          Framework.updateChildren(
+          context.framework.updateChildren(
             widgets: List.generate(
               itemsToGenerate,
               (i) => Division(
@@ -382,7 +380,7 @@ class _ListViewBuilderState {
   void frameworkRender() {
     _initObserver();
 
-    Framework.buildChildren(
+    context.framework.buildChildren(
       widgets: List.generate(
         renderUptoIndex,
         (i) => Division(
@@ -398,7 +396,7 @@ class _ListViewBuilderState {
   }
 
   void frameworkUpdate(UpdateType updateType) {
-    Framework.updateChildren(
+    context.framework.updateChildren(
       widgets: List.generate(
         renderUptoIndex,
         (i) => Division(
