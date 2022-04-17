@@ -28,6 +28,15 @@ class Scheduler {
     _eventStream.stream.listen(_eventListener);
   }
 
+  /// TearDown task schedular.
+  ///
+  /// It should be called only during testing.
+  ///
+  void tearDown() {
+    _tasksStream.close();
+    _eventStream.close();
+  }
+
   /// Add a event to task scheduler.
   ///
   void addEvent(SchedulerEvent event) {

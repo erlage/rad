@@ -30,31 +30,34 @@ class Framework {
   ///
   var _isTaskInProcessing = false;
 
+  BuildContext? _rootContext;
+  BuildContext get rootContext => _rootContext!;
+
   /// Initialize framework.
   ///
-  /// It's startApp's job to call this method as first task. Each app instance should have
-  /// exactly one corresponding framework instance.
+  /// Each app instance should have exactly one corresponding framework instance.
   ///
   /// Typically, startApp creates root context(for app) and provide it to framework instance
   /// via this method. Framework will register all services that depends on app's root context.
   ///
-  void init(BuildContext rootContext) {
-    // init task scheduler.
+  void init(BuildContext context) {
+    _rootContext = context;
 
     _taskScheduler.init(_taskProcessor);
-
-    // register scheduler.
 
     Registry.instance.registerTaskScheduler(rootContext, _taskScheduler);
   }
 
   /// Tear down framework state.
   ///
-  /// Since methods in this class are static, we need a way to initialize
-  /// and destroy framework state.
+  /// Should be called only during testing.
   ///
   void tearDown() {
     clearWidgetObjects();
+
+    _taskScheduler.tearDown();
+
+    Registry.instance.unRegisterTaskScheduler(rootContext);
   }
 
   T? findAncestorWidgetOfExactType<T>(

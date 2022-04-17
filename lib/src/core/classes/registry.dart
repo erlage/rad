@@ -11,6 +11,8 @@ class Registry {
 
   final _taskSchedulers = <String, Scheduler>{};
 
+  /// Add a reference of task scheduler corresponding to app root context.
+  ///
   void registerTaskScheduler(BuildContext context, Scheduler scheduler) {
     if (_taskSchedulers.containsKey(context.appTargetKey)) {
       Debug.exception(
@@ -23,6 +25,8 @@ class Registry {
     _taskSchedulers[context.appTargetKey] = scheduler;
   }
 
+  /// Find a scheduler that's enclosing give context.
+  ///
   Scheduler getTaskScheduler(BuildContext context) {
     var scheduler = _taskSchedulers[context.appTargetKey];
 
@@ -38,5 +42,11 @@ class Registry {
     }
 
     return scheduler;
+  }
+
+  /// Remove the reference of task scheduler from registered schedulers.
+  ///
+  void unRegisterTaskScheduler(BuildContext context) {
+    _taskSchedulers.remove(context.appTargetKey);
   }
 }
