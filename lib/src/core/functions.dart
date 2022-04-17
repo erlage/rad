@@ -51,7 +51,7 @@ void startApp({
 
   // Create root context for app.
 
-  var rootContext = BuildContext.bigBang(targetSelector, framework);
+  var rootContext = BuildContext.bigBang(targetSelector);
 
   // Initialize framework.
 

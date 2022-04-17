@@ -34,10 +34,6 @@ class BuildContext {
   ///
   final DomTag widgetCorrespondingTag;
 
-  /// Framework's instance.
-  ///
-  final Framework framework;
-
   final BuildContext? _parent;
 
   Widget? _widget;
@@ -71,7 +67,6 @@ class BuildContext {
     required this.widgetConcreteType,
     required this.widgetCorrespondingTag,
     required this.widgetRuntimeType,
-    required this.framework,
     required Widget widget,
     required BuildContext parentContext,
   })  : _widget = widget,
@@ -87,7 +82,7 @@ class BuildContext {
   /// its type is undefined because at the time of big bang there
   /// are no widgets.
   ///
-  BuildContext.bigBang(this.key, this.framework)
+  BuildContext.bigBang(this.key)
       : _widget = null,
         _parent = null,
         appTargetKey = key,

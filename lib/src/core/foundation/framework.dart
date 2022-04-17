@@ -141,7 +141,6 @@ class Framework {
         widgetConcreteType: widget.concreteType,
         widgetCorrespondingTag: widget.correspondingTag,
         widgetRuntimeType: "${widget.runtimeType}",
-        framework: this,
       );
 
       // create render object
