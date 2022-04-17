@@ -7,7 +7,7 @@ class RT_IsLowerCase extends Matcher {
   matches(covariant String item, void _) => item.toLowerCase() == item;
 
   @override
-  describe(Description description) {
+  describe(description) {
     description.add('is lowercase');
 
     return description;

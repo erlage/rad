@@ -18,11 +18,13 @@ import 'package:rad/src/widgets/utils/common_props.dart';
 class _AppFrameworkWidget extends InheritedWidget {
   final Framework framework;
 
-  const _AppFrameworkWidget({required Widget child, required this.framework})
-      : super(child: child);
+  const _AppFrameworkWidget({
+    required Widget child,
+    required this.framework,
+  }) : super(child: child);
 
   @override
-  bool updateShouldNotify(covariant _AppFrameworkWidget oldWidget) {
+  updateShouldNotify(covariant _AppFrameworkWidget oldWidget) {
     return false;
   }
 }
@@ -33,11 +35,16 @@ void startApp({
   DebugOptions debugOptions = DebugOptions.defaultMode,
   VoidCallback? beforeMount,
 }) {
-  final framework = Framework();
-  final fwWidget = _AppFrameworkWidget(child: app, framework: framework);
+  var framework = Framework();
+
+  var appFrameworkWidget = _AppFrameworkWidget(
+    child: app,
+    framework: framework,
+  );
+
   framework.init(routingPath: '/', debugOptions: debugOptions);
 
-  final targetElement = document.getElementById(targetSelector) as HtmlElement?;
+  var targetElement = document.getElementById(targetSelector) as HtmlElement?;
 
   if (null == targetElement) {
     Debug.exception(
@@ -55,7 +62,7 @@ void startApp({
   });
 
   framework.buildChildren(
-    widgets: [fwWidget],
+    widgets: [appFrameworkWidget],
     parentContext: BuildContext.bigBang(targetSelector, framework),
   );
 }
