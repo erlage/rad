@@ -242,10 +242,10 @@ class Framework {
 
       // create build context
 
-      var buildContext = BuildContext(
+      var buildContext = BuildContext.fromParent(
         key: widgetKey,
         widget: widget,
-        parent: parentContext,
+        parentContext: parentContext,
         widgetConcreteType: widget.concreteType,
         widgetCorrespondingTag: widget.correspondingTag,
         widgetRuntimeType: "${widget.runtimeType}",

@@ -29,34 +29,32 @@ class BuildContext {
   ///
   final DomTag widgetCorrespondingTag;
 
-  /// reference to context of parent's widget
+  /// Framework's instance.
   ///
-  /// accessing will results in error if [widgetRuntimeType] is [System.contextTypeBigBang]
-  ///
-  BuildContext get parent => _parent!;
-  final BuildContext? _parent;
-
-  /// Widget is the only mutable property in build context.
-  ///
-  Widget get widget => _widget!;
-  Widget? _widget;
-  void rebindWidget(Widget widget) => _widget = widget;
-
-  bool hasParent() => null != _parent;
-  bool hasWidget() => null != _widget;
-
   final Framework framework;
 
-  BuildContext({
+  final BuildContext? _parent;
+
+  Widget? _widget;
+
+  /*
+  |--------------------------------------------------------------------------
+  | constructors
+  |--------------------------------------------------------------------------
+  */
+
+  /// Create build context from parent.
+  ///
+  BuildContext.fromParent({
     required this.key,
     required this.widgetConcreteType,
     required this.widgetCorrespondingTag,
     required this.widgetRuntimeType,
     required this.framework,
     required Widget widget,
-    required BuildContext parent,
+    required BuildContext parentContext,
   })  : _widget = widget,
-        _parent = parent;
+        _parent = parentContext;
 
   /// Create root context.
   ///
@@ -73,6 +71,33 @@ class BuildContext {
         widgetCorrespondingTag = DomTag.division,
         widgetConcreteType = System.contextTypeBigBang,
         widgetRuntimeType = System.contextTypeBigBang;
+
+  /*
+  |--------------------------------------------------------------------------
+  | getters
+  |--------------------------------------------------------------------------
+  */
+
+  /// reference to context of parent's widget
+  ///
+  /// accessing will results in error if [widgetRuntimeType] is [System.contextTypeBigBang]
+  ///
+  BuildContext get parent => _parent!;
+
+  /// Widget is the only mutable property in build context.
+  ///
+  Widget get widget => _widget!;
+
+  /*
+  |--------------------------------------------------------------------------
+  | methods
+  |--------------------------------------------------------------------------
+  */
+
+  bool hasParent() => null != _parent;
+  bool hasWidget() => null != _widget;
+
+  void rebindWidget(Widget widget) => _widget = widget;
 
   /// Returns the nearest ancestor widget of the given type `T`, which must be the
   /// type of a concrete [Widget] subclass.
