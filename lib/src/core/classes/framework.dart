@@ -556,7 +556,7 @@ class Framework {
 
   /// Update a dependent widget(using its context).
   ///
-  bool updateDependentContext(BuildContext context) {
+  void updateDependentContext(BuildContext context) {
     var widgetObject = getWidgetObject(context.key);
 
     if (null != widgetObject) {
@@ -570,11 +570,7 @@ class Framework {
         oldConfiguration: widgetObject.configuration,
         newConfiguration: widgetObject.configuration,
       );
-
-      return true;
     }
-
-    return false;
   }
 
   /// Dispose widgets and its child widgets.
