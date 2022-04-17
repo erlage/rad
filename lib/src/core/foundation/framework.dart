@@ -1,34 +1,37 @@
 import 'dart:html';
 
+import 'package:rad/src/core/types.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/services/utils.dart';
-import 'package:rad/src/core/foundation/walker/walker.dart';
 import 'package:rad/src/core/services/debug.dart';
-import 'package:rad/src/core/services/registry.dart';
-import 'package:rad/src/core/foundation/common/build_context.dart';
-import 'package:rad/src/core/foundation/common/widget_action_object.dart';
-import 'package:rad/src/core/foundation/common/widget_object.dart';
-import 'package:rad/src/core/foundation/common/widget_update_object.dart';
-import 'package:rad/src/core/foundation/scheduler/abstract.dart';
-import 'package:rad/src/core/foundation/scheduler/events/send_next_task_event.dart';
-import 'package:rad/src/core/foundation/scheduler/scheduler.dart';
-import 'package:rad/src/core/foundation/scheduler/tasks/widgets_build_task.dart';
-import 'package:rad/src/core/foundation/scheduler/tasks/widgets_dispose_task.dart';
-import 'package:rad/src/core/foundation/scheduler/tasks/widgets_manage_task.dart';
-import 'package:rad/src/core/foundation/scheduler/tasks/widgets_update_dependent_task.dart';
-import 'package:rad/src/core/foundation/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/core/types.dart';
+import 'package:rad/src/core/services/framework_registry.dart';
+import 'package:rad/src/core/foundation/scheduler/abstract.dart';
+import 'package:rad/src/core/foundation/common/build_context.dart';
+import 'package:rad/src/core/foundation/common/widget_object.dart';
+import 'package:rad/src/core/foundation/common/framework_services.dart';
+import 'package:rad/src/core/foundation/common/widget_action_object.dart';
+import 'package:rad/src/core/foundation/common/widget_update_object.dart';
+import 'package:rad/src/core/foundation/scheduler/tasks/widgets_build_task.dart';
+import 'package:rad/src/core/foundation/scheduler/tasks/widgets_manage_task.dart';
+import 'package:rad/src/core/foundation/scheduler/tasks/widgets_update_task.dart';
+import 'package:rad/src/core/foundation/scheduler/tasks/widgets_dispose_task.dart';
+import 'package:rad/src/core/foundation/scheduler/events/send_next_task_event.dart';
+import 'package:rad/src/core/foundation/scheduler/tasks/widgets_update_dependent_task.dart';
 
 class Framework {
-  final _treeWalker = Walker();
-  final _taskScheduler = Scheduler();
+  /// Services offered/used by the framework.
+  ///
+  final _services = FrameworkServices();
 
   /// Whether a framework task is in processing.
   ///
   var _isTaskInProcessing = false;
 
+  /// Root context refers to the context that was used to bootstrap
+  /// the framework build process.
+  ///
   BuildContext? _rootContext;
   BuildContext get rootContext => _rootContext!;
 
@@ -42,11 +45,10 @@ class Framework {
   void init(BuildContext context) {
     _rootContext = context;
 
-    _treeWalker.init();
-    _taskScheduler.init(_taskProcessor);
+    _services.walker.init();
+    _services.scheduler.init(_taskProcessor);
 
-    Registry.instance.registerTreeWalker(rootContext, _treeWalker);
-    Registry.instance.registerTaskScheduler(rootContext, _taskScheduler);
+    FrameworkRegistry.instance.registerServices(rootContext, _services);
   }
 
   /// Tear down framework state.
@@ -56,22 +58,21 @@ class Framework {
   void tearDown() {
     // gracefully dispose widgets
 
-    var widgetKeys = _treeWalker.dumpWidgetKeys();
+    var widgetKeys = _services.walker.dumpWidgetKeys();
 
     for (var widgetKey in widgetKeys) {
-      disposeWidget(widgetObject: _treeWalker.getWidgetObject(widgetKey));
+      disposeWidget(widgetObject: _services.walker.getWidgetObject(widgetKey));
     }
 
     // dispose instances
 
-    _treeWalker.tearDown();
+    _services.walker.tearDown();
 
-    _taskScheduler.tearDown();
+    _services.scheduler.tearDown();
 
     // un register instances from global registry
 
-    Registry.instance.unRegisterTreeWalker(rootContext);
-    Registry.instance.unRegisterTaskScheduler(rootContext);
+    FrameworkRegistry.instance.unRegisterServices(rootContext);
   }
 
   /// Build children under given context.
@@ -109,7 +110,7 @@ class Framework {
       } else {
         disposeWidget(
           flagPreserveTarget: true,
-          widgetObject: _treeWalker.getWidgetObject(parentContext.key),
+          widgetObject: _services.walker.getWidgetObject(parentContext.key),
         );
       }
     }
@@ -158,7 +159,7 @@ class Framework {
         renderObject: renderObject,
       );
 
-      _treeWalker.registerWidgetObject(widgetObject);
+      _services.walker.registerWidgetObject(widgetObject);
 
       widgetObject.renderObject.beforeMount();
 
@@ -281,7 +282,7 @@ class Framework {
         if (!updateObjects.containsKey(childElement.id)) {
           if (flagDisposeObsoluteChildren) {
             disposeWidget(
-              widgetObject: _treeWalker.getWidgetObject(childElement.id),
+              widgetObject: _services.walker.getWidgetObject(childElement.id),
               flagPreserveTarget: false,
             );
           } else if (flagHideObsoluteChildren) {
@@ -299,7 +300,7 @@ class Framework {
       var updateObject = updateObjects[elementId]!;
 
       if (null != updateObject.existingElementId) {
-        var widgetObject = _treeWalker.getWidgetObject(elementId);
+        var widgetObject = _services.walker.getWidgetObject(elementId);
 
         // if found
 
@@ -423,7 +424,7 @@ class Framework {
     //
     bool flagIterateInReverseOrder = false,
   }) {
-    var widgetObject = _treeWalker.getWidgetObject(parentContext.key);
+    var widgetObject = _services.walker.getWidgetObject(parentContext.key);
 
     if (null == widgetObject) return;
 
@@ -433,7 +434,7 @@ class Framework {
     for (final child in flagIterateInReverseOrder
         ? widgetObject.element.children.reversed
         : widgetObject.element.children) {
-      var childWidgetObject = _treeWalker.getWidgetObject(child.id);
+      var childWidgetObject = _services.walker.getWidgetObject(child.id);
 
       if (null != childWidgetObject) {
         var widgetActions = widgetActionCallback(childWidgetObject);
@@ -502,7 +503,7 @@ class Framework {
   /// Update a dependent widget(using its context).
   ///
   void updateDependentContext(BuildContext context) {
-    var widgetObject = _treeWalker.getWidgetObject(context.key);
+    var widgetObject = _services.walker.getWidgetObject(context.key);
 
     if (null != widgetObject) {
       widgetObject.renderObject.update(
@@ -533,7 +534,7 @@ class Framework {
     if (widgetObject.element.hasChildNodes()) {
       for (final childElement in widgetObject.element.children) {
         disposeWidget(
-          widgetObject: _treeWalker.getWidgetObject(childElement.id),
+          widgetObject: _services.walker.getWidgetObject(childElement.id),
         );
       }
     }
@@ -554,7 +555,7 @@ class Framework {
 
     widgetObject.renderObject.beforeUnMount();
 
-    _treeWalker.unRegisterWidgetObject(widgetObject);
+    _services.walker.unRegisterWidgetObject(widgetObject);
 
     widgetObject.element.remove();
 
@@ -636,7 +637,7 @@ class Framework {
     } finally {
       _isTaskInProcessing = false;
 
-      _taskScheduler.addEvent(SendNextTaskEvent());
+      _services.scheduler.addEvent(SendNextTaskEvent());
     }
   }
 

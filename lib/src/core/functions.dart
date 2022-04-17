@@ -2,7 +2,7 @@ import 'dart:html';
 
 import 'package:rad/src/core/services/debug.dart';
 import 'package:rad/src/core/foundation/framework.dart';
-import 'package:rad/src/core/services/registry.dart';
+import 'package:rad/src/core/services/framework_registry.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/common/debug_options.dart';
@@ -67,7 +67,7 @@ void startApp({
   // root context when its init() method is called. therefore by this point
   // we assume that our scheduler for context is all set and ready to go.
 
-  var scheduler = Registry.instance.getTaskScheduler(rootContext);
+  var scheduler = FrameworkRegistry.instance.getTaskScheduler(rootContext);
 
   scheduler.addTask(
     WidgetsBuildTask(

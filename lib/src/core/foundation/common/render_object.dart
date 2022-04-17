@@ -2,7 +2,7 @@ import 'dart:html';
 
 import 'package:meta/meta.dart';
 import 'package:rad/src/core/services/debug.dart';
-import 'package:rad/src/core/services/registry.dart';
+import 'package:rad/src/core/services/framework_registry.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/scheduler/scheduler.dart';
@@ -20,7 +20,8 @@ abstract class RenderObject {
 
   /// Get task scheduler for app instance that's enclosing the current context.
   ///
-  Scheduler get scheduler => Registry.instance.getTaskScheduler(context);
+  Scheduler get scheduler =>
+      FrameworkRegistry.instance.getTaskScheduler(context);
 
   /*
   |--------------------------------------------------------------------------

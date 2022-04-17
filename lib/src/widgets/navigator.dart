@@ -2,7 +2,7 @@ import 'dart:html';
 
 import 'package:meta/meta.dart';
 import 'package:rad/src/core/services/debug.dart';
-import 'package:rad/src/core/services/registry.dart';
+import 'package:rad/src/core/services/framework_registry.dart';
 import 'package:rad/src/core/foundation/scheduler/scheduler.dart';
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_manage_task.dart';
@@ -294,7 +294,7 @@ class Navigator extends Widget {
     var targetContext = context;
 
     while (true) {
-      var walker = Registry.instance.getTreeWalker(context);
+      var walker = FrameworkRegistry.instance.getTreeWalker(context);
 
       var widgetObject = walker.findAncestorWidgetObjectOfType<Navigator>(
         targetContext,
@@ -475,7 +475,7 @@ class NavigatorState {
   NavigatorState({
     required this.context,
     required this.widget,
-  }) : scheduler = Registry.instance.getTaskScheduler(context);
+  }) : scheduler = FrameworkRegistry.instance.getTaskScheduler(context);
 
   /*
   |--------------------------------------------------------------------------

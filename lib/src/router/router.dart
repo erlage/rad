@@ -1,7 +1,7 @@
 import 'dart:html';
 
 import 'package:rad/src/core/services/debug.dart';
-import 'package:rad/src/core/services/registry.dart';
+import 'package:rad/src/core/services/framework_registry.dart';
 import 'package:rad/src/core/services/utils.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
@@ -462,7 +462,7 @@ class Router {
     // we've to use context.parent here because navigators are required to register
     // themselves in onContextCreate hook but at the point when onContextCreate
     // hook is fired, context.key is not present in DOM.
-    var walker = Registry.instance.getTreeWalker(context);
+    var walker = FrameworkRegistry.instance.getTreeWalker(context);
 
     var parent = walker.findAncestorWidgetObjectOfType<Navigator>(
       context.parent,
