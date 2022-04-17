@@ -11,7 +11,7 @@ class Registry {
 
   final _taskSchedulers = <String, Scheduler>{};
 
-  void registerTaskSchedular(BuildContext context, Scheduler scheduler) {
+  void registerTaskScheduler(BuildContext context, Scheduler scheduler) {
     if (_taskSchedulers.containsKey(context.appTargetKey)) {
       Debug.exception(
         "A single instance of App can register only one scheduler.",

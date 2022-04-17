@@ -14,7 +14,7 @@ class Scheduler {
   ///
   final _tasksStream = StreamController<SchedulerTask>();
 
-  /// Stream that schedular will listen to for listening to outer events
+  /// Stream that scheduler will listen to for listening to outer events
   /// , and act accordingly.
   ///
   final _eventStream = StreamController<SchedulerEvent>();
@@ -28,7 +28,7 @@ class Scheduler {
     _eventStream.stream.listen(_eventListener);
   }
 
-  /// Add a event to task schedular.
+  /// Add a event to task scheduler.
   ///
   void addEvent(SchedulerEvent event) {
     _eventStream.sink.add(event);

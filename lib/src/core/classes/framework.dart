@@ -45,7 +45,7 @@ class Framework {
 
     // register scheduler.
 
-    Registry.instance.registerTaskSchedular(rootContext, _taskScheduler);
+    Registry.instance.registerTaskScheduler(rootContext, _taskScheduler);
   }
 
   /// Tear down framework state.
