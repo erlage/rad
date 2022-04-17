@@ -5,7 +5,9 @@
 */
 
 export 'src/core/types.dart';
-export 'src/core/classes/framework.dart' show startApp;
+
+export 'src/core/functions.dart' show startApp;
+
 export 'src/widgets/abstract/widget.dart' show Widget;
 
 export 'src/core/objects/build_context.dart' show BuildContext;
