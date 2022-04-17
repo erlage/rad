@@ -2,6 +2,11 @@ import 'dart:html';
 
 import 'package:meta/meta.dart';
 import 'package:rad/src/core/classes/debug.dart';
+import 'package:rad/src/core/classes/registry.dart';
+import 'package:rad/src/core/scheduler/scheduler.dart';
+import 'package:rad/src/core/scheduler/tasks/widgets_build_task.dart';
+import 'package:rad/src/core/scheduler/tasks/widgets_manage_task.dart';
+import 'package:rad/src/core/scheduler/tasks/widgets_update_dependent_task.dart';
 import 'package:rad/src/router/router.dart';
 import 'package:rad/src/core/classes/utils.dart';
 import 'package:rad/src/core/constants.dart';
@@ -304,7 +309,11 @@ class Navigator extends Widget {
         /// Return dummy state if user has registered there own error handler that
         /// doesn't throw exception onError.
         ///
-        return NavigatorState(context, const Navigator(routes: []));
+        return NavigatorState(
+          context: context,
+          widget: const Navigator(routes: []),
+          scheduler: Scheduler(),
+        );
       }
 
       if (null != navigatorKey && navigatorKey != widgetObject.context.key) {
@@ -344,7 +353,11 @@ class Navigator extends Widget {
   isConfigurationChanged(oldConfiguration) => true;
 
   @override
-  createRenderObject(context) => NavigatorRenderObject(context, this);
+  createRenderObject(context) => NavigatorRenderObject(
+        widget: this,
+        context: context,
+        scheduler: Registry.instance.getTaskScheduler(context),
+      );
 }
 
 /*
@@ -355,13 +368,21 @@ class Navigator extends Widget {
 
 class NavigatorRenderObject extends RenderObject {
   final NavigatorState state;
+  final Scheduler scheduler;
 
   /// currentPage => {widgetKey => widgetContext}
   ///
   final dependents = <String, Map<String, BuildContext>>{};
 
-  NavigatorRenderObject(BuildContext context, Navigator widget)
-      : state = NavigatorState(context, widget),
+  NavigatorRenderObject({
+    required this.scheduler,
+    required Navigator widget,
+    required BuildContext context,
+  })  : state = NavigatorState(
+          widget: widget,
+          context: context,
+          scheduler: scheduler,
+        ),
         super(context);
 
   @override
@@ -403,25 +424,11 @@ class NavigatorRenderObject extends RenderObject {
     var dependentsOnCurrentPage = dependents[state.currentRouteName];
 
     if (null != dependentsOnCurrentPage) {
-      var unavailableWidgetKeys = <String>[];
-
       dependentsOnCurrentPage.forEach((widgetKey, widgetContext) {
-        var isUpdated = context.framework.updateDependentContext(widgetContext);
-
-        if (!isUpdated) {
-          unavailableWidgetKeys.add(widgetContext.key);
-        }
+        scheduler.addTask(
+          WidgetsUpdateDependentTask(widgetContext: widgetContext),
+        );
       });
-
-      if (unavailableWidgetKeys.isNotEmpty) {
-        if (Debug.widgetLogs) {
-          print("Following dependents of Inherited widget($context) are lost.");
-
-          unavailableWidgetKeys.forEach(print);
-        }
-
-        unavailableWidgetKeys.forEach(dependents.remove);
-      }
     }
   }
 }
@@ -433,6 +440,10 @@ class NavigatorRenderObject extends RenderObject {
 */
 
 class NavigatorState {
+  /// Task scheduler.
+  ///
+  final Scheduler scheduler;
+
   /// Routes that this Navigator instance handles.
   ///
   final routes = <Route>[];
@@ -466,7 +477,11 @@ class NavigatorState {
 
   final Router _router = Router();
 
-  NavigatorState(this.context, this.widget);
+  NavigatorState({
+    required this.context,
+    required this.widget,
+    required this.scheduler,
+  });
 
   /*
   |--------------------------------------------------------------------------
@@ -539,20 +554,22 @@ class NavigatorState {
     // if route is already in stack, bring it to the top of stack
 
     if (isPageStacked(name: name)) {
-      context.framework.manageChildren(
-        parentContext: context,
-        flagIterateInReverseOrder: true,
-        updateTypeWhenNecessary: UpdateType.setState,
-        widgetActionCallback: (WidgetObject widgetObject) {
-          var routeName =
-              widgetObject.element.dataset[System.attrRouteName] ?? "";
+      scheduler.addTask(
+        WidgetsManageTask(
+          parentContext: context,
+          flagIterateInReverseOrder: true,
+          updateType: UpdateType.setState,
+          widgetActionCallback: (WidgetObject widgetObject) {
+            var routeName =
+                widgetObject.element.dataset[System.attrRouteName] ?? "";
 
-          if (name == routeName) {
-            return [WidgetAction.showWidget];
-          }
+            if (name == routeName) {
+              return [WidgetAction.showWidget];
+            }
 
-          return [WidgetAction.hideWidget];
-        },
+            return [WidgetAction.hideWidget];
+          },
+        ),
       );
 
       _updateProcedure!();
@@ -569,18 +586,23 @@ class NavigatorState {
       _activeStack.add(name);
 
       // hide all existing widgets
-      context.framework.manageChildren(
-        parentContext: context,
-        flagIterateInReverseOrder: true,
-        updateTypeWhenNecessary: UpdateType.setState,
-        widgetActionCallback: (WidgetObject widgetObject) =>
-            [WidgetAction.hideWidget],
+
+      scheduler.addTask(
+        WidgetsManageTask(
+          parentContext: context,
+          flagIterateInReverseOrder: true,
+          updateType: UpdateType.setState,
+          widgetActionCallback: (WidgetObject widgetObject) =>
+              [WidgetAction.hideWidget],
+        ),
       );
 
-      context.framework.buildChildren(
-        widgets: [page],
-        parentContext: context,
-        flagCleanParentContents: 1 == _historyStack.length,
+      scheduler.addTask(
+        WidgetsBuildTask(
+          widgets: [page],
+          parentContext: context,
+          flagCleanParentContents: 1 == _historyStack.length,
+        ),
       );
     }
   }
@@ -592,18 +614,20 @@ class NavigatorState {
 
     frameworkUpdateCurrentName(_historyStack.last.name);
 
-    context.framework.manageChildren(
-      parentContext: context,
-      flagIterateInReverseOrder: true,
-      widgetActionCallback: (WidgetObject widgetObject) {
-        var name = widgetObject.element.dataset[System.attrRouteName] ?? "";
+    scheduler.addTask(
+      WidgetsManageTask(
+        parentContext: context,
+        flagIterateInReverseOrder: true,
+        widgetActionCallback: (WidgetObject widgetObject) {
+          var name = widgetObject.element.dataset[System.attrRouteName] ?? "";
 
-        if (previousPage.name == name) {
-          return [WidgetAction.showWidget];
-        }
+          if (previousPage.name == name) {
+            return [WidgetAction.showWidget];
+          }
 
-        return [WidgetAction.hideWidget];
-      },
+          return [WidgetAction.hideWidget];
+        },
+      ),
     );
 
     _updateProcedure!();
@@ -740,19 +764,21 @@ class NavigatorState {
 
   @protected
   void frameworkUpdate(UpdateType updateType) {
-    context.framework.manageChildren(
-      parentContext: context,
-      flagIterateInReverseOrder: true,
-      updateTypeWhenNecessary: updateType,
-      widgetActionCallback: (WidgetObject widgetObject) {
-        var name = widgetObject.element.dataset[System.attrRouteName] ?? "";
+    scheduler.addTask(
+      WidgetsManageTask(
+        parentContext: context,
+        flagIterateInReverseOrder: true,
+        updateType: updateType,
+        widgetActionCallback: (WidgetObject widgetObject) {
+          var name = widgetObject.element.dataset[System.attrRouteName] ?? "";
 
-        if (currentRouteName == name) {
-          return [WidgetAction.updateWidget];
-        }
+          if (currentRouteName == name) {
+            return [WidgetAction.updateWidget];
+          }
 
-        return [];
-      },
+          return [];
+        },
+      ),
     );
   }
 

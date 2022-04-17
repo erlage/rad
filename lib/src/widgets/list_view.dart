@@ -1,9 +1,13 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
+import 'package:rad/src/core/classes/registry.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/scheduler/scheduler.dart';
+import 'package:rad/src/core/scheduler/tasks/widgets_build_task.dart';
+import 'package:rad/src/core/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/html/division.dart';
@@ -114,7 +118,9 @@ class ListView extends Widget {
     if (isListViewBuilder) {
       return ListViewBuilderRenderObject(
         context: context,
-        state: _ListViewBuilderState(),
+        state: _ListViewBuilderState(
+          Registry.instance.getTaskScheduler(context),
+        ),
       );
     }
 
@@ -256,11 +262,21 @@ class _ListViewBuilderState {
   |--------------------------------------------------------------------------
   */
 
+  final Scheduler _scheduler;
+
   int _renderableUptoIndex = 3;
 
   HtmlElement? _observerTarget;
 
   IntersectionObserver? _observer;
+
+  /*
+  |--------------------------------------------------------------------------
+  | constructor
+  |--------------------------------------------------------------------------
+  */
+
+  _ListViewBuilderState(this._scheduler);
 
   /*
   |--------------------------------------------------------------------------
@@ -317,21 +333,23 @@ class _ListViewBuilderState {
         var itemsToGenerate = renderUptoIndex - currentIndex;
 
         if (itemsToGenerate > 0) {
-          context.framework.updateChildren(
-            widgets: List.generate(
-              itemsToGenerate,
-              (i) => Division(
-                key: 'lazy_item_${i + currentIndex}_under_${context.key}',
-                classAttribute: 'rad-list-view-item-container',
-                child: configuration.itemBuilder(context, i + currentIndex),
+          _scheduler.addTask(
+            WidgetsUpdateTask(
+              parentContext: context,
+              updateType: UpdateType.lazyBuild,
+              flagAddIfNotFound: true,
+              flagAddAsAppendMode: true,
+              flagHideObsoluteChildren: false,
+              flagDisposeObsoluteChildren: false,
+              widgets: List.generate(
+                itemsToGenerate,
+                (i) => Division(
+                  key: 'lazy_item_${i + currentIndex}_under_${context.key}',
+                  classAttribute: 'rad-list-view-item-container',
+                  child: configuration.itemBuilder(context, i + currentIndex),
+                ),
               ),
             ),
-            parentContext: context,
-            flagAddIfNotFound: true,
-            flagAddAsAppendMode: true,
-            flagHideObsoluteChildren: false,
-            flagDisposeObsoluteChildren: false,
-            updateType: UpdateType.lazyBuild,
           );
 
           _updateObserverTarget();
@@ -380,33 +398,37 @@ class _ListViewBuilderState {
   void frameworkRender() {
     _initObserver();
 
-    context.framework.buildChildren(
-      widgets: List.generate(
-        renderUptoIndex,
-        (i) => Division(
-          key: 'lazy_item_${i}_under_${context.key}',
-          classAttribute: 'rad-list-view-item-container',
-          child: configuration.itemBuilder(context, i),
+    _scheduler.addTask(
+      WidgetsBuildTask(
+        parentContext: context,
+        widgets: List.generate(
+          renderUptoIndex,
+          (i) => Division(
+            key: 'lazy_item_${i}_under_${context.key}',
+            classAttribute: 'rad-list-view-item-container',
+            child: configuration.itemBuilder(context, i),
+          ),
         ),
       ),
-      parentContext: context,
     );
 
     _updateObserverTarget();
   }
 
   void frameworkUpdate(UpdateType updateType) {
-    context.framework.updateChildren(
-      widgets: List.generate(
-        renderUptoIndex,
-        (i) => Division(
-          key: 'lazy_item_${i}_under_${context.key}',
-          classAttribute: 'rad-list-view-item-container',
-          child: configuration.itemBuilder(context, i),
+    _scheduler.addTask(
+      WidgetsUpdateTask(
+        parentContext: context,
+        updateType: updateType,
+        widgets: List.generate(
+          renderUptoIndex,
+          (i) => Division(
+            key: 'lazy_item_${i}_under_${context.key}',
+            classAttribute: 'rad-list-view-item-container',
+            child: configuration.itemBuilder(context, i),
+          ),
         ),
       ),
-      parentContext: context,
-      updateType: updateType,
     );
 
     _updateObserverTarget();

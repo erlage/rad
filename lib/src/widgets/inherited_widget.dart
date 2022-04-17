@@ -1,8 +1,11 @@
 import 'package:meta/meta.dart';
 import 'package:rad/src/core/classes/debug.dart';
+import 'package:rad/src/core/classes/registry.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/render_object.dart';
+import 'package:rad/src/core/scheduler/scheduler.dart';
+import 'package:rad/src/core/scheduler/tasks/widgets_update_dependent_task.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Base class for widgets that efficiently propagate information down the tree.
@@ -65,7 +68,10 @@ abstract class InheritedWidget extends Widget {
 
   @nonVirtual
   @override
-  createRenderObject(context) => InheritedWidgetRenderObject(context);
+  createRenderObject(context) => InheritedWidgetRenderObject(
+        context: context,
+        scheduler: Registry.instance.getTaskScheduler(context),
+      );
 }
 
 /*
@@ -87,9 +93,13 @@ class _InheritedWidgetConfiguration extends WidgetConfiguration {
 */
 
 class InheritedWidgetRenderObject extends RenderObject {
+  final Scheduler scheduler;
   final dependents = <String, BuildContext>{};
 
-  InheritedWidgetRenderObject(BuildContext context) : super(context);
+  InheritedWidgetRenderObject({
+    required this.scheduler,
+    required BuildContext context,
+  }) : super(context);
 
   void addDependent(BuildContext dependentContext) {
     if (!dependents.containsKey(dependentContext.key)) {
@@ -109,26 +119,13 @@ class InheritedWidgetRenderObject extends RenderObject {
     );
 
     if (updateShouldNotify) {
-      var unavailableWidgetKeys = <String>[];
-
       dependents.forEach((widgetKey, widgetContext) {
-        var isUpdated =
-            widgetContext.framework.updateDependentContext(widgetContext);
-
-        if (!isUpdated) {
-          unavailableWidgetKeys.add(widgetContext.key);
-        }
+        scheduler.addTask(
+          WidgetsUpdateDependentTask(
+            widgetContext: widgetContext,
+          ),
+        );
       });
-
-      if (unavailableWidgetKeys.isNotEmpty) {
-        if (Debug.widgetLogs) {
-          print("Following dependents of Inherited widget($context) are lost.");
-
-          unavailableWidgetKeys.forEach(print);
-        }
-
-        unavailableWidgetKeys.forEach(dependents.remove);
-      }
     }
   }
 }
