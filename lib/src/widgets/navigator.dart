@@ -312,7 +312,6 @@ class Navigator extends Widget {
         return NavigatorState(
           context: context,
           widget: const Navigator(routes: []),
-          scheduler: Scheduler(),
         );
       }
 
@@ -354,9 +353,11 @@ class Navigator extends Widget {
 
   @override
   createRenderObject(context) => NavigatorRenderObject(
-        widget: this,
         context: context,
-        scheduler: Registry.instance.getTaskScheduler(context),
+        state: NavigatorState(
+          widget: this,
+          context: context,
+        ),
       );
 }
 
@@ -375,14 +376,9 @@ class NavigatorRenderObject extends RenderObject {
   final dependents = <String, Map<String, BuildContext>>{};
 
   NavigatorRenderObject({
-    required this.scheduler,
-    required Navigator widget,
+    required this.state,
     required BuildContext context,
-  })  : state = NavigatorState(
-          widget: widget,
-          context: context,
-          scheduler: scheduler,
-        ),
+  })  : scheduler = Registry.instance.getTaskScheduler(context),
         super(context);
 
   @override
@@ -480,8 +476,7 @@ class NavigatorState {
   NavigatorState({
     required this.context,
     required this.widget,
-    required this.scheduler,
-  });
+  }) : scheduler = Registry.instance.getTaskScheduler(context);
 
   /*
   |--------------------------------------------------------------------------

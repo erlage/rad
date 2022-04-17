@@ -44,10 +44,7 @@ abstract class StatelessWidget extends Widget {
 
   @nonVirtual
   @override
-  createRenderObject(context) => _StatelessWidgetRenderObject(
-        context: context,
-        scheduler: Registry.instance.getTaskScheduler(context),
-      );
+  createRenderObject(context) => _StatelessWidgetRenderObject(context);
 }
 
 /*
@@ -71,10 +68,9 @@ class _StatelessWidgetConfiguration extends WidgetConfiguration {
 class _StatelessWidgetRenderObject extends RenderObject {
   final Scheduler scheduler;
 
-  const _StatelessWidgetRenderObject({
-    required this.scheduler,
-    required BuildContext context,
-  }) : super(context);
+  _StatelessWidgetRenderObject(BuildContext context)
+      : scheduler = Registry.instance.getTaskScheduler(context),
+        super(context);
 
   @override
   render(

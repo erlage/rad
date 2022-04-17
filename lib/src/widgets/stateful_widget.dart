@@ -122,7 +122,6 @@ abstract class StatefulWidget extends Widget {
   createRenderObject(context) => StatefulWidgetRenderObject(
         context: context,
         state: createState(),
-        scheduler: Registry.instance.getTaskScheduler(context),
       );
 }
 
@@ -136,11 +135,11 @@ class StatefulWidgetRenderObject extends RenderObject {
   final State state;
   final Scheduler scheduler;
 
-  const StatefulWidgetRenderObject({
+  StatefulWidgetRenderObject({
     required this.state,
-    required this.scheduler,
     required BuildContext context,
-  }) : super(context);
+  })  : scheduler = Registry.instance.getTaskScheduler(context),
+        super(context);
 
   @override
   render(element, configuration) {

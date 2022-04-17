@@ -67,10 +67,7 @@ abstract class InheritedWidget extends Widget {
 
   @nonVirtual
   @override
-  createRenderObject(context) => InheritedWidgetRenderObject(
-        context: context,
-        scheduler: Registry.instance.getTaskScheduler(context),
-      );
+  createRenderObject(context) => InheritedWidgetRenderObject(context);
 }
 
 /*
@@ -95,10 +92,9 @@ class InheritedWidgetRenderObject extends RenderObject {
   final Scheduler scheduler;
   final dependents = <String, BuildContext>{};
 
-  InheritedWidgetRenderObject({
-    required this.scheduler,
-    required BuildContext context,
-  }) : super(context);
+  InheritedWidgetRenderObject(BuildContext context)
+      : scheduler = Registry.instance.getTaskScheduler(context),
+        super(context);
 
   void addDependent(BuildContext dependentContext) {
     if (!dependents.containsKey(dependentContext.key)) {

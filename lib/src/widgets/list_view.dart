@@ -118,9 +118,7 @@ class ListView extends Widget {
     if (isListViewBuilder) {
       return ListViewBuilderRenderObject(
         context: context,
-        state: _ListViewBuilderState(
-          Registry.instance.getTaskScheduler(context),
-        ),
+        state: _ListViewBuilderState(context),
       );
     }
 
@@ -218,7 +216,6 @@ class ListViewBuilderRenderObject extends RenderObject {
 
     state
       ..frameworkUpdateConfigurationBinding(configuration)
-      ..frameworkUpdateContextBinding(context)
       ..frameworkUpdateElementBinding(element)
       ..frameworkRender();
   }
@@ -262,7 +259,8 @@ class _ListViewBuilderState {
   |--------------------------------------------------------------------------
   */
 
-  final Scheduler _scheduler;
+  final Scheduler scheduler;
+  final BuildContext context;
 
   int _renderableUptoIndex = 3;
 
@@ -276,16 +274,14 @@ class _ListViewBuilderState {
   |--------------------------------------------------------------------------
   */
 
-  _ListViewBuilderState(this._scheduler);
+  _ListViewBuilderState(this.context)
+      : scheduler = Registry.instance.getTaskScheduler(context);
 
   /*
   |--------------------------------------------------------------------------
   | getters
   |--------------------------------------------------------------------------
   */
-
-  BuildContext? _context;
-  BuildContext get context => _context!;
 
   HtmlElement? _element;
   HtmlElement get element => _element!;
@@ -333,7 +329,7 @@ class _ListViewBuilderState {
         var itemsToGenerate = renderUptoIndex - currentIndex;
 
         if (itemsToGenerate > 0) {
-          _scheduler.addTask(
+          scheduler.addTask(
             WidgetsUpdateTask(
               parentContext: context,
               updateType: UpdateType.lazyBuild,
@@ -398,7 +394,7 @@ class _ListViewBuilderState {
   void frameworkRender() {
     _initObserver();
 
-    _scheduler.addTask(
+    scheduler.addTask(
       WidgetsBuildTask(
         parentContext: context,
         widgets: List.generate(
@@ -416,7 +412,7 @@ class _ListViewBuilderState {
   }
 
   void frameworkUpdate(UpdateType updateType) {
-    _scheduler.addTask(
+    scheduler.addTask(
       WidgetsUpdateTask(
         parentContext: context,
         updateType: updateType,
@@ -438,10 +434,6 @@ class _ListViewBuilderState {
     _ListViewBuilderConfiguration configuration,
   ) {
     _configuration = configuration;
-  }
-
-  void frameworkUpdateContextBinding(BuildContext context) {
-    _context = context;
   }
 
   void frameworkUpdateElementBinding(HtmlElement element) {
