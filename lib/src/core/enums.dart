@@ -176,3 +176,16 @@ enum WidgetAction {
 
   skipRest,
 }
+
+enum SchedulerTaskType {
+  build,
+  update,
+  manage,
+  dispose,
+  updateDependent,
+  stimulateListener,
+}
+
+enum SchedulerEventType {
+  processTask,
+}
