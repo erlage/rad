@@ -1,6 +1,6 @@
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/scheduler/abstract.dart';
+import 'package:rad/src/core/foundation/common/build_context.dart';
+import 'package:rad/src/core/foundation/scheduler/abstract.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// A task that updates task under given context.

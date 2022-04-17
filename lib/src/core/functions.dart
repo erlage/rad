@@ -1,12 +1,12 @@
 import 'dart:html';
 
-import 'package:rad/src/core/classes/debug.dart';
-import 'package:rad/src/core/classes/framework.dart';
-import 'package:rad/src/core/classes/registry.dart';
+import 'package:rad/src/core/services/debug.dart';
+import 'package:rad/src/core/foundation/framework.dart';
+import 'package:rad/src/core/services/registry.dart';
 import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/objects/debug_options.dart';
-import 'package:rad/src/core/scheduler/tasks/widgets_build_task.dart';
+import 'package:rad/src/core/foundation/common/build_context.dart';
+import 'package:rad/src/core/foundation/common/debug_options.dart';
+import 'package:rad/src/core/foundation/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
 

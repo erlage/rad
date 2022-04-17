@@ -1,4 +1,4 @@
-import 'package:rad/src/core/classes/framework.dart';
+import 'package:rad/src/core/foundation/framework.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';

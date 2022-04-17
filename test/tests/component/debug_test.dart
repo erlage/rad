@@ -1,12 +1,12 @@
 import 'package:rad/rad.dart';
-import 'package:rad/src/core/classes/debug.dart';
-import 'package:rad/src/core/classes/framework.dart';
+import 'package:rad/src/core/objects/debug.dart';
+import 'package:rad/src/core/objects/framework.dart';
 import 'package:test/scaffolding.dart';
 import 'package:test/expect.dart';
 
 /*
 |--------------------------------------------------------------------------
-| Comnponent test for core/classes/debug.dart
+| Comnponent test for core/objects/debug.dart
 |--------------------------------------------------------------------------
 */
 

@@ -1,4 +1,4 @@
-import 'package:rad/src/core/objects/debug_options.dart';
+import 'package:rad/src/core/foundation/common/debug_options.dart';
 
 class Debug {
   static var developmentMode = false;

@@ -1,10 +1,10 @@
 import 'dart:html';
 
-import 'package:rad/src/core/classes/debug.dart';
+import 'package:rad/src/core/services/debug.dart';
 import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/classes/utils.dart';
+import 'package:rad/src/core/foundation/common/build_context.dart';
+import 'package:rad/src/core/foundation/common/render_object.dart';
+import 'package:rad/src/core/services/utils.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// A wrapper for containing everything that can belong to a single widget.

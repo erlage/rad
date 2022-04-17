@@ -1,7 +1,7 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/classes/debug.dart';
+import 'package:rad/src/core/services/debug.dart';
 import 'package:rad/src/core/interface/style_component.dart';
 
 /// Interface for external components.

@@ -2,7 +2,7 @@ import 'package:rad/rad.dart';
 import 'package:test/scaffolding.dart';
 import 'package:test/expect.dart';
 
-import 'package:rad/src/core/classes/framework.dart';
+import 'package:rad/src/core/objects/framework.dart';
 
 import '../../../fixers/test_bed.dart';
 import '../../../fixers/test_stack.dart';
@@ -11,7 +11,7 @@ import '../../../matchers/has_contents.dart';
 
 /*
 |--------------------------------------------------------------------------
-| Component tests for core/classes/framework.dart
+| Component tests for core/objects/framework.dart
 |
 | Methods to test in this file: buildChildren()
 |--------------------------------------------------------------------------

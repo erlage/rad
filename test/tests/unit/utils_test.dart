@@ -1,4 +1,4 @@
-import 'package:rad/src/core/classes/utils.dart';
+import 'package:rad/src/core/objects/utils.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:test/scaffolding.dart';
 import 'package:test/expect.dart';
@@ -14,7 +14,7 @@ import '../../matchers/string_matchers.dart';
 
 /*
 |--------------------------------------------------------------------------
-| Unit tests for core/classes/utils.dart
+| Unit tests for core/objects/utils.dart
 |--------------------------------------------------------------------------
 */
 

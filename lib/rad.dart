@@ -10,9 +10,9 @@ export 'src/core/functions.dart' show startApp;
 
 export 'src/widgets/abstract/widget.dart' show Widget;
 
-export 'src/core/objects/build_context.dart' show BuildContext;
+export 'src/core/foundation/common/build_context.dart' show BuildContext;
 
-export 'src/core/objects/debug_options.dart' show DebugOptions;
+export 'src/core/foundation/common/debug_options.dart' show DebugOptions;
 
 /*
 |--------------------------------------------------------------------------
@@ -125,4 +125,4 @@ export 'src/core/constants.dart' show System;
 
 export 'src/widgets/abstract/widget.dart' show WidgetConfiguration;
 
-export 'src/core/objects/render_object.dart' show RenderObject;
+export 'src/core/foundation/common/render_object.dart' show RenderObject;

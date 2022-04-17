@@ -1,13 +1,13 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/classes/registry.dart';
+import 'package:rad/src/core/services/registry.dart';
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/scheduler/scheduler.dart';
-import 'package:rad/src/core/scheduler/tasks/widgets_build_task.dart';
-import 'package:rad/src/core/scheduler/tasks/widgets_update_task.dart';
+import 'package:rad/src/core/foundation/common/build_context.dart';
+import 'package:rad/src/core/foundation/common/render_object.dart';
+import 'package:rad/src/core/foundation/scheduler/scheduler.dart';
+import 'package:rad/src/core/foundation/scheduler/tasks/widgets_build_task.dart';
+import 'package:rad/src/core/foundation/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/html/division.dart';

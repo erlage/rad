@@ -1,6 +1,6 @@
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/scheduler/abstract.dart';
-import 'package:rad/src/core/objects/widget_object.dart';
+import 'package:rad/src/core/foundation/scheduler/abstract.dart';
+import 'package:rad/src/core/foundation/common/widget_object.dart';
 
 /// A task that dispose widgets.
 ///

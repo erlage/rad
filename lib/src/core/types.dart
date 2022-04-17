@@ -1,10 +1,10 @@
 import 'dart:html';
 
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/scheduler/abstract.dart';
-import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/objects/widget_object.dart';
+import 'package:rad/src/core/foundation/scheduler/abstract.dart';
+import 'package:rad/src/core/foundation/common/build_context.dart';
+import 'package:rad/src/core/foundation/common/render_object.dart';
+import 'package:rad/src/core/foundation/common/widget_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/list_view.dart';
 import 'package:rad/src/widgets/navigator.dart';

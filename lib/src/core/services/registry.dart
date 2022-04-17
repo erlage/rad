@@ -1,6 +1,6 @@
 import 'package:rad/rad.dart';
-import 'package:rad/src/core/classes/debug.dart';
-import 'package:rad/src/core/scheduler/scheduler.dart';
+import 'package:rad/src/core/services/debug.dart';
+import 'package:rad/src/core/foundation/scheduler/scheduler.dart';
 
 /// Global Registry.
 ///

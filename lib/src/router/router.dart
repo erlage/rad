@@ -1,9 +1,9 @@
 import 'dart:html';
 
-import 'package:rad/src/core/classes/debug.dart';
-import 'package:rad/src/core/classes/utils.dart';
+import 'package:rad/src/core/services/debug.dart';
+import 'package:rad/src/core/services/utils.dart';
 import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/widgets/navigator.dart';
 import 'package:rad/src/widgets/route.dart';
 

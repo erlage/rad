@@ -1,6 +1,6 @@
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/scheduler/abstract.dart';
+import 'package:rad/src/core/foundation/common/build_context.dart';
+import 'package:rad/src/core/foundation/scheduler/abstract.dart';
 import 'package:rad/src/core/types.dart';
 
 /// A task that helps iterating widgets under given context and perform

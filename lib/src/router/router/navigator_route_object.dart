@@ -1,4 +1,4 @@
-import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/widgets/route.dart';
 
 /// Information about a navigator and its routing description.

@@ -1,6 +1,6 @@
 import 'dart:html';
 
-import 'package:rad/src/core/classes/debug.dart';
+import 'package:rad/src/core/services/debug.dart';
 
 /// An object that maintains a list of listeners.
 ///
