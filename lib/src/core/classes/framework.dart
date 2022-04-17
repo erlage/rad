@@ -209,7 +209,7 @@ class Framework {
         element.innerHtml = "";
       } else {
         disposeWidget(
-          preserveTarget: true,
+          flagPreserveTarget: true,
           widgetObject: getWidgetObject(parentContext.key),
         );
       }
@@ -384,7 +384,7 @@ class Framework {
           if (flagDisposeObsoluteChildren) {
             disposeWidget(
               widgetObject: getWidgetObject(childElement.id),
-              preserveTarget: false,
+              flagPreserveTarget: false,
             );
           } else if (flagHideObsoluteChildren) {
             _hideElement(childElement);
@@ -472,7 +472,7 @@ class Framework {
           // those orphan childs.
 
           if (hadChilds && !hasChilds) {
-            disposeWidget(widgetObject: widgetObject, preserveTarget: true);
+            disposeWidget(widgetObject: widgetObject, flagPreserveTarget: true);
           } else {
             // else update childs
             // doesn't matter whether new has or not.
@@ -628,7 +628,7 @@ class Framework {
   ///
   void disposeWidget({
     WidgetObject? widgetObject,
-    bool preserveTarget = false,
+    bool flagPreserveTarget = false,
   }) {
     if (null == widgetObject) {
       return;
@@ -642,7 +642,7 @@ class Framework {
       }
     }
 
-    if (preserveTarget) return;
+    if (flagPreserveTarget) return;
 
     // nothing to dispose if its a body tag
 
