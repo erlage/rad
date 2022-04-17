@@ -13,59 +13,6 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
-import 'package:rad/src/widgets/utils/common_props.dart';
-
-class _AppFrameworkWidget extends InheritedWidget {
-  final Framework framework;
-
-  const _AppFrameworkWidget({
-    required Widget child,
-    required this.framework,
-  }) : super(child: child);
-
-  @override
-  updateShouldNotify(covariant _AppFrameworkWidget oldWidget) {
-    return false;
-  }
-}
-
-void startApp({
-  required Widget app,
-  required String targetSelector,
-  DebugOptions debugOptions = DebugOptions.defaultMode,
-  VoidCallback? beforeMount,
-}) {
-  var framework = Framework();
-
-  var appFrameworkWidget = _AppFrameworkWidget(
-    child: app,
-    framework: framework,
-  );
-
-  framework.init(routingPath: '/', debugOptions: debugOptions);
-
-  var targetElement = document.getElementById(targetSelector) as HtmlElement?;
-
-  if (null == targetElement) {
-    Debug.exception(
-      "Unable to locate target element in HTML document",
-    );
-
-    return;
-  }
-
-  beforeMount?.call();
-
-  CommonProps.applyDataAttributes(targetElement, {
-    System.attrConcreteType: "Target",
-    System.attrRuntimeType: System.contextTypeBigBang,
-  });
-
-  framework.buildChildren(
-    widgets: [appFrameworkWidget],
-    parentContext: BuildContext.bigBang(targetSelector, framework),
-  );
-}
 
 class Framework {
   var _isInit = false;
