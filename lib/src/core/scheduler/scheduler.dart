@@ -12,20 +12,23 @@ class Scheduler {
 
   /// Stream that listener(e.g Framework) can listen to for getting tasks.
   ///
-  final _tasksStream = StreamController<SchedulerTask>();
+  StreamController<SchedulerTask>? _tasksStream;
 
   /// Stream that scheduler will listen to for listening to outer events
   /// , and act accordingly.
   ///
-  final _eventStream = StreamController<SchedulerEvent>();
+  StreamController<SchedulerEvent>? _eventStream;
 
   /// Initialize scheduler.
   ///
   /// This process involved setting up listeners and task streams.
   ///
   void init(SchedulerTaskCallback listener) {
-    _tasksStream.stream.listen(listener);
-    _eventStream.stream.listen(_eventListener);
+    _tasksStream = StreamController<SchedulerTask>();
+    _eventStream = StreamController<SchedulerEvent>();
+
+    _tasksStream!.stream.listen(listener);
+    _eventStream!.stream.listen(_eventListener);
   }
 
   /// TearDown task schedular.
@@ -33,14 +36,14 @@ class Scheduler {
   /// It should be called only during testing.
   ///
   void tearDown() {
-    _tasksStream.close();
-    _eventStream.close();
+    _tasksStream!.close();
+    _eventStream!.close();
   }
 
   /// Add a event to task scheduler.
   ///
   void addEvent(SchedulerEvent event) {
-    _eventStream.sink.add(event);
+    _eventStream!.sink.add(event);
   }
 
   /// Schedule a task for processing.
@@ -48,14 +51,14 @@ class Scheduler {
   void addTask(SchedulerTask task) {
     _tasks.add(task);
 
-    _tasksStream.sink.add(StimulateListenerTask());
+    _tasksStream!.sink.add(StimulateListenerTask());
   }
 
   void _eventListener(SchedulerEvent event) {
     switch (event.eventType) {
       case SchedulerEventType.sendNextTask:
         if (_tasks.isNotEmpty) {
-          _tasksStream.sink.add(_tasks.removeAt(0));
+          _tasksStream!.sink.add(_tasks.removeAt(0));
         }
 
         break;
