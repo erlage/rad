@@ -44,7 +44,7 @@ class Scheduler {
 
   void _eventListener(SchedulerEvent event) {
     switch (event.eventType) {
-      case SchedulerEventType.processTask:
+      case SchedulerEventType.sendNextTask:
         if (_tasks.isNotEmpty) {
           _tasksStream.sink.add(_tasks.removeAt(0));
         }

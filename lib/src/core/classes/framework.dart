@@ -10,7 +10,7 @@ import 'package:rad/src/core/objects/widget_action_object.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/objects/widget_update_object.dart';
 import 'package:rad/src/core/scheduler/abstract.dart';
-import 'package:rad/src/core/scheduler/events/process_task_event.dart';
+import 'package:rad/src/core/scheduler/events/send_next_task_event.dart';
 import 'package:rad/src/core/scheduler/scheduler.dart';
 import 'package:rad/src/core/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/scheduler/tasks/widgets_dispose_task.dart';
@@ -761,7 +761,7 @@ class Framework {
     } finally {
       _isTaskInProcessing = false;
 
-      _taskScheduler.addEvent(ProcessTaskEvent());
+      _taskScheduler.addEvent(SendNextTaskEvent());
     }
   }
 }

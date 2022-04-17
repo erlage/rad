@@ -187,5 +187,5 @@ enum SchedulerTaskType {
 }
 
 enum SchedulerEventType {
-  processTask,
+  sendNextTask,
 }

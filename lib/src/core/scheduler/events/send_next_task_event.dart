@@ -3,7 +3,7 @@ import 'package:rad/src/core/scheduler/abstract.dart';
 
 /// A task that tells scheduler to push task into task stream for processing.
 ///
-class ProcessTaskEvent extends SchedulerEvent {
+class SendNextTaskEvent extends SchedulerEvent {
   @override
-  get eventType => SchedulerEventType.processTask;
+  get eventType => SchedulerEventType.sendNextTask;
 }
