@@ -34,8 +34,6 @@ void startApp(Widget app, String targetSelector,
   final fwWidget = _AppFrameworkWidget(child: app, framework: framework);
   framework.init(routingPath: '/', debugOptions: debugOptions);
 
-  // framework.injectStyles(GEN_STYLES_MAIN_CSS, "Main");
-
   final targetElement = document.getElementById(targetSelector) as HtmlElement?;
 
   if (null == targetElement) {
