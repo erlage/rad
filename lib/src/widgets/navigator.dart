@@ -406,8 +406,7 @@ class NavigatorRenderObject extends RenderObject {
       var unavailableWidgetKeys = <String>[];
 
       dependentsOnCurrentPage.forEach((widgetKey, widgetContext) {
-        var isUpdated =
-            context.framework.updateWidgetHavingContext(widgetContext);
+        var isUpdated = context.framework.updateDependentContext(widgetContext);
 
         if (!isUpdated) {
           unavailableWidgetKeys.add(widgetContext.key);

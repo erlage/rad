@@ -601,10 +601,10 @@ class Framework {
     }
   }
 
-  /// Update a specific widget.
+  /// Update a dependent widget(using its context).
   ///
-  bool updateWidgetHavingContext(BuildContext existingWidgetContext) {
-    var widgetObject = getWidgetObject(existingWidgetContext.key);
+  bool updateDependentContext(BuildContext context) {
+    var widgetObject = getWidgetObject(context.key);
 
     if (null != widgetObject) {
       widgetObject.renderObject.update(
