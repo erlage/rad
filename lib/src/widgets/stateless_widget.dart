@@ -66,11 +66,7 @@ class _StatelessWidgetConfiguration extends WidgetConfiguration {
 */
 
 class _StatelessWidgetRenderObject extends RenderObject {
-  final Scheduler scheduler;
-
-  _StatelessWidgetRenderObject(BuildContext context)
-      : scheduler = Registry.instance.getTaskScheduler(context),
-        super(context);
+  const _StatelessWidgetRenderObject(BuildContext context) : super(context);
 
   @override
   render(

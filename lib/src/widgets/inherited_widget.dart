@@ -89,12 +89,9 @@ class _InheritedWidgetConfiguration extends WidgetConfiguration {
 */
 
 class InheritedWidgetRenderObject extends RenderObject {
-  final Scheduler scheduler;
   final dependents = <String, BuildContext>{};
 
-  InheritedWidgetRenderObject(BuildContext context)
-      : scheduler = Registry.instance.getTaskScheduler(context),
-        super(context);
+  InheritedWidgetRenderObject(BuildContext context) : super(context);
 
   void addDependent(BuildContext dependentContext) {
     if (!dependents.containsKey(dependentContext.key)) {

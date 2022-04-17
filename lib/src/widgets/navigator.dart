@@ -369,7 +369,6 @@ class Navigator extends Widget {
 
 class NavigatorRenderObject extends RenderObject {
   final NavigatorState state;
-  final Scheduler scheduler;
 
   /// currentPage => {widgetKey => widgetContext}
   ///
@@ -378,8 +377,7 @@ class NavigatorRenderObject extends RenderObject {
   NavigatorRenderObject({
     required this.state,
     required BuildContext context,
-  })  : scheduler = Registry.instance.getTaskScheduler(context),
-        super(context);
+  }) : super(context);
 
   @override
   render(element, configuration) => state
