@@ -6,7 +6,7 @@ import 'package:rad/src/core/types.dart';
 /// A task that helps iterating widgets under given context and perform
 /// specific actions to particular widgets while iterating.
 ///
-class WidgetsUpdateTask extends SchedulerTask {
+class WidgetsManageTask extends SchedulerTask {
   /// Callback to fire on each widget iteration.
   ///
   final WidgetActionCallback widgetActionCallback;
@@ -19,7 +19,7 @@ class WidgetsUpdateTask extends SchedulerTask {
   ///
   final bool flagIterateInReverseOrder;
 
-  WidgetsUpdateTask({
+  WidgetsManageTask({
     required this.parentContext,
     required this.widgetActionCallback,
     this.flagIterateInReverseOrder = false,
