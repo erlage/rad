@@ -18,7 +18,8 @@ import 'package:rad/src/widgets/utils/common_props.dart';
 class _AppFrameworkWidget extends InheritedWidget {
   final Framework framework;
 
-  const _AppFrameworkWidget({required Widget child, required this.framework}) : super(child: child);
+  const _AppFrameworkWidget({required Widget child, required this.framework})
+      : super(child: child);
 
   @override
   bool updateShouldNotify(covariant _AppFrameworkWidget oldWidget) {
@@ -27,7 +28,8 @@ class _AppFrameworkWidget extends InheritedWidget {
 }
 
 void startApp(Widget app, String targetSelector,
-    {DebugOptions debugOptions = DebugOptions.defaultMode, VoidCallback? beforeMount}) {
+    {DebugOptions debugOptions = DebugOptions.defaultMode,
+    VoidCallback? beforeMount}) {
   final framework = Framework();
   final fwWidget = _AppFrameworkWidget(child: app, framework: framework);
   framework.init(routingPath: '/', debugOptions: debugOptions);
@@ -119,7 +121,8 @@ class Framework {
     var widgetObject = findAncestorWidgetObjectFromSelector(selector, context);
 
     if (null != widgetObject) {
-      var renderObject = widgetObject.renderObject as StatefulWidgetRenderObject;
+      var renderObject =
+          widgetObject.renderObject as StatefulWidgetRenderObject;
 
       return (renderObject).state as T;
     }
@@ -224,7 +227,8 @@ class Framework {
         }
       }
 
-      var widgetKey = isKeyProvided ? widget.initialKey : Utils.generateWidgetKey();
+      var widgetKey =
+          isKeyProvided ? widget.initialKey : Utils.generateWidgetKey();
 
       var configuration = widget.createConfiguration();
 
@@ -338,8 +342,8 @@ class Framework {
         var alreadySelected = updateObjects.containsKey(child.id);
 
         if (!alreadySelected) {
-          var hasSameType =
-              child.dataset.isNotEmpty && "${widget.runtimeType}" == child.dataset[System.attrRuntimeType];
+          var hasSameType = child.dataset.isNotEmpty &&
+              "${widget.runtimeType}" == child.dataset[System.attrRuntimeType];
 
           if (hasSameType) {
             var hadKey = !child.id.startsWith("_gen_");
@@ -527,8 +531,9 @@ class Framework {
     var widgetActionObjects = <WidgetActionObject>[];
 
     childrenLoop:
-    for (final child
-        in flagIterateInReverseOrder ? widgetObject.element.children.reversed : widgetObject.element.children) {
+    for (final child in flagIterateInReverseOrder
+        ? widgetObject.element.children.reversed
+        : widgetObject.element.children) {
       var childWidgetObject = getWidgetObject(child.id);
 
       if (null != childWidgetObject) {
@@ -676,7 +681,8 @@ class Framework {
       return null;
     }
 
-    var domNode = document.getElementById(context.key)?.parent?.closest(selector);
+    var domNode =
+        document.getElementById(context.key)?.parent?.closest(selector);
 
     if (null == domNode) {
       return null;

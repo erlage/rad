@@ -44,7 +44,7 @@ class BuildContext {
 
   bool hasParent() => null != _parent;
   bool hasWidget() => null != _widget;
-  
+
   final Framework framework;
 
   BuildContext({

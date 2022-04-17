@@ -34,4 +34,3 @@ class CounterState extends State<Counter> {
     ]);
   }
 }
-

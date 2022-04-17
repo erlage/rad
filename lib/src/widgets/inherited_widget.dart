@@ -112,7 +112,8 @@ class InheritedWidgetRenderObject extends RenderObject {
       var unavailableWidgetKeys = <String>[];
 
       dependents.forEach((widgetKey, widgetContext) {
-        var isUpdated = widgetContext.framework.updateWidgetHavingContext(widgetContext);
+        var isUpdated =
+            widgetContext.framework.updateWidgetHavingContext(widgetContext);
 
         if (!isUpdated) {
           unavailableWidgetKeys.add(widgetContext.key);

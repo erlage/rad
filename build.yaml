@@ -4,7 +4,7 @@ targets:
       rad|styles:
         generate_for:
          - lib/src/css/**
-        enabled: False
+        enabled: True
 
 builders:
 

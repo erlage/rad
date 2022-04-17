@@ -289,7 +289,8 @@ class Navigator extends Widget {
     var targetContext = context;
 
     while (true) {
-      var widgetObject = context.framework.findAncestorWidgetObjectOfType<Navigator>(
+      var widgetObject =
+          context.framework.findAncestorWidgetObjectOfType<Navigator>(
         targetContext,
       );
 
@@ -386,7 +387,9 @@ class NavigatorRenderObject extends RenderObject {
     var dependentsOnCurrentPage = dependents[state.currentRouteName];
 
     if (null == dependentsOnCurrentPage) {
-      dependents[state.currentRouteName] = {dependentContext.key: dependentContext};
+      dependents[state.currentRouteName] = {
+        dependentContext.key: dependentContext
+      };
 
       return;
     }
@@ -403,7 +406,8 @@ class NavigatorRenderObject extends RenderObject {
       var unavailableWidgetKeys = <String>[];
 
       dependentsOnCurrentPage.forEach((widgetKey, widgetContext) {
-        var isUpdated = context.framework.updateWidgetHavingContext(widgetContext);
+        var isUpdated =
+            context.framework.updateWidgetHavingContext(widgetContext);
 
         if (!isUpdated) {
           unavailableWidgetKeys.add(widgetContext.key);
@@ -541,7 +545,8 @@ class NavigatorState {
         flagIterateInReverseOrder: true,
         updateTypeWhenNecessary: UpdateType.setState,
         widgetActionCallback: (WidgetObject widgetObject) {
-          var routeName = widgetObject.element.dataset[System.attrRouteName] ?? "";
+          var routeName =
+              widgetObject.element.dataset[System.attrRouteName] ?? "";
 
           if (name == routeName) {
             return [WidgetAction.showWidget];
@@ -569,7 +574,8 @@ class NavigatorState {
         parentContext: context,
         flagIterateInReverseOrder: true,
         updateTypeWhenNecessary: UpdateType.setState,
-        widgetActionCallback: (WidgetObject widgetObject) => [WidgetAction.hideWidget],
+        widgetActionCallback: (WidgetObject widgetObject) =>
+            [WidgetAction.hideWidget],
       );
 
       context.framework.buildChildren(
@@ -684,7 +690,8 @@ class NavigatorState {
           );
         }
 
-        var isDuplicate = nameToPathMap.containsKey(route.name) || pathToRouteMap.containsKey(route.path);
+        var isDuplicate = nameToPathMap.containsKey(route.name) ||
+            pathToRouteMap.containsKey(route.path);
 
         if (isDuplicate) {
           return Debug.exception(

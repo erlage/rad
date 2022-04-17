@@ -461,8 +461,8 @@ class Router {
     // we've to use context.parent here because navigators are required to register
     // themselves in onContextCreate hook but at the point when onContextCreate
     // hook is fired, context.key is not present in DOM.
-    var parent =
-        context.framework.findAncestorWidgetObjectOfType<Navigator>(context.parent);
+    var parent = context.framework
+        .findAncestorWidgetObjectOfType<Navigator>(context.parent);
 
     // if no Navigator in ancestors i.e we're dealing with a root navigator
 
