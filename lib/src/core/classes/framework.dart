@@ -701,11 +701,11 @@ class Framework {
     return getWidgetObject(domNode.id);
   }
 
-  _hideElement(Element element) {
+  void _hideElement(Element element) {
     element.classes.add('rad-hidden');
   }
 
-  _showElement(Element element) {
+  void _showElement(Element element) {
     element.classes.remove('rad-hidden');
   }
 
