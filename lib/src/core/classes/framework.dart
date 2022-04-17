@@ -5,7 +5,6 @@ import 'package:rad/src/core/classes/utils.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/objects/debug_options.dart';
 import 'package:rad/src/core/objects/widget_action_object.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/objects/widget_update_object.dart';
@@ -15,28 +14,18 @@ import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 
 class Framework {
-  var _isInit = false;
-
   final _registeredWidgetObjects = <String, WidgetObject>{};
 
   /// Initialize framework.
   ///
-  /// It's AppWidget job to call this method as first task. Initialization
-  /// process will initialize other important components such as Router.
+  /// It's startApp's job to call this method as first task. Each app instance should have
+  /// exactly one corresponding framework instance.
   ///
-  void init({
-    required String routingPath,
-    DebugOptions? debugOptions,
-  }) {
-    if (_isInit) {
-      return Debug.exception("Framework aleady initialized.");
-    }
-
-    debugOptions ??= DebugOptions.defaultMode;
-
-    Debug.update(debugOptions);
-
-    _isInit = true;
+  /// Typically, startApp creates root context(for app) and provide it to framework instance
+  /// via this method. Framework will register all services that depends on app's root context.
+  ///
+  void init(BuildContext rootContext) {
+    //
   }
 
   /// Tear down framework state.
@@ -45,13 +34,7 @@ class Framework {
   /// and destroy framework state.
   ///
   void tearDown() {
-    if (!_isInit) {
-      return Debug.exception("Framework is not initialized.");
-    }
-
     clearWidgetObjects();
-
-    _isInit = false;
   }
 
   T? findAncestorWidgetOfExactType<T>(
@@ -138,13 +121,6 @@ class Framework {
     flagCleanParentContents = true,
     //
   }) {
-    if (!_isInit) {
-      return Debug.exception(
-        "Framework not initialized. If you're building your own AppWidget "
-        "implementation, make sure to call init()",
-      );
-    }
-
     if (widgets.isEmpty) return;
 
     if (flagCleanParentContents) {

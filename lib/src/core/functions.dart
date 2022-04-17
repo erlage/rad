@@ -11,34 +11,58 @@ import 'package:rad/src/widgets/utils/common_props.dart';
 void startApp({
   required Widget app,
   required String targetSelector,
-  DebugOptions debugOptions = DebugOptions.defaultMode,
   VoidCallback? beforeMount,
+  DebugOptions debugOptions = DebugOptions.defaultMode,
 }) {
-  var framework = Framework();
-
-  var appContext = BuildContext.bigBang(targetSelector, framework);
-
-  framework.init(routingPath: '/', debugOptions: debugOptions);
+  /*
+  |--------------------------------------------------------------------------
+  | Pre-checks
+  |--------------------------------------------------------------------------
+  */
 
   var targetElement = document.getElementById(targetSelector) as HtmlElement?;
 
   if (null == targetElement) {
-    Debug.exception(
-      "Unable to locate target element in HTML document",
-    );
-
-    return;
+    throw "Unable to locate target element in HTML document";
   }
 
-  beforeMount?.call();
+  /*
+  |--------------------------------------------------------------------------
+  | App bootstrap process
+  |--------------------------------------------------------------------------
+  */
+
+  // Update debug options.
+
+  Debug.update(debugOptions);
+
+  // Decorate root element.
 
   CommonProps.applyDataAttributes(targetElement, {
     System.attrConcreteType: "Target",
     System.attrRuntimeType: System.contextTypeBigBang,
   });
 
+  // Create framework instance for app.
+
+  var framework = Framework();
+
+  // Create root context for app.
+
+  var rootContext = BuildContext.bigBang(targetSelector, framework);
+
+  // Initialize framework.
+
+  framework.init(rootContext);
+
+  // Fire before mount hook.
+
+  beforeMount?.call();
+
+  // Schedule a build task.
+
   framework.buildChildren(
     widgets: [app],
-    parentContext: appContext,
+    parentContext: rootContext,
   );
 }
