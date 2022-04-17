@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:rad/src/core/classes/debug.dart';
+import 'package:rad/src/core/classes/registry.dart';
 import 'package:rad/src/core/classes/utils.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
@@ -8,13 +9,26 @@ import 'package:rad/src/core/objects/build_context.dart';
 import 'package:rad/src/core/objects/widget_action_object.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/objects/widget_update_object.dart';
+import 'package:rad/src/core/scheduler/abstract.dart';
+import 'package:rad/src/core/scheduler/events/process_task_event.dart';
+import 'package:rad/src/core/scheduler/scheduler.dart';
+import 'package:rad/src/core/scheduler/tasks/widgets_build_task.dart';
+import 'package:rad/src/core/scheduler/tasks/widgets_dispose_task.dart';
+import 'package:rad/src/core/scheduler/tasks/widgets_manage_task.dart';
+import 'package:rad/src/core/scheduler/tasks/widgets_update_dependent_task.dart';
+import 'package:rad/src/core/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 
 class Framework {
+  final _taskScheduler = Scheduler();
   final _registeredWidgetObjects = <String, WidgetObject>{};
+
+  /// Whether a framework task is in processing.
+  ///
+  var _isTaskInProcessing = false;
 
   /// Initialize framework.
   ///
@@ -25,7 +39,13 @@ class Framework {
   /// via this method. Framework will register all services that depends on app's root context.
   ///
   void init(BuildContext rootContext) {
-    //
+    // init task scheduler.
+
+    _taskScheduler.init(_taskProcessor);
+
+    // register scheduler.
+
+    Registry.instance.registerTaskSchedular(rootContext, _taskScheduler);
   }
 
   /// Tear down framework state.
@@ -665,6 +685,83 @@ class Framework {
 
     for (var widgetKey in widgetKeys) {
       disposeWidget(widgetObject: getWidgetObject(widgetKey));
+    }
+  }
+
+  void _taskProcessor(SchedulerTask task) {
+    if (_isTaskInProcessing) return;
+
+    try {
+      _isTaskInProcessing = true;
+
+      switch (task.taskType) {
+        case SchedulerTaskType.build:
+          task as WidgetsBuildTask;
+
+          buildChildren(
+            widgets: task.widgets,
+            parentContext: task.parentContext,
+            mountAtIndex: task.mountAtIndex,
+            flagCleanParentContents: task.flagCleanParentContents,
+          );
+
+          break;
+
+        case SchedulerTaskType.update:
+          task as WidgetsUpdateTask;
+
+          updateChildren(
+            widgets: task.widgets,
+            updateType: task.updateType,
+            parentContext: task.parentContext,
+            flagAddIfNotFound: task.flagAddIfNotFound,
+            flagAddAsAppendMode: task.flagAddAsAppendMode,
+            flagHideObsoluteChildren: task.flagHideObsoluteChildren,
+            flagDisposeObsoluteChildren: task.flagDisposeObsoluteChildren,
+            flagTolerateChildrenCountMisMatch:
+                task.flagTolerateChildrenCountMisMatch,
+          );
+
+          break;
+
+        case SchedulerTaskType.manage:
+          task as WidgetsManageTask;
+
+          manageChildren(
+            parentContext: task.parentContext,
+            updateTypeWhenNecessary: task.updateType,
+            widgetActionCallback: task.widgetActionCallback,
+            flagIterateInReverseOrder: task.flagIterateInReverseOrder,
+          );
+
+          break;
+
+        case SchedulerTaskType.dispose:
+          task as WidgetsDisposeTask;
+
+          disposeWidget(
+            widgetObject: task.widgetObject,
+            flagPreserveTarget: task.flagPreserveTarget,
+          );
+
+          break;
+
+        case SchedulerTaskType.updateDependent:
+          task as WidgetsUpdateDependentTask;
+
+          updateDependentContext(task.widgetContext);
+
+          break;
+
+        case SchedulerTaskType.stimulateListener:
+          // do nothing.. finally block will automatically
+          // push a event for getting new tasks after this block.
+          break;
+      }
+    } finally {
+      _isTaskInProcessing = false;
+
+      _taskScheduler.addEvent(ProcessTaskEvent());
     }
   }
 }
