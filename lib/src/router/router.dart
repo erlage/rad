@@ -1,43 +1,43 @@
 import 'dart:html';
 
 import 'package:rad/src/core/classes/debug.dart';
-import 'package:rad/src/core/classes/framework.dart';
 import 'package:rad/src/core/classes/utils.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/objects/router/navigator_route_object.dart';
-import 'package:rad/src/core/objects/router/router_stack.dart';
-import 'package:rad/src/core/objects/router/router_stack_entry.dart';
 import 'package:rad/src/widgets/navigator.dart';
 import 'package:rad/src/widgets/route.dart';
 
-class Router {
-  static var _isInit = false;
-  static var _routingPath = '';
+import 'router/navigator_route_object.dart';
+import 'router/router_stack.dart';
+import 'router/router_stack_entry.dart';
 
-  static final _initialLocation = window.location.href;
+class Router {
+  bool _isInit = false;
+  String _routingPath = '';
+
+  final _initialLocation = window.location.href;
 
   /// Path list
   ///
-  static final _currentSegments = <String>[];
+  final _currentSegments = <String>[];
 
   /// Registered navigators.
   ///
   /// navigator key: navigator route object
   ///
-  static final _routeObjects = <String, NavigatorRouteObject>{};
+  final _routeObjects = <String, NavigatorRouteObject>{};
 
   /// Registered state objects.
   ///
   /// navigator key: navigator state
   ///
-  static final _stateObjects = <String, NavigatorState>{};
+  final _stateObjects = <String, NavigatorState>{};
 
   /// Router stack.
   ///
   /// For keeping track of page push/pop
   ///
-  static final _routerStack = RouterStack();
+  final _routerStack = RouterStack();
 
   /// Initialize router state.
   ///
@@ -45,7 +45,7 @@ class Router {
   /// 1. Setup routing path
   /// 2. add onPopStateEventListener
   ///
-  static void init(String routingPath) {
+  void init(String routingPath) {
     if (_isInit) {
       return Debug.exception("Router aleady initialized.");
     }
@@ -69,7 +69,7 @@ class Router {
   /// Since methods in this class are static, we need a way to initialize
   /// and destroy framework state.
   ///
-  static void tearDown() {
+  void tearDown() {
     if (!_isInit) {
       return Debug.exception("Router is not initialized.");
     }
@@ -91,7 +91,7 @@ class Router {
 
   /// Register navigator's state.
   ///
-  static void register(BuildContext context, NavigatorState state) {
+  void register(BuildContext context, NavigatorState state) {
     if (!_isInit) {
       return Debug.exception("Router not initialized.");
     }
@@ -109,7 +109,7 @@ class Router {
     _stateObjects[context.key] = state;
   }
 
-  static void unRegister(BuildContext context) {
+  void unRegister(BuildContext context) {
     _routeObjects.remove(context.key);
 
     _routerStack.remove(context.key);
@@ -119,7 +119,7 @@ class Router {
 
   /// Push page entry.
   ///
-  static void pushEntry({
+  void pushEntry({
     required String name,
     required Map<String, String> values,
     required String navigatorKey,
@@ -171,7 +171,7 @@ class Router {
   ///
   /// This allows nested navigators to do initial linking.
   ///
-  static void pushReplacement({
+  void pushReplacement({
     required String name,
     required Map<String, String> values,
     required String navigatorKey,
@@ -213,7 +213,7 @@ class Router {
   /// Returns empty string, if matches nothing. Navigators should display
   /// default page when [getPath] returns empty string.
   ///
-  static String getPath(String navigatorKey) {
+  String getPath(String navigatorKey) {
     var stateObject = _stateObjects[navigatorKey];
 
     if (null == stateObject) {
@@ -245,7 +245,7 @@ class Router {
 
   /// Get value following the provided segment in URL.
   ///
-  static String getValue(String navigatorKey, String segment) {
+  String getValue(String navigatorKey, String segment) {
     var path = accessibleSegments(navigatorKey).join("/");
 
     // try to find a value that's following the provided segment in path
@@ -255,7 +255,7 @@ class Router {
     return (null == match) ? '' : Uri.decodeFull(match.group(1) ?? '');
   }
 
-  static void updateCurrentSegments() {
+  void updateCurrentSegments() {
     _currentSegments.clear();
 
     var path = window.location.pathname;
@@ -267,7 +267,7 @@ class Router {
     }
   }
 
-  static void ensureNavigatorIsVisible(NavigatorRouteObject routeObject) {
+  void ensureNavigatorIsVisible(NavigatorRouteObject routeObject) {
     var parent = routeObject.parent;
 
     if (null != parent) {
@@ -286,7 +286,7 @@ class Router {
   /// Part of path(window.location.pathName) that navigator with
   /// [navigatorKey] can access.
   ///
-  static List<String> accessibleSegments(String navigatorKey) {
+  List<String> accessibleSegments(String navigatorKey) {
     var routeObject = _routeObjects[navigatorKey];
 
     if (null == routeObject) {
@@ -334,7 +334,7 @@ class Router {
   /// Note that, navigator still can access **some parts** of protected
   /// segements using [accessibleSegments]
   ///
-  static List<String> protectedSegments(String navigatorKey) {
+  List<String> protectedSegments(String navigatorKey) {
     var routeObject = _routeObjects[navigatorKey];
     var stateObject = _stateObjects[navigatorKey];
 
@@ -397,7 +397,7 @@ class Router {
   |--------------------------------------------------------------------------
   */
 
-  static void _onPopState(Event event) {
+  void _onPopState(Event event) {
     try {
       var location = window.location.href;
 
@@ -454,16 +454,15 @@ class Router {
 
   /// Register logic, actual.
   ///
-  static void _register(BuildContext context, List<Route> routes) {
+  void _register(BuildContext context, List<Route> routes) {
     //
     // try finding a Navigator in ancestors
     //
     // we've to use context.parent here because navigators are required to register
     // themselves in onContextCreate hook but at the point when onContextCreate
     // hook is fired, context.key is not present in DOM.
-
     var parent =
-        Framework.findAncestorWidgetObjectOfType<Navigator>(context.parent);
+        context.framework.findAncestorWidgetObjectOfType<Navigator>(context.parent);
 
     // if no Navigator in ancestors i.e we're dealing with a root navigator
 

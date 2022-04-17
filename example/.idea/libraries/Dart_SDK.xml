@@ -1,0 +1,27 @@
+<component name="libraryTable">
+  <library name="Dart SDK">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../../ThirdParty/dart/lib/async" />
+      <root url="file://$PROJECT_DIR$/../../../ThirdParty/dart/lib/cli" />
+      <root url="file://$PROJECT_DIR$/../../../ThirdParty/dart/lib/collection" />
+      <root url="file://$PROJECT_DIR$/../../../ThirdParty/dart/lib/convert" />
+      <root url="file://$PROJECT_DIR$/../../../ThirdParty/dart/lib/core" />
+      <root url="file://$PROJECT_DIR$/../../../ThirdParty/dart/lib/developer" />
+      <root url="file://$PROJECT_DIR$/../../../ThirdParty/dart/lib/ffi" />
+      <root url="file://$PROJECT_DIR$/../../../ThirdParty/dart/lib/html" />
+      <root url="file://$PROJECT_DIR$/../../../ThirdParty/dart/lib/indexed_db" />
+      <root url="file://$PROJECT_DIR$/../../../ThirdParty/dart/lib/io" />
+      <root url="file://$PROJECT_DIR$/../../../ThirdParty/dart/lib/isolate" />
+      <root url="file://$PROJECT_DIR$/../../../ThirdParty/dart/lib/js" />
+      <root url="file://$PROJECT_DIR$/../../../ThirdParty/dart/lib/js_util" />
+      <root url="file://$PROJECT_DIR$/../../../ThirdParty/dart/lib/math" />
+      <root url="file://$PROJECT_DIR$/../../../ThirdParty/dart/lib/mirrors" />
+      <root url="file://$PROJECT_DIR$/../../../ThirdParty/dart/lib/svg" />
+      <root url="file://$PROJECT_DIR$/../../../ThirdParty/dart/lib/typed_data" />
+      <root url="file://$PROJECT_DIR$/../../../ThirdParty/dart/lib/web_audio" />
+      <root url="file://$PROJECT_DIR$/../../../ThirdParty/dart/lib/web_gl" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

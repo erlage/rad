@@ -2,19 +2,19 @@ import 'dart:html';
 
 import 'package:meta/meta.dart';
 import 'package:rad/src/core/classes/debug.dart';
-import 'package:rad/src/core/classes/framework.dart';
-import 'package:rad/src/core/classes/router.dart';
+import 'package:rad/src/router/router.dart';
 import 'package:rad/src/core/classes/utils.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/objects/router/open_history_entry.dart';
+import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/objects/widget_object.dart';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/route.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
+
+import '../router/router/open_history_entry.dart';
 
 /// Navigator widget.
 ///
@@ -289,7 +289,7 @@ class Navigator extends Widget {
     var targetContext = context;
 
     while (true) {
-      var widgetObject = Framework.findAncestorWidgetObjectOfType<Navigator>(
+      var widgetObject = context.framework.findAncestorWidgetObjectOfType<Navigator>(
         targetContext,
       );
 
@@ -386,9 +386,7 @@ class NavigatorRenderObject extends RenderObject {
     var dependentsOnCurrentPage = dependents[state.currentRouteName];
 
     if (null == dependentsOnCurrentPage) {
-      dependents[state.currentRouteName] = {
-        dependentContext.key: dependentContext
-      };
+      dependents[state.currentRouteName] = {dependentContext.key: dependentContext};
 
       return;
     }
@@ -405,7 +403,7 @@ class NavigatorRenderObject extends RenderObject {
       var unavailableWidgetKeys = <String>[];
 
       dependentsOnCurrentPage.forEach((widgetKey, widgetContext) {
-        var isUpdated = Framework.updateWidgetHavingContext(widgetContext);
+        var isUpdated = context.framework.updateWidgetHavingContext(widgetContext);
 
         if (!isUpdated) {
           unavailableWidgetKeys.add(widgetContext.key);
@@ -462,6 +460,8 @@ class NavigatorState {
 
   final _activeStack = <String>[];
   final _historyStack = <OpenHistoryEntry>[];
+
+  final Router _router = Router();
 
   NavigatorState(this.context, this.widget);
 
@@ -523,7 +523,7 @@ class NavigatorState {
         print("${context.key}: Push entry: $name");
       }
 
-      Router.pushEntry(
+      _router.pushEntry(
         name: name,
         values: values,
         navigatorKey: context.key,
@@ -536,13 +536,12 @@ class NavigatorState {
     // if route is already in stack, bring it to the top of stack
 
     if (isPageStacked(name: name)) {
-      Framework.manageChildren(
+      context.framework.manageChildren(
         parentContext: context,
         flagIterateInReverseOrder: true,
         updateTypeWhenNecessary: UpdateType.setState,
         widgetActionCallback: (WidgetObject widgetObject) {
-          var routeName =
-              widgetObject.element.dataset[System.attrRouteName] ?? "";
+          var routeName = widgetObject.element.dataset[System.attrRouteName] ?? "";
 
           if (name == routeName) {
             return [WidgetAction.showWidget];
@@ -566,15 +565,14 @@ class NavigatorState {
       _activeStack.add(name);
 
       // hide all existing widgets
-      Framework.manageChildren(
+      context.framework.manageChildren(
         parentContext: context,
         flagIterateInReverseOrder: true,
         updateTypeWhenNecessary: UpdateType.setState,
-        widgetActionCallback: (WidgetObject widgetObject) =>
-            [WidgetAction.hideWidget],
+        widgetActionCallback: (WidgetObject widgetObject) => [WidgetAction.hideWidget],
       );
 
-      Framework.buildChildren(
+      context.framework.buildChildren(
         widgets: [page],
         parentContext: context,
         flagCleanParentContents: 1 == _historyStack.length,
@@ -589,7 +587,7 @@ class NavigatorState {
 
     frameworkUpdateCurrentName(_historyStack.last.name);
 
-    Framework.manageChildren(
+    context.framework.manageChildren(
       parentContext: context,
       flagIterateInReverseOrder: true,
       widgetActionCallback: (WidgetObject widgetObject) {
@@ -635,7 +633,7 @@ class NavigatorState {
   /// // because current navigator is registered on posts page
   /// ```
   ///
-  String getValue(String segment) => Router.getValue(context.key, segment);
+  String getValue(String segment) => _router.getValue(context.key, segment);
 
   /// Whether current active stack contains a route with matching [name].
   ///
@@ -686,8 +684,7 @@ class NavigatorState {
           );
         }
 
-        var isDuplicate = nameToPathMap.containsKey(route.name) ||
-            pathToRouteMap.containsKey(route.path);
+        var isDuplicate = nameToPathMap.containsKey(route.name) || pathToRouteMap.containsKey(route.path);
 
         if (isDuplicate) {
           return Debug.exception(
@@ -702,12 +699,12 @@ class NavigatorState {
       pathToRouteMap[route.path] = route;
     }
 
-    Router.register(context, this);
+    _router.register(context, this);
   }
 
   @protected
   void frameworkRender() {
-    var name = Router.getPath(context.key);
+    var name = _router.getPath(context.key);
 
     var needsReplacement = name.isEmpty;
 
@@ -725,7 +722,7 @@ class NavigatorState {
         print("${context.key}: Push replacement: $name");
       }
 
-      Router.pushReplacement(
+      _router.pushReplacement(
         name: name,
         values: {},
         navigatorKey: context.key,
@@ -737,7 +734,7 @@ class NavigatorState {
 
   @protected
   void frameworkUpdate(UpdateType updateType) {
-    Framework.manageChildren(
+    context.framework.manageChildren(
       parentContext: context,
       flagIterateInReverseOrder: true,
       updateTypeWhenNecessary: updateType,
@@ -754,19 +751,19 @@ class NavigatorState {
   }
 
   @protected
-  void frameworkDispose() => Router.unRegister(context);
+  void frameworkDispose() => _router.unRegister(context);
 
   /// Framework fires this when parent route changes.
   ///
   void frameworkOnParentRouteChange(String name) {
-    var routeName = Router.getPath(context.key);
+    var routeName = _router.getPath(context.key);
 
     if (routeName != currentRouteName) {
       if (Debug.routerLogs) {
         print("${context.key}: Push replacement: $routeName");
       }
 
-      Router.pushReplacement(
+      _router.pushReplacement(
         name: currentRouteName,
         values: {},
         navigatorKey: context.key,

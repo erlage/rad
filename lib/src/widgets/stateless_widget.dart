@@ -1,10 +1,9 @@
 import 'package:meta/meta.dart';
 import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/classes/framework.dart';
+import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/core/objects/render_object.dart';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/objects/build_context.dart';
 
 /// A widget that does not require mutable state.
 ///
@@ -70,7 +69,7 @@ class _StatelessWidgetRenderObject extends RenderObject {
     element,
     covariant _StatelessWidgetConfiguration configuration,
   ) {
-    Framework.buildChildren(
+    context.framework.buildChildren(
       widgets: [configuration.widgetBuilder(context)],
       parentContext: context,
     );
@@ -83,7 +82,7 @@ class _StatelessWidgetRenderObject extends RenderObject {
     required oldConfiguration,
     required covariant _StatelessWidgetConfiguration newConfiguration,
   }) {
-    Framework.updateChildren(
+    context.framework.updateChildren(
       updateType: updateType,
       widgets: [newConfiguration.widgetBuilder(context)],
       parentContext: context,
