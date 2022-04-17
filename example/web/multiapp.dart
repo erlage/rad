@@ -2,8 +2,14 @@ import 'dart:async';
 import 'package:rad/rad.dart';
 
 void main() {
-  startApp(Counter(interval: Duration(seconds: 1)), 'app-a');
-  startApp(Counter(interval: Duration(seconds: 2)), 'app-b');
+  startApp(
+    app: Counter(interval: Duration(seconds: 1)),
+    targetSelector: 'app-a',
+  );
+  startApp(
+    app: Counter(interval: Duration(seconds: 2)),
+    targetSelector: 'app-b',
+  );
 }
 
 class Counter extends StatefulWidget {

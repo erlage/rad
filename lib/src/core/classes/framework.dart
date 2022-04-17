@@ -27,9 +27,12 @@ class _AppFrameworkWidget extends InheritedWidget {
   }
 }
 
-void startApp(Widget app, String targetSelector,
-    {DebugOptions debugOptions = DebugOptions.defaultMode,
-    VoidCallback? beforeMount}) {
+void startApp({
+  required Widget app,
+  required String targetSelector,
+  DebugOptions debugOptions = DebugOptions.defaultMode,
+  VoidCallback? beforeMount,
+}) {
   final framework = Framework();
   final fwWidget = _AppFrameworkWidget(child: app, framework: framework);
   framework.init(routingPath: '/', debugOptions: debugOptions);

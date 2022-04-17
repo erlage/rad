@@ -4,8 +4,8 @@ import 'settings_page.dart';
 
 void main() {
   startApp(
-    RadApp(child: RootPage()),
-    'output',
+    app: RadApp(child: RootPage()),
+    targetSelector: 'output',
     debugOptions: DebugOptions(
       widgetLogs: true,
       developmentMode: true,
