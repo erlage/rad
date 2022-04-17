@@ -43,7 +43,23 @@ class BuildContext {
 
   /*
   |--------------------------------------------------------------------------
-  | constructors
+  | getters
+  |--------------------------------------------------------------------------
+  */
+
+  /// reference to context of parent's widget
+  ///
+  /// accessing will results in error if [widgetRuntimeType] is [System.contextTypeBigBang]
+  ///
+  BuildContext get parent => _parent!;
+
+  /// Widget is the only mutable property in build context.
+  ///
+  Widget get widget => _widget!;
+
+  /*
+  |--------------------------------------------------------------------------
+  | named constructors
   |--------------------------------------------------------------------------
   */
 
@@ -77,22 +93,6 @@ class BuildContext {
         widgetCorrespondingTag = DomTag.division,
         widgetConcreteType = System.contextTypeBigBang,
         widgetRuntimeType = System.contextTypeBigBang;
-
-  /*
-  |--------------------------------------------------------------------------
-  | getters
-  |--------------------------------------------------------------------------
-  */
-
-  /// reference to context of parent's widget
-  ///
-  /// accessing will results in error if [widgetRuntimeType] is [System.contextTypeBigBang]
-  ///
-  BuildContext get parent => _parent!;
-
-  /// Widget is the only mutable property in build context.
-  ///
-  Widget get widget => _widget!;
 
   /*
   |--------------------------------------------------------------------------
@@ -130,7 +130,7 @@ class BuildContext {
   }
 
   @override
-  String toString() {
+  toString() {
     var cType = _widget?.concreteType;
     var rType = "${_widget?.runtimeType}";
 
