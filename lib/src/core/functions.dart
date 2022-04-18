@@ -63,7 +63,9 @@ void startApp({
   var targetElement = document.getElementById(targetSelector) as HtmlElement?;
 
   if (null == targetElement) {
-    throw "Unable to locate target element in HTML document";
+    Debug.exception("Unable to locate target element in HTML document");
+
+    return;
   }
 
   /*
