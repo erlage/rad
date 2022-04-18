@@ -1,10 +1,8 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/utilities/services_registry.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
-import 'package:rad/src/core/foundation/scheduler/scheduler.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// [RenderObject] contains logic to build a widget's interface.
@@ -16,10 +14,6 @@ abstract class RenderObject {
   final BuildContext context;
 
   const RenderObject(this.context);
-
-  /// Get task scheduler for app instance that's enclosing the current context.
-  ///
-  Scheduler get scheduler => ServicesRegistry.instance.getScheduler(context);
 
   /*
   |--------------------------------------------------------------------------

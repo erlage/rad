@@ -422,8 +422,10 @@ class NavigatorRenderObject extends RenderObject {
     var dependentsOnCurrentPage = dependents[state.currentRouteName];
 
     if (null != dependentsOnCurrentPage) {
+      var schedulerService = ServicesRegistry.instance.getScheduler(context);
+
       dependentsOnCurrentPage.forEach((widgetKey, widgetContext) {
-        scheduler.addTask(
+        schedulerService.addTask(
           WidgetsUpdateDependentTask(widgetContext: widgetContext),
         );
       });

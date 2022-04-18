@@ -3,6 +3,7 @@ import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/common/render_object.dart';
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_update_dependent_task.dart';
+import 'package:rad/src/core/utilities/services_registry.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Base class for widgets that efficiently propagate information down the tree.
@@ -109,8 +110,10 @@ class InheritedWidgetRenderObject extends RenderObject {
     );
 
     if (updateShouldNotify) {
+      var schedulerService = ServicesRegistry.instance.getScheduler(context);
+
       dependents.forEach((widgetKey, widgetContext) {
-        scheduler.addTask(
+        schedulerService.addTask(
           WidgetsUpdateDependentTask(
             widgetContext: widgetContext,
           ),

@@ -8,6 +8,7 @@ import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/common/render_object.dart';
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_update_task.dart';
+import 'package:rad/src/core/utilities/services_registry.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateless_widget.dart';
@@ -150,7 +151,9 @@ class StatefulWidgetRenderObject extends RenderObject {
       ..initState()
       ..didChangeDependencies();
 
-    scheduler.addTask(
+    var schedulerService = ServicesRegistry.instance.getScheduler(context);
+
+    schedulerService.addTask(
       WidgetsBuildTask(
         parentContext: context,
         widgets: [state.build(context)],
@@ -182,7 +185,9 @@ class StatefulWidgetRenderObject extends RenderObject {
   }
 
   void updateProcedure(UpdateType updateType) {
-    scheduler.addTask(
+    var schedulerService = ServicesRegistry.instance.getScheduler(context);
+
+    schedulerService.addTask(
       WidgetsUpdateTask(
         parentContext: context,
         updateType: updateType,

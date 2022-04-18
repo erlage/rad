@@ -5,6 +5,7 @@ import 'package:rad/src/core/foundation/common/render_object.dart';
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/core/types.dart';
+import 'package:rad/src/core/utilities/services_registry.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// A widget that does not require mutable state.
@@ -71,7 +72,9 @@ class _StatelessWidgetRenderObject extends RenderObject {
     element,
     covariant _StatelessWidgetConfiguration configuration,
   ) {
-    scheduler.addTask(
+    var schedulerService = ServicesRegistry.instance.getScheduler(context);
+
+    schedulerService.addTask(
       WidgetsBuildTask(
         parentContext: context,
         widgets: [configuration.widgetBuilder(context)],
@@ -86,7 +89,9 @@ class _StatelessWidgetRenderObject extends RenderObject {
     required oldConfiguration,
     required covariant _StatelessWidgetConfiguration newConfiguration,
   }) {
-    scheduler.addTask(
+    var schedulerService = ServicesRegistry.instance.getScheduler(context);
+
+    schedulerService.addTask(
       WidgetsUpdateTask(
         updateType: updateType,
         parentContext: context,
