@@ -1,7 +1,7 @@
 import 'dart:html';
 
 import 'package:rad/rad.dart';
-import 'package:rad/src/core/window/abstract.dart';
+import 'package:rad/src/core/interface/window/abstract.dart';
 
 /// A window delegate that uses browser's window object.
 ///

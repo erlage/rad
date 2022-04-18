@@ -8,7 +8,7 @@ import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/window/window.dart';
+import 'package:rad/src/core/interface/window/window.dart';
 import 'package:rad/src/widgets/navigator.dart';
 import 'package:rad/src/widgets/route.dart';
 

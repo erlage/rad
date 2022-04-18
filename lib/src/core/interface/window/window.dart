@@ -1,4 +1,4 @@
-import 'package:rad/src/core/window/abstract.dart';
+import 'package:rad/src/core/interface/window/abstract.dart';
 
 /// Window interface.
 ///
