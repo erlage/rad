@@ -9,7 +9,7 @@ import 'package:rad/src/core/utilities/services_registry.dart';
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
 
-void fnStartApp({
+void startApp({
   required Widget app,
   required String targetSelector,
   VoidCallback? beforeMount,
