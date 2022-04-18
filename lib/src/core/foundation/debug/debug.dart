@@ -30,7 +30,7 @@ class Debug {
 
   void stopService() => _onException = supressException;
 
-  void exception(String message) => presentException(Exception(message));
+  void exception(String message) => onException(Exception(message));
 
   void supressException(Exception exception) {}
   void presentException(Exception exception) => throw exception;
