@@ -8,6 +8,7 @@ import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/window/window.dart';
 import 'package:rad/src/widgets/navigator.dart';
 import 'package:rad/src/widgets/route.dart';
 
@@ -59,7 +60,10 @@ class Router with ServicesResolver {
       print("Router: routingPath: initialized at: $_routingPath");
     }
 
-    window.addEventListener("popstate", _onPopState, false);
+    Window.delegate.addPopStateListener(
+      context: rootContext,
+      callback: _onPopState,
+    );
 
     updateCurrentSegments();
   }
@@ -80,7 +84,7 @@ class Router with ServicesResolver {
 
     _routingPath = '';
 
-    window.removeEventListener("popstate", _onPopState);
+    Window.delegate.removePopStateListener(rootContext);
   }
 
   /// Register navigator's state.
@@ -122,15 +126,19 @@ class Router with ServicesResolver {
 
       var historyEntry = protectedSegs.join("/") + "/$name$encodedValues";
 
-      var currentPath = window.location.pathname;
+      var currentPath = Window.delegate.locationPathName;
 
-      if (null != currentPath && currentPath.isNotEmpty) {
+      if (currentPath.isNotEmpty) {
         if (!historyEntry.startsWith('/')) {
           historyEntry = '/$historyEntry';
         }
       }
 
-      window.history.pushState(null, '', historyEntry);
+      Window.delegate.historyPushState(
+        title: '',
+        url: historyEntry,
+        context: rootContext,
+      );
 
       updateCurrentSegments();
 
@@ -151,7 +159,7 @@ class Router with ServicesResolver {
       name: name,
       values: values,
       navigatorKey: navigatorKey,
-      location: window.location.href,
+      location: Window.delegate.locationHref,
     );
 
     _routerStack.push(entry);
@@ -166,7 +174,7 @@ class Router with ServicesResolver {
     required Map<String, String> values,
     required String navigatorKey,
   }) {
-    var currentLocation = window.location.href;
+    var currentLocation = Window.delegate.locationHref;
 
     _routerStack.entries.remove(currentLocation);
 
@@ -176,15 +184,19 @@ class Router with ServicesResolver {
 
     var historyEntry = protectedSegs.join("/") + "/$name$encodedValues";
 
-    var currentPath = window.location.pathname;
+    var currentPath = Window.delegate.locationPathName;
 
-    if (null != currentPath && currentPath.isNotEmpty) {
+    if (currentPath.isNotEmpty) {
       if (!historyEntry.startsWith('/')) {
         historyEntry = '/$historyEntry';
       }
     }
 
-    window.history.replaceState(null, '', historyEntry);
+    Window.delegate.historyReplaceState(
+      title: '',
+      url: historyEntry,
+      context: rootContext,
+    );
 
     updateCurrentSegments();
 
@@ -192,7 +204,7 @@ class Router with ServicesResolver {
       name: name,
       values: values,
       navigatorKey: navigatorKey,
-      location: window.location.href,
+      location: Window.delegate.locationHref,
     );
 
     _routerStack.push(entry);
@@ -248,7 +260,7 @@ class Router with ServicesResolver {
   void updateCurrentSegments() {
     _currentSegments.clear();
 
-    var path = window.location.pathname;
+    var path = Window.delegate.locationPathName;
 
     if (null != path) {
       _currentSegments.addAll(
@@ -273,7 +285,7 @@ class Router with ServicesResolver {
     }
   }
 
-  /// Part of path(window.location.pathName) that navigator with
+  /// Part of path(Window.delegate.locationPathName) that navigator with
   /// [navigatorKey] can access.
   ///
   List<String> accessibleSegments(String navigatorKey) {
@@ -318,7 +330,7 @@ class Router with ServicesResolver {
     return group.split("/");
   }
 
-  /// Part of path(window.location.pathName) that navigator with
+  /// Part of path(Window.delegate.locationPathName) that navigator with
   /// [navigatorKey] can't change.
   ///
   /// Note that, navigator still can access **some parts** of protected
@@ -387,9 +399,9 @@ class Router with ServicesResolver {
   |--------------------------------------------------------------------------
   */
 
-  void _onPopState(Event event) {
+  void _onPopState(PopStateEvent event) {
     try {
-      var location = window.location.href;
+      var location = Window.delegate.locationHref;
 
       if (services.debug.routerLogs) {
         print("Router: onPopState: location: $location");

@@ -7,6 +7,8 @@ import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
+import 'package:rad/src/core/window/delegates/browser_window.dart';
+import 'package:rad/src/core/window/window.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
 
@@ -17,6 +19,14 @@ void startApp({
   VoidCallback? beforeMount,
   DebugOptions debugOptions = DebugOptions.defaultMode,
 }) {
+  /*
+  |--------------------------------------------------------------------------
+  | Setup delegates
+  |--------------------------------------------------------------------------
+  */
+
+  Window.instance.bindDelegate(BrowserWindow());
+
   /*
   |--------------------------------------------------------------------------
   | Create root context
