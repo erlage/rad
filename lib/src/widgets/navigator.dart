@@ -553,8 +553,7 @@ class NavigatorState with ServicesResolver {
           flagIterateInReverseOrder: true,
           updateType: UpdateType.setState,
           widgetActionCallback: (WidgetObject widgetObject) {
-            var routeName =
-                widgetObject.element.dataset[System.attrRouteName] ?? "";
+            var routeName = widgetObject.element.dataset[System.attrRouteName];
 
             if (name == routeName) {
               return [WidgetAction.showWidget];
@@ -562,10 +561,9 @@ class NavigatorState with ServicesResolver {
 
             return [WidgetAction.hideWidget];
           },
+          afterTaskCallback: _updateProcedure,
         ),
       );
-
-      _updateProcedure!();
     } else {
       //
       // else build the route
@@ -585,16 +583,18 @@ class NavigatorState with ServicesResolver {
           parentContext: context,
           flagIterateInReverseOrder: true,
           updateType: UpdateType.setState,
-          widgetActionCallback: (WidgetObject widgetObject) =>
-              [WidgetAction.hideWidget],
-        ),
-      );
-
-      services.scheduler.addTask(
-        WidgetsBuildTask(
-          widgets: [page],
-          parentContext: context,
-          flagCleanParentContents: 1 == _historyStack.length,
+          widgetActionCallback: (widgetObject) {
+            return [WidgetAction.hideWidget];
+          },
+          afterTaskCallback: () {
+            services.scheduler.addTask(
+              WidgetsBuildTask(
+                widgets: [page],
+                parentContext: context,
+                flagCleanParentContents: 1 == _historyStack.length,
+              ),
+            );
+          },
         ),
       );
     }
@@ -620,10 +620,9 @@ class NavigatorState with ServicesResolver {
 
           return [WidgetAction.hideWidget];
         },
+        afterTaskCallback: _updateProcedure,
       ),
     );
-
-    _updateProcedure!();
   }
 
   /// Get value from URL following the provided segment.
