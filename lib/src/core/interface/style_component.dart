@@ -1,5 +1,5 @@
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/interface/components/app_component.dart';
+import 'package:rad/src/core/interface/app_component.dart';
 
 /// Interface for style injection.
 ///

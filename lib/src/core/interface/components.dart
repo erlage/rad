@@ -2,7 +2,7 @@ import 'dart:html';
 
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/services/services.dart';
-import 'package:rad/src/core/interface/components/style_component.dart';
+import 'package:rad/src/core/interface/style_component.dart';
 
 /// App components.
 ///
