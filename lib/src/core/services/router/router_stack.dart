@@ -7,7 +7,7 @@ import 'router_stack_entry.dart';
 class RouterStack {
   /// Entries on router stack.
   ///
-  /// window.location.href => entry
+  /// window's location => entry
   ///
   final entries = <String, RouterStackEntry>{};
 

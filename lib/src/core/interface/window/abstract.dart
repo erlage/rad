@@ -8,6 +8,10 @@ abstract class WindowDelegate {
   String get locationHash;
   String get locationPathName;
 
+  /// Reload window.
+  ///
+  void locationReload();
+
   /// Add a pop state listener and associate it with provided
   /// context.
   ///

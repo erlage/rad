@@ -19,6 +19,9 @@ class BrowserWindow extends WindowDelegate {
   get locationPathName => window.location.pathname ?? '';
 
   @override
+  locationReload() => window.location.reload();
+
+  @override
   addPopStateListener({
     required context,
     required callback,

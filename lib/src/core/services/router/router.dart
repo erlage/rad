@@ -425,7 +425,7 @@ class Router with ServicesResolver {
           print("Router: onPopState: entry doesnt exists: $entry");
         }
 
-        window.location.reload();
+        Window.delegate.locationReload();
 
         // for active history, our implementation is ready, see below.
 
@@ -450,7 +450,7 @@ class Router with ServicesResolver {
     } catch (e) {
       // reload window if anything goes wrong
 
-      window.location.reload();
+      Window.delegate.locationReload();
     }
   }
 
