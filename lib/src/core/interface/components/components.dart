@@ -41,7 +41,7 @@ class Components with ServicesResolver {
       for (final styleComponent in styleComponents) {
         var contents = styleComponent.styleSheetContents;
         if (null != contents) {
-          if (contents.length > 200) {
+          if (contents.length > 1000) {
             return services.debug.exception(
               "Package is trying to inject larger stylesheet than allowed. "
               "Please use your HTML page to inject stylesheets larger than 200 characters. \n\n"
