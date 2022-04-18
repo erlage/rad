@@ -3,14 +3,14 @@ import 'dart:html';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/services/utils.dart';
-import 'package:rad/src/core/services/debug.dart';
+import 'package:rad/src/core/utilities/key_generator.dart';
+import 'package:rad/src/core/utilities/debug.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/core/services/framework_registry.dart';
+import 'package:rad/src/core/utilities/services_registry.dart';
 import 'package:rad/src/core/foundation/scheduler/abstract.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/common/widget_object.dart';
-import 'package:rad/src/core/foundation/common/framework_services.dart';
+import 'package:rad/src/core/foundation/services.dart';
 import 'package:rad/src/core/foundation/common/widget_action_object.dart';
 import 'package:rad/src/core/foundation/common/widget_update_object.dart';
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_build_task.dart';
@@ -21,34 +21,23 @@ import 'package:rad/src/core/foundation/scheduler/events/send_next_task_event.da
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_update_dependent_task.dart';
 
 class Framework {
-  /// Services offered/used by the framework.
+  /// Reference to services instance.
   ///
-  final _services = FrameworkServices();
+  final Services services;
+
+  /// Root context refers to the context that was used to bootstrap
+  /// the framework build process.
+  ///
+  BuildContext rootContext;
 
   /// Whether a framework task is in processing.
   ///
   var _isTaskInProcessing = false;
 
-  /// Root context refers to the context that was used to bootstrap
-  /// the framework build process.
-  ///
-  BuildContext? _rootContext;
-  BuildContext get rootContext => _rootContext!;
+  Framework(this.rootContext, this.services) {
+    // start scheduler service
 
-  /// Initialize framework.
-  ///
-  /// Each app instance should have exactly one corresponding framework instance.
-  ///
-  /// Typically, startApp creates root context(for app) and provide it to framework instance
-  /// via this method. Framework will register all services that depends on app's root context.
-  ///
-  void init(BuildContext context) {
-    _rootContext = context;
-
-    _services.walker.init();
-    _services.scheduler.init(_taskProcessor);
-
-    FrameworkRegistry.instance.registerServices(rootContext, _services);
+    services.scheduler.startService(_taskProcessor);
   }
 
   /// Tear down framework state.
@@ -58,21 +47,15 @@ class Framework {
   void tearDown() {
     // gracefully dispose widgets
 
-    var widgetKeys = _services.walker.dumpWidgetKeys();
+    var widgetKeys = services.walker.dumpWidgetKeys();
 
     for (var widgetKey in widgetKeys) {
-      disposeWidget(widgetObject: _services.walker.getWidgetObject(widgetKey));
+      disposeWidget(widgetObject: services.walker.getWidgetObject(widgetKey));
     }
 
-    // dispose instances
+    // tear down services used by framework instancee
 
-    _services.walker.tearDown();
-
-    _services.scheduler.tearDown();
-
-    // un register instances from global registry
-
-    FrameworkRegistry.instance.unRegisterServices(rootContext);
+    services.scheduler.stopService();
   }
 
   /// Build children under given context.
@@ -110,7 +93,7 @@ class Framework {
       } else {
         disposeWidget(
           flagPreserveTarget: true,
-          widgetObject: _services.walker.getWidgetObject(parentContext.key),
+          widgetObject: services.walker.getWidgetObject(parentContext.key),
         );
       }
     }
@@ -129,7 +112,7 @@ class Framework {
       }
 
       var widgetKey =
-          isKeyProvided ? widget.initialKey : Utils.generateWidgetKey();
+          isKeyProvided ? widget.initialKey : KeyGenerator.generateWidgetKey();
 
       var configuration = widget.createConfiguration();
 
@@ -159,7 +142,7 @@ class Framework {
         renderObject: renderObject,
       );
 
-      _services.walker.registerWidgetObject(widgetObject);
+      services.walker.registerWidgetObject(widgetObject);
 
       widgetObject.renderObject.beforeMount();
 
@@ -269,7 +252,7 @@ class Framework {
       // if flag is on for missing childs
 
       if (flagAddIfNotFound) {
-        var randomKey = "_${Utils.generateRandomKey()}";
+        var randomKey = "_${KeyGenerator.generateRandomKey()}";
 
         updateObjects[randomKey] = WidgetUpdateObject(widget, null);
       }
@@ -282,7 +265,7 @@ class Framework {
         if (!updateObjects.containsKey(childElement.id)) {
           if (flagDisposeObsoluteChildren) {
             disposeWidget(
-              widgetObject: _services.walker.getWidgetObject(childElement.id),
+              widgetObject: services.walker.getWidgetObject(childElement.id),
               flagPreserveTarget: false,
             );
           } else if (flagHideObsoluteChildren) {
@@ -300,7 +283,7 @@ class Framework {
       var updateObject = updateObjects[elementId]!;
 
       if (null != updateObject.existingElementId) {
-        var widgetObject = _services.walker.getWidgetObject(elementId);
+        var widgetObject = services.walker.getWidgetObject(elementId);
 
         // if found
 
@@ -424,7 +407,7 @@ class Framework {
     //
     bool flagIterateInReverseOrder = false,
   }) {
-    var widgetObject = _services.walker.getWidgetObject(parentContext.key);
+    var widgetObject = services.walker.getWidgetObject(parentContext.key);
 
     if (null == widgetObject) return;
 
@@ -434,7 +417,7 @@ class Framework {
     for (final child in flagIterateInReverseOrder
         ? widgetObject.element.children.reversed
         : widgetObject.element.children) {
-      var childWidgetObject = _services.walker.getWidgetObject(child.id);
+      var childWidgetObject = services.walker.getWidgetObject(child.id);
 
       if (null != childWidgetObject) {
         var widgetActions = widgetActionCallback(childWidgetObject);
@@ -503,7 +486,7 @@ class Framework {
   /// Update a dependent widget(using its context).
   ///
   void updateDependentContext(BuildContext context) {
-    var widgetObject = _services.walker.getWidgetObject(context.key);
+    var widgetObject = services.walker.getWidgetObject(context.key);
 
     if (null != widgetObject) {
       widgetObject.renderObject.update(
@@ -534,7 +517,7 @@ class Framework {
     if (widgetObject.element.hasChildNodes()) {
       for (final childElement in widgetObject.element.children) {
         disposeWidget(
-          widgetObject: _services.walker.getWidgetObject(childElement.id),
+          widgetObject: services.walker.getWidgetObject(childElement.id),
         );
       }
     }
@@ -555,7 +538,7 @@ class Framework {
 
     widgetObject.renderObject.beforeUnMount();
 
-    _services.walker.unRegisterWidgetObject(widgetObject);
+    services.walker.unRegisterWidgetObject(widgetObject);
 
     widgetObject.element.remove();
 
@@ -637,7 +620,7 @@ class Framework {
     } finally {
       _isTaskInProcessing = false;
 
-      _services.scheduler.addEvent(SendNextTaskEvent());
+      services.scheduler.addEvent(SendNextTaskEvent());
     }
   }
 

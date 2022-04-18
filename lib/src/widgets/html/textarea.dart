@@ -1,6 +1,7 @@
 import 'dart:html';
 
-import 'package:rad/src/core/services/utils.dart';
+import 'package:rad/src/core/functions.dart';
+import 'package:rad/src/core/utilities/key_generator.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/common/render_object.dart';
@@ -235,7 +236,7 @@ class _TextAreaProps {
 
     if (null != props.onChange) {
       element.addEventListener(
-        Utils.mapDomEventType(DomEventType.input),
+        fnMapDomEventType(DomEventType.input),
         props.onChange,
       );
     }
@@ -284,7 +285,7 @@ class _TextAreaProps {
 
     if (null != props.onChange) {
       element.removeEventListener(
-        Utils.mapDomEventType(DomEventType.input),
+        fnMapDomEventType(DomEventType.input),
         props.onChange,
       );
     }

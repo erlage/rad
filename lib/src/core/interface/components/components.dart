@@ -1,28 +1,8 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/services/debug.dart';
-import 'package:rad/src/core/interface/style_component.dart';
-
-/// Interface for external components.
-///
-@immutable
-abstract class AppComponent {
-  /// Name of the component.
-  ///
-  String get name;
-
-  /// Auther name.
-  ///
-  String get author;
-
-  /// Component version.
-  ///
-  String get version;
-
-  @override
-  toString() => "From $name (v$version). Author: $author";
-}
+import 'package:rad/src/core/interface/components/style_component.dart';
+import 'package:rad/src/core/utilities/debug.dart';
 
 /// App components.
 ///

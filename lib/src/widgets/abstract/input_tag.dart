@@ -1,7 +1,8 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/services/utils.dart';
+import 'package:rad/src/core/functions.dart';
+import 'package:rad/src/core/utilities/key_generator.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/common/render_object.dart';
@@ -221,7 +222,7 @@ class InputProps {
     MarkUpGlobalProps.apply(element, props.globalConfiguration);
 
     if (null != props.type) {
-      element.type = Utils.mapInputType(props.type!);
+      element.type = fnMapInputType(props.type!);
     }
 
     if (null != props.name) {
@@ -256,7 +257,7 @@ class InputProps {
       var eventType = getRequiredEventType(props.type!);
 
       element.addEventListener(
-        Utils.mapDomEventType(eventType),
+        fnMapDomEventType(eventType),
         props.eventCallback,
       );
     }
@@ -303,7 +304,7 @@ class InputProps {
       var eventType = getRequiredEventType(props.type!);
 
       element.removeEventListener(
-        Utils.mapDomEventType(eventType),
+        fnMapDomEventType(eventType),
         props.eventCallback,
       );
     }

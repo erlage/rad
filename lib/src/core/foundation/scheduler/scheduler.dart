@@ -19,11 +19,11 @@ class Scheduler {
   ///
   StreamController<SchedulerEvent>? _eventStream;
 
-  /// Initialize scheduler.
+  /// Start scheduler service.
   ///
   /// This process involved setting up listeners and task streams.
   ///
-  void init(SchedulerTaskCallback listener) {
+  void startService(SchedulerTaskCallback listener) {
     _tasksStream = StreamController<SchedulerTask>();
     _eventStream = StreamController<SchedulerEvent>();
 
@@ -31,11 +31,11 @@ class Scheduler {
     _eventStream!.stream.listen(_eventListener);
   }
 
-  /// TearDown task schedular.
+  /// Stop scheduler service.
   ///
   /// It should be called only during testing.
   ///
-  void tearDown() {
+  void stopService() {
     _tasksStream!.close();
     _eventStream!.close();
   }

@@ -3,7 +3,7 @@ import 'dart:html';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/common/widget_object.dart';
-import 'package:rad/src/core/services/debug.dart';
+import 'package:rad/src/core/utilities/debug.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 
@@ -15,11 +15,7 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 class Walker {
   final _registeredWidgetObjects = <String, WidgetObject>{};
 
-  /// Initialize registry.
-  ///
-  void init() {}
-
-  /// TearDown registry.
+  /// TearDown walker.
   ///
   /// It should be called only during testing.
   ///

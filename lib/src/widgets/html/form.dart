@@ -1,7 +1,8 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/services/utils.dart';
+import 'package:rad/src/core/functions.dart';
+import 'package:rad/src/core/utilities/key_generator.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/common/render_object.dart';
@@ -203,16 +204,16 @@ class _FormProps {
     }
 
     if (null != props.method) {
-      element.method = Utils.mapFormMethod(props.method!);
+      element.method = fnMapFormMethod(props.method!);
     }
 
     if (null != props.enctype) {
-      element.enctype = Utils.mapFormEncType(props.enctype!);
+      element.enctype = fnMapFormEncType(props.enctype!);
     }
 
     if (null != props.onSubmitEventListener) {
       element.addEventListener(
-        Utils.mapDomEventType(DomEventType.submit),
+        fnMapDomEventType(DomEventType.submit),
         props.onSubmitEventListener,
       );
     }
@@ -245,7 +246,7 @@ class _FormProps {
 
     if (null != props.onSubmitEventListener) {
       element.removeEventListener(
-        Utils.mapDomEventType(DomEventType.submit),
+        fnMapDomEventType(DomEventType.submit),
         props.onSubmitEventListener,
       );
     }

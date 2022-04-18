@@ -1,10 +1,10 @@
 import 'dart:html';
 
-import 'package:rad/src/core/services/debug.dart';
+import 'package:rad/src/core/functions.dart';
+import 'package:rad/src/core/utilities/debug.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/common/render_object.dart';
-import 'package:rad/src/core/services/utils.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// A wrapper for containing everything that can belong to a single widget.
@@ -30,7 +30,7 @@ class WidgetObject {
   }) :
         // create dom element
         element = document.createElement(
-          Utils.mapDomTag(renderObject.context.widget.correspondingTag),
+          fnMapDomTag(renderObject.context.widget.correspondingTag),
         ) as HtmlElement {
     //
     // add properties to element

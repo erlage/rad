@@ -1,8 +1,9 @@
 import 'dart:html';
 
-import 'package:rad/src/core/services/debug.dart';
-import 'package:rad/src/core/services/framework_registry.dart';
-import 'package:rad/src/core/services/utils.dart';
+import 'package:rad/src/core/functions.dart';
+import 'package:rad/src/core/utilities/debug.dart';
+import 'package:rad/src/core/utilities/services_registry.dart';
+import 'package:rad/src/core/utilities/key_generator.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/widgets/navigator.dart';
@@ -129,7 +130,7 @@ class Router {
     if (updateHistory) {
       var protectedSegs = protectedSegments(navigatorKey);
 
-      var encodedValues = Utils.encodeKeyValueMap(values);
+      var encodedValues = fnEncodeKeyValueMap(values);
 
       var historyEntry = protectedSegs.join("/") + "/$name$encodedValues";
 
@@ -183,7 +184,7 @@ class Router {
 
     var protectedSegs = protectedSegments(navigatorKey);
 
-    var encodedValues = Utils.encodeKeyValueMap(values);
+    var encodedValues = fnEncodeKeyValueMap(values);
 
     var historyEntry = protectedSegs.join("/") + "/$name$encodedValues";
 
@@ -462,7 +463,7 @@ class Router {
     // we've to use context.parent here because navigators are required to register
     // themselves in onContextCreate hook but at the point when onContextCreate
     // hook is fired, context.key is not present in DOM.
-    var walker = FrameworkRegistry.instance.getTreeWalker(context);
+    var walker = ServicesRegistry.instance.getTreeWalker(context);
 
     var parent = walker.findAncestorWidgetObjectOfType<Navigator>(
       context.parent,

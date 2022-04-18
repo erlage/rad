@@ -1,9 +1,9 @@
 import 'dart:html';
 
-import 'package:rad/src/core/services/utils.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/common/render_object.dart';
+import 'package:rad/src/core/functions.dart';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
@@ -180,7 +180,7 @@ class _SelectProps {
 
     if (null != props.onChange) {
       element.addEventListener(
-        Utils.mapDomEventType(DomEventType.change),
+        fnMapDomEventType(DomEventType.change),
         props.onChange,
       );
     }
@@ -205,7 +205,7 @@ class _SelectProps {
 
     if (null != props.onChange) {
       element.removeEventListener(
-        Utils.mapDomEventType(DomEventType.change),
+        fnMapDomEventType(DomEventType.change),
         props.onChange,
       );
     }

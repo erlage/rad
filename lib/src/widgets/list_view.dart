@@ -1,7 +1,7 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/services/framework_registry.dart';
+import 'package:rad/src/core/utilities/services_registry.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/common/render_object.dart';
@@ -275,7 +275,7 @@ class _ListViewBuilderState {
   */
 
   _ListViewBuilderState(this.context)
-      : scheduler = FrameworkRegistry.instance.getTaskScheduler(context);
+      : scheduler = ServicesRegistry.instance.getTaskScheduler(context);
 
   /*
   |--------------------------------------------------------------------------
