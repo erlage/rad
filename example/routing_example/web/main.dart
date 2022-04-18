@@ -1,4 +1,5 @@
 import 'package:rad/rad.dart';
+import 'package:rad/widgets_html.dart';
 
 import 'settings_page.dart';
 
@@ -6,7 +7,7 @@ void main() {
   startApp(
     app: RadApp(child: RootPage()),
     targetSelector: 'output',
-    debugOptions: DebugOptions(
+    debugOptions: const DebugOptions(
       widgetLogs: true,
       developmentMode: true,
     ),
@@ -41,7 +42,7 @@ class _RootPageState extends State<RootPage> {
     return Navigator(
       onInit: _onNavigatorInit,
       onRouteChange: _onNavigatorRouteChange,
-      routes: [
+      routes: const [
         Route(name: 'home', page: Text("Home page")),
         Route(name: 'posts', page: Text("Posts page")),
         Route(name: 'settings', page: SettingsPage()),

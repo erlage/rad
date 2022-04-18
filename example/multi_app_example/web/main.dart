@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'package:rad/rad.dart';
+import 'package:rad/widgets_html.dart';
 
 void main() {
   startApp(
-    app: Counter(interval: Duration(seconds: 1)),
+    app: const Counter(interval: Duration(seconds: 1)),
     targetSelector: 'app-a',
   );
   startApp(
-    app: Counter(interval: Duration(seconds: 2)),
+    app: const Counter(interval: Duration(seconds: 2)),
     targetSelector: 'app-b',
   );
 }
@@ -24,6 +25,7 @@ class Counter extends StatefulWidget {
 class CounterState extends State<Counter> {
   int number = 0;
 
+  @override
   void initState() {
     Timer.periodic(widget.interval, (timer) {
       setState(() {
@@ -35,7 +37,7 @@ class CounterState extends State<Counter> {
   @override
   Widget build(BuildContext context) {
     return Division(children: [
-      Strong(child: Text('Current tick: ')),
+      const Strong(child: Text('Current tick: ')),
       Span(child: Text('$number')),
     ]);
   }

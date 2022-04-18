@@ -1,6 +1,9 @@
 import 'package:rad/rad.dart';
+import 'package:rad/widgets_html.dart';
 
 class SettingsPage extends StatefulWidget {
+  const SettingsPage({String? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _SettingsPageState();
 }
@@ -28,7 +31,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Navigator(
       onInit: _onNavigatorInit,
       onRouteChange: _onNavigatorRouteChange,
-      routes: [
+      routes: const [
         Route(name: 'account', page: Page("Account Settings")),
         Route(name: 'photos', page: Page("Photos Settings")),
         Route(name: 'videos', page: Page("Videos Settings")),
@@ -45,7 +48,7 @@ class _SettingsPageState extends State<SettingsPage> {
         style: "display: flex; flex-direction: column;"
             "justify-content: flex-start; gap: 10px;",
         children: [
-          Division(style: "width: 100%; height: 20px;"),
+          const Division(style: "width: 100%; height: 20px;"),
           _headerItem(text: "Account settings", routeName: "account"),
           _headerItem(text: "Photos settings", routeName: "photos"),
           _headerItem(text: "Videos settings", routeName: "videos"),
@@ -87,7 +90,7 @@ class _SettingsPageState extends State<SettingsPage> {
 class Page extends StatelessWidget {
   final String title;
 
-  Page(this.title);
+  const Page(this.title);
 
   @override
   Widget build(BuildContext context) {
