@@ -16,7 +16,7 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 class GestureDetector extends StatefulWidget {
   final Widget child;
 
-  final VoidCallback? onTap;
+  final Callback? onTap;
   final OnTapEventCallback? onTapEvent;
   final HitTestBehavior behaviour;
 

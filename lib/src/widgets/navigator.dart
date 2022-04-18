@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:meta/meta.dart';
 import 'package:rad/src/core/services/router/open_history_entry.dart';
 import 'package:rad/src/core/services/services.dart';
@@ -676,10 +674,10 @@ class NavigatorState with ServicesResolver {
   |--------------------------------------------------------------------------
   */
 
-  VoidCallback? _updateProcedure;
+  Callback? _updateProcedure;
 
   @protected
-  void frameworkBindUpdateProcedure(VoidCallback updateProcedure) {
+  void frameworkBindUpdateProcedure(Callback updateProcedure) {
     _updateProcedure = updateProcedure;
   }
 

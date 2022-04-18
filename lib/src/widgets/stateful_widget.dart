@@ -5,6 +5,7 @@ import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/core/services/services_registry.dart';
@@ -305,7 +306,7 @@ abstract class State<T extends StatefulWidget> {
   ///
   @nonVirtual
   @protected
-  void setState(VoidCallback? callable) {
+  void setState(Callback? callable) {
     if (_isRebuilding) {
       return;
     }

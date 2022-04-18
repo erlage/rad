@@ -10,16 +10,16 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// A widget that allows hooking its internals.
 ///
 class RT_TestWidget extends Widget {
-  final VoidCallback? roEventHookRender;
-  final VoidCallback? roEventHookUpdate;
-  final VoidCallback? roEventHookBeforeMount;
-  final VoidCallback? roEventHookAfterMount;
-  final VoidCallback? roEventHookAfterWidgetRebind;
-  final VoidCallback? roEventHookBeforeUnMount;
+  final Callback? roEventHookRender;
+  final Callback? roEventHookUpdate;
+  final Callback? roEventHookBeforeMount;
+  final Callback? roEventHookAfterMount;
+  final Callback? roEventHookAfterWidgetRebind;
+  final Callback? roEventHookBeforeUnMount;
 
-  final VoidCallback? wEventHookCreateRenderObject;
-  final VoidCallback? wEventHookCreateWidgetConfiguration;
-  final VoidCallback? wEventHookIsConfigurationChanged;
+  final Callback? wEventHookCreateRenderObject;
+  final Callback? wEventHookCreateWidgetConfiguration;
+  final Callback? wEventHookIsConfigurationChanged;
 
   final List<Widget>? children;
 
@@ -83,12 +83,12 @@ class RT_TestWidget extends Widget {
 }
 
 class RT_TestWidgetRenderObject extends RenderObject {
-  final VoidCallback? roEventHookRender;
-  final VoidCallback? roEventHookUpdate;
-  final VoidCallback? roEventHookBeforeMount;
-  final VoidCallback? roEventHookAfterMount;
-  final VoidCallback? roEventHookAfterWidgetRebind;
-  final VoidCallback? roEventHookBeforeUnMount;
+  final Callback? roEventHookRender;
+  final Callback? roEventHookUpdate;
+  final Callback? roEventHookBeforeMount;
+  final Callback? roEventHookAfterMount;
+  final Callback? roEventHookAfterWidgetRebind;
+  final Callback? roEventHookBeforeUnMount;
 
   const RT_TestWidgetRenderObject(
     BuildContext context, {

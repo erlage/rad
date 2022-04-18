@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/debug_options.dart';
+import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/interface/components/components.dart';
 import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/core/framework.dart';
@@ -47,7 +48,7 @@ void startApp({
   required Widget app,
   required String targetSelector,
   String routingPath = '',
-  VoidCallback? beforeMount,
+  Callback? beforeMount,
   DebugOptions debugOptions = DebugOptions.defaultMode,
 }) {
   AppBootstrapper(
@@ -69,7 +70,7 @@ class AppBootstrapper {
   final Widget app;
   final String targetSelector;
   final String routingPath;
-  final VoidCallback? beforeMount;
+  final Callback? beforeMount;
   final DebugOptions debugOptions;
 
   BuildContext? _rootContext;

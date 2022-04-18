@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'package:rad/src/core/common/types.dart';
 
 /// An object that maintains a list of listeners.
 ///
@@ -11,11 +11,11 @@ abstract class Listenable {
   factory Listenable.merge(List<Listenable?> listenables) = _MergingListenable;
 
   /// Register a closure to be called when the object notifies its listeners.
-  void addListener(VoidCallback listener);
+  void addListener(Callback listener);
 
   /// Remove a previously registered closure from the list of closures that the
   /// object notifies.
-  void removeListener(VoidCallback listener);
+  void removeListener(Callback listener);
 }
 
 /// An interface for subclasses of [Listenable] that expose a [value].
@@ -27,11 +27,11 @@ abstract class ValueListenable<T> extends Listenable {
 }
 
 /// A class that can be extended or mixed in that provides a change notification
-/// API using [VoidCallback] for notifications.
+/// API using [Callback] for notifications.
 ///
 class ChangeNotifier implements Listenable {
   int _count = 0;
-  List<VoidCallback?> _listeners = List<VoidCallback?>.filled(0, null);
+  List<Callback?> _listeners = List<Callback?>.filled(0, null);
   int _notificationCallStackDepth = 0;
   int _reentrantlyRemovedListeners = 0;
   bool _debugDisposed = false;
@@ -56,14 +56,14 @@ class ChangeNotifier implements Listenable {
   /// Register a closure to be called when the object changes.
   ///
   @override
-  void addListener(VoidCallback listener) {
+  void addListener(Callback listener) {
     assert(_debugAssertNotDisposed());
     if (_count == _listeners.length) {
       if (_count == 0) {
-        _listeners = List<VoidCallback?>.filled(1, null);
+        _listeners = List<Callback?>.filled(1, null);
       } else {
-        final List<VoidCallback?> newListeners =
-            List<VoidCallback?>.filled(_listeners.length * 2, null);
+        final List<Callback?> newListeners =
+            List<Callback?>.filled(_listeners.length * 2, null);
         for (int i = 0; i < _count; i++) {
           newListeners[i] = _listeners[i];
         }
@@ -77,8 +77,7 @@ class ChangeNotifier implements Listenable {
     _count -= 1;
 
     if (_count * 2 <= _listeners.length) {
-      final List<VoidCallback?> newListeners =
-          List<VoidCallback?>.filled(_count, null);
+      final List<Callback?> newListeners = List<Callback?>.filled(_count, null);
 
       // Listeners before the index are at the same place.
       for (int i = 0; i < index; i++) {
@@ -105,10 +104,10 @@ class ChangeNotifier implements Listenable {
   /// Remove a previously registered closure from the list of closures that are
   ///
   @override
-  void removeListener(VoidCallback listener) {
+  void removeListener(Callback listener) {
     assert(_debugAssertNotDisposed());
     for (int i = 0; i < _count; i++) {
-      final VoidCallback? _listener = _listeners[i];
+      final Callback? _listener = _listeners[i];
       if (_listener == listener) {
         if (_notificationCallStackDepth > 0) {
           _listeners[i] = null;
@@ -159,12 +158,12 @@ class ChangeNotifier implements Listenable {
       if (newLength * 2 <= _listeners.length) {
         // As in _removeAt, we only shrink the list when the real number of
         // listeners is half the length of our list.
-        final List<VoidCallback?> newListeners =
-            List<VoidCallback?>.filled(newLength, null);
+        final List<Callback?> newListeners =
+            List<Callback?>.filled(newLength, null);
 
         int newIndex = 0;
         for (int i = 0; i < _count; i++) {
-          final VoidCallback? listener = _listeners[i];
+          final Callback? listener = _listeners[i];
           if (listener != null) {
             newListeners[newIndex++] = listener;
           }
@@ -198,14 +197,14 @@ class _MergingListenable extends Listenable {
   final List<Listenable?> _children;
 
   @override
-  void addListener(VoidCallback listener) {
+  void addListener(Callback listener) {
     for (final Listenable? child in _children) {
       child?.addListener(listener);
     }
   }
 
   @override
-  void removeListener(VoidCallback listener) {
+  void removeListener(Callback listener) {
     for (final Listenable? child in _children) {
       child?.removeListener(listener);
     }
