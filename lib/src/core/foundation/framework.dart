@@ -5,7 +5,6 @@ import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/foundation/services.dart';
-import 'package:rad/src/core/utilities/key_generator.dart';
 import 'package:rad/src/core/foundation/scheduler/abstract.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/common/widget_object.dart';
@@ -186,8 +185,9 @@ class Framework with ServicesResolver {
         }
       }
 
-      var widgetKey =
-          isKeyProvided ? widget.initialKey : KeyGenerator.generateWidgetKey();
+      var widgetKey = isKeyProvided
+          ? widget.initialKey
+          : services.keyGen.generateWidgetKey();
 
       var configuration = widget.createConfiguration();
 
@@ -327,7 +327,7 @@ class Framework with ServicesResolver {
       // if flag is on for missing childs
 
       if (flagAddIfNotFound) {
-        var randomKey = "_${KeyGenerator.generateRandomKey()}";
+        var randomKey = "_${services.keyGen.generateRandomKey()}";
 
         updateObjects[randomKey] = WidgetUpdateObject(widget, null);
       }

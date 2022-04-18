@@ -1,5 +1,6 @@
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/debug/debug.dart';
+import 'package:rad/src/core/foundation/keygen/keygen.dart';
 import 'package:rad/src/core/foundation/router/router.dart';
 import 'package:rad/src/core/foundation/scheduler/scheduler.dart';
 import 'package:rad/src/core/foundation/walker/walker.dart';
@@ -12,9 +13,11 @@ class Services {
   final Walker walker;
   final Router router;
   final Scheduler scheduler;
+  final KeyGen keyGen;
 
   Services(BuildContext rootContext)
       : debug = Debug(),
+        keyGen = KeyGen(rootContext),
         walker = Walker(rootContext),
         router = Router(rootContext),
         scheduler = Scheduler();

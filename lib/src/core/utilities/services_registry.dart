@@ -1,5 +1,6 @@
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/debug/debug.dart';
+import 'package:rad/src/core/foundation/keygen/keygen.dart';
 import 'package:rad/src/core/foundation/router/router.dart';
 import 'package:rad/src/core/foundation/services.dart';
 import 'package:rad/src/core/foundation/walker/walker.dart';
@@ -36,6 +37,10 @@ class ServicesRegistry {
   /// Find debug service from registered services.
   ///
   Debug getDebug(BuildContext context) => getServices(context).debug;
+
+  /// Find key genertor service from registered services.
+  ///
+  KeyGen getKeyGen(BuildContext context) => getServices(context).keyGen;
 
   /// Find router service from registered services.
   ///
