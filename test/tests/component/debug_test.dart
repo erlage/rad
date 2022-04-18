@@ -1,4 +1,3 @@
-import 'package:rad/rad.dart';
 import 'package:rad/src/core/objects/debug.dart';
 import 'package:rad/src/core/objects/framework.dart';
 import 'package:test/scaffolding.dart';

@@ -1,6 +1,6 @@
 import 'dart:html';
 
-import 'package:rad/rad.dart';
+import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/services.dart';
 import 'package:rad/src/core/interface/components/style_component.dart';
 

@@ -1,4 +1,3 @@
-import 'package:rad/rad.dart';
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
 

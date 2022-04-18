@@ -1,4 +1,4 @@
-import 'package:rad/rad.dart';
+import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/debug/debug.dart';
 import 'package:rad/src/core/foundation/router/router.dart';
 import 'package:rad/src/core/foundation/scheduler/scheduler.dart';
@@ -20,10 +20,11 @@ class Services {
         scheduler = Scheduler();
 }
 
-/// A class object that include services resolver.
+/// A mixing that include services resolver.
 ///
 mixin ServicesResolver {
   Services? _services;
+
   Services resolveServices(BuildContext context) {
     return _services ??= ServicesRegistry.instance.getServices(context);
   }
