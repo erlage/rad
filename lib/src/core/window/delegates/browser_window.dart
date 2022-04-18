@@ -10,18 +10,18 @@ class BrowserWindow extends WindowDelegate {
   final _psListeners = <String, PopStateEventCallback>{};
 
   @override
-  String get locationHref => window.location.href;
+  get locationHref => window.location.href;
 
   @override
-  String get locationHash => window.location.hash;
+  get locationHash => window.location.hash;
 
   @override
-  String get locationPathName => window.location.pathname ?? '';
+  get locationPathName => window.location.pathname ?? '';
 
   @override
-  void addPopStateListener({
-    required BuildContext context,
-    required PopStateEventCallback callback,
+  addPopStateListener({
+    required context,
+    required callback,
   }) {
     if (!_psListeners.containsKey(context.appTargetKey)) {
       _psListeners[context.appTargetKey] = callback;
@@ -31,26 +31,26 @@ class BrowserWindow extends WindowDelegate {
   }
 
   @override
-  void removePopStateListener(BuildContext context) {
+  removePopStateListener(context) {
     if (_psListeners.containsKey(context.appTargetKey)) {
       _psListeners.remove(context.appTargetKey);
     }
   }
 
   @override
-  void historyPushState({
-    required String title,
-    required String url,
-    required BuildContext context,
+  historyPushState({
+    required title,
+    required url,
+    required context,
   }) {
     window.history.pushState(context.appTargetKey, title, url);
   }
 
   @override
-  void historyReplaceState({
-    required String title,
-    required String url,
-    required BuildContext context,
+  historyReplaceState({
+    required title,
+    required url,
+    required context,
   }) {
     window.history.replaceState(context.appTargetKey, title, url);
   }

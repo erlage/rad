@@ -10,7 +10,7 @@ class Window {
   WindowDelegate? _delegate;
   static WindowDelegate get delegate => instance._delegate!;
 
-  /// Tries to bind delegate for window.
+  /// Bind delegate for window.
   ///
   void bindDelegate(WindowDelegate delegate) => _delegate = delegate;
 }
