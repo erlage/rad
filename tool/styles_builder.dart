@@ -30,10 +30,14 @@ class StylesBuilder implements Builder {
   final availableImports = <String, String>{};
 
   void fetchAvailableImports() {
-    File('lib/rad.dart')
-        .readAsStringSync()
-        .split("\n")
-        .forEach(addToAvailableImports);
+    for (var file in [
+      'lib/rad.dart',
+      'lib/widgets_async.dart',
+      'lib/widgets_html.dart',
+      'lib/widgets_internals.dart',
+    ]) {
+      File(file).readAsStringSync().split("\n").forEach(addToAvailableImports);
+    }
   }
 
   void addToAvailableImports(String exportDetails) {
