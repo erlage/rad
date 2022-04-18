@@ -23,30 +23,6 @@ abstract class RenderObject {
 
   /*
   |--------------------------------------------------------------------------
-  | rendering process related
-  |--------------------------------------------------------------------------
-  */
-
-  void dispatchRender(HtmlElement element, WidgetConfiguration configuration) {
-    render(element, configuration);
-  }
-
-  void dispatchUpdate({
-    required HtmlElement element,
-    required UpdateType updateType,
-    required WidgetConfiguration oldConfiguration,
-    required WidgetConfiguration newConfiguration,
-  }) {
-    update(
-      element: element,
-      updateType: updateType,
-      oldConfiguration: oldConfiguration,
-      newConfiguration: newConfiguration,
-    );
-  }
-
-  /*
-  |--------------------------------------------------------------------------
   | lifecycle hooks
   |--------------------------------------------------------------------------
   */

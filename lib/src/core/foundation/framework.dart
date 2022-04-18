@@ -217,7 +217,7 @@ class Framework with ServicesResolver {
 
       widgetObject.renderObject.afterMount();
 
-      widgetObject.renderObject.dispatchRender(
+      widgetObject.renderObject.render(
         widgetObject.element,
         widgetObject.configuration,
       );
@@ -399,7 +399,7 @@ class Framework with ServicesResolver {
 
             // publish update
 
-            widgetObject.renderObject.dispatchUpdate(
+            widgetObject.renderObject.update(
               element: widgetObject.element,
               updateType: updateType,
               newConfiguration: newConfiguration,
@@ -532,7 +532,7 @@ class Framework with ServicesResolver {
 
           // publish update
 
-          widgetActionObject.widgetObject.renderObject.dispatchUpdate(
+          widgetActionObject.widgetObject.renderObject.update(
             element: widgetObject.element,
             updateType: updateTypeWhenNecessary,
             newConfiguration: widgetObject.configuration,
