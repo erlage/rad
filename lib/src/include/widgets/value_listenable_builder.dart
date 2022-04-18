@@ -1,7 +1,7 @@
 import 'package:rad/src/include/foundation/change_notifier.dart';
 import 'package:rad/src/include/widgets/stream_builder.dart';
 
-import 'package:rad/src/core/foundation/common/build_context.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 

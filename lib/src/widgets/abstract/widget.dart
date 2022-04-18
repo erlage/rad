@@ -1,8 +1,8 @@
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/foundation/common/render_object.dart';
-import 'package:rad/src/core/foundation/common/build_context.dart';
+import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
 
 /// Describes the configuration for an [RenderObject].
 ///

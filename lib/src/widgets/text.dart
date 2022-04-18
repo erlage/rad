@@ -1,5 +1,5 @@
-import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/types.dart';
+import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/html/span.dart';
 
 /// A utility widget to print text on screen.

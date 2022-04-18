@@ -4,15 +4,15 @@
 |--------------------------------------------------------------------------
 */
 
-export 'src/core/types.dart';
+export 'src/core/common/types.dart';
 
-export 'src/core/functions.dart' show startApp;
+export 'src/core/start_app.dart' show startApp;
 
 export 'src/widgets/abstract/widget.dart' show Widget;
 
-export 'src/core/foundation/common/build_context.dart' show BuildContext;
+export 'src/core/common/objects/build_context.dart' show BuildContext;
 
-export 'src/core/foundation/common/debug_options.dart' show DebugOptions;
+export 'src/core/common/objects/debug_options.dart' show DebugOptions;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,10 +39,10 @@ export 'src/widgets/text.dart' show Text;
 export 'src/widgets/raw_markup.dart' show RawMarkUp;
 
 export 'src/widgets/gesture_detector.dart' show GestureDetector;
-export 'src/core/enums.dart' show HitTestBehavior;
+export 'src/core/common/enums.dart' show HitTestBehavior;
 
 export 'src/widgets/list_view.dart' show ListView;
-export 'src/core/enums.dart' show Axis;
+export 'src/core/common/enums.dart' show Axis;
 
 // html
 
@@ -87,7 +87,7 @@ export 'src/widgets/html/input_submit.dart' show InputSubmit;
 
 // html enums
 
-export 'src/core/enums.dart' show ButtonType, FormEncType, FormMethod;
+export 'src/core/common/enums.dart' show ButtonType, FormEncType, FormMethod;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,12 +117,12 @@ export 'src/include/foundation/change_notifier.dart' show ValueListenable;
 |--------------------------------------------------------------------------
 */
 
-export 'src/core/enums.dart' show DomTag;
+export 'src/core/common/enums.dart' show DomTag;
 
-export 'src/core/enums.dart' show UpdateType;
+export 'src/core/common/enums.dart' show UpdateType;
 
-export 'src/core/constants.dart' show System;
+export 'src/core/common/constants.dart' show System;
 
 export 'src/widgets/abstract/widget.dart' show WidgetConfiguration;
 
-export 'src/core/foundation/common/render_object.dart' show RenderObject;
+export 'src/core/common/objects/render_object.dart' show RenderObject;
