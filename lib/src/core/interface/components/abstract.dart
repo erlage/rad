@@ -19,3 +19,15 @@ abstract class AppComponent {
   @override
   toString() => "From $name (v$version). Author: $author";
 }
+
+/// Interface for style injection.
+///
+@immutable
+abstract class StyleComponent extends AppComponent {
+  /// CSS contents to inject in DOM
+  ///
+  String? get styleSheetContents;
+
+  @override
+  toString() => "From $name (v$version). Author: $author";
+}
