@@ -1,6 +1,5 @@
-.dart_tool/
-.packages
-build/
-.dart_tool
+**/.packages
+**/.dart_tool
 **/.vscode
 **/.idea
+**/build
