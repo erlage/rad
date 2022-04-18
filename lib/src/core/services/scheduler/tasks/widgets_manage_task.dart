@@ -28,7 +28,12 @@ class WidgetsManageTask extends SchedulerTask {
     required this.parentContext,
     required this.widgetActionCallback,
     this.flagIterateInReverseOrder = false,
-  });
+    Callback? afterTaskCallback,
+    Callback? beforeTaskCallback,
+  }) : super(
+          afterTaskCallback: afterTaskCallback,
+          beforeTaskCallback: beforeTaskCallback,
+        );
 
   @override
   get taskType => SchedulerTaskType.manage;

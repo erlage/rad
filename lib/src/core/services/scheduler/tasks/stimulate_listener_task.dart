@@ -1,4 +1,5 @@
 import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
 
 /// A task that tells listener that scheduler state has changed.
@@ -8,4 +9,12 @@ import 'package:rad/src/core/services/scheduler/abstract.dart';
 class StimulateListenerTask extends SchedulerTask {
   @override
   get taskType => SchedulerTaskType.stimulateListener;
+
+  StimulateListenerTask({
+    Callback? afterTaskCallback,
+    Callback? beforeTaskCallback,
+  }) : super(
+          afterTaskCallback: afterTaskCallback,
+          beforeTaskCallback: beforeTaskCallback,
+        );
 }

@@ -61,6 +61,14 @@ class Framework with ServicesResolver {
     try {
       _isTaskInProcessing = true;
 
+      // run before-task callback
+
+      var beforeCallback = task.beforeTaskCallback;
+
+      if (null != beforeCallback) {
+        beforeCallback();
+      }
+
       switch (task.taskType) {
         case SchedulerTaskType.build:
           task as WidgetsBuildTask;
@@ -124,6 +132,14 @@ class Framework with ServicesResolver {
           // do nothing.. finally block will automatically
           // push a event for getting new tasks after this block.
           break;
+      }
+
+      // run after-task callback
+
+      var afterCallback = task.afterTaskCallback;
+
+      if (null != afterCallback) {
+        afterCallback();
       }
     } finally {
       _isTaskInProcessing = false;

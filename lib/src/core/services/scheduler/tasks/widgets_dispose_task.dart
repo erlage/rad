@@ -1,4 +1,7 @@
+import 'dart:html';
+
 import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
 import 'package:rad/src/core/common/objects/widget_object.dart';
 
@@ -16,7 +19,12 @@ class WidgetsDisposeTask extends SchedulerTask {
   WidgetsDisposeTask({
     this.widgetObject,
     this.flagPreserveTarget = false,
-  });
+    Callback? afterTaskCallback,
+    Callback? beforeTaskCallback,
+  }) : super(
+          afterTaskCallback: afterTaskCallback,
+          beforeTaskCallback: beforeTaskCallback,
+        );
 
   @override
   get taskType => SchedulerTaskType.dispose;

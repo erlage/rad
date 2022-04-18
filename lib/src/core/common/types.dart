@@ -9,6 +9,8 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/list_view.dart';
 import 'package:rad/src/widgets/navigator.dart';
 
+typedef Callback = void Function();
+
 typedef EventCallback = void Function(Event event);
 typedef OnTapEventCallback = void Function(Event event);
 

@@ -1,5 +1,6 @@
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
@@ -48,7 +49,12 @@ class WidgetsUpdateTask extends SchedulerTask {
     this.flagAddIfNotFound = true,
     this.flagAddAsAppendMode = false,
     this.flagTolerateChildrenCountMisMatch = true,
-  });
+    Callback? afterTaskCallback,
+    Callback? beforeTaskCallback,
+  }) : super(
+          afterTaskCallback: afterTaskCallback,
+          beforeTaskCallback: beforeTaskCallback,
+        );
 
   @override
   get taskType => SchedulerTaskType.update;
