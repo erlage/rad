@@ -104,7 +104,7 @@ class BuildContext {
   /// type of a concrete [Widget] subclass.
   ///
   T? findAncestorWidgetOfExactType<T extends Widget>() {
-    var walker = ServicesRegistry.instance.getTreeWalker(this);
+    var walker = ServicesRegistry.instance.getWalker(this);
 
     return walker.findAncestorWidgetOfExactType<T>(this);
   }
@@ -113,7 +113,7 @@ class BuildContext {
   /// that is an instance of the given type `T`.
   ///
   T? findAncestorStateOfType<T extends State>() {
-    var walker = ServicesRegistry.instance.getTreeWalker(this);
+    var walker = ServicesRegistry.instance.getWalker(this);
 
     return walker.findAncestorStateOfType<T>(this);
   }
@@ -125,7 +125,7 @@ class BuildContext {
   /// rebuilt so that it can obtain new values from that widget.
   ///
   T? dependOnInheritedWidgetOfExactType<T extends InheritedWidget>() {
-    var walker = ServicesRegistry.instance.getTreeWalker(this);
+    var walker = ServicesRegistry.instance.getWalker(this);
 
     return walker.dependOnInheritedWidgetOfExactType<T>(this);
   }

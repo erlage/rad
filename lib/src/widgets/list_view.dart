@@ -275,7 +275,7 @@ class _ListViewBuilderState {
   */
 
   _ListViewBuilderState(this.context)
-      : scheduler = ServicesRegistry.instance.getTaskScheduler(context);
+      : scheduler = ServicesRegistry.instance.getScheduler(context);
 
   /*
   |--------------------------------------------------------------------------

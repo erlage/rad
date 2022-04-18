@@ -20,8 +20,7 @@ abstract class RenderObject {
 
   /// Get task scheduler for app instance that's enclosing the current context.
   ///
-  Scheduler get scheduler =>
-      ServicesRegistry.instance.getTaskScheduler(context);
+  Scheduler get scheduler => ServicesRegistry.instance.getScheduler(context);
 
   /*
   |--------------------------------------------------------------------------

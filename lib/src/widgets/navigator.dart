@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
+import 'package:rad/src/core/foundation/router/open_history_entry.dart';
 import 'package:rad/src/core/functions.dart';
 import 'package:rad/src/core/utilities/debug.dart';
 import 'package:rad/src/core/utilities/services_registry.dart';
@@ -8,7 +9,7 @@ import 'package:rad/src/core/foundation/scheduler/scheduler.dart';
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_manage_task.dart';
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_update_dependent_task.dart';
-import 'package:rad/src/router/router.dart';
+import 'package:rad/src/core/foundation/router/router.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
@@ -18,8 +19,6 @@ import 'package:rad/src/core/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/route.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
-
-import '../router/router/open_history_entry.dart';
 
 /// Navigator widget.
 ///
@@ -294,7 +293,7 @@ class Navigator extends Widget {
     var targetContext = context;
 
     while (true) {
-      var walker = ServicesRegistry.instance.getTreeWalker(context);
+      var walker = ServicesRegistry.instance.getWalker(context);
 
       var widgetObject = walker.findAncestorWidgetObjectOfType<Navigator>(
         targetContext,
@@ -437,7 +436,11 @@ class NavigatorRenderObject extends RenderObject {
 class NavigatorState {
   /// Task scheduler.
   ///
-  final Scheduler scheduler;
+  final Scheduler schedulerService;
+
+  /// Router service.
+  ///
+  final Router routerService;
 
   /// Routes that this Navigator instance handles.
   ///
@@ -470,12 +473,11 @@ class NavigatorState {
   final _activeStack = <String>[];
   final _historyStack = <OpenHistoryEntry>[];
 
-  final Router _router = Router();
-
   NavigatorState({
     required this.context,
     required this.widget,
-  }) : scheduler = ServicesRegistry.instance.getTaskScheduler(context);
+  })  : schedulerService = ServicesRegistry.instance.getScheduler(context),
+        routerService = ServicesRegistry.instance.getRouter(context);
 
   /*
   |--------------------------------------------------------------------------
@@ -535,7 +537,7 @@ class NavigatorState {
         print("${context.key}: Push entry: $name");
       }
 
-      _router.pushEntry(
+      routerService.pushEntry(
         name: name,
         values: values,
         navigatorKey: context.key,
@@ -548,7 +550,7 @@ class NavigatorState {
     // if route is already in stack, bring it to the top of stack
 
     if (isPageStacked(name: name)) {
-      scheduler.addTask(
+      schedulerService.addTask(
         WidgetsManageTask(
           parentContext: context,
           flagIterateInReverseOrder: true,
@@ -581,7 +583,7 @@ class NavigatorState {
 
       // hide all existing widgets
 
-      scheduler.addTask(
+      schedulerService.addTask(
         WidgetsManageTask(
           parentContext: context,
           flagIterateInReverseOrder: true,
@@ -591,7 +593,7 @@ class NavigatorState {
         ),
       );
 
-      scheduler.addTask(
+      schedulerService.addTask(
         WidgetsBuildTask(
           widgets: [page],
           parentContext: context,
@@ -608,7 +610,7 @@ class NavigatorState {
 
     frameworkUpdateCurrentName(_historyStack.last.name);
 
-    scheduler.addTask(
+    schedulerService.addTask(
       WidgetsManageTask(
         parentContext: context,
         flagIterateInReverseOrder: true,
@@ -656,7 +658,10 @@ class NavigatorState {
   /// // because current navigator is registered on posts page
   /// ```
   ///
-  String getValue(String segment) => _router.getValue(context.key, segment);
+  String getValue(String segment) => routerService.getValue(
+        context.key,
+        segment,
+      );
 
   /// Whether current active stack contains a route with matching [name].
   ///
@@ -723,12 +728,12 @@ class NavigatorState {
       pathToRouteMap[route.path] = route;
     }
 
-    _router.register(context, this);
+    routerService.register(context, this);
   }
 
   @protected
   void frameworkRender() {
-    var name = _router.getPath(context.key);
+    var name = routerService.getPath(context.key);
 
     var needsReplacement = name.isEmpty;
 
@@ -746,7 +751,7 @@ class NavigatorState {
         print("${context.key}: Push replacement: $name");
       }
 
-      _router.pushReplacement(
+      routerService.pushReplacement(
         name: name,
         values: {},
         navigatorKey: context.key,
@@ -758,7 +763,7 @@ class NavigatorState {
 
   @protected
   void frameworkUpdate(UpdateType updateType) {
-    scheduler.addTask(
+    schedulerService.addTask(
       WidgetsManageTask(
         parentContext: context,
         flagIterateInReverseOrder: true,
@@ -777,19 +782,19 @@ class NavigatorState {
   }
 
   @protected
-  void frameworkDispose() => _router.unRegister(context);
+  void frameworkDispose() => routerService.unRegister(context);
 
   /// Framework fires this when parent route changes.
   ///
   void frameworkOnParentRouteChange(String name) {
-    var routeName = _router.getPath(context.key);
+    var routeName = routerService.getPath(context.key);
 
     if (routeName != currentRouteName) {
       if (Debug.routerLogs) {
         print("${context.key}: Push replacement: $routeName");
       }
 
-      _router.pushReplacement(
+      routerService.pushReplacement(
         name: currentRouteName,
         values: {},
         navigatorKey: context.key,

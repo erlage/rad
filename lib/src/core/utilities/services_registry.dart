@@ -1,4 +1,5 @@
 import 'package:rad/rad.dart';
+import 'package:rad/src/core/foundation/router/router.dart';
 import 'package:rad/src/core/foundation/services.dart';
 import 'package:rad/src/core/foundation/walker/walker.dart';
 import 'package:rad/src/core/utilities/debug.dart';
@@ -34,17 +35,23 @@ class ServicesRegistry {
     _services.remove(context.appTargetKey);
   }
 
-  /// Find framework services from registered services.
+  /// Find router service from registered services.
   ///
-  Scheduler getTaskScheduler(BuildContext context) {
+  Router getRouter(BuildContext context) {
+    return getServices(context).router;
+  }
+
+  /// Find scheduler service from registered services.
+  ///
+  Scheduler getScheduler(BuildContext context) {
     return getServices(context).scheduler;
   }
 
-  /// Find walker instance that's enclosing give context.
+  /// Find walker service from registered services.
   ///
-  Walker getTreeWalker(BuildContext context) => getServices(context).walker;
+  Walker getWalker(BuildContext context) => getServices(context).walker;
 
-  /// Find services instance that's enclosing give context.
+  /// Find services instance that's enclosing given context.
   ///
   Services getServices(BuildContext context) {
     var services = _services[context.appTargetKey];

@@ -12,6 +12,7 @@ import 'package:rad/src/widgets/utils/common_props.dart';
 void startApp({
   required Widget app,
   required String targetSelector,
+  String routingPath = '',
   VoidCallback? beforeMount,
   DebugOptions debugOptions = DebugOptions.defaultMode,
 }) {
@@ -33,7 +34,15 @@ void startApp({
 
   /*
   |--------------------------------------------------------------------------
-  | Register services
+  | Spin framework instance for app
+  |--------------------------------------------------------------------------
+  */
+
+  var framework = Framework(rootContext);
+
+  /*
+  |--------------------------------------------------------------------------
+  | Start services
   |--------------------------------------------------------------------------
   */
 
@@ -41,13 +50,9 @@ void startApp({
 
   ServicesRegistry.instance.registerServices(rootContext, services);
 
-  /*
-  |--------------------------------------------------------------------------
-  | Spin framework instance for app
-  |--------------------------------------------------------------------------
-  */
+  services.router.startService(routingPath);
 
-  Framework(rootContext, services);
+  services.scheduler.startService(framework.taskProcessor);
 
   /*
   |--------------------------------------------------------------------------
@@ -86,7 +91,7 @@ void startApp({
   |--------------------------------------------------------------------------
   */
 
-  var scheduler = ServicesRegistry.instance.getTaskScheduler(rootContext);
+  var scheduler = ServicesRegistry.instance.getScheduler(rootContext);
 
   scheduler.addTask(
     WidgetsBuildTask(

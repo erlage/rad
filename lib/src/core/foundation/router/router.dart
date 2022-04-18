@@ -1,5 +1,8 @@
 import 'dart:html';
 
+import 'package:rad/src/core/foundation/router/navigator_route_object.dart';
+import 'package:rad/src/core/foundation/router/router_stack.dart';
+import 'package:rad/src/core/foundation/router/router_stack_entry.dart';
 import 'package:rad/src/core/functions.dart';
 import 'package:rad/src/core/utilities/debug.dart';
 import 'package:rad/src/core/utilities/services_registry.dart';
@@ -8,15 +11,8 @@ import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/widgets/navigator.dart';
 import 'package:rad/src/widgets/route.dart';
 
-import 'router/navigator_route_object.dart';
-import 'router/router_stack.dart';
-import 'router/router_stack_entry.dart';
-
 class Router {
-  bool _isInit = false;
   String _routingPath = '';
-
-  final _initialLocation = window.location.href;
 
   /// Path list
   ///
@@ -46,23 +42,16 @@ class Router {
   /// 1. Setup routing path
   /// 2. add onPopStateEventListener
   ///
-  void init(String routingPath) {
-    if (_isInit) {
-      return Debug.exception("Router aleady initialized.");
-    }
-
+  void startService(String routingPath) {
     _routingPath = routingPath;
 
     if (Debug.routerLogs) {
-      print("Router: onPopState: initialized at: $_initialLocation");
       print("Router: routingPath: initialized at: $_routingPath");
     }
 
     window.addEventListener("popstate", _onPopState, false);
 
     updateCurrentSegments();
-
-    _isInit = true;
   }
 
   /// Tear down Router state.(used by tests)
@@ -71,10 +60,6 @@ class Router {
   /// and destroy framework state.
   ///
   void tearDown() {
-    if (!_isInit) {
-      return Debug.exception("Router is not initialized.");
-    }
-
     _currentSegments.clear();
 
     _routeObjects.clear();
@@ -86,17 +71,11 @@ class Router {
     _routingPath = '';
 
     window.removeEventListener("popstate", _onPopState);
-
-    _isInit = false;
   }
 
   /// Register navigator's state.
   ///
   void register(BuildContext context, NavigatorState state) {
-    if (!_isInit) {
-      return Debug.exception("Router not initialized.");
-    }
-
     if (_routeObjects.containsKey(context.key)) {
       return Debug.exception(System.coreError);
     }
@@ -462,7 +441,7 @@ class Router {
     // we've to use context.parent here because navigators are required to register
     // themselves in onContextCreate hook but at the point when onContextCreate
     // hook is fired, context.key is not present in DOM.
-    var walker = ServicesRegistry.instance.getTreeWalker(context);
+    var walker = ServicesRegistry.instance.getWalker(context);
 
     var parent = walker.findAncestorWidgetObjectOfType<Navigator>(
       context.parent,
