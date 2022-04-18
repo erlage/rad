@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';

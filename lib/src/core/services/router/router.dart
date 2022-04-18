@@ -264,11 +264,9 @@ class Router with ServicesResolver {
 
     var path = Window.delegate.locationPathName;
 
-    if (null != path) {
-      _currentSegments.addAll(
-        path.split('/')..removeWhere((sgmt) => sgmt.trim().isEmpty),
-      );
-    }
+    _currentSegments.addAll(
+      path.split('/')..removeWhere((sgmt) => sgmt.trim().isEmpty),
+    );
   }
 
   void ensureNavigatorIsVisible(NavigatorRouteObject routeObject) {
