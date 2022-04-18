@@ -5,7 +5,7 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-/// [RenderObject] contains logic to build a widget's interface.
+/// Widget's Render object contains logic to build and update interface.
 ///
 /// These objects also contains logic for handling updates.
 ///

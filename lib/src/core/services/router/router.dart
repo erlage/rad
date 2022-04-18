@@ -12,6 +12,8 @@ import 'package:rad/src/core/interface/window/window.dart';
 import 'package:rad/src/widgets/navigator.dart';
 import 'package:rad/src/widgets/route.dart';
 
+/// Router service.
+///
 class Router with ServicesResolver {
   /// Root context.
   ///
@@ -73,7 +75,7 @@ class Router with ServicesResolver {
   /// Since methods in this class are static, we need a way to initialize
   /// and destroy framework state.
   ///
-  void tearDown() {
+  void stopService() {
     _currentSegments.clear();
 
     _routeObjects.clear();

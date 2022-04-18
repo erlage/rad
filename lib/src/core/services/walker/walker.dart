@@ -31,7 +31,7 @@ class Walker with ServicesResolver {
   ///
   /// It should be called only during testing.
   ///
-  void tearDown() {
+  void stopService() {
     _registeredWidgetObjects.clear();
   }
 

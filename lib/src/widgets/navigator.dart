@@ -435,6 +435,8 @@ class NavigatorRenderObject extends RenderObject {
 |--------------------------------------------------------------------------
 */
 
+/// State that each navigator creates and manage.
+///
 class NavigatorState with ServicesResolver {
   /// Root context.
   ///

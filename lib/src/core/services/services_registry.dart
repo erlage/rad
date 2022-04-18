@@ -6,10 +6,7 @@ import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/core/services/walker/walker.dart';
 import 'package:rad/src/core/services/scheduler/scheduler.dart';
 
-/// Services Registry.
-///
-/// It registers important services that framework is offering to external
-/// components such as widgets.
+/// Services Registry registers services offered by the framework.
 ///
 class ServicesRegistry {
   ServicesRegistry._();

@@ -55,6 +55,11 @@ abstract class Widget {
   RenderObject createRenderObject(BuildContext context);
 }
 
+/// Configuration that's specific to each widget.
+///
+/// Widgets are responsible for extending this class if they want to pass around
+/// their configuration during builds.
+///
 class WidgetConfiguration {
   const WidgetConfiguration();
 }
