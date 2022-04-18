@@ -37,6 +37,5 @@ typedef RenderElementCallback = void Function(
   HtmlElement element,
 );
 
-// input related
-
 typedef EventCallback = void Function(Event event);
+typedef ExceptionCallback = void Function(Exception event);

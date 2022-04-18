@@ -1,7 +1,6 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/utilities/debug.dart';
 import 'package:rad/src/core/utilities/services_registry.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
@@ -29,10 +28,6 @@ abstract class RenderObject {
   */
 
   void dispatchRender(HtmlElement element, WidgetConfiguration configuration) {
-    if (Debug.widgetLogs) {
-      print("Render: $context");
-    }
-
     render(element, configuration);
   }
 
@@ -42,10 +37,6 @@ abstract class RenderObject {
     required WidgetConfiguration oldConfiguration,
     required WidgetConfiguration newConfiguration,
   }) {
-    if (Debug.widgetLogs) {
-      print("Update: $context");
-    }
-
     update(
       element: element,
       updateType: updateType,

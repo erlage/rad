@@ -1,7 +1,7 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/utilities/debug.dart';
+import 'package:rad/src/core/foundation/debug/debug.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
@@ -302,17 +302,7 @@ abstract class State<T extends StatefulWidget> {
   @nonVirtual
   @protected
   void setState(VoidCallback? callable) {
-    if (Debug.widgetLogs) {
-      print("setState: $context");
-    }
-
     if (_isRebuilding) {
-      if (Debug.developmentMode) {
-        print(
-          "setState() called while widget was building. Usually happens when you call setState() in build()",
-        );
-      }
-
       return;
     }
 

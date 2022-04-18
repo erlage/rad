@@ -1,8 +1,8 @@
 import 'package:rad/rad.dart';
+import 'package:rad/src/core/foundation/debug/debug.dart';
 import 'package:rad/src/core/foundation/router/router.dart';
 import 'package:rad/src/core/foundation/services.dart';
 import 'package:rad/src/core/foundation/walker/walker.dart';
-import 'package:rad/src/core/utilities/debug.dart';
 import 'package:rad/src/core/foundation/scheduler/scheduler.dart';
 
 /// Services Registry.
@@ -21,9 +21,7 @@ class ServicesRegistry {
   ///
   void registerServices(BuildContext context, Services services) {
     if (_services.containsKey(context.appTargetKey)) {
-      Debug.exception("Services are already registered with the context.");
-
-      return;
+      throw "Services are already registered with the context.";
     }
 
     _services[context.appTargetKey] = services;
@@ -34,6 +32,10 @@ class ServicesRegistry {
   void unRegisterServices(BuildContext context) {
     _services.remove(context.appTargetKey);
   }
+
+  /// Find debug service from registered services.
+  ///
+  Debug getDebug(BuildContext context) => getServices(context).debug;
 
   /// Find router service from registered services.
   ///
@@ -57,9 +59,7 @@ class ServicesRegistry {
     var services = _services[context.appTargetKey];
 
     if (null == services) {
-      Debug.exception("Services are not registered yet.");
-
-      return Services();
+      throw "Services are not registered yet.";
     }
 
     return services;

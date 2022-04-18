@@ -1,3 +1,5 @@
+import 'package:rad/rad.dart';
+
 /// Debug options.
 ///
 /// Setting debug options help debug your applications.
@@ -22,11 +24,16 @@ class DebugOptions {
   ///
   final bool widgetLogs;
 
+  /// Custom exception handler
+  ///
+  final ExceptionCallback? exceptionHandler;
+
   const DebugOptions({
     this.routerLogs = false,
     this.widgetLogs = false,
     this.frameworkLogs = false,
     this.developmentMode = false,
+    this.exceptionHandler,
   });
 
   /// Development mode.

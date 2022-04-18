@@ -3,15 +3,15 @@ import 'dart:html';
 import 'package:rad/src/core/foundation/router/navigator_route_object.dart';
 import 'package:rad/src/core/foundation/router/router_stack.dart';
 import 'package:rad/src/core/foundation/router/router_stack_entry.dart';
+import 'package:rad/src/core/foundation/services.dart';
 import 'package:rad/src/core/functions.dart';
-import 'package:rad/src/core/utilities/debug.dart';
 import 'package:rad/src/core/utilities/services_registry.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/widgets/navigator.dart';
 import 'package:rad/src/widgets/route.dart';
 
-class Router {
+class Router with ServicesResolver {
   String _routingPath = '';
 
   /// Path list
@@ -36,6 +36,10 @@ class Router {
   ///
   final _routerStack = RouterStack();
 
+  Router(BuildContext context) {
+    serviceResolverBindContext(context);
+  }
+
   /// Initialize router state.
   ///
   /// Main tasks are:
@@ -45,7 +49,7 @@ class Router {
   void startService(String routingPath) {
     _routingPath = routingPath;
 
-    if (Debug.routerLogs) {
+    if (services.debug.routerLogs) {
       print("Router: routingPath: initialized at: $_routingPath");
     }
 
@@ -77,11 +81,11 @@ class Router {
   ///
   void register(BuildContext context, NavigatorState state) {
     if (_routeObjects.containsKey(context.key)) {
-      return Debug.exception(System.coreError);
+      return services.debug.exception(System.coreError);
     }
 
     if (_stateObjects.containsKey(context.key)) {
-      return Debug.exception(System.coreError);
+      return services.debug.exception(System.coreError);
     }
 
     _register(context, state.routes);
@@ -197,7 +201,7 @@ class Router {
     var stateObject = _stateObjects[navigatorKey];
 
     if (null == stateObject) {
-      Debug.exception(System.coreError);
+      services.debug.exception(System.coreError);
 
       return '';
     }
@@ -214,7 +218,7 @@ class Router {
       }
     }
 
-    if (Debug.routerLogs) {
+    if (services.debug.routerLogs) {
       print(
         "Navigator(#$navigatorKey) matched: '$matchedPathSegment' from '${segments.join("/")}'",
       );
@@ -270,7 +274,7 @@ class Router {
     var routeObject = _routeObjects[navigatorKey];
 
     if (null == routeObject) {
-      Debug.exception(System.coreError);
+      services.debug.exception(System.coreError);
 
       return [];
     }
@@ -319,13 +323,13 @@ class Router {
     var stateObject = _stateObjects[navigatorKey];
 
     if (null == routeObject) {
-      Debug.exception(System.coreError);
+      services.debug.exception(System.coreError);
 
       return [];
     }
 
     if (null == stateObject) {
-      Debug.exception(System.coreError);
+      services.debug.exception(System.coreError);
 
       return [];
     }
@@ -381,7 +385,7 @@ class Router {
     try {
       var location = window.location.href;
 
-      if (Debug.routerLogs) {
+      if (services.debug.routerLogs) {
         print("Router: onPopState: location: $location");
       }
 
@@ -399,7 +403,7 @@ class Router {
         // since at this point, our state is lost, our entries are lost too.
         // and reloading window will build the correct interface.
 
-        if (Debug.routerLogs) {
+        if (services.debug.routerLogs) {
           print("Router: onPopState: entry doesnt exists: $entry");
         }
 
@@ -415,7 +419,7 @@ class Router {
 
         ensureNavigatorIsVisible(routeObject);
 
-        if (Debug.routerLogs) {
+        if (services.debug.routerLogs) {
           print("Router: onPopState: open: ${entry.name}");
         }
 
@@ -456,7 +460,7 @@ class Router {
         segments: [_routingPath],
       );
 
-      if (Debug.routerLogs) {
+      if (services.debug.routerLogs) {
         print("Navigator Registered: #${context.key} at ${[_routingPath]}");
       }
 
@@ -472,7 +476,7 @@ class Router {
     var parentObject = _routeObjects[parent.context.key];
 
     if (null == parentObject) {
-      return Debug.exception(System.coreError);
+      return services.debug.exception(System.coreError);
     }
 
     var segments = [...parentObject.segments, parentState.currentRouteName];
@@ -496,7 +500,7 @@ class Router {
       child: _routeObjects[context.key],
     );
 
-    if (Debug.routerLogs) {
+    if (services.debug.routerLogs) {
       print("Navigator Registered: #${context.key} at $segments");
     }
   }

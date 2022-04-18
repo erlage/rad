@@ -3,7 +3,7 @@ import 'dart:html';
 import 'package:rad/rad.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/foundation/services.dart';
-import 'package:rad/src/core/utilities/debug.dart';
+import 'package:rad/src/core/foundation/debug/debug.dart';
 import 'package:rad/src/core/foundation/framework.dart';
 import 'package:rad/src/core/utilities/services_registry.dart';
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_build_task.dart';
@@ -16,14 +16,6 @@ void startApp({
   VoidCallback? beforeMount,
   DebugOptions debugOptions = DebugOptions.defaultMode,
 }) {
-  /*
-  |--------------------------------------------------------------------------
-  | Update debug options
-  |--------------------------------------------------------------------------
-  */
-
-  Debug.update(debugOptions);
-
   /*
   |--------------------------------------------------------------------------
   | Create root context
@@ -46,9 +38,11 @@ void startApp({
   |--------------------------------------------------------------------------
   */
 
-  var services = Services();
+  var services = Services(rootContext);
 
   ServicesRegistry.instance.registerServices(rootContext, services);
+
+  services.debug.startService(debugOptions);
 
   services.router.startService(routingPath);
 
@@ -63,7 +57,9 @@ void startApp({
   var targetElement = document.getElementById(targetSelector) as HtmlElement?;
 
   if (null == targetElement) {
-    Debug.exception("Unable to locate target element in HTML document");
+    services.debug.exception(
+      "Unable to locate target element in HTML document",
+    );
 
     return;
   }

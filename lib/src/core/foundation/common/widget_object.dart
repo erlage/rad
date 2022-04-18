@@ -1,7 +1,7 @@
 import 'dart:html';
 
 import 'package:rad/src/core/functions.dart';
-import 'package:rad/src/core/utilities/debug.dart';
+import 'package:rad/src/core/foundation/debug/debug.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/common/render_object.dart';
@@ -43,9 +43,8 @@ class WidgetObject {
   }
 
   void mount({int? mountAtIndex}) {
-    if (_isMounted) {
-      return Debug.exception("Widget's element already mounted.");
-    }
+    // ? Debugging has been removed from objects that are created often.
+    // return Debug.exception("Widget's element already mounted.");
 
     // we can't use node.parent here cus root widget's parent can be null
 
@@ -79,9 +78,8 @@ class WidgetObject {
 
       _isMounted = true;
     } else {
-      if (Debug.developmentMode) {
-        print("Element not found: #${renderObject.context.parent.key}");
-      }
+      // ? Debugging has been removed from objects that are created often.
+      // print("Element not found: #${renderObject.context.parent.key}");
     }
   }
 

@@ -1,9 +1,11 @@
+import 'dart:developer';
 import 'dart:html';
 
 import 'package:meta/meta.dart';
 import 'package:rad/src/core/foundation/router/open_history_entry.dart';
+import 'package:rad/src/core/foundation/services.dart';
 import 'package:rad/src/core/functions.dart';
-import 'package:rad/src/core/utilities/debug.dart';
+import 'package:rad/src/core/foundation/debug/debug.dart';
 import 'package:rad/src/core/utilities/services_registry.dart';
 import 'package:rad/src/core/foundation/scheduler/scheduler.dart';
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_build_task.dart';
@@ -300,7 +302,9 @@ class Navigator extends Widget {
       );
 
       if (null == widgetObject) {
-        Debug.exception(
+        var debugService = ServicesRegistry.instance.getDebug(context);
+
+        debugService.exception(
           "Navigator operation requested with a context that does not include a Navigator.\n"
           "The context used to push or pop routes from the Navigator must be that of a "
           "widget that is a descendant of a Navigator widget.",
@@ -433,15 +437,7 @@ class NavigatorRenderObject extends RenderObject {
 |--------------------------------------------------------------------------
 */
 
-class NavigatorState {
-  /// Task scheduler.
-  ///
-  final Scheduler schedulerService;
-
-  /// Router service.
-  ///
-  final Router routerService;
-
+class NavigatorState with ServicesResolver {
   /// Routes that this Navigator instance handles.
   ///
   final routes = <Route>[];
@@ -464,20 +460,17 @@ class NavigatorState {
   ///
   final Navigator widget;
 
-  /// Navigator's context.
-  ///
-  final BuildContext context;
-
   // internal stack data
 
   final _activeStack = <String>[];
   final _historyStack = <OpenHistoryEntry>[];
 
   NavigatorState({
-    required this.context,
     required this.widget,
-  })  : schedulerService = ServicesRegistry.instance.getScheduler(context),
-        routerService = ServicesRegistry.instance.getRouter(context);
+    required BuildContext context,
+  }) {
+    serviceResolverBindContext(context);
+  }
 
   /*
   |--------------------------------------------------------------------------
@@ -515,7 +508,7 @@ class NavigatorState {
     // if current navigator doesn't have a matching '$name' route
 
     if (!nameToPathMap.containsKey(name)) {
-      return Debug.exception(
+      return services.debug.exception(
         "Navigator: '$name' is not declared."
         "Named routes that are not registered in Navigator's routes are not allowed."
         "If you're trying to push to a parent navigator, add prefix '../' to name of the route. "
@@ -533,11 +526,11 @@ class NavigatorState {
     // update global state
 
     if (updateHistory) {
-      if (Debug.routerLogs) {
+      if (services.debug.routerLogs) {
         print("${context.key}: Push entry: $name");
       }
 
-      routerService.pushEntry(
+      services.router.pushEntry(
         name: name,
         values: values,
         navigatorKey: context.key,
@@ -550,7 +543,7 @@ class NavigatorState {
     // if route is already in stack, bring it to the top of stack
 
     if (isPageStacked(name: name)) {
-      schedulerService.addTask(
+      services.scheduler.addTask(
         WidgetsManageTask(
           parentContext: context,
           flagIterateInReverseOrder: true,
@@ -576,14 +569,14 @@ class NavigatorState {
       var page = pathToRouteMap[nameToPathMap[name]];
 
       if (null == page) {
-        return Debug.exception(System.coreError);
+        return services.debug.exception(System.coreError);
       }
 
       _activeStack.add(name);
 
       // hide all existing widgets
 
-      schedulerService.addTask(
+      services.scheduler.addTask(
         WidgetsManageTask(
           parentContext: context,
           flagIterateInReverseOrder: true,
@@ -593,7 +586,7 @@ class NavigatorState {
         ),
       );
 
-      schedulerService.addTask(
+      services.scheduler.addTask(
         WidgetsBuildTask(
           widgets: [page],
           parentContext: context,
@@ -610,7 +603,7 @@ class NavigatorState {
 
     frameworkUpdateCurrentName(_historyStack.last.name);
 
-    schedulerService.addTask(
+    services.scheduler.addTask(
       WidgetsManageTask(
         parentContext: context,
         flagIterateInReverseOrder: true,
@@ -658,7 +651,7 @@ class NavigatorState {
   /// // because current navigator is registered on posts page
   /// ```
   ///
-  String getValue(String segment) => routerService.getValue(
+  String getValue(String segment) => services.router.getValue(
         context.key,
         segment,
       );
@@ -686,9 +679,9 @@ class NavigatorState {
 
   @protected
   void frameworkInitState() {
-    if (Debug.developmentMode) {
+    if (services.debug.developmentMode) {
       if (widget.routes.isEmpty) {
-        return Debug.exception(
+        return services.debug.exception(
           "Navigator instance must have at least one route.",
         );
       }
@@ -697,16 +690,16 @@ class NavigatorState {
     routes.addAll(widget.routes);
 
     for (final route in routes) {
-      if (Debug.developmentMode) {
+      if (services.debug.developmentMode) {
         if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(route.path)) {
           if (route.path.isEmpty) {
-            return Debug.exception(
+            return services.debug.exception(
               "Navigator's Route's path can't be empty."
               "\n Route: ${route.name} -> ${route.path} is not allowed",
             );
           }
 
-          return Debug.exception(
+          return services.debug.exception(
             "Navigator's Route can contains only alphanumeric characters and underscores"
             "\n Route: ${route.name} -> ${route.path} is not allowed",
           );
@@ -716,7 +709,7 @@ class NavigatorState {
             pathToRouteMap.containsKey(route.path);
 
         if (isDuplicate) {
-          return Debug.exception(
+          return services.debug.exception(
             "Please remove Duplicate routes from your Navigator."
             "Part of your route, name: '${route.name}' => path: '${route.path}', already exists",
           );
@@ -728,12 +721,12 @@ class NavigatorState {
       pathToRouteMap[route.path] = route;
     }
 
-    routerService.register(context, this);
+    services.router.register(context, this);
   }
 
   @protected
   void frameworkRender() {
-    var name = routerService.getPath(context.key);
+    var name = services.router.getPath(context.key);
 
     var needsReplacement = name.isEmpty;
 
@@ -747,11 +740,11 @@ class NavigatorState {
     }
 
     if (needsReplacement && name.isNotEmpty) {
-      if (Debug.routerLogs) {
+      if (services.debug.routerLogs) {
         print("${context.key}: Push replacement: $name");
       }
 
-      routerService.pushReplacement(
+      services.router.pushReplacement(
         name: name,
         values: {},
         navigatorKey: context.key,
@@ -763,7 +756,7 @@ class NavigatorState {
 
   @protected
   void frameworkUpdate(UpdateType updateType) {
-    schedulerService.addTask(
+    services.scheduler.addTask(
       WidgetsManageTask(
         parentContext: context,
         flagIterateInReverseOrder: true,
@@ -782,19 +775,19 @@ class NavigatorState {
   }
 
   @protected
-  void frameworkDispose() => routerService.unRegister(context);
+  void frameworkDispose() => services.router.unRegister(context);
 
   /// Framework fires this when parent route changes.
   ///
   void frameworkOnParentRouteChange(String name) {
-    var routeName = routerService.getPath(context.key);
+    var routeName = services.router.getPath(context.key);
 
     if (routeName != currentRouteName) {
-      if (Debug.routerLogs) {
+      if (services.debug.routerLogs) {
         print("${context.key}: Push replacement: $routeName");
       }
 
-      routerService.pushReplacement(
+      services.router.pushReplacement(
         name: currentRouteName,
         values: {},
         navigatorKey: context.key,

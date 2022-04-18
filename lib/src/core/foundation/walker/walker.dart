@@ -3,7 +3,7 @@ import 'dart:html';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/common/widget_object.dart';
-import 'package:rad/src/core/utilities/debug.dart';
+import 'package:rad/src/core/foundation/services.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 
@@ -12,8 +12,14 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 /// This is used to keep track of all widget objects that are enclosed
 /// in single instance of app and find widget objects when needed.
 ///
-class Walker {
+class Walker with ServicesResolver {
+  /// Registered widget objects.
+  ///
   final _registeredWidgetObjects = <String, WidgetObject>{};
+
+  Walker(BuildContext rootContext) {
+    serviceResolverBindContext(context);
+  }
 
   /// TearDown walker.
   ///
@@ -28,9 +34,9 @@ class Walker {
   void registerWidgetObject(WidgetObject widgetObject) {
     var widgetKey = widgetObject.renderObject.context.key;
 
-    if (Debug.developmentMode) {
+    if (services.debug.developmentMode) {
       if (_registeredWidgetObjects.containsKey(widgetKey)) {
-        return Debug.exception(
+        return services.debug.exception(
           "Key $widgetKey already exists."
           "\n\nThis usually happens in two scenarios,"
           "\n\n1. When you have duplicate keys in your code."
@@ -78,7 +84,7 @@ class Walker {
     // this happens when user .of(context) is called inside a constructor.
 
     if (System.contextKeyNotSet == context.key) {
-      Debug.exception(
+      services.debug.exception(
         "Part of build context is not ready. This means that context is under construction.",
       );
 

@@ -1,22 +1,24 @@
 import 'dart:html';
 
-import 'package:meta/meta.dart';
+import 'package:rad/rad.dart';
+import 'package:rad/src/core/foundation/services.dart';
 import 'package:rad/src/core/interface/components/style_component.dart';
-import 'package:rad/src/core/utilities/debug.dart';
 
 /// App components.
 ///
-@immutable
-class Components {
+class Components with ServicesResolver {
   final List<String>? scripts;
   final List<String>? stylesheets;
   final List<StyleComponent>? styleComponents;
 
-  const Components({
+  Components({
     this.scripts,
     this.stylesheets,
     this.styleComponents,
-  });
+    required BuildContext context,
+  }) {
+    serviceResolverBindContext(context);
+  }
 
   load() {
     scripts?.forEach(linkJavascript);
@@ -34,7 +36,7 @@ class Components {
         var contents = styleComponent.styleSheetContents;
         if (null != contents) {
           if (contents.length > 200) {
-            return Debug.exception(
+            return services.debug.exception(
               "Package is trying to inject larger stylesheet than allowed. "
               "Please use your HTML page to inject stylesheets larger than 200 characters. \n\n"
               "Package details: $styleComponent",
@@ -91,7 +93,7 @@ class Components {
     } else if (null != document.body) {
       document.head!.insertBefore(element, null);
     } else {
-      return Debug.exception(
+      return services.debug.exception(
         "For Rad to work, your page must have either a head tag or a body."
         "Creating a body(or head) in your page will fix this problem.",
       );
@@ -99,7 +101,7 @@ class Components {
 
     // log if flag is on
 
-    if (Debug.frameworkLogs) {
+    if (services.debug.frameworkLogs) {
       print(flagLogEntry);
     }
   }

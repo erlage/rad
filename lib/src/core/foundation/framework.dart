@@ -1,12 +1,9 @@
-import 'dart:async';
 import 'dart:html';
 
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/constants.dart';
 import 'package:rad/src/core/utilities/key_generator.dart';
-import 'package:rad/src/core/utilities/debug.dart';
-import 'package:rad/src/core/utilities/services_registry.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/foundation/scheduler/abstract.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
@@ -21,29 +18,19 @@ import 'package:rad/src/core/foundation/scheduler/tasks/widgets_dispose_task.dar
 import 'package:rad/src/core/foundation/scheduler/events/send_next_task_event.dart';
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_update_dependent_task.dart';
 
-class Framework {
+class Framework with ServicesResolver {
   /// Whether a framework task is in processing.
   ///
   var _isTaskInProcessing = false;
-
-  /// Root context refers to the context that was used to bootstrap
-  /// the framework build process.
-  ///
-  BuildContext rootContext;
-
-  /// Reference to services instance.
-  ///
-  Services? _services;
-  Services get services {
-    return _services ??= ServicesRegistry.instance.getServices(rootContext);
-  }
 
   /// Create framework instance.
   ///
   /// Each app start spin a framework instance that handles app's state
   /// and build process.
   ///
-  Framework(this.rootContext);
+  Framework(BuildContext rootContext) {
+    serviceResolverBindContext(rootContext);
+  }
 
   /// Tear down framework state.
   ///
@@ -163,7 +150,7 @@ class Framework {
         var element = document.getElementById(parentContext.key);
 
         if (null == element) {
-          return Debug.exception(
+          return services.debug.exception(
             "Unable to find target to mount app. Make sure your DOM has "
             "element with key #$parentContext",
           );
@@ -183,9 +170,9 @@ class Framework {
 
       var isKeyProvided = System.contextKeyNotSet != widget.initialKey;
 
-      if (Debug.developmentMode) {
+      if (services.debug.developmentMode) {
         if (isKeyProvided && widget.initialKey.startsWith("_gen_")) {
-          return Debug.exception(
+          return services.debug.exception(
             "Keys starting with _gen_ are reserved for framework.",
           );
         }
@@ -211,7 +198,7 @@ class Framework {
 
       var renderObject = widget.createRenderObject(buildContext);
 
-      if (Debug.widgetLogs) {
+      if (services.debug.widgetLogs) {
         print("Build: $buildContext");
       }
 
@@ -383,7 +370,7 @@ class Framework {
             updateType = UpdateType.undefined;
           } else {
             if (oldWidget == newWidget) {
-              if (Debug.frameworkLogs) {
+              if (services.debug.frameworkLogs) {
                 print(
                   "Short-circuit rebuild: ${widgetObject.renderObject.context}",
                 );
@@ -419,7 +406,7 @@ class Framework {
               oldConfiguration: oldConfiguration,
             );
           } else {
-            if (Debug.widgetLogs) {
+            if (services.debug.widgetLogs) {
               print("Skipped: ${widgetObject.context}");
             }
           }
@@ -452,7 +439,7 @@ class Framework {
         }
       } else {
         if (flagAddIfNotFound) {
-          if (Debug.widgetLogs) {
+          if (services.debug.widgetLogs) {
             print(
               "Add missing child of type: ${updateObject.widget.runtimeType} under: $parentContext",
             );
@@ -536,7 +523,7 @@ class Framework {
 
         case WidgetAction.updateWidget:
           if (null == updateTypeWhenNecessary) {
-            return Debug.exception(
+            return services.debug.exception(
               "Update type note set for publishing update.",
             );
           }
@@ -622,7 +609,7 @@ class Framework {
 
     widgetObject.element.remove();
 
-    if (Debug.widgetLogs) {
+    if (services.debug.widgetLogs) {
       print("Dispose: ${widgetObject.context}");
     }
   }
