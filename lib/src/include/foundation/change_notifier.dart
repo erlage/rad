@@ -1,7 +1,5 @@
 import 'dart:html';
 
-import 'package:rad/src/core/foundation/debug/debug.dart';
-
 /// An object that maintains a list of listeners.
 ///
 abstract class Listenable {
