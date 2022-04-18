@@ -13,13 +13,19 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 /// in single instance of app and find widget objects when needed.
 ///
 class Walker with ServicesResolver {
+  /// Root context.
+  ///
+  final BuildContext rootContext;
+
   /// Registered widget objects.
   ///
   final _registeredWidgetObjects = <String, WidgetObject>{};
 
-  Walker(BuildContext rootContext) {
-    serviceResolverBindContext(context);
-  }
+  /// Resolve services reference.
+  ///
+  Services get services => resolveServices(rootContext);
+
+  Walker(this.rootContext);
 
   /// TearDown walker.
   ///

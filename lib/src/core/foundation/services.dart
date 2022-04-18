@@ -23,13 +23,8 @@ class Services {
 /// A class object that include services resolver.
 ///
 mixin ServicesResolver {
-  BuildContext? _context;
-  BuildContext get context => _context!;
-
   Services? _services;
-  Services get services {
+  Services resolveServices(BuildContext context) {
     return _services ??= ServicesRegistry.instance.getServices(context);
   }
-
-  void serviceResolverBindContext(BuildContext context) => _context = context;
 }

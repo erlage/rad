@@ -440,6 +440,14 @@ class NavigatorRenderObject extends RenderObject {
 */
 
 class NavigatorState with ServicesResolver {
+  /// Root context.
+  ///
+  final BuildContext context;
+
+  /// Resolve services reference.
+  ///
+  Services get services => resolveServices(context);
+
   /// Routes that this Navigator instance handles.
   ///
   final routes = <Route>[];
@@ -469,10 +477,8 @@ class NavigatorState with ServicesResolver {
 
   NavigatorState({
     required this.widget,
-    required BuildContext context,
-  }) {
-    serviceResolverBindContext(context);
-  }
+    required this.context,
+  });
 
   /*
   |--------------------------------------------------------------------------

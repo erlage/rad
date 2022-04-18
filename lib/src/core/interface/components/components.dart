@@ -7,18 +7,24 @@ import 'package:rad/src/core/interface/components/style_component.dart';
 /// App components.
 ///
 class Components with ServicesResolver {
+  /// Root context.
+  ///
+  final BuildContext rootContext;
+
   final List<String>? scripts;
   final List<String>? stylesheets;
   final List<StyleComponent>? styleComponents;
+
+  /// Resolve services reference.
+  ///
+  Services get services => resolveServices(rootContext);
 
   Components({
     this.scripts,
     this.stylesheets,
     this.styleComponents,
-    required BuildContext context,
-  }) {
-    serviceResolverBindContext(context);
-  }
+    required this.rootContext,
+  });
 
   load() {
     scripts?.forEach(linkJavascript);

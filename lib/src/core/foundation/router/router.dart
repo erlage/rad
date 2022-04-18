@@ -12,6 +12,10 @@ import 'package:rad/src/widgets/navigator.dart';
 import 'package:rad/src/widgets/route.dart';
 
 class Router with ServicesResolver {
+  /// Root context.
+  ///
+  final BuildContext rootContext;
+
   String _routingPath = '';
 
   /// Path list
@@ -36,9 +40,11 @@ class Router with ServicesResolver {
   ///
   final _routerStack = RouterStack();
 
-  Router(BuildContext context) {
-    serviceResolverBindContext(context);
-  }
+  /// Resolve services reference.
+  ///
+  Services get services => resolveServices(rootContext);
+
+  Router(this.rootContext);
 
   /// Initialize router state.
   ///

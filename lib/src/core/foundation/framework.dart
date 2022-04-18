@@ -3,12 +3,12 @@ import 'dart:html';
 import 'package:rad/src/core/types.dart';
 import 'package:rad/src/core/enums.dart';
 import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/utilities/key_generator.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/foundation/services.dart';
+import 'package:rad/src/core/utilities/key_generator.dart';
 import 'package:rad/src/core/foundation/scheduler/abstract.dart';
 import 'package:rad/src/core/foundation/common/build_context.dart';
 import 'package:rad/src/core/foundation/common/widget_object.dart';
-import 'package:rad/src/core/foundation/services.dart';
 import 'package:rad/src/core/foundation/common/widget_action_object.dart';
 import 'package:rad/src/core/foundation/common/widget_update_object.dart';
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_build_task.dart';
@@ -19,18 +19,24 @@ import 'package:rad/src/core/foundation/scheduler/events/send_next_task_event.da
 import 'package:rad/src/core/foundation/scheduler/tasks/widgets_update_dependent_task.dart';
 
 class Framework with ServicesResolver {
+  /// Root context.
+  ///
+  final BuildContext rootContext;
+
   /// Whether a framework task is in processing.
   ///
   var _isTaskInProcessing = false;
+
+  /// Resolve services reference.
+  ///
+  Services get services => resolveServices(rootContext);
 
   /// Create framework instance.
   ///
   /// Each app start spin a framework instance that handles app's state
   /// and build process.
   ///
-  Framework(BuildContext rootContext) {
-    serviceResolverBindContext(rootContext);
-  }
+  Framework(this.rootContext);
 
   /// Tear down framework state.
   ///
@@ -42,7 +48,9 @@ class Framework with ServicesResolver {
     var widgetKeys = services.walker.dumpWidgetKeys();
 
     for (var widgetKey in widgetKeys) {
-      disposeWidget(widgetObject: services.walker.getWidgetObject(widgetKey));
+      disposeWidget(
+        widgetObject: services.walker.getWidgetObject(widgetKey),
+      );
     }
   }
 
