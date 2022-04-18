@@ -345,10 +345,9 @@ class _ListViewBuilderState {
                   child: configuration.itemBuilder(context, i + currentIndex),
                 ),
               ),
+              afterTaskCallback: _updateObserverTarget,
             ),
           );
-
-          _updateObserverTarget();
         }
       }
     }
@@ -405,10 +404,9 @@ class _ListViewBuilderState {
             child: configuration.itemBuilder(context, i),
           ),
         ),
+        afterTaskCallback: _updateObserverTarget,
       ),
     );
-
-    _updateObserverTarget();
   }
 
   void frameworkUpdate(UpdateType updateType) {
@@ -424,10 +422,9 @@ class _ListViewBuilderState {
             child: configuration.itemBuilder(context, i),
           ),
         ),
+        afterTaskCallback: _updateObserverTarget,
       ),
     );
-
-    _updateObserverTarget();
   }
 
   void frameworkUpdateConfigurationBinding(
