@@ -20,7 +20,7 @@ import 'package:rad/src/widgets/utils/common_props.dart';
 ///
 /// ### Arguments
 ///
-/// - [targetSelector] refers to the id of element where you want the app
+/// - [targetId] refers to the id of element where you want the app
 /// to mount.
 ///
 /// - [app] can be any widget. For convenience we've a [RadApp] that takes as
@@ -48,14 +48,14 @@ import 'package:rad/src/widgets/utils/common_props.dart';
 ///
 void startApp({
   required Widget app,
-  required String targetSelector,
+  required String targetId,
   String routingPath = '',
   Callback? beforeMount,
   DebugOptions debugOptions = DebugOptions.defaultMode,
 }) {
   AppBootstrapper(
     app: app,
-    targetSelector: targetSelector,
+    targetSelector: targetId,
     routingPath: routingPath,
     beforeMount: beforeMount,
     debugOptions: debugOptions,

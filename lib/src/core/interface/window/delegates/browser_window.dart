@@ -26,8 +26,8 @@ class BrowserWindow extends WindowDelegate {
     required context,
     required callback,
   }) {
-    if (!_psListeners.containsKey(context.appTargetKey)) {
-      _psListeners[context.appTargetKey] = callback;
+    if (!_psListeners.containsKey(context.appTargetId)) {
+      _psListeners[context.appTargetId] = callback;
     }
 
     _psEnsureListening();
@@ -35,8 +35,8 @@ class BrowserWindow extends WindowDelegate {
 
   @override
   removePopStateListener(context) {
-    if (_psListeners.containsKey(context.appTargetKey)) {
-      _psListeners.remove(context.appTargetKey);
+    if (_psListeners.containsKey(context.appTargetId)) {
+      _psListeners.remove(context.appTargetId);
     }
   }
 
@@ -46,7 +46,7 @@ class BrowserWindow extends WindowDelegate {
     required url,
     required context,
   }) {
-    window.history.pushState(context.appTargetKey, title, url);
+    window.history.pushState(context.appTargetId, title, url);
   }
 
   @override
@@ -55,7 +55,7 @@ class BrowserWindow extends WindowDelegate {
     required url,
     required context,
   }) {
-    window.history.replaceState(context.appTargetKey, title, url);
+    window.history.replaceState(context.appTargetId, title, url);
   }
 
   void _psEnsureListening() {

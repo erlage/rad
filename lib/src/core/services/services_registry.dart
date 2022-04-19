@@ -18,17 +18,17 @@ class ServicesRegistry {
   /// Register framework services object.
   ///
   void registerServices(BuildContext context, Services services) {
-    if (_services.containsKey(context.appTargetKey)) {
+    if (_services.containsKey(context.appTargetId)) {
       throw "Services are already registered with the context.";
     }
 
-    _services[context.appTargetKey] = services;
+    _services[context.appTargetId] = services;
   }
 
   /// Unregister services registered by the framework.
   ///
   void unRegisterServices(BuildContext context) {
-    _services.remove(context.appTargetKey);
+    _services.remove(context.appTargetId);
   }
 
   /// Find debug service from registered services.
@@ -58,7 +58,7 @@ class ServicesRegistry {
   /// Find services instance that's enclosing given context.
   ///
   Services getServices(BuildContext context) {
-    var services = _services[context.appTargetKey];
+    var services = _services[context.appTargetId];
 
     if (null == services) {
       throw "Services are not registered yet.";

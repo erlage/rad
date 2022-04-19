@@ -24,13 +24,13 @@ class KeyGen {
   String generateWidgetKey() {
     _widgetCounter++;
 
-    return "$systemPrefix${rootContext.appTargetKey}_$_widgetCounter";
+    return "$systemPrefix${rootContext.appTargetId}_$_widgetCounter";
   }
 
   String generateRandomKey() {
     _extraCounter++;
 
-    return "${_extraCounter}_${rootContext.appTargetKey}";
+    return "${_extraCounter}_${rootContext.appTargetId}";
   }
 
   String random([int length = 6]) {

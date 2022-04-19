@@ -17,7 +17,7 @@ class BuildContext {
   /// ID of root HTML element where App(that's enclosing this context) is
   /// mounted.
   ///
-  final String appTargetKey;
+  final String appTargetId;
 
   /// Runtime type of widget class.
   ///
@@ -72,7 +72,7 @@ class BuildContext {
     required BuildContext parentContext,
   })  : _widget = widget,
         _parent = parentContext,
-        appTargetKey = parentContext.appTargetKey;
+        appTargetId = parentContext.appTargetId;
 
   /// Create root context.
   ///
@@ -86,7 +86,7 @@ class BuildContext {
   BuildContext.bigBang(this.key)
       : _widget = null,
         _parent = null,
-        appTargetKey = key,
+        appTargetId = key,
         widgetCorrespondingTag = DomTag.division,
         widgetConcreteType = Constants.contextTypeBigBang,
         widgetRuntimeType = Constants.contextTypeBigBang;
