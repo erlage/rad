@@ -16,6 +16,7 @@ All your work will be appreciated as long as you're working on:
 - Anything from pending [feature requests](https://github.com/erlage/rad/labels/feature%20request).
 - Anything that fixes something in existing code.
 - Anything that improves or add something to existing documentation/readme(s).
+- Anything that add/improve tests(you can help writing new tests as well).
 
 If you want to work on something that's not in opened issues, just open an issue for it! and wait for someone to add label to your issue. Please do not take this the wrong way. This lets us avoid working on the same thing, or worse, someone putting in a lot of work for a pull request that does not fit into the scope of the project.
 
