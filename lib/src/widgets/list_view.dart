@@ -1,11 +1,10 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/services/services_registry.dart';
+import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
-import 'package:rad/src/core/services/scheduler/scheduler.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -252,14 +251,13 @@ class ListViewBuilderRenderObject extends RenderObject {
 |--------------------------------------------------------------------------
 */
 
-class _ListViewBuilderState {
+class _ListViewBuilderState with ServicesResolver {
   /*
   |--------------------------------------------------------------------------
   | internal state
   |--------------------------------------------------------------------------
   */
 
-  final Scheduler scheduler;
   final BuildContext context;
 
   int _renderableUptoIndex = 3;
@@ -268,14 +266,17 @@ class _ListViewBuilderState {
 
   IntersectionObserver? _observer;
 
+  /// Resolve services reference.
+  ///
+  Services get services => resolveServices(context);
+
   /*
   |--------------------------------------------------------------------------
   | constructor
   |--------------------------------------------------------------------------
   */
 
-  _ListViewBuilderState(this.context)
-      : scheduler = ServicesRegistry.instance.getScheduler(context);
+  _ListViewBuilderState(this.context);
 
   /*
   |--------------------------------------------------------------------------
@@ -329,7 +330,7 @@ class _ListViewBuilderState {
         var itemsToGenerate = renderUptoIndex - currentIndex;
 
         if (itemsToGenerate > 0) {
-          scheduler.addTask(
+          services.scheduler.addTask(
             WidgetsUpdateTask(
               parentContext: context,
               updateType: UpdateType.lazyBuild,
@@ -393,7 +394,7 @@ class _ListViewBuilderState {
   void frameworkRender() {
     _initObserver();
 
-    scheduler.addTask(
+    services.scheduler.addTask(
       WidgetsBuildTask(
         parentContext: context,
         widgets: List.generate(
@@ -410,7 +411,7 @@ class _ListViewBuilderState {
   }
 
   void frameworkUpdate(UpdateType updateType) {
-    scheduler.addTask(
+    services.scheduler.addTask(
       WidgetsUpdateTask(
         parentContext: context,
         updateType: updateType,
