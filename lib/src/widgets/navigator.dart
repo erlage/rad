@@ -525,13 +525,7 @@ class NavigatorState with ServicesResolver {
 
     if (!nameToPathMap.containsKey(name)) {
       return services.debug.exception(
-        "Navigator: '$name' is not declared."
-        "Named routes that are not registered in Navigator's routes are not allowed."
-        "If you're trying to push to a parent navigator, add prefix '../' to name of the route. "
-        "e.g Navgator.of(context).push(name: '../home')."
-        "It'll first tries a push to current navigator, if it doesn't find a matching route, "
-        "then it'll try push to a parent navigator and so on. If there are no navigators in ancestors, "
-        "then it'll throw an exception",
+        "Navigator: Route '$name' is not declared.",
       );
     }
 
