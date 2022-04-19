@@ -10,7 +10,7 @@ import 'package:rad/src/core/common/objects/build_context.dart';
 abstract class Widget {
   final String initialKey;
 
-  const Widget({String? key}) : initialKey = key ?? System.contextKeyNotSet;
+  const Widget({String? key}) : initialKey = key ?? Constants.contextKeyNotSet;
 
   /*
   |--------------------------------------------------------------------------

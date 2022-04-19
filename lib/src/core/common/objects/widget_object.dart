@@ -35,9 +35,9 @@ class WidgetObject {
     // add properties to element
 
     element.id = renderObject.context.key;
-    element.dataset[System.attrConcreteType] =
+    element.dataset[Constants.attrConcreteType] =
         renderObject.context.widgetConcreteType;
-    element.dataset[System.attrRuntimeType] =
+    element.dataset[Constants.attrRuntimeType] =
         renderObject.context.widgetRuntimeType;
   }
 

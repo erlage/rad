@@ -10,7 +10,7 @@ export 'src/core/common/enums.dart' show DomTag;
 
 export 'src/core/common/enums.dart' show UpdateType;
 
-export 'src/core/common/constants.dart' show System;
+export 'src/core/common/constants.dart' show Constants;
 
 export 'src/widgets/abstract/widget.dart' show WidgetConfiguration;
 

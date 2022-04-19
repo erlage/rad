@@ -566,7 +566,8 @@ class NavigatorState with ServicesResolver {
           flagIterateInReverseOrder: true,
           updateType: UpdateType.setState,
           widgetActionCallback: (WidgetObject widgetObject) {
-            var routeName = widgetObject.element.dataset[System.attrRouteName];
+            var routeName =
+                widgetObject.element.dataset[Constants.attrRouteName];
 
             if (name == routeName) {
               return [WidgetAction.showWidget];
@@ -584,7 +585,7 @@ class NavigatorState with ServicesResolver {
       var page = pathToRouteMap[nameToPathMap[name]];
 
       if (null == page) {
-        return services.debug.exception(System.coreError);
+        return services.debug.exception(Constants.coreError);
       }
 
       _activeStack.add(name);
@@ -625,7 +626,8 @@ class NavigatorState with ServicesResolver {
         parentContext: context,
         flagIterateInReverseOrder: true,
         widgetActionCallback: (WidgetObject widgetObject) {
-          var name = widgetObject.element.dataset[System.attrRouteName] ?? "";
+          var name =
+              widgetObject.element.dataset[Constants.attrRouteName] ?? "";
 
           if (previousPage.name == name) {
             return [WidgetAction.showWidget];
@@ -778,7 +780,8 @@ class NavigatorState with ServicesResolver {
         flagIterateInReverseOrder: true,
         updateType: updateType,
         widgetActionCallback: (WidgetObject widgetObject) {
-          var name = widgetObject.element.dataset[System.attrRouteName] ?? "";
+          var name =
+              widgetObject.element.dataset[Constants.attrRouteName] ?? "";
 
           if (currentRouteName == name) {
             return [WidgetAction.updateWidget];

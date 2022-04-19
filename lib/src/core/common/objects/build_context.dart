@@ -47,7 +47,7 @@ class BuildContext {
   /// reference to context of parent's widget
   ///
   /// accessing will results in error if [widgetRuntimeType] is
-  /// [System.contextTypeBigBang]
+  /// [Constants.contextTypeBigBang]
   ///
   BuildContext get parent => _parent!;
 
@@ -88,8 +88,8 @@ class BuildContext {
         _parent = null,
         appTargetKey = key,
         widgetCorrespondingTag = DomTag.division,
-        widgetConcreteType = System.contextTypeBigBang,
-        widgetRuntimeType = System.contextTypeBigBang;
+        widgetConcreteType = Constants.contextTypeBigBang,
+        widgetRuntimeType = Constants.contextTypeBigBang;
 
   /*
   |--------------------------------------------------------------------------

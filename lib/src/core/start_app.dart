@@ -107,8 +107,8 @@ class AppBootstrapper {
     // Decorate target element
 
     CommonProps.applyDataAttributes(targetElement, {
-      System.attrConcreteType: "Target",
-      System.attrRuntimeType: System.contextTypeBigBang,
+      Constants.attrConcreteType: "Target",
+      Constants.attrRuntimeType: Constants.contextTypeBigBang,
     });
 
     // Insert framework's styles

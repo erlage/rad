@@ -18,7 +18,7 @@ class KeyGen {
 
   String generateWidgetKey() {
     _widgetCounter++;
-    return System.contextGenKeyPrefix +
+    return Constants.contextGenKeyPrefix +
         _widgetCounter.toString() +
         "_" +
         rootContext.appTargetKey;

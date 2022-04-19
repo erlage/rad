@@ -1,6 +1,6 @@
 /// Class containing framework specific attributes and constants.
 ///
-class System {
+class Constants {
   // widget attributes
 
   static const attrRuntimeType = "wruntype";

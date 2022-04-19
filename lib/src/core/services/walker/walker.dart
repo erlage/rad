@@ -90,7 +90,7 @@ class Walker with ServicesResolver {
     // ensure context is ready for processing.
     // this happens when user .of(context) is called inside a constructor.
 
-    if (System.contextKeyNotSet == context.key) {
+    if (Constants.contextKeyNotSet == context.key) {
       services.debug.exception(
         "Part of build context is not ready. This means that context is under"
         " construction.",
@@ -114,7 +114,7 @@ class Walker with ServicesResolver {
   T? findAncestorWidgetOfExactType<T>(
     BuildContext context,
   ) {
-    var selector = "[data-${System.attrRuntimeType}='$T']";
+    var selector = "[data-${Constants.attrRuntimeType}='$T']";
 
     var widgetObject = findAncestorWidgetObjectFromSelector(selector, context);
 
@@ -128,7 +128,7 @@ class Walker with ServicesResolver {
   T? findAncestorStateOfType<T>(
     BuildContext context,
   ) {
-    var selector = "[data-${System.attrStateType}='$T']";
+    var selector = "[data-${Constants.attrStateType}='$T']";
 
     var widgetObject = findAncestorWidgetObjectFromSelector(selector, context);
 
@@ -145,7 +145,7 @@ class Walker with ServicesResolver {
   WidgetObject? findAncestorWidgetObjectOfType<T>(
     BuildContext context,
   ) {
-    var selector = "[data-${System.attrRuntimeType}='$T']";
+    var selector = "[data-${Constants.attrRuntimeType}='$T']";
 
     return findAncestorWidgetObjectFromSelector(selector, context);
   }
@@ -153,7 +153,7 @@ class Walker with ServicesResolver {
   WidgetObject? findAncestorWidgetObjectOfClass<T>(
     BuildContext context,
   ) {
-    var selector = "[data-${System.attrConcreteType}='$T']";
+    var selector = "[data-${Constants.attrConcreteType}='$T']";
 
     return findAncestorWidgetObjectFromSelector(selector, context);
   }
@@ -161,8 +161,8 @@ class Walker with ServicesResolver {
   T? dependOnInheritedWidgetOfExactType<T>(
     BuildContext context,
   ) {
-    var selector = "[data-${System.attrRuntimeType}='$T']"
-        "[data-${System.attrConcreteType}='$InheritedWidget']";
+    var selector = "[data-${Constants.attrRuntimeType}='$T']"
+        "[data-${Constants.attrConcreteType}='$InheritedWidget']";
 
     var widgetObject = findAncestorWidgetObjectFromSelector(selector, context);
 

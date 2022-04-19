@@ -82,8 +82,8 @@ class _RouteRenderObject extends RenderObject {
     covariant _RouteConfiguration configuration,
   ) {
     CommonProps.applyDataAttributes(element, {
-      System.attrRouteName: configuration.name,
-      System.attrRoutePath: configuration.path,
+      Constants.attrRouteName: configuration.name,
+      Constants.attrRoutePath: configuration.path,
     });
   }
 
@@ -95,13 +95,13 @@ class _RouteRenderObject extends RenderObject {
     required covariant _RouteConfiguration newConfiguration,
   }) {
     CommonProps.clearDataAttributes(element, {
-      System.attrRouteName: oldConfiguration.name,
-      System.attrRoutePath: oldConfiguration.path,
+      Constants.attrRouteName: oldConfiguration.name,
+      Constants.attrRoutePath: oldConfiguration.path,
     });
 
     CommonProps.applyDataAttributes(element, {
-      System.attrRouteName: newConfiguration.name,
-      System.attrRoutePath: newConfiguration.path,
+      Constants.attrRouteName: newConfiguration.name,
+      Constants.attrRoutePath: newConfiguration.path,
     });
   }
 }

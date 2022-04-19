@@ -169,7 +169,7 @@ class Framework with ServicesResolver {
     if (flagCleanParentContents) {
       var widgetType = parentContext.widgetConcreteType;
 
-      if (System.contextTypeBigBang == widgetType) {
+      if (Constants.contextTypeBigBang == widgetType) {
         var element = document.getElementById(parentContext.key);
 
         if (null == element) {
@@ -191,13 +191,13 @@ class Framework with ServicesResolver {
     for (final widget in widgets) {
       // generate key if not set
 
-      var isKeyProvided = System.contextKeyNotSet != widget.initialKey;
+      var isKeyProvided = Constants.contextKeyNotSet != widget.initialKey;
 
       if (services.debug.developmentMode) {
         if (isKeyProvided &&
-            widget.initialKey.startsWith(System.contextGenKeyPrefix)) {
+            widget.initialKey.startsWith(Constants.contextGenKeyPrefix)) {
           return services.debug.exception(
-            "Keys starting with ${System.contextGenKeyPrefix} are reserved for "
+            "Keys starting with ${Constants.contextGenKeyPrefix} are reserved for "
             "framework.",
           );
         }
@@ -319,11 +319,12 @@ class Framework with ServicesResolver {
 
         if (!alreadySelected) {
           var hasSameType = child.dataset.isNotEmpty &&
-              "${widget.runtimeType}" == child.dataset[System.attrRuntimeType];
+              "${widget.runtimeType}" ==
+                  child.dataset[Constants.attrRuntimeType];
 
           if (hasSameType) {
-            var hadKey = !child.id.startsWith(System.contextGenKeyPrefix);
-            var hasKey = System.contextKeyNotSet != widget.initialKey;
+            var hadKey = !child.id.startsWith(Constants.contextGenKeyPrefix);
+            var hasKey = Constants.contextKeyNotSet != widget.initialKey;
 
             if ((hasKey || hadKey) && widget.initialKey != child.id) {
               // skip this one
@@ -626,7 +627,7 @@ class Framework with ServicesResolver {
 
     // nothing to dispose if its not a widget
 
-    if (null == widgetObject.element.dataset[System.attrConcreteType]) {
+    if (null == widgetObject.element.dataset[Constants.attrConcreteType]) {
       return;
     }
 

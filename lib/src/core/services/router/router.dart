@@ -93,11 +93,11 @@ class Router with ServicesResolver {
   ///
   void register(BuildContext context, NavigatorState state) {
     if (_routeObjects.containsKey(context.key)) {
-      return services.debug.exception(System.coreError);
+      return services.debug.exception(Constants.coreError);
     }
 
     if (_stateObjects.containsKey(context.key)) {
-      return services.debug.exception(System.coreError);
+      return services.debug.exception(Constants.coreError);
     }
 
     _register(context, state.routes);
@@ -221,7 +221,7 @@ class Router with ServicesResolver {
     var stateObject = _stateObjects[navigatorKey];
 
     if (null == stateObject) {
-      services.debug.exception(System.coreError);
+      services.debug.exception(Constants.coreError);
 
       return '';
     }
@@ -293,7 +293,7 @@ class Router with ServicesResolver {
     var routeObject = _routeObjects[navigatorKey];
 
     if (null == routeObject) {
-      services.debug.exception(System.coreError);
+      services.debug.exception(Constants.coreError);
 
       return [];
     }
@@ -342,13 +342,13 @@ class Router with ServicesResolver {
     var stateObject = _stateObjects[navigatorKey];
 
     if (null == routeObject) {
-      services.debug.exception(System.coreError);
+      services.debug.exception(Constants.coreError);
 
       return [];
     }
 
     if (null == stateObject) {
-      services.debug.exception(System.coreError);
+      services.debug.exception(Constants.coreError);
 
       return [];
     }
@@ -495,7 +495,7 @@ class Router with ServicesResolver {
     var parentObject = _routeObjects[parent.context.key];
 
     if (null == parentObject) {
-      return services.debug.exception(System.coreError);
+      return services.debug.exception(Constants.coreError);
     }
 
     var segments = [...parentObject.segments, parentState.currentRouteName];

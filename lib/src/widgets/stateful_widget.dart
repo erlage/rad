@@ -141,7 +141,7 @@ class StatefulWidgetRenderObject extends RenderObject {
   @override
   render(element, configuration) {
     CommonProps.applyDataAttributes(element, {
-      System.attrStateType: "${state.runtimeType}",
+      Constants.attrStateType: "${state.runtimeType}",
     });
 
     state
