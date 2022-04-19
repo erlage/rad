@@ -1,7 +1,7 @@
 import 'dart:html';
 
-import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/types.dart';
+import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 
@@ -16,7 +16,7 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 class GestureDetector extends StatefulWidget {
   final Widget child;
 
-  final VoidCallback? onTap;
+  final Callback? onTap;
   final OnTapEventCallback? onTapEvent;
   final HitTestBehavior behaviour;
 

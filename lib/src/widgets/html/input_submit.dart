@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/types.dart';
+import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/input_tag.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 

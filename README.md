@@ -9,9 +9,9 @@ Rad is a frontend framework for creating fast and interactive web apps using Dar
 - [API reference @ pub.dev](https://pub.dev/documentation/rad/latest/rad/rad-library.html)
 - [Repository @ github.com](https://github.com/erlage/rad)
 
-## Let's start with a Widget
+## Let's start
 
-Let's take a look at a StatelessWidget from Rad:
+Below is a hello world in Rad:
 
 ```dart
 class HomePage extends StatelessWidget
@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget
   }
 }
 ```
-If you're familiar with Flutter it don't even need an explanation but there are some differences that should be discussed before you begin using Rad,
+If you're familiar with Flutter it don't even need an explanation. It has some differences that might not be apparent from the example so let's discuss them first.
 
 ## Differences
 
@@ -187,7 +187,7 @@ That's pretty much it. This might not look like a big improvement at first but w
 
 > Is it SEO friendly?
 
-  No it's not quite there yet. Rad is a frontend framework and server side rendering is a must for better SEOs. Some frontend frameworks provides SSR but unfortunately we don't have that at the moment. However you can use a backend technology(PHP, Node, Erlang etc.) to stuff meta information in your root page, based on location that a client requested, before serving the page to client. We assure you that this is a sane, simple, and effective approach until we add SSR :)
+  Rad is a frontend framework and server side rendering is a must for better SEOs. Some frontend frameworks provides SSR but unfortunately we don't have that at the moment. However you can use a backend technology(PHP, Node, Erlang etc.) to stuff meta information in your root page, based on location that a client requested, before serving the page to client. We assure you that this is a sane, simple, and effective approach
 
 ## Widgets Index
 
@@ -272,6 +272,6 @@ Below is the list of available widgets in this framework.
 
 - [Heading(1-6)](https://pub.dev/documentation/rad/latest/rad/Heading1-class.html)
 
-## Why Dart?
 
-I actually tried writing [this in TypeScript before](https://github.com/erlage/proton-framework). While we can do awesome things with types in TS, it also inherits craziness from JS (has to bind 'this', use arrow fun, and more things like that). Later I decided to give Dart a try and I quickly realized that Dart is a very underrated language. You don't have to trust me on that. I had wrote a lot of Dart code with Flutter, but the fact that I choosed TS at first place really shows how underrated Dart actually is. I deeply believe Dart is a amazing language, and I am thankful to all the people who helped create Dart and/or contributing to it, one way or the other.
+## Contributing
+For reporting bugs/queries, feel free to open issue. Read [contributing guide](https://github.com/erlage/rad/blob/main/CONTRIBUTING.md) for more.

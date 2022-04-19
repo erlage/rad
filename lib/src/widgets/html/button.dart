@@ -1,10 +1,10 @@
 import 'dart:html';
 
-import 'package:rad/src/core/classes/utils.dart';
-import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/types.dart';
+import 'package:rad/src/core/common/functions.dart';
+import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
@@ -170,7 +170,7 @@ class _ButtonProps {
     }
 
     if (null != props.type) {
-      element.type = Utils.mapButtonType(props.type!);
+      element.type = fnMapButtonType(props.type!);
     }
 
     if (null != props.disabled) {

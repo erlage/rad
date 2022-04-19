@@ -1,12 +1,13 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/classes/framework.dart';
-import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/types.dart';
-
+import 'package:rad/src/core/services/services.dart';
+import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
+import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
+import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/html/division.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
@@ -116,7 +117,7 @@ class ListView extends Widget {
     if (isListViewBuilder) {
       return ListViewBuilderRenderObject(
         context: context,
-        state: _ListViewBuilderState(),
+        state: _ListViewBuilderState(context),
       );
     }
 
@@ -214,7 +215,6 @@ class ListViewBuilderRenderObject extends RenderObject {
 
     state
       ..frameworkUpdateConfigurationBinding(configuration)
-      ..frameworkUpdateContextBinding(context)
       ..frameworkUpdateElementBinding(element)
       ..frameworkRender();
   }
@@ -251,12 +251,14 @@ class ListViewBuilderRenderObject extends RenderObject {
 |--------------------------------------------------------------------------
 */
 
-class _ListViewBuilderState {
+class _ListViewBuilderState with ServicesResolver {
   /*
   |--------------------------------------------------------------------------
   | internal state
   |--------------------------------------------------------------------------
   */
+
+  final BuildContext context;
 
   int _renderableUptoIndex = 3;
 
@@ -264,14 +266,23 @@ class _ListViewBuilderState {
 
   IntersectionObserver? _observer;
 
+  /// Resolve services reference.
+  ///
+  Services get services => resolveServices(context);
+
+  /*
+  |--------------------------------------------------------------------------
+  | constructor
+  |--------------------------------------------------------------------------
+  */
+
+  _ListViewBuilderState(this.context);
+
   /*
   |--------------------------------------------------------------------------
   | getters
   |--------------------------------------------------------------------------
   */
-
-  BuildContext? _context;
-  BuildContext get context => _context!;
 
   HtmlElement? _element;
   HtmlElement get element => _element!;
@@ -319,24 +330,25 @@ class _ListViewBuilderState {
         var itemsToGenerate = renderUptoIndex - currentIndex;
 
         if (itemsToGenerate > 0) {
-          Framework.updateChildren(
-            widgets: List.generate(
-              itemsToGenerate,
-              (i) => Division(
-                key: 'lazy_item_${i + currentIndex}_under_${context.key}',
-                classAttribute: 'rad-list-view-item-container',
-                child: configuration.itemBuilder(context, i + currentIndex),
+          services.scheduler.addTask(
+            WidgetsUpdateTask(
+              parentContext: context,
+              updateType: UpdateType.lazyBuild,
+              flagAddIfNotFound: true,
+              flagAddAsAppendMode: true,
+              flagHideObsoluteChildren: false,
+              flagDisposeObsoluteChildren: false,
+              widgets: List.generate(
+                itemsToGenerate,
+                (i) => Division(
+                  key: 'lazy_item_${i + currentIndex}_under_${context.key}',
+                  classAttribute: 'rad-list-view-item-container',
+                  child: configuration.itemBuilder(context, i + currentIndex),
+                ),
               ),
+              afterTaskCallback: _updateObserverTarget,
             ),
-            parentContext: context,
-            flagAddIfNotFound: true,
-            flagAddAsAppendMode: true,
-            flagHideObsoluteChildren: false,
-            flagDisposeObsoluteChildren: false,
-            updateType: UpdateType.lazyBuild,
           );
-
-          _updateObserverTarget();
         }
       }
     }
@@ -382,46 +394,44 @@ class _ListViewBuilderState {
   void frameworkRender() {
     _initObserver();
 
-    Framework.buildChildren(
-      widgets: List.generate(
-        renderUptoIndex,
-        (i) => Division(
-          key: 'lazy_item_${i}_under_${context.key}',
-          classAttribute: 'rad-list-view-item-container',
-          child: configuration.itemBuilder(context, i),
+    services.scheduler.addTask(
+      WidgetsBuildTask(
+        parentContext: context,
+        widgets: List.generate(
+          renderUptoIndex,
+          (i) => Division(
+            key: 'lazy_item_${i}_under_${context.key}',
+            classAttribute: 'rad-list-view-item-container',
+            child: configuration.itemBuilder(context, i),
+          ),
         ),
+        afterTaskCallback: _updateObserverTarget,
       ),
-      parentContext: context,
     );
-
-    _updateObserverTarget();
   }
 
   void frameworkUpdate(UpdateType updateType) {
-    Framework.updateChildren(
-      widgets: List.generate(
-        renderUptoIndex,
-        (i) => Division(
-          key: 'lazy_item_${i}_under_${context.key}',
-          classAttribute: 'rad-list-view-item-container',
-          child: configuration.itemBuilder(context, i),
+    services.scheduler.addTask(
+      WidgetsUpdateTask(
+        parentContext: context,
+        updateType: updateType,
+        widgets: List.generate(
+          renderUptoIndex,
+          (i) => Division(
+            key: 'lazy_item_${i}_under_${context.key}',
+            classAttribute: 'rad-list-view-item-container',
+            child: configuration.itemBuilder(context, i),
+          ),
         ),
+        afterTaskCallback: _updateObserverTarget,
       ),
-      parentContext: context,
-      updateType: updateType,
     );
-
-    _updateObserverTarget();
   }
 
   void frameworkUpdateConfigurationBinding(
     _ListViewBuilderConfiguration configuration,
   ) {
     _configuration = configuration;
-  }
-
-  void frameworkUpdateContextBinding(BuildContext context) {
-    _context = context;
   }
 
   void frameworkUpdateElementBinding(HtmlElement element) {

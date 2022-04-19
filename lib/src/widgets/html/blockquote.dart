@@ -1,16 +1,17 @@
 import 'dart:html';
 
-import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/types.dart';
+import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Blockquote widget (HTML's `blockquote` tag).
 ///
 class Blockquote extends MarkUpTagWithGlobalProps {
-  /// A URL for the source of the quotation may be given using the cite attribute.
+  /// A URL for the source of the quotation may be given using the cite
+  /// attribute.
   ///
   final String? cite;
 

@@ -1,11 +1,11 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/classes/utils.dart';
-import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/types.dart';
+import 'package:rad/src/core/common/functions.dart';
+import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
@@ -203,16 +203,16 @@ class _FormProps {
     }
 
     if (null != props.method) {
-      element.method = Utils.mapFormMethod(props.method!);
+      element.method = fnMapFormMethod(props.method!);
     }
 
     if (null != props.enctype) {
-      element.enctype = Utils.mapFormEncType(props.enctype!);
+      element.enctype = fnMapFormEncType(props.enctype!);
     }
 
     if (null != props.onSubmitEventListener) {
       element.addEventListener(
-        Utils.mapDomEventType(DomEventType.submit),
+        fnMapDomEventType(DomEventType.submit),
         props.onSubmitEventListener,
       );
     }
@@ -245,7 +245,7 @@ class _FormProps {
 
     if (null != props.onSubmitEventListener) {
       element.removeEventListener(
-        Utils.mapDomEventType(DomEventType.submit),
+        fnMapDomEventType(DomEventType.submit),
         props.onSubmitEventListener,
       );
     }

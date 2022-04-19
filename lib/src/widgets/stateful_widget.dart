@@ -1,11 +1,14 @@
 import 'dart:html';
+
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/classes/debug.dart';
-import 'package:rad/src/core/classes/framework.dart';
-import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
+import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
+import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateless_widget.dart';
@@ -138,7 +141,7 @@ class StatefulWidgetRenderObject extends RenderObject {
   @override
   render(element, configuration) {
     CommonProps.applyDataAttributes(element, {
-      System.attrStateType: "${state.runtimeType}",
+      Constants.attrStateType: "${state.runtimeType}",
     });
 
     state
@@ -148,9 +151,13 @@ class StatefulWidgetRenderObject extends RenderObject {
       ..initState()
       ..didChangeDependencies();
 
-    Framework.buildChildren(
-      widgets: [state.build(context)],
-      parentContext: context,
+    var schedulerService = ServicesRegistry.instance.getScheduler(context);
+
+    schedulerService.addTask(
+      WidgetsBuildTask(
+        parentContext: context,
+        widgets: [state.build(context)],
+      ),
     );
   }
 
@@ -178,10 +185,14 @@ class StatefulWidgetRenderObject extends RenderObject {
   }
 
   void updateProcedure(UpdateType updateType) {
-    Framework.updateChildren(
-      updateType: updateType,
-      widgets: [state.build(context)],
-      parentContext: context,
+    var schedulerService = ServicesRegistry.instance.getScheduler(context);
+
+    schedulerService.addTask(
+      WidgetsUpdateTask(
+        parentContext: context,
+        updateType: updateType,
+        widgets: [state.build(context)],
+      ),
     );
   }
 
@@ -202,25 +213,28 @@ class StatefulWidgetRenderObject extends RenderObject {
 ///
 /// Framework calls lifecycle hooks on particular events,
 ///
-/// 1. [State.initState] - is called when framework decides to inflate the widget.
+/// 1. [State.initState] - is called when framework decides to inflate the
+/// widget.
 /// It's called exactly once during lifetime of this widget.
 ///
 ///
-/// 2. [State.build] - is called when framework wants to build interface for widget.
+/// 2. [State.build] - is called when framework wants to build interface for
+/// widget.
 /// Whatever interface(widgets) this method return will be built. Note that,
 /// Framework can call this method multiple times to stay up-to-date with
 /// widget's interface description.
 ///
 ///
-/// 3. [State.dispose] - is called when framework is about to dispose widget and its
-/// state.
+/// 3. [State.dispose] - is called when framework is about to dispose widget and
+/// its state.
 ///
-/// Apart from three main hooks, [State] has two additional hooks that implementations
-/// can override when needed. These are,
+/// Apart from three main hooks, [State] has two additional hooks that
+/// implementations can override when needed. These are,
 ///
 /// [State.didUpdateWidget] - Called whenever the widget configuration changes.
 ///
-/// [State.didChangeDependencies]- Called when a dependency of this [State] object changes.
+/// [State.didChangeDependencies]- Called when a dependency of this [State]
+/// object changes.
 ///
 /// Apart from lifecycle hooks, there is a [State.setState] function which a widget
 /// can use to tell framework to rebuild widget's interface because some
@@ -280,7 +294,8 @@ abstract class State<T extends StatefulWidget> {
   /// called immediately after [initState].
   ///
   /// The framework always calls [build] after calling [didChangeDependencies],
-  /// which means any calls to [setState] in [didChangeDependencies] are redundant.
+  /// which means any calls to [setState] in [didChangeDependencies] are
+  /// redundant.
   ///
   @protected
   void didChangeDependencies() {}
@@ -295,18 +310,8 @@ abstract class State<T extends StatefulWidget> {
   ///
   @nonVirtual
   @protected
-  void setState(VoidCallback? callable) {
-    if (Debug.widgetLogs) {
-      print("setState: $context");
-    }
-
+  void setState(Callback? callable) {
     if (_isRebuilding) {
-      if (Debug.developmentMode) {
-        print(
-          "setState() called while widget was building. Usually happens when you call setState() in build()",
-        );
-      }
-
       return;
     }
 
@@ -332,6 +337,11 @@ abstract class State<T extends StatefulWidget> {
   var _isRebuilding = false;
 
   /// Whether widget of current state object is rebuilding.
+  ///
+  /// Widget might be under rebuild even if this hook returns false. Goal of
+  /// this hook is to prevent common overflow(calling setState within same
+  /// setState). Which means this hook return true only if setState is called
+  /// within the same setState.
   ///
   bool get isRebuilding => _isRebuilding;
 

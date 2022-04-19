@@ -1,7 +1,7 @@
-import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/navigator.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
@@ -82,8 +82,8 @@ class _RouteRenderObject extends RenderObject {
     covariant _RouteConfiguration configuration,
   ) {
     CommonProps.applyDataAttributes(element, {
-      System.attrRouteName: configuration.name,
-      System.attrRoutePath: configuration.path,
+      Constants.attrRouteName: configuration.name,
+      Constants.attrRoutePath: configuration.path,
     });
   }
 
@@ -95,13 +95,13 @@ class _RouteRenderObject extends RenderObject {
     required covariant _RouteConfiguration newConfiguration,
   }) {
     CommonProps.clearDataAttributes(element, {
-      System.attrRouteName: oldConfiguration.name,
-      System.attrRoutePath: oldConfiguration.path,
+      Constants.attrRouteName: oldConfiguration.name,
+      Constants.attrRoutePath: oldConfiguration.path,
     });
 
     CommonProps.applyDataAttributes(element, {
-      System.attrRouteName: newConfiguration.name,
-      System.attrRoutePath: newConfiguration.path,
+      Constants.attrRouteName: newConfiguration.name,
+      Constants.attrRoutePath: newConfiguration.path,
     });
   }
 }

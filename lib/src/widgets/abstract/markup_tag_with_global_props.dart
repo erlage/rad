@@ -1,10 +1,10 @@
 import 'dart:html';
 
-import 'package:rad/src/core/classes/utils.dart';
-import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/types.dart';
+import 'package:rad/src/core/common/functions.dart';
+import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
 
@@ -259,7 +259,7 @@ class MarkUpGlobalProps {
 
     if (null != props.onClickEventListener) {
       element.addEventListener(
-        Utils.mapDomEventType(DomEventType.click),
+        fnMapDomEventType(DomEventType.click),
         props.onClickEventListener,
       );
     }
@@ -304,7 +304,7 @@ class MarkUpGlobalProps {
 
     if (null != props.onClickEventListener) {
       element.removeEventListener(
-        Utils.mapDomEventType(DomEventType.click),
+        fnMapDomEventType(DomEventType.click),
         props.onClickEventListener,
       );
     }

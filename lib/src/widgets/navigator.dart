@@ -1,36 +1,37 @@
-import 'dart:html';
-
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/classes/debug.dart';
-import 'package:rad/src/core/classes/framework.dart';
-import 'package:rad/src/core/classes/router.dart';
-import 'package:rad/src/core/classes/utils.dart';
-import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/objects/build_context.dart';
-import 'package:rad/src/core/objects/router/open_history_entry.dart';
-import 'package:rad/src/core/objects/widget_object.dart';
-import 'package:rad/src/core/types.dart';
+import 'package:rad/src/core/services/router/open_history_entry.dart';
+import 'package:rad/src/core/services/services.dart';
+import 'package:rad/src/core/common/functions.dart';
+import 'package:rad/src/core/services/services_registry.dart';
+import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
+import 'package:rad/src/core/services/scheduler/tasks/widgets_manage_task.dart';
+import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
+import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/objects/widget_object.dart';
+import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/route.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 
 /// Navigator widget.
 ///
-/// Navigators basic usage is to allow navigating between pages. But Rad's Navigator
-/// is bit different. It also carries out three big tasks for you,
+/// Navigators basic usage is to allow navigating between pages. But Rad's
+/// Navigator is bit different. It also carries out three big tasks for you,
 ///
 /// - Routing
 /// - Deep linking
-/// - Single page experience (no page reloads when user hit forward/back buttons)
+/// - Single page experience (no page reloads when user hit forward/back
+/// buttons)
 ///
-/// ![Deep linking and Single page experience in action](https://github.com/erlage/rad/raw/main/example/routing/routing.gif)
+/// ![Deep linking and Single page experience in action](https://github.com/erlage/rad/raw/main/example/routing_example/routing.gif)
 ///
-/// And all three tasks are carried out without any special configuration or management from
-/// developer side. That is, Framework will automatically deep link your Navigators, and
-/// route requests to the correct ones when requested no matter how deeply nested your
-/// Navigators are.
+/// And all three tasks are carried out without any special configuration or
+/// management from developer side. That is, Framework will automatically deep
+/// link your Navigators, and route requests to the correct ones when requested
+/// no matter how deeply nested your Navigators are.
 ///
 /// Let's talk about Navigator's syntax:
 ///
@@ -58,14 +59,15 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///
 /// ### routes:[]
 ///
-/// This property takes list of Routes. What is a Route? in simplified view, a Route consists of two things,
+/// This property takes list of Routes. What is a Route? in simplified view, a
+/// Route consists of two things,
 ///
 /// 1. Name of the route e.g 'home', 'settings'
 ///
 /// 2. Contents to show on route e.g some widget
 ///
-/// To declare a route, there's actually a `Route` widget which simply wraps both parts of route into a single
-/// widget that Navigator can manage.
+/// To declare a route, there's actually a `Route` widget which simply wraps
+/// both parts of route into a single widget that Navigator can manage.
 ///
 /// ```dart
 /// routes: [
@@ -81,20 +83,27 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///
 /// ### Navigator basic Understanding
 ///
-/// Since Navigator's route is basically a widget that have a name attached to it, those routes will be treated as child
-/// widgets of Navigator just like Span can have its childs. Difference being, Navigator's childs(Route widgets) are built
-/// in a lazy fashion(only when requested). This also means that Navigator do not stack duplicate pages. All Route widgets
-/// are built only once. That is when you open a route, if route widget doesn't exists, it'll create it else it'll use the
-/// Route widget that's already built.
+/// Since Navigator's route is basically a widget that have a name attached to
+/// it, those routes will be treated as child widgets of Navigator just like
+/// Span can have its childs. Difference being, Navigator's childs(Route
+/// widgets) are built in a lazy fashion(only when requested). This also means
+/// that Navigator do not stack duplicate pages. All Route widgets are built
+/// only once. That is when you open a route, if route widget doesn't exists,
+/// it'll create it else it'll use the Route widget that's already built.
 ///
 /// ### NavigatorState
 ///
-/// Navigator widget creates a state object. State object provides methods which you can use to jump between routes, open
-/// routes and things like that. To access a Navigator's state object, there are two methods:
+/// Navigator widget creates a state object. State object provides methods which
+/// you can use to jump between routes, open routes and things like that. To
+/// access a Navigator's state object, there are two methods:
 ///
-/// 1. If widget from where you accessing NavigatorState is in child tree of Navigator then use `Navigator.of(context)`. This method will return NavigatorState of the nearest ancestor Navigator from the given `BuildContext`.
+/// 1. If widget from where you accessing NavigatorState is in child tree of
+/// Navigator then use `Navigator.of(context)`. This method will return
+/// NavigatorState of the nearest ancestor Navigator from the given
+/// `BuildContext`.
 ///
-/// 2. For accessing state in parent widget of Navigator, use `onInit` hook of Navigator:
+/// 2. For accessing state in parent widget of Navigator, use `onInit` hook of
+/// Navigator:
 ///     ```dart
 ///     class SomeWidget extends StatelessWidget
 ///     {
@@ -127,9 +136,10 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 /// ```
 /// ### onRouteChange hook:
 ///
-/// This hooks gets called when Navigator opens a route. This allows Navigator's parent
-/// to do something when Navigator that it's enclosing has changed. for example, you
-/// could've a header and you can change active tab when Navigator's route has changed.
+/// This hooks gets called when Navigator opens a route. This allows Navigator's
+/// parent to do something when Navigator that it's enclosing has changed. for
+/// example, you could've a header and you can change active tab when
+/// Navigator's route has changed.
 ///
 /// ```dart
 /// Navigator(
@@ -140,10 +150,11 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///
 /// ### Jumping to a Route
 ///
-/// To go to a route, use `open` method of Navigator state. We could've named it `push` but `open` conveys what exactly
-/// Navigator do when you jump to a route. When you call `open`, Navigator will build route widget if it's not already
-/// created. Once ready, it'll bring it to the top simply by hiding all other Route widgets that this Navigator is
-/// managing.
+/// To go to a route, use `open` method of Navigator state. We could've named
+/// it `push` but `open` conveys what exactly Navigator do when you jump to a
+/// route. When you call `open`, Navigator will build route widget if it's not
+/// already created. Once ready, it'll bring it to the top simply by hiding all
+/// other Route widgets that this Navigator is managing.
 ///
 /// ```dart
 /// Navigator.of(context).open(name: "home");
@@ -221,10 +232,10 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 /// var key = Navigator.of(context).getValue("id");
 /// ```
 ///
-/// But remember since routes are built only once, you've to re-initialize state in
-/// your `ProfilePage` widget when `id` changes. One way is to make your `ProfilePage` a
-/// [StatefulWidget] and re-initialize state in [State.didChangeDependencies] when you
-/// see that `id` has changed.
+/// But remember since routes are built only once, you've to re-initialize state
+/// in your `ProfilePage` widget when `id` changes. One way is to make your
+/// `ProfilePage` a [StatefulWidget] and re-initialize state in
+/// [State.didChangeDependencies] when you see that `id` has changed.
 ///
 /// Here's an example:
 ///
@@ -289,12 +300,15 @@ class Navigator extends Widget {
     var targetContext = context;
 
     while (true) {
-      var widgetObject = Framework.findAncestorWidgetObjectOfType<Navigator>(
-        targetContext,
-      );
+      var walkerService = ServicesRegistry.instance.getWalker(context);
+
+      var widgetObject = walkerService
+          .findAncestorWidgetObjectOfType<Navigator>(targetContext);
 
       if (null == widgetObject) {
-        Debug.exception(
+        var debugService = ServicesRegistry.instance.getDebug(context);
+
+        debugService.exception(
           "Navigator operation requested with a context that does not include a Navigator.\n"
           "The context used to push or pop routes from the Navigator must be that of a "
           "widget that is a descendant of a Navigator widget.",
@@ -303,7 +317,10 @@ class Navigator extends Widget {
         /// Return dummy state if user has registered there own error handler that
         /// doesn't throw exception onError.
         ///
-        return NavigatorState(context, const Navigator(routes: []));
+        return NavigatorState(
+          context: context,
+          widget: const Navigator(routes: []),
+        );
       }
 
       if (null != navigatorKey && navigatorKey != widgetObject.context.key) {
@@ -343,7 +360,13 @@ class Navigator extends Widget {
   isConfigurationChanged(oldConfiguration) => true;
 
   @override
-  createRenderObject(context) => NavigatorRenderObject(context, this);
+  createRenderObject(context) => NavigatorRenderObject(
+        context: context,
+        state: NavigatorState(
+          widget: this,
+          context: context,
+        ),
+      );
 }
 
 /*
@@ -359,9 +382,10 @@ class NavigatorRenderObject extends RenderObject {
   ///
   final dependents = <String, Map<String, BuildContext>>{};
 
-  NavigatorRenderObject(BuildContext context, Navigator widget)
-      : state = NavigatorState(context, widget),
-        super(context);
+  NavigatorRenderObject({
+    required this.state,
+    required BuildContext context,
+  }) : super(context);
 
   @override
   render(element, configuration) => state
@@ -402,25 +426,13 @@ class NavigatorRenderObject extends RenderObject {
     var dependentsOnCurrentPage = dependents[state.currentRouteName];
 
     if (null != dependentsOnCurrentPage) {
-      var unavailableWidgetKeys = <String>[];
+      var schedulerService = ServicesRegistry.instance.getScheduler(context);
 
       dependentsOnCurrentPage.forEach((widgetKey, widgetContext) {
-        var isUpdated = Framework.updateWidgetHavingContext(widgetContext);
-
-        if (!isUpdated) {
-          unavailableWidgetKeys.add(widgetContext.key);
-        }
+        schedulerService.addTask(
+          WidgetsUpdateDependentTask(widgetContext: widgetContext),
+        );
       });
-
-      if (unavailableWidgetKeys.isNotEmpty) {
-        if (Debug.widgetLogs) {
-          print("Following dependents of Inherited widget($context) are lost.");
-
-          unavailableWidgetKeys.forEach(print);
-        }
-
-        unavailableWidgetKeys.forEach(dependents.remove);
-      }
     }
   }
 }
@@ -431,7 +443,17 @@ class NavigatorRenderObject extends RenderObject {
 |--------------------------------------------------------------------------
 */
 
-class NavigatorState {
+/// State that each navigator creates and manage.
+///
+class NavigatorState with ServicesResolver {
+  /// Root context.
+  ///
+  final BuildContext context;
+
+  /// Resolve services reference.
+  ///
+  Services get services => resolveServices(context);
+
   /// Routes that this Navigator instance handles.
   ///
   final routes = <Route>[];
@@ -454,16 +476,15 @@ class NavigatorState {
   ///
   final Navigator widget;
 
-  /// Navigator's context.
-  ///
-  final BuildContext context;
-
   // internal stack data
 
   final _activeStack = <String>[];
   final _historyStack = <OpenHistoryEntry>[];
 
-  NavigatorState(this.context, this.widget);
+  NavigatorState({
+    required this.widget,
+    required this.context,
+  });
 
   /*
   |--------------------------------------------------------------------------
@@ -473,14 +494,16 @@ class NavigatorState {
 
   /// Open a page on Navigator's stack.
   ///
-  /// Please note that if a Page with same name already exists, it'll bring that to top
-  /// rather than creating new one.
+  /// Please note that if a Page with same name already exists, it'll bring that
+  /// to top rather than creating new one.
   ///
-  /// Will throw exception if Navigator doesn't have a route with the provided name.
+  /// Will throw exception if Navigator doesn't have a route with the provided
+  /// name.
   ///
-  /// If [name] is prefixed with a forward slash '/', and if current navigator doesn't have
-  /// a matching named route, then it'll delegate open call to a parent navigator(if exists).
-  /// If there are no navigator in ancestors, it'll throw an exception.
+  /// If [name] is prefixed with a forward slash '/', and if current navigator
+  /// doesn't have a matching named route, then it'll delegate open call to a
+  /// parent navigator(if exists). If there are no navigator in ancestors, it'll
+  /// throw an exception.
   ///
   void open({
     required String name,
@@ -492,7 +515,7 @@ class NavigatorState {
       var lastOpened = _historyStack.last;
 
       if (lastOpened.name == name) {
-        if (Utils.isKeyValueMapEqual(lastOpened.values, values)) {
+        if (fnIsKeyValueMapEqual(lastOpened.values, values)) {
           return;
         }
       }
@@ -501,7 +524,7 @@ class NavigatorState {
     // if current navigator doesn't have a matching '$name' route
 
     if (!nameToPathMap.containsKey(name)) {
-      return Debug.exception(
+      return services.debug.exception(
         "Navigator: '$name' is not declared."
         "Named routes that are not registered in Navigator's routes are not allowed."
         "If you're trying to push to a parent navigator, add prefix '../' to name of the route. "
@@ -519,11 +542,11 @@ class NavigatorState {
     // update global state
 
     if (updateHistory) {
-      if (Debug.routerLogs) {
+      if (services.debug.routerLogs) {
         print("${context.key}: Push entry: $name");
       }
 
-      Router.pushEntry(
+      services.router.pushEntry(
         name: name,
         values: values,
         navigatorKey: context.key,
@@ -536,23 +559,24 @@ class NavigatorState {
     // if route is already in stack, bring it to the top of stack
 
     if (isPageStacked(name: name)) {
-      Framework.manageChildren(
-        parentContext: context,
-        flagIterateInReverseOrder: true,
-        updateTypeWhenNecessary: UpdateType.setState,
-        widgetActionCallback: (WidgetObject widgetObject) {
-          var routeName =
-              widgetObject.element.dataset[System.attrRouteName] ?? "";
+      services.scheduler.addTask(
+        WidgetsManageTask(
+          parentContext: context,
+          flagIterateInReverseOrder: true,
+          updateType: UpdateType.setState,
+          widgetActionCallback: (WidgetObject widgetObject) {
+            var routeName =
+                widgetObject.element.dataset[Constants.attrRouteName];
 
-          if (name == routeName) {
-            return [WidgetAction.showWidget];
-          }
+            if (name == routeName) {
+              return [WidgetAction.showWidget];
+            }
 
-          return [WidgetAction.hideWidget];
-        },
+            return [WidgetAction.hideWidget];
+          },
+          afterTaskCallback: _updateProcedure,
+        ),
       );
-
-      _updateProcedure!();
     } else {
       //
       // else build the route
@@ -560,24 +584,31 @@ class NavigatorState {
       var page = pathToRouteMap[nameToPathMap[name]];
 
       if (null == page) {
-        return Debug.exception(System.coreError);
+        return services.debug.exception(Constants.coreError);
       }
 
       _activeStack.add(name);
 
       // hide all existing widgets
-      Framework.manageChildren(
-        parentContext: context,
-        flagIterateInReverseOrder: true,
-        updateTypeWhenNecessary: UpdateType.setState,
-        widgetActionCallback: (WidgetObject widgetObject) =>
-            [WidgetAction.hideWidget],
-      );
 
-      Framework.buildChildren(
-        widgets: [page],
-        parentContext: context,
-        flagCleanParentContents: 1 == _historyStack.length,
+      services.scheduler.addTask(
+        WidgetsManageTask(
+          parentContext: context,
+          flagIterateInReverseOrder: true,
+          updateType: UpdateType.setState,
+          widgetActionCallback: (widgetObject) {
+            return [WidgetAction.hideWidget];
+          },
+          afterTaskCallback: () {
+            services.scheduler.addTask(
+              WidgetsBuildTask(
+                widgets: [page],
+                parentContext: context,
+                flagCleanParentContents: 1 == _historyStack.length,
+              ),
+            );
+          },
+        ),
       );
     }
   }
@@ -589,21 +620,23 @@ class NavigatorState {
 
     frameworkUpdateCurrentName(_historyStack.last.name);
 
-    Framework.manageChildren(
-      parentContext: context,
-      flagIterateInReverseOrder: true,
-      widgetActionCallback: (WidgetObject widgetObject) {
-        var name = widgetObject.element.dataset[System.attrRouteName] ?? "";
+    services.scheduler.addTask(
+      WidgetsManageTask(
+        parentContext: context,
+        flagIterateInReverseOrder: true,
+        widgetActionCallback: (WidgetObject widgetObject) {
+          var name =
+              widgetObject.element.dataset[Constants.attrRouteName] ?? "";
 
-        if (previousPage.name == name) {
-          return [WidgetAction.showWidget];
-        }
+          if (previousPage.name == name) {
+            return [WidgetAction.showWidget];
+          }
 
-        return [WidgetAction.hideWidget];
-      },
+          return [WidgetAction.hideWidget];
+        },
+        afterTaskCallback: _updateProcedure,
+      ),
     );
-
-    _updateProcedure!();
   }
 
   /// Get value from URL following the provided segment.
@@ -635,7 +668,10 @@ class NavigatorState {
   /// // because current navigator is registered on posts page
   /// ```
   ///
-  String getValue(String segment) => Router.getValue(context.key, segment);
+  String getValue(String segment) => services.router.getValue(
+        context.key,
+        segment,
+      );
 
   /// Whether current active stack contains a route with matching [name].
   ///
@@ -651,18 +687,18 @@ class NavigatorState {
   |--------------------------------------------------------------------------
   */
 
-  VoidCallback? _updateProcedure;
+  Callback? _updateProcedure;
 
   @protected
-  void frameworkBindUpdateProcedure(VoidCallback updateProcedure) {
+  void frameworkBindUpdateProcedure(Callback updateProcedure) {
     _updateProcedure = updateProcedure;
   }
 
   @protected
   void frameworkInitState() {
-    if (Debug.developmentMode) {
+    if (services.debug.developmentMode) {
       if (widget.routes.isEmpty) {
-        return Debug.exception(
+        return services.debug.exception(
           "Navigator instance must have at least one route.",
         );
       }
@@ -671,16 +707,16 @@ class NavigatorState {
     routes.addAll(widget.routes);
 
     for (final route in routes) {
-      if (Debug.developmentMode) {
+      if (services.debug.developmentMode) {
         if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(route.path)) {
           if (route.path.isEmpty) {
-            return Debug.exception(
+            return services.debug.exception(
               "Navigator's Route's path can't be empty."
               "\n Route: ${route.name} -> ${route.path} is not allowed",
             );
           }
 
-          return Debug.exception(
+          return services.debug.exception(
             "Navigator's Route can contains only alphanumeric characters and underscores"
             "\n Route: ${route.name} -> ${route.path} is not allowed",
           );
@@ -690,7 +726,7 @@ class NavigatorState {
             pathToRouteMap.containsKey(route.path);
 
         if (isDuplicate) {
-          return Debug.exception(
+          return services.debug.exception(
             "Please remove Duplicate routes from your Navigator."
             "Part of your route, name: '${route.name}' => path: '${route.path}', already exists",
           );
@@ -702,12 +738,12 @@ class NavigatorState {
       pathToRouteMap[route.path] = route;
     }
 
-    Router.register(context, this);
+    services.router.register(context, this);
   }
 
   @protected
   void frameworkRender() {
-    var name = Router.getPath(context.key);
+    var name = services.router.getPath(context.key);
 
     var needsReplacement = name.isEmpty;
 
@@ -721,11 +757,11 @@ class NavigatorState {
     }
 
     if (needsReplacement && name.isNotEmpty) {
-      if (Debug.routerLogs) {
+      if (services.debug.routerLogs) {
         print("${context.key}: Push replacement: $name");
       }
 
-      Router.pushReplacement(
+      services.router.pushReplacement(
         name: name,
         values: {},
         navigatorKey: context.key,
@@ -737,36 +773,39 @@ class NavigatorState {
 
   @protected
   void frameworkUpdate(UpdateType updateType) {
-    Framework.manageChildren(
-      parentContext: context,
-      flagIterateInReverseOrder: true,
-      updateTypeWhenNecessary: updateType,
-      widgetActionCallback: (WidgetObject widgetObject) {
-        var name = widgetObject.element.dataset[System.attrRouteName] ?? "";
+    services.scheduler.addTask(
+      WidgetsManageTask(
+        parentContext: context,
+        flagIterateInReverseOrder: true,
+        updateType: updateType,
+        widgetActionCallback: (WidgetObject widgetObject) {
+          var name =
+              widgetObject.element.dataset[Constants.attrRouteName] ?? "";
 
-        if (currentRouteName == name) {
-          return [WidgetAction.updateWidget];
-        }
+          if (currentRouteName == name) {
+            return [WidgetAction.updateWidget];
+          }
 
-        return [];
-      },
+          return [];
+        },
+      ),
     );
   }
 
   @protected
-  void frameworkDispose() => Router.unRegister(context);
+  void frameworkDispose() => services.router.unRegister(context);
 
   /// Framework fires this when parent route changes.
   ///
   void frameworkOnParentRouteChange(String name) {
-    var routeName = Router.getPath(context.key);
+    var routeName = services.router.getPath(context.key);
 
     if (routeName != currentRouteName) {
-      if (Debug.routerLogs) {
+      if (services.debug.routerLogs) {
         print("${context.key}: Push replacement: $routeName");
       }
 
-      Router.pushReplacement(
+      services.router.pushReplacement(
         name: currentRouteName,
         values: {},
         navigatorKey: context.key,

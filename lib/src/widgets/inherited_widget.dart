@@ -1,9 +1,9 @@
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/classes/debug.dart';
-import 'package:rad/src/core/classes/framework.dart';
-import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
+import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Base class for widgets that efficiently propagate information down the tree.
@@ -110,25 +110,15 @@ class InheritedWidgetRenderObject extends RenderObject {
     );
 
     if (updateShouldNotify) {
-      var unavailableWidgetKeys = <String>[];
+      var schedulerService = ServicesRegistry.instance.getScheduler(context);
 
       dependents.forEach((widgetKey, widgetContext) {
-        var isUpdated = Framework.updateWidgetHavingContext(widgetContext);
-
-        if (!isUpdated) {
-          unavailableWidgetKeys.add(widgetContext.key);
-        }
+        schedulerService.addTask(
+          WidgetsUpdateDependentTask(
+            widgetContext: widgetContext,
+          ),
+        );
       });
-
-      if (unavailableWidgetKeys.isNotEmpty) {
-        if (Debug.widgetLogs) {
-          print("Following dependents of Inherited widget($context) are lost.");
-
-          unavailableWidgetKeys.forEach(print);
-        }
-
-        unavailableWidgetKeys.forEach(dependents.remove);
-      }
     }
   }
 }

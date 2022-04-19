@@ -1,8 +1,8 @@
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/constants.dart';
-import 'package:rad/src/core/enums.dart';
-import 'package:rad/src/core/objects/render_object.dart';
-import 'package:rad/src/core/objects/build_context.dart';
+import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
 
 /// Describes the configuration for an [RenderObject].
 ///
@@ -10,7 +10,7 @@ import 'package:rad/src/core/objects/build_context.dart';
 abstract class Widget {
   final String initialKey;
 
-  const Widget({String? key}) : initialKey = key ?? System.contextKeyNotSet;
+  const Widget({String? key}) : initialKey = key ?? Constants.contextKeyNotSet;
 
   /*
   |--------------------------------------------------------------------------
@@ -55,6 +55,11 @@ abstract class Widget {
   RenderObject createRenderObject(BuildContext context);
 }
 
+/// Configuration that's specific to each widget.
+///
+/// Widgets are responsible for extending this class if they want to pass around
+/// their configuration during builds.
+///
 class WidgetConfiguration {
   const WidgetConfiguration();
 }
