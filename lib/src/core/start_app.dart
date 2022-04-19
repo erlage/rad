@@ -138,9 +138,9 @@ class AppBootstrapper {
   /// Schedule a build task.
   ///
   void scheduleBuildTask() {
-    var scheduler = ServicesRegistry.instance.getScheduler(rootContext);
+    var schedulerService = ServicesRegistry.instance.getScheduler(rootContext);
 
-    scheduler.addTask(
+    schedulerService.addTask(
       WidgetsBuildTask(
         widgets: [app],
         parentContext: rootContext,

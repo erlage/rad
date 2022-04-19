@@ -106,18 +106,18 @@ class BuildContext {
   /// the type of a concrete [Widget] subclass.
   ///
   T? findAncestorWidgetOfExactType<T extends Widget>() {
-    var walker = ServicesRegistry.instance.getWalker(this);
+    var walkerService = ServicesRegistry.instance.getWalker(this);
 
-    return walker.findAncestorWidgetOfExactType<T>(this);
+    return walkerService.findAncestorWidgetOfExactType<T>(this);
   }
 
   /// Returns the [State] object of the nearest ancestor [StatefulWidget] widget
   /// that is an instance of the given type `T`.
   ///
   T? findAncestorStateOfType<T extends State>() {
-    var walker = ServicesRegistry.instance.getWalker(this);
+    var walkerService = ServicesRegistry.instance.getWalker(this);
 
-    return walker.findAncestorStateOfType<T>(this);
+    return walkerService.findAncestorStateOfType<T>(this);
   }
 
   /// Obtains the nearest widget of the given type `T`, which must be the type
@@ -127,9 +127,9 @@ class BuildContext {
   /// rebuilt so that it can obtain new values from that widget.
   ///
   T? dependOnInheritedWidgetOfExactType<T extends InheritedWidget>() {
-    var walker = ServicesRegistry.instance.getWalker(this);
+    var walkerService = ServicesRegistry.instance.getWalker(this);
 
-    return walker.dependOnInheritedWidgetOfExactType<T>(this);
+    return walkerService.dependOnInheritedWidgetOfExactType<T>(this);
   }
 
   @override

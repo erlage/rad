@@ -464,9 +464,9 @@ class Router with ServicesResolver {
     // we've to use context.parent here because navigators are required to
     // register themselves in onContextCreate hook but at the point when
     // onContextCreate hook is fired, context.key is not present in DOM.
-    var walker = ServicesRegistry.instance.getWalker(context);
+    var walkerService = ServicesRegistry.instance.getWalker(context);
 
-    var parent = walker.findAncestorWidgetObjectOfType<Navigator>(
+    var parent = walkerService.findAncestorWidgetObjectOfType<Navigator>(
       context.parent,
     );
 

@@ -300,11 +300,10 @@ class Navigator extends Widget {
     var targetContext = context;
 
     while (true) {
-      var walker = ServicesRegistry.instance.getWalker(context);
+      var walkerService = ServicesRegistry.instance.getWalker(context);
 
-      var widgetObject = walker.findAncestorWidgetObjectOfType<Navigator>(
-        targetContext,
-      );
+      var widgetObject = walkerService
+          .findAncestorWidgetObjectOfType<Navigator>(targetContext);
 
       if (null == widgetObject) {
         var debugService = ServicesRegistry.instance.getDebug(context);
