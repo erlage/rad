@@ -46,8 +46,9 @@ class Walker with ServicesResolver {
           "Key $widgetKey already exists."
           "\n\nThis usually happens in two scenarios,"
           "\n\n1. When you have duplicate keys in your code."
-          "\n\nor\n\n2. When you've two adjacent widgets of same type and one of them is optional."
-          "\n\nCorrect way to fix (2): Use explicit keys on one of the widgets that are of same type.",
+          "\n\nor\n\n2. When you've two adjacent widgets of same type and one"
+          " of them is optional.\n\nCorrect way to fix (2): Use explicit keys"
+          " on one of the widgets that are of same type.",
         );
       }
     }
@@ -91,7 +92,8 @@ class Walker with ServicesResolver {
 
     if (System.contextKeyNotSet == context.key) {
       services.debug.exception(
-        "Part of build context is not ready. This means that context is under construction.",
+        "Part of build context is not ready. This means that context is under"
+        " construction.",
       );
 
       return null;

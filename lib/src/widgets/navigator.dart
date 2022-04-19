@@ -18,19 +18,20 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 
 /// Navigator widget.
 ///
-/// Navigators basic usage is to allow navigating between pages. But Rad's Navigator
-/// is bit different. It also carries out three big tasks for you,
+/// Navigators basic usage is to allow navigating between pages. But Rad's
+/// Navigator is bit different. It also carries out three big tasks for you,
 ///
 /// - Routing
 /// - Deep linking
-/// - Single page experience (no page reloads when user hit forward/back buttons)
+/// - Single page experience (no page reloads when user hit forward/back
+/// buttons)
 ///
 /// ![Deep linking and Single page experience in action](https://github.com/erlage/rad/raw/main/example/routing_example/routing.gif)
 ///
-/// And all three tasks are carried out without any special configuration or management from
-/// developer side. That is, Framework will automatically deep link your Navigators, and
-/// route requests to the correct ones when requested no matter how deeply nested your
-/// Navigators are.
+/// And all three tasks are carried out without any special configuration or
+/// management from developer side. That is, Framework will automatically deep
+/// link your Navigators, and route requests to the correct ones when requested
+/// no matter how deeply nested your Navigators are.
 ///
 /// Let's talk about Navigator's syntax:
 ///
@@ -58,14 +59,15 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///
 /// ### routes:[]
 ///
-/// This property takes list of Routes. What is a Route? in simplified view, a Route consists of two things,
+/// This property takes list of Routes. What is a Route? in simplified view, a
+/// Route consists of two things,
 ///
 /// 1. Name of the route e.g 'home', 'settings'
 ///
 /// 2. Contents to show on route e.g some widget
 ///
-/// To declare a route, there's actually a `Route` widget which simply wraps both parts of route into a single
-/// widget that Navigator can manage.
+/// To declare a route, there's actually a `Route` widget which simply wraps
+/// both parts of route into a single widget that Navigator can manage.
 ///
 /// ```dart
 /// routes: [
@@ -81,20 +83,27 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///
 /// ### Navigator basic Understanding
 ///
-/// Since Navigator's route is basically a widget that have a name attached to it, those routes will be treated as child
-/// widgets of Navigator just like Span can have its childs. Difference being, Navigator's childs(Route widgets) are built
-/// in a lazy fashion(only when requested). This also means that Navigator do not stack duplicate pages. All Route widgets
-/// are built only once. That is when you open a route, if route widget doesn't exists, it'll create it else it'll use the
-/// Route widget that's already built.
+/// Since Navigator's route is basically a widget that have a name attached to
+/// it, those routes will be treated as child widgets of Navigator just like
+/// Span can have its childs. Difference being, Navigator's childs(Route
+/// widgets) are built in a lazy fashion(only when requested). This also means
+/// that Navigator do not stack duplicate pages. All Route widgets are built
+/// only once. That is when you open a route, if route widget doesn't exists,
+/// it'll create it else it'll use the Route widget that's already built.
 ///
 /// ### NavigatorState
 ///
-/// Navigator widget creates a state object. State object provides methods which you can use to jump between routes, open
-/// routes and things like that. To access a Navigator's state object, there are two methods:
+/// Navigator widget creates a state object. State object provides methods which
+/// you can use to jump between routes, open routes and things like that. To
+/// access a Navigator's state object, there are two methods:
 ///
-/// 1. If widget from where you accessing NavigatorState is in child tree of Navigator then use `Navigator.of(context)`. This method will return NavigatorState of the nearest ancestor Navigator from the given `BuildContext`.
+/// 1. If widget from where you accessing NavigatorState is in child tree of
+/// Navigator then use `Navigator.of(context)`. This method will return
+/// NavigatorState of the nearest ancestor Navigator from the given
+/// `BuildContext`.
 ///
-/// 2. For accessing state in parent widget of Navigator, use `onInit` hook of Navigator:
+/// 2. For accessing state in parent widget of Navigator, use `onInit` hook of
+/// Navigator:
 ///     ```dart
 ///     class SomeWidget extends StatelessWidget
 ///     {
@@ -127,9 +136,10 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 /// ```
 /// ### onRouteChange hook:
 ///
-/// This hooks gets called when Navigator opens a route. This allows Navigator's parent
-/// to do something when Navigator that it's enclosing has changed. for example, you
-/// could've a header and you can change active tab when Navigator's route has changed.
+/// This hooks gets called when Navigator opens a route. This allows Navigator's
+/// parent to do something when Navigator that it's enclosing has changed. for
+/// example, you could've a header and you can change active tab when
+/// Navigator's route has changed.
 ///
 /// ```dart
 /// Navigator(
@@ -140,10 +150,11 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///
 /// ### Jumping to a Route
 ///
-/// To go to a route, use `open` method of Navigator state. We could've named it `push` but `open` conveys what exactly
-/// Navigator do when you jump to a route. When you call `open`, Navigator will build route widget if it's not already
-/// created. Once ready, it'll bring it to the top simply by hiding all other Route widgets that this Navigator is
-/// managing.
+/// To go to a route, use `open` method of Navigator state. We could've named
+/// it `push` but `open` conveys what exactly Navigator do when you jump to a
+/// route. When you call `open`, Navigator will build route widget if it's not
+/// already created. Once ready, it'll bring it to the top simply by hiding all
+/// other Route widgets that this Navigator is managing.
 ///
 /// ```dart
 /// Navigator.of(context).open(name: "home");
@@ -221,10 +232,10 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 /// var key = Navigator.of(context).getValue("id");
 /// ```
 ///
-/// But remember since routes are built only once, you've to re-initialize state in
-/// your `ProfilePage` widget when `id` changes. One way is to make your `ProfilePage` a
-/// [StatefulWidget] and re-initialize state in [State.didChangeDependencies] when you
-/// see that `id` has changed.
+/// But remember since routes are built only once, you've to re-initialize state
+/// in your `ProfilePage` widget when `id` changes. One way is to make your
+/// `ProfilePage` a [StatefulWidget] and re-initialize state in
+/// [State.didChangeDependencies] when you see that `id` has changed.
 ///
 /// Here's an example:
 ///
@@ -484,14 +495,16 @@ class NavigatorState with ServicesResolver {
 
   /// Open a page on Navigator's stack.
   ///
-  /// Please note that if a Page with same name already exists, it'll bring that to top
-  /// rather than creating new one.
+  /// Please note that if a Page with same name already exists, it'll bring that
+  /// to top rather than creating new one.
   ///
-  /// Will throw exception if Navigator doesn't have a route with the provided name.
+  /// Will throw exception if Navigator doesn't have a route with the provided
+  /// name.
   ///
-  /// If [name] is prefixed with a forward slash '/', and if current navigator doesn't have
-  /// a matching named route, then it'll delegate open call to a parent navigator(if exists).
-  /// If there are no navigator in ancestors, it'll throw an exception.
+  /// If [name] is prefixed with a forward slash '/', and if current navigator
+  /// doesn't have a matching named route, then it'll delegate open call to a
+  /// parent navigator(if exists). If there are no navigator in ancestors, it'll
+  /// throw an exception.
   ///
   void open({
     required String name,

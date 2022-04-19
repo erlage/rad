@@ -3,8 +3,8 @@ import 'package:rad/src/widgets/route.dart';
 
 /// Information about a navigator and its routing description.
 ///
-/// Will contain reference of parent route object if there exists a ancestor of type
-/// Navigator.
+/// Will contain reference of parent route object if there exists a ancestor of
+/// type Navigator.
 ///
 class NavigatorRouteObject {
   final BuildContext context;

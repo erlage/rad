@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
 import 'package:rad/src/core/services/scheduler/tasks/stimulate_listener_task.dart';
-import 'package:rad/src/core/common/types.dart';
 
 /// A Task scheduler.
 ///

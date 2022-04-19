@@ -14,7 +14,8 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 class BuildContext {
   final String key;
 
-  /// ID of root HTML element where App(that's enclosing this context) is mounted.
+  /// ID of root HTML element where App(that's enclosing this context) is
+  /// mounted.
   ///
   final String appTargetKey;
 
@@ -45,7 +46,8 @@ class BuildContext {
 
   /// reference to context of parent's widget
   ///
-  /// accessing will results in error if [widgetRuntimeType] is [System.contextTypeBigBang]
+  /// accessing will results in error if [widgetRuntimeType] is
+  /// [System.contextTypeBigBang]
   ///
   BuildContext get parent => _parent!;
 
@@ -100,8 +102,8 @@ class BuildContext {
 
   void rebindWidget(Widget widget) => _widget = widget;
 
-  /// Returns the nearest ancestor widget of the given type `T`, which must be the
-  /// type of a concrete [Widget] subclass.
+  /// Returns the nearest ancestor widget of the given type `T`, which must be
+  /// the type of a concrete [Widget] subclass.
   ///
   T? findAncestorWidgetOfExactType<T extends Widget>() {
     var walker = ServicesRegistry.instance.getWalker(this);
@@ -118,10 +120,10 @@ class BuildContext {
     return walker.findAncestorStateOfType<T>(this);
   }
 
-  /// Obtains the nearest widget of the given type `T`, which must be the type of a
-  /// concrete [InheritedWidget] subclass, and registers this build context with
-  /// that widget such that when that widget changes (or a new widget of that
-  /// type is introduced, or the widget goes away), this build context is
+  /// Obtains the nearest widget of the given type `T`, which must be the type
+  /// of a concrete [InheritedWidget] subclass, and registers this build context
+  /// with that widget such that when that widget changes (or a new widget of
+  /// that type is introduced, or the widget goes away), this build context is
   /// rebuilt so that it can obtain new values from that widget.
   ///
   T? dependOnInheritedWidgetOfExactType<T extends InheritedWidget>() {

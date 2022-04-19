@@ -213,25 +213,28 @@ class StatefulWidgetRenderObject extends RenderObject {
 ///
 /// Framework calls lifecycle hooks on particular events,
 ///
-/// 1. [State.initState] - is called when framework decides to inflate the widget.
+/// 1. [State.initState] - is called when framework decides to inflate the
+/// widget.
 /// It's called exactly once during lifetime of this widget.
 ///
 ///
-/// 2. [State.build] - is called when framework wants to build interface for widget.
+/// 2. [State.build] - is called when framework wants to build interface for
+/// widget.
 /// Whatever interface(widgets) this method return will be built. Note that,
 /// Framework can call this method multiple times to stay up-to-date with
 /// widget's interface description.
 ///
 ///
-/// 3. [State.dispose] - is called when framework is about to dispose widget and its
-/// state.
+/// 3. [State.dispose] - is called when framework is about to dispose widget and
+/// its state.
 ///
-/// Apart from three main hooks, [State] has two additional hooks that implementations
-/// can override when needed. These are,
+/// Apart from three main hooks, [State] has two additional hooks that
+/// implementations can override when needed. These are,
 ///
 /// [State.didUpdateWidget] - Called whenever the widget configuration changes.
 ///
-/// [State.didChangeDependencies]- Called when a dependency of this [State] object changes.
+/// [State.didChangeDependencies]- Called when a dependency of this [State]
+/// object changes.
 ///
 /// Apart from lifecycle hooks, there is a [State.setState] function which a widget
 /// can use to tell framework to rebuild widget's interface because some
@@ -291,7 +294,8 @@ abstract class State<T extends StatefulWidget> {
   /// called immediately after [initState].
   ///
   /// The framework always calls [build] after calling [didChangeDependencies],
-  /// which means any calls to [setState] in [didChangeDependencies] are redundant.
+  /// which means any calls to [setState] in [didChangeDependencies] are
+  /// redundant.
   ///
   @protected
   void didChangeDependencies() {}
@@ -334,9 +338,10 @@ abstract class State<T extends StatefulWidget> {
 
   /// Whether widget of current state object is rebuilding.
   ///
-  /// Widget might be under rebuild even if this hook returns false. Goal of this
-  /// hook is to prevent common overflow(calling setState within same setState). Which
-  /// means this hook return true only if setState is called within the same setState.
+  /// Widget might be under rebuild even if this hook returns false. Goal of
+  /// this hook is to prevent common overflow(calling setState within same
+  /// setState). Which means this hook return true only if setState is called
+  /// within the same setState.
   ///
   bool get isRebuilding => _isRebuilding;
 

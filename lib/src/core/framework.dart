@@ -465,7 +465,8 @@ class Framework with ServicesResolver {
         if (flagAddIfNotFound) {
           if (services.debug.widgetLogs) {
             print(
-              "Add missing child of type: ${updateObject.widget.runtimeType} under: $parentContext",
+              "Add missing child of type: ${updateObject.widget.runtimeType}"
+              " under: $parentContext",
             );
           }
 

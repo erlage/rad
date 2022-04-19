@@ -1,7 +1,8 @@
 /// Defines [GestureDetector] behaviour
 ///
 enum HitTestBehavior {
-  /// Child gesture detectors will receive events and won't let them propagate to parents
+  /// Child gesture detectors will receive events and won't let them propagate
+  /// to parents
   ///
   deferToChild,
 

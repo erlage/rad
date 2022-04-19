@@ -10,7 +10,8 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// The Blockquote widget (HTML's `blockquote` tag).
 ///
 class Blockquote extends MarkUpTagWithGlobalProps {
-  /// A URL for the source of the quotation may be given using the cite attribute.
+  /// A URL for the source of the quotation may be given using the cite
+  /// attribute.
   ///
   final String? cite;
 

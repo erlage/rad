@@ -44,8 +44,8 @@ class Components with ServicesResolver {
           if (contents.length > 1000) {
             return services.debug.exception(
               "Package is trying to inject larger stylesheet than allowed. "
-              "Please use your HTML page to inject stylesheets larger than 200 characters. \n\n"
-              "Package details: $styleComponent",
+              "Please use your HTML page to inject stylesheets larger than 200 "
+              "characters. \n\n Package details: $styleComponent",
             );
           }
 

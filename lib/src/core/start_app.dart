@@ -26,15 +26,17 @@ import 'package:rad/src/widgets/utils/common_props.dart';
 /// - [app] can be any widget. For convenience we've a [RadApp] that takes as
 /// much space as its parents allowed it to.
 ///
-/// - [beforeMount] is the callback that you can set which will be fired before app
-/// gets mounted on screen.
+/// - [beforeMount] is the callback that you can set which will be fired before
+/// app gets mounted on screen.
 ///
-/// - [debugOptions] - Debug options are set per app. Please refer to [DebugOptions] for more.
+/// - [debugOptions] - Debug options are set per app. Please refer to
+/// [DebugOptions] for more.
 ///
-/// - [routingPath] refers to the path name where your app files are located. If your
-/// files are located on main domain/sub domain then you don't have to fiddle with it.
-/// But if your files are situated in a sub directory/path on a domain, for example,
-/// `x.com/y_folder/index.html` then set `routingPath` to `/y_folder`:
+/// - [routingPath] refers to the path name where your app files are located. If
+///  your files are located on main domain/sub domain then you don't have to
+/// fiddle with it. But if your files are situated in a sub directory/path on a
+/// domain, for example, `x.com/y_folder/index.html` then set `routingPath` to
+/// `/y_folder`:
 ///
 /// ```dart
 /// startApp(

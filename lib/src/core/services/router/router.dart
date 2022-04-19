@@ -240,7 +240,8 @@ class Router with ServicesResolver {
 
     if (services.debug.routerLogs) {
       print(
-        "Navigator(#$navigatorKey) matched: '$matchedPathSegment' from '${segments.join("/")}'",
+        "Navigator(#$navigatorKey) matched: "
+        "'$matchedPathSegment' from '${segments.join("/")}'",
       );
     }
 
@@ -415,8 +416,8 @@ class Router with ServicesResolver {
 
       if (null == entry) {
         //
-        // passive history is 'state' that browser kept after user had left the site.
-        // this is to allow user navigate between sites using back button.
+        // passive history is 'state' that browser kept after user had left the
+        // site. this is to allow user navigate between sites using back button.
         //
         // since at this point, our state is lost, our entries are lost too.
         // and reloading window will build the correct interface.
@@ -460,9 +461,9 @@ class Router with ServicesResolver {
     //
     // try finding a Navigator in ancestors
     //
-    // we've to use context.parent here because navigators are required to register
-    // themselves in onContextCreate hook but at the point when onContextCreate
-    // hook is fired, context.key is not present in DOM.
+    // we've to use context.parent here because navigators are required to
+    // register themselves in onContextCreate hook but at the point when
+    // onContextCreate hook is fired, context.key is not present in DOM.
     var walker = ServicesRegistry.instance.getWalker(context);
 
     var parent = walker.findAncestorWidgetObjectOfType<Navigator>(

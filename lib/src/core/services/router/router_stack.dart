@@ -13,9 +13,9 @@ class RouterStack {
 
   /// Push a new entry on stack.
   ///
-  /// This is to keep track of Navigators that are pushing state to browser history.
-  /// When browser fires onPopState event, this allows framework to find the navigator
-  /// that recently pushed a entry on stack.
+  /// This is to keep track of Navigators that are pushing state to browser
+  /// history. When browser fires onPopState event, this allows framework to
+  /// find the navigator that recently pushed a entry on stack.
   ///
   void push(RouterStackEntry entry) => entries[entry.location] = entry;
 
