@@ -6,27 +6,31 @@ import 'package:rad/src/core/common/objects/build_context.dart';
 /// Key generator service.
 ///
 class KeyGen {
+  /// Random instance.
+  ///
+  final _random = Random();
+
   /// Root context.
   ///
   final BuildContext rootContext;
 
-  KeyGen(this.rootContext);
+  final systemPrefix = Constants.contextGenKeyPrefix;
 
   var _extraCounter = 0;
   var _widgetCounter = 0;
-  final _random = Random();
+
+  KeyGen(this.rootContext);
 
   String generateWidgetKey() {
     _widgetCounter++;
-    return Constants.contextGenKeyPrefix +
-        _widgetCounter.toString() +
-        "_" +
-        rootContext.appTargetKey;
+
+    return "$systemPrefix${rootContext.appTargetKey}_$_widgetCounter";
   }
 
   String generateRandomKey() {
     _extraCounter++;
-    return _extraCounter.toString() + "_" + rootContext.appTargetKey;
+
+    return "${_extraCounter}_${rootContext.appTargetKey}";
   }
 
   String random([int length = 6]) {
