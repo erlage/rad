@@ -36,9 +36,11 @@ class CounterState extends State<Counter> {
 
   @override
   Widget build(BuildContext context) {
-    return Division(children: [
-      const Strong(child: Text('Current tick: ')),
-      Span(child: Text('$number')),
-    ]);
+    return Division(
+      children: [
+        const Strong(child: Text('Current tick: ')),
+        Division(child: Text('$number')),
+      ],
+    );
   }
 }
