@@ -334,6 +334,10 @@ abstract class State<T extends StatefulWidget> {
 
   /// Whether widget of current state object is rebuilding.
   ///
+  /// Widget might be under rebuild even if this hook returns false. Goal of this
+  /// hook is to prevent common overflow(calling setState within same setState). Which
+  /// means this hook return true only if setState is called within the same setState.
+  ///
   bool get isRebuilding => _isRebuilding;
 
   @nonVirtual
