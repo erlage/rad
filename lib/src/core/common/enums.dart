@@ -1,3 +1,5 @@
+import 'package:rad/src/widgets/gesture_detector.dart';
+
 /// Defines [GestureDetector] behaviour
 ///
 enum HitTestBehavior {
