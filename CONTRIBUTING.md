@@ -9,14 +9,13 @@ We're happy that you looking to contribute to this project. We don't want to imp
 
 ## Opening Pull Requests
 
-Pull requests are welcomed. Following below guidelines will save your time:
+All your work will be appreciated as long as you're working on:
 
-### Scope
-
-- Anything that improves or add something to existing documentation.
-- Anything from pending [Bugs](https://github.com/erlage/rad/labels/bug)
-- Anything from pending [Enhancements](https://github.com/erlage/rad/labels/enhancement)
-- Anything from pending [Feature requests](https://github.com/erlage/rad/labels/feature%20request)
+- Anything from pending [bugs](https://github.com/erlage/rad/labels/bug).
+- Anything from pending [enhancements](https://github.com/erlage/rad/labels/enhancement).
+- Anything from pending [feature requests](https://github.com/erlage/rad/labels/feature%20request).
+- Anything that fixes something in existing code.
+- Anything that improves or add something to existing documentation/readme(s).
 
 If you want to work on something that's not in opened issues, just open an issue for it! and wait for someone to add label to your issue. Please do not take this the wrong way. This lets us avoid working on the same thing, or worse, someone putting in a lot of work for a pull request that does not fit into the scope of the project.
 
@@ -26,7 +25,7 @@ If you want to work on something that's not in opened issues, just open an issue
 - Format your code(`dart format .`) with default settings (before commit/submit).
 - Run build runner(`dart run build_runner build`) with default settings (before commit/submit).
 
-**Avoid**
+**Avoid**:
 
 - Making big pull requests as they are difficult to review.
 - Fixing multiple issues in a single pull request(deliberately).
