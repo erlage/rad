@@ -24,3 +24,11 @@ export 'src/core/services/router/router.dart' show Router;
 export 'src/core/services/keygen/keygen.dart' show KeyGen;
 export 'src/core/services/scheduler/scheduler.dart' show Scheduler;
 export 'src/core/services/services_registry.dart' show ServicesRegistry;
+
+// tasks
+
+export 'src/core/services/scheduler/tasks/widgets_build_task.dart';
+export 'src/core/services/scheduler/tasks/widgets_dispose_task.dart';
+export 'src/core/services/scheduler/tasks/widgets_manage_task.dart';
+export 'src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
+export 'src/core/services/scheduler/tasks/widgets_update_task.dart';
