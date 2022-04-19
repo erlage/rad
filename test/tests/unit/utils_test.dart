@@ -238,10 +238,9 @@ void main() {
       );
     });
 
-    test('should generate keys that starts with system a identifier(_gen_)',
-        () {
+    test('should generate keys that starts with system a identifier', () {
       for (var key in generatedWidgetKeys) {
-        expect(key.startsWith('_gen_'), equals(true));
+        expect(key.startsWith(System.contextGenKeyPrefix), equals(true));
       }
     });
   });

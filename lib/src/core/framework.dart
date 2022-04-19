@@ -194,9 +194,11 @@ class Framework with ServicesResolver {
       var isKeyProvided = System.contextKeyNotSet != widget.initialKey;
 
       if (services.debug.developmentMode) {
-        if (isKeyProvided && widget.initialKey.startsWith("_gen_")) {
+        if (isKeyProvided &&
+            widget.initialKey.startsWith(System.contextGenKeyPrefix)) {
           return services.debug.exception(
-            "Keys starting with _gen_ are reserved for framework.",
+            "Keys starting with ${System.contextGenKeyPrefix} are reserved for "
+            "framework.",
           );
         }
       }
@@ -320,7 +322,7 @@ class Framework with ServicesResolver {
               "${widget.runtimeType}" == child.dataset[System.attrRuntimeType];
 
           if (hasSameType) {
-            var hadKey = !child.id.startsWith("_gen_");
+            var hadKey = !child.id.startsWith(System.contextGenKeyPrefix);
             var hasKey = System.contextKeyNotSet != widget.initialKey;
 
             if ((hasKey || hadKey) && widget.initialKey != child.id) {

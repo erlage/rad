@@ -30,16 +30,21 @@ void main() {
 
     tearDown(Framework.tearDown);
 
-    test('should throw if a key contains reserved prefix _gen_', () {
+    test(
+        'should throw if a key contains reserved prefix ${System.contextGenKeyPrefix}',
+        () {
       expect(
         () => Framework.buildChildren(
-          widgets: [Text('some text', key: '_gen_is_a_reserved_previx')],
+          widgets: [
+            Text('some text',
+                key: '${System.contextGenKeyPrefix}is_a_reserved_previx')
+          ],
           parentContext: RT_TestBed.rootContext,
         ),
         throwsA(
           predicate(
             (e) => '$e'.startsWith(
-              'Exception: Keys starting with _gen_ are reserved',
+              'Exception: Keys starting with ${System.contextGenKeyPrefix} are reserved',
             ),
           ),
         ),
@@ -62,7 +67,12 @@ void main() {
 
     test('should not throw if a key contains reserved prefix', () {
       Framework.buildChildren(
-        widgets: [Text('some text', key: '_gen_is_a_reserved_previx')],
+        widgets: [
+          Text(
+            'some text',
+            key: '${System.contextGenKeyPrefix}is_a_reserved_previx',
+          )
+        ],
         parentContext: RT_TestBed.rootContext,
       );
 

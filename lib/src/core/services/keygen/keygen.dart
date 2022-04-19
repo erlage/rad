@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 
 /// Key generator service.
@@ -17,7 +18,10 @@ class KeyGen {
 
   String generateWidgetKey() {
     _widgetCounter++;
-    return "_gen_" + _widgetCounter.toString() + "_" + rootContext.appTargetKey;
+    return System.contextGenKeyPrefix +
+        _widgetCounter.toString() +
+        "_" +
+        rootContext.appTargetKey;
   }
 
   String generateRandomKey() {
