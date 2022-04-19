@@ -163,7 +163,7 @@ Widget Stack({required List<Widget> children})
 
 class Stack extends Division
 {
-  const Stack({required List<Widget> children}): super( 
+  const Stack({required List<Stack> children}): super( 
     style: "position:relative;",
     children: children,
   );
@@ -203,20 +203,16 @@ Below is the list of available widgets in this framework.
 >
 > Please note that these markings are based solely on my understanding of Flutter widgets/src. If you happen to find any big differences, do let me know.
 
-### Main
-
-- [RadApp](https://pub.dev/documentation/rad/latest/rad/RadApp-class.html)
-
-### Navigator/Routing
-
-- [Navigator](https://pub.dev/documentation/rad/latest/rad/Navigator-class.html) \[*different*\]
-- [Route](https://pub.dev/documentation/rad/latest/rad/Route-class.html) \[*different*\]
-
 ### Abstract
 
 - [InheritedWidget](https://pub.dev/documentation/rad/latest/rad/InheritedWidget-class.html) \[*exact*\]
 - [StatelessWidget](https://pub.dev/documentation/rad/latest/rad/StatelessWidget-class.html) \[*exact*\]
 - [StatefulWidget](https://pub.dev/documentation/rad/latest/rad/StatefulWidget-class.html) \[*exact*\]
+
+### Navigator/Routing
+
+- [Navigator](https://pub.dev/documentation/rad/latest/rad/Navigator-class.html) \[*different*\]
+- [Route](https://pub.dev/documentation/rad/latest/rad/Route-class.html) \[*different*\]
 
 ### Builders
 
@@ -225,53 +221,51 @@ Below is the list of available widgets in this framework.
 - [ValueListenableBuilder](https://pub.dev/documentation/rad/latest/rad/ValueListenableBuilder-class.html) \[*exact*\]
 - [ListView.builder](https://pub.dev/documentation/rad/latest/rad/ListView/ListView.builder.html) \[*same*\]
 
-### Elements
+### Misc
 
 - [Text](https://pub.dev/documentation/rad/latest/rad/Text-class.html) \[*different*\]
 - [RawMarkUp](https://pub.dev/documentation/rad/latest/rad/RawMarkUp-class.html)
 - [ListView](https://pub.dev/documentation/rad/latest/rad/ListView-class.html) \[*same*\]
+- [RadApp](https://pub.dev/documentation/rad/latest/rad/RadApp-class.html)
 - [GestureDetector](https://pub.dev/documentation/rad/latest/rad/GestureDetector-class.html) \[*experimental*\]
 
-### HTML
+### HTML Widgets
 
-- [Header](https://pub.dev/documentation/rad/latest/rad/Header-class.html)
-- [Footer](https://pub.dev/documentation/rad/latest/rad/Footer-class.html)
-- [Navigation](https://pub.dev/documentation/rad/latest/rad/Navigation-class.html)
-- [Span](https://pub.dev/documentation/rad/latest/rad/Span-class.html)
-- [Small](https://pub.dev/documentation/rad/latest/rad/Small-class.html)
-- [Strong](https://pub.dev/documentation/rad/latest/rad/Strong-class.html)
-- [Idiomatic](https://pub.dev/documentation/rad/latest/rad/Idiomatic-class.html)
-- [SubScript](https://pub.dev/documentation/rad/latest/rad/SubScript-class.html)
-- [SuperScript](https://pub.dev/documentation/rad/latest/rad/SuperScript-class.html)
-- [Division](https://pub.dev/documentation/rad/latest/rad/Division-class.html)
-- [Anchor](https://pub.dev/documentation/rad/latest/rad/Anchor-class.html)
-- [Blockquote](https://pub.dev/documentation/rad/latest/rad/Blockquote-class.html)
-- [HorizontalRule](https://pub.dev/documentation/rad/latest/rad/HorizontalRule-class.html)
-- [Label](https://pub.dev/documentation/rad/latest/rad/Label-class.html)
-- [Legend](https://pub.dev/documentation/rad/latest/rad/Legend-class.html)
-- [IFrame](https://pub.dev/documentation/rad/latest/rad/IFrame-class.html)
-- [BreakLine](https://pub.dev/documentation/rad/latest/rad/BreakLine-class.html)
-- [Image](https://pub.dev/documentation/rad/latest/rad/Image-class.html)
-- [Canvas](https://pub.dev/documentation/rad/latest/rad/Canvas-class.html)
-- [Paragraph](https://pub.dev/documentation/rad/latest/rad/Paragraph-class.html)
-- [Progress](https://pub.dev/documentation/rad/latest/rad/Progress-class.html)
-- [UnOrderedList](https://pub.dev/documentation/rad/latest/rad/UnOrderedList-class.html)
-- [ListItem](https://pub.dev/documentation/rad/latest/rad/ListItem-class.html)
-- [Button](https://pub.dev/documentation/rad/latest/rad/Button-class.html)
-- [Select](https://pub.dev/documentation/rad/latest/rad/Select-class.html)
-- [Option](https://pub.dev/documentation/rad/latest/rad/Option-class.html)
-
-- [Form](https://pub.dev/documentation/rad/latest/rad/Form-class.html)
-- [FieldSet](https://pub.dev/documentation/rad/latest/rad/FieldSet-class.html)
-- [InputText](https://pub.dev/documentation/rad/latest/rad/InputText-class.html)
-- [InputCheckBox](https://pub.dev/documentation/rad/latest/rad/InputCheckBox-class.html)
-- [InputRadio](https://pub.dev/documentation/rad/latest/rad/InputRadio-class.html)
-- [InputFile](https://pub.dev/documentation/rad/latest/rad/InputFile-class.html)
-- [InputSubmit](https://pub.dev/documentation/rad/latest/rad/InputSubmit-class.html)
-- [TextArea](https://pub.dev/documentation/rad/latest/rad/TextArea-class.html)
-
-- [Heading(1-6)](https://pub.dev/documentation/rad/latest/rad/Heading1-class.html)
-
+[Anchor](https://pub.dev/documentation/rad/latest/rad/Anchor-class.html)
+, [Blockquote](https://pub.dev/documentation/rad/latest/rad/Blockquote-class.html)
+, [BreakLine](https://pub.dev/documentation/rad/latest/rad/BreakLine-class.html)
+, [Button](https://pub.dev/documentation/rad/latest/rad/Button-class.html)
+, [Canvas](https://pub.dev/documentation/rad/latest/rad/Canvas-class.html)
+, [Division](https://pub.dev/documentation/rad/latest/rad/Division-class.html)
+, [FieldSet](https://pub.dev/documentation/rad/latest/rad/FieldSet-class.html)
+, [Footer](https://pub.dev/documentation/rad/latest/rad/Footer-class.html)
+, [Form](https://pub.dev/documentation/rad/latest/rad/Form-class.html)
+, [Header](https://pub.dev/documentation/rad/latest/rad/Header-class.html)
+, [Heading(1-6)](https://pub.dev/documentation/rad/latest/rad/Heading1-class.html)
+, [HorizontalRule](https://pub.dev/documentation/rad/latest/rad/HorizontalRule-class.html)
+, [IFrame](https://pub.dev/documentation/rad/latest/rad/IFrame-class.html)
+, [Idiomatic](https://pub.dev/documentation/rad/latest/rad/Idiomatic-class.html)
+, [Image](https://pub.dev/documentation/rad/latest/rad/Image-class.html)
+, [InputCheckBox](https://pub.dev/documentation/rad/latest/rad/InputCheckBox-class.html)
+, [InputFile](https://pub.dev/documentation/rad/latest/rad/InputFile-class.html)
+, [InputRadio](https://pub.dev/documentation/rad/latest/rad/InputRadio-class.html)
+, [InputSubmit](https://pub.dev/documentation/rad/latest/rad/InputSubmit-class.html)
+, [InputText](https://pub.dev/documentation/rad/latest/rad/InputText-class.html)
+, [Label](https://pub.dev/documentation/rad/latest/rad/Label-class.html)
+, [Legend](https://pub.dev/documentation/rad/latest/rad/Legend-class.html)
+, [ListItem](https://pub.dev/documentation/rad/latest/rad/ListItem-class.html)
+, [Navigation](https://pub.dev/documentation/rad/latest/rad/Navigation-class.html)
+, [Option](https://pub.dev/documentation/rad/latest/rad/Option-class.html)
+, [Paragraph](https://pub.dev/documentation/rad/latest/rad/Paragraph-class.html)
+, [Progress](https://pub.dev/documentation/rad/latest/rad/Progress-class.html)
+, [Select](https://pub.dev/documentation/rad/latest/rad/Select-class.html)
+, [Small](https://pub.dev/documentation/rad/latest/rad/Small-class.html)
+, [Span](https://pub.dev/documentation/rad/latest/rad/Span-class.html)
+, [Strong](https://pub.dev/documentation/rad/latest/rad/Strong-class.html)
+, [SubScript](https://pub.dev/documentation/rad/latest/rad/SubScript-class.html)
+, [SuperScript](https://pub.dev/documentation/rad/latest/rad/SuperScript-class.html)
+, [TextArea](https://pub.dev/documentation/rad/latest/rad/TextArea-class.html)
+, [UnOrderedList](https://pub.dev/documentation/rad/latest/rad/UnOrderedList-class.html)
 
 ## Contributing
 For reporting bugs/queries, feel free to open issue. Read [contributing guide](https://github.com/erlage/rad/blob/main/CONTRIBUTING.md) for more.
