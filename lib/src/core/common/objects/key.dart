@@ -10,7 +10,8 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// Most of the time, framework takes care of generating keys for you.
 ///
 /// Keys must be unique amongst the [Widget]s with the same parent. By
-/// contrast, [GlobalKey]s must be unique across entire document.
+/// contrast, [GlobalKey]s must be unique across entire document and [LocalKey]
+/// must be unique in single app instance where it was created.
 ///
 /// Key values are computed and computed value is used as value if ID attribute
 /// of the element associated with the widget. This means computed value can be
