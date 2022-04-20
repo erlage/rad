@@ -1,15 +1,13 @@
 /*
 |--------------------------------------------------------------------------
-| Rad's HTML widgets
+| HTML widgets
 |--------------------------------------------------------------------------
 */
 
 export 'src/widgets/html/headings.dart';
-
 export 'src/widgets/html/header.dart' show Header;
 export 'src/widgets/html/footer.dart' show Footer;
 export 'src/widgets/html/navigation.dart' show Navigation;
-
 export 'src/widgets/html/span.dart' show Span;
 export 'src/widgets/html/small.dart' show Small;
 export 'src/widgets/html/strong.dart' show Strong;
@@ -34,7 +32,6 @@ export 'src/widgets/html/select.dart' show Select;
 export 'src/widgets/html/option.dart' show Option;
 export 'src/widgets/html/progress.dart' show Progress;
 export 'src/widgets/html/textarea.dart' show TextArea;
-
 export 'src/widgets/html/form.dart' show Form;
 export 'src/widgets/html/fieldset.dart' show FieldSet;
 export 'src/widgets/html/input_text.dart' show InputText;
@@ -42,7 +39,3 @@ export 'src/widgets/html/input_checkbox.dart' show InputCheckBox;
 export 'src/widgets/html/input_radio.dart' show InputRadio;
 export 'src/widgets/html/input_file.dart' show InputFile;
 export 'src/widgets/html/input_submit.dart' show InputSubmit;
-
-// html enums
-
-export 'src/core/common/enums.dart' show ButtonType, FormEncType, FormMethod;

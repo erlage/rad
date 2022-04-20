@@ -6,14 +6,8 @@
 |--------------------------------------------------------------------------
 */
 
-export 'src/core/common/enums.dart' show DomTag;
-
-export 'src/core/common/enums.dart' show UpdateType;
-
 export 'src/core/common/constants.dart' show Constants;
-
 export 'src/widgets/abstract/widget.dart' show WidgetConfiguration;
-
 export 'src/core/common/objects/render_object.dart' show RenderObject;
 
 // services
@@ -31,5 +25,6 @@ export 'src/core/services/services.dart' show ServicesResolver;
 export 'src/core/services/scheduler/tasks/widgets_build_task.dart';
 export 'src/core/services/scheduler/tasks/widgets_dispose_task.dart';
 export 'src/core/services/scheduler/tasks/widgets_manage_task.dart';
-export 'src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
 export 'src/core/services/scheduler/tasks/widgets_update_task.dart';
+export 'src/core/services/scheduler/tasks/stimulate_listener_task.dart';
+export 'src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
