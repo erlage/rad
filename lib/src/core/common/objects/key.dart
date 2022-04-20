@@ -31,10 +31,6 @@ class Key {
   ///
   const Key(this._value);
 
-  /// Returns a global key.
-  ///
-  const Key._global(this._value);
-
   @override
   operator ==(Object other) {
     if (other.runtimeType != runtimeType) {
@@ -59,7 +55,7 @@ class LocalKey extends Key {
   /// Constructing code must be responsible for providing a value that's unique
   /// within entire app.
   ///
-  const LocalKey(String value) : super._global(value);
+  const LocalKey(String value) : super(value);
 }
 
 /// A key that is unique within the entire document.
@@ -70,5 +66,5 @@ class GlobalKey extends Key {
   /// Constructing code must be responsible for providing a value that's unique
   /// within entire document(i.e withing multiple app instances).
   ///
-  const GlobalKey(String value) : super._global(value);
+  const GlobalKey(String value) : super(value);
 }
