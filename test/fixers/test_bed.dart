@@ -11,7 +11,7 @@ import 'package:rad/src/core/common/objects/key.dart';
 /// for setting up tests.
 ///
 class RT_TestBed {
-  static const rootKey = Key('root-div');
+  static const rootKey = GlobalKey('root-div');
 
   static final rootContext = BuildContext.bigBang(rootKey);
 

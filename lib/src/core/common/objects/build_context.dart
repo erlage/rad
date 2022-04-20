@@ -15,9 +15,10 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 class BuildContext {
   /// Widget's key.
   ///
-  /// It must be computed if user has provided an explicit key for widget.
+  /// Every widget's key must be unique. If user provides a non global key,
+  /// framework must compute a global key from provided key.
   ///
-  final Key key;
+  final GlobalKey key;
 
   /// ID of root HTML element where App(that's enclosing this context) is
   /// mounted.

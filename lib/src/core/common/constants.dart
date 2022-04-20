@@ -17,8 +17,8 @@ class Constants {
   // context specific
 
   static const contextTypeBigBang = "BigBang";
-  static const contextKeyNotSet = Key("not-set");
   static const contextGenKeyPrefix = "_gen_";
+  static const contextKeyNotSet = Key("_not_set_");
 
   // errors
 

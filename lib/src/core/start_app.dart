@@ -93,7 +93,7 @@ class AppBootstrapper {
   void setupDelegates() => Window.instance.bindDelegate(BrowserWindow());
 
   void createContext() {
-    var globalKey = Key.global(targetSelector);
+    var globalKey = GlobalKey(targetSelector);
 
     _rootContext = BuildContext.bigBang(globalKey);
   }

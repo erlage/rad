@@ -191,22 +191,31 @@ class Framework with ServicesResolver {
     }
 
     for (final widget in widgets) {
-      // generate key if not set
+      // check whether key is provided explicitly in widget constructor
 
       var isKeyProvided = Constants.contextKeyNotSet != widget.initialKey;
+
+      // ensure key is not using system prefix
 
       if (services.debug.developmentMode) {
         if (isKeyProvided && widget.initialKey.hasSystemPrefix) {
           return services.debug.exception(
-            "Keys starting with ${Constants.contextGenKeyPrefix} are reserved for "
-            "framework.",
+            "Keys starting with ${Constants.contextGenKeyPrefix} are reserved "
+            "for framework.",
           );
         }
       }
 
+      // get widget's global key
+
       var widgetKey = isKeyProvided
-          ? widget.initialKey
-          : services.keyGen.generateWidgetKey();
+          ? services.keyGen.getGlobalKeyUsingKey(
+              widget.initialKey,
+              parentContext,
+            )
+          : services.keyGen.generateGlobalKey();
+
+      // create widget configuration
 
       var configuration = widget.createConfiguration();
 
@@ -319,17 +328,38 @@ class Framework with ServicesResolver {
         var alreadySelected = updateObjects.containsKey(child.id);
 
         if (!alreadySelected) {
-          var hasSameType = child.dataset.isNotEmpty &&
-              "${widget.runtimeType}" ==
-                  child.dataset[Constants.attrRuntimeType];
+          // whether old and new widgets has same type.
 
-          if (hasSameType) {
+          var newWidgetRuntimeType = "${widget.runtimeType}";
+          var oldWidgetRuntimeType = child.dataset[Constants.attrRuntimeType];
+
+          if (oldWidgetRuntimeType == newWidgetRuntimeType) {
+            // assume we are going to replace old widget with new one
+
+            var shouldUpdate = true;
+
+            // check whether old or new widget has keys
+
             var hadKey = !child.id.startsWith(Constants.contextGenKeyPrefix);
             var hasKey = Constants.contextKeyNotSet != widget.initialKey;
 
-            if ((hasKey || hadKey) && widget.initialKey != child.id) {
-              // skip this one
-            } else {
+            // if any one of them has/had keys, then try matching keys
+
+            if (hasKey || hadKey) {
+              var globalKey = services.keyGen.getGlobalKeyUsingKey(
+                widget.initialKey,
+                parentContext,
+              );
+
+              if (globalKey.value != child.id) {
+                // key not matched
+                // skip this one
+
+                shouldUpdate = false;
+              }
+            }
+
+            if (shouldUpdate) {
               updateObjects[child.id] = WidgetUpdateObject(widget, child.id);
 
               continue widgetLoop;

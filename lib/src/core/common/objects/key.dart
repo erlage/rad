@@ -7,13 +7,12 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 ///
 /// Most of the time, framework takes care of generating keys for you.
 ///
+/// Keys must be unique amongst the [Widget]s with the same parent. By
+/// contrast, [GlobalKey]s must be unique across entire document.
+///
 @immutable
 class Key {
   final String _value;
-
-  /// Whether key requires computation.
-  ///
-  final bool requiresComputation;
 
   /// Value of key that was used to while creating key.
   ///
@@ -27,22 +26,18 @@ class Key {
 
   /// Simplest way to create a key.
   ///
-  const Key(this._value) : requiresComputation = true;
+  /// Keys must be unique amongst the [Widget]s with the same parent. By
+  /// contrast, [GlobalKey]s must be unique across entire document.
+  ///
+  const Key(this._value);
 
-  /// Returns a super global key.
+  /// Returns a global key.
   ///
-  /// Generator must be responsible for providing a value that's unique within
-  /// entire document(i.e withing multiple app instances).
-  ///
-  const Key.global(this._value) : requiresComputation = false;
+  const Key._global(this._value);
 
   @override
   operator ==(Object other) {
     if (other.runtimeType != runtimeType) {
-      return false;
-    }
-
-    if (other is Key && other.requiresComputation != requiresComputation) {
       return false;
     }
 
@@ -54,4 +49,15 @@ class Key {
 
   @override
   toString() => value;
+}
+
+/// A key that is unique within the entire document.
+///
+class GlobalKey extends Key {
+  /// Creates a global key.
+  ///
+  /// Constructing code must be responsible for providing a value that's unique
+  /// within entire document(i.e withing multiple app instances).
+  ///
+  const GlobalKey(String value) : super._global(value);
 }

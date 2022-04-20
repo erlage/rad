@@ -22,14 +22,33 @@ class KeyGen {
 
   KeyGen(this.rootContext);
 
-  /// Returns a generated key for widget that will be uniquie withing app
-  /// instance.
+  /// Generates a global key for widget.
   ///
-  Key generateWidgetKey() {
+  GlobalKey generateGlobalKey() {
     _widgetCounter++;
 
-    return Key.global(
+    return GlobalKey(
       "$systemPrefix${rootContext.appTargetId}_$_widgetCounter",
+    );
+  }
+
+  /// Get a global key for widget using key that's provided explicitly.
+  ///
+  /// If provided [key] is a non global key, then it'll use [parentContext] to
+  /// generate a global key. Therefore non global keys must be unique under same
+  /// parent.
+  ///
+  /// If provided [key] is a global key, then it'll return it as it as.
+  ///
+  GlobalKey getGlobalKeyUsingKey(Key key, BuildContext parentContext) {
+    // a global key is provided, directly use it.
+
+    if (key is GlobalKey) return key;
+
+    // a non-global key is provided, generate global key from it.
+
+    return GlobalKey(
+      "${parentContext.key.value}_${key.value}",
     );
   }
 

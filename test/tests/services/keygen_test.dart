@@ -19,7 +19,7 @@ void main() {
     var generatedWidgetKeys = <Key>[];
 
     while (iterations-- > 0) {
-      generatedWidgetKeys.add(keyGenService.generateWidgetKey());
+      generatedWidgetKeys.add(keyGenService.getGlobalKeyUsingKey());
     }
 
     test('should generate unique keys', () {
