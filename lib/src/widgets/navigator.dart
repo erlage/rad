@@ -715,7 +715,7 @@ class NavigatorState with ServicesResolver {
 
     for (final route in routes) {
       if (services.debug.developmentMode) {
-        if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(route.path)) {
+        if (!RegExp(r'^[a-zA-Z0-9_\-]+$').hasMatch(route.path)) {
           if (route.path.isEmpty) {
             return services.debug.exception(
               "Navigator's Route's path can't be empty."
@@ -724,7 +724,8 @@ class NavigatorState with ServicesResolver {
           }
 
           return services.debug.exception(
-            "Navigator's Route can contains only alphanumeric characters and underscores"
+            "Navigator's Route can contains only alphanumeric characters "
+            ", underscores(_) and hyphens(-)"
             "\n Route: ${route.name} -> ${route.path} is not allowed",
           );
         }
