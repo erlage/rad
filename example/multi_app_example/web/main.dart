@@ -16,7 +16,7 @@ void main() {
 class Counter extends StatefulWidget {
   final Duration interval;
 
-  const Counter({String? key, required this.interval}) : super(key: key);
+  const Counter({Key? key, required this.interval}) : super(key: key);
 
   @override
   State<Counter> createState() => CounterState();

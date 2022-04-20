@@ -3,13 +3,14 @@ import 'dart:async' show StreamSubscription;
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// Base class for widgets that build themselves based on interaction with
 /// a specified [Stream].
 ///
 abstract class StreamBuilderBase<T, S> extends StatefulWidget {
   /// Creates a [StreamBuilderBase] connected to the specified [stream].
-  const StreamBuilderBase({String? key, this.stream}) : super(key: key);
+  const StreamBuilderBase({Key? key, this.stream}) : super(key: key);
 
   /// The asynchronous computation to which this builder is currently connected,
   /// possibly null. When changed, the current summary is updated using

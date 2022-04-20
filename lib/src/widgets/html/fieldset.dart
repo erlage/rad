@@ -6,6 +6,7 @@ import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// The FieldSet widget (HTML's `fieldset` tag).
 ///
@@ -18,7 +19,7 @@ class FieldSet extends MarkUpTagWithGlobalProps {
 
   const FieldSet({
     this.disabled,
-    String? key,
+    Key? key,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,

@@ -8,6 +8,7 @@ import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// The Form widget (HTML's `form` tag).
 ///
@@ -50,7 +51,7 @@ class Form extends MarkUpTagWithGlobalProps {
     this.target,
     this.method,
     this.onSubmitEventListener,
-    String? key,
+    Key? key,
     String? title,
     String? style,
     String? classAttribute,

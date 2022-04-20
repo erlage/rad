@@ -6,6 +6,7 @@ import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// The Progress widget (HTML's `progress` tag).
 ///
@@ -23,7 +24,7 @@ class Progress extends MarkUpTagWithGlobalProps {
   const Progress({
     this.value,
     this.max,
-    String? key,
+    Key? key,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,

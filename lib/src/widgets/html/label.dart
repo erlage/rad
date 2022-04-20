@@ -6,6 +6,7 @@ import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// The Label widget (HTML's `label` tag).
 ///
@@ -16,7 +17,7 @@ class Label extends MarkUpTagWithGlobalProps {
   final String? forAttribute;
 
   const Label({
-    String? key,
+    Key? key,
     this.forAttribute,
     bool? hidden,
     bool? draggable,

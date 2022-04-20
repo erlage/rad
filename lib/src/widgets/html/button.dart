@@ -7,6 +7,7 @@ import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// The Button widget (HTML's `button` tag).
 ///
@@ -33,7 +34,7 @@ class Button extends MarkUpTagWithGlobalProps {
     this.value,
     this.type,
     this.disabled,
-    String? key,
+    Key? key,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,

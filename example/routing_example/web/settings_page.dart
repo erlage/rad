@@ -2,7 +2,7 @@ import 'package:rad/rad.dart';
 import 'package:rad/widgets_html.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({String? key}) : super(key: key);
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _SettingsPageState();

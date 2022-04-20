@@ -3,6 +3,7 @@ import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// The HorizontalRule widget (HTML's `hr` tag).
 ///
@@ -10,7 +11,7 @@ class HorizontalRule extends Widget {
   final String? classAttribute;
 
   const HorizontalRule({
-    String? key,
+    Key? key,
     this.classAttribute,
   }) : super(key: key);
 

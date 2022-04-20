@@ -5,6 +5,7 @@ import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
 import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// Base class for widgets that efficiently propagate information down the tree.
 ///
@@ -19,7 +20,7 @@ abstract class InheritedWidget extends Widget {
   final Widget child;
 
   const InheritedWidget({
-    String? key,
+    Key? key,
     required this.child,
   }) : super(key: key);
 
@@ -93,8 +94,8 @@ class InheritedWidgetRenderObject extends RenderObject {
   InheritedWidgetRenderObject(BuildContext context) : super(context);
 
   void addDependent(BuildContext dependentContext) {
-    if (!dependents.containsKey(dependentContext.key)) {
-      dependents[dependentContext.key] = dependentContext;
+    if (!dependents.containsKey(dependentContext.key.value)) {
+      dependents[dependentContext.key.value] = dependentContext;
     }
   }
 

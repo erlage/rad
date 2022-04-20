@@ -4,6 +4,7 @@ import 'package:rad/src/include/async/async_snapshot.dart';
 import 'package:rad/src/include/async/async_widget_builder.dart';
 import 'package:rad/src/include/async/connection_state.dart';
 import 'package:rad/src/include/widgets/stream_builder_base.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// Widget that builds itself based on the latest snapshot of interaction with
 /// a [Stream].
@@ -18,7 +19,7 @@ class StreamBuilder<T> extends StreamBuilderBase<T, AsyncSnapshot<T>> {
   /// The [builder] must not be null.
   ///
   const StreamBuilder({
-    String? key,
+    Key? key,
     this.initialData,
     Stream<T>? stream,
     required this.builder,

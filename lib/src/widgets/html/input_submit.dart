@@ -3,12 +3,13 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/input_tag.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// The InputSubmit widget (HTML's `input` tag with `type = 'submit'`).
 ///
 class InputSubmit extends InputTag {
   const InputSubmit({
-    String? key,
+    Key? key,
     String? name,
     String? value,
     bool? required,

@@ -2,6 +2,7 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// A Simple App Widget that takes as much space as its parents allowed it to.
 ///
@@ -9,7 +10,7 @@ class RadApp extends Widget {
   final Widget child;
 
   const RadApp({
-    String? key,
+    Key? key,
     required this.child,
   }) : super(key: key);
 

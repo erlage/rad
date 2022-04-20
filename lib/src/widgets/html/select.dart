@@ -7,6 +7,7 @@ import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// The Select widget (HTML's `select` tag).
 ///
@@ -36,7 +37,7 @@ class Select extends MarkUpTagWithGlobalProps {
     this.multiple,
     this.disabled,
     this.onChangeEventListener,
-    String? key,
+    Key? key,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,

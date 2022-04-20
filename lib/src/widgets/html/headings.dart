@@ -2,12 +2,13 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// The Heading1 widget (HTML's `h1` tag).
 ///
 class Heading1 extends MarkUpTagWithGlobalProps {
   const Heading1({
-    String? key,
+    Key? key,
     String? title,
     String? style,
     String? classAttribute,
@@ -49,7 +50,7 @@ class Heading1 extends MarkUpTagWithGlobalProps {
 ///
 class Heading2 extends Heading1 {
   const Heading2({
-    String? key,
+    Key? key,
     String? title,
     String? style,
     String? classAttribute,
@@ -91,7 +92,7 @@ class Heading2 extends Heading1 {
 ///
 class Heading3 extends Heading1 {
   const Heading3({
-    String? key,
+    Key? key,
     String? title,
     String? style,
     String? classAttribute,
@@ -133,7 +134,7 @@ class Heading3 extends Heading1 {
 ///
 class Heading4 extends Heading1 {
   const Heading4({
-    String? key,
+    Key? key,
     String? title,
     String? style,
     String? classAttribute,
@@ -175,7 +176,7 @@ class Heading4 extends Heading1 {
 ///
 class Heading5 extends Heading1 {
   const Heading5({
-    String? key,
+    Key? key,
     String? title,
     String? style,
     String? classAttribute,
@@ -217,7 +218,7 @@ class Heading5 extends Heading1 {
 ///
 class Heading6 extends Heading1 {
   const Heading6({
-    String? key,
+    Key? key,
     String? title,
     String? style,
     String? classAttribute,

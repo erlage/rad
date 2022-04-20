@@ -6,6 +6,7 @@ import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/input_tag.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// The InputText widget (HTML's `input` tag with `type = 'text'`).
 ///
@@ -25,7 +26,7 @@ class InputText extends InputTag {
     this.pattern,
     this.placeholder,
     bool isPassword = false,
-    String? key,
+    Key? key,
     String? name,
     String? value,
     bool? required,

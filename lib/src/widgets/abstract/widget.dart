@@ -1,6 +1,7 @@
 import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 
@@ -8,9 +9,9 @@ import 'package:rad/src/core/common/objects/build_context.dart';
 ///
 @immutable
 abstract class Widget {
-  final String initialKey;
+  final Key initialKey;
 
-  const Widget({String? key}) : initialKey = key ?? Constants.contextKeyNotSet;
+  const Widget({Key? key}) : initialKey = key ?? Constants.contextKeyNotSet;
 
   /*
   |--------------------------------------------------------------------------

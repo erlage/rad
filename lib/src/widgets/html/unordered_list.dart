@@ -2,6 +2,7 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// The UnOrderedList widget (HTML's `ul` tag).
 ///
@@ -9,7 +10,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 ///
 class UnOrderedList extends MarkUpTagWithGlobalProps {
   const UnOrderedList({
-    String? key,
+    Key? key,
     String? title,
     String? style,
     String? classAttribute,

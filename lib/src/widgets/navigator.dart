@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/services/router/open_history_entry.dart';
 import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/core/common/functions.dart';
@@ -290,7 +291,7 @@ class Navigator extends Widget {
     required this.routes,
     this.onInit,
     this.onRouteChange,
-    String? key,
+    Key? key,
   }) : super(key: key);
 
   /// Navigator's state from the closest instance of this class
@@ -323,7 +324,8 @@ class Navigator extends Widget {
         );
       }
 
-      if (null != navigatorKey && navigatorKey != widgetObject.context.key) {
+      if (null != navigatorKey &&
+          navigatorKey != widgetObject.context.key.value) {
         targetContext = widgetObject.context;
 
         continue;
@@ -411,14 +413,14 @@ class NavigatorRenderObject extends RenderObject {
 
     if (null == dependentsOnCurrentPage) {
       dependents[state.currentRouteName] = {
-        dependentContext.key: dependentContext
+        dependentContext.key.value: dependentContext
       };
 
       return;
     }
 
-    if (!dependentsOnCurrentPage.containsKey(dependentContext.key)) {
-      dependentsOnCurrentPage[dependentContext.key] = dependentContext;
+    if (!dependentsOnCurrentPage.containsKey(dependentContext.key.value)) {
+      dependentsOnCurrentPage[dependentContext.key.value] = dependentContext;
     }
   }
 
@@ -537,13 +539,13 @@ class NavigatorState with ServicesResolver {
 
     if (updateHistory) {
       if (services.debug.routerLogs) {
-        print("${context.key}: Push entry: $name");
+        print("${context.key.value}: Push entry: $name");
       }
 
       services.router.pushEntry(
         name: name,
         values: values,
-        navigatorKey: context.key,
+        navigatorKey: context.key.value,
         updateHistory: updateHistory,
       );
     }
@@ -663,7 +665,7 @@ class NavigatorState with ServicesResolver {
   /// ```
   ///
   String getValue(String segment) => services.router.getValue(
-        context.key,
+        context.key.value,
         segment,
       );
 
@@ -737,7 +739,7 @@ class NavigatorState with ServicesResolver {
 
   @protected
   void frameworkRender() {
-    var name = services.router.getPath(context.key);
+    var name = services.router.getPath(context.key.value);
 
     var needsReplacement = name.isEmpty;
 
@@ -752,13 +754,13 @@ class NavigatorState with ServicesResolver {
 
     if (needsReplacement && name.isNotEmpty) {
       if (services.debug.routerLogs) {
-        print("${context.key}: Push replacement: $name");
+        print("${context.key.value}: Push replacement: $name");
       }
 
       services.router.pushReplacement(
         name: name,
         values: {},
-        navigatorKey: context.key,
+        navigatorKey: context.key.value,
       );
     }
 
@@ -792,17 +794,17 @@ class NavigatorState with ServicesResolver {
   /// Framework fires this when parent route changes.
   ///
   void frameworkOnParentRouteChange(String name) {
-    var routeName = services.router.getPath(context.key);
+    var routeName = services.router.getPath(context.key.value);
 
     if (routeName != currentRouteName) {
       if (services.debug.routerLogs) {
-        print("${context.key}: Push replacement: $routeName");
+        print("${context.key.value}: Push replacement: $routeName");
       }
 
       services.router.pushReplacement(
         name: currentRouteName,
         values: {},
-        navigatorKey: context.key,
+        navigatorKey: context.key.value,
       );
     }
   }

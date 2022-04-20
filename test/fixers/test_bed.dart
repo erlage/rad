@@ -3,6 +3,7 @@
 import 'dart:html';
 
 import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// Test Bed.
 ///
@@ -10,9 +11,9 @@ import 'package:rad/src/core/common/objects/build_context.dart';
 /// for setting up tests.
 ///
 class RT_TestBed {
-  static const rootKey = 'root-div';
+  static const rootKey = Key('root-div');
 
   static final rootContext = BuildContext.bigBang(rootKey);
 
-  static Element get rootElement => document.getElementById(rootKey)!;
+  static Element get rootElement => document.getElementById(rootKey.value)!;
 }

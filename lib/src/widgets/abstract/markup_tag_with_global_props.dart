@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
@@ -79,7 +80,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
   final List<Widget>? children;
 
   const MarkUpTagWithGlobalProps({
-    String? key,
+    Key? key,
     this.title,
     this.tabIndex,
     this.style,

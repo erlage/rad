@@ -6,6 +6,7 @@ import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// The Option widget (HTML's `option` tag).
 ///
@@ -35,7 +36,7 @@ class Option extends MarkUpTagWithGlobalProps {
     this.selected,
     this.disabled,
     this.label,
-    String? key,
+    Key? key,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,

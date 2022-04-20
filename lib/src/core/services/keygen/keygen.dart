@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// Key generator service.
 ///
@@ -21,10 +22,15 @@ class KeyGen {
 
   KeyGen(this.rootContext);
 
-  String generateWidgetKey() {
+  /// Returns a generated key for widget that will be uniquie withing app
+  /// instance.
+  ///
+  Key generateWidgetKey() {
     _widgetCounter++;
 
-    return "$systemPrefix${rootContext.appTargetId}_$_widgetCounter";
+    return Key.global(
+      "$systemPrefix${rootContext.appTargetId}_$_widgetCounter",
+    );
   }
 
   String generateRandomKey() {

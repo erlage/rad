@@ -34,9 +34,11 @@ class WidgetObject {
     //
     // add properties to element
 
-    element.id = renderObject.context.key;
+    element.id = renderObject.context.key.value;
+
     element.dataset[Constants.attrConcreteType] =
         renderObject.context.widgetConcreteType;
+
     element.dataset[Constants.attrRuntimeType] =
         renderObject.context.widgetRuntimeType;
   }
@@ -48,7 +50,7 @@ class WidgetObject {
     // we can't use node.parent here cus root widget's parent can be null
 
     var parentElement = document.getElementById(
-      renderObject.context.parent.key,
+      renderObject.context.parent.key.value,
     );
 
     if (null != parentElement) {

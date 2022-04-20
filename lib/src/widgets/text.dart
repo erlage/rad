@@ -1,6 +1,7 @@
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/html/span.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// A utility widget to print text on screen.
 ///
@@ -17,7 +18,7 @@ import 'package:rad/src/widgets/html/span.dart';
 class Text extends Span {
   const Text(
     String text, {
-    String? key,
+    Key? key,
     String? title,
     String? style,
     String? classAttribute,

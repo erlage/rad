@@ -4,6 +4,7 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// A widget that detects gestures.
 ///
@@ -21,7 +22,7 @@ class GestureDetector extends StatefulWidget {
   final HitTestBehavior behaviour;
 
   const GestureDetector({
-    String? key,
+    Key? key,
     required this.child,
     this.onTap,
     this.onTapEvent,

@@ -4,6 +4,7 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// A widget that helps pushing raw contents to the DOM.
 ///
@@ -21,7 +22,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 class RawMarkUp extends Widget {
   final String html;
 
-  const RawMarkUp(this.html, {String? key}) : super(key: key);
+  const RawMarkUp(this.html, {Key? key}) : super(key: key);
 
   @override
   get concreteType => "$RawMarkUp";

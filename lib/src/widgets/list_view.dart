@@ -11,6 +11,7 @@ import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/html/division.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// Creates a scrollable, linear array of widgets from an explicit [List].
 ///
@@ -32,7 +33,7 @@ class ListView extends Widget {
   final List<Widget> children;
 
   const ListView({
-    String? key,
+    Key? key,
     this.style,
     this.classAttribute,
     this.scrollDirection = Axis.vertical,
@@ -56,7 +57,7 @@ class ListView extends Widget {
   /// number of children.
   ///
   const ListView.builder({
-    String? key,
+    Key? key,
     this.style,
     this.classAttribute,
     this.scrollDirection = Axis.vertical,
@@ -341,7 +342,7 @@ class _ListViewBuilderState with ServicesResolver {
               widgets: List.generate(
                 itemsToGenerate,
                 (i) => Division(
-                  key: 'lazy_item_${i + currentIndex}_under_${context.key}',
+                  key: Key('lv_item_${i + currentIndex}_${context.key.value}'),
                   classAttribute: 'rad-list-view-item-container',
                   child: configuration.itemBuilder(context, i + currentIndex),
                 ),
@@ -400,7 +401,7 @@ class _ListViewBuilderState with ServicesResolver {
         widgets: List.generate(
           renderUptoIndex,
           (i) => Division(
-            key: 'lazy_item_${i}_under_${context.key}',
+            key: Key('lv_item_${i}_${context.key.value}'),
             classAttribute: 'rad-list-view-item-container',
             child: configuration.itemBuilder(context, i),
           ),
@@ -418,7 +419,7 @@ class _ListViewBuilderState with ServicesResolver {
         widgets: List.generate(
           renderUptoIndex,
           (i) => Division(
-            key: 'lazy_item_${i}_under_${context.key}',
+            key: Key('lv_item_${i}_${context.key.value}'),
             classAttribute: 'rad-list-view-item-container',
             child: configuration.itemBuilder(context, i),
           ),

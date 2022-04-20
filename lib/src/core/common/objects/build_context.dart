@@ -1,5 +1,6 @@
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
@@ -12,7 +13,11 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 /// to trace back origin of widget all the way to BigBang(where it all started)
 ///
 class BuildContext {
-  final String key;
+  /// Widget's key.
+  ///
+  /// It must be computed if user has provided an explicit key for widget.
+  ///
+  final Key key;
 
   /// ID of root HTML element where App(that's enclosing this context) is
   /// mounted.
@@ -86,7 +91,7 @@ class BuildContext {
   BuildContext.bigBang(this.key)
       : _widget = null,
         _parent = null,
-        appTargetId = key,
+        appTargetId = key.value,
         widgetCorrespondingTag = DomTag.division,
         widgetConcreteType = Constants.contextTypeBigBang,
         widgetRuntimeType = Constants.contextTypeBigBang;

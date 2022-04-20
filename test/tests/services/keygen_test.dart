@@ -1,6 +1,7 @@
 import 'package:rad/widgets_internals.dart';
 import 'package:test/scaffolding.dart';
 import 'package:test/expect.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 import '../../fixers/test_bed.dart';
 
@@ -15,7 +16,7 @@ void main() {
     var keyGenService = KeyGen(RT_TestBed.rootContext);
 
     var iterations = 100;
-    var generatedWidgetKeys = <String>[];
+    var generatedWidgetKeys = <Key>[];
 
     while (iterations-- > 0) {
       generatedWidgetKeys.add(keyGenService.generateWidgetKey());
@@ -30,7 +31,7 @@ void main() {
 
     test('should generate keys that starts with system a identifier', () {
       for (var key in generatedWidgetKeys) {
-        expect(key.startsWith(Constants.contextGenKeyPrefix), equals(true));
+        expect(key.hasSystemPrefix, equals(true));
       }
     });
   });

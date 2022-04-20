@@ -170,7 +170,7 @@ class Framework with ServicesResolver {
       var widgetType = parentContext.widgetConcreteType;
 
       if (Constants.contextTypeBigBang == widgetType) {
-        var element = document.getElementById(parentContext.key);
+        var element = document.getElementById(parentContext.key.value);
 
         if (null == element) {
           return services.debug.exception(
@@ -183,7 +183,9 @@ class Framework with ServicesResolver {
       } else {
         disposeWidget(
           flagPreserveTarget: true,
-          widgetObject: services.walker.getWidgetObject(parentContext.key),
+          widgetObject: services.walker.getWidgetObject(
+            parentContext.key.value,
+          ),
         );
       }
     }
@@ -194,8 +196,7 @@ class Framework with ServicesResolver {
       var isKeyProvided = Constants.contextKeyNotSet != widget.initialKey;
 
       if (services.debug.developmentMode) {
-        if (isKeyProvided &&
-            widget.initialKey.startsWith(Constants.contextGenKeyPrefix)) {
+        if (isKeyProvided && widget.initialKey.hasSystemPrefix) {
           return services.debug.exception(
             "Keys starting with ${Constants.contextGenKeyPrefix} are reserved for "
             "framework.",
@@ -292,7 +293,7 @@ class Framework with ServicesResolver {
       );
     }
 
-    var parent = document.getElementById(parentContext.key);
+    var parent = document.getElementById(parentContext.key.value);
 
     if (null == parent) {
       return dispatchCompleteRebuild();
@@ -502,7 +503,7 @@ class Framework with ServicesResolver {
     //
     bool flagIterateInReverseOrder = false,
   }) {
-    var widgetObject = services.walker.getWidgetObject(parentContext.key);
+    var widgetObject = services.walker.getWidgetObject(parentContext.key.value);
 
     if (null == widgetObject) return;
 
@@ -581,7 +582,7 @@ class Framework with ServicesResolver {
   /// Update a dependent widget(using its context).
   ///
   void updateDependentContext(BuildContext context) {
-    var widgetObject = services.walker.getWidgetObject(context.key);
+    var widgetObject = services.walker.getWidgetObject(context.key.value);
 
     if (null != widgetObject) {
       widgetObject.renderObject.update(

@@ -3,12 +3,13 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/input_tag.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// The InputRadio widget (HTML's `input` tag with `type = 'radio'`).
 ///
 class InputRadio extends InputTag {
   const InputRadio({
-    String? key,
+    Key? key,
     String? name,
     String? value,
     bool? checked,

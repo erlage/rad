@@ -38,7 +38,7 @@ class Walker with ServicesResolver {
   /// Register a widget object.
   ///
   void registerWidgetObject(WidgetObject widgetObject) {
-    var widgetKey = widgetObject.renderObject.context.key;
+    var widgetKey = widgetObject.renderObject.context.key.value;
 
     if (services.debug.developmentMode) {
       if (_registeredWidgetObjects.containsKey(widgetKey)) {
@@ -64,7 +64,7 @@ class Walker with ServicesResolver {
   /// Unregister a widget object.
   ///
   void unRegisterWidgetObject(WidgetObject widgetObject) {
-    var widgetKey = widgetObject.renderObject.context.key;
+    var widgetKey = widgetObject.renderObject.context.key.value;
 
     _registeredWidgetObjects.remove(widgetKey);
   }
@@ -100,7 +100,7 @@ class Walker with ServicesResolver {
     }
 
     var domNode =
-        document.getElementById(context.key)?.parent?.closest(selector);
+        document.getElementById(context.key.value)?.parent?.closest(selector);
 
     if (null == domNode) {
       return null;

@@ -7,12 +7,13 @@ import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// A widget that does not require mutable state.
 ///
 @immutable
 abstract class StatelessWidget extends Widget {
-  const StatelessWidget({String? key}) : super(key: key);
+  const StatelessWidget({Key? key}) : super(key: key);
 
   /// Describes the part of the user interface represented by this widget.
   ///

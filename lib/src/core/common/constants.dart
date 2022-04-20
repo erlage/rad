@@ -1,3 +1,5 @@
+import 'package:rad/src/core/common/objects/key.dart';
+
 /// Class containing framework specific attributes and constants.
 ///
 class Constants {
@@ -15,7 +17,7 @@ class Constants {
   // context specific
 
   static const contextTypeBigBang = "BigBang";
-  static const contextKeyNotSet = "not-set";
+  static const contextKeyNotSet = Key("not-set");
   static const contextGenKeyPrefix = "_gen_";
 
   // errors

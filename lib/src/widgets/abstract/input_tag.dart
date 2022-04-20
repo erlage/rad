@@ -4,6 +4,7 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
@@ -59,7 +60,7 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
     this.checked,
     this.disabled,
     this.eventListenerCallback,
-    String? key,
+    Key? key,
     String? title,
     String? style,
     String? classAttribute,

@@ -92,25 +92,25 @@ class Router with ServicesResolver {
   /// Register navigator's state.
   ///
   void register(BuildContext context, NavigatorState state) {
-    if (_routeObjects.containsKey(context.key)) {
+    if (_routeObjects.containsKey(context.key.value)) {
       return services.debug.exception(Constants.coreError);
     }
 
-    if (_stateObjects.containsKey(context.key)) {
+    if (_stateObjects.containsKey(context.key.value)) {
       return services.debug.exception(Constants.coreError);
     }
 
     _register(context, state.routes);
 
-    _stateObjects[context.key] = state;
+    _stateObjects[context.key.value] = state;
   }
 
   void unRegister(BuildContext context) {
-    _routeObjects.remove(context.key);
+    _routeObjects.remove(context.key.value);
 
-    _routerStack.remove(context.key);
+    _routerStack.remove(context.key.value);
 
-    _stateObjects.remove(context.key);
+    _stateObjects.remove(context.key.value);
   }
 
   /// Push page entry.
@@ -150,7 +150,7 @@ class Router with ServicesResolver {
 
       if (null != childRouteObject && null != state) {
         if (state.currentRouteName == childRouteObject.segments.last) {
-          var childState = _stateObjects[childRouteObject.context.key];
+          var childState = _stateObjects[childRouteObject.context.key.value];
 
           childState?.frameworkOnParentRouteChange(name);
         }
@@ -276,7 +276,7 @@ class Router with ServicesResolver {
     if (null != parent) {
       ensureNavigatorIsVisible(parent);
 
-      var parentState = _stateObjects[parent.context.key];
+      var parentState = _stateObjects[parent.context.key.value];
 
       if (null != parentState) {
         var parentRouteNameToOpen = routeObject.segments.last;
@@ -463,7 +463,7 @@ class Router with ServicesResolver {
     //
     // we've to use context.parent here because navigators are required to
     // register themselves in onContextCreate hook but at the point when
-    // onContextCreate hook is fired, context.key is not present in DOM.
+    // onContextCreate hook is fired, context.key.value is not present in DOM.
     var walkerService = ServicesRegistry.instance.getWalker(context);
 
     var parent = walkerService.findAncestorWidgetObjectOfType<Navigator>(
@@ -473,14 +473,16 @@ class Router with ServicesResolver {
     // if no Navigator in ancestors i.e we're dealing with a root navigator
 
     if (null == parent) {
-      _routeObjects[context.key] = NavigatorRouteObject(
+      _routeObjects[context.key.value] = NavigatorRouteObject(
         context: context,
         routes: routes,
         segments: [_routingPath],
       );
 
       if (services.debug.routerLogs) {
-        print("Navigator Registered: #${context.key} at ${[_routingPath]}");
+        print(
+          "Navigator Registered: #${context.key.value} at ${[_routingPath]}",
+        );
       }
 
       return;
@@ -492,7 +494,7 @@ class Router with ServicesResolver {
 
     var parentState = widgetState.state;
 
-    var parentObject = _routeObjects[parent.context.key];
+    var parentObject = _routeObjects[parent.context.key.value];
 
     if (null == parentObject) {
       return services.debug.exception(Constants.coreError);
@@ -502,7 +504,7 @@ class Router with ServicesResolver {
 
     // add route object for current navigator
 
-    _routeObjects[context.key] = NavigatorRouteObject(
+    _routeObjects[context.key.value] = NavigatorRouteObject(
       context: context,
       routes: routes,
       segments: segments,
@@ -511,16 +513,16 @@ class Router with ServicesResolver {
 
     // recreate parent object with child reference
 
-    _routeObjects[parent.context.key] = NavigatorRouteObject(
+    _routeObjects[parent.context.key.value] = NavigatorRouteObject(
       context: parentObject.context,
       routes: parentObject.routes,
       segments: parentObject.segments,
       parent: parentObject.parent,
-      child: _routeObjects[context.key],
+      child: _routeObjects[context.key.value],
     );
 
     if (services.debug.routerLogs) {
-      print("Navigator Registered: #${context.key} at $segments");
+      print("Navigator Registered: #${context.key.value} at $segments");
     }
   }
 }

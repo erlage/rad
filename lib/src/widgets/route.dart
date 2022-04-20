@@ -5,6 +5,7 @@ import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/navigator.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// Route is a [Navigator] specific widget.
 ///
@@ -26,7 +27,7 @@ class Route extends Widget {
   final Widget page;
 
   const Route({
-    String? key,
+    Key? key,
     String? path,
     required this.name,
     required this.page,

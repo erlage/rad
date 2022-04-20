@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/debug_options.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/interface/components/components.dart';
 import 'package:rad/src/core/services/services.dart';
@@ -91,7 +92,11 @@ class AppBootstrapper {
 
   void setupDelegates() => Window.instance.bindDelegate(BrowserWindow());
 
-  void createContext() => _rootContext = BuildContext.bigBang(targetSelector);
+  void createContext() {
+    var globalKey = Key.global(targetSelector);
+
+    _rootContext = BuildContext.bigBang(globalKey);
+  }
 
   void spinFramework() => _framework = Framework(rootContext);
 

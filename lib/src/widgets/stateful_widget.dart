@@ -13,6 +13,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateless_widget.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// A widget that has mutable state.
 ///
@@ -87,7 +88,7 @@ import 'package:rad/src/widgets/utils/common_props.dart';
 ///
 @immutable
 abstract class StatefulWidget extends Widget {
-  const StatefulWidget({String? key}) : super(key: key);
+  const StatefulWidget({Key? key}) : super(key: key);
 
   /// Creates the mutable state for this widget at a given location in the tree.
   ///

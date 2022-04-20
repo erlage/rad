@@ -2,6 +2,7 @@ import 'package:rad/src/include/async/async_snapshot.dart';
 import 'package:rad/src/include/async/async_widget_builder.dart';
 import 'package:rad/src/include/async/connection_state.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// Widget that builds itself based on the latest snapshot of interaction with
 /// a [Future].
@@ -13,7 +14,7 @@ class FutureBuilder<T> extends StatefulWidget {
   /// The [builder] must not be null.
   ///
   const FutureBuilder({
-    String? key,
+    Key? key,
     this.future,
     this.initialData,
     required this.builder,

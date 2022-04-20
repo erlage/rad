@@ -7,6 +7,7 @@ import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// The TextArea widget (HTML's `textarea` tag).
 ///
@@ -41,7 +42,7 @@ class TextArea extends MarkUpTagWithGlobalProps {
     this.readOnly,
     this.disabled,
     this.onChangeEventListener,
-    String? key,
+    Key? key,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,

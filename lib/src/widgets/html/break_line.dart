@@ -2,11 +2,12 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// The BreakLine widget (HTML's `br` tag).
 ///
 class BreakLine extends Widget {
-  const BreakLine({String? key}) : super(key: key);
+  const BreakLine({Key? key}) : super(key: key);
 
   @override
   get concreteType => "$BreakLine";

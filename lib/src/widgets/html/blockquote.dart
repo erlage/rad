@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
@@ -16,7 +17,7 @@ class Blockquote extends MarkUpTagWithGlobalProps {
   final String? cite;
 
   const Blockquote({
-    String? key,
+    Key? key,
     this.cite,
     bool? hidden,
     bool? draggable,

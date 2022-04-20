@@ -7,6 +7,7 @@ import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 
 /// The IFrame widget (HTML's `iframe` tag).
 ///
@@ -47,7 +48,7 @@ class IFrame extends MarkUpTagWithGlobalProps {
     this.width,
     this.height,
     this.size,
-    String? key,
+    Key? key,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,
