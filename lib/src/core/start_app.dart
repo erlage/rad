@@ -56,7 +56,7 @@ void startApp({
 }) {
   AppBootstrapper(
     app: app,
-    targetSelector: targetId,
+    targetId: targetId,
     routingPath: routingPath,
     beforeMount: beforeMount,
     debugOptions: debugOptions,
@@ -71,7 +71,7 @@ void startApp({
 
 class AppBootstrapper {
   final Widget app;
-  final String targetSelector;
+  final String targetId;
   final String routingPath;
   final Callback? beforeMount;
   final DebugOptions debugOptions;
@@ -84,7 +84,7 @@ class AppBootstrapper {
 
   AppBootstrapper({
     required this.app,
-    required this.targetSelector,
+    required this.targetId,
     this.routingPath = '',
     this.beforeMount,
     this.debugOptions = DebugOptions.defaultMode,
@@ -93,7 +93,7 @@ class AppBootstrapper {
   void setupDelegates() => Window.instance.bindDelegate(BrowserWindow());
 
   void createContext() {
-    var globalKey = GlobalKey(targetSelector);
+    var globalKey = GlobalKey(targetId);
 
     _rootContext = BuildContext.bigBang(globalKey);
   }
@@ -103,7 +103,7 @@ class AppBootstrapper {
   void prepareMount() {
     // Pre-checks before mount
 
-    var targetElement = document.getElementById(targetSelector) as HtmlElement?;
+    var targetElement = document.getElementById(targetId) as HtmlElement?;
 
     if (null == targetElement) {
       throw "Unable to locate target element in HTML document";
