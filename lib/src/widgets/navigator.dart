@@ -136,6 +136,11 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 /// // 2. Use of(context, key) anywhere in the subtree of that Navigator,
 ///
 /// Navigator.of(context, key);
+///
+/// // or
+///
+/// Navigator.of(context, LocalKey('my-navigator'));
+///
 /// ```
 /// ### onRouteChange hook:
 ///
