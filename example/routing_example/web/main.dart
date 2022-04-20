@@ -6,7 +6,7 @@ import 'settings_page.dart';
 void main() {
   startApp(
     app: RadApp(child: RootPage()),
-    targetSelector: 'output',
+    targetId: 'output',
     debugOptions: const DebugOptions(
       widgetLogs: true,
       developmentMode: true,

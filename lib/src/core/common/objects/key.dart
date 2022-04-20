@@ -63,7 +63,7 @@ class Key {
   toString() => value;
 }
 
-/// A key that is unique within the app.
+/// A key that is unique within the app its created.
 ///
 class LocalKey extends Key {
   /// Creates a local key.
@@ -82,13 +82,13 @@ class LocalKey extends Key {
   }
 }
 
-/// A key that is unique within the entire document.
+/// A key that is unique within entire document(within multiple apps).
 ///
 class GlobalKey extends Key {
   /// Creates a global key.
   ///
-  /// Constructing code must be responsible for providing a value that's unique
-  /// within entire document(i.e withing multiple app instances).
+  /// Code that constructs key must be responsible for providing a value that's
+  /// unique within entire document(i.e withing multiple app instances).
   ///
   const GlobalKey(String value) : super(value);
 }
