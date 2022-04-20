@@ -1,24 +1,16 @@
 # Contributing
-We're happy that you looking to contribute to this project. We don't want to impose any strict guidelines on "how things should be" but since there are people using Rad in production we can't accept anything as it as. Below is the little guide that's intended to answer questions that you might have.
+When contributing to Rad, make sure that the changes you wish to make are in line with the project direction. If you are not sure about this, open an issue first, so we can discuss it.
 
 ## Opening Issues
 
-- Avoid filing multiple bugs in a single issue.
-- Use issues for bugs/feature-request/query.
+While opening issue, please keep in mind following things:
+
+- One issue per bug. Putting multiple things in the same issue makes both discussion and completion unnecessarily complicated.
 - When raising an issue, please be as thorough as possible. For possible bugs, reproducible code is always a great sign.
 
 ## Opening Pull Requests
 
-All your work will be appreciated as long as you're working on:
-
-- Anything from pending [bugs](https://github.com/erlage/rad/labels/bug).
-- Anything from pending [enhancements](https://github.com/erlage/rad/labels/enhancement).
-- Anything from pending [feature requests](https://github.com/erlage/rad/labels/feature%20request).
-- Anything that fixes something in existing code.
-- Anything that improves or add something to existing documentation/readme(s).
-- Anything that add/improve tests(you can help writing new tests as well).
-
-If you want to work on something that's not in opened issues, just open an issue for it! and wait for someone to add label to your issue. Please do not take this the wrong way. This lets us avoid working on the same thing, or worse, someone putting in a lot of work for a pull request that does not fit into the scope of the project.
+Nobody is perfect, and sometimes we mess things up. That said, here are some good dos & dont's to try and stick to:
 
 **Do**:
 
@@ -38,6 +30,15 @@ If you want to work on something that's not in opened issues, just open an issue
 - Attempt large architectural changes.
 - Submit code that's incompatible with the framwork licence.
 - Touch anything outside the stated scope of the pull request.
+
+### What are some things you can work on?
+
+- Anything from pending [bugs](https://github.com/erlage/rad/labels/bug), [enhancements](https://github.com/erlage/rad/labels/enhancement), [feature requests](https://github.com/erlage/rad/labels/feature%20request).
+- Anything that fixes something in existing code.
+- Anything that improves or add something to existing documentation/readme(s).
+- Anything that add/improve tests.
+
+If you want to work on something that's not in opened issues, just open an issue for it! and wait for someone to add label to your issue. Please do not take this the wrong way. This lets us avoid working on the same thing, or worse, someone putting in a lot of work for a pull request that does not fit into the scope of the project.
 
 ## License
 Any contribution you make will fall under the license being used by the framework.
