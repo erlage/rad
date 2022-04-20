@@ -92,68 +92,35 @@ enum ButtonType {
 ///
 enum DomTag {
   header,
-
   footer,
-
   navigation,
-
   division,
-
   span,
-
   anchor,
-
   blockquote,
-
-  /// Horizontal rule. (hr)
-  ///
   horizontalRule,
-
   label,
-
   iFrame,
-
   breakLine,
-
   image,
-
   canvas,
-
   paragraph,
-
   input,
-
   form,
-
   fieldSet,
-
   idiomatic,
-
   strong,
-
   small,
-
   subScript,
-
   superScript,
-
   unOrderedList,
-
   listItem,
-
   button,
-
   select,
-
   option,
-
   legend,
-
   progress,
-
   textArea,
-
-  // headings
   heading1,
   heading2,
   heading3,
@@ -162,21 +129,11 @@ enum DomTag {
   heading6,
 }
 
-/*
-|--------------------------------------------------------------------------
-| internals
-|--------------------------------------------------------------------------
-*/
-
 enum WidgetAction {
   dispose,
-
   hideWidget,
-
   showWidget,
-
   updateWidget,
-
   skipRest,
 }
 
