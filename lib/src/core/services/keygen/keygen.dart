@@ -45,7 +45,15 @@ class KeyGen {
 
     if (key is GlobalKey) return key;
 
-    // a non-global key is provided, generate global key from it.
+    // a local key is provided, generate global key from it.
+
+    if (key is LocalKey) {
+      return GlobalKey(
+        "${parentContext.appTargetId}_${key.value}",
+      );
+    }
+
+    // a non-local key is provided, generate global key from it.
 
     return GlobalKey(
       "${parentContext.key.value}_${key.value}",

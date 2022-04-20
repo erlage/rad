@@ -51,6 +51,17 @@ class Key {
   toString() => value;
 }
 
+/// A key that is unique within the app.
+///
+class LocalKey extends Key {
+  /// Creates a local key.
+  ///
+  /// Constructing code must be responsible for providing a value that's unique
+  /// within entire app.
+  ///
+  const LocalKey(String value) : super._global(value);
+}
+
 /// A key that is unique within the entire document.
 ///
 class GlobalKey extends Key {
