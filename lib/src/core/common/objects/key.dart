@@ -1,7 +1,8 @@
 import 'package:meta/meta.dart';
-import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/include/foundation/hash_codes.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/widgets_internals.dart';
 
 /// A [Key] is an identifier for [Widget]s.
 ///
@@ -9,6 +10,21 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 ///
 /// Keys must be unique amongst the [Widget]s with the same parent. By
 /// contrast, [GlobalKey]s must be unique across entire document.
+///
+/// Key values are computed and computed value is used as value if ID attribute
+/// of the element associated with the widget. This means computed value can be
+/// used to find associated element in document.
+///
+///
+/// For a [Key], getting computed value is not possible.
+///
+///
+/// For a [LocalKey], you can get computed value using
+/// [LocalKey.getComputedValue].
+///
+///
+/// For a [GlobalKey], computed value is exactly same as provided value. Which
+/// means you can access computed value using [Key.value] for [GlobalKey]s
 ///
 @immutable
 class Key {
@@ -56,6 +72,14 @@ class LocalKey extends Key {
   /// within entire app.
   ///
   const LocalKey(String value) : super(value);
+
+  /// Return computed value of local key.
+  ///
+  String getComputedValue(BuildContext context) {
+    var keyGenService = ServicesRegistry.instance.getKeyGen(context);
+
+    return keyGenService.getGlobalKeyUsingKey(this, context).value;
+  }
 }
 
 /// A key that is unique within the entire document.
