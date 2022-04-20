@@ -127,13 +127,15 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 /// ### Looking for a specific Navigator instance is ancestors:
 ///
 /// ```dart
-/// // 1. Give Navigator instance a key
+/// // 1. Give Navigator instance a local key
 ///
-/// Navigator(key: 'my-navigator')
+/// var key = LocalKey('my-navigator');
+///
+/// Navigator(key: key)
 ///
 /// // 2. Use of(context, key) anywhere in the subtree of that Navigator,
 ///
-/// Navigator.of(context, 'my-navigator');
+/// Navigator.of(context, key);
 /// ```
 /// ### onRouteChange hook:
 ///
@@ -297,19 +299,17 @@ class Navigator extends Widget {
   /// Navigator's state from the closest instance of this class
   /// that encloses the given context.
   ///
-  static NavigatorState of(BuildContext context, [String? navigatorKey]) {
+  static NavigatorState of(BuildContext context, [LocalKey? navigatorKey]) {
+    var services = ServicesRegistry.instance.getServices(context);
+
     var targetContext = context;
 
     while (true) {
-      var walkerService = ServicesRegistry.instance.getWalker(context);
-
-      var widgetObject = walkerService
+      var widgetObject = services.walker
           .findAncestorWidgetObjectOfType<Navigator>(targetContext);
 
       if (null == widgetObject) {
-        var debugService = ServicesRegistry.instance.getDebug(context);
-
-        debugService.exception(
+        services.debug.exception(
           "Navigator operation requested with a context that does not include a Navigator.\n"
           "The context used to push or pop routes from the Navigator must be that of a "
           "widget that is a descendant of a Navigator widget.",
@@ -324,11 +324,17 @@ class Navigator extends Widget {
         );
       }
 
-      if (null != navigatorKey &&
-          navigatorKey != widgetObject.context.key.value) {
-        targetContext = widgetObject.context;
+      if (null != navigatorKey) {
+        var widgetKey = services.keyGen.getGlobalKeyUsingKey(
+          navigatorKey,
+          context, // for local key, any context works
+        );
 
-        continue;
+        if (widgetKey == widgetObject.context.key) {
+          targetContext = widgetObject.context;
+
+          continue;
+        }
       }
 
       var renderObject = widgetObject.renderObject as NavigatorRenderObject;

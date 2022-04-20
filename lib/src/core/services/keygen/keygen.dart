@@ -34,9 +34,13 @@ class KeyGen {
 
   /// Get a global key for widget using key that's provided explicitly.
   ///
-  /// If provided [key] is a non global key, then it'll use [parentContext] to
+  /// If provided [key] is a non local key, then it'll use [parentContext] to
   /// generate a global key. Therefore non global keys must be unique under same
   /// parent.
+  ///
+  /// If provided [key] is a [LocalKey], then it'll use
+  /// [BuildContext.appTargetId] to generate a global key. Which means you can
+  /// calculate actual ID of corresponding element for local keys.
   ///
   /// If provided [key] is a global key, then it'll return it as it as.
   ///
