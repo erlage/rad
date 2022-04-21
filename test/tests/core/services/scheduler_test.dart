@@ -54,8 +54,6 @@ void main() {
           SchedulerTaskType.updateDependent.name,
         ].toString();
 
-        print(testStack.entries.toString());
-
         var actual = testStack.entries
           ..removeWhere(
             (e) => e == SchedulerTaskType.stimulateListener.name,

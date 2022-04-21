@@ -2,8 +2,7 @@
 
 import 'dart:html';
 
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/rad.dart';
 
 /// Test Bed.
 ///
