@@ -319,18 +319,29 @@ void main() {
         () {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                key: Key('key-original'),
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
-              ),
-            ],
-            updateType: UpdateType.undefined,
-            parentContext: RT_TestBed.rootContext,
-          );
+          // Failing to distinguish LocalKey and Key.
+          //
+          // LocalKeys are completely different from Keys when used anywhere in
+          // the tree except root's immediate childrens. Test below this one
+          // verifies the correct behaviour.
+          //
+          // This one will fail because calculated GlobalKeys from LocalKey and
+          // Key will be same for root's immediate childrens, this is the way
+          // key generation works in this framework.
+          //
+
+          // app!.framework.updateChildren(
+          //   widgets: [
+          //     RT_TestWidget(
+          //       key: Key('key-original'),
+          //       roEventHookRender: () => testStack.push('render 1'),
+          //       roEventHookUpdate: () => testStack.push('update 1'),
+          //       roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
+          //     ),
+          //   ],
+          //   updateType: UpdateType.undefined,
+          //   parentContext: RT_TestBed.rootContext,
+          // );
 
           app!.framework.updateChildren(
             widgets: [
@@ -379,6 +390,100 @@ void main() {
                 roEventHookUpdate: () => testStack.push('update 1'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
               ),
+            ],
+            updateType: UpdateType.undefined,
+            parentContext: RT_TestBed.rootContext,
+          );
+
+          // expect(testStack.popFromStart(), equals('render 1'));
+          // expect(testStack.popFromStart(), equals('dispose 1'));
+          expect(testStack.popFromStart(), equals('render 2'));
+          expect(testStack.popFromStart(), equals('dispose 2'));
+          expect(testStack.popFromStart(), equals('render 3'));
+          expect(testStack.popFromStart(), equals('update 3'));
+          expect(testStack.popFromStart(), equals('dispose 3'));
+          expect(testStack.popFromStart(), equals('render 1'));
+
+          expect(testStack.canPop(), equals(false));
+        },
+      );
+
+      test(
+        '(nested) should build widget when runtime types of widgets are matched,'
+        'and keys are matched as well but keys have different runtime type',
+        () {
+          var testStack = RT_TestStack();
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_TestWidget(children: [
+                RT_TestWidget(
+                  key: Key('key-original'),
+                  roEventHookRender: () => testStack.push('render 1'),
+                  roEventHookUpdate: () => testStack.push('update 1'),
+                  roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
+                ),
+              ]),
+            ],
+            updateType: UpdateType.undefined,
+            parentContext: RT_TestBed.rootContext,
+          );
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_TestWidget(children: [
+                RT_TestWidget(
+                  key: LocalKey('key-original'),
+                  roEventHookRender: () => testStack.push('render 2'),
+                  roEventHookUpdate: () => testStack.push('update 2'),
+                  roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
+                ),
+              ]),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_TestWidget(children: [
+                RT_TestWidget(
+                  key: GlobalKey('key-original'),
+                  roEventHookRender: () => testStack.push('render 3'),
+                  roEventHookUpdate: () => testStack.push('update 3'),
+                  roEventHookBeforeUnMount: () => testStack.push('dispose 3'),
+                ),
+              ]),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_TestWidget(children: [
+                RT_TestWidget(
+                  key: GlobalKey('key-original'),
+                  roEventHookRender: () => testStack.push('render 3'),
+                  roEventHookUpdate: () => testStack.push('update 3'),
+                  roEventHookBeforeUnMount: () => testStack.push('dispose 3'),
+                ),
+              ]),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_TestWidget(children: [
+                RT_TestWidget(
+                  key: Key('key-original'),
+                  roEventHookRender: () => testStack.push('render 1'),
+                  roEventHookUpdate: () => testStack.push('update 1'),
+                  roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
+                ),
+              ]),
             ],
             updateType: UpdateType.undefined,
             parentContext: RT_TestBed.rootContext,
