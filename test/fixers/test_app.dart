@@ -6,6 +6,8 @@ import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/interface/window/delegates/browser_window.dart';
 import 'package:rad/src/core/interface/window/window.dart';
 
+import 'test_widget.dart';
+
 RT_AppRunner createTestApp({
   DebugOptions debugOptions = DebugOptions.defaultMode,
 }) {
@@ -13,6 +15,15 @@ RT_AppRunner createTestApp({
     app: Text('hello world'),
     targetId: 'root-div',
     debugOptions: debugOptions,
+  );
+}
+
+/// Returns a test app widget.
+///
+Widget rtAppWidget([List<Widget>? children]) {
+  return RT_TestWidget(
+    key: GlobalKey('app-widget'),
+    children: children,
   );
 }
 
@@ -30,6 +41,12 @@ class RT_AppRunner {
 
   BuildContext? _rootContext;
   BuildContext get rootContext => _rootContext!;
+
+  BuildContext get appContext => services.walker
+      .getWidgetObject(
+        'app-widget',
+      )!
+      .context;
 
   Framework? _framework;
   Framework get framework => _framework!;

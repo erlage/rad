@@ -306,7 +306,7 @@ void main() {
       app!.framework.buildChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('app-widget'),
+            key: GlobalKey('widget'),
             roEventHookRender: () {
               testStack.push('render-app-widget');
             },
@@ -427,7 +427,7 @@ void main() {
           // a app widget and therefore user can have only one root widget in entire app.
           //
           RT_TestWidget(
-            key: GlobalKey('app-widget'),
+            key: GlobalKey('widget'),
             children: [
               //
               // these are child widgets and we expect all widgets below this point in tree
@@ -463,7 +463,7 @@ void main() {
 
       // ensure all are built
 
-      expect(null == app!.services.walker.getWidgetObject('app-widget'),
+      expect(null == app!.services.walker.getWidgetObject('widget'),
           equals(false));
       expect(null == app!.services.walker.getWidgetObject('child-0'),
           equals(false));
@@ -527,13 +527,12 @@ void main() {
             },
           ),
         ],
-        parentContext:
-            app!.services.walker.getWidgetObject('app-widget')!.context,
+        parentContext: app!.services.walker.getWidgetObject('widget')!.context,
       );
 
       // app widget should not have any impact
 
-      expect(null == app!.services.walker.getWidgetObject('app-widget'),
+      expect(null == app!.services.walker.getWidgetObject('widget'),
           equals(false));
 
       // newer child should be built

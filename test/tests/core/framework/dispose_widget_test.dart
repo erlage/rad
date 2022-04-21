@@ -40,7 +40,7 @@ void main() {
       app!.framework.buildChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('app-widget'),
+            key: GlobalKey('widget'),
             children: [
               RT_TestWidget(
                 key: GlobalKey('child-0'),
@@ -85,7 +85,7 @@ void main() {
       app!.framework.buildChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('app-widget'),
+            key: GlobalKey('widget'),
             children: [
               RT_TestWidget(
                 key: GlobalKey('child-0'),
@@ -137,7 +137,7 @@ void main() {
       app!.framework.buildChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('app-widget'),
+            key: GlobalKey('widget'),
             children: [
               RT_TestWidget(
                 key: GlobalKey('child-0'),
@@ -187,33 +187,33 @@ void main() {
     test('method call should be idempotent', () {
       app!.framework.buildChildren(
         widgets: [
-          RT_TestWidget(key: GlobalKey('app-widget')),
+          RT_TestWidget(key: GlobalKey('widget')),
         ],
         parentContext: RT_TestBed.rootContext,
       );
 
       // widget should be ready for dispose by now
 
-      expect(null == app!.services.walker.getWidgetObject('app-widget'),
+      expect(null == app!.services.walker.getWidgetObject('widget'),
           equals(false));
 
       app!.framework.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObject('app-widget'),
+        widgetObject: app!.services.walker.getWidgetObject('widget'),
         flagPreserveTarget: false,
       );
 
       app!.framework.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObject('app-widget'),
+        widgetObject: app!.services.walker.getWidgetObject('widget'),
         flagPreserveTarget: false,
       );
 
       app!.framework.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObject('app-widget'),
+        widgetObject: app!.services.walker.getWidgetObject('widget'),
         flagPreserveTarget: false,
       );
 
       expect(
-        null == app!.services.walker.getWidgetObject('app-widget'),
+        null == app!.services.walker.getWidgetObject('widget'),
         equals(true),
       );
     });
@@ -222,7 +222,7 @@ void main() {
       app!.framework.buildChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('app-widget'),
+            key: GlobalKey('widget'),
             children: [
               RT_TestWidget(
                 key: GlobalKey('child-0'),
@@ -277,7 +277,7 @@ void main() {
       app!.framework.buildChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('app-widget'),
+            key: GlobalKey('widget'),
             roEventHookBeforeUnMount: () {
               testStack.push('this should not get unmount');
             },
@@ -356,7 +356,7 @@ void main() {
       //
 
       app!.framework.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObject('app-widget'),
+        widgetObject: app!.services.walker.getWidgetObject('widget'),
         flagPreserveTarget: true,
       );
 
