@@ -6,7 +6,7 @@
 
 export 'src/core/common/types.dart';
 export 'src/core/common/enums.dart';
-export 'src/core/start_app.dart' show startApp;
+export 'src/core/start_app.dart' show startApp, AppRunner;
 export 'src/widgets/abstract/widget.dart' show Widget;
 export 'src/core/common/objects/key.dart' show Key, LocalKey, GlobalKey;
 export 'src/core/common/objects/build_context.dart' show BuildContext;

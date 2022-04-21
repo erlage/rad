@@ -47,42 +47,42 @@ import 'package:rad/src/widgets/utils/common_props.dart';
 /// )
 /// ```
 ///
-void startApp({
+AppRunner startApp({
   required Widget app,
   required String targetId,
   String routingPath = '',
   Callback? beforeMount,
   DebugOptions debugOptions = DebugOptions.defaultMode,
 }) {
-  AppBootstrapper(
+  return AppRunner(
     app: app,
     targetId: targetId,
     routingPath: routingPath,
     beforeMount: beforeMount,
     debugOptions: debugOptions,
-  )
-    ..setupDelegates()
-    ..createContext()
-    ..spinFramework()
-    ..startServices()
-    ..prepareMount()
-    ..scheduleBuildTask();
+  )..start();
 }
 
-class AppBootstrapper {
+/// App Runner.
+///
+/// This is responsible for starting/stopping app instance.
+///
+class AppRunner {
   final Widget app;
   final String targetId;
   final String routingPath;
   final Callback? beforeMount;
   final DebugOptions debugOptions;
 
+  Services? _services;
+  Services get services => _services!;
+
   BuildContext? _rootContext;
   BuildContext get rootContext => _rootContext!;
 
   Framework? _framework;
-  Framework get framework => _framework!;
 
-  AppBootstrapper({
+  AppRunner({
     required this.app,
     required this.targetId,
     this.routingPath = '',
@@ -90,17 +90,43 @@ class AppBootstrapper {
     this.debugOptions = DebugOptions.defaultMode,
   });
 
-  void setupDelegates() => Window.instance.bindDelegate(BrowserWindow());
+  /// Run app and services associated.
+  ///
+  void start() {
+    this
+      .._setupDelegates()
+      .._createContext()
+      .._spinFramework()
+      .._startServices()
+      .._prepareMount()
+      .._scheduleInitialBuildTask();
+  }
 
-  void createContext() {
+  /// Stop app and services associated.
+  ///
+  void stop() {
+    _framework!.tearDown();
+
+    services.debug.stopService();
+
+    services.router.stopService();
+
+    services.scheduler.stopService();
+
+    ServicesRegistry.instance.unRegisterServices(rootContext);
+  }
+
+  void _setupDelegates() => Window.instance.bindDelegate(BrowserWindow());
+
+  void _createContext() {
     var globalKey = GlobalKey(targetId);
 
     _rootContext = BuildContext.bigBang(globalKey);
   }
 
-  void spinFramework() => _framework = Framework(rootContext);
+  void _spinFramework() => _framework = Framework(rootContext);
 
-  void prepareMount() {
+  void _prepareMount() {
     // Pre-checks before mount
 
     var targetElement = document.getElementById(targetId) as HtmlElement?;
@@ -128,8 +154,8 @@ class AppBootstrapper {
     beforeMount?.call();
   }
 
-  void startServices() {
-    var services = Services(rootContext);
+  void _startServices() {
+    _services = Services(rootContext);
 
     ServicesRegistry.instance.registerServices(rootContext, services);
 
@@ -137,15 +163,11 @@ class AppBootstrapper {
 
     services.router.startService(routingPath);
 
-    services.scheduler.startService(framework.taskProcessor);
+    services.scheduler.startService(_framework!.taskProcessor);
   }
 
-  /// Schedule a build task.
-  ///
-  void scheduleBuildTask() {
-    var schedulerService = ServicesRegistry.instance.getScheduler(rootContext);
-
-    schedulerService.addTask(
+  void _scheduleInitialBuildTask() {
+    services.scheduler.addTask(
       WidgetsBuildTask(
         widgets: [app],
         parentContext: rootContext,
