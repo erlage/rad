@@ -4,14 +4,14 @@ import 'package:test/expect.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
 
-import '../constants/button_types.dart';
-import '../constants/dom_events.dart';
-import '../constants/dom_tags.dart';
-import '../constants/form_methods.dart';
-import '../constants/form_types.dart';
-import '../constants/input_types.dart';
-import '../matchers/is_in_known_items.dart';
-import '../matchers/string_matchers.dart';
+import '../../../constants/button_types.dart';
+import '../../../constants/dom_events.dart';
+import '../../../constants/dom_tags.dart';
+import '../../../constants/form_methods.dart';
+import '../../../constants/form_types.dart';
+import '../../../constants/input_types.dart';
+import '../../../matchers/is_in_known_items.dart';
+import '../../../matchers/string_matchers.dart';
 
 void main() {
   /*
