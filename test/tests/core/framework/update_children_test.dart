@@ -320,15 +320,7 @@ void main() {
           var testStack = RT_TestStack();
 
           // Failing to distinguish LocalKey and Key.
-          //
-          // LocalKeys are completely different from Keys when used anywhere in
-          // the tree except root's immediate childrens. Test below this one
-          // verifies the correct behaviour.
-          //
-          // This one will fail because calculated GlobalKeys from LocalKey and
-          // Key will be same for root's immediate childrens, this is the way
-          // key generation works in this framework.
-          //
+          // (see key gen tests)
 
           // app!.framework.updateChildren(
           //   widgets: [

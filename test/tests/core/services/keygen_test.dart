@@ -79,6 +79,97 @@ void main() {
 
   /*
   |--------------------------------------------------------------------------
+  | keyGenService.getGlobalKeyUsingKey() 
+  |--------------------------------------------------------------------------
+  */
+
+  group('getGlobalKeyUsingKey() :', () {
+    var keyGenService = KeyGen(RT_TestBed.rootContext);
+
+    test('should be able to generate key from root context', () {
+      var key = keyGenService.getGlobalKeyUsingKey(
+        Key('key'),
+        RT_TestBed.rootContext,
+      );
+
+      expect(key.value, equals(RT_TestBed.rootKey.value + '_key'));
+    });
+
+    test('should be able to generate local key from root context', () {
+      var key = keyGenService.getGlobalKeyUsingKey(
+        LocalKey('key'),
+        RT_TestBed.rootContext,
+      );
+
+      expect(key.value, equals(RT_TestBed.rootKey.value + '_key'));
+    });
+
+    test('should be able to generate global key from root context', () {
+      var key = keyGenService.getGlobalKeyUsingKey(
+        GlobalKey('global-key'),
+        RT_TestBed.rootContext,
+      );
+
+      expect(key.value, equals('global-key'));
+    });
+
+    test('should generate different local and global key under root context',
+        () {
+      var fromLocal = keyGenService.getGlobalKeyUsingKey(
+        LocalKey('key'),
+        RT_TestBed.rootContext,
+      );
+      var fromGlobal = keyGenService.getGlobalKeyUsingKey(
+        GlobalKey('key'),
+        RT_TestBed.rootContext,
+      );
+
+      expect(fromLocal.value == fromGlobal.value, equals(false));
+    });
+
+    test(
+      'should generate different non global and global key under root context',
+      () {
+        var fromLocal = keyGenService.getGlobalKeyUsingKey(
+          Key('key'),
+          RT_TestBed.rootContext,
+        );
+        var fromGlobal = keyGenService.getGlobalKeyUsingKey(
+          GlobalKey('key'),
+          RT_TestBed.rootContext,
+        );
+
+        expect(fromLocal.value == fromGlobal.value, equals(false));
+      },
+    );
+
+    // LocalKeys are completely different from Keys when used anywhere in
+    // the tree except root's immediate childrens.
+    //
+    // This one will fail because calculated GlobalKeys from LocalKey and
+    // Key will be same for root's immediate childrens, this is the way
+    // key generation works in this framework.
+    //
+
+    // test(
+    //   'should generate different local and non local key under root context',
+    //   () {
+    //     var fromLocal = keyGenService.getGlobalKeyUsingKey(
+    //       Key('key'),
+    //       RT_TestBed.rootContext,
+    //     );
+    //     var fromGlobal = keyGenService.getGlobalKeyUsingKey(
+    //       LocalKey('key'),
+    //       RT_TestBed.rootContext,
+    //     );
+
+    //     expect(fromLocal.value == fromGlobal.value, equals(false));
+    //   },
+    // );
+  });
+
+  /*
+  |--------------------------------------------------------------------------
   | keyGenService.generateRandomKey() | a very basic test
   |--------------------------------------------------------------------------
   */
