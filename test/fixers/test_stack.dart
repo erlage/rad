@@ -8,6 +8,7 @@
 ///
 class RT_TestStack {
   final _entries = <String>[];
+  List<String> get entries => _entries.toList();
 
   void push(String entry) => _entries.add(entry);
 
