@@ -82,6 +82,37 @@ class RT_TestWidget extends Widget {
   }
 }
 
+/// Another test widget with different runtime type.
+///
+class RT_AnotherTestWidget extends RT_TestWidget {
+  const RT_AnotherTestWidget({
+    Key? key,
+    List<Widget>? children,
+    Callback? roEventHookRender,
+    Callback? roEventHookUpdate,
+    Callback? roEventHookBeforeMount,
+    Callback? roEventHookAfterMount,
+    Callback? roEventHookAfterWidgetRebind,
+    Callback? roEventHookBeforeUnMount,
+    Callback? wEventHookCreateRenderObject,
+    Callback? wEventHookCreateWidgetConfiguration,
+    Callback? wEventHookIsConfigurationChanged,
+  }) : super(
+          key: key,
+          children: children,
+          roEventHookRender: roEventHookRender,
+          roEventHookUpdate: roEventHookUpdate,
+          roEventHookBeforeMount: roEventHookBeforeMount,
+          roEventHookAfterMount: roEventHookAfterMount,
+          roEventHookAfterWidgetRebind: roEventHookAfterWidgetRebind,
+          roEventHookBeforeUnMount: roEventHookBeforeUnMount,
+          wEventHookCreateWidgetConfiguration:
+              wEventHookCreateWidgetConfiguration,
+          wEventHookIsConfigurationChanged: wEventHookIsConfigurationChanged,
+          wEventHookCreateRenderObject: wEventHookCreateRenderObject,
+        );
+}
+
 class RT_TestWidgetRenderObject extends RenderObject {
   final Callback? roEventHookRender;
   final Callback? roEventHookUpdate;
