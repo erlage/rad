@@ -19,7 +19,7 @@ export 'src/core/services/router/router.dart' show Router;
 export 'src/core/services/keygen/key_gen.dart' show KeyGen;
 export 'src/core/services/scheduler/scheduler.dart' show Scheduler;
 export 'src/core/services/services_registry.dart' show ServicesRegistry;
-export 'src/core/services/services.dart' show ServicesResolver;
+export 'src/core/services/services.dart' show Services, ServicesResolver;
 
 // tasks
 
