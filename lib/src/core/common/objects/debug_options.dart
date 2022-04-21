@@ -1,5 +1,3 @@
-import 'package:rad/src/core/common/types.dart';
-
 /// Debug options.
 ///
 /// Setting debug options help debug your applications.
