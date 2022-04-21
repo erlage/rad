@@ -10,7 +10,7 @@ import '../../../matchers/has_contents.dart';
 
 /*
 |--------------------------------------------------------------------------
-| Component tests for core/app!.app!.framework.dart
+| Component tests for core/framework.dart
 |
 | Methods to test in this file: disposeWidget()
 |--------------------------------------------------------------------------
