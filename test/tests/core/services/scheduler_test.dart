@@ -89,6 +89,10 @@ void main() {
       await Future.delayed(Duration.zero, () {
         var expected = [].toString();
 
+        // StimulateListenerTask task is a exception here,
+        // because we want listeners to know that there are new tasks which
+        // scheduler can send if they want.
+
         var actual = testStack.entries
           ..removeWhere(
             (e) => e == SchedulerTaskType.stimulateListener.name,
