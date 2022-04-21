@@ -3,25 +3,30 @@
 import 'package:rad/rad.dart';
 import 'package:rad/widgets_internals.dart';
 import 'package:rad/src/core/framework.dart';
-import 'package:rad/src/core/interface/window/window.dart';
 import 'package:rad/src/core/interface/window/delegates/browser_window.dart';
+import 'package:rad/src/core/interface/window/window.dart';
 
-RT_AppBootstrapper createTestApp({
+RT_AppRunner createTestApp({
   DebugOptions debugOptions = DebugOptions.defaultMode,
 }) {
-  return RT_AppBootstrapper(
+  return RT_AppRunner(
     app: Text('hello world'),
     targetId: 'root-div',
     debugOptions: debugOptions,
   );
 }
 
-class RT_AppBootstrapper {
+/// Test App Runner.
+///
+class RT_AppRunner {
   final Widget app;
   final String targetId;
   final String routingPath;
   final Callback? beforeMount;
   final DebugOptions debugOptions;
+
+  Services? _services;
+  Services get services => _services!;
 
   BuildContext? _rootContext;
   BuildContext get rootContext => _rootContext!;
@@ -29,10 +34,7 @@ class RT_AppBootstrapper {
   Framework? _framework;
   Framework get framework => _framework!;
 
-  Services? _services;
-  Services get services => _services!;
-
-  RT_AppBootstrapper({
+  RT_AppRunner({
     required this.app,
     required this.targetId,
     this.routingPath = '',
@@ -40,17 +42,21 @@ class RT_AppBootstrapper {
     this.debugOptions = DebugOptions.defaultMode,
   });
 
+  /// Run app and services associated.
+  ///
   void start() {
     this
-      ..setupDelegates()
-      ..createContext()
-      ..spinFramework()
-      ..startServices()
-      ..scheduleBuildTask();
+      .._setupDelegates()
+      .._createContext()
+      .._spinFramework()
+      .._startServices()
+      .._scheduleInitialBuildTask();
   }
 
+  /// Stop app and services associated.
+  ///
   void stop() {
-    framework.tearDown();
+    _framework!.tearDown();
 
     services.debug.stopService();
 
@@ -61,17 +67,17 @@ class RT_AppBootstrapper {
     ServicesRegistry.instance.unRegisterServices(rootContext);
   }
 
-  void setupDelegates() => Window.instance.bindDelegate(BrowserWindow());
+  void _setupDelegates() => Window.instance.bindDelegate(BrowserWindow());
 
-  void createContext() {
+  void _createContext() {
     var globalKey = GlobalKey(targetId);
 
     _rootContext = BuildContext.bigBang(globalKey);
   }
 
-  void spinFramework() => _framework = Framework(rootContext);
+  void _spinFramework() => _framework = Framework(rootContext);
 
-  void startServices() {
+  void _startServices() {
     _services = Services(rootContext);
 
     ServicesRegistry.instance.registerServices(rootContext, services);
@@ -80,13 +86,11 @@ class RT_AppBootstrapper {
 
     services.router.startService(routingPath);
 
-    services.scheduler.startService(framework.taskProcessor);
+    services.scheduler.startService(_framework!.taskProcessor);
   }
 
-  void scheduleBuildTask() {
-    var schedulerService = ServicesRegistry.instance.getScheduler(rootContext);
-
-    schedulerService.addTask(
+  void _scheduleInitialBuildTask() {
+    services.scheduler.addTask(
       WidgetsBuildTask(
         widgets: [app],
         parentContext: rootContext,

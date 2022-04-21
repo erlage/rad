@@ -26,7 +26,7 @@ void main() {
   */
 
   group('dev mode tests:', () {
-    RT_AppBootstrapper? app;
+    RT_AppRunner? app;
 
     setUp(() {
       app = createTestApp(
@@ -71,7 +71,7 @@ void main() {
   */
 
   group('prod mode tests:', () {
-    RT_AppBootstrapper? app;
+    RT_AppRunner? app;
 
     setUp(() {
       app = createTestApp(
@@ -107,7 +107,7 @@ void main() {
   */
 
   group('common tests:', () {
-    RT_AppBootstrapper? app;
+    RT_AppRunner? app;
 
     setUp(() {
       app = createTestApp()..start();
