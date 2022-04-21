@@ -70,7 +70,7 @@ void main() {
   });
 
   group('should respect explicit settings', () {
-    test(':: development mode', () {
+    test(':: DebugOptions.developmentMode', () {
       var debugServiceTrue = Debug()
         ..startService(DebugOptions(developmentMode: false));
 
@@ -82,7 +82,7 @@ void main() {
       expect(debugServiceFalse.developmentMode, equals(true));
     });
 
-    test(':: widget logs', () {
+    test(':: DebugOptions.widgetLogs', () {
       var debugServiceTrue = Debug()
         ..startService(DebugOptions(widgetLogs: false));
 
@@ -94,7 +94,7 @@ void main() {
       expect(debugServiceFalse.widgetLogs, equals(true));
     });
 
-    test(':: router logs', () {
+    test(':: DebugOptions.routerLogs', () {
       var debugServiceTrue = Debug()
         ..startService(DebugOptions(routerLogs: false));
 
@@ -106,7 +106,7 @@ void main() {
       expect(debugServiceFalse.routerLogs, equals(true));
     });
 
-    test(':: framework logs', () {
+    test(':: DebugOptions.frameworkLogs', () {
       var debugServiceTrue = Debug()
         ..startService(DebugOptions(frameworkLogs: false));
 
@@ -116,6 +116,25 @@ void main() {
         ..startService(DebugOptions(frameworkLogs: true));
 
       expect(debugServiceFalse.frameworkLogs, equals(true));
+    });
+
+    test(':: DebugOptions.suppressExceptions', () {
+      var debugServiceFalse = Debug()
+        ..startService(DebugOptions(suppressExceptions: false));
+
+      expect(
+        () => debugServiceFalse.exception('Test exception'),
+        throwsA(
+          predicate(
+            (e) => '$e'.startsWith('Exception: Test exception'),
+          ),
+        ),
+      );
+
+      var debugServiceTrue = Debug()
+        ..startService(DebugOptions(suppressExceptions: true));
+
+      debugServiceTrue.onException(Exception('Test exception'));
     });
   });
 }
