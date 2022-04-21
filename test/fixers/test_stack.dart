@@ -16,4 +16,6 @@ class RT_TestStack {
   String popFromStart() => _entries.removeAt(0);
 
   bool canPop() => _entries.isNotEmpty;
+
+  void clear() => _entries.clear();
 }
