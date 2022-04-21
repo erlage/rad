@@ -24,16 +24,16 @@ class DebugOptions {
   ///
   final bool widgetLogs;
 
-  /// Custom exception handler
+  /// Whether to suppress exceptions.
   ///
-  final ExceptionCallback? exceptionHandler;
+  final bool suppressExceptions;
 
   const DebugOptions({
     this.routerLogs = false,
     this.widgetLogs = false,
     this.frameworkLogs = false,
     this.developmentMode = false,
-    this.exceptionHandler,
+    this.suppressExceptions = false,
   });
 
   /// Development mode.
@@ -44,6 +44,7 @@ class DebugOptions {
     widgetLogs: true,
     frameworkLogs: true,
     developmentMode: true,
+    suppressExceptions: false,
   );
 
   /// Production Mode.
@@ -54,6 +55,7 @@ class DebugOptions {
     widgetLogs: false,
     frameworkLogs: false,
     developmentMode: false,
+    suppressExceptions: true,
   );
 
   /// Default Mode.
@@ -64,5 +66,6 @@ class DebugOptions {
     widgetLogs: false,
     frameworkLogs: false,
     developmentMode: true,
+    suppressExceptions: false,
   );
 }

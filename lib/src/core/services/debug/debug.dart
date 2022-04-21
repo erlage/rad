@@ -25,7 +25,9 @@ class Debug {
     _frameworkLogs = options.frameworkLogs;
     _developmentMode = options.developmentMode;
 
-    _onException = options.exceptionHandler ?? presentException;
+    var suppressExceptions = options.suppressExceptions;
+
+    _onException = suppressExceptions ? supressException : presentException;
   }
 
   void stopService() => _onException = supressException;
