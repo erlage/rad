@@ -6,6 +6,7 @@ import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/interface/window/delegates/browser_window.dart';
 import 'package:rad/src/core/interface/window/window.dart';
 
+import 'test_bed.dart';
 import 'test_widget.dart';
 
 RT_AppRunner createTestApp({
@@ -15,15 +16,6 @@ RT_AppRunner createTestApp({
     app: Text('hello world'),
     targetId: 'root-div',
     debugOptions: debugOptions,
-  );
-}
-
-/// Returns a test app widget.
-///
-Widget rtAppWidget([List<Widget>? children]) {
-  return RT_TestWidget(
-    key: GlobalKey('app-widget'),
-    children: children,
   );
 }
 
@@ -66,8 +58,18 @@ class RT_AppRunner {
       .._setupDelegates()
       .._createContext()
       .._spinFramework()
+      .._startServices();
+  }
+
+  /// Run app in empty mode.
+  ///
+  void startWithAppWidget() {
+    this
+      .._setupDelegates()
+      .._createContext()
+      .._spinFramework()
       .._startServices()
-      .._scheduleInitialBuildTask();
+      .._buildAppWidget();
   }
 
   /// Stop app and services associated.
@@ -82,6 +84,15 @@ class RT_AppRunner {
     services.scheduler.stopService();
 
     ServicesRegistry.instance.unRegisterServices(rootContext);
+  }
+
+  void buildTestApp() {
+    framework.buildChildren(
+      widgets: [
+        RT_TestWidget(key: GlobalKey('app-widget')),
+      ],
+      parentContext: RT_TestBed.rootContext,
+    );
   }
 
   void _setupDelegates() => Window.instance.bindDelegate(BrowserWindow());
@@ -106,12 +117,19 @@ class RT_AppRunner {
     services.scheduler.startService(_framework!.taskProcessor);
   }
 
-  void _scheduleInitialBuildTask() {
-    services.scheduler.addTask(
-      WidgetsBuildTask(
-        widgets: [app],
-        parentContext: rootContext,
-      ),
+  // void _scheduleInitialBuildTask() {
+  //   services.scheduler.addTask(
+  //     WidgetsBuildTask(
+  //       widgets: [app],
+  //       parentContext: rootContext,
+  //     ),
+  //   );
+  // }
+
+  void _buildAppWidget() {
+    framework.buildChildren(
+      widgets: [RT_TestWidget(key: GlobalKey('app-widget'))],
+      parentContext: RT_TestBed.rootContext,
     );
   }
 }
