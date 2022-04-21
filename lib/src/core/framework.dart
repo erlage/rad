@@ -104,7 +104,7 @@ class Framework with ServicesResolver {
 
           manageChildren(
             parentContext: task.parentContext,
-            updateTypeWhenNecessary: task.updateType,
+            updateType: task.updateType,
             widgetActionCallback: task.widgetActionCallback,
             flagIterateInReverseOrder: task.flagIterateInReverseOrder,
           );
@@ -527,7 +527,7 @@ class Framework with ServicesResolver {
     //
     // -- options --
     //
-    UpdateType? updateTypeWhenNecessary,
+    required UpdateType updateType,
     //
     // -- flags --
     //
@@ -581,19 +581,13 @@ class Framework with ServicesResolver {
           break;
 
         case WidgetAction.updateWidget:
-          if (null == updateTypeWhenNecessary) {
-            return services.debug.exception(
-              "Update type note set for publishing update.",
-            );
-          }
-
           var widgetObject = widgetActionObject.widgetObject;
 
           // publish update
 
           widgetActionObject.widgetObject.renderObject.update(
             element: widgetObject.element,
-            updateType: updateTypeWhenNecessary,
+            updateType: updateType,
             newConfiguration: widgetObject.configuration,
             oldConfiguration: widgetObject.configuration,
           ); // bit of mess ^ but required
@@ -601,7 +595,7 @@ class Framework with ServicesResolver {
           updateChildren(
             widgets: widgetObject.renderObject.context.widget.widgetChildren,
             parentContext: widgetObject.context,
-            updateType: updateTypeWhenNecessary,
+            updateType: updateType,
           );
 
           break;

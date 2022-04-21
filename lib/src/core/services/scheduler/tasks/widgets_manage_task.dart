@@ -17,14 +17,14 @@ class WidgetsManageTask extends SchedulerTask {
 
   /// Update type when necessary.
   ///
-  final UpdateType? updateType;
+  final UpdateType updateType;
 
   /// Whether to iterate widgets in reverse order.
   ///
   final bool flagIterateInReverseOrder;
 
   WidgetsManageTask({
-    this.updateType,
+    this.updateType = UpdateType.undefined,
     required this.parentContext,
     required this.widgetActionCallback,
     this.flagIterateInReverseOrder = false,
