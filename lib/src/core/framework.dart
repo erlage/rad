@@ -39,8 +39,6 @@ class Framework with ServicesResolver {
 
   /// Tear down framework state.
   ///
-  /// Should be called only during testing.
-  ///
   void tearDown() {
     // gracefully dispose widgets
 

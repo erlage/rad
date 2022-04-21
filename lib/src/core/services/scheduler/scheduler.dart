@@ -7,6 +7,10 @@ import 'package:rad/src/core/services/scheduler/tasks/stimulate_listener_task.da
 
 /// A Task scheduler.
 ///
+/// Running tasks is the sole responsbility of task listener. Scheduler service
+/// is a mere mediator between objects that want to add tasks and the objects
+/// that are capable of running those tasks.
+///
 class Scheduler {
   final _tasks = <SchedulerTask>[];
 
@@ -21,7 +25,7 @@ class Scheduler {
 
   /// Start scheduler service.
   ///
-  /// This process involved setting up listeners and task streams.
+  /// This process involves setting up listeners and task streams.
   ///
   void startService(SchedulerTaskCallback listener) {
     _tasksStream = StreamController<SchedulerTask>();
@@ -32,8 +36,6 @@ class Scheduler {
   }
 
   /// Stop scheduler service.
-  ///
-  /// It should be called only during testing.
   ///
   void stopService() {
     _tasksStream!.close();

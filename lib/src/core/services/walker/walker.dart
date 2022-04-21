@@ -27,9 +27,7 @@ class Walker with ServicesResolver {
 
   Walker(this.rootContext);
 
-  /// TearDown walker.
-  ///
-  /// It should be called only during testing.
+  /// Stop walker service.
   ///
   void stopService() {
     _registeredWidgetObjects.clear();
