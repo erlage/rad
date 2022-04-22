@@ -117,15 +117,6 @@ class RT_AppRunner {
     services.scheduler.startService(_framework!.taskProcessor);
   }
 
-  // void _scheduleInitialBuildTask() {
-  //   services.scheduler.addTask(
-  //     WidgetsBuildTask(
-  //       widgets: [app],
-  //       parentContext: rootContext,
-  //     ),
-  //   );
-  // }
-
   void _buildAppWidget() {
     framework.buildChildren(
       widgets: [RT_TestWidget(key: GlobalKey('app-widget'))],
