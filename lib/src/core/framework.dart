@@ -54,7 +54,7 @@ class Framework with ServicesResolver {
 
   /// Framework's task processing unit.
   ///
-  void taskProcessor(SchedulerTask task) {
+  void processTask(SchedulerTask task) {
     if (_isTaskInProcessing) return;
 
     try {
@@ -68,70 +68,9 @@ class Framework with ServicesResolver {
         beforeCallback();
       }
 
-      switch (task.taskType) {
-        case SchedulerTaskType.build:
-          task as WidgetsBuildTask;
+      // run task
 
-          buildChildren(
-            widgets: task.widgets,
-            parentContext: task.parentContext,
-            mountAtIndex: task.mountAtIndex,
-            flagCleanParentContents: task.flagCleanParentContents,
-          );
-
-          break;
-
-        case SchedulerTaskType.update:
-          task as WidgetsUpdateTask;
-
-          updateChildren(
-            widgets: task.widgets,
-            updateType: task.updateType,
-            parentContext: task.parentContext,
-            flagAddIfNotFound: task.flagAddIfNotFound,
-            flagAddAsAppendMode: task.flagAddAsAppendMode,
-            flagHideObsoluteChildren: task.flagHideObsoluteChildren,
-            flagDisposeObsoluteChildren: task.flagDisposeObsoluteChildren,
-            flagTolerateChildrenCountMisMatch:
-                task.flagTolerateChildrenCountMisMatch,
-          );
-
-          break;
-
-        case SchedulerTaskType.manage:
-          task as WidgetsManageTask;
-
-          manageChildren(
-            parentContext: task.parentContext,
-            updateType: task.updateType,
-            widgetActionCallback: task.widgetActionCallback,
-            flagIterateInReverseOrder: task.flagIterateInReverseOrder,
-          );
-
-          break;
-
-        case SchedulerTaskType.dispose:
-          task as WidgetsDisposeTask;
-
-          disposeWidget(
-            widgetObject: task.widgetObject,
-            flagPreserveTarget: task.flagPreserveTarget,
-          );
-
-          break;
-
-        case SchedulerTaskType.updateDependent:
-          task as WidgetsUpdateDependentTask;
-
-          updateDependentContext(task.widgetContext);
-
-          break;
-
-        case SchedulerTaskType.stimulateListener:
-          // do nothing.. finally block will automatically
-          // push a event for getting new tasks after this block.
-          break;
-      }
+      _runTask(task);
 
       // run after-task callback
 
@@ -521,6 +460,12 @@ class Framework with ServicesResolver {
     }
   }
 
+  /*
+  |--------------------------------------------------------------------------
+  | Internals
+  |--------------------------------------------------------------------------
+  */
+
   GlobalKey _createWidgetKey(Widget widget, BuildContext parentContext) {
     GlobalKey generatedKey;
 
@@ -550,6 +495,73 @@ class Framework with ServicesResolver {
     }
 
     return generatedKey;
+  }
+
+  void _runTask(SchedulerTask task) {
+    switch (task.taskType) {
+      case SchedulerTaskType.build:
+        task as WidgetsBuildTask;
+
+        buildChildren(
+          widgets: task.widgets,
+          parentContext: task.parentContext,
+          mountAtIndex: task.mountAtIndex,
+          flagCleanParentContents: task.flagCleanParentContents,
+        );
+
+        break;
+
+      case SchedulerTaskType.update:
+        task as WidgetsUpdateTask;
+
+        updateChildren(
+          widgets: task.widgets,
+          updateType: task.updateType,
+          parentContext: task.parentContext,
+          flagAddIfNotFound: task.flagAddIfNotFound,
+          flagAddAsAppendMode: task.flagAddAsAppendMode,
+          flagHideObsoluteChildren: task.flagHideObsoluteChildren,
+          flagDisposeObsoluteChildren: task.flagDisposeObsoluteChildren,
+          flagTolerateChildrenCountMisMatch:
+              task.flagTolerateChildrenCountMisMatch,
+        );
+
+        break;
+
+      case SchedulerTaskType.manage:
+        task as WidgetsManageTask;
+
+        manageChildren(
+          parentContext: task.parentContext,
+          updateType: task.updateType,
+          widgetActionCallback: task.widgetActionCallback,
+          flagIterateInReverseOrder: task.flagIterateInReverseOrder,
+        );
+
+        break;
+
+      case SchedulerTaskType.dispose:
+        task as WidgetsDisposeTask;
+
+        disposeWidget(
+          widgetObject: task.widgetObject,
+          flagPreserveTarget: task.flagPreserveTarget,
+        );
+
+        break;
+
+      case SchedulerTaskType.updateDependent:
+        task as WidgetsUpdateDependentTask;
+
+        updateDependentContext(task.widgetContext);
+
+        break;
+
+      case SchedulerTaskType.stimulateListener:
+        // do nothing.. finally block will automatically
+        // push a event for getting new tasks after this block.
+        break;
+    }
   }
 
   void _buildWidgetsUnderContext({
