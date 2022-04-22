@@ -171,7 +171,7 @@ class Framework with ServicesResolver {
       _cleanContext(parentContext);
     }
 
-    _buildWidgets(
+    _buildWidgetsUnderContext(
       widgets: widgets,
       parentContext: parentContext,
       mountAtIndex: mountAtIndex,
@@ -238,9 +238,9 @@ class Framework with ServicesResolver {
     widgetLoop:
     for (final widget in widgets) {
       for (final child in parent.children) {
-        var alreadySelected = updateObjects.containsKey(child.id);
+        var isAlreadySelectedForUpdate = updateObjects.containsKey(child.id);
 
-        if (!alreadySelected) {
+        if (!isAlreadySelectedForUpdate) {
           // whether old and new widgets has same type.
 
           var newWidgetRuntimeType = "${widget.runtimeType}";
@@ -609,22 +609,16 @@ class Framework with ServicesResolver {
     return generatedKey;
   }
 
-  void _buildWidgets({
+  void _buildWidgetsUnderContext({
     required List<Widget> widgets,
     required BuildContext parentContext,
     int? mountAtIndex,
   }) {
     for (final widget in widgets) {
-      var widgetKey = _createWidgetKey(widget, parentContext);
+      // 1. create context
 
-      // create widget configuration
-
-      var configuration = widget.createConfiguration();
-
-      // create build context
-
-      var buildContext = BuildContext.fromParent(
-        key: widgetKey,
+      var context = BuildContext.fromParent(
+        key: _createWidgetKey(widget, parentContext),
         widget: widget,
         parentContext: parentContext,
         widgetConcreteType: widget.concreteType,
@@ -632,26 +626,19 @@ class Framework with ServicesResolver {
         widgetRuntimeType: "${widget.runtimeType}",
       );
 
-      // create render object
+      // 2. create widget object
 
-      var renderObject = widget.createRenderObject(buildContext);
+      var widgetObject = WidgetObject(widget, context);
 
-      if (services.debug.widgetLogs) {
-        print("Build: $buildContext");
-      }
-
-      // create widget object
-
-      var widgetObject = WidgetObject(
-        configuration: configuration,
-        renderObject: renderObject,
-      );
+      // 3. register widget object
 
       services.walker.registerWidgetObject(widgetObject);
 
+      // 4. mount widget(render)
+
       widgetObject.mount(mountAtIndex: mountAtIndex);
 
-      // call build on child list
+      // 5. build child(if any)
 
       buildChildren(
         widgets: widgetObject.widget.widgetChildren,
@@ -663,11 +650,9 @@ class Framework with ServicesResolver {
   /// Clean widget context.
   ///
   void _cleanContext(BuildContext context) {
-    var widgetType = context.widgetConcreteType;
+    var isRoot = Constants.contextTypeBigBang == context.widgetConcreteType;
 
-    var isRootContext = Constants.contextTypeBigBang == widgetType;
-
-    if (isRootContext) {
+    if (isRoot) {
       var element = document.getElementById(context.key.value);
 
       if (null == element) {

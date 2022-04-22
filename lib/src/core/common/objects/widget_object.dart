@@ -23,24 +23,21 @@ class WidgetObject {
   Widget get widget => renderObject.context.widget;
   BuildContext get context => renderObject.context;
 
-  WidgetObject({
-    required this.configuration,
-    required this.renderObject,
-  }) :
-        // create dom element
+  /// Create widget object.
+  ///
+  WidgetObject(Widget widget, BuildContext context)
+      : configuration = widget.createConfiguration(),
+        renderObject = widget.createRenderObject(context),
         element = document.createElement(
-          fnMapDomTag(renderObject.context.widget.correspondingTag),
+          fnMapDomTag(context.widget.correspondingTag),
         ) as HtmlElement {
     //
     // add properties to element
 
-    element.id = renderObject.context.key.value;
-
-    element.dataset[Constants.attrConcreteType] =
-        renderObject.context.widgetConcreteType;
-
-    element.dataset[Constants.attrRuntimeType] =
-        renderObject.context.widgetRuntimeType;
+    element
+      ..id = context.key.value
+      ..dataset[Constants.attrConcreteType] = context.widgetConcreteType
+      ..dataset[Constants.attrRuntimeType] = context.widgetRuntimeType;
   }
 
   void rebindConfiguration(WidgetConfiguration newConfiguration) {
