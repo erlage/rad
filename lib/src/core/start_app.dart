@@ -96,7 +96,7 @@ class AppRunner {
     this
       .._setupDelegates()
       .._createContext()
-      .._spinFramework()
+      .._spinFrameworkInstance()
       .._startServices()
       .._prepareMount()
       .._scheduleInitialBuildTask();
@@ -105,15 +105,9 @@ class AppRunner {
   /// Stop app and services associated.
   ///
   void stop() {
-    _framework!.tearDown();
-
-    services.debug.stopService();
-
-    services.router.stopService();
-
-    services.scheduler.stopService();
-
-    ServicesRegistry.instance.unRegisterServices(rootContext);
+    this
+      .._disposeFrameworkInstance()
+      .._stopServices();
   }
 
   void _setupDelegates() => Window.instance.bindDelegate(BrowserWindow());
@@ -124,7 +118,9 @@ class AppRunner {
     _rootContext = BuildContext.bigBang(globalKey);
   }
 
-  void _spinFramework() => _framework = Framework(rootContext);
+  void _spinFrameworkInstance() => _framework = Framework(rootContext);
+
+  void _disposeFrameworkInstance() => _framework!.dispose();
 
   void _prepareMount() {
     // Pre-checks before mount
@@ -163,7 +159,17 @@ class AppRunner {
 
     services.router.startService(routingPath);
 
-    services.scheduler.startService(_framework!.taskProcessor);
+    services.scheduler.startService(_framework!.processTask);
+  }
+
+  void _stopServices() {
+    services.debug.stopService();
+
+    services.router.stopService();
+
+    services.scheduler.stopService();
+
+    ServicesRegistry.instance.unRegisterServices(rootContext);
   }
 
   void _scheduleInitialBuildTask() {

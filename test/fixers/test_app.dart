@@ -75,15 +75,9 @@ class RT_AppRunner {
   /// Stop app and services associated.
   ///
   void stop() {
-    _framework!.tearDown();
-
-    services.debug.stopService();
-
-    services.router.stopService();
-
-    services.scheduler.stopService();
-
-    ServicesRegistry.instance.unRegisterServices(rootContext);
+    this
+      .._disposeFramework()
+      .._stopServices();
   }
 
   void buildTestApp() {
@@ -104,6 +98,7 @@ class RT_AppRunner {
   }
 
   void _spinFramework() => _framework = Framework(rootContext);
+  void _disposeFramework() => framework.dispose();
 
   void _startServices() {
     _services = Services(rootContext);
@@ -114,7 +109,17 @@ class RT_AppRunner {
 
     services.router.startService(routingPath);
 
-    services.scheduler.startService(_framework!.taskProcessor);
+    services.scheduler.startService(_framework!.processTask);
+  }
+
+  void _stopServices() {
+    services.debug.stopService();
+
+    services.router.stopService();
+
+    services.scheduler.stopService();
+
+    ServicesRegistry.instance.unRegisterServices(rootContext);
   }
 
   void _buildAppWidget() {

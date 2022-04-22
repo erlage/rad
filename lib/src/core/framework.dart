@@ -38,20 +38,6 @@ class Framework with ServicesResolver {
   ///
   Framework(this.rootContext);
 
-  /// Tear down framework state.
-  ///
-  void tearDown() {
-    // gracefully dispose widgets
-
-    var widgetKeys = services.walker.dumpWidgetKeys();
-
-    for (var widgetKey in widgetKeys) {
-      disposeWidget(
-        widgetObject: services.walker.getWidgetObject(widgetKey),
-      );
-    }
-  }
-
   /// Framework's task processing unit.
   ///
   void processTask(SchedulerTask task) {
@@ -457,6 +443,20 @@ class Framework with ServicesResolver {
 
     if (services.debug.widgetLogs) {
       print("Dispose: ${widgetObject.context}");
+    }
+  }
+
+  /// Dispose entire state.
+  ///
+  void dispose() {
+    // gracefully dispose all widgets
+
+    var widgetKeys = services.walker.dumpWidgetKeys();
+
+    for (var widgetKey in widgetKeys) {
+      disposeWidget(
+        widgetObject: services.walker.getWidgetObject(widgetKey),
+      );
     }
   }
 
