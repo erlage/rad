@@ -446,74 +446,17 @@ class Framework with ServicesResolver {
     //
     bool flagIterateInReverseOrder = false,
   }) {
-    var widgetObject = services.walker.getWidgetObject(parentContext.key.value);
+    var widgetActions = _prepareWidgetActions(
+      parentContext: parentContext,
+      flagIterateInReverseOrder: flagIterateInReverseOrder,
+      widgetActionCallback: widgetActionCallback,
+    );
 
-    if (null == widgetObject) return;
-
-    var widgetActionObjects = <WidgetActionObject>[];
-
-    childrenLoop:
-    for (final child in flagIterateInReverseOrder
-        ? widgetObject.element.children.reversed
-        : widgetObject.element.children) {
-      var childWidgetObject = services.walker.getWidgetObject(child.id);
-
-      if (null != childWidgetObject) {
-        var widgetActions = widgetActionCallback(childWidgetObject);
-
-        for (final widgetAction in widgetActions) {
-          widgetActionObjects.add(
-            WidgetActionObject(widgetAction, childWidgetObject),
-          );
-
-          if (WidgetAction.skipRest == widgetAction) {
-            break childrenLoop;
-          }
-        }
-      }
-    }
-
-    for (final widgetActionObject in widgetActionObjects) {
-      switch (widgetActionObject.widgetAction) {
-        case WidgetAction.skipRest:
-          break;
-
-        case WidgetAction.showWidget:
-          _showElement(widgetActionObject.widgetObject.element);
-
-          break;
-
-        case WidgetAction.hideWidget:
-          _hideElement(widgetActionObject.widgetObject.element);
-
-          break;
-
-        case WidgetAction.dispose:
-          disposeWidget(widgetObject: widgetActionObject.widgetObject);
-
-          break;
-
-        case WidgetAction.updateWidget:
-          var widgetObject = widgetActionObject.widgetObject;
-
-          // publish update
-
-          widgetActionObject.widgetObject.renderObject.update(
-            element: widgetObject.element,
-            updateType: updateType,
-            newConfiguration: widgetObject.configuration,
-            oldConfiguration: widgetObject.configuration,
-          ); // bit of mess ^ but required
-
-          updateChildren(
-            widgets: widgetObject.renderObject.context.widget.widgetChildren,
-            parentContext: widgetObject.context,
-            updateType: updateType,
-          );
-
-          break;
-      }
-    }
+    _dispatchWidgetActions(
+      parentContext: parentContext,
+      widgetActions: widgetActions,
+      updateType: updateType,
+    );
   }
 
   /// Update a dependent widget(using its context).
@@ -644,6 +587,98 @@ class Framework with ServicesResolver {
         widgets: widgetObject.widget.widgetChildren,
         parentContext: widgetObject.context,
       );
+    }
+  }
+
+  /// Prepare list of widget actions(by iterating widgets under a context).
+  ///
+  /// Actions will be collected from callback [widgetActionCallback] which will
+  /// be called for each widget under provided context.
+  ///
+  List<WidgetActionObject> _prepareWidgetActions({
+    required BuildContext parentContext,
+    required WidgetActionCallback widgetActionCallback,
+    bool flagIterateInReverseOrder = false,
+  }) {
+    var widgetObject = services.walker.getWidgetObject(parentContext.key.value);
+
+    if (null == widgetObject) {
+      return [];
+    }
+
+    var widgetActionObjects = <WidgetActionObject>[];
+
+    childrenLoop:
+    for (final child in flagIterateInReverseOrder
+        ? widgetObject.element.children.reversed
+        : widgetObject.element.children) {
+      var childWidgetObject = services.walker.getWidgetObject(child.id);
+
+      if (null != childWidgetObject) {
+        var widgetActions = widgetActionCallback(childWidgetObject);
+
+        for (final widgetAction in widgetActions) {
+          widgetActionObjects.add(
+            WidgetActionObject(widgetAction, childWidgetObject),
+          );
+
+          if (WidgetAction.skipRest == widgetAction) {
+            break childrenLoop;
+          }
+        }
+      }
+    }
+
+    return widgetActionObjects;
+  }
+
+  /// Dispatch widget actions.
+  ///
+  void _dispatchWidgetActions({
+    required BuildContext parentContext,
+    required List<WidgetActionObject> widgetActions,
+    required UpdateType updateType,
+  }) {
+    for (final widgetActionObject in widgetActions) {
+      switch (widgetActionObject.widgetAction) {
+        case WidgetAction.skipRest:
+          break;
+
+        case WidgetAction.showWidget:
+          _showElement(widgetActionObject.widgetObject.element);
+
+          break;
+
+        case WidgetAction.hideWidget:
+          _hideElement(widgetActionObject.widgetObject.element);
+
+          break;
+
+        case WidgetAction.dispose:
+          disposeWidget(widgetObject: widgetActionObject.widgetObject);
+
+          break;
+
+        case WidgetAction.updateWidget:
+          var widgetObject = widgetActionObject.widgetObject;
+
+          // publish update
+
+          widgetActionObject.widgetObject.renderObject.update(
+            element: widgetObject.element,
+            updateType: updateType,
+            newConfiguration: widgetObject.configuration,
+            oldConfiguration: widgetObject.configuration,
+          ); // bit of mess ^ but required
+
+          updateChildren(
+            widgets: widgetObject.renderObject.context.widget.widgetChildren,
+            parentContext: widgetObject.context,
+            updateType: updateType,
+          );
+
+          break;
+      }
     }
   }
 
