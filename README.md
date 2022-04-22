@@ -26,11 +26,11 @@ If you're familiar with Flutter it don't even need an explanation. It has some d
 
 ## Differences
 
-1. First off, we don't use a rendering engine to render a widget or anything like that. Widgets are mapped to HTML tags and composed together they way you describe them.
+1. First off, we don't use a rendering engine to render a widget or anything like that. Widgets are mapped to HTML tags and composed together the way you describe them.
 
-2. Rad's won't be rebuilding your widgets multiple times a second, which means for animations you've to turn to CSS.
+2. Second, you can use use CSS for adding animations without ever thinking about how browsers carries them out.
 
-3. Lastly, for designing UIs, you've to use HTML. And guess what? there are widgets for that.
+3. Lastly, for layouts, you've to use HTML. And guess what? there are widgets for that.
   
     Let's take this HTML snippet:
     ```html
@@ -50,28 +50,28 @@ If you're familiar with Flutter it don't even need an explanation. It has some d
     );
     ```
 
-    Talking more about UI, there are no layout/style specific widgets like you've Container and Stack widgets in Flutter. We don't really need them as most of things can be done using HTML and CSS.
+    Talking more about UI, there are no in-built widgets for layout(for example you've Container and Stack widget in Flutter). We don't really need them as most of things can be done using HTML and CSS.
 
     Just for the sake of example, let's say you want a Stack widget,
 
-    1. Create a function Stack entry:
+    1. Create a stack entry function using HTML widgets and some CSS:
         ```dart
         Widget StackEntry(Widget widget)
         {
           return Division( 
-              style: "position:absolute;top:0;left:0;",
+              style: "position: absolute; top: 0; left: 0;",
               children: [widget],
             );
 
           // Division = HTML's div
         }
         ```
-    2. Create a function Stack:
+    2. Create a stack widget, again using HTML widget:
         ```dart
         Widget Stack({required List<Widget> children})
         {
           return Division(
-              style: "position:relative;",
+              style: "position: relative;",
               children: children,
             );
         }
@@ -85,7 +85,7 @@ If you're familiar with Flutter it don't even need an explanation. It has some d
           ]
         )
         ```
-    This was just an example, you don't really need these type of widgets since now you can use a CSS framework of your choice. Note that, in above example, Stack is actually a function that returns a widget. In later part of this readme, we'll show you how you can create a actual widget out of it.
+    This was just an example, you don't really need these type of widgets since now you can use a CSS framework of your choice. Note that, in above example, Stack is actually a function that returns a widget. In later part of this readme, we'll show you how you can actually create a widget out of it.
 
 ## Flutter widgets
 
@@ -127,7 +127,7 @@ Let's finish our Stack example by creating a actual Stack widget. Here's the Sta
 Widget StackEntry(Widget widget)
 {
   return Division( 
-    style: "position:absolute;top:0;left:0;",
+    style: "position: absolute; top: 0; left: 0;",
     children: [widget],
   );
 }
@@ -139,7 +139,7 @@ We can unwrap it by extending the Division widget:
 class StackEntry extends Division
 {
   const StackEntry(Widget widget): super( 
-    style: "position:absolute;top:0;left:0;",
+    style: "position: absolute; top: 0; left: 0;",
     children: [widget],
   );
 }
@@ -154,7 +154,7 @@ Let's do the same with Stack container function:
 Widget Stack({required List<Widget> children})
 {
   return Division(
-      style: "position:relative;",
+      style: "position: relative;",
       children: children,
     );
 }
@@ -164,7 +164,7 @@ Widget Stack({required List<Widget> children})
 class Stack extends Division
 {
   const Stack({required List<Stack> children}): super( 
-    style: "position:relative;",
+    style: "position: relative;",
     children: children,
   );
 }
@@ -187,7 +187,7 @@ That's pretty much it. This might not look like a big improvement at first but w
 
 > Is it SEO friendly?
 
-  Rad is a frontend framework and server side rendering is a must for better SEOs. Some frontend frameworks provides SSR but unfortunately we don't have that at the moment. However you can use a backend technology(PHP, Node, Erlang etc.) to stuff meta information in your root page, based on location that a client requested, before serving the page to client. We assure you that this is a sane, simple, and effective approach
+  Rad is a frontend framework and server side rendering is a must for better SEOs. Some frontend frameworks provides SSR but unfortunately we don't have that at the moment. However you can use a backend technology(PHP, Node, Erlang etc.) to stuff meta information in your root page, based on location that a client requested, before serving the page to client. We assure you that this is a sane, simple, and effective approach.
 
 ## Widgets Index
 
@@ -223,10 +223,10 @@ Below is the list of available widgets in this framework.
 
 ### Misc
 
-- [Text](https://pub.dev/documentation/rad/latest/rad/Text-class.html) \[*different*\]
-- [RawMarkUp](https://pub.dev/documentation/rad/latest/rad/RawMarkUp-class.html)
-- [ListView](https://pub.dev/documentation/rad/latest/rad/ListView-class.html) \[*same*\]
 - [RadApp](https://pub.dev/documentation/rad/latest/rad/RadApp-class.html)
+- [RawMarkUp](https://pub.dev/documentation/rad/latest/rad/RawMarkUp-class.html)
+- [Text](https://pub.dev/documentation/rad/latest/rad/Text-class.html) \[*different*\]
+- [ListView](https://pub.dev/documentation/rad/latest/rad/ListView-class.html) \[*same*\]
 - [GestureDetector](https://pub.dev/documentation/rad/latest/rad/GestureDetector-class.html) \[*experimental*\]
 
 ### HTML Widgets
