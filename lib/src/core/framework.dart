@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/constants.dart';
@@ -162,105 +163,19 @@ class Framework with ServicesResolver {
     flagCleanParentContents = true,
     //
   }) {
-    if (widgets.isEmpty) return;
+    if (widgets.isEmpty) {
+      return;
+    }
 
     if (flagCleanParentContents) {
-      var widgetType = parentContext.widgetConcreteType;
-
-      if (Constants.contextTypeBigBang == widgetType) {
-        var element = document.getElementById(parentContext.key.value);
-
-        if (null == element) {
-          return services.debug.exception(
-            "Unable to find target to mount app. Make sure your DOM has "
-            "element with key #$parentContext",
-          );
-        }
-
-        element.innerHtml = "";
-      } else {
-        disposeWidget(
-          flagPreserveTarget: true,
-          widgetObject: services.walker.getWidgetObject(
-            parentContext.key.value,
-          ),
-        );
-      }
+      _cleanContext(parentContext);
     }
 
-    for (final widget in widgets) {
-      // check whether key is provided explicitly in widget constructor
-
-      var isKeyProvided = Constants.contextKeyNotSet != widget.initialKey;
-
-      // ensure key is not using system prefix
-
-      if (services.debug.developmentMode) {
-        if (isKeyProvided && widget.initialKey.hasSystemPrefix) {
-          return services.debug.exception(
-            "Keys starting with ${Constants.contextGenKeyPrefix} are reserved "
-            "for framework.",
-          );
-        }
-      }
-
-      // get widget's global key
-
-      var widgetKey = isKeyProvided
-          ? services.keyGen.getGlobalKeyUsingKey(
-              widget.initialKey,
-              parentContext,
-            )
-          : services.keyGen.generateGlobalKey();
-
-      // create widget configuration
-
-      var configuration = widget.createConfiguration();
-
-      // create build context
-
-      var buildContext = BuildContext.fromParent(
-        key: widgetKey,
-        widget: widget,
-        parentContext: parentContext,
-        widgetConcreteType: widget.concreteType,
-        widgetCorrespondingTag: widget.correspondingTag,
-        widgetRuntimeType: "${widget.runtimeType}",
-      );
-
-      // create render object
-
-      var renderObject = widget.createRenderObject(buildContext);
-
-      if (services.debug.widgetLogs) {
-        print("Build: $buildContext");
-      }
-
-      // create widget object
-
-      var widgetObject = WidgetObject(
-        configuration: configuration,
-        renderObject: renderObject,
-      );
-
-      services.walker.registerWidgetObject(widgetObject);
-
-      widgetObject.renderObject.beforeMount();
-
-      widgetObject.mount(mountAtIndex: mountAtIndex);
-
-      widgetObject.renderObject.afterMount();
-
-      widgetObject.renderObject.render(
-        widgetObject.element,
-        widgetObject.configuration,
-      );
-
-      buildChildren(
-        widgets: widgetObject.widget.widgetChildren,
-        parentContext: widgetObject.context,
-      );
-    }
+    _buildWidgets(
+      widgets: widgets,
+      parentContext: parentContext,
+      mountAtIndex: mountAtIndex,
+    );
   }
 
   /// Update childrens under provided context.
@@ -654,15 +569,125 @@ class Framework with ServicesResolver {
       return;
     }
 
-    widgetObject.renderObject.beforeUnMount();
+    widgetObject.unMount();
 
     services.walker.unRegisterWidgetObject(widgetObject);
-
-    widgetObject.element.remove();
 
     if (services.debug.widgetLogs) {
       print("Dispose: ${widgetObject.context}");
     }
+  }
+
+  GlobalKey _createWidgetKey(Widget widget, BuildContext parentContext) {
+    GlobalKey generatedKey;
+
+    // whether key is provided explicitly in widget constructor
+
+    var isKeyProvided = Constants.contextKeyNotSet != widget.initialKey;
+
+    // ensure key is not using system prefix
+    // if in dev mode
+
+    if (services.debug.developmentMode) {
+      if (isKeyProvided && widget.initialKey.hasSystemPrefix) {
+        services.debug.exception(
+          "Keys starting with ${Constants.contextGenKeyPrefix} are reserved "
+          "for framework.",
+        );
+      }
+    }
+
+    if (isKeyProvided) {
+      generatedKey = services.keyGen.getGlobalKeyUsingKey(
+        widget.initialKey,
+        parentContext,
+      );
+    } else {
+      generatedKey = services.keyGen.generateGlobalKey();
+    }
+
+    return generatedKey;
+  }
+
+  void _buildWidgets({
+    required List<Widget> widgets,
+    required BuildContext parentContext,
+    int? mountAtIndex,
+  }) {
+    for (final widget in widgets) {
+      var widgetKey = _createWidgetKey(widget, parentContext);
+
+      // create widget configuration
+
+      var configuration = widget.createConfiguration();
+
+      // create build context
+
+      var buildContext = BuildContext.fromParent(
+        key: widgetKey,
+        widget: widget,
+        parentContext: parentContext,
+        widgetConcreteType: widget.concreteType,
+        widgetCorrespondingTag: widget.correspondingTag,
+        widgetRuntimeType: "${widget.runtimeType}",
+      );
+
+      // create render object
+
+      var renderObject = widget.createRenderObject(buildContext);
+
+      if (services.debug.widgetLogs) {
+        print("Build: $buildContext");
+      }
+
+      // create widget object
+
+      var widgetObject = WidgetObject(
+        configuration: configuration,
+        renderObject: renderObject,
+      );
+
+      services.walker.registerWidgetObject(widgetObject);
+
+      widgetObject.mount(mountAtIndex: mountAtIndex);
+
+      // call build on child list
+
+      buildChildren(
+        widgets: widgetObject.widget.widgetChildren,
+        parentContext: widgetObject.context,
+      );
+    }
+  }
+
+  /// Clean widget context.
+  ///
+  void _cleanContext(BuildContext context) {
+    var widgetType = context.widgetConcreteType;
+
+    var isRootContext = Constants.contextTypeBigBang == widgetType;
+
+    if (isRootContext) {
+      var element = document.getElementById(context.key.value);
+
+      if (null == element) {
+        return services.debug.exception(
+          "Unable to find target. Make sure your DOM has "
+          "element with key #$context",
+        );
+      }
+
+      element.innerHtml = "";
+
+      return;
+    }
+
+    disposeWidget(
+      flagPreserveTarget: true,
+      widgetObject: services.walker.getWidgetObject(
+        context.key.value,
+      ),
+    );
   }
 
   void _hideElement(Element element) {

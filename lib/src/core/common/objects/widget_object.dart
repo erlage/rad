@@ -43,10 +43,27 @@ class WidgetObject {
         renderObject.context.widgetRuntimeType;
   }
 
-  void mount({int? mountAtIndex}) {
-    // ? Debugging has been removed from objects that are created often.
-    // return Debug.exception("Widget's element already mounted.");
+  void rebindConfiguration(WidgetConfiguration newConfiguration) {
+    configuration = newConfiguration;
+  }
 
+  void mount({int? mountAtIndex}) {
+    renderObject.beforeMount();
+
+    _doMount(mountAtIndex: mountAtIndex);
+
+    renderObject.afterMount();
+
+    renderObject.render(element, configuration);
+  }
+
+  void unMount() {
+    renderObject.beforeUnMount();
+
+    element.remove();
+  }
+
+  void _doMount({int? mountAtIndex}) {
     // we can't use node.parent here cus root widget's parent can be null
 
     var parentElement = document.getElementById(
@@ -78,13 +95,6 @@ class WidgetObject {
       parentElement.append(element);
 
       _isMounted = true;
-    } else {
-      // ? Debugging has been removed from objects that are created often.
-      // print("Element not found: #${renderObject.context.parent.key}");
     }
-  }
-
-  void rebindConfiguration(WidgetConfiguration newConfiguration) {
-    configuration = newConfiguration;
   }
 }
