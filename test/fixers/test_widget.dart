@@ -21,6 +21,11 @@ class RT_TestWidget extends Widget {
   final Callback? wEventHookCreateWidgetConfiguration;
   final Callback? wEventHookIsConfigurationChanged;
 
+  // overrides
+
+  final WidgetConfiguration Function()? wOverrideCreateConfiguration;
+  final bool Function()? wOverrideIsConfigurationChanged;
+
   final List<Widget>? children;
 
   const RT_TestWidget({
@@ -35,6 +40,8 @@ class RT_TestWidget extends Widget {
     this.wEventHookCreateWidgetConfiguration,
     this.wEventHookIsConfigurationChanged,
     this.wEventHookCreateRenderObject,
+    this.wOverrideCreateConfiguration,
+    this.wOverrideIsConfigurationChanged,
   }) : super(key: key);
 
   @override
@@ -52,6 +59,10 @@ class RT_TestWidget extends Widget {
       wEventHookCreateWidgetConfiguration!();
     }
 
+    if (null != wOverrideCreateConfiguration) {
+      return wOverrideCreateConfiguration!();
+    }
+
     return const WidgetConfiguration();
   }
 
@@ -59,6 +70,10 @@ class RT_TestWidget extends Widget {
   isConfigurationChanged(oldConfiguration) {
     if (null != wEventHookIsConfigurationChanged) {
       wEventHookIsConfigurationChanged!();
+    }
+
+    if (null != wOverrideIsConfigurationChanged) {
+      return wOverrideIsConfigurationChanged!();
     }
 
     return true;
@@ -97,6 +112,8 @@ class RT_AnotherTestWidget extends RT_TestWidget {
     Callback? wEventHookCreateRenderObject,
     Callback? wEventHookCreateWidgetConfiguration,
     Callback? wEventHookIsConfigurationChanged,
+    WidgetConfiguration Function()? wOverrideCreateConfiguration,
+    bool Function()? wOverrideIsConfigurationChanged,
   }) : super(
           key: key,
           children: children,
@@ -110,6 +127,8 @@ class RT_AnotherTestWidget extends RT_TestWidget {
               wEventHookCreateWidgetConfiguration,
           wEventHookIsConfigurationChanged: wEventHookIsConfigurationChanged,
           wEventHookCreateRenderObject: wEventHookCreateRenderObject,
+          wOverrideCreateConfiguration: wOverrideCreateConfiguration,
+          wOverrideIsConfigurationChanged: wOverrideIsConfigurationChanged,
         );
 }
 
