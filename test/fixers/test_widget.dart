@@ -21,6 +21,8 @@ class RT_TestWidget extends Widget {
   final Callback? wEventHookCreateWidgetConfiguration;
   final Callback? wEventHookIsConfigurationChanged;
 
+  final String hash;
+
   // overrides
 
   final WidgetConfiguration Function()? wOverrideCreateConfiguration;
@@ -42,7 +44,9 @@ class RT_TestWidget extends Widget {
     this.wEventHookCreateRenderObject,
     this.wOverrideCreateConfiguration,
     this.wOverrideIsConfigurationChanged,
-  }) : super(key: key);
+    String? customHash,
+  })  : hash = customHash ?? 'none',
+        super(key: key);
 
   @override
   get concreteType => '$RT_TestWidget';
@@ -114,6 +118,7 @@ class RT_AnotherTestWidget extends RT_TestWidget {
     Callback? wEventHookIsConfigurationChanged,
     WidgetConfiguration Function()? wOverrideCreateConfiguration,
     bool Function()? wOverrideIsConfigurationChanged,
+    String? customHash,
   }) : super(
           key: key,
           children: children,
@@ -129,6 +134,7 @@ class RT_AnotherTestWidget extends RT_TestWidget {
           wEventHookCreateRenderObject: wEventHookCreateRenderObject,
           wOverrideCreateConfiguration: wOverrideCreateConfiguration,
           wOverrideIsConfigurationChanged: wOverrideIsConfigurationChanged,
+          customHash: customHash,
         );
 }
 
