@@ -6,7 +6,6 @@ import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/objects/widget_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/list_view.dart';
 import 'package:rad/src/widgets/navigator.dart';
 
 typedef Callback = void Function();

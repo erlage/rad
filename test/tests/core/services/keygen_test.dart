@@ -1,5 +1,6 @@
 import 'package:rad/rad.dart';
 import 'package:rad/widgets_internals.dart';
+import 'package:rad/src/core/common/objects/app_options.dart';
 
 import 'package:test/scaffolding.dart';
 import 'package:test/expect.dart';
@@ -14,7 +15,10 @@ void main() {
   */
 
   group('generateGlobalKey() :', () {
-    var keyGenService = KeyGen(RT_TestBed.rootContext);
+    var keyGenService = KeyGen(
+      RT_TestBed.rootContext,
+      KeyGenOptions.defaultMode,
+    )..startService();
 
     var iterations = 100;
     var generatedWidgetKeys = <Key>[];
@@ -44,7 +48,10 @@ void main() {
   */
 
   group('generateGlobalKey() :', () {
-    var keyGenService = KeyGen(RT_TestBed.rootContext);
+    var keyGenService = KeyGen(
+      RT_TestBed.rootContext,
+      KeyGenOptions.defaultMode,
+    )..startService();
 
     var iterations = 100;
     var generatedWidgetKeys = <Key>[];
@@ -84,7 +91,10 @@ void main() {
   */
 
   group('getGlobalKeyUsingKey() :', () {
-    var keyGenService = KeyGen(RT_TestBed.rootContext);
+    var keyGenService = KeyGen(
+      RT_TestBed.rootContext,
+      KeyGenOptions.defaultMode,
+    )..startService();
 
     test('should be able to generate key from root context', () {
       var key = keyGenService.getGlobalKeyUsingKey(
@@ -175,7 +185,10 @@ void main() {
   */
 
   group('generateRandomKey() :', () {
-    var keyGenService = KeyGen(RT_TestBed.rootContext);
+    var keyGenService = KeyGen(
+      RT_TestBed.rootContext,
+      KeyGenOptions.defaultMode,
+    )..startService();
 
     var iterations = 100;
     var generatedRandomKeys = <String>[];
@@ -199,7 +212,10 @@ void main() {
   */
 
   group('random() :', () {
-    var keyGenService = KeyGen(RT_TestBed.rootContext);
+    var keyGenService = KeyGen(
+      RT_TestBed.rootContext,
+      KeyGenOptions.defaultMode,
+    )..startService();
 
     var iterations = 100;
     var generatedRandomItems = <String>[];

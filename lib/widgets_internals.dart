@@ -2,7 +2,7 @@
 |--------------------------------------------------------------------------
 | core (low-level exports)
 |
-| To allow external components and widget implementations
+| this allow external components and widget implementations
 |--------------------------------------------------------------------------
 */
 
@@ -18,8 +18,10 @@ export 'src/core/services/router/router.dart' show Router;
 export 'src/core/services/router/router.dart' show Router;
 export 'src/core/services/keygen/key_gen.dart' show KeyGen;
 export 'src/core/services/scheduler/scheduler.dart' show Scheduler;
+export 'src/core/services/abstract.dart' show Service;
+export 'src/core/services/services.dart' show Services;
+export 'src/core/services/services_resolver.dart' show ServicesResolver;
 export 'src/core/services/services_registry.dart' show ServicesRegistry;
-export 'src/core/services/services.dart' show Services, ServicesResolver;
 
 // tasks
 

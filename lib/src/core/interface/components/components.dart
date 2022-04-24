@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/interface/components/abstract.dart';
 import 'package:rad/src/core/services/services.dart';
+import 'package:rad/src/core/services/services_resolver.dart';
 
 /// App components.
 ///

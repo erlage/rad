@@ -8,6 +8,7 @@ import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/core/services/services_resolver.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/html/division.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';

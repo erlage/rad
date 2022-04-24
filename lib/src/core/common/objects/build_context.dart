@@ -56,7 +56,7 @@ class BuildContext {
         _parent = parentContext,
         appTargetId = parentContext.appTargetId;
 
-  /// Create root context.
+  /// Create app context(root).
   ///
   BuildContext.bigBang(this.key)
       : _widget = null,

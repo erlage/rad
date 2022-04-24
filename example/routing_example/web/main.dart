@@ -7,15 +7,7 @@ void main() {
   startApp(
     app: RadApp(child: RootPage()),
     targetId: 'output',
-    debugOptions: const DebugOptions(
-      widgetLogs: true,
-      developmentMode: true,
-    ),
-    beforeMount: () {
-      // loading additional Components eg. reset CSS, update global meta tags etc
-    },
   );
-  // additionalComponents?.load()
 }
 
 class RootPage extends StatefulWidget {

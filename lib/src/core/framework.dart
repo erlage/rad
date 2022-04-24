@@ -4,11 +4,12 @@ import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/constants.dart';
-import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/services/services.dart';
+import 'package:rad/src/core/services/services_resolver.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/widget_object.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/widget_action_object.dart';
 import 'package:rad/src/core/common/objects/widget_update_object.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
@@ -21,11 +22,34 @@ import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_t
 class Framework with ServicesResolver {
   final BuildContext rootContext;
 
+  var _taskListenerKey = '';
   var _isTaskInProcessing = false;
+
+  Services get services => resolveServices(rootContext);
 
   Framework(this.rootContext);
 
-  Services get services => resolveServices(rootContext);
+  /// Initialize framework state.
+  ///
+  void initState() {
+    _taskListenerKey = services.keyGen.generateRandomKey();
+
+    services.scheduler.addTaskListener(_taskListenerKey, processTask);
+  }
+
+  /// Dispose framework state.
+  ///
+  void dispose() {
+    var widgetKeys = services.walker.dumpWidgetKeys();
+
+    for (var widgetKey in widgetKeys) {
+      disposeWidget(
+        widgetObject: services.walker.getWidgetObject(widgetKey),
+      );
+    }
+
+    services.scheduler.removeTaskListener(_taskListenerKey);
+  }
 
   /// Process a scheduled task.
   ///
@@ -49,7 +73,7 @@ class Framework with ServicesResolver {
     } finally {
       _isTaskInProcessing = false;
 
-      services.scheduler.addEvent(SendNextTaskEvent());
+      services.scheduler.addEvent(SendNextTaskEvent(_taskListenerKey));
     }
   }
 
@@ -427,20 +451,6 @@ class Framework with ServicesResolver {
     }
   }
 
-  /// Dispose entire state.
-  ///
-  void dispose() {
-    // gracefully dispose all widgets
-
-    var widgetKeys = services.walker.dumpWidgetKeys();
-
-    for (var widgetKey in widgetKeys) {
-      disposeWidget(
-        widgetObject: services.walker.getWidgetObject(widgetKey),
-      );
-    }
-  }
-
   /*
   |--------------------------------------------------------------------------
   | Internals
@@ -457,7 +467,7 @@ class Framework with ServicesResolver {
     // ensure key is not using system prefix
     // if in dev mode
 
-    if (services.debug.developmentMode) {
+    if (services.debug.additionalChecks) {
       if (isKeyProvided && widget.initialKey.hasSystemPrefix) {
         services.debug.exception(
           "Keys starting with ${Constants.contextGenKeyPrefix} are reserved "

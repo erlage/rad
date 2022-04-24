@@ -30,7 +30,7 @@ void main() {
 
     setUp(() {
       app = createTestApp(
-        debugOptions: DebugOptions.development,
+        debugOptions: DebugOptions.developmentMode,
       )..start();
     });
 
@@ -41,7 +41,7 @@ void main() {
     test(
         'should throw if a key contains reserved prefix ${Constants.contextGenKeyPrefix}',
         () {
-      expect(app!.services.debug.developmentMode, equals(true));
+      expect(app!.services.debug.additionalChecks, equals(true));
 
       expect(
         () => app!.framework.buildChildren(
@@ -75,7 +75,7 @@ void main() {
 
     setUp(() {
       app = createTestApp(
-        debugOptions: DebugOptions.production,
+        debugOptions: DebugOptions.productionMode,
       )..start();
     });
 
@@ -84,7 +84,7 @@ void main() {
     });
 
     test('should not throw if a key contains reserved prefix', () {
-      expect(app!.services.debug.developmentMode, equals(false));
+      expect(app!.services.debug.additionalChecks, equals(false));
 
       app!.framework.buildChildren(
         widgets: [

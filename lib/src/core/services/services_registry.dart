@@ -39,10 +39,21 @@ class ServicesRegistry {
 
   // helpers
 
-  Debug getDebug(BuildContext context) => getServices(context).debug;
-  KeyGen getKeyGen(BuildContext context) => getServices(context).keyGen;
-  Router getRouter(BuildContext context) => getServices(context).router;
-  Walker getWalker(BuildContext context) => getServices(context).walker;
+  Debug getDebug(BuildContext context) {
+    return getServices(context).debug;
+  }
+
+  KeyGen getKeyGen(BuildContext context) {
+    return getServices(context).keyGen;
+  }
+
+  Router getRouter(BuildContext context) {
+    return getServices(context).router;
+  }
+
+  Walker getWalker(BuildContext context) {
+    return getServices(context).walker;
+  }
 
   Scheduler getScheduler(BuildContext context) {
     return getServices(context).scheduler;

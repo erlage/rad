@@ -13,6 +13,7 @@ import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/objects/widget_object.dart';
 import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/core/services/services_resolver.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/route.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
@@ -703,7 +704,7 @@ class NavigatorState with ServicesResolver {
 
   @protected
   void frameworkInitState() {
-    if (services.debug.developmentMode) {
+    if (services.debug.additionalChecks) {
       if (widget.routes.isEmpty) {
         return services.debug.exception(
           "Navigator instance must have at least one route.",
@@ -714,7 +715,7 @@ class NavigatorState with ServicesResolver {
     routes.addAll(widget.routes);
 
     for (final route in routes) {
-      if (services.debug.developmentMode) {
+      if (services.debug.additionalChecks) {
         if (!RegExp(r'^[a-zA-Z0-9_\-]+$').hasMatch(route.path)) {
           if (route.path.isEmpty) {
             return services.debug.exception(

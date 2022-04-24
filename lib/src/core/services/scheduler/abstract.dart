@@ -12,18 +12,20 @@ abstract class SchedulerTask {
   ///
   final Callback? afterTaskCallback;
 
-  /// Type of task.
-  ///
-  SchedulerTaskType get taskType;
-
   SchedulerTask({
     this.afterTaskCallback,
     this.beforeTaskCallback,
   });
+
+  SchedulerTaskType get taskType;
 }
 
 /// A scheduler event.
 ///
 abstract class SchedulerEvent {
+  final String listenerKey;
+
+  SchedulerEvent(this.listenerKey);
+
   SchedulerEventType get eventType;
 }

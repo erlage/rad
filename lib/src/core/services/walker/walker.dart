@@ -1,33 +1,36 @@
 import 'dart:html';
 
 import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/widget_object.dart';
-import 'package:rad/src/core/services/services.dart';
+import 'package:rad/src/core/services/abstract.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 
 /// Widgets Tree Walker/Registry.
 ///
-class Walker with ServicesResolver {
-  final BuildContext rootContext;
+class Walker extends Service {
+  final WalkerOptions options;
 
   final _registeredWidgetObjects = <String, WidgetObject>{};
 
-  Walker(this.rootContext);
+  Walker(BuildContext context, this.options) : super(context);
 
-  Services get services => resolveServices(rootContext);
+  @override
+  startService() {
+    _registeredWidgetObjects.clear();
+  }
 
-  void startService() {}
-
-  void stopService() {
+  @override
+  stopService() {
     _registeredWidgetObjects.clear();
   }
 
   void registerWidgetObject(WidgetObject widgetObject) {
     var widgetKey = widgetObject.renderObject.context.key.value;
 
-    if (services.debug.developmentMode) {
+    if (services.debug.additionalChecks) {
       if (_registeredWidgetObjects.containsKey(widgetKey)) {
         return services.debug.exception(
           "Key $widgetKey already exists."

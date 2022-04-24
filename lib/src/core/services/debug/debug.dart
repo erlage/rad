@@ -1,39 +1,45 @@
-import 'package:rad/src/core/common/objects/debug_options.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/options/debug_options.dart';
 import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/core/services/abstract.dart';
 
 /// Debug service.
 ///
-class Debug {
-  bool? _routerLogs;
-  bool get routerLogs => _routerLogs!;
+class Debug extends Service {
+  final DebugOptions options;
 
-  bool? _widgetLogs;
-  bool get widgetLogs => _widgetLogs!;
-
-  bool? _frameworkLogs;
-  bool get frameworkLogs => _frameworkLogs!;
-
-  bool? _developmentMode;
-  bool get developmentMode => _developmentMode!;
+  final bool routerLogs;
+  final bool widgetLogs;
+  final bool frameworkLogs;
+  final bool additionalChecks;
 
   ExceptionCallback? _onException;
   ExceptionCallback get onException => _onException!;
 
-  void startService(DebugOptions options) {
-    _routerLogs = options.routerLogs;
-    _widgetLogs = options.widgetLogs;
-    _frameworkLogs = options.frameworkLogs;
-    _developmentMode = options.developmentMode;
+  Debug(BuildContext context, this.options)
+      : routerLogs = options.routerLogs,
+        widgetLogs = options.widgetLogs,
+        frameworkLogs = options.frameworkLogs,
+        additionalChecks = options.additionalChecks,
+        super(context);
 
+  @override
+  startService() {
     var suppressExceptions = options.suppressExceptions;
 
     _onException = suppressExceptions ? supressException : presentException;
   }
 
-  void stopService() => _onException = supressException;
+  @override
+  stopService() => _onException = supressException;
 
-  void exception(String message) => onException(Exception(message));
+  void exception(String message) {
+    onException(Exception(message));
+  }
 
   void supressException(Exception exception) {}
-  void presentException(Exception exception) => throw exception;
+
+  void presentException(Exception exception) {
+    throw exception;
+  }
 }

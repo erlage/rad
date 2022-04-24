@@ -2,6 +2,7 @@ import 'package:rad/rad.dart';
 import 'package:rad/widgets_internals.dart';
 import 'package:test/scaffolding.dart';
 import 'package:test/expect.dart';
+import 'package:rad/src/core/common/objects/app_options.dart';
 
 import '../../../fixers/test_bed.dart';
 import '../../../fixers/test_stack.dart';
@@ -16,12 +17,15 @@ void main() {
   group('task tests', () {
     test('should send tasks in order:', () async {
       var testStack = RT_TestStack();
-      var schedulerService = Scheduler();
 
-      schedulerService.startService((task) {
+      var schedulerService = Scheduler(
+        RT_TestBed.rootContext,
+        SchedulerOptions.defaultMode,
+      )..startService();
+
+      schedulerService.addTaskListener('test', (task) {
         testStack.push(task.taskType.name);
-
-        schedulerService.addEvent(SendNextTaskEvent());
+        schedulerService.addEvent(SendNextTaskEvent('test'));
       });
 
       schedulerService.addTask(WidgetsBuildTask(
@@ -65,9 +69,12 @@ void main() {
 
     test('should send tasks only when requested:', () async {
       var testStack = RT_TestStack();
-      var schedulerService = Scheduler();
+      var schedulerService = Scheduler(
+        RT_TestBed.rootContext,
+        SchedulerOptions.defaultMode,
+      )..startService();
 
-      schedulerService.startService((task) {
+      schedulerService.addTaskListener('test', (task) {
         testStack.push(task.taskType.name);
       });
 

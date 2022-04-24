@@ -1,22 +1,22 @@
 import 'dart:math';
 
 import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/services/abstract.dart';
 
 /// Key generator service.
 ///
-class KeyGen {
+class KeyGen extends Service {
+  final KeyGenOptions options;
+
   final _random = Random();
-
-  final BuildContext rootContext;
-
-  final systemPrefix = Constants.contextGenKeyPrefix;
 
   var _extraCounter = 0;
   var _widgetCounter = 0;
 
-  KeyGen(this.rootContext);
+  KeyGen(BuildContext context, this.options) : super(context);
 
   /// Generates a new global key for widget.
   ///
@@ -24,7 +24,7 @@ class KeyGen {
     _widgetCounter++;
 
     return GlobalKey(
-      "$systemPrefix${rootContext.appTargetId}_$_widgetCounter",
+      "${Constants.contextGenKeyPrefix}${rootContext.appTargetId}_$_widgetCounter",
     );
   }
 

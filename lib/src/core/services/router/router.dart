@@ -1,9 +1,10 @@
 import 'dart:html';
 
+import 'package:rad/src/core/common/objects/options/router_options.dart';
+import 'package:rad/src/core/services/abstract.dart';
 import 'package:rad/src/core/services/router/navigator_route_object.dart';
 import 'package:rad/src/core/services/router/router_stack.dart';
 import 'package:rad/src/core/services/router/router_stack_entry.dart';
-import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/core/common/constants.dart';
@@ -14,7 +15,9 @@ import 'package:rad/src/widgets/route.dart';
 
 /// Router service.
 ///
-class Router with ServicesResolver {
+class Router extends Service {
+  final RouterOptions options;
+
   /// Registered navigators.
   ///
   /// navigator key: navigator route object
@@ -27,25 +30,14 @@ class Router with ServicesResolver {
   ///
   final _stateObjects = <String, NavigatorState>{};
 
-  final BuildContext rootContext;
-
   final _currentSegments = <String>[];
 
   final _routerStack = RouterStack();
 
-  String _routingPath = '';
+  Router(BuildContext context, this.options) : super(context);
 
-  Router(this.rootContext);
-
-  Services get services => resolveServices(rootContext);
-
-  void startService(String routingPath) {
-    _routingPath = routingPath;
-
-    if (services.debug.routerLogs) {
-      print("Router: routingPath: initialized at: $_routingPath");
-    }
-
+  @override
+  startService() {
     Window.delegate.addPopStateListener(
       context: rootContext,
       callback: _onPopState,
@@ -54,7 +46,8 @@ class Router with ServicesResolver {
     updateCurrentSegments();
   }
 
-  void stopService() {
+  @override
+  stopService() {
     _currentSegments.clear();
 
     _routeObjects.clear();
@@ -62,8 +55,6 @@ class Router with ServicesResolver {
     _stateObjects.clear();
 
     _routerStack.clear();
-
-    _routingPath = '';
 
     Window.delegate.removePopStateListener(rootContext);
   }
@@ -335,7 +326,7 @@ class Router with ServicesResolver {
     // if root navigator, no segments are protected
 
     if (null == routeObject.parent) {
-      return _routingPath.split("/");
+      return options.path.split("/");
     }
 
     // else find protected part
@@ -449,12 +440,12 @@ class Router with ServicesResolver {
       _routeObjects[context.key.value] = NavigatorRouteObject(
         context: context,
         routes: routes,
-        segments: [_routingPath],
+        segments: [options.path],
       );
 
       if (services.debug.routerLogs) {
         print(
-          "Navigator Registered: #${context.key.value} at ${[_routingPath]}",
+          "Navigator Registered: #${context.key.value} at ${[options.path]}",
         );
       }
 
