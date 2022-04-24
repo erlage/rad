@@ -292,7 +292,7 @@ class Framework with ServicesResolver {
 
             widgetObject.rebindConfiguration(newConfiguration);
 
-            widgetObject.renderObject.context.rebindWidget(newWidget);
+            widgetObject.renderObject.context.frameworkRebindWidget(newWidget);
 
             // call hook
 

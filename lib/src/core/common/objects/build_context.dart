@@ -75,8 +75,6 @@ class BuildContext {
   bool hasParent() => null != _parent;
   bool hasWidget() => null != _widget;
 
-  void rebindWidget(Widget widget) => _widget = widget;
-
   /// Returns the nearest ancestor widget of the given type `T`, which must be
   /// the type of a concrete [Widget] subclass.
   ///
@@ -106,6 +104,14 @@ class BuildContext {
 
     return walkerService.dependOnInheritedWidgetOfExactType<T>(this);
   }
+
+  /*
+  |--------------------------------------------------------------------------
+  | internals
+  |--------------------------------------------------------------------------
+  */
+
+  void frameworkRebindWidget(Widget widget) => _widget = widget;
 
   @override
   toString() {
