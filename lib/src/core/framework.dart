@@ -690,16 +690,7 @@ class Framework with ServicesResolver {
     var isRoot = Constants.contextTypeBigBang == context.widgetConcreteType;
 
     if (isRoot) {
-      var element = document.getElementById(context.key.value);
-
-      if (null == element) {
-        return services.debug.exception(
-          "Unable to find target. Make sure your DOM has "
-          "element with key #$context",
-        );
-      }
-
-      element.innerHtml = "";
+      _cleanElement(context.key.value);
 
       return;
     }
@@ -710,6 +701,21 @@ class Framework with ServicesResolver {
         context.key.value,
       ),
     );
+  }
+
+  void _cleanElement(String elementId) {
+    var element = document.getElementById(elementId);
+
+    if (null == element) {
+      return services.debug.exception(
+        "Unable to find target. Make sure your DOM has "
+        "element with key #$elementId",
+      );
+    }
+
+    element.innerHtml = "";
+
+    return;
   }
 
   void _hideElement(Element element) {
