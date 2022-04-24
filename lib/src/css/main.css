@@ -1,5 +1,5 @@
 /**
-   * widgets without styles
+   * RadApp widget
    */
 
 [data-wcontype="RadApp"] {
@@ -9,7 +9,7 @@
 
 
 /**
-   * widgets without styles
+   * widgets without any styles/display
    */
 
 [data-wcontype="Route"],
@@ -18,22 +18,12 @@
 [data-wcontype="StatefulWidget"],
 [data-wcontype="StatelessWidget"],
 .rad-list-view-item-container {
-    /* 
-    
-    It's important to have each element present inside DOM because
-    Rad uses DOM as Element tree. Since these widgets shouldn't have
-    any impact on styles, we are using display: contents here.
-
-    Note: contents is not widely supported by the browsers. If Browser 
-    support ever becomes a problem, we can introduce a Element tree to 
-    fix this problem. 
-    */
     display: contents;
 }
 
 
 /**
-   * ListView occupies available space.
+   * ListView widget.
    */
 
 [data-wcontype="ListView"] {
@@ -44,7 +34,7 @@
 
 
 /**
-   * Make sure flex do not shrink/grow ListView's childs
+   * Make sure flex do not shrink/grow for ListView's childs
    */
 
 [data-wcontype="ListView"]>*,
@@ -55,10 +45,10 @@
 
 
 /**
-   * system
+   * system classes
    */
 
 .rad-hidden {
-    display: none!important;
-    visibility: hidden!important;
+    display: none !important;
+    visibility: hidden !important;
 }
