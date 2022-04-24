@@ -430,13 +430,14 @@ class Router extends Service {
   void _register(BuildContext context, List<Route> routes) {
     var walkerService = ServicesRegistry.instance.getWalker(context);
 
-    var parent = walkerService.findAncestorWidgetObjectOfType<Navigator>(
+    var parentRenderObject =
+        walkerService.findAncestorRenderObjectOfType<Navigator>(
       context.parent,
     );
 
     // if no Navigator in ancestors i.e we're dealing with a root navigator
 
-    if (null == parent) {
+    if (null == parentRenderObject) {
       _routeObjects[context.key.value] = NavigatorRouteObject(
         context: context,
         routes: routes,
@@ -454,11 +455,9 @@ class Router extends Service {
 
     // else it's nested navigator
 
-    var widgetState = (parent.renderObject as NavigatorRenderObject);
+    var parentState = (parentRenderObject as NavigatorRenderObject).state;
 
-    var parentState = widgetState.state;
-
-    var parentObject = _routeObjects[parent.context.key.value];
+    var parentObject = _routeObjects[parentRenderObject.context.key.value];
 
     if (null == parentObject) {
       return services.debug.exception(Constants.coreError);
@@ -477,7 +476,7 @@ class Router extends Service {
 
     // recreate parent object with child reference
 
-    _routeObjects[parent.context.key.value] = NavigatorRouteObject(
+    _routeObjects[parentRenderObject.context.key.value] = NavigatorRouteObject(
       context: parentObject.context,
       routes: parentObject.routes,
       segments: parentObject.segments,

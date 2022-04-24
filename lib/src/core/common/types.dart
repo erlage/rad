@@ -4,7 +4,6 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
-import 'package:rad/src/core/common/objects/widget_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/navigator.dart';
 
@@ -35,5 +34,5 @@ typedef RenderElementCallback = void Function(
 );
 
 typedef WidgetActionCallback = List<WidgetAction> Function(
-  WidgetObject widgetObject,
+  RenderObject renderObject,
 );

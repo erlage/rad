@@ -42,7 +42,7 @@ class RT_AppRunner {
   Framework get framework => _framework!;
 
   BuildContext get appContext => services.walker
-      .getWidgetObject(
+      .getRenderObject(
         'app-widget',
       )!
       .context;

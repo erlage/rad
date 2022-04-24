@@ -183,7 +183,7 @@ void main() {
       );
 
       expect(
-        app!.services.walker.getWidgetObject('widget-key')!.context.key.value,
+        app!.services.walker.getRenderObject('widget-key')!.context.key.value,
         equals('widget-key'),
       );
     });
@@ -195,7 +195,10 @@ void main() {
             key: GlobalKey('test-widget'),
             roEventHookBeforeMount: () {
               expect(
-                app!.services.walker.getWidgetObject('test-widget')!.isMounted,
+                app!.services.walker
+                    .getRenderObject('test-widget')!
+                    .context
+                    .isMounted,
                 equals(false),
               );
             },
@@ -215,12 +218,18 @@ void main() {
       );
 
       expect(
-        app!.services.walker.getWidgetObject('find-using-me-1')!.isMounted,
+        app!.services.walker
+            .getRenderObject('find-using-me-1')!
+            .context
+            .isMounted,
         equals(true),
       );
 
       expect(
-        app!.services.walker.getWidgetObject('find-using-me-2')!.isMounted,
+        app!.services.walker
+            .getRenderObject('find-using-me-2')!
+            .context
+            .isMounted,
         equals(true),
       );
     });
@@ -232,7 +241,10 @@ void main() {
             key: GlobalKey('test-widget'),
             roEventHookAfterMount: () {
               expect(
-                app!.services.walker.getWidgetObject('test-widget')!.isMounted,
+                app!.services.walker
+                    .getRenderObject('test-widget')!
+                    .context
+                    .isMounted,
                 equals(true),
               );
             },
@@ -249,7 +261,10 @@ void main() {
             key: GlobalKey('test-widget'),
             roEventHookRender: () {
               expect(
-                app!.services.walker.getWidgetObject('test-widget')!.isMounted,
+                app!.services.walker
+                    .getRenderObject('test-widget')!
+                    .context
+                    .isMounted,
                 equals(true),
               );
             },
@@ -463,23 +478,23 @@ void main() {
 
       // ensure all are built
 
-      expect(null == app!.services.walker.getWidgetObject('widget'),
+      expect(null == app!.services.walker.getRenderObject('widget'),
           equals(false));
-      expect(null == app!.services.walker.getWidgetObject('child-0'),
+      expect(null == app!.services.walker.getRenderObject('child-0'),
           equals(false));
-      expect(null == app!.services.walker.getWidgetObject('child-0-0'),
+      expect(null == app!.services.walker.getRenderObject('child-0-0'),
           equals(false));
-      expect(null == app!.services.walker.getWidgetObject('child-0-1'),
+      expect(null == app!.services.walker.getRenderObject('child-0-1'),
           equals(false));
-      expect(null == app!.services.walker.getWidgetObject('child-0-1-0'),
+      expect(null == app!.services.walker.getRenderObject('child-0-1-0'),
           equals(false));
-      expect(null == app!.services.walker.getWidgetObject('child-0-1-1'),
+      expect(null == app!.services.walker.getRenderObject('child-0-1-1'),
           equals(false));
-      expect(null == app!.services.walker.getWidgetObject('child-1'),
+      expect(null == app!.services.walker.getRenderObject('child-1'),
           equals(false));
-      expect(null == app!.services.walker.getWidgetObject('child-1-0'),
+      expect(null == app!.services.walker.getRenderObject('child-1-0'),
           equals(false));
-      expect(null == app!.services.walker.getWidgetObject('child-1-1'),
+      expect(null == app!.services.walker.getRenderObject('child-1-1'),
           equals(false));
 
       // build new child widgets under app widget. we expect this operation to
@@ -493,51 +508,51 @@ void main() {
               // existing widgets should already got disposed by this point
 
               expect(
-                null == app!.services.walker.getWidgetObject('child-0'),
+                null == app!.services.walker.getRenderObject('child-0'),
                 equals(true),
               );
               expect(
-                null == app!.services.walker.getWidgetObject('child-0-0'),
+                null == app!.services.walker.getRenderObject('child-0-0'),
                 equals(true),
               );
               expect(
-                null == app!.services.walker.getWidgetObject('child-0-1'),
+                null == app!.services.walker.getRenderObject('child-0-1'),
                 equals(true),
               );
               expect(
-                null == app!.services.walker.getWidgetObject('child-0-1-0'),
+                null == app!.services.walker.getRenderObject('child-0-1-0'),
                 equals(true),
               );
               expect(
-                null == app!.services.walker.getWidgetObject('child-0-1-1'),
+                null == app!.services.walker.getRenderObject('child-0-1-1'),
                 equals(true),
               );
               expect(
-                null == app!.services.walker.getWidgetObject('child-1'),
+                null == app!.services.walker.getRenderObject('child-1'),
                 equals(true),
               );
               expect(
-                null == app!.services.walker.getWidgetObject('child-1-0'),
+                null == app!.services.walker.getRenderObject('child-1-0'),
                 equals(true),
               );
               expect(
-                null == app!.services.walker.getWidgetObject('child-1-1'),
+                null == app!.services.walker.getRenderObject('child-1-1'),
                 equals(true),
               );
             },
           ),
         ],
-        parentContext: app!.services.walker.getWidgetObject('widget')!.context,
+        parentContext: app!.services.walker.getRenderObject('widget')!.context,
       );
 
       // app widget should not have any impact
 
-      expect(null == app!.services.walker.getWidgetObject('widget'),
+      expect(null == app!.services.walker.getRenderObject('widget'),
           equals(false));
 
       // newer child should be built
 
-      expect(null == app!.services.walker.getWidgetObject('new-child'),
+      expect(null == app!.services.walker.getRenderObject('new-child'),
           equals(false));
     });
 

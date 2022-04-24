@@ -7,6 +7,7 @@ void main() {
   startApp(
     app: RadApp(child: RootPage()),
     targetId: 'output',
+    debugOptions: DebugOptions.developmentMode,
   );
 }
 

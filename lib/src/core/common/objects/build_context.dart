@@ -1,10 +1,13 @@
+import 'dart:html';
+
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
+import 'package:rad/src/core/services/services_registry.dart';
 
 /// A handle to the location of a widget in the widget tree.
 ///
@@ -24,11 +27,17 @@ class BuildContext {
 
   final DomTag widgetCorrespondingTag;
 
+  final HtmlElement element;
+
   final BuildContext? _parent;
 
+  bool _isMounted;
   Widget? _widget;
+  WidgetConfiguration? _configuration;
 
+  bool get isMounted => _isMounted;
   Widget get widget => _widget!;
+  WidgetConfiguration get configuration => _configuration!;
 
   /// Reference to widget's parent context.
   ///
@@ -47,20 +56,45 @@ class BuildContext {
   ///
   BuildContext.fromParent({
     required this.key,
-    required this.widgetConcreteType,
-    required this.widgetCorrespondingTag,
-    required this.widgetRuntimeType,
     required Widget widget,
     required BuildContext parentContext,
-  })  : _widget = widget,
+  })  :
+        // from parent
+
         _parent = parentContext,
-        appTargetId = parentContext.appTargetId;
+        appTargetId = parentContext.appTargetId,
+
+        // widget instance
+
+        _isMounted = false,
+        _widget = widget,
+
+        // widget type information
+
+        widgetConcreteType = widget.concreteType,
+        widgetRuntimeType = "${widget.runtimeType}",
+        widgetCorrespondingTag = widget.correspondingTag,
+
+        // widget configuration
+
+        _configuration = widget.createConfiguration(),
+
+        // widget element
+
+        element = (document.createElement(
+          fnMapDomTag(widget.correspondingTag),
+        ) as HtmlElement)
+          ..id = key.value
+          ..dataset[Constants.attrConcreteType] = widget.concreteType
+          ..dataset[Constants.attrRuntimeType] = "${widget.runtimeType}";
 
   /// Create app context(root).
   ///
   BuildContext.bigBang(this.key)
       : _widget = null,
         _parent = null,
+        _isMounted = false,
+        element = document.getElementById(key.value) as HtmlElement,
         appTargetId = key.value,
         widgetCorrespondingTag = DomTag.division,
         widgetConcreteType = Constants.contextTypeBigBang,
@@ -71,9 +105,6 @@ class BuildContext {
   | methods
   |--------------------------------------------------------------------------
   */
-
-  bool hasParent() => null != _parent;
-  bool hasWidget() => null != _widget;
 
   /// Returns the nearest ancestor widget of the given type `T`, which must be
   /// the type of a concrete [Widget] subclass.
@@ -111,7 +142,17 @@ class BuildContext {
   |--------------------------------------------------------------------------
   */
 
-  void frameworkRebindWidget(Widget widget) => _widget = widget;
+  void frameworkRebindWidget(Widget widget) {
+    _widget = widget;
+  }
+
+  void frameworkRebindConfiguration(WidgetConfiguration configuration) {
+    _configuration = configuration;
+  }
+
+  void frameworkSetIsMounted(bool toSet) {
+    _isMounted = toSet;
+  }
 
   @override
   toString() {

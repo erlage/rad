@@ -3,35 +3,35 @@ import 'dart:html';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/widget_object.dart';
+import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/services/abstract.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 
-/// Widgets Tree Walker/Registry.
+/// Tree Walker/Registry for Dom/Render Objects.
 ///
 class Walker extends Service {
   final WalkerOptions options;
 
-  final _registeredWidgetObjects = <String, WidgetObject>{};
+  final _registeredRenderObjects = <String, RenderObject>{};
 
   Walker(BuildContext context, this.options) : super(context);
 
   @override
   startService() {
-    _registeredWidgetObjects.clear();
+    _registeredRenderObjects.clear();
   }
 
   @override
   stopService() {
-    _registeredWidgetObjects.clear();
+    _registeredRenderObjects.clear();
   }
 
-  void registerWidgetObject(WidgetObject widgetObject) {
-    var widgetKey = widgetObject.renderObject.context.key.value;
+  void registerRenderObject(RenderObject renderObject) {
+    var widgetKey = renderObject.context.key.value;
 
     if (services.debug.additionalChecks) {
-      if (_registeredWidgetObjects.containsKey(widgetKey)) {
+      if (_registeredRenderObjects.containsKey(widgetKey)) {
         return services.debug.exception(
           "Key $widgetKey already exists."
           "\n\nThis usually happens in two scenarios,"
@@ -43,23 +43,23 @@ class Walker extends Service {
       }
     }
 
-    _registeredWidgetObjects[widgetKey] = widgetObject;
+    _registeredRenderObjects[widgetKey] = renderObject;
   }
 
-  WidgetObject? getWidgetObject(String widgetKey) {
-    return _registeredWidgetObjects[widgetKey];
+  RenderObject? getRenderObject(String widgetKey) {
+    return _registeredRenderObjects[widgetKey];
   }
 
-  void unRegisterWidgetObject(WidgetObject widgetObject) {
-    var widgetKey = widgetObject.renderObject.context.key.value;
+  void unRegisterRenderObject(RenderObject renderObject) {
+    var widgetKey = renderObject.context.key.value;
 
-    _registeredWidgetObjects.remove(widgetKey);
+    _registeredRenderObjects.remove(widgetKey);
   }
 
   /// Return all registered widget keys.
   ///
   List<String> dumpWidgetKeys() {
-    return _registeredWidgetObjects.keys.toList();
+    return _registeredRenderObjects.keys.toList();
   }
 
   /*
@@ -70,7 +70,7 @@ class Walker extends Service {
 
   /// Find widget object in ancestors using selector.
   ///
-  WidgetObject? findAncestorWidgetObjectFromSelector(
+  RenderObject? findAncestorRenderObjectFromSelector(
     String selector,
     BuildContext context,
   ) {
@@ -91,9 +91,7 @@ class Walker extends Service {
       return null;
     }
 
-    // found. return corresponding widget's object.
-
-    return getWidgetObject(domNode.id);
+    return getRenderObject(domNode.id);
   }
 
   T? findAncestorWidgetOfExactType<T>(
@@ -101,10 +99,10 @@ class Walker extends Service {
   ) {
     var selector = "[data-${Constants.attrRuntimeType}='$T']";
 
-    var widgetObject = findAncestorWidgetObjectFromSelector(selector, context);
+    var renderObject = findAncestorRenderObjectFromSelector(selector, context);
 
-    if (null != widgetObject) {
-      return widgetObject.widget as T;
+    if (null != renderObject) {
+      return renderObject.context.widget as T;
     }
 
     return null;
@@ -115,11 +113,10 @@ class Walker extends Service {
   ) {
     var selector = "[data-${Constants.attrStateType}='$T']";
 
-    var widgetObject = findAncestorWidgetObjectFromSelector(selector, context);
+    var renderObject = findAncestorRenderObjectFromSelector(selector, context);
 
-    if (null != widgetObject) {
-      var renderObject =
-          widgetObject.renderObject as StatefulWidgetRenderObject;
+    if (null != renderObject) {
+      renderObject as StatefulWidgetRenderObject;
 
       return (renderObject).state as T;
     }
@@ -127,20 +124,20 @@ class Walker extends Service {
     return null;
   }
 
-  WidgetObject? findAncestorWidgetObjectOfType<T>(
+  RenderObject? findAncestorRenderObjectOfType<T>(
     BuildContext context,
   ) {
     var selector = "[data-${Constants.attrRuntimeType}='$T']";
 
-    return findAncestorWidgetObjectFromSelector(selector, context);
+    return findAncestorRenderObjectFromSelector(selector, context);
   }
 
-  WidgetObject? findAncestorWidgetObjectOfClass<T>(
+  RenderObject? findAncestorRenderObjectOfClass<T>(
     BuildContext context,
   ) {
     var selector = "[data-${Constants.attrConcreteType}='$T']";
 
-    return findAncestorWidgetObjectFromSelector(selector, context);
+    return findAncestorRenderObjectFromSelector(selector, context);
   }
 
   T? dependOnInheritedWidgetOfExactType<T>(
@@ -149,16 +146,14 @@ class Walker extends Service {
     var selector = "[data-${Constants.attrRuntimeType}='$T']"
         "[data-${Constants.attrConcreteType}='$InheritedWidget']";
 
-    var widgetObject = findAncestorWidgetObjectFromSelector(selector, context);
+    var renderObject = findAncestorRenderObjectFromSelector(selector, context);
 
-    if (null != widgetObject) {
-      var inheritedRenderObject = widgetObject.renderObject;
+    if (null != renderObject) {
+      renderObject as InheritedWidgetRenderObject;
 
-      inheritedRenderObject as InheritedWidgetRenderObject;
+      renderObject.addDependent(context);
 
-      inheritedRenderObject.addDependent(context);
-
-      return widgetObject.widget as T;
+      return renderObject.context.widget as T;
     }
 
     return null;

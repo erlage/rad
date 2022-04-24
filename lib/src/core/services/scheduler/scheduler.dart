@@ -76,8 +76,6 @@ class Scheduler extends Service {
 
     if (null != queue && queue.isNotEmpty) {
       if (null != listener) {
-        print('send next task for true: $listenerKey');
-
         listener(queue.removeAt(0));
       }
     }

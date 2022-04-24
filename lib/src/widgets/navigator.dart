@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/services/router/open_history_entry.dart';
 import 'package:rad/src/core/services/services.dart';
@@ -11,7 +12,6 @@ import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
-import 'package:rad/src/core/common/objects/widget_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/services_resolver.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
@@ -311,10 +311,10 @@ class Navigator extends Widget {
     var targetContext = context;
 
     while (true) {
-      var widgetObject = services.walker
-          .findAncestorWidgetObjectOfType<Navigator>(targetContext);
+      var renderObject = services.walker
+          .findAncestorRenderObjectOfType<Navigator>(targetContext);
 
-      if (null == widgetObject) {
+      if (null == renderObject) {
         services.debug.exception(
           "Navigator operation requested with a context that does not include a Navigator.\n"
           "The context used to push or pop routes from the Navigator must be that of a "
@@ -336,14 +336,14 @@ class Navigator extends Widget {
           context, // for local key, any context works
         );
 
-        if (widgetKey == widgetObject.context.key) {
-          targetContext = widgetObject.context;
+        if (widgetKey == renderObject.context.key) {
+          targetContext = renderObject.context;
 
           continue;
         }
       }
 
-      var renderObject = widgetObject.renderObject as NavigatorRenderObject;
+      renderObject as NavigatorRenderObject;
 
       renderObject.addDependent(context);
 
@@ -572,9 +572,10 @@ class NavigatorState with ServicesResolver {
           parentContext: context,
           flagIterateInReverseOrder: true,
           updateType: UpdateType.setState,
-          widgetActionCallback: (WidgetObject widgetObject) {
-            var routeName =
-                widgetObject.element.dataset[Constants.attrRouteName];
+          widgetActionCallback: (RenderObject renderObject) {
+            var element = renderObject.context.element;
+
+            var routeName = element.dataset[Constants.attrRouteName];
 
             if (name == routeName) {
               return [WidgetAction.showWidget];
@@ -604,7 +605,7 @@ class NavigatorState with ServicesResolver {
           parentContext: context,
           flagIterateInReverseOrder: true,
           updateType: UpdateType.setState,
-          widgetActionCallback: (widgetObject) {
+          widgetActionCallback: (renderObject) {
             return [WidgetAction.hideWidget];
           },
           afterTaskCallback: () {
@@ -632,9 +633,10 @@ class NavigatorState with ServicesResolver {
       WidgetsManageTask(
         parentContext: context,
         flagIterateInReverseOrder: true,
-        widgetActionCallback: (WidgetObject widgetObject) {
-          var name =
-              widgetObject.element.dataset[Constants.attrRouteName] ?? "";
+        widgetActionCallback: (renderObject) {
+          var element = renderObject.context.element;
+
+          var name = element.dataset[Constants.attrRouteName] ?? "";
 
           if (previousPage.name == name) {
             return [WidgetAction.showWidget];
@@ -787,9 +789,10 @@ class NavigatorState with ServicesResolver {
         parentContext: context,
         flagIterateInReverseOrder: true,
         updateType: updateType,
-        widgetActionCallback: (WidgetObject widgetObject) {
-          var name =
-              widgetObject.element.dataset[Constants.attrRouteName] ?? "";
+        widgetActionCallback: (renderObject) {
+          var element = renderObject.context.element;
+
+          var name = element.dataset[Constants.attrRouteName] ?? "";
 
           if (currentRouteName == name) {
             return [WidgetAction.updateWidget];

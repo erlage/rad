@@ -340,13 +340,24 @@ void main() {
           },
         );
 
-        var widget1 = app!.services.walker.getWidgetObject('widget-1');
-        var widget2 = app!.services.walker.getWidgetObject('widget-2');
-        var widget3 = app!.services.walker.getWidgetObject('widget-3');
+        var widget1 = app!.services.walker.getRenderObject('widget-1');
+        var widget2 = app!.services.walker.getRenderObject('widget-2');
+        var widget3 = app!.services.walker.getRenderObject('widget-3');
 
-        expect(widget1!.element.classes.contains('rad-hidden'), equals(true));
-        expect(widget2!.element.classes.contains('rad-hidden'), equals(true));
-        expect(widget3!.element.classes.contains('rad-hidden'), equals(true));
+        expect(
+          widget1!.context.element.classes.contains('rad-hidden'),
+          equals(true),
+        );
+
+        expect(
+          widget2!.context.element.classes.contains('rad-hidden'),
+          equals(true),
+        );
+
+        expect(
+          widget3!.context.element.classes.contains('rad-hidden'),
+          equals(true),
+        );
       },
     );
 
@@ -380,13 +391,24 @@ void main() {
           },
         );
 
-        var widget1 = app!.services.walker.getWidgetObject('widget-1');
-        var widget2 = app!.services.walker.getWidgetObject('widget-2');
-        var widget3 = app!.services.walker.getWidgetObject('widget-3');
+        var widget1 = app!.services.walker.getRenderObject('widget-1');
+        var widget2 = app!.services.walker.getRenderObject('widget-2');
+        var widget3 = app!.services.walker.getRenderObject('widget-3');
 
-        expect(widget1!.element.classes.contains('rad-hidden'), equals(false));
-        expect(widget2!.element.classes.contains('rad-hidden'), equals(false));
-        expect(widget3!.element.classes.contains('rad-hidden'), equals(false));
+        expect(
+          widget1!.context.element.classes.contains('rad-hidden'),
+          equals(false),
+        );
+
+        expect(
+          widget2!.context.element.classes.contains('rad-hidden'),
+          equals(false),
+        );
+
+        expect(
+          widget3!.context.element.classes.contains('rad-hidden'),
+          equals(false),
+        );
       },
     );
 
@@ -456,11 +478,18 @@ void main() {
           },
         );
 
-        var widget1 = app!.services.walker.getWidgetObject('widget-1');
-        var widget3 = app!.services.walker.getWidgetObject('widget-3');
+        var widget1 = app!.services.walker.getRenderObject('widget-1');
+        var widget3 = app!.services.walker.getRenderObject('widget-3');
 
-        expect(widget1!.element.classes.contains('rad-hidden'), equals(false));
-        expect(widget3!.element.classes.contains('rad-hidden'), equals(true));
+        expect(
+          widget1!.context.element.classes.contains('rad-hidden'),
+          equals(false),
+        );
+
+        expect(
+          widget3!.context.element.classes.contains('rad-hidden'),
+          equals(true),
+        );
 
         // ensure all are iterated except last
         expect(testStack.popFromStart(), equals('widget-1'));
