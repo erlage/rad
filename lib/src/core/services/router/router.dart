@@ -15,16 +15,6 @@ import 'package:rad/src/widgets/route.dart';
 /// Router service.
 ///
 class Router with ServicesResolver {
-  /// Root context.
-  ///
-  final BuildContext rootContext;
-
-  String _routingPath = '';
-
-  /// Path list
-  ///
-  final _currentSegments = <String>[];
-
   /// Registered navigators.
   ///
   /// navigator key: navigator route object
@@ -37,24 +27,18 @@ class Router with ServicesResolver {
   ///
   final _stateObjects = <String, NavigatorState>{};
 
-  /// Router stack.
-  ///
-  /// For keeping track of page push/pop
-  ///
+  final BuildContext rootContext;
+
+  final _currentSegments = <String>[];
+
   final _routerStack = RouterStack();
 
-  /// Resolve services reference.
-  ///
-  Services get services => resolveServices(rootContext);
+  String _routingPath = '';
 
   Router(this.rootContext);
 
-  /// Initialize router state.
-  ///
-  /// Main tasks are:
-  /// 1. Setup routing path
-  /// 2. add onPopStateEventListener
-  ///
+  Services get services => resolveServices(rootContext);
+
   void startService(String routingPath) {
     _routingPath = routingPath;
 
@@ -70,11 +54,6 @@ class Router with ServicesResolver {
     updateCurrentSegments();
   }
 
-  /// Tear down Router state.(used by tests)
-  ///
-  /// Since methods in this class are static, we need a way to initialize
-  /// and destroy framework state.
-  ///
   void stopService() {
     _currentSegments.clear();
 
@@ -458,12 +437,6 @@ class Router with ServicesResolver {
   /// Register logic, actual.
   ///
   void _register(BuildContext context, List<Route> routes) {
-    //
-    // try finding a Navigator in ancestors
-    //
-    // we've to use context.parent here because navigators are required to
-    // register themselves in onContextCreate hook but at the point when
-    // onContextCreate hook is fired, context.key.value is not present in DOM.
     var walkerService = ServicesRegistry.instance.getWalker(context);
 
     var parent = walkerService.findAncestorWidgetObjectOfType<Navigator>(

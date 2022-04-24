@@ -1,3 +1,5 @@
+/// A entry on Router stack.
+///
 class RouterStackEntry {
   final String name;
   final Map<String, String> values;

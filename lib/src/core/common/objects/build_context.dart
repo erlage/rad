@@ -6,11 +6,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 
-/// Widget's meta data that's required to locate a widget in the tree.
-///
-/// [BuildContext] also contains a reference to its parent's [BuildContext]
-/// which further contains its parent reference and so on. This can be used
-/// to trace back origin of widget all the way to BigBang(where it all started)
+/// A handle to the location of a widget in the widget tree.
 ///
 class BuildContext {
   /// Widget's key.
@@ -20,46 +16,26 @@ class BuildContext {
   ///
   final GlobalKey key;
 
-  /// ID of root HTML element where App(that's enclosing this context) is
-  /// mounted.
-  ///
   final String appTargetId;
 
-  /// Runtime type of widget class.
-  ///
   final String widgetRuntimeType;
 
-  /// Concrete class name.
-  ///
-  /// It's same as Runtime type if widget is not extending
-  /// a another concrete widget class.
-  ///
   final String widgetConcreteType;
 
-  /// Widget corresponding Dom tag in use.
-  ///
   final DomTag widgetCorrespondingTag;
 
   final BuildContext? _parent;
 
   Widget? _widget;
 
-  /*
-  |--------------------------------------------------------------------------
-  | getters
-  |--------------------------------------------------------------------------
-  */
+  Widget get widget => _widget!;
 
-  /// reference to context of parent's widget
+  /// Reference to widget's parent context.
   ///
-  /// accessing will results in error if [widgetRuntimeType] is
+  /// Accessing it will results in error if [widgetRuntimeType] is
   /// [Constants.contextTypeBigBang]
   ///
   BuildContext get parent => _parent!;
-
-  /// Widget is the only mutable property in build context.
-  ///
-  Widget get widget => _widget!;
 
   /*
   |--------------------------------------------------------------------------
@@ -81,13 +57,6 @@ class BuildContext {
         appTargetId = parentContext.appTargetId;
 
   /// Create root context.
-  ///
-  /// This is required to bootstrap framework.
-  ///
-  /// Root widget's can have a parent key which points to the place
-  /// where it all started(HTML div) but parent is not a widget and
-  /// its type is undefined because at the time of big bang there
-  /// are no widgets.
   ///
   BuildContext.bigBang(this.key)
       : _widget = null,

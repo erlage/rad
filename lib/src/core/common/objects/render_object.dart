@@ -5,9 +5,7 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-/// Widget's Render object contains logic to build and update interface.
-///
-/// These objects also contains logic for handling updates.
+/// Widget's Render object.
 ///
 @immutable
 abstract class RenderObject {
@@ -21,7 +19,7 @@ abstract class RenderObject {
   |--------------------------------------------------------------------------
   */
 
-  /// Build widget interface
+  /// Render widget interface
   ///
   void render(HtmlElement element, WidgetConfiguration configuration) {}
 
@@ -34,19 +32,11 @@ abstract class RenderObject {
     required WidgetConfiguration newConfiguration,
   }) {}
 
-  /// Before element mounts.
-  ///
   void beforeMount() {}
 
-  /// After element mounts.
-  ///
   void afterMount() {}
 
-  /// When widget configuration is changed.
-  ///
   void afterWidgetRebind(UpdateType updateType, Widget oldWidget) {}
 
-  /// Before element unmounts.
-  ///
   void beforeUnMount() {}
 }

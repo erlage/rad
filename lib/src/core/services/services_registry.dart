@@ -6,7 +6,7 @@ import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/core/services/walker/walker.dart';
 import 'package:rad/src/core/services/scheduler/scheduler.dart';
 
-/// Services Registry registers services offered by the framework.
+/// Services Registry.
 ///
 class ServicesRegistry {
   ServicesRegistry._();
@@ -15,8 +15,6 @@ class ServicesRegistry {
 
   final _services = <String, Services>{};
 
-  /// Register framework services object.
-  ///
   void registerServices(BuildContext context, Services services) {
     if (_services.containsKey(context.appTargetId)) {
       throw "Services are already registered with the context.";
@@ -25,38 +23,10 @@ class ServicesRegistry {
     _services[context.appTargetId] = services;
   }
 
-  /// Unregister services registered by the framework.
-  ///
   void unRegisterServices(BuildContext context) {
     _services.remove(context.appTargetId);
   }
 
-  /// Find debug service from registered services.
-  ///
-  Debug getDebug(BuildContext context) => getServices(context).debug;
-
-  /// Find key genertor service from registered services.
-  ///
-  KeyGen getKeyGen(BuildContext context) => getServices(context).keyGen;
-
-  /// Find router service from registered services.
-  ///
-  Router getRouter(BuildContext context) {
-    return getServices(context).router;
-  }
-
-  /// Find scheduler service from registered services.
-  ///
-  Scheduler getScheduler(BuildContext context) {
-    return getServices(context).scheduler;
-  }
-
-  /// Find walker service from registered services.
-  ///
-  Walker getWalker(BuildContext context) => getServices(context).walker;
-
-  /// Find services instance that's enclosing given context.
-  ///
   Services getServices(BuildContext context) {
     var services = _services[context.appTargetId];
 
@@ -65,5 +35,16 @@ class ServicesRegistry {
     }
 
     return services;
+  }
+
+  // helpers
+
+  Debug getDebug(BuildContext context) => getServices(context).debug;
+  KeyGen getKeyGen(BuildContext context) => getServices(context).keyGen;
+  Router getRouter(BuildContext context) => getServices(context).router;
+  Walker getWalker(BuildContext context) => getServices(context).walker;
+
+  Scheduler getScheduler(BuildContext context) {
+    return getServices(context).scheduler;
   }
 }

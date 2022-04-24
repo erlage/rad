@@ -1,7 +1,7 @@
 import 'package:rad/src/core/common/objects/debug_options.dart';
 import 'package:rad/src/core/common/types.dart';
 
-/// Service that throw/suppress errors.
+/// Debug service.
 ///
 class Debug {
   bool? _routerLogs;

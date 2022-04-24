@@ -6,7 +6,7 @@ import 'package:rad/src/core/services/scheduler/scheduler.dart';
 import 'package:rad/src/core/services/walker/walker.dart';
 import 'package:rad/src/core/services/services_registry.dart';
 
-/// Services available.
+/// Services object.
 ///
 class Services {
   final Debug debug;
@@ -23,7 +23,7 @@ class Services {
         scheduler = Scheduler();
 }
 
-/// A mixing that include services resolver.
+/// A mixin that include a services resolver getter.
 ///
 mixin ServicesResolver {
   Services? _services;

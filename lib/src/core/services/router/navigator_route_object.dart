@@ -1,10 +1,7 @@
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/widgets/route.dart';
 
-/// Information about a navigator and its routing description.
-///
-/// Will contain reference of parent route object if there exists a ancestor of
-/// type Navigator.
+/// Object containing information about a navigator.
 ///
 class NavigatorRouteObject {
   final BuildContext context;

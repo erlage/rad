@@ -9,32 +9,21 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 
 /// Widgets Tree Walker/Registry.
 ///
-/// This is used to keep track of all widget objects that are enclosed
-/// in single instance of app and find widget objects when needed.
-///
 class Walker with ServicesResolver {
-  /// Root context.
-  ///
   final BuildContext rootContext;
 
-  /// Registered widget objects.
-  ///
   final _registeredWidgetObjects = <String, WidgetObject>{};
-
-  /// Resolve services reference.
-  ///
-  Services get services => resolveServices(rootContext);
 
   Walker(this.rootContext);
 
-  /// Stop walker service.
-  ///
+  Services get services => resolveServices(rootContext);
+
+  void startService() {}
+
   void stopService() {
     _registeredWidgetObjects.clear();
   }
 
-  /// Register a widget object.
-  ///
   void registerWidgetObject(WidgetObject widgetObject) {
     var widgetKey = widgetObject.renderObject.context.key.value;
 
@@ -54,13 +43,10 @@ class Walker with ServicesResolver {
     _registeredWidgetObjects[widgetKey] = widgetObject;
   }
 
-  /// Get widget object by widget key
   WidgetObject? getWidgetObject(String widgetKey) {
     return _registeredWidgetObjects[widgetKey];
   }
 
-  /// Unregister a widget object.
-  ///
   void unRegisterWidgetObject(WidgetObject widgetObject) {
     var widgetKey = widgetObject.renderObject.context.key.value;
 
@@ -85,9 +71,6 @@ class Walker with ServicesResolver {
     String selector,
     BuildContext context,
   ) {
-    // ensure context is ready for processing.
-    // this happens when user .of(context) is called inside a constructor.
-
     if (Constants.contextKeyNotSet == context.key) {
       services.debug.exception(
         "Part of build context is not ready. This means that context is under"
@@ -97,8 +80,9 @@ class Walker with ServicesResolver {
       return null;
     }
 
-    var domNode =
-        document.getElementById(context.key.value)?.parent?.closest(selector);
+    var domNode = document.getElementById(context.key.value)?.parent?.closest(
+          selector,
+        );
 
     if (null == domNode) {
       return null;

@@ -28,6 +28,8 @@ typedef ExceptionCallback = void Function(Exception event);
 
 typedef PopStateEventCallback = void Function(PopStateEvent event);
 
+typedef IndexedWidgetBuilder = Widget Function(BuildContext context, int index);
+
 typedef RenderElementCallback = void Function(
   RenderObject renderObject,
   HtmlElement element,
@@ -36,10 +38,3 @@ typedef RenderElementCallback = void Function(
 typedef WidgetActionCallback = List<WidgetAction> Function(
   WidgetObject widgetObject,
 );
-
-/// Signature for a function that creates a widget for a given index, e.g., in a
-/// list.
-///
-/// Used by [ListView.builder].
-///
-typedef IndexedWidgetBuilder = Widget Function(BuildContext context, int index);

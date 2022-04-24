@@ -7,22 +7,21 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// A [Key] is an identifier for [Widget]s.
 ///
-/// Most of the time, framework takes care of generating keys for you.
-///
 /// Keys must be unique amongst the [Widget]s with the same parent. By
 /// contrast, [GlobalKey]s must be unique across entire document and [LocalKey]
 /// must be unique in single app instance where it was created.
 ///
-/// Key values are computed and computed value is used as value if ID attribute
-/// of the element associated with the widget. This means computed value can be
-/// used to find associated element in document.
+///
+/// Value of ID attribute of associated HTML element is calculated from value of
+/// widget key. Users can compute the actual value of key and use that to find
+/// element in the document but there are some limitations:
 ///
 ///
 /// For a [Key], getting computed value is not possible.
 ///
 ///
 /// For a [LocalKey], you can get computed value using
-/// [LocalKey.getComputedValue].
+/// [LocalKey.getComputedValue], providing it any context.
 ///
 ///
 /// For a [GlobalKey], computed value is exactly same as provided value. Which
@@ -32,7 +31,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 class Key {
   final String _value;
 
-  /// Value of key that was used while creating key.
+  /// Value of key that was used while creating the key.
   ///
   String get value => _value;
 
@@ -45,7 +44,8 @@ class Key {
   /// Simplest way to create a key.
   ///
   /// Keys must be unique amongst the [Widget]s with the same parent. By
-  /// contrast, [GlobalKey]s must be unique across entire document.
+  /// contrast, [GlobalKey]s must be unique across entire document and [LocalKey]
+  /// must be unique within a single app instance(where it was created).
   ///
   const Key(this._value);
 
@@ -65,7 +65,7 @@ class Key {
   toString() => value;
 }
 
-/// A key that is unique within the app its created.
+/// A key that is unique within a single app instance.
 ///
 class LocalKey extends Key {
   /// Creates a local key.

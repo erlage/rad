@@ -19,51 +19,32 @@ import 'package:rad/src/core/services/scheduler/events/send_next_task_event.dart
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
 
 class Framework with ServicesResolver {
-  /// Root context.
-  ///
   final BuildContext rootContext;
 
-  /// Whether a framework task is in processing.
-  ///
   var _isTaskInProcessing = false;
 
-  /// Resolve services reference.
-  ///
-  Services get services => resolveServices(rootContext);
-
-  /// Create framework instance.
-  ///
-  /// Each app start spin a framework instance that handles app's state
-  /// and build process.
-  ///
   Framework(this.rootContext);
 
-  /// Framework's task processing unit.
+  Services get services => resolveServices(rootContext);
+
+  /// Process a scheduled task.
   ///
   void processTask(SchedulerTask task) {
-    if (_isTaskInProcessing) return;
+    if (_isTaskInProcessing) {
+      return;
+    }
 
     try {
       _isTaskInProcessing = true;
 
-      // run before-task callback
-
-      var beforeCallback = task.beforeTaskCallback;
-
-      if (null != beforeCallback) {
-        beforeCallback();
+      if (null != task.beforeTaskCallback) {
+        task.beforeTaskCallback!();
       }
-
-      // run task
 
       _runTask(task);
 
-      // run after-task callback
-
-      var afterCallback = task.afterTaskCallback;
-
-      if (null != afterCallback) {
-        afterCallback();
+      if (null != task.afterTaskCallback) {
+        task.afterTaskCallback!();
       }
     } finally {
       _isTaskInProcessing = false;
@@ -558,8 +539,7 @@ class Framework with ServicesResolver {
         break;
 
       case SchedulerTaskType.stimulateListener:
-        // do nothing.. finally block will automatically
-        // push a event for getting new tasks after this block.
+        // do nothing..
         break;
     }
   }
