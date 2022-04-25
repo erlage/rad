@@ -10,7 +10,6 @@ export 'src/core/start_app.dart' show startApp, AppRunner;
 export 'src/widgets/abstract/widget.dart' show Widget;
 export 'src/core/common/objects/key.dart' show Key, LocalKey, GlobalKey;
 export 'src/core/common/objects/build_context.dart' show BuildContext;
-export 'src/core/common/objects/app_options.dart' show AppOptions;
 export 'src/core/common/objects/options/debug_options.dart' show DebugOptions;
 export 'src/core/common/objects/options/router_options.dart' show RouterOptions;
 

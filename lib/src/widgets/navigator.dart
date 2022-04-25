@@ -20,8 +20,8 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 
 /// Navigator widget.
 ///
-/// Navigators basic usage is to allow navigating between pages. But Rad's
-/// Navigator is bit different. It also carries out three big tasks for you,
+/// Rad comes with a powerful Navigator widget that carries out three big tasks
+/// for you:
 ///
 /// - Routing
 /// - Deep linking
@@ -30,10 +30,10 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///
 /// ![Deep linking and Single page experience in action](https://github.com/erlage/rad/raw/main/example/routing_example/routing.gif)
 ///
-/// And all three tasks are carried out without any special configuration or
-/// management from developer side. That is, Framework will automatically deep
-/// link your Navigators, and route requests to the correct ones when requested
-/// no matter how deeply nested your Navigators are.
+/// And most importantly, all three tasks are carried out without any special
+/// configuration or management from developer side. That is, Framework will
+/// automatically deep link your Navigators, and route requests to the correct
+/// ones no matter how deeply nested your Navigators are.
 ///
 /// Let's talk about Navigator's syntax:
 ///

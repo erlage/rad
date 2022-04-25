@@ -18,40 +18,41 @@ import 'package:rad/src/core/common/objects/key.dart';
 
 /// A widget that has mutable state.
 ///
-////// A stateful widget is a widget that describes dynamic user interface.
+/// A stateful widget is a widget that describes dynamic user interface.
 /// Stateful widgets are useful when the part of the user interface you are
 /// describing can change dynamically, e.g. due to having an internal
 /// state, or depending on some system state.
 ///
 /// ## Performance consideration
+///   Rad uses a extremely lightweight yet powerful mechanism to build and
+///   update DOM. Below are some general tips along with high level
+///   understanding of how things works under the hood:
 ///
-/// * In worst case, a widget rebuild process involves cascading a update call to all child
-///   widgets. Child widgets then can cascade update to their childs and so on. This case
-///   usually doesn't happen but it's worth mentioning. Update process is optimized for
-///   performance in worst case. A widget update do not cause a complete widget's rebuild.
-///   Every widget will update it's DOM interface only if  its description has changed.
-///
-///
-/// * Normally, having state at top-level of your application won't hurt performance.
-///   But it's always better to have a your State at leaf nodes. Having less childs means,
-///   updates can be dispatched and processed faster.
+/// * Push the state to the leaves. Having state at top level of application is
+///   acceptable as well but it's worth noting that having less childs to update
+///   means updates can be dispatched and processed faster.
 ///
 ///
-/// * Use const constructors where possible. Framework is capable of short-circuiting rebuild
-///   process when it encounters a constant.
+/// * Use const constructors where possible.
+///   A rebuild process involves cascading a update call to all child widgets.
+///   Child widgets then *can* cascade update to their childs and so on. Every
+///   widget will update its corresponding DOM only if its description has
+///   changed. But when you use a const constructor, framework short circuit the
+///   rebuild process at the point where it encounters a constant.
 ///
 ///
-/// * There are cases where child widgets has to rebuild themselves from scratch. Complete
-///   rebuild involves disposing off current childs and rebuilding new ones with new state.
-///   Usually happens when child that framework is looking for is not there anymore because
-///   of state change in parent.
-///   Rebuilds might be bad if Rad has to render pixel multiple times a second. Luckly in Rad
-///   framework, building and updating interface is a one-step process. Framework handles the
-///   description of widgets and building process is carried out by the browser. We can rely
-///   on browsers for building big parts of tree when needed. After all that's what they do.
-///   By widget description, we mean 'data' that's required to build a widget. This means even
-///   if you remove child nodes/or part of DOM tree using browser inspector, calling setState()
-///   in a parent widget will bring back everything back in DOM.
+/// * In worst case, framework rebuild widgets from scratch. Complete rebuild
+///   involves disposing off current childs and rebuilding new ones with new
+///   state. Usually happens when child that framework is looking for is not
+///   there anymore because of state change in parent. Rebuilds might be bad if
+///   Rad has to render pixel multiple times a second. Luckly in Rad, building
+///   and updating interface is a one-step process. Framework handles the
+///   description of widgets and building process is carried out by the browser.
+///   We can rely on browsers for building big parts of tree when needed.
+///   After all that's what they do. By widget description, we mean 'data'
+///   that's required to build a widget. This means even if you remove child
+///   nodes/or part of DOM tree using browser inspector, calling setState() in a
+///   parent widget will bring back everything back in DOM.
 ///
 ///
 /// ## A Stateful widget example: 'click to toggle'

@@ -1,3 +1,17 @@
+/// App debug options.
+///
+/// By default, app do additional checks during development but logs nothing.
+/// You can enable/disable logs for particular modules or use pre-defined
+/// modes:
+///
+/// - [DebugOptions.defaultMode] - Enables exceptions and additional checks.
+///
+/// - [DebugOptions.developmentMode] - Enables exceptions, logs and additional
+/// checks.
+///
+/// - [DebugOptions.productionMode] - Suppress exceptions, logs and additional
+/// checks.
+///
 class DebugOptions {
   final bool widgetLogs;
   final bool routerLogs;

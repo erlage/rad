@@ -3,6 +3,7 @@
 import 'package:rad/rad.dart';
 import 'package:rad/widgets_internals.dart';
 import 'package:rad/src/core/framework.dart';
+import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/interface/window/delegates/browser_window.dart';
 import 'package:rad/src/core/interface/window/window.dart';
 
