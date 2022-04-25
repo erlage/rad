@@ -1,5 +1,7 @@
 import 'dart:html';
 
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
@@ -68,8 +70,9 @@ class InputText extends InputTag {
           children: children,
         );
 
+  @nonVirtual
   @override
-  get concreteType => "$InputText";
+  get widgetType => "$InputText";
 
   @override
   createConfiguration() {

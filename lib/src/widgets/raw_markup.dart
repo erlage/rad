@@ -1,5 +1,7 @@
 import 'dart:html';
 
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
@@ -24,8 +26,9 @@ class RawMarkUp extends Widget {
 
   const RawMarkUp(this.html, {Key? key}) : super(key: key);
 
+  @nonVirtual
   @override
-  get concreteType => "$RawMarkUp";
+  get widgetType => "$RawMarkUp";
 
   @override
   get correspondingTag => DomTag.division;

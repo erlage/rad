@@ -359,7 +359,7 @@ class Navigator extends Widget {
 
   @nonVirtual
   @override
-  get concreteType => "$Navigator";
+  get widgetType => "$Navigator";
 
   @nonVirtual
   @override

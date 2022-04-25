@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
@@ -11,25 +12,34 @@ import 'package:rad/src/core/common/objects/build_context.dart';
 abstract class Widget {
   final Key initialKey;
 
-  const Widget({Key? key}) : initialKey = key ?? Constants.contextKeyNotSet;
-
   /*
   |--------------------------------------------------------------------------
-  | widget specific
+  | widget specific getters
   |--------------------------------------------------------------------------
   */
 
-  /// widget's actual type
+  /// Type of widget.
   ///
-  String get concreteType;
+  /// A widget implementation should override it, only when it's not overridden
+  /// by superclass.
+  ///
+  String get widgetType;
 
-  /// corresponding HTML tag to use to render this widget
+  /// Corresponding HTML tag to use to render this widget
   ///
   DomTag get correspondingTag;
 
   /// Child widgets if any.
   ///
   List<Widget> get widgetChildren => [];
+
+  /*
+  |--------------------------------------------------------------------------
+  | constructor
+  |--------------------------------------------------------------------------
+  */
+
+  const Widget({Key? key}) : initialKey = key ?? Constants.contextKeyNotSet;
 
   /*
   |--------------------------------------------------------------------------
@@ -56,7 +66,7 @@ abstract class Widget {
   RenderObject createRenderObject(BuildContext context);
 }
 
-/// Configuration that's specific to each widget.
+/// Widget's configuration.
 ///
 /// Widgets are responsible for extending this class if they want to pass around
 /// their configuration during builds.

@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/input_tag.dart';
@@ -52,5 +53,5 @@ class InputSubmit extends InputTag {
 
   @nonVirtual
   @override
-  get concreteType => "$InputSubmit";
+  get widgetType => "$InputSubmit";
 }

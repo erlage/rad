@@ -440,7 +440,7 @@ class Framework with ServicesResolver {
 
     // nothing to dispose if its not a widget
 
-    if (null == element.dataset[Constants.attrConcreteType]) {
+    if (null == element.dataset[Constants.attrWidgetType]) {
       return;
     }
 

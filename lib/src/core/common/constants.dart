@@ -5,8 +5,8 @@ import 'package:rad/src/core/common/objects/key.dart';
 class Constants {
   // widget attributes
 
+  static const attrWidgetType = "wtype";
   static const attrRuntimeType = "wruntype";
-  static const attrConcreteType = "wcontype";
   static const attrStateType = "wstatetype";
 
   // route specific

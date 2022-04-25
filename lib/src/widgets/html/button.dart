@@ -1,5 +1,7 @@
 import 'dart:html';
 
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
@@ -65,8 +67,9 @@ class Button extends MarkUpTagWithGlobalProps {
           children: children,
         );
 
+  @nonVirtual
   @override
-  get concreteType => "$Button";
+  get widgetType => "$Button";
 
   @override
   get correspondingTag => DomTag.button;

@@ -1,3 +1,5 @@
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
@@ -39,8 +41,9 @@ class Footer extends MarkUpTagWithGlobalProps {
           children: children,
         );
 
+  @nonVirtual
   @override
-  get concreteType => "$Footer";
+  get widgetType => "$Footer";
 
   @override
   get correspondingTag => DomTag.footer;

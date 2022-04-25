@@ -135,7 +135,7 @@ class Walker extends Service {
   RenderObject? findAncestorRenderObjectOfClass<T>(
     BuildContext context,
   ) {
-    var selector = "[data-${Constants.attrConcreteType}='$T']";
+    var selector = "[data-${Constants.attrWidgetType}='$T']";
 
     return findAncestorRenderObjectFromSelector(selector, context);
   }
@@ -144,7 +144,7 @@ class Walker extends Service {
     BuildContext context,
   ) {
     var selector = "[data-${Constants.attrRuntimeType}='$T']"
-        "[data-${Constants.attrConcreteType}='$InheritedWidget']";
+        "[data-${Constants.attrWidgetType}='$InheritedWidget']";
 
     var renderObject = findAncestorRenderObjectFromSelector(selector, context);
 

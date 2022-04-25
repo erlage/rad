@@ -153,7 +153,7 @@ class AppRunner {
     }
 
     CommonProps.applyDataAttributes(targetElement, {
-      Constants.attrConcreteType: "Target",
+      Constants.attrWidgetType: "Target",
       Constants.attrRuntimeType: Constants.contextTypeBigBang,
     });
 

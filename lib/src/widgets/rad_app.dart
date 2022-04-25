@@ -18,7 +18,7 @@ class RadApp extends Widget {
   get widgetChildren => [child];
 
   @override
-  get concreteType => "$RadApp";
+  get widgetType => "$RadApp";
 
   @override
   get correspondingTag => DomTag.division;

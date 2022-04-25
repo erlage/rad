@@ -1,5 +1,7 @@
 import 'dart:html';
 
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
@@ -64,8 +66,9 @@ class Anchor extends MarkUpTagWithGlobalProps {
           children: children,
         );
 
+  @nonVirtual
   @override
-  get concreteType => "$Anchor";
+  get widgetType => "$Anchor";
 
   @override
   get correspondingTag => DomTag.anchor;

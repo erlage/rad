@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
@@ -103,7 +104,7 @@ abstract class StatefulWidget extends Widget {
 
   @nonVirtual
   @override
-  get concreteType => "$StatefulWidget";
+  get widgetType => "$StatefulWidget";
 
   @nonVirtual
   @override

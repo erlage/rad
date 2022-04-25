@@ -37,8 +37,5 @@ class Text extends Span {
         );
 
   @override
-  get concreteType => "$Text";
-
-  @override
   get correspondingTag => DomTag.span;
 }

@@ -1,5 +1,7 @@
 // ignore_for_file: camel_case_types
 
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
@@ -48,8 +50,9 @@ class RT_TestWidget extends Widget {
   })  : hash = customHash ?? 'none',
         super(key: key);
 
+  @nonVirtual
   @override
-  get concreteType => '$RT_TestWidget';
+  get widgetType => '$RT_TestWidget';
 
   @override
   get correspondingTag => DomTag.division;

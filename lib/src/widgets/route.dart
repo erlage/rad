@@ -1,3 +1,5 @@
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
@@ -34,8 +36,9 @@ class Route extends Widget {
   })  : path = path ?? name,
         super(key: key);
 
+  @nonVirtual
   @override
-  get concreteType => "$Route";
+  get widgetType => "$Route";
 
   @override
   get correspondingTag => DomTag.division;

@@ -2,7 +2,7 @@
    * RadApp widget
    */
 
-[data-wcontype="RadApp"] {
+[data-wtype="RadApp"] {
     width: 100%;
     height: 100%;
 }
@@ -12,11 +12,11 @@
    * widgets without any styles/display
    */
 
-[data-wcontype="Route"],
-[data-wcontype="Navigator"],
-[data-wcontype="InheritedWidget"],
-[data-wcontype="StatefulWidget"],
-[data-wcontype="StatelessWidget"],
+[data-wtype="Route"],
+[data-wtype="Navigator"],
+[data-wtype="InheritedWidget"],
+[data-wtype="StatefulWidget"],
+[data-wtype="StatelessWidget"],
 .rad-list-view-item-container {
     display: contents;
 }
@@ -26,7 +26,7 @@
    * ListView widget.
    */
 
-[data-wcontype="ListView"] {
+[data-wtype="ListView"] {
     width: 100%;
     height: 100%;
     display: flex;
@@ -37,7 +37,7 @@
    * Make sure flex do not shrink/grow for ListView's childs
    */
 
-[data-wcontype="ListView"]>*,
+[data-wtype="ListView"]>*,
 .rad-list-view-item-container>* {
     flex-grow: 0;
     flex-shrink: 0;

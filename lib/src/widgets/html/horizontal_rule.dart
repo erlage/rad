@@ -1,3 +1,5 @@
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
@@ -15,11 +17,12 @@ class HorizontalRule extends Widget {
     this.classAttribute,
   }) : super(key: key);
 
+  @nonVirtual
   @override
-  get correspondingTag => DomTag.horizontalRule;
+  get widgetType => "$HorizontalRule";
 
   @override
-  get concreteType => "$HorizontalRule";
+  get correspondingTag => DomTag.horizontalRule;
 
   @override
   createConfiguration() => _HorizontalRuleConfiguration(classAttribute);

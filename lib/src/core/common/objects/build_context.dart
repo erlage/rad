@@ -71,7 +71,7 @@ class BuildContext {
 
         // widget type information
 
-        widgetConcreteType = widget.concreteType,
+        widgetConcreteType = widget.widgetType,
         widgetRuntimeType = "${widget.runtimeType}",
         widgetCorrespondingTag = widget.correspondingTag,
 
@@ -85,7 +85,7 @@ class BuildContext {
           fnMapDomTag(widget.correspondingTag),
         ) as HtmlElement)
           ..id = key.value
-          ..dataset[Constants.attrConcreteType] = widget.concreteType
+          ..dataset[Constants.attrWidgetType] = widget.widgetType
           ..dataset[Constants.attrRuntimeType] = "${widget.runtimeType}";
 
   /// Create app context(root).
@@ -156,10 +156,10 @@ class BuildContext {
 
   @override
   toString() {
-    var cType = _widget?.concreteType;
+    var wType = _widget?.widgetType;
     var rType = "${_widget?.runtimeType}";
 
-    var pType = cType != rType ? "$rType ($cType)" : rType;
+    var pType = wType != rType ? "$rType ($wType)" : rType;
 
     return "#$key $pType < #${_parent?.key}";
   }

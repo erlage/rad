@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
@@ -86,7 +87,7 @@ class Form extends MarkUpTagWithGlobalProps {
   get correspondingTag => DomTag.form;
 
   @override
-  get concreteType => "$Form";
+  get widgetType => "$Form";
 
   @override
   createConfiguration() {

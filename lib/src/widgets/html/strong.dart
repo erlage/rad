@@ -1,3 +1,5 @@
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
@@ -42,8 +44,9 @@ class Strong extends MarkUpTagWithGlobalProps {
           children: children,
         );
 
+  @nonVirtual
   @override
-  get concreteType => "$Strong";
+  get widgetType => "$Strong";
 
   @override
   get correspondingTag => DomTag.strong;
