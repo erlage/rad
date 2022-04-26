@@ -37,7 +37,11 @@ abstract class RenderObject {
 
   void afterMount() {}
 
-  void afterWidgetRebind(UpdateType updateType, Widget oldWidget) {}
+  void afterWidgetRebind({
+    required Widget oldWidget,
+    required Widget newWidget,
+    required UpdateType updateType,
+  }) {}
 
   void beforeUnMount() {}
 }

@@ -1,7 +1,6 @@
 import 'dart:html';
 
 import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/constants.dart';
@@ -10,6 +9,7 @@ import 'package:rad/src/core/services/services_resolver.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/widget_object.dart';
 import 'package:rad/src/core/common/objects/widget_action_object.dart';
 import 'package:rad/src/core/common/objects/widget_update_object.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
@@ -44,7 +44,7 @@ class Framework with ServicesResolver {
 
     for (var widgetKey in widgetKeys) {
       disposeWidget(
-        renderObject: services.walker.getRenderObject(widgetKey),
+        widgetObject: services.walker.getWidgetObject(widgetKey),
       );
     }
 
@@ -142,18 +142,17 @@ class Framework with ServicesResolver {
   /// Update a dependent widget(using its context).
   ///
   void updateDependentContext(BuildContext context) {
-    var renderObject = services.walker.getRenderObject(context.key.value);
+    var widgetObject = services.walker.getWidgetObject(context.key.value);
 
-    if (null != renderObject) {
-      renderObject.update(
-        element: renderObject.context.element,
+    if (null != widgetObject) {
+      widgetObject.update(
         updateType: UpdateType.dependencyChanged,
         //
         // it's a change in dependency not configuration,
         // so both are same configurations are same
         //
-        oldConfiguration: renderObject.context.configuration,
-        newConfiguration: renderObject.context.configuration,
+        oldConfiguration: widgetObject.configuration,
+        newConfiguration: widgetObject.configuration,
       );
     }
   }
@@ -283,7 +282,7 @@ class Framework with ServicesResolver {
         if (!updateObjects.containsKey(childElement.id)) {
           if (flagDisposeObsoluteChildren) {
             disposeWidget(
-              renderObject: services.walker.getRenderObject(childElement.id),
+              widgetObject: services.walker.getWidgetObject(childElement.id),
               flagPreserveTarget: false,
             );
           } else if (flagHideObsoluteChildren) {
@@ -301,14 +300,13 @@ class Framework with ServicesResolver {
       var updateObject = updateObjects[elementId]!;
 
       if (null != updateObject.existingElementId) {
-        var renderObject = services.walker.getRenderObject(elementId);
+        var widgetObject = services.walker.getWidgetObject(elementId);
 
         // if found
 
-        if (null != renderObject) {
+        if (null != widgetObject) {
           var newWidget = updateObject.widget;
-
-          var oldWidget = renderObject.context.widget;
+          var oldWidget = widgetObject.widget;
 
           if (UpdateType.dependencyChanged == updateType) {
             // if it's a inherited widget update, we allow immediate childs
@@ -323,7 +321,7 @@ class Framework with ServicesResolver {
             if (oldWidget == newWidget) {
               if (services.debug.frameworkLogs) {
                 print(
-                  "Short-circuit rebuild: ${renderObject.context}",
+                  "Short-circuit rebuild: ${widgetObject.context}",
                 );
 
                 return;
@@ -331,32 +329,28 @@ class Framework with ServicesResolver {
             }
           }
 
-          var oldConfiguration = renderObject.context.configuration;
-
+          var oldConfiguration = widgetObject.configuration;
           var isChanged = newWidget.isConfigurationChanged(oldConfiguration);
 
           if (isChanged) {
             var newConfiguration = newWidget.createConfiguration();
 
-            renderObject.context.frameworkRebindConfiguration(newConfiguration);
-
-            renderObject.context.frameworkRebindWidget(newWidget);
-
-            // call hook
-
-            renderObject.afterWidgetRebind(updateType, oldWidget);
+            widgetObject.rebindWidget(
+              widget: newWidget,
+              updateType: updateType,
+              newConfiguration: newConfiguration,
+            );
 
             // publish update
 
-            renderObject.update(
+            widgetObject.update(
               updateType: updateType,
-              element: renderObject.context.element,
               newConfiguration: newConfiguration,
               oldConfiguration: oldConfiguration,
             );
           } else {
             if (services.debug.widgetLogs) {
-              print("Skipped: ${renderObject.context}");
+              print("Skipped: ${widgetObject.context}");
             }
           }
 
@@ -370,14 +364,14 @@ class Framework with ServicesResolver {
           // those orphan childs.
 
           if (hadChilds && !hasChilds) {
-            disposeWidget(renderObject: renderObject, flagPreserveTarget: true);
+            disposeWidget(widgetObject: widgetObject, flagPreserveTarget: true);
           } else {
             // else update childs
             // doesn't matter whether new has or not.
 
             updateChildren(
               widgets: updateObject.widget.widgetChildren,
-              parentContext: renderObject.context,
+              parentContext: widgetObject.context,
               updateType: updateType,
             );
           }
@@ -409,49 +403,47 @@ class Framework with ServicesResolver {
   /// Dispose widgets and its child widgets.
   ///
   void disposeWidget({
-    RenderObject? renderObject,
+    WidgetObject? widgetObject,
     bool flagPreserveTarget = false,
   }) {
-    if (null == renderObject) {
+    if (null == widgetObject) {
       return;
     }
 
     // cascade dispose to its childs first
 
-    if (renderObject.context.element.hasChildNodes()) {
-      for (final childElement in renderObject.context.element.children) {
+    if (widgetObject.element.hasChildNodes()) {
+      for (final childElement in widgetObject.element.children) {
         disposeWidget(
-          renderObject: services.walker.getRenderObject(childElement.id),
+          widgetObject: services.walker.getWidgetObject(childElement.id),
         );
       }
     }
+
+    // if widget itself has to be preserved
 
     if (flagPreserveTarget) {
       return;
     }
 
-    var element = renderObject.context.element;
-
     // nothing to dispose if its a body tag
 
-    if (element == document.body) {
+    if (widgetObject.element == document.body) {
       return;
     }
 
     // nothing to dispose if its not a widget
 
-    if (null == element.dataset[Constants.attrWidgetType]) {
+    if (null == widgetObject.element.dataset[Constants.attrWidgetType]) {
       return;
     }
 
-    renderObject.beforeUnMount();
+    widgetObject.unMount();
 
-    _unMountContext(renderObject.context);
-
-    services.walker.unRegisterRenderObject(renderObject);
+    services.walker.unRegisterWidgetObject(widgetObject);
 
     if (services.debug.widgetLogs) {
-      print("Dispose: ${renderObject.context}");
+      print("Dispose: ${widgetObject.context}");
     }
   }
 
@@ -539,7 +531,7 @@ class Framework with ServicesResolver {
         task as WidgetsDisposeTask;
 
         disposeWidget(
-          renderObject: task.renderObject,
+          widgetObject: task.widgetObject,
           flagPreserveTarget: task.flagPreserveTarget,
         );
 
@@ -570,20 +562,11 @@ class Framework with ServicesResolver {
         parentContext: parentContext,
       );
 
-      var renderObject = widget.createRenderObject(context);
+      var widgetObject = WidgetObject(widget: widget, context: context);
 
-      services.walker.registerRenderObject(renderObject);
+      services.walker.registerWidgetObject(widgetObject);
 
-      renderObject.beforeMount();
-
-      _mountContext(context: context, mountAtIndex: mountAtIndex);
-
-      renderObject
-        ..afterMount()
-        ..render(
-          context.element,
-          context.configuration,
-        );
+      widgetObject.mount(mountAtIndex);
 
       // build child(if any)
 
@@ -601,28 +584,28 @@ class Framework with ServicesResolver {
     required WidgetActionCallback widgetActionCallback,
     bool flagIterateInReverseOrder = false,
   }) {
-    var renderObject = services.walker.getRenderObject(parentContext.key.value);
+    var widgetObject = services.walker.getWidgetObject(parentContext.key.value);
 
-    if (null == renderObject) {
+    if (null == widgetObject) {
       return [];
     }
 
     var widgetActionObjects = <WidgetActionObject>[];
 
-    var children = renderObject.context.element.children;
+    var children = widgetObject.element.children;
 
     var iterable = flagIterateInReverseOrder ? children.reversed : children;
 
     childrenLoop:
     for (final child in iterable) {
-      var childRenderObject = services.walker.getRenderObject(child.id);
+      var childWidgetObject = services.walker.getWidgetObject(child.id);
 
-      if (null != childRenderObject) {
-        var widgetActions = widgetActionCallback(childRenderObject);
+      if (null != childWidgetObject) {
+        var widgetActions = widgetActionCallback(childWidgetObject);
 
         for (final widgetAction in widgetActions) {
           widgetActionObjects.add(
-            WidgetActionObject(widgetAction, childRenderObject),
+            WidgetActionObject(widgetAction, childWidgetObject),
           );
 
           if (WidgetAction.skipRest == widgetAction) {
@@ -648,38 +631,37 @@ class Framework with ServicesResolver {
           break;
 
         case WidgetAction.showWidget:
-          _showElement(widgetActionObject.renderObject.context.element);
+          _showElement(widgetActionObject.widgetObject.element);
 
           break;
 
         case WidgetAction.hideWidget:
-          _hideElement(widgetActionObject.renderObject.context.element);
+          _hideElement(widgetActionObject.widgetObject.element);
 
           break;
 
         case WidgetAction.dispose:
-          disposeWidget(renderObject: widgetActionObject.renderObject);
+          disposeWidget(widgetObject: widgetActionObject.widgetObject);
 
           break;
 
         case WidgetAction.updateWidget:
-          var renderObject = widgetActionObject.renderObject;
+          var widgetObject = widgetActionObject.widgetObject;
 
           // publish update
 
-          renderObject.update(
-            element: renderObject.context.element,
+          widgetObject.update(
             updateType: updateType,
-            newConfiguration: renderObject.context.configuration,
-            oldConfiguration: renderObject.context.configuration,
+            newConfiguration: widgetObject.configuration,
+            oldConfiguration: widgetObject.configuration,
           ); // bit of mess ^ but required
 
           // call update on child widgets
 
           updateChildren(
             updateType: updateType,
-            parentContext: renderObject.context,
-            widgets: renderObject.context.widget.widgetChildren,
+            parentContext: widgetObject.context,
+            widgets: widgetObject.widget.widgetChildren,
           );
 
           break;
@@ -690,7 +672,7 @@ class Framework with ServicesResolver {
   /// Clean widget context.
   ///
   void _cleanContext(BuildContext context) {
-    var isRoot = Constants.contextTypeBigBang == context.widgetConcreteType;
+    var isRoot = Constants.contextTypeBigBang == context.widgetType;
 
     if (isRoot) {
       _cleanElement(context.key.value);
@@ -700,52 +682,10 @@ class Framework with ServicesResolver {
 
     disposeWidget(
       flagPreserveTarget: true,
-      renderObject: services.walker.getRenderObject(
+      widgetObject: services.walker.getWidgetObject(
         context.key.value,
       ),
     );
-  }
-
-  void _mountContext({
-    required BuildContext context,
-    int? mountAtIndex,
-  }) {
-    // we can't use node.parent here cus root widget's parent can be null
-
-    var parentElement = document.getElementById(context.parent.key.value);
-
-    if (null != parentElement) {
-      // if mount is requested at a specific index
-
-      if (null != mountAtIndex) {
-        // if index is available
-
-        if (mountAtIndex >= 0 && parentElement.children.length > mountAtIndex) {
-          // mount at specific index
-
-          parentElement.insertBefore(
-            context.element,
-            parentElement.children[mountAtIndex],
-          );
-
-          context.frameworkSetIsMounted(true);
-
-          return;
-        }
-      }
-
-      // else append
-
-      parentElement.append(context.element);
-
-      context.frameworkSetIsMounted(true);
-    }
-  }
-
-  void _unMountContext(BuildContext context) {
-    context
-      ..frameworkSetIsMounted(false)
-      ..element.remove();
   }
 
   void _cleanElement(String elementId) {

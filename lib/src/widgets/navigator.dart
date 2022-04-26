@@ -1,6 +1,7 @@
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/widget_object.dart';
 import 'package:rad/src/core/services/router/open_history_entry.dart';
 import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/core/common/functions.dart';
@@ -311,10 +312,10 @@ class Navigator extends Widget {
     var targetContext = context;
 
     while (true) {
-      var renderObject = services.walker
-          .findAncestorRenderObjectOfType<Navigator>(targetContext);
+      var widgetObject = services.walker
+          .findAncestorWidgetObjectOfType<Navigator>(targetContext);
 
-      if (null == renderObject) {
+      if (null == widgetObject) {
         services.debug.exception(
           "Navigator operation requested with a context that does not include a Navigator.\n"
           "The context used to push or pop routes from the Navigator must be that of a "
@@ -336,12 +337,14 @@ class Navigator extends Widget {
           context, // for local key, any context works
         );
 
-        if (widgetKey == renderObject.context.key) {
-          targetContext = renderObject.context;
+        if (widgetKey == widgetObject.context.key) {
+          targetContext = widgetObject.context;
 
           continue;
         }
       }
+
+      var renderObject = widgetObject.renderObject;
 
       renderObject as NavigatorRenderObject;
 
@@ -572,8 +575,8 @@ class NavigatorState with ServicesResolver {
           parentContext: context,
           flagIterateInReverseOrder: true,
           updateType: UpdateType.setState,
-          widgetActionCallback: (RenderObject renderObject) {
-            var element = renderObject.context.element;
+          widgetActionCallback: (WidgetObject widgetObject) {
+            var element = widgetObject.element;
 
             var routeName = element.dataset[Constants.attrRouteName];
 
@@ -605,7 +608,7 @@ class NavigatorState with ServicesResolver {
           parentContext: context,
           flagIterateInReverseOrder: true,
           updateType: UpdateType.setState,
-          widgetActionCallback: (renderObject) {
+          widgetActionCallback: (WidgetObject widgetObject) {
             return [WidgetAction.hideWidget];
           },
           afterTaskCallback: () {
@@ -633,8 +636,8 @@ class NavigatorState with ServicesResolver {
       WidgetsManageTask(
         parentContext: context,
         flagIterateInReverseOrder: true,
-        widgetActionCallback: (renderObject) {
-          var element = renderObject.context.element;
+        widgetActionCallback: (WidgetObject widgetObject) {
+          var element = widgetObject.element;
 
           var name = element.dataset[Constants.attrRouteName] ?? "";
 
@@ -789,8 +792,8 @@ class NavigatorState with ServicesResolver {
         parentContext: context,
         flagIterateInReverseOrder: true,
         updateType: updateType,
-        widgetActionCallback: (renderObject) {
-          var element = renderObject.context.element;
+        widgetActionCallback: (WidgetObject widgetObject) {
+          var element = widgetObject.element;
 
           var name = element.dataset[Constants.attrRouteName] ?? "";
 

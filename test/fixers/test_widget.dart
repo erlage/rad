@@ -193,7 +193,11 @@ class RT_TestWidgetRenderObject extends RenderObject {
   }
 
   @override
-  afterWidgetRebind(updateType, oldWidget) {
+  afterWidgetRebind({
+    required updateType,
+    required oldWidget,
+    required newWidget,
+  }) {
     if (null != roEventHookAfterWidgetRebind) {
       roEventHookAfterWidgetRebind!();
     }

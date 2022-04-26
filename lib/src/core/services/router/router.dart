@@ -431,7 +431,7 @@ class Router extends Service {
     var walkerService = ServicesRegistry.instance.getWalker(context);
 
     var parentRenderObject =
-        walkerService.findAncestorRenderObjectOfType<Navigator>(
+        walkerService.findAncestorWidgetObjectOfType<Navigator>(
       context.parent,
     );
 

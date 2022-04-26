@@ -165,11 +165,13 @@ class StatefulWidgetRenderObject extends RenderObject {
   }
 
   @override
-  afterWidgetRebind(updateType, covariant StatefulWidget oldWidget) {
-    // widget rebinding rebinds widget instance in renderObject.context
-
+  afterWidgetRebind({
+    required updateType,
+    required covariant StatefulWidget newWidget,
+    required covariant StatefulWidget oldWidget,
+  }) {
     state
-      ..frameworkUpdateContextBinding(context)
+      ..frameworkRebindWidget(newWidget)
       ..didUpdateWidget(oldWidget);
   }
 
@@ -335,9 +337,9 @@ abstract class State<T extends StatefulWidget> {
   |--------------------------------------------------------------------------
   */
 
-  Function(UpdateType type)? _updateProcedure;
-
   var _isRebuilding = false;
+
+  Function(UpdateType type)? _updateProcedure;
 
   /// Whether widget of current state object is rebuilding.
   ///
@@ -350,28 +352,50 @@ abstract class State<T extends StatefulWidget> {
 
   @nonVirtual
   @protected
-  void frameworkBindContext(BuildContext context) {
-    frameworkUpdateContextBinding(context);
+  void frameworkBindUpdateProcedure(
+    Function(UpdateType type) updateProcedure,
+  ) {
+    if (null != _updateProcedure) {
+      throw Exception(Constants.coreError);
+    }
+
+    _updateProcedure = updateProcedure;
   }
 
   @nonVirtual
   @protected
-  void frameworkUpdateContextBinding(BuildContext context) {
-    _context = context;
+  void frameworkBindContext(BuildContext context) {
+    if (null != _context) {
+      throw Exception(Constants.coreError);
+    }
 
-    _widget = _context!.widget as T;
+    _context = context;
+  }
+
+  @nonVirtual
+  @protected
+  void frameworkBindWidget(Widget widget) {
+    if (null != _widget) {
+      throw Exception(Constants.coreError);
+    }
+
+    _widget = widget as T;
   }
 
   @nonVirtual
   @protected
   void frameworkBindElement(HtmlElement element) {
+    if (null != _element) {
+      throw Exception(Constants.coreError);
+    }
+
     _element = element;
   }
 
   @nonVirtual
   @protected
-  void frameworkBindUpdateProcedure(Function(UpdateType type) updateProcedure) {
-    _updateProcedure = updateProcedure;
+  void frameworkRebindWidget(Widget newWidget) {
+    _widget = newWidget as T;
   }
 
   @nonVirtual

@@ -383,8 +383,12 @@ void main() {
                     'rebind widget 1a',
                   );
 
-                  var widget = app!.services.walker.getRenderObject('widget')!;
-                  var hash = (widget.context.widget as RT_TestWidget).hash;
+                  var widgetObject = app!.services.walker.getWidgetObject(
+                    'widget',
+                  )!;
+
+                  var hash = (widgetObject.widget as RT_TestWidget).hash;
+
                   expect(hash, equals('new-instance'));
                 },
                 wOverrideIsConfigurationChanged: () => true,
@@ -393,8 +397,12 @@ void main() {
             parentContext: RT_TestBed.rootContext,
           );
 
-          var widget = app!.services.walker.getRenderObject('widget')!;
-          var hash = (widget.context.widget as RT_TestWidget).hash;
+          var widgetObject = app!.services.walker.getWidgetObject(
+            'widget',
+          )!;
+
+          var hash = (widgetObject.widget as RT_TestWidget).hash;
+
           expect(hash, equals('original-instance'));
 
           app!.framework.updateChildren(
