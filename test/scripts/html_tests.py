@@ -51,7 +51,7 @@ widgets_map = {
     'sup' : 'SuperScript',
     'blockquote' : 'Blockquote',
     'option' : 'Option',
-    'pr' : 'Paragraph',
+    'p' : 'Paragraph',
     'sub' : 'SubScript',
     'form' : 'Form',
     'progress' : 'Progress',
