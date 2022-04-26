@@ -13,18 +13,21 @@ class KeyGen extends Service {
 
   final _random = Random();
 
+  // number of generated keys from generateGlobalKey()
+  var _keyCounter = 0;
+
+  // number of generated keys from generateRandomKey()
   var _extraCounter = 0;
-  var _widgetCounter = 0;
 
   KeyGen(BuildContext context, this.options) : super(context);
 
   /// Generates a new global key for widget.
   ///
   GlobalKey generateGlobalKey() {
-    _widgetCounter++;
+    _keyCounter++;
 
     return GlobalKey(
-      "${Constants.contextGenKeyPrefix}${rootContext.appTargetId}_$_widgetCounter",
+      "${Constants.contextGenKeyPrefix}${rootContext.appTargetId}_$_keyCounter",
     );
   }
 
