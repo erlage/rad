@@ -59,7 +59,7 @@ class BuildContext {
     required Widget widget,
     required BuildContext parentContext,
   })  :
-        // from parent
+        // properties from parent
 
         _parent = parentContext,
         appTargetId = parentContext.appTargetId,
@@ -94,11 +94,12 @@ class BuildContext {
       : _widget = null,
         _parent = null,
         _isMounted = false,
-        element = document.getElementById(key.value) as HtmlElement,
+        _configuration = const WidgetConfiguration(),
         appTargetId = key.value,
         widgetCorrespondingTag = DomTag.division,
         widgetConcreteType = Constants.contextTypeBigBang,
-        widgetRuntimeType = Constants.contextTypeBigBang;
+        widgetRuntimeType = Constants.contextTypeBigBang,
+        element = document.getElementById(key.value) as HtmlElement;
 
   /*
   |--------------------------------------------------------------------------
