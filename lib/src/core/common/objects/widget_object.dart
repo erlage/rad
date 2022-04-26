@@ -53,7 +53,7 @@ class WidgetObject {
 
     _doMount(mountAtIndex);
 
-    _isMounted = false;
+    _isMounted = true;
 
     renderObject
       ..afterMount()
