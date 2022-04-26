@@ -3,9 +3,9 @@ A simple click testing demo using Rad:
 import 'package:rad/rad.dart';
 
 void main() {
-  RadApp(
-    targetKey: "output",
-    child: ClickToggle(),
+  startApp(
+    app: const ClickToggle(),
+    targetId: 'output',
   );
 }
 
