@@ -34,8 +34,17 @@ class GestureDetector extends StatefulWidget {
 }
 
 class _GestureDetectorState extends State<GestureDetector> {
+  HtmlElement? _element;
+  HtmlElement get element => _element!;
+
   @override
-  initState() => _addListeners();
+  initState() {
+    _element = document.getElementById(
+      context.key.value,
+    ) as HtmlElement;
+
+    _addListeners();
+  }
 
   @override
   dispose() => _removeListeners();
