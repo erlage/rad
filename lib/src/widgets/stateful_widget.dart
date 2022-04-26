@@ -149,7 +149,6 @@ class StatefulWidgetRenderObject extends RenderObject {
 
     state
       ..frameworkBindContext(context)
-      ..frameworkBindElement(element)
       ..frameworkBindUpdateProcedure(updateProcedure)
       ..initState()
       ..didChangeDependencies();
@@ -257,9 +256,6 @@ abstract class State<T extends StatefulWidget> {
 
   T? _widget;
   T get widget => _widget!;
-
-  HtmlElement? _element;
-  HtmlElement get element => _element!;
 
   BuildContext? _context;
   BuildContext get context => _context!;
@@ -380,16 +376,6 @@ abstract class State<T extends StatefulWidget> {
     }
 
     _widget = widget as T;
-  }
-
-  @nonVirtual
-  @protected
-  void frameworkBindElement(HtmlElement element) {
-    if (null != _element) {
-      throw Exception(Constants.coreError);
-    }
-
-    _element = element;
   }
 
   @nonVirtual
