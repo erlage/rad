@@ -45,8 +45,12 @@ class KeyGen extends Service {
     }
 
     return GlobalKey(
-      "${parentContext.key.value}_${key.value}",
+      "${parentContext.key.value}__${key.value}",
     );
+
+    // Using different separator for local(_) and for non-local(__) keys ensure
+    // that generated keys will be different even if value of appTargetId is
+    // exactly same as value of parentContext.key.value(happens at root point)
   }
 
   String generateRandomKey() {

@@ -319,21 +319,18 @@ void main() {
         () {
           var testStack = RT_TestStack();
 
-          // Failing to distinguish LocalKey and Key.
-          // (see key gen tests)
-
-          // app!.framework.updateChildren(
-          //   widgets: [
-          //     RT_TestWidget(
-          //       key: Key('key-original'),
-          //       roEventHookRender: () => testStack.push('render 1'),
-          //       roEventHookUpdate: () => testStack.push('update 1'),
-          //       roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
-          //     ),
-          //   ],
-          //   updateType: UpdateType.undefined,
-          //   parentContext: RT_TestBed.rootContext,
-          // );
+          app!.framework.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                key: Key('key-original'),
+                roEventHookRender: () => testStack.push('render 1'),
+                roEventHookUpdate: () => testStack.push('update 1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
+              ),
+            ],
+            updateType: UpdateType.undefined,
+            parentContext: RT_TestBed.rootContext,
+          );
 
           app!.framework.updateChildren(
             widgets: [
@@ -387,8 +384,8 @@ void main() {
             parentContext: RT_TestBed.rootContext,
           );
 
-          // expect(testStack.popFromStart(), equals('render 1'));
-          // expect(testStack.popFromStart(), equals('dispose 1'));
+          expect(testStack.popFromStart(), equals('render 1'));
+          expect(testStack.popFromStart(), equals('dispose 1'));
           expect(testStack.popFromStart(), equals('render 2'));
           expect(testStack.popFromStart(), equals('dispose 2'));
           expect(testStack.popFromStart(), equals('render 3'));
