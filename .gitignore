@@ -3,3 +3,6 @@
 **/.vscode
 **/.idea
 **/build
+**/out
+**/tmp
+**/__pycache__
