@@ -1,4 +1,4 @@
-test('should set children widget', () {
+test('should set children widgets', () {
   app!.framework.buildChildren(
     widgets: [
       __WidgetClass__(key: GlobalKey('widget-1'), children: [

@@ -69,7 +69,7 @@ def generate():
         out_file = os.path.abspath( os.path.join( main.test_dir, 'tests', 'generated', 'html_' + widget_tag + '_test.dart' ) )
 
         generated =  ''' 
-            // Auto-generate file
+            // Auto-generated file
             //
             // Sources of these tests can be found in /test/templates folder
 
