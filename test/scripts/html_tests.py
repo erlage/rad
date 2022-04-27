@@ -73,16 +73,7 @@ def generate():
             //
             // Sources of these tests can be found in /test/templates folder
 
-            import 'dart:html';
-
-            import 'package:rad/rad.dart';
-            import 'package:rad/widgets_html.dart';
-            import 'package:rad/widgets_internals.dart';
-            import 'package:test/expect.dart';
-            import 'package:test/scaffolding.dart';
-
-            import '../../fixers/test_app.dart';
-            import '../../fixers/test_bed.dart';
+            import '../../test_imports.dart';
 
             void main() {
 
