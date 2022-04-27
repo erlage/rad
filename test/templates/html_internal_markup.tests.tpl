@@ -17,4 +17,4 @@ test('should set correct types and markup', () {
       // '</__WidgetTag__>',
     ),
   );
-});
+}__Skip__);

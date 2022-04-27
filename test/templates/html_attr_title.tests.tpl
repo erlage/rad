@@ -15,4 +15,4 @@ test('should set title', () {
   expect(element1.getAttribute('title'), equals('some title'));
   expect(element2.getAttribute('title'), equals('some "messy" title'));
   expect(element3.getAttribute('title'), equals("some 'messy' title"));
-});
+}__Skip__);

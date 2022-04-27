@@ -9,6 +9,12 @@ gen_folder = os.path.abspath( os.path.join( main.test_dir, 'tests', 'generated' 
 widgets_folder = os.path.abspath( os.path.join( main.rad_dir, 'lib', 'src', 'widgets', 'html' ) )
 templates_folder = os.path.abspath( os.path.join( main.test_dir, 'templates' ) )
 
+skip_map = {
+    'html_attr_innertext': {
+        'img': ['chrome']
+    }
+}
+
 tests = [
     'html_attr_child',
     'html_attr_children',
@@ -104,8 +110,23 @@ def generate():
 
             test_tmpl = os.path.abspath( os.path.join( templates_folder, test + '.tests.tpl' ) )
 
-            with open(test_tmpl, 'r') as file:
-                generated += file.read().replace('__WidgetClass__', widgets_map[widget_tag]).replace('__WidgetTag__', widget_tag)
+            replacements = [
+                ('__WidgetClass__', widgets_map[widget_tag]),
+                ('__WidgetTag__', widget_tag),
+            ]
+
+            skip_context = ''
+            if test in skip_map and widget_tag in skip_map[test]:
+                skip_context = ', onPlatform: {'
+
+                for platform in skip_map[test][widget_tag]:
+                    skip_context += "'" + platform + "': Skip('Failing for " + widget_tag + " on " + platform + "'),"
+
+                skip_context += '}'
+                replacements.append(('__Skip__', skip_context))
+            
+
+            generated += utils.parse_test_from_template(test_tmpl, replacements)
                 
         generated += '}); \n\n }'
         

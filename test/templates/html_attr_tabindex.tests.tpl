@@ -24,4 +24,4 @@ test('should set tab index', () {
   expect(element1.getAttribute('tabindex'), equals('1'));
   expect(element2.getAttribute('tabindex'), equals('2'));
   expect(element3.getAttribute('tabindex'), equals('3'));
-});
+}__Skip__);

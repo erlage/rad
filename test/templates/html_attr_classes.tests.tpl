@@ -24,4 +24,4 @@ test('should set classes', () {
   expect(element1.getAttribute('class'), equals('some class'));
   expect(element2.getAttribute('class'), equals('some "messy" class'));
   expect(element3.getAttribute('class'), equals("some 'messy' class"));
-});
+}__Skip__);

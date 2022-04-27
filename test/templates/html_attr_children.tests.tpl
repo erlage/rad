@@ -20,4 +20,4 @@ test('should set children widgets', () {
   expect(element1.id, equals('widget-1'));
   expect(element2.id, equals('widget-2'));
   expect(element3.id, equals('widget-3'));
-});
+}__Skip__);

@@ -18,4 +18,4 @@ test('should set draggable', () {
 
   expect(element1.getAttribute('draggable'), equals('false'));
   expect(element2.getAttribute('draggable'), equals('true'));
-});
+}__Skip__);

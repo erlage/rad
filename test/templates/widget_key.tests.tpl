@@ -15,4 +15,4 @@ test('should set key', () {
   expect(element1.id, endsWith('some-key'));
   expect(element2.id, endsWith('some-local-key'));
   expect(element3.id, equals('some-global-key'));
-});
+}__Skip__);

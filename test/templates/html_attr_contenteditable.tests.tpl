@@ -18,4 +18,4 @@ test('should set contenteditable', () {
 
   expect(element1.getAttribute('contenteditable'), equals('false'));
   expect(element2.getAttribute('contenteditable'), equals('true'));
-});
+}__Skip__);

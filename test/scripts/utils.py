@@ -1,3 +1,4 @@
+from dataclasses import replace
 import os
 
 def clear_folder(dir):
@@ -17,3 +18,21 @@ def clean_file(file):
     if os.path.exists(file):
         if os.path.isfile(file):
             os.unlink(file)
+
+
+
+def parse_test_from_template(template, replacements):
+    default_replacements = [
+        ('__Skip__', ''),
+    ]
+
+    with open(template, 'r') as file:
+        contents = file.read()
+
+        for key, value in replacements:
+            contents = contents.replace(key, value)
+
+        for key, value in default_replacements:
+            contents = contents.replace(key, value)
+
+        return contents

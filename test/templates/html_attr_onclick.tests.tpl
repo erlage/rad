@@ -35,4 +35,4 @@ test('should set onClick', () {
     element3.getAttribute('onclick'),
     equals("some 'messy' onClick"),
   );
-});
+}__Skip__);

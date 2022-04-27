@@ -15,4 +15,4 @@ test('should set style', () {
   expect(element1.getAttribute('style'), equals('some style'));
   expect(element2.getAttribute('style'), equals('some "messy" style'));
   expect(element3.getAttribute('style'), equals("some 'messy' style"));
-});
+}__Skip__);

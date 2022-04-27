@@ -18,4 +18,4 @@ test('should set hidden', () {
 
   expect(element1.hidden, equals(false));
   expect(element2.hidden, equals(true));
-});
+}__Skip__);
