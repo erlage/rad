@@ -25,6 +25,7 @@ tests = [
     'html_attr_hidden',
     'html_attr_innertext',
     'html_attr_onclick',
+    'html_attr_onclick_event_listener',
     'html_attr_style',
     'html_attr_tabindex',
     'html_attr_title',
