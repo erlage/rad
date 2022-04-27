@@ -323,6 +323,139 @@ void html_ul_test() {
       );
     });
 
+    test('should set data attributes', () {
+      app!.framework.buildChildren(
+        widgets: [
+          UnOrderedList(
+            key: GlobalKey('some-global-key'),
+            dataAttributes: {
+              'something': 'something okay',
+              'another': 'another okay',
+            },
+          ),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+
+      expect(element1.dataset['something'], equals('something okay'));
+      expect(element1.dataset['another'], equals('another okay'));
+    });
+
+    test('should remove obsolute and add new data attributes on update', () {
+      app!.framework.buildChildren(
+        widgets: [
+          UnOrderedList(
+            key: GlobalKey('some-global-key'),
+            dataAttributes: {
+              'something': 'something okay',
+            },
+          ),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          UnOrderedList(
+            key: GlobalKey('some-global-key'),
+            dataAttributes: {
+              'something-new': 'something new',
+            },
+          ),
+        ],
+        updateType: UpdateType.undefined,
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+
+      expect(element1.dataset['something'], equals(null));
+      expect(element1.dataset['something-new'], equals('something new'));
+    });
+
+    test('should not override system reserved data attributes on build', () {
+      app!.framework.buildChildren(
+        widgets: [
+          UnOrderedList(
+            key: GlobalKey('some-global-key'),
+            dataAttributes: {
+              'something': 'something okay',
+              Constants.attrWidgetType: "must ignore",
+              Constants.attrRuntimeType: "must ignore",
+              Constants.attrStateType: "must ignore",
+              Constants.attrRouteName: "must ignore",
+              Constants.attrRoutePath: "must ignore",
+            },
+          ),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+
+      expect(element1.dataset['something'], equals('something okay'));
+
+      expect(
+          element1.dataset[Constants.attrWidgetType], equals("$UnOrderedList"));
+      expect(element1.dataset[Constants.attrRuntimeType],
+          equals("$UnOrderedList"));
+      expect(element1.dataset[Constants.attrStateType], equals(null));
+      expect(element1.dataset[Constants.attrRouteName], equals(null));
+      expect(element1.dataset[Constants.attrRoutePath], equals(null));
+    });
+
+    test('should not remove system reserved data attributes on update', () {
+      app!.framework.buildChildren(
+        widgets: [
+          UnOrderedList(
+            key: GlobalKey('some-global-key'),
+            dataAttributes: {
+              'something': 'something okay',
+              Constants.attrWidgetType: "must ignore",
+              Constants.attrRuntimeType: "must ignore",
+              Constants.attrStateType: "must ignore",
+              Constants.attrRouteName: "must ignore",
+              Constants.attrRoutePath: "must ignore",
+            },
+          ),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          UnOrderedList(
+            key: GlobalKey('some-global-key'),
+            dataAttributes: {
+              'something': 'something new',
+              'something-diff': 'something diff',
+              Constants.attrWidgetType: "must ignore",
+              Constants.attrRuntimeType: "must ignore",
+              Constants.attrStateType: "must ignore",
+              Constants.attrRouteName: "must ignore",
+              Constants.attrRoutePath: "must ignore",
+            },
+          ),
+        ],
+        updateType: UpdateType.undefined,
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+
+      expect(element1.dataset['something'], equals('something new'));
+      expect(element1.dataset['something-diff'], equals('something diff'));
+      expect(
+          element1.dataset[Constants.attrWidgetType], equals("$UnOrderedList"));
+      expect(element1.dataset[Constants.attrRuntimeType],
+          equals("$UnOrderedList"));
+      expect(element1.dataset[Constants.attrStateType], equals(null));
+      expect(element1.dataset[Constants.attrRouteName], equals(null));
+      expect(element1.dataset[Constants.attrRoutePath], equals(null));
+    });
+
     test('should set key', () {
       app!.framework.buildChildren(
         widgets: [
