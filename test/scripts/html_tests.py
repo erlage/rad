@@ -63,19 +63,30 @@ widgets_map = {
 
 
 def generate():
-    utils.clear_folder(gen_folder)
+    invokers = ''
+    part_of_directives = ''
+    runner_file = os.path.abspath( os.path.join( main.test_dir, 'tests', 'generated', '_html_tests_index_test.dart' ) )
+    utils.clean_file(runner_file)
 
     for index, widget_tag in enumerate(widgets_map):
-        out_file = os.path.abspath( os.path.join( main.test_dir, 'tests', 'generated', 'html_' + widget_tag + '_test.dart' ) )
+        out_file = os.path.abspath( os.path.join( main.test_dir, 'tests', 'generated', 'html_' + widget_tag + '_tests.generated.dart' ) )
 
+        utils.clean_file(out_file)
+
+        invokers += 'html_' + widget_tag + '_test();'
+
+        part_of_directives += "part 'html_" + widget_tag + "_tests.generated.dart';"
+        
         generated =  ''' 
             // Auto-generated file
             //
             // Sources of these tests can be found in /test/templates folder
 
-            import '../../test_imports.dart';
+            // ignore_for_file: non_constant_identifier_names
 
-            void main() {
+            part of '_html_tests_index_test.dart';
+
+            void html_''' + widget_tag + '''_test() {
 
                 group('HTML ''' + widgets_map[widget_tag] + ''' tests:', () {
             
@@ -103,5 +114,27 @@ def generate():
         fh = open(out_file, 'w+')
         fh.write(generated)
         fh.close()
+
+    runner_code =  ''' 
+        // Auto-generated file
+        //
+        // Sources of these tests can be found in /test/templates folder
+
+        import '../../test_imports.dart';
+
+        // fragments
+
+        ''' + part_of_directives + '''
+
+        void main() {
+
+            ''' + invokers + '''
+
+        }
+        '''
+
+    fh = open(runner_file, 'w+')
+    fh.write(runner_code)
+    fh.close()      
 
     os.system('dart format ' + gen_folder)

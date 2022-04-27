@@ -12,3 +12,8 @@ def clear_folder(dir):
                     os.rmdir(file_path)
             except Exception as e:
                 print(e)
+
+def clean_file(file):
+    if os.path.exists(file):
+        if os.path.isfile(file):
+            os.unlink(file)
