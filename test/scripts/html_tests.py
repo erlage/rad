@@ -30,6 +30,7 @@ tests = [
     'html_attr_tabindex',
     'html_attr_title',
     'html_internal_markup',
+    'html_attr_dataset',
     'widget_key',
 ]
 
