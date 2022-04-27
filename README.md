@@ -163,7 +163,7 @@ Widget Stack({required List<Widget> children})
 
 class Stack extends Division
 {
-  const Stack({required List<Stack> children}): super( 
+  const Stack({required List<StackEntry> children}): super( 
     style: "position: relative;",
     children: children,
   );
