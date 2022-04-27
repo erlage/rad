@@ -283,8 +283,6 @@ void main() {
             parentContext: RT_TestBed.rootContext,
           );
 
-          print(testStack.entries);
-
           expect(testStack.popFromStart(), equals('create config 1a'));
           expect(testStack.popFromStart(), equals('render 1a'));
 
@@ -342,8 +340,6 @@ void main() {
             updateType: UpdateType.undefined,
             parentContext: RT_TestBed.rootContext,
           );
-
-          print(testStack.entries);
 
           expect(testStack.popFromStart(), equals('create config 1a'));
           expect(testStack.popFromStart(), equals('render 1a'));
@@ -428,8 +424,6 @@ void main() {
             updateType: UpdateType.undefined,
             parentContext: RT_TestBed.rootContext,
           );
-
-          print(testStack.entries);
 
           expect(testStack.popFromStart(), equals('create config 1a'));
           expect(testStack.popFromStart(), equals('render 1a'));
