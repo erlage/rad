@@ -167,7 +167,10 @@ void html_legend_test() {
 
       var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
 
-      expect(element1.innerText, equals('hello world'));
+      // we are using innerHtml as inner text is not accessible
+      // or returns empty string for some node(e.g progress)
+
+      expect(element1.innerHtml, equals('hello world'));
     });
 
     test('should set onClick', () {
