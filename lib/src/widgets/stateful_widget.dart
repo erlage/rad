@@ -5,6 +5,7 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/core/services/scheduler/tasks/stimulate_listener_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/core/services/services_registry.dart';
@@ -145,15 +146,16 @@ class StatefulWidgetRenderObject extends RenderObject {
       Constants.attrStateType: "${state.runtimeType}",
     });
 
+    var services = ServicesRegistry.instance.getServices(context);
+    var widget = services.walker.getWidgetObject(context.key.value)!.widget;
+
     state
+      ..frameworkBindWidget(widget)
       ..frameworkBindContext(context)
-      ..frameworkBindUpdateProcedure(updateProcedure)
       ..initState()
       ..didChangeDependencies();
 
-    var schedulerService = ServicesRegistry.instance.getScheduler(context);
-
-    schedulerService.addTask(
+    services.scheduler.addTask(
       WidgetsBuildTask(
         parentContext: context,
         widgets: [state.build(context)],
@@ -183,10 +185,6 @@ class StatefulWidgetRenderObject extends RenderObject {
       state.didChangeDependencies();
     }
 
-    updateProcedure(updateType);
-  }
-
-  void updateProcedure(UpdateType updateType) {
     var schedulerService = ServicesRegistry.instance.getScheduler(context);
 
     schedulerService.addTask(
@@ -253,10 +251,28 @@ abstract class State<T extends StatefulWidget> {
   */
 
   T? _widget;
-  T get widget => _widget!;
+  T get widget {
+    if (null == _widget) {
+      throw Exception(
+        'State.widget instance cannot be accessed in state constructor. Please '
+        'use initState hook to initialize the state that depends on widget.',
+      );
+    }
+
+    return _widget!;
+  }
 
   BuildContext? _context;
-  BuildContext get context => _context!;
+  BuildContext get context {
+    if (null == _widget) {
+      throw Exception(
+        'State.context instance cannot be accessed in state constructor. Please '
+        'use initState hook to initialize the state that depends on context.',
+      );
+    }
+
+    return _context!;
+  }
 
   /*
   |--------------------------------------------------------------------------
@@ -265,6 +281,22 @@ abstract class State<T extends StatefulWidget> {
   */
 
   /// Called when this widget is inserted into the tree.
+  ///
+  /// Override this method to perform initialization that depends on the
+  /// location at which this object was inserted into the tree (i.e., [context])
+  /// or on the widget used to configure this object (i.e., [widget]).
+  ///
+  /// If a [State]'s [build] method depends on an object that can itself
+  /// change state, for example a [ChangeNotifier] or [Stream], or some
+  /// other object to which one can subscribe to receive notifications, then
+  /// be sure to subscribe and unsubscribe properly in [initState],
+  /// [didUpdateWidget], and [dispose]:
+  ///
+  ///  * In [initState], subscribe to the object.
+  ///  * In [didUpdateWidget] unsubscribe from the old object and subscribe
+  ///    to the new one if the updated widget configuration requires
+  ///    replacing the object.
+  ///  * In [dispose], unsubscribe from the object.
   ///
   @protected
   void initState() {}
@@ -278,6 +310,23 @@ abstract class State<T extends StatefulWidget> {
   void dispose() {}
 
   /// Called whenever the widget configuration changes.
+  ///
+  /// If the parent widget rebuilds and request that this location in the tree
+  /// update to display a new widget with the same [runtimeType], the framework
+  /// will update the [widget] property of this [State] object to refer to the
+  /// new widget and then call this method with the previous widget as an
+  /// argument.
+  ///
+  /// Override this method to respond when the [widget] changes (e.g., to start
+  /// implicit animations).
+  ///
+  /// The framework always calls [build] after calling [didUpdateWidget], which
+  /// means any calls to [setState] in [didUpdateWidget] are redundant.
+  ///
+  /// {@macro flutter.widgets.State.initState}
+  ///
+  /// Implementations of this method should start with a call to the inherited
+  /// method, as in `super.didUpdateWidget(oldWidget)`.
   ///
   /// The framework always calls [build] after calling [didUpdateWidget], which
   /// means any calls to [setState] in [didUpdateWidget] are redundant.
@@ -310,21 +359,27 @@ abstract class State<T extends StatefulWidget> {
   @nonVirtual
   @protected
   void setState(Callback? callable) {
-    if (_isSettingState) {
-      return;
-    }
+    var schedulerService = ServicesRegistry.instance.getScheduler(context);
 
-    try {
-      _isSettingState = true;
-
-      if (null != callable) {
-        callable();
-      }
-
-      _updateProcedure!(UpdateType.setState);
-    } finally {
-      _isSettingState = false;
-    }
+    schedulerService.addTask(
+      StimulateListenerTask(
+        beforeTaskCallback: () {
+          if (null != callable) {
+            callable();
+          }
+        },
+        afterTaskCallback: () {
+          // this is wrapped in a another task to defer the call to build().
+          schedulerService.addTask(
+            WidgetsUpdateTask(
+              parentContext: context,
+              updateType: UpdateType.setState,
+              widgets: [build(context)],
+            ),
+          );
+        },
+      ),
+    );
   }
 
   /*
@@ -332,27 +387,6 @@ abstract class State<T extends StatefulWidget> {
   | for internal use
   |--------------------------------------------------------------------------
   */
-
-  /// Whether a set state call is in progress.
-  ///
-  /// This is used to prevent user from calling setState withing the same
-  /// setState.
-  ///
-  var _isSettingState = false;
-
-  Function(UpdateType type)? _updateProcedure;
-
-  @nonVirtual
-  @protected
-  void frameworkBindUpdateProcedure(
-    Function(UpdateType type) updateProcedure,
-  ) {
-    if (null != _updateProcedure) {
-      throw Exception(Constants.coreError);
-    }
-
-    _updateProcedure = updateProcedure;
-  }
 
   @nonVirtual
   @protected
