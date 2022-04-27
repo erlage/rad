@@ -8,11 +8,16 @@ class Constants {
   static const attrWidgetType = "wtype";
   static const attrRuntimeType = "wruntype";
   static const attrStateType = "wstatetype";
-
-  // route specific
-
   static const attrRouteName = "wroutename";
   static const attrRoutePath = "wroutepath";
+
+  static const allAttributes = [
+    attrWidgetType,
+    attrRuntimeType,
+    attrStateType,
+    attrRouteName,
+    attrRoutePath,
+  ];
 
   // context specific
 

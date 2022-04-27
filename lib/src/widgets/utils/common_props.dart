@@ -1,5 +1,7 @@
 import 'dart:html';
 
+import 'package:rad/src/core/common/constants.dart';
+
 class CommonProps {
   static void applyClassAttribute(HtmlElement element, String? classAttribute) {
     if (null != classAttribute && classAttribute.isNotEmpty) {
@@ -17,6 +19,11 @@ class CommonProps {
     Map<String, String>? dataAttributes,
   ) {
     if (null != dataAttributes && dataAttributes.isNotEmpty) {
+      // clean system reserved attributes(if user has set as part of dataset)
+      dataAttributes.removeWhere(
+        (key, value) => Constants.allAttributes.contains(key),
+      );
+
       element.dataset.addAll(dataAttributes);
     }
   }
@@ -36,12 +43,16 @@ class CommonProps {
     HtmlElement element,
     Map<String, String>? dataAttributes,
   ) {
-    if (null != dataAttributes) {
-      if (dataAttributes.isNotEmpty) {
-        element.dataset.removeWhere(
-          ((key, value) => dataAttributes.containsKey(key)),
-        );
-      }
+    if (null != dataAttributes && dataAttributes.isNotEmpty) {
+      element.dataset.removeWhere(
+        (key, value) => dataAttributes.containsKey(key),
+
+        // no need to check whether attributes contains any system reserved
+        // attributes beacuse oldAttributes were cleaned during the time of
+        // initial apply in apply() function.
+
+        // return attr...contain..(key) && !Constants.allAttr...contains(key);
+      );
     }
   }
 
