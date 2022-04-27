@@ -267,9 +267,9 @@ Below is the list of available widgets in this framework.
 , [TextArea](https://pub.dev/documentation/rad/latest/rad/TextArea-class.html)
 , [UnOrderedList](https://pub.dev/documentation/rad/latest/rad/UnOrderedList-class.html)
 
-## Contributing
-For reporting bugs/queries, feel free to open issue. Read [contributing guide](https://github.com/erlage/rad/blob/main/CONTRIBUTING.md) for more.
-
 ## Why Dart?
 
 I actually tried writing [this in TypeScript before](https://github.com/erlage/proton-framework). While we can do awesome things with types in TS, it also inherits craziness from JS (has to bind 'this', use arrow fun, and more things like that). Later I decided to give Dart a try and I quickly realized that Dart is a very underrated language. You don't have to trust me on that. I had wrote a lot of Dart code with Flutter, but the fact that I choosed TS at first place really shows how underrated Dart actually is. I deeply believe Dart is a amazing language, and I am thankful to all the people who helped create Dart and/or contributing to it, one way or the other.
+
+## Contributing
+For reporting bugs/queries, feel free to open issue. Read [contributing guide](https://github.com/erlage/rad/blob/main/CONTRIBUTING.md) for more.
