@@ -9,7 +9,7 @@ gen_folder = os.path.abspath( os.path.join( main.test_dir, 'tests', 'generated' 
 widgets_folder = os.path.abspath( os.path.join( main.rad_dir, 'lib', 'src', 'widgets', 'html' ) )
 templates_folder = os.path.abspath( os.path.join( main.test_dir, 'templates' ) )
 
-skip_map = {
+skipped_tests = {
     'html_attr_innertext': {
         'img': ['chrome']
     }
@@ -69,7 +69,7 @@ widgets_map = {
 
 
 def generate():
-    invokers = ''
+    invokations = ''
     part_of_directives = ''
     runner_file = os.path.abspath( os.path.join( main.test_dir, 'tests', 'generated', '_html_tests_index_test.dart' ) )
     utils.clean_file(runner_file)
@@ -79,7 +79,7 @@ def generate():
 
         utils.clean_file(out_file)
 
-        invokers += 'html_' + widget_tag + '_test();'
+        invokations += 'html_' + widget_tag + '_test();'
 
         part_of_directives += "part 'html_" + widget_tag + "_tests.generated.dart';"
         
@@ -116,10 +116,10 @@ def generate():
             ]
 
             skip_context = ''
-            if test in skip_map and widget_tag in skip_map[test]:
+            if test in skipped_tests and widget_tag in skipped_tests[test]:
                 skip_context = ', onPlatform: {'
 
-                for platform in skip_map[test][widget_tag]:
+                for platform in skipped_tests[test][widget_tag]:
                     skip_context += "'" + platform + "': Skip('Failing for " + widget_tag + " on " + platform + "'),"
 
                 skip_context += '}'
@@ -149,7 +149,7 @@ def generate():
 
         void main() {
 
-            ''' + invokers + '''
+            ''' + invokations + '''
 
         }
         '''
