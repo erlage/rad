@@ -113,7 +113,7 @@ def generate():
             generated += '\n\n'
 
             test_tmpl = os.path.abspath(os.path.join(
-                templates_folder, test + '.tests.tpl'))
+                templates_folder, test + '.dart.txt'))
 
             replacements = [
                 ('__WidgetClass__', widgets_map[widget_tag]),
