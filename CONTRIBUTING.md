@@ -33,7 +33,7 @@ Nobody is perfect, and sometimes we mess things up. That said, here are some goo
 
 ### What are some things you can work on?
 
-- Anything from pending [bugs](https://github.com/erlage/rad/labels/bug), [enhancements](https://github.com/erlage/rad/labels/enhancement), [feature requests](https://github.com/erlage/rad/labels/feature%20request).
+- Anything from pending [bugs](https://github.com/erlage/rad/labels/bug), [enhancements](https://github.com/erlage/rad/labels/enhancement), [feature requests](https://github.com/erlage/rad/labels/feature).
 - Anything that fixes something in existing code.
 - Anything that improves or add something to existing documentation/readme(s).
 - Anything that add/improve tests.
