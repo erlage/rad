@@ -222,6 +222,10 @@ class RT_StatefulTestWidget extends StatefulWidget {
 
   final Function(
     RT_StatefulTestWidget_State state,
+  )? stateHookCreateState;
+
+  final Function(
+    RT_StatefulTestWidget_State state,
   )? stateHookDidChangeDependencies;
 
   final Function(
@@ -239,6 +243,7 @@ class RT_StatefulTestWidget extends StatefulWidget {
     this.stateEventBuild,
     this.stateEventDispose,
     this.stateEventCreateState,
+    this.stateHookCreateState,
     this.stateHookInitState,
     this.stateHookBuild,
     this.stateHookDidUpdateWidget,
@@ -249,7 +254,8 @@ class RT_StatefulTestWidget extends StatefulWidget {
 
   @override
   RT_StatefulTestWidget_State createState() => RT_StatefulTestWidget_State(
-        stateEventCreateState,
+        stateEventCreateState: stateEventCreateState,
+        stateHookCreateState: stateHookCreateState,
       );
 }
 
@@ -273,9 +279,16 @@ class RT_StatefulTestWidget_State extends State<RT_StatefulTestWidget> {
     Widget old,
   )? _stateHookDidUpdateWidget;
 
-  RT_StatefulTestWidget_State(Callback? stateEventCreateState) {
+  RT_StatefulTestWidget_State({
+    Callback? stateEventCreateState,
+    Function(RT_StatefulTestWidget_State state)? stateHookCreateState,
+  }) {
     if (null != stateEventCreateState) {
       stateEventCreateState();
+    }
+
+    if (null != stateHookCreateState) {
+      stateHookCreateState(this);
     }
   }
 

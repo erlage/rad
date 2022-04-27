@@ -32,6 +32,48 @@ void main() {
       );
     });
 
+    test(
+      'should always throw if State.widget is accessed from state constructor',
+      () async {
+        expect(
+          () => startApp(
+            app: RT_StatefulTestWidget(
+              stateHookCreateState: (state) => state.widget,
+            ),
+            targetId: RT_TestBed.rootContext.key.value,
+          ),
+          throwsA(
+            predicate(
+              (e) => '$e'.startsWith(
+                'Exception: State.widget instance cannot be accessed in state',
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'should always throw if State.context is accessed from state constructor',
+      () async {
+        expect(
+          () => startApp(
+            app: RT_StatefulTestWidget(
+              stateHookCreateState: (state) => state.context,
+            ),
+            targetId: RT_TestBed.rootContext.key.value,
+          ),
+          throwsA(
+            predicate(
+              (e) => '$e'.startsWith(
+                'Exception: State.context instance cannot be accessed in state',
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
     test('should call did change dependencies after initState', () async {
       var testStack = RT_TestStack();
 
