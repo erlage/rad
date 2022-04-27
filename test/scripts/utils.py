@@ -1,5 +1,8 @@
-from dataclasses import replace
+
+#!/usr/bin/env python3
+
 import os
+
 
 def clear_folder(dir):
     if os.path.exists(dir):
@@ -14,11 +17,10 @@ def clear_folder(dir):
             except Exception as e:
                 print(e)
 
-def clean_file(file):
-    if os.path.exists(file):
-        if os.path.isfile(file):
-            os.unlink(file)
 
+def clean_file(file):
+    if os.path.exists(file) and os.path.isfile(file):
+        os.unlink(file)
 
 
 def parse_test_from_template(template, replacements):
