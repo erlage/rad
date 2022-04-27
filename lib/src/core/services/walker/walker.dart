@@ -8,7 +8,7 @@ import 'package:rad/src/core/services/abstract.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 
-/// Tree Walker/Registry for Dom/Render Objects.
+/// Tree Walker/Registry for Dom/Widget Objects.
 ///
 class Walker extends Service {
   final WalkerOptions options;
