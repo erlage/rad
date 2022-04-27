@@ -5,25 +5,19 @@
 import '../../test_imports.dart';
 
 void main() {
-  group('Rendering Duplicate Widgets #4', () {
-    RT_AppRunner? app;
-
-    setUp(() {
-      app = createTestApp()..start();
-    });
-
-    tearDown(() => app!.stop());
-
-    test('should render correct markup', () {
-      app!.framework.buildChildren(
-        widgets: [_NavigatorTest4()],
-        parentContext: RT_TestBed.rootContext,
+  group('rendering duplicate widgets #4', () {
+    test('should render correct markup', () async {
+      startApp(
+        app: _NavigatorTest4(),
+        targetId: RT_TestBed.rootContext.key.value,
       );
 
-      expect(
-        RT_TestBed.rootElement,
-        RT_hasContents('|some text on route||more text'),
-      );
+      await Future.delayed(Duration(seconds: 1), () {
+        expect(
+          RT_TestBed.rootElement,
+          RT_hasContents('|some text on route||more text'),
+        );
+      });
     });
   });
 }
