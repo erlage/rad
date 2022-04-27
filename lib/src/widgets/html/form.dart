@@ -78,6 +78,7 @@ class Form extends MarkUpTagWithGlobalProps {
           hidden: hidden,
           onClick: onClick,
           onClickEventListener: onClickEventListener,
+          innerText: innerText,
           child: child,
           children: children,
         );
