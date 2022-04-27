@@ -5,7 +5,7 @@ import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:test/scaffolding.dart';
 import 'package:test/expect.dart';
 
-import '../../../fixers/test_bed.dart';
+import '../../fixers/test_bed.dart';
 
 void main() {
   /*

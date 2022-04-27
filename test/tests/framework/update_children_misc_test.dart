@@ -2,10 +2,10 @@ import 'package:rad/rad.dart';
 import 'package:test/scaffolding.dart';
 import 'package:test/expect.dart';
 
-import '../../../fixers/test_app.dart';
-import '../../../fixers/test_bed.dart';
-import '../../../fixers/test_stack.dart';
-import '../../../fixers/test_widget.dart';
+import '../../fixers/test_app.dart';
+import '../../fixers/test_bed.dart';
+import '../../fixers/test_stack.dart';
+import '../../fixers/test_widget.dart';
 
 /*
 |--------------------------------------------------------------------------

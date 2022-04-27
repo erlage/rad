@@ -4,11 +4,11 @@ import 'package:rad/widgets_internals.dart';
 import 'package:test/scaffolding.dart';
 import 'package:test/expect.dart';
 
-import '../../../fixers/test_app.dart';
-import '../../../fixers/test_bed.dart';
-import '../../../fixers/test_stack.dart';
-import '../../../fixers/test_widget.dart';
-import '../../../matchers/has_contents.dart';
+import '../../fixers/test_app.dart';
+import '../../fixers/test_bed.dart';
+import '../../fixers/test_stack.dart';
+import '../../fixers/test_widget.dart';
+import '../../matchers/has_contents.dart';
 
 /*
 |--------------------------------------------------------------------------
