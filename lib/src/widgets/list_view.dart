@@ -34,10 +34,15 @@ class ListView extends Widget {
   ///
   final List<Widget> children;
 
+  /// Type of list view layout.
+  ///
+  final LayoutType layoutType;
+
   const ListView({
     Key? key,
     this.style,
     this.classAttribute,
+    this.layoutType = LayoutType.contain,
     this.scrollDirection = Axis.vertical,
     required this.children,
   })  : isListViewBuilder = false,
@@ -62,6 +67,7 @@ class ListView extends Widget {
     Key? key,
     this.style,
     this.classAttribute,
+    this.layoutType = LayoutType.contain,
     this.scrollDirection = Axis.vertical,
     this.itemCount,
     required this.itemBuilder,
@@ -85,6 +91,7 @@ class ListView extends Widget {
   createConfiguration() {
     var configuration = _ListViewConfiguration(
       style: style,
+      layoutType: layoutType,
       classAttribute: classAttribute,
       scrollDirection: scrollDirection,
     );
@@ -110,6 +117,7 @@ class ListView extends Widget {
     oldConfiguration as _ListViewConfiguration;
 
     return style != oldConfiguration.style ||
+        layoutType != oldConfiguration.layoutType ||
         classAttribute != oldConfiguration.classAttribute ||
         scrollDirection != oldConfiguration.scrollDirection;
   }
@@ -138,11 +146,13 @@ class _ListViewConfiguration extends WidgetConfiguration {
   final String? style;
   final String? classAttribute;
 
+  final LayoutType layoutType;
   final Axis scrollDirection;
 
   const _ListViewConfiguration({
     this.style,
     this.classAttribute,
+    required this.layoutType,
     required this.scrollDirection,
   });
 }
@@ -216,7 +226,10 @@ class ListViewBuilderRenderObject extends RenderObject {
   ) {
     _ListViewProps.apply(element, configuration.baseConfiguration);
 
+    var layoutType = configuration.baseConfiguration.layoutType;
+
     state
+      ..frameworkBindLayoutType(layoutType)
       ..frameworkUpdateConfigurationBinding(configuration)
       ..frameworkUpdateElementBinding(element)
       ..frameworkRender();
@@ -290,6 +303,8 @@ class _ListViewBuilderState with ServicesResolver {
   HtmlElement? _element;
   HtmlElement get element => _element!;
 
+  LayoutType _layoutType = LayoutType.contain;
+
   _ListViewBuilderConfiguration? _configuration;
   _ListViewBuilderConfiguration get configuration => _configuration!;
 
@@ -310,12 +325,13 @@ class _ListViewBuilderState with ServicesResolver {
   */
 
   void _initObserver() {
-    _observer = IntersectionObserver(
-      _intersectionHandler,
-      {
-        'root': element,
-      },
-    );
+    var options = LayoutType.contain == _layoutType
+        ? {
+            'root': element,
+          }
+        : {};
+
+    _observer = IntersectionObserver(_intersectionHandler, options);
   }
 
   void _intersectionHandler(
@@ -394,6 +410,10 @@ class _ListViewBuilderState with ServicesResolver {
   |--------------------------------------------------------------------------
   */
 
+  void frameworkBindLayoutType(LayoutType layoutType) {
+    _layoutType = layoutType;
+  }
+
   void frameworkRender() {
     _initObserver();
 
@@ -459,6 +479,17 @@ class _ListViewBuilderState with ServicesResolver {
 class _ListViewProps {
   static void apply(HtmlElement element, _ListViewConfiguration props) {
     CommonProps.applyClassAttribute(element, props.classAttribute);
+
+    switch (props.layoutType) {
+      case LayoutType.contain:
+        element.classes.add('rad-list-view-layout-contain');
+
+        break;
+      case LayoutType.expand:
+        element.classes.add('rad-list-view-layout-expand');
+
+        break;
+    }
 
     if (null != props.style) {
       element.setAttribute(_Attributes.style, props.style!);

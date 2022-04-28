@@ -51,6 +51,22 @@ enum Axis {
   vertical,
 }
 
+/// Type of layout.
+///
+enum LayoutType {
+  /// Contain (Default).
+  ///
+  /// Widget will try containing itself in its parent bounds.
+  ///
+  contain,
+
+  /// Expand.
+  ///
+  /// Widget will try adapting to the available screen size.
+  ///
+  expand,
+}
+
 enum DomEventType {
   click,
   change,

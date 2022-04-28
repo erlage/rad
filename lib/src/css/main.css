@@ -16,8 +16,7 @@
 [data-wtype="Navigator"],
 [data-wtype="InheritedWidget"],
 [data-wtype="StatefulWidget"],
-[data-wtype="StatelessWidget"],
-.rad-list-view-item-container {
+[data-wtype="StatelessWidget"] {
     display: contents;
 }
 
@@ -29,7 +28,16 @@
 [data-wtype="ListView"] {
     width: 100%;
     height: 100%;
-    display: flex;
+}
+
+.rad-list-view-layout-contain {
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow: auto;
+}
+
+.rad-list-view-layout-expand {
+    overflow: auto;
 }
 
 
@@ -41,6 +49,7 @@
 .rad-list-view-item-container>* {
     flex-grow: 0;
     flex-shrink: 0;
+    display: flex;
 }
 
 
