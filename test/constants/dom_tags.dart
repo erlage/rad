@@ -32,12 +32,21 @@ class RT_DomTags {
     "option",
     "progress",
     "textarea",
-    "h1",
-    "h2",
-    "h3",
-    "h4",
-    "h5",
-    "h6",
+
+    "h1", "h2", "h3", "h4", "h5", "h6",
+
+    // table
+
+    "caption",
+    "col",
+    "colgroup",
+    "table",
+    "tbody",
+    "td",
+    "tfoot",
+    "th",
+    "thead",
+    "tr",
   ];
 
   static const available = [

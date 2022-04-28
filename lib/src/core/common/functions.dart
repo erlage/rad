@@ -111,6 +111,38 @@ String fnMapDomTag(DomTag tag) {
 
     case DomTag.heading6:
       return "h6";
+
+    // table related
+
+    case DomTag.table:
+      return "table";
+
+    case DomTag.caption:
+      return "caption";
+
+    case DomTag.tableColumn:
+      return "col";
+
+    case DomTag.tableColumnGroup:
+      return "colgroup";
+
+    case DomTag.tableHead:
+      return "thead";
+
+    case DomTag.tableDataCell:
+      return "td";
+
+    case DomTag.tableHeaderCell:
+      return "th";
+
+    case DomTag.tableBody:
+      return "tbody";
+
+    case DomTag.tableFoot:
+      return "tfoot";
+
+    case DomTag.tableRow:
+      return "tr";
   }
 }
 

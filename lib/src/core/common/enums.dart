@@ -127,6 +127,19 @@ enum DomTag {
   heading4,
   heading5,
   heading6,
+
+  // table
+
+  caption,
+  table,
+  tableColumn,
+  tableColumnGroup,
+  tableHead,
+  tableDataCell,
+  tableHeaderCell,
+  tableBody,
+  tableFoot,
+  tableRow,
 }
 
 enum WidgetAction {
