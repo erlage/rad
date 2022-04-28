@@ -4,8 +4,16 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// before dispatching them.
 ///
 class WidgetUpdateObject {
+  /// New widget instance.
+  ///
   final Widget widget;
-  final String? existingElementId;
 
-  WidgetUpdateObject(this.widget, this.existingElementId);
+  /// Id of existing element in DOM to update.
+  ///
+  /// If it's Null, then framework shouldshould be append or insert a new
+  /// element.
+  ///
+  final String? elementId;
+
+  WidgetUpdateObject(this.widget, this.elementId);
 }

@@ -16,14 +16,12 @@ import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_manage_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_dispose_task.dart';
-import 'package:rad/src/core/services/scheduler/events/send_next_task_event.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
 
 class Framework with ServicesResolver {
   final BuildContext rootContext;
 
   var _taskListenerKey = '';
-  var _isTaskInProcessing = false;
 
   Services get services => resolveServices(rootContext);
 
@@ -54,26 +52,14 @@ class Framework with ServicesResolver {
   /// Process a scheduled task.
   ///
   void processTask(SchedulerTask task) {
-    if (_isTaskInProcessing) {
-      return;
+    if (null != task.beforeTaskCallback) {
+      task.beforeTaskCallback!();
     }
 
-    try {
-      _isTaskInProcessing = true;
+    _runTask(task);
 
-      if (null != task.beforeTaskCallback) {
-        task.beforeTaskCallback!();
-      }
-
-      _runTask(task);
-
-      if (null != task.afterTaskCallback) {
-        task.afterTaskCallback!();
-      }
-    } finally {
-      _isTaskInProcessing = false;
-
-      services.scheduler.addEvent(SendNextTaskEvent(_taskListenerKey));
+    if (null != task.afterTaskCallback) {
+      task.afterTaskCallback!();
     }
   }
 
@@ -210,70 +196,11 @@ class Framework with ServicesResolver {
 
     // list of updates  {Node index}: existing {WidgetObject}
 
-    var updateObjects = <String, WidgetUpdateObject>{};
-
-    // prepare updates
-
-    widgetLoop:
-    for (final widget in widgets) {
-      for (final child in parent.children) {
-        var isAlreadySelectedForUpdate = updateObjects.containsKey(child.id);
-
-        if (!isAlreadySelectedForUpdate) {
-          // whether old and new widgets has same type.
-
-          var newWidgetRuntimeType = "${widget.runtimeType}";
-          var oldWidgetRuntimeType = child.dataset[Constants.attrRuntimeType];
-
-          if (oldWidgetRuntimeType == newWidgetRuntimeType) {
-            // assume we are going to replace old widget with new one
-
-            var shouldUpdate = true;
-
-            // check whether old or new widget has keys
-
-            var hadKey = !child.id.startsWith(Constants.contextGenKeyPrefix);
-            var hasKey = Constants.contextKeyNotSet != widget.initialKey;
-
-            // if any one of them has/had keys, then try matching keys
-
-            if (hasKey || hadKey) {
-              var globalKey = services.keyGen.getGlobalKeyUsingKey(
-                widget.initialKey,
-                parentContext,
-              );
-
-              if (globalKey.value != child.id) {
-                // key not matched
-                // skip this one
-
-                shouldUpdate = false;
-              }
-            }
-
-            if (shouldUpdate) {
-              updateObjects[child.id] = WidgetUpdateObject(widget, child.id);
-
-              continue widgetLoop;
-            }
-          }
-        }
-      }
-
-      // child is missing
-
-      if (!flagTolerateChildrenCountMisMatch) {
-        return dispatchCompleteRebuild();
-      }
-
-      // if flag is on for missing childs
-
-      if (flagAddIfNotFound) {
-        var randomKey = "_${services.keyGen.generateRandomKey()}";
-
-        updateObjects[randomKey] = WidgetUpdateObject(widget, null);
-      }
-    }
+    var updateObjects = prepareUpdates(
+      parent: parent,
+      widgets: widgets,
+      parentContext: parentContext,
+    );
 
     // deal with obsolute nodes
 
@@ -294,18 +221,17 @@ class Framework with ServicesResolver {
 
     // publish widget updates
 
-    var updateIndex = updateObjects.keys.toList();
+    var i = -1;
+    for (var updateObject in updateObjects.values) {
+      i++;
 
-    updateIndex.asMap().forEach((index, elementId) {
-      var updateObject = updateObjects[elementId]!;
+      var newWidget = updateObject.widget;
+      var existingElementId = updateObject.elementId;
 
-      if (null != updateObject.existingElementId) {
-        var widgetObject = services.walker.getWidgetObject(elementId);
-
-        // if found
+      if (null != existingElementId) {
+        var widgetObject = services.walker.getWidgetObject(existingElementId);
 
         if (null != widgetObject) {
-          var newWidget = updateObject.widget;
           var oldWidget = widgetObject.widget;
 
           if (UpdateType.dependencyChanged == updateType) {
@@ -324,7 +250,7 @@ class Framework with ServicesResolver {
                   "Short-circuit rebuild: ${widgetObject.context}",
                 );
 
-                return;
+                break;
               }
             }
           }
@@ -381,23 +307,111 @@ class Framework with ServicesResolver {
           }
         }
       } else {
-        if (flagAddIfNotFound) {
-          if (services.debug.widgetLogs) {
-            print(
-              "Add missing child of type: ${updateObject.widget.runtimeType}"
-              " under: $parentContext",
-            );
-          }
-
-          buildChildren(
-            widgets: [updateObject.widget],
-            parentContext: parentContext,
-            flagCleanParentContents: false,
-            mountAtIndex: flagAddAsAppendMode ? null : index,
+        if (services.debug.widgetLogs) {
+          print(
+            "Add missing child of type: ${updateObject.widget.runtimeType}"
+            " under: $parentContext",
           );
         }
+
+        buildChildren(
+          widgets: [newWidget],
+          parentContext: parentContext,
+          flagCleanParentContents: false,
+          mountAtIndex: i,
+        );
       }
-    });
+    }
+  }
+
+  Map<String, WidgetUpdateObject> prepareUpdates({
+    required Element parent,
+    required List<Widget> widgets,
+    required BuildContext parentContext,
+  }) {
+    var updateObjects = <String, WidgetUpdateObject>{};
+
+    var elements = <Map<String, String?>>[];
+
+    // prepare list of existing elements available
+
+    for (var child in parent.children.reversed) {
+      elements.add({
+        'id': child.id,
+        Constants.attrRuntimeType: child.dataset[Constants.attrRuntimeType]
+      });
+    }
+
+    for (var newWidget in widgets) {
+      //
+      // prepare new widget's data for matching
+      //
+      var newWidgetRuntimeType = "${newWidget.runtimeType}";
+      var newWidgetHasKey = Constants.contextKeyNotSet != newWidget.initialKey;
+      var newWidgetId = services.keyGen
+          .getGlobalKeyUsingKey(
+            newWidget.initialKey,
+            parentContext,
+          )
+          .value;
+
+      // assume widget is not matched with the corresponding element
+      //
+      String? matchedWithId;
+
+      // try matching with the exisitng widget
+      //
+      if (elements.isNotEmpty) {
+        //
+        // get element
+        //
+        var element = elements.removeLast();
+        //
+        // prepare element's data for matching
+        //
+        var oldWidgetId = element['id'] ?? '';
+        var oldWidgetRuntimeType = element[Constants.attrRuntimeType];
+        var oldWidgetHasKey = !oldWidgetId.startsWith(
+          Constants.contextGenKeyPrefix,
+        );
+        //
+        // try matching runtime type
+        //
+        if (oldWidgetRuntimeType == newWidgetRuntimeType) {
+          //
+          // assume widget is matched
+          //
+          matchedWithId = oldWidgetId;
+          //
+          // wait! let's do one more check, see if any of them has/had keys
+          //
+          if (newWidgetHasKey || oldWidgetHasKey) {
+            //
+            // then try matching keys
+            //
+            if (newWidgetId != oldWidgetId) {
+              //
+              // key not matched, widget is not matched
+              //
+              matchedWithId = null;
+            }
+          }
+        }
+      }
+
+      if (null != matchedWithId) {
+        updateObjects[matchedWithId] = WidgetUpdateObject(
+          newWidget,
+          matchedWithId,
+        );
+      } else {
+        var newKey = services.keyGen.generateRandomKey();
+
+        updateObjects[newKey] = WidgetUpdateObject(newWidget, null);
+      }
+    }
+
+    return updateObjects;
   }
 
   /// Dispose widgets and its child widgets.
