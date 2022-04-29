@@ -200,6 +200,7 @@ class Framework with ServicesResolver {
       parent: parent,
       widgets: widgets,
       parentContext: parentContext,
+      flagAddIfNotFound: flagAddIfNotFound,
     );
 
     // deal with obsolute nodes
@@ -328,6 +329,7 @@ class Framework with ServicesResolver {
     required Element parent,
     required List<Widget> widgets,
     required BuildContext parentContext,
+    required bool flagAddIfNotFound,
   }) {
     var updateObjects = <String, WidgetUpdateObject>{};
 
@@ -359,8 +361,6 @@ class Framework with ServicesResolver {
       //
       String? matchedWithId;
 
-      // try matching with the exisitng widget
-      //
       if (elements.isNotEmpty) {
         //
         // get element
@@ -405,9 +405,11 @@ class Framework with ServicesResolver {
           matchedWithId,
         );
       } else {
-        var newKey = services.keyGen.generateRandomKey();
+        if (flagAddIfNotFound) {
+          var newKey = services.keyGen.generateRandomKey();
 
-        updateObjects[newKey] = WidgetUpdateObject(newWidget, null);
+          updateObjects[newKey] = WidgetUpdateObject(newWidget, null);
+        }
       }
     }
 
