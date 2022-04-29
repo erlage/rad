@@ -301,6 +301,7 @@ class Framework with ServicesResolver {
     var updateObjects = <String, WidgetUpdateObject>{};
 
     var elements = <Map<String, String?>>[];
+    var poppedElements = <Map<String, String?>>[];
 
     // prepare list of existing elements available
 
@@ -328,54 +329,65 @@ class Framework with ServicesResolver {
       //
       String? matchedWithId;
 
-      if (elements.isNotEmpty) {
-        //
-        // get element
-        //
-        var element = elements.removeLast();
-        //
-        // prepare element's data for matching
-        //
-        var oldWidgetId = element['id'] ?? '';
-        var oldWidgetRuntimeType = element[Constants.attrRuntimeType];
-        var oldWidgetHasKey = !oldWidgetId.startsWith(
-          Constants.contextGenKeyPrefix,
-        );
-        //
-        // try matching runtime type
-        //
-        if (oldWidgetRuntimeType == newWidgetRuntimeType) {
+      while (true) {
+        if (elements.isNotEmpty) {
+          var element = elements.removeLast();
+
+          // prepare element's data for matching
+
+          var oldWidgetId = element['id'] ?? '';
+          var oldWidgetRuntimeType = element[Constants.attrRuntimeType];
+          var oldWidgetHasKey = !oldWidgetId.startsWith(
+            Constants.contextGenKeyPrefix,
+          );
+
+          // try matching runtime type
           //
-          // assume widget is matched
-          //
-          matchedWithId = oldWidgetId;
-          //
-          // wait! let's do one more check, see if any of them has/had keys
-          //
-          if (newWidgetHasKey || oldWidgetHasKey) {
+          if (oldWidgetRuntimeType == newWidgetRuntimeType) {
             //
-            // then try matching keys
+            // assume widget is matched
             //
-            if (newWidgetId != oldWidgetId) {
+            matchedWithId = oldWidgetId;
+            //
+            // wait! let's do one more check, see if any of them has/had keys
+            //
+            if (newWidgetHasKey || oldWidgetHasKey) {
               //
-              // key not matched, widget is not matched
+              // then try matching keys
               //
-              matchedWithId = null;
+              if (newWidgetId != oldWidgetId) {
+                //
+                // key not matched, widget is not matched
+                //
+                matchedWithId = null;
+              }
             }
           }
-        }
-      }
 
-      if (null != matchedWithId) {
-        updateObjects[matchedWithId] = WidgetUpdateObject(
-          newWidget,
-          matchedWithId,
-        );
-      } else {
-        if (flagAddIfNotFound) {
-          var newKey = services.keyGen.generateRandomKey();
+          if (null != matchedWithId) {
+            updateObjects[matchedWithId] = WidgetUpdateObject(
+              newWidget,
+              matchedWithId,
+            );
 
-          updateObjects[newKey] = WidgetUpdateObject(newWidget, null);
+            break;
+          } else {
+            poppedElements.add(element);
+          }
+        } else {
+          if (flagAddIfNotFound) {
+            var newKey = services.keyGen.generateRandomKey();
+
+            updateObjects[newKey] = WidgetUpdateObject(newWidget, null);
+          }
+
+          if (poppedElements.isNotEmpty) {
+            elements.addAll(poppedElements.reversed);
+
+            poppedElements = [];
+          }
+
+          break;
         }
       }
     }
