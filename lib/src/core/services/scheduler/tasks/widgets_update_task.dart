@@ -19,36 +19,15 @@ class WidgetsUpdateTask extends SchedulerTask {
   ///
   final UpdateType updateType;
 
-  /// Whether to hide obsolute children.
-  ///
-  final bool flagHideObsoluteChildren;
-
-  /// Whether to delete obsolute children.
-  ///
-  final bool flagDisposeObsoluteChildren;
-
   /// Whether to add child if missing.
   ///
   final bool flagAddIfNotFound;
-
-  /// Whether to append missing child.
-  ///
-  final bool flagAddAsAppendMode;
-
-  /// Whether to build from scratch if child count is not matched with
-  /// the previous count.
-  ///
-  final bool flagTolerateChildrenCountMisMatch;
 
   WidgetsUpdateTask({
     required this.widgets,
     required this.parentContext,
     required this.updateType,
-    this.flagHideObsoluteChildren = false,
-    this.flagDisposeObsoluteChildren = true,
     this.flagAddIfNotFound = true,
-    this.flagAddAsAppendMode = false,
-    this.flagTolerateChildrenCountMisMatch = true,
     Callback? afterTaskCallback,
     Callback? beforeTaskCallback,
   }) : super(

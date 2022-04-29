@@ -154,44 +154,21 @@ class Framework with ServicesResolver {
     //
     required UpdateType updateType,
     //
-    // -- flags for special nodes --
-    //
-    flagHideObsoluteChildren = false,
-    flagDisposeObsoluteChildren = true,
-    //
-    // -- flags for widgets that aren't found in tree --
+    // -- flags --
     //
     flagAddIfNotFound = true, // add childs right where they are missing
-    flagAddAsAppendMode = false, // append mode, always add childs to the end
-    //
-    // -- hard flags, can cause subtree rebuilds --
-    //
-    flagTolerateChildrenCountMisMatch = true,
-    //
   }) {
-    if (widgets.isEmpty) return;
-
-    // convenience function that dispatches complete rebuild.
-
-    void dispatchCompleteRebuild() {
-      buildChildren(
-        widgets: widgets,
-        parentContext: parentContext,
-      );
+    if (widgets.isEmpty) {
+      return;
     }
 
     var parent = document.getElementById(parentContext.key.value);
 
     if (null == parent) {
-      return dispatchCompleteRebuild();
-    }
-
-    // ensure children count match if flag is on
-
-    if (!flagTolerateChildrenCountMisMatch) {
-      if (parent.children.length != widgets.length) {
-        return dispatchCompleteRebuild();
-      }
+      return buildChildren(
+        widgets: widgets,
+        parentContext: parentContext,
+      );
     }
 
     // list of updates  {Node index}: existing {WidgetObject}
@@ -205,18 +182,12 @@ class Framework with ServicesResolver {
 
     // deal with obsolute nodes
 
-    if (flagHideObsoluteChildren || flagDisposeObsoluteChildren) {
-      for (final childElement in parent.children) {
-        if (!updateObjects.containsKey(childElement.id)) {
-          if (flagDisposeObsoluteChildren) {
-            disposeWidget(
-              widgetObject: services.walker.getWidgetObject(childElement.id),
-              flagPreserveTarget: false,
-            );
-          } else if (flagHideObsoluteChildren) {
-            _hideElement(childElement);
-          }
-        }
+    for (final childElement in parent.children) {
+      if (!updateObjects.containsKey(childElement.id)) {
+        disposeWidget(
+          widgetObject: services.walker.getWidgetObject(childElement.id),
+          flagPreserveTarget: false,
+        );
       }
     }
 
@@ -301,10 +272,6 @@ class Framework with ServicesResolver {
               parentContext: widgetObject.context,
               updateType: updateType,
             );
-          }
-        } else {
-          if (!flagTolerateChildrenCountMisMatch) {
-            return dispatchCompleteRebuild();
           }
         }
       } else {
@@ -522,11 +489,6 @@ class Framework with ServicesResolver {
           updateType: task.updateType,
           parentContext: task.parentContext,
           flagAddIfNotFound: task.flagAddIfNotFound,
-          flagAddAsAppendMode: task.flagAddAsAppendMode,
-          flagHideObsoluteChildren: task.flagHideObsoluteChildren,
-          flagDisposeObsoluteChildren: task.flagDisposeObsoluteChildren,
-          flagTolerateChildrenCountMisMatch:
-              task.flagTolerateChildrenCountMisMatch,
         );
 
         break;

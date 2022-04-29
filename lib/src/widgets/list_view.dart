@@ -354,9 +354,6 @@ class _ListViewBuilderState with ServicesResolver {
               parentContext: context,
               updateType: UpdateType.lazyBuild,
               flagAddIfNotFound: true,
-              flagAddAsAppendMode: true,
-              flagHideObsoluteChildren: false,
-              flagDisposeObsoluteChildren: false,
               widgets: List.generate(
                 itemsToGenerate,
                 (i) => Division(
