@@ -438,6 +438,502 @@ void main() {
         },
       );
 
+      // widgets matching tests
+
+      test(
+        'should dispose correct mismatch in the start',
+        () {
+          var testStack = RT_TestStack();
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 1a-1'),
+                roEventHookUpdate: () => testStack.push('update 1a-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-1'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 1a-2'),
+                roEventHookUpdate: () => testStack.push('update 1a-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-2'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 1a-3'),
+                roEventHookUpdate: () => testStack.push('update 1a-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-3'),
+              ),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_AnotherTestWidget(
+                roEventHookRender: () => testStack.push('render 1b-1'),
+                roEventHookUpdate: () => testStack.push('update 1b-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1b-1'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 2a-2'),
+                roEventHookUpdate: () => testStack.push('update 2a-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2a-2'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 2a-3'),
+                roEventHookUpdate: () => testStack.push('update 2a-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2a-3'),
+              ),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          expect(testStack.popFromStart(), equals('render 1a-1'));
+          expect(testStack.popFromStart(), equals('render 1a-2'));
+          expect(testStack.popFromStart(), equals('render 1a-3'));
+
+          expect(testStack.popFromStart(), equals('dispose 1a-1'));
+          expect(testStack.popFromStart(), equals('render 1b-1'));
+          expect(testStack.popFromStart(), equals('update 1a-2'));
+          expect(testStack.popFromStart(), equals('update 1a-3'));
+
+          expect(testStack.canPop(), equals(false));
+        },
+      );
+
+      test(
+        'should dispose correct mismatch in the middle',
+        () {
+          var testStack = RT_TestStack();
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 1a-1'),
+                roEventHookUpdate: () => testStack.push('update 1a-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-1'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 1a-2'),
+                roEventHookUpdate: () => testStack.push('update 1a-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-2'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 1a-3'),
+                roEventHookUpdate: () => testStack.push('update 1a-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-3'),
+              ),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 2a-1'),
+                roEventHookUpdate: () => testStack.push('update 2a-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2a-1'),
+              ),
+              RT_AnotherTestWidget(
+                roEventHookRender: () => testStack.push('render 1b-2'),
+                roEventHookUpdate: () => testStack.push('update 1b-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1b-2'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 2a-3'),
+                roEventHookUpdate: () => testStack.push('update 2a-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2a-3'),
+              ),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          expect(testStack.popFromStart(), equals('render 1a-1'));
+          expect(testStack.popFromStart(), equals('render 1a-2'));
+          expect(testStack.popFromStart(), equals('render 1a-3'));
+
+          expect(testStack.popFromStart(), equals('dispose 1a-2'));
+          expect(testStack.popFromStart(), equals('update 1a-1'));
+          expect(testStack.popFromStart(), equals('render 1b-2'));
+          expect(testStack.popFromStart(), equals('update 1a-3'));
+
+          expect(testStack.canPop(), equals(false));
+        },
+      );
+
+      test(
+        'should dispose correct mismatch in the end',
+        () {
+          var testStack = RT_TestStack();
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 1a-1'),
+                roEventHookUpdate: () => testStack.push('update 1a-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-1'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 1a-2'),
+                roEventHookUpdate: () => testStack.push('update 1a-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-2'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 1a-3'),
+                roEventHookUpdate: () => testStack.push('update 1a-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-3'),
+              ),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 2a-1'),
+                roEventHookUpdate: () => testStack.push('update 2a-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2a-1'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 2a-2'),
+                roEventHookUpdate: () => testStack.push('update 2a-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2a-2'),
+              ),
+              RT_AnotherTestWidget(
+                roEventHookRender: () => testStack.push('render 1b-3'),
+                roEventHookUpdate: () => testStack.push('update 1b-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1b-3'),
+              ),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          expect(testStack.popFromStart(), equals('render 1a-1'));
+          expect(testStack.popFromStart(), equals('render 1a-2'));
+          expect(testStack.popFromStart(), equals('render 1a-3'));
+
+          expect(testStack.popFromStart(), equals('dispose 1a-3'));
+          expect(testStack.popFromStart(), equals('update 1a-1'));
+          expect(testStack.popFromStart(), equals('update 1a-2'));
+          expect(testStack.popFromStart(), equals('render 1b-3'));
+
+          expect(testStack.canPop(), equals(false));
+        },
+      );
+
+      test(
+        'should dispose mismatch and append new childs in the end',
+        () {
+          var testStack = RT_TestStack();
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 1a-1'),
+                roEventHookUpdate: () => testStack.push('update 1a-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-1'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 1a-2'),
+                roEventHookUpdate: () => testStack.push('update 1a-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-2'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 1a-3'),
+                roEventHookUpdate: () => testStack.push('update 1a-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-3'),
+              ),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 2a-1'),
+                roEventHookUpdate: () => testStack.push('update 2a-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2a-1'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 2a-2'),
+                roEventHookUpdate: () => testStack.push('update 2a-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2a-2'),
+              ),
+              RT_AnotherTestWidget(
+                roEventHookRender: () => testStack.push('render 1b-3'),
+                roEventHookUpdate: () => testStack.push('update 1b-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1b-3'),
+              ),
+              RT_AnotherTestWidget(
+                roEventHookRender: () => testStack.push('render 1b-4'),
+                roEventHookUpdate: () => testStack.push('update 1b-4'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1b-4'),
+              ),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          expect(testStack.popFromStart(), equals('render 1a-1'));
+          expect(testStack.popFromStart(), equals('render 1a-2'));
+          expect(testStack.popFromStart(), equals('render 1a-3'));
+
+          expect(testStack.popFromStart(), equals('dispose 1a-3'));
+          expect(testStack.popFromStart(), equals('update 1a-1'));
+          expect(testStack.popFromStart(), equals('update 1a-2'));
+          expect(testStack.popFromStart(), equals('render 1b-3'));
+          expect(testStack.popFromStart(), equals('render 1b-4'));
+
+          expect(testStack.canPop(), equals(false));
+        },
+      );
+
+      test(
+        'should skip mismatch and reuse existing widget(prevent loosing state when childs are added optionally)',
+        () {
+          var testStack = RT_TestStack();
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 1a-1'),
+                roEventHookUpdate: () => testStack.push('update 1a-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-1'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 1a-2'),
+                roEventHookUpdate: () => testStack.push('update 1a-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-2'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 1a-3'),
+                roEventHookUpdate: () => testStack.push('update 1a-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-3'),
+              ),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 2a-1'),
+                roEventHookUpdate: () => testStack.push('update 2a-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2a-1'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 2a-2'),
+                roEventHookUpdate: () => testStack.push('update 2a-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2a-2'),
+              ),
+              RT_AnotherTestWidget(
+                roEventHookRender: () => testStack.push('render 1b-3'),
+                roEventHookUpdate: () => testStack.push('update 1b-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1b-3'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 2a-3'),
+                roEventHookUpdate: () => testStack.push('update 2a-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2a-3'),
+              ),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          // render 1a-1, render 1a-2, render 1a-3,
+
+          // dispose 1a-3,
+
+          // update 1a-1, update 1a-2, render 1b-3, render 2a-3
+
+          print(testStack.entries.toString());
+
+          expect(testStack.popFromStart(), equals('render 1a-1'));
+          expect(testStack.popFromStart(), equals('render 1a-2'));
+          expect(testStack.popFromStart(), equals('render 1a-3'));
+
+          expect(testStack.popFromStart(), equals('dispose 1a-3'));
+          expect(testStack.popFromStart(), equals('update 1a-1'));
+          expect(testStack.popFromStart(), equals('update 1a-2'));
+          expect(testStack.popFromStart(), equals('render 1b-3'));
+          expect(testStack.popFromStart(), equals('render 1b-4'));
+
+          expect(testStack.canPop(), equals(false));
+        },
+      );
+
+      test(
+        'should dispose correct mis matches, mixed hardcoded version',
+        () {
+          var testStack = RT_TestStack();
+
+          // render childs
+          // ----------------expected
+          // render 1a-1, render 1a-2, render 1a-3, render 1a-4
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 1a-1'),
+                roEventHookUpdate: () => testStack.push('update 1a-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-1'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 1a-2'),
+                roEventHookUpdate: () => testStack.push('update 1a-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-2'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 1a-3'),
+                roEventHookUpdate: () => testStack.push('update 1a-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-3'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 1a-4'),
+                roEventHookUpdate: () => testStack.push('update 1a-4'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-4'),
+              ),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          // change 2nd child
+          // ----------------expected
+          // dispose 1a-2
+          // update 1a-1, render 1b-2, update 1a-3, update 1a-4
+          //
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 2a-1'),
+                roEventHookUpdate: () => testStack.push('update 2a-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1b-1'),
+              ),
+              RT_AnotherTestWidget(
+                roEventHookRender: () => testStack.push('render 1b-2'),
+                roEventHookUpdate: () => testStack.push('update 1b-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1b-2'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 2a-3'),
+                roEventHookUpdate: () => testStack.push('update 2a-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2a-3'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 2a-4'),
+                roEventHookUpdate: () => testStack.push('update 2a-4'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2a-4'),
+              ),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          // change 1st child
+          // ----------------expected
+          // dispose 1a-1
+          // render 1b-1, update 1b-2, update 1a-3, update 1a-4
+          //
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_AnotherTestWidget(
+                roEventHookRender: () => testStack.push('render 1b-1'),
+                roEventHookUpdate: () => testStack.push('update 1b-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1b-1'),
+              ),
+              RT_AnotherTestWidget(
+                roEventHookRender: () => testStack.push('render 2b-2'),
+                roEventHookUpdate: () => testStack.push('update 2b-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2b-2'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 3a-3'),
+                roEventHookUpdate: () => testStack.push('update 3a-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 3a-3'),
+              ),
+              RT_TestWidget(
+                roEventHookRender: () => testStack.push('render 3a-4'),
+                roEventHookUpdate: () => testStack.push('update 3a-4'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 3a-4'),
+              ),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          // change last two childs
+          // ----------------expected
+          // dispose 1a-3, dispose 1a-4
+          // update 1b-1, update 1b-2, render 1b-3, render 1b-4
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_AnotherTestWidget(
+                roEventHookRender: () => testStack.push('render 2b-1'),
+                roEventHookUpdate: () => testStack.push('update 2b-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2b-1'),
+              ),
+              RT_AnotherTestWidget(
+                roEventHookRender: () => testStack.push('render 2b-2'),
+                roEventHookUpdate: () => testStack.push('update 2b-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2b-2'),
+              ),
+              RT_AnotherTestWidget(
+                roEventHookRender: () => testStack.push('render 1b-3'),
+                roEventHookUpdate: () => testStack.push('update 1b-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1b-3'),
+              ),
+              RT_AnotherTestWidget(
+                roEventHookRender: () => testStack.push('render 1b-4'),
+                roEventHookUpdate: () => testStack.push('update 1b-4'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1b-4'),
+              ),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          print(testStack.entries.toString());
+
+          expect(testStack.popFromStart(), equals('render 1a-1'));
+          expect(testStack.popFromStart(), equals('render 1a-2'));
+          expect(testStack.popFromStart(), equals('render 1a-3'));
+          expect(testStack.popFromStart(), equals('render 1a-4'));
+
+          expect(testStack.popFromStart(), equals('dispose 1a-2'));
+          expect(testStack.popFromStart(), equals('update 1a-1'));
+          expect(testStack.popFromStart(), equals('render 1b-2'));
+          expect(testStack.popFromStart(), equals('update 1a-3'));
+          expect(testStack.popFromStart(), equals('update 1a-4'));
+
+          expect(testStack.popFromStart(), equals('dispose 1a-1'));
+          expect(testStack.popFromStart(), equals('render 1b-1'));
+          expect(testStack.popFromStart(), equals('update 1b-2'));
+          expect(testStack.popFromStart(), equals('update 1a-3'));
+          expect(testStack.popFromStart(), equals('update 1a-4'));
+
+          expect(testStack.popFromStart(), equals('dispose 1a-3'));
+          expect(testStack.popFromStart(), equals('dispose 1a-4'));
+          expect(testStack.popFromStart(), equals('update 1b-1'));
+          expect(testStack.popFromStart(), equals('update 1b-2'));
+          expect(testStack.popFromStart(), equals('render 1b-3'));
+          expect(testStack.popFromStart(), equals('render 1b-4'));
+
+          expect(testStack.canPop(), equals(false));
+        },
+      );
+
       //
     },
   );
