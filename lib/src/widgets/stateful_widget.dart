@@ -274,6 +274,18 @@ abstract class State<T extends StatefulWidget> {
     return _context!;
   }
 
+  /// Whether this [State] object is currently in a tree.
+  ///
+  /// After creating a [State] object and before calling [initState], the
+  /// framework "mounts" the [State] object by associating it with a
+  /// [BuildContext]. The [State] object remains mounted until the framework
+  /// calls [dispose], after which time the framework will never ask the [State]
+  /// object to [build] again.
+  ///
+  /// It is an error to call [setState] unless [mounted] is true.
+  ///
+  bool get mounted => _context != null;
+
   /*
   |--------------------------------------------------------------------------
   | lifecycle hooks
