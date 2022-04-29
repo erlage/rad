@@ -68,6 +68,15 @@ widgets_map = {
     'fieldset': 'FieldSet',
     'label': 'Label',
     'button': 'Button',
+    'caption': 'Caption',
+    'col': 'TableColumn',
+    'colgroup': 'TableColumnGroup',
+    'table': 'Table',
+    'thead': 'TableHead',
+    'tfoot': 'TableFoot',
+    'tr': 'TableRow',
+    'td': 'TableDataCell',
+    'th': 'TableHeaderCell',
 }
 
 
