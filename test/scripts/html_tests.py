@@ -12,8 +12,9 @@ templates_folder = os.path.abspath(os.path.join(main.test_dir, 'templates'))
 
 skipped_tests = {
     'html_attr_innertext': {
-        'img': ['chrome']
-    }
+        'img': ['chrome'], # works on firefox
+        'col': ['chrome'], # works on firefox
+    },
 }
 
 tests = [

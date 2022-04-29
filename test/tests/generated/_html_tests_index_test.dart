@@ -39,6 +39,15 @@ part 'html_img_tests.generated.dart';
 part 'html_fieldset_tests.generated.dart';
 part 'html_label_tests.generated.dart';
 part 'html_button_tests.generated.dart';
+part 'html_caption_tests.generated.dart';
+part 'html_col_tests.generated.dart';
+part 'html_colgroup_tests.generated.dart';
+part 'html_table_tests.generated.dart';
+part 'html_thead_tests.generated.dart';
+part 'html_tfoot_tests.generated.dart';
+part 'html_tr_tests.generated.dart';
+part 'html_td_tests.generated.dart';
+part 'html_th_tests.generated.dart';
 
 void main() {
   html_iframe_test();
@@ -74,4 +83,13 @@ void main() {
   html_fieldset_test();
   html_label_test();
   html_button_test();
+  html_caption_test();
+  html_col_test();
+  html_colgroup_test();
+  html_table_test();
+  html_thead_test();
+  html_tfoot_test();
+  html_tr_test();
+  html_td_test();
+  html_th_test();
 }
