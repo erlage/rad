@@ -251,11 +251,24 @@ abstract class State<T extends StatefulWidget> {
   */
 
   T? _widget;
+
+  /// The current configuration.
+  ///
+  /// A [State] object's configuration is the corresponding [StatefulWidget]
+  /// instance. This property is initialized by the framework before calling
+  /// [initState]. If the parent updates this location in the tree to a new
+  /// widget with the same [runtimeType] and [StatefulWidget.key] as the current
+  /// configuration, the framework will update this property to refer to the new
+  /// widget and then call [didUpdateWidget], passing the old configuration as
+  /// an argument.
+  ///
   T get widget {
     if (null == _widget) {
       throw Exception(
         'State.widget instance cannot be accessed in state constructor. Please '
-        'use initState hook to initialize the state that depends on widget.',
+        'use initState hook to initialize the state that depends on widget or '
+        'consider canceling any active work during "dispose" or using the '
+        '"mounted" getter to determine if the State is still active.',
       );
     }
 
@@ -263,11 +276,26 @@ abstract class State<T extends StatefulWidget> {
   }
 
   BuildContext? _context;
+
+  /// The location in the tree where this widget builds.
+  ///
+  /// The framework associates [State] objects with a [BuildContext] after
+  /// creating them with [StatefulWidget.createState] and before calling
+  /// [initState]. The association is permanent: the [State] object will never
+  /// change its [BuildContext]. However, the [BuildContext] itself can be moved
+  /// around the tree.
+  ///
+  /// After calling [dispose], the framework severs the [State] object's.
+  ///
+  /// connection with the [BuildContext].
+  ///
   BuildContext get context {
     if (null == _widget) {
       throw Exception(
         'State.context instance cannot be accessed in state constructor. Please '
-        'use initState hook to initialize the state that depends on context.',
+        'use initState hook to initialize the state that depends on context or '
+        'Consider canceling any active work during "dispose" or using the '
+        '"mounted" getter to determine if the State is still active.',
       );
     }
 
