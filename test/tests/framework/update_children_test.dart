@@ -12,6 +12,10 @@ import '../../fixers/test_widget.dart';
 | Component tests for core/framework.dart
 |
 | Methods to test in this file: updateChildren()
+|
+| This is some hard coded stuff. Name of stack entries are kind of confusing
+| because of the evolution in this part of framework but we're trying to 
+| be more consisten with every new update.
 |--------------------------------------------------------------------------
 */
 
@@ -595,8 +599,7 @@ void main() {
       // test flags
 
       test(
-        'should not dispose obsolute widget if'
-        ': flagDisposeObsoluteChildren: false',
+        'should dispose obsolute widgets',
         () {
           var testStack = RT_TestStack();
 
@@ -620,7 +623,6 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
               ),
             ],
-            flagDisposeObsoluteChildren: false,
             parentContext: RT_TestBed.rootContext,
             updateType: UpdateType.undefined,
           );
@@ -633,59 +635,6 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
               ),
             ],
-            flagDisposeObsoluteChildren: false,
-            parentContext: RT_TestBed.rootContext,
-            updateType: UpdateType.undefined,
-          );
-
-          expect(testStack.popFromStart(), equals('render 1'));
-          expect(testStack.popFromStart(), equals('render 2'));
-          expect(testStack.popFromStart(), equals('update 1'));
-
-          expect(testStack.canPop(), equals(false));
-        },
-      );
-
-      test(
-        'should dispose obsolute widget if'
-        ': flagDisposeObsoluteChildren: true',
-        () {
-          var testStack = RT_TestStack();
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
-              ),
-            ],
-            parentContext: RT_TestBed.rootContext,
-            updateType: UpdateType.undefined,
-          );
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 2'),
-                roEventHookUpdate: () => testStack.push('update 2'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
-              ),
-            ],
-            flagDisposeObsoluteChildren: true,
-            parentContext: RT_TestBed.rootContext,
-            updateType: UpdateType.undefined,
-          );
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
-              ),
-            ],
-            flagDisposeObsoluteChildren: true,
             parentContext: RT_TestBed.rootContext,
             updateType: UpdateType.undefined,
           );
@@ -702,17 +651,16 @@ void main() {
 
       test(
         'should not add new widget if'
-        ': flagAddIfNotFound: false'
-        ': flagDisposeObsoluteChildren: false',
+        ': flagAddIfNotFound: false',
         () {
           var testStack = RT_TestStack();
 
           app!.framework.updateChildren(
             widgets: [
               RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
+                roEventHookRender: () => testStack.push('render 1a'),
+                roEventHookUpdate: () => testStack.push('update 1a'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a'),
               ),
             ],
             parentContext: RT_TestBed.rootContext,
@@ -722,13 +670,12 @@ void main() {
           app!.framework.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 2'),
-                roEventHookUpdate: () => testStack.push('update 2'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
+                roEventHookRender: () => testStack.push('render 1b'),
+                roEventHookUpdate: () => testStack.push('update 1b'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1b'),
               ),
             ],
             flagAddIfNotFound: false,
-            flagDisposeObsoluteChildren: false,
             parentContext: RT_TestBed.rootContext,
             updateType: UpdateType.undefined,
           );
@@ -736,19 +683,18 @@ void main() {
           app!.framework.updateChildren(
             widgets: [
               RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
+                roEventHookRender: () => testStack.push('render 2a'),
+                roEventHookUpdate: () => testStack.push('update 2a'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2a'),
               ),
             ],
             flagAddIfNotFound: false,
-            flagDisposeObsoluteChildren: false,
             parentContext: RT_TestBed.rootContext,
             updateType: UpdateType.undefined,
           );
 
-          expect(testStack.popFromStart(), equals('render 1'));
-          expect(testStack.popFromStart(), equals('update 1'));
+          expect(testStack.popFromStart(), equals('render 1a'));
+          expect(testStack.popFromStart(), equals('dispose 1a'));
 
           expect(testStack.canPop(), equals(false));
         },
@@ -756,17 +702,16 @@ void main() {
 
       test(
         'should not add new widget if'
-        ': flagAddIfNotFound: true'
-        ': flagDisposeObsoluteChildren: false',
+        ': flagAddIfNotFound: true',
         () {
           var testStack = RT_TestStack();
 
           app!.framework.updateChildren(
             widgets: [
               RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
+                roEventHookRender: () => testStack.push('render 1a'),
+                roEventHookUpdate: () => testStack.push('update 1a'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a'),
               ),
             ],
             parentContext: RT_TestBed.rootContext,
@@ -776,13 +721,12 @@ void main() {
           app!.framework.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 2'),
-                roEventHookUpdate: () => testStack.push('update 2'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
+                roEventHookRender: () => testStack.push('render 1b'),
+                roEventHookUpdate: () => testStack.push('update 1b'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1b'),
               ),
             ],
             flagAddIfNotFound: true,
-            flagDisposeObsoluteChildren: false,
             parentContext: RT_TestBed.rootContext,
             updateType: UpdateType.undefined,
           );
@@ -791,331 +735,21 @@ void main() {
             widgets: [
               RT_AnotherTestWidget(
                 key: Key('another widget'),
-                roEventHookRender: () => testStack.push('render 3'),
-                roEventHookUpdate: () => testStack.push('update 3'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 3'),
+                roEventHookRender: () => testStack.push('render 1c'),
+                roEventHookUpdate: () => testStack.push('update 1c'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1c'),
               ),
             ],
             flagAddIfNotFound: true,
-            flagDisposeObsoluteChildren: false,
             parentContext: RT_TestBed.rootContext,
             updateType: UpdateType.undefined,
           );
 
-          expect(testStack.popFromStart(), equals('render 1'));
-          expect(testStack.popFromStart(), equals('render 2'));
-          expect(testStack.popFromStart(), equals('render 3'));
-
-          expect(testStack.canPop(), equals(false));
-        },
-      );
-
-      // flag tests under multiple childs
-
-      test(
-        'should not dispose obsolute widget if'
-        ': flagDisposeObsoluteChildren: false',
-        () {
-          var testStack = RT_TestStack();
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
-              ),
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 11'),
-                roEventHookUpdate: () => testStack.push('update 11'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 11'),
-              ),
-            ],
-            parentContext: RT_TestBed.rootContext,
-            updateType: UpdateType.undefined,
-          );
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 2'),
-                roEventHookUpdate: () => testStack.push('update 2'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
-              ),
-              RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 22'),
-                roEventHookUpdate: () => testStack.push('update 22'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 22'),
-              ),
-            ],
-            flagDisposeObsoluteChildren: false,
-            parentContext: RT_TestBed.rootContext,
-            updateType: UpdateType.undefined,
-          );
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
-              ),
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 11'),
-                roEventHookUpdate: () => testStack.push('update 11'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 11'),
-              ),
-            ],
-            flagDisposeObsoluteChildren: false,
-            parentContext: RT_TestBed.rootContext,
-            updateType: UpdateType.undefined,
-          );
-
-          expect(testStack.popFromStart(), equals('render 1'));
-          expect(testStack.popFromStart(), equals('render 11'));
-          expect(testStack.popFromStart(), equals('render 2'));
-          expect(testStack.popFromStart(), equals('render 22'));
-          expect(testStack.popFromStart(), equals('update 1'));
-          expect(testStack.popFromStart(), equals('update 11'));
-
-          expect(testStack.canPop(), equals(false));
-        },
-      );
-
-      test(
-        'should dispose obsolute widget if'
-        ': flagDisposeObsoluteChildren: true',
-        () {
-          var testStack = RT_TestStack();
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
-              ),
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 11'),
-                roEventHookUpdate: () => testStack.push('update 11'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 11'),
-              ),
-            ],
-            parentContext: RT_TestBed.rootContext,
-            updateType: UpdateType.undefined,
-          );
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 2'),
-                roEventHookUpdate: () => testStack.push('update 2'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
-              ),
-              RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 22'),
-                roEventHookUpdate: () => testStack.push('update 22'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 22'),
-              ),
-            ],
-            flagDisposeObsoluteChildren: true,
-            parentContext: RT_TestBed.rootContext,
-            updateType: UpdateType.undefined,
-          );
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
-              ),
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 11'),
-                roEventHookUpdate: () => testStack.push('update 11'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 11'),
-              ),
-            ],
-            flagDisposeObsoluteChildren: true,
-            parentContext: RT_TestBed.rootContext,
-            updateType: UpdateType.undefined,
-          );
-
-          expect(testStack.popFromStart(), equals('render 1'));
-          expect(testStack.popFromStart(), equals('render 11'));
-          expect(testStack.popFromStart(), equals('dispose 1'));
-          expect(testStack.popFromStart(), equals('dispose 11'));
-          expect(testStack.popFromStart(), equals('render 2'));
-          expect(testStack.popFromStart(), equals('render 22'));
-          expect(testStack.popFromStart(), equals('dispose 2'));
-          expect(testStack.popFromStart(), equals('dispose 22'));
-          expect(testStack.popFromStart(), equals('render 1'));
-          expect(testStack.popFromStart(), equals('render 11'));
-
-          expect(testStack.canPop(), equals(false));
-        },
-      );
-
-      test(
-        '(multiple) should not add new widget if'
-        ': flagAddIfNotFound: false'
-        ': flagDisposeObsoluteChildren: false',
-        () {
-          var testStack = RT_TestStack();
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
-              ),
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 11'),
-                roEventHookUpdate: () => testStack.push('update 11'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 11'),
-              ),
-            ],
-            parentContext: RT_TestBed.rootContext,
-            updateType: UpdateType.undefined,
-          );
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 2'),
-                roEventHookUpdate: () => testStack.push('update 2'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
-              ),
-              RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 22'),
-                roEventHookUpdate: () => testStack.push('update 22'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 22'),
-              ),
-            ],
-            flagAddIfNotFound: false,
-            flagDisposeObsoluteChildren: false,
-            parentContext: RT_TestBed.rootContext,
-            updateType: UpdateType.undefined,
-          );
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
-              ),
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 11'),
-                roEventHookUpdate: () => testStack.push('update 11'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 11'),
-              ),
-            ],
-            flagAddIfNotFound: false,
-            flagDisposeObsoluteChildren: false,
-            parentContext: RT_TestBed.rootContext,
-            updateType: UpdateType.undefined,
-          );
-
-          expect(testStack.popFromStart(), equals('render 1'));
-          expect(testStack.popFromStart(), equals('render 11'));
-          expect(testStack.popFromStart(), equals('update 1'));
-          expect(testStack.popFromStart(), equals('update 11'));
-
-          expect(testStack.canPop(), equals(false));
-        },
-      );
-
-      test(
-        '(multiple) should not add new widget if'
-        ': flagAddIfNotFound: true'
-        ': flagDisposeObsoluteChildren: false',
-        () {
-          var testStack = RT_TestStack();
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
-              ),
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 11'),
-                roEventHookUpdate: () => testStack.push('update 11'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 11'),
-              ),
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 111'),
-                roEventHookUpdate: () => testStack.push('update 111'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 111'),
-              ),
-            ],
-            parentContext: RT_TestBed.rootContext,
-            updateType: UpdateType.undefined,
-          );
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 2'),
-                roEventHookUpdate: () => testStack.push('update 2'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
-              ),
-              RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 22'),
-                roEventHookUpdate: () => testStack.push('update 22'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 22'),
-              ),
-              RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 222'),
-                roEventHookUpdate: () => testStack.push('update 222'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 222'),
-              ),
-            ],
-            flagAddIfNotFound: true,
-            flagDisposeObsoluteChildren: false,
-            parentContext: RT_TestBed.rootContext,
-            updateType: UpdateType.undefined,
-          );
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_AnotherTestWidget(
-                key: Key('another widget'),
-                roEventHookRender: () => testStack.push('render 3'),
-                roEventHookUpdate: () => testStack.push('update 3'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 3'),
-              ),
-              RT_AnotherTestWidget(
-                key: Key('another widget 2'),
-                roEventHookRender: () => testStack.push('render 33'),
-                roEventHookUpdate: () => testStack.push('update 33'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 33'),
-              ),
-              RT_AnotherTestWidget(
-                key: Key('another widget 3'),
-                roEventHookRender: () => testStack.push('render 333'),
-                roEventHookUpdate: () => testStack.push('update 333'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 333'),
-              ),
-            ],
-            flagAddIfNotFound: true,
-            flagDisposeObsoluteChildren: false,
-            parentContext: RT_TestBed.rootContext,
-            updateType: UpdateType.undefined,
-          );
-
-          expect(testStack.popFromStart(), equals('render 1'));
-          expect(testStack.popFromStart(), equals('render 11'));
-          expect(testStack.popFromStart(), equals('render 111'));
-          expect(testStack.popFromStart(), equals('render 2'));
-          expect(testStack.popFromStart(), equals('render 22'));
-          expect(testStack.popFromStart(), equals('render 222'));
-          expect(testStack.popFromStart(), equals('render 3'));
-          expect(testStack.popFromStart(), equals('render 33'));
-          expect(testStack.popFromStart(), equals('render 333'));
+          expect(testStack.popFromStart(), equals('render 1a'));
+          expect(testStack.popFromStart(), equals('dispose 1a'));
+          expect(testStack.popFromStart(), equals('render 1b'));
+          expect(testStack.popFromStart(), equals('dispose 1b'));
+          expect(testStack.popFromStart(), equals('render 1c'));
 
           expect(testStack.canPop(), equals(false));
         },
@@ -1696,8 +1330,7 @@ void main() {
       // test flags
 
       test(
-        'should not dispose obsolute widget if'
-        ': flagDisposeObsoluteChildren: false',
+        'should dispose obsolute widgets',
         () {
           var testStack = RT_TestStack();
 
@@ -1721,7 +1354,6 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
               ),
             ],
-            flagDisposeObsoluteChildren: false,
             parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
@@ -1734,59 +1366,6 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
               ),
             ],
-            flagDisposeObsoluteChildren: false,
-            parentContext: app!.appContext,
-            updateType: UpdateType.undefined,
-          );
-
-          expect(testStack.popFromStart(), equals('render 1'));
-          expect(testStack.popFromStart(), equals('render 2'));
-          expect(testStack.popFromStart(), equals('update 1'));
-
-          expect(testStack.canPop(), equals(false));
-        },
-      );
-
-      test(
-        'should dispose obsolute widget if'
-        ': flagDisposeObsoluteChildren: true',
-        () {
-          var testStack = RT_TestStack();
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
-              ),
-            ],
-            parentContext: app!.appContext,
-            updateType: UpdateType.undefined,
-          );
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 2'),
-                roEventHookUpdate: () => testStack.push('update 2'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
-              ),
-            ],
-            flagDisposeObsoluteChildren: true,
-            parentContext: app!.appContext,
-            updateType: UpdateType.undefined,
-          );
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
-              ),
-            ],
-            flagDisposeObsoluteChildren: true,
             parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
@@ -1801,121 +1380,10 @@ void main() {
         },
       );
 
-      test(
-        'should not add new widget if'
-        ': flagAddIfNotFound: false'
-        ': flagDisposeObsoluteChildren: false',
-        () {
-          var testStack = RT_TestStack();
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
-              ),
-            ],
-            parentContext: app!.appContext,
-            updateType: UpdateType.undefined,
-          );
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 2'),
-                roEventHookUpdate: () => testStack.push('update 2'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
-              ),
-            ],
-            flagAddIfNotFound: false,
-            flagDisposeObsoluteChildren: false,
-            parentContext: app!.appContext,
-            updateType: UpdateType.undefined,
-          );
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
-              ),
-            ],
-            flagAddIfNotFound: false,
-            flagDisposeObsoluteChildren: false,
-            parentContext: app!.appContext,
-            updateType: UpdateType.undefined,
-          );
-
-          expect(testStack.popFromStart(), equals('render 1'));
-          expect(testStack.popFromStart(), equals('update 1'));
-
-          expect(testStack.canPop(), equals(false));
-        },
-      );
-
-      test(
-        'should not add new widget if'
-        ': flagAddIfNotFound: true'
-        ': flagDisposeObsoluteChildren: false',
-        () {
-          var testStack = RT_TestStack();
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
-              ),
-            ],
-            parentContext: app!.appContext,
-            updateType: UpdateType.undefined,
-          );
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 2'),
-                roEventHookUpdate: () => testStack.push('update 2'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
-              ),
-            ],
-            flagAddIfNotFound: true,
-            flagDisposeObsoluteChildren: false,
-            parentContext: app!.appContext,
-            updateType: UpdateType.undefined,
-          );
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_AnotherTestWidget(
-                key: Key('another widget'),
-                roEventHookRender: () => testStack.push('render 3'),
-                roEventHookUpdate: () => testStack.push('update 3'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 3'),
-              ),
-            ],
-            flagAddIfNotFound: true,
-            flagDisposeObsoluteChildren: false,
-            parentContext: app!.appContext,
-            updateType: UpdateType.undefined,
-          );
-
-          expect(testStack.popFromStart(), equals('render 1'));
-          expect(testStack.popFromStart(), equals('render 2'));
-          expect(testStack.popFromStart(), equals('render 3'));
-
-          expect(testStack.canPop(), equals(false));
-        },
-      );
-
       // flag tests under multiple childs
 
       test(
-        'should not dispose obsolute widget if'
-        ': flagDisposeObsoluteChildren: false',
+        'should dispose obsolute widgets',
         () {
           var testStack = RT_TestStack();
 
@@ -1949,7 +1417,6 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 22'),
               ),
             ],
-            flagDisposeObsoluteChildren: false,
             parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
@@ -1967,77 +1434,6 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 11'),
               ),
             ],
-            flagDisposeObsoluteChildren: false,
-            parentContext: app!.appContext,
-            updateType: UpdateType.undefined,
-          );
-
-          expect(testStack.popFromStart(), equals('render 1'));
-          expect(testStack.popFromStart(), equals('render 11'));
-          expect(testStack.popFromStart(), equals('render 2'));
-          expect(testStack.popFromStart(), equals('render 22'));
-          expect(testStack.popFromStart(), equals('update 1'));
-          expect(testStack.popFromStart(), equals('update 11'));
-
-          expect(testStack.canPop(), equals(false));
-        },
-      );
-
-      test(
-        'should dispose obsolute widget if'
-        ': flagDisposeObsoluteChildren: true',
-        () {
-          var testStack = RT_TestStack();
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
-              ),
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 11'),
-                roEventHookUpdate: () => testStack.push('update 11'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 11'),
-              ),
-            ],
-            parentContext: app!.appContext,
-            updateType: UpdateType.undefined,
-          );
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 2'),
-                roEventHookUpdate: () => testStack.push('update 2'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
-              ),
-              RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 22'),
-                roEventHookUpdate: () => testStack.push('update 22'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 22'),
-              ),
-            ],
-            flagDisposeObsoluteChildren: true,
-            parentContext: app!.appContext,
-            updateType: UpdateType.undefined,
-          );
-
-          app!.framework.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
-              ),
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 11'),
-                roEventHookUpdate: () => testStack.push('update 11'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 11'),
-              ),
-            ],
-            flagDisposeObsoluteChildren: true,
             parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
@@ -2059,22 +1455,21 @@ void main() {
 
       test(
         '(multiple) should not add new widget if'
-        ': flagAddIfNotFound: false'
-        ': flagDisposeObsoluteChildren: false',
+        ': flagAddIfNotFound: false',
         () {
           var testStack = RT_TestStack();
 
           app!.framework.updateChildren(
             widgets: [
               RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
+                roEventHookRender: () => testStack.push('render 1a-1'),
+                roEventHookUpdate: () => testStack.push('update 1a-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-1'),
               ),
               RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 11'),
-                roEventHookUpdate: () => testStack.push('update 11'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 11'),
+                roEventHookRender: () => testStack.push('render 1a-2'),
+                roEventHookUpdate: () => testStack.push('update 1a-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-2'),
               ),
             ],
             parentContext: app!.appContext,
@@ -2084,18 +1479,17 @@ void main() {
           app!.framework.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 2'),
-                roEventHookUpdate: () => testStack.push('update 2'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
+                roEventHookRender: () => testStack.push('render 1b-1'),
+                roEventHookUpdate: () => testStack.push('update 1b-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1b-1'),
               ),
               RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 22'),
-                roEventHookUpdate: () => testStack.push('update 22'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 22'),
+                roEventHookRender: () => testStack.push('render 1b-2'),
+                roEventHookUpdate: () => testStack.push('update 1b-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1b-2'),
               ),
             ],
             flagAddIfNotFound: false,
-            flagDisposeObsoluteChildren: false,
             parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
@@ -2103,54 +1497,54 @@ void main() {
           app!.framework.updateChildren(
             widgets: [
               RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
+                roEventHookRender: () => testStack.push('render 2a-1'),
+                roEventHookUpdate: () => testStack.push('update 2a-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2a-1'),
               ),
               RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 11'),
-                roEventHookUpdate: () => testStack.push('update 11'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 11'),
+                roEventHookRender: () => testStack.push('render 2a-2'),
+                roEventHookUpdate: () => testStack.push('update 2a-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2a-2'),
               ),
             ],
             flagAddIfNotFound: false,
-            flagDisposeObsoluteChildren: false,
             parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
-          expect(testStack.popFromStart(), equals('render 1'));
-          expect(testStack.popFromStart(), equals('render 11'));
-          expect(testStack.popFromStart(), equals('update 1'));
-          expect(testStack.popFromStart(), equals('update 11'));
+          print(testStack.entries.toString());
+
+          expect(testStack.popFromStart(), equals('render 1a-1'));
+          expect(testStack.popFromStart(), equals('render 1a-2'));
+          expect(testStack.popFromStart(), equals('dispose 1a-1'));
+          expect(testStack.popFromStart(), equals('dispose 1a-2'));
 
           expect(testStack.canPop(), equals(false));
         },
       );
 
       test(
-        '(multiple) should not add new widget if'
-        ': flagAddIfNotFound: true'
-        ': flagDisposeObsoluteChildren: false',
+        '(multiple) should add new widget if'
+        ': flagAddIfNotFound: true',
         () {
           var testStack = RT_TestStack();
 
           app!.framework.updateChildren(
             widgets: [
               RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1'),
-                roEventHookUpdate: () => testStack.push('update 1'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
+                roEventHookRender: () => testStack.push('render 1a-1'),
+                roEventHookUpdate: () => testStack.push('update 1a-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-1'),
               ),
               RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 11'),
-                roEventHookUpdate: () => testStack.push('update 11'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 11'),
+                roEventHookRender: () => testStack.push('render 1a-2'),
+                roEventHookUpdate: () => testStack.push('update 1a-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-2'),
               ),
               RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 111'),
-                roEventHookUpdate: () => testStack.push('update 111'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 111'),
+                roEventHookRender: () => testStack.push('render 1a-3'),
+                roEventHookUpdate: () => testStack.push('update 1a-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-3'),
               ),
             ],
             parentContext: app!.appContext,
@@ -2160,23 +1554,22 @@ void main() {
           app!.framework.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 2'),
-                roEventHookUpdate: () => testStack.push('update 2'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
+                roEventHookRender: () => testStack.push('render 1b-1'),
+                roEventHookUpdate: () => testStack.push('update 1b-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1b-1'),
               ),
               RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 22'),
-                roEventHookUpdate: () => testStack.push('update 22'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 22'),
+                roEventHookRender: () => testStack.push('render 1b-2'),
+                roEventHookUpdate: () => testStack.push('update 1b-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1b-2'),
               ),
               RT_AnotherTestWidget(
-                roEventHookRender: () => testStack.push('render 222'),
-                roEventHookUpdate: () => testStack.push('update 222'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 222'),
+                roEventHookRender: () => testStack.push('render 1b-3'),
+                roEventHookUpdate: () => testStack.push('update 1b-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1b-3'),
               ),
             ],
             flagAddIfNotFound: true,
-            flagDisposeObsoluteChildren: false,
             parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
@@ -2185,38 +1578,45 @@ void main() {
             widgets: [
               RT_AnotherTestWidget(
                 key: Key('another widget'),
-                roEventHookRender: () => testStack.push('render 3'),
-                roEventHookUpdate: () => testStack.push('update 3'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 3'),
+                roEventHookRender: () => testStack.push('render 1c-1'),
+                roEventHookUpdate: () => testStack.push('update 1c-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1c-1'),
               ),
               RT_AnotherTestWidget(
                 key: Key('another widget 2'),
-                roEventHookRender: () => testStack.push('render 33'),
-                roEventHookUpdate: () => testStack.push('update 33'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 33'),
+                roEventHookRender: () => testStack.push('render 1c-2'),
+                roEventHookUpdate: () => testStack.push('update 1c-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1c-2'),
               ),
               RT_AnotherTestWidget(
                 key: Key('another widget 3'),
-                roEventHookRender: () => testStack.push('render 333'),
-                roEventHookUpdate: () => testStack.push('update 333'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 333'),
+                roEventHookRender: () => testStack.push('render 1c-3'),
+                roEventHookUpdate: () => testStack.push('update 1c-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1c-3'),
               ),
             ],
             flagAddIfNotFound: true,
-            flagDisposeObsoluteChildren: false,
             parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
-          expect(testStack.popFromStart(), equals('render 1'));
-          expect(testStack.popFromStart(), equals('render 11'));
-          expect(testStack.popFromStart(), equals('render 111'));
-          expect(testStack.popFromStart(), equals('render 2'));
-          expect(testStack.popFromStart(), equals('render 22'));
-          expect(testStack.popFromStart(), equals('render 222'));
-          expect(testStack.popFromStart(), equals('render 3'));
-          expect(testStack.popFromStart(), equals('render 33'));
-          expect(testStack.popFromStart(), equals('render 333'));
+          expect(testStack.popFromStart(), equals('render 1a-1'));
+          expect(testStack.popFromStart(), equals('render 1a-2'));
+          expect(testStack.popFromStart(), equals('render 1a-3'));
+
+          expect(testStack.popFromStart(), equals('dispose 1a-1'));
+          expect(testStack.popFromStart(), equals('dispose 1a-2'));
+          expect(testStack.popFromStart(), equals('dispose 1a-3'));
+          expect(testStack.popFromStart(), equals('render 1b-1'));
+          expect(testStack.popFromStart(), equals('render 1b-2'));
+          expect(testStack.popFromStart(), equals('render 1b-3'));
+
+          expect(testStack.popFromStart(), equals('dispose 1b-1'));
+          expect(testStack.popFromStart(), equals('dispose 1b-2'));
+          expect(testStack.popFromStart(), equals('dispose 1b-3'));
+          expect(testStack.popFromStart(), equals('render 1c-1'));
+          expect(testStack.popFromStart(), equals('render 1c-2'));
+          expect(testStack.popFromStart(), equals('render 1c-3'));
 
           expect(testStack.canPop(), equals(false));
         },

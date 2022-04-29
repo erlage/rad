@@ -67,44 +67,48 @@ void main() {
       });
     });
 
-    test('should send tasks only when requested:', () async {
-      var testStack = RT_TestStack();
-      var schedulerService = Scheduler(
-        RT_TestBed.rootContext,
-        SchedulerOptions.defaultMode,
-      )..startService();
+    test(
+      'should send tasks only when requested:',
+      () async {
+        var testStack = RT_TestStack();
+        var schedulerService = Scheduler(
+          RT_TestBed.rootContext,
+          SchedulerOptions.defaultMode,
+        )..startService();
 
-      schedulerService.addTaskListener('test', (task) {
-        testStack.push(task.taskType.name);
-      });
+        schedulerService.addTaskListener('test', (task) {
+          testStack.push(task.taskType.name);
+        });
 
-      schedulerService.addTask(WidgetsBuildTask(
-        widgets: [],
-        parentContext: RT_TestBed.rootContext,
-      ));
+        schedulerService.addTask(WidgetsBuildTask(
+          widgets: [],
+          parentContext: RT_TestBed.rootContext,
+        ));
 
-      schedulerService.addTask(WidgetsUpdateTask(
-        widgets: [],
-        updateType: UpdateType.undefined,
-        parentContext: RT_TestBed.rootContext,
-      ));
+        schedulerService.addTask(WidgetsUpdateTask(
+          widgets: [],
+          updateType: UpdateType.undefined,
+          parentContext: RT_TestBed.rootContext,
+        ));
 
-      schedulerService.addTask(StimulateListenerTask());
+        schedulerService.addTask(StimulateListenerTask());
 
-      await Future.delayed(Duration.zero, () {
-        var expected = [].toString();
+        await Future.delayed(Duration.zero, () {
+          var expected = [].toString();
 
-        // StimulateListenerTask task is a exception here,
-        // because we want listeners to know that there are new tasks which
-        // scheduler can send if they want.
+          // StimulateListenerTask task is a exception here,
+          // because we want listeners to know that there are new tasks which
+          // scheduler can send if they want.
 
-        var actual = testStack.entries
-          ..removeWhere(
-            (e) => e == SchedulerTaskType.stimulateListener.name,
-          );
+          var actual = testStack.entries
+            ..removeWhere(
+              (e) => e == SchedulerTaskType.stimulateListener.name,
+            );
 
-        expect(actual.toString(), equals(expected));
-      });
-    }, skip: 'Scheduler implementation has been changed');
+          expect(actual.toString(), equals(expected));
+        });
+      },
+      skip: 'impl has been changed, todo: remove this test',
+    );
   });
 }

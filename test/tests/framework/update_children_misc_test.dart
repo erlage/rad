@@ -441,7 +441,7 @@ void main() {
       // widgets matching tests
 
       test(
-        'should dispose correct mismatch in the start',
+        'should dispose and match immediate if mismatched without keys',
         () {
           var testStack = RT_TestStack();
 
@@ -493,6 +493,74 @@ void main() {
           expect(testStack.popFromStart(), equals('render 1a-2'));
           expect(testStack.popFromStart(), equals('render 1a-3'));
 
+          expect(testStack.popFromStart(), equals('dispose 1a-3'));
+          expect(testStack.popFromStart(), equals('render 1b-1'));
+          expect(testStack.popFromStart(), equals('update 1a-1'));
+          expect(testStack.popFromStart(), equals('update 1a-2'));
+
+          expect(testStack.canPop(), equals(false));
+        },
+      );
+
+      test(
+        'should dispose correct mismatch in the start',
+        () {
+          var testStack = RT_TestStack();
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                key: GlobalKey('widget-1'),
+                roEventHookRender: () => testStack.push('render 1a-1'),
+                roEventHookUpdate: () => testStack.push('update 1a-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-1'),
+              ),
+              RT_TestWidget(
+                key: GlobalKey('widget-2'),
+                roEventHookRender: () => testStack.push('render 1a-2'),
+                roEventHookUpdate: () => testStack.push('update 1a-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-2'),
+              ),
+              RT_TestWidget(
+                key: GlobalKey('widget-3'),
+                roEventHookRender: () => testStack.push('render 1a-3'),
+                roEventHookUpdate: () => testStack.push('update 1a-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1a-3'),
+              ),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          app!.framework.updateChildren(
+            widgets: [
+              RT_AnotherTestWidget(
+                key: GlobalKey('widget-1'),
+                roEventHookRender: () => testStack.push('render 1b-1'),
+                roEventHookUpdate: () => testStack.push('update 1b-1'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 1b-1'),
+              ),
+              RT_TestWidget(
+                key: GlobalKey('widget-2'),
+                roEventHookRender: () => testStack.push('render 2a-2'),
+                roEventHookUpdate: () => testStack.push('update 2a-2'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2a-2'),
+              ),
+              RT_TestWidget(
+                key: GlobalKey('widget-3'),
+                roEventHookRender: () => testStack.push('render 2a-3'),
+                roEventHookUpdate: () => testStack.push('update 2a-3'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2a-3'),
+              ),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          expect(testStack.popFromStart(), equals('render 1a-1'));
+          expect(testStack.popFromStart(), equals('render 1a-2'));
+          expect(testStack.popFromStart(), equals('render 1a-3'));
+
           expect(testStack.popFromStart(), equals('dispose 1a-1'));
           expect(testStack.popFromStart(), equals('render 1b-1'));
           expect(testStack.popFromStart(), equals('update 1a-2'));
@@ -510,16 +578,19 @@ void main() {
           app!.framework.updateChildren(
             widgets: [
               RT_TestWidget(
+                key: GlobalKey('widget-1'),
                 roEventHookRender: () => testStack.push('render 1a-1'),
                 roEventHookUpdate: () => testStack.push('update 1a-1'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a-1'),
               ),
               RT_TestWidget(
+                key: GlobalKey('widget-2'),
                 roEventHookRender: () => testStack.push('render 1a-2'),
                 roEventHookUpdate: () => testStack.push('update 1a-2'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a-2'),
               ),
               RT_TestWidget(
+                key: GlobalKey('widget-3'),
                 roEventHookRender: () => testStack.push('render 1a-3'),
                 roEventHookUpdate: () => testStack.push('update 1a-3'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a-3'),
@@ -532,16 +603,19 @@ void main() {
           app!.framework.updateChildren(
             widgets: [
               RT_TestWidget(
+                key: GlobalKey('widget-1'),
                 roEventHookRender: () => testStack.push('render 2a-1'),
                 roEventHookUpdate: () => testStack.push('update 2a-1'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2a-1'),
               ),
               RT_AnotherTestWidget(
+                key: GlobalKey('widget-2'),
                 roEventHookRender: () => testStack.push('render 1b-2'),
                 roEventHookUpdate: () => testStack.push('update 1b-2'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1b-2'),
               ),
               RT_TestWidget(
+                key: GlobalKey('widget-3'),
                 roEventHookRender: () => testStack.push('render 2a-3'),
                 roEventHookUpdate: () => testStack.push('update 2a-3'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2a-3'),
@@ -572,16 +646,19 @@ void main() {
           app!.framework.updateChildren(
             widgets: [
               RT_TestWidget(
+                key: GlobalKey('widget-1'),
                 roEventHookRender: () => testStack.push('render 1a-1'),
                 roEventHookUpdate: () => testStack.push('update 1a-1'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a-1'),
               ),
               RT_TestWidget(
+                key: GlobalKey('widget-2'),
                 roEventHookRender: () => testStack.push('render 1a-2'),
                 roEventHookUpdate: () => testStack.push('update 1a-2'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a-2'),
               ),
               RT_TestWidget(
+                key: GlobalKey('widget-3'),
                 roEventHookRender: () => testStack.push('render 1a-3'),
                 roEventHookUpdate: () => testStack.push('update 1a-3'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a-3'),
@@ -594,16 +671,19 @@ void main() {
           app!.framework.updateChildren(
             widgets: [
               RT_TestWidget(
+                key: GlobalKey('widget-1'),
                 roEventHookRender: () => testStack.push('render 2a-1'),
                 roEventHookUpdate: () => testStack.push('update 2a-1'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2a-1'),
               ),
               RT_TestWidget(
+                key: GlobalKey('widget-2'),
                 roEventHookRender: () => testStack.push('render 2a-2'),
                 roEventHookUpdate: () => testStack.push('update 2a-2'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2a-2'),
               ),
               RT_AnotherTestWidget(
+                key: GlobalKey('widget-3'),
                 roEventHookRender: () => testStack.push('render 1b-3'),
                 roEventHookUpdate: () => testStack.push('update 1b-3'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1b-3'),
@@ -634,16 +714,19 @@ void main() {
           app!.framework.updateChildren(
             widgets: [
               RT_TestWidget(
+                key: GlobalKey('widget-1'),
                 roEventHookRender: () => testStack.push('render 1a-1'),
                 roEventHookUpdate: () => testStack.push('update 1a-1'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a-1'),
               ),
               RT_TestWidget(
+                key: GlobalKey('widget-2'),
                 roEventHookRender: () => testStack.push('render 1a-2'),
                 roEventHookUpdate: () => testStack.push('update 1a-2'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a-2'),
               ),
               RT_TestWidget(
+                key: GlobalKey('widget-3'),
                 roEventHookRender: () => testStack.push('render 1a-3'),
                 roEventHookUpdate: () => testStack.push('update 1a-3'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a-3'),
@@ -656,21 +739,25 @@ void main() {
           app!.framework.updateChildren(
             widgets: [
               RT_TestWidget(
+                key: GlobalKey('widget-1'),
                 roEventHookRender: () => testStack.push('render 2a-1'),
                 roEventHookUpdate: () => testStack.push('update 2a-1'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2a-1'),
               ),
               RT_TestWidget(
+                key: GlobalKey('widget-2'),
                 roEventHookRender: () => testStack.push('render 2a-2'),
                 roEventHookUpdate: () => testStack.push('update 2a-2'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2a-2'),
               ),
               RT_AnotherTestWidget(
+                key: GlobalKey('widget-3'),
                 roEventHookRender: () => testStack.push('render 1b-3'),
                 roEventHookUpdate: () => testStack.push('update 1b-3'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1b-3'),
               ),
               RT_AnotherTestWidget(
+                key: GlobalKey('widget-4'),
                 roEventHookRender: () => testStack.push('render 1b-4'),
                 roEventHookUpdate: () => testStack.push('update 1b-4'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1b-4'),
@@ -702,16 +789,19 @@ void main() {
           app!.framework.updateChildren(
             widgets: [
               RT_TestWidget(
+                key: GlobalKey('widget-1'),
                 roEventHookRender: () => testStack.push('render 1a-1'),
                 roEventHookUpdate: () => testStack.push('update 1a-1'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a-1'),
               ),
               RT_TestWidget(
+                key: GlobalKey('widget-2'),
                 roEventHookRender: () => testStack.push('render 1a-2'),
                 roEventHookUpdate: () => testStack.push('update 1a-2'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a-2'),
               ),
               RT_TestWidget(
+                key: GlobalKey('widget-3'),
                 roEventHookRender: () => testStack.push('render 1a-3'),
                 roEventHookUpdate: () => testStack.push('update 1a-3'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a-3'),
@@ -724,11 +814,13 @@ void main() {
           app!.framework.updateChildren(
             widgets: [
               RT_TestWidget(
+                key: GlobalKey('widget-1'),
                 roEventHookRender: () => testStack.push('render 2a-1'),
                 roEventHookUpdate: () => testStack.push('update 2a-1'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2a-1'),
               ),
               RT_TestWidget(
+                key: GlobalKey('widget-2'),
                 roEventHookRender: () => testStack.push('render 2a-2'),
                 roEventHookUpdate: () => testStack.push('update 2a-2'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2a-2'),
@@ -739,15 +831,15 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1b-3'),
               ),
               RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 2a-3'),
-                roEventHookUpdate: () => testStack.push('update 2a-3'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 2a-3'),
+                key: GlobalKey('widget-3'),
+                roEventHookRender: () => testStack.push('render 2a-4'),
+                roEventHookUpdate: () => testStack.push('update 2a-4'),
+                roEventHookBeforeUnMount: () => testStack.push('dispose 2a-4'),
               ),
             ],
             parentContext: RT_TestBed.rootContext,
             updateType: UpdateType.undefined,
           );
-
           // render 1a-1, render 1a-2, render 1a-3,
 
           // dispose 1a-3,
@@ -760,11 +852,10 @@ void main() {
           expect(testStack.popFromStart(), equals('render 1a-2'));
           expect(testStack.popFromStart(), equals('render 1a-3'));
 
-          expect(testStack.popFromStart(), equals('dispose 1a-3'));
           expect(testStack.popFromStart(), equals('update 1a-1'));
           expect(testStack.popFromStart(), equals('update 1a-2'));
           expect(testStack.popFromStart(), equals('render 1b-3'));
-          expect(testStack.popFromStart(), equals('render 1b-4'));
+          expect(testStack.popFromStart(), equals('update 1a-3'));
 
           expect(testStack.canPop(), equals(false));
         },
@@ -782,21 +873,25 @@ void main() {
           app!.framework.updateChildren(
             widgets: [
               RT_TestWidget(
+                key: GlobalKey('widget-1'),
                 roEventHookRender: () => testStack.push('render 1a-1'),
                 roEventHookUpdate: () => testStack.push('update 1a-1'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a-1'),
               ),
               RT_TestWidget(
+                key: GlobalKey('widget-2'),
                 roEventHookRender: () => testStack.push('render 1a-2'),
                 roEventHookUpdate: () => testStack.push('update 1a-2'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a-2'),
               ),
               RT_TestWidget(
+                key: GlobalKey('widget-3'),
                 roEventHookRender: () => testStack.push('render 1a-3'),
                 roEventHookUpdate: () => testStack.push('update 1a-3'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a-3'),
               ),
               RT_TestWidget(
+                key: GlobalKey('widget-4'),
                 roEventHookRender: () => testStack.push('render 1a-4'),
                 roEventHookUpdate: () => testStack.push('update 1a-4'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a-4'),
@@ -815,21 +910,25 @@ void main() {
           app!.framework.updateChildren(
             widgets: [
               RT_TestWidget(
+                key: GlobalKey('widget-1'),
                 roEventHookRender: () => testStack.push('render 2a-1'),
                 roEventHookUpdate: () => testStack.push('update 2a-1'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1b-1'),
               ),
               RT_AnotherTestWidget(
+                key: GlobalKey('widget-2'),
                 roEventHookRender: () => testStack.push('render 1b-2'),
                 roEventHookUpdate: () => testStack.push('update 1b-2'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1b-2'),
               ),
               RT_TestWidget(
+                key: GlobalKey('widget-3'),
                 roEventHookRender: () => testStack.push('render 2a-3'),
                 roEventHookUpdate: () => testStack.push('update 2a-3'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2a-3'),
               ),
               RT_TestWidget(
+                key: GlobalKey('widget-4'),
                 roEventHookRender: () => testStack.push('render 2a-4'),
                 roEventHookUpdate: () => testStack.push('update 2a-4'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2a-4'),
@@ -848,21 +947,25 @@ void main() {
           app!.framework.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
+                key: GlobalKey('widget-1'),
                 roEventHookRender: () => testStack.push('render 1b-1'),
                 roEventHookUpdate: () => testStack.push('update 1b-1'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1b-1'),
               ),
               RT_AnotherTestWidget(
+                key: GlobalKey('widget-2'),
                 roEventHookRender: () => testStack.push('render 2b-2'),
                 roEventHookUpdate: () => testStack.push('update 2b-2'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2b-2'),
               ),
               RT_TestWidget(
+                key: GlobalKey('widget-3'),
                 roEventHookRender: () => testStack.push('render 3a-3'),
                 roEventHookUpdate: () => testStack.push('update 3a-3'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 3a-3'),
               ),
               RT_TestWidget(
+                key: GlobalKey('widget-4'),
                 roEventHookRender: () => testStack.push('render 3a-4'),
                 roEventHookUpdate: () => testStack.push('update 3a-4'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 3a-4'),
@@ -880,21 +983,25 @@ void main() {
           app!.framework.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
+                key: GlobalKey('widget-1'),
                 roEventHookRender: () => testStack.push('render 2b-1'),
                 roEventHookUpdate: () => testStack.push('update 2b-1'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2b-1'),
               ),
               RT_AnotherTestWidget(
+                key: GlobalKey('widget-2'),
                 roEventHookRender: () => testStack.push('render 2b-2'),
                 roEventHookUpdate: () => testStack.push('update 2b-2'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2b-2'),
               ),
               RT_AnotherTestWidget(
+                key: GlobalKey('widget-3'),
                 roEventHookRender: () => testStack.push('render 1b-3'),
                 roEventHookUpdate: () => testStack.push('update 1b-3'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1b-3'),
               ),
               RT_AnotherTestWidget(
+                key: GlobalKey('widget-4'),
                 roEventHookRender: () => testStack.push('render 1b-4'),
                 roEventHookUpdate: () => testStack.push('update 1b-4'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1b-4'),
