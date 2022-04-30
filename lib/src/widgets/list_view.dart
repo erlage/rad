@@ -350,10 +350,10 @@ class _ListViewBuilderState with ServicesResolver {
 
         if (itemsToGenerate > 0) {
           services.scheduler.addTask(
-            WidgetsUpdateTask(
+            WidgetsBuildTask(
               parentContext: context,
-              updateType: UpdateType.lazyBuild,
-              flagAddIfNotFound: true,
+              mountAtIndex: null,
+              flagCleanParentContents: false,
               widgets: List.generate(
                 itemsToGenerate,
                 (i) => Division(

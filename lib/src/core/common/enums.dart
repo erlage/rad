@@ -30,10 +30,6 @@ enum UpdateType {
   ///
   dependencyChanged,
 
-  /// When lazy builder(such as ListView.builder) append new childs.
-  ///
-  lazyBuild,
-
   /// Undefined.
   ///
   undefined,
