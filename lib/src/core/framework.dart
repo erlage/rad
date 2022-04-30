@@ -12,6 +12,7 @@ import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/widget_object.dart';
 import 'package:rad/src/core/common/objects/widget_action_object.dart';
 import 'package:rad/src/core/common/objects/widget_update_object.dart';
+import 'package:rad/src/core/common/objects/element_context.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_manage_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
@@ -193,9 +194,9 @@ class Framework with ServicesResolver {
 
     // publish widget updates
 
-    var i = -1;
+    var index = -1;
     for (var updateObject in updateObjects.values) {
-      i++;
+      index++;
 
       var newWidget = updateObject.widget;
       var existingElementId = updateObject.elementId;
@@ -286,7 +287,7 @@ class Framework with ServicesResolver {
           widgets: [newWidget],
           parentContext: parentContext,
           flagCleanParentContents: false,
-          mountAtIndex: i,
+          mountAtIndex: index,
         );
       }
     }
@@ -300,16 +301,33 @@ class Framework with ServicesResolver {
   }) {
     var updateObjects = <String, WidgetUpdateObject>{};
 
-    var elements = <Map<String, String?>>[];
-    var poppedElements = <Map<String, String?>>[];
+    var elements = <ElementContext>[];
+    var poppedElements = <ElementContext>[];
+
+    // for hash join
+    var hashedElements = <String, ElementContext>{};
 
     // prepare list of existing elements available
 
     for (var child in parent.children.reversed) {
-      elements.add({
-        'id': child.id,
-        Constants.attrRuntimeType: child.dataset[Constants.attrRuntimeType]
-      });
+      var elementId = child.id;
+      var elementRuntimeType = child.dataset[Constants.attrRuntimeType];
+      var elementContext = ElementContext(
+        elementId: elementId,
+        elementRuntimeType: elementRuntimeType ?? '',
+      );
+
+      var oldWidgetHasKey = !elementId.startsWith(
+        Constants.contextGenKeyPrefix,
+      );
+
+      if (oldWidgetHasKey) {
+        var hashKey = '$elementRuntimeType$elementId';
+
+        hashedElements[hashKey] = elementContext;
+      } else {
+        elements.add(elementContext);
+      }
     }
 
     for (var newWidget in widgets) {
@@ -325,69 +343,85 @@ class Framework with ServicesResolver {
           )
           .value;
 
-      // assume widget is not matched with the corresponding element
+      // id of element that's matched with the current widget
       //
       String? matchedWithId;
 
-      while (true) {
-        if (elements.isNotEmpty) {
-          var element = elements.removeLast();
+      if (newWidgetHasKey) {
+        //
+        // do hash join
+        //
+        var hashKey = '$newWidgetRuntimeType$newWidgetId';
 
-          // prepare element's data for matching
+        matchedWithId = hashedElements[hashKey]?.elementId;
 
-          var oldWidgetId = element['id'] ?? '';
-          var oldWidgetRuntimeType = element[Constants.attrRuntimeType];
-          var oldWidgetHasKey = !oldWidgetId.startsWith(
-            Constants.contextGenKeyPrefix,
-          );
-
-          // try matching runtime type
+        //
+        //
+      } else {
+        //
+        // do merge join(kind of)
+        //
+        while (true) {
           //
-          if (oldWidgetRuntimeType == newWidgetRuntimeType) {
+          if (elements.isNotEmpty) {
             //
-            // assume widget is matched
+            // get element
             //
-            matchedWithId = oldWidgetId;
+            var element = elements.removeLast();
+
+            var oldWidgetRuntimeType = element.elementRuntimeType;
             //
-            // wait! let's do one more check, see if any of them has/had keys
+            // try matching runtime types
             //
-            if (newWidgetHasKey || oldWidgetHasKey) {
+            if (oldWidgetRuntimeType == newWidgetRuntimeType) {
               //
-              // then try matching keys
+              // widget matched!
               //
-              if (newWidgetId != oldWidgetId) {
-                //
-                // key not matched, widget is not matched
-                //
-                matchedWithId = null;
-              }
+              matchedWithId = element.elementId;
+
+              break;
             }
-          }
-
-          if (null != matchedWithId) {
-            updateObjects[matchedWithId] = WidgetUpdateObject(
-              newWidget,
-              matchedWithId,
-            );
-
-            break;
-          } else {
+            //
+            // else add current element to popped list
+            //
             poppedElements.add(element);
+            //
+          } else {
+            //
+            // widget doesn't match with any element
+            // reset popped elements for next widget
+            //
+            if (poppedElements.isNotEmpty) {
+              elements.addAll(poppedElements.reversed);
+
+              poppedElements = [];
+            }
+
+            // current widget has to be rendered from scratch
+            // as it failed to match any element(popped all)
+            // so break for current widget
+            //
+            break;
           }
-        } else {
-          if (flagAddIfNotFound) {
-            var newKey = services.keyGen.generateRandomKey();
+        }
+      }
 
-            updateObjects[newKey] = WidgetUpdateObject(newWidget, null);
-          }
+      if (null != matchedWithId) {
+        //
+        // if a matching element found
+        //
+        updateObjects[matchedWithId] = WidgetUpdateObject(
+          newWidget,
+          matchedWithId,
+        );
+      } else {
+        //
+        // else add if flags are correct
+        //
+        if (flagAddIfNotFound) {
+          var newKey = services.keyGen.generateRandomKey();
 
-          if (poppedElements.isNotEmpty) {
-            elements.addAll(poppedElements.reversed);
-
-            poppedElements = [];
-          }
-
-          break;
+          updateObjects[newKey] = WidgetUpdateObject(newWidget, null);
         }
       }
     }
