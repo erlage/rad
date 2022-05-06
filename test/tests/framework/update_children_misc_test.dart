@@ -1,11 +1,4 @@
-import 'package:rad/rad.dart';
-import 'package:test/scaffolding.dart';
-import 'package:test/expect.dart';
-
-import '../../fixers/test_app.dart';
-import '../../fixers/test_bed.dart';
-import '../../fixers/test_stack.dart';
-import '../../fixers/test_widget.dart';
+import '../../test_imports.dart';
 
 /*
 |--------------------------------------------------------------------------
@@ -1038,6 +1031,56 @@ void main() {
           expect(testStack.popFromStart(), equals('render 1b-4'));
 
           expect(testStack.canPop(), equals(false));
+        },
+      );
+
+      test(
+        'should respect order in which new widgets are recieved',
+        () {
+          app!.framework.updateChildren(
+            widgets: [
+              Text('widget 1'),
+              Text('widget 2'),
+              // Text('widget 2', key: Key('widget 2')),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          app!.framework.updateChildren(
+            widgets: [
+              // Text('widget 2', key: Key('widget 2')),
+              Text('widget 2'),
+              Text('widget 1'),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+          expect(RT_TestBed.rootElement, RT_hasContents('widget 2|widget 1'));
+        },
+      );
+
+      test(
+        'should respect order in which new keyed widgets are recieved',
+        () {
+          app!.framework.updateChildren(
+            widgets: [
+              Text('widget 1'),
+              Text('widget 2', key: Key('widget 2')),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+
+          app!.framework.updateChildren(
+            widgets: [
+              Text('widget 2', key: Key('widget 2')),
+              Text('widget 1'),
+            ],
+            parentContext: RT_TestBed.rootContext,
+            updateType: UpdateType.undefined,
+          );
+          expect(RT_TestBed.rootElement, RT_hasContents('widget 2|widget 1'));
         },
       );
 
