@@ -135,7 +135,7 @@ class StylesBuilder implements Builder {
     var importStatements = '';
 
     if (importsForCurrentAsset.isNotEmpty) {
-      importStatements = importsForCurrentAsset.join("\n") + "\n\n";
+      importStatements = "${importsForCurrentAsset.join("\n")}\n\n";
     }
 
     genContents = "// ignore_for_file: non_constant_identifier_names\n"
@@ -143,7 +143,7 @@ class StylesBuilder implements Builder {
         "$importStatements"
         "final GEN_STYLES_${genConstant}_CSS = \"\"$genContents";
 
-    genContents = genContents + ";\n";
+    genContents = "$genContents;\n";
 
     await buildStep.writeAsString(genAssetId, genContents);
   }
