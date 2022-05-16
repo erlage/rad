@@ -107,8 +107,8 @@ class ChangeNotifier implements Listenable {
   void removeListener(Callback listener) {
     assert(_debugAssertNotDisposed());
     for (int i = 0; i < _count; i++) {
-      final Callback? _listener = _listeners[i];
-      if (_listener == listener) {
+      final Callback? listener = _listeners[i];
+      if (listener == listener) {
         if (_notificationCallStackDepth > 0) {
           _listeners[i] = null;
           _reentrantlyRemovedListeners++;
