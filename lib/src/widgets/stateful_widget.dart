@@ -145,9 +145,6 @@ class StatefulWidgetRenderObject extends RenderObject {
     required configuration,
   }) {
     return ElementDescription(
-      attributes: {
-        'id': context.key.value,
-      },
       dataset: {
         Constants.attrWidgetType: '$StatefulWidget',
       },

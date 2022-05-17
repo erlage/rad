@@ -107,9 +107,6 @@ class InheritedWidgetRenderObject extends RenderObject {
     required covariant _InheritedWidgetConfiguration configuration,
   }) {
     return ElementDescription(
-      attributes: {
-        'id': context.key.value,
-      },
       dataset: {
         Constants.attrWidgetType: '$InheritedWidget',
       },

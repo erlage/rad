@@ -76,9 +76,6 @@ class _StatelessWidgetRenderObject extends RenderObject {
     required covariant _StatelessWidgetConfiguration configuration,
   }) {
     return ElementDescription(
-      attributes: {
-        'id': context.key.value,
-      },
       dataset: {
         Constants.attrWidgetType: '$StatelessWidget',
       },

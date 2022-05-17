@@ -85,9 +85,6 @@ class RouteRenderObject extends RenderObject {
     required covariant RouteConfiguration configuration,
   }) {
     return ElementDescription(
-      attributes: {
-        'id': context.key.value,
-      },
       dataset: {
         Constants.attrWidgetType: '$Route',
       },
@@ -101,9 +98,6 @@ class RouteRenderObject extends RenderObject {
     required covariant RouteConfiguration newConfiguration,
   }) {
     return ElementDescription(
-      attributes: {
-        'id': context.key.value,
-      },
       dataset: {
         Constants.attrWidgetType: '$Route',
       },
