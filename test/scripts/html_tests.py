@@ -18,6 +18,7 @@ skipped_tests = {
 }
 
 tests = [
+    'html_attr_id',
     'html_attr_child',
     'html_attr_children',
     'html_attr_classes',

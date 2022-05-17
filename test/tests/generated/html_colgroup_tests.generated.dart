@@ -16,6 +16,115 @@ void html_colgroup_test() {
 
     tearDown(() => app!.stop());
 
+    test('should set id', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableColumnGroup(key: Key('some-key'), id: 'some-id'),
+          TableColumnGroup(
+              key: LocalKey('some-local-key'), id: 'some-local-id'),
+          TableColumnGroup(
+              key: GlobalKey('some-global-key'), id: 'some-global-id'),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(Key('some-key'), RT_TestBed.rootContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(
+                    LocalKey('some-local-key'), RT_TestBed.rootContext)
+                .value,
+          )!
+          .element;
+
+      var element3 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(
+                    GlobalKey('some-global-key'), RT_TestBed.rootContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.id, endsWith('some-id'));
+      expect(element2.id, endsWith('some-local-id'));
+      expect(element3.id, equals('some-global-id'));
+    });
+
+    test('should reset and update id', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableColumnGroup(key: Key('some-key'), id: 'some-id'),
+          TableColumnGroup(
+              key: LocalKey('some-local-key'), id: 'some-local-id'),
+          TableColumnGroup(
+              key: GlobalKey('some-global-key'), id: 'some-global-id'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(Key('some-key'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(
+                    LocalKey('some-local-key'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element3 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(
+                    GlobalKey('some-global-key'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.id, endsWith('some-id'));
+      expect(element2.id, endsWith('some-local-id'));
+      expect(element3.id, equals('some-global-id'));
+
+      app!.framework.updateChildren(
+        widgets: [
+          TableColumnGroup(
+            key: Key('some-key'),
+            id: 'some-updated-id',
+          ),
+          TableColumnGroup(
+            key: LocalKey('some-local-key'),
+            id: 'some-local-updated-id',
+          ),
+          TableColumnGroup(
+            key: GlobalKey('some-global-key'),
+            id: 'some-global-updated-id',
+          ),
+        ],
+        updateType: UpdateType.undefined,
+        parentContext: app!.appContext,
+      );
+
+      expect(element1.id, endsWith('some-updated-id'));
+      expect(element2.id, endsWith('some-local-updated-id'));
+      expect(element3.id, equals('some-global-updated-id'));
+    });
+
     test('should set child widget', () {
       app!.framework.buildChildren(
         widgets: [
