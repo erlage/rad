@@ -269,7 +269,7 @@ class InputProps {
       }
     }
 
-    if (null != props.disabled) {
+    if (null != props.disabled && props.disabled!) {
       attributes[Attributes.disabled] = "${props.disabled}";
     } else {
       if (null != oldProps?.disabled) {
