@@ -1,11 +1,11 @@
-import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/services/abstract.dart';
 import 'package:rad/src/core/services/debug/debug.dart';
-import 'package:rad/src/core/services/keygen/key_gen.dart';
 import 'package:rad/src/core/services/router/router.dart';
-import 'package:rad/src/core/services/scheduler/scheduler.dart';
-import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/core/services/walker/walker.dart';
+import 'package:rad/src/core/services/keygen/key_gen.dart';
+import 'package:rad/src/core/common/objects/app_options.dart';
+import 'package:rad/src/core/services/services_registry.dart';
+import 'package:rad/src/core/services/scheduler/scheduler.dart';
 
 /// Services object.
 ///

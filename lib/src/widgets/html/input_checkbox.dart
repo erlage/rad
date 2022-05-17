@@ -2,9 +2,9 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/input_tag.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/widgets/abstract/input_tag.dart';
 
 /// The InputCheckBox widget (HTML's `input` tag with `type = 'checkbox'`).
 ///
@@ -16,6 +16,7 @@ class InputCheckBox extends InputTag {
     bool? checked,
     bool? required,
     bool? disabled,
+    String? id,
     String? title,
     String? style,
     String? classAttribute,
@@ -25,13 +26,14 @@ class InputCheckBox extends InputTag {
     Map<String, String>? dataAttributes,
     bool? hidden,
     String? onClick,
-    EventCallback? onClickEventListener,
-    EventCallback? onChangeEventListener,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onChangeEventListener,
+    EventCallback? onClickEventListener,
   }) : super(
           key: key,
+          id: id,
           type: InputType.checkbox,
           name: name,
           value: value,
@@ -47,11 +49,11 @@ class InputCheckBox extends InputTag {
           dataAttributes: dataAttributes,
           hidden: hidden,
           onClick: onClick,
-          onClickEventListener: onClickEventListener,
-          eventListenerCallback: onChangeEventListener,
           innerText: innerText,
           child: child,
           children: children,
+          onChangeEventListener: onChangeEventListener,
+          onClickEventListener: onClickEventListener,
         );
 
   @nonVirtual

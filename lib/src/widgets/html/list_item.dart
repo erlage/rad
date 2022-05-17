@@ -1,14 +1,12 @@
-import 'dart:html';
-
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 
 /// The ListItem widget (HTML's `li` tag).
 ///
@@ -20,6 +18,7 @@ class ListItem extends MarkUpTagWithGlobalProps {
   const ListItem({
     this.value,
     Key? key,
+    String? id,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,
@@ -29,12 +28,13 @@ class ListItem extends MarkUpTagWithGlobalProps {
     String? classAttribute,
     Map<String, String>? dataAttributes,
     String? onClick,
-    EventCallback? onClickEventListener,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClickEventListener,
   }) : super(
           key: key,
+          id: id,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
@@ -44,10 +44,10 @@ class ListItem extends MarkUpTagWithGlobalProps {
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
           onClick: onClick,
-          onClickEventListener: onClickEventListener,
           innerText: innerText,
           child: child,
           children: children,
+          onClickEventListener: onClickEventListener,
         );
 
   @nonVirtual
@@ -99,26 +99,47 @@ class _ListItemConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-class _ListItemRenderObject extends RenderObject {
-  const _ListItemRenderObject(BuildContext context) : super(context);
+class _ListItemRenderObject extends MarkUpGlobalRenderObject {
+  _ListItemRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _ListItemConfiguration configuration,
-  ) {
-    _ListItemProps.apply(element, configuration);
+  render({
+    required covariant _ListItemConfiguration configuration,
+  }) {
+    var elementDescription = super.render(
+      configuration: configuration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _ListItemProps.prepareAttributes(
+        props: configuration,
+        oldProps: null,
+      ),
+    );
+
+    return elementDescription;
   }
 
   @override
   update({
-    required element,
     required updateType,
     required covariant _ListItemConfiguration oldConfiguration,
     required covariant _ListItemConfiguration newConfiguration,
   }) {
-    _ListItemProps.clear(element, oldConfiguration);
-    _ListItemProps.apply(element, newConfiguration);
+    var elementDescription = super.update(
+      updateType: updateType,
+      oldConfiguration: oldConfiguration.globalConfiguration,
+      newConfiguration: newConfiguration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _ListItemProps.prepareAttributes(
+        props: newConfiguration,
+        oldProps: oldConfiguration,
+      ),
+    );
+
+    return elementDescription;
   }
 }
 
@@ -129,27 +150,20 @@ class _ListItemRenderObject extends RenderObject {
 */
 
 class _ListItemProps {
-  static void apply(HtmlElement element, _ListItemConfiguration props) {
-    element as LIElement;
-
-    MarkUpGlobalProps.apply(element, props.globalConfiguration);
-
-    if (null != props.value) {
-      element.value = props.value!;
-    }
-  }
-
-  static void clear(HtmlElement element, _ListItemConfiguration props) {
-    element as LIElement;
-
-    MarkUpGlobalProps.clear(element, props.globalConfiguration);
+  static Map<String, String?> prepareAttributes({
+    required _ListItemConfiguration props,
+    required _ListItemConfiguration? oldProps,
+  }) {
+    var attributes = <String, String?>{};
 
     if (null != props.value) {
-      element.removeAttribute(_Attributes.value);
+      attributes[Attributes.value] = '${props.value}';
+    } else {
+      if (null != oldProps?.value) {
+        attributes[Attributes.value] = null;
+      }
     }
-  }
-}
 
-class _Attributes {
-  static const value = "value";
+    return attributes;
+  }
 }

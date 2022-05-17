@@ -1,11 +1,12 @@
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/widgets/utils/common_props.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/utils/common_props.dart';
-import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/element_description.dart';
 
 /// The HorizontalRule widget (HTML's `hr` tag).
 ///
@@ -60,21 +61,28 @@ class _HorizontalRuleRenderObject extends RenderObject {
   const _HorizontalRuleRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _HorizontalRuleConfiguration configuration,
-  ) {
-    CommonProps.applyClassAttribute(element, configuration.classAttribute);
+  render({
+    required covariant _HorizontalRuleConfiguration configuration,
+  }) {
+    return ElementDescription(
+      classes: CommonProps.prepareClasses(
+        classAttribute: configuration.classAttribute,
+        oldClassAttribute: null,
+      ),
+    );
   }
 
   @override
   update({
-    required element,
     required updateType,
     required covariant _HorizontalRuleConfiguration oldConfiguration,
     required covariant _HorizontalRuleConfiguration newConfiguration,
   }) {
-    CommonProps.clearClassAttribute(element, oldConfiguration.classAttribute);
-    CommonProps.applyClassAttribute(element, newConfiguration.classAttribute);
+    return ElementDescription(
+      classes: CommonProps.prepareClasses(
+        classAttribute: newConfiguration.classAttribute,
+        oldClassAttribute: oldConfiguration.classAttribute,
+      ),
+    );
   }
 }

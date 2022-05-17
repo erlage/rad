@@ -1,18 +1,12 @@
-import 'dart:html';
-
-import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/widget_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/renderer/renderer.dart';
 import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/core/services/services_resolver.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/widget_object.dart';
-import 'package:rad/src/core/common/objects/widget_action_object.dart';
-import 'package:rad/src/core/common/objects/widget_update_object.dart';
-import 'package:rad/src/core/common/objects/element_context.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_manage_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
@@ -20,17 +14,20 @@ import 'package:rad/src/core/services/scheduler/tasks/widgets_dispose_task.dart'
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
 
 class Framework with ServicesResolver {
+  final Renderer renderer;
   final BuildContext rootContext;
 
   var _taskListenerKey = '';
 
   Services get services => resolveServices(rootContext);
 
-  Framework(this.rootContext);
+  Framework(this.rootContext) : renderer = Renderer(rootContext);
 
   /// Initialize framework state.
   ///
   void initState() {
+    renderer.initState();
+
     _taskListenerKey = services.keyGen.generateRandomKey();
 
     services.scheduler.addTaskListener(_taskListenerKey, processTask);
@@ -39,13 +36,7 @@ class Framework with ServicesResolver {
   /// Dispose framework state.
   ///
   void dispose() {
-    var widgetKeys = services.walker.dumpWidgetKeys();
-
-    for (var widgetKey in widgetKeys) {
-      disposeWidget(
-        widgetObject: services.walker.getWidgetObject(widgetKey),
-      );
-    }
+    renderer.dispose();
 
     services.scheduler.removeTaskListener(_taskListenerKey);
   }
@@ -64,7 +55,7 @@ class Framework with ServicesResolver {
     }
   }
 
-  /// Build children under given context.
+  /// Build widgets under given context.
   ///
   void buildChildren({
     // widgets to build
@@ -84,14 +75,36 @@ class Framework with ServicesResolver {
       return;
     }
 
-    if (flagCleanParentContents) {
-      _cleanContext(parentContext);
-    }
+    renderer.render(
+      widgets: widgets,
+      mountAtIndex: mountAtIndex,
+      parentContext: parentContext,
+      flagCleanParentContents: flagCleanParentContents,
+    );
+  }
 
-    _buildWidgetsUnderContext(
+  /// Update childrens under provided context.
+  ///
+  void updateChildren({
+    //
+    // widgets to update
+    //
+    required List<Widget> widgets,
+    required BuildContext parentContext,
+    //
+    // -- options --
+    //
+    required UpdateType updateType,
+    //
+    // -- flags --
+    //
+    flagAddIfNotFound = true, // add childs right where they are missing
+  }) {
+    renderer.reRender(
       widgets: widgets,
       parentContext: parentContext,
-      mountAtIndex: mountAtIndex,
+      updateType: updateType,
+      flagAddIfNotFound: flagAddIfNotFound,
     );
   }
 
@@ -113,366 +126,32 @@ class Framework with ServicesResolver {
     //
     bool flagIterateInReverseOrder = false,
   }) {
-    var widgetActions = _prepareWidgetActions(
-      parentContext: parentContext,
-      flagIterateInReverseOrder: flagIterateInReverseOrder,
-      widgetActionCallback: widgetActionCallback,
-    );
-
-    _dispatchWidgetActions(
-      parentContext: parentContext,
-      widgetActions: widgetActions,
+    renderer.visitWidgets(
       updateType: updateType,
+      parentContext: parentContext,
+      widgetActionCallback: widgetActionCallback,
+      flagIterateInReverseOrder: flagIterateInReverseOrder,
     );
   }
 
-  /// Update a dependent widget(using its context).
+  /// Dispose widgets.
   ///
-  void updateDependentContext(BuildContext context) {
-    var widgetObject = services.walker.getWidgetObject(context.key.value);
-
-    if (null != widgetObject) {
-      widgetObject.update(
-        updateType: UpdateType.dependencyChanged,
-        //
-        // it's a change in dependency not configuration,
-        // so both are same configurations are same
-        //
-        oldConfiguration: widgetObject.configuration,
-        newConfiguration: widgetObject.configuration,
-      );
-    }
-  }
-
-  /// Update childrens under provided context.
-  ///
-  void updateChildren({
-    // widgets to build
-    required List<Widget> widgets,
-    required BuildContext parentContext,
+  void disposeWidget({
     //
-    // -- options --
+    // widget object to dispose
     //
-    required UpdateType updateType,
+    required WidgetObject? widgetObject,
     //
     // -- flags --
     //
-    flagAddIfNotFound = true, // add childs right where they are missing
+
+    required bool flagPreserveTarget,
   }) {
-    if (widgets.isEmpty) {
-      return;
-    }
-
-    var parent = document.getElementById(parentContext.key.value);
-
-    if (null == parent) {
-      return buildChildren(
-        widgets: widgets,
-        parentContext: parentContext,
+    if (null != widgetObject) {
+      renderer.disposeWidgets(
+        context: widgetObject.context,
+        flagPreserveTarget: flagPreserveTarget,
       );
-    }
-
-    // list of updates  {Node index}: existing {WidgetObject}
-
-    var updateObjects = prepareUpdates(
-      parent: parent,
-      widgets: widgets,
-      parentContext: parentContext,
-      flagAddIfNotFound: flagAddIfNotFound,
-    );
-
-    // deal with obsolute nodes
-
-    for (final childElement in parent.children) {
-      if (!updateObjects.containsKey(childElement.id)) {
-        disposeWidget(
-          widgetObject: services.walker.getWidgetObject(childElement.id),
-          flagPreserveTarget: false,
-        );
-      }
-    }
-
-    // publish widget updates
-
-    var index = -1;
-    for (var updateObject in updateObjects.values) {
-      index++;
-
-      var newWidget = updateObject.widget;
-      var existingElementId = updateObject.elementId;
-
-      if (null != existingElementId) {
-        var widgetObject = services.walker.getWidgetObject(existingElementId);
-
-        if (null != widgetObject) {
-          var oldWidget = widgetObject.widget;
-
-          if (UpdateType.dependencyChanged == updateType) {
-            // if it's a inherited widget update, we allow immediate childs
-            // to build without checking whether they are const or not.
-
-            // but if they further have child widgets of their owns, we want
-            // the framework to short-circuit rebuild if possible, this can be
-            // acheived by resetting update type to something else
-
-            updateType = UpdateType.undefined;
-          } else {
-            if (oldWidget == newWidget) {
-              if (services.debug.frameworkLogs) {
-                print(
-                  "Short-circuit rebuild: ${widgetObject.context}",
-                );
-
-                break;
-              }
-            }
-          }
-
-          var oldConfiguration = widgetObject.configuration;
-          var isChanged = newWidget.isConfigurationChanged(oldConfiguration);
-
-          if (isChanged) {
-            var newConfiguration = newWidget.createConfiguration();
-
-            widgetObject.rebindWidget(
-              widget: newWidget,
-              updateType: updateType,
-              newConfiguration: newConfiguration,
-            );
-
-            // publish update
-
-            widgetObject.update(
-              updateType: updateType,
-              newConfiguration: newConfiguration,
-              oldConfiguration: oldConfiguration,
-            );
-          } else {
-            if (services.debug.widgetLogs) {
-              print("Skipped: ${widgetObject.context}");
-            }
-          }
-
-          // whether old widget happen to have child widgets
-          var hadChilds = oldWidget.widgetChildren.isNotEmpty;
-
-          // whether new widget has any childs
-          var hasChilds = updateObject.widget.widgetChildren.isNotEmpty;
-
-          // if new widget has no childs but old had, we have to remove
-          // those orphan childs.
-
-          if (hadChilds && !hasChilds) {
-            disposeWidget(widgetObject: widgetObject, flagPreserveTarget: true);
-          } else {
-            // else update childs
-            // doesn't matter whether new has or not.
-
-            updateChildren(
-              widgets: updateObject.widget.widgetChildren,
-              parentContext: widgetObject.context,
-              updateType: updateType,
-            );
-          }
-        }
-      } else {
-        if (services.debug.widgetLogs) {
-          print(
-            "Add missing child of type: ${updateObject.widget.runtimeType}"
-            " under: $parentContext",
-          );
-        }
-
-        buildChildren(
-          widgets: [newWidget],
-          parentContext: parentContext,
-          flagCleanParentContents: false,
-          mountAtIndex: index,
-        );
-      }
-    }
-  }
-
-  Map<String, WidgetUpdateObject> prepareUpdates({
-    required Element parent,
-    required List<Widget> widgets,
-    required BuildContext parentContext,
-    required bool flagAddIfNotFound,
-  }) {
-    var updateObjects = <String, WidgetUpdateObject>{};
-
-    var elements = <ElementContext>[];
-    var poppedElements = <ElementContext>[];
-
-    // for hash join
-    var hashedElements = <String, ElementContext>{};
-
-    // prepare list of existing elements available
-
-    for (var child in parent.children.reversed) {
-      var elementId = child.id;
-      var elementRuntimeType = child.dataset[Constants.attrRuntimeType];
-      var elementContext = ElementContext(
-        elementId: elementId,
-        elementRuntimeType: elementRuntimeType ?? '',
-      );
-
-      var oldWidgetHasKey = !elementId.startsWith(
-        Constants.contextGenKeyPrefix,
-      );
-
-      if (oldWidgetHasKey) {
-        var hashKey = '$elementRuntimeType$elementId';
-
-        hashedElements[hashKey] = elementContext;
-      } else {
-        elements.add(elementContext);
-      }
-    }
-
-    for (var newWidget in widgets) {
-      //
-      // prepare new widget's data for matching
-      //
-      var newWidgetRuntimeType = "${newWidget.runtimeType}";
-      var newWidgetHasKey = Constants.contextKeyNotSet != newWidget.initialKey;
-      var newWidgetId = services.keyGen
-          .getGlobalKeyUsingKey(
-            newWidget.initialKey,
-            parentContext,
-          )
-          .value;
-
-      // id of element that's matched with the current widget
-      //
-      String? matchedWithId;
-
-      if (newWidgetHasKey) {
-        //
-        // do hash join
-        //
-        var hashKey = '$newWidgetRuntimeType$newWidgetId';
-
-        matchedWithId = hashedElements[hashKey]?.elementId;
-
-        //
-        //
-      } else {
-        //
-        // do merge join(kind of)
-        //
-        while (true) {
-          //
-          if (elements.isNotEmpty) {
-            //
-            // get element
-            //
-            var element = elements.removeLast();
-
-            var oldWidgetRuntimeType = element.elementRuntimeType;
-            //
-            // try matching runtime types
-            //
-            if (oldWidgetRuntimeType == newWidgetRuntimeType) {
-              //
-              // widget matched!
-              //
-              matchedWithId = element.elementId;
-
-              break;
-            }
-            //
-            // else add current element to popped list
-            //
-            poppedElements.add(element);
-            //
-          } else {
-            //
-            // widget doesn't match with any element
-            // reset popped elements for next widget
-            //
-            if (poppedElements.isNotEmpty) {
-              elements.addAll(poppedElements.reversed);
-
-              poppedElements = [];
-            }
-
-            // current widget has to be rendered from scratch
-            // as it failed to match any element(popped all)
-            // so break for current widget
-            //
-            break;
-          }
-        }
-      }
-
-      if (null != matchedWithId) {
-        //
-        // if a matching element found
-        //
-        updateObjects[matchedWithId] = WidgetUpdateObject(
-          newWidget,
-          matchedWithId,
-        );
-      } else {
-        //
-        // else add if flags are correct
-        //
-        if (flagAddIfNotFound) {
-          var newKey = services.keyGen.generateRandomKey();
-
-          updateObjects[newKey] = WidgetUpdateObject(newWidget, null);
-        }
-      }
-    }
-
-    return updateObjects;
-  }
-
-  /// Dispose widgets and its child widgets.
-  ///
-  void disposeWidget({
-    WidgetObject? widgetObject,
-    bool flagPreserveTarget = false,
-  }) {
-    if (null == widgetObject) {
-      return;
-    }
-
-    // cascade dispose to its childs first
-
-    if (widgetObject.element.hasChildNodes()) {
-      for (final childElement in widgetObject.element.children) {
-        disposeWidget(
-          widgetObject: services.walker.getWidgetObject(childElement.id),
-        );
-      }
-    }
-
-    // if widget itself has to be preserved
-
-    if (flagPreserveTarget) {
-      return;
-    }
-
-    // nothing to dispose if its a body tag
-
-    if (widgetObject.element == document.body) {
-      return;
-    }
-
-    // nothing to dispose if its not a widget
-
-    if (null == widgetObject.element.dataset[Constants.attrWidgetType]) {
-      return;
-    }
-
-    widgetObject.unMount();
-
-    services.walker.unRegisterWidgetObject(widgetObject);
-
-    if (services.debug.widgetLogs) {
-      print("Dispose: ${widgetObject.context}");
     }
   }
 
@@ -481,37 +160,6 @@ class Framework with ServicesResolver {
   | Internals
   |--------------------------------------------------------------------------
   */
-
-  GlobalKey _createWidgetKey(Widget widget, BuildContext parentContext) {
-    GlobalKey generatedKey;
-
-    // whether key is provided explicitly in widget constructor
-
-    var isKeyProvided = Constants.contextKeyNotSet != widget.initialKey;
-
-    // ensure key is not using system prefix
-    // if in dev mode
-
-    if (services.debug.additionalChecks) {
-      if (isKeyProvided && widget.initialKey.hasSystemPrefix) {
-        services.debug.exception(
-          "Keys starting with ${Constants.contextGenKeyPrefix} are reserved "
-          "for framework.",
-        );
-      }
-    }
-
-    if (isKeyProvided) {
-      generatedKey = services.keyGen.getGlobalKeyUsingKey(
-        widget.initialKey,
-        parentContext,
-      );
-    } else {
-      generatedKey = services.keyGen.generateGlobalKey();
-    }
-
-    return generatedKey;
-  }
 
   void _runTask(SchedulerTask task) {
     switch (task.taskType) {
@@ -564,7 +212,9 @@ class Framework with ServicesResolver {
       case SchedulerTaskType.updateDependent:
         task as WidgetsUpdateDependentTask;
 
-        updateDependentContext(task.widgetContext);
+        renderer.reRenderContext(
+          context: task.widgetContext,
+        );
 
         break;
 
@@ -572,166 +222,5 @@ class Framework with ServicesResolver {
         // do nothing..
         break;
     }
-  }
-
-  void _buildWidgetsUnderContext({
-    required List<Widget> widgets,
-    required BuildContext parentContext,
-    int? mountAtIndex,
-  }) {
-    for (final widget in widgets) {
-      var context = BuildContext.fromParent(
-        key: _createWidgetKey(widget, parentContext),
-        widget: widget,
-        parentContext: parentContext,
-      );
-
-      var widgetObject = WidgetObject(widget: widget, context: context);
-
-      services.walker.registerWidgetObject(widgetObject);
-
-      widgetObject.mount(mountAtIndex);
-
-      // build child(if any)
-
-      buildChildren(widgets: widget.widgetChildren, parentContext: context);
-    }
-  }
-
-  /// Prepare list of widget actions(by iterating widgets under a context).
-  ///
-  /// Actions will be collected from callback [widgetActionCallback] which will
-  /// be called for each widget under provided context.
-  ///
-  List<WidgetActionObject> _prepareWidgetActions({
-    required BuildContext parentContext,
-    required WidgetActionCallback widgetActionCallback,
-    bool flagIterateInReverseOrder = false,
-  }) {
-    var widgetObject = services.walker.getWidgetObject(parentContext.key.value);
-
-    if (null == widgetObject) {
-      return [];
-    }
-
-    var widgetActionObjects = <WidgetActionObject>[];
-
-    var children = widgetObject.element.children;
-
-    var iterable = flagIterateInReverseOrder ? children.reversed : children;
-
-    childrenLoop:
-    for (final child in iterable) {
-      var childWidgetObject = services.walker.getWidgetObject(child.id);
-
-      if (null != childWidgetObject) {
-        var widgetActions = widgetActionCallback(childWidgetObject);
-
-        for (final widgetAction in widgetActions) {
-          widgetActionObjects.add(
-            WidgetActionObject(widgetAction, childWidgetObject),
-          );
-
-          if (WidgetAction.skipRest == widgetAction) {
-            break childrenLoop;
-          }
-        }
-      }
-    }
-
-    return widgetActionObjects;
-  }
-
-  /// Dispatch widget actions.
-  ///
-  void _dispatchWidgetActions({
-    required BuildContext parentContext,
-    required List<WidgetActionObject> widgetActions,
-    required UpdateType updateType,
-  }) {
-    for (final widgetActionObject in widgetActions) {
-      switch (widgetActionObject.widgetAction) {
-        case WidgetAction.skipRest:
-          break;
-
-        case WidgetAction.showWidget:
-          _showElement(widgetActionObject.widgetObject.element);
-
-          break;
-
-        case WidgetAction.hideWidget:
-          _hideElement(widgetActionObject.widgetObject.element);
-
-          break;
-
-        case WidgetAction.dispose:
-          disposeWidget(widgetObject: widgetActionObject.widgetObject);
-
-          break;
-
-        case WidgetAction.updateWidget:
-          var widgetObject = widgetActionObject.widgetObject;
-
-          // publish update
-
-          widgetObject.update(
-            updateType: updateType,
-            newConfiguration: widgetObject.configuration,
-            oldConfiguration: widgetObject.configuration,
-          ); // bit of mess ^ but required
-
-          // call update on child widgets
-
-          updateChildren(
-            updateType: updateType,
-            parentContext: widgetObject.context,
-            widgets: widgetObject.widget.widgetChildren,
-          );
-
-          break;
-      }
-    }
-  }
-
-  /// Clean widget context.
-  ///
-  void _cleanContext(BuildContext context) {
-    var isRoot = Constants.contextTypeBigBang == context.widgetType;
-
-    if (isRoot) {
-      _cleanElement(context.key.value);
-
-      return;
-    }
-
-    disposeWidget(
-      flagPreserveTarget: true,
-      widgetObject: services.walker.getWidgetObject(
-        context.key.value,
-      ),
-    );
-  }
-
-  void _cleanElement(String elementId) {
-    var element = document.getElementById(elementId);
-
-    if (null == element) {
-      return services.debug.exception(
-        "Unable to find target. Make sure your DOM has "
-        "element with key #$elementId",
-      );
-    }
-
-    element.innerHtml = "";
-
-    return;
-  }
-
-  void _hideElement(Element element) {
-    element.classes.add('rad-hidden');
-  }
-
-  void _showElement(Element element) {
-    element.classes.remove('rad-hidden');
   }
 }

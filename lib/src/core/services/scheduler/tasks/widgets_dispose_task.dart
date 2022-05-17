@@ -8,14 +8,14 @@ import 'package:rad/src/core/services/scheduler/abstract.dart';
 class WidgetsDisposeTask extends SchedulerTask {
   /// Widget object to dispose.
   ///
-  final WidgetObject? widgetObject;
+  final WidgetObject widgetObject;
 
   /// Whether to preserve target.
   ///
   final bool flagPreserveTarget;
 
   WidgetsDisposeTask({
-    this.widgetObject,
+    required this.widgetObject,
     this.flagPreserveTarget = false,
     Callback? afterTaskCallback,
     Callback? beforeTaskCallback,

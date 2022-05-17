@@ -15,6 +15,7 @@ import 'package:rad/src/core/common/objects/key.dart';
 class SuperScript extends MarkUpTagWithGlobalProps {
   const SuperScript({
     Key? key,
+    String? id,
     String? title,
     String? style,
     String? classAttribute,
@@ -30,6 +31,7 @@ class SuperScript extends MarkUpTagWithGlobalProps {
     List<Widget>? children,
   }) : super(
           key: key,
+          id: id,
           title: title,
           style: style,
           classAttribute: classAttribute,

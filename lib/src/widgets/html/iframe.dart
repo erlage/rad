@@ -1,15 +1,12 @@
-import 'dart:html';
-
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/utils/common_props.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 
 /// The IFrame widget (HTML's `iframe` tag).
 ///
@@ -35,11 +32,13 @@ class IFrame extends MarkUpTagWithGlobalProps {
   ///
   final bool? allowPaymentRequest;
 
-  // size props
-
+  /// Width of [IFrame] container.
+  ///
   final String? width;
+
+  /// Height of [IFrame] container.
+  ///
   final String? height;
-  final String? size;
 
   const IFrame({
     this.src,
@@ -49,23 +48,24 @@ class IFrame extends MarkUpTagWithGlobalProps {
     this.allowPaymentRequest,
     this.width,
     this.height,
-    this.size,
     Key? key,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,
     int? tabIndex,
+    String? id,
     String? title,
     String? style,
     String? classAttribute,
     Map<String, String>? dataAttributes,
     String? onClick,
-    EventCallback? onClickEventListener,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClickEventListener,
   }) : super(
           key: key,
+          id: id,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
@@ -75,10 +75,10 @@ class IFrame extends MarkUpTagWithGlobalProps {
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
           onClick: onClick,
-          onClickEventListener: onClickEventListener,
           innerText: innerText,
           child: child,
           children: children,
+          onClickEventListener: onClickEventListener,
         );
 
   @nonVirtual
@@ -98,7 +98,6 @@ class IFrame extends MarkUpTagWithGlobalProps {
       allowPaymentRequest: allowPaymentRequest,
       width: width,
       height: height,
-      size: size,
       globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
@@ -113,7 +112,6 @@ class IFrame extends MarkUpTagWithGlobalProps {
         allowPaymentRequest != oldConfiguration.allowPaymentRequest ||
         width != oldConfiguration.width ||
         height != oldConfiguration.height ||
-        size != oldConfiguration.size ||
         super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }
 
@@ -131,18 +129,14 @@ class _IFrameConfiguration extends WidgetConfiguration {
   final MarkUpGlobalConfiguration globalConfiguration;
 
   final String? src;
-
   final String? name;
 
   final String? allow;
-
   final bool? allowFullscreen;
-
   final bool? allowPaymentRequest;
 
   final String? width;
   final String? height;
-  final String? size;
 
   const _IFrameConfiguration({
     this.src,
@@ -152,7 +146,6 @@ class _IFrameConfiguration extends WidgetConfiguration {
     this.allowPaymentRequest,
     this.width,
     this.height,
-    this.size,
     required this.globalConfiguration,
   });
 }
@@ -163,26 +156,47 @@ class _IFrameConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-class _IFrameRenderObject extends RenderObject {
-  const _IFrameRenderObject(BuildContext context) : super(context);
+class _IFrameRenderObject extends MarkUpGlobalRenderObject {
+  _IFrameRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _IFrameConfiguration configuration,
-  ) {
-    _IFrameProps.apply(element, configuration);
+  render({
+    required covariant _IFrameConfiguration configuration,
+  }) {
+    var elementDescription = super.render(
+      configuration: configuration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _IFrameProps.prepareAttributes(
+        props: configuration,
+        oldProps: null,
+      ),
+    );
+
+    return elementDescription;
   }
 
   @override
   update({
-    required element,
     required updateType,
     required covariant _IFrameConfiguration oldConfiguration,
     required covariant _IFrameConfiguration newConfiguration,
   }) {
-    _IFrameProps.clear(element, oldConfiguration);
-    _IFrameProps.apply(element, newConfiguration);
+    var elementDescription = super.update(
+      updateType: updateType,
+      oldConfiguration: oldConfiguration.globalConfiguration,
+      newConfiguration: newConfiguration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _IFrameProps.prepareAttributes(
+        props: newConfiguration,
+        oldProps: oldConfiguration,
+      ),
+    );
+
+    return elementDescription;
   }
 }
 
@@ -193,65 +207,70 @@ class _IFrameRenderObject extends RenderObject {
 */
 
 class _IFrameProps {
-  static void apply(HtmlElement element, _IFrameConfiguration props) {
-    element as IFrameElement;
-
-    MarkUpGlobalProps.apply(element, props.globalConfiguration);
-
-    CommonProps.applySizeProps(
-      element,
-      width: props.width,
-      height: props.height,
-      size: props.size,
-    );
+  static Map<String, String?> prepareAttributes({
+    required _IFrameConfiguration props,
+    required _IFrameConfiguration? oldProps,
+  }) {
+    var attributes = <String, String?>{};
 
     if (null != props.src) {
-      element.src = props.src;
+      attributes[Attributes.src] = props.src!;
+    } else {
+      if (null != oldProps?.src) {
+        attributes[Attributes.src] = null;
+      }
     }
 
     if (null != props.name) {
-      element.name = props.name;
+      attributes[Attributes.name] = props.name!;
+    } else {
+      if (null != oldProps?.name) {
+        attributes[Attributes.name] = null;
+      }
+    }
+
+    if (null != props.width) {
+      attributes[Attributes.width] = props.width!;
+    } else {
+      if (null != oldProps?.width) {
+        attributes[Attributes.width] = null;
+      }
+    }
+
+    if (null != props.height) {
+      attributes[Attributes.height] = props.height!;
+    } else {
+      if (null != oldProps?.height) {
+        attributes[Attributes.height] = null;
+      }
     }
 
     if (null != props.allow) {
-      element.allow = props.allow;
+      attributes[Attributes.allow] = props.allow!;
+    } else {
+      if (null != oldProps?.allow) {
+        attributes[Attributes.allow] = null;
+      }
     }
 
     if (null != props.allowFullscreen) {
-      element.allowFullscreen = props.allowFullscreen;
+      attributes[Attributes.allowFullscreen] = '${props.allowFullscreen}';
+    } else {
+      if (null != oldProps?.allowFullscreen) {
+        attributes[Attributes.allowFullscreen] = null;
+      }
     }
 
     if (null != props.allowPaymentRequest) {
-      element.allowPaymentRequest = props.allowPaymentRequest;
+      var value = '${props.allowPaymentRequest}';
+
+      attributes[Attributes.allowPaymentRequest] = value;
+    } else {
+      if (null != oldProps?.allowPaymentRequest) {
+        attributes[Attributes.allowPaymentRequest] = null;
+      }
     }
+
+    return attributes;
   }
-
-  static void clear(HtmlElement element, _IFrameConfiguration props) {
-    element as IFrameElement;
-
-    MarkUpGlobalProps.clear(element, props.globalConfiguration);
-
-    CommonProps.clearSizeProps(
-      element,
-      width: props.width,
-      height: props.height,
-      size: props.size,
-    );
-
-    if (null != props.src) {
-      element.removeAttribute(_Attributes.src);
-    }
-
-    if (null != props.name) {
-      element.removeAttribute(_Attributes.name);
-    }
-
-    element.removeAttribute(_Attributes.allow);
-  }
-}
-
-class _Attributes {
-  static const src = "src";
-  static const name = "name";
-  static const allow = "allow";
 }

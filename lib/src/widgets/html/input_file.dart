@@ -2,15 +2,16 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/input_tag.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/widgets/abstract/input_tag.dart';
 
 /// The InputFile widget (HTML's `input` tag with `type = 'file'`).
 ///
 class InputFile extends InputTag {
   const InputFile({
     Key? key,
+    String? id,
     String? name,
     String? accept,
     bool? multiple,
@@ -25,13 +26,14 @@ class InputFile extends InputTag {
     Map<String, String>? dataAttributes,
     bool? hidden,
     String? onClick,
-    EventCallback? onClickEventListener,
-    EventCallback? onChangeEventListener,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onChangeEventListener,
+    EventCallback? onClickEventListener,
   }) : super(
           key: key,
+          id: id,
           type: InputType.file,
           name: name,
           accept: accept,
@@ -47,11 +49,11 @@ class InputFile extends InputTag {
           dataAttributes: dataAttributes,
           hidden: hidden,
           onClick: onClick,
-          onClickEventListener: onClickEventListener,
-          eventListenerCallback: onChangeEventListener,
           innerText: innerText,
           child: child,
           children: children,
+          onChangeEventListener: onChangeEventListener,
+          onClickEventListener: onClickEventListener,
         );
 
   @nonVirtual

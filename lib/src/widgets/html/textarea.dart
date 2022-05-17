@@ -1,15 +1,12 @@
-import 'dart:html';
-
 import 'package:meta/meta.dart';
+import 'package:rad/src/core/common/constants.dart';
 
-import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 
 /// The TextArea widget (HTML's `textarea` tag).
 ///
@@ -31,8 +28,6 @@ class TextArea extends MarkUpTagWithGlobalProps {
   final bool? readOnly;
   final bool? disabled;
 
-  final EventCallback? onChangeEventListener;
-
   const TextArea({
     this.name,
     this.placeholder,
@@ -43,8 +38,8 @@ class TextArea extends MarkUpTagWithGlobalProps {
     this.required,
     this.readOnly,
     this.disabled,
-    this.onChangeEventListener,
     Key? key,
+    String? id,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,
@@ -54,12 +49,14 @@ class TextArea extends MarkUpTagWithGlobalProps {
     String? classAttribute,
     Map<String, String>? dataAttributes,
     String? onClick,
-    EventCallback? onClickEventListener,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onChangeEventListener,
+    EventCallback? onClickEventListener,
   }) : super(
           key: key,
+          id: id,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
@@ -69,10 +66,11 @@ class TextArea extends MarkUpTagWithGlobalProps {
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
           onClick: onClick,
-          onClickEventListener: onClickEventListener,
           innerText: innerText,
           child: child,
           children: children,
+          onChangeEventListener: onChangeEventListener,
+          onClickEventListener: onClickEventListener,
         );
 
   @nonVirtual
@@ -94,7 +92,6 @@ class TextArea extends MarkUpTagWithGlobalProps {
       required: required,
       readOnly: readOnly,
       disabled: disabled,
-      onChange: onChangeEventListener,
       globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
@@ -111,7 +108,6 @@ class TextArea extends MarkUpTagWithGlobalProps {
         required != oldConfiguration.required ||
         readOnly != oldConfiguration.readOnly ||
         disabled != oldConfiguration.disabled ||
-        onChangeEventListener != oldConfiguration.onChange ||
         super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }
 
@@ -129,7 +125,6 @@ class _TextAreaConfiguration extends WidgetConfiguration {
   final MarkUpGlobalConfiguration globalConfiguration;
 
   final String? name;
-
   final String? placeholder;
 
   final int? rows;
@@ -138,12 +133,8 @@ class _TextAreaConfiguration extends WidgetConfiguration {
   final int? maxLength;
 
   final bool? required;
-
   final bool? readOnly;
-
   final bool? disabled;
-
-  final EventCallback? onChange;
 
   const _TextAreaConfiguration({
     this.name,
@@ -155,7 +146,6 @@ class _TextAreaConfiguration extends WidgetConfiguration {
     this.required,
     this.readOnly,
     this.disabled,
-    this.onChange,
     required this.globalConfiguration,
   });
 }
@@ -166,26 +156,47 @@ class _TextAreaConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-class _TextAreaRenderObject extends RenderObject {
-  const _TextAreaRenderObject(BuildContext context) : super(context);
+class _TextAreaRenderObject extends MarkUpGlobalRenderObject {
+  _TextAreaRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _TextAreaConfiguration configuration,
-  ) {
-    _TextAreaProps.apply(element, configuration);
+  render({
+    required covariant _TextAreaConfiguration configuration,
+  }) {
+    var elementDescription = super.render(
+      configuration: configuration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _TextAreaProps.prepareAttributes(
+        props: configuration,
+        oldProps: null,
+      ),
+    );
+
+    return elementDescription;
   }
 
   @override
   update({
-    required element,
     required updateType,
     required covariant _TextAreaConfiguration oldConfiguration,
     required covariant _TextAreaConfiguration newConfiguration,
   }) {
-    _TextAreaProps.clear(element, oldConfiguration);
-    _TextAreaProps.apply(element, newConfiguration);
+    var elementDescription = super.update(
+      updateType: updateType,
+      oldConfiguration: oldConfiguration.globalConfiguration,
+      newConfiguration: newConfiguration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _TextAreaProps.prepareAttributes(
+        props: newConfiguration,
+        oldProps: oldConfiguration,
+      ),
+    );
+
+    return elementDescription;
   }
 }
 
@@ -196,114 +207,84 @@ class _TextAreaRenderObject extends RenderObject {
 */
 
 class _TextAreaProps {
-  static void apply(HtmlElement element, _TextAreaConfiguration props) {
-    element as TextAreaElement;
-
-    MarkUpGlobalProps.apply(element, props.globalConfiguration);
+  static Map<String, String?> prepareAttributes({
+    required _TextAreaConfiguration props,
+    required _TextAreaConfiguration? oldProps,
+  }) {
+    var attributes = <String, String?>{};
 
     if (null != props.name) {
-      element.name = props.name!;
+      attributes[Attributes.name] = props.name!;
+    } else {
+      if (null != oldProps?.name) {
+        attributes[Attributes.name] = null;
+      }
     }
 
     if (null != props.placeholder) {
-      element.placeholder = props.placeholder!;
+      attributes[Attributes.placeholder] = props.placeholder!;
+    } else {
+      if (null != oldProps?.placeholder) {
+        attributes[Attributes.placeholder] = null;
+      }
     }
 
     if (null != props.rows) {
-      element.rows = props.rows!;
+      attributes[Attributes.rows] = "${props.rows!}";
+    } else {
+      if (null != oldProps?.rows) {
+        attributes[Attributes.rows] = null;
+      }
     }
 
     if (null != props.cols) {
-      element.cols = props.cols!;
+      attributes[Attributes.cols] = "${props.cols!}";
+    } else {
+      if (null != oldProps?.cols) {
+        attributes[Attributes.cols] = null;
+      }
     }
 
     if (null != props.minLength) {
-      element.minLength = props.minLength!;
+      attributes[Attributes.minLength] = "${props.minLength!}";
+    } else {
+      if (null != oldProps?.minLength) {
+        attributes[Attributes.minLength] = null;
+      }
     }
 
     if (null != props.maxLength) {
-      element.maxLength = props.maxLength!;
+      attributes[Attributes.maxLength] = "${props.maxLength!}";
+    } else {
+      if (null != oldProps?.maxLength) {
+        attributes[Attributes.maxLength] = null;
+      }
     }
 
     if (null != props.required) {
-      element.required = props.required!;
+      attributes[Attributes.required] = "${props.required!}";
+    } else {
+      if (null != oldProps?.required) {
+        attributes[Attributes.required] = null;
+      }
     }
 
     if (null != props.readOnly) {
-      element.readOnly = props.readOnly!;
+      attributes[Attributes.readOnly] = "${props.readOnly!}";
+    } else {
+      if (null != oldProps?.readOnly) {
+        attributes[Attributes.readOnly] = null;
+      }
     }
 
     if (null != props.disabled) {
-      element.disabled = props.disabled!;
+      attributes[Attributes.disabled] = "${props.disabled!}";
+    } else {
+      if (null != oldProps?.disabled) {
+        attributes[Attributes.disabled] = null;
+      }
     }
 
-    if (null != props.onChange) {
-      element.addEventListener(
-        fnMapDomEventType(DomEventType.input),
-        props.onChange,
-      );
-    }
+    return attributes;
   }
-
-  static void clear(HtmlElement element, _TextAreaConfiguration props) {
-    element as TextAreaElement;
-
-    MarkUpGlobalProps.clear(element, props.globalConfiguration);
-
-    if (null != props.name) {
-      element.removeAttribute(_Attributes.name);
-    }
-
-    if (null != props.placeholder) {
-      element.removeAttribute(_Attributes.placeholder);
-    }
-
-    if (null != props.rows) {
-      element.removeAttribute(_Attributes.rows);
-    }
-
-    if (null != props.cols) {
-      element.removeAttribute(_Attributes.cols);
-    }
-
-    if (null != props.minLength) {
-      element.removeAttribute(_Attributes.minLength);
-    }
-
-    if (null != props.maxLength) {
-      element.removeAttribute(_Attributes.maxLength);
-    }
-
-    if (null != props.required) {
-      element.removeAttribute(_Attributes.required);
-    }
-
-    if (null != props.readOnly) {
-      element.removeAttribute(_Attributes.readOnly);
-    }
-
-    if (null != props.disabled) {
-      element.removeAttribute(_Attributes.disabled);
-    }
-
-    if (null != props.onChange) {
-      element.removeEventListener(
-        fnMapDomEventType(DomEventType.input),
-        props.onChange,
-      );
-    }
-  }
-}
-
-class _Attributes {
-  static const name = "name";
-  static const placeholder = "placeholder";
-  static const required = "required";
-  static const readOnly = "selected";
-  static const disabled = "disabled";
-
-  static const rows = "rows";
-  static const cols = "cols";
-  static const minLength = "minlenth";
-  static const maxLength = "maxlength";
 }

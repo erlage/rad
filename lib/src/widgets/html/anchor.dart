@@ -1,14 +1,12 @@
-import 'dart:html';
-
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 
 /// The Anchor widget (HTML's `a` tag).
 ///
@@ -40,17 +38,19 @@ class Anchor extends MarkUpTagWithGlobalProps {
     bool? draggable,
     bool? contenteditable,
     int? tabIndex,
+    String? id,
     String? title,
     String? style,
     String? classAttribute,
     Map<String, String>? dataAttributes,
     String? onClick,
-    EventCallback? onClickEventListener,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClickEventListener,
   }) : super(
           key: key,
+          id: id,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
@@ -60,10 +60,10 @@ class Anchor extends MarkUpTagWithGlobalProps {
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
           onClick: onClick,
-          onClickEventListener: onClickEventListener,
           innerText: innerText,
           child: child,
           children: children,
+          onClickEventListener: onClickEventListener,
         );
 
   @nonVirtual
@@ -130,26 +130,47 @@ class _AnchorConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-class _AnchorRenderObject extends RenderObject {
-  const _AnchorRenderObject(BuildContext context) : super(context);
+class _AnchorRenderObject extends MarkUpGlobalRenderObject {
+  _AnchorRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _AnchorConfiguration configuration,
-  ) {
-    _AnchorProps.apply(element, configuration);
+  render({
+    required covariant _AnchorConfiguration configuration,
+  }) {
+    var elementDescription = super.render(
+      configuration: configuration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _AnchorProps.prepareAttributes(
+        props: configuration,
+        oldProps: null,
+      ),
+    );
+
+    return elementDescription;
   }
 
   @override
   update({
-    required element,
     required updateType,
     required covariant _AnchorConfiguration oldConfiguration,
     required covariant _AnchorConfiguration newConfiguration,
   }) {
-    _AnchorProps.clear(element, oldConfiguration);
-    _AnchorProps.apply(element, newConfiguration);
+    var elementDescription = super.update(
+      updateType: updateType,
+      oldConfiguration: oldConfiguration.globalConfiguration,
+      newConfiguration: newConfiguration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _AnchorProps.prepareAttributes(
+        props: newConfiguration,
+        oldProps: oldConfiguration,
+      ),
+    );
+
+    return elementDescription;
   }
 }
 
@@ -160,54 +181,44 @@ class _AnchorRenderObject extends RenderObject {
 */
 
 class _AnchorProps {
-  static void apply(HtmlElement element, _AnchorConfiguration props) {
-    element as AnchorElement;
-
-    MarkUpGlobalProps.apply(element, props.globalConfiguration);
+  static Map<String, String?> prepareAttributes({
+    required _AnchorConfiguration props,
+    required _AnchorConfiguration? oldProps,
+  }) {
+    var attributes = <String, String?>{};
 
     if (null != props.href) {
-      element.href = props.href;
+      attributes[Attributes.href] = props.href!;
+    } else {
+      if (null != oldProps?.href) {
+        attributes[Attributes.href] = null;
+      }
     }
 
     if (null != props.download) {
-      element.download = props.download;
+      attributes[Attributes.download] = props.download!;
+    } else {
+      if (null != oldProps?.download) {
+        attributes[Attributes.download] = null;
+      }
     }
 
     if (null != props.rel) {
-      element.rel = props.rel!;
+      attributes[Attributes.rel] = props.rel!;
+    } else {
+      if (null != oldProps?.rel) {
+        attributes[Attributes.rel] = null;
+      }
     }
 
     if (null != props.target) {
-      element.target = props.target!;
+      attributes[Attributes.target] = props.target!;
+    } else {
+      if (null != oldProps?.target) {
+        attributes[Attributes.target] = null;
+      }
     }
+
+    return attributes;
   }
-
-  static void clear(HtmlElement element, _AnchorConfiguration props) {
-    element as AnchorElement;
-
-    MarkUpGlobalProps.clear(element, props.globalConfiguration);
-
-    if (null != props.rel) {
-      element.removeAttribute(_Attributes.rel);
-    }
-
-    if (null != props.target) {
-      element.removeAttribute(_Attributes.target);
-    }
-
-    if (null != props.href) {
-      element.removeAttribute(_Attributes.href);
-    }
-
-    if (null != props.download) {
-      element.removeAttribute(_Attributes.download);
-    }
-  }
-}
-
-class _Attributes {
-  static const rel = "rel";
-  static const target = "target";
-  static const href = "href";
-  static const download = "download";
 }

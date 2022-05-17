@@ -1,18 +1,16 @@
-import 'dart:html';
-
 import 'package:meta/meta.dart';
 
-import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 
 abstract class InputTag extends MarkUpTagWithGlobalProps {
   /// Type of input tag.
+  ///
   final InputType? type;
 
   /// Name of the input. It's very common to use same name as key
@@ -44,13 +42,6 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
   ///
   final bool? checked;
 
-  /// Overloaded.
-  ///
-  /// 1. if [type] is "text", this is "onInput" event
-  /// 2. if [type] is "checkbox" or "radio", this is "onChange" event
-  ///
-  final EventCallback? eventListenerCallback;
-
   const InputTag({
     this.type,
     this.name,
@@ -60,8 +51,8 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
     this.required,
     this.checked,
     this.disabled,
-    this.eventListenerCallback,
     Key? key,
+    String? id,
     String? title,
     String? style,
     String? classAttribute,
@@ -71,12 +62,16 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
     Map<String, String>? dataAttributes,
     bool? hidden,
     String? onClick,
-    EventCallback? onClickEventListener,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onInputEventListener,
+    EventCallback? onChangeEventListener,
+    EventCallback? onSubmitEventListener,
+    EventCallback? onClickEventListener,
   }) : super(
           key: key,
+          id: id,
           title: title,
           style: style,
           classAttribute: classAttribute,
@@ -86,10 +81,13 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
           dataAttributes: dataAttributes,
           hidden: hidden,
           onClick: onClick,
-          onClickEventListener: onClickEventListener,
           innerText: innerText,
           child: child,
           children: children,
+          onInputEventListener: onInputEventListener,
+          onChangeEventListener: onChangeEventListener,
+          onSubmitEventListener: onSubmitEventListener,
+          onClickEventListener: onClickEventListener,
         );
 
   @nonVirtual
@@ -107,7 +105,6 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
       multiple: multiple,
       required: required,
       disabled: disabled,
-      eventCallback: eventListenerCallback,
       globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
@@ -125,13 +122,11 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
         checked != oldConfiguration.checked ||
         required != oldConfiguration.required ||
         disabled != oldConfiguration.disabled ||
-        eventListenerCallback.runtimeType !=
-            oldConfiguration.eventCallback.runtimeType ||
         super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }
 
   @override
-  createRenderObject(context) => InputRenderObject(context);
+  createRenderObject(context) => InputTagRenderObject(context);
 }
 
 /*
@@ -152,7 +147,6 @@ class InputConfiguration extends WidgetConfiguration {
   final bool? checked;
   final bool? required;
   final bool? disabled;
-  final EventCallback? eventCallback;
 
   const InputConfiguration({
     this.type,
@@ -163,7 +157,6 @@ class InputConfiguration extends WidgetConfiguration {
     this.checked,
     this.disabled,
     this.required,
-    this.eventCallback,
     required this.globalConfiguration,
   });
 }
@@ -174,26 +167,52 @@ class InputConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-class InputRenderObject extends RenderObject {
-  const InputRenderObject(BuildContext context) : super(context);
+class InputTagRenderObject extends MarkUpGlobalRenderObject {
+  InputTagRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant InputConfiguration configuration,
-  ) {
-    InputProps.apply(element, configuration);
+  render({
+    required configuration,
+  }) {
+    configuration as InputConfiguration;
+
+    var elementDescription = super.render(
+      configuration: configuration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      InputProps.prepareAttributes(
+        props: configuration,
+        oldProps: null,
+      ),
+    );
+
+    return elementDescription;
   }
 
   @override
   update({
-    required element,
     required updateType,
-    required covariant InputConfiguration oldConfiguration,
-    required covariant InputConfiguration newConfiguration,
+    required oldConfiguration,
+    required newConfiguration,
   }) {
-    InputProps.clear(element, oldConfiguration);
-    InputProps.apply(element, newConfiguration);
+    oldConfiguration as InputConfiguration;
+    newConfiguration as InputConfiguration;
+
+    var elementDescription = super.update(
+      updateType: updateType,
+      oldConfiguration: oldConfiguration.globalConfiguration,
+      newConfiguration: newConfiguration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      InputProps.prepareAttributes(
+        props: newConfiguration,
+        oldProps: oldConfiguration,
+      ),
+    );
+
+    return elementDescription;
   }
 }
 
@@ -204,121 +223,68 @@ class InputRenderObject extends RenderObject {
 */
 
 class InputProps {
-  static DomEventType getRequiredEventType(InputType inputType) {
-    switch (inputType) {
-      case InputType.radio:
-      case InputType.checkbox:
-        return DomEventType.change;
-
-      case InputType.text:
-      case InputType.password:
-      default:
-        return DomEventType.input;
-    }
-  }
-
-  static void apply(HtmlElement element, InputConfiguration props) {
-    element as InputElement;
-
-    MarkUpGlobalProps.apply(element, props.globalConfiguration);
-
-    if (null != props.type) {
-      element.type = fnMapInputType(props.type!);
-    }
+  static Map<String, String?> prepareAttributes({
+    required InputConfiguration props,
+    required InputConfiguration? oldProps,
+  }) {
+    var attributes = <String, String?>{};
 
     if (null != props.name) {
-      element.name = props.name;
+      attributes[Attributes.name] = props.name!;
+    } else {
+      if (null != oldProps?.name) {
+        attributes[Attributes.name] = null;
+      }
     }
 
     if (null != props.value) {
-      element.value = props.value;
+      attributes[Attributes.value] = props.value!;
+    } else {
+      if (null != oldProps?.value) {
+        attributes[Attributes.value] = null;
+      }
     }
 
     if (null != props.accept) {
-      element.accept = props.accept;
+      attributes[Attributes.accept] = props.accept!;
+    } else {
+      if (null != oldProps?.accept) {
+        attributes[Attributes.accept] = null;
+      }
     }
 
     if (null != props.multiple) {
-      element.multiple = props.multiple;
+      attributes[Attributes.multiple] = "${props.multiple}";
+    } else {
+      if (null != oldProps?.multiple) {
+        attributes[Attributes.multiple] = null;
+      }
     }
 
     if (null != props.checked) {
-      element.checked = props.checked;
+      attributes[Attributes.checked] = "${props.checked}";
+    } else {
+      if (null != oldProps?.checked) {
+        attributes[Attributes.checked] = null;
+      }
     }
 
     if (null != props.disabled) {
-      element.disabled = props.disabled;
+      attributes[Attributes.disabled] = "${props.disabled}";
+    } else {
+      if (null != oldProps?.disabled) {
+        attributes[Attributes.disabled] = null;
+      }
     }
 
     if (null != props.required) {
-      element.required = props.required!;
+      attributes[Attributes.required] = "${props.required}";
+    } else {
+      if (null != oldProps?.required) {
+        attributes[Attributes.required] = null;
+      }
     }
 
-    if (null != props.eventCallback) {
-      var eventType = getRequiredEventType(props.type!);
-
-      element.addEventListener(
-        fnMapDomEventType(eventType),
-        props.eventCallback,
-      );
-    }
+    return attributes;
   }
-
-  static void clear(HtmlElement element, InputConfiguration props) {
-    element as InputElement;
-
-    MarkUpGlobalProps.clear(element, props.globalConfiguration);
-
-    if (null != props.type) {
-      element.removeAttribute(_Attributes.type);
-    }
-
-    if (null != props.name) {
-      element.removeAttribute(_Attributes.name);
-    }
-
-    if (null != props.value) {
-      element.removeAttribute(_Attributes.value);
-    }
-
-    if (null != props.checked) {
-      element.removeAttribute(_Attributes.checked);
-    }
-
-    if (null != props.accept) {
-      element.removeAttribute(_Attributes.accept);
-    }
-
-    if (null != props.multiple) {
-      element.removeAttribute(_Attributes.multiple);
-    }
-
-    if (null != props.disabled) {
-      element.removeAttribute(_Attributes.disabled);
-    }
-
-    if (null != props.required) {
-      element.removeAttribute(_Attributes.required);
-    }
-
-    if (null != props.eventCallback) {
-      var eventType = getRequiredEventType(props.type!);
-
-      element.removeEventListener(
-        fnMapDomEventType(eventType),
-        props.eventCallback,
-      );
-    }
-  }
-}
-
-class _Attributes {
-  static const type = "type";
-  static const name = "name";
-  static const value = "value";
-  static const accept = "accept";
-  static const multiple = "multiple";
-  static const disabled = "disabled";
-  static const required = "required";
-  static const checked = "checked";
 }

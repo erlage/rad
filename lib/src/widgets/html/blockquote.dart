@@ -1,14 +1,12 @@
-import 'dart:html';
-
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 
 /// The Blockquote widget (HTML's `blockquote` tag).
 ///
@@ -25,17 +23,19 @@ class Blockquote extends MarkUpTagWithGlobalProps {
     bool? draggable,
     bool? contenteditable,
     int? tabIndex,
+    String? id,
     String? title,
     String? style,
     String? classAttribute,
     Map<String, String>? dataAttributes,
     String? onClick,
-    EventCallback? onClickEventListener,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClickEventListener,
   }) : super(
           key: key,
+          id: id,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
@@ -45,10 +45,10 @@ class Blockquote extends MarkUpTagWithGlobalProps {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           onClick: onClick,
-          onClickEventListener: onClickEventListener,
           innerText: innerText,
           child: child,
           children: children,
+          onClickEventListener: onClickEventListener,
         );
 
   @nonVirtual
@@ -100,26 +100,47 @@ class _BlockquoteConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-class _BlockquoteRenderObject extends RenderObject {
-  const _BlockquoteRenderObject(BuildContext context) : super(context);
+class _BlockquoteRenderObject extends MarkUpGlobalRenderObject {
+  _BlockquoteRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _BlockquoteConfiguration configuration,
-  ) {
-    _BlockquoteProps.apply(element, configuration);
+  render({
+    required covariant _BlockquoteConfiguration configuration,
+  }) {
+    var elementDescription = super.render(
+      configuration: configuration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _BlockquoteProps.prepareAttributes(
+        props: configuration,
+        oldProps: null,
+      ),
+    );
+
+    return elementDescription;
   }
 
   @override
   update({
-    required element,
     required updateType,
     required covariant _BlockquoteConfiguration oldConfiguration,
     required covariant _BlockquoteConfiguration newConfiguration,
   }) {
-    _BlockquoteProps.clear(element, oldConfiguration);
-    _BlockquoteProps.apply(element, newConfiguration);
+    var elementDescription = super.update(
+      updateType: updateType,
+      oldConfiguration: oldConfiguration.globalConfiguration,
+      newConfiguration: newConfiguration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _BlockquoteProps.prepareAttributes(
+        props: newConfiguration,
+        oldProps: oldConfiguration,
+      ),
+    );
+
+    return elementDescription;
   }
 }
 
@@ -130,27 +151,20 @@ class _BlockquoteRenderObject extends RenderObject {
 */
 
 class _BlockquoteProps {
-  static void apply(HtmlElement element, _BlockquoteConfiguration props) {
-    element as QuoteElement;
-
-    MarkUpGlobalProps.apply(element, props.globalConfiguration);
-
-    if (null != props.cite) {
-      element.cite = props.cite!;
-    }
-  }
-
-  static void clear(HtmlElement element, _BlockquoteConfiguration props) {
-    element as QuoteElement;
-
-    MarkUpGlobalProps.clear(element, props.globalConfiguration);
+  static Map<String, String?> prepareAttributes({
+    required _BlockquoteConfiguration props,
+    required _BlockquoteConfiguration? oldProps,
+  }) {
+    var attributes = <String, String?>{};
 
     if (null != props.cite) {
-      element.removeAttribute(_Attributes.cite);
+      attributes[Attributes.cite] = props.cite!;
+    } else {
+      if (null != oldProps?.cite) {
+        attributes[Attributes.cite] = null;
+      }
     }
-  }
-}
 
-class _Attributes {
-  static const cite = "cite";
+    return attributes;
+  }
 }

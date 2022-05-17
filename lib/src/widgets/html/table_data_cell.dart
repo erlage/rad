@@ -13,6 +13,7 @@ class TableDataCell extends TableCellBase {
     int? colSpan,
     String? headers,
     Key? key,
+    String? id,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,
@@ -28,6 +29,7 @@ class TableDataCell extends TableCellBase {
     List<Widget>? children,
   }) : super(
           key: key,
+          id: id,
           rowSpan: rowSpan,
           colSpan: colSpan,
           headers: headers,

@@ -1,14 +1,12 @@
-import 'dart:html';
-
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/input_tag.dart';
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/widgets/abstract/input_tag.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
 
 /// The InputText widget (HTML's `input` tag with `type = 'text'`).
 ///
@@ -29,6 +27,7 @@ class InputText extends InputTag {
     this.placeholder,
     bool isPassword = false,
     Key? key,
+    String? id,
     String? name,
     String? value,
     bool? required,
@@ -42,13 +41,14 @@ class InputText extends InputTag {
     Map<String, String>? dataAttributes,
     bool? hidden,
     String? onClick,
-    EventCallback? onClickEventListener,
-    EventCallback? onChangeEventListener,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onChangeEventListener,
+    EventCallback? onClickEventListener,
   }) : super(
           key: key,
+          id: id,
           type: isPassword ? InputType.password : InputType.text,
           name: name,
           value: value,
@@ -64,10 +64,10 @@ class InputText extends InputTag {
           hidden: hidden,
           onClick: onClick,
           onClickEventListener: onClickEventListener,
-          eventListenerCallback: onChangeEventListener,
           innerText: innerText,
           child: child,
           children: children,
+          onChangeEventListener: onChangeEventListener,
         );
 
   @nonVirtual
@@ -135,26 +135,47 @@ class _InputTextConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-class _InputTextRenderObject extends RenderObject {
-  const _InputTextRenderObject(BuildContext context) : super(context);
+class _InputTextRenderObject extends InputTagRenderObject {
+  _InputTextRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _InputTextConfiguration configuration,
-  ) {
-    _InputTextProps.apply(element, configuration);
+  render({
+    required covariant _InputTextConfiguration configuration,
+  }) {
+    var elementDescription = super.render(
+      configuration: configuration.inputConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _InputTextProps.prepareAttributes(
+        props: configuration,
+        oldProps: null,
+      ),
+    );
+
+    return elementDescription;
   }
 
   @override
   update({
-    required element,
     required updateType,
     required covariant _InputTextConfiguration oldConfiguration,
     required covariant _InputTextConfiguration newConfiguration,
   }) {
-    _InputTextProps.clear(element, oldConfiguration);
-    _InputTextProps.apply(element, newConfiguration);
+    var elementDescription = super.update(
+      updateType: updateType,
+      oldConfiguration: oldConfiguration.inputConfiguration,
+      newConfiguration: newConfiguration.inputConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _InputTextProps.prepareAttributes(
+        props: newConfiguration,
+        oldProps: oldConfiguration,
+      ),
+    );
+
+    return elementDescription;
   }
 }
 
@@ -165,63 +186,52 @@ class _InputTextRenderObject extends RenderObject {
 */
 
 class _InputTextProps {
-  static void apply(HtmlElement element, _InputTextConfiguration props) {
-    element as InputElement;
+  static Map<String, String?> prepareAttributes({
+    required _InputTextConfiguration props,
+    required _InputTextConfiguration? oldProps,
+  }) {
+    var attributes = <String, String?>{};
 
-    InputProps.apply(element, props.inputConfiguration);
-
-    if (null != props.readOnly) {
-      element.readOnly = props.readOnly;
-    }
-
-    if (null != props.minLength) {
-      element.minLength = props.minLength;
-    }
-
-    if (null != props.maxLength) {
-      element.maxLength = props.maxLength;
+    if (null != props.placeholder) {
+      attributes[Attributes.placeholder] = props.placeholder!;
+    } else {
+      if (null != oldProps?.placeholder) {
+        attributes[Attributes.placeholder] = null;
+      }
     }
 
     if (null != props.pattern) {
-      element.pattern = props.pattern!;
+      attributes[Attributes.pattern] = props.pattern!;
+    } else {
+      if (null != oldProps?.pattern) {
+        attributes[Attributes.pattern] = null;
+      }
     }
-
-    if (null != props.placeholder) {
-      element.placeholder = props.placeholder!;
-    }
-  }
-
-  static void clear(HtmlElement element, _InputTextConfiguration props) {
-    element as InputElement;
-
-    InputProps.clear(element, props.inputConfiguration);
 
     if (null != props.readOnly) {
-      element.removeAttribute(_Attributes.readOnly);
+      attributes[Attributes.readOnly] = '${props.readOnly}';
+    } else {
+      if (null != oldProps?.readOnly) {
+        attributes[Attributes.readOnly] = null;
+      }
     }
 
     if (null != props.minLength) {
-      element.removeAttribute(_Attributes.minLength);
+      attributes[Attributes.minLength] = '${props.minLength}';
+    } else {
+      if (null != oldProps?.minLength) {
+        attributes[Attributes.minLength] = null;
+      }
     }
 
     if (null != props.maxLength) {
-      element.removeAttribute(_Attributes.maxLength);
+      attributes[Attributes.maxLength] = '${props.maxLength}';
+    } else {
+      if (null != oldProps?.maxLength) {
+        attributes[Attributes.maxLength] = null;
+      }
     }
 
-    if (null != props.pattern) {
-      element.removeAttribute(_Attributes.pattern);
-    }
-
-    if (null != props.placeholder) {
-      element.removeAttribute(_Attributes.placeholder);
-    }
+    return attributes;
   }
-}
-
-class _Attributes {
-  static const readOnly = "readonly";
-  static const minLength = "minlength";
-  static const maxLength = "maxlength";
-  static const pattern = "pattern";
-  static const placeholder = "placeholder";
 }

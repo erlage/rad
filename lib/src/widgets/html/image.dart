@@ -1,15 +1,12 @@
-import 'dart:html';
-
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/utils/common_props.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 
 /// The Image widget (HTML's `img` tag).
 ///
@@ -39,17 +36,19 @@ class Image extends MarkUpTagWithGlobalProps {
     bool? draggable,
     bool? contenteditable,
     int? tabIndex,
+    String? id,
     String? title,
     String? style,
     String? classAttribute,
     Map<String, String>? dataAttributes,
     String? onClick,
-    EventCallback? onClickEventListener,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClickEventListener,
   }) : super(
           key: key,
+          id: id,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
@@ -59,10 +58,10 @@ class Image extends MarkUpTagWithGlobalProps {
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
           onClick: onClick,
-          onClickEventListener: onClickEventListener,
           innerText: innerText,
           child: child,
           children: children,
+          onClickEventListener: onClickEventListener,
         );
 
   @nonVirtual
@@ -79,7 +78,6 @@ class Image extends MarkUpTagWithGlobalProps {
       alt: alt,
       width: width,
       height: height,
-      size: size,
       globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
@@ -91,7 +89,6 @@ class Image extends MarkUpTagWithGlobalProps {
         alt != oldConfiguration.alt ||
         width != oldConfiguration.width ||
         height != oldConfiguration.height ||
-        size != oldConfiguration.size ||
         super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }
 
@@ -109,21 +106,16 @@ class _ImageConfiguration extends WidgetConfiguration {
   final MarkUpGlobalConfiguration globalConfiguration;
 
   final String? src;
-
   final String? alt;
 
   final String? width;
-
   final String? height;
-
-  final String? size;
 
   const _ImageConfiguration({
     this.src,
     this.alt,
     this.width,
     this.height,
-    this.size,
     required this.globalConfiguration,
   });
 }
@@ -134,26 +126,47 @@ class _ImageConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-class _ImageRenderObject extends RenderObject {
-  const _ImageRenderObject(BuildContext context) : super(context);
+class _ImageRenderObject extends MarkUpGlobalRenderObject {
+  _ImageRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _ImageConfiguration configuration,
-  ) {
-    _ImageProps.apply(element, configuration);
+  render({
+    required covariant _ImageConfiguration configuration,
+  }) {
+    var elementDescription = super.render(
+      configuration: configuration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _ImageProps.prepareAttributes(
+        props: configuration,
+        oldProps: null,
+      ),
+    );
+
+    return elementDescription;
   }
 
   @override
   update({
-    required element,
     required updateType,
     required covariant _ImageConfiguration oldConfiguration,
     required covariant _ImageConfiguration newConfiguration,
   }) {
-    _ImageProps.clear(element, oldConfiguration);
-    _ImageProps.apply(element, newConfiguration);
+    var elementDescription = super.update(
+      updateType: updateType,
+      oldConfiguration: oldConfiguration.globalConfiguration,
+      newConfiguration: newConfiguration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _ImageProps.prepareAttributes(
+        props: newConfiguration,
+        oldProps: oldConfiguration,
+      ),
+    );
+
+    return elementDescription;
   }
 }
 
@@ -164,50 +177,44 @@ class _ImageRenderObject extends RenderObject {
 */
 
 class _ImageProps {
-  static void apply(HtmlElement element, _ImageConfiguration props) {
-    element as ImageElement;
-
-    MarkUpGlobalProps.apply(element, props.globalConfiguration);
-
-    CommonProps.applySizeProps(
-      element,
-      width: props.width,
-      height: props.height,
-      size: props.size,
-    );
+  static Map<String, String?> prepareAttributes({
+    required _ImageConfiguration props,
+    required _ImageConfiguration? oldProps,
+  }) {
+    var attributes = <String, String?>{};
 
     if (null != props.src) {
-      element.src = props.src;
+      attributes[Attributes.src] = props.src!;
+    } else {
+      if (null != oldProps?.src) {
+        attributes[Attributes.src] = null;
+      }
     }
 
     if (null != props.alt) {
-      element.alt = props.alt;
+      attributes[Attributes.alt] = props.alt!;
+    } else {
+      if (null != oldProps?.alt) {
+        attributes[Attributes.alt] = null;
+      }
     }
+
+    if (null != props.height) {
+      attributes[Attributes.height] = props.height!;
+    } else {
+      if (null != oldProps?.height) {
+        attributes[Attributes.height] = null;
+      }
+    }
+
+    if (null != props.width) {
+      attributes[Attributes.width] = props.width!;
+    } else {
+      if (null != oldProps?.width) {
+        attributes[Attributes.width] = null;
+      }
+    }
+
+    return attributes;
   }
-
-  static void clear(HtmlElement element, _ImageConfiguration props) {
-    element as ImageElement;
-
-    MarkUpGlobalProps.clear(element, props.globalConfiguration);
-
-    CommonProps.clearSizeProps(
-      element,
-      width: props.width,
-      height: props.height,
-      size: props.size,
-    );
-
-    if (null != props.src) {
-      element.removeAttribute(_Attributes.src);
-    }
-
-    if (null != props.alt) {
-      element.removeAttribute(_Attributes.alt);
-    }
-  }
-}
-
-class _Attributes {
-  static const src = "src";
-  static const alt = "alt";
 }

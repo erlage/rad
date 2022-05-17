@@ -1,14 +1,12 @@
-import 'dart:html';
-
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 
 /// The FieldSet widget (HTML's `fieldset` tag).
 ///
@@ -26,17 +24,19 @@ class FieldSet extends MarkUpTagWithGlobalProps {
     bool? draggable,
     bool? contenteditable,
     int? tabIndex,
+    String? id,
     String? title,
     String? style,
     String? classAttribute,
     Map<String, String>? dataAttributes,
     String? onClick,
-    EventCallback? onClickEventListener,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClickEventListener,
   }) : super(
           key: key,
+          id: id,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
@@ -46,10 +46,10 @@ class FieldSet extends MarkUpTagWithGlobalProps {
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
           onClick: onClick,
-          onClickEventListener: onClickEventListener,
           innerText: innerText,
           child: child,
           children: children,
+          onClickEventListener: onClickEventListener,
         );
 
   @nonVirtual
@@ -101,26 +101,47 @@ class _FieldSetConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-class _FieldSetRenderObject extends RenderObject {
-  const _FieldSetRenderObject(BuildContext context) : super(context);
+class _FieldSetRenderObject extends MarkUpGlobalRenderObject {
+  _FieldSetRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _FieldSetConfiguration configuration,
-  ) {
-    _FieldSetProps.apply(element, configuration);
+  render({
+    required covariant _FieldSetConfiguration configuration,
+  }) {
+    var elementDescription = super.render(
+      configuration: configuration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _FieldSetProps.prepareAttributes(
+        props: configuration,
+        oldProps: null,
+      ),
+    );
+
+    return elementDescription;
   }
 
   @override
   update({
-    required element,
     required updateType,
     required covariant _FieldSetConfiguration oldConfiguration,
     required covariant _FieldSetConfiguration newConfiguration,
   }) {
-    _FieldSetProps.clear(element, oldConfiguration);
-    _FieldSetProps.apply(element, newConfiguration);
+    var elementDescription = super.update(
+      updateType: updateType,
+      oldConfiguration: oldConfiguration.globalConfiguration,
+      newConfiguration: newConfiguration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _FieldSetProps.prepareAttributes(
+        props: newConfiguration,
+        oldProps: oldConfiguration,
+      ),
+    );
+
+    return elementDescription;
   }
 }
 
@@ -131,27 +152,20 @@ class _FieldSetRenderObject extends RenderObject {
 */
 
 class _FieldSetProps {
-  static void apply(HtmlElement element, _FieldSetConfiguration props) {
-    element as FieldSetElement;
-
-    MarkUpGlobalProps.apply(element, props.globalConfiguration);
-
-    if (null != props.disabled) {
-      element.disabled = props.disabled;
-    }
-  }
-
-  static void clear(HtmlElement element, _FieldSetConfiguration props) {
-    element as FieldSetElement;
-
-    MarkUpGlobalProps.clear(element, props.globalConfiguration);
+  static Map<String, String?> prepareAttributes({
+    required _FieldSetConfiguration props,
+    required _FieldSetConfiguration? oldProps,
+  }) {
+    var attributes = <String, String?>{};
 
     if (null != props.disabled) {
-      element.removeAttribute(_Attributes.disabled);
+      attributes[Attributes.disabled] = '${props.disabled}';
+    } else {
+      if (null != oldProps?.disabled) {
+        attributes[Attributes.disabled] = null;
+      }
     }
-  }
-}
 
-class _Attributes {
-  static const disabled = "disabled";
+    return attributes;
+  }
 }

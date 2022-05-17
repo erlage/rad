@@ -1,15 +1,21 @@
-import 'dart:html';
-
-import 'package:rad/src/core/common/functions.dart';
-import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/element_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/widgets/abstract/widget_with_event_listeners.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
+import 'package:rad/src/widgets/utils/event_handler.dart';
 
-abstract class MarkUpTagWithGlobalProps extends Widget {
+/// Base class for HTML widgets that support global attributes.
+///
+abstract class MarkUpTagWithGlobalProps extends WidgetWithEventListeners {
+  /// ID of element.
+  ///
+  final String? id;
+
   /// The title attribute specifies extra information about an element.
   ///
   final String? title;
@@ -52,10 +58,6 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
   ///
   final String? onClick;
 
-  /// Tag's onClick event listener. For adding Dart callback on click event.
-  ///
-  final EventCallback? onClickEventListener;
-
   /// Element's inner text.
   ///
   /// Only one thing can be set at a time between [innerText]
@@ -81,6 +83,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
 
   const MarkUpTagWithGlobalProps({
     Key? key,
+    this.id,
     this.title,
     this.tabIndex,
     this.style,
@@ -90,17 +93,26 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
     this.draggable,
     this.contenteditable,
     this.onClick,
-    this.onClickEventListener,
     this.innerText,
     this.child,
     this.children,
+    EventCallback? onInputEventListener,
+    EventCallback? onChangeEventListener,
+    EventCallback? onSubmitEventListener,
+    EventCallback? onClickEventListener,
 
     // at least two thing from child, children & innerText has to be null.
     //
   })  : assert((null == children && null == child) ||
             (null == child && null == innerText) ||
             (null == children && null == innerText)),
-        super(key: key);
+        super(
+          key: key,
+          onInputEventListener: onInputEventListener,
+          onChangeEventListener: onChangeEventListener,
+          onSubmitEventListener: onSubmitEventListener,
+          onClickEventListener: onClickEventListener,
+        );
 
   @override
   get widgetChildren => children ?? (null != child ? [child!] : []);
@@ -108,6 +120,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
   @override
   createConfiguration() {
     return MarkUpGlobalConfiguration(
+      id: id,
       title: title,
       tabIndex: tabIndex,
       style: style,
@@ -115,10 +128,15 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
       dataAttributes: dataAttributes,
       hidden: hidden,
       draggable: draggable,
-      contenteditable: contenteditable,
+      contentEditable: contenteditable,
       onClick: onClick,
-      onClickEventListener: onClickEventListener,
       innerText: innerText,
+      listenersConfiguration: EventListenersConfiguration(
+        onInputEventListener: onInputEventListener,
+        onChangeEventListener: onChangeEventListener,
+        onSubmitEventListener: onSubmitEventListener,
+        onClickEventListener: onClickEventListener,
+      ),
     );
   }
 
@@ -126,18 +144,18 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
   isConfigurationChanged(oldConfiguration) {
     oldConfiguration as MarkUpGlobalConfiguration;
 
-    return title != oldConfiguration.title ||
+    return id != oldConfiguration.id ||
+        title != oldConfiguration.title ||
         tabIndex != oldConfiguration.tabIndex ||
         style != oldConfiguration.style ||
         classAttribute != oldConfiguration.classAttribute ||
         dataAttributes != oldConfiguration.dataAttributes ||
         hidden != oldConfiguration.hidden ||
         draggable != oldConfiguration.draggable ||
-        contenteditable != oldConfiguration.contenteditable ||
+        contenteditable != oldConfiguration.contentEditable ||
         onClick != oldConfiguration.onClick ||
-        onClickEventListener.runtimeType !=
-            oldConfiguration.onClickEventListener.runtimeType ||
-        innerText != oldConfiguration.innerText;
+        innerText != oldConfiguration.innerText ||
+        super.isConfigurationChanged(oldConfiguration.listenersConfiguration);
   }
 
   @override
@@ -151,29 +169,23 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
 */
 
 class MarkUpGlobalConfiguration extends WidgetConfiguration {
+  final EventListenersConfiguration listenersConfiguration;
+
+  final String? id;
   final String? title;
-
   final String? style;
-
-  final String? classAttribute;
-
   final int? tabIndex;
-
   final bool? draggable;
-
-  final bool? contenteditable;
-
-  final Map<String, String>? dataAttributes;
-
+  final bool? contentEditable;
   final bool? hidden;
-
   final String? onClick;
-
-  final EventCallback? onClickEventListener;
-
   final String? innerText;
 
+  final String? classAttribute;
+  final Map<String, String>? dataAttributes;
+
   const MarkUpGlobalConfiguration({
+    this.id,
     this.title,
     this.tabIndex,
     this.style,
@@ -181,10 +193,10 @@ class MarkUpGlobalConfiguration extends WidgetConfiguration {
     this.dataAttributes,
     this.hidden,
     this.draggable,
-    this.contenteditable,
+    this.contentEditable,
     this.onClick,
-    this.onClickEventListener,
     this.innerText,
+    required this.listenersConfiguration,
   });
 }
 
@@ -195,25 +207,94 @@ class MarkUpGlobalConfiguration extends WidgetConfiguration {
 */
 
 class MarkUpGlobalRenderObject extends RenderObject {
-  const MarkUpGlobalRenderObject(BuildContext context) : super(context);
+  final EventHandler eventHandler;
+
+  MarkUpGlobalRenderObject(BuildContext context)
+      : eventHandler = EventHandler(context),
+        super(context);
+
+  /*
+  |--------------------------------------------------------------------------
+  | lifecycle hooks
+  |--------------------------------------------------------------------------
+  */
 
   @override
-  render(
-    element,
-    covariant MarkUpGlobalConfiguration configuration,
-  ) {
-    MarkUpGlobalProps.apply(element, configuration);
+  render({
+    required configuration,
+  }) {
+    configuration as MarkUpGlobalConfiguration;
+
+    var attributes = _MarkUpGlobalProps.prepareAttributes(
+      props: configuration,
+      oldProps: null,
+    );
+
+    var classes = CommonProps.prepareClasses(
+      classAttribute: configuration.classAttribute,
+      oldClassAttribute: null,
+    );
+
+    var dataset = CommonProps.prepareDataset(
+      dataAttributes: configuration.dataAttributes,
+      oldDataAttributes: null,
+    );
+
+    var eventListenersToAdd = eventHandler.prepareEventListenersToAdd(
+      newConfiguration: configuration.listenersConfiguration,
+    );
+
+    return ElementDescription(
+      classes: classes,
+      dataset: dataset,
+      attributes: attributes,
+      textContents: configuration.innerText,
+      eventListenersToAdd: eventListenersToAdd,
+    );
   }
 
   @override
   update({
-    required element,
     required updateType,
-    required covariant MarkUpGlobalConfiguration oldConfiguration,
-    required covariant MarkUpGlobalConfiguration newConfiguration,
+    required oldConfiguration,
+    required newConfiguration,
   }) {
-    MarkUpGlobalProps.clear(element, oldConfiguration);
-    MarkUpGlobalProps.apply(element, newConfiguration);
+    oldConfiguration as MarkUpGlobalConfiguration;
+    newConfiguration as MarkUpGlobalConfiguration;
+
+    var classes = CommonProps.prepareClasses(
+      classAttribute: newConfiguration.classAttribute,
+      oldClassAttribute: oldConfiguration.classAttribute,
+    );
+
+    var dataset = CommonProps.prepareDataset(
+      dataAttributes: newConfiguration.dataAttributes,
+      oldDataAttributes: oldConfiguration.dataAttributes,
+    );
+
+    var attributes = _MarkUpGlobalProps.prepareAttributes(
+      props: newConfiguration,
+      oldProps: oldConfiguration,
+    );
+
+    var eventListenersToAdd = eventHandler.prepareEventListenersToAdd(
+      newConfiguration: newConfiguration.listenersConfiguration,
+      oldConfiguration: oldConfiguration.listenersConfiguration,
+    );
+
+    var eventListenersToRemove = eventHandler.prepareEventListenersToRemove(
+      newConfiguration: newConfiguration.listenersConfiguration,
+      oldConfiguration: oldConfiguration.listenersConfiguration,
+    );
+
+    return ElementDescription(
+      classes: classes,
+      dataset: dataset,
+      attributes: attributes,
+      textContents: newConfiguration.innerText,
+      eventListenersToAdd: eventListenersToAdd,
+      eventListenersToRemove: eventListenersToRemove,
+    );
   }
 }
 
@@ -223,105 +304,77 @@ class MarkUpGlobalRenderObject extends RenderObject {
 |--------------------------------------------------------------------------
 */
 
-class MarkUpGlobalProps {
-  static void apply(HtmlElement element, MarkUpGlobalConfiguration props) {
-    CommonProps.applyClassAttribute(element, props.classAttribute);
+class _MarkUpGlobalProps {
+  static Map<String, String?> prepareAttributes({
+    required MarkUpGlobalConfiguration props,
+    required MarkUpGlobalConfiguration? oldProps,
+  }) {
+    var attributes = <String, String?>{};
 
-    CommonProps.applyDataAttributes(element, props.dataAttributes);
+    if (null != props.id) {
+      attributes[Attributes.id] = props.id!;
+    } else {
+      if (null != oldProps?.id) {
+        attributes[Attributes.id] = null;
+      }
+    }
 
     if (null != props.title) {
-      element.title = props.title;
+      attributes[Attributes.title] = props.title!;
+    } else {
+      if (null != oldProps?.title) {
+        attributes[Attributes.title] = null;
+      }
     }
 
     if (null != props.style) {
-      element.setAttribute(_Attributes.style, props.style!);
+      attributes[Attributes.style] = props.style!;
+    } else {
+      if (null != oldProps?.style) {
+        attributes[Attributes.style] = null;
+      }
     }
 
     if (null != props.tabIndex) {
-      element.tabIndex = props.tabIndex;
+      attributes[Attributes.tabIndex] = '${props.tabIndex}';
+    } else {
+      if (null != oldProps?.tabIndex) {
+        attributes[Attributes.tabIndex] = null;
+      }
     }
 
-    if (null != props.hidden) {
-      element.hidden = props.hidden!;
-    }
-
-    if (null != props.draggable) {
-      element.draggable = props.draggable!;
-    }
-
-    var editable = props.contenteditable;
-    if (null != editable) {
-      element.contentEditable = editable ? "true" : "false";
-    }
-
-    if (null != props.onClick) {
-      element.setAttribute(_Attributes.onClick, props.onClick!);
-    }
-
-    if (null != props.onClickEventListener) {
-      element.addEventListener(
-        fnMapDomEventType(DomEventType.click),
-        props.onClickEventListener,
-      );
-    }
-
-    if (null != props.innerText) {
-      element.innerText = props.innerText!;
-    }
-  }
-
-  static void clear(HtmlElement element, MarkUpGlobalConfiguration props) {
-    CommonProps.clearClassAttribute(element, props.classAttribute);
-
-    CommonProps.clearDataAttributes(element, props.dataAttributes);
-
-    if (null != props.title) {
-      element.removeAttribute(_Attributes.title);
-    }
-
-    if (null != props.style) {
-      element.removeAttribute(_Attributes.style);
-    }
-
-    if (null != props.hidden) {
-      element.removeAttribute(_Attributes.hidden);
-    }
-
-    if (null != props.tabIndex) {
-      element.removeAttribute(_Attributes.tabindex);
+    if (null != props.hidden && props.hidden!) {
+      attributes[Attributes.hidden] = '${props.hidden}';
+    } else {
+      if (null != oldProps?.hidden) {
+        attributes[Attributes.hidden] = null;
+      }
     }
 
     if (null != props.draggable) {
-      element.removeAttribute(_Attributes.draggable);
+      attributes[Attributes.draggable] = '${props.draggable}';
+    } else {
+      if (null != oldProps?.draggable) {
+        attributes[Attributes.draggable] = null;
+      }
     }
 
-    if (null != props.contenteditable) {
-      element.removeAttribute(_Attributes.contenteditable);
+    if (null != props.contentEditable) {
+      attributes[Attributes.contentEditable] = '${props.contentEditable}';
+    } else {
+      if (null != oldProps?.contentEditable) {
+        attributes[Attributes.contentEditable] = null;
+      }
     }
 
     if (null != props.onClick) {
-      element.removeAttribute(_Attributes.onClick);
+      attributes[Attributes.onClick] = props.onClick!;
+    } else {
+      if (null != oldProps?.onClick) {
+        attributes[Attributes.onClick] = null;
+      }
     }
 
-    if (null != props.onClickEventListener) {
-      element.removeEventListener(
-        fnMapDomEventType(DomEventType.click),
-        props.onClickEventListener,
-      );
-    }
-
-    if (null != props.innerText) {
-      element.innerText = "";
-    }
+    return attributes;
   }
-}
-
-class _Attributes {
-  static const title = "title";
-  static const style = "style";
-  static const hidden = "hidden";
-  static const tabindex = "tabindex";
-  static const draggable = "draggable";
-  static const contenteditable = "contenteditable";
-  static const onClick = "onclick";
 }

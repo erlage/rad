@@ -162,6 +162,17 @@ String fnMapDomEventType(DomEventType eventType) {
   }
 }
 
+DomEventType? fnMapEventTypeToDomEventType(String eventType) {
+  // could cache this map or maybe we can hardcode it.
+  var typeMap = <String, DomEventType>{};
+
+  for (var type in DomEventType.values) {
+    typeMap[fnMapDomEventType(type)] = type;
+  }
+
+  return typeMap[eventType];
+}
+
 String fnMapInputType(InputType type) {
   switch (type) {
     case InputType.text:

@@ -1,14 +1,12 @@
-import 'dart:html';
-
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 
 /// The Progress widget (HTML's `progress` tag).
 ///
@@ -27,6 +25,7 @@ class Progress extends MarkUpTagWithGlobalProps {
     this.value,
     this.max,
     Key? key,
+    String? id,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,
@@ -36,12 +35,13 @@ class Progress extends MarkUpTagWithGlobalProps {
     String? classAttribute,
     Map<String, String>? dataAttributes,
     String? onClick,
-    EventCallback? onClickEventListener,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClickEventListener,
   }) : super(
           key: key,
+          id: id,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
@@ -51,10 +51,10 @@ class Progress extends MarkUpTagWithGlobalProps {
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
           onClick: onClick,
-          onClickEventListener: onClickEventListener,
           innerText: innerText,
           child: child,
           children: children,
+          onClickEventListener: onClickEventListener,
         );
 
   @nonVirtual
@@ -95,7 +95,6 @@ class _ProgressConfiguration extends WidgetConfiguration {
   final MarkUpGlobalConfiguration globalConfiguration;
 
   final num? value;
-
   final num? max;
 
   const _ProgressConfiguration({
@@ -111,26 +110,47 @@ class _ProgressConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-class _ProgressRenderObject extends RenderObject {
-  const _ProgressRenderObject(BuildContext context) : super(context);
+class _ProgressRenderObject extends MarkUpGlobalRenderObject {
+  _ProgressRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _ProgressConfiguration configuration,
-  ) {
-    _ProgressProps.apply(element, configuration);
+  render({
+    required covariant _ProgressConfiguration configuration,
+  }) {
+    var elementDescription = super.render(
+      configuration: configuration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _ProgressProps.prepareAttributes(
+        props: configuration,
+        oldProps: null,
+      ),
+    );
+
+    return elementDescription;
   }
 
   @override
   update({
-    required element,
     required updateType,
     required covariant _ProgressConfiguration oldConfiguration,
     required covariant _ProgressConfiguration newConfiguration,
   }) {
-    _ProgressProps.clear(element, oldConfiguration);
-    _ProgressProps.apply(element, newConfiguration);
+    var elementDescription = super.update(
+      updateType: updateType,
+      oldConfiguration: oldConfiguration.globalConfiguration,
+      newConfiguration: newConfiguration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _ProgressProps.prepareAttributes(
+        props: newConfiguration,
+        oldProps: oldConfiguration,
+      ),
+    );
+
+    return elementDescription;
   }
 }
 
@@ -141,36 +161,28 @@ class _ProgressRenderObject extends RenderObject {
 */
 
 class _ProgressProps {
-  static void apply(HtmlElement element, _ProgressConfiguration props) {
-    element as ProgressElement;
-
-    MarkUpGlobalProps.apply(element, props.globalConfiguration);
-
-    if (null != props.value) {
-      element.value = props.value!;
-    }
+  static Map<String, String?> prepareAttributes({
+    required _ProgressConfiguration props,
+    required _ProgressConfiguration? oldProps,
+  }) {
+    var attributes = <String, String?>{};
 
     if (null != props.max) {
-      element.max = props.max!;
+      attributes[Attributes.max] = '${props.max}';
+    } else {
+      if (null != oldProps?.max) {
+        attributes[Attributes.max] = null;
+      }
     }
-  }
-
-  static void clear(HtmlElement element, _ProgressConfiguration props) {
-    element as ProgressElement;
-
-    MarkUpGlobalProps.clear(element, props.globalConfiguration);
 
     if (null != props.value) {
-      element.removeAttribute(_Attributes.value);
+      attributes[Attributes.value] = '${props.value}';
+    } else {
+      if (null != oldProps?.value) {
+        attributes[Attributes.value] = null;
+      }
     }
 
-    if (null != props.max) {
-      element.removeAttribute(_Attributes.max);
-    }
+    return attributes;
   }
-}
-
-class _Attributes {
-  static const value = "value";
-  static const max = "max";
 }

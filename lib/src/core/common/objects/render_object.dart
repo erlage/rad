@@ -1,10 +1,9 @@
-import 'dart:html';
-
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/element_description.dart';
 
 /// Widget's Render object.
 ///
@@ -20,22 +19,31 @@ abstract class RenderObject {
   |--------------------------------------------------------------------------
   */
 
-  /// Render widget interface
+  /// Render hook.
   ///
-  void render(HtmlElement element, WidgetConfiguration configuration) {}
-
-  /// Update widget interface
+  /// Implementation can optionally return description of element.
   ///
-  void update({
-    required HtmlElement element,
-    required UpdateType updateType,
-    required WidgetConfiguration oldConfiguration,
-    required WidgetConfiguration newConfiguration,
-  }) {}
+  ElementDescription? render({
+    required WidgetConfiguration configuration,
+  }) {
+    return null;
+  }
 
   void beforeMount() {}
 
   void afterMount() {}
+
+  /// Update hook.
+  ///
+  /// Implementation can optionally return description of element.
+  ///
+  ElementDescription? update({
+    required UpdateType updateType,
+    required WidgetConfiguration oldConfiguration,
+    required WidgetConfiguration newConfiguration,
+  }) {
+    return null;
+  }
 
   void afterWidgetRebind({
     required Widget oldWidget,

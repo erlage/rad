@@ -13,6 +13,7 @@ import 'package:rad/src/core/common/objects/key.dart';
 class Caption extends MarkUpTagWithGlobalProps {
   const Caption({
     Key? key,
+    String? id,
     String? title,
     String? style,
     String? classAttribute,
@@ -28,6 +29,7 @@ class Caption extends MarkUpTagWithGlobalProps {
     List<Widget>? children,
   }) : super(
           key: key,
+          id: id,
           title: title,
           style: style,
           classAttribute: classAttribute,

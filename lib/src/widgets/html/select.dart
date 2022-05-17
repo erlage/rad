@@ -1,15 +1,12 @@
-import 'dart:html';
-
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
-import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 
 /// The Select widget (HTML's `select` tag).
 ///
@@ -30,16 +27,12 @@ class Select extends MarkUpTagWithGlobalProps {
   ///
   final bool? disabled;
 
-  /// When Select's value changes.
-  ///
-  final EventCallback? onChangeEventListener;
-
   const Select({
     this.name,
     this.multiple,
     this.disabled,
-    this.onChangeEventListener,
     Key? key,
+    String? id,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,
@@ -49,12 +42,14 @@ class Select extends MarkUpTagWithGlobalProps {
     String? classAttribute,
     Map<String, String>? dataAttributes,
     String? onClick,
-    EventCallback? onClickEventListener,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onChangeEventListener,
+    EventCallback? onClickEventListener,
   }) : super(
           key: key,
+          id: id,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
@@ -64,10 +59,11 @@ class Select extends MarkUpTagWithGlobalProps {
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
           onClick: onClick,
-          onClickEventListener: onClickEventListener,
           innerText: innerText,
           child: child,
           children: children,
+          onChangeEventListener: onChangeEventListener,
+          onClickEventListener: onClickEventListener,
         );
 
   @nonVirtual
@@ -83,7 +79,6 @@ class Select extends MarkUpTagWithGlobalProps {
       name: name,
       multiple: multiple,
       disabled: disabled,
-      onChange: onChangeEventListener,
       globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
@@ -94,8 +89,6 @@ class Select extends MarkUpTagWithGlobalProps {
     return name != oldConfiguration.name ||
         multiple != oldConfiguration.multiple ||
         disabled != oldConfiguration.disabled ||
-        onChangeEventListener.runtimeType !=
-            oldConfiguration.onChange.runtimeType ||
         super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }
 
@@ -115,16 +108,12 @@ class _SelectConfiguration extends WidgetConfiguration {
   final String? name;
 
   final bool? multiple;
-
   final bool? disabled;
-
-  final EventCallback? onChange;
 
   const _SelectConfiguration({
     this.name,
     this.multiple,
     this.disabled,
-    this.onChange,
     required this.globalConfiguration,
   });
 }
@@ -135,26 +124,47 @@ class _SelectConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-class _SelectRenderObject extends RenderObject {
-  const _SelectRenderObject(BuildContext context) : super(context);
+class _SelectRenderObject extends MarkUpGlobalRenderObject {
+  _SelectRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _SelectConfiguration configuration,
-  ) {
-    _SelectProps.apply(element, configuration);
+  render({
+    required covariant _SelectConfiguration configuration,
+  }) {
+    var elementDescription = super.render(
+      configuration: configuration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _SelectProps.prepareAttributes(
+        props: configuration,
+        oldProps: null,
+      ),
+    );
+
+    return elementDescription;
   }
 
   @override
   update({
-    required element,
     required updateType,
     required covariant _SelectConfiguration oldConfiguration,
     required covariant _SelectConfiguration newConfiguration,
   }) {
-    _SelectProps.clear(element, oldConfiguration);
-    _SelectProps.apply(element, newConfiguration);
+    var elementDescription = super.update(
+      updateType: updateType,
+      oldConfiguration: oldConfiguration.globalConfiguration,
+      newConfiguration: newConfiguration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _SelectProps.prepareAttributes(
+        props: newConfiguration,
+        oldProps: oldConfiguration,
+      ),
+    );
+
+    return elementDescription;
   }
 }
 
@@ -165,59 +175,36 @@ class _SelectRenderObject extends RenderObject {
 */
 
 class _SelectProps {
-  static void apply(HtmlElement element, _SelectConfiguration props) {
-    element as SelectElement;
-
-    MarkUpGlobalProps.apply(element, props.globalConfiguration);
+  static Map<String, String?> prepareAttributes({
+    required _SelectConfiguration props,
+    required _SelectConfiguration? oldProps,
+  }) {
+    var attributes = <String, String?>{};
 
     if (null != props.name) {
-      element.name = props.name;
+      attributes[Attributes.name] = props.name!;
+    } else {
+      if (null != oldProps?.name) {
+        attributes[Attributes.name] = null;
+      }
     }
 
     if (null != props.multiple) {
-      element.multiple = props.multiple;
+      attributes[Attributes.multiple] = '${props.multiple}';
+    } else {
+      if (null != oldProps?.multiple) {
+        attributes[Attributes.multiple] = null;
+      }
     }
 
     if (null != props.disabled) {
-      element.disabled = props.disabled!;
+      attributes[Attributes.disabled] = '${props.disabled}';
+    } else {
+      if (null != oldProps?.disabled) {
+        attributes[Attributes.disabled] = null;
+      }
     }
 
-    if (null != props.onChange) {
-      element.addEventListener(
-        fnMapDomEventType(DomEventType.change),
-        props.onChange,
-      );
-    }
+    return attributes;
   }
-
-  static void clear(HtmlElement element, _SelectConfiguration props) {
-    element as SelectElement;
-
-    MarkUpGlobalProps.clear(element, props.globalConfiguration);
-
-    if (null != props.name) {
-      element.removeAttribute(_Attributes.name);
-    }
-
-    if (null != props.multiple) {
-      element.removeAttribute(_Attributes.multiple);
-    }
-
-    if (null != props.disabled) {
-      element.removeAttribute(_Attributes.disabled);
-    }
-
-    if (null != props.onChange) {
-      element.removeEventListener(
-        fnMapDomEventType(DomEventType.change),
-        props.onChange,
-      );
-    }
-  }
-}
-
-class _Attributes {
-  static const name = "name";
-  static const multiple = "multiple";
-  static const disabled = "disabled";
 }

@@ -1,15 +1,13 @@
-import 'dart:html';
-
 import 'package:meta/meta.dart';
 
-import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/core/common/functions.dart';
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 
 /// The Button widget (HTML's `button` tag).
 ///
@@ -37,6 +35,7 @@ class Button extends MarkUpTagWithGlobalProps {
     this.type,
     this.disabled,
     Key? key,
+    String? id,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,
@@ -52,6 +51,7 @@ class Button extends MarkUpTagWithGlobalProps {
     List<Widget>? children,
   }) : super(
           key: key,
+          id: id,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
@@ -130,26 +130,47 @@ class _ButtonConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-class _ButtonRenderObject extends RenderObject {
-  const _ButtonRenderObject(BuildContext context) : super(context);
+class _ButtonRenderObject extends MarkUpGlobalRenderObject {
+  _ButtonRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _ButtonConfiguration configuration,
-  ) {
-    _ButtonProps.apply(element, configuration);
+  render({
+    required covariant _ButtonConfiguration configuration,
+  }) {
+    var elementDescription = super.render(
+      configuration: configuration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _ButtonProps.prepareAttributes(
+        props: configuration,
+        oldProps: null,
+      ),
+    );
+
+    return elementDescription;
   }
 
   @override
   update({
-    required element,
     required updateType,
     required covariant _ButtonConfiguration oldConfiguration,
     required covariant _ButtonConfiguration newConfiguration,
   }) {
-    _ButtonProps.clear(element, oldConfiguration);
-    _ButtonProps.apply(element, newConfiguration);
+    var elementDescription = super.update(
+      updateType: updateType,
+      oldConfiguration: oldConfiguration.globalConfiguration,
+      newConfiguration: newConfiguration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _ButtonProps.prepareAttributes(
+        props: newConfiguration,
+        oldProps: oldConfiguration,
+      ),
+    );
+
+    return elementDescription;
   }
 }
 
@@ -160,54 +181,44 @@ class _ButtonRenderObject extends RenderObject {
 */
 
 class _ButtonProps {
-  static void apply(HtmlElement element, _ButtonConfiguration props) {
-    element as ButtonElement;
-
-    MarkUpGlobalProps.apply(element, props.globalConfiguration);
+  static Map<String, String?> prepareAttributes({
+    required _ButtonConfiguration props,
+    required _ButtonConfiguration? oldProps,
+  }) {
+    var attributes = <String, String?>{};
 
     if (null != props.name) {
-      element.name = props.name!;
+      attributes[Attributes.name] = props.name!;
+    } else {
+      if (null != oldProps?.name) {
+        attributes[Attributes.name] = null;
+      }
     }
 
     if (null != props.value) {
-      element.value = props.value!;
+      attributes[Attributes.value] = props.value!;
+    } else {
+      if (null != oldProps?.value) {
+        attributes[Attributes.value] = null;
+      }
     }
 
     if (null != props.type) {
-      element.type = fnMapButtonType(props.type!);
+      attributes[Attributes.type] = fnMapButtonType(props.type!);
+    } else {
+      if (null != oldProps?.type) {
+        attributes[Attributes.type] = null;
+      }
     }
 
     if (null != props.disabled) {
-      element.disabled = props.disabled!;
+      attributes[Attributes.disabled] = '${props.disabled}';
+    } else {
+      if (null != oldProps?.disabled) {
+        attributes[Attributes.disabled] = null;
+      }
     }
+
+    return attributes;
   }
-
-  static void clear(HtmlElement element, _ButtonConfiguration props) {
-    element as ButtonElement;
-
-    MarkUpGlobalProps.clear(element, props.globalConfiguration);
-
-    if (null != props.name) {
-      element.removeAttribute(_Attributes.name);
-    }
-
-    if (null != props.value) {
-      element.removeAttribute(_Attributes.value);
-    }
-
-    if (null != props.type) {
-      element.removeAttribute(_Attributes.type);
-    }
-
-    if (null != props.disabled) {
-      element.removeAttribute(_Attributes.disabled);
-    }
-  }
-}
-
-class _Attributes {
-  static const name = "name";
-  static const value = "value";
-  static const type = "type";
-  static const disabled = "disabled";
 }

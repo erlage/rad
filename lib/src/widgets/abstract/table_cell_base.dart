@@ -1,13 +1,11 @@
-import 'dart:html';
-
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/widgets/html/table_body.dart';
 import 'package:rad/src/widgets/html/table_foot.dart';
 import 'package:rad/src/widgets/html/table_head.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 
 /// Abstract class for TableCell and TableHeaderCell.
@@ -39,6 +37,7 @@ abstract class TableCellBase extends MarkUpTagWithGlobalProps {
     this.colSpan,
     this.headers,
     Key? key,
+    String? id,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,
@@ -48,12 +47,13 @@ abstract class TableCellBase extends MarkUpTagWithGlobalProps {
     String? classAttribute,
     Map<String, String>? dataAttributes,
     String? onClick,
-    EventCallback? onClickEventListener,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClickEventListener,
   }) : super(
           key: key,
+          id: id,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
@@ -63,10 +63,10 @@ abstract class TableCellBase extends MarkUpTagWithGlobalProps {
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
           onClick: onClick,
-          onClickEventListener: onClickEventListener,
           innerText: innerText,
           child: child,
           children: children,
+          onClickEventListener: onClickEventListener,
         );
 
   @override
@@ -123,26 +123,47 @@ class _TableCellBaseConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-class _TableCellBaseRenderObject extends RenderObject {
-  const _TableCellBaseRenderObject(BuildContext context) : super(context);
+class _TableCellBaseRenderObject extends MarkUpGlobalRenderObject {
+  _TableCellBaseRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _TableCellBaseConfiguration configuration,
-  ) {
-    _TableCellBaseProps.apply(element, configuration);
+  render({
+    required covariant _TableCellBaseConfiguration configuration,
+  }) {
+    var elementDescription = super.render(
+      configuration: configuration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _TableCellBaseProps.prepareAttributes(
+        props: configuration,
+        oldProps: null,
+      ),
+    );
+
+    return elementDescription;
   }
 
   @override
   update({
-    required element,
     required updateType,
     required covariant _TableCellBaseConfiguration oldConfiguration,
     required covariant _TableCellBaseConfiguration newConfiguration,
   }) {
-    _TableCellBaseProps.clear(element, oldConfiguration);
-    _TableCellBaseProps.apply(element, newConfiguration);
+    var elementDescription = super.update(
+      updateType: updateType,
+      oldConfiguration: oldConfiguration.globalConfiguration,
+      newConfiguration: newConfiguration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _TableCellBaseProps.prepareAttributes(
+        props: newConfiguration,
+        oldProps: oldConfiguration,
+      ),
+    );
+
+    return elementDescription;
   }
 }
 
@@ -153,45 +174,36 @@ class _TableCellBaseRenderObject extends RenderObject {
 */
 
 class _TableCellBaseProps {
-  static void apply(HtmlElement element, _TableCellBaseConfiguration props) {
-    element as TableCellElement;
+  static Map<String, String?> prepareAttributes({
+    required _TableCellBaseConfiguration props,
+    required _TableCellBaseConfiguration? oldProps,
+  }) {
+    var attributes = <String, String?>{};
 
-    MarkUpGlobalProps.apply(element, props.globalConfiguration);
+    if (null != props.headers) {
+      attributes[Attributes.headers] = props.headers!;
+    } else {
+      if (null != oldProps?.headers) {
+        attributes[Attributes.headers] = null;
+      }
+    }
 
     if (null != props.rowSpan) {
-      element.rowSpan = props.rowSpan!;
+      attributes[Attributes.rowSpan] = "${props.rowSpan}";
+    } else {
+      if (null != oldProps?.rowSpan) {
+        attributes[Attributes.rowSpan] = null;
+      }
     }
 
     if (null != props.colSpan) {
-      element.colSpan = props.colSpan!;
+      attributes[Attributes.colSpan] = "${props.colSpan}";
+    } else {
+      if (null != oldProps?.colSpan) {
+        attributes[Attributes.colSpan] = null;
+      }
     }
 
-    if (null != props.headers) {
-      element.headers = props.headers;
-    }
+    return attributes;
   }
-
-  static void clear(HtmlElement element, _TableCellBaseConfiguration props) {
-    element as TableCellElement;
-
-    MarkUpGlobalProps.clear(element, props.globalConfiguration);
-
-    if (null != props.rowSpan) {
-      element.removeAttribute(_Attributes.rowSpan);
-    }
-
-    if (null != props.colSpan) {
-      element.removeAttribute(_Attributes.colSpan);
-    }
-
-    if (null != props.headers) {
-      element.removeAttribute(_Attributes.headers);
-    }
-  }
-}
-
-class _Attributes {
-  static const rowSpan = "rowspan";
-  static const colSpan = "colspan";
-  static const headers = "headers";
 }

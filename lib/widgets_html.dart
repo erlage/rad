@@ -1,8 +1,6 @@
-/*
-|--------------------------------------------------------------------------
-| HTML widgets
-|--------------------------------------------------------------------------
-*/
+/// HTML widgets.
+///
+library widgets_html;
 
 export 'src/widgets/html/headings.dart';
 export 'src/widgets/html/header.dart' show Header;

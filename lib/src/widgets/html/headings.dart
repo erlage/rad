@@ -12,6 +12,7 @@ class Heading1 extends MarkUpTagWithGlobalProps {
   const Heading1({
     Key? key,
     String? title,
+    String? id,
     String? style,
     String? classAttribute,
     int? tabIndex,
@@ -26,6 +27,7 @@ class Heading1 extends MarkUpTagWithGlobalProps {
     List<Widget>? children,
   }) : super(
           key: key,
+          id: id,
           title: title,
           style: style,
           classAttribute: classAttribute,
@@ -55,6 +57,7 @@ class Heading2 extends MarkUpTagWithGlobalProps {
   const Heading2({
     Key? key,
     String? title,
+    String? id,
     String? style,
     String? classAttribute,
     int? tabIndex,
@@ -69,6 +72,7 @@ class Heading2 extends MarkUpTagWithGlobalProps {
     List<Widget>? children,
   }) : super(
           key: key,
+          id: id,
           title: title,
           style: style,
           classAttribute: classAttribute,
@@ -98,6 +102,7 @@ class Heading3 extends MarkUpTagWithGlobalProps {
   const Heading3({
     Key? key,
     String? title,
+    String? id,
     String? style,
     String? classAttribute,
     int? tabIndex,
@@ -112,6 +117,7 @@ class Heading3 extends MarkUpTagWithGlobalProps {
     List<Widget>? children,
   }) : super(
           key: key,
+          id: id,
           title: title,
           style: style,
           classAttribute: classAttribute,
@@ -141,6 +147,7 @@ class Heading4 extends MarkUpTagWithGlobalProps {
   const Heading4({
     Key? key,
     String? title,
+    String? id,
     String? style,
     String? classAttribute,
     int? tabIndex,
@@ -155,6 +162,7 @@ class Heading4 extends MarkUpTagWithGlobalProps {
     List<Widget>? children,
   }) : super(
           key: key,
+          id: id,
           title: title,
           style: style,
           classAttribute: classAttribute,
@@ -184,6 +192,7 @@ class Heading5 extends MarkUpTagWithGlobalProps {
   const Heading5({
     Key? key,
     String? title,
+    String? id,
     String? style,
     String? classAttribute,
     int? tabIndex,
@@ -198,6 +207,7 @@ class Heading5 extends MarkUpTagWithGlobalProps {
     List<Widget>? children,
   }) : super(
           key: key,
+          id: id,
           title: title,
           style: style,
           classAttribute: classAttribute,
@@ -227,6 +237,7 @@ class Heading6 extends MarkUpTagWithGlobalProps {
   const Heading6({
     Key? key,
     String? title,
+    String? id,
     String? style,
     String? classAttribute,
     int? tabIndex,
@@ -241,6 +252,7 @@ class Heading6 extends MarkUpTagWithGlobalProps {
     List<Widget>? children,
   }) : super(
           key: key,
+          id: id,
           title: title,
           style: style,
           classAttribute: classAttribute,

@@ -1,19 +1,17 @@
-import 'dart:html';
-
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 
 /// The Option widget (HTML's `option` tag).
 ///
 class Option extends MarkUpTagWithGlobalProps {
-  /// he content of this attribute represents the value
+  /// The content of this attribute represents the value
   /// to be submitted with the form
   ///
   final String? value;
@@ -39,6 +37,7 @@ class Option extends MarkUpTagWithGlobalProps {
     this.disabled,
     this.label,
     Key? key,
+    String? id,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,
@@ -48,12 +47,13 @@ class Option extends MarkUpTagWithGlobalProps {
     String? classAttribute,
     Map<String, String>? dataAttributes,
     String? onClick,
-    EventCallback? onClickEventListener,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClickEventListener,
   }) : super(
           key: key,
+          id: id,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
@@ -63,10 +63,10 @@ class Option extends MarkUpTagWithGlobalProps {
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
           onClick: onClick,
-          onClickEventListener: onClickEventListener,
           innerText: innerText,
           child: child,
           children: children,
+          onClickEventListener: onClickEventListener,
         );
 
   @nonVirtual
@@ -111,11 +111,9 @@ class _OptionConfiguration extends WidgetConfiguration {
   final MarkUpGlobalConfiguration globalConfiguration;
 
   final String? value;
-
   final String? label;
 
   final bool? selected;
-
   final bool? disabled;
 
   const _OptionConfiguration({
@@ -133,26 +131,47 @@ class _OptionConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-class _OptionRenderObject extends RenderObject {
-  const _OptionRenderObject(BuildContext context) : super(context);
+class _OptionRenderObject extends MarkUpGlobalRenderObject {
+  _OptionRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _OptionConfiguration configuration,
-  ) {
-    _OptionProps.apply(element, configuration);
+  render({
+    required covariant _OptionConfiguration configuration,
+  }) {
+    var elementDescription = super.render(
+      configuration: configuration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _OptionProps.prepareAttributes(
+        props: configuration,
+        oldProps: null,
+      ),
+    );
+
+    return elementDescription;
   }
 
   @override
   update({
-    required element,
     required updateType,
     required covariant _OptionConfiguration oldConfiguration,
     required covariant _OptionConfiguration newConfiguration,
   }) {
-    _OptionProps.clear(element, oldConfiguration);
-    _OptionProps.apply(element, newConfiguration);
+    var elementDescription = super.update(
+      updateType: updateType,
+      oldConfiguration: oldConfiguration.globalConfiguration,
+      newConfiguration: newConfiguration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _OptionProps.prepareAttributes(
+        props: newConfiguration,
+        oldProps: oldConfiguration,
+      ),
+    );
+
+    return elementDescription;
   }
 }
 
@@ -163,54 +182,44 @@ class _OptionRenderObject extends RenderObject {
 */
 
 class _OptionProps {
-  static void apply(HtmlElement element, _OptionConfiguration props) {
-    element as OptionElement;
-
-    MarkUpGlobalProps.apply(element, props.globalConfiguration);
+  static Map<String, String?> prepareAttributes({
+    required _OptionConfiguration props,
+    required _OptionConfiguration? oldProps,
+  }) {
+    var attributes = <String, String?>{};
 
     if (null != props.value) {
-      element.value = props.value!;
+      attributes[Attributes.value] = props.value!;
+    } else {
+      if (null != oldProps?.value) {
+        attributes[Attributes.value] = null;
+      }
     }
 
     if (null != props.label) {
-      element.label = props.label;
+      attributes[Attributes.label] = props.label!;
+    } else {
+      if (null != oldProps?.label) {
+        attributes[Attributes.label] = null;
+      }
     }
 
     if (null != props.selected) {
-      element.selected = props.selected!;
+      attributes[Attributes.selected] = '${props.selected}';
+    } else {
+      if (null != oldProps?.selected) {
+        attributes[Attributes.selected] = null;
+      }
     }
 
     if (null != props.disabled) {
-      element.disabled = props.disabled!;
+      attributes[Attributes.disabled] = '${props.disabled}';
+    } else {
+      if (null != oldProps?.disabled) {
+        attributes[Attributes.disabled] = null;
+      }
     }
+
+    return attributes;
   }
-
-  static void clear(HtmlElement element, _OptionConfiguration props) {
-    element as OptionElement;
-
-    MarkUpGlobalProps.clear(element, props.globalConfiguration);
-
-    if (null != props.value) {
-      element.removeAttribute(_Attributes.value);
-    }
-
-    if (null != props.label) {
-      element.removeAttribute(_Attributes.label);
-    }
-
-    if (null != props.selected) {
-      element.removeAttribute(_Attributes.selected);
-    }
-
-    if (null != props.disabled) {
-      element.removeAttribute(_Attributes.disabled);
-    }
-  }
-}
-
-class _Attributes {
-  static const value = "value";
-  static const label = "label";
-  static const selected = "selected";
-  static const disabled = "disabled";
 }

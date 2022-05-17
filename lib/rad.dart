@@ -4,6 +4,12 @@
 |--------------------------------------------------------------------------
 */
 
+/// Rad's Main library.
+///
+/// This library contain general widgets and functions.
+///
+library rad;
+
 export 'src/core/common/types.dart';
 export 'src/core/common/enums.dart';
 export 'src/core/start_app.dart' show startApp, AppRunner;

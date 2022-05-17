@@ -1,14 +1,16 @@
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
-import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
-import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/core/services/services_registry.dart';
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/services/services_registry.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/objects/element_description.dart';
+import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
+import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
 
 /// A widget that does not require mutable state.
 ///
@@ -29,7 +31,7 @@ abstract class StatelessWidget extends Widget {
 
   @nonVirtual
   @override
-  get widgetType => "$StatelessWidget";
+  get widgetType => '$StatelessWidget';
 
   @nonVirtual
   @override
@@ -70,13 +72,30 @@ class _StatelessWidgetRenderObject extends RenderObject {
   const _StatelessWidgetRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _StatelessWidgetConfiguration configuration,
-  ) {
-    var schedulerService = ServicesRegistry.instance.getScheduler(context);
+  render({
+    required covariant _StatelessWidgetConfiguration configuration,
+  }) {
+    return ElementDescription(
+      attributes: {
+        'id': context.key.value,
+      },
+      dataset: {
+        Constants.attrWidgetType: '$StatelessWidget',
+      },
+    );
+  }
 
-    schedulerService.addTask(
+  @override
+  void afterMount() {
+    var services = ServicesRegistry.instance.getServices(context);
+
+    var widgetObject = services.walker.getWidgetObject(context)!;
+
+    var configuration = widgetObject.configuration;
+
+    configuration as _StatelessWidgetConfiguration;
+
+    services.scheduler.addTask(
       WidgetsBuildTask(
         parentContext: context,
         widgets: [configuration.widgetBuilder(context)],
@@ -86,7 +105,6 @@ class _StatelessWidgetRenderObject extends RenderObject {
 
   @override
   update({
-    required element,
     required updateType,
     required oldConfiguration,
     required covariant _StatelessWidgetConfiguration newConfiguration,
@@ -100,5 +118,8 @@ class _StatelessWidgetRenderObject extends RenderObject {
         widgets: [newConfiguration.widgetBuilder(context)],
       ),
     );
+
+    // stateless widget's element's description never changes.
+    return null;
   }
 }

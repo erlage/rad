@@ -1,121 +1,70 @@
-import 'dart:html';
-
 import 'package:rad/src/core/common/constants.dart';
 
 class CommonProps {
-  static void applyClassAttribute(HtmlElement element, String? classAttribute) {
-    if (null != classAttribute && classAttribute.isNotEmpty) {
-      var classList = classAttribute.split(" ")
-        ..removeWhere((element) => element.isEmpty);
+  static Map<String, bool> prepareClasses({
+    required String? classAttribute,
+    required String? oldClassAttribute,
+  }) {
+    var prepared = <String, bool>{};
 
-      if (classList.isNotEmpty) {
-        element.classes.addAll(classList);
+    if (null != classAttribute) {
+      var classList = _prepareClassList(classAttribute);
+
+      for (var className in classList) {
+        prepared[className] = true;
       }
     }
+
+    if (null != oldClassAttribute) {
+      var oldClassList = _prepareClassList(oldClassAttribute);
+
+      for (var className in oldClassList) {
+        prepared[className] = false;
+      }
+    }
+
+    return prepared;
   }
 
-  static void applyDataAttributes(
-    HtmlElement element,
-    Map<String, String>? dataAttributes,
-  ) {
-    if (null != dataAttributes && dataAttributes.isNotEmpty) {
-      // clean system reserved attributes(if user has set as part of dataset)
+  static Map<String, String?> prepareDataset({
+    required Map<String, String>? dataAttributes,
+    required Map<String, String>? oldDataAttributes,
+  }) {
+    var prepared = <String, String?>{};
+
+    if (null != dataAttributes) {
       dataAttributes.removeWhere(
         (key, value) => Constants.allAttributes.contains(key),
       );
 
-      element.dataset.addAll(dataAttributes);
-    }
-  }
-
-  static void clearClassAttribute(HtmlElement element, String? classAttribute) {
-    if (null != classAttribute && classAttribute.isNotEmpty) {
-      var classList = classAttribute.split(" ")
-        ..removeWhere((element) => element.isEmpty);
-
-      if (classList.isNotEmpty) {
-        element.classes.removeAll(classList);
+      for (var attributeName in dataAttributes.keys) {
+        prepared[attributeName] = dataAttributes[attributeName];
       }
     }
-  }
 
-  static void clearDataAttributes(
-    HtmlElement element,
-    Map<String, String>? dataAttributes,
-  ) {
-    if (null != dataAttributes && dataAttributes.isNotEmpty) {
-      element.dataset.removeWhere(
-        (key, value) => dataAttributes.containsKey(key),
+    if (null != oldDataAttributes) {
+      oldDataAttributes.removeWhere(
+        (key, value) {
+          var isSet = null != dataAttributes && dataAttributes.containsKey(key);
+          var isReserved = Constants.allAttributes.contains(key);
 
-        // no need to check whether attributes contains any system reserved
-        // attributes beacuse oldAttributes were cleaned during the time of
-        // initial apply in apply() function.
-
-        // return attr...contain..(key) && !Constants.allAttr...contains(key);
+          return isSet || isReserved;
+        },
       );
-    }
-  }
 
-  static void applySizeProps(
-    HtmlElement element, {
-    String? width,
-    String? height,
-    String? size,
-  }) {
-    if (null != size && size.isNotEmpty) {
-      var sizeProps = size.split(" ");
-
-      if (sizeProps.isNotEmpty) {
-        if ("_" != sizeProps.first) {
-          element.style.width = sizeProps.first;
-        }
-
-        if (sizeProps.length > 1 && "_" != sizeProps[1]) {
-          element.style.height = sizeProps[1];
-        }
-      }
-    } else {
-      if (null != width) {
-        element.style.width = width;
-      }
-
-      if (null != height) {
-        element.style.height = height;
+      for (var attributeName in oldDataAttributes.keys) {
+        prepared[attributeName] = null;
       }
     }
+
+    return prepared;
   }
 
-  static void clearSizeProps(
-    HtmlElement element, {
-    String? width,
-    String? height,
-    String? size,
-  }) {
-    if (null != size && size.isNotEmpty) {
-      var sizeProps = size.split(" ");
-
-      if (sizeProps.isNotEmpty) {
-        if ("_" != sizeProps.first) {
-          element.style.removeProperty(_Props.width);
-        }
-
-        if (sizeProps.length > 1 && "_" != sizeProps[1]) {
-          element.style.removeProperty(_Props.height);
-        }
-      }
-    } else {
-      if (null != width) {
-        element.style.removeProperty(_Props.width);
-      }
-
-      if (null != height) {
-        element.style.removeProperty(_Props.height);
-      }
+  static List<String> _prepareClassList(String classAttribute) {
+    if (classAttribute.isEmpty) {
+      return [];
     }
-  }
-}
 
-class _Props {
-  static const width = "width";
-  static const height = "height";
+    return classAttribute.split(" ")..removeWhere((element) => element.isEmpty);
+  }
 }

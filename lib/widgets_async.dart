@@ -1,8 +1,6 @@
-/*
-|--------------------------------------------------------------------------
-| async related exports 
-|--------------------------------------------------------------------------
-*/
+/// Async widgets.
+///
+library widgets_async;
 
 export 'src/include/async/connection_state.dart' show ConnectionState;
 export 'src/include/async/async_snapshot.dart' show AsyncSnapshot;

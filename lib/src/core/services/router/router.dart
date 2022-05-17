@@ -96,7 +96,7 @@ class Router extends Service {
 
       var encodedValues = fnEncodeKeyValueMap(values);
 
-      var historyEntry = protectedSegs.join("/") + "/$name$encodedValues";
+      var historyEntry = "${protectedSegs.join("/")}/$name$encodedValues";
 
       var currentPath = Window.delegate.locationPathName;
 
@@ -154,7 +154,7 @@ class Router extends Service {
 
     var encodedValues = fnEncodeKeyValueMap(values);
 
-    var historyEntry = protectedSegs.join("/") + "/$name$encodedValues";
+    var historyEntry = "${protectedSegs.join("/")}/$name$encodedValues";
 
     var currentPath = Window.delegate.locationPathName;
 
@@ -430,8 +430,7 @@ class Router extends Service {
   void _register(BuildContext context, List<Route> routes) {
     var walkerService = ServicesRegistry.instance.getWalker(context);
 
-    var parentRenderObject =
-        walkerService.findAncestorWidgetObjectOfType<Navigator>(
+    var parentRenderObject = walkerService.findAncestorWidgetObject<Navigator>(
       context.parent,
     );
 

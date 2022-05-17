@@ -1,15 +1,13 @@
-import 'dart:html';
-
 import 'package:meta/meta.dart';
 
-import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/core/common/functions.dart';
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 
 /// The Form widget (HTML's `form` tag).
 ///
@@ -38,12 +36,6 @@ class Form extends MarkUpTagWithGlobalProps {
   ///
   final String? target;
 
-  /// On form submit.
-  ///
-  /// Use event.preventDefault() to prevent default action.
-  ///
-  final EventCallback? onSubmitEventListener;
-
   const Form({
     this.name,
     this.action,
@@ -51,8 +43,8 @@ class Form extends MarkUpTagWithGlobalProps {
     this.enctype,
     this.target,
     this.method,
-    this.onSubmitEventListener,
     Key? key,
+    String? id,
     String? title,
     String? style,
     String? classAttribute,
@@ -62,12 +54,14 @@ class Form extends MarkUpTagWithGlobalProps {
     Map<String, String>? dataAttributes,
     bool? hidden,
     String? onClick,
-    EventCallback? onClickEventListener,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onSubmitEventListener,
+    EventCallback? onClickEventListener,
   }) : super(
           key: key,
+          id: id,
           title: title,
           style: style,
           classAttribute: classAttribute,
@@ -77,10 +71,11 @@ class Form extends MarkUpTagWithGlobalProps {
           dataAttributes: dataAttributes,
           hidden: hidden,
           onClick: onClick,
-          onClickEventListener: onClickEventListener,
           innerText: innerText,
           child: child,
           children: children,
+          onSubmitEventListener: onSubmitEventListener,
+          onClickEventListener: onClickEventListener,
         );
 
   @nonVirtual
@@ -98,7 +93,7 @@ class Form extends MarkUpTagWithGlobalProps {
       accept: accept,
       enctype: enctype,
       method: method,
-      onSubmitEventListener: onSubmitEventListener,
+      target: target,
       globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
@@ -114,8 +109,6 @@ class Form extends MarkUpTagWithGlobalProps {
         target != oldConfiguration.target ||
         enctype != oldConfiguration.enctype ||
         method != oldConfiguration.method ||
-        onSubmitEventListener.runtimeType !=
-            oldConfiguration.onSubmitEventListener.runtimeType ||
         super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }
 
@@ -138,7 +131,6 @@ class _FormConfiguration extends WidgetConfiguration {
   final String? target;
   final FormEncType? enctype;
   final FormMethod? method;
-  final EventCallback? onSubmitEventListener;
 
   const _FormConfiguration({
     this.name,
@@ -147,7 +139,6 @@ class _FormConfiguration extends WidgetConfiguration {
     this.target,
     this.method,
     this.enctype,
-    this.onSubmitEventListener,
     required this.globalConfiguration,
   });
 }
@@ -158,26 +149,47 @@ class _FormConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-class _FormRenderObject extends RenderObject {
-  const _FormRenderObject(BuildContext context) : super(context);
+class _FormRenderObject extends MarkUpGlobalRenderObject {
+  _FormRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _FormConfiguration configuration,
-  ) {
-    _FormProps.apply(element, configuration);
+  render({
+    required covariant _FormConfiguration configuration,
+  }) {
+    var elementDescription = super.render(
+      configuration: configuration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _FormProps.prepareAttributes(
+        props: configuration,
+        oldProps: null,
+      ),
+    );
+
+    return elementDescription;
   }
 
   @override
   update({
-    required element,
     required updateType,
     required covariant _FormConfiguration oldConfiguration,
     required covariant _FormConfiguration newConfiguration,
   }) {
-    _FormProps.clear(element, oldConfiguration);
-    _FormProps.apply(element, newConfiguration);
+    var elementDescription = super.update(
+      updateType: updateType,
+      oldConfiguration: oldConfiguration.globalConfiguration,
+      newConfiguration: newConfiguration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _FormProps.prepareAttributes(
+        props: newConfiguration,
+        oldProps: oldConfiguration,
+      ),
+    );
+
+    return elementDescription;
   }
 }
 
@@ -188,77 +200,52 @@ class _FormRenderObject extends RenderObject {
 */
 
 class _FormProps {
-  static void apply(HtmlElement element, _FormConfiguration props) {
-    element as FormElement;
-
-    MarkUpGlobalProps.apply(element, props.globalConfiguration);
+  static Map<String, String?> prepareAttributes({
+    required _FormConfiguration props,
+    required _FormConfiguration? oldProps,
+  }) {
+    var attributes = <String, String?>{};
 
     if (null != props.name) {
-      element.name = props.name;
+      attributes[Attributes.name] = props.name!;
+    } else {
+      if (null != oldProps?.name) {
+        attributes[Attributes.name] = null;
+      }
     }
 
     if (null != props.accept) {
-      element.acceptCharset = props.accept;
+      attributes[Attributes.accept] = props.accept!;
+    } else {
+      if (null != oldProps?.accept) {
+        attributes[Attributes.accept] = null;
+      }
     }
 
     if (null != props.target) {
-      element.target = props.target;
+      attributes[Attributes.target] = props.target!;
+    } else {
+      if (null != oldProps?.target) {
+        attributes[Attributes.target] = null;
+      }
     }
 
     if (null != props.method) {
-      element.method = fnMapFormMethod(props.method!);
+      attributes[Attributes.method] = fnMapFormMethod(props.method!);
+    } else {
+      if (null != oldProps?.method) {
+        attributes[Attributes.method] = null;
+      }
     }
 
     if (null != props.enctype) {
-      element.enctype = fnMapFormEncType(props.enctype!);
+      attributes[Attributes.enctype] = fnMapFormEncType(props.enctype!);
+    } else {
+      if (null != oldProps?.enctype) {
+        attributes[Attributes.enctype] = null;
+      }
     }
 
-    if (null != props.onSubmitEventListener) {
-      element.addEventListener(
-        fnMapDomEventType(DomEventType.submit),
-        props.onSubmitEventListener,
-      );
-    }
+    return attributes;
   }
-
-  static void clear(HtmlElement element, _FormConfiguration props) {
-    element as FormElement;
-
-    MarkUpGlobalProps.clear(element, props.globalConfiguration);
-
-    if (null != props.name) {
-      element.removeAttribute(_Attributes.name);
-    }
-
-    if (null != props.target) {
-      element.removeAttribute(_Attributes.target);
-    }
-
-    if (null != props.accept) {
-      element.removeAttribute(_Attributes.accept);
-    }
-
-    if (null != props.method) {
-      element.removeAttribute(_Attributes.method);
-    }
-
-    if (null != props.enctype) {
-      element.removeAttribute(_Attributes.enctype);
-    }
-
-    if (null != props.onSubmitEventListener) {
-      element.removeEventListener(
-        fnMapDomEventType(DomEventType.submit),
-        props.onSubmitEventListener,
-      );
-    }
-  }
-}
-
-class _Attributes {
-  static const name = "name";
-  static const accept = "accept";
-  static const method = "method";
-  static const enctype = "enctype";
-  static const target = "target";
 }

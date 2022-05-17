@@ -1,22 +1,21 @@
 import 'dart:html';
 
+import 'package:rad/src/core/framework.dart';
+import 'package:rad/src/widgets/rad_app.dart';
+import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/css/main.generated.dart';
 import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/services/services.dart';
+import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/interface/window/window.dart';
 import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/interface/components/components.dart';
 import 'package:rad/src/core/common/objects/options/debug_options.dart';
 import 'package:rad/src/core/common/objects/options/router_options.dart';
-import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/core/interface/components/components.dart';
-import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/interface/window/delegates/browser_window.dart';
-import 'package:rad/src/core/interface/window/window.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
-import 'package:rad/src/core/services/services.dart';
-import 'package:rad/src/css/main.generated.dart';
-import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/rad_app.dart';
-import 'package:rad/src/widgets/utils/common_props.dart';
 
 /// Inflate the given widget and attach it to the screen.
 ///
@@ -149,13 +148,10 @@ class AppRunner {
     var targetElement = document.getElementById(targetId) as HtmlElement?;
 
     if (null == targetElement) {
-      throw "Unable to locate target element in HTML document";
+      throw 'Unable to locate target element in HTML document';
     }
 
-    CommonProps.applyDataAttributes(targetElement, {
-      Constants.attrWidgetType: "Target",
-      Constants.attrRuntimeType: Constants.contextTypeBigBang,
-    });
+    targetElement.dataset[Constants.attrWidgetType] = 'Target';
 
     Components(rootContext: rootContext).injectStyles(
       GEN_STYLES_MAIN_CSS,

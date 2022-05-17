@@ -1,12 +1,11 @@
-import 'dart:html';
-
 import 'package:meta/meta.dart';
 
+import 'package:rad/widgets_internals.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/element_description.dart';
 
 /// A widget that helps pushing raw contents to the DOM.
 ///
@@ -67,36 +66,18 @@ class _RawMarkupRenderObject extends RenderObject {
   const _RawMarkupRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _RawMarkUpConfiguration configuration,
-  ) {
-    element.setInnerHtml(configuration.html, validator: const _None());
+  render({
+    required covariant _RawMarkUpConfiguration configuration,
+  }) {
+    return ElementDescription(rawContents: configuration.html);
   }
 
   @override
   update({
-    required element,
     required updateType,
     required oldConfiguration,
     required covariant _RawMarkUpConfiguration newConfiguration,
   }) {
-    element.setInnerHtml(newConfiguration.html, validator: const _None());
+    return ElementDescription(rawContents: newConfiguration.html);
   }
-}
-
-/*
-|--------------------------------------------------------------------------
-| validator
-|--------------------------------------------------------------------------
-*/
-
-class _None implements NodeValidator {
-  const _None();
-
-  @override
-  allowsElement(_) => true;
-
-  @override
-  allowsAttribute(_, __, ___) => true;
 }

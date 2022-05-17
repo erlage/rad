@@ -10,8 +10,9 @@ import 'package:rad/src/core/common/objects/key.dart';
 ///
 class TableColumnGroup extends TableColumnBase {
   const TableColumnGroup({
-    int? span,
     Key? key,
+    String? id,
+    int? span,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,
@@ -27,6 +28,7 @@ class TableColumnGroup extends TableColumnBase {
     List<Widget>? children,
   }) : super(
           key: key,
+          id: id,
           span: span,
           title: title,
           tabIndex: tabIndex,

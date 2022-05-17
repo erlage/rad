@@ -11,6 +11,7 @@ import 'package:rad/src/core/common/objects/key.dart';
 class Header extends MarkUpTagWithGlobalProps {
   const Header({
     Key? key,
+    String? id,
     String? title,
     String? style,
     String? classAttribute,
@@ -26,6 +27,7 @@ class Header extends MarkUpTagWithGlobalProps {
     List<Widget>? children,
   }) : super(
           key: key,
+          id: id,
           title: title,
           style: style,
           classAttribute: classAttribute,

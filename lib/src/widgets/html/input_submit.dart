@@ -11,6 +11,7 @@ import 'package:rad/src/core/common/objects/key.dart';
 class InputSubmit extends InputTag {
   const InputSubmit({
     Key? key,
+    String? id,
     String? name,
     String? value,
     bool? required,
@@ -24,12 +25,13 @@ class InputSubmit extends InputTag {
     Map<String, String>? dataAttributes,
     bool? hidden,
     String? onClick,
-    EventCallback? onClickEventListener,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClickEventListener,
   }) : super(
           key: key,
+          id: id,
           type: InputType.submit,
           name: name,
           disabled: disabled,
@@ -44,11 +46,10 @@ class InputSubmit extends InputTag {
           dataAttributes: dataAttributes,
           hidden: hidden,
           onClick: onClick,
-          onClickEventListener: onClickEventListener,
-          eventListenerCallback: onClickEventListener,
           innerText: innerText,
           child: child,
           children: children,
+          onClickEventListener: onClickEventListener,
         );
 
   @nonVirtual

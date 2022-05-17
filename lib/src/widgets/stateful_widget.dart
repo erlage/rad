@@ -1,19 +1,19 @@
 import 'package:meta/meta.dart';
 
-import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/core/services/scheduler/tasks/stimulate_listener_task.dart';
-import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
-import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
-import 'package:rad/src/core/services/services_registry.dart';
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateless_widget.dart';
-import 'package:rad/src/widgets/utils/common_props.dart';
-import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/services/services_registry.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/objects/element_description.dart';
+import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
+import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
+import 'package:rad/src/core/services/scheduler/tasks/stimulate_listener_task.dart';
 
 /// A widget that has mutable state.
 ///
@@ -141,13 +141,23 @@ class StatefulWidgetRenderObject extends RenderObject {
   }) : super(context);
 
   @override
-  render(element, configuration) {
-    CommonProps.applyDataAttributes(element, {
-      Constants.attrStateType: "${state.runtimeType}",
-    });
+  render({
+    required configuration,
+  }) {
+    return ElementDescription(
+      attributes: {
+        'id': context.key.value,
+      },
+      dataset: {
+        Constants.attrWidgetType: '$StatefulWidget',
+      },
+    );
+  }
 
+  @override
+  afterMount() {
     var services = ServicesRegistry.instance.getServices(context);
-    var widget = services.walker.getWidgetObject(context.key.value)!.widget;
+    var widget = services.walker.getWidgetObject(context)!.widget;
 
     state
       ..frameworkBindWidget(widget)
@@ -164,19 +174,7 @@ class StatefulWidgetRenderObject extends RenderObject {
   }
 
   @override
-  afterWidgetRebind({
-    required updateType,
-    required covariant StatefulWidget newWidget,
-    required covariant StatefulWidget oldWidget,
-  }) {
-    state
-      ..frameworkRebindWidget(newWidget)
-      ..didUpdateWidget(oldWidget);
-  }
-
-  @override
   update({
-    required element,
     required updateType,
     required oldConfiguration,
     required newConfiguration,
@@ -194,6 +192,20 @@ class StatefulWidgetRenderObject extends RenderObject {
         widgets: [state.build(context)],
       ),
     );
+
+    // state's element's description never changes
+    return null;
+  }
+
+  @override
+  afterWidgetRebind({
+    required updateType,
+    required covariant StatefulWidget newWidget,
+    required covariant StatefulWidget oldWidget,
+  }) {
+    state
+      ..frameworkRebindWidget(newWidget)
+      ..didUpdateWidget(oldWidget);
   }
 
   @override

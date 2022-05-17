@@ -29,6 +29,11 @@ abstract class Widget {
   ///
   DomTag get correspondingTag;
 
+  /// Whether framework rebind widget of this type even if configuration
+  /// of the widget hasn't changed.
+  ///
+  bool get shouldAlwaysRebindWidget => false;
+
   /// Child widgets if any.
   ///
   List<Widget> get widgetChildren => [];

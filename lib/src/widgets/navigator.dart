@@ -1,23 +1,24 @@
 import 'package:meta/meta.dart';
 
-import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/widget_object.dart';
-import 'package:rad/src/core/services/router/open_history_entry.dart';
-import 'package:rad/src/core/services/services.dart';
+import 'package:rad/src/widgets/route.dart';
+import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/common/functions.dart';
+import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/services/services.dart';
+import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/widgets/stateful_widget.dart';
 import 'package:rad/src/core/services/services_registry.dart';
+import 'package:rad/src/core/services/services_resolver.dart';
+import 'package:rad/src/core/common/objects/widget_object.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/objects/element_description.dart';
+import 'package:rad/src/core/services/router/open_history_entry.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_manage_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
-import 'package:rad/src/core/common/constants.dart';
-import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
-import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/core/services/services_resolver.dart';
-import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/route.dart';
-import 'package:rad/src/widgets/stateful_widget.dart';
 
 /// Navigator widget.
 ///
@@ -312,8 +313,9 @@ class Navigator extends Widget {
     var targetContext = context;
 
     while (true) {
-      var widgetObject = services.walker
-          .findAncestorWidgetObjectOfType<Navigator>(targetContext);
+      var widgetObject = services.walker.findAncestorWidgetObject<Navigator>(
+        targetContext,
+      );
 
       if (null == widgetObject) {
         services.debug.exception(
@@ -405,19 +407,37 @@ class NavigatorRenderObject extends RenderObject {
   }) : super(context);
 
   @override
-  render(element, configuration) => state
-    ..frameworkBindUpdateProcedure(updateProcedure)
-    ..frameworkInitState()
-    ..frameworkRender();
+  render({
+    required configuration,
+  }) {
+    return ElementDescription(
+      attributes: {
+        'id': context.key.value,
+      },
+      dataset: {
+        Constants.attrWidgetType: '$Navigator',
+      },
+    );
+  }
+
+  @override
+  afterMount() {
+    state
+      ..frameworkBindUpdateProcedure(updateProcedure)
+      ..frameworkInitState()
+      ..frameworkRender();
+  }
 
   @override
   update({
-    required element,
     required updateType,
     required oldConfiguration,
     required newConfiguration,
   }) {
     state.frameworkUpdate(updateType);
+
+    // Navigator's element's description never changes
+    return null;
   }
 
   @override
@@ -576,12 +596,14 @@ class NavigatorState with ServicesResolver {
           flagIterateInReverseOrder: true,
           updateType: UpdateType.setState,
           widgetActionCallback: (WidgetObject widgetObject) {
-            var element = widgetObject.element;
+            var configuration = widgetObject.configuration;
 
-            var routeName = element.dataset[Constants.attrRouteName];
+            if (configuration is RouteConfiguration) {
+              var routeName = configuration.name;
 
-            if (name == routeName) {
-              return [WidgetAction.showWidget];
+              if (name == routeName) {
+                return [WidgetAction.showWidget];
+              }
             }
 
             return [WidgetAction.hideWidget];
@@ -637,12 +659,14 @@ class NavigatorState with ServicesResolver {
         parentContext: context,
         flagIterateInReverseOrder: true,
         widgetActionCallback: (WidgetObject widgetObject) {
-          var element = widgetObject.element;
+          var configuration = widgetObject.configuration;
 
-          var name = element.dataset[Constants.attrRouteName] ?? "";
+          if (configuration is RouteConfiguration) {
+            var routeName = configuration.name;
 
-          if (previousPage.name == name) {
-            return [WidgetAction.showWidget];
+            if (previousPage.name == routeName) {
+              return [WidgetAction.showWidget];
+            }
           }
 
           return [WidgetAction.hideWidget];
@@ -793,12 +817,14 @@ class NavigatorState with ServicesResolver {
         flagIterateInReverseOrder: true,
         updateType: updateType,
         widgetActionCallback: (WidgetObject widgetObject) {
-          var element = widgetObject.element;
+          var configuration = widgetObject.configuration;
 
-          var name = element.dataset[Constants.attrRouteName] ?? "";
+          if (configuration is RouteConfiguration) {
+            var routeName = configuration.name;
 
-          if (currentRouteName == name) {
-            return [WidgetAction.updateWidget];
+            if (currentRouteName == routeName) {
+              return [WidgetAction.updateWidget];
+            }
           }
 
           return [];

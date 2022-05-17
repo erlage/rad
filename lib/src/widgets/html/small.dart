@@ -14,6 +14,7 @@ import 'package:rad/src/core/common/objects/key.dart';
 class Small extends MarkUpTagWithGlobalProps {
   const Small({
     Key? key,
+    String? id,
     String? title,
     String? style,
     String? classAttribute,
@@ -29,6 +30,7 @@ class Small extends MarkUpTagWithGlobalProps {
     List<Widget>? children,
   }) : super(
           key: key,
+          id: id,
           title: title,
           style: style,
           classAttribute: classAttribute,

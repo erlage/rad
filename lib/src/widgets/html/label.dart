@@ -1,14 +1,12 @@
-import 'dart:html';
-
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 
 /// The Label widget (HTML's `label` tag).
 ///
@@ -20,6 +18,7 @@ class Label extends MarkUpTagWithGlobalProps {
 
   const Label({
     Key? key,
+    String? id,
     this.forAttribute,
     bool? hidden,
     bool? draggable,
@@ -30,12 +29,13 @@ class Label extends MarkUpTagWithGlobalProps {
     String? classAttribute,
     Map<String, String>? dataAttributes,
     String? onClick,
-    EventCallback? onClickEventListener,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClickEventListener,
   }) : super(
           key: key,
+          id: id,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
@@ -45,10 +45,10 @@ class Label extends MarkUpTagWithGlobalProps {
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
           onClick: onClick,
-          onClickEventListener: onClickEventListener,
           innerText: innerText,
           child: child,
           children: children,
+          onClickEventListener: onClickEventListener,
         );
 
   @nonVirtual
@@ -100,26 +100,47 @@ class _LabelConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-class _LabelRenderObject extends RenderObject {
-  const _LabelRenderObject(BuildContext context) : super(context);
+class _LabelRenderObject extends MarkUpGlobalRenderObject {
+  _LabelRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _LabelConfiguration configuration,
-  ) {
-    _LabelProps.apply(element, configuration);
+  render({
+    required covariant _LabelConfiguration configuration,
+  }) {
+    var elementDescription = super.render(
+      configuration: configuration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _LabelProps.prepareAttributes(
+        props: configuration,
+        oldProps: null,
+      ),
+    );
+
+    return elementDescription;
   }
 
   @override
   update({
-    required element,
     required updateType,
     required covariant _LabelConfiguration oldConfiguration,
     required covariant _LabelConfiguration newConfiguration,
   }) {
-    _LabelProps.clear(element, oldConfiguration);
-    _LabelProps.apply(element, newConfiguration);
+    var elementDescription = super.update(
+      updateType: updateType,
+      oldConfiguration: oldConfiguration.globalConfiguration,
+      newConfiguration: newConfiguration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _LabelProps.prepareAttributes(
+        props: newConfiguration,
+        oldProps: oldConfiguration,
+      ),
+    );
+
+    return elementDescription;
   }
 }
 
@@ -130,27 +151,20 @@ class _LabelRenderObject extends RenderObject {
 */
 
 class _LabelProps {
-  static void apply(HtmlElement element, _LabelConfiguration props) {
-    element as LabelElement;
-
-    MarkUpGlobalProps.apply(element, props.globalConfiguration);
-
-    if (null != props.forAttribute) {
-      element.htmlFor = props.forAttribute!;
-    }
-  }
-
-  static void clear(HtmlElement element, _LabelConfiguration props) {
-    element as LabelElement;
-
-    MarkUpGlobalProps.clear(element, props.globalConfiguration);
+  static Map<String, String?> prepareAttributes({
+    required _LabelConfiguration props,
+    required _LabelConfiguration? oldProps,
+  }) {
+    var attributes = <String, String?>{};
 
     if (null != props.forAttribute) {
-      element.removeAttribute(_Attributes.forAttribute);
+      attributes[Attributes.forAttribute] = props.forAttribute!;
+    } else {
+      if (null != oldProps?.forAttribute) {
+        attributes[Attributes.forAttribute] = null;
+      }
     }
-  }
-}
 
-class _Attributes {
-  static const forAttribute = "for";
+    return attributes;
+  }
 }

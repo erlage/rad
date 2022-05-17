@@ -1,13 +1,13 @@
 import 'package:meta/meta.dart';
 
-import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/widgets/navigator.dart';
+import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/navigator.dart';
-import 'package:rad/src/widgets/utils/common_props.dart';
-import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/element_description.dart';
 
 /// Route is a [Navigator] specific widget.
 ///
@@ -47,15 +47,15 @@ class Route extends Widget {
   get widgetChildren => [page];
 
   @override
-  createConfiguration() => _RouteConfiguration(name: name, path: path);
+  createConfiguration() => RouteConfiguration(name: name, path: path);
 
   @override
-  isConfigurationChanged(covariant _RouteConfiguration oldConfiguration) {
+  isConfigurationChanged(covariant RouteConfiguration oldConfiguration) {
     return path != oldConfiguration.path || name != oldConfiguration.name;
   }
 
   @override
-  createRenderObject(context) => _RouteRenderObject(context);
+  createRenderObject(context) => RouteRenderObject(context);
 }
 
 /*
@@ -64,11 +64,11 @@ class Route extends Widget {
 |--------------------------------------------------------------------------
 */
 
-class _RouteConfiguration extends WidgetConfiguration {
+class RouteConfiguration extends WidgetConfiguration {
   final String name;
   final String path;
 
-  const _RouteConfiguration({required this.name, required this.path});
+  const RouteConfiguration({required this.name, required this.path});
 }
 
 /*
@@ -77,35 +77,36 @@ class _RouteConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-class _RouteRenderObject extends RenderObject {
-  const _RouteRenderObject(BuildContext context) : super(context);
+class RouteRenderObject extends RenderObject {
+  const RouteRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _RouteConfiguration configuration,
-  ) {
-    CommonProps.applyDataAttributes(element, {
-      Constants.attrRouteName: configuration.name,
-      Constants.attrRoutePath: configuration.path,
-    });
+  render({
+    required covariant RouteConfiguration configuration,
+  }) {
+    return ElementDescription(
+      attributes: {
+        'id': context.key.value,
+      },
+      dataset: {
+        Constants.attrWidgetType: '$Route',
+      },
+    );
   }
 
   @override
   update({
-    required element,
     required updateType,
-    required covariant _RouteConfiguration oldConfiguration,
-    required covariant _RouteConfiguration newConfiguration,
+    required oldConfiguration,
+    required covariant RouteConfiguration newConfiguration,
   }) {
-    CommonProps.clearDataAttributes(element, {
-      Constants.attrRouteName: oldConfiguration.name,
-      Constants.attrRoutePath: oldConfiguration.path,
-    });
-
-    CommonProps.applyDataAttributes(element, {
-      Constants.attrRouteName: newConfiguration.name,
-      Constants.attrRoutePath: newConfiguration.path,
-    });
+    return ElementDescription(
+      attributes: {
+        'id': context.key.value,
+      },
+      dataset: {
+        Constants.attrWidgetType: '$Route',
+      },
+    );
   }
 }

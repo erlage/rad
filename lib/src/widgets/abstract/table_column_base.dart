@@ -1,10 +1,8 @@
-import 'dart:html';
-
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 
 /// Abstract class for TableColumn and TableColumnGroup.
@@ -19,6 +17,7 @@ abstract class TableColumnBase extends MarkUpTagWithGlobalProps {
   const TableColumnBase({
     this.span,
     Key? key,
+    String? id,
     bool? hidden,
     bool? draggable,
     bool? contenteditable,
@@ -28,12 +27,13 @@ abstract class TableColumnBase extends MarkUpTagWithGlobalProps {
     String? classAttribute,
     Map<String, String>? dataAttributes,
     String? onClick,
-    EventCallback? onClickEventListener,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClickEventListener,
   }) : super(
           key: key,
+          id: id,
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
@@ -43,10 +43,10 @@ abstract class TableColumnBase extends MarkUpTagWithGlobalProps {
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
           onClick: onClick,
-          onClickEventListener: onClickEventListener,
           innerText: innerText,
           child: child,
           children: children,
+          onClickEventListener: onClickEventListener,
         );
 
   @override
@@ -93,26 +93,47 @@ class _TableColumnBaseConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-class _TableColumnBaseRenderObject extends RenderObject {
-  const _TableColumnBaseRenderObject(BuildContext context) : super(context);
+class _TableColumnBaseRenderObject extends MarkUpGlobalRenderObject {
+  _TableColumnBaseRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _TableColumnBaseConfiguration configuration,
-  ) {
-    _TableColumnProps.apply(element, configuration);
+  render({
+    required covariant _TableColumnBaseConfiguration configuration,
+  }) {
+    var elementDescription = super.render(
+      configuration: configuration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _TableColumnProps.prepareAttributes(
+        props: configuration,
+        oldProps: null,
+      ),
+    );
+
+    return elementDescription;
   }
 
   @override
   update({
-    required element,
     required updateType,
     required covariant _TableColumnBaseConfiguration oldConfiguration,
     required covariant _TableColumnBaseConfiguration newConfiguration,
   }) {
-    _TableColumnProps.clear(element, oldConfiguration);
-    _TableColumnProps.apply(element, newConfiguration);
+    var elementDescription = super.update(
+      updateType: updateType,
+      oldConfiguration: oldConfiguration.globalConfiguration,
+      newConfiguration: newConfiguration.globalConfiguration,
+    );
+
+    elementDescription?.attributes.addAll(
+      _TableColumnProps.prepareAttributes(
+        props: newConfiguration,
+        oldProps: oldConfiguration,
+      ),
+    );
+
+    return elementDescription;
   }
 }
 
@@ -123,27 +144,20 @@ class _TableColumnBaseRenderObject extends RenderObject {
 */
 
 class _TableColumnProps {
-  static void apply(HtmlElement element, _TableColumnBaseConfiguration props) {
-    element as TableColElement;
-
-    MarkUpGlobalProps.apply(element, props.globalConfiguration);
-
-    if (null != props.span) {
-      element.span = props.span!;
-    }
-  }
-
-  static void clear(HtmlElement element, _TableColumnBaseConfiguration props) {
-    element as TableColElement;
-
-    MarkUpGlobalProps.clear(element, props.globalConfiguration);
+  static Map<String, String?> prepareAttributes({
+    required _TableColumnBaseConfiguration props,
+    required _TableColumnBaseConfiguration? oldProps,
+  }) {
+    var attributes = <String, String?>{};
 
     if (null != props.span) {
-      element.removeAttribute(_Attributes.span);
+      attributes[Attributes.span] = "${props.span}";
+    } else {
+      if (null != oldProps?.span) {
+        attributes[Attributes.span] = null;
+      }
     }
-  }
-}
 
-class _Attributes {
-  static const span = "span";
+    return attributes;
+  }
 }

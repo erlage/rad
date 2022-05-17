@@ -2,18 +2,21 @@ import 'dart:html';
 
 import 'package:meta/meta.dart';
 
-import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/widgets/html/division.dart';
+import 'package:rad/src/core/services/services.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/widgets/utils/common_props.dart';
+import 'package:rad/src/core/services/services_registry.dart';
+import 'package:rad/src/core/services/services_resolver.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/objects/element_description.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
-import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/core/services/services_resolver.dart';
-import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/html/division.dart';
-import 'package:rad/src/widgets/utils/common_props.dart';
-import 'package:rad/src/core/common/objects/key.dart';
 
 /// Creates a scrollable, linear array of widgets from an explicit [List].
 ///
@@ -186,22 +189,32 @@ class ListViewRenderObject extends RenderObject {
   const ListViewRenderObject(BuildContext context) : super(context);
 
   @override
-  render(
-    element,
-    covariant _ListViewConfiguration configuration,
-  ) {
-    _ListViewProps.apply(element, configuration);
+  render({
+    required covariant _ListViewConfiguration configuration,
+  }) {
+    return ElementDescription(
+      dataset: {
+        Constants.attrWidgetType: '$ListView',
+      },
+      classes: _ListViewProps.prepareClasses(
+        props: configuration,
+        oldProps: null,
+      ),
+    );
   }
 
   @override
   update({
-    required element,
     required updateType,
     required covariant _ListViewConfiguration oldConfiguration,
     required covariant _ListViewConfiguration newConfiguration,
   }) {
-    _ListViewProps.clear(element, oldConfiguration);
-    _ListViewProps.apply(element, newConfiguration);
+    return ElementDescription(
+      classes: _ListViewProps.prepareClasses(
+        props: newConfiguration,
+        oldProps: oldConfiguration,
+      ),
+    );
   }
 }
 
@@ -220,24 +233,39 @@ class ListViewBuilderRenderObject extends RenderObject {
   }) : super(context);
 
   @override
-  render(
-    element,
-    covariant _ListViewBuilderConfiguration configuration,
-  ) {
-    _ListViewProps.apply(element, configuration.baseConfiguration);
-
-    var layoutType = configuration.baseConfiguration.layoutType;
+  render({
+    required covariant _ListViewBuilderConfiguration configuration,
+  }) {
+    var baseConfiguration = configuration.baseConfiguration;
+    var layoutType = baseConfiguration.layoutType;
 
     state
       ..frameworkBindLayoutType(layoutType)
-      ..frameworkUpdateConfigurationBinding(configuration)
+      ..frameworkUpdateConfigurationBinding(configuration);
+
+    return ElementDescription(
+      dataset: {
+        Constants.attrWidgetType: '$ListView',
+      },
+      classes: _ListViewProps.prepareClasses(
+        props: baseConfiguration,
+        oldProps: null,
+      ),
+    );
+  }
+
+  @override
+  afterMount() {
+    var services = ServicesRegistry.instance.getServices(context);
+    var element = services.walker.getWidgetObject(context)!.element;
+
+    state
       ..frameworkUpdateElementBinding(element)
       ..frameworkRender();
   }
 
   @override
   update({
-    required element,
     required updateType,
     required covariant _ListViewBuilderConfiguration oldConfiguration,
     required covariant _ListViewBuilderConfiguration newConfiguration,
@@ -245,16 +273,25 @@ class ListViewBuilderRenderObject extends RenderObject {
     var newBaseConfig = newConfiguration.baseConfiguration;
     var oldBaseConfig = oldConfiguration.baseConfiguration;
 
-    if (newBaseConfig.style != oldBaseConfig.style ||
-        newBaseConfig.classAttribute != oldBaseConfig.classAttribute ||
-        newBaseConfig.scrollDirection != oldBaseConfig.scrollDirection) {
-      _ListViewProps.clear(element, oldConfiguration.baseConfiguration);
-      _ListViewProps.apply(element, newConfiguration.baseConfiguration);
-    }
-
     state
       ..frameworkUpdateConfigurationBinding(newConfiguration)
       ..frameworkUpdate(updateType);
+
+    if (newBaseConfig.style != oldBaseConfig.style ||
+        newBaseConfig.classAttribute != oldBaseConfig.classAttribute ||
+        newBaseConfig.scrollDirection != oldBaseConfig.scrollDirection) {
+      return ElementDescription(
+        dataset: {
+          Constants.attrWidgetType: '$ListView',
+        },
+        classes: _ListViewProps.prepareClasses(
+          props: newBaseConfig,
+          oldProps: oldBaseConfig,
+        ),
+      );
+    }
+
+    return null;
   }
 
   @override
@@ -300,8 +337,8 @@ class _ListViewBuilderState with ServicesResolver {
   |--------------------------------------------------------------------------
   */
 
-  HtmlElement? _element;
-  HtmlElement get element => _element!;
+  Element? _element;
+  Element get element => _element!;
 
   LayoutType _layoutType = LayoutType.contain;
 
@@ -358,7 +395,7 @@ class _ListViewBuilderState with ServicesResolver {
                 itemsToGenerate,
                 (i) => Division(
                   key: Key('lv_item_${i + currentIndex}_${context.key.value}'),
-                  classAttribute: 'rad-list-view-item-container',
+                  classAttribute: Constants.classListViewItemContainer,
                   child: configuration.itemBuilder(context, i + currentIndex),
                 ),
               ),
@@ -421,7 +458,7 @@ class _ListViewBuilderState with ServicesResolver {
           renderUptoIndex,
           (i) => Division(
             key: Key('lv_item_${i}_${context.key.value}'),
-            classAttribute: 'rad-list-view-item-container',
+            classAttribute: Constants.classListViewItemContainer,
             child: configuration.itemBuilder(context, i),
           ),
         ),
@@ -439,7 +476,7 @@ class _ListViewBuilderState with ServicesResolver {
           renderUptoIndex,
           (i) => Division(
             key: Key('lv_item_${i}_${context.key.value}'),
-            classAttribute: 'rad-list-view-item-container',
+            classAttribute: Constants.classListViewItemContainer,
             child: configuration.itemBuilder(context, i),
           ),
         ),
@@ -454,7 +491,7 @@ class _ListViewBuilderState with ServicesResolver {
     _configuration = configuration;
   }
 
-  void frameworkUpdateElementBinding(HtmlElement element) {
+  void frameworkUpdateElementBinding(Element element) {
     _element = element;
   }
 
@@ -474,46 +511,47 @@ class _ListViewBuilderState with ServicesResolver {
 */
 
 class _ListViewProps {
-  static void apply(HtmlElement element, _ListViewConfiguration props) {
-    CommonProps.applyClassAttribute(element, props.classAttribute);
+  static Map<String, bool> prepareClasses({
+    required _ListViewConfiguration props,
+    required _ListViewConfiguration? oldProps,
+  }) {
+    var classes = CommonProps.prepareClasses(
+      classAttribute: props.classAttribute,
+      oldClassAttribute: null,
+    );
 
-    switch (props.layoutType) {
-      case LayoutType.contain:
-        element.classes.add('rad-list-view-layout-contain');
-
-        break;
-      case LayoutType.expand:
-        element.classes.add('rad-list-view-layout-expand');
-
-        break;
+    if (LayoutType.contain == props.layoutType) {
+      classes[Constants.classListViewContained] = true;
+    } else {
+      if (LayoutType.contain == oldProps?.layoutType) {
+        classes[Constants.classListViewContained] = false;
+      }
     }
 
-    if (null != props.style) {
-      element.setAttribute(_Attributes.style, props.style!);
+    if (LayoutType.expand == props.layoutType) {
+      classes[Constants.classListViewExpanded] = true;
+    } else {
+      if (LayoutType.expand == oldProps?.layoutType) {
+        classes[Constants.classListViewExpanded] = false;
+      }
+    }
+
+    if (Axis.horizontal == props.scrollDirection) {
+      classes[Constants.classListViewHorizontal] = true;
+    } else {
+      if (Axis.horizontal == oldProps?.scrollDirection) {
+        classes[Constants.classListViewHorizontal] = false;
+      }
     }
 
     if (Axis.vertical == props.scrollDirection) {
-      element.style.overflowX = 'hidden';
-      element.style.overflowY = 'auto';
-
-      element.style.flexDirection = 'column';
+      classes[Constants.classListViewVeritcal] = true;
     } else {
-      element.style.overflowX = 'auto';
-      element.style.overflowY = 'hidden';
-
-      element.style.flexDirection = 'row';
+      if (Axis.vertical == oldProps?.scrollDirection) {
+        classes[Constants.classListViewVeritcal] = false;
+      }
     }
+
+    return classes;
   }
-
-  static void clear(HtmlElement element, _ListViewConfiguration props) {
-    CommonProps.clearClassAttribute(element, props.classAttribute);
-
-    if (null != props.style) {
-      element.removeAttribute(_Attributes.style);
-    }
-  }
-}
-
-class _Attributes {
-  static const style = "style";
 }
