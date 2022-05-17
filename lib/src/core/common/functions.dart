@@ -5,6 +5,9 @@ String fnMapDomTag(DomTag tag) {
     case DomTag.abbreviation:
       return "abbr";
 
+    case DomTag.article:
+      return "article";
+
     case DomTag.header:
       return "header";
 

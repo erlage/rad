@@ -3,6 +3,7 @@
 class RT_DomTags {
   static const implemented = [
     "abbr",
+    "article",
     "header",
     "footer",
     "nav",

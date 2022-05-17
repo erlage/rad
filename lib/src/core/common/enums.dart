@@ -104,6 +104,7 @@ enum ButtonType {
 ///
 enum DomTag {
   abbreviation,
+  article,
   header,
   footer,
   navigation,

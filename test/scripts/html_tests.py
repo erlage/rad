@@ -40,6 +40,7 @@ widgets_map = {
     'iframe': 'IFrame',
     'a': 'Anchor',
     'abbr': 'Abbreviation',
+    'article': 'Article',
     'small': 'Small',
     'h1': 'Heading1',
     'h2': 'Heading2',
