@@ -39,9 +39,7 @@ class _GestureDetectorState extends State<GestureDetector> {
 
   @override
   initState() {
-    _element = document.getElementById(
-      context.key.value,
-    ) as HtmlElement;
+    _element = context.findElement() as HtmlElement;
 
     _addListeners();
   }
