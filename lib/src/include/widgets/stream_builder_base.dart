@@ -34,7 +34,7 @@ abstract class StreamBuilderBase<T, S> extends StatefulWidget {
   ///
   S afterConnected(S current) => current;
 
-  /// Returns an updated version of the [current] summary following a data event.
+  /// Returns an updated version of the [current] summary following a data event
   ///
   /// Sub-classes must override this method to specify how the current summary
   /// is combined with the new data item in the fold computation.

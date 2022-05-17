@@ -11,7 +11,8 @@ import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget_with_event_listeners.dart';
 
-/// Event handler utility for [RenderObject]s that want to support event handling.
+/// Event handler utility for [RenderObject]s that want to support event
+/// handling.
 ///
 @immutable
 class EventHandler {

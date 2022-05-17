@@ -135,10 +135,10 @@ class Walker extends Service {
     return null;
   }
 
-  /// Obtains the nearest widget of the given type [T], which must be the type of
-  /// a concrete [InheritedWidget] subclass, and registers this build context with
-  /// that widget such that when that widget changes (or a new widget of that
-  /// type is introduced, or the widget goes away), this build context is
+  /// Obtains the nearest widget of the given type [T], which must be the type
+  /// of a concrete [InheritedWidget] subclass, and registers this build context
+  /// with that widget such that when that widget changes (or a new widget of
+  /// that type is introduced, or the widget goes away), this build context is
   /// rebuilt so that it can obtain new values from that widget.
   ///
   T? dependOnInheritedWidgetOfExactType<T>(

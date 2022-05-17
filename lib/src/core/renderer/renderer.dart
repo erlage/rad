@@ -370,9 +370,9 @@ class Renderer with ServicesResolver {
 
   /// Build widgets and immediatly interlink elements.
   ///
-  /// This function is intedended to be called only by [buildWidgetsUnderFragment].
-  /// Calling it on a parent context whos element is mounted on real document
-  /// will slow down things.
+  /// This function is intedended to be called only by
+  /// [buildWidgetsUnderFragment]. Calling it on a parent context whos element
+  /// is mounted on real document will slow down things.
   ///
   void buildWidgetsAndActivelyLinkElements({
     required List<Widget> widgets,
@@ -639,7 +639,8 @@ class Renderer with ServicesResolver {
 
       if (null == parentElement) {
         services.debug.exception(
-          'Unable to locate target element #${parentContext.key.value} in HTML document',
+          'Unable to locate target element #${parentContext.key.value} in HTML'
+          ' document',
         );
       } else {
         // if mount is requested at a specific index

@@ -25,22 +25,30 @@ class AsyncSnapshot<T> {
   )   : assert(!(data != null && error != null)),
         assert(stackTrace == null || error != null);
 
-  /// Creates an [AsyncSnapshot] in [ConnectionState.none] with null data and error.
+  /// Creates an [AsyncSnapshot] in [ConnectionState.none] with null data and
+  /// error.
+  ///
   const AsyncSnapshot.nothing()
       : this._(ConnectionState.none, null, null, null);
 
-  /// Creates an [AsyncSnapshot] in [ConnectionState.waiting] with null data and error.
+  /// Creates an [AsyncSnapshot] in [ConnectionState.waiting] with null data and
+  /// error.
+  ///
   const AsyncSnapshot.waiting()
       : this._(ConnectionState.waiting, null, null, null);
 
-  /// Creates an [AsyncSnapshot] in the specified [state] and with the specified [data].
+  /// Creates an [AsyncSnapshot] in the specified [state] and with the specified
+  /// [data].
+  ///
   const AsyncSnapshot.withData(ConnectionState state, T data)
       : this._(state, data, null, null);
 
-  /// Creates an [AsyncSnapshot] in the specified [state] with the specified [error]
-  /// and a [stackTrace].
+  /// Creates an [AsyncSnapshot] in the specified [state] with the specified
+  /// [error] and a [stackTrace].
   ///
-  /// If no [stackTrace] is explicitly specified, [StackTrace.empty] will be used instead.
+  /// If no [stackTrace] is explicitly specified, [StackTrace.empty] will be
+  /// used instead.
+  ///
   const AsyncSnapshot.withError(
     ConnectionState state,
     Object error, [

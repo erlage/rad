@@ -210,7 +210,9 @@ import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_t
 /// ### Passing multiple values:
 ///
 /// ```dart
-/// Navigator.of(context).open(name: "home", values: {"id": "123", "username" : "adamback"});
+/// Navigator.of(context).open(
+///   name: "home", values: {"id": "123", "username" : "adamback"}
+/// );
 /// ```
 ///
 /// On homepage,
@@ -319,13 +321,14 @@ class Navigator extends Widget {
 
       if (null == widgetObject) {
         services.debug.exception(
-          'Navigator operation requested with a context that does not include a Navigator.\n'
-          'The context used to push or pop routes from the Navigator must be that of a '
-          'widget that is a descendant of a Navigator widget.',
+          'Navigator operation requested with a context that does not include a'
+          'Navigator.\n'
+          'The context used to push or pop routes from the Navigator must be'
+          'that of a widget that is a descendant of a Navigator widget.',
         );
 
-        /// Return dummy state if user has registered there own error handler that
-        /// doesn't throw exception onError.
+        /// Return dummy state if user has registered there own error handler
+        /// that doesn't throw exception onError.
         ///
         return NavigatorState(
           context: context,
@@ -763,7 +766,8 @@ class NavigatorState with ServicesResolver {
         if (isDuplicate) {
           return services.debug.exception(
             'Please remove Duplicate routes from your Navigator.'
-            "Part of your route, name: '${route.name}' => path: '${route.path}', already exists",
+            "Part of your route, name: '${route.name}' => path: "
+            "'${route.path}', already exists",
           );
         }
       }

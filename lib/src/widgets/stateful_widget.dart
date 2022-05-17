@@ -70,7 +70,11 @@ import 'package:rad/src/core/services/scheduler/tasks/stimulate_listener_task.da
 ///   Widget build(BuildContext context) {
 ///     return GestureDetector(
 ///       onTap: _handleTap,
-///       child: Text(isClicked ? "on! click to turn off." : "click to turn on."),
+///       child: Text(
+///         isClicked
+///             ? "on! click to turn off."
+///             : "click to turn on."
+///         ),
 ///     );
 ///   }
 ///
@@ -245,8 +249,8 @@ class StatefulWidgetRenderObject extends RenderObject {
 /// [State.didChangeDependencies]- Called when a dependency of this [State]
 /// object changes.
 ///
-/// Apart from lifecycle hooks, there is a [State.setState] function which a widget
-/// can use to tell framework to rebuild widget's interface because some
+/// Apart from lifecycle hooks, there is a [State.setState] function which a
+/// widget can use to tell framework to rebuild widget's interface because some
 /// internal state of this widget has changed.
 ///
 /// It's responsibility of concrete implementation of [StatefulWidget]
@@ -301,7 +305,7 @@ abstract class State<T extends StatefulWidget> {
   BuildContext get context {
     if (null == _widget) {
       throw Exception(
-        'State.context instance cannot be accessed in state constructor. Please '
+        'State.context instance cannot be accessed in state constructor. Please'
         'use initState hook to initialize the state that depends on context or '
         'Consider canceling any active work during "dispose" or using the '
         '"mounted" getter to determine if the State is still active.',
@@ -371,8 +375,6 @@ abstract class State<T extends StatefulWidget> {
   ///
   /// The framework always calls [build] after calling [didUpdateWidget], which
   /// means any calls to [setState] in [didUpdateWidget] are redundant.
-  ///
-  /// {@macro flutter.widgets.State.initState}
   ///
   /// Implementations of this method should start with a call to the inherited
   /// method, as in `super.didUpdateWidget(oldWidget)`.

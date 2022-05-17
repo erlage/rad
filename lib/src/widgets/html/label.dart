@@ -11,8 +11,8 @@ import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 /// The Label widget (HTML's `label` tag).
 ///
 class Label extends MarkUpTagWithGlobalProps {
-  /// The value of the [forAttribute] attribute must be a single key for a labelable
-  /// form-related element in the same document as the <label> element.
+  /// The value of the [forAttribute] attribute must be a single key for a
+  /// labelable form-related element in the same document as the <label> element
   ///
   final String? forAttribute;
 

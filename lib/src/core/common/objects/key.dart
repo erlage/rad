@@ -45,8 +45,9 @@ class Key {
   /// Simplest way to create a key.
   ///
   /// Keys must be unique amongst the [Widget]s with the same parent. By
-  /// contrast, [GlobalKey]s must be unique across entire document and [LocalKey]
-  /// must be unique within a single app instance(where it was created).
+  /// contrast, [GlobalKey]s must be unique across entire document and
+  /// [LocalKey] must be unique within a single app instance(where it was
+  /// created).
   ///
   const Key(this._value);
 

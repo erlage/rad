@@ -67,7 +67,8 @@ class ValueListenableBuilder<T> extends StatefulWidget {
   ///
   final ValueWidgetBuilder<T> builder;
 
-  /// A [valueListenable]-independent widget which is passed back to the [builder].
+  /// A [valueListenable]-independent widget which is passed back to the
+  /// [builder].
   ///
   /// This argument is optional and can be null if the entire widget subtree
   /// the [builder] builds depends on the value of the [valueListenable]. For

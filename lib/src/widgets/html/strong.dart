@@ -9,7 +9,7 @@ import 'package:rad/src/core/common/objects/key.dart';
 /// The Strong widget (HTML's `strong` tag).
 ///
 /// This HTML element indicates that its contents have strong importance,
-/// seriousness, or urgency. Browsers typically render the contents in bold type.
+/// seriousness, or urgency. Browsers typically render the contents in bold type
 ///
 class Strong extends MarkUpTagWithGlobalProps {
   const Strong({

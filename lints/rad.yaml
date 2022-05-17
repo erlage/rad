@@ -2,8 +2,16 @@ include: recommended/recommended.yaml
 
 linter:
   rules:
+    
+    # const constructor related
+
     - prefer_const_constructors
     - prefer_const_constructors_in_immutables
     - prefer_const_declarations
     - prefer_const_literals_to_create_immutables
+
+    # format/code-style
+
     - prefer_single_quotes
+    - lines_longer_than_80_chars
+    # - use_super_parameters (currently experimental)
