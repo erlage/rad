@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
@@ -73,6 +75,14 @@ class BuildContext {
   | methods
   |--------------------------------------------------------------------------
   */
+
+  /// Returns element that's associated with the current context.
+  ///
+  Element findElement() {
+    var walkerService = ServicesRegistry.instance.getWalker(this);
+
+    return walkerService.findElement(this);
+  }
 
   /// Returns the nearest ancestor widget of the given type `T`, which must be
   /// the type of a concrete [Widget] subclass.
