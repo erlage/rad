@@ -1,4 +1,5 @@
 import 'package:rad/rad.dart';
+import 'package:rad/widgets_internals.dart';
 import 'package:test/scaffolding.dart';
 import 'package:test/expect.dart';
 
@@ -24,7 +25,7 @@ void main() {
   group('manageChildren() tests: under app context:', () {
     RT_AppRunner? app;
 
-    setUp(() => app = createTestApp()..startWithAppWidget());
+    setUp(() => app = createTestApp()..start());
 
     tearDown(() => app!.stop());
 
@@ -340,22 +341,22 @@ void main() {
           },
         );
 
-        var widget1 = app!.services.walker.getWidgetObject('widget-1');
-        var widget2 = app!.services.walker.getWidgetObject('widget-2');
-        var widget3 = app!.services.walker.getWidgetObject('widget-3');
+        var widget1 = app!.services.walker.getWidgetObjectUsingKey('widget-1');
+        var widget2 = app!.services.walker.getWidgetObjectUsingKey('widget-2');
+        var widget3 = app!.services.walker.getWidgetObjectUsingKey('widget-3');
 
         expect(
-          widget1!.element.classes.contains('rad-hidden'),
+          widget1!.element.classes.contains(Constants.classHidden),
           equals(true),
         );
 
         expect(
-          widget2!.element.classes.contains('rad-hidden'),
+          widget2!.element.classes.contains(Constants.classHidden),
           equals(true),
         );
 
         expect(
-          widget3!.element.classes.contains('rad-hidden'),
+          widget3!.element.classes.contains(Constants.classHidden),
           equals(true),
         );
       },
@@ -391,22 +392,22 @@ void main() {
           },
         );
 
-        var widget1 = app!.services.walker.getWidgetObject('widget-1');
-        var widget2 = app!.services.walker.getWidgetObject('widget-2');
-        var widget3 = app!.services.walker.getWidgetObject('widget-3');
+        var widget1 = app!.services.walker.getWidgetObjectUsingKey('widget-1');
+        var widget2 = app!.services.walker.getWidgetObjectUsingKey('widget-2');
+        var widget3 = app!.services.walker.getWidgetObjectUsingKey('widget-3');
 
         expect(
-          widget1!.element.classes.contains('rad-hidden'),
+          widget1!.element.classes.contains(Constants.classHidden),
           equals(false),
         );
 
         expect(
-          widget2!.element.classes.contains('rad-hidden'),
+          widget2!.element.classes.contains(Constants.classHidden),
           equals(false),
         );
 
         expect(
-          widget3!.element.classes.contains('rad-hidden'),
+          widget3!.element.classes.contains(Constants.classHidden),
           equals(false),
         );
       },
@@ -478,16 +479,16 @@ void main() {
           },
         );
 
-        var widget1 = app!.services.walker.getWidgetObject('widget-1');
-        var widget3 = app!.services.walker.getWidgetObject('widget-3');
+        var widget1 = app!.services.walker.getWidgetObjectUsingKey('widget-1');
+        var widget3 = app!.services.walker.getWidgetObjectUsingKey('widget-3');
 
         expect(
-          widget1!.element.classes.contains('rad-hidden'),
+          widget1!.element.classes.contains(Constants.classHidden),
           equals(false),
         );
 
         expect(
-          widget3!.element.classes.contains('rad-hidden'),
+          widget3!.element.classes.contains(Constants.classHidden),
           equals(true),
         );
 

@@ -20,9 +20,9 @@ void html_img_test() {
       app!.framework.buildChildren(
         widgets: [
           Image(
-            key: GlobalKey('widget-1'),
+            id: 'widget-1',
             child: Image(
-              key: GlobalKey('widget-2'),
+              id: 'widget-2',
             ),
           ),
         ],
@@ -39,12 +39,12 @@ void html_img_test() {
     test('should set children widgets', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(key: GlobalKey('widget-1'), children: [
+          Image(id: 'widget-1', children: [
             Image(
-              key: GlobalKey('widget-2'),
+              id: 'widget-2',
             ),
             Image(
-              key: GlobalKey('widget-3'),
+              id: 'widget-3',
             ),
           ]),
         ],
@@ -64,15 +64,15 @@ void html_img_test() {
       app!.framework.buildChildren(
         widgets: [
           Image(
-            key: Key('widget-1'),
+            id: 'widget-1',
             classAttribute: 'some class',
           ),
           Image(
-            key: Key('widget-2'),
+            id: 'widget-2',
             classAttribute: 'some "messy" class',
           ),
           Image(
-            key: Key('widget-3'),
+            id: 'widget-3',
             classAttribute: "some 'messy' class",
           ),
         ],
@@ -314,13 +314,13 @@ void html_img_test() {
 
       expect(
         RT_TestBed.rootElement.innerHtml,
-        startsWith(
-          '<img id="some-global-key" '
-          'data-${Constants.attrWidgetType}="$Image" '
-          'data-${Constants.attrRuntimeType}="$Image">',
-          // Better to check leading part only(without closing tag)
-          // Because some tags(e.g img) might don't have a closing tag
-          // '</img>',
+        equals(
+          //
+          // img/col tags might don't have a closing tag
+          //
+          (Image).toString() == 'Image' || (Image).toString() == 'TableColumn'
+              ? '<img>'
+              : '<img></img>',
         ),
       );
     });
@@ -355,7 +355,7 @@ void html_img_test() {
             },
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       app!.framework.updateChildren(
@@ -368,10 +368,12 @@ void html_img_test() {
           ),
         ],
         updateType: UpdateType.undefined,
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var element1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
+
+      element1 as HtmlElement;
 
       expect(element1.dataset['something'], equals(null));
       expect(element1.dataset['something-new'], equals('something new'));
@@ -385,25 +387,19 @@ void html_img_test() {
             dataAttributes: {
               'something': 'something okay',
               Constants.attrWidgetType: "must ignore",
-              Constants.attrRuntimeType: "must ignore",
-              Constants.attrStateType: "must ignore",
-              Constants.attrRouteName: "must ignore",
-              Constants.attrRoutePath: "must ignore",
             },
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var element1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
+
+      element1 as HtmlElement;
 
       expect(element1.dataset['something'], equals('something okay'));
 
-      expect(element1.dataset[Constants.attrWidgetType], equals("$Image"));
-      expect(element1.dataset[Constants.attrRuntimeType], equals("$Image"));
-      expect(element1.dataset[Constants.attrStateType], equals(null));
-      expect(element1.dataset[Constants.attrRouteName], equals(null));
-      expect(element1.dataset[Constants.attrRoutePath], equals(null));
+      expect(element1.dataset[Constants.attrWidgetType], equals(null));
     });
 
     test('should not remove system reserved data attributes on update', () {
@@ -414,14 +410,10 @@ void html_img_test() {
             dataAttributes: {
               'something': 'something okay',
               Constants.attrWidgetType: "must ignore",
-              Constants.attrRuntimeType: "must ignore",
-              Constants.attrStateType: "must ignore",
-              Constants.attrRouteName: "must ignore",
-              Constants.attrRoutePath: "must ignore",
             },
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       app!.framework.updateChildren(
@@ -432,26 +424,20 @@ void html_img_test() {
               'something': 'something new',
               'something-diff': 'something diff',
               Constants.attrWidgetType: "must ignore",
-              Constants.attrRuntimeType: "must ignore",
-              Constants.attrStateType: "must ignore",
-              Constants.attrRouteName: "must ignore",
-              Constants.attrRoutePath: "must ignore",
             },
           ),
         ],
         updateType: UpdateType.undefined,
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var element1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
+
+      element1 as HtmlElement;
 
       expect(element1.dataset['something'], equals('something new'));
       expect(element1.dataset['something-diff'], equals('something diff'));
-      expect(element1.dataset[Constants.attrWidgetType], equals("$Image"));
-      expect(element1.dataset[Constants.attrRuntimeType], equals("$Image"));
-      expect(element1.dataset[Constants.attrStateType], equals(null));
-      expect(element1.dataset[Constants.attrRouteName], equals(null));
-      expect(element1.dataset[Constants.attrRoutePath], equals(null));
+      expect(element1.dataset[Constants.attrWidgetType], equals(null));
     });
 
     test('should set key', () {
@@ -464,13 +450,29 @@ void html_img_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var element1 = app!.services.walker.getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(Key('some-key'), RT_TestBed.rootContext)
+            .value,
+      );
 
-      expect(element1.id, endsWith('some-key'));
-      expect(element2.id, endsWith('some-local-key'));
-      expect(element3.id, equals('some-global-key'));
+      var element2 = app!.services.walker.getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(
+                LocalKey('some-local-key'), RT_TestBed.rootContext)
+            .value,
+      );
+
+      var element3 = app!.services.walker.getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(
+                GlobalKey('some-global-key'), RT_TestBed.rootContext)
+            .value,
+      );
+
+      expect(element1!.context.key.value, endsWith('some-key'));
+      expect(element2!.context.key.value, endsWith('some-local-key'));
+      expect(element3!.context.key.value, equals('some-global-key'));
     });
   });
 }

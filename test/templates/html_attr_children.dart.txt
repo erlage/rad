@@ -1,12 +1,12 @@
 test('should set children widgets', () {
   app!.framework.buildChildren(
     widgets: [
-      __WidgetClass__(key: GlobalKey('widget-1'), children: [
+      __WidgetClass__(id: 'widget-1', children: [
         __WidgetClass__(
-          key: GlobalKey('widget-2'),
+          id: 'widget-2',
         ),
         __WidgetClass__(
-          key: GlobalKey('widget-3'),
+          id: 'widget-3',
         ),
       ]),
     ],

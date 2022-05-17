@@ -3,9 +3,9 @@
 import 'package:rad/rad.dart';
 import 'package:rad/widgets_internals.dart';
 import 'package:rad/src/core/framework.dart';
+import 'package:rad/src/core/interface/window/window.dart';
 import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/interface/window/delegates/browser_window.dart';
-import 'package:rad/src/core/interface/window/window.dart';
 
 import 'test_bed.dart';
 import 'test_widget.dart';
@@ -43,7 +43,7 @@ class RT_AppRunner {
   Framework get framework => _framework!;
 
   BuildContext get appContext => services.walker
-      .getWidgetObject(
+      .getWidgetObjectUsingKey(
         'app-widget',
       )!
       .context;
@@ -58,15 +58,6 @@ class RT_AppRunner {
         _debugOptions = debugOptions;
 
   void start() {
-    this
-      .._createRootContext()
-      .._prepareOptions()
-      .._setupDelegates()
-      .._startServices()
-      .._createFrameworkInstance();
-  }
-
-  void startWithAppWidget() {
     this
       .._createRootContext()
       .._prepareOptions()

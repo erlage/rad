@@ -29,7 +29,7 @@ test('should remove obsolute and add new data attributes on update', () {
                 },
             ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
     );
 
     app!.framework.updateChildren(
@@ -42,10 +42,12 @@ test('should remove obsolute and add new data attributes on update', () {
             ),
         ],
         updateType: UpdateType.undefined,
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
     );
 
-    var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+    var element1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
+
+    element1 as HtmlElement;
 
     expect(element1.dataset['something'], equals(null));
     expect(element1.dataset['something-new'], equals('something new'));
@@ -59,25 +61,19 @@ test('should not override system reserved data attributes on build', () {
                 dataAttributes: {
                     'something': 'something okay',
                     Constants.attrWidgetType: "must ignore",
-                    Constants.attrRuntimeType: "must ignore",
-                    Constants.attrStateType: "must ignore",
-                    Constants.attrRouteName: "must ignore",
-                    Constants.attrRoutePath: "must ignore",
                 },
             ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
     );
 
-    var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+    var element1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
+
+    element1 as HtmlElement;
 
     expect(element1.dataset['something'], equals('something okay'));
 
-    expect(element1.dataset[Constants.attrWidgetType], equals("$__WidgetClass__"));
-    expect(element1.dataset[Constants.attrRuntimeType], equals("$__WidgetClass__"));
-    expect(element1.dataset[Constants.attrStateType], equals(null));
-    expect(element1.dataset[Constants.attrRouteName], equals(null));
-    expect(element1.dataset[Constants.attrRoutePath], equals(null));
+    expect(element1.dataset[Constants.attrWidgetType], equals(null));
 }__Skip__);
 
 test('should not remove system reserved data attributes on update', () {
@@ -88,14 +84,10 @@ test('should not remove system reserved data attributes on update', () {
                 dataAttributes: {
                     'something': 'something okay',
                     Constants.attrWidgetType: "must ignore",
-                    Constants.attrRuntimeType: "must ignore",
-                    Constants.attrStateType: "must ignore",
-                    Constants.attrRouteName: "must ignore",
-                    Constants.attrRoutePath: "must ignore",
                 },
             ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
     );
 
     app!.framework.updateChildren(
@@ -106,24 +98,18 @@ test('should not remove system reserved data attributes on update', () {
                     'something': 'something new',
                     'something-diff': 'something diff',
                     Constants.attrWidgetType: "must ignore",
-                    Constants.attrRuntimeType: "must ignore",
-                    Constants.attrStateType: "must ignore",
-                    Constants.attrRouteName: "must ignore",
-                    Constants.attrRoutePath: "must ignore",
                 },
             ),
         ],
         updateType: UpdateType.undefined,
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
     );
+    
+    var element1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
 
-    var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+    element1 as HtmlElement;
 
     expect(element1.dataset['something'], equals('something new'));
     expect(element1.dataset['something-diff'], equals('something diff'));
-    expect(element1.dataset[Constants.attrWidgetType], equals("$__WidgetClass__"));
-    expect(element1.dataset[Constants.attrRuntimeType], equals("$__WidgetClass__"));
-    expect(element1.dataset[Constants.attrStateType], equals(null));
-    expect(element1.dataset[Constants.attrRouteName], equals(null));
-    expect(element1.dataset[Constants.attrRoutePath], equals(null));
+    expect(element1.dataset[Constants.attrWidgetType], equals(null));
 }__Skip__);

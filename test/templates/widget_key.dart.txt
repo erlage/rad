@@ -8,11 +8,27 @@ test('should set key', () {
     parentContext: RT_TestBed.rootContext,
   );
 
-  var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-  var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-  var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+  var element1 = app!.services.walker.getWidgetObjectUsingKey(
+    app!.services.keyGen
+        .getGlobalKeyUsingKey(Key('some-key'), RT_TestBed.rootContext)
+        .value,
+  );
 
-  expect(element1.id, endsWith('some-key'));
-  expect(element2.id, endsWith('some-local-key'));
-  expect(element3.id, equals('some-global-key'));
+  var element2 = app!.services.walker.getWidgetObjectUsingKey(
+    app!.services.keyGen
+        .getGlobalKeyUsingKey(
+            LocalKey('some-local-key'), RT_TestBed.rootContext)
+        .value,
+  );
+
+  var element3 = app!.services.walker.getWidgetObjectUsingKey(
+    app!.services.keyGen
+        .getGlobalKeyUsingKey(
+            GlobalKey('some-global-key'), RT_TestBed.rootContext)
+        .value,
+  );
+
+  expect(element1!.context.key.value, endsWith('some-key'));
+  expect(element2!.context.key.value, endsWith('some-local-key'));
+  expect(element3!.context.key.value, equals('some-global-key'));
 }__Skip__);

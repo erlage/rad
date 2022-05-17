@@ -103,7 +103,7 @@ void main() {
       );
 
       // depends on impl of KeyGen.getGlobalKeyUsingKey.
-      expect(key.value, equals(RT_TestBed.rootKey.value + '__key'));
+      expect(key.value, equals('${RT_TestBed.rootKey.value}__key'));
     });
 
     test('should be able to generate local key from root context', () {
@@ -112,7 +112,7 @@ void main() {
         RT_TestBed.rootContext,
       );
 
-      expect(key.value, equals(RT_TestBed.rootKey.value + '_key'));
+      expect(key.value, equals('${RT_TestBed.rootKey.value}_key'));
     });
 
     test('should be able to generate global key from root context', () {

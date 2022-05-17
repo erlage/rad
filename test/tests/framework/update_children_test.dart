@@ -3,7 +3,6 @@ import 'package:test/scaffolding.dart';
 import 'package:test/expect.dart';
 
 import '../../fixers/test_app.dart';
-import '../../fixers/test_bed.dart';
 import '../../fixers/test_stack.dart';
 import '../../fixers/test_widget.dart';
 
@@ -27,8 +26,10 @@ void main() {
   */
 
   group(
-    'updateChildren() tests: under root context:',
+    'updateChildren() tests: under root(now app) context:',
     () {
+      // todo: merge this group of tests with the below one.
+
       RT_AppRunner? app;
 
       setUp(() => app = createTestApp()..start());
@@ -49,7 +50,7 @@ void main() {
               ),
             ],
             updateType: UpdateType.undefined,
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
           );
 
           app!.framework.updateChildren(
@@ -60,7 +61,7 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -74,7 +75,7 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -86,7 +87,7 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -117,7 +118,7 @@ void main() {
               ),
             ],
             updateType: UpdateType.undefined,
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
           );
 
           app!.framework.updateChildren(
@@ -129,7 +130,7 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -142,7 +143,7 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -171,7 +172,7 @@ void main() {
               ),
             ],
             updateType: UpdateType.undefined,
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
           );
 
           app!.framework.updateChildren(
@@ -183,7 +184,7 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -196,7 +197,7 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -225,7 +226,7 @@ void main() {
               ),
             ],
             updateType: UpdateType.undefined,
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
           );
 
           app!.framework.updateChildren(
@@ -237,7 +238,7 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -250,7 +251,7 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -279,7 +280,7 @@ void main() {
               ),
             ],
             updateType: UpdateType.undefined,
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
           );
 
           app!.framework.updateChildren(
@@ -291,7 +292,7 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -304,7 +305,7 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -333,7 +334,7 @@ void main() {
               ),
             ],
             updateType: UpdateType.undefined,
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
           );
 
           app!.framework.updateChildren(
@@ -345,7 +346,7 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -358,7 +359,7 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 3'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -371,7 +372,7 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 3'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -385,7 +386,7 @@ void main() {
               ),
             ],
             updateType: UpdateType.undefined,
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
           );
 
           expect(testStack.popFromStart(), equals('render 1'));
@@ -416,7 +417,7 @@ void main() {
               ),
             ],
             updateType: UpdateType.undefined,
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
           );
 
           app!.framework.updateChildren(
@@ -426,7 +427,7 @@ void main() {
                 roEventHookUpdate: () => testStack.push('update 2'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -437,7 +438,7 @@ void main() {
                 roEventHookUpdate: () => testStack.push('update 2'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -463,7 +464,7 @@ void main() {
               ),
             ],
             updateType: UpdateType.undefined,
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
           );
 
           app!.framework.updateChildren(
@@ -474,7 +475,7 @@ void main() {
                 roEventHookUpdate: () => testStack.push('update 2'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -486,7 +487,7 @@ void main() {
                 roEventHookUpdate: () => testStack.push('update 2'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -512,7 +513,7 @@ void main() {
               ),
             ],
             updateType: UpdateType.undefined,
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
           );
 
           app!.framework.updateChildren(
@@ -523,7 +524,7 @@ void main() {
                 roEventHookUpdate: () => testStack.push('update 2'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -535,7 +536,7 @@ void main() {
                 roEventHookUpdate: () => testStack.push('update 2'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -561,7 +562,7 @@ void main() {
               ),
             ],
             updateType: UpdateType.undefined,
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
           );
 
           app!.framework.updateChildren(
@@ -572,7 +573,7 @@ void main() {
                 roEventHookUpdate: () => testStack.push('update 2'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -584,7 +585,7 @@ void main() {
                 roEventHookUpdate: () => testStack.push('update 2'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -611,7 +612,7 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -623,7 +624,7 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -635,7 +636,7 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -663,7 +664,7 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -676,7 +677,7 @@ void main() {
               ),
             ],
             flagAddIfNotFound: false,
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -689,7 +690,7 @@ void main() {
               ),
             ],
             flagAddIfNotFound: false,
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -714,7 +715,7 @@ void main() {
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a'),
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -727,7 +728,7 @@ void main() {
               ),
             ],
             flagAddIfNotFound: true,
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -741,7 +742,7 @@ void main() {
               ),
             ],
             flagAddIfNotFound: true,
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
@@ -762,7 +763,7 @@ void main() {
     () {
       RT_AppRunner? app;
 
-      setUp(() => app = createTestApp()..startWithAppWidget());
+      setUp(() => app = createTestApp()..start());
 
       tearDown(() => app!.stop());
 
@@ -1511,8 +1512,6 @@ void main() {
             parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
-
-          print(testStack.entries.toString());
 
           expect(testStack.popFromStart(), equals('render 1a-1'));
           expect(testStack.popFromStart(), equals('render 1a-2'));

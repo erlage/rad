@@ -8,13 +8,13 @@ test('should set correct types and markup', () {
 
   expect(
     RT_TestBed.rootElement.innerHtml,
-    startsWith(
-      '<__WidgetTag__ id="some-global-key" '
-      'data-${Constants.attrWidgetType}="$__WidgetClass__" '
-      'data-${Constants.attrRuntimeType}="$__WidgetClass__">',
-      // Better to check leading part only(without closing tag)
-      // Because some tags(e.g img) might don't have a closing tag
-      // '</__WidgetTag__>',
+    equals(
+      //
+      // img/col tags might don't have a closing tag
+      //
+      (__WidgetClass__).toString() == 'Image' || (__WidgetClass__).toString() == 'TableColumn'
+          ? '<__WidgetTag__>'
+          : '<__WidgetTag__></__WidgetTag__>',
     ),
   );
 }__Skip__);

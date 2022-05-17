@@ -51,7 +51,7 @@ void main() {
               key: Key('${Constants.contextGenKeyPrefix}is_a_reserved_previx'),
             )
           ],
-          parentContext: RT_TestBed.rootContext,
+          parentContext: app!.appContext,
         ),
         throwsA(
           predicate(
@@ -93,7 +93,7 @@ void main() {
             key: Key('${Constants.contextGenKeyPrefix}is_a_reserved_previx'),
           )
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       expect(RT_TestBed.rootElement, RT_hasContents('some text'));
@@ -122,7 +122,7 @@ void main() {
         widgets: [
           Text('hello world'),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       expect(RT_TestBed.rootElement, RT_hasContents('hello world'));
@@ -134,7 +134,7 @@ void main() {
           Text('child1'),
           Text('child2'),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       expect(RT_TestBed.rootElement, RT_hasContents('child1|child2'));
@@ -148,7 +148,7 @@ void main() {
             Text('child2'),
           ]),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       expect(RT_TestBed.rootElement, RT_hasContents('child1|child2'));
@@ -168,7 +168,7 @@ void main() {
             Text('c6'),
           ]),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       expect(RT_TestBed.rootElement, RT_hasContents('c1|c2|c3|c4|c5|c6'));
@@ -179,11 +179,15 @@ void main() {
         widgets: [
           Text('some text', key: GlobalKey('widget-key')),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       expect(
-        app!.services.walker.getWidgetObject('widget-key')!.context.key.value,
+        app!.services.walker
+            .getWidgetObjectUsingKey('widget-key')!
+            .context
+            .key
+            .value,
         equals('widget-key'),
       );
     });
@@ -195,13 +199,15 @@ void main() {
             key: GlobalKey('test-widget'),
             roEventHookBeforeMount: () {
               expect(
-                app!.services.walker.getWidgetObject('test-widget')!.isMounted,
+                app!.services.walker
+                    .getWidgetObjectUsingKey('test-widget')!
+                    .isMounted,
                 equals(false),
               );
             },
           )
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
     });
 
@@ -211,16 +217,20 @@ void main() {
           Text('some text 1', key: GlobalKey('find-using-me-1')),
           Text('some text 2', key: GlobalKey('find-using-me-2')),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       expect(
-        app!.services.walker.getWidgetObject('find-using-me-1')!.isMounted,
+        app!.services.walker
+            .getWidgetObjectUsingKey('find-using-me-1')!
+            .isMounted,
         equals(true),
       );
 
       expect(
-        app!.services.walker.getWidgetObject('find-using-me-2')!.isMounted,
+        app!.services.walker
+            .getWidgetObjectUsingKey('find-using-me-2')!
+            .isMounted,
         equals(true),
       );
     });
@@ -232,30 +242,72 @@ void main() {
             key: GlobalKey('test-widget'),
             roEventHookAfterMount: () {
               expect(
-                app!.services.walker.getWidgetObject('test-widget')!.isMounted,
+                app!.services.walker
+                    .getWidgetObjectUsingKey('test-widget')!
+                    .isMounted,
                 equals(true),
               );
             },
           )
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
     });
 
-    test('should dispatch render after mount', () {
+    test('should call render before mount', () {
       app!.framework.buildChildren(
         widgets: [
           RT_TestWidget(
             key: GlobalKey('test-widget'),
             roEventHookRender: () {
               expect(
-                app!.services.walker.getWidgetObject('test-widget')!.isMounted,
+                app!.services.walker
+                    .getWidgetObjectUsingKey('test-widget')!
+                    .isMounted,
+                equals(false),
+              );
+            },
+          )
+        ],
+        parentContext: app!.appContext,
+      );
+    });
+
+    test('should call beforeMount before mount', () {
+      app!.framework.buildChildren(
+        widgets: [
+          RT_TestWidget(
+            key: GlobalKey('test-widget'),
+            roEventHookBeforeMount: () {
+              expect(
+                app!.services.walker
+                    .getWidgetObjectUsingKey('test-widget')!
+                    .isMounted,
+                equals(false),
+              );
+            },
+          )
+        ],
+        parentContext: app!.appContext,
+      );
+    });
+
+    test('should call afterMount after mount', () {
+      app!.framework.buildChildren(
+        widgets: [
+          RT_TestWidget(
+            key: GlobalKey('test-widget'),
+            roEventHookAfterMount: () {
+              expect(
+                app!.services.walker
+                    .getWidgetObjectUsingKey('test-widget')!
+                    .isMounted,
                 equals(true),
               );
             },
           )
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
     });
 
@@ -283,15 +335,15 @@ void main() {
             ),
           )
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       expect(testStack.popFromStart(), equals('createWidgetConfiguration'));
       expect(testStack.popFromStart(), equals('createRenderObject'));
 
+      expect(testStack.popFromStart(), equals('render'));
       expect(testStack.popFromStart(), equals('beforeMount'));
       expect(testStack.popFromStart(), equals('afterMount'));
-      expect(testStack.popFromStart(), equals('render'));
 
       // confirm there are no duplicate calls.
       expect(testStack.canPop(), equals(false));
@@ -369,7 +421,7 @@ void main() {
             ],
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       expect(testStack.popFromStart(), equals('render-app-widget'));
@@ -387,27 +439,18 @@ void main() {
 
     test('should not dispose existing widgets when provided empty widget list',
         () {
-      // Why not?
-      //
-      // 1. buildChildren is mostly used for the initial render, and it should contains
-      //    as little work as possible.
-      //
-      // 2. since updateChildren is dealing with the updates and dispatching cleaning
-      //    jobs we can skip that in this method.
-      //
-
       app!.framework.buildChildren(
         widgets: [
           Text('this should presist'),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       // try building, and provide no widgets to build
 
       app!.framework.buildChildren(
         widgets: [],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       expect(RT_TestBed.rootElement, RT_hasContents('this should presist'));
@@ -458,28 +501,30 @@ void main() {
             ],
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       // ensure all are built
 
-      expect(null == app!.services.walker.getWidgetObject('widget'),
+      expect(null == app!.services.walker.getWidgetObjectUsingKey('widget'),
           equals(false));
-      expect(null == app!.services.walker.getWidgetObject('child-0'),
+      expect(null == app!.services.walker.getWidgetObjectUsingKey('child-0'),
           equals(false));
-      expect(null == app!.services.walker.getWidgetObject('child-0-0'),
+      expect(null == app!.services.walker.getWidgetObjectUsingKey('child-0-0'),
           equals(false));
-      expect(null == app!.services.walker.getWidgetObject('child-0-1'),
+      expect(null == app!.services.walker.getWidgetObjectUsingKey('child-0-1'),
           equals(false));
-      expect(null == app!.services.walker.getWidgetObject('child-0-1-0'),
+      expect(
+          null == app!.services.walker.getWidgetObjectUsingKey('child-0-1-0'),
           equals(false));
-      expect(null == app!.services.walker.getWidgetObject('child-0-1-1'),
+      expect(
+          null == app!.services.walker.getWidgetObjectUsingKey('child-0-1-1'),
           equals(false));
-      expect(null == app!.services.walker.getWidgetObject('child-1'),
+      expect(null == app!.services.walker.getWidgetObjectUsingKey('child-1'),
           equals(false));
-      expect(null == app!.services.walker.getWidgetObject('child-1-0'),
+      expect(null == app!.services.walker.getWidgetObjectUsingKey('child-1-0'),
           equals(false));
-      expect(null == app!.services.walker.getWidgetObject('child-1-1'),
+      expect(null == app!.services.walker.getWidgetObjectUsingKey('child-1-1'),
           equals(false));
 
       // build new child widgets under app widget. we expect this operation to
@@ -493,51 +538,58 @@ void main() {
               // existing widgets should already got disposed by this point
 
               expect(
-                null == app!.services.walker.getWidgetObject('child-0'),
+                null == app!.services.walker.getWidgetObjectUsingKey('child-0'),
                 equals(true),
               );
               expect(
-                null == app!.services.walker.getWidgetObject('child-0-0'),
+                null ==
+                    app!.services.walker.getWidgetObjectUsingKey('child-0-0'),
                 equals(true),
               );
               expect(
-                null == app!.services.walker.getWidgetObject('child-0-1'),
+                null ==
+                    app!.services.walker.getWidgetObjectUsingKey('child-0-1'),
                 equals(true),
               );
               expect(
-                null == app!.services.walker.getWidgetObject('child-0-1-0'),
+                null ==
+                    app!.services.walker.getWidgetObjectUsingKey('child-0-1-0'),
                 equals(true),
               );
               expect(
-                null == app!.services.walker.getWidgetObject('child-0-1-1'),
+                null ==
+                    app!.services.walker.getWidgetObjectUsingKey('child-0-1-1'),
                 equals(true),
               );
               expect(
-                null == app!.services.walker.getWidgetObject('child-1'),
+                null == app!.services.walker.getWidgetObjectUsingKey('child-1'),
                 equals(true),
               );
               expect(
-                null == app!.services.walker.getWidgetObject('child-1-0'),
+                null ==
+                    app!.services.walker.getWidgetObjectUsingKey('child-1-0'),
                 equals(true),
               );
               expect(
-                null == app!.services.walker.getWidgetObject('child-1-1'),
+                null ==
+                    app!.services.walker.getWidgetObjectUsingKey('child-1-1'),
                 equals(true),
               );
             },
           ),
         ],
-        parentContext: app!.services.walker.getWidgetObject('widget')!.context,
+        parentContext:
+            app!.services.walker.getWidgetObjectUsingKey('widget')!.context,
       );
 
       // app widget should not have any impact
 
-      expect(null == app!.services.walker.getWidgetObject('widget'),
+      expect(null == app!.services.walker.getWidgetObjectUsingKey('widget'),
           equals(false));
 
       // newer child should be built
 
-      expect(null == app!.services.walker.getWidgetObject('new-child'),
+      expect(null == app!.services.walker.getWidgetObjectUsingKey('new-child'),
           equals(false));
     });
 
@@ -548,12 +600,12 @@ void main() {
           Text('2'),
           Text('3'),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       app!.framework.buildChildren(
         widgets: [Text('4')],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
         flagCleanParentContents: false,
       );
 
@@ -563,7 +615,7 @@ void main() {
     test('should continue to append new widgets when clean flag is off', () {
       app!.framework.buildChildren(
         widgets: [Text('1')],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
         flagCleanParentContents: true,
       );
 
@@ -572,13 +624,13 @@ void main() {
           Text('2'),
           Text('3'),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
         flagCleanParentContents: false,
       );
 
       app!.framework.buildChildren(
         widgets: [Text('4')],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
         flagCleanParentContents: false,
       );
 
@@ -592,12 +644,12 @@ void main() {
           Text('3'),
           Text('4'),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       app!.framework.buildChildren(
         widgets: [Text('2')],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
         mountAtIndex: 1,
         flagCleanParentContents: false,
       );
@@ -610,12 +662,12 @@ void main() {
         widgets: [
           Text('0'),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       app!.framework.buildChildren(
         widgets: [Text('insert at start')],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
         mountAtIndex: 0,
         flagCleanParentContents: false,
       );
@@ -628,12 +680,12 @@ void main() {
         widgets: [
           Text('0'),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       app!.framework.buildChildren(
         widgets: [Text('insert at end')],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
         mountAtIndex: 1,
         flagCleanParentContents: false,
       );
@@ -644,14 +696,14 @@ void main() {
     test('should mount at start if there are no exisiting widgets', () {
       app!.framework.buildChildren(
         widgets: [],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       expect(RT_TestBed.rootElement, RT_hasContents(''));
 
       app!.framework.buildChildren(
         widgets: [Text('insert at start')],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
         mountAtIndex: 0,
         flagCleanParentContents: false,
       );
@@ -662,14 +714,14 @@ void main() {
     test('should mount at start if no exisiting widgets and index is OOBs', () {
       app!.framework.buildChildren(
         widgets: [],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       expect(RT_TestBed.rootElement, RT_hasContents(''));
 
       app!.framework.buildChildren(
         widgets: [Text('insert at start')],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
         mountAtIndex: 10,
         flagCleanParentContents: false,
       );
@@ -684,19 +736,19 @@ void main() {
           Text('3'),
           Text('4'),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       app!.framework.buildChildren(
         widgets: [Text('2')],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
         mountAtIndex: 5,
         flagCleanParentContents: false,
       );
 
       app!.framework.buildChildren(
         widgets: [Text('-1')],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
         mountAtIndex: -5,
         flagCleanParentContents: false,
       );
@@ -712,12 +764,12 @@ void main() {
           Text('3'),
           Text('4'),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       app!.framework.buildChildren(
         widgets: [Text('2')],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
         mountAtIndex: 5,
       );
 
@@ -732,12 +784,12 @@ void main() {
           Text('3'),
           Text('4'),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
       app!.framework.buildChildren(
         widgets: [Text('2')],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
         mountAtIndex: 5,
         flagCleanParentContents: true,
       );

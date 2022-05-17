@@ -16,7 +16,7 @@ void main() {
             expect(state.widget.runtimeType, equals(RT_StatefulTestWidget));
           },
         ),
-        targetId: RT_TestBed.rootContext.key.value,
+        targetId: RT_TestBed.rootKey.value,
       );
     });
 
@@ -28,7 +28,7 @@ void main() {
             expect(state.context.key.value, equals('widget'));
           },
         ),
-        targetId: RT_TestBed.rootContext.key.value,
+        targetId: RT_TestBed.rootKey.value,
       );
     });
 
@@ -44,7 +44,7 @@ void main() {
                 stateHookCreateState: (state) => state.widget,
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app.appContext,
           ),
           throwsA(
             predicate(
@@ -69,7 +69,7 @@ void main() {
                 stateHookCreateState: (state) => state.context,
               ),
             ],
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app.appContext,
           ),
           throwsA(
             predicate(
@@ -92,7 +92,7 @@ void main() {
             'did change dependencies',
           ),
         ),
-        targetId: RT_TestBed.rootContext.key.value,
+        targetId: RT_TestBed.rootKey.value,
       );
 
       await Future.delayed(Duration.zero, () {
@@ -113,7 +113,7 @@ void main() {
             'did change dependencies',
           ),
         ),
-        targetId: RT_TestBed.rootContext.key.value,
+        targetId: RT_TestBed.rootKey.value,
       );
 
       await Future.delayed(Duration.zero, () {
@@ -144,7 +144,7 @@ void main() {
             'did change dependencies',
           ),
         ),
-        targetId: RT_TestBed.rootContext.key.value,
+        targetId: RT_TestBed.rootKey.value,
       );
 
       await Future.delayed(Duration.zero, () {
@@ -169,7 +169,7 @@ void main() {
             'did change dependencies',
           ),
         ),
-        targetId: RT_TestBed.rootContext.key.value,
+        targetId: RT_TestBed.rootKey.value,
       );
 
       await Future.delayed(Duration.zero, () {
@@ -209,7 +209,7 @@ void main() {
               ),
             ),
           ],
-          parentContext: RT_TestBed.rootContext,
+          parentContext: app.appContext,
         );
 
         await Future.delayed(Duration.zero, () {
@@ -232,13 +232,11 @@ void main() {
               ),
             ],
             updateType: UpdateType.undefined,
-            parentContext: RT_TestBed.rootContext,
+            parentContext: app.appContext,
           );
         });
 
         await Future.delayed(Duration.zero, () {
-          print(testStack.entries.toString());
-
           expect(testStack.popFromStart(), equals('create state 1a'));
           expect(testStack.popFromStart(), equals('init state 1a'));
           expect(
@@ -274,7 +272,7 @@ void main() {
             stateEventDispose: () => testStack.push('dispose 1a'),
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app.appContext,
       );
 
       await Future.delayed(Duration.zero, () {
@@ -295,13 +293,11 @@ void main() {
             ),
           ],
           updateType: UpdateType.undefined,
-          parentContext: RT_TestBed.rootContext,
+          parentContext: app.appContext,
         );
       });
 
       await Future.delayed(Duration.zero, () {
-        print(testStack.entries.toString());
-
         expect(testStack.popFromStart(), equals('create state 1a'));
         expect(testStack.popFromStart(), equals('init state 1a'));
         expect(

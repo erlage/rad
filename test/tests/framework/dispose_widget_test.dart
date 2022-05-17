@@ -64,12 +64,12 @@ void main() {
       );
 
       app!.framework.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObject('child-0-0'),
+        widgetObject: app!.services.walker.getWidgetObjectUsingKey('child-0-0'),
         flagPreserveTarget: false,
       );
 
       expect(
-        null == app!.services.walker.getWidgetObject('child-0-0'),
+        null == app!.services.walker.getWidgetObjectUsingKey('child-0-0'),
         equals(true),
       );
 
@@ -109,21 +109,21 @@ void main() {
       );
 
       app!.framework.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObject('child-0-0'),
+        widgetObject: app!.services.walker.getWidgetObjectUsingKey('child-0-0'),
         flagPreserveTarget: false,
       );
 
       app!.framework.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObject('child-0-1'),
+        widgetObject: app!.services.walker.getWidgetObjectUsingKey('child-0-1'),
         flagPreserveTarget: false,
       );
 
       expect(
-        null == app!.services.walker.getWidgetObject('child-0-0'),
+        null == app!.services.walker.getWidgetObjectUsingKey('child-0-0'),
         equals(true),
       );
       expect(
-        null == app!.services.walker.getWidgetObject('child-0-1'),
+        null == app!.services.walker.getWidgetObjectUsingKey('child-0-1'),
         equals(true),
       );
 
@@ -161,20 +161,20 @@ void main() {
       );
 
       app!.framework.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObject('child-0'),
+        widgetObject: app!.services.walker.getWidgetObjectUsingKey('child-0'),
         flagPreserveTarget: false,
       );
 
       expect(
-        null == app!.services.walker.getWidgetObject('child-0-0'),
+        null == app!.services.walker.getWidgetObjectUsingKey('child-0-0'),
         equals(true),
       );
       expect(
-        null == app!.services.walker.getWidgetObject('child-0-1'),
+        null == app!.services.walker.getWidgetObjectUsingKey('child-0-1'),
         equals(true),
       );
       expect(
-        null == app!.services.walker.getWidgetObject('child-0'),
+        null == app!.services.walker.getWidgetObjectUsingKey('child-0'),
         equals(true),
       );
 
@@ -194,26 +194,26 @@ void main() {
 
       // widget should be ready for dispose by now
 
-      expect(null == app!.services.walker.getWidgetObject('widget'),
+      expect(null == app!.services.walker.getWidgetObjectUsingKey('widget'),
           equals(false));
 
       app!.framework.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObject('widget'),
+        widgetObject: app!.services.walker.getWidgetObjectUsingKey('widget'),
         flagPreserveTarget: false,
       );
 
       app!.framework.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObject('widget'),
+        widgetObject: app!.services.walker.getWidgetObjectUsingKey('widget'),
         flagPreserveTarget: false,
       );
 
       app!.framework.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObject('widget'),
+        widgetObject: app!.services.walker.getWidgetObjectUsingKey('widget'),
         flagPreserveTarget: false,
       );
 
       expect(
-        null == app!.services.walker.getWidgetObject('widget'),
+        null == app!.services.walker.getWidgetObjectUsingKey('widget'),
         equals(true),
       );
     });
@@ -246,20 +246,20 @@ void main() {
       );
 
       app!.framework.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObject('child-0'),
+        widgetObject: app!.services.walker.getWidgetObjectUsingKey('child-0'),
         flagPreserveTarget: true,
       );
 
       expect(
-        null == app!.services.walker.getWidgetObject('child-0-0'),
+        null == app!.services.walker.getWidgetObjectUsingKey('child-0-0'),
         equals(true),
       );
       expect(
-        null == app!.services.walker.getWidgetObject('child-0-1'),
+        null == app!.services.walker.getWidgetObjectUsingKey('child-0-1'),
         equals(true),
       );
       expect(
-        null == app!.services.walker.getWidgetObject('child-0'),
+        null == app!.services.walker.getWidgetObjectUsingKey('child-0'),
         equals(false),
       );
 
@@ -356,7 +356,7 @@ void main() {
       //
 
       app!.framework.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObject('widget'),
+        widgetObject: app!.services.walker.getWidgetObjectUsingKey('widget'),
         flagPreserveTarget: true,
       );
 

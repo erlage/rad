@@ -155,15 +155,16 @@ class RT_TestWidgetRenderObject extends RenderObject {
   }) : super(context);
 
   @override
-  render(element, configuration) {
+  render({required configuration}) {
     if (null != roEventHookRender) {
       roEventHookRender!();
     }
+
+    return null;
   }
 
   @override
   update({
-    required element,
     required updateType,
     required oldConfiguration,
     required newConfiguration,
@@ -171,6 +172,8 @@ class RT_TestWidgetRenderObject extends RenderObject {
     if (null != roEventHookUpdate) {
       roEventHookUpdate!();
     }
+
+    return null;
   }
 
   @override

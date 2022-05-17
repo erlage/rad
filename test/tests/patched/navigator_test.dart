@@ -9,7 +9,7 @@ void main() {
     test('should render correct markup', () async {
       startApp(
         app: _NavigatorTest4(),
-        targetId: RT_TestBed.rootContext.key.value,
+        targetId: RT_TestBed.rootKey.value,
       );
 
       await Future.delayed(Duration(seconds: 1), () {
