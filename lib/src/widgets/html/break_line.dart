@@ -36,16 +36,4 @@ class BreakLine extends Widget {
 
 class _BreakLineRenderObject extends RenderObject {
   const _BreakLineRenderObject(BuildContext context) : super(context);
-
-  @override
-  render({required configuration}) => null;
-
-  @override
-  update({
-    required updateType,
-    required oldConfiguration,
-    required newConfiguration,
-  }) {
-    return null;
-  }
 }
