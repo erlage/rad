@@ -75,7 +75,7 @@ class TextArea extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => "$TextArea";
+  get widgetType => '$TextArea';
 
   @override
   get correspondingTag => DomTag.textArea;
@@ -230,7 +230,7 @@ class _TextAreaProps {
     }
 
     if (null != props.rows) {
-      attributes[Attributes.rows] = "${props.rows!}";
+      attributes[Attributes.rows] = '${props.rows!}';
     } else {
       if (null != oldProps?.rows) {
         attributes[Attributes.rows] = null;
@@ -238,7 +238,7 @@ class _TextAreaProps {
     }
 
     if (null != props.cols) {
-      attributes[Attributes.cols] = "${props.cols!}";
+      attributes[Attributes.cols] = '${props.cols!}';
     } else {
       if (null != oldProps?.cols) {
         attributes[Attributes.cols] = null;
@@ -246,7 +246,7 @@ class _TextAreaProps {
     }
 
     if (null != props.minLength) {
-      attributes[Attributes.minLength] = "${props.minLength!}";
+      attributes[Attributes.minLength] = '${props.minLength!}';
     } else {
       if (null != oldProps?.minLength) {
         attributes[Attributes.minLength] = null;
@@ -254,7 +254,7 @@ class _TextAreaProps {
     }
 
     if (null != props.maxLength) {
-      attributes[Attributes.maxLength] = "${props.maxLength!}";
+      attributes[Attributes.maxLength] = '${props.maxLength!}';
     } else {
       if (null != oldProps?.maxLength) {
         attributes[Attributes.maxLength] = null;
@@ -262,7 +262,7 @@ class _TextAreaProps {
     }
 
     if (null != props.required) {
-      attributes[Attributes.required] = "${props.required!}";
+      attributes[Attributes.required] = '${props.required!}';
     } else {
       if (null != oldProps?.required) {
         attributes[Attributes.required] = null;
@@ -270,7 +270,7 @@ class _TextAreaProps {
     }
 
     if (null != props.readOnly) {
-      attributes[Attributes.readOnly] = "${props.readOnly!}";
+      attributes[Attributes.readOnly] = '${props.readOnly!}';
     } else {
       if (null != oldProps?.readOnly) {
         attributes[Attributes.readOnly] = null;
@@ -278,7 +278,7 @@ class _TextAreaProps {
     }
 
     if (null != props.disabled) {
-      attributes[Attributes.disabled] = "${props.disabled!}";
+      attributes[Attributes.disabled] = '${props.disabled!}';
     } else {
       if (null != oldProps?.disabled) {
         attributes[Attributes.disabled] = null;

@@ -69,7 +69,7 @@ class Button extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => "$Button";
+  get widgetType => '$Button';
 
   @override
   get correspondingTag => DomTag.button;

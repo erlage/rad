@@ -54,5 +54,5 @@ class InputSubmit extends InputTag {
 
   @nonVirtual
   @override
-  get widgetType => "$InputSubmit";
+  get widgetType => '$InputSubmit';
 }

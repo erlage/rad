@@ -48,7 +48,7 @@ class Small extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => "$Small";
+  get widgetType => '$Small';
 
   @override
   get correspondingTag => DomTag.small;

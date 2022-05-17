@@ -54,7 +54,7 @@ abstract class InheritedWidget extends Widget {
 
   @nonVirtual
   @override
-  get widgetType => "$InheritedWidget";
+  get widgetType => '$InheritedWidget';
 
   @nonVirtual
   @override

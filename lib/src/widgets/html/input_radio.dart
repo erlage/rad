@@ -58,5 +58,5 @@ class InputRadio extends InputTag {
 
   @nonVirtual
   @override
-  get widgetType => "$InputRadio";
+  get widgetType => '$InputRadio';
 }

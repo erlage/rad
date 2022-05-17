@@ -38,7 +38,7 @@ class Route extends Widget {
 
   @nonVirtual
   @override
-  get widgetType => "$Route";
+  get widgetType => '$Route';
 
   @override
   get correspondingTag => DomTag.division;

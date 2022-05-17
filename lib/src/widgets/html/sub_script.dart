@@ -49,7 +49,7 @@ class SubScript extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => "$SubScript";
+  get widgetType => '$SubScript';
 
   @override
   get correspondingTag => DomTag.subScript;

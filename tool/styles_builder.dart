@@ -36,7 +36,7 @@ class StylesBuilder implements Builder {
       'lib/widgets_html.dart',
       'lib/widgets_internals.dart',
     ]) {
-      File(file).readAsStringSync().split("\n").forEach(addToAvailableImports);
+      File(file).readAsStringSync().split('\n').forEach(addToAvailableImports);
     }
   }
 
@@ -45,9 +45,9 @@ class StylesBuilder implements Builder {
 
     if (null != exportMatch) {
       var importStatement = exportMatch.group(1)!;
-      var classesExported = exportMatch.group(2)!.split(",");
+      var classesExported = exportMatch.group(2)!.split(',');
 
-      if (!importStatement.startsWith("package")) {
+      if (!importStatement.startsWith('package')) {
         importStatement = 'package:rad/$importStatement';
       }
 
@@ -67,7 +67,7 @@ class StylesBuilder implements Builder {
   |--------------------------------------------------------------------------
   */
 
-  final allowedLiteralExceptions = ["Target"];
+  final allowedLiteralExceptions = ['Target'];
 
   // gets cleared for each asset
   final importsForCurrentAsset = <String>{};
@@ -91,12 +91,12 @@ class StylesBuilder implements Builder {
       if (availableImports.containsKey(className)) {
         importsForCurrentAsset.add(availableImports[className]!);
       } else {
-        throw "\nRad: Internal widgets should not have any CSS.\n"
+        throw '\nRad: Internal widgets should not have any CSS.\n'
             "'$className' is not a public class and is not allowed for CSS styling.\n";
       }
 
       // interpolate
-      line = line.replaceAll(className, "\$$className");
+      line = line.replaceAll(className, '\$$className');
     }
 
     return line.replaceAll('"', '\\"');
@@ -118,7 +118,7 @@ class StylesBuilder implements Builder {
     var genConstant = fileName.replaceAll('.css', '');
 
     if (!RegExp(r'^[a-zA-Z_]+$').hasMatch(genConstant)) {
-      throw "\nRad: Name of your CSS files can contains only alphabets and underscores\n"
+      throw '\nRad: Name of your CSS files can contains only alphabets and underscores\n'
           "File name '$fileName' is not allowed\n";
     }
 
@@ -129,7 +129,7 @@ class StylesBuilder implements Builder {
     importsForCurrentAsset.clear();
 
     for (final line in cssContents.split('\n')) {
-      genContents += "\n    \" ${parseLine(line)} \"";
+      genContents += '\n    " ${parseLine(line)} "';
     }
 
     var importStatements = '';
@@ -138,12 +138,12 @@ class StylesBuilder implements Builder {
       importStatements = "${importsForCurrentAsset.join("\n")}\n\n";
     }
 
-    genContents = "// ignore_for_file: non_constant_identifier_names\n"
+    genContents = '// ignore_for_file: non_constant_identifier_names\n'
         "\n// auto-generated. please don't edit this file\n\n"
-        "$importStatements"
-        "final GEN_STYLES_${genConstant}_CSS = \"\"$genContents";
+        '$importStatements'
+        'final GEN_STYLES_${genConstant}_CSS = ""$genContents';
 
-    genContents = "$genContents;\n";
+    genContents = '$genContents;\n';
 
     await buildStep.writeAsString(genAssetId, genContents);
   }

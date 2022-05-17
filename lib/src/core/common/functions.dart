@@ -3,171 +3,171 @@ import 'package:rad/src/core/common/enums.dart';
 String fnMapDomTag(DomTag tag) {
   switch (tag) {
     case DomTag.abbreviation:
-      return "abbr";
+      return 'abbr';
 
     case DomTag.article:
-      return "article";
+      return 'article';
 
     case DomTag.code:
-      return "code";
+      return 'code';
 
     case DomTag.header:
-      return "header";
+      return 'header';
 
     case DomTag.footer:
-      return "footer";
+      return 'footer';
 
     case DomTag.navigation:
-      return "nav";
+      return 'nav';
 
     case DomTag.division:
-      return "div";
+      return 'div';
 
     case DomTag.span:
-      return "span";
+      return 'span';
 
     case DomTag.anchor:
-      return "a";
+      return 'a';
 
     case DomTag.blockquote:
-      return "blockquote";
+      return 'blockquote';
 
     case DomTag.horizontalRule:
-      return "hr";
+      return 'hr';
 
     case DomTag.label:
-      return "label";
+      return 'label';
 
     case DomTag.iFrame:
-      return "iframe";
+      return 'iframe';
 
     case DomTag.breakLine:
-      return "br";
+      return 'br';
 
     case DomTag.image:
-      return "img";
+      return 'img';
 
     case DomTag.canvas:
-      return "canvas";
+      return 'canvas';
 
     case DomTag.paragraph:
-      return "p";
+      return 'p';
 
     case DomTag.input:
-      return "input";
+      return 'input';
 
     case DomTag.form:
-      return "form";
+      return 'form';
 
     case DomTag.fieldSet:
-      return "fieldset";
+      return 'fieldset';
 
     case DomTag.legend:
-      return "legend";
+      return 'legend';
 
     case DomTag.idiomatic:
-      return "i";
+      return 'i';
 
     case DomTag.strong:
-      return "strong";
+      return 'strong';
 
     case DomTag.small:
-      return "small";
+      return 'small';
 
     case DomTag.subScript:
-      return "sub";
+      return 'sub';
 
     case DomTag.superScript:
-      return "sup";
+      return 'sup';
 
     case DomTag.unOrderedList:
-      return "ul";
+      return 'ul';
 
     case DomTag.listItem:
-      return "li";
+      return 'li';
 
     case DomTag.button:
-      return "button";
+      return 'button';
 
     case DomTag.select:
-      return "select";
+      return 'select';
 
     case DomTag.option:
-      return "option";
+      return 'option';
 
     case DomTag.progress:
-      return "progress";
+      return 'progress';
 
     case DomTag.textArea:
-      return "textarea";
+      return 'textarea';
 
     // headings
 
     case DomTag.heading1:
-      return "h1";
+      return 'h1';
 
     case DomTag.heading2:
-      return "h2";
+      return 'h2';
 
     case DomTag.heading3:
-      return "h3";
+      return 'h3';
 
     case DomTag.heading4:
-      return "h4";
+      return 'h4';
 
     case DomTag.heading5:
-      return "h5";
+      return 'h5';
 
     case DomTag.heading6:
-      return "h6";
+      return 'h6';
 
     // table related
 
     case DomTag.table:
-      return "table";
+      return 'table';
 
     case DomTag.caption:
-      return "caption";
+      return 'caption';
 
     case DomTag.tableColumn:
-      return "col";
+      return 'col';
 
     case DomTag.tableColumnGroup:
-      return "colgroup";
+      return 'colgroup';
 
     case DomTag.tableHead:
-      return "thead";
+      return 'thead';
 
     case DomTag.tableDataCell:
-      return "td";
+      return 'td';
 
     case DomTag.tableHeaderCell:
-      return "th";
+      return 'th';
 
     case DomTag.tableBody:
-      return "tbody";
+      return 'tbody';
 
     case DomTag.tableFoot:
-      return "tfoot";
+      return 'tfoot';
 
     case DomTag.tableRow:
-      return "tr";
+      return 'tr';
   }
 }
 
 String fnMapDomEventType(DomEventType eventType) {
   switch (eventType) {
     case DomEventType.click:
-      return "click";
+      return 'click';
 
     case DomEventType.change:
-      return "change";
+      return 'change';
 
     case DomEventType.input:
-      return "input";
+      return 'input';
 
     case DomEventType.submit:
-      return "submit";
+      return 'submit';
   }
 }
 
@@ -185,58 +185,58 @@ DomEventType? fnMapEventTypeToDomEventType(String eventType) {
 String fnMapInputType(InputType type) {
   switch (type) {
     case InputType.text:
-      return "text";
+      return 'text';
 
     case InputType.password:
-      return "password";
+      return 'password';
 
     case InputType.file:
-      return "file";
+      return 'file';
 
     case InputType.radio:
-      return "radio";
+      return 'radio';
 
     case InputType.checkbox:
-      return "checkbox";
+      return 'checkbox';
 
     case InputType.submit:
-      return "submit";
+      return 'submit';
   }
 }
 
 String fnMapButtonType(ButtonType buttonType) {
   switch (buttonType) {
     case ButtonType.button:
-      return "button";
+      return 'button';
 
     case ButtonType.submit:
-      return "submit";
+      return 'submit';
 
     case ButtonType.reset:
-      return "reset";
+      return 'reset';
   }
 }
 
 String fnMapFormEncType(FormEncType type) {
   switch (type) {
     case FormEncType.applicationXwwwFormUrlEncoded:
-      return "application/x-www-form-urlencoded";
+      return 'application/x-www-form-urlencoded';
 
     case FormEncType.multipartFormData:
-      return "multipart/form-data";
+      return 'multipart/form-data';
 
     case FormEncType.textPlain:
-      return "text/plain";
+      return 'text/plain';
   }
 }
 
 String fnMapFormMethod(FormMethod method) {
   switch (method) {
     case FormMethod.post:
-      return "post";
+      return 'post';
 
     case FormMethod.get:
-      return "get";
+      return 'get';
   }
 }
 

@@ -1,9 +1,9 @@
 import 'dart:html';
 
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/interface/components/abstract.dart';
 import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/core/services/services_resolver.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/interface/components/abstract.dart';
 
 /// App components.
 ///
@@ -44,13 +44,13 @@ class Components with ServicesResolver {
         if (null != contents) {
           if (contents.length > 1000) {
             return services.debug.exception(
-              "Package is trying to inject larger stylesheet than allowed. "
-              "Please use your HTML page to inject stylesheets larger than 200 "
-              "characters. \n\n Package details: $styleComponent",
+              'Package is trying to inject larger stylesheet than allowed. '
+              'Please use your HTML page to inject stylesheets larger than 200 '
+              'characters. \n\n Package details: $styleComponent',
             );
           }
 
-          injectStyles(contents, "$styleComponent");
+          injectStyles(contents, '$styleComponent');
         }
       }
     }
@@ -62,11 +62,11 @@ class Components with ServicesResolver {
     // create dom element
 
     var stylesheet = LinkElement()
-      ..type = "text/css"
-      ..rel = "stylesheet"
+      ..type = 'text/css'
+      ..rel = 'stylesheet'
       ..href = href;
 
-    insertIntoDocument(stylesheet, "Stylesheet linked: $href");
+    insertIntoDocument(stylesheet, 'Stylesheet linked: $href');
   }
 
   /// Link a Javascript.
@@ -76,10 +76,10 @@ class Components with ServicesResolver {
 
     var script = ScriptElement()
       ..defer = true
-      ..type = "javascript/js"
+      ..type = 'javascript/js'
       ..src = href;
 
-    insertIntoDocument(script, "Javascript linked: $href");
+    insertIntoDocument(script, 'Javascript linked: $href');
   }
 
   /// Inject styles into DOM using <style> tag.
@@ -89,7 +89,7 @@ class Components with ServicesResolver {
 
     var stylesheet = StyleElement()..innerText = styles;
 
-    insertIntoDocument(stylesheet, "Styles injected: $flagLogEntry");
+    insertIntoDocument(stylesheet, 'Styles injected: $flagLogEntry');
   }
 
   void insertIntoDocument(HtmlElement element, String flagLogEntry) {
@@ -101,8 +101,8 @@ class Components with ServicesResolver {
       document.head!.insertBefore(element, null);
     } else {
       return services.debug.exception(
-        "For Rad to work, your page must have either a head tag or a body."
-        "Creating a body(or head) in your page will fix this problem.",
+        'For Rad to work, your page must have either a head tag or a body.'
+        'Creating a body(or head) in your page will fix this problem.',
       );
     }
 

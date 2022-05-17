@@ -319,9 +319,9 @@ class Navigator extends Widget {
 
       if (null == widgetObject) {
         services.debug.exception(
-          "Navigator operation requested with a context that does not include a Navigator.\n"
-          "The context used to push or pop routes from the Navigator must be that of a "
-          "widget that is a descendant of a Navigator widget.",
+          'Navigator operation requested with a context that does not include a Navigator.\n'
+          'The context used to push or pop routes from the Navigator must be that of a '
+          'widget that is a descendant of a Navigator widget.',
         );
 
         /// Return dummy state if user has registered there own error handler that
@@ -364,7 +364,7 @@ class Navigator extends Widget {
 
   @nonVirtual
   @override
-  get widgetType => "$Navigator";
+  get widgetType => '$Navigator';
 
   @nonVirtual
   @override
@@ -571,7 +571,7 @@ class NavigatorState with ServicesResolver {
 
     if (updateHistory) {
       if (services.debug.routerLogs) {
-        print("${context.key.value}: Push entry: $name");
+        print('${context.key.value}: Push entry: $name');
       }
 
       services.router.pushEntry(
@@ -733,7 +733,7 @@ class NavigatorState with ServicesResolver {
     if (services.debug.additionalChecks) {
       if (widget.routes.isEmpty) {
         return services.debug.exception(
-          "Navigator instance must have at least one route.",
+          'Navigator instance must have at least one route.',
         );
       }
     }
@@ -746,14 +746,14 @@ class NavigatorState with ServicesResolver {
           if (route.path.isEmpty) {
             return services.debug.exception(
               "Navigator's Route's path can't be empty."
-              "\n Route: ${route.name} -> ${route.path} is not allowed",
+              '\n Route: ${route.name} -> ${route.path} is not allowed',
             );
           }
 
           return services.debug.exception(
             "Navigator's Route can contains only alphanumeric characters "
-            ", underscores(_) and hyphens(-)"
-            "\n Route: ${route.name} -> ${route.path} is not allowed",
+            ', underscores(_) and hyphens(-)'
+            '\n Route: ${route.name} -> ${route.path} is not allowed',
           );
         }
 
@@ -762,7 +762,7 @@ class NavigatorState with ServicesResolver {
 
         if (isDuplicate) {
           return services.debug.exception(
-            "Please remove Duplicate routes from your Navigator."
+            'Please remove Duplicate routes from your Navigator.'
             "Part of your route, name: '${route.name}' => path: '${route.path}', already exists",
           );
         }
@@ -793,7 +793,7 @@ class NavigatorState with ServicesResolver {
 
     if (needsReplacement && name.isNotEmpty) {
       if (services.debug.routerLogs) {
-        print("${context.key.value}: Push replacement: $name");
+        print('${context.key.value}: Push replacement: $name');
       }
 
       services.router.pushReplacement(
@@ -840,7 +840,7 @@ class NavigatorState with ServicesResolver {
 
     if (routeName != currentRouteName) {
       if (services.debug.routerLogs) {
-        print("${context.key.value}: Push replacement: $routeName");
+        print('${context.key.value}: Push replacement: $routeName');
       }
 
       services.router.pushReplacement(

@@ -45,7 +45,7 @@ class TableRow extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => "$TableRow";
+  get widgetType => '$TableRow';
 
   @override
   get correspondingTag => DomTag.tableRow;

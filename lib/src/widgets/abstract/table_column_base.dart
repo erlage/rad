@@ -151,7 +151,7 @@ class _TableColumnProps {
     var attributes = <String, String?>{};
 
     if (null != props.span) {
-      attributes[Attributes.span] = "${props.span}";
+      attributes[Attributes.span] = '${props.span}';
     } else {
       if (null != oldProps?.span) {
         attributes[Attributes.span] = null;

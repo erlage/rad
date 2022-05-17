@@ -89,11 +89,11 @@ class _GestureDetectorState extends State<GestureDetector> {
   void _addOnTap() {
     var useCapture = HitTestBehavior.opaque == widget.behaviour;
 
-    element.addEventListener("click", _handleOnTap, useCapture);
+    element.addEventListener('click', _handleOnTap, useCapture);
   }
 
   void _removeOnTap() {
-    element.removeEventListener("click", _handleOnTap);
+    element.removeEventListener('click', _handleOnTap);
   }
 
   void _handleOnTap(Event event) {

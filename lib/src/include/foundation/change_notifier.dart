@@ -146,7 +146,7 @@ class ChangeNotifier implements Listenable {
       try {
         _listeners[i]?.call();
       } catch (exception, stack) {
-        print("Something went wrong. Stacktrace: $stack");
+        print('Something went wrong. Stacktrace: $stack');
       }
     }
 

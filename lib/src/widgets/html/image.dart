@@ -66,7 +66,7 @@ class Image extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => "$Image";
+  get widgetType => '$Image';
 
   @override
   get correspondingTag => DomTag.image;

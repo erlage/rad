@@ -45,7 +45,7 @@ class BreakLine extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => "$BreakLine";
+  get widgetType => '$BreakLine';
 
   @override
   get correspondingTag => DomTag.breakLine;

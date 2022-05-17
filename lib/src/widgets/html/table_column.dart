@@ -47,7 +47,7 @@ class TableColumn extends TableColumnBase {
 
   @nonVirtual
   @override
-  get widgetType => "$TableColumn";
+  get widgetType => '$TableColumn';
 
   @override
   get correspondingTag => DomTag.tableColumn;

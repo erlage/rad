@@ -58,5 +58,5 @@ class InputFile extends InputTag {
 
   @nonVirtual
   @override
-  get widgetType => "$InputFile";
+  get widgetType => '$InputFile';
 }

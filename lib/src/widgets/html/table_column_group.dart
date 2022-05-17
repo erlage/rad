@@ -47,7 +47,7 @@ class TableColumnGroup extends TableColumnBase {
 
   @nonVirtual
   @override
-  get widgetType => "$TableColumnGroup";
+  get widgetType => '$TableColumnGroup';
 
   @override
   get correspondingTag => DomTag.tableColumnGroup;

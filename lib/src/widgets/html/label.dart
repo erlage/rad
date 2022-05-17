@@ -53,7 +53,7 @@ class Label extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => "$Label";
+  get widgetType => '$Label';
 
   @override
   get correspondingTag => DomTag.label;

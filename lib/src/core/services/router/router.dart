@@ -210,7 +210,7 @@ class Router extends Service {
 
     if (services.debug.routerLogs) {
       print(
-        "Navigator(#$navigatorKey) matched: "
+        'Navigator(#$navigatorKey) matched: '
         "'$matchedPathSegment' from '${segments.join("/")}'",
       );
     }
@@ -221,11 +221,11 @@ class Router extends Service {
   /// Get value following the provided segment in URL.
   ///
   String getValue(String navigatorKey, String segment) {
-    var path = accessibleSegments(navigatorKey).join("/");
+    var path = accessibleSegments(navigatorKey).join('/');
 
     // try to find a value that's following the provided segment in path
 
-    var match = RegExp(segment + r"\/+([^\/]+)").firstMatch(path);
+    var match = RegExp(segment + r'\/+([^\/]+)').firstMatch(path);
 
     return (null == match) ? '' : Uri.decodeFull(match.group(1) ?? '');
   }
@@ -276,19 +276,19 @@ class Router extends Service {
 
     // else limit part of path that's visible to current navigator
 
-    var matcher = "";
+    var matcher = '';
 
     if (routeObject.segments.length < 3) {
-      matcher = r"^\/*[\w\/]*(" + routeObject.segments.last + r"[\/\w]*)";
+      matcher = r'^\/*[\w\/]*(' + routeObject.segments.last + r'[\/\w]*)';
     } else {
-      matcher = r"^\/*" +
+      matcher = r'^\/*' +
           routeObject.segments[1] +
-          r"[\w\/]*(" +
+          r'[\w\/]*(' +
           routeObject.segments.last +
-          r"[\/\w]*)";
+          r'[\/\w]*)';
     }
 
-    var path = _currentSegments.join("/");
+    var path = _currentSegments.join('/');
 
     var match = RegExp(matcher).firstMatch(path);
 
@@ -298,7 +298,7 @@ class Router extends Service {
 
     if (null == group) return [];
 
-    return group.split("/");
+    return group.split('/');
   }
 
   /// Part of path(Window.delegate.locationPathName) that navigator with
@@ -326,32 +326,32 @@ class Router extends Service {
     // if root navigator, no segments are protected
 
     if (null == routeObject.parent) {
-      return options.path.split("/");
+      return options.path.split('/');
     }
 
     // else find protected part
 
-    var matcher = "";
+    var matcher = '';
 
-    var matchRoutes = stateObject.nameToPathMap.values.join(r"|\/");
+    var matchRoutes = stateObject.nameToPathMap.values.join(r'|\/');
 
     if (routeObject.segments.length < 3) {
-      matcher = r"(^\/*[\w\/]*" +
+      matcher = r'(^\/*[\w\/]*' +
           routeObject.segments.last +
-          r"[\w\/]*(?=\/" +
+          r'[\w\/]*(?=\/' +
           matchRoutes +
-          r"))";
+          r'))';
     } else {
-      matcher = r"(^\/*" +
+      matcher = r'(^\/*' +
           routeObject.segments[1] +
-          r"[\w\/]*" +
+          r'[\w\/]*' +
           routeObject.segments.last +
-          r"[\w\/]*(?=\/" +
+          r'[\w\/]*(?=\/' +
           matchRoutes +
-          r"))";
+          r'))';
     }
 
-    var path = _currentSegments.join("/");
+    var path = _currentSegments.join('/');
 
     var match = RegExp(matcher).firstMatch(path);
 
@@ -361,7 +361,7 @@ class Router extends Service {
 
     if (null == group) return _currentSegments;
 
-    return group.split("/");
+    return group.split('/');
   }
 
   /*
@@ -375,7 +375,7 @@ class Router extends Service {
       var location = Window.delegate.locationHref;
 
       if (services.debug.routerLogs) {
-        print("Router: onPopState: location: $location");
+        print('Router: onPopState: location: $location');
       }
 
       // find or manage user history entry
@@ -393,7 +393,7 @@ class Router extends Service {
         // and reloading window will build the correct interface.
 
         if (services.debug.routerLogs) {
-          print("Router: onPopState: entry doesnt exists: $entry");
+          print('Router: onPopState: entry doesnt exists: $entry');
         }
 
         Window.delegate.locationReload();
@@ -409,7 +409,7 @@ class Router extends Service {
         ensureNavigatorIsVisible(routeObject);
 
         if (services.debug.routerLogs) {
-          print("Router: onPopState: open: ${entry.name}");
+          print('Router: onPopState: open: ${entry.name}');
         }
 
         navigatorState.open(
@@ -445,7 +445,7 @@ class Router extends Service {
 
       if (services.debug.routerLogs) {
         print(
-          "Navigator Registered: #${context.key.value} at ${[options.path]}",
+          'Navigator Registered: #${context.key.value} at ${[options.path]}',
         );
       }
 
@@ -486,7 +486,7 @@ class Router extends Service {
     );
 
     if (services.debug.routerLogs) {
-      print("Navigator Registered: #${context.key.value} at $segments");
+      print('Navigator Registered: #${context.key.value} at $segments');
     }
   }
 }

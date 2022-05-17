@@ -72,7 +72,7 @@ class InputText extends InputTag {
 
   @nonVirtual
   @override
-  get widgetType => "$InputText";
+  get widgetType => '$InputText';
 
   @override
   createConfiguration() {

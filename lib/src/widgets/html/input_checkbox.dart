@@ -58,5 +58,5 @@ class InputCheckBox extends InputTag {
 
   @nonVirtual
   @override
-  get widgetType => "$InputCheckBox";
+  get widgetType => '$InputCheckBox';
 }

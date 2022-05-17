@@ -45,7 +45,7 @@ class TableFoot extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => "$TableFoot";
+  get widgetType => '$TableFoot';
 
   @override
   get correspondingTag => DomTag.tableFoot;

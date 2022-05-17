@@ -52,7 +52,7 @@ class ListItem extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => "$ListItem";
+  get widgetType => '$ListItem';
 
   @override
   get correspondingTag => DomTag.listItem;

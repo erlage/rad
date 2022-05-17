@@ -254,7 +254,7 @@ class InputProps {
     }
 
     if (null != props.multiple) {
-      attributes[Attributes.multiple] = "${props.multiple}";
+      attributes[Attributes.multiple] = '${props.multiple}';
     } else {
       if (null != oldProps?.multiple) {
         attributes[Attributes.multiple] = null;
@@ -262,7 +262,7 @@ class InputProps {
     }
 
     if (null != props.checked) {
-      attributes[Attributes.checked] = "${props.checked}";
+      attributes[Attributes.checked] = '${props.checked}';
     } else {
       if (null != oldProps?.checked) {
         attributes[Attributes.checked] = null;
@@ -270,7 +270,7 @@ class InputProps {
     }
 
     if (null != props.disabled && props.disabled!) {
-      attributes[Attributes.disabled] = "${props.disabled}";
+      attributes[Attributes.disabled] = '${props.disabled}';
     } else {
       if (null != oldProps?.disabled) {
         attributes[Attributes.disabled] = null;
@@ -278,7 +278,7 @@ class InputProps {
     }
 
     if (null != props.required) {
-      attributes[Attributes.required] = "${props.required}";
+      attributes[Attributes.required] = '${props.required}';
     } else {
       if (null != oldProps?.required) {
         attributes[Attributes.required] = null;

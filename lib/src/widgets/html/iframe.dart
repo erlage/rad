@@ -83,7 +83,7 @@ class IFrame extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => "$IFrame";
+  get widgetType => '$IFrame';
 
   @override
   get correspondingTag => DomTag.iFrame;

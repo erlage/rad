@@ -45,7 +45,7 @@ class Header extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => "$Header";
+  get widgetType => '$Header';
 
   @override
   get correspondingTag => DomTag.header;

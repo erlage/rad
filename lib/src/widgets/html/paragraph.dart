@@ -45,7 +45,7 @@ class Paragraph extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => "$Paragraph";
+  get widgetType => '$Paragraph';
 
   @override
   get correspondingTag => DomTag.paragraph;

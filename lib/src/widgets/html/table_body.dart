@@ -45,7 +45,7 @@ class TableBody extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => "$TableBody";
+  get widgetType => '$TableBody';
 
   @override
   get correspondingTag => DomTag.tableBody;

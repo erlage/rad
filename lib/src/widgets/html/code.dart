@@ -45,7 +45,7 @@ class Code extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => "$Code";
+  get widgetType => '$Code';
 
   @override
   get correspondingTag => DomTag.code;

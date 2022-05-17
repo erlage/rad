@@ -189,7 +189,7 @@ class _TableCellBaseProps {
     }
 
     if (null != props.rowSpan) {
-      attributes[Attributes.rowSpan] = "${props.rowSpan}";
+      attributes[Attributes.rowSpan] = '${props.rowSpan}';
     } else {
       if (null != oldProps?.rowSpan) {
         attributes[Attributes.rowSpan] = null;
@@ -197,7 +197,7 @@ class _TableCellBaseProps {
     }
 
     if (null != props.colSpan) {
-      attributes[Attributes.colSpan] = "${props.colSpan}";
+      attributes[Attributes.colSpan] = '${props.colSpan}';
     } else {
       if (null != oldProps?.colSpan) {
         attributes[Attributes.colSpan] = null;

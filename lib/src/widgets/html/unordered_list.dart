@@ -47,7 +47,7 @@ class UnOrderedList extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => "$UnOrderedList";
+  get widgetType => '$UnOrderedList';
 
   @override
   get correspondingTag => DomTag.unOrderedList;

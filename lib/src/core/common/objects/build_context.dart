@@ -58,7 +58,7 @@ class BuildContext {
         // widget type information
 
         widgetType = widget.widgetType,
-        widgetRuntimeType = "${widget.runtimeType}",
+        widgetRuntimeType = '${widget.runtimeType}',
         widgetCorrespondingTag = widget.correspondingTag;
 
   /// Create app context(root).
@@ -125,8 +125,8 @@ class BuildContext {
     var wType = widgetType;
     var rType = widgetRuntimeType;
 
-    var pType = wType != rType ? "$rType ($wType)" : rType;
+    var pType = wType != rType ? '$rType ($wType)' : rType;
 
-    return "#$key $pType < #${_parent?.key}";
+    return '#$key $pType < #${_parent?.key}';
   }
 }

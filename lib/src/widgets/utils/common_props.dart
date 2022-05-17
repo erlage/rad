@@ -65,6 +65,6 @@ class CommonProps {
       return [];
     }
 
-    return classAttribute.split(" ")..removeWhere((element) => element.isEmpty);
+    return classAttribute.split(' ')..removeWhere((element) => element.isEmpty);
   }
 }

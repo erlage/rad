@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/services/abstract.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/services/abstract.dart';
 
 /// Key generator service.
 ///
@@ -27,7 +27,7 @@ class KeyGen extends Service {
     _keyCounter++;
 
     return GlobalKey(
-      "${Constants.contextGenKeyPrefix}${rootContext.appTargetId}_$_keyCounter",
+      '${Constants.contextGenKeyPrefix}${rootContext.appTargetId}_$_keyCounter',
     );
   }
 
@@ -40,12 +40,12 @@ class KeyGen extends Service {
 
     if (key is LocalKey) {
       return GlobalKey(
-        "${parentContext.appTargetId}_${key.value}",
+        '${parentContext.appTargetId}_${key.value}',
       );
     }
 
     return GlobalKey(
-      "${parentContext.key.value}__${key.value}",
+      '${parentContext.key.value}__${key.value}',
     );
 
     // Using different separator for local(_) and for non-local(__) keys ensure
@@ -56,7 +56,7 @@ class KeyGen extends Service {
   String generateRandomKey() {
     _extraCounter++;
 
-    return "${_extraCounter}_${rootContext.appTargetId}";
+    return '${_extraCounter}_${rootContext.appTargetId}';
   }
 
   String random([int length = 6]) {

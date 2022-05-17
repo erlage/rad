@@ -9,18 +9,18 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  String _activeRoute = "";
+  String _activeRoute = '';
   NavigatorState? _navigatorState;
 
   @override
   build(context) {
     return Division(
-      style: "display: flex; flex-direction: row; "
-          "gap:20px; justify-content: center;",
+      style: 'display: flex; flex-direction: row; '
+          'gap:20px; justify-content: center;',
       children: [
         _settingsPageVeritcalNav(),
         Division(
-          style: "flex: 1",
+          style: 'flex: 1',
           child: _settingsPageNavigator(),
         ),
       ],
@@ -32,27 +32,27 @@ class _SettingsPageState extends State<SettingsPage> {
       onInit: _onNavigatorInit,
       onRouteChange: _onNavigatorRouteChange,
       routes: const [
-        Route(name: 'account', page: Page("Account Settings")),
-        Route(name: 'photos', page: Page("Photos Settings")),
-        Route(name: 'videos', page: Page("Videos Settings")),
-        Route(name: 'personal', page: Page("Personal Settings")),
+        Route(name: 'account', page: Page('Account Settings')),
+        Route(name: 'photos', page: Page('Photos Settings')),
+        Route(name: 'videos', page: Page('Videos Settings')),
+        Route(name: 'personal', page: Page('Personal Settings')),
       ],
     );
   }
 
   Widget _settingsPageVeritcalNav() {
     return Division(
-      style: "width:250px; height: 100%;",
-      classAttribute: "vertical-header",
+      style: 'width:250px; height: 100%;',
+      classAttribute: 'vertical-header',
       child: Division(
-        style: "display: flex; flex-direction: column;"
-            "justify-content: flex-start; gap: 10px;",
+        style: 'display: flex; flex-direction: column;'
+            'justify-content: flex-start; gap: 10px;',
         children: [
-          const Division(style: "width: 100%; height: 20px;"),
-          _headerItem(text: "Account settings", routeName: "account"),
-          _headerItem(text: "Photos settings", routeName: "photos"),
-          _headerItem(text: "Videos settings", routeName: "videos"),
-          _headerItem(text: "Personal information", routeName: "personal"),
+          const Division(style: 'width: 100%; height: 20px;'),
+          _headerItem(text: 'Account settings', routeName: 'account'),
+          _headerItem(text: 'Photos settings', routeName: 'photos'),
+          _headerItem(text: 'Videos settings', routeName: 'videos'),
+          _headerItem(text: 'Personal information', routeName: 'personal'),
         ],
       ),
     );
@@ -64,11 +64,11 @@ class _SettingsPageState extends State<SettingsPage> {
         _navigatorState?.open(name: routeName);
       },
       child: Division(
-        style: "widht: 100%;",
-        classAttribute: _activeRoute == routeName ? "active" : "",
+        style: 'widht: 100%;',
+        classAttribute: _activeRoute == routeName ? 'active' : '',
         children: [
           Division(
-            style: "padding: 15px;",
+            style: 'padding: 15px;',
             innerText: text,
           ),
         ],

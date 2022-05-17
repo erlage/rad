@@ -83,7 +83,7 @@ class Form extends MarkUpTagWithGlobalProps {
   get correspondingTag => DomTag.form;
 
   @override
-  get widgetType => "$Form";
+  get widgetType => '$Form';
 
   @override
   createConfiguration() {

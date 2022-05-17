@@ -104,7 +104,7 @@ abstract class StatefulWidget extends Widget {
 
   @nonVirtual
   @override
-  get widgetType => "$StatefulWidget";
+  get widgetType => '$StatefulWidget';
 
   @nonVirtual
   @override

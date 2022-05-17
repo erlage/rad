@@ -17,7 +17,7 @@ class ServicesRegistry {
 
   void registerServices(BuildContext context, Services services) {
     if (_services.containsKey(context.appTargetId)) {
-      throw "Services are already registered with the context.";
+      throw 'Services are already registered with the context.';
     }
 
     _services[context.appTargetId] = services;
@@ -31,7 +31,7 @@ class ServicesRegistry {
     var services = _services[context.appTargetId];
 
     if (null == services) {
-      throw "Services are not registered yet.";
+      throw 'Services are not registered yet.';
     }
 
     return services;
