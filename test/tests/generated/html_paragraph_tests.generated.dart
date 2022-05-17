@@ -6,8 +6,8 @@
 
 part of '_html_tests_index_test.dart';
 
-void html_th_test() {
-  group('HTML TableHeaderCell tests:', () {
+void html_paragraph_test() {
+  group('HTML Paragraph tests:', () {
     RT_AppRunner? app;
 
     setUp(() {
@@ -19,10 +19,9 @@ void html_th_test() {
     test('should set id', () {
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(key: Key('some-key'), id: 'some-id'),
-          TableHeaderCell(key: LocalKey('some-local-key'), id: 'some-local-id'),
-          TableHeaderCell(
-              key: GlobalKey('some-global-key'), id: 'some-global-id'),
+          Paragraph(key: Key('some-key'), id: 'some-id'),
+          Paragraph(key: LocalKey('some-local-key'), id: 'some-local-id'),
+          Paragraph(key: GlobalKey('some-global-key'), id: 'some-global-id'),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -61,10 +60,9 @@ void html_th_test() {
     test('should reset and update id', () {
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(key: Key('some-key'), id: 'some-id'),
-          TableHeaderCell(key: LocalKey('some-local-key'), id: 'some-local-id'),
-          TableHeaderCell(
-              key: GlobalKey('some-global-key'), id: 'some-global-id'),
+          Paragraph(key: Key('some-key'), id: 'some-id'),
+          Paragraph(key: LocalKey('some-local-key'), id: 'some-local-id'),
+          Paragraph(key: GlobalKey('some-global-key'), id: 'some-global-id'),
         ],
         parentContext: app!.appContext,
       );
@@ -101,15 +99,15 @@ void html_th_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          TableHeaderCell(
+          Paragraph(
             key: Key('some-key'),
             id: 'some-updated-id',
           ),
-          TableHeaderCell(
+          Paragraph(
             key: LocalKey('some-local-key'),
             id: 'some-local-updated-id',
           ),
-          TableHeaderCell(
+          Paragraph(
             key: GlobalKey('some-global-key'),
             id: 'some-global-updated-id',
           ),
@@ -126,9 +124,9 @@ void html_th_test() {
     test('should set child widget', () {
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(
+          Paragraph(
             id: 'widget-1',
-            child: TableHeaderCell(
+            child: Paragraph(
               id: 'widget-2',
             ),
           ),
@@ -146,11 +144,11 @@ void html_th_test() {
     test('should set children widgets', () {
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(id: 'widget-1', children: [
-            TableHeaderCell(
+          Paragraph(id: 'widget-1', children: [
+            Paragraph(
               id: 'widget-2',
             ),
-            TableHeaderCell(
+            Paragraph(
               id: 'widget-3',
             ),
           ]),
@@ -170,15 +168,15 @@ void html_th_test() {
     test('should set classes', () {
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(
+          Paragraph(
             id: 'widget-1',
             classAttribute: 'some class',
           ),
-          TableHeaderCell(
+          Paragraph(
             id: 'widget-2',
             classAttribute: 'some "messy" class',
           ),
-          TableHeaderCell(
+          Paragraph(
             id: 'widget-3',
             classAttribute: "some 'messy' class",
           ),
@@ -198,11 +196,11 @@ void html_th_test() {
     test('should set contenteditable', () {
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(
+          Paragraph(
             key: Key('widget-1'),
             contenteditable: false,
           ),
-          TableHeaderCell(
+          Paragraph(
             key: Key('widget-2'),
             contenteditable: true,
           ),
@@ -220,11 +218,11 @@ void html_th_test() {
     test('should set draggable', () {
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(
+          Paragraph(
             key: Key('widget-1'),
             draggable: false,
           ),
-          TableHeaderCell(
+          Paragraph(
             key: Key('widget-2'),
             draggable: true,
           ),
@@ -242,11 +240,11 @@ void html_th_test() {
     test('should set hidden', () {
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(
+          Paragraph(
             key: Key('widget-1'),
             hidden: false,
           ),
-          TableHeaderCell(
+          Paragraph(
             key: Key('widget-2'),
             hidden: true,
           ),
@@ -264,7 +262,7 @@ void html_th_test() {
     test('should set inner text', () {
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(
+          Paragraph(
             key: GlobalKey('widget-1'),
             innerText: 'hello world',
           ),
@@ -283,15 +281,15 @@ void html_th_test() {
     test('should set onClick', () {
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(
+          Paragraph(
             key: Key('widget-1'),
             onClick: 'some onClick',
           ),
-          TableHeaderCell(
+          Paragraph(
             key: Key('widget-2'),
             onClick: 'some "messy" onClick',
           ),
-          TableHeaderCell(
+          Paragraph(
             key: Key('widget-3'),
             onClick: "some 'messy' onClick",
           ),
@@ -324,7 +322,7 @@ void html_th_test() {
 
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(
+          Paragraph(
             key: GlobalKey('some-global-key'),
             onClickEventListener: (event) => testStack.push('clicked'),
           ),
@@ -346,9 +344,9 @@ void html_th_test() {
     test('should set style', () {
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(key: Key('widget-1'), style: 'some style'),
-          TableHeaderCell(key: Key('widget-2'), style: 'some "messy" style'),
-          TableHeaderCell(key: Key('widget-3'), style: "some 'messy' style"),
+          Paragraph(key: Key('widget-1'), style: 'some style'),
+          Paragraph(key: Key('widget-2'), style: 'some "messy" style'),
+          Paragraph(key: Key('widget-3'), style: "some 'messy' style"),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -365,15 +363,15 @@ void html_th_test() {
     test('should set tab index', () {
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(
+          Paragraph(
             key: Key('widget-1'),
             tabIndex: 1,
           ),
-          TableHeaderCell(
+          Paragraph(
             key: Key('widget-2'),
             tabIndex: 2,
           ),
-          TableHeaderCell(
+          Paragraph(
             key: Key('widget-3'),
             tabIndex: 3,
           ),
@@ -393,9 +391,9 @@ void html_th_test() {
     test('should set title', () {
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(key: Key('widget-1'), title: 'some title'),
-          TableHeaderCell(key: Key('widget-2'), title: 'some "messy" title'),
-          TableHeaderCell(key: Key('widget-3'), title: "some 'messy' title"),
+          Paragraph(key: Key('widget-1'), title: 'some title'),
+          Paragraph(key: Key('widget-2'), title: 'some "messy" title'),
+          Paragraph(key: Key('widget-3'), title: "some 'messy' title"),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -412,7 +410,7 @@ void html_th_test() {
     test('should set correct types and markup', () {
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(key: GlobalKey('some-global-key')),
+          Paragraph(key: GlobalKey('some-global-key')),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -423,10 +421,15 @@ void html_th_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (TableHeaderCell).toString() == 'Image' ||
-                  (TableHeaderCell).toString() == 'TableColumn'
-              ? '<th>'
-              : '<th></th>',
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('p')
+              ? '<p>'
+              : '<p></p>',
         ),
       );
     });
@@ -434,7 +437,7 @@ void html_th_test() {
     test('should set data attributes', () {
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(
+          Paragraph(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -454,7 +457,7 @@ void html_th_test() {
     test('should remove obsolute and add new data attributes on update', () {
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(
+          Paragraph(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -466,7 +469,7 @@ void html_th_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          TableHeaderCell(
+          Paragraph(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something-new': 'something new',
@@ -488,7 +491,7 @@ void html_th_test() {
     test('should not override system reserved data attributes on build', () {
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(
+          Paragraph(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -511,7 +514,7 @@ void html_th_test() {
     test('should not remove system reserved data attributes on update', () {
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(
+          Paragraph(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -524,7 +527,7 @@ void html_th_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          TableHeaderCell(
+          Paragraph(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something new',
@@ -549,9 +552,9 @@ void html_th_test() {
     test('should set key', () {
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(key: Key('some-key')),
-          TableHeaderCell(key: LocalKey('some-local-key')),
-          TableHeaderCell(key: GlobalKey('some-global-key')),
+          Paragraph(key: Key('some-key')),
+          Paragraph(key: LocalKey('some-local-key')),
+          Paragraph(key: GlobalKey('some-global-key')),
         ],
         parentContext: RT_TestBed.rootContext,
       );

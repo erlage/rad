@@ -421,8 +421,13 @@ void html_progress_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Progress).toString() == 'Image' ||
-                  (Progress).toString() == 'TableColumn'
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('progress')
               ? '<progress>'
               : '<progress></progress>',
         ),

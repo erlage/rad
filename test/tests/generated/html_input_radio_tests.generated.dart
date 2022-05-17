@@ -6,8 +6,8 @@
 
 part of '_html_tests_index_test.dart';
 
-void html_fieldset_test() {
-  group('HTML FieldSet tests:', () {
+void html_input_radio_test() {
+  group('HTML InputRadio tests:', () {
     RT_AppRunner? app;
 
     setUp(() {
@@ -19,9 +19,9 @@ void html_fieldset_test() {
     test('should set id', () {
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(key: Key('some-key'), id: 'some-id'),
-          FieldSet(key: LocalKey('some-local-key'), id: 'some-local-id'),
-          FieldSet(key: GlobalKey('some-global-key'), id: 'some-global-id'),
+          InputRadio(key: Key('some-key'), id: 'some-id'),
+          InputRadio(key: LocalKey('some-local-key'), id: 'some-local-id'),
+          InputRadio(key: GlobalKey('some-global-key'), id: 'some-global-id'),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -60,9 +60,9 @@ void html_fieldset_test() {
     test('should reset and update id', () {
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(key: Key('some-key'), id: 'some-id'),
-          FieldSet(key: LocalKey('some-local-key'), id: 'some-local-id'),
-          FieldSet(key: GlobalKey('some-global-key'), id: 'some-global-id'),
+          InputRadio(key: Key('some-key'), id: 'some-id'),
+          InputRadio(key: LocalKey('some-local-key'), id: 'some-local-id'),
+          InputRadio(key: GlobalKey('some-global-key'), id: 'some-global-id'),
         ],
         parentContext: app!.appContext,
       );
@@ -99,15 +99,15 @@ void html_fieldset_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          FieldSet(
+          InputRadio(
             key: Key('some-key'),
             id: 'some-updated-id',
           ),
-          FieldSet(
+          InputRadio(
             key: LocalKey('some-local-key'),
             id: 'some-local-updated-id',
           ),
-          FieldSet(
+          InputRadio(
             key: GlobalKey('some-global-key'),
             id: 'some-global-updated-id',
           ),
@@ -124,9 +124,9 @@ void html_fieldset_test() {
     test('should set child widget', () {
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(
+          InputRadio(
             id: 'widget-1',
-            child: FieldSet(
+            child: InputRadio(
               id: 'widget-2',
             ),
           ),
@@ -144,11 +144,11 @@ void html_fieldset_test() {
     test('should set children widgets', () {
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(id: 'widget-1', children: [
-            FieldSet(
+          InputRadio(id: 'widget-1', children: [
+            InputRadio(
               id: 'widget-2',
             ),
-            FieldSet(
+            InputRadio(
               id: 'widget-3',
             ),
           ]),
@@ -168,15 +168,15 @@ void html_fieldset_test() {
     test('should set classes', () {
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(
+          InputRadio(
             id: 'widget-1',
             classAttribute: 'some class',
           ),
-          FieldSet(
+          InputRadio(
             id: 'widget-2',
             classAttribute: 'some "messy" class',
           ),
-          FieldSet(
+          InputRadio(
             id: 'widget-3',
             classAttribute: "some 'messy' class",
           ),
@@ -196,11 +196,11 @@ void html_fieldset_test() {
     test('should set contenteditable', () {
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(
+          InputRadio(
             key: Key('widget-1'),
             contenteditable: false,
           ),
-          FieldSet(
+          InputRadio(
             key: Key('widget-2'),
             contenteditable: true,
           ),
@@ -218,11 +218,11 @@ void html_fieldset_test() {
     test('should set draggable', () {
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(
+          InputRadio(
             key: Key('widget-1'),
             draggable: false,
           ),
-          FieldSet(
+          InputRadio(
             key: Key('widget-2'),
             draggable: true,
           ),
@@ -240,11 +240,11 @@ void html_fieldset_test() {
     test('should set hidden', () {
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(
+          InputRadio(
             key: Key('widget-1'),
             hidden: false,
           ),
-          FieldSet(
+          InputRadio(
             key: Key('widget-2'),
             hidden: true,
           ),
@@ -262,7 +262,7 @@ void html_fieldset_test() {
     test('should set inner text', () {
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(
+          InputRadio(
             key: GlobalKey('widget-1'),
             innerText: 'hello world',
           ),
@@ -276,20 +276,22 @@ void html_fieldset_test() {
       // or returns empty string for some node(e.g progress)
 
       expect(element1.innerHtml, equals('hello world'));
+    }, onPlatform: {
+      'chrome': Skip('Failing for input on chrome'),
     });
 
     test('should set onClick', () {
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(
+          InputRadio(
             key: Key('widget-1'),
             onClick: 'some onClick',
           ),
-          FieldSet(
+          InputRadio(
             key: Key('widget-2'),
             onClick: 'some "messy" onClick',
           ),
-          FieldSet(
+          InputRadio(
             key: Key('widget-3'),
             onClick: "some 'messy' onClick",
           ),
@@ -322,7 +324,7 @@ void html_fieldset_test() {
 
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(
+          InputRadio(
             key: GlobalKey('some-global-key'),
             onClickEventListener: (event) => testStack.push('clicked'),
           ),
@@ -344,9 +346,9 @@ void html_fieldset_test() {
     test('should set style', () {
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(key: Key('widget-1'), style: 'some style'),
-          FieldSet(key: Key('widget-2'), style: 'some "messy" style'),
-          FieldSet(key: Key('widget-3'), style: "some 'messy' style"),
+          InputRadio(key: Key('widget-1'), style: 'some style'),
+          InputRadio(key: Key('widget-2'), style: 'some "messy" style'),
+          InputRadio(key: Key('widget-3'), style: "some 'messy' style"),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -363,15 +365,15 @@ void html_fieldset_test() {
     test('should set tab index', () {
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(
+          InputRadio(
             key: Key('widget-1'),
             tabIndex: 1,
           ),
-          FieldSet(
+          InputRadio(
             key: Key('widget-2'),
             tabIndex: 2,
           ),
-          FieldSet(
+          InputRadio(
             key: Key('widget-3'),
             tabIndex: 3,
           ),
@@ -391,9 +393,9 @@ void html_fieldset_test() {
     test('should set title', () {
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(key: Key('widget-1'), title: 'some title'),
-          FieldSet(key: Key('widget-2'), title: 'some "messy" title'),
-          FieldSet(key: Key('widget-3'), title: "some 'messy' title"),
+          InputRadio(key: Key('widget-1'), title: 'some title'),
+          InputRadio(key: Key('widget-2'), title: 'some "messy" title'),
+          InputRadio(key: Key('widget-3'), title: "some 'messy' title"),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -410,7 +412,7 @@ void html_fieldset_test() {
     test('should set correct types and markup', () {
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(key: GlobalKey('some-global-key')),
+          InputRadio(key: GlobalKey('some-global-key')),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -421,10 +423,15 @@ void html_fieldset_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (FieldSet).toString() == 'Image' ||
-                  (FieldSet).toString() == 'TableColumn'
-              ? '<fieldset>'
-              : '<fieldset></fieldset>',
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('input')
+              ? '<input>'
+              : '<input></input>',
         ),
       );
     });
@@ -432,7 +439,7 @@ void html_fieldset_test() {
     test('should set data attributes', () {
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(
+          InputRadio(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -452,7 +459,7 @@ void html_fieldset_test() {
     test('should remove obsolute and add new data attributes on update', () {
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(
+          InputRadio(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -464,7 +471,7 @@ void html_fieldset_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          FieldSet(
+          InputRadio(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something-new': 'something new',
@@ -486,7 +493,7 @@ void html_fieldset_test() {
     test('should not override system reserved data attributes on build', () {
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(
+          InputRadio(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -509,7 +516,7 @@ void html_fieldset_test() {
     test('should not remove system reserved data attributes on update', () {
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(
+          InputRadio(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -522,7 +529,7 @@ void html_fieldset_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          FieldSet(
+          InputRadio(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something new',
@@ -547,9 +554,9 @@ void html_fieldset_test() {
     test('should set key', () {
       app!.framework.buildChildren(
         widgets: [
-          FieldSet(key: Key('some-key')),
-          FieldSet(key: LocalKey('some-local-key')),
-          FieldSet(key: GlobalKey('some-global-key')),
+          InputRadio(key: Key('some-key')),
+          InputRadio(key: LocalKey('some-local-key')),
+          InputRadio(key: GlobalKey('some-global-key')),
         ],
         parentContext: RT_TestBed.rootContext,
       );

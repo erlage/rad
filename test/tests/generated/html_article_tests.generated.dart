@@ -421,8 +421,13 @@ void html_article_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Article).toString() == 'Image' ||
-                  (Article).toString() == 'TableColumn'
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('article')
               ? '<article>'
               : '<article></article>',
         ),

@@ -421,7 +421,13 @@ void html_legend_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Legend).toString() == 'Image' || (Legend).toString() == 'TableColumn'
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('legend')
               ? '<legend>'
               : '<legend></legend>',
         ),

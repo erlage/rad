@@ -421,7 +421,13 @@ void html_form_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Form).toString() == 'Image' || (Form).toString() == 'TableColumn'
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('form')
               ? '<form>'
               : '<form></form>',
         ),

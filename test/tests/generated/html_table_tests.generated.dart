@@ -421,7 +421,13 @@ void html_table_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Table).toString() == 'Image' || (Table).toString() == 'TableColumn'
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('table')
               ? '<table>'
               : '<table></table>',
         ),

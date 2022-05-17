@@ -6,8 +6,8 @@
 
 part of '_html_tests_index_test.dart';
 
-void html_li_test() {
-  group('HTML ListItem tests:', () {
+void html_text_area_test() {
+  group('HTML TextArea tests:', () {
     RT_AppRunner? app;
 
     setUp(() {
@@ -19,9 +19,9 @@ void html_li_test() {
     test('should set id', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(key: Key('some-key'), id: 'some-id'),
-          ListItem(key: LocalKey('some-local-key'), id: 'some-local-id'),
-          ListItem(key: GlobalKey('some-global-key'), id: 'some-global-id'),
+          TextArea(key: Key('some-key'), id: 'some-id'),
+          TextArea(key: LocalKey('some-local-key'), id: 'some-local-id'),
+          TextArea(key: GlobalKey('some-global-key'), id: 'some-global-id'),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -60,9 +60,9 @@ void html_li_test() {
     test('should reset and update id', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(key: Key('some-key'), id: 'some-id'),
-          ListItem(key: LocalKey('some-local-key'), id: 'some-local-id'),
-          ListItem(key: GlobalKey('some-global-key'), id: 'some-global-id'),
+          TextArea(key: Key('some-key'), id: 'some-id'),
+          TextArea(key: LocalKey('some-local-key'), id: 'some-local-id'),
+          TextArea(key: GlobalKey('some-global-key'), id: 'some-global-id'),
         ],
         parentContext: app!.appContext,
       );
@@ -99,15 +99,15 @@ void html_li_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          ListItem(
+          TextArea(
             key: Key('some-key'),
             id: 'some-updated-id',
           ),
-          ListItem(
+          TextArea(
             key: LocalKey('some-local-key'),
             id: 'some-local-updated-id',
           ),
-          ListItem(
+          TextArea(
             key: GlobalKey('some-global-key'),
             id: 'some-global-updated-id',
           ),
@@ -124,9 +124,9 @@ void html_li_test() {
     test('should set child widget', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(
+          TextArea(
             id: 'widget-1',
-            child: ListItem(
+            child: TextArea(
               id: 'widget-2',
             ),
           ),
@@ -144,11 +144,11 @@ void html_li_test() {
     test('should set children widgets', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(id: 'widget-1', children: [
-            ListItem(
+          TextArea(id: 'widget-1', children: [
+            TextArea(
               id: 'widget-2',
             ),
-            ListItem(
+            TextArea(
               id: 'widget-3',
             ),
           ]),
@@ -168,15 +168,15 @@ void html_li_test() {
     test('should set classes', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(
+          TextArea(
             id: 'widget-1',
             classAttribute: 'some class',
           ),
-          ListItem(
+          TextArea(
             id: 'widget-2',
             classAttribute: 'some "messy" class',
           ),
-          ListItem(
+          TextArea(
             id: 'widget-3',
             classAttribute: "some 'messy' class",
           ),
@@ -196,11 +196,11 @@ void html_li_test() {
     test('should set contenteditable', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(
+          TextArea(
             key: Key('widget-1'),
             contenteditable: false,
           ),
-          ListItem(
+          TextArea(
             key: Key('widget-2'),
             contenteditable: true,
           ),
@@ -218,11 +218,11 @@ void html_li_test() {
     test('should set draggable', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(
+          TextArea(
             key: Key('widget-1'),
             draggable: false,
           ),
-          ListItem(
+          TextArea(
             key: Key('widget-2'),
             draggable: true,
           ),
@@ -240,11 +240,11 @@ void html_li_test() {
     test('should set hidden', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(
+          TextArea(
             key: Key('widget-1'),
             hidden: false,
           ),
-          ListItem(
+          TextArea(
             key: Key('widget-2'),
             hidden: true,
           ),
@@ -262,7 +262,7 @@ void html_li_test() {
     test('should set inner text', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(
+          TextArea(
             key: GlobalKey('widget-1'),
             innerText: 'hello world',
           ),
@@ -281,15 +281,15 @@ void html_li_test() {
     test('should set onClick', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(
+          TextArea(
             key: Key('widget-1'),
             onClick: 'some onClick',
           ),
-          ListItem(
+          TextArea(
             key: Key('widget-2'),
             onClick: 'some "messy" onClick',
           ),
-          ListItem(
+          TextArea(
             key: Key('widget-3'),
             onClick: "some 'messy' onClick",
           ),
@@ -322,7 +322,7 @@ void html_li_test() {
 
       app!.framework.buildChildren(
         widgets: [
-          ListItem(
+          TextArea(
             key: GlobalKey('some-global-key'),
             onClickEventListener: (event) => testStack.push('clicked'),
           ),
@@ -344,9 +344,9 @@ void html_li_test() {
     test('should set style', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(key: Key('widget-1'), style: 'some style'),
-          ListItem(key: Key('widget-2'), style: 'some "messy" style'),
-          ListItem(key: Key('widget-3'), style: "some 'messy' style"),
+          TextArea(key: Key('widget-1'), style: 'some style'),
+          TextArea(key: Key('widget-2'), style: 'some "messy" style'),
+          TextArea(key: Key('widget-3'), style: "some 'messy' style"),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -363,15 +363,15 @@ void html_li_test() {
     test('should set tab index', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(
+          TextArea(
             key: Key('widget-1'),
             tabIndex: 1,
           ),
-          ListItem(
+          TextArea(
             key: Key('widget-2'),
             tabIndex: 2,
           ),
-          ListItem(
+          TextArea(
             key: Key('widget-3'),
             tabIndex: 3,
           ),
@@ -391,9 +391,9 @@ void html_li_test() {
     test('should set title', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(key: Key('widget-1'), title: 'some title'),
-          ListItem(key: Key('widget-2'), title: 'some "messy" title'),
-          ListItem(key: Key('widget-3'), title: "some 'messy' title"),
+          TextArea(key: Key('widget-1'), title: 'some title'),
+          TextArea(key: Key('widget-2'), title: 'some "messy" title'),
+          TextArea(key: Key('widget-3'), title: "some 'messy' title"),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -410,7 +410,7 @@ void html_li_test() {
     test('should set correct types and markup', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(key: GlobalKey('some-global-key')),
+          TextArea(key: GlobalKey('some-global-key')),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -421,10 +421,15 @@ void html_li_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (ListItem).toString() == 'Image' ||
-                  (ListItem).toString() == 'TableColumn'
-              ? '<li>'
-              : '<li></li>',
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('textarea')
+              ? '<textarea>'
+              : '<textarea></textarea>',
         ),
       );
     });
@@ -432,7 +437,7 @@ void html_li_test() {
     test('should set data attributes', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(
+          TextArea(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -452,7 +457,7 @@ void html_li_test() {
     test('should remove obsolute and add new data attributes on update', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(
+          TextArea(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -464,7 +469,7 @@ void html_li_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          ListItem(
+          TextArea(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something-new': 'something new',
@@ -486,7 +491,7 @@ void html_li_test() {
     test('should not override system reserved data attributes on build', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(
+          TextArea(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -509,7 +514,7 @@ void html_li_test() {
     test('should not remove system reserved data attributes on update', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(
+          TextArea(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -522,7 +527,7 @@ void html_li_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          ListItem(
+          TextArea(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something new',
@@ -547,9 +552,9 @@ void html_li_test() {
     test('should set key', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(key: Key('some-key')),
-          ListItem(key: LocalKey('some-local-key')),
-          ListItem(key: GlobalKey('some-global-key')),
+          TextArea(key: Key('some-key')),
+          TextArea(key: LocalKey('some-local-key')),
+          TextArea(key: GlobalKey('some-global-key')),
         ],
         parentContext: RT_TestBed.rootContext,
       );

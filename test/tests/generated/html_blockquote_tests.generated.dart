@@ -421,8 +421,13 @@ void html_blockquote_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Blockquote).toString() == 'Image' ||
-                  (Blockquote).toString() == 'TableColumn'
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('blockquote')
               ? '<blockquote>'
               : '<blockquote></blockquote>',
         ),

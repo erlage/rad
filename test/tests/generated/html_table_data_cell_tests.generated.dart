@@ -6,8 +6,8 @@
 
 part of '_html_tests_index_test.dart';
 
-void html_h4_test() {
-  group('HTML Heading4 tests:', () {
+void html_table_data_cell_test() {
+  group('HTML TableDataCell tests:', () {
     RT_AppRunner? app;
 
     setUp(() {
@@ -19,9 +19,10 @@ void html_h4_test() {
     test('should set id', () {
       app!.framework.buildChildren(
         widgets: [
-          Heading4(key: Key('some-key'), id: 'some-id'),
-          Heading4(key: LocalKey('some-local-key'), id: 'some-local-id'),
-          Heading4(key: GlobalKey('some-global-key'), id: 'some-global-id'),
+          TableDataCell(key: Key('some-key'), id: 'some-id'),
+          TableDataCell(key: LocalKey('some-local-key'), id: 'some-local-id'),
+          TableDataCell(
+              key: GlobalKey('some-global-key'), id: 'some-global-id'),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -60,9 +61,10 @@ void html_h4_test() {
     test('should reset and update id', () {
       app!.framework.buildChildren(
         widgets: [
-          Heading4(key: Key('some-key'), id: 'some-id'),
-          Heading4(key: LocalKey('some-local-key'), id: 'some-local-id'),
-          Heading4(key: GlobalKey('some-global-key'), id: 'some-global-id'),
+          TableDataCell(key: Key('some-key'), id: 'some-id'),
+          TableDataCell(key: LocalKey('some-local-key'), id: 'some-local-id'),
+          TableDataCell(
+              key: GlobalKey('some-global-key'), id: 'some-global-id'),
         ],
         parentContext: app!.appContext,
       );
@@ -99,15 +101,15 @@ void html_h4_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          Heading4(
+          TableDataCell(
             key: Key('some-key'),
             id: 'some-updated-id',
           ),
-          Heading4(
+          TableDataCell(
             key: LocalKey('some-local-key'),
             id: 'some-local-updated-id',
           ),
-          Heading4(
+          TableDataCell(
             key: GlobalKey('some-global-key'),
             id: 'some-global-updated-id',
           ),
@@ -124,9 +126,9 @@ void html_h4_test() {
     test('should set child widget', () {
       app!.framework.buildChildren(
         widgets: [
-          Heading4(
+          TableDataCell(
             id: 'widget-1',
-            child: Heading4(
+            child: TableDataCell(
               id: 'widget-2',
             ),
           ),
@@ -144,11 +146,11 @@ void html_h4_test() {
     test('should set children widgets', () {
       app!.framework.buildChildren(
         widgets: [
-          Heading4(id: 'widget-1', children: [
-            Heading4(
+          TableDataCell(id: 'widget-1', children: [
+            TableDataCell(
               id: 'widget-2',
             ),
-            Heading4(
+            TableDataCell(
               id: 'widget-3',
             ),
           ]),
@@ -168,15 +170,15 @@ void html_h4_test() {
     test('should set classes', () {
       app!.framework.buildChildren(
         widgets: [
-          Heading4(
+          TableDataCell(
             id: 'widget-1',
             classAttribute: 'some class',
           ),
-          Heading4(
+          TableDataCell(
             id: 'widget-2',
             classAttribute: 'some "messy" class',
           ),
-          Heading4(
+          TableDataCell(
             id: 'widget-3',
             classAttribute: "some 'messy' class",
           ),
@@ -196,11 +198,11 @@ void html_h4_test() {
     test('should set contenteditable', () {
       app!.framework.buildChildren(
         widgets: [
-          Heading4(
+          TableDataCell(
             key: Key('widget-1'),
             contenteditable: false,
           ),
-          Heading4(
+          TableDataCell(
             key: Key('widget-2'),
             contenteditable: true,
           ),
@@ -218,11 +220,11 @@ void html_h4_test() {
     test('should set draggable', () {
       app!.framework.buildChildren(
         widgets: [
-          Heading4(
+          TableDataCell(
             key: Key('widget-1'),
             draggable: false,
           ),
-          Heading4(
+          TableDataCell(
             key: Key('widget-2'),
             draggable: true,
           ),
@@ -240,11 +242,11 @@ void html_h4_test() {
     test('should set hidden', () {
       app!.framework.buildChildren(
         widgets: [
-          Heading4(
+          TableDataCell(
             key: Key('widget-1'),
             hidden: false,
           ),
-          Heading4(
+          TableDataCell(
             key: Key('widget-2'),
             hidden: true,
           ),
@@ -262,7 +264,7 @@ void html_h4_test() {
     test('should set inner text', () {
       app!.framework.buildChildren(
         widgets: [
-          Heading4(
+          TableDataCell(
             key: GlobalKey('widget-1'),
             innerText: 'hello world',
           ),
@@ -281,15 +283,15 @@ void html_h4_test() {
     test('should set onClick', () {
       app!.framework.buildChildren(
         widgets: [
-          Heading4(
+          TableDataCell(
             key: Key('widget-1'),
             onClick: 'some onClick',
           ),
-          Heading4(
+          TableDataCell(
             key: Key('widget-2'),
             onClick: 'some "messy" onClick',
           ),
-          Heading4(
+          TableDataCell(
             key: Key('widget-3'),
             onClick: "some 'messy' onClick",
           ),
@@ -322,7 +324,7 @@ void html_h4_test() {
 
       app!.framework.buildChildren(
         widgets: [
-          Heading4(
+          TableDataCell(
             key: GlobalKey('some-global-key'),
             onClickEventListener: (event) => testStack.push('clicked'),
           ),
@@ -344,9 +346,9 @@ void html_h4_test() {
     test('should set style', () {
       app!.framework.buildChildren(
         widgets: [
-          Heading4(key: Key('widget-1'), style: 'some style'),
-          Heading4(key: Key('widget-2'), style: 'some "messy" style'),
-          Heading4(key: Key('widget-3'), style: "some 'messy' style"),
+          TableDataCell(key: Key('widget-1'), style: 'some style'),
+          TableDataCell(key: Key('widget-2'), style: 'some "messy" style'),
+          TableDataCell(key: Key('widget-3'), style: "some 'messy' style"),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -363,15 +365,15 @@ void html_h4_test() {
     test('should set tab index', () {
       app!.framework.buildChildren(
         widgets: [
-          Heading4(
+          TableDataCell(
             key: Key('widget-1'),
             tabIndex: 1,
           ),
-          Heading4(
+          TableDataCell(
             key: Key('widget-2'),
             tabIndex: 2,
           ),
-          Heading4(
+          TableDataCell(
             key: Key('widget-3'),
             tabIndex: 3,
           ),
@@ -391,9 +393,9 @@ void html_h4_test() {
     test('should set title', () {
       app!.framework.buildChildren(
         widgets: [
-          Heading4(key: Key('widget-1'), title: 'some title'),
-          Heading4(key: Key('widget-2'), title: 'some "messy" title'),
-          Heading4(key: Key('widget-3'), title: "some 'messy' title"),
+          TableDataCell(key: Key('widget-1'), title: 'some title'),
+          TableDataCell(key: Key('widget-2'), title: 'some "messy" title'),
+          TableDataCell(key: Key('widget-3'), title: "some 'messy' title"),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -410,7 +412,7 @@ void html_h4_test() {
     test('should set correct types and markup', () {
       app!.framework.buildChildren(
         widgets: [
-          Heading4(key: GlobalKey('some-global-key')),
+          TableDataCell(key: GlobalKey('some-global-key')),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -421,10 +423,15 @@ void html_h4_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Heading4).toString() == 'Image' ||
-                  (Heading4).toString() == 'TableColumn'
-              ? '<h4>'
-              : '<h4></h4>',
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('td')
+              ? '<td>'
+              : '<td></td>',
         ),
       );
     });
@@ -432,7 +439,7 @@ void html_h4_test() {
     test('should set data attributes', () {
       app!.framework.buildChildren(
         widgets: [
-          Heading4(
+          TableDataCell(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -452,7 +459,7 @@ void html_h4_test() {
     test('should remove obsolute and add new data attributes on update', () {
       app!.framework.buildChildren(
         widgets: [
-          Heading4(
+          TableDataCell(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -464,7 +471,7 @@ void html_h4_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          Heading4(
+          TableDataCell(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something-new': 'something new',
@@ -486,7 +493,7 @@ void html_h4_test() {
     test('should not override system reserved data attributes on build', () {
       app!.framework.buildChildren(
         widgets: [
-          Heading4(
+          TableDataCell(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -509,7 +516,7 @@ void html_h4_test() {
     test('should not remove system reserved data attributes on update', () {
       app!.framework.buildChildren(
         widgets: [
-          Heading4(
+          TableDataCell(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -522,7 +529,7 @@ void html_h4_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          Heading4(
+          TableDataCell(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something new',
@@ -547,9 +554,9 @@ void html_h4_test() {
     test('should set key', () {
       app!.framework.buildChildren(
         widgets: [
-          Heading4(key: Key('some-key')),
-          Heading4(key: LocalKey('some-local-key')),
-          Heading4(key: GlobalKey('some-global-key')),
+          TableDataCell(key: Key('some-key')),
+          TableDataCell(key: LocalKey('some-local-key')),
+          TableDataCell(key: GlobalKey('some-global-key')),
         ],
         parentContext: RT_TestBed.rootContext,
       );

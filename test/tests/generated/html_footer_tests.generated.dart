@@ -421,7 +421,13 @@ void html_footer_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Footer).toString() == 'Image' || (Footer).toString() == 'TableColumn'
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('footer')
               ? '<footer>'
               : '<footer></footer>',
         ),

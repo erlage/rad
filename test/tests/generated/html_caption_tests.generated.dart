@@ -421,8 +421,13 @@ void html_caption_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Caption).toString() == 'Image' ||
-                  (Caption).toString() == 'TableColumn'
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('caption')
               ? '<caption>'
               : '<caption></caption>',
         ),

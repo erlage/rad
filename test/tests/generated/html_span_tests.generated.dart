@@ -421,7 +421,13 @@ void html_span_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Span).toString() == 'Image' || (Span).toString() == 'TableColumn'
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('span')
               ? '<span>'
               : '<span></span>',
         ),

@@ -421,7 +421,13 @@ void html_header_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Header).toString() == 'Image' || (Header).toString() == 'TableColumn'
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('header')
               ? '<header>'
               : '<header></header>',
         ),

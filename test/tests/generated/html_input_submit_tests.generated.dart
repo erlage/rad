@@ -6,8 +6,8 @@
 
 part of '_html_tests_index_test.dart';
 
-void html_colgroup_test() {
-  group('HTML TableColumnGroup tests:', () {
+void html_input_submit_test() {
+  group('HTML InputSubmit tests:', () {
     RT_AppRunner? app;
 
     setUp(() {
@@ -19,11 +19,9 @@ void html_colgroup_test() {
     test('should set id', () {
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(key: Key('some-key'), id: 'some-id'),
-          TableColumnGroup(
-              key: LocalKey('some-local-key'), id: 'some-local-id'),
-          TableColumnGroup(
-              key: GlobalKey('some-global-key'), id: 'some-global-id'),
+          InputSubmit(key: Key('some-key'), id: 'some-id'),
+          InputSubmit(key: LocalKey('some-local-key'), id: 'some-local-id'),
+          InputSubmit(key: GlobalKey('some-global-key'), id: 'some-global-id'),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -62,11 +60,9 @@ void html_colgroup_test() {
     test('should reset and update id', () {
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(key: Key('some-key'), id: 'some-id'),
-          TableColumnGroup(
-              key: LocalKey('some-local-key'), id: 'some-local-id'),
-          TableColumnGroup(
-              key: GlobalKey('some-global-key'), id: 'some-global-id'),
+          InputSubmit(key: Key('some-key'), id: 'some-id'),
+          InputSubmit(key: LocalKey('some-local-key'), id: 'some-local-id'),
+          InputSubmit(key: GlobalKey('some-global-key'), id: 'some-global-id'),
         ],
         parentContext: app!.appContext,
       );
@@ -103,15 +99,15 @@ void html_colgroup_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          TableColumnGroup(
+          InputSubmit(
             key: Key('some-key'),
             id: 'some-updated-id',
           ),
-          TableColumnGroup(
+          InputSubmit(
             key: LocalKey('some-local-key'),
             id: 'some-local-updated-id',
           ),
-          TableColumnGroup(
+          InputSubmit(
             key: GlobalKey('some-global-key'),
             id: 'some-global-updated-id',
           ),
@@ -128,9 +124,9 @@ void html_colgroup_test() {
     test('should set child widget', () {
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(
+          InputSubmit(
             id: 'widget-1',
-            child: TableColumnGroup(
+            child: InputSubmit(
               id: 'widget-2',
             ),
           ),
@@ -148,11 +144,11 @@ void html_colgroup_test() {
     test('should set children widgets', () {
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(id: 'widget-1', children: [
-            TableColumnGroup(
+          InputSubmit(id: 'widget-1', children: [
+            InputSubmit(
               id: 'widget-2',
             ),
-            TableColumnGroup(
+            InputSubmit(
               id: 'widget-3',
             ),
           ]),
@@ -172,15 +168,15 @@ void html_colgroup_test() {
     test('should set classes', () {
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(
+          InputSubmit(
             id: 'widget-1',
             classAttribute: 'some class',
           ),
-          TableColumnGroup(
+          InputSubmit(
             id: 'widget-2',
             classAttribute: 'some "messy" class',
           ),
-          TableColumnGroup(
+          InputSubmit(
             id: 'widget-3',
             classAttribute: "some 'messy' class",
           ),
@@ -200,11 +196,11 @@ void html_colgroup_test() {
     test('should set contenteditable', () {
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(
+          InputSubmit(
             key: Key('widget-1'),
             contenteditable: false,
           ),
-          TableColumnGroup(
+          InputSubmit(
             key: Key('widget-2'),
             contenteditable: true,
           ),
@@ -222,11 +218,11 @@ void html_colgroup_test() {
     test('should set draggable', () {
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(
+          InputSubmit(
             key: Key('widget-1'),
             draggable: false,
           ),
-          TableColumnGroup(
+          InputSubmit(
             key: Key('widget-2'),
             draggable: true,
           ),
@@ -244,11 +240,11 @@ void html_colgroup_test() {
     test('should set hidden', () {
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(
+          InputSubmit(
             key: Key('widget-1'),
             hidden: false,
           ),
-          TableColumnGroup(
+          InputSubmit(
             key: Key('widget-2'),
             hidden: true,
           ),
@@ -266,7 +262,7 @@ void html_colgroup_test() {
     test('should set inner text', () {
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(
+          InputSubmit(
             key: GlobalKey('widget-1'),
             innerText: 'hello world',
           ),
@@ -280,20 +276,22 @@ void html_colgroup_test() {
       // or returns empty string for some node(e.g progress)
 
       expect(element1.innerHtml, equals('hello world'));
+    }, onPlatform: {
+      'chrome': Skip('Failing for input on chrome'),
     });
 
     test('should set onClick', () {
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(
+          InputSubmit(
             key: Key('widget-1'),
             onClick: 'some onClick',
           ),
-          TableColumnGroup(
+          InputSubmit(
             key: Key('widget-2'),
             onClick: 'some "messy" onClick',
           ),
-          TableColumnGroup(
+          InputSubmit(
             key: Key('widget-3'),
             onClick: "some 'messy' onClick",
           ),
@@ -326,7 +324,7 @@ void html_colgroup_test() {
 
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(
+          InputSubmit(
             key: GlobalKey('some-global-key'),
             onClickEventListener: (event) => testStack.push('clicked'),
           ),
@@ -348,9 +346,9 @@ void html_colgroup_test() {
     test('should set style', () {
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(key: Key('widget-1'), style: 'some style'),
-          TableColumnGroup(key: Key('widget-2'), style: 'some "messy" style'),
-          TableColumnGroup(key: Key('widget-3'), style: "some 'messy' style"),
+          InputSubmit(key: Key('widget-1'), style: 'some style'),
+          InputSubmit(key: Key('widget-2'), style: 'some "messy" style'),
+          InputSubmit(key: Key('widget-3'), style: "some 'messy' style"),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -367,15 +365,15 @@ void html_colgroup_test() {
     test('should set tab index', () {
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(
+          InputSubmit(
             key: Key('widget-1'),
             tabIndex: 1,
           ),
-          TableColumnGroup(
+          InputSubmit(
             key: Key('widget-2'),
             tabIndex: 2,
           ),
-          TableColumnGroup(
+          InputSubmit(
             key: Key('widget-3'),
             tabIndex: 3,
           ),
@@ -395,9 +393,9 @@ void html_colgroup_test() {
     test('should set title', () {
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(key: Key('widget-1'), title: 'some title'),
-          TableColumnGroup(key: Key('widget-2'), title: 'some "messy" title'),
-          TableColumnGroup(key: Key('widget-3'), title: "some 'messy' title"),
+          InputSubmit(key: Key('widget-1'), title: 'some title'),
+          InputSubmit(key: Key('widget-2'), title: 'some "messy" title'),
+          InputSubmit(key: Key('widget-3'), title: "some 'messy' title"),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -414,7 +412,7 @@ void html_colgroup_test() {
     test('should set correct types and markup', () {
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(key: GlobalKey('some-global-key')),
+          InputSubmit(key: GlobalKey('some-global-key')),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -425,10 +423,15 @@ void html_colgroup_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (TableColumnGroup).toString() == 'Image' ||
-                  (TableColumnGroup).toString() == 'TableColumn'
-              ? '<colgroup>'
-              : '<colgroup></colgroup>',
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('input')
+              ? '<input>'
+              : '<input></input>',
         ),
       );
     });
@@ -436,7 +439,7 @@ void html_colgroup_test() {
     test('should set data attributes', () {
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(
+          InputSubmit(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -456,7 +459,7 @@ void html_colgroup_test() {
     test('should remove obsolute and add new data attributes on update', () {
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(
+          InputSubmit(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -468,7 +471,7 @@ void html_colgroup_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          TableColumnGroup(
+          InputSubmit(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something-new': 'something new',
@@ -490,7 +493,7 @@ void html_colgroup_test() {
     test('should not override system reserved data attributes on build', () {
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(
+          InputSubmit(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -513,7 +516,7 @@ void html_colgroup_test() {
     test('should not remove system reserved data attributes on update', () {
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(
+          InputSubmit(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -526,7 +529,7 @@ void html_colgroup_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          TableColumnGroup(
+          InputSubmit(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something new',
@@ -551,9 +554,9 @@ void html_colgroup_test() {
     test('should set key', () {
       app!.framework.buildChildren(
         widgets: [
-          TableColumnGroup(key: Key('some-key')),
-          TableColumnGroup(key: LocalKey('some-local-key')),
-          TableColumnGroup(key: GlobalKey('some-global-key')),
+          InputSubmit(key: Key('some-key')),
+          InputSubmit(key: LocalKey('some-local-key')),
+          InputSubmit(key: GlobalKey('some-global-key')),
         ],
         parentContext: RT_TestBed.rootContext,
       );

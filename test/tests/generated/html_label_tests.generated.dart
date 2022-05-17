@@ -421,7 +421,13 @@ void html_label_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Label).toString() == 'Image' || (Label).toString() == 'TableColumn'
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('label')
               ? '<label>'
               : '<label></label>',
         ),

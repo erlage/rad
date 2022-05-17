@@ -2,6 +2,7 @@
 #!/usr/bin/env python3
 
 import os
+import re
 import utils
 import main
 
@@ -12,8 +13,11 @@ templates_folder = os.path.abspath(os.path.join(main.test_dir, 'templates'))
 
 skipped_tests = {
     'html_attr_innertext': {
-        'img': ['chrome'], # works on firefox
-        'col': ['chrome'], # works on firefox
+        'img': ['chrome'],    # works on firefox
+        'col': ['chrome'],    # works on firefox
+        'br': ['chrome'],     # works on firefox
+        'hr': ['chrome'],     # works on firefox
+        'input': ['chrome'],  # works on firefox
     },
 }
 
@@ -37,51 +41,58 @@ tests = [
 ]
 
 widgets_map = {
-    'iframe': 'IFrame',
-    'a': 'Anchor',
-    'abbr': 'Abbreviation',
-    'article': 'Article',
-    'code': 'Code',
-    'small': 'Small',
-    'h1': 'Heading1',
-    'h2': 'Heading2',
-    'h3': 'Heading3',
-    'h4': 'Heading4',
-    'h5': 'Heading5',
-    'h6': 'Heading6',
-    'span': 'Span',
-    'div': 'Division',
-    'i': 'Idiomatic',
-    'nav': 'Navigation',
-    'select': 'Select',
-    'ul': 'UnOrderedList',
-    'canvas': 'Canvas',
-    'header': 'Header',
-    'legend': 'Legend',
-    'footer': 'Footer',
-    'strong': 'Strong',
-    'textarea': 'TextArea',
-    'li': 'ListItem',
-    'sup': 'SuperScript',
-    'blockquote': 'Blockquote',
-    'option': 'Option',
-    'p': 'Paragraph',
-    'sub': 'SubScript',
-    'form': 'Form',
-    'progress': 'Progress',
-    'img': 'Image',
-    'fieldset': 'FieldSet',
-    'label': 'Label',
-    'button': 'Button',
-    'caption': 'Caption',
-    'col': 'TableColumn',
-    'colgroup': 'TableColumnGroup',
-    'table': 'Table',
-    'thead': 'TableHead',
-    'tfoot': 'TableFoot',
-    'tr': 'TableRow',
-    'td': 'TableDataCell',
-    'th': 'TableHeaderCell',
+    'Abbreviation': 'abbr',
+    'Anchor': 'a',
+    'Article': 'article',
+    'Blockquote': 'blockquote',
+    'BreakLine': 'br',
+    'Button': 'button',
+    'Canvas': 'canvas',
+    'Caption': 'caption',
+    'Code': 'code',
+    'Division': 'div',
+    'FieldSet': 'fieldset',
+    'Footer': 'footer',
+    'Form': 'form',
+    'Heading1': 'h1',
+    'Heading2': 'h2',
+    'Heading3': 'h3',
+    'Heading4': 'h4',
+    'Heading5': 'h5',
+    'Heading6': 'h6',
+    'Header': 'header',
+    'HorizontalRule': 'hr',
+    'IFrame': 'iframe',
+    'Idiomatic': 'i',
+    'Image': 'img',
+    'InputCheckBox': 'input',
+    'InputFile': 'input',
+    'InputRadio': 'input',
+    'InputSubmit': 'input',
+    'InputText': 'input',
+    'Label': 'label',
+    'Legend': 'legend',
+    'ListItem': 'li',
+    'Navigation': 'nav',
+    'Option': 'option',
+    'Paragraph': 'p',
+    'Progress': 'progress',
+    'Select': 'select',
+    'Small': 'small',
+    'Span': 'span',
+    'Strong': 'strong',
+    'SubScript': 'sub',
+    'SuperScript': 'sup',
+    'Table': 'table',
+    'TableColumn': 'col',
+    'TableColumnGroup': 'colgroup',
+    'TableDataCell': 'td',
+    'TableFoot': 'tfoot',
+    'TableHead': 'thead',
+    'TableHeaderCell': 'th',
+    'TableRow': 'tr',
+    'TextArea': 'textarea',
+    'UnOrderedList': 'ul',
 }
 
 
@@ -92,15 +103,21 @@ def generate():
         main.test_dir, 'tests', 'generated', '_html_tests_index_test.dart'))
     utils.clean_file(runner_file)
 
-    for index, widget_tag in enumerate(widgets_map):
+    for index, widget_class_name in enumerate(widgets_map):
+        widget_tag = widgets_map[widget_class_name]
+
+        widget_class_name_camel_case = utils.convert_to_camel_case(
+            widget_class_name)
+
         out_file = os.path.abspath(os.path.join(
-            main.test_dir, 'tests', 'generated', 'html_' + widget_tag + '_tests.generated.dart'))
+            main.test_dir, 'tests', 'generated', 'html_' + widget_class_name_camel_case + '_tests.generated.dart'))
 
         utils.clean_file(out_file)
 
-        invokations += 'html_' + widget_tag + '_test();'
+        invokations += 'html_' + widget_class_name_camel_case + '_test();'
 
-        part_of_directives += "part 'html_" + widget_tag + "_tests.generated.dart';"
+        part_of_directives += "part 'html_" + \
+            widget_class_name_camel_case + "_tests.generated.dart';"
 
         generated = ''' 
             // Auto-generated file
@@ -111,9 +128,9 @@ def generate():
 
             part of '_html_tests_index_test.dart';
 
-            void html_''' + widget_tag + '''_test() {
+            void html_''' + widget_class_name_camel_case + '''_test() {
 
-                group('HTML ''' + widgets_map[widget_tag] + ''' tests:', () {
+                group('HTML ''' + widget_class_name + ''' tests:', () {
             
                     RT_AppRunner? app;
 
@@ -131,7 +148,7 @@ def generate():
                 templates_folder, test + '.dart.txt'))
 
             replacements = [
-                ('__WidgetClass__', widgets_map[widget_tag]),
+                ('__WidgetClass__', widget_class_name),
                 ('__WidgetTag__', widget_tag),
             ]
 

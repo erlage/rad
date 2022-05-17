@@ -421,7 +421,13 @@ void html_strong_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Strong).toString() == 'Image' || (Strong).toString() == 'TableColumn'
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('strong')
               ? '<strong>'
               : '<strong></strong>',
         ),

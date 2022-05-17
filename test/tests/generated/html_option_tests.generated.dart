@@ -421,7 +421,13 @@ void html_option_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Option).toString() == 'Image' || (Option).toString() == 'TableColumn'
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('option')
               ? '<option>'
               : '<option></option>',
         ),

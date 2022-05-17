@@ -421,7 +421,13 @@ void html_code_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Code).toString() == 'Image' || (Code).toString() == 'TableColumn'
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('code')
               ? '<code>'
               : '<code></code>',
         ),

@@ -6,8 +6,8 @@
 
 part of '_html_tests_index_test.dart';
 
-void html_iframe_test() {
-  group('HTML IFrame tests:', () {
+void html_table_column_group_test() {
+  group('HTML TableColumnGroup tests:', () {
     RT_AppRunner? app;
 
     setUp(() {
@@ -19,9 +19,11 @@ void html_iframe_test() {
     test('should set id', () {
       app!.framework.buildChildren(
         widgets: [
-          IFrame(key: Key('some-key'), id: 'some-id'),
-          IFrame(key: LocalKey('some-local-key'), id: 'some-local-id'),
-          IFrame(key: GlobalKey('some-global-key'), id: 'some-global-id'),
+          TableColumnGroup(key: Key('some-key'), id: 'some-id'),
+          TableColumnGroup(
+              key: LocalKey('some-local-key'), id: 'some-local-id'),
+          TableColumnGroup(
+              key: GlobalKey('some-global-key'), id: 'some-global-id'),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -60,9 +62,11 @@ void html_iframe_test() {
     test('should reset and update id', () {
       app!.framework.buildChildren(
         widgets: [
-          IFrame(key: Key('some-key'), id: 'some-id'),
-          IFrame(key: LocalKey('some-local-key'), id: 'some-local-id'),
-          IFrame(key: GlobalKey('some-global-key'), id: 'some-global-id'),
+          TableColumnGroup(key: Key('some-key'), id: 'some-id'),
+          TableColumnGroup(
+              key: LocalKey('some-local-key'), id: 'some-local-id'),
+          TableColumnGroup(
+              key: GlobalKey('some-global-key'), id: 'some-global-id'),
         ],
         parentContext: app!.appContext,
       );
@@ -99,15 +103,15 @@ void html_iframe_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          IFrame(
+          TableColumnGroup(
             key: Key('some-key'),
             id: 'some-updated-id',
           ),
-          IFrame(
+          TableColumnGroup(
             key: LocalKey('some-local-key'),
             id: 'some-local-updated-id',
           ),
-          IFrame(
+          TableColumnGroup(
             key: GlobalKey('some-global-key'),
             id: 'some-global-updated-id',
           ),
@@ -124,9 +128,9 @@ void html_iframe_test() {
     test('should set child widget', () {
       app!.framework.buildChildren(
         widgets: [
-          IFrame(
+          TableColumnGroup(
             id: 'widget-1',
-            child: IFrame(
+            child: TableColumnGroup(
               id: 'widget-2',
             ),
           ),
@@ -144,11 +148,11 @@ void html_iframe_test() {
     test('should set children widgets', () {
       app!.framework.buildChildren(
         widgets: [
-          IFrame(id: 'widget-1', children: [
-            IFrame(
+          TableColumnGroup(id: 'widget-1', children: [
+            TableColumnGroup(
               id: 'widget-2',
             ),
-            IFrame(
+            TableColumnGroup(
               id: 'widget-3',
             ),
           ]),
@@ -168,15 +172,15 @@ void html_iframe_test() {
     test('should set classes', () {
       app!.framework.buildChildren(
         widgets: [
-          IFrame(
+          TableColumnGroup(
             id: 'widget-1',
             classAttribute: 'some class',
           ),
-          IFrame(
+          TableColumnGroup(
             id: 'widget-2',
             classAttribute: 'some "messy" class',
           ),
-          IFrame(
+          TableColumnGroup(
             id: 'widget-3',
             classAttribute: "some 'messy' class",
           ),
@@ -196,11 +200,11 @@ void html_iframe_test() {
     test('should set contenteditable', () {
       app!.framework.buildChildren(
         widgets: [
-          IFrame(
+          TableColumnGroup(
             key: Key('widget-1'),
             contenteditable: false,
           ),
-          IFrame(
+          TableColumnGroup(
             key: Key('widget-2'),
             contenteditable: true,
           ),
@@ -218,11 +222,11 @@ void html_iframe_test() {
     test('should set draggable', () {
       app!.framework.buildChildren(
         widgets: [
-          IFrame(
+          TableColumnGroup(
             key: Key('widget-1'),
             draggable: false,
           ),
-          IFrame(
+          TableColumnGroup(
             key: Key('widget-2'),
             draggable: true,
           ),
@@ -240,11 +244,11 @@ void html_iframe_test() {
     test('should set hidden', () {
       app!.framework.buildChildren(
         widgets: [
-          IFrame(
+          TableColumnGroup(
             key: Key('widget-1'),
             hidden: false,
           ),
-          IFrame(
+          TableColumnGroup(
             key: Key('widget-2'),
             hidden: true,
           ),
@@ -262,7 +266,7 @@ void html_iframe_test() {
     test('should set inner text', () {
       app!.framework.buildChildren(
         widgets: [
-          IFrame(
+          TableColumnGroup(
             key: GlobalKey('widget-1'),
             innerText: 'hello world',
           ),
@@ -281,15 +285,15 @@ void html_iframe_test() {
     test('should set onClick', () {
       app!.framework.buildChildren(
         widgets: [
-          IFrame(
+          TableColumnGroup(
             key: Key('widget-1'),
             onClick: 'some onClick',
           ),
-          IFrame(
+          TableColumnGroup(
             key: Key('widget-2'),
             onClick: 'some "messy" onClick',
           ),
-          IFrame(
+          TableColumnGroup(
             key: Key('widget-3'),
             onClick: "some 'messy' onClick",
           ),
@@ -322,7 +326,7 @@ void html_iframe_test() {
 
       app!.framework.buildChildren(
         widgets: [
-          IFrame(
+          TableColumnGroup(
             key: GlobalKey('some-global-key'),
             onClickEventListener: (event) => testStack.push('clicked'),
           ),
@@ -344,9 +348,9 @@ void html_iframe_test() {
     test('should set style', () {
       app!.framework.buildChildren(
         widgets: [
-          IFrame(key: Key('widget-1'), style: 'some style'),
-          IFrame(key: Key('widget-2'), style: 'some "messy" style'),
-          IFrame(key: Key('widget-3'), style: "some 'messy' style"),
+          TableColumnGroup(key: Key('widget-1'), style: 'some style'),
+          TableColumnGroup(key: Key('widget-2'), style: 'some "messy" style'),
+          TableColumnGroup(key: Key('widget-3'), style: "some 'messy' style"),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -363,15 +367,15 @@ void html_iframe_test() {
     test('should set tab index', () {
       app!.framework.buildChildren(
         widgets: [
-          IFrame(
+          TableColumnGroup(
             key: Key('widget-1'),
             tabIndex: 1,
           ),
-          IFrame(
+          TableColumnGroup(
             key: Key('widget-2'),
             tabIndex: 2,
           ),
-          IFrame(
+          TableColumnGroup(
             key: Key('widget-3'),
             tabIndex: 3,
           ),
@@ -391,9 +395,9 @@ void html_iframe_test() {
     test('should set title', () {
       app!.framework.buildChildren(
         widgets: [
-          IFrame(key: Key('widget-1'), title: 'some title'),
-          IFrame(key: Key('widget-2'), title: 'some "messy" title'),
-          IFrame(key: Key('widget-3'), title: "some 'messy' title"),
+          TableColumnGroup(key: Key('widget-1'), title: 'some title'),
+          TableColumnGroup(key: Key('widget-2'), title: 'some "messy" title'),
+          TableColumnGroup(key: Key('widget-3'), title: "some 'messy' title"),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -410,7 +414,7 @@ void html_iframe_test() {
     test('should set correct types and markup', () {
       app!.framework.buildChildren(
         widgets: [
-          IFrame(key: GlobalKey('some-global-key')),
+          TableColumnGroup(key: GlobalKey('some-global-key')),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -421,9 +425,15 @@ void html_iframe_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (IFrame).toString() == 'Image' || (IFrame).toString() == 'TableColumn'
-              ? '<iframe>'
-              : '<iframe></iframe>',
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('colgroup')
+              ? '<colgroup>'
+              : '<colgroup></colgroup>',
         ),
       );
     });
@@ -431,7 +441,7 @@ void html_iframe_test() {
     test('should set data attributes', () {
       app!.framework.buildChildren(
         widgets: [
-          IFrame(
+          TableColumnGroup(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -451,7 +461,7 @@ void html_iframe_test() {
     test('should remove obsolute and add new data attributes on update', () {
       app!.framework.buildChildren(
         widgets: [
-          IFrame(
+          TableColumnGroup(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -463,7 +473,7 @@ void html_iframe_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          IFrame(
+          TableColumnGroup(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something-new': 'something new',
@@ -485,7 +495,7 @@ void html_iframe_test() {
     test('should not override system reserved data attributes on build', () {
       app!.framework.buildChildren(
         widgets: [
-          IFrame(
+          TableColumnGroup(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -508,7 +518,7 @@ void html_iframe_test() {
     test('should not remove system reserved data attributes on update', () {
       app!.framework.buildChildren(
         widgets: [
-          IFrame(
+          TableColumnGroup(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -521,7 +531,7 @@ void html_iframe_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          IFrame(
+          TableColumnGroup(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something new',
@@ -546,9 +556,9 @@ void html_iframe_test() {
     test('should set key', () {
       app!.framework.buildChildren(
         widgets: [
-          IFrame(key: Key('some-key')),
-          IFrame(key: LocalKey('some-local-key')),
-          IFrame(key: GlobalKey('some-global-key')),
+          TableColumnGroup(key: Key('some-key')),
+          TableColumnGroup(key: LocalKey('some-local-key')),
+          TableColumnGroup(key: GlobalKey('some-global-key')),
         ],
         parentContext: RT_TestBed.rootContext,
       );

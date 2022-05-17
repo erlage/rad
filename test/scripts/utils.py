@@ -2,6 +2,7 @@
 #!/usr/bin/env python3
 
 import os
+import re
 
 
 def clear_folder(dir):
@@ -38,3 +39,8 @@ def parse_test_from_template(template, replacements):
             contents = contents.replace(key, value)
 
         return contents
+
+
+def convert_to_camel_case(name):
+    pattern = re.compile(r'(?<!^)(?=[A-Z])')
+    return pattern.sub('_', name).lower()

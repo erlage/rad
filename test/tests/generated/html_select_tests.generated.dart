@@ -421,7 +421,13 @@ void html_select_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Select).toString() == 'Image' || (Select).toString() == 'TableColumn'
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('select')
               ? '<select>'
               : '<select></select>',
         ),

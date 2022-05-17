@@ -6,8 +6,8 @@
 
 part of '_html_tests_index_test.dart';
 
-void html_img_test() {
-  group('HTML Image tests:', () {
+void html_super_script_test() {
+  group('HTML SuperScript tests:', () {
     RT_AppRunner? app;
 
     setUp(() {
@@ -19,9 +19,9 @@ void html_img_test() {
     test('should set id', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(key: Key('some-key'), id: 'some-id'),
-          Image(key: LocalKey('some-local-key'), id: 'some-local-id'),
-          Image(key: GlobalKey('some-global-key'), id: 'some-global-id'),
+          SuperScript(key: Key('some-key'), id: 'some-id'),
+          SuperScript(key: LocalKey('some-local-key'), id: 'some-local-id'),
+          SuperScript(key: GlobalKey('some-global-key'), id: 'some-global-id'),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -60,9 +60,9 @@ void html_img_test() {
     test('should reset and update id', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(key: Key('some-key'), id: 'some-id'),
-          Image(key: LocalKey('some-local-key'), id: 'some-local-id'),
-          Image(key: GlobalKey('some-global-key'), id: 'some-global-id'),
+          SuperScript(key: Key('some-key'), id: 'some-id'),
+          SuperScript(key: LocalKey('some-local-key'), id: 'some-local-id'),
+          SuperScript(key: GlobalKey('some-global-key'), id: 'some-global-id'),
         ],
         parentContext: app!.appContext,
       );
@@ -99,15 +99,15 @@ void html_img_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          Image(
+          SuperScript(
             key: Key('some-key'),
             id: 'some-updated-id',
           ),
-          Image(
+          SuperScript(
             key: LocalKey('some-local-key'),
             id: 'some-local-updated-id',
           ),
-          Image(
+          SuperScript(
             key: GlobalKey('some-global-key'),
             id: 'some-global-updated-id',
           ),
@@ -124,9 +124,9 @@ void html_img_test() {
     test('should set child widget', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(
+          SuperScript(
             id: 'widget-1',
-            child: Image(
+            child: SuperScript(
               id: 'widget-2',
             ),
           ),
@@ -144,11 +144,11 @@ void html_img_test() {
     test('should set children widgets', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(id: 'widget-1', children: [
-            Image(
+          SuperScript(id: 'widget-1', children: [
+            SuperScript(
               id: 'widget-2',
             ),
-            Image(
+            SuperScript(
               id: 'widget-3',
             ),
           ]),
@@ -168,15 +168,15 @@ void html_img_test() {
     test('should set classes', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(
+          SuperScript(
             id: 'widget-1',
             classAttribute: 'some class',
           ),
-          Image(
+          SuperScript(
             id: 'widget-2',
             classAttribute: 'some "messy" class',
           ),
-          Image(
+          SuperScript(
             id: 'widget-3',
             classAttribute: "some 'messy' class",
           ),
@@ -196,11 +196,11 @@ void html_img_test() {
     test('should set contenteditable', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(
+          SuperScript(
             key: Key('widget-1'),
             contenteditable: false,
           ),
-          Image(
+          SuperScript(
             key: Key('widget-2'),
             contenteditable: true,
           ),
@@ -218,11 +218,11 @@ void html_img_test() {
     test('should set draggable', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(
+          SuperScript(
             key: Key('widget-1'),
             draggable: false,
           ),
-          Image(
+          SuperScript(
             key: Key('widget-2'),
             draggable: true,
           ),
@@ -240,11 +240,11 @@ void html_img_test() {
     test('should set hidden', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(
+          SuperScript(
             key: Key('widget-1'),
             hidden: false,
           ),
-          Image(
+          SuperScript(
             key: Key('widget-2'),
             hidden: true,
           ),
@@ -262,7 +262,7 @@ void html_img_test() {
     test('should set inner text', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(
+          SuperScript(
             key: GlobalKey('widget-1'),
             innerText: 'hello world',
           ),
@@ -276,22 +276,20 @@ void html_img_test() {
       // or returns empty string for some node(e.g progress)
 
       expect(element1.innerHtml, equals('hello world'));
-    }, onPlatform: {
-      'chrome': Skip('Failing for img on chrome'),
     });
 
     test('should set onClick', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(
+          SuperScript(
             key: Key('widget-1'),
             onClick: 'some onClick',
           ),
-          Image(
+          SuperScript(
             key: Key('widget-2'),
             onClick: 'some "messy" onClick',
           ),
-          Image(
+          SuperScript(
             key: Key('widget-3'),
             onClick: "some 'messy' onClick",
           ),
@@ -324,7 +322,7 @@ void html_img_test() {
 
       app!.framework.buildChildren(
         widgets: [
-          Image(
+          SuperScript(
             key: GlobalKey('some-global-key'),
             onClickEventListener: (event) => testStack.push('clicked'),
           ),
@@ -346,9 +344,9 @@ void html_img_test() {
     test('should set style', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(key: Key('widget-1'), style: 'some style'),
-          Image(key: Key('widget-2'), style: 'some "messy" style'),
-          Image(key: Key('widget-3'), style: "some 'messy' style"),
+          SuperScript(key: Key('widget-1'), style: 'some style'),
+          SuperScript(key: Key('widget-2'), style: 'some "messy" style'),
+          SuperScript(key: Key('widget-3'), style: "some 'messy' style"),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -365,15 +363,15 @@ void html_img_test() {
     test('should set tab index', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(
+          SuperScript(
             key: Key('widget-1'),
             tabIndex: 1,
           ),
-          Image(
+          SuperScript(
             key: Key('widget-2'),
             tabIndex: 2,
           ),
-          Image(
+          SuperScript(
             key: Key('widget-3'),
             tabIndex: 3,
           ),
@@ -393,9 +391,9 @@ void html_img_test() {
     test('should set title', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(key: Key('widget-1'), title: 'some title'),
-          Image(key: Key('widget-2'), title: 'some "messy" title'),
-          Image(key: Key('widget-3'), title: "some 'messy' title"),
+          SuperScript(key: Key('widget-1'), title: 'some title'),
+          SuperScript(key: Key('widget-2'), title: 'some "messy" title'),
+          SuperScript(key: Key('widget-3'), title: "some 'messy' title"),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -412,7 +410,7 @@ void html_img_test() {
     test('should set correct types and markup', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(key: GlobalKey('some-global-key')),
+          SuperScript(key: GlobalKey('some-global-key')),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -423,9 +421,15 @@ void html_img_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Image).toString() == 'Image' || (Image).toString() == 'TableColumn'
-              ? '<img>'
-              : '<img></img>',
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('sup')
+              ? '<sup>'
+              : '<sup></sup>',
         ),
       );
     });
@@ -433,7 +437,7 @@ void html_img_test() {
     test('should set data attributes', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(
+          SuperScript(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -453,7 +457,7 @@ void html_img_test() {
     test('should remove obsolute and add new data attributes on update', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(
+          SuperScript(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -465,7 +469,7 @@ void html_img_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          Image(
+          SuperScript(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something-new': 'something new',
@@ -487,7 +491,7 @@ void html_img_test() {
     test('should not override system reserved data attributes on build', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(
+          SuperScript(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -510,7 +514,7 @@ void html_img_test() {
     test('should not remove system reserved data attributes on update', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(
+          SuperScript(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -523,7 +527,7 @@ void html_img_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          Image(
+          SuperScript(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something new',
@@ -548,9 +552,9 @@ void html_img_test() {
     test('should set key', () {
       app!.framework.buildChildren(
         widgets: [
-          Image(key: Key('some-key')),
-          Image(key: LocalKey('some-local-key')),
-          Image(key: GlobalKey('some-global-key')),
+          SuperScript(key: Key('some-key')),
+          SuperScript(key: LocalKey('some-local-key')),
+          SuperScript(key: GlobalKey('some-global-key')),
         ],
         parentContext: RT_TestBed.rootContext,
       );

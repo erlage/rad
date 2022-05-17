@@ -12,7 +12,13 @@ test('should set correct types and markup', () {
       //
       // img/col tags might don't have a closing tag
       //
-      (__WidgetClass__).toString() == 'Image' || (__WidgetClass__).toString() == 'TableColumn'
+      [
+        'img',
+        'col',
+        'br',
+        'hr',
+        'input',
+      ].contains('__WidgetTag__')
           ? '<__WidgetTag__>'
           : '<__WidgetTag__></__WidgetTag__>',
     ),

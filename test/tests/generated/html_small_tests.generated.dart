@@ -421,7 +421,13 @@ void html_small_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Small).toString() == 'Image' || (Small).toString() == 'TableColumn'
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('small')
               ? '<small>'
               : '<small></small>',
         ),

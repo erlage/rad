@@ -421,7 +421,13 @@ void html_button_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Button).toString() == 'Image' || (Button).toString() == 'TableColumn'
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('button')
               ? '<button>'
               : '<button></button>',
         ),

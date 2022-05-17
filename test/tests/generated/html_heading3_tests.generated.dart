@@ -6,8 +6,8 @@
 
 part of '_html_tests_index_test.dart';
 
-void html_a_test() {
-  group('HTML Anchor tests:', () {
+void html_heading3_test() {
+  group('HTML Heading3 tests:', () {
     RT_AppRunner? app;
 
     setUp(() {
@@ -19,9 +19,9 @@ void html_a_test() {
     test('should set id', () {
       app!.framework.buildChildren(
         widgets: [
-          Anchor(key: Key('some-key'), id: 'some-id'),
-          Anchor(key: LocalKey('some-local-key'), id: 'some-local-id'),
-          Anchor(key: GlobalKey('some-global-key'), id: 'some-global-id'),
+          Heading3(key: Key('some-key'), id: 'some-id'),
+          Heading3(key: LocalKey('some-local-key'), id: 'some-local-id'),
+          Heading3(key: GlobalKey('some-global-key'), id: 'some-global-id'),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -60,9 +60,9 @@ void html_a_test() {
     test('should reset and update id', () {
       app!.framework.buildChildren(
         widgets: [
-          Anchor(key: Key('some-key'), id: 'some-id'),
-          Anchor(key: LocalKey('some-local-key'), id: 'some-local-id'),
-          Anchor(key: GlobalKey('some-global-key'), id: 'some-global-id'),
+          Heading3(key: Key('some-key'), id: 'some-id'),
+          Heading3(key: LocalKey('some-local-key'), id: 'some-local-id'),
+          Heading3(key: GlobalKey('some-global-key'), id: 'some-global-id'),
         ],
         parentContext: app!.appContext,
       );
@@ -99,15 +99,15 @@ void html_a_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          Anchor(
+          Heading3(
             key: Key('some-key'),
             id: 'some-updated-id',
           ),
-          Anchor(
+          Heading3(
             key: LocalKey('some-local-key'),
             id: 'some-local-updated-id',
           ),
-          Anchor(
+          Heading3(
             key: GlobalKey('some-global-key'),
             id: 'some-global-updated-id',
           ),
@@ -124,9 +124,9 @@ void html_a_test() {
     test('should set child widget', () {
       app!.framework.buildChildren(
         widgets: [
-          Anchor(
+          Heading3(
             id: 'widget-1',
-            child: Anchor(
+            child: Heading3(
               id: 'widget-2',
             ),
           ),
@@ -144,11 +144,11 @@ void html_a_test() {
     test('should set children widgets', () {
       app!.framework.buildChildren(
         widgets: [
-          Anchor(id: 'widget-1', children: [
-            Anchor(
+          Heading3(id: 'widget-1', children: [
+            Heading3(
               id: 'widget-2',
             ),
-            Anchor(
+            Heading3(
               id: 'widget-3',
             ),
           ]),
@@ -168,15 +168,15 @@ void html_a_test() {
     test('should set classes', () {
       app!.framework.buildChildren(
         widgets: [
-          Anchor(
+          Heading3(
             id: 'widget-1',
             classAttribute: 'some class',
           ),
-          Anchor(
+          Heading3(
             id: 'widget-2',
             classAttribute: 'some "messy" class',
           ),
-          Anchor(
+          Heading3(
             id: 'widget-3',
             classAttribute: "some 'messy' class",
           ),
@@ -196,11 +196,11 @@ void html_a_test() {
     test('should set contenteditable', () {
       app!.framework.buildChildren(
         widgets: [
-          Anchor(
+          Heading3(
             key: Key('widget-1'),
             contenteditable: false,
           ),
-          Anchor(
+          Heading3(
             key: Key('widget-2'),
             contenteditable: true,
           ),
@@ -218,11 +218,11 @@ void html_a_test() {
     test('should set draggable', () {
       app!.framework.buildChildren(
         widgets: [
-          Anchor(
+          Heading3(
             key: Key('widget-1'),
             draggable: false,
           ),
-          Anchor(
+          Heading3(
             key: Key('widget-2'),
             draggable: true,
           ),
@@ -240,11 +240,11 @@ void html_a_test() {
     test('should set hidden', () {
       app!.framework.buildChildren(
         widgets: [
-          Anchor(
+          Heading3(
             key: Key('widget-1'),
             hidden: false,
           ),
-          Anchor(
+          Heading3(
             key: Key('widget-2'),
             hidden: true,
           ),
@@ -262,7 +262,7 @@ void html_a_test() {
     test('should set inner text', () {
       app!.framework.buildChildren(
         widgets: [
-          Anchor(
+          Heading3(
             key: GlobalKey('widget-1'),
             innerText: 'hello world',
           ),
@@ -281,15 +281,15 @@ void html_a_test() {
     test('should set onClick', () {
       app!.framework.buildChildren(
         widgets: [
-          Anchor(
+          Heading3(
             key: Key('widget-1'),
             onClick: 'some onClick',
           ),
-          Anchor(
+          Heading3(
             key: Key('widget-2'),
             onClick: 'some "messy" onClick',
           ),
-          Anchor(
+          Heading3(
             key: Key('widget-3'),
             onClick: "some 'messy' onClick",
           ),
@@ -322,7 +322,7 @@ void html_a_test() {
 
       app!.framework.buildChildren(
         widgets: [
-          Anchor(
+          Heading3(
             key: GlobalKey('some-global-key'),
             onClickEventListener: (event) => testStack.push('clicked'),
           ),
@@ -344,9 +344,9 @@ void html_a_test() {
     test('should set style', () {
       app!.framework.buildChildren(
         widgets: [
-          Anchor(key: Key('widget-1'), style: 'some style'),
-          Anchor(key: Key('widget-2'), style: 'some "messy" style'),
-          Anchor(key: Key('widget-3'), style: "some 'messy' style"),
+          Heading3(key: Key('widget-1'), style: 'some style'),
+          Heading3(key: Key('widget-2'), style: 'some "messy" style'),
+          Heading3(key: Key('widget-3'), style: "some 'messy' style"),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -363,15 +363,15 @@ void html_a_test() {
     test('should set tab index', () {
       app!.framework.buildChildren(
         widgets: [
-          Anchor(
+          Heading3(
             key: Key('widget-1'),
             tabIndex: 1,
           ),
-          Anchor(
+          Heading3(
             key: Key('widget-2'),
             tabIndex: 2,
           ),
-          Anchor(
+          Heading3(
             key: Key('widget-3'),
             tabIndex: 3,
           ),
@@ -391,9 +391,9 @@ void html_a_test() {
     test('should set title', () {
       app!.framework.buildChildren(
         widgets: [
-          Anchor(key: Key('widget-1'), title: 'some title'),
-          Anchor(key: Key('widget-2'), title: 'some "messy" title'),
-          Anchor(key: Key('widget-3'), title: "some 'messy' title"),
+          Heading3(key: Key('widget-1'), title: 'some title'),
+          Heading3(key: Key('widget-2'), title: 'some "messy" title'),
+          Heading3(key: Key('widget-3'), title: "some 'messy' title"),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -410,7 +410,7 @@ void html_a_test() {
     test('should set correct types and markup', () {
       app!.framework.buildChildren(
         widgets: [
-          Anchor(key: GlobalKey('some-global-key')),
+          Heading3(key: GlobalKey('some-global-key')),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -421,9 +421,15 @@ void html_a_test() {
           //
           // img/col tags might don't have a closing tag
           //
-          (Anchor).toString() == 'Image' || (Anchor).toString() == 'TableColumn'
-              ? '<a>'
-              : '<a></a>',
+          [
+            'img',
+            'col',
+            'br',
+            'hr',
+            'input',
+          ].contains('h3')
+              ? '<h3>'
+              : '<h3></h3>',
         ),
       );
     });
@@ -431,7 +437,7 @@ void html_a_test() {
     test('should set data attributes', () {
       app!.framework.buildChildren(
         widgets: [
-          Anchor(
+          Heading3(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -451,7 +457,7 @@ void html_a_test() {
     test('should remove obsolute and add new data attributes on update', () {
       app!.framework.buildChildren(
         widgets: [
-          Anchor(
+          Heading3(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -463,7 +469,7 @@ void html_a_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          Anchor(
+          Heading3(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something-new': 'something new',
@@ -485,7 +491,7 @@ void html_a_test() {
     test('should not override system reserved data attributes on build', () {
       app!.framework.buildChildren(
         widgets: [
-          Anchor(
+          Heading3(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -508,7 +514,7 @@ void html_a_test() {
     test('should not remove system reserved data attributes on update', () {
       app!.framework.buildChildren(
         widgets: [
-          Anchor(
+          Heading3(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
@@ -521,7 +527,7 @@ void html_a_test() {
 
       app!.framework.updateChildren(
         widgets: [
-          Anchor(
+          Heading3(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something new',
@@ -546,9 +552,9 @@ void html_a_test() {
     test('should set key', () {
       app!.framework.buildChildren(
         widgets: [
-          Anchor(key: Key('some-key')),
-          Anchor(key: LocalKey('some-local-key')),
-          Anchor(key: GlobalKey('some-global-key')),
+          Heading3(key: Key('some-key')),
+          Heading3(key: LocalKey('some-local-key')),
+          Heading3(key: GlobalKey('some-global-key')),
         ],
         parentContext: RT_TestBed.rootContext,
       );
