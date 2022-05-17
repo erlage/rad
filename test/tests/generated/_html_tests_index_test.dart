@@ -9,6 +9,8 @@ import '../../test_imports.dart';
 part 'html_iframe_tests.generated.dart';
 part 'html_a_tests.generated.dart';
 part 'html_abbr_tests.generated.dart';
+part 'html_article_tests.generated.dart';
+part 'html_code_tests.generated.dart';
 part 'html_small_tests.generated.dart';
 part 'html_h1_tests.generated.dart';
 part 'html_h2_tests.generated.dart';
@@ -54,6 +56,8 @@ void main() {
   html_iframe_test();
   html_a_test();
   html_abbr_test();
+  html_article_test();
+  html_code_test();
   html_small_test();
   html_h1_test();
   html_h2_test();
