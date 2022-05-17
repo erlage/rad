@@ -41,6 +41,7 @@ widgets_map = {
     'a': 'Anchor',
     'abbr': 'Abbreviation',
     'article': 'Article',
+    'code': 'Code',
     'small': 'Small',
     'h1': 'Heading1',
     'h2': 'Heading2',

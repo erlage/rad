@@ -8,6 +8,9 @@ String fnMapDomTag(DomTag tag) {
     case DomTag.article:
       return "article";
 
+    case DomTag.code:
+      return "code";
+
     case DomTag.header:
       return "header";
 

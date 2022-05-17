@@ -5,6 +5,7 @@ library widgets_html;
 export 'src/widgets/html/headings.dart';
 export 'src/widgets/html/abbreviation.dart' show Abbreviation;
 export 'src/widgets/html/article.dart' show Article;
+export 'src/widgets/html/code.dart' show Code;
 export 'src/widgets/html/header.dart' show Header;
 export 'src/widgets/html/footer.dart' show Footer;
 export 'src/widgets/html/navigation.dart' show Navigation;
