@@ -91,7 +91,6 @@ class RT_TestWidget extends Widget {
       context,
       roEventHookRender: roEventHookRender,
       roEventHookUpdate: roEventHookUpdate,
-      roEventHookBeforeMount: roEventHookBeforeMount,
       roEventHookAfterMount: roEventHookAfterMount,
       roEventHookAfterWidgetRebind: roEventHookAfterWidgetRebind,
       roEventHookBeforeUnMount: roEventHookBeforeUnMount,
@@ -107,7 +106,6 @@ class RT_AnotherTestWidget extends RT_TestWidget {
     List<Widget>? children,
     Callback? roEventHookRender,
     Callback? roEventHookUpdate,
-    Callback? roEventHookBeforeMount,
     Callback? roEventHookAfterMount,
     Callback? roEventHookAfterWidgetRebind,
     Callback? roEventHookBeforeUnMount,
@@ -122,7 +120,6 @@ class RT_AnotherTestWidget extends RT_TestWidget {
           children: children,
           roEventHookRender: roEventHookRender,
           roEventHookUpdate: roEventHookUpdate,
-          roEventHookBeforeMount: roEventHookBeforeMount,
           roEventHookAfterMount: roEventHookAfterMount,
           roEventHookAfterWidgetRebind: roEventHookAfterWidgetRebind,
           roEventHookBeforeUnMount: roEventHookBeforeUnMount,
@@ -139,7 +136,6 @@ class RT_AnotherTestWidget extends RT_TestWidget {
 class RT_TestWidgetRenderObject extends RenderObject {
   final Callback? roEventHookRender;
   final Callback? roEventHookUpdate;
-  final Callback? roEventHookBeforeMount;
   final Callback? roEventHookAfterMount;
   final Callback? roEventHookAfterWidgetRebind;
   final Callback? roEventHookBeforeUnMount;
@@ -148,7 +144,6 @@ class RT_TestWidgetRenderObject extends RenderObject {
     BuildContext context, {
     this.roEventHookRender,
     this.roEventHookUpdate,
-    this.roEventHookBeforeMount,
     this.roEventHookAfterMount,
     this.roEventHookAfterWidgetRebind,
     this.roEventHookBeforeUnMount,
@@ -174,13 +169,6 @@ class RT_TestWidgetRenderObject extends RenderObject {
     }
 
     return null;
-  }
-
-  @override
-  beforeMount() {
-    if (null != roEventHookBeforeMount) {
-      roEventHookBeforeMount!();
-    }
   }
 
   @override

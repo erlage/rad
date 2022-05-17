@@ -23,14 +23,20 @@ abstract class RenderObject {
   ///
   /// Implementation can optionally return description of element.
   ///
+  /// Note that at this point, element might not be present in the actual DOM.
+  /// For getting access to widget's element use [afterMount] hook.
+  ///
   ElementDescription? render({
     required WidgetConfiguration configuration,
   }) {
     return null;
   }
 
-  void beforeMount() {}
-
+  /// After mount hook.
+  ///
+  /// This hook gets called after widget's element is mounted and is available
+  /// in actual DOM.
+  ///
   void afterMount() {}
 
   /// Update hook.
@@ -45,11 +51,15 @@ abstract class RenderObject {
     return null;
   }
 
+  /// After widget's rebind hook.
+  ///
   void afterWidgetRebind({
     required Widget oldWidget,
     required Widget newWidget,
     required UpdateType updateType,
   }) {}
 
+  /// Before UnMount hook.
+  ///
   void beforeUnMount() {}
 }

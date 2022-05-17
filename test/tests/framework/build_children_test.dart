@@ -192,25 +192,6 @@ void main() {
       );
     });
 
-    test('should trigger RO.beforeMount hook before mount', () {
-      app!.framework.buildChildren(
-        widgets: [
-          RT_TestWidget(
-            key: GlobalKey('test-widget'),
-            roEventHookBeforeMount: () {
-              expect(
-                app!.services.walker
-                    .getWidgetObjectUsingKey('test-widget')!
-                    .isMounted,
-                equals(false),
-              );
-            },
-          )
-        ],
-        parentContext: app!.appContext,
-      );
-    });
-
     test('should mount', () {
       app!.framework.buildChildren(
         widgets: [
@@ -273,25 +254,6 @@ void main() {
       );
     });
 
-    test('should call beforeMount before mount', () {
-      app!.framework.buildChildren(
-        widgets: [
-          RT_TestWidget(
-            key: GlobalKey('test-widget'),
-            roEventHookBeforeMount: () {
-              expect(
-                app!.services.walker
-                    .getWidgetObjectUsingKey('test-widget')!
-                    .isMounted,
-                equals(false),
-              );
-            },
-          )
-        ],
-        parentContext: app!.appContext,
-      );
-    });
-
     test('should call afterMount after mount', () {
       app!.framework.buildChildren(
         widgets: [
@@ -321,7 +283,6 @@ void main() {
 
             // render object hooks
 
-            roEventHookBeforeMount: () => testStack.push('beforeMount'),
             roEventHookAfterMount: () => testStack.push('afterMount'),
             roEventHookRender: () => testStack.push('render'),
 
@@ -342,7 +303,6 @@ void main() {
       expect(testStack.popFromStart(), equals('createRenderObject'));
 
       expect(testStack.popFromStart(), equals('render'));
-      expect(testStack.popFromStart(), equals('beforeMount'));
       expect(testStack.popFromStart(), equals('afterMount'));
 
       // confirm there are no duplicate calls.
@@ -534,7 +494,7 @@ void main() {
         widgets: [
           RT_TestWidget(
             key: GlobalKey('new-child'),
-            roEventHookBeforeMount: () {
+            roEventHookRender: () {
               // existing widgets should already got disposed by this point
 
               expect(

@@ -115,7 +115,6 @@ class Renderer with ServicesResolver {
 
     jobQueue.addPostDispatchCallback(() {
       widgetObject
-        ..renderObject.beforeMount()
         ..frameworkUpdateMountStatus(true)
         ..renderObject.afterMount();
     });
