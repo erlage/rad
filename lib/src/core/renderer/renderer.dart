@@ -421,12 +421,6 @@ class Renderer with ServicesResolver {
     );
 
     if (null == parentObject) {
-      for (var object in services.walker.dumpWidgetObjects()) {
-        print('object: ${object.context.key.value}\n');
-      }
-
-      print('match: ${parentContext.key.value}\n');
-
       render(
         widgets: widgets,
         jobQueue: jobQueue,
