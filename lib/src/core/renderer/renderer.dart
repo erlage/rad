@@ -547,19 +547,8 @@ class Renderer with ServicesResolver {
           // whether new widget has any childs
           var hasChilds = updateObject.widget.widgetChildren.isNotEmpty;
 
-          // if new widget has no childs but old had, we have to remove
-          // those orphan childs.
-
-          if (hadChilds && !hasChilds) {
-            disposeWidgets(
-              jobQueue: jobQueue,
-              flagPreserveTarget: true,
-              context: widgetObject.context,
-            );
-          } else {
-            // else update childs
-            // doesn't matter whether new has or not.
-
+          // if widget has childs, update them
+          if (hasChilds) {
             updateWidgetsUnderContext(
               jobQueue: jobQueue,
               updateType: updateType,
@@ -567,6 +556,16 @@ class Renderer with ServicesResolver {
               flagAddIfNotFound: flagAddIfNotFound,
               widgets: updateObject.widget.widgetChildren,
             );
+          } else {
+            // if new widget has no childs but old had, we have to remove
+            // those orphan childs.
+            if (hadChilds) {
+              disposeWidgets(
+                jobQueue: jobQueue,
+                flagPreserveTarget: true,
+                context: widgetObject.context,
+              );
+            }
           }
         }
       } else {
