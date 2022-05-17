@@ -231,12 +231,15 @@ Below is the list of available widgets in this framework.
 
 ### HTML Widgets
 
-[Anchor](https://pub.dev/documentation/rad/latest/rad/Anchor-class.html)
+[Abbreviation](https://pub.dev/documentation/rad/latest/rad/Abbreviation-class.html)
+, [Anchor](https://pub.dev/documentation/rad/latest/rad/Anchor-class.html)
+, [Article](https://pub.dev/documentation/rad/latest/rad/Article-class.html)
 , [Blockquote](https://pub.dev/documentation/rad/latest/rad/Blockquote-class.html)
 , [BreakLine](https://pub.dev/documentation/rad/latest/rad/BreakLine-class.html)
 , [Button](https://pub.dev/documentation/rad/latest/rad/Button-class.html)
 , [Canvas](https://pub.dev/documentation/rad/latest/rad/Canvas-class.html)
 , [Caption](https://pub.dev/documentation/rad/latest/rad/Caption-class.html)
+, [Code](https://pub.dev/documentation/rad/latest/rad/Code-class.html)
 , [Division](https://pub.dev/documentation/rad/latest/rad/Division-class.html)
 , [FieldSet](https://pub.dev/documentation/rad/latest/rad/FieldSet-class.html)
 , [Footer](https://pub.dev/documentation/rad/latest/rad/Footer-class.html)
