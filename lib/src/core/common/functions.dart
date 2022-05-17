@@ -2,6 +2,9 @@ import 'package:rad/src/core/common/enums.dart';
 
 String fnMapDomTag(DomTag tag) {
   switch (tag) {
+    case DomTag.abbreviation:
+      return "abbr";
+
     case DomTag.header:
       return "header";
 

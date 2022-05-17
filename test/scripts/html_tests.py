@@ -39,6 +39,7 @@ tests = [
 widgets_map = {
     'iframe': 'IFrame',
     'a': 'Anchor',
+    'abbr': 'Abbreviation',
     'small': 'Small',
     'h1': 'Heading1',
     'h2': 'Heading2',

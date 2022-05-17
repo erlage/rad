@@ -103,6 +103,7 @@ enum ButtonType {
 /// Widget's corresponding DOM tag.
 ///
 enum DomTag {
+  abbreviation,
   header,
   footer,
   navigation,
