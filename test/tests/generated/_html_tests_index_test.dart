@@ -38,6 +38,7 @@ part 'html_input_text_tests.generated.dart';
 part 'html_label_tests.generated.dart';
 part 'html_legend_tests.generated.dart';
 part 'html_list_item_tests.generated.dart';
+part 'html_menu_tests.generated.dart';
 part 'html_navigation_tests.generated.dart';
 part 'html_option_tests.generated.dart';
 part 'html_paragraph_tests.generated.dart';
@@ -93,6 +94,7 @@ void main() {
   html_label_test();
   html_legend_test();
   html_list_item_test();
+  html_menu_test();
   html_navigation_test();
   html_option_test();
   html_paragraph_test();

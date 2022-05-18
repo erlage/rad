@@ -108,6 +108,7 @@ enum DomTag {
   code,
   header,
   footer,
+  menu,
   navigation,
   division,
   span,

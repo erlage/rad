@@ -73,6 +73,7 @@ widgets_map = {
     'Label': 'label',
     'Legend': 'legend',
     'ListItem': 'li',
+    'Menu': 'menu',
     'Navigation': 'nav',
     'Option': 'option',
     'Paragraph': 'p',

@@ -17,6 +17,9 @@ String fnMapDomTag(DomTag tag) {
     case DomTag.footer:
       return 'footer';
 
+    case DomTag.menu:
+      return 'menu';
+
     case DomTag.navigation:
       return 'nav';
 

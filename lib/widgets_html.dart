@@ -8,6 +8,7 @@ export 'src/widgets/html/article.dart' show Article;
 export 'src/widgets/html/code.dart' show Code;
 export 'src/widgets/html/header.dart' show Header;
 export 'src/widgets/html/footer.dart' show Footer;
+export 'src/widgets/html/menu.dart' show Menu;
 export 'src/widgets/html/navigation.dart' show Navigation;
 export 'src/widgets/html/span.dart' show Span;
 export 'src/widgets/html/small.dart' show Small;

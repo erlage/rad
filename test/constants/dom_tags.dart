@@ -7,6 +7,7 @@ class RT_DomTags {
     "code",
     "header",
     "footer",
+    "menu",
     "nav",
     "div",
     "span",
