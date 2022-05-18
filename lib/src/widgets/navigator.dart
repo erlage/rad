@@ -173,7 +173,7 @@ import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_t
 ///
 /// ### Going back
 ///
-/// Going back means, going to the Route that's previously visited.
+/// Going back means, opening the Route that was closed previously.
 ///
 /// ```dart
 ///
@@ -181,8 +181,8 @@ import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_t
 /// Navigator.of(context).open(name: "profile")
 /// Navigator.of(context).open(name: "home")
 ///
-/// Navigator.of(context).back() // ->  go to profile
-/// Navigator.of(context).back() // ->  go to home
+/// Navigator.of(context).back() // ->  open profile
+/// Navigator.of(context).back() // ->  open home
 /// Navigator.of(context).back() // ->  error, no previous route!
 ///
 /// // helper method to prevent above case:
@@ -203,7 +203,7 @@ import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_t
 /// Then on homepage, value can be accessed using `getValue`:
 ///
 /// ```dart
-/// var value = Navigator.of(context).getValue("id");
+/// var id = Navigator.of(context).getValue("id");
 /// // "123"
 /// ```
 ///
@@ -218,8 +218,8 @@ import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_t
 /// On homepage,
 ///
 /// ```dart
-/// var valueOne = Navigator.of(context).getValue("id"); // -> "123"
-/// var valueTwo = Navigator.of(context).getValue("username"); // -> "adamback"
+/// var id = Navigator.of(context).getValue("id"); // -> "123"
+/// var username = Navigator.of(context).getValue("username"); // -> "adamback"
 /// ```
 ///
 /// Cool thing about Navigator is that values passed to a route will presist
@@ -242,7 +242,7 @@ import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_t
 /// Navigator.of(context).open(name: "profile", values: {"id": "123"});
 ///
 /// // on profile page
-/// var key = Navigator.of(context).getValue("id");
+/// var id = Navigator.of(context).getValue("id");
 /// ```
 ///
 /// But remember since routes are built only once, you've to re-initialize state
@@ -259,13 +259,19 @@ import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_t
 ///
 ///   @override
 ///   void initState() {
-///     // intialize state that doesn't depend on Navigator
+///     // intialize here, all things that don't depend on Navigator
 ///   }
 ///
 ///   @override
 ///   void didChangeDependencies()
 ///   {
-///     // initialize state here that depend Navigator
+///     // initialize here, all things that depends on Navigator
+///
+///     // this method gets called when your app do Navigator.open(name: 'profile')
+///     // you can re-initialize page state here if page is opened with different values
+///     // remember, you don't have to call setState inside this method as framework always
+///     // call build method on this widget after calling this method.
+///
 ///     var newValue = Navigator.of(context).getValue('id');
 ///
 ///     // if user id has changed(means your app has opened profile page with
@@ -276,12 +282,6 @@ import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_t
 ///       // fetch user from server, or other things that depends
 ///       // on user id.
 ///     }
-///
-///     // this method gets called when your app do Navigator.open(name: 'profile')
-///     // you can re-initialize page state if page is opened with different values
-///
-///     // remember, you don't have to call setState inside this method. framework always
-///     // call build method on this widget after calling this method.
 ///   }
 /// }
 /// ```
