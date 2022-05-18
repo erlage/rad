@@ -174,7 +174,7 @@ Below is the list of available widgets in this framework.
 
 - [Navigator](https://pub.dev/documentation/rad/latest/rad/Navigator-class.html) \[*different*\]
 - [Route](https://pub.dev/documentation/rad/latest/rad/Route-class.html) \[*different*\]
-- [AsyncRoute](https://pub.dev/documentation/rad/latest/rad/AsyncRoute-class.html) \[*different*\]
+- [AsyncRoute](https://pub.dev/documentation/rad/latest/rad/AsyncRoute-class.html)
 
 ### Builders
 

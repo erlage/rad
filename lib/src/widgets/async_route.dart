@@ -49,7 +49,6 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 class AsyncRoute extends Route {
   /// Name of the route to open when page loading encounters an error.
   ///
-  ///
   final String? errorRoute;
 
   ///  Name of the route to open while page is loading.
