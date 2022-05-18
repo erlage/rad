@@ -28,6 +28,7 @@ linter:
     - require_trailing_commas
     - sort_unnamed_constructors_first
     - unnecessary_null_checks    
+    - unnecessary_parenthesis    
 
     # - use_super_parameters (currently experimental)
     

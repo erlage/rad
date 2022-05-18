@@ -128,7 +128,7 @@ class Walker extends Service {
 
         foundRenderObject as StatefulWidgetRenderObject;
 
-        return (foundRenderObject).state as T;
+        return foundRenderObject.state as T;
       }
     }
 

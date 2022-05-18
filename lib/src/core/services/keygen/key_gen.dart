@@ -66,7 +66,7 @@ class KeyGen extends Service {
       Iterable.generate(
         length,
         (_) => cSet.codeUnitAt(
-          (_random).nextInt(
+          _random.nextInt(
             cSet.length,
           ),
         ),
