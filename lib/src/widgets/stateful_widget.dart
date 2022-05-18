@@ -11,6 +11,7 @@ import 'package:rad/src/core/services/scheduler/tasks/stimulate_listener_task.da
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/core/services/services_registry.dart';
+import 'package:rad/src/include/foundation/change_notifier.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateless_widget.dart';
@@ -270,7 +271,7 @@ abstract class State<T extends StatefulWidget> {
   /// A [State] object's configuration is the corresponding [StatefulWidget]
   /// instance. This property is initialized by the framework before calling
   /// [initState]. If the parent updates this location in the tree to a new
-  /// widget with the same [runtimeType] and [StatefulWidget.key] as the current
+  /// widget with the same [runtimeType] and key as the current
   /// configuration, the framework will update this property to refer to the new
   /// widget and then call [didUpdateWidget], passing the old configuration as
   /// an argument.

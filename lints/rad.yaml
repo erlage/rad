@@ -31,6 +31,7 @@ linter:
     - unnecessary_parenthesis    
     - use_raw_strings    
     - always_use_package_imports
-
+    - comment_references
+    
     # - use_super_parameters (currently experimental)
     
