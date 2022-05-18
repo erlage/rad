@@ -4,7 +4,7 @@ import 'package:rad/widgets_html.dart';
 import 'settings_page.dart';
 
 void main() {
-  startApp(
+  runApp(
     app: RadApp(child: RootPage()),
     targetId: 'output',
     debugOptions: DebugOptions.developmentMode,

@@ -14,7 +14,7 @@ import '../../matchers/has_contents.dart';
 void main() {
   group('start app tests :', () {
     test('should run app', () async {
-      startApp(
+      runApp(
         app: Text('hello world'),
         targetId: RT_TestBed.rootKey.value,
       );

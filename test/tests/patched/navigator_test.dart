@@ -7,7 +7,7 @@ import '../../test_imports.dart';
 void main() {
   group('rendering duplicate widgets #4', () {
     test('should render correct markup', () async {
-      startApp(
+      runApp(
         app: _NavigatorTest4(),
         targetId: RT_TestBed.rootKey.value,
       );

@@ -9,7 +9,7 @@ void main() {
     });
 
     test('should bind widget before initState', () {
-      startApp(
+      runApp(
         app: RT_StatefulTestWidget(
           key: GlobalKey('widget'),
           stateHookInitState: (state) {
@@ -21,7 +21,7 @@ void main() {
     });
 
     test('should bind widget before initState', () {
-      startApp(
+      runApp(
         app: RT_StatefulTestWidget(
           key: GlobalKey('widget'),
           stateHookInitState: (state) {
@@ -85,7 +85,7 @@ void main() {
     test('should call did change dependencies after initState', () async {
       var testStack = RT_TestStack();
 
-      startApp(
+      runApp(
         app: RT_StatefulTestWidget(
           stateEventInitState: () => testStack.push('init state'),
           stateEventDidChangeDependencies: () => testStack.push(
@@ -105,7 +105,7 @@ void main() {
     test('should call build after did change dependencies', () async {
       var testStack = RT_TestStack();
 
-      startApp(
+      runApp(
         app: RT_StatefulTestWidget(
           stateEventInitState: () => testStack.push('init state'),
           stateEventBuild: () => testStack.push('build'),
@@ -128,7 +128,7 @@ void main() {
       var testStack = RT_TestStack();
       var i = 1;
 
-      startApp(
+      runApp(
         app: RT_StatefulTestWidget(
           stateHookInitState: (state) {
             testStack.push('init state');
@@ -160,7 +160,7 @@ void main() {
     test('should not call didUpdateWidget for initial build', () async {
       var testStack = RT_TestStack();
 
-      startApp(
+      runApp(
         app: RT_StatefulTestWidget(
           stateEventInitState: () => testStack.push('init state'),
           stateEventBuild: () => testStack.push('build'),

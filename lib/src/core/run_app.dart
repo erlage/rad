@@ -17,7 +17,10 @@ import 'package:rad/src/core/common/objects/options/router_options.dart';
 import 'package:rad/src/core/interface/window/delegates/browser_window.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 
-/// Inflate the given widget and attach it to the screen.
+/// Convenience function that spin a [AppRunner].
+///
+/// Note that, [AppRunner] can be used directly to inflate the given widget and
+/// attach it to the screen.
 ///
 /// ### Arguments
 ///
@@ -31,7 +34,7 @@ import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 ///
 /// - [routerOptions] - See [RouterOptions].
 ///
-AppRunner startApp({
+AppRunner runApp({
   required Widget app,
   required String targetId,
   Callback? beforeMount,

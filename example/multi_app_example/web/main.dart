@@ -3,11 +3,11 @@ import 'package:rad/rad.dart';
 import 'package:rad/widgets_html.dart';
 
 void main() {
-  startApp(
+  runApp(
     app: const Counter(interval: Duration(seconds: 1)),
     targetId: 'app-a',
   );
-  startApp(
+  runApp(
     app: const Counter(interval: Duration(seconds: 2)),
     targetId: 'app-b',
   );
