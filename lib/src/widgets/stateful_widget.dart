@@ -305,10 +305,10 @@ abstract class State<T extends StatefulWidget> {
   BuildContext get context {
     if (null == _widget) {
       throw Exception(
-        'State.context instance cannot be accessed in state constructor. Please'
-        'use initState hook to initialize the state that depends on context or '
-        'Consider canceling any active work during "dispose" or using the '
-        '"mounted" getter to determine if the State is still active.',
+        'State.context instance cannot be accessed in state constructor. '
+        'Please use initState hook to initialize the state that depends on '
+        'context or consider canceling any active work during "dispose" or '
+        'using the "mounted" getter to determine if the State is still active.',
       );
     }
 

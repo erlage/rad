@@ -101,7 +101,7 @@ class Components with ServicesResolver {
       document.head!.insertBefore(element, null);
     } else {
       return services.debug.exception(
-        'For Rad to work, your page must have either a head tag or a body.'
+        'For Rad to work, your page must have either a head tag or a body. '
         'Creating a body(or head) in your page will fix this problem.',
       );
     }

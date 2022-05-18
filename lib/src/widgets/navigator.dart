@@ -320,9 +320,9 @@ class Navigator extends Widget {
 
       if (null == widgetObject) {
         services.debug.exception(
-          'Navigator operation requested with a context that does not include a'
-          'Navigator.\n'
-          'The context used to push or pop routes from the Navigator must be'
+          'Navigator operation requested with a context that does not include '
+          'a Navigator.\n'
+          'The context used to push or pop routes from the Navigator must be '
           'that of a widget that is a descendant of a Navigator widget.',
         );
 
@@ -764,7 +764,7 @@ class NavigatorState with ServicesResolver {
 
         if (isDuplicate) {
           return services.debug.exception(
-            'Please remove Duplicate routes from your Navigator.'
+            'Please remove Duplicate routes from your Navigator. '
             "Part of your route, name: '${route.name}' => path: "
             "'${route.path}', already exists",
           );
