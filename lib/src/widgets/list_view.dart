@@ -375,7 +375,7 @@ class _ListViewBuilderState with ServicesResolver {
     List entries,
     IntersectionObserver observer,
   ) {
-    for (var entry in entries) {
+    for (final entry in entries) {
       entry as IntersectionObserverEntry;
 
       if (entry.isIntersecting ?? false) {

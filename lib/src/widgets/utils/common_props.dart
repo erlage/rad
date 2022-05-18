@@ -9,7 +9,7 @@ Map<String, bool> fnCommonPrepareClasses({
   if (null != classAttribute) {
     var classList = _prepareClassList(classAttribute);
 
-    for (var className in classList) {
+    for (final className in classList) {
       prepared[className] = true;
     }
   }
@@ -17,7 +17,7 @@ Map<String, bool> fnCommonPrepareClasses({
   if (null != oldClassAttribute) {
     var oldClassList = _prepareClassList(oldClassAttribute);
 
-    for (var className in oldClassList) {
+    for (final className in oldClassList) {
       prepared[className] = false;
     }
   }
@@ -36,7 +36,7 @@ Map<String, String?> fnCommonPrepareDataset({
       (key, value) => Constants.allAttributes.contains(key),
     );
 
-    for (var attributeName in dataAttributes.keys) {
+    for (final attributeName in dataAttributes.keys) {
       prepared[attributeName] = dataAttributes[attributeName];
     }
   }
@@ -51,7 +51,7 @@ Map<String, String?> fnCommonPrepareDataset({
       },
     );
 
-    for (var attributeName in oldDataAttributes.keys) {
+    for (final attributeName in oldDataAttributes.keys) {
       prepared[attributeName] = null;
     }
   }

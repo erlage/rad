@@ -33,7 +33,7 @@ class Renderer with ServicesResolver {
   void dispose() {
     var widgetObjects = services.walker.dumpWidgetObjects();
 
-    for (var widgetObject in widgetObjects) {
+    for (final widgetObject in widgetObjects) {
       disposeWidgets(
         context: widgetObject.context,
         flagPreserveTarget: false,
@@ -339,7 +339,7 @@ class Renderer with ServicesResolver {
     required TreeFragment treeFragment,
     required JobQueue jobQueue,
   }) {
-    for (var widget in widgets) {
+    for (final widget in widgets) {
       var context = BuildContext.fromParent(
         key: createWidgetKey(widget, parentContext),
         widget: widget,
@@ -379,7 +379,7 @@ class Renderer with ServicesResolver {
     required WidgetObject parentWidgetObject,
     required JobQueue jobQueue,
   }) {
-    for (var widget in widgets) {
+    for (final widget in widgets) {
       var context = BuildContext.fromParent(
         key: createWidgetKey(widget, parentContext),
         widget: widget,
@@ -457,7 +457,7 @@ class Renderer with ServicesResolver {
     // publish widget updates
 
     var index = -1;
-    for (var updateObject in updateObjects.values) {
+    for (final updateObject in updateObjects.values) {
       index++;
 
       var newWidget = updateObject.widget;
@@ -610,7 +610,7 @@ class Renderer with ServicesResolver {
         // mount at specific index
         //
         var index = mountAtIndex - 1;
-        for (var node in treeFragment.renderNodes) {
+        for (final node in treeFragment.renderNodes) {
           index++;
 
           parentWidgetObject.renderNode.insertAt(node, index);
@@ -619,7 +619,7 @@ class Renderer with ServicesResolver {
         //
         // append
         //
-        for (var node in treeFragment.renderNodes) {
+        for (final node in treeFragment.renderNodes) {
           parentWidgetObject.renderNode.append(node);
         }
       }
@@ -682,7 +682,7 @@ class Renderer with ServicesResolver {
 
     // prepare list of existing nodes
 
-    for (var node in parent.children.reversed) {
+    for (final node in parent.children.reversed) {
       if (node.context.key.hasSystemPrefix) {
         nodes.add(node);
       } else {
@@ -690,7 +690,7 @@ class Renderer with ServicesResolver {
       }
     }
 
-    for (var newWidget in widgets) {
+    for (final newWidget in widgets) {
       //
       // prepare new widget's data for matching
       //

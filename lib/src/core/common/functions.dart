@@ -181,7 +181,7 @@ DomEventType? fnMapEventTypeToDomEventType(String eventType) {
   // could cache this map or maybe we can hardcode it.
   var typeMap = <String, DomEventType>{};
 
-  for (var type in DomEventType.values) {
+  for (final type in DomEventType.values) {
     typeMap[fnMapDomEventType(type)] = type;
   }
 
@@ -252,7 +252,7 @@ bool fnIsKeyValueMapEqual(
 ) {
   if (mapOne.length != mapTwo.length) return false;
 
-  for (var key in mapOne.keys) {
+  for (final key in mapOne.keys) {
     if (mapOne[key] != mapTwo[key]) return false;
   }
 
@@ -262,7 +262,7 @@ bool fnIsKeyValueMapEqual(
 String fnEncodeKeyValueMap(Map<String, String> valueMap) {
   var encodedMap = '';
 
-  for (var key in valueMap.keys) {
+  for (final key in valueMap.keys) {
     if (key.isNotEmpty) {
       encodedMap += '/${Uri.encodeComponent(key)}';
     }

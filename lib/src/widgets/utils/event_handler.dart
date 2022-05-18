@@ -93,7 +93,7 @@ class EventHandler {
     };
 
     if (null == oldConfiguration) {
-      for (var domEventType in newCallbacks.keys) {
+      for (final domEventType in newCallbacks.keys) {
         if (null != newCallbacks[domEventType]) {
           eventListenersToAdd[domEventType] = _dispatchEvent;
         }
@@ -109,7 +109,7 @@ class EventHandler {
       DomEventType.click: oldConfiguration.onClickEventListener,
     };
 
-    for (var domEventType in newCallbacks.keys) {
+    for (final domEventType in newCallbacks.keys) {
       if (null != newCallbacks[domEventType]) {
         if (null == oldCallbacks[domEventType]) {
           eventListenersToAdd[domEventType] = _dispatchEvent;
@@ -142,7 +142,7 @@ class EventHandler {
       DomEventType.click: oldConfiguration.onClickEventListener,
     };
 
-    for (var domEventType in oldCallbacks.keys) {
+    for (final domEventType in oldCallbacks.keys) {
       if (null != oldCallbacks[domEventType]) {
         if (null == newCallbacks[domEventType]) {
           eventListenersToRemove[domEventType] = _dispatchEvent;
