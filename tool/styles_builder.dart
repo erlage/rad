@@ -84,7 +84,7 @@ class StylesBuilder implements Builder {
       var className = match.group(2)!;
 
       if (allowedLiteralExceptions.contains(className)) {
-        return line.replaceAll('"', '\\"');
+        return line.replaceAll('"', r'\"');
       }
 
       // add a import requirement
@@ -101,7 +101,7 @@ class StylesBuilder implements Builder {
       line = line.replaceAll(className, '\$$className');
     }
 
-    return line.replaceAll('"', '\\"');
+    return line.replaceAll('"', r'\"');
   }
 
   @override
