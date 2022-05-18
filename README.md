@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget
 {
   @override
   Widget build(BuildContext context) {
-    return Text("hello world");
+    return Text('hello world');
   }
 }
 
@@ -38,7 +38,7 @@ void main() {
   );
 }
 ```
-If you're familiar with Flutter it don't even need an explanation. It has some differences that might not be apparent from the example so let's discuss them first.
+If you're familiar with Flutter it don't even need an explanation. Internally, Rad has some differences that might not be apparent from the examples above so let's discuss them first.
 
 ## Differences
 
@@ -59,9 +59,9 @@ If you're familiar with Flutter it don't even need an explanation. It has some d
     Here's how its equivalent will be written using widgets:
     ```dart
     Span(
-      classAttribute: "heading big",
+      classAttribute: 'heading big',
       children: [
-        Strong(innerText: "hellow"),
+        Strong(innerText: 'hellow'),
       ],
     );
     ```
@@ -104,7 +104,7 @@ Designing and re-using UIs is a common requirement of every project. HTML widget
 class StackEntry extends Division
 {
   const StackEntry(Widget widget): super( 
-    style: "position: absolute; top: 0; left: 0;",
+    style: 'position: absolute; top: 0; left: 0;',
     children: [widget],
   );
 }
@@ -116,17 +116,17 @@ Then create a Stack widget:
 class Stack extends Division
 {
   const Stack({required List<StackEntry> children}): super( 
-    style: "position: relative;",
+    style: 'position: relative;',
     children: children,
   );
 }
 ```
-That's pretty much it. Here's how you can use our newly created Stack widget:
+and that's pretty much it. Here's how you can use our newly created Stack widget:
 ```dart
   Stack(
     children: [
-      StackEntry(Text("hellow 1")),
-      StackEntry(Text("hellow 2")),
+      StackEntry(Text('hellow 1')),
+      StackEntry(Text('hellow 2')),
     ]
   )
 ```

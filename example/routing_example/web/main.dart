@@ -48,7 +48,7 @@ class _RootPageState extends State<RootPage> {
       classAttribute: 'header',
       style: 'width:100%; height:50px;',
       child: Division(
-        style: 'display: flex; flex-direction: row;'
+        style: 'display: flex; flex-direction: row; '
             'gap: 20px; justify-content: center;',
         children: [
           _headerItem(text: 'Home', routeName: 'home'),

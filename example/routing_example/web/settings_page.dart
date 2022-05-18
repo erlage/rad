@@ -15,8 +15,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   build(context) {
     return Division(
-      style: 'display: flex; flex-direction: row; '
-          'gap:20px; justify-content: center;',
+      classAttribute: 'horizontal-header-content',
       children: [
         _settingsPageVeritcalNav(),
         Division(
@@ -42,13 +41,11 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Widget _settingsPageVeritcalNav() {
     return Division(
-      style: 'width:250px; height: 100%;',
       classAttribute: 'vertical-header',
       child: Division(
-        style: 'display: flex; flex-direction: column;'
-            'justify-content: flex-start; gap: 10px;',
+        classAttribute: 'vertical-header-content',
         children: [
-          const Division(style: 'width: 100%; height: 20px;'),
+          const Spacer(),
           _headerItem(text: 'Account settings', routeName: 'account'),
           _headerItem(text: 'Photos settings', routeName: 'photos'),
           _headerItem(text: 'Videos settings', routeName: 'videos'),
@@ -96,4 +93,8 @@ class Page extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(title);
   }
+}
+
+class Spacer extends Division {
+  const Spacer() : super(style: 'width: 100%; height: 20px;');
 }
