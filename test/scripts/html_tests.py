@@ -80,6 +80,7 @@ widgets_map = {
     'Select': 'select',
     'Small': 'small',
     'Span': 'span',
+    'StrikeThrough': 's',
     'Strong': 'strong',
     'SubScript': 'sub',
     'SuperScript': 'sup',

@@ -26,6 +26,7 @@ class RT_DomTags {
     "i",
     "strong",
     "small",
+    "s",
     "sub",
     "sup",
     "ul",

@@ -45,6 +45,7 @@ part 'html_progress_tests.generated.dart';
 part 'html_select_tests.generated.dart';
 part 'html_small_tests.generated.dart';
 part 'html_span_tests.generated.dart';
+part 'html_strike_through_tests.generated.dart';
 part 'html_strong_tests.generated.dart';
 part 'html_sub_script_tests.generated.dart';
 part 'html_super_script_tests.generated.dart';
@@ -99,6 +100,7 @@ void main() {
   html_select_test();
   html_small_test();
   html_span_test();
+  html_strike_through_test();
   html_strong_test();
   html_sub_script_test();
   html_super_script_test();

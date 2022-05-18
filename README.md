@@ -265,6 +265,7 @@ Below is the list of available widgets in this framework.
 , [Select](https://pub.dev/documentation/rad/latest/rad/Select-class.html)
 , [Small](https://pub.dev/documentation/rad/latest/rad/Small-class.html)
 , [Span](https://pub.dev/documentation/rad/latest/rad/Span-class.html)
+, [StrikeThrough](https://pub.dev/documentation/rad/latest/rad/StrikeThrough-class.html)
 , [Strong](https://pub.dev/documentation/rad/latest/rad/Strong-class.html)
 , [SubScript](https://pub.dev/documentation/rad/latest/rad/SubScript-class.html)
 , [SuperScript](https://pub.dev/documentation/rad/latest/rad/SuperScript-class.html)

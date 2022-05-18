@@ -68,6 +68,9 @@ String fnMapDomTag(DomTag tag) {
     case DomTag.idiomatic:
       return 'i';
 
+    case DomTag.strikeThrough:
+      return 's';
+
     case DomTag.strong:
       return 'strong';
 

@@ -11,6 +11,7 @@ export 'src/widgets/html/footer.dart' show Footer;
 export 'src/widgets/html/navigation.dart' show Navigation;
 export 'src/widgets/html/span.dart' show Span;
 export 'src/widgets/html/small.dart' show Small;
+export 'src/widgets/html/strike_through.dart' show StrikeThrough;
 export 'src/widgets/html/strong.dart' show Strong;
 export 'src/widgets/html/idiomatic.dart' show Idiomatic;
 export 'src/widgets/html/sub_script.dart' show SubScript;

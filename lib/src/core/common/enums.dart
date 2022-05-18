@@ -125,6 +125,7 @@ enum DomTag {
   fieldSet,
   idiomatic,
   strong,
+  strikeThrough,
   small,
   subScript,
   superScript,
