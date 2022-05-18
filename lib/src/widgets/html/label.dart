@@ -157,7 +157,7 @@ Map<String, String?> _prepareAttributes({
   var attributes = <String, String?>{};
 
   if (null != props.forAttribute) {
-    attributes[Attributes.forAttribute] = props.forAttribute!;
+    attributes[Attributes.forAttribute] = props.forAttribute;
   } else {
     if (null != oldProps?.forAttribute) {
       attributes[Attributes.forAttribute] = null;

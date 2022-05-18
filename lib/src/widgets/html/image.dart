@@ -183,7 +183,7 @@ Map<String, String?> _prepareAttributes({
   var attributes = <String, String?>{};
 
   if (null != props.src) {
-    attributes[Attributes.src] = props.src!;
+    attributes[Attributes.src] = props.src;
   } else {
     if (null != oldProps?.src) {
       attributes[Attributes.src] = null;
@@ -191,7 +191,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.alt) {
-    attributes[Attributes.alt] = props.alt!;
+    attributes[Attributes.alt] = props.alt;
   } else {
     if (null != oldProps?.alt) {
       attributes[Attributes.alt] = null;
@@ -199,7 +199,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.height) {
-    attributes[Attributes.height] = props.height!;
+    attributes[Attributes.height] = props.height;
   } else {
     if (null != oldProps?.height) {
       attributes[Attributes.height] = null;
@@ -207,7 +207,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.width) {
-    attributes[Attributes.width] = props.width!;
+    attributes[Attributes.width] = props.width;
   } else {
     if (null != oldProps?.width) {
       attributes[Attributes.width] = null;

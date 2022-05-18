@@ -229,7 +229,7 @@ Map<String, String?> _prepareAttributes({
   var attributes = <String, String?>{};
 
   if (null != props.name) {
-    attributes[Attributes.name] = props.name!;
+    attributes[Attributes.name] = props.name;
   } else {
     if (null != oldProps?.name) {
       attributes[Attributes.name] = null;
@@ -237,7 +237,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.value) {
-    attributes[Attributes.value] = props.value!;
+    attributes[Attributes.value] = props.value;
   } else {
     if (null != oldProps?.value) {
       attributes[Attributes.value] = null;
@@ -245,7 +245,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.accept) {
-    attributes[Attributes.accept] = props.accept!;
+    attributes[Attributes.accept] = props.accept;
   } else {
     if (null != oldProps?.accept) {
       attributes[Attributes.accept] = null;

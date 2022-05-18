@@ -311,7 +311,7 @@ Map<String, String?> _prepareAttributes({
   var attributes = <String, String?>{};
 
   if (null != props.id) {
-    attributes[Attributes.id] = props.id!;
+    attributes[Attributes.id] = props.id;
   } else {
     if (null != oldProps?.id) {
       attributes[Attributes.id] = null;
@@ -319,7 +319,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.title) {
-    attributes[Attributes.title] = props.title!;
+    attributes[Attributes.title] = props.title;
   } else {
     if (null != oldProps?.title) {
       attributes[Attributes.title] = null;
@@ -327,7 +327,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.style) {
-    attributes[Attributes.style] = props.style!;
+    attributes[Attributes.style] = props.style;
   } else {
     if (null != oldProps?.style) {
       attributes[Attributes.style] = null;
@@ -367,7 +367,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.onClick) {
-    attributes[Attributes.onClick] = props.onClick!;
+    attributes[Attributes.onClick] = props.onClick;
   } else {
     if (null != oldProps?.onClick) {
       attributes[Attributes.onClick] = null;

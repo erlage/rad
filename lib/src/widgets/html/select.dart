@@ -181,7 +181,7 @@ Map<String, String?> _prepareAttributes({
   var attributes = <String, String?>{};
 
   if (null != props.name) {
-    attributes[Attributes.name] = props.name!;
+    attributes[Attributes.name] = props.name;
   } else {
     if (null != oldProps?.name) {
       attributes[Attributes.name] = null;

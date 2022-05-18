@@ -187,7 +187,7 @@ Map<String, String?> _prepareAttributes({
   var attributes = <String, String?>{};
 
   if (null != props.href) {
-    attributes[Attributes.href] = props.href!;
+    attributes[Attributes.href] = props.href;
   } else {
     if (null != oldProps?.href) {
       attributes[Attributes.href] = null;
@@ -195,7 +195,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.download) {
-    attributes[Attributes.download] = props.download!;
+    attributes[Attributes.download] = props.download;
   } else {
     if (null != oldProps?.download) {
       attributes[Attributes.download] = null;
@@ -203,7 +203,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.rel) {
-    attributes[Attributes.rel] = props.rel!;
+    attributes[Attributes.rel] = props.rel;
   } else {
     if (null != oldProps?.rel) {
       attributes[Attributes.rel] = null;
@@ -211,7 +211,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.target) {
-    attributes[Attributes.target] = props.target!;
+    attributes[Attributes.target] = props.target;
   } else {
     if (null != oldProps?.target) {
       attributes[Attributes.target] = null;

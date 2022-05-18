@@ -180,7 +180,7 @@ Map<String, String?> _prepareAttributes({
   var attributes = <String, String?>{};
 
   if (null != props.headers) {
-    attributes[Attributes.headers] = props.headers!;
+    attributes[Attributes.headers] = props.headers;
   } else {
     if (null != oldProps?.headers) {
       attributes[Attributes.headers] = null;

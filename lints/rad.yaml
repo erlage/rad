@@ -26,7 +26,8 @@ linter:
     - prefer_asserts_with_message
     - prefer_final_in_for_each
     - require_trailing_commas
-
+    - sort_unnamed_constructors_first
+    - unnecessary_null_checks    
 
     # - use_super_parameters (currently experimental)
     

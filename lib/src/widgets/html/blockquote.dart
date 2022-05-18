@@ -157,7 +157,7 @@ Map<String, String?> _prepareAttributes({
   var attributes = <String, String?>{};
 
   if (null != props.cite) {
-    attributes[Attributes.cite] = props.cite!;
+    attributes[Attributes.cite] = props.cite;
   } else {
     if (null != oldProps?.cite) {
       attributes[Attributes.cite] = null;

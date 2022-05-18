@@ -192,7 +192,7 @@ Map<String, String?> _prepareAttributes({
   var attributes = <String, String?>{};
 
   if (null != props.placeholder) {
-    attributes[Attributes.placeholder] = props.placeholder!;
+    attributes[Attributes.placeholder] = props.placeholder;
   } else {
     if (null != oldProps?.placeholder) {
       attributes[Attributes.placeholder] = null;
@@ -200,7 +200,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.pattern) {
-    attributes[Attributes.pattern] = props.pattern!;
+    attributes[Attributes.pattern] = props.pattern;
   } else {
     if (null != oldProps?.pattern) {
       attributes[Attributes.pattern] = null;
