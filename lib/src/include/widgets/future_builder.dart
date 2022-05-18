@@ -56,7 +56,9 @@ class _FutureBuilderState<T> extends State<FutureBuilder<T>> {
     _snapshot = widget.initialData == null
         ? AsyncSnapshot<T>.nothing()
         : AsyncSnapshot<T>.withData(
-            ConnectionState.none, widget.initialData as T);
+            ConnectionState.none,
+            widget.initialData as T,
+          );
 
     _subscribe();
   }
@@ -83,26 +85,34 @@ class _FutureBuilderState<T> extends State<FutureBuilder<T>> {
     if (widget.future != null) {
       final Object callbackIdentity = Object();
       _activeCallbackIdentity = callbackIdentity;
-      widget.future!.then<void>((data) {
-        if (_activeCallbackIdentity == callbackIdentity) {
-          setState(() {
-            _snapshot = AsyncSnapshot<T>.withData(ConnectionState.done, data);
-          });
-        }
-      }, onError: (error, stackTrace) {
-        if (_activeCallbackIdentity == callbackIdentity) {
-          setState(() {
-            _snapshot = AsyncSnapshot<T>.withError(
-                ConnectionState.done, error, stackTrace);
-          });
-        }
-        assert(() {
-          if (FutureBuilder.debugRethrowError) {
-            Future<Object>.error(error, stackTrace);
+      widget.future!.then<void>(
+        (data) {
+          if (_activeCallbackIdentity == callbackIdentity) {
+            setState(() {
+              _snapshot = AsyncSnapshot<T>.withData(ConnectionState.done, data);
+            });
           }
-          return true;
-        }());
-      });
+        },
+        onError: (error, stackTrace) {
+          if (_activeCallbackIdentity == callbackIdentity) {
+            setState(() {
+              _snapshot = AsyncSnapshot<T>.withError(
+                ConnectionState.done,
+                error,
+                stackTrace,
+              );
+            });
+          }
+          assert(
+            () {
+              if (FutureBuilder.debugRethrowError) {
+                Future<Object>.error(error, stackTrace);
+              }
+              return true;
+            }(),
+          );
+        },
+      );
       _snapshot = _snapshot.inState(ConnectionState.waiting);
     }
   }

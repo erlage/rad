@@ -25,6 +25,7 @@ linter:
     - only_throw_errors
     - prefer_asserts_with_message
     - prefer_final_in_for_each
+    - require_trailing_commas
 
 
     # - use_super_parameters (currently experimental)

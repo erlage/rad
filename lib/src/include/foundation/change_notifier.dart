@@ -39,12 +39,14 @@ class ChangeNotifier implements Listenable {
   bool _debugDisposed = false;
 
   bool _debugAssertNotDisposed() {
-    assert(() {
-      if (_debugDisposed) {
-        return false;
-      }
-      return true;
-    }());
+    assert(
+      () {
+        if (_debugDisposed) {
+          return false;
+        }
+        return true;
+      }(),
+    );
     return true;
   }
 
@@ -129,10 +131,12 @@ class ChangeNotifier implements Listenable {
   ///
   void dispose() {
     assert(_debugAssertNotDisposed());
-    assert(() {
-      _debugDisposed = true;
-      return true;
-    }());
+    assert(
+      () {
+        _debugDisposed = true;
+        return true;
+      }(),
+    );
   }
 
   /// Call all the registered listeners.
