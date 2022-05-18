@@ -91,9 +91,10 @@ class StylesBuilder implements Builder {
       if (availableImports.containsKey(className)) {
         importsForCurrentAsset.add(availableImports[className]!);
       } else {
-        throw '\nRad: Internal widgets should not have any CSS.\n'
-            "'$className' is not a public class and is not allowed for CSS "
-            'styling.\n';
+        throw Exception(
+          '\nRad: Internal widgets should not have any CSS.\n $className is '
+          'not a public class and is not allowed for CSS styling.\n',
+        );
       }
 
       // interpolate
@@ -119,8 +120,10 @@ class StylesBuilder implements Builder {
     var genConstant = fileName.replaceAll('.css', '');
 
     if (!RegExp(r'^[a-zA-Z_]+$').hasMatch(genConstant)) {
-      throw '\nRad: Name of your CSS files can contains only alphabets and '
-          "underscores\n File name '$fileName' is not allowed\n";
+      throw Exception(
+        '\nRad: Name of your CSS files can contains only alphabets and '
+        "underscores\n File name '$fileName' is not allowed\n",
+      );
     }
 
     genConstant = genConstant.toUpperCase();

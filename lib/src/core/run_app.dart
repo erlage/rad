@@ -151,7 +151,7 @@ class AppRunner {
     var targetElement = document.getElementById(targetId) as HtmlElement?;
 
     if (null == targetElement) {
-      throw 'Unable to locate target element in HTML document';
+      throw Exception('Unable to locate target element in HTML document');
     }
 
     targetElement.dataset[Constants.attrWidgetType] = 'Target';
