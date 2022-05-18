@@ -111,7 +111,7 @@ class _ListItemRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _ListItemProps.prepareAttributes(
+      _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
@@ -133,7 +133,7 @@ class _ListItemRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _ListItemProps.prepareAttributes(
+      _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
@@ -149,21 +149,19 @@ class _ListItemRenderObject extends MarkUpGlobalRenderObject {
 |--------------------------------------------------------------------------
 */
 
-class _ListItemProps {
-  static Map<String, String?> prepareAttributes({
-    required _ListItemConfiguration props,
-    required _ListItemConfiguration? oldProps,
-  }) {
-    var attributes = <String, String?>{};
+Map<String, String?> _prepareAttributes({
+  required _ListItemConfiguration props,
+  required _ListItemConfiguration? oldProps,
+}) {
+  var attributes = <String, String?>{};
 
-    if (null != props.value) {
-      attributes[Attributes.value] = '${props.value}';
-    } else {
-      if (null != oldProps?.value) {
-        attributes[Attributes.value] = null;
-      }
+  if (null != props.value) {
+    attributes[Attributes.value] = '${props.value}';
+  } else {
+    if (null != oldProps?.value) {
+      attributes[Attributes.value] = null;
     }
-
-    return attributes;
   }
+
+  return attributes;
 }

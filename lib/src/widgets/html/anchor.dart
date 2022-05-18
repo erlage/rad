@@ -142,7 +142,7 @@ class _AnchorRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _AnchorProps.prepareAttributes(
+      _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
@@ -164,7 +164,7 @@ class _AnchorRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _AnchorProps.prepareAttributes(
+      _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
@@ -180,45 +180,43 @@ class _AnchorRenderObject extends MarkUpGlobalRenderObject {
 |--------------------------------------------------------------------------
 */
 
-class _AnchorProps {
-  static Map<String, String?> prepareAttributes({
-    required _AnchorConfiguration props,
-    required _AnchorConfiguration? oldProps,
-  }) {
-    var attributes = <String, String?>{};
+Map<String, String?> _prepareAttributes({
+  required _AnchorConfiguration props,
+  required _AnchorConfiguration? oldProps,
+}) {
+  var attributes = <String, String?>{};
 
-    if (null != props.href) {
-      attributes[Attributes.href] = props.href!;
-    } else {
-      if (null != oldProps?.href) {
-        attributes[Attributes.href] = null;
-      }
+  if (null != props.href) {
+    attributes[Attributes.href] = props.href!;
+  } else {
+    if (null != oldProps?.href) {
+      attributes[Attributes.href] = null;
     }
-
-    if (null != props.download) {
-      attributes[Attributes.download] = props.download!;
-    } else {
-      if (null != oldProps?.download) {
-        attributes[Attributes.download] = null;
-      }
-    }
-
-    if (null != props.rel) {
-      attributes[Attributes.rel] = props.rel!;
-    } else {
-      if (null != oldProps?.rel) {
-        attributes[Attributes.rel] = null;
-      }
-    }
-
-    if (null != props.target) {
-      attributes[Attributes.target] = props.target!;
-    } else {
-      if (null != oldProps?.target) {
-        attributes[Attributes.target] = null;
-      }
-    }
-
-    return attributes;
   }
+
+  if (null != props.download) {
+    attributes[Attributes.download] = props.download!;
+  } else {
+    if (null != oldProps?.download) {
+      attributes[Attributes.download] = null;
+    }
+  }
+
+  if (null != props.rel) {
+    attributes[Attributes.rel] = props.rel!;
+  } else {
+    if (null != oldProps?.rel) {
+      attributes[Attributes.rel] = null;
+    }
+  }
+
+  if (null != props.target) {
+    attributes[Attributes.target] = props.target!;
+  } else {
+    if (null != oldProps?.target) {
+      attributes[Attributes.target] = null;
+    }
+  }
+
+  return attributes;
 }

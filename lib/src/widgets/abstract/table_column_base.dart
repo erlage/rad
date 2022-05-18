@@ -105,7 +105,7 @@ class _TableColumnBaseRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _TableColumnProps.prepareAttributes(
+      _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
@@ -127,7 +127,7 @@ class _TableColumnBaseRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _TableColumnProps.prepareAttributes(
+      _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
@@ -143,21 +143,19 @@ class _TableColumnBaseRenderObject extends MarkUpGlobalRenderObject {
 |--------------------------------------------------------------------------
 */
 
-class _TableColumnProps {
-  static Map<String, String?> prepareAttributes({
-    required _TableColumnBaseConfiguration props,
-    required _TableColumnBaseConfiguration? oldProps,
-  }) {
-    var attributes = <String, String?>{};
+Map<String, String?> _prepareAttributes({
+  required _TableColumnBaseConfiguration props,
+  required _TableColumnBaseConfiguration? oldProps,
+}) {
+  var attributes = <String, String?>{};
 
-    if (null != props.span) {
-      attributes[Attributes.span] = '${props.span}';
-    } else {
-      if (null != oldProps?.span) {
-        attributes[Attributes.span] = null;
-      }
+  if (null != props.span) {
+    attributes[Attributes.span] = '${props.span}';
+  } else {
+    if (null != oldProps?.span) {
+      attributes[Attributes.span] = null;
     }
-
-    return attributes;
   }
+
+  return attributes;
 }

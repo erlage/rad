@@ -112,7 +112,7 @@ class _LabelRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _LabelProps.prepareAttributes(
+      _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
@@ -134,7 +134,7 @@ class _LabelRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _LabelProps.prepareAttributes(
+      _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
@@ -150,21 +150,19 @@ class _LabelRenderObject extends MarkUpGlobalRenderObject {
 |--------------------------------------------------------------------------
 */
 
-class _LabelProps {
-  static Map<String, String?> prepareAttributes({
-    required _LabelConfiguration props,
-    required _LabelConfiguration? oldProps,
-  }) {
-    var attributes = <String, String?>{};
+Map<String, String?> _prepareAttributes({
+  required _LabelConfiguration props,
+  required _LabelConfiguration? oldProps,
+}) {
+  var attributes = <String, String?>{};
 
-    if (null != props.forAttribute) {
-      attributes[Attributes.forAttribute] = props.forAttribute!;
-    } else {
-      if (null != oldProps?.forAttribute) {
-        attributes[Attributes.forAttribute] = null;
-      }
+  if (null != props.forAttribute) {
+    attributes[Attributes.forAttribute] = props.forAttribute!;
+  } else {
+    if (null != oldProps?.forAttribute) {
+      attributes[Attributes.forAttribute] = null;
     }
-
-    return attributes;
   }
+
+  return attributes;
 }

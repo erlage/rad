@@ -135,7 +135,7 @@ class _TableCellBaseRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _TableCellBaseProps.prepareAttributes(
+      _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
@@ -157,7 +157,7 @@ class _TableCellBaseRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _TableCellBaseProps.prepareAttributes(
+      _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
@@ -173,37 +173,35 @@ class _TableCellBaseRenderObject extends MarkUpGlobalRenderObject {
 |--------------------------------------------------------------------------
 */
 
-class _TableCellBaseProps {
-  static Map<String, String?> prepareAttributes({
-    required _TableCellBaseConfiguration props,
-    required _TableCellBaseConfiguration? oldProps,
-  }) {
-    var attributes = <String, String?>{};
+Map<String, String?> _prepareAttributes({
+  required _TableCellBaseConfiguration props,
+  required _TableCellBaseConfiguration? oldProps,
+}) {
+  var attributes = <String, String?>{};
 
-    if (null != props.headers) {
-      attributes[Attributes.headers] = props.headers!;
-    } else {
-      if (null != oldProps?.headers) {
-        attributes[Attributes.headers] = null;
-      }
+  if (null != props.headers) {
+    attributes[Attributes.headers] = props.headers!;
+  } else {
+    if (null != oldProps?.headers) {
+      attributes[Attributes.headers] = null;
     }
-
-    if (null != props.rowSpan) {
-      attributes[Attributes.rowSpan] = '${props.rowSpan}';
-    } else {
-      if (null != oldProps?.rowSpan) {
-        attributes[Attributes.rowSpan] = null;
-      }
-    }
-
-    if (null != props.colSpan) {
-      attributes[Attributes.colSpan] = '${props.colSpan}';
-    } else {
-      if (null != oldProps?.colSpan) {
-        attributes[Attributes.colSpan] = null;
-      }
-    }
-
-    return attributes;
   }
+
+  if (null != props.rowSpan) {
+    attributes[Attributes.rowSpan] = '${props.rowSpan}';
+  } else {
+    if (null != oldProps?.rowSpan) {
+      attributes[Attributes.rowSpan] = null;
+    }
+  }
+
+  if (null != props.colSpan) {
+    attributes[Attributes.colSpan] = '${props.colSpan}';
+  } else {
+    if (null != oldProps?.colSpan) {
+      attributes[Attributes.colSpan] = null;
+    }
+  }
+
+  return attributes;
 }

@@ -138,7 +138,7 @@ class _ImageRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _ImageProps.prepareAttributes(
+      _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
@@ -160,7 +160,7 @@ class _ImageRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _ImageProps.prepareAttributes(
+      _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
@@ -176,45 +176,43 @@ class _ImageRenderObject extends MarkUpGlobalRenderObject {
 |--------------------------------------------------------------------------
 */
 
-class _ImageProps {
-  static Map<String, String?> prepareAttributes({
-    required _ImageConfiguration props,
-    required _ImageConfiguration? oldProps,
-  }) {
-    var attributes = <String, String?>{};
+Map<String, String?> _prepareAttributes({
+  required _ImageConfiguration props,
+  required _ImageConfiguration? oldProps,
+}) {
+  var attributes = <String, String?>{};
 
-    if (null != props.src) {
-      attributes[Attributes.src] = props.src!;
-    } else {
-      if (null != oldProps?.src) {
-        attributes[Attributes.src] = null;
-      }
+  if (null != props.src) {
+    attributes[Attributes.src] = props.src!;
+  } else {
+    if (null != oldProps?.src) {
+      attributes[Attributes.src] = null;
     }
-
-    if (null != props.alt) {
-      attributes[Attributes.alt] = props.alt!;
-    } else {
-      if (null != oldProps?.alt) {
-        attributes[Attributes.alt] = null;
-      }
-    }
-
-    if (null != props.height) {
-      attributes[Attributes.height] = props.height!;
-    } else {
-      if (null != oldProps?.height) {
-        attributes[Attributes.height] = null;
-      }
-    }
-
-    if (null != props.width) {
-      attributes[Attributes.width] = props.width!;
-    } else {
-      if (null != oldProps?.width) {
-        attributes[Attributes.width] = null;
-      }
-    }
-
-    return attributes;
   }
+
+  if (null != props.alt) {
+    attributes[Attributes.alt] = props.alt!;
+  } else {
+    if (null != oldProps?.alt) {
+      attributes[Attributes.alt] = null;
+    }
+  }
+
+  if (null != props.height) {
+    attributes[Attributes.height] = props.height!;
+  } else {
+    if (null != oldProps?.height) {
+      attributes[Attributes.height] = null;
+    }
+  }
+
+  if (null != props.width) {
+    attributes[Attributes.width] = props.width!;
+  } else {
+    if (null != oldProps?.width) {
+      attributes[Attributes.width] = null;
+    }
+  }
+
+  return attributes;
 }

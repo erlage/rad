@@ -143,7 +143,7 @@ class _OptionRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _OptionProps.prepareAttributes(
+      _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
@@ -165,7 +165,7 @@ class _OptionRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _OptionProps.prepareAttributes(
+      _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
@@ -181,45 +181,43 @@ class _OptionRenderObject extends MarkUpGlobalRenderObject {
 |--------------------------------------------------------------------------
 */
 
-class _OptionProps {
-  static Map<String, String?> prepareAttributes({
-    required _OptionConfiguration props,
-    required _OptionConfiguration? oldProps,
-  }) {
-    var attributes = <String, String?>{};
+Map<String, String?> _prepareAttributes({
+  required _OptionConfiguration props,
+  required _OptionConfiguration? oldProps,
+}) {
+  var attributes = <String, String?>{};
 
-    if (null != props.value) {
-      attributes[Attributes.value] = props.value!;
-    } else {
-      if (null != oldProps?.value) {
-        attributes[Attributes.value] = null;
-      }
+  if (null != props.value) {
+    attributes[Attributes.value] = props.value!;
+  } else {
+    if (null != oldProps?.value) {
+      attributes[Attributes.value] = null;
     }
-
-    if (null != props.label) {
-      attributes[Attributes.label] = props.label!;
-    } else {
-      if (null != oldProps?.label) {
-        attributes[Attributes.label] = null;
-      }
-    }
-
-    if (null != props.selected) {
-      attributes[Attributes.selected] = '${props.selected}';
-    } else {
-      if (null != oldProps?.selected) {
-        attributes[Attributes.selected] = null;
-      }
-    }
-
-    if (null != props.disabled) {
-      attributes[Attributes.disabled] = '${props.disabled}';
-    } else {
-      if (null != oldProps?.disabled) {
-        attributes[Attributes.disabled] = null;
-      }
-    }
-
-    return attributes;
   }
+
+  if (null != props.label) {
+    attributes[Attributes.label] = props.label!;
+  } else {
+    if (null != oldProps?.label) {
+      attributes[Attributes.label] = null;
+    }
+  }
+
+  if (null != props.selected) {
+    attributes[Attributes.selected] = '${props.selected}';
+  } else {
+    if (null != oldProps?.selected) {
+      attributes[Attributes.selected] = null;
+    }
+  }
+
+  if (null != props.disabled) {
+    attributes[Attributes.disabled] = '${props.disabled}';
+  } else {
+    if (null != oldProps?.disabled) {
+      attributes[Attributes.disabled] = null;
+    }
+  }
+
+  return attributes;
 }

@@ -168,7 +168,7 @@ class _IFrameRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _IFrameProps.prepareAttributes(
+      _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
@@ -190,7 +190,7 @@ class _IFrameRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _IFrameProps.prepareAttributes(
+      _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
@@ -206,71 +206,69 @@ class _IFrameRenderObject extends MarkUpGlobalRenderObject {
 |--------------------------------------------------------------------------
 */
 
-class _IFrameProps {
-  static Map<String, String?> prepareAttributes({
-    required _IFrameConfiguration props,
-    required _IFrameConfiguration? oldProps,
-  }) {
-    var attributes = <String, String?>{};
+Map<String, String?> _prepareAttributes({
+  required _IFrameConfiguration props,
+  required _IFrameConfiguration? oldProps,
+}) {
+  var attributes = <String, String?>{};
 
-    if (null != props.src) {
-      attributes[Attributes.src] = props.src!;
-    } else {
-      if (null != oldProps?.src) {
-        attributes[Attributes.src] = null;
-      }
+  if (null != props.src) {
+    attributes[Attributes.src] = props.src!;
+  } else {
+    if (null != oldProps?.src) {
+      attributes[Attributes.src] = null;
     }
-
-    if (null != props.name) {
-      attributes[Attributes.name] = props.name!;
-    } else {
-      if (null != oldProps?.name) {
-        attributes[Attributes.name] = null;
-      }
-    }
-
-    if (null != props.width) {
-      attributes[Attributes.width] = props.width!;
-    } else {
-      if (null != oldProps?.width) {
-        attributes[Attributes.width] = null;
-      }
-    }
-
-    if (null != props.height) {
-      attributes[Attributes.height] = props.height!;
-    } else {
-      if (null != oldProps?.height) {
-        attributes[Attributes.height] = null;
-      }
-    }
-
-    if (null != props.allow) {
-      attributes[Attributes.allow] = props.allow!;
-    } else {
-      if (null != oldProps?.allow) {
-        attributes[Attributes.allow] = null;
-      }
-    }
-
-    if (null != props.allowFullscreen) {
-      attributes[Attributes.allowFullscreen] = '${props.allowFullscreen}';
-    } else {
-      if (null != oldProps?.allowFullscreen) {
-        attributes[Attributes.allowFullscreen] = null;
-      }
-    }
-
-    if (null != props.allowPaymentRequest) {
-      var value = '${props.allowPaymentRequest}';
-
-      attributes[Attributes.allowPaymentRequest] = value;
-    } else {
-      if (null != oldProps?.allowPaymentRequest) {
-        attributes[Attributes.allowPaymentRequest] = null;
-      }
-    }
-
-    return attributes;
   }
+
+  if (null != props.name) {
+    attributes[Attributes.name] = props.name!;
+  } else {
+    if (null != oldProps?.name) {
+      attributes[Attributes.name] = null;
+    }
+  }
+
+  if (null != props.width) {
+    attributes[Attributes.width] = props.width!;
+  } else {
+    if (null != oldProps?.width) {
+      attributes[Attributes.width] = null;
+    }
+  }
+
+  if (null != props.height) {
+    attributes[Attributes.height] = props.height!;
+  } else {
+    if (null != oldProps?.height) {
+      attributes[Attributes.height] = null;
+    }
+  }
+
+  if (null != props.allow) {
+    attributes[Attributes.allow] = props.allow!;
+  } else {
+    if (null != oldProps?.allow) {
+      attributes[Attributes.allow] = null;
+    }
+  }
+
+  if (null != props.allowFullscreen) {
+    attributes[Attributes.allowFullscreen] = '${props.allowFullscreen}';
+  } else {
+    if (null != oldProps?.allowFullscreen) {
+      attributes[Attributes.allowFullscreen] = null;
+    }
+  }
+
+  if (null != props.allowPaymentRequest) {
+    var value = '${props.allowPaymentRequest}';
+
+    attributes[Attributes.allowPaymentRequest] = value;
+  } else {
+    if (null != oldProps?.allowPaymentRequest) {
+      attributes[Attributes.allowPaymentRequest] = null;
+    }
+  }
+
+  return attributes;
 }

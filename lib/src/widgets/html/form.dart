@@ -161,7 +161,7 @@ class _FormRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _FormProps.prepareAttributes(
+      _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
@@ -183,7 +183,7 @@ class _FormRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _FormProps.prepareAttributes(
+      _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
@@ -199,53 +199,51 @@ class _FormRenderObject extends MarkUpGlobalRenderObject {
 |--------------------------------------------------------------------------
 */
 
-class _FormProps {
-  static Map<String, String?> prepareAttributes({
-    required _FormConfiguration props,
-    required _FormConfiguration? oldProps,
-  }) {
-    var attributes = <String, String?>{};
+Map<String, String?> _prepareAttributes({
+  required _FormConfiguration props,
+  required _FormConfiguration? oldProps,
+}) {
+  var attributes = <String, String?>{};
 
-    if (null != props.name) {
-      attributes[Attributes.name] = props.name!;
-    } else {
-      if (null != oldProps?.name) {
-        attributes[Attributes.name] = null;
-      }
+  if (null != props.name) {
+    attributes[Attributes.name] = props.name!;
+  } else {
+    if (null != oldProps?.name) {
+      attributes[Attributes.name] = null;
     }
-
-    if (null != props.accept) {
-      attributes[Attributes.accept] = props.accept!;
-    } else {
-      if (null != oldProps?.accept) {
-        attributes[Attributes.accept] = null;
-      }
-    }
-
-    if (null != props.target) {
-      attributes[Attributes.target] = props.target!;
-    } else {
-      if (null != oldProps?.target) {
-        attributes[Attributes.target] = null;
-      }
-    }
-
-    if (null != props.method) {
-      attributes[Attributes.method] = fnMapFormMethod(props.method!);
-    } else {
-      if (null != oldProps?.method) {
-        attributes[Attributes.method] = null;
-      }
-    }
-
-    if (null != props.enctype) {
-      attributes[Attributes.enctype] = fnMapFormEncType(props.enctype!);
-    } else {
-      if (null != oldProps?.enctype) {
-        attributes[Attributes.enctype] = null;
-      }
-    }
-
-    return attributes;
   }
+
+  if (null != props.accept) {
+    attributes[Attributes.accept] = props.accept!;
+  } else {
+    if (null != oldProps?.accept) {
+      attributes[Attributes.accept] = null;
+    }
+  }
+
+  if (null != props.target) {
+    attributes[Attributes.target] = props.target!;
+  } else {
+    if (null != oldProps?.target) {
+      attributes[Attributes.target] = null;
+    }
+  }
+
+  if (null != props.method) {
+    attributes[Attributes.method] = fnMapFormMethod(props.method!);
+  } else {
+    if (null != oldProps?.method) {
+      attributes[Attributes.method] = null;
+    }
+  }
+
+  if (null != props.enctype) {
+    attributes[Attributes.enctype] = fnMapFormEncType(props.enctype!);
+  } else {
+    if (null != oldProps?.enctype) {
+      attributes[Attributes.enctype] = null;
+    }
+  }
+
+  return attributes;
 }

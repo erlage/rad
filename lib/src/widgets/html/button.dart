@@ -142,7 +142,7 @@ class _ButtonRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _ButtonProps.prepareAttributes(
+      _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
@@ -164,7 +164,7 @@ class _ButtonRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _ButtonProps.prepareAttributes(
+      _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
@@ -180,45 +180,43 @@ class _ButtonRenderObject extends MarkUpGlobalRenderObject {
 |--------------------------------------------------------------------------
 */
 
-class _ButtonProps {
-  static Map<String, String?> prepareAttributes({
-    required _ButtonConfiguration props,
-    required _ButtonConfiguration? oldProps,
-  }) {
-    var attributes = <String, String?>{};
+Map<String, String?> _prepareAttributes({
+  required _ButtonConfiguration props,
+  required _ButtonConfiguration? oldProps,
+}) {
+  var attributes = <String, String?>{};
 
-    if (null != props.name) {
-      attributes[Attributes.name] = props.name!;
-    } else {
-      if (null != oldProps?.name) {
-        attributes[Attributes.name] = null;
-      }
+  if (null != props.name) {
+    attributes[Attributes.name] = props.name!;
+  } else {
+    if (null != oldProps?.name) {
+      attributes[Attributes.name] = null;
     }
-
-    if (null != props.value) {
-      attributes[Attributes.value] = props.value!;
-    } else {
-      if (null != oldProps?.value) {
-        attributes[Attributes.value] = null;
-      }
-    }
-
-    if (null != props.type) {
-      attributes[Attributes.type] = fnMapButtonType(props.type!);
-    } else {
-      if (null != oldProps?.type) {
-        attributes[Attributes.type] = null;
-      }
-    }
-
-    if (null != props.disabled) {
-      attributes[Attributes.disabled] = '${props.disabled}';
-    } else {
-      if (null != oldProps?.disabled) {
-        attributes[Attributes.disabled] = null;
-      }
-    }
-
-    return attributes;
   }
+
+  if (null != props.value) {
+    attributes[Attributes.value] = props.value!;
+  } else {
+    if (null != oldProps?.value) {
+      attributes[Attributes.value] = null;
+    }
+  }
+
+  if (null != props.type) {
+    attributes[Attributes.type] = fnMapButtonType(props.type!);
+  } else {
+    if (null != oldProps?.type) {
+      attributes[Attributes.type] = null;
+    }
+  }
+
+  if (null != props.disabled) {
+    attributes[Attributes.disabled] = '${props.disabled}';
+  } else {
+    if (null != oldProps?.disabled) {
+      attributes[Attributes.disabled] = null;
+    }
+  }
+
+  return attributes;
 }

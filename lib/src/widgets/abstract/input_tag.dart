@@ -181,7 +181,7 @@ class InputTagRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      InputProps.prepareAttributes(
+      _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
@@ -206,7 +206,7 @@ class InputTagRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      InputProps.prepareAttributes(
+      _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
@@ -222,69 +222,67 @@ class InputTagRenderObject extends MarkUpGlobalRenderObject {
 |--------------------------------------------------------------------------
 */
 
-class InputProps {
-  static Map<String, String?> prepareAttributes({
-    required InputConfiguration props,
-    required InputConfiguration? oldProps,
-  }) {
-    var attributes = <String, String?>{};
+Map<String, String?> _prepareAttributes({
+  required InputConfiguration props,
+  required InputConfiguration? oldProps,
+}) {
+  var attributes = <String, String?>{};
 
-    if (null != props.name) {
-      attributes[Attributes.name] = props.name!;
-    } else {
-      if (null != oldProps?.name) {
-        attributes[Attributes.name] = null;
-      }
+  if (null != props.name) {
+    attributes[Attributes.name] = props.name!;
+  } else {
+    if (null != oldProps?.name) {
+      attributes[Attributes.name] = null;
     }
-
-    if (null != props.value) {
-      attributes[Attributes.value] = props.value!;
-    } else {
-      if (null != oldProps?.value) {
-        attributes[Attributes.value] = null;
-      }
-    }
-
-    if (null != props.accept) {
-      attributes[Attributes.accept] = props.accept!;
-    } else {
-      if (null != oldProps?.accept) {
-        attributes[Attributes.accept] = null;
-      }
-    }
-
-    if (null != props.multiple) {
-      attributes[Attributes.multiple] = '${props.multiple}';
-    } else {
-      if (null != oldProps?.multiple) {
-        attributes[Attributes.multiple] = null;
-      }
-    }
-
-    if (null != props.checked) {
-      attributes[Attributes.checked] = '${props.checked}';
-    } else {
-      if (null != oldProps?.checked) {
-        attributes[Attributes.checked] = null;
-      }
-    }
-
-    if (null != props.disabled && props.disabled!) {
-      attributes[Attributes.disabled] = '${props.disabled}';
-    } else {
-      if (null != oldProps?.disabled) {
-        attributes[Attributes.disabled] = null;
-      }
-    }
-
-    if (null != props.required) {
-      attributes[Attributes.required] = '${props.required}';
-    } else {
-      if (null != oldProps?.required) {
-        attributes[Attributes.required] = null;
-      }
-    }
-
-    return attributes;
   }
+
+  if (null != props.value) {
+    attributes[Attributes.value] = props.value!;
+  } else {
+    if (null != oldProps?.value) {
+      attributes[Attributes.value] = null;
+    }
+  }
+
+  if (null != props.accept) {
+    attributes[Attributes.accept] = props.accept!;
+  } else {
+    if (null != oldProps?.accept) {
+      attributes[Attributes.accept] = null;
+    }
+  }
+
+  if (null != props.multiple) {
+    attributes[Attributes.multiple] = '${props.multiple}';
+  } else {
+    if (null != oldProps?.multiple) {
+      attributes[Attributes.multiple] = null;
+    }
+  }
+
+  if (null != props.checked) {
+    attributes[Attributes.checked] = '${props.checked}';
+  } else {
+    if (null != oldProps?.checked) {
+      attributes[Attributes.checked] = null;
+    }
+  }
+
+  if (null != props.disabled && props.disabled!) {
+    attributes[Attributes.disabled] = '${props.disabled}';
+  } else {
+    if (null != oldProps?.disabled) {
+      attributes[Attributes.disabled] = null;
+    }
+  }
+
+  if (null != props.required) {
+    attributes[Attributes.required] = '${props.required}';
+  } else {
+    if (null != oldProps?.required) {
+      attributes[Attributes.required] = null;
+    }
+  }
+
+  return attributes;
 }

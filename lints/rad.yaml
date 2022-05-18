@@ -14,4 +14,5 @@ linter:
 
     - prefer_single_quotes
     - lines_longer_than_80_chars
+    - avoid_classes_with_only_static_members
     # - use_super_parameters (currently experimental)

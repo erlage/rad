@@ -122,7 +122,7 @@ class _ProgressRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _ProgressProps.prepareAttributes(
+      _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
@@ -144,7 +144,7 @@ class _ProgressRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _ProgressProps.prepareAttributes(
+      _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
@@ -160,29 +160,27 @@ class _ProgressRenderObject extends MarkUpGlobalRenderObject {
 |--------------------------------------------------------------------------
 */
 
-class _ProgressProps {
-  static Map<String, String?> prepareAttributes({
-    required _ProgressConfiguration props,
-    required _ProgressConfiguration? oldProps,
-  }) {
-    var attributes = <String, String?>{};
+Map<String, String?> _prepareAttributes({
+  required _ProgressConfiguration props,
+  required _ProgressConfiguration? oldProps,
+}) {
+  var attributes = <String, String?>{};
 
-    if (null != props.max) {
-      attributes[Attributes.max] = '${props.max}';
-    } else {
-      if (null != oldProps?.max) {
-        attributes[Attributes.max] = null;
-      }
+  if (null != props.max) {
+    attributes[Attributes.max] = '${props.max}';
+  } else {
+    if (null != oldProps?.max) {
+      attributes[Attributes.max] = null;
     }
-
-    if (null != props.value) {
-      attributes[Attributes.value] = '${props.value}';
-    } else {
-      if (null != oldProps?.value) {
-        attributes[Attributes.value] = null;
-      }
-    }
-
-    return attributes;
   }
+
+  if (null != props.value) {
+    attributes[Attributes.value] = '${props.value}';
+  } else {
+    if (null != oldProps?.value) {
+      attributes[Attributes.value] = null;
+    }
+  }
+
+  return attributes;
 }

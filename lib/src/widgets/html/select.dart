@@ -136,7 +136,7 @@ class _SelectRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _SelectProps.prepareAttributes(
+      _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
@@ -158,7 +158,7 @@ class _SelectRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _SelectProps.prepareAttributes(
+      _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
@@ -174,37 +174,35 @@ class _SelectRenderObject extends MarkUpGlobalRenderObject {
 |--------------------------------------------------------------------------
 */
 
-class _SelectProps {
-  static Map<String, String?> prepareAttributes({
-    required _SelectConfiguration props,
-    required _SelectConfiguration? oldProps,
-  }) {
-    var attributes = <String, String?>{};
+Map<String, String?> _prepareAttributes({
+  required _SelectConfiguration props,
+  required _SelectConfiguration? oldProps,
+}) {
+  var attributes = <String, String?>{};
 
-    if (null != props.name) {
-      attributes[Attributes.name] = props.name!;
-    } else {
-      if (null != oldProps?.name) {
-        attributes[Attributes.name] = null;
-      }
+  if (null != props.name) {
+    attributes[Attributes.name] = props.name!;
+  } else {
+    if (null != oldProps?.name) {
+      attributes[Attributes.name] = null;
     }
-
-    if (null != props.multiple) {
-      attributes[Attributes.multiple] = '${props.multiple}';
-    } else {
-      if (null != oldProps?.multiple) {
-        attributes[Attributes.multiple] = null;
-      }
-    }
-
-    if (null != props.disabled) {
-      attributes[Attributes.disabled] = '${props.disabled}';
-    } else {
-      if (null != oldProps?.disabled) {
-        attributes[Attributes.disabled] = null;
-      }
-    }
-
-    return attributes;
   }
+
+  if (null != props.multiple) {
+    attributes[Attributes.multiple] = '${props.multiple}';
+  } else {
+    if (null != oldProps?.multiple) {
+      attributes[Attributes.multiple] = null;
+    }
+  }
+
+  if (null != props.disabled) {
+    attributes[Attributes.disabled] = '${props.disabled}';
+  } else {
+    if (null != oldProps?.disabled) {
+      attributes[Attributes.disabled] = null;
+    }
+  }
+
+  return attributes;
 }

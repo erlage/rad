@@ -113,7 +113,7 @@ class _FieldSetRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _FieldSetProps.prepareAttributes(
+      _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
@@ -135,7 +135,7 @@ class _FieldSetRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _FieldSetProps.prepareAttributes(
+      _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
@@ -151,21 +151,19 @@ class _FieldSetRenderObject extends MarkUpGlobalRenderObject {
 |--------------------------------------------------------------------------
 */
 
-class _FieldSetProps {
-  static Map<String, String?> prepareAttributes({
-    required _FieldSetConfiguration props,
-    required _FieldSetConfiguration? oldProps,
-  }) {
-    var attributes = <String, String?>{};
+Map<String, String?> _prepareAttributes({
+  required _FieldSetConfiguration props,
+  required _FieldSetConfiguration? oldProps,
+}) {
+  var attributes = <String, String?>{};
 
-    if (null != props.disabled) {
-      attributes[Attributes.disabled] = '${props.disabled}';
-    } else {
-      if (null != oldProps?.disabled) {
-        attributes[Attributes.disabled] = null;
-      }
+  if (null != props.disabled) {
+    attributes[Attributes.disabled] = '${props.disabled}';
+  } else {
+    if (null != oldProps?.disabled) {
+      attributes[Attributes.disabled] = null;
     }
-
-    return attributes;
   }
+
+  return attributes;
 }

@@ -168,7 +168,7 @@ class _TextAreaRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _TextAreaProps.prepareAttributes(
+      _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
@@ -190,7 +190,7 @@ class _TextAreaRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _TextAreaProps.prepareAttributes(
+      _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
@@ -206,85 +206,83 @@ class _TextAreaRenderObject extends MarkUpGlobalRenderObject {
 |--------------------------------------------------------------------------
 */
 
-class _TextAreaProps {
-  static Map<String, String?> prepareAttributes({
-    required _TextAreaConfiguration props,
-    required _TextAreaConfiguration? oldProps,
-  }) {
-    var attributes = <String, String?>{};
+Map<String, String?> _prepareAttributes({
+  required _TextAreaConfiguration props,
+  required _TextAreaConfiguration? oldProps,
+}) {
+  var attributes = <String, String?>{};
 
-    if (null != props.name) {
-      attributes[Attributes.name] = props.name!;
-    } else {
-      if (null != oldProps?.name) {
-        attributes[Attributes.name] = null;
-      }
+  if (null != props.name) {
+    attributes[Attributes.name] = props.name!;
+  } else {
+    if (null != oldProps?.name) {
+      attributes[Attributes.name] = null;
     }
-
-    if (null != props.placeholder) {
-      attributes[Attributes.placeholder] = props.placeholder!;
-    } else {
-      if (null != oldProps?.placeholder) {
-        attributes[Attributes.placeholder] = null;
-      }
-    }
-
-    if (null != props.rows) {
-      attributes[Attributes.rows] = '${props.rows!}';
-    } else {
-      if (null != oldProps?.rows) {
-        attributes[Attributes.rows] = null;
-      }
-    }
-
-    if (null != props.cols) {
-      attributes[Attributes.cols] = '${props.cols!}';
-    } else {
-      if (null != oldProps?.cols) {
-        attributes[Attributes.cols] = null;
-      }
-    }
-
-    if (null != props.minLength) {
-      attributes[Attributes.minLength] = '${props.minLength!}';
-    } else {
-      if (null != oldProps?.minLength) {
-        attributes[Attributes.minLength] = null;
-      }
-    }
-
-    if (null != props.maxLength) {
-      attributes[Attributes.maxLength] = '${props.maxLength!}';
-    } else {
-      if (null != oldProps?.maxLength) {
-        attributes[Attributes.maxLength] = null;
-      }
-    }
-
-    if (null != props.required) {
-      attributes[Attributes.required] = '${props.required!}';
-    } else {
-      if (null != oldProps?.required) {
-        attributes[Attributes.required] = null;
-      }
-    }
-
-    if (null != props.readOnly) {
-      attributes[Attributes.readOnly] = '${props.readOnly!}';
-    } else {
-      if (null != oldProps?.readOnly) {
-        attributes[Attributes.readOnly] = null;
-      }
-    }
-
-    if (null != props.disabled) {
-      attributes[Attributes.disabled] = '${props.disabled!}';
-    } else {
-      if (null != oldProps?.disabled) {
-        attributes[Attributes.disabled] = null;
-      }
-    }
-
-    return attributes;
   }
+
+  if (null != props.placeholder) {
+    attributes[Attributes.placeholder] = props.placeholder!;
+  } else {
+    if (null != oldProps?.placeholder) {
+      attributes[Attributes.placeholder] = null;
+    }
+  }
+
+  if (null != props.rows) {
+    attributes[Attributes.rows] = '${props.rows!}';
+  } else {
+    if (null != oldProps?.rows) {
+      attributes[Attributes.rows] = null;
+    }
+  }
+
+  if (null != props.cols) {
+    attributes[Attributes.cols] = '${props.cols!}';
+  } else {
+    if (null != oldProps?.cols) {
+      attributes[Attributes.cols] = null;
+    }
+  }
+
+  if (null != props.minLength) {
+    attributes[Attributes.minLength] = '${props.minLength!}';
+  } else {
+    if (null != oldProps?.minLength) {
+      attributes[Attributes.minLength] = null;
+    }
+  }
+
+  if (null != props.maxLength) {
+    attributes[Attributes.maxLength] = '${props.maxLength!}';
+  } else {
+    if (null != oldProps?.maxLength) {
+      attributes[Attributes.maxLength] = null;
+    }
+  }
+
+  if (null != props.required) {
+    attributes[Attributes.required] = '${props.required!}';
+  } else {
+    if (null != oldProps?.required) {
+      attributes[Attributes.required] = null;
+    }
+  }
+
+  if (null != props.readOnly) {
+    attributes[Attributes.readOnly] = '${props.readOnly!}';
+  } else {
+    if (null != oldProps?.readOnly) {
+      attributes[Attributes.readOnly] = null;
+    }
+  }
+
+  if (null != props.disabled) {
+    attributes[Attributes.disabled] = '${props.disabled!}';
+  } else {
+    if (null != oldProps?.disabled) {
+      attributes[Attributes.disabled] = null;
+    }
+  }
+
+  return attributes;
 }

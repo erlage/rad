@@ -147,7 +147,7 @@ class _InputTextRenderObject extends InputTagRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _InputTextProps.prepareAttributes(
+      _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
@@ -169,7 +169,7 @@ class _InputTextRenderObject extends InputTagRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _InputTextProps.prepareAttributes(
+      _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
@@ -185,53 +185,51 @@ class _InputTextRenderObject extends InputTagRenderObject {
 |--------------------------------------------------------------------------
 */
 
-class _InputTextProps {
-  static Map<String, String?> prepareAttributes({
-    required _InputTextConfiguration props,
-    required _InputTextConfiguration? oldProps,
-  }) {
-    var attributes = <String, String?>{};
+Map<String, String?> _prepareAttributes({
+  required _InputTextConfiguration props,
+  required _InputTextConfiguration? oldProps,
+}) {
+  var attributes = <String, String?>{};
 
-    if (null != props.placeholder) {
-      attributes[Attributes.placeholder] = props.placeholder!;
-    } else {
-      if (null != oldProps?.placeholder) {
-        attributes[Attributes.placeholder] = null;
-      }
+  if (null != props.placeholder) {
+    attributes[Attributes.placeholder] = props.placeholder!;
+  } else {
+    if (null != oldProps?.placeholder) {
+      attributes[Attributes.placeholder] = null;
     }
-
-    if (null != props.pattern) {
-      attributes[Attributes.pattern] = props.pattern!;
-    } else {
-      if (null != oldProps?.pattern) {
-        attributes[Attributes.pattern] = null;
-      }
-    }
-
-    if (null != props.readOnly) {
-      attributes[Attributes.readOnly] = '${props.readOnly}';
-    } else {
-      if (null != oldProps?.readOnly) {
-        attributes[Attributes.readOnly] = null;
-      }
-    }
-
-    if (null != props.minLength) {
-      attributes[Attributes.minLength] = '${props.minLength}';
-    } else {
-      if (null != oldProps?.minLength) {
-        attributes[Attributes.minLength] = null;
-      }
-    }
-
-    if (null != props.maxLength) {
-      attributes[Attributes.maxLength] = '${props.maxLength}';
-    } else {
-      if (null != oldProps?.maxLength) {
-        attributes[Attributes.maxLength] = null;
-      }
-    }
-
-    return attributes;
   }
+
+  if (null != props.pattern) {
+    attributes[Attributes.pattern] = props.pattern!;
+  } else {
+    if (null != oldProps?.pattern) {
+      attributes[Attributes.pattern] = null;
+    }
+  }
+
+  if (null != props.readOnly) {
+    attributes[Attributes.readOnly] = '${props.readOnly}';
+  } else {
+    if (null != oldProps?.readOnly) {
+      attributes[Attributes.readOnly] = null;
+    }
+  }
+
+  if (null != props.minLength) {
+    attributes[Attributes.minLength] = '${props.minLength}';
+  } else {
+    if (null != oldProps?.minLength) {
+      attributes[Attributes.minLength] = null;
+    }
+  }
+
+  if (null != props.maxLength) {
+    attributes[Attributes.maxLength] = '${props.maxLength}';
+  } else {
+    if (null != oldProps?.maxLength) {
+      attributes[Attributes.maxLength] = null;
+    }
+  }
+
+  return attributes;
 }

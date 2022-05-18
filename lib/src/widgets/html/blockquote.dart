@@ -112,7 +112,7 @@ class _BlockquoteRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _BlockquoteProps.prepareAttributes(
+      _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
@@ -134,7 +134,7 @@ class _BlockquoteRenderObject extends MarkUpGlobalRenderObject {
     );
 
     elementDescription?.attributes.addAll(
-      _BlockquoteProps.prepareAttributes(
+      _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
@@ -150,21 +150,19 @@ class _BlockquoteRenderObject extends MarkUpGlobalRenderObject {
 |--------------------------------------------------------------------------
 */
 
-class _BlockquoteProps {
-  static Map<String, String?> prepareAttributes({
-    required _BlockquoteConfiguration props,
-    required _BlockquoteConfiguration? oldProps,
-  }) {
-    var attributes = <String, String?>{};
+Map<String, String?> _prepareAttributes({
+  required _BlockquoteConfiguration props,
+  required _BlockquoteConfiguration? oldProps,
+}) {
+  var attributes = <String, String?>{};
 
-    if (null != props.cite) {
-      attributes[Attributes.cite] = props.cite!;
-    } else {
-      if (null != oldProps?.cite) {
-        attributes[Attributes.cite] = null;
-      }
+  if (null != props.cite) {
+    attributes[Attributes.cite] = props.cite!;
+  } else {
+    if (null != oldProps?.cite) {
+      attributes[Attributes.cite] = null;
     }
-
-    return attributes;
   }
+
+  return attributes;
 }

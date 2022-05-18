@@ -225,17 +225,17 @@ class MarkUpGlobalRenderObject extends RenderObject {
   }) {
     configuration as MarkUpGlobalConfiguration;
 
-    var attributes = _MarkUpGlobalProps.prepareAttributes(
+    var attributes = _prepareAttributes(
       props: configuration,
       oldProps: null,
     );
 
-    var classes = CommonProps.prepareClasses(
+    var classes = fnCommonPrepareClasses(
       classAttribute: configuration.classAttribute,
       oldClassAttribute: null,
     );
 
-    var dataset = CommonProps.prepareDataset(
+    var dataset = fnCommonPrepareDataset(
       dataAttributes: configuration.dataAttributes,
       oldDataAttributes: null,
     );
@@ -262,17 +262,17 @@ class MarkUpGlobalRenderObject extends RenderObject {
     oldConfiguration as MarkUpGlobalConfiguration;
     newConfiguration as MarkUpGlobalConfiguration;
 
-    var classes = CommonProps.prepareClasses(
+    var classes = fnCommonPrepareClasses(
       classAttribute: newConfiguration.classAttribute,
       oldClassAttribute: oldConfiguration.classAttribute,
     );
 
-    var dataset = CommonProps.prepareDataset(
+    var dataset = fnCommonPrepareDataset(
       dataAttributes: newConfiguration.dataAttributes,
       oldDataAttributes: oldConfiguration.dataAttributes,
     );
 
-    var attributes = _MarkUpGlobalProps.prepareAttributes(
+    var attributes = _prepareAttributes(
       props: newConfiguration,
       oldProps: oldConfiguration,
     );
@@ -304,77 +304,75 @@ class MarkUpGlobalRenderObject extends RenderObject {
 |--------------------------------------------------------------------------
 */
 
-class _MarkUpGlobalProps {
-  static Map<String, String?> prepareAttributes({
-    required MarkUpGlobalConfiguration props,
-    required MarkUpGlobalConfiguration? oldProps,
-  }) {
-    var attributes = <String, String?>{};
+Map<String, String?> _prepareAttributes({
+  required MarkUpGlobalConfiguration props,
+  required MarkUpGlobalConfiguration? oldProps,
+}) {
+  var attributes = <String, String?>{};
 
-    if (null != props.id) {
-      attributes[Attributes.id] = props.id!;
-    } else {
-      if (null != oldProps?.id) {
-        attributes[Attributes.id] = null;
-      }
+  if (null != props.id) {
+    attributes[Attributes.id] = props.id!;
+  } else {
+    if (null != oldProps?.id) {
+      attributes[Attributes.id] = null;
     }
-
-    if (null != props.title) {
-      attributes[Attributes.title] = props.title!;
-    } else {
-      if (null != oldProps?.title) {
-        attributes[Attributes.title] = null;
-      }
-    }
-
-    if (null != props.style) {
-      attributes[Attributes.style] = props.style!;
-    } else {
-      if (null != oldProps?.style) {
-        attributes[Attributes.style] = null;
-      }
-    }
-
-    if (null != props.tabIndex) {
-      attributes[Attributes.tabIndex] = '${props.tabIndex}';
-    } else {
-      if (null != oldProps?.tabIndex) {
-        attributes[Attributes.tabIndex] = null;
-      }
-    }
-
-    if (null != props.hidden && props.hidden!) {
-      attributes[Attributes.hidden] = '${props.hidden}';
-    } else {
-      if (null != oldProps?.hidden) {
-        attributes[Attributes.hidden] = null;
-      }
-    }
-
-    if (null != props.draggable) {
-      attributes[Attributes.draggable] = '${props.draggable}';
-    } else {
-      if (null != oldProps?.draggable) {
-        attributes[Attributes.draggable] = null;
-      }
-    }
-
-    if (null != props.contentEditable) {
-      attributes[Attributes.contentEditable] = '${props.contentEditable}';
-    } else {
-      if (null != oldProps?.contentEditable) {
-        attributes[Attributes.contentEditable] = null;
-      }
-    }
-
-    if (null != props.onClick) {
-      attributes[Attributes.onClick] = props.onClick!;
-    } else {
-      if (null != oldProps?.onClick) {
-        attributes[Attributes.onClick] = null;
-      }
-    }
-
-    return attributes;
   }
+
+  if (null != props.title) {
+    attributes[Attributes.title] = props.title!;
+  } else {
+    if (null != oldProps?.title) {
+      attributes[Attributes.title] = null;
+    }
+  }
+
+  if (null != props.style) {
+    attributes[Attributes.style] = props.style!;
+  } else {
+    if (null != oldProps?.style) {
+      attributes[Attributes.style] = null;
+    }
+  }
+
+  if (null != props.tabIndex) {
+    attributes[Attributes.tabIndex] = '${props.tabIndex}';
+  } else {
+    if (null != oldProps?.tabIndex) {
+      attributes[Attributes.tabIndex] = null;
+    }
+  }
+
+  if (null != props.hidden && props.hidden!) {
+    attributes[Attributes.hidden] = '${props.hidden}';
+  } else {
+    if (null != oldProps?.hidden) {
+      attributes[Attributes.hidden] = null;
+    }
+  }
+
+  if (null != props.draggable) {
+    attributes[Attributes.draggable] = '${props.draggable}';
+  } else {
+    if (null != oldProps?.draggable) {
+      attributes[Attributes.draggable] = null;
+    }
+  }
+
+  if (null != props.contentEditable) {
+    attributes[Attributes.contentEditable] = '${props.contentEditable}';
+  } else {
+    if (null != oldProps?.contentEditable) {
+      attributes[Attributes.contentEditable] = null;
+    }
+  }
+
+  if (null != props.onClick) {
+    attributes[Attributes.onClick] = props.onClick!;
+  } else {
+    if (null != oldProps?.onClick) {
+      attributes[Attributes.onClick] = null;
+    }
+  }
+
+  return attributes;
 }
