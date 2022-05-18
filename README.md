@@ -258,6 +258,7 @@ Below is the list of available widgets in this framework.
 , [Label](https://pub.dev/documentation/rad/latest/rad/Label-class.html)
 , [Legend](https://pub.dev/documentation/rad/latest/rad/Legend-class.html)
 , [ListItem](https://pub.dev/documentation/rad/latest/rad/ListItem-class.html)
+, [Menu](https://pub.dev/documentation/rad/latest/rad/Menu-class.html)
 , [Navigation](https://pub.dev/documentation/rad/latest/rad/Navigation-class.html)
 , [Option](https://pub.dev/documentation/rad/latest/rad/Option-class.html)
 , [Paragraph](https://pub.dev/documentation/rad/latest/rad/Paragraph-class.html)
