@@ -7,13 +7,18 @@ import 'package:rad/src/core/common/objects/element_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/widgets/async_route.dart';
 import 'package:rad/src/widgets/navigator.dart';
 
-/// Route is a [Navigator] specific widget.
+/// [Navigator]'s Route.
 ///
 /// A [Route] act as a wrapper for your page contents. Along with page,
 /// it contains routing specific information that helps [Navigator] manage
 /// this widget position in tree.
+///
+/// See also:
+///
+///  * [AsyncRoute], for asynchronous routes.
 ///
 class Route extends Widget {
   /// Name of the Route path.

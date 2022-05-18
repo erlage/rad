@@ -23,6 +23,8 @@ typedef NavigatorStateCallback = void Function(NavigatorState state);
 
 typedef WidgetBuilderCallback = Widget Function(BuildContext context);
 
+typedef AsyncWidgetBuilderCallback = Future<Widget> Function();
+
 typedef ExceptionCallback = void Function(Exception event);
 
 typedef PopStateEventCallback = void Function(PopStateEvent event);

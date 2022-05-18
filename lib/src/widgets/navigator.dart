@@ -16,6 +16,7 @@ import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/core/services/services_resolver.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/widgets/async_route.dart';
 import 'package:rad/src/widgets/route.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 
@@ -284,6 +285,11 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///   }
 /// }
 /// ```
+///
+/// See also:
+///
+///  * [Route], for synchronous routes.
+///  * [AsyncRoute], for asynchronous routes.
 ///
 class Navigator extends Widget {
   /// Routes that this Navigator instance handles.
