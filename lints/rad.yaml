@@ -30,6 +30,7 @@ linter:
     - unnecessary_null_checks    
     - unnecessary_parenthesis    
     - use_raw_strings    
+    - always_use_package_imports
 
     # - use_super_parameters (currently experimental)
     

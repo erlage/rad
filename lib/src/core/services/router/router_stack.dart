@@ -1,4 +1,4 @@
-import 'router_stack_entry.dart';
+import 'package:rad/src/core/services/router/router_stack_entry.dart';
 
 /// Router stack.
 ///
