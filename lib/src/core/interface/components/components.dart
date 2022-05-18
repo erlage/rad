@@ -27,7 +27,7 @@ class Components with ServicesResolver {
     required this.rootContext,
   });
 
-  load() {
+  void load() {
     scripts?.forEach(linkJavascript);
 
     stylesheets?.forEach(linkStylesheet);
@@ -35,7 +35,7 @@ class Components with ServicesResolver {
     _loadStyleComponents();
   }
 
-  _loadStyleComponents() {
+  void _loadStyleComponents() {
     var styleComponents = this.styleComponents;
 
     if (null != styleComponents && styleComponents.isNotEmpty) {
