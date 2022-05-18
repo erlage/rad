@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_asserts_with_message
+
 import 'package:rad/src/core/common/types.dart';
 
 /// An object that maintains a list of listeners.

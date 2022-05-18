@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_asserts_with_message
+
 class _HashEnd {
   const _HashEnd();
 }

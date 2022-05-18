@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_asserts_with_message
+
 import 'package:rad/src/include/async/connection_state.dart';
 import 'package:rad/src/include/foundation/hash_codes.dart';
 import 'package:rad/src/include/widgets/future_builder.dart';

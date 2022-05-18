@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_asserts_with_message
+
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/include/async/async_snapshot.dart';
 import 'package:rad/src/include/async/async_widget_builder.dart';

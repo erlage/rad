@@ -23,6 +23,8 @@ linter:
     - directives_ordering
     - missing_whitespace_between_adjacent_strings
     - only_throw_errors
+    - prefer_asserts_with_message
+    
 
     # - use_super_parameters (currently experimental)
     

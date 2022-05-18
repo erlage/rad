@@ -100,12 +100,12 @@ abstract class MarkUpTagWithGlobalProps extends WidgetWithEventListeners {
     EventCallback? onChangeEventListener,
     EventCallback? onSubmitEventListener,
     EventCallback? onClickEventListener,
-
-    // at least two thing from child, children & innerText has to be null.
-    //
-  })  : assert((null == children && null == child) ||
-            (null == child && null == innerText) ||
-            (null == children && null == innerText)),
+  })  : assert(
+          (null == children && null == child) ||
+              (null == child && null == innerText) ||
+              (null == children && null == innerText),
+          'At least two thing from child, children & innerText has to be null.',
+        ),
         super(
           key: key,
           onInputEventListener: onInputEventListener,
