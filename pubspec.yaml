@@ -12,19 +12,37 @@ environment:
 platforms:
   web:
 
-dependencies: 
+dependencies:
+
   meta: ^1.7.0
 
+  #
+  # why we're using this package?
+  #
+  # package meta provides useful annontations/hints that 
+  # improve static analysis during development which inturn 
+  # helps developers write better code. 'meta' package contains 
+  # couple of files(< 200 loc) which will be stripped 
+  # away during compilation.
+  #
+  # what about 'zero-dependency' claim?
+  # 
+  # Rad is not dependent on this package. meta package is 
+  # here to help developers not framework. we can remove 
+  # this package without impacting anything, anytime we want. 
+  # so yes, Rad is still a zero-dependency framework.
+  #
+
 dev_dependencies:
+  
+  # dependencies below are only for development purpose 
+  # and are not part of production code.
+
   test: ^1.21.1
   build: ^2.3.0
   build_runner: ^2.1.11
-  build_web_compilers: ^3.2.3
-
-  # style/lint helpers
-  
   import_sorter: ^4.6.0
-
+  build_web_compilers: ^3.2.3
 
 import_sorter:
   emojis: false
