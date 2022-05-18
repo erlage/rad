@@ -14,12 +14,28 @@ Rad is a frontend framework for creating fast and interactive web apps using Dar
 Below is a hello world in Rad:
 
 ```dart
+void main() {
+  runApp(
+    targetId: 'output',
+    app: Text('hello world'),
+  );
+}
+```
+Let's see another example,
+```dart
 class HomePage extends StatelessWidget
 {
   @override
   Widget build(BuildContext context) {
     return Text("hello world");
   }
+}
+
+void main() {
+  runApp(
+    targetId: 'output',
+    app: HomePage(),
+  );
 }
 ```
 If you're familiar with Flutter it don't even need an explanation. It has some differences that might not be apparent from the example so let's discuss them first.
@@ -50,48 +66,11 @@ If you're familiar with Flutter it don't even need an explanation. It has some d
     );
     ```
 
-    Talking more about UI, there are no in-built widgets for layout(for example you've Container and Stack widget in Flutter). We don't really need them as most of things can be done using HTML and CSS.
-
-    Just for the sake of example, let's say you want a Stack widget,
-
-    1. Create a stack entry function using HTML widgets and some CSS:
-        ```dart
-        Widget StackEntry(Widget widget)
-        {
-          return Division( 
-              style: "position: absolute; top: 0; left: 0;",
-              children: [widget],
-            );
-
-          // Division = HTML's div
-        }
-        ```
-    2. Create a stack widget, again using HTML widget:
-        ```dart
-        Widget Stack({required List<Widget> children})
-        {
-          return Division(
-              style: "position: relative;",
-              children: children,
-            );
-        }
-        ```
-    3. That's it! here's our newly created Stack widget
-        ```dart
-        Stack(
-          children: [
-            StackEntry(Text("hellow 1")),
-            StackEntry(Text("hellow 2")),
-          ]
-        )
-        ```
-    This was just an example, you don't really need these type of widgets since now you can use a CSS framework of your choice. Note that, in above example, Stack is actually a function that returns a widget. In later part of this readme, we'll show you how you can actually create a widget out of it.
-
 ## Flutter widgets
 
 Following widgets in Rad are inspired from Flutter:
 
-- StatelessWidget, StatefulWidget, InheritedWidget.
+- InheritedWidget, StatelessWidget, StatefulWidget.
 - FutureBuilder, StreamBuilder and ValueListenableBuilder.
 
 These widgets has same syntax as their Flutter's counterparts. Not just syntax, they also works exactly same as if they would in Flutter. Which means you don't have to learn anything new to be able to use them.
@@ -119,21 +98,7 @@ In above example, a Span widget is containing a ListView widget. Further, that L
 
 ### 2. HTML widgets are extendable
 
-Designing and re-using UIs is a common requirement of every project. HTML widgets are flexible enough that you can use them to create your own widgets and re-usable UIs.
-
-Let's finish our Stack example by creating a actual Stack widget. Here's the StackEntry function that we created earlier:
-
-```dart
-Widget StackEntry(Widget widget)
-{
-  return Division( 
-    style: "position: absolute; top: 0; left: 0;",
-    children: [widget],
-  );
-}
-```
-
-We can unwrap it by extending the Division widget:
+Designing and re-using UIs is a common requirement of every project. HTML widgets are flexible enough that you can use them to create your own widgets and re-usable UIs. To give you an example, let's say you want a stack widget. First, create a StackEntry widget:
 
 ```dart
 class StackEntry extends Division
@@ -145,22 +110,9 @@ class StackEntry extends Division
 }
 ```
 
-Let's do the same with Stack container function:
+Then create a Stack widget:
 
 ```dart
-
-// from
-
-Widget Stack({required List<Widget> children})
-{
-  return Division(
-      style: "position: relative;",
-      children: children,
-    );
-}
-
-// to
-
 class Stack extends Division
 {
   const Stack({required List<StackEntry> children}): super( 
@@ -169,7 +121,16 @@ class Stack extends Division
   );
 }
 ```
-That's pretty much it. This might not look like a big improvement at first but we've actually created a brand new HTML widget that has its own identity and semantics. Unlike other frameworks where you'd create a component by implementing bunch of methods, in Rad you can extend widgets to create new widgets.
+That's pretty much it. Here's how you can use our newly created Stack widget:
+```dart
+  Stack(
+    children: [
+      StackEntry(Text("hellow 1")),
+      StackEntry(Text("hellow 2")),
+    ]
+  )
+```
+This might not look like a big improvement at first but we've actually created a brand new widget that has its own identity and semantics using existing widget. Unlike other frameworks where you'd create a component by implementing bunch of methods, in Rad you can extend widgets to create new widgets.
 
 ## FAQ
 
