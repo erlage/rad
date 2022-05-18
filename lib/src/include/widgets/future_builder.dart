@@ -81,13 +81,13 @@ class _FutureBuilderState<T> extends State<FutureBuilder<T>> {
     if (widget.future != null) {
       final Object callbackIdentity = Object();
       _activeCallbackIdentity = callbackIdentity;
-      widget.future!.then<void>((T data) {
+      widget.future!.then<void>((data) {
         if (_activeCallbackIdentity == callbackIdentity) {
           setState(() {
             _snapshot = AsyncSnapshot<T>.withData(ConnectionState.done, data);
           });
         }
-      }, onError: (Object error, StackTrace stackTrace) {
+      }, onError: (error, stackTrace) {
         if (_activeCallbackIdentity == callbackIdentity) {
           setState(() {
             _snapshot = AsyncSnapshot<T>.withError(

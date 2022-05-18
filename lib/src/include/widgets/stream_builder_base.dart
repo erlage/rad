@@ -102,11 +102,11 @@ class _StreamBuilderBaseState<T, S> extends State<StreamBuilderBase<T, S>> {
 
   void _subscribe() {
     if (widget.stream != null) {
-      _subscription = widget.stream!.listen((T data) {
+      _subscription = widget.stream!.listen((data) {
         setState(() {
           _summary = widget.afterData(_summary, data);
         });
-      }, onError: (Object error, StackTrace stackTrace) {
+      }, onError: (error, stackTrace) {
         setState(() {
           _summary = widget.afterError(_summary, error, stackTrace);
         });

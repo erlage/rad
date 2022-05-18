@@ -11,7 +11,6 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/core/services/services_resolver.dart';
-import 'package:rad/src/core/common/objects/widget_object.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/objects/element_description.dart';
@@ -595,7 +594,7 @@ class NavigatorState with ServicesResolver {
           parentContext: context,
           flagIterateInReverseOrder: true,
           updateType: UpdateType.setState,
-          widgetActionCallback: (WidgetObject widgetObject) {
+          widgetActionCallback: (widgetObject) {
             var configuration = widgetObject.configuration;
 
             if (configuration is RouteConfiguration) {
@@ -630,7 +629,7 @@ class NavigatorState with ServicesResolver {
           parentContext: context,
           flagIterateInReverseOrder: true,
           updateType: UpdateType.setState,
-          widgetActionCallback: (WidgetObject widgetObject) {
+          widgetActionCallback: (widgetObject) {
             return [WidgetAction.hideWidget];
           },
           afterTaskCallback: () {
@@ -658,7 +657,7 @@ class NavigatorState with ServicesResolver {
       WidgetsManageTask(
         parentContext: context,
         flagIterateInReverseOrder: true,
-        widgetActionCallback: (WidgetObject widgetObject) {
+        widgetActionCallback: (widgetObject) {
           var configuration = widgetObject.configuration;
 
           if (configuration is RouteConfiguration) {
@@ -817,7 +816,7 @@ class NavigatorState with ServicesResolver {
         parentContext: context,
         flagIterateInReverseOrder: true,
         updateType: updateType,
-        widgetActionCallback: (WidgetObject widgetObject) {
+        widgetActionCallback: (widgetObject) {
           var configuration = widgetObject.configuration;
 
           if (configuration is RouteConfiguration) {
