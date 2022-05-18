@@ -1,14 +1,14 @@
 import 'package:meta/meta.dart';
 
-import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/constants.dart';
-import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/services/services_registry.dart';
+import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/objects/element_description.dart';
+import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
+import 'package:rad/src/core/services/services_registry.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Base class for widgets that efficiently propagate information down the tree.
 ///

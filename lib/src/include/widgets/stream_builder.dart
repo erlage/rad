@@ -1,10 +1,10 @@
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/include/async/async_snapshot.dart';
 import 'package:rad/src/include/async/async_widget_builder.dart';
 import 'package:rad/src/include/async/connection_state.dart';
 import 'package:rad/src/include/widgets/stream_builder_base.dart';
-import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Widget that builds itself based on the latest snapshot of interaction with
 /// a [Stream].

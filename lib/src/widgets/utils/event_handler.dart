@@ -3,12 +3,12 @@ import 'dart:html';
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/common/functions.dart';
-import 'package:rad/src/core/services/walker/walker.dart';
-import 'package:rad/src/core/services/services_registry.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/core/services/services_registry.dart';
+import 'package:rad/src/core/services/walker/walker.dart';
 import 'package:rad/src/widgets/abstract/widget_with_event_listeners.dart';
 
 /// Event handler utility for [RenderObject]s that want to support event

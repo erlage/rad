@@ -1,17 +1,17 @@
+import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/widget_object.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/renderer/renderer.dart';
+import 'package:rad/src/core/services/scheduler/abstract.dart';
+import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
+import 'package:rad/src/core/services/scheduler/tasks/widgets_dispose_task.dart';
+import 'package:rad/src/core/services/scheduler/tasks/widgets_manage_task.dart';
+import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
+import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/core/services/services_resolver.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/core/services/scheduler/abstract.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
-import 'package:rad/src/core/services/scheduler/tasks/widgets_manage_task.dart';
-import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
-import 'package:rad/src/core/services/scheduler/tasks/widgets_dispose_task.dart';
-import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
 
 class Framework with ServicesResolver {
   final Renderer renderer;

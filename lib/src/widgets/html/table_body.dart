@@ -1,10 +1,10 @@
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/core/common/objects/key.dart';
 
 /// The Table Body widget (HTML's `tbody` tag).
 ///

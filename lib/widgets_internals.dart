@@ -1,8 +1,11 @@
+// ignore_for_file: directives_ordering
+
 /// Core (low-level exports).
 ///
 /// This library contain exports that are required for implementing external
 /// components and widget implementations.
 ///
+
 library widgets_internals;
 
 export 'src/core/common/constants.dart' show Constants;

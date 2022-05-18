@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:rad/src/core/common/constants.dart';
-import 'package:rad/src/core/services/abstract.dart';
-import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/services/abstract.dart';
 
 /// Key generator service.
 ///

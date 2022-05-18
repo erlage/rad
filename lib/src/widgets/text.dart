@@ -1,7 +1,7 @@
 import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/html/span.dart';
-import 'package:rad/src/core/common/objects/key.dart';
 
 /// A utility widget to print text on screen.
 ///

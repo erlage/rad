@@ -1,7 +1,7 @@
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/services/scheduler/abstract.dart';
 import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/core/services/scheduler/abstract.dart';
 
 /// A task that helps iterating widgets under given context and perform
 /// specific actions to particular widgets while iterating.

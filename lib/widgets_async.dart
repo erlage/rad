@@ -1,3 +1,5 @@
+// ignore_for_file: directives_ordering
+
 /// Async widgets.
 ///
 library widgets_async;

@@ -1,11 +1,11 @@
 import 'package:meta/meta.dart';
 
-import 'package:rad/widgets_internals.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/element_description.dart';
+import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/widgets_internals.dart';
 
 /// A widget that helps pushing raw contents to the DOM.
 ///

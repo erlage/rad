@@ -1,8 +1,8 @@
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/include/async/async_snapshot.dart';
 import 'package:rad/src/include/widgets/future_builder.dart';
 import 'package:rad/src/include/widgets/stream_builder.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Signature for strategies that build widgets based on asynchronous
 /// interaction.

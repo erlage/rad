@@ -1,9 +1,9 @@
 import 'dart:async' show StreamSubscription;
 
 import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
-import 'package:rad/src/core/common/objects/key.dart';
 
 /// Base class for widgets that build themselves based on interaction with
 /// a specified [Stream].

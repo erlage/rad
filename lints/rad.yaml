@@ -20,6 +20,7 @@ linter:
     - avoid_final_parameters
     - avoid_js_rounded_ints
     - avoid_types_on_closure_parameters
+    - directives_ordering
 
     # - use_super_parameters (currently experimental)
     

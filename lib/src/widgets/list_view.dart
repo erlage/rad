@@ -2,21 +2,21 @@ import 'dart:html';
 
 import 'package:meta/meta.dart';
 
-import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/common/constants.dart';
-import 'package:rad/src/widgets/html/division.dart';
-import 'package:rad/src/core/services/services.dart';
-import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/widgets/utils/common_props.dart';
-import 'package:rad/src/core/services/services_registry.dart';
-import 'package:rad/src/core/services/services_resolver.dart';
+import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/objects/element_description.dart';
+import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
+import 'package:rad/src/core/services/services.dart';
+import 'package:rad/src/core/services/services_registry.dart';
+import 'package:rad/src/core/services/services_resolver.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/widgets/html/division.dart';
+import 'package:rad/src/widgets/utils/common_props.dart';
 
 /// Creates a scrollable, linear array of widgets from an explicit [List].
 ///

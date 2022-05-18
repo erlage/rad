@@ -20,3 +20,14 @@ dev_dependencies:
   build: ^2.3.0
   build_runner: ^2.1.11
   build_web_compilers: ^3.2.3
+
+  # style/lint helpers
+  
+  import_sorter: ^4.6.0
+
+
+import_sorter:
+  emojis: false
+  comments: false
+  ignored_files:
+    - \/test\/*

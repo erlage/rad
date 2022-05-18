@@ -2,13 +2,13 @@
 
 // auto-generated. please don't edit this file
 
+import 'package:rad/src/widgets/inherited_widget.dart';
+import 'package:rad/src/widgets/list_view.dart';
+import 'package:rad/src/widgets/navigator.dart';
 import 'package:rad/src/widgets/rad_app.dart';
 import 'package:rad/src/widgets/route.dart';
-import 'package:rad/src/widgets/navigator.dart';
-import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 import 'package:rad/src/widgets/stateless_widget.dart';
-import 'package:rad/src/widgets/list_view.dart';
 
 final GEN_STYLES_MAIN_CSS = ''
     ' /** '

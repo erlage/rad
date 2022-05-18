@@ -1,9 +1,9 @@
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/element_description.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Widget's Render object.
 ///

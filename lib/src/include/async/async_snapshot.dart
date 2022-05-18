@@ -1,7 +1,7 @@
 import 'package:rad/src/include/async/connection_state.dart';
+import 'package:rad/src/include/foundation/hash_codes.dart';
 import 'package:rad/src/include/widgets/future_builder.dart';
 import 'package:rad/src/include/widgets/stream_builder.dart';
-import 'package:rad/src/include/foundation/hash_codes.dart';
 
 /// Immutable representation of the most recent interaction with an asynchronous
 /// computation.

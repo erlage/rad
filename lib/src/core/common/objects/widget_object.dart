@@ -1,10 +1,10 @@
 import 'dart:html';
 
-import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/element_description.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/renderer/render_node.dart';
-import 'package:rad/src/core/common/objects/element_description.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// A object that holds widget and associated objects.
 ///

@@ -1,10 +1,9 @@
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/include/foundation/change_notifier.dart';
 import 'package:rad/src/include/widgets/stream_builder.dart';
-
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
-import 'package:rad/src/core/common/objects/key.dart';
 
 /// Builds a [Widget] when given a concrete value of a [ValueListenable<T>].
 ///
