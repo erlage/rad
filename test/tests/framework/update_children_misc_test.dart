@@ -840,8 +840,6 @@ void main() {
 
           // update 1a-1, update 1a-2, render 1b-3, render 2a-3
 
-          print(testStack.entries.toString());
-
           expect(testStack.popFromStart(), equals('render 1a-1'));
           expect(testStack.popFromStart(), equals('render 1a-2'));
           expect(testStack.popFromStart(), equals('render 1a-3'));
@@ -1005,8 +1003,6 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          print(testStack.entries.toString());
-
           expect(testStack.popFromStart(), equals('render 1a-1'));
           expect(testStack.popFromStart(), equals('render 1a-2'));
           expect(testStack.popFromStart(), equals('render 1a-3'));
@@ -1078,7 +1074,7 @@ void main() {
           updateType: UpdateType.undefined,
         );
         expect(RT_TestBed.rootElement, RT_hasContents('widget 2|widget 1'));
-      }, skip: 'Todo: requires re-working core algorithm');
+      });
 
       //
     },
