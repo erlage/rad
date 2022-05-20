@@ -16,7 +16,7 @@ import 'package:rad/src/widgets/route.dart';
 /// Router service.
 ///
 class Router extends Service {
-  final RouterOptions _options;
+  final RouterOptions options;
 
   /// Registered navigators.
   ///
@@ -34,7 +34,7 @@ class Router extends Service {
 
   final _routerStack = RouterStack();
 
-  Router(BuildContext context, this._options) : super(context);
+  Router(BuildContext context, this.options) : super(context);
 
   @override
   startService() {
@@ -427,17 +427,15 @@ class Router extends Service {
 
   /// Get routing path.
   ///
-  String _getRoutingPath() => _options.path;
+  String _getRoutingPath() => options.path;
 
   /// Prepare router segments.
   ///
   List<String> _prepareSegments(List<String> segments) {
     var preparedSegs = <String>[];
 
-    if (_options.enableHashBasedRouting) {
-      if (!_options.path.startsWith('#')) {
-        preparedSegs.add('#');
-      }
+    if (options.enableHashBasedRouting) {
+      preparedSegs.add('#');
     }
 
     for (final segment in segments) {
@@ -454,7 +452,7 @@ class Router extends Service {
   String _getCurrentPath() {
     var currentPath = Window.delegate.locationPathName;
 
-    if (_options.enableHashBasedRouting) {
+    if (options.enableHashBasedRouting) {
       var hashPart = Window.delegate.locationHash;
 
       // remove leading hash
