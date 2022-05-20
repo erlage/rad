@@ -98,7 +98,7 @@ class Walker extends Service {
     if (null != widgetObject) {
       var foundWidgetObject = _findWidgetObjectInAncestors(
         widgetObject: widgetObject,
-        matchWidgetType: '$T',
+        matchWidgetRuntimeType: '$T',
       );
 
       if (null != foundWidgetObject) {
@@ -150,7 +150,7 @@ class Walker extends Service {
       var foundWidgetObject = _findWidgetObjectInAncestors(
         widgetObject: widgetObject,
         matchWidgetType: '$InheritedWidget',
-        matchRuntimeType: '$T',
+        matchWidgetRuntimeType: '$T',
       );
 
       if (null != foundWidgetObject) {
@@ -180,7 +180,7 @@ class Walker extends Service {
 
     return _findWidgetObjectInAncestors(
       widgetObject: widgetObject,
-      matchRuntimeType: '$T',
+      matchWidgetRuntimeType: '$T',
     );
   }
 
@@ -188,7 +188,7 @@ class Walker extends Service {
     required WidgetObject widgetObject,
     String? matchStateType,
     String? matchWidgetType,
-    String? matchRuntimeType,
+    String? matchWidgetRuntimeType,
   }) {
     var widgetRuntimeType = widgetObject.context.widgetRuntimeType;
 
@@ -227,8 +227,8 @@ class Walker extends Service {
 
     // 6. If runtime type has to be matched
 
-    if (null != matchRuntimeType) {
-      isRuntimeTypeMatched = matchRuntimeType == parentWidgetRuntimeType;
+    if (null != matchWidgetRuntimeType) {
+      isRuntimeTypeMatched = matchWidgetRuntimeType == parentWidgetRuntimeType;
     }
 
     // 7. If state type has to be matched (only for StatefulWidgets)
@@ -257,7 +257,7 @@ class Walker extends Service {
       widgetObject: parentWidgetObject,
       matchStateType: matchStateType,
       matchWidgetType: matchWidgetType,
-      matchRuntimeType: matchRuntimeType,
+      matchWidgetRuntimeType: matchWidgetRuntimeType,
     );
   }
 }
