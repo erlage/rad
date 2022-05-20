@@ -2,21 +2,15 @@ import 'package:rad/src/core/common/objects/build_context.dart';
 
 /// A node in Render tree.
 ///
-/// Most of the dom related operations are first carried out on [RenderNode]s as
-/// operating DOM is painfully slow and expensive.
+/// Most of the dom related operations are first carried out using [RenderNode]s
+/// as operating DOM is painfully slow and expensive.
 ///
 class RenderNode {
   /// Context reference of node.
   ///
   final BuildContext context;
 
-  /// Identifier for keyed nodes.
-  ///
-  final String matchKey;
-
-  RenderNode(
-    this.context,
-  ) : matchKey = '${context.widgetRuntimeType}${context.key.value}';
+  RenderNode(this.context);
 
   RenderNode? _parent;
   RenderNode? get parent => _parent;

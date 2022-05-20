@@ -1,17 +1,71 @@
 import 'package:rad/src/core/renderer/render_node.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-/// A simple object used to wrap Widget update entries
-/// before dispatching them.
+/// Framework's action.
 ///
-class WidgetUpdateObject {
-  /// New instance of widget.
+abstract class WidgetUpdateObject {
+  final WidgetUpdateType widgetUpdateType;
+
+  WidgetUpdateObject(this.widgetUpdateType);
+}
+
+enum WidgetUpdateType {
+  add,
+  update,
+  dispose,
+}
+
+class WidgetUpdateObjectActionAdd extends WidgetUpdateObject {
+  /// New widget.
   ///
   final Widget widget;
 
-  /// Existing render node to update.
+  /// Widget position in parent's child list.
   ///
-  final RenderNode? node;
+  final int widgetPositionIndex;
 
-  WidgetUpdateObject(this.widget, this.node);
+  /// Mount index is the index at which this widget should be mounted.
+  ///
+  final int? mountAtIndex;
+
+  WidgetUpdateObjectActionAdd({
+    required this.widget,
+    required this.mountAtIndex,
+    required this.widgetPositionIndex,
+  }) : super(WidgetUpdateType.add);
+}
+
+class WidgetUpdateObjectActionUpdate extends WidgetUpdateObject {
+  /// New widget.
+  ///
+  final Widget widget;
+
+  /// Widget position in parent's child list.
+  ///
+  final int widgetPositionIndex;
+
+  /// Existing widget node that should be updated.
+  ///
+  final RenderNode existingRenderNode;
+
+  /// New mount index.
+  ///
+  final int? newMountAtIndex;
+
+  WidgetUpdateObjectActionUpdate({
+    required this.widget,
+    required this.widgetPositionIndex,
+    required this.existingRenderNode,
+    required this.newMountAtIndex,
+  }) : super(WidgetUpdateType.update);
+}
+
+class WidgetUpdateObjectActionDispose extends WidgetUpdateObject {
+  /// Existing widget node that should be disposed.
+  ///
+  final RenderNode existingRenderNode;
+
+  WidgetUpdateObjectActionDispose(
+    this.existingRenderNode,
+  ) : super(WidgetUpdateType.dispose);
 }

@@ -1,11 +1,6 @@
-import 'package:rad/rad.dart';
-import 'package:rad/widgets_internals.dart';
 import 'package:rad/src/core/common/objects/app_options.dart';
 
-import 'package:test/scaffolding.dart';
-import 'package:test/expect.dart';
-
-import '../../fixers/test_bed.dart';
+import '../../test_imports.dart';
 
 void main() {
   /*
@@ -187,7 +182,7 @@ void main() {
     var generatedRandomKeys = <String>[];
 
     while (iterations-- > 0) {
-      generatedRandomKeys.add(keyGenService.generateRandomKey());
+      generatedRandomKeys.add(keyGenService.generateStringKey());
     }
 
     test('should generate unique keys', () {

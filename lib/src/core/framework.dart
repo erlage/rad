@@ -28,7 +28,7 @@ class Framework with ServicesResolver {
   void initState() {
     renderer.initState();
 
-    _taskListenerKey = services.keyGen.generateRandomKey();
+    _taskListenerKey = services.keyGen.generateStringKey();
 
     services.scheduler.addTaskListener(_taskListenerKey, processTask);
   }

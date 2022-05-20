@@ -5,7 +5,6 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/element_description.dart';
-import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/widget_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/renderer/job_queue.dart';
@@ -41,39 +40,6 @@ class Renderer with ServicesResolver {
     }
 
     document.getElementById(rootContext.appTargetId)?.innerHtml = '';
-  }
-
-  /// Create a key for widget.
-  ///
-  GlobalKey createWidgetKey(Widget widget, BuildContext parentContext) {
-    GlobalKey generatedKey;
-
-    // whether key is provided explicitly in widget constructor
-
-    var isKeyProvided = Constants.contextKeyNotSet != widget.initialKey;
-
-    // ensure key is not using system prefix
-    // if in dev mode
-
-    if (services.debug.additionalChecks) {
-      if (isKeyProvided && widget.initialKey.hasSystemPrefix) {
-        services.debug.exception(
-          'Keys starting with ${Constants.contextGenKeyPrefix} are reserved '
-          'for framework.',
-        );
-      }
-    }
-
-    if (isKeyProvided) {
-      generatedKey = services.keyGen.getGlobalKeyUsingKey(
-        widget.initialKey,
-        parentContext,
-      );
-    } else {
-      generatedKey = services.keyGen.generateGlobalKey();
-    }
-
-    return generatedKey;
   }
 
   /// Create widget object.
@@ -340,8 +306,13 @@ class Renderer with ServicesResolver {
     required JobQueue jobQueue,
   }) {
     for (final widget in widgets) {
+      var key = services.keyGen.computeWidgetKey(
+        widget: widget,
+        parentContext: parentContext,
+      );
+
       var context = BuildContext.fromParent(
-        key: createWidgetKey(widget, parentContext),
+        key: key,
         widget: widget,
         parentContext: parentContext,
       );
@@ -380,8 +351,13 @@ class Renderer with ServicesResolver {
     required JobQueue jobQueue,
   }) {
     for (final widget in widgets) {
+      var key = services.keyGen.computeWidgetKey(
+        widget: widget,
+        parentContext: parentContext,
+      );
+
       var context = BuildContext.fromParent(
-        key: createWidgetKey(widget, parentContext),
+        key: key,
         widget: widget,
         parentContext: parentContext,
       );
@@ -433,156 +409,232 @@ class Renderer with ServicesResolver {
 
     var parentNode = parentObject.renderNode;
 
-    // list of updates  {Node index}: existing {WidgetObject}
-
-    var updateObjects = prepareUpdates(
+    var updates = prepareUpdates(
       widgets: widgets,
       parent: parentNode,
       parentContext: parentContext,
       flagAddIfNotFound: flagAddIfNotFound,
     );
 
-    // deal with obsolute nodes
+    publishUpdates(
+      updates: updates,
+      parentContext: parentContext,
+      updateType: updateType,
+      flagAddIfNotFound: flagAddIfNotFound,
+      jobQueue: jobQueue,
+    );
+  }
 
-    for (final childElement in [...parentNode.children]) {
-      if (!updateObjects.containsKey(childElement.context.key.value)) {
-        disposeWidgets(
-          jobQueue: jobQueue,
-          flagPreserveTarget: false,
-          context: childElement.context,
-        );
+  /// Publish widget updates.
+  ///
+  void publishUpdates({
+    required Iterable<WidgetUpdateObject> updates,
+    required BuildContext parentContext,
+    required UpdateType updateType,
+    required bool flagAddIfNotFound,
+    required JobQueue jobQueue,
+  }) {
+    for (final updateObject in updates) {
+      switch (updateObject.widgetUpdateType) {
+        case WidgetUpdateType.dispose:
+          updateObject as WidgetUpdateObjectActionDispose;
+
+          disposeWidgets(
+            jobQueue: jobQueue,
+            flagPreserveTarget: false,
+            context: updateObject.existingRenderNode.context,
+          );
+
+          break;
+
+        case WidgetUpdateType.add:
+          updateObject as WidgetUpdateObjectActionAdd;
+
+          if (services.debug.widgetLogs) {
+            print(
+              'Add missing child of type: ${updateObject.widget.runtimeType}'
+              ' under: $parentContext',
+            );
+          }
+
+          render(
+            jobQueue: jobQueue,
+            widgets: [updateObject.widget],
+            mountAtIndex: updateObject.mountAtIndex,
+            parentContext: parentContext,
+            flagCleanParentContents: false,
+          );
+
+          break;
+
+        case WidgetUpdateType.update:
+          processWidgetUpdateObjectActionUpdate(
+            jobQueue: jobQueue,
+            updateType: updateType,
+            flagAddIfNotFound: flagAddIfNotFound,
+            updateObject: updateObject as WidgetUpdateObjectActionUpdate,
+          );
+
+          break;
       }
     }
+  }
 
-    // publish widget updates
+  /// Process a update task.
+  ///
+  void processWidgetUpdateObjectActionUpdate({
+    required WidgetUpdateObjectActionUpdate updateObject,
+    required UpdateType updateType,
+    required bool flagAddIfNotFound,
+    required JobQueue jobQueue,
+  }) {
+    var newWidget = updateObject.widget;
+    var matchedNode = updateObject.existingRenderNode;
 
-    var index = -1;
-    for (final updateObject in updateObjects.values) {
-      index++;
+    var widgetObject = services.walker.getWidgetObject(
+      matchedNode.context,
+    );
 
-      var newWidget = updateObject.widget;
-      var matchedNode = updateObject.node;
+    if (null != widgetObject) {
+      var oldWidget = widgetObject.widget;
+      var newMountAtIndex = updateObject.newMountAtIndex;
 
-      if (null != matchedNode) {
-        var widgetObject = services.walker.getWidgetObject(
-          matchedNode.context,
-        );
+      // move element if position has changed
 
-        if (null != widgetObject) {
-          var oldWidget = widgetObject.widget;
+      if (null != newMountAtIndex) {
+        var parentNode = matchedNode.parent;
 
-          if (UpdateType.dependencyChanged == updateType) {
-            // if it's a inherited widget update, we allow immediate childs
-            // to build without checking whether they are const or not.
+        if (null != parentNode) {
+          // update render node
+          parentNode.insertAt(
+            matchedNode,
+            updateObject.newMountAtIndex,
+          );
 
-            // but if they further have child widgets of their owns, we want
-            // the framework to short-circuit rebuild if possible, this can be
-            // acheived by resetting update type to something else
+          // update dom
+          jobQueue.addJob(() {
+            var element = widgetObject.element;
+            var parentElement = element.parent;
 
-            updateType = UpdateType.undefined;
-          } else {
-            if (oldWidget == newWidget) {
-              if (services.debug.frameworkLogs) {
-                print(
-                  'Short-circuit rebuild: ${widgetObject.context}',
+            // insertBefore is a must here.
+            // todo: remove these unneccesary checks.
+            if (null != parentElement && newMountAtIndex >= 0) {
+              //
+              // if index is available
+              //
+              if (parentElement.children.length > newMountAtIndex) {
+                //
+                // mount at specific index
+                //
+                parentElement.insertBefore(
+                  element,
+                  parentElement.children[newMountAtIndex],
                 );
 
-                continue;
+                return;
               }
             }
-          }
+          });
+        }
+      }
 
-          // check whether anything else has to be updated.
-          var oldConfiguration = widgetObject.configuration;
-          var isChanged = newWidget.isConfigurationChanged(oldConfiguration);
+      // update widget interface
 
-          if (isChanged) {
-            var newConfiguration = newWidget.createConfiguration();
+      if (UpdateType.dependencyChanged == updateType) {
+        // if it's a inherited widget update, we allow immediate childs
+        // to build without checking whether they are const or not.
 
-            widgetObject
-              ..frameworkRebindWidget(newWidget)
-              ..frameworkRebindWidgetConfiguration(newConfiguration);
+        // but if they further have child widgets of their owns, we want
+        // the framework to short-circuit rebuild if possible, this can be
+        // acheived by resetting update type to something else
 
-            widgetObject.renderObject.afterWidgetRebind(
-              newWidget: newWidget,
-              oldWidget: oldWidget,
-              updateType: updateType,
-            );
+        updateType = UpdateType.undefined;
+      } else {
+        if (oldWidget == newWidget) {
+          if (services.debug.frameworkLogs) {
+            print('Short-circuit: ${widgetObject.context}');
 
-            // publish update
-
-            var newDescription = widgetObject.renderObject.update(
-              updateType: updateType,
-              oldConfiguration: oldConfiguration,
-              newConfiguration: newConfiguration,
-            );
-
-            widgetObject.frameworkRebindElementDescription(newDescription);
-
-            applyDescription(
-              jobQueue: jobQueue,
-              description: newDescription,
-              element: widgetObject.element,
-            );
-          } else {
-            if (oldWidget.shouldAlwaysRebindWidget) {
-              widgetObject
-                ..frameworkRebindWidget(newWidget)
-                ..renderObject.afterWidgetRebind(
-                  updateType: updateType,
-                  oldWidget: oldWidget,
-                  newWidget: newWidget,
-                );
-            }
-
-            if (services.debug.widgetLogs) {
-              print('Skipped: ${widgetObject.context}');
-            }
-          }
-
-          // whether old widget happen to have child widgets
-          var hadChilds = oldWidget.widgetChildren.isNotEmpty;
-
-          // whether new widget has any childs
-          var hasChilds = updateObject.widget.widgetChildren.isNotEmpty;
-
-          // if widget has childs, update them
-          if (hasChilds) {
-            updateWidgetsUnderContext(
-              jobQueue: jobQueue,
-              updateType: updateType,
-              parentContext: widgetObject.context,
-              flagAddIfNotFound: flagAddIfNotFound,
-              widgets: updateObject.widget.widgetChildren,
-            );
-          } else {
-            // if new widget has no childs but old had, we have to remove
-            // those orphan childs.
-            if (hadChilds) {
-              disposeWidgets(
-                jobQueue: jobQueue,
-                flagPreserveTarget: true,
-                context: widgetObject.context,
-              );
-            }
+            return;
           }
         }
+      }
+
+      // check whether anything else has to be updated.
+      var oldConfiguration = widgetObject.configuration;
+      var isChanged = newWidget.isConfigurationChanged(oldConfiguration);
+
+      if (isChanged) {
+        var newConfiguration = newWidget.createConfiguration();
+
+        widgetObject
+          ..frameworkRebindWidget(newWidget)
+          ..frameworkRebindWidgetConfiguration(newConfiguration);
+
+        widgetObject.renderObject.afterWidgetRebind(
+          newWidget: newWidget,
+          oldWidget: oldWidget,
+          updateType: updateType,
+        );
+
+        // publish update
+
+        var newDescription = widgetObject.renderObject.update(
+          updateType: updateType,
+          oldConfiguration: oldConfiguration,
+          newConfiguration: newConfiguration,
+        );
+
+        widgetObject.frameworkRebindElementDescription(newDescription);
+
+        applyDescription(
+          jobQueue: jobQueue,
+          description: newDescription,
+          element: widgetObject.element,
+        );
       } else {
+        if (oldWidget.shouldAlwaysRebindWidget) {
+          widgetObject
+            ..frameworkRebindWidget(newWidget)
+            ..renderObject.afterWidgetRebind(
+              updateType: updateType,
+              oldWidget: oldWidget,
+              newWidget: newWidget,
+            );
+        }
+
         if (services.debug.widgetLogs) {
-          print(
-            'Add missing child of type: ${updateObject.widget.runtimeType}'
-            ' under: $parentContext',
+          print('Skipped: ${widgetObject.context}');
+        }
+      }
+
+      // whether old widget happen to have child widgets
+      var hadChilds = oldWidget.widgetChildren.isNotEmpty;
+
+      // whether new widget has any childs
+      var hasChilds = updateObject.widget.widgetChildren.isNotEmpty;
+
+      // if widget has childs, update them
+      if (hasChilds) {
+        updateWidgetsUnderContext(
+          jobQueue: jobQueue,
+          updateType: updateType,
+          parentContext: widgetObject.context,
+          flagAddIfNotFound: flagAddIfNotFound,
+          widgets: updateObject.widget.widgetChildren,
+        );
+      } else {
+        // if new widget has no childs but old had, we have to remove
+        // those orphan childs.
+        if (hadChilds) {
+          disposeWidgets(
+            jobQueue: jobQueue,
+            flagPreserveTarget: true,
+            context: widgetObject.context,
           );
         }
-
-        render(
-          jobQueue: jobQueue,
-          widgets: [newWidget],
-          mountAtIndex: index,
-          parentContext: parentContext,
-          flagCleanParentContents: false,
-        );
       }
+    } else {
+      services.debug.exception(Constants.coreError);
     }
   }
 
@@ -666,127 +718,129 @@ class Renderer with ServicesResolver {
     });
   }
 
-  /// Prepare updates.
+  /// Prepare list of updates.
   ///
-  Map<String, WidgetUpdateObject> prepareUpdates({
-    required RenderNode parent,
+  Iterable<WidgetUpdateObject> prepareUpdates({
     required List<Widget> widgets,
+    required RenderNode parent,
     required BuildContext parentContext,
     required bool flagAddIfNotFound,
   }) {
-    var updateObjects = <String, WidgetUpdateObject>{};
+    // Widgetkey's hash : System action to take
+    var widgetSystemActions = <String, WidgetUpdateObject>{};
 
-    var nodes = <RenderNode>[];
-    var poppedNodes = <RenderNode>[];
-    var hashedNodes = <String, RenderNode>{}; // for hash join
+    var oldRenderNodesHashMap = <String, RenderNode>{};
+    var oldRenderNodesPositions = <String, int>{};
+    var oldRenderNodesHashRegistry = <String, String>{};
 
-    // prepare list of existing nodes
+    var hasherForOldNodes = services.keyGen.createCompatibilityHashGenerator();
+    var hasherForNewNodes = services.keyGen.createCompatibilityHashGenerator();
 
-    for (final node in parent.children.reversed) {
-      if (node.context.key.hasSystemPrefix) {
-        nodes.add(node);
-      } else {
-        hashedNodes[node.matchKey] = node;
-      }
+    // prepare hash map from existing render nodes
+    var oldPositionIndex = -1;
+    for (final node in parent.children) {
+      oldPositionIndex++;
+
+      //
+      // Unique hash. Can be used to find a matching widget at the same level of
+      // tree.
+      //
+      var oldNodeHash = hasherForOldNodes.createCompatibilityHash(
+        widgetKey: node.context.key,
+        widgetRuntimeType: node.context.widgetRuntimeType,
+      );
+
+      // register hash
+      oldRenderNodesHashRegistry[node.context.key.value] = oldNodeHash;
+
+      oldRenderNodesPositions[oldNodeHash] = oldPositionIndex;
+      oldRenderNodesHashMap[oldNodeHash] = node;
     }
 
-    for (final newWidget in widgets) {
-      //
-      // prepare new widget's data for matching
-      //
-      var newWidgetRuntimeType = '${newWidget.runtimeType}';
-      var newWidgetHasKey = Constants.contextKeyNotSet != newWidget.initialKey;
-      var newWidgetId = services.keyGen
-          .getGlobalKeyUsingKey(
-            newWidget.initialKey,
-            parentContext,
-          )
-          .value;
+    // for keeping track of nodes that were missing and added or moved to top
+    var slippedInNodesCount = 0;
 
-      // id of element that's matched with the current widget
-      //
-      RenderNode? matchedNode;
+    // for keeping track of new widget's position
+    var newPositionIndex = -1;
+    for (final widget in widgets) {
+      newPositionIndex++;
 
-      if (newWidgetHasKey) {
-        //
-        // do hash join
-        //
-        var hashKey = '$newWidgetRuntimeType$newWidgetId';
+      var newKey = services.keyGen.computeWidgetKey(
+        widget: widget,
+        parentContext: parentContext,
+      );
 
-        matchedNode = hashedNodes[hashKey];
+      var newNodeHash = hasherForNewNodes.createCompatibilityHash(
+        widgetKey: newKey,
+        widgetRuntimeType: '${widget.runtimeType}',
+      );
 
-        //
-        //
-      } else {
-        //
-        // do merge join(kind of)
-        //
-        while (true) {
-          //
-          if (nodes.isNotEmpty) {
-            //
-            // get element
-            //
-            var node = nodes.removeLast();
+      var existingRenderNode = oldRenderNodesHashMap[newNodeHash];
 
-            var oldWidgetRuntimeType = node.context.widgetRuntimeType;
-            //
-            // try matching runtime types
-            //
-            if (oldWidgetRuntimeType == newWidgetRuntimeType) {
-              //
-              // widget matched!
-              //
-              matchedNode = node;
-
-              break;
-            }
-            //
-            // else add current element to popped list
-            //
-            poppedNodes.add(node);
-            //
-          } else {
-            //
-            // widget doesn't match with any element
-            // reset popped elements for next widget
-            //
-            if (poppedNodes.isNotEmpty) {
-              nodes.addAll(poppedNodes.reversed);
-
-              poppedNodes = [];
-            }
-
-            // current widget has to be rendered from scratch
-            // as it failed to match any element(popped all)
-            // so break for current widget
-            //
-            break;
-          }
+      // if matching node not found
+      if (null == existingRenderNode) {
+        if (!flagAddIfNotFound) {
+          continue;
         }
-      }
 
-      if (null != matchedNode) {
-        //
-        // if a matching element found
-        //
-        updateObjects[matchedNode.context.key.value] = WidgetUpdateObject(
-          newWidget,
-          matchedNode,
+        slippedInNodesCount++;
+
+        widgetSystemActions[newNodeHash] = WidgetUpdateObjectActionAdd(
+          widget: widget,
+          mountAtIndex: newPositionIndex,
+          widgetPositionIndex: newPositionIndex,
         );
-      } else {
-        //
-        // else add if flags are correct
-        //
-        if (flagAddIfNotFound) {
-          var newKey = services.keyGen.generateRandomKey();
 
-          updateObjects[newKey] = WidgetUpdateObject(newWidget, null);
+        continue;
+      }
+
+      // else
+      // a existing widget has been matched
+
+      // ignore: avoid_init_to_null
+      int? mountAtIndex = null;
+
+      var newPositionY = newPositionIndex;
+      var oldPositionY = oldRenderNodesPositions[newNodeHash];
+
+      if (null != oldPositionY) {
+        var expectedOldPosition = oldPositionY + slippedInNodesCount;
+
+        if (expectedOldPosition != newPositionY) {
+          mountAtIndex = newPositionY;
+
+          slippedInNodesCount++;
+        }
+      }
+
+      widgetSystemActions[newNodeHash] = WidgetUpdateObjectActionUpdate(
+        widget: widget,
+        newMountAtIndex: mountAtIndex,
+        widgetPositionIndex: newPositionIndex,
+        existingRenderNode: existingRenderNode,
+      );
+    }
+
+    var preparedSystemActions = <WidgetUpdateObject>[];
+
+    // deal with obsolute nodes
+
+    for (final node in parent.children) {
+      var nodeKeyValue = node.context.key.value;
+
+      // compatibility hash
+      var oldNodeHash = oldRenderNodesHashRegistry[nodeKeyValue];
+
+      if (null != oldNodeHash) {
+        if (!widgetSystemActions.containsKey(oldNodeHash)) {
+          preparedSystemActions.add(WidgetUpdateObjectActionDispose(node));
         }
       }
     }
 
-    return updateObjects;
+    preparedSystemActions.addAll(widgetSystemActions.values);
+
+    return preparedSystemActions;
   }
 
   /// Prepare list of widget actions(by iterating widgets under a context).

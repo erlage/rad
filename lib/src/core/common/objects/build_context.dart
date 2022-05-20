@@ -51,8 +51,7 @@ class BuildContext {
     required Widget widget,
     required BuildContext parentContext,
   })  :
-        // properties from parent
-
+        // properties using parent
         _parent = parentContext,
         appTargetId = parentContext.appTargetId,
 
