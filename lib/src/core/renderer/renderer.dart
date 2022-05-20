@@ -726,15 +726,19 @@ class Renderer with ServicesResolver {
     required BuildContext parentContext,
     required bool flagAddIfNotFound,
   }) {
+    // -------------------------
+
+    var hasherForOldNodes = services.keyGen.createCompatibilityHashGenerator();
+    var hasherForNewNodes = services.keyGen.createCompatibilityHashGenerator();
+
+    // -------------------------
+
     // Widgetkey's hash : System action to take
     var widgetSystemActions = <String, WidgetUpdateObject>{};
 
     var oldRenderNodesHashMap = <String, RenderNode>{};
     var oldRenderNodesPositions = <String, int>{};
     var oldRenderNodesHashRegistry = <String, String>{};
-
-    var hasherForOldNodes = services.keyGen.createCompatibilityHashGenerator();
-    var hasherForNewNodes = services.keyGen.createCompatibilityHashGenerator();
 
     // prepare hash map from existing render nodes
     var oldPositionIndex = -1;
@@ -794,8 +798,7 @@ class Renderer with ServicesResolver {
         continue;
       }
 
-      // else
-      // a existing widget has been matched
+      // else a existing widget has been matched
 
       // ignore: avoid_init_to_null
       int? mountAtIndex = null;
@@ -839,6 +842,13 @@ class Renderer with ServicesResolver {
     }
 
     preparedSystemActions.addAll(widgetSystemActions.values);
+
+    // -------------------------
+
+    services.keyGen.disposeHashGenerator(hasherForOldNodes);
+    services.keyGen.disposeHashGenerator(hasherForNewNodes);
+
+    // -------------------------
 
     return preparedSystemActions;
   }

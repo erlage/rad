@@ -22,6 +22,10 @@ class KeyGen extends Service {
   ///
   var _extraCounter = -1;
 
+  /// Compatibility hasher instances that are available for reuse.
+  ///
+  final _availableHashers = <_CompatibilityHashGenerator>[];
+
   KeyGen(BuildContext context, this.options) : super(context);
 
   /// Generates a new string key.
@@ -109,7 +113,19 @@ class KeyGen extends Service {
   /// Create compatibility hash generator.
   ///
   _CompatibilityHashGenerator createCompatibilityHashGenerator() {
+    if (_availableHashers.isNotEmpty) {
+      return _availableHashers.removeLast();
+    }
+
     return _CompatibilityHashGenerator();
+  }
+
+  /// Dispose hasher instance so it can be reused.
+  ///
+  void disposeHashGenerator(_CompatibilityHashGenerator generator) {
+    generator._revive();
+
+    _availableHashers.add(generator);
   }
 }
 
@@ -140,5 +156,11 @@ class _CompatibilityHashGenerator {
     _counters[type] = count + 1;
 
     return count;
+  }
+
+  /// Clear hasher state so that instance can be re-used.
+  ///
+  void _revive() {
+    _counters.clear();
   }
 }
