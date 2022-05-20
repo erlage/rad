@@ -11,9 +11,9 @@ import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/interface/components/components.dart';
 import 'package:rad/src/core/interface/window/delegates/browser_window.dart';
 import 'package:rad/src/core/interface/window/window.dart';
+import 'package:rad/src/core/rad_styles.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/services.dart';
-import 'package:rad/src/css/main.generated.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/rad_app.dart';
 
@@ -156,10 +156,7 @@ class AppRunner {
 
     targetElement.dataset[Constants.attrWidgetType] = 'Target';
 
-    Components(rootContext: rootContext).injectStyles(
-      GEN_STYLES_MAIN_CSS,
-      'Rad default styles.',
-    );
+    Components.instance.injectStyleComponent(RadStylesComponent());
 
     _beforeMount?.call();
   }

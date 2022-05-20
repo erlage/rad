@@ -29,5 +29,5 @@ abstract class StyleComponent extends AppComponent {
   String? get styleSheetContents;
 
   @override
-  toString() => 'From $name (v$version). Author: $author';
+  toString() => '$name (v$version by $author)';
 }
