@@ -98,41 +98,6 @@ class RT_TestWidget extends Widget {
   }
 }
 
-/// Another test widget with different runtime type.
-///
-class RT_AnotherTestWidget extends RT_TestWidget {
-  const RT_AnotherTestWidget({
-    Key? key,
-    List<Widget>? children,
-    Callback? roEventHookRender,
-    Callback? roEventHookUpdate,
-    Callback? roEventHookAfterMount,
-    Callback? roEventHookAfterWidgetRebind,
-    Callback? roEventHookBeforeUnMount,
-    Callback? wEventHookCreateRenderObject,
-    Callback? wEventHookCreateWidgetConfiguration,
-    Callback? wEventHookIsConfigurationChanged,
-    WidgetConfiguration Function()? wOverrideCreateConfiguration,
-    bool Function()? wOverrideIsConfigurationChanged,
-    String? customHash,
-  }) : super(
-          key: key,
-          children: children,
-          roEventHookRender: roEventHookRender,
-          roEventHookUpdate: roEventHookUpdate,
-          roEventHookAfterMount: roEventHookAfterMount,
-          roEventHookAfterWidgetRebind: roEventHookAfterWidgetRebind,
-          roEventHookBeforeUnMount: roEventHookBeforeUnMount,
-          wEventHookCreateWidgetConfiguration:
-              wEventHookCreateWidgetConfiguration,
-          wEventHookIsConfigurationChanged: wEventHookIsConfigurationChanged,
-          wEventHookCreateRenderObject: wEventHookCreateRenderObject,
-          wOverrideCreateConfiguration: wOverrideCreateConfiguration,
-          wOverrideIsConfigurationChanged: wOverrideIsConfigurationChanged,
-          customHash: customHash,
-        );
-}
-
 class RT_TestWidgetRenderObject extends RenderObject {
   final Callback? roEventHookRender;
   final Callback? roEventHookUpdate;
@@ -197,6 +162,41 @@ class RT_TestWidgetRenderObject extends RenderObject {
   }
 }
 
+/// Another test widget with different runtime type.
+///
+class RT_AnotherTestWidget extends RT_TestWidget {
+  const RT_AnotherTestWidget({
+    Key? key,
+    List<Widget>? children,
+    Callback? roEventHookRender,
+    Callback? roEventHookUpdate,
+    Callback? roEventHookAfterMount,
+    Callback? roEventHookAfterWidgetRebind,
+    Callback? roEventHookBeforeUnMount,
+    Callback? wEventHookCreateRenderObject,
+    Callback? wEventHookCreateWidgetConfiguration,
+    Callback? wEventHookIsConfigurationChanged,
+    WidgetConfiguration Function()? wOverrideCreateConfiguration,
+    bool Function()? wOverrideIsConfigurationChanged,
+    String? customHash,
+  }) : super(
+          key: key,
+          children: children,
+          roEventHookRender: roEventHookRender,
+          roEventHookUpdate: roEventHookUpdate,
+          roEventHookAfterMount: roEventHookAfterMount,
+          roEventHookAfterWidgetRebind: roEventHookAfterWidgetRebind,
+          roEventHookBeforeUnMount: roEventHookBeforeUnMount,
+          wEventHookCreateWidgetConfiguration:
+              wEventHookCreateWidgetConfiguration,
+          wEventHookIsConfigurationChanged: wEventHookIsConfigurationChanged,
+          wEventHookCreateRenderObject: wEventHookCreateRenderObject,
+          wOverrideCreateConfiguration: wOverrideCreateConfiguration,
+          wOverrideIsConfigurationChanged: wOverrideIsConfigurationChanged,
+          customHash: customHash,
+        );
+}
+
 /// A StatefulWidget that allows hooking its internals.
 ///
 class RT_StatefulTestWidget extends StatefulWidget {
@@ -224,6 +224,8 @@ class RT_StatefulTestWidget extends StatefulWidget {
     Widget old,
   )? stateHookDidUpdateWidget;
 
+  final List<Widget> children;
+
   final String hash;
 
   const RT_StatefulTestWidget({
@@ -239,6 +241,7 @@ class RT_StatefulTestWidget extends StatefulWidget {
     this.stateHookBuild,
     this.stateHookDidUpdateWidget,
     this.stateHookDidChangeDependencies,
+    this.children = const [],
     String? customHash,
   })  : hash = customHash ?? 'none',
         super(key: key);
@@ -328,7 +331,7 @@ class RT_StatefulTestWidget_State extends State<RT_StatefulTestWidget> {
       _stateHookBuild!(this);
     }
 
-    return Text('hello world');
+    return RT_TestWidget(children: widget.children);
   }
 
   @override
