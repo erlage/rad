@@ -9,24 +9,8 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// A [Key] is an identifier for [Widget]s.
 ///
 /// Keys must be unique amongst the [Widget]s with the same parent. By
-/// contrast, [GlobalKey]s must be unique across entire document and [LocalKey]
-/// must be unique in single app instance where it was created.
-///
-///
-/// Value of ID attribute of associated HTML element is calculated from value of
-/// widget key. Users can compute the actual value of key and use that to find
-/// element in the document but there are some limitations:
-///
-///
-/// For a [Key], getting computed value is not possible.
-///
-///
-/// For a [LocalKey], you can get computed value using
-/// [LocalKey.getComputedValue], providing it any context.
-///
-///
-/// For a [GlobalKey], computed value is exactly same as provided value. Which
-/// means you can access computed value using [Key.value] for [GlobalKey]s
+/// contrast, [GlobalKey]s and [LocalKey]s must be unique in single app
+/// instance where they are created.
 ///
 @immutable
 class Key {
@@ -45,11 +29,22 @@ class Key {
   /// Simplest way to create a key.
   ///
   /// Keys must be unique amongst the [Widget]s with the same parent. By
-  /// contrast, [GlobalKey]s must be unique across entire document and
-  /// [LocalKey] must be unique within a single app instance(where it was
-  /// created).
+  /// contrast, [GlobalKey]s and [LocalKey] must be unique within a single app
+  /// instance(where they are created).
   ///
   const Key(this._value);
+
+  /// Return computed value of global key.
+  ///
+  String getComputedValue(BuildContext context) {
+    if (ServicesRegistry.instance.getDebug(context).additionalChecks) {
+      ServicesRegistry.instance.getDebug(context).exception(
+            'Please use LocalKey or GlobalKey if you want to compute values',
+          );
+    }
+
+    return "Computing key's value is not possible.";
+  }
 
   @override
   operator ==(Object other) {
@@ -79,6 +74,7 @@ class LocalKey extends Key {
 
   /// Return computed value of local key.
   ///
+  @override
   String getComputedValue(BuildContext context) {
     var keyGenService = ServicesRegistry.instance.getKeyGen(context);
 
@@ -86,13 +82,27 @@ class LocalKey extends Key {
   }
 }
 
-/// A key that is unique within entire document(within multiple apps).
+/// A key that is unique within a single app instance.
+///
+/// Global keys are different from local keys in the sense that their instance
+/// is available in [BuildContext] while for [LocalKey]s and [Key]s, a new
+/// [GlobalKey] is created which is then added to widget's [BuildContext].
+///
+/// This also means that global key's [value] is not computed i.e value provided
+/// in constructor is directly used as widget's key. On the other hand, local
+/// key's [value] is computed using the value that's provided in the constructor
+/// and the parent context.
 ///
 class GlobalKey extends Key {
   /// Creates a global key.
   ///
-  /// Code that constructs key must be responsible for providing a value that's
-  /// unique within entire document(i.e withing multiple app instances).
+  /// Constructing code must be responsible for providing a value that's unique
+  /// within entire app.
   ///
   const GlobalKey(String value) : super(value);
+
+  /// Return computed value of global key.
+  ///
+  @override
+  String getComputedValue(BuildContext context) => value;
 }
