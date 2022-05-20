@@ -127,24 +127,24 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///     }
 ///     ```
 ///
-/// ### Looking for a specific Navigator instance is ancestors:
+/// n. Also, here's how you can look for a specific Navigator instance:
 ///
-/// ```dart
-/// // 1. Give Navigator instance a local key
+///     ```dart
+///     // 1. Give Navigator instance a global/local key
 ///
-/// var key = LocalKey('my-navigator');
+///     var key = GlobalKey('my-navigator');
 ///
-/// Navigator(key: key)
+///     Navigator(key: key)
 ///
-/// // 2. Use of(context, key) anywhere in the subtree of that Navigator,
+///     // 2. Use of(context, key) anywhere in the subtree of that Navigator,
 ///
-/// Navigator.of(context, key);
+///     Navigator.of(context, key);
 ///
-/// // or
+///     // or
 ///
-/// Navigator.of(context, LocalKey('my-navigator'));
+///     Navigator.of(context, GlobalKey('my-navigator'));
 ///
-/// ```
+///     ```
 /// ### onRouteChange hook:
 ///
 /// This hooks gets called when Navigator opens a route. This allows Navigator's
@@ -314,7 +314,7 @@ class Navigator extends Widget {
   /// Navigator's state from the closest instance of this class
   /// that encloses the given context.
   ///
-  static NavigatorState of(BuildContext context, [LocalKey? navigatorKey]) {
+  static NavigatorState of(BuildContext context, [Key? navigatorKey]) {
     var services = ServicesRegistry.instance.getServices(context);
 
     var targetContext = context;
