@@ -49,9 +49,17 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 class AsyncRoute extends Route {
   /// Name of the route to open when page loading encounters an error.
   ///
+  /// If you don't want to open a route when page loading fails, you can
+  /// provide a placeholder widget to show while page is loading in
+  /// [waitingPlaceholderWidget].
+  ///
   final String? errorRoute;
 
   ///  Name of the route to open while page is loading.
+  ///
+  /// If you don't want to open a route when page loading fails, you can
+  /// provide a placeholder widget to show while page is loading in
+  /// [errorPlaceholderWidget].
   ///
   final String? waitingRoute;
 
@@ -75,6 +83,20 @@ class AsyncRoute extends Route {
   ///
   final AsyncWidgetBuilderCallback builder;
 
+  /// Placeholder widget to show while page is loading.
+  ///
+  /// Note, if [waitingRoute] is set, framework will open that route instead of
+  /// showing a placeholder widget.
+  ///
+  final Widget waitingPlaceholderWidget;
+
+  /// Placeholder widget to show when page loading has failed.
+  ///
+  /// Note, if [errorRoute] is set, framework will open that route instead of
+  /// showing a placeholder widget.
+  ///
+  final Widget errorPlaceholderWidget;
+
   /// Create AsyncRoute with [name], and associate route with [page] builder.
   ///
   AsyncRoute({
@@ -84,6 +106,8 @@ class AsyncRoute extends Route {
     this.retryFailedBuilder = false,
     this.enableErrorHistory = false,
     this.enableWaitingHistory = false,
+    this.errorPlaceholderWidget = const _AsyncRoutePlaceholder(),
+    this.waitingPlaceholderWidget = const _AsyncRoutePlaceholder(),
     String? path,
     required String name,
     required AsyncWidgetBuilderCallback page,
@@ -100,6 +124,8 @@ class AsyncRoute extends Route {
             retryFailedBuilder: retryFailedBuilder,
             enableErrorHistory: enableErrorHistory,
             enableWaitingHistory: enableWaitingHistory,
+            errorPlaceholderWidget: errorPlaceholderWidget,
+            waitingPlaceholderWidget: waitingPlaceholderWidget,
           ),
         );
 }
@@ -122,6 +148,9 @@ class _AsyncRouteBuilder extends StatefulWidget {
   final bool enableErrorHistory;
   final bool enableWaitingHistory;
 
+  final Widget errorPlaceholderWidget;
+  final Widget waitingPlaceholderWidget;
+
   final AsyncWidgetBuilderCallback builder;
 
   const _AsyncRouteBuilder({
@@ -134,6 +163,8 @@ class _AsyncRouteBuilder extends StatefulWidget {
     required this.retryFailedBuilder,
     required this.enableErrorHistory,
     required this.enableWaitingHistory,
+    required this.errorPlaceholderWidget,
+    required this.waitingPlaceholderWidget,
   }) : super(key: key);
 
   @override
@@ -166,11 +197,15 @@ class __AsyncRouteBuilderState extends State<_AsyncRouteBuilder> {
       return _lastCreatedWidget!;
     }
 
-    if (!_isBuilderDisposed && _isBuilderFailed && widget.retryFailedBuilder) {
-      _runBuilder();
+    if (!_isBuilderDisposed && _isBuilderFailed) {
+      if (widget.retryFailedBuilder) {
+        _runBuilder();
+      }
+
+      return widget.errorPlaceholderWidget;
     }
 
-    return const _AsyncRoutePlaceholder();
+    return widget.waitingPlaceholderWidget;
   }
 
   @override
