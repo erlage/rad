@@ -16,7 +16,7 @@ import 'package:rad/src/widgets/route.dart';
 /// Router service.
 ///
 class Router extends Service {
-  final RouterOptions options;
+  final RouterOptions _options;
 
   /// Registered navigators.
   ///
@@ -34,7 +34,7 @@ class Router extends Service {
 
   final _routerStack = RouterStack();
 
-  Router(BuildContext context, this.options) : super(context);
+  Router(BuildContext context, this._options) : super(context);
 
   @override
   startService() {
@@ -92,13 +92,13 @@ class Router extends Service {
     required bool updateHistory,
   }) {
     if (updateHistory) {
-      var protectedSegs = protectedSegments(navigatorKey);
+      var preparedSegs = _prepareSegments(protectedSegments(navigatorKey));
 
       var encodedValues = fnEncodeKeyValueMap(values);
 
-      var historyEntry = "${protectedSegs.join("/")}/$name$encodedValues";
+      var historyEntry = "${preparedSegs.join("/")}/$name$encodedValues";
 
-      var currentPath = Window.delegate.locationPathName;
+      var currentPath = _getCurrentPath();
 
       if (currentPath.isNotEmpty) {
         if (!historyEntry.startsWith('/')) {
@@ -150,13 +150,13 @@ class Router extends Service {
 
     _routerStack.entries.remove(currentLocation);
 
-    var protectedSegs = protectedSegments(navigatorKey);
+    var preparedSegs = _prepareSegments(protectedSegments(navigatorKey));
 
     var encodedValues = fnEncodeKeyValueMap(values);
 
-    var historyEntry = "${protectedSegs.join("/")}/$name$encodedValues";
+    var historyEntry = "${preparedSegs.join("/")}/$name$encodedValues";
 
-    var currentPath = Window.delegate.locationPathName;
+    var currentPath = _getCurrentPath();
 
     if (currentPath.isNotEmpty) {
       if (!historyEntry.startsWith('/')) {
@@ -233,7 +233,7 @@ class Router extends Service {
   void updateCurrentSegments() {
     _currentSegments.clear();
 
-    var path = Window.delegate.locationPathName;
+    var path = _getCurrentPath();
 
     _currentSegments.addAll(
       path.split('/')..removeWhere((sgmt) => sgmt.trim().isEmpty),
@@ -326,7 +326,7 @@ class Router extends Service {
     // if root navigator, no segments are protected
 
     if (null == routeObject.parent) {
-      return options.path.split('/');
+      return _getRoutingPath().split('/');
     }
 
     // else find protected part
@@ -425,6 +425,49 @@ class Router extends Service {
     }
   }
 
+  /// Get routing path.
+  ///
+  String _getRoutingPath() => _options.path;
+
+  /// Prepare router segments.
+  ///
+  List<String> _prepareSegments(List<String> segments) {
+    var preparedSegs = <String>[];
+
+    if (_options.enableHashBasedRouting) {
+      if (!_options.path.startsWith('#')) {
+        preparedSegs.add('#');
+      }
+    }
+
+    for (final segment in segments) {
+      if (segment.isNotEmpty) {
+        preparedSegs.add(segment);
+      }
+    }
+
+    return preparedSegs;
+  }
+
+  /// Get current location.
+  ///
+  String _getCurrentPath() {
+    var currentPath = Window.delegate.locationPathName;
+
+    if (_options.enableHashBasedRouting) {
+      var hashPart = Window.delegate.locationHash;
+
+      // remove leading hash
+      if (hashPart.startsWith('#')) {
+        hashPart = hashPart.substring(1);
+      }
+
+      currentPath += hashPart;
+    }
+
+    return currentPath;
+  }
+
   /// Register logic, actual.
   ///
   void _register(BuildContext context, List<Route> routes) {
@@ -440,12 +483,14 @@ class Router extends Service {
       _routeObjects[context.key.value] = NavigatorRouteObject(
         context: context,
         routes: routes,
-        segments: [options.path],
+        segments: [_getRoutingPath()],
       );
 
       if (services.debug.routerLogs) {
         print(
-          'Navigator Registered: #${context.key.value} at ${[options.path]}',
+          'Navigator Registered: #${context.key.value} at ${[
+            _getRoutingPath()
+          ]}',
         );
       }
 

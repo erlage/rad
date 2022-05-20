@@ -14,11 +14,28 @@
 /// )
 /// ```
 class RouterOptions {
+  /// Routing path.
+  ///
   final String path;
+
+  /// Whether to enable hash based routing.
+  ///
+  final bool enableHashBasedRouting;
 
   const RouterOptions({
     required this.path,
+    required this.enableHashBasedRouting,
   });
 
-  static const defaultMode = RouterOptions(path: '');
+  static const defaultMode = developmentMode;
+
+  static const developmentMode = RouterOptions(
+    path: '',
+    enableHashBasedRouting: true,
+  );
+
+  static const productionMode = RouterOptions(
+    path: '',
+    enableHashBasedRouting: false,
+  );
 }
