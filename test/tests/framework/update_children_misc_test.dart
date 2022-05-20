@@ -1031,51 +1031,6 @@ void main() {
         },
       );
 
-      test(
-        'should respect order in which new widgets are recieved',
-        () {
-          app!.framework.updateChildren(
-            widgets: [
-              Text('widget 1'),
-              Text('widget 2'),
-            ],
-            parentContext: app!.appContext,
-            updateType: UpdateType.undefined,
-          );
-
-          app!.framework.updateChildren(
-            widgets: [
-              Text('widget 2'),
-              Text('widget 1'),
-            ],
-            parentContext: app!.appContext,
-            updateType: UpdateType.undefined,
-          );
-          expect(RT_TestBed.rootElement, RT_hasContents('widget 2|widget 1'));
-        },
-      );
-
-      test('should respect order in which new keyed widgets are recieved', () {
-        app!.framework.updateChildren(
-          widgets: [
-            Text('widget 1'),
-            Text('widget 2', key: Key('widget 2')),
-          ],
-          parentContext: app!.appContext,
-          updateType: UpdateType.undefined,
-        );
-
-        app!.framework.updateChildren(
-          widgets: [
-            Text('widget 2', key: Key('widget 2')),
-            Text('widget 1'),
-          ],
-          parentContext: app!.appContext,
-          updateType: UpdateType.undefined,
-        );
-        expect(RT_TestBed.rootElement, RT_hasContents('widget 2|widget 1'));
-      });
-
       //
     },
   );
