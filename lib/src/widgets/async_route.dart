@@ -49,17 +49,17 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 class AsyncRoute extends Route {
   /// Name of the route to open when page loading encounters an error.
   ///
-  /// If you don't want to open a route when page loading fails, you can
-  /// provide a placeholder widget to show while page is loading in
-  /// [waitingPlaceholderWidget].
+  /// This is optional, if you don't define a [errorRoute], framework will show
+  /// a blank widget which you can override by providing your own widget
+  /// in [errorPlaceholderWidget].
   ///
   final String? errorRoute;
 
-  ///  Name of the route to open while page is loading.
+  /// Name of the route to open while page is loading.
   ///
-  /// If you don't want to open a route when page loading fails, you can
-  /// provide a placeholder widget to show while page is loading in
-  /// [errorPlaceholderWidget].
+  /// This is optional, if you don't define a [waitingRoute], framework will
+  /// show a blank widget which you can override by providing your own widget
+  /// in [waitingPlaceholderWidget].
   ///
   final String? waitingRoute;
 
