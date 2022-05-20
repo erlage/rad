@@ -276,4 +276,111 @@ void main() {
       expect(widgetObject, equals(null));
     });
   });
+
+  group('findAncestorStateOfType():', () {
+    RT_AppRunner? app;
+    setUp(() => app = createTestApp()..start());
+    tearDown(() => app!.stop());
+
+    test('should return null if widget with exact state not found', () {
+      var walker = app!.services.walker;
+
+      var state = walker.findAncestorStateOfType(app!.appContext);
+
+      expect(state, equals(null));
+
+      state = walker.findAncestorStateOfType<RT_StatefulTestWidget_State>(
+        app!.appContext,
+      );
+
+      expect(state, equals(null));
+    });
+
+    test('should return matching state from ancestors', () async {
+      var walker = app!.services.walker;
+
+      app!.framework.updateChildren(
+        widgets: [
+          RT_StatefulTestWidget(),
+          RT_StatefulTestWidget(
+            children: [
+              RT_AnotherStatefulWidget(key: GlobalKey('child-widget')),
+            ],
+          ),
+        ],
+        parentContext: app!.appContext,
+        updateType: UpdateType.setState,
+      );
+
+      await Future.delayed(Duration(seconds: 1), () {
+        var state = walker.findAncestorStateOfType<RT_StatefulTestWidget_State>(
+          app!.services.walker.getWidgetObjectUsingKey('child-widget')!.context,
+        )!;
+
+        expect('${state.runtimeType}', equals('$RT_StatefulTestWidget_State'));
+      });
+    });
+
+    test('should return nearest matching state from ancestors', () async {
+      var walker = app!.services.walker;
+
+      app!.framework.updateChildren(
+        widgets: [
+          RT_StatefulTestWidget(),
+          RT_StatefulTestWidget(
+            customHash: '1',
+            children: [
+              RT_StatefulTestWidget(
+                customHash: '2',
+                children: [
+                  RT_AnotherStatefulWidget(key: GlobalKey('child-widget')),
+                ],
+              ),
+            ],
+          ),
+        ],
+        parentContext: app!.appContext,
+        updateType: UpdateType.setState,
+      );
+
+      await Future.delayed(Duration(seconds: 1), () {
+        var state = walker.findAncestorStateOfType<RT_StatefulTestWidget_State>(
+          app!.services.walker.getWidgetObjectUsingKey('child-widget')!.context,
+        )!;
+
+        expect('${state.runtimeType}', equals('$RT_StatefulTestWidget_State'));
+        expect(state.widget.hash, equals('2'));
+      });
+    });
+
+    test('should return null if no direct ancestor matched', () async {
+      var walker = app!.services.walker;
+
+      app!.framework.updateChildren(
+        widgets: [
+          RT_AnotherStatefulWidget(),
+          RT_StatefulTestWidget(
+            children: [
+              RT_StatefulTestWidget(
+                children: [
+                  RT_AnotherStatefulWidget(key: GlobalKey('child-widget')),
+                ],
+              ),
+            ],
+          ),
+        ],
+        parentContext: app!.appContext,
+        updateType: UpdateType.setState,
+      );
+
+      await Future.delayed(Duration(seconds: 1), () {
+        var state =
+            walker.findAncestorStateOfType<RT_AnotherStatefulWidget_State>(
+          app!.services.walker.getWidgetObjectUsingKey('child-widget')!.context,
+        );
+
+        expect(state, equals(null));
+      });
+    });
+  });
 }
