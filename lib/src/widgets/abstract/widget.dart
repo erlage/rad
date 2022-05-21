@@ -38,14 +38,6 @@ abstract class Widget {
   ///
   Map<DomEventType, EventCallback> get eventListeners => {};
 
-  /// Whether framework should rebind widget instance in Widget object even if
-  /// configuration of the widget hasn't changed.
-  ///
-  /// By default framework rebinds widget only if configuration of widget has
-  /// changed i.e widget interface is updated.
-  ///
-  bool get shouldAlwaysRebindWidget => false;
-
   /*
   |--------------------------------------------------------------------------
   | constructor
