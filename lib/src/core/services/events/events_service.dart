@@ -6,6 +6,7 @@ import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/widget_object.dart';
 import 'package:rad/src/core/services/abstract.dart';
+import 'package:rad/src/core/services/events/emitted_event.dart';
 
 /// Events service.
 ///
@@ -40,8 +41,10 @@ class EventsService extends Service {
   void _handle(Event event) {
     var target = event.target;
 
+    var emittedEvent = EmittedEvent.fromNativeEvent(event);
+
     if (null != target && target is Element) {
-      _dispatch(event, _getWidgetObjectForDispatch(target));
+      _dispatch(emittedEvent, _getWidgetObjectForDispatch(target));
     }
   }
 
@@ -61,7 +64,7 @@ class EventsService extends Service {
     return null;
   }
 
-  void _dispatch(Event event, WidgetObject? widgetObject) {
+  void _dispatch(EmittedEvent event, WidgetObject? widgetObject) {
     if (null == widgetObject) {
       return;
     }
@@ -76,9 +79,9 @@ class EventsService extends Service {
 
     var isBubbling = null != event.bubbles && event.bubbles!;
 
-    // if bubbling isn't stopped
+    // if bubbling and propagation isn't stopped
 
-    if (isBubbling) {
+    if (isBubbling && !event.isPropagationStopped) {
       var parentNode = widgetObject.renderNode.parent;
 
       if (!widgetObject.context.isRoot && null != parentNode) {

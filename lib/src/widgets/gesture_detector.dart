@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/core/services/events/emitted_event.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 
@@ -97,12 +98,14 @@ class _GestureDetectorState extends State<GestureDetector> {
   }
 
   void _handleOnTap(Event event) {
-    event.preventDefault();
+    var emittedEvent = EmittedEvent.fromNativeEvent(event);
+
+    emittedEvent.preventDefault();
 
     switch (widget.behaviour) {
       case HitTestBehavior.opaque:
       case HitTestBehavior.deferToChild:
-        event.stopPropagation();
+        emittedEvent.stopPropagation();
 
         break;
 
@@ -114,7 +117,7 @@ class _GestureDetectorState extends State<GestureDetector> {
     var userDefinedOnTapEvent = widget.onTapEvent;
 
     if (null != userDefinedOnTapEvent) {
-      userDefinedOnTapEvent(event);
+      userDefinedOnTapEvent(emittedEvent);
     }
 
     if (null != userDefinedOnTap) {

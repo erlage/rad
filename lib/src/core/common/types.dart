@@ -4,13 +4,14 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/objects/widget_object.dart';
+import 'package:rad/src/core/services/events/emitted_event.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/navigator.dart';
 
 typedef Callback = void Function();
 
-typedef EventCallback = void Function(Event event);
+typedef EventCallback = void Function(EmittedEvent event);
 
 typedef SchedulerTaskCallback = void Function(SchedulerTask task);
 
