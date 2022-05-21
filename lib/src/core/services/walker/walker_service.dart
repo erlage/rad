@@ -218,11 +218,9 @@ class WalkerService extends Service {
     String? matchWidgetType,
     String? matchWidgetRuntimeType,
   }) {
-    var widgetRuntimeType = widgetObject.context.widgetRuntimeType;
-
     // 1. If root widget, then there's no parent to check
 
-    if (Constants.contextTypeBigBang == widgetRuntimeType) {
+    if (widgetObject.context.isRoot) {
       return null;
     }
 

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:html';
 
-import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
@@ -70,10 +69,7 @@ class EventsService extends Service {
     if (isBubbling) {
       var parentNode = widgetObject.renderNode.parent;
 
-      var isRoot = Constants.contextTypeBigBang ==
-          widgetObject.context.widgetRuntimeType;
-
-      if (!isRoot && null != parentNode) {
+      if (!widgetObject.context.isRoot && null != parentNode) {
         _dispatch(event, services.walker.getWidgetObject(parentNode.context));
       }
     }

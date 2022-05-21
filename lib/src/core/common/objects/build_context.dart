@@ -38,6 +38,10 @@ class BuildContext {
   ///
   BuildContext get parent => _parent!;
 
+  /// Whether context is root.
+  ///
+  bool get isRoot => widgetRuntimeType == Constants.contextTypeBigBang;
+
   /*
   |--------------------------------------------------------------------------
   | named constructors
