@@ -11,7 +11,7 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 
 /// Tree Walker/Registry for Dom/Widget Objects.
 ///
-class Walker extends Service {
+class WalkerService extends Service {
   final WalkerOptions options;
 
   /// Registered widget objects.
@@ -26,7 +26,7 @@ class Walker extends Service {
   ///
   final _elementToWidgetKeyMap = <Element, String>{};
 
-  Walker(BuildContext context, this.options) : super(context);
+  WalkerService(BuildContext context, this.options) : super(context);
 
   @override
   startService() {

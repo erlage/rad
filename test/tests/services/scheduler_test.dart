@@ -18,7 +18,7 @@ void main() {
     test('should send tasks in order:', () async {
       var testStack = RT_TestStack();
 
-      var schedulerService = Scheduler(
+      var schedulerService = SchedulerService(
         RT_TestBed.rootContext,
         SchedulerOptions.defaultMode,
       )..startService();
@@ -71,7 +71,7 @@ void main() {
       'should send tasks only when requested:',
       () async {
         var testStack = RT_TestStack();
-        var schedulerService = Scheduler(
+        var schedulerService = SchedulerService(
           RT_TestBed.rootContext,
           SchedulerOptions.defaultMode,
         )..startService();

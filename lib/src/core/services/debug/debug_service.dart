@@ -5,7 +5,7 @@ import 'package:rad/src/core/services/abstract.dart';
 
 /// Debug service.
 ///
-class Debug extends Service {
+class DebugService extends Service {
   final DebugOptions options;
 
   final bool routerLogs;
@@ -16,7 +16,7 @@ class Debug extends Service {
   ExceptionCallback? _onException;
   ExceptionCallback get onException => _onException!;
 
-  Debug(BuildContext context, this.options)
+  DebugService(BuildContext context, this.options)
       : routerLogs = options.routerLogs,
         widgetLogs = options.widgetLogs,
         frameworkLogs = options.frameworkLogs,

@@ -7,10 +7,10 @@ import '../../fixers/test_bed.dart';
 
 void main() {
   group('DebugOptions.defaultMode', () {
-    Debug? debugService;
+    DebugService? debugService;
 
     setUp(() {
-      debugService = Debug(
+      debugService = DebugService(
         RT_TestBed.rootContext,
         DebugOptions.defaultMode,
       )..startService();
@@ -30,10 +30,10 @@ void main() {
   });
 
   group('DebugOptions.developmentMode', () {
-    Debug? debugService;
+    DebugService? debugService;
 
     setUp(() {
-      debugService = Debug(
+      debugService = DebugService(
         RT_TestBed.rootContext,
         DebugOptions.developmentMode,
       )..startService();
@@ -53,10 +53,10 @@ void main() {
   });
 
   group('DebugOptions.productionMode', () {
-    Debug? debugService;
+    DebugService? debugService;
 
     setUp(() {
-      debugService = Debug(
+      debugService = DebugService(
         RT_TestBed.rootContext,
         DebugOptions.productionMode,
       )..startService();
@@ -76,10 +76,10 @@ void main() {
   });
 
   group('development mode tests', () {
-    Debug? debugService;
+    DebugService? debugService;
 
     setUp(() {
-      debugService = Debug(
+      debugService = DebugService(
         RT_TestBed.rootContext,
         DebugOptions.developmentMode,
       )..startService();
@@ -100,10 +100,10 @@ void main() {
   });
 
   group('production mode tests', () {
-    Debug? debugService;
+    DebugService? debugService;
 
     setUp(() {
-      debugService = Debug(
+      debugService = DebugService(
         RT_TestBed.rootContext,
         DebugOptions.productionMode,
       )..startService();
@@ -118,14 +118,14 @@ void main() {
 
   group('should respect explicit settings', () {
     test(':: DebugOptions.additionalChecks', () {
-      var debugServiceFalse = Debug(
+      var debugServiceFalse = DebugService(
         RT_TestBed.rootContext,
         DebugOptions(additionalChecks: false),
       )..startService();
 
       expect(debugServiceFalse.additionalChecks, equals(false));
 
-      var debugServiceTrue = Debug(
+      var debugServiceTrue = DebugService(
         RT_TestBed.rootContext,
         DebugOptions(additionalChecks: true),
       )..startService();
@@ -134,14 +134,14 @@ void main() {
     });
 
     test(':: DebugOptions.widgetLogs', () {
-      var debugServiceFalse = Debug(
+      var debugServiceFalse = DebugService(
         RT_TestBed.rootContext,
         DebugOptions(widgetLogs: false),
       )..startService();
 
       expect(debugServiceFalse.widgetLogs, equals(false));
 
-      var debugServiceTrue = Debug(
+      var debugServiceTrue = DebugService(
         RT_TestBed.rootContext,
         DebugOptions(widgetLogs: true),
       )..startService();
@@ -150,14 +150,14 @@ void main() {
     });
 
     test(':: DebugOptions.routerLogs', () {
-      var debugServiceFalse = Debug(
+      var debugServiceFalse = DebugService(
         RT_TestBed.rootContext,
         DebugOptions(routerLogs: false),
       )..startService();
 
       expect(debugServiceFalse.routerLogs, equals(false));
 
-      var debugServiceTrue = Debug(
+      var debugServiceTrue = DebugService(
         RT_TestBed.rootContext,
         DebugOptions(routerLogs: true),
       )..startService();
@@ -166,14 +166,14 @@ void main() {
     });
 
     test(':: DebugOptions.frameworkLogs', () {
-      var debugServiceFalse = Debug(
+      var debugServiceFalse = DebugService(
         RT_TestBed.rootContext,
         DebugOptions(frameworkLogs: false),
       )..startService();
 
       expect(debugServiceFalse.frameworkLogs, equals(false));
 
-      var debugServiceTrue = Debug(
+      var debugServiceTrue = DebugService(
         RT_TestBed.rootContext,
         DebugOptions(frameworkLogs: true),
       )..startService();
@@ -182,7 +182,7 @@ void main() {
     });
 
     test(':: DebugOptions.suppressExceptions', () {
-      var debugServiceFalse = Debug(
+      var debugServiceFalse = DebugService(
         RT_TestBed.rootContext,
         DebugOptions(suppressExceptions: false),
       )..startService();
@@ -196,7 +196,7 @@ void main() {
         ),
       );
 
-      var debugServiceTrue = Debug(
+      var debugServiceTrue = DebugService(
         RT_TestBed.rootContext,
         DebugOptions(suppressExceptions: true),
       )..startService();

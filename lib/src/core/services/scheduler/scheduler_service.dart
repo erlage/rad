@@ -8,14 +8,14 @@ import 'package:rad/src/core/services/scheduler/abstract.dart';
 
 /// A Task scheduler.
 ///
-class Scheduler extends Service {
+class SchedulerService extends Service {
   final SchedulerOptions options;
 
   final _listeners = <String, StreamSubscription?>{};
 
   StreamController<SchedulerTask>? _tasksStream;
 
-  Scheduler(BuildContext context, this.options) : super(context);
+  SchedulerService(BuildContext context, this.options) : super(context);
 
   @override
   startService() {

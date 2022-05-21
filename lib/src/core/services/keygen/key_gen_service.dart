@@ -9,7 +9,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Key generator service.
 ///
-class KeyGen extends Service {
+class KeyGenService extends Service {
   final KeyGenOptions options;
 
   final _random = Random();
@@ -26,7 +26,7 @@ class KeyGen extends Service {
   ///
   final _availableHashers = <_CompatibilityHashGenerator>[];
 
-  KeyGen(BuildContext context, this.options) : super(context);
+  KeyGenService(BuildContext context, this.options) : super(context);
 
   /// Generates a new string key.
   ///

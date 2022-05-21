@@ -14,11 +14,11 @@ export 'src/core/common/objects/render_object.dart' show RenderObject;
 
 // services
 
-export 'src/core/services/debug/debug.dart' show Debug;
-export 'src/core/services/router/router.dart' show Router;
-export 'src/core/services/router/router.dart' show Router;
-export 'src/core/services/keygen/key_gen.dart' show KeyGen;
-export 'src/core/services/scheduler/scheduler.dart' show Scheduler;
+export 'src/core/services/debug/debug_service.dart' show DebugService;
+export 'src/core/services/router/router_service.dart' show RouterService;
+export 'src/core/services/router/router_service.dart' show RouterService;
+export 'src/core/services/keygen/key_gen_service.dart' show KeyGenService;
+export 'src/core/services/scheduler/scheduler_service.dart';
 export 'src/core/services/abstract.dart' show Service;
 export 'src/core/services/services.dart' show Services;
 export 'src/core/services/services_resolver.dart' show ServicesResolver;

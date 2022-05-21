@@ -10,7 +10,7 @@ void main() {
   */
 
   group('generateGlobalKey() :', () {
-    var keyGenService = KeyGen(
+    var keyGenService = KeyGenService(
       RT_TestBed.rootContext,
       KeyGenOptions.defaultMode,
     )..startService();
@@ -43,7 +43,7 @@ void main() {
   */
 
   group('generateGlobalKey() :', () {
-    var keyGenService = KeyGen(
+    var keyGenService = KeyGenService(
       RT_TestBed.rootContext,
       KeyGenOptions.defaultMode,
     )..startService();
@@ -86,7 +86,7 @@ void main() {
   */
 
   group('getGlobalKeyUsingKey() :', () {
-    var keyGenService = KeyGen(
+    var keyGenService = KeyGenService(
       RT_TestBed.rootContext,
       KeyGenOptions.defaultMode,
     )..startService();
@@ -173,7 +173,7 @@ void main() {
   */
 
   group('generateRandomKey() :', () {
-    var keyGenService = KeyGen(
+    var keyGenService = KeyGenService(
       RT_TestBed.rootContext,
       KeyGenOptions.defaultMode,
     )..startService();
@@ -200,7 +200,7 @@ void main() {
   */
 
   group('random() :', () {
-    var keyGenService = KeyGen(
+    var keyGenService = KeyGenService(
       RT_TestBed.rootContext,
       KeyGenOptions.defaultMode,
     )..startService();

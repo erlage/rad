@@ -15,7 +15,7 @@ import 'package:rad/src/widgets/route.dart';
 
 /// Router service.
 ///
-class Router extends Service {
+class RouterService extends Service {
   final RouterOptions options;
 
   /// Registered navigators.
@@ -34,7 +34,7 @@ class Router extends Service {
 
   final _routerStack = RouterStack();
 
-  Router(BuildContext context, this.options) : super(context);
+  RouterService(BuildContext context, this.options) : super(context);
 
   @override
   startService() {
