@@ -343,6 +343,95 @@ void html_strike_through_test() {
       expect(testStack.canPop(), equals(false));
     });
 
+    test('should set onclick nested event listeners', () {
+      var testStack = RT_TestStack();
+
+      app!.framework.buildChildren(
+        widgets: [
+          StrikeThrough(
+            key: GlobalKey('parent'),
+            onClickEventListener: (event) {
+              testStack.push('parent clicked');
+            },
+            children: [
+              StrikeThrough(
+                key: GlobalKey('child'),
+                onClickEventListener: (event) {
+                  testStack.push('child clicked');
+                },
+              ),
+            ],
+          )
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      var parent = app!.services.walker
+          .getWidgetObjectUsingKey(
+            'parent',
+          )!
+          .element;
+
+      var child = app!.services.walker
+          .getWidgetObjectUsingKey(
+            'child',
+          )!
+          .element;
+
+      child.click();
+      parent.click();
+
+      expect(testStack.popFromStart(), equals('child clicked'));
+      expect(testStack.popFromStart(), equals('parent clicked'));
+      expect(testStack.popFromStart(), equals('parent clicked'));
+      expect(testStack.canPop(), equals(false));
+    });
+
+    test('should set onclick nested event listeners: bubbling test', () {
+      var testStack = RT_TestStack();
+
+      app!.framework.buildChildren(
+        widgets: [
+          StrikeThrough(
+            key: GlobalKey('parent'),
+            onClickEventListener: (event) {
+              testStack.push('parent clicked');
+            },
+            children: [
+              StrikeThrough(
+                key: GlobalKey('child'),
+                onClickEventListener: (event) {
+                  event.stopPropagation();
+
+                  testStack.push('child clicked');
+                },
+              ),
+            ],
+          )
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      var parent = app!.services.walker
+          .getWidgetObjectUsingKey(
+            'parent',
+          )!
+          .element;
+
+      var child = app!.services.walker
+          .getWidgetObjectUsingKey(
+            'child',
+          )!
+          .element;
+
+      child.click();
+      parent.click();
+
+      expect(testStack.popFromStart(), equals('child clicked'));
+      expect(testStack.popFromStart(), equals('parent clicked'));
+      expect(testStack.canPop(), equals(false));
+    });
+
     test('should set style', () {
       app!.framework.buildChildren(
         widgets: [
