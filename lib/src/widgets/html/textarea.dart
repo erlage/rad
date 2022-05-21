@@ -237,7 +237,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.rows) {
-    attributes[Attributes.rows] = '${props.rows!}';
+    attributes[Attributes.rows] = '${props.rows}';
   } else {
     if (null != oldProps?.rows) {
       attributes[Attributes.rows] = null;
@@ -245,7 +245,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.cols) {
-    attributes[Attributes.cols] = '${props.cols!}';
+    attributes[Attributes.cols] = '${props.cols}';
   } else {
     if (null != oldProps?.cols) {
       attributes[Attributes.cols] = null;
@@ -253,7 +253,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.minLength) {
-    attributes[Attributes.minLength] = '${props.minLength!}';
+    attributes[Attributes.minLength] = '${props.minLength}';
   } else {
     if (null != oldProps?.minLength) {
       attributes[Attributes.minLength] = null;
@@ -261,7 +261,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.maxLength) {
-    attributes[Attributes.maxLength] = '${props.maxLength!}';
+    attributes[Attributes.maxLength] = '${props.maxLength}';
   } else {
     if (null != oldProps?.maxLength) {
       attributes[Attributes.maxLength] = null;
@@ -269,7 +269,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.required) {
-    attributes[Attributes.required] = '${props.required!}';
+    attributes[Attributes.required] = '${props.required}';
   } else {
     if (null != oldProps?.required) {
       attributes[Attributes.required] = null;
@@ -277,7 +277,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.readOnly) {
-    attributes[Attributes.readOnly] = '${props.readOnly!}';
+    attributes[Attributes.readOnly] = '${props.readOnly}';
   } else {
     if (null != oldProps?.readOnly) {
       attributes[Attributes.readOnly] = null;
