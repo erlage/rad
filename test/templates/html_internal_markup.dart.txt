@@ -8,7 +8,7 @@ test('should set correct types and markup', () {
 
   expect(
     RT_TestBed.rootElement.innerHtml,
-    equals(
+    startsWith(
       //
       // img/col tags might don't have a closing tag
       //
@@ -19,8 +19,14 @@ test('should set correct types and markup', () {
         'hr',
         'input',
       ].contains('__WidgetTag__')
-          ? '<__WidgetTag__>'
-          : '<__WidgetTag__></__WidgetTag__>',
+            ? [
+                'input',
+              ].contains('__WidgetTag__')
+                // becuase system set attributes for some tags 
+                // e.g type="something" for input tag
+                ? '<__WidgetTag__' 
+                : '<__WidgetTag__>'
+            : '<__WidgetTag__></__WidgetTag__>',
     ),
   );
 }__Skip__);

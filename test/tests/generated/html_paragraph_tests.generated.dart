@@ -506,7 +506,7 @@ void html_paragraph_test() {
 
       expect(
         RT_TestBed.rootElement.innerHtml,
-        equals(
+        startsWith(
           //
           // img/col tags might don't have a closing tag
           //
@@ -517,7 +517,13 @@ void html_paragraph_test() {
             'hr',
             'input',
           ].contains('p')
-              ? '<p>'
+              ? [
+                  'input',
+                ].contains('p')
+                  // becuase system set attributes for some tags
+                  // e.g type="something" for input tag
+                  ? '<p'
+                  : '<p>'
               : '<p></p>',
         ),
       );

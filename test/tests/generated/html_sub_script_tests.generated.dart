@@ -506,7 +506,7 @@ void html_sub_script_test() {
 
       expect(
         RT_TestBed.rootElement.innerHtml,
-        equals(
+        startsWith(
           //
           // img/col tags might don't have a closing tag
           //
@@ -517,7 +517,13 @@ void html_sub_script_test() {
             'hr',
             'input',
           ].contains('sub')
-              ? '<sub>'
+              ? [
+                  'input',
+                ].contains('sub')
+                  // becuase system set attributes for some tags
+                  // e.g type="something" for input tag
+                  ? '<sub'
+                  : '<sub>'
               : '<sub></sub>',
         ),
       );

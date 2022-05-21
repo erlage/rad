@@ -506,7 +506,7 @@ void html_canvas_test() {
 
       expect(
         RT_TestBed.rootElement.innerHtml,
-        equals(
+        startsWith(
           //
           // img/col tags might don't have a closing tag
           //
@@ -517,7 +517,13 @@ void html_canvas_test() {
             'hr',
             'input',
           ].contains('canvas')
-              ? '<canvas>'
+              ? [
+                  'input',
+                ].contains('canvas')
+                  // becuase system set attributes for some tags
+                  // e.g type="something" for input tag
+                  ? '<canvas'
+                  : '<canvas>'
               : '<canvas></canvas>',
         ),
       );

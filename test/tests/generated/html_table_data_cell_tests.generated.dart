@@ -508,7 +508,7 @@ void html_table_data_cell_test() {
 
       expect(
         RT_TestBed.rootElement.innerHtml,
-        equals(
+        startsWith(
           //
           // img/col tags might don't have a closing tag
           //
@@ -519,7 +519,13 @@ void html_table_data_cell_test() {
             'hr',
             'input',
           ].contains('td')
-              ? '<td>'
+              ? [
+                  'input',
+                ].contains('td')
+                  // becuase system set attributes for some tags
+                  // e.g type="something" for input tag
+                  ? '<td'
+                  : '<td>'
               : '<td></td>',
         ),
       );

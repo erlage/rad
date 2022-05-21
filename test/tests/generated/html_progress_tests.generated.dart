@@ -506,7 +506,7 @@ void html_progress_test() {
 
       expect(
         RT_TestBed.rootElement.innerHtml,
-        equals(
+        startsWith(
           //
           // img/col tags might don't have a closing tag
           //
@@ -517,7 +517,13 @@ void html_progress_test() {
             'hr',
             'input',
           ].contains('progress')
-              ? '<progress>'
+              ? [
+                  'input',
+                ].contains('progress')
+                  // becuase system set attributes for some tags
+                  // e.g type="something" for input tag
+                  ? '<progress'
+                  : '<progress>'
               : '<progress></progress>',
         ),
       );

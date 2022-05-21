@@ -510,7 +510,7 @@ void html_horizontal_rule_test() {
 
       expect(
         RT_TestBed.rootElement.innerHtml,
-        equals(
+        startsWith(
           //
           // img/col tags might don't have a closing tag
           //
@@ -521,7 +521,13 @@ void html_horizontal_rule_test() {
             'hr',
             'input',
           ].contains('hr')
-              ? '<hr>'
+              ? [
+                  'input',
+                ].contains('hr')
+                  // becuase system set attributes for some tags
+                  // e.g type="something" for input tag
+                  ? '<hr'
+                  : '<hr>'
               : '<hr></hr>',
         ),
       );

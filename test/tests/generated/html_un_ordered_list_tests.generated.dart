@@ -508,7 +508,7 @@ void html_un_ordered_list_test() {
 
       expect(
         RT_TestBed.rootElement.innerHtml,
-        equals(
+        startsWith(
           //
           // img/col tags might don't have a closing tag
           //
@@ -519,7 +519,13 @@ void html_un_ordered_list_test() {
             'hr',
             'input',
           ].contains('ul')
-              ? '<ul>'
+              ? [
+                  'input',
+                ].contains('ul')
+                  // becuase system set attributes for some tags
+                  // e.g type="something" for input tag
+                  ? '<ul'
+                  : '<ul>'
               : '<ul></ul>',
         ),
       );

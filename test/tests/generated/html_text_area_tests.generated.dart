@@ -506,7 +506,7 @@ void html_text_area_test() {
 
       expect(
         RT_TestBed.rootElement.innerHtml,
-        equals(
+        startsWith(
           //
           // img/col tags might don't have a closing tag
           //
@@ -517,7 +517,13 @@ void html_text_area_test() {
             'hr',
             'input',
           ].contains('textarea')
-              ? '<textarea>'
+              ? [
+                  'input',
+                ].contains('textarea')
+                  // becuase system set attributes for some tags
+                  // e.g type="something" for input tag
+                  ? '<textarea'
+                  : '<textarea>'
               : '<textarea></textarea>',
         ),
       );

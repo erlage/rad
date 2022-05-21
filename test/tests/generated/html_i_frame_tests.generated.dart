@@ -506,7 +506,7 @@ void html_i_frame_test() {
 
       expect(
         RT_TestBed.rootElement.innerHtml,
-        equals(
+        startsWith(
           //
           // img/col tags might don't have a closing tag
           //
@@ -517,7 +517,13 @@ void html_i_frame_test() {
             'hr',
             'input',
           ].contains('iframe')
-              ? '<iframe>'
+              ? [
+                  'input',
+                ].contains('iframe')
+                  // becuase system set attributes for some tags
+                  // e.g type="something" for input tag
+                  ? '<iframe'
+                  : '<iframe>'
               : '<iframe></iframe>',
         ),
       );

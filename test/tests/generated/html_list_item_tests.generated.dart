@@ -506,7 +506,7 @@ void html_list_item_test() {
 
       expect(
         RT_TestBed.rootElement.innerHtml,
-        equals(
+        startsWith(
           //
           // img/col tags might don't have a closing tag
           //
@@ -517,7 +517,13 @@ void html_list_item_test() {
             'hr',
             'input',
           ].contains('li')
-              ? '<li>'
+              ? [
+                  'input',
+                ].contains('li')
+                  // becuase system set attributes for some tags
+                  // e.g type="something" for input tag
+                  ? '<li'
+                  : '<li>'
               : '<li></li>',
         ),
       );

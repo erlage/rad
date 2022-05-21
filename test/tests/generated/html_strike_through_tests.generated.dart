@@ -508,7 +508,7 @@ void html_strike_through_test() {
 
       expect(
         RT_TestBed.rootElement.innerHtml,
-        equals(
+        startsWith(
           //
           // img/col tags might don't have a closing tag
           //
@@ -519,7 +519,13 @@ void html_strike_through_test() {
             'hr',
             'input',
           ].contains('s')
-              ? '<s>'
+              ? [
+                  'input',
+                ].contains('s')
+                  // becuase system set attributes for some tags
+                  // e.g type="something" for input tag
+                  ? '<s'
+                  : '<s>'
               : '<s></s>',
         ),
       );

@@ -506,7 +506,7 @@ void html_heading4_test() {
 
       expect(
         RT_TestBed.rootElement.innerHtml,
-        equals(
+        startsWith(
           //
           // img/col tags might don't have a closing tag
           //
@@ -517,7 +517,13 @@ void html_heading4_test() {
             'hr',
             'input',
           ].contains('h4')
-              ? '<h4>'
+              ? [
+                  'input',
+                ].contains('h4')
+                  // becuase system set attributes for some tags
+                  // e.g type="something" for input tag
+                  ? '<h4'
+                  : '<h4>'
               : '<h4></h4>',
         ),
       );
