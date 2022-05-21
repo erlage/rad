@@ -26,11 +26,11 @@ abstract class TableColumnBase extends MarkUpTagWithGlobalProps {
     String? style,
     String? classAttribute,
     Map<String, String>? dataAttributes,
-    String? onClick,
+    String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
-    EventCallback? onClickEventListener,
+    EventCallback? onClick,
   }) : super(
           key: key,
           id: id,
@@ -42,11 +42,11 @@ abstract class TableColumnBase extends MarkUpTagWithGlobalProps {
           style: style,
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
-          onClick: onClick,
+          onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
-          onClickEventListener: onClickEventListener,
+          onClick: onClick,
         );
 
   @override

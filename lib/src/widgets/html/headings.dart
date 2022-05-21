@@ -20,11 +20,11 @@ class Heading1 extends MarkUpTagWithGlobalProps {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
-    String? onClick,
-    EventCallback? onClickEventListener,
+    String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClick,
   }) : super(
           key: key,
           id: id,
@@ -36,11 +36,11 @@ class Heading1 extends MarkUpTagWithGlobalProps {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
-          onClick: onClick,
-          onClickEventListener: onClickEventListener,
+          onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
+          onClick: onClick,
         );
 
   @nonVirtual
@@ -65,11 +65,11 @@ class Heading2 extends MarkUpTagWithGlobalProps {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
-    String? onClick,
-    EventCallback? onClickEventListener,
+    String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClick,
   }) : super(
           key: key,
           id: id,
@@ -81,11 +81,11 @@ class Heading2 extends MarkUpTagWithGlobalProps {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
-          onClick: onClick,
-          onClickEventListener: onClickEventListener,
+          onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
+          onClick: onClick,
         );
 
   @nonVirtual
@@ -110,11 +110,11 @@ class Heading3 extends MarkUpTagWithGlobalProps {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
-    String? onClick,
-    EventCallback? onClickEventListener,
+    String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClick,
   }) : super(
           key: key,
           id: id,
@@ -126,11 +126,11 @@ class Heading3 extends MarkUpTagWithGlobalProps {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
-          onClick: onClick,
-          onClickEventListener: onClickEventListener,
+          onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
+          onClick: onClick,
         );
 
   @nonVirtual
@@ -155,11 +155,11 @@ class Heading4 extends MarkUpTagWithGlobalProps {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
-    String? onClick,
-    EventCallback? onClickEventListener,
+    String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClick,
   }) : super(
           key: key,
           id: id,
@@ -171,11 +171,11 @@ class Heading4 extends MarkUpTagWithGlobalProps {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
-          onClick: onClick,
-          onClickEventListener: onClickEventListener,
+          onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
+          onClick: onClick,
         );
 
   @nonVirtual
@@ -200,11 +200,11 @@ class Heading5 extends MarkUpTagWithGlobalProps {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
-    String? onClick,
-    EventCallback? onClickEventListener,
+    String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClick,
   }) : super(
           key: key,
           id: id,
@@ -216,11 +216,11 @@ class Heading5 extends MarkUpTagWithGlobalProps {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
-          onClick: onClick,
-          onClickEventListener: onClickEventListener,
+          onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
+          onClick: onClick,
         );
 
   @nonVirtual
@@ -245,11 +245,11 @@ class Heading6 extends MarkUpTagWithGlobalProps {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
-    String? onClick,
-    EventCallback? onClickEventListener,
+    String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClick,
   }) : super(
           key: key,
           id: id,
@@ -261,11 +261,11 @@ class Heading6 extends MarkUpTagWithGlobalProps {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
-          onClick: onClick,
-          onClickEventListener: onClickEventListener,
+          onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
+          onClick: onClick,
         );
 
   @nonVirtual

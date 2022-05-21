@@ -25,12 +25,12 @@ class InputRadio extends InputTag {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
-    String? onClick,
+    String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
-    EventCallback? onChangeEventListener,
-    EventCallback? onClickEventListener,
+    EventCallback? onChange,
+    EventCallback? onClick,
   }) : super(
           key: key,
           id: id,
@@ -48,12 +48,12 @@ class InputRadio extends InputTag {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
-          onClick: onClick,
+          onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
-          onChangeEventListener: onChangeEventListener,
-          onClickEventListener: onClickEventListener,
+          onChange: onChange,
+          onClick: onClick,
         );
 
   @nonVirtual

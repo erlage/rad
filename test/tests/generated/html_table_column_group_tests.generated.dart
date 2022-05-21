@@ -287,15 +287,15 @@ void html_table_column_group_test() {
         widgets: [
           TableColumnGroup(
             key: Key('widget-1'),
-            onClick: 'some onClick',
+            onClickAttribute: 'some onClick',
           ),
           TableColumnGroup(
             key: Key('widget-2'),
-            onClick: 'some "messy" onClick',
+            onClickAttribute: 'some "messy" onClick',
           ),
           TableColumnGroup(
             key: Key('widget-3'),
-            onClick: "some 'messy' onClick",
+            onClickAttribute: "some 'messy' onClick",
           ),
         ],
         parentContext: RT_TestBed.rootContext,
@@ -328,7 +328,7 @@ void html_table_column_group_test() {
         widgets: [
           TableColumnGroup(
             key: GlobalKey('some-global-key'),
-            onClickEventListener: (event) => testStack.push('clicked'),
+            onClick: (event) => testStack.push('clicked'),
           ),
         ],
         parentContext: RT_TestBed.rootContext,
@@ -352,13 +352,13 @@ void html_table_column_group_test() {
         widgets: [
           TableColumnGroup(
             key: GlobalKey('parent'),
-            onClickEventListener: (event) {
+            onClick: (event) {
               testStack.push('parent clicked');
             },
             children: [
               TableColumnGroup(
                 key: GlobalKey('child'),
-                onClickEventListener: (event) {
+                onClick: (event) {
                   testStack.push('child clicked');
                 },
               ),
@@ -396,13 +396,13 @@ void html_table_column_group_test() {
         widgets: [
           TableColumnGroup(
             key: GlobalKey('parent'),
-            onClickEventListener: (event) {
+            onClick: (event) {
               testStack.push('parent clicked');
             },
             children: [
               TableColumnGroup(
                 key: GlobalKey('child'),
-                onClickEventListener: (event) {
+                onClick: (event) {
                   event.stopPropagation();
 
                   testStack.push('child clicked');

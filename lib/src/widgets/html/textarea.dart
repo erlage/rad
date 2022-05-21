@@ -48,12 +48,12 @@ class TextArea extends MarkUpTagWithGlobalProps {
     String? style,
     String? classAttribute,
     Map<String, String>? dataAttributes,
-    String? onClick,
+    String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
-    EventCallback? onChangeEventListener,
-    EventCallback? onClickEventListener,
+    EventCallback? onChange,
+    EventCallback? onClick,
   }) : super(
           key: key,
           id: id,
@@ -65,12 +65,12 @@ class TextArea extends MarkUpTagWithGlobalProps {
           style: style,
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
-          onClick: onClick,
+          onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
-          onChangeEventListener: onChangeEventListener,
-          onClickEventListener: onClickEventListener,
+          onChange: onChange,
+          onClick: onClick,
         );
 
   @nonVirtual

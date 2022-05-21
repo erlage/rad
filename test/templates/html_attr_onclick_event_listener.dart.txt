@@ -5,7 +5,7 @@ test('should set onclick event listener', () {
     widgets: [
       __WidgetClass__(
         key: GlobalKey('some-global-key'),
-        onClickEventListener: (event) => testStack.push('clicked'),
+        onClick: (event) => testStack.push('clicked'),
       ),
     ],
     parentContext: RT_TestBed.rootContext,
@@ -29,13 +29,13 @@ test('should set onclick nested event listeners', () {
     widgets: [
       __WidgetClass__(
         key: GlobalKey('parent'),
-        onClickEventListener: (event) {
+        onClick: (event) {
           testStack.push('parent clicked');
         },
         children: [
           __WidgetClass__(
             key: GlobalKey('child'),
-            onClickEventListener: (event) {
+            onClick: (event) {
               testStack.push('child clicked');
             },
           ),
@@ -73,13 +73,13 @@ test('should set onclick nested event listeners: bubbling test', () {
     widgets: [
       __WidgetClass__(
         key: GlobalKey('parent'),
-        onClickEventListener: (event) {
+        onClick: (event) {
           testStack.push('parent clicked');
         },
         children: [
           __WidgetClass__(
             key: GlobalKey('child'),
-            onClickEventListener: (event) {
+            onClick: (event) {
               event.stopPropagation();
 
               testStack.push('child clicked');

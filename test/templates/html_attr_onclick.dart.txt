@@ -3,15 +3,15 @@ test('should set onClick', () {
     widgets: [
       __WidgetClass__(
         key: Key('widget-1'),
-        onClick: 'some onClick',
+        onClickAttribute: 'some onClick',
       ),
       __WidgetClass__(
         key: Key('widget-2'),
-        onClick: 'some "messy" onClick',
+        onClickAttribute: 'some "messy" onClick',
       ),
       __WidgetClass__(
         key: Key('widget-3'),
-        onClick: "some 'messy' onClick",
+        onClickAttribute: "some 'messy' onClick",
       ),
     ],
     parentContext: RT_TestBed.rootContext,

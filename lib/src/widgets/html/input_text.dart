@@ -40,12 +40,12 @@ class InputText extends InputTag {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
-    String? onClick,
+    String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
-    EventCallback? onChangeEventListener,
-    EventCallback? onClickEventListener,
+    EventCallback? onChange,
+    EventCallback? onClick,
   }) : super(
           key: key,
           id: id,
@@ -62,12 +62,12 @@ class InputText extends InputTag {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
-          onClick: onClick,
-          onClickEventListener: onClickEventListener,
+          onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
-          onChangeEventListener: onChangeEventListener,
+          onClick: onClick,
+          onChange: onChange,
         );
 
   @nonVirtual

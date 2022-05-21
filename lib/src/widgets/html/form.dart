@@ -53,12 +53,12 @@ class Form extends MarkUpTagWithGlobalProps {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
-    String? onClick,
+    String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
-    EventCallback? onSubmitEventListener,
-    EventCallback? onClickEventListener,
+    EventCallback? onSubmit,
+    EventCallback? onClick,
   }) : super(
           key: key,
           id: id,
@@ -70,12 +70,12 @@ class Form extends MarkUpTagWithGlobalProps {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
-          onClick: onClick,
+          onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
-          onSubmitEventListener: onSubmitEventListener,
-          onClickEventListener: onClickEventListener,
+          onSubmit: onSubmit,
+          onClick: onClick,
         );
 
   @nonVirtual

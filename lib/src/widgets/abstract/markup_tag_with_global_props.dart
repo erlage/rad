@@ -55,7 +55,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
 
   /// onClick raw attribute. for inlined JS callback: onclick="<someJS>"
   ///
-  final String? onClick;
+  final String? onClickAttribute;
 
   /// Element's inner text.
   ///
@@ -82,19 +82,19 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
 
   /// On input event listener.
   ///
-  final EventCallback? onInputEventListener;
+  final EventCallback? onInput;
 
   /// On change event listener.
   ///
-  final EventCallback? onChangeEventListener;
+  final EventCallback? onChange;
 
   /// On submit event listener.
   ///
-  final EventCallback? onSubmitEventListener;
+  final EventCallback? onSubmit;
 
   /// On click event listener.
   ///
-  final EventCallback? onClickEventListener;
+  final EventCallback? onClick;
 
   const MarkUpTagWithGlobalProps({
     Key? key,
@@ -107,14 +107,14 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
     this.hidden,
     this.draggable,
     this.contenteditable,
-    this.onClick,
+    this.onClickAttribute,
     this.innerText,
     this.child,
     this.children,
-    this.onInputEventListener,
-    this.onChangeEventListener,
-    this.onSubmitEventListener,
-    this.onClickEventListener,
+    this.onInput,
+    this.onChange,
+    this.onSubmit,
+    this.onClick,
   })  : assert(
           (null == children && null == child) ||
               (null == child && null == innerText) ||
@@ -128,18 +128,18 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
 
   @override
   get widgetEventListeners {
-    if (null == onClickEventListener &&
-        null == onInputEventListener &&
-        null == onChangeEventListener &&
-        null == onSubmitEventListener) {
+    if (null == onClick &&
+        null == onInput &&
+        null == onChange &&
+        null == onSubmit) {
       return const {};
     }
 
     return {
-      DomEventType.click: onClickEventListener,
-      DomEventType.input: onInputEventListener,
-      DomEventType.change: onChangeEventListener,
-      DomEventType.submit: onSubmitEventListener,
+      DomEventType.click: onClick,
+      DomEventType.input: onInput,
+      DomEventType.change: onChange,
+      DomEventType.submit: onSubmit,
     };
   }
 
@@ -155,7 +155,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
       hidden: hidden,
       draggable: draggable,
       contentEditable: contenteditable,
-      onClick: onClick,
+      onClick: onClickAttribute,
       innerText: innerText,
     );
   }
@@ -173,7 +173,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
         hidden != oldConfiguration.hidden ||
         draggable != oldConfiguration.draggable ||
         contenteditable != oldConfiguration.contentEditable ||
-        onClick != oldConfiguration.onClick ||
+        onClickAttribute != oldConfiguration.onClick ||
         innerText != oldConfiguration.innerText;
   }
 

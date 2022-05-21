@@ -28,11 +28,11 @@ class Label extends MarkUpTagWithGlobalProps {
     String? style,
     String? classAttribute,
     Map<String, String>? dataAttributes,
-    String? onClick,
+    String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
-    EventCallback? onClickEventListener,
+    EventCallback? onClick,
   }) : super(
           key: key,
           id: id,
@@ -44,11 +44,11 @@ class Label extends MarkUpTagWithGlobalProps {
           style: style,
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
-          onClick: onClick,
+          onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
-          onClickEventListener: onClickEventListener,
+          onClick: onClick,
         );
 
   @nonVirtual

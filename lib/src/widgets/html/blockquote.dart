@@ -28,11 +28,11 @@ class Blockquote extends MarkUpTagWithGlobalProps {
     String? style,
     String? classAttribute,
     Map<String, String>? dataAttributes,
-    String? onClick,
+    String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
-    EventCallback? onClickEventListener,
+    EventCallback? onClick,
   }) : super(
           key: key,
           id: id,
@@ -44,11 +44,11 @@ class Blockquote extends MarkUpTagWithGlobalProps {
           classAttribute: classAttribute,
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
-          onClick: onClick,
+          onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
-          onClickEventListener: onClickEventListener,
+          onClick: onClick,
         );
 
   @nonVirtual

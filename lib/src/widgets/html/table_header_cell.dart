@@ -23,11 +23,11 @@ class TableHeaderCell extends TableCellBase {
     String? style,
     String? classAttribute,
     Map<String, String>? dataAttributes,
-    String? onClick,
-    EventCallback? onClickEventListener,
+    String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClick,
   }) : super(
           key: key,
           id: id,
@@ -42,11 +42,11 @@ class TableHeaderCell extends TableCellBase {
           style: style,
           classAttribute: classAttribute,
           dataAttributes: dataAttributes,
-          onClick: onClick,
-          onClickEventListener: onClickEventListener,
+          onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
+          onClick: onClick,
         );
 
   @nonVirtual

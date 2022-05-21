@@ -23,16 +23,16 @@ class Text extends Span {
     String? style,
     String? classAttribute,
     bool? hidden,
-    String? onClick,
-    EventCallback? onClickEventListener,
+    String? onClickAttribute,
+    EventCallback? onClick,
   }) : super(
           key: key,
           title: title,
           style: style,
           classAttribute: classAttribute,
           hidden: hidden,
+          onClickAttribute: onClickAttribute,
           onClick: onClick,
-          onClickEventListener: onClickEventListener,
           innerText: text,
         );
 

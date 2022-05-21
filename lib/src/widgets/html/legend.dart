@@ -23,11 +23,11 @@ class Legend extends MarkUpTagWithGlobalProps {
     bool? contenteditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
-    String? onClick,
-    EventCallback? onClickEventListener,
+    String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
+    EventCallback? onClick,
   }) : super(
           key: key,
           id: id,
@@ -39,11 +39,11 @@ class Legend extends MarkUpTagWithGlobalProps {
           contenteditable: contenteditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
-          onClick: onClick,
-          onClickEventListener: onClickEventListener,
+          onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
+          onClick: onClick,
         );
 
   @nonVirtual
