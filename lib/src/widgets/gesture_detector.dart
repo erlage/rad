@@ -18,7 +18,7 @@ class GestureDetector extends StatefulWidget {
   final Widget child;
 
   final Callback? onTap;
-  final OnTapEventCallback? onTapEvent;
+  final EventCallback? onTapEvent;
   final HitTestBehavior behaviour;
 
   const GestureDetector({

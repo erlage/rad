@@ -11,7 +11,6 @@ import 'package:rad/src/widgets/navigator.dart';
 typedef Callback = void Function();
 
 typedef EventCallback = void Function(Event event);
-typedef OnTapEventCallback = void Function(Event event);
 
 typedef SchedulerTaskCallback = void Function(SchedulerTask task);
 
