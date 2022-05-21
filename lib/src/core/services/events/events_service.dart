@@ -27,6 +27,9 @@ class EventsService extends Service {
         rootElement.onInput.listen(_handle),
         rootElement.onChange.listen(_handle),
         rootElement.onSubmit.listen(_handle),
+        rootElement.onKeyUp.listen(_handle),
+        rootElement.onKeyDown.listen(_handle),
+        rootElement.onKeyPress.listen(_handle),
       ]);
     }
   }

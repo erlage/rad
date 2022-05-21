@@ -174,6 +174,15 @@ String fnMapDomEventType(DomEventType eventType) {
 
     case DomEventType.submit:
       return 'submit';
+
+    case DomEventType.keyUp:
+      return 'keyup';
+
+    case DomEventType.keyDown:
+      return 'keydown';
+
+    case DomEventType.keyPress:
+      return 'keypress';
   }
 }
 

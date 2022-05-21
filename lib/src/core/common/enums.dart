@@ -68,6 +68,9 @@ enum DomEventType {
   change,
   input,
   submit,
+  keyUp,
+  keyDown,
+  keyPress,
 }
 
 enum InputType {

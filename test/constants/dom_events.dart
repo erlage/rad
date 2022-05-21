@@ -6,6 +6,9 @@ class RT_DomEvents {
     "change",
     "input",
     "submit",
+    "keyup",
+    "keydown",
+    "keypress",
   ];
 
   static const available = [
