@@ -196,7 +196,7 @@ class ListViewRenderObject extends RenderObject {
       dataset: {
         Constants.attrWidgetType: '$ListView',
       },
-      classes: _prepareClasses(
+      classAttribute: _prepareClassAttribute(
         props: configuration,
         oldProps: null,
       ),
@@ -210,7 +210,7 @@ class ListViewRenderObject extends RenderObject {
     required covariant _ListViewConfiguration newConfiguration,
   }) {
     return ElementDescription(
-      classes: _prepareClasses(
+      classAttribute: _prepareClassAttribute(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
@@ -247,7 +247,7 @@ class ListViewBuilderRenderObject extends RenderObject {
       dataset: {
         Constants.attrWidgetType: '$ListView',
       },
-      classes: _prepareClasses(
+      classAttribute: _prepareClassAttribute(
         props: baseConfiguration,
         oldProps: null,
       ),
@@ -284,7 +284,7 @@ class ListViewBuilderRenderObject extends RenderObject {
         dataset: {
           Constants.attrWidgetType: '$ListView',
         },
-        classes: _prepareClasses(
+        classAttribute: _prepareClassAttribute(
           props: newBaseConfig,
           oldProps: oldBaseConfig,
         ),
@@ -510,46 +510,31 @@ class _ListViewBuilderState with ServicesResolver {
 |--------------------------------------------------------------------------
 */
 
-Map<String, bool> _prepareClasses({
+String? _prepareClassAttribute({
   required _ListViewConfiguration props,
   required _ListViewConfiguration? oldProps,
 }) {
-  var classes = fnCommonPrepareClasses(
-    classAttribute: props.classAttribute,
-    oldClassAttribute: null,
-  );
+  var classAttribute = fnCommonPrepareClassAttribute(
+        classAttribute: props.classAttribute,
+        oldClassAttribute: null,
+      ) ??
+      '';
 
   if (LayoutType.contain == props.layoutType) {
-    classes[Constants.classListViewContained] = true;
-  } else {
-    if (LayoutType.contain == oldProps?.layoutType) {
-      classes[Constants.classListViewContained] = false;
-    }
+    classAttribute += ' ${Constants.classListViewContained}';
   }
 
   if (LayoutType.expand == props.layoutType) {
-    classes[Constants.classListViewExpanded] = true;
-  } else {
-    if (LayoutType.expand == oldProps?.layoutType) {
-      classes[Constants.classListViewExpanded] = false;
-    }
+    classAttribute += ' ${Constants.classListViewExpanded}';
   }
 
   if (Axis.horizontal == props.scrollDirection) {
-    classes[Constants.classListViewHorizontal] = true;
-  } else {
-    if (Axis.horizontal == oldProps?.scrollDirection) {
-      classes[Constants.classListViewHorizontal] = false;
-    }
+    classAttribute += ' ${Constants.classListViewHorizontal}';
   }
 
   if (Axis.vertical == props.scrollDirection) {
-    classes[Constants.classListViewVeritcal] = true;
-  } else {
-    if (Axis.vertical == oldProps?.scrollDirection) {
-      classes[Constants.classListViewVeritcal] = false;
-    }
+    classAttribute += ' ${Constants.classListViewVeritcal}';
   }
 
-  return classes;
+  return classAttribute;
 }

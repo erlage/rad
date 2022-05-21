@@ -1,28 +1,19 @@
 import 'package:rad/src/core/common/constants.dart';
 
-Map<String, bool> fnCommonPrepareClasses({
+String? fnCommonPrepareClassAttribute({
   required String? classAttribute,
   required String? oldClassAttribute,
 }) {
-  var prepared = <String, bool>{};
-
   if (null != classAttribute) {
-    var classList = _prepareClassList(classAttribute);
-
-    for (final className in classList) {
-      prepared[className] = true;
+    return classAttribute;
+  } else {
+    // clean old classes(if were set)
+    if (null != oldClassAttribute && oldClassAttribute.isNotEmpty) {
+      return '';
     }
   }
 
-  if (null != oldClassAttribute) {
-    var oldClassList = _prepareClassList(oldClassAttribute);
-
-    for (final className in oldClassList) {
-      prepared[className] = false;
-    }
-  }
-
-  return prepared;
+  return null;
 }
 
 Map<String, String?> fnCommonPrepareDataset({
@@ -57,12 +48,4 @@ Map<String, String?> fnCommonPrepareDataset({
   }
 
   return prepared;
-}
-
-List<String> _prepareClassList(String classAttribute) {
-  if (classAttribute.isEmpty) {
-    return [];
-  }
-
-  return classAttribute.split(' ')..removeWhere((element) => element.isEmpty);
 }

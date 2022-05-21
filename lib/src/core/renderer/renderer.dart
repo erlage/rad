@@ -1065,14 +1065,8 @@ class Renderer with ServicesResolver {
         });
       }
 
-      if (description.classes.isNotEmpty) {
-        description.classes.forEach((className, whetherToAdd) {
-          if (whetherToAdd) {
-            element.classes.add(className);
-          } else {
-            element.classes.remove(className);
-          }
-        });
+      if (null != description.classAttribute) {
+        element.className = description.classAttribute!;
       }
 
       if (description.dataset.isNotEmpty) {

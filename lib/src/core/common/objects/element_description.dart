@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 ///
 @immutable
 class ElementDescription {
-  final Map<String, bool> classes;
+  final String? classAttribute;
   final Map<String, String?> dataset;
   final Map<String, String?> attributes;
   final Map<String, String?> styleProperties;
@@ -13,7 +13,7 @@ class ElementDescription {
   final String? rawContents;
 
   const ElementDescription({
-    this.classes = const {},
+    this.classAttribute,
     this.dataset = const {},
     this.attributes = const {},
     this.styleProperties = const {},

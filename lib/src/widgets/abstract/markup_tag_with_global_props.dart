@@ -242,7 +242,7 @@ class MarkUpGlobalRenderObject extends RenderObject {
       oldProps: null,
     );
 
-    var classes = fnCommonPrepareClasses(
+    var classAttribute = fnCommonPrepareClassAttribute(
       classAttribute: configuration.classAttribute,
       oldClassAttribute: null,
     );
@@ -253,9 +253,9 @@ class MarkUpGlobalRenderObject extends RenderObject {
     );
 
     return ElementDescription(
-      classes: classes,
       dataset: dataset,
       attributes: attributes,
+      classAttribute: classAttribute,
       textContents: configuration.innerText,
     );
   }
@@ -269,7 +269,7 @@ class MarkUpGlobalRenderObject extends RenderObject {
     oldConfiguration as MarkUpGlobalConfiguration;
     newConfiguration as MarkUpGlobalConfiguration;
 
-    var classes = fnCommonPrepareClasses(
+    var classAttribute = fnCommonPrepareClassAttribute(
       classAttribute: newConfiguration.classAttribute,
       oldClassAttribute: oldConfiguration.classAttribute,
     );
@@ -285,9 +285,9 @@ class MarkUpGlobalRenderObject extends RenderObject {
     );
 
     return ElementDescription(
-      classes: classes,
       dataset: dataset,
       attributes: attributes,
+      classAttribute: classAttribute,
       textContents: newConfiguration.innerText,
     );
   }
