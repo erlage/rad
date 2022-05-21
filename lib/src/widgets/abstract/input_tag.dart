@@ -67,7 +67,6 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
     List<Widget>? children,
     EventCallback? onInputEventListener,
     EventCallback? onChangeEventListener,
-    EventCallback? onSubmitEventListener,
     EventCallback? onClickEventListener,
   }) : super(
           key: key,
@@ -86,7 +85,6 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
           children: children,
           onInputEventListener: onInputEventListener,
           onChangeEventListener: onChangeEventListener,
-          onSubmitEventListener: onSubmitEventListener,
           onClickEventListener: onClickEventListener,
         );
 
