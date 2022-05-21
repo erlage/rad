@@ -14,25 +14,37 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 class Walker extends Service {
   final WalkerOptions options;
 
-  final _registeredWidgetObjects = <String, WidgetObject>{};
+  /// Registered widget objects.
+  ///
+  /// Widget-key-value to widget object mappings.
+  ///
+  final _widgetKeyToWidgetObjectMap = <String, WidgetObject>{};
+
+  /// Registered widget keys.
+  ///
+  /// Element to widget-key-value mappings.
+  ///
+  final _elementToWidgetKeyMap = <Element, String>{};
 
   Walker(BuildContext context, this.options) : super(context);
 
   @override
   startService() {
-    _registeredWidgetObjects.clear();
+    _widgetKeyToWidgetObjectMap.clear();
+    _elementToWidgetKeyMap.clear();
   }
 
   @override
   stopService() {
-    _registeredWidgetObjects.clear();
+    _widgetKeyToWidgetObjectMap.clear();
+    _elementToWidgetKeyMap.clear();
   }
 
   void registerWidgetObject(WidgetObject widgetObject) {
     var widgetKey = widgetObject.context.key.value;
 
     if (services.debug.additionalChecks) {
-      if (_registeredWidgetObjects.containsKey(widgetKey)) {
+      if (_widgetKeyToWidgetObjectMap.containsKey(widgetKey)) {
         return services.debug.exception(
           'Key $widgetKey already exists.'
           '\n\nThis usually happens in two scenarios,'
@@ -44,7 +56,12 @@ class Walker extends Service {
       }
     }
 
-    _registeredWidgetObjects[widgetKey] = widgetObject;
+    _widgetKeyToWidgetObjectMap[widgetKey] = widgetObject;
+    _elementToWidgetKeyMap[widgetObject.element] = widgetKey;
+  }
+
+  String? getWidgetKeyValueUsingElement(Element? element) {
+    return _elementToWidgetKeyMap[element];
   }
 
   WidgetObject? getWidgetObject(BuildContext context) {
@@ -52,19 +69,30 @@ class Walker extends Service {
   }
 
   WidgetObject? getWidgetObjectUsingKey(String? key) {
-    return _registeredWidgetObjects[key];
+    return _widgetKeyToWidgetObjectMap[key];
+  }
+
+  WidgetObject? getWidgetObjectUsingElement(Element? element) {
+    return _widgetKeyToWidgetObjectMap[getWidgetKeyValueUsingElement(element)];
   }
 
   void unRegisterWidgetObject(WidgetObject widgetObject) {
     var widgetKey = widgetObject.renderObject.context.key.value;
 
-    _registeredWidgetObjects.remove(widgetKey);
+    _widgetKeyToWidgetObjectMap.remove(widgetKey);
+    _elementToWidgetKeyMap.remove(widgetObject.element);
   }
 
   /// Return all registered widget objects.
   ///
   List<WidgetObject> dumpWidgetObjects() {
-    return _registeredWidgetObjects.values.toList();
+    return _widgetKeyToWidgetObjectMap.values.toList();
+  }
+
+  /// Return all registered widget keys.
+  ///
+  List<String> dumpWidgetKeys() {
+    return _elementToWidgetKeyMap.values.toList();
   }
 
   /*
