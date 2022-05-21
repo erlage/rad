@@ -5,6 +5,7 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/types.dart';
 
 /// Describes the configuration for an [RenderObject].
 ///
@@ -32,6 +33,10 @@ abstract class Widget {
   /// Child widgets if any.
   ///
   List<Widget> get widgetChildren => [];
+
+  /// Events that this widget is listening to.
+  ///
+  Map<DomEventType, EventCallback> get eventListeners => {};
 
   /// Whether framework should rebind widget instance in Widget object even if
   /// configuration of the widget hasn't changed.

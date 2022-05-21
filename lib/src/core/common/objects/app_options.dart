@@ -9,6 +9,7 @@ class AppOptions {
   final RouterOptions routerOptions;
   final KeyGenOptions keyGenOptions;
   final WalkerOptions walkerOptions;
+  final EventsOptions eventsOptions;
   final SchedulerOptions schedulerOptions;
 
   const AppOptions({
@@ -16,6 +17,7 @@ class AppOptions {
     required this.debugOptions,
     required this.routerOptions,
   })  : walkerOptions = WalkerOptions.defaultMode,
+        eventsOptions = EventsOptions.defaultMode,
         keyGenOptions = KeyGenOptions.defaultMode,
         schedulerOptions = SchedulerOptions.defaultMode;
 }
@@ -32,6 +34,12 @@ class WalkerOptions {
   const WalkerOptions();
 
   static const defaultMode = WalkerOptions();
+}
+
+class EventsOptions {
+  const EventsOptions();
+
+  static const defaultMode = EventsOptions();
 }
 
 class SchedulerOptions {
