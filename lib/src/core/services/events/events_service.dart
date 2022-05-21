@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:html';
 
+import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
@@ -73,18 +74,43 @@ class EventsService extends Service {
     }
 
     var eventType = fnMapEventTypeToDomEventType(event.type);
-
     var listener = widgetObject.widget.widgetEventListeners[eventType];
+
+    // assume event is not absorbed yet
+    var isEventAbsorbed = false;
 
     if (null != listener) {
       listener(event);
+
+      switch (eventType) {
+
+        // these events should not propagate to parents
+        // if target is listening for them
+        case DomEventType.change:
+        case DomEventType.input:
+        case DomEventType.submit:
+        case DomEventType.keyUp:
+        case DomEventType.keyDown:
+        case DomEventType.keyPress:
+          isEventAbsorbed = true;
+
+          break;
+
+        // these events should propagate to parents
+        // even if target is listening for them
+        case DomEventType.click:
+        case null:
+          isEventAbsorbed = false;
+
+          break;
+      }
     }
 
     var isBubbling = null != event.bubbles && event.bubbles!;
 
     // if bubbling and propagation isn't stopped
 
-    if (isBubbling && !event.isPropagationStopped) {
+    if (isBubbling && !isEventAbsorbed && !event.isPropagationStopped) {
       var parentNode = widgetObject.renderNode.parent;
 
       if (!widgetObject.context.isRoot && null != parentNode) {
