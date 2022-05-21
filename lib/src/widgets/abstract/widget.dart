@@ -36,7 +36,7 @@ abstract class Widget {
 
   /// Events that this widget is listening to.
   ///
-  Map<DomEventType, EventCallback?> get eventListeners => const {};
+  Map<DomEventType, EventCallback?> get widgetEventListeners => const {};
 
   /*
   |--------------------------------------------------------------------------

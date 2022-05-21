@@ -68,7 +68,7 @@ class EventsService extends Service {
 
     var eventType = fnMapEventTypeToDomEventType(event.type);
 
-    var listener = widgetObject.widget.eventListeners[eventType];
+    var listener = widgetObject.widget.widgetEventListeners[eventType];
 
     if (null != listener) {
       listener(event);

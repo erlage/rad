@@ -594,9 +594,9 @@ class Renderer with ServicesResolver {
       } else {
         // check if widget instance needs to be updated
 
-        var hasEventListeners = newWidget.eventListeners.isNotEmpty;
+        var hasEventListeners = newWidget.widgetEventListeners.isNotEmpty;
 
-        if (hasEventListeners || oldWidget.eventListeners.isNotEmpty) {
+        if (hasEventListeners || oldWidget.widgetEventListeners.isNotEmpty) {
           widgetObject
             ..frameworkRebindWidget(newWidget)
             ..renderObject.afterWidgetRebind(

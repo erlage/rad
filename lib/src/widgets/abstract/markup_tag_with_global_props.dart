@@ -127,7 +127,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
   get widgetChildren => children ?? (null != child ? [child!] : []);
 
   @override
-  get eventListeners {
+  get widgetEventListeners {
     if (null == onClickEventListener &&
         null == onInputEventListener &&
         null == onChangeEventListener &&
