@@ -41,10 +41,24 @@ class EventsService extends Service {
     var target = event.target;
 
     if (null != target && target is Element) {
-      var widgetObject = services.walker.getWidgetObjectUsingElement(target);
-
-      _dispatch(event, widgetObject);
+      _dispatch(event, _getWidgetObjectForDispatch(target));
     }
+  }
+
+  WidgetObject? _getWidgetObjectForDispatch(Element element) {
+    var widgetObject = services.walker.getWidgetObjectUsingElement(element);
+
+    if (null != widgetObject) {
+      return widgetObject;
+    }
+
+    var parent = element.parent;
+
+    if (null != parent) {
+      return _getWidgetObjectForDispatch(parent);
+    }
+
+    return null;
   }
 
   void _dispatch(Event event, WidgetObject? widgetObject) {
