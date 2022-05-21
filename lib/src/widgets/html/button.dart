@@ -131,7 +131,7 @@ class _ButtonConfiguration extends WidgetConfiguration {
 */
 
 class _ButtonRenderObject extends MarkUpGlobalRenderObject {
-  _ButtonRenderObject(BuildContext context) : super(context);
+  const _ButtonRenderObject(BuildContext context) : super(context);
 
   @override
   render({

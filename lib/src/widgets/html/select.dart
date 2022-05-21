@@ -125,7 +125,7 @@ class _SelectConfiguration extends WidgetConfiguration {
 */
 
 class _SelectRenderObject extends MarkUpGlobalRenderObject {
-  _SelectRenderObject(BuildContext context) : super(context);
+  const _SelectRenderObject(BuildContext context) : super(context);
 
   @override
   render({

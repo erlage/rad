@@ -150,7 +150,7 @@ class _FormConfiguration extends WidgetConfiguration {
 */
 
 class _FormRenderObject extends MarkUpGlobalRenderObject {
-  _FormRenderObject(BuildContext context) : super(context);
+  const _FormRenderObject(BuildContext context) : super(context);
 
   @override
   render({

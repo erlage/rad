@@ -100,7 +100,7 @@ class _ListItemConfiguration extends WidgetConfiguration {
 */
 
 class _ListItemRenderObject extends MarkUpGlobalRenderObject {
-  _ListItemRenderObject(BuildContext context) : super(context);
+  const _ListItemRenderObject(BuildContext context) : super(context);
 
   @override
   render({

@@ -132,7 +132,7 @@ class _OptionConfiguration extends WidgetConfiguration {
 */
 
 class _OptionRenderObject extends MarkUpGlobalRenderObject {
-  _OptionRenderObject(BuildContext context) : super(context);
+  const _OptionRenderObject(BuildContext context) : super(context);
 
   @override
   render({

@@ -124,7 +124,7 @@ class _TableCellBaseConfiguration extends WidgetConfiguration {
 */
 
 class _TableCellBaseRenderObject extends MarkUpGlobalRenderObject {
-  _TableCellBaseRenderObject(BuildContext context) : super(context);
+  const _TableCellBaseRenderObject(BuildContext context) : super(context);
 
   @override
   render({

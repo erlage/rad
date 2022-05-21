@@ -131,7 +131,7 @@ class _AnchorConfiguration extends WidgetConfiguration {
 */
 
 class _AnchorRenderObject extends MarkUpGlobalRenderObject {
-  _AnchorRenderObject(BuildContext context) : super(context);
+  const _AnchorRenderObject(BuildContext context) : super(context);
 
   @override
   render({

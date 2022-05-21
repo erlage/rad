@@ -136,7 +136,7 @@ class _InputTextConfiguration extends WidgetConfiguration {
 */
 
 class _InputTextRenderObject extends InputTagRenderObject {
-  _InputTextRenderObject(BuildContext context) : super(context);
+  const _InputTextRenderObject(BuildContext context) : super(context);
 
   @override
   render({

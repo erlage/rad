@@ -101,7 +101,7 @@ class _BlockquoteConfiguration extends WidgetConfiguration {
 */
 
 class _BlockquoteRenderObject extends MarkUpGlobalRenderObject {
-  _BlockquoteRenderObject(BuildContext context) : super(context);
+  const _BlockquoteRenderObject(BuildContext context) : super(context);
 
   @override
   render({

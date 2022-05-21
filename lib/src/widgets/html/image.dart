@@ -127,7 +127,7 @@ class _ImageConfiguration extends WidgetConfiguration {
 */
 
 class _ImageRenderObject extends MarkUpGlobalRenderObject {
-  _ImageRenderObject(BuildContext context) : super(context);
+  const _ImageRenderObject(BuildContext context) : super(context);
 
   @override
   render({

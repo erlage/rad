@@ -157,7 +157,7 @@ class _TextAreaConfiguration extends WidgetConfiguration {
 */
 
 class _TextAreaRenderObject extends MarkUpGlobalRenderObject {
-  _TextAreaRenderObject(BuildContext context) : super(context);
+  const _TextAreaRenderObject(BuildContext context) : super(context);
 
   @override
   render({

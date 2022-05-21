@@ -111,7 +111,7 @@ class _ProgressConfiguration extends WidgetConfiguration {
 */
 
 class _ProgressRenderObject extends MarkUpGlobalRenderObject {
-  _ProgressRenderObject(BuildContext context) : super(context);
+  const _ProgressRenderObject(BuildContext context) : super(context);
 
   @override
   render({

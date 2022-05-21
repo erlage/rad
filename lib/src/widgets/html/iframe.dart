@@ -157,7 +157,7 @@ class _IFrameConfiguration extends WidgetConfiguration {
 */
 
 class _IFrameRenderObject extends MarkUpGlobalRenderObject {
-  _IFrameRenderObject(BuildContext context) : super(context);
+  const _IFrameRenderObject(BuildContext context) : super(context);
 
   @override
   render({

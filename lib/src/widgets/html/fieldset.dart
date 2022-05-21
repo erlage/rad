@@ -102,7 +102,7 @@ class _FieldSetConfiguration extends WidgetConfiguration {
 */
 
 class _FieldSetRenderObject extends MarkUpGlobalRenderObject {
-  _FieldSetRenderObject(BuildContext context) : super(context);
+  const _FieldSetRenderObject(BuildContext context) : super(context);
 
   @override
   render({

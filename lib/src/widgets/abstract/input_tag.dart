@@ -168,7 +168,7 @@ class InputConfiguration extends WidgetConfiguration {
 */
 
 class InputTagRenderObject extends MarkUpGlobalRenderObject {
-  InputTagRenderObject(BuildContext context) : super(context);
+  const InputTagRenderObject(BuildContext context) : super(context);
 
   @override
   render({

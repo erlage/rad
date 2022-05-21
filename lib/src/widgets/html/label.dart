@@ -101,7 +101,7 @@ class _LabelConfiguration extends WidgetConfiguration {
 */
 
 class _LabelRenderObject extends MarkUpGlobalRenderObject {
-  _LabelRenderObject(BuildContext context) : super(context);
+  const _LabelRenderObject(BuildContext context) : super(context);
 
   @override
   render({
