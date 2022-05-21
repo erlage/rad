@@ -127,12 +127,21 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
   get widgetChildren => children ?? (null != child ? [child!] : []);
 
   @override
-  get eventListeners => {
-        DomEventType.click: onClickEventListener,
-        DomEventType.input: onInputEventListener,
-        DomEventType.change: onChangeEventListener,
-        DomEventType.submit: onSubmitEventListener,
-      };
+  get eventListeners {
+    if (null == onClickEventListener &&
+        null == onInputEventListener &&
+        null == onChangeEventListener &&
+        null == onSubmitEventListener) {
+      return const {};
+    }
+
+    return {
+      DomEventType.click: onClickEventListener,
+      DomEventType.input: onInputEventListener,
+      DomEventType.change: onChangeEventListener,
+      DomEventType.submit: onSubmitEventListener,
+    };
+  }
 
   @override
   createConfiguration() {
