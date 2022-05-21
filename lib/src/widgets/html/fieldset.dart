@@ -157,7 +157,7 @@ Map<String, String?> _prepareAttributes({
 }) {
   var attributes = <String, String?>{};
 
-  if (null != props.disabled) {
+  if (null != props.disabled && props.disabled!) {
     attributes[Attributes.disabled] = '${props.disabled}';
   } else {
     if (null != oldProps?.disabled) {
