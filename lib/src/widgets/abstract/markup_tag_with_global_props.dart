@@ -1,17 +1,16 @@
 import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/element_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/abstract/widget_with_event_listeners.dart';
 import 'package:rad/src/widgets/utils/common_props.dart';
-import 'package:rad/src/widgets/utils/event_handler.dart';
 
 /// Base class for HTML widgets that support global attributes.
 ///
-abstract class MarkUpTagWithGlobalProps extends WidgetWithEventListeners {
+abstract class MarkUpTagWithGlobalProps extends Widget {
   /// ID of element.
   ///
   final String? id;
@@ -81,6 +80,22 @@ abstract class MarkUpTagWithGlobalProps extends WidgetWithEventListeners {
   ///
   final List<Widget>? children;
 
+  /// On input event listener.
+  ///
+  final EventCallback? onInputEventListener;
+
+  /// On change event listener.
+  ///
+  final EventCallback? onChangeEventListener;
+
+  /// On submit event listener.
+  ///
+  final EventCallback? onSubmitEventListener;
+
+  /// On click event listener.
+  ///
+  final EventCallback? onClickEventListener;
+
   const MarkUpTagWithGlobalProps({
     Key? key,
     this.id,
@@ -96,26 +111,28 @@ abstract class MarkUpTagWithGlobalProps extends WidgetWithEventListeners {
     this.innerText,
     this.child,
     this.children,
-    EventCallback? onInputEventListener,
-    EventCallback? onChangeEventListener,
-    EventCallback? onSubmitEventListener,
-    EventCallback? onClickEventListener,
+    this.onInputEventListener,
+    this.onChangeEventListener,
+    this.onSubmitEventListener,
+    this.onClickEventListener,
   })  : assert(
           (null == children && null == child) ||
               (null == child && null == innerText) ||
               (null == children && null == innerText),
           'At least two thing from child, children & innerText has to be null.',
         ),
-        super(
-          key: key,
-          onInputEventListener: onInputEventListener,
-          onChangeEventListener: onChangeEventListener,
-          onSubmitEventListener: onSubmitEventListener,
-          onClickEventListener: onClickEventListener,
-        );
+        super(key: key);
 
   @override
   get widgetChildren => children ?? (null != child ? [child!] : []);
+
+  @override
+  get eventListeners => {
+        DomEventType.click: onClickEventListener,
+        DomEventType.input: onInputEventListener,
+        DomEventType.change: onChangeEventListener,
+        DomEventType.submit: onSubmitEventListener,
+      };
 
   @override
   createConfiguration() {
@@ -131,12 +148,6 @@ abstract class MarkUpTagWithGlobalProps extends WidgetWithEventListeners {
       contentEditable: contenteditable,
       onClick: onClick,
       innerText: innerText,
-      listenersConfiguration: EventListenersConfiguration(
-        onInputEventListener: onInputEventListener,
-        onChangeEventListener: onChangeEventListener,
-        onSubmitEventListener: onSubmitEventListener,
-        onClickEventListener: onClickEventListener,
-      ),
     );
   }
 
@@ -154,8 +165,7 @@ abstract class MarkUpTagWithGlobalProps extends WidgetWithEventListeners {
         draggable != oldConfiguration.draggable ||
         contenteditable != oldConfiguration.contentEditable ||
         onClick != oldConfiguration.onClick ||
-        innerText != oldConfiguration.innerText ||
-        super.isConfigurationChanged(oldConfiguration.listenersConfiguration);
+        innerText != oldConfiguration.innerText;
   }
 
   @override
@@ -169,8 +179,6 @@ abstract class MarkUpTagWithGlobalProps extends WidgetWithEventListeners {
 */
 
 class MarkUpGlobalConfiguration extends WidgetConfiguration {
-  final EventListenersConfiguration listenersConfiguration;
-
   final String? id;
   final String? title;
   final String? style;
@@ -196,7 +204,6 @@ class MarkUpGlobalConfiguration extends WidgetConfiguration {
     this.contentEditable,
     this.onClick,
     this.innerText,
-    required this.listenersConfiguration,
   });
 }
 
@@ -207,11 +214,7 @@ class MarkUpGlobalConfiguration extends WidgetConfiguration {
 */
 
 class MarkUpGlobalRenderObject extends RenderObject {
-  final EventHandler eventHandler;
-
-  MarkUpGlobalRenderObject(BuildContext context)
-      : eventHandler = EventHandler(context),
-        super(context);
+  const MarkUpGlobalRenderObject(BuildContext context) : super(context);
 
   /*
   |--------------------------------------------------------------------------
@@ -240,16 +243,11 @@ class MarkUpGlobalRenderObject extends RenderObject {
       oldDataAttributes: null,
     );
 
-    var eventListenersToAdd = eventHandler.prepareEventListenersToAdd(
-      newConfiguration: configuration.listenersConfiguration,
-    );
-
     return ElementDescription(
       classes: classes,
       dataset: dataset,
       attributes: attributes,
       textContents: configuration.innerText,
-      eventListenersToAdd: eventListenersToAdd,
     );
   }
 
@@ -277,23 +275,11 @@ class MarkUpGlobalRenderObject extends RenderObject {
       oldProps: oldConfiguration,
     );
 
-    var eventListenersToAdd = eventHandler.prepareEventListenersToAdd(
-      newConfiguration: newConfiguration.listenersConfiguration,
-      oldConfiguration: oldConfiguration.listenersConfiguration,
-    );
-
-    var eventListenersToRemove = eventHandler.prepareEventListenersToRemove(
-      newConfiguration: newConfiguration.listenersConfiguration,
-      oldConfiguration: oldConfiguration.listenersConfiguration,
-    );
-
     return ElementDescription(
       classes: classes,
       dataset: dataset,
       attributes: attributes,
       textContents: newConfiguration.innerText,
-      eventListenersToAdd: eventListenersToAdd,
-      eventListenersToRemove: eventListenersToRemove,
     );
   }
 }

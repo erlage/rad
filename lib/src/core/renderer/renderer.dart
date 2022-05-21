@@ -1101,14 +1101,6 @@ class Renderer with ServicesResolver {
       if (null != description.rawContents) {
         element.setInnerHtml(description.rawContents, validator: const _None());
       }
-
-      description.eventListenersToRemove.forEach((key, value) {
-        element.removeEventListener(fnMapDomEventType(key), value);
-      });
-
-      description.eventListenersToAdd.forEach((key, value) {
-        element.addEventListener(fnMapDomEventType(key), value);
-      });
     }
 
     if (null != jobQueue) {
