@@ -32,11 +32,11 @@ abstract class Widget {
 
   /// Child widgets if any.
   ///
-  List<Widget> get widgetChildren => [];
+  List<Widget> get widgetChildren => const [];
 
   /// Events that this widget is listening to.
   ///
-  Map<DomEventType, EventCallback?> get eventListeners => {};
+  Map<DomEventType, EventCallback?> get eventListeners => const {};
 
   /*
   |--------------------------------------------------------------------------
