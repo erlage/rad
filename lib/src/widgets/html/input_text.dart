@@ -46,6 +46,9 @@ class InputText extends InputTag {
     List<Widget>? children,
     EventCallback? onChange,
     EventCallback? onClick,
+    EventCallback? onKeyUp,
+    EventCallback? onKeyDown,
+    EventCallback? onKeyPress,
   }) : super(
           key: key,
           id: id,
@@ -68,6 +71,9 @@ class InputText extends InputTag {
           children: children,
           onClick: onClick,
           onChange: onChange,
+          onKeyUp: onKeyUp,
+          onKeyDown: onKeyDown,
+          onKeyPress: onKeyPress,
         );
 
   @nonVirtual

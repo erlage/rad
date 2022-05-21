@@ -69,6 +69,9 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
     EventCallback? onInput,
     EventCallback? onChange,
     EventCallback? onClick,
+    EventCallback? onKeyUp,
+    EventCallback? onKeyDown,
+    EventCallback? onKeyPress,
   }) : super(
           key: key,
           id: id,
@@ -87,6 +90,9 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
           onInput: onInput,
           onChange: onChange,
           onClick: onClick,
+          onKeyUp: onKeyUp,
+          onKeyDown: onKeyDown,
+          onKeyPress: onKeyPress,
         );
 
   @nonVirtual

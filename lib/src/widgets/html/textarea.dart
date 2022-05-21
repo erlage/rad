@@ -55,6 +55,9 @@ class TextArea extends MarkUpTagWithGlobalProps {
     EventCallback? onChange,
     EventCallback? onInput,
     EventCallback? onClick,
+    EventCallback? onKeyUp,
+    EventCallback? onKeyDown,
+    EventCallback? onKeyPress,
   }) : super(
           key: key,
           id: id,
@@ -73,6 +76,9 @@ class TextArea extends MarkUpTagWithGlobalProps {
           onChange: onChange,
           onInput: onInput,
           onClick: onClick,
+          onKeyUp: onKeyUp,
+          onKeyDown: onKeyDown,
+          onKeyPress: onKeyPress,
         );
 
   @nonVirtual
