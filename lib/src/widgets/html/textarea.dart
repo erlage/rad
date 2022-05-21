@@ -53,6 +53,7 @@ class TextArea extends MarkUpTagWithGlobalProps {
     Widget? child,
     List<Widget>? children,
     EventCallback? onChange,
+    EventCallback? onInput,
     EventCallback? onClick,
   }) : super(
           key: key,
@@ -70,6 +71,7 @@ class TextArea extends MarkUpTagWithGlobalProps {
           child: child,
           children: children,
           onChange: onChange,
+          onInput: onInput,
           onClick: onClick,
         );
 
