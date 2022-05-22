@@ -21,26 +21,26 @@ skipped_tests = {
     },
 }
 
-tag_specific_tests = {
-    'a': [
+widget_specific_tests = {
+    'Anchor': [
         'html_attr_href',
         'html_attr_rel',
         'html_attr_target',
         'html_attr_download',
     ],
-    'blockquote': [
+    'Blockquote': [
         'html_attr_cite',
     ],
-    'button': [
+    'Button': [
         'html_attr_name',
         'html_attr_value',
         'html_attr_disabled',
         'html_attr_button_type',
     ],
-    'fieldset': [
+    'FieldSet': [
         'html_attr_disabled',
     ],
-    'form': [
+    'Form': [
         'html_attr_name',
         'html_attr_action',
         'html_attr_accept',
@@ -48,7 +48,7 @@ tag_specific_tests = {
         'html_attr_form_method',
         'html_attr_form_enctype',
     ],
-    'iframe': [
+    'IFrame': [
         'html_attr_name',
         'html_attr_allow',
         'html_attr_src',
@@ -57,50 +57,50 @@ tag_specific_tests = {
         'html_attr_allowfullscreen',
         'html_attr_allowpaymentrequest',
     ],
-    'img': [
+    'Image': [
         'html_attr_src',
         'html_attr_alt',
         'html_attr_width',
         'html_attr_height',
     ],
-    'label': [
+    'Label': [
         'html_attr_for',
     ],
-    'li': [
+    'ListItem': [
         'html_attr_value_int',
     ],
-    'option': [
+    'Option': [
         'html_attr_label',
         'html_attr_value',
         'html_attr_selected',
         'html_attr_disabled',
     ],  
-    'progress': [
+    'Progress': [
         'html_attr_value_num',
         'html_attr_max',
     ],    
-    'select': [
+    'Select': [
         'html_attr_name',
         'html_attr_multiple',
         'html_attr_disabled',
     ], 
-    'colgroup': [
+    'TableColumnGroup': [
         'html_attr_span',
     ],
-    'col': [
+    'TableColumn': [
         'html_attr_span',
     ],
-    'td': [
+    'TableDataCell': [
         'html_attr_rowspan',
         'html_attr_colspan',
         'html_attr_headers',
     ],
-    'th': [
+    'TableHeaderCell': [
         'html_attr_rowspan',
         'html_attr_colspan',
         'html_attr_headers',
     ],
-    'textarea': [
+    'TextArea': [
         'html_attr_name',
         'html_attr_placeholder',
         'html_attr_rows',
@@ -267,8 +267,8 @@ def generate():
 
         # generate widget specific tests
 
-        if widget_tag in tag_specific_tests:
-            for test in tag_specific_tests[widget_tag]:
+        if widget_class_name in widget_specific_tests:
+            for test in widget_specific_tests[widget_class_name]:
                 generated += '\n\n'
 
                 test_tmpl = os.path.abspath(os.path.join(
