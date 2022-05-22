@@ -1,0 +1,92 @@
+test('should set form attribute "method"', () {
+    app!.framework.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), method: FormMethod.get),
+            __WidgetClass__(key: GlobalKey('el-2'), method: FormMethod.post),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(
+        element1.getAttribute('method'),
+        equals(fnMapFormMethod(FormMethod.get)),
+    );
+    expect(
+        element2.getAttribute('method'),
+        equals(fnMapFormMethod(FormMethod.post)),
+    );
+});
+
+test('should update form attribute "method"', () {
+    app!.framework.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), method: FormMethod.get),
+            __WidgetClass__(key: GlobalKey('el-2'), method: FormMethod.post),
+            __WidgetClass__(key: GlobalKey('el-3'), method: FormMethod.get),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    app!.framework.updateChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1')),
+            __WidgetClass__(key: GlobalKey('el-2'), method: null),
+            __WidgetClass__(key: GlobalKey('el-3'), method: FormMethod.post),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element3 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(
+        element1.getAttribute('method'),
+        equals(null),
+    );
+    expect(
+        element2.getAttribute('method'),
+        equals(null),
+    );
+    expect(
+        element3.getAttribute('method'),
+        equals(fnMapFormMethod(FormMethod.post)),
+    );
+});

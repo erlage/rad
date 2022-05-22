@@ -678,5 +678,809 @@ void html_form_test() {
       expect(element2!.context.key.value, endsWith('some-local-key'));
       expect(element3!.context.key.value, equals('some-global-key'));
     });
+
+    test('should set attribute "name"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), name: 'some-name'),
+          Form(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('name'), equals('some-name'));
+      expect(element2.getAttribute('name'), equals('another-name'));
+    });
+
+    test('should update attribute "name"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), name: 'some-name'),
+          Form(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), name: 'updated-name'),
+          Form(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('name'), equals('updated-name'));
+      expect(element2.getAttribute('name'), equals('another-name'));
+    });
+
+    test('should clear attribute "name"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1')),
+          Form(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1')),
+          Form(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('name'), equals(null));
+      expect(element2.getAttribute('name'), equals(null));
+    });
+
+    test('should clear attribute "name" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), name: 'some-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), name: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('name'), equals(null));
+    });
+
+    test('should not set attribute "name" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), name: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('name'), equals(null));
+    });
+
+    test('should set attribute "action"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), action: 'some-action'),
+          Form(key: GlobalKey('el-2'), action: 'another-action'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('action'), equals('some-action'));
+      expect(element2.getAttribute('action'), equals('another-action'));
+    });
+
+    test('should update attribute "action"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), action: 'some-action'),
+          Form(key: GlobalKey('el-2'), action: 'another-action'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), action: 'updated-action'),
+          Form(key: GlobalKey('el-2'), action: 'another-action'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('action'), equals('updated-action'));
+      expect(element2.getAttribute('action'), equals('another-action'));
+    });
+
+    test('should clear attribute "action"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1')),
+          Form(key: GlobalKey('el-2'), action: 'another-action'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1')),
+          Form(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('action'), equals(null));
+      expect(element2.getAttribute('action'), equals(null));
+    });
+
+    test('should clear attribute "action" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), action: 'some-action'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), action: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('action'), equals(null));
+    });
+
+    test('should not set attribute "action" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), action: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('action'), equals(null));
+    });
+
+    test('should set attribute "accept"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), accept: 'some-accept'),
+          Form(key: GlobalKey('el-2'), accept: 'another-accept'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('accept'), equals('some-accept'));
+      expect(element2.getAttribute('accept'), equals('another-accept'));
+    });
+
+    test('should update attribute "accept"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), accept: 'some-accept'),
+          Form(key: GlobalKey('el-2'), accept: 'another-accept'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), accept: 'updated-accept'),
+          Form(key: GlobalKey('el-2'), accept: 'another-accept'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('accept'), equals('updated-accept'));
+      expect(element2.getAttribute('accept'), equals('another-accept'));
+    });
+
+    test('should clear attribute "accept"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1')),
+          Form(key: GlobalKey('el-2'), accept: 'another-accept'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1')),
+          Form(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('accept'), equals(null));
+      expect(element2.getAttribute('accept'), equals(null));
+    });
+
+    test('should clear attribute "accept" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), accept: 'some-accept'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), accept: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('accept'), equals(null));
+    });
+
+    test('should not set attribute "accept" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), accept: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('accept'), equals(null));
+    });
+
+    test('should set attribute "target"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), target: 'some-target'),
+          Form(key: GlobalKey('el-2'), target: 'another-target'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('target'), equals('some-target'));
+      expect(element2.getAttribute('target'), equals('another-target'));
+    });
+
+    test('should update attribute "target"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), target: 'some-target'),
+          Form(key: GlobalKey('el-2'), target: 'another-target'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), target: 'updated-target'),
+          Form(key: GlobalKey('el-2'), target: 'another-target'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('target'), equals('updated-target'));
+      expect(element2.getAttribute('target'), equals('another-target'));
+    });
+
+    test('should clear attribute "target"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1')),
+          Form(key: GlobalKey('el-2'), target: 'another-target'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1')),
+          Form(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('target'), equals(null));
+      expect(element2.getAttribute('target'), equals(null));
+    });
+
+    test('should clear attribute "target" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), target: 'some-target'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), target: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('target'), equals(null));
+    });
+
+    test('should not set attribute "target" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), target: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('target'), equals(null));
+    });
+
+    test('should set form attribute "method"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), method: FormMethod.get),
+          Form(key: GlobalKey('el-2'), method: FormMethod.post),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(
+        element1.getAttribute('method'),
+        equals(fnMapFormMethod(FormMethod.get)),
+      );
+      expect(
+        element2.getAttribute('method'),
+        equals(fnMapFormMethod(FormMethod.post)),
+      );
+    });
+
+    test('should update form attribute "method"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), method: FormMethod.get),
+          Form(key: GlobalKey('el-2'), method: FormMethod.post),
+          Form(key: GlobalKey('el-3'), method: FormMethod.get),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1')),
+          Form(key: GlobalKey('el-2'), method: null),
+          Form(key: GlobalKey('el-3'), method: FormMethod.post),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element3 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(
+        element1.getAttribute('method'),
+        equals(null),
+      );
+      expect(
+        element2.getAttribute('method'),
+        equals(null),
+      );
+      expect(
+        element3.getAttribute('method'),
+        equals(fnMapFormMethod(FormMethod.post)),
+      );
+    });
+
+    test('should set form attribute "enctype"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), enctype: FormEncType.textPlain),
+          Form(key: GlobalKey('el-2'), enctype: FormEncType.multipartFormData),
+          Form(
+            key: GlobalKey('el-3'),
+            enctype: FormEncType.applicationXwwwFormUrlEncoded,
+          ),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element3 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(
+        element1.getAttribute('enctype'),
+        equals(fnMapFormEncType(FormEncType.textPlain)),
+      );
+      expect(
+        element2.getAttribute('enctype'),
+        equals(fnMapFormEncType(FormEncType.multipartFormData)),
+      );
+      expect(
+        element3.getAttribute('enctype'),
+        equals(fnMapFormEncType(FormEncType.applicationXwwwFormUrlEncoded)),
+      );
+    });
+
+    test('should update form attribute "enctype"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1'), enctype: FormEncType.textPlain),
+          Form(key: GlobalKey('el-2'), enctype: FormEncType.multipartFormData),
+          Form(
+            key: GlobalKey('el-3'),
+            enctype: FormEncType.applicationXwwwFormUrlEncoded,
+          ),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Form(key: GlobalKey('el-1')),
+          Form(key: GlobalKey('el-2'), enctype: null),
+          Form(key: GlobalKey('el-3'), enctype: FormEncType.multipartFormData),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element3 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('enctype'), equals(null));
+      expect(element2.getAttribute('enctype'), equals(null));
+
+      expect(
+        element3.getAttribute('enctype'),
+        equals(fnMapFormEncType(FormEncType.multipartFormData)),
+      );
+    });
   });
 }

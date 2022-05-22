@@ -40,6 +40,14 @@ tag_specific_tests = {
     'fieldset': [
         'html_attr_disabled',
     ],
+    'form': [
+        'html_attr_name',
+        'html_attr_action',
+        'html_attr_accept',
+        'html_attr_target',
+        'html_attr_form_method',
+        'html_attr_form_enctype',
+    ],
 }
 
 global_tests = [
