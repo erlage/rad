@@ -54,11 +54,11 @@ abstract class Widget {
 
   /// Create widget's configuration.
   ///
-  WidgetConfiguration createConfiguration();
+  WidgetConfiguration createConfiguration() => const WidgetConfiguration();
 
   /// Whether configuration has changed.
   ///
-  bool isConfigurationChanged(WidgetConfiguration oldConfiguration);
+  bool isConfigurationChanged(WidgetConfiguration oldConfiguration) => false;
 
   /*
   |--------------------------------------------------------------------------
@@ -68,7 +68,9 @@ abstract class Widget {
 
   /// Called when framework needs a [RenderObject] for current widget.
   ///
-  RenderObject createRenderObject(BuildContext context);
+  RenderObject createRenderObject(BuildContext context) {
+    return RenderObject(context);
+  }
 }
 
 /// Widget's configuration.

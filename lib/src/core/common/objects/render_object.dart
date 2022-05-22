@@ -8,7 +8,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// Widget's Render object.
 ///
 @immutable
-abstract class RenderObject {
+class RenderObject {
   final BuildContext context;
 
   const RenderObject(this.context);
