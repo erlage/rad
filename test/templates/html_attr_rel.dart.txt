@@ -1,0 +1,104 @@
+test('should set rel', () {
+    app!.framework.buildChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1'), rel: 'some-rel'),
+        __WidgetClass__(key: GlobalKey('el-2'), rel: 'another-rel'),
+    ],
+    parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('rel'), equals('some-rel'));
+    expect(element2.getAttribute('rel'), equals('another-rel'));
+});
+
+test('should update rel', () {
+    app!.framework.buildChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1'), rel: 'some-rel'),
+        __WidgetClass__(key: GlobalKey('el-2'), rel: 'another-rel'),
+    ],
+    parentContext: app!.appContext,
+    );
+
+    app!.framework.updateChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1'), rel: 'updated-rel'),
+        __WidgetClass__(key: GlobalKey('el-2'), rel: 'another-rel'),
+    ],
+    updateType: UpdateType.setState,
+    parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('rel'), equals('updated-rel'));
+    expect(element2.getAttribute('rel'), equals('another-rel'));
+});
+
+test('should clear rel', () {
+    app!.framework.buildChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1')),
+        __WidgetClass__(key: GlobalKey('el-2'), rel: 'another-rel'),
+    ],
+    parentContext: app!.appContext,
+    );
+
+    app!.framework.updateChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1')),
+        __WidgetClass__(key: GlobalKey('el-2')),
+    ],
+    updateType: UpdateType.setState,
+    parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('rel'), equals(null));
+    expect(element2.getAttribute('rel'), equals(null));
+});

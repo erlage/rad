@@ -21,7 +21,16 @@ skipped_tests = {
     },
 }
 
-tests = [
+tag_specific_tests = {
+    'a': [
+        'html_attr_href',
+        'html_attr_rel',
+        'html_attr_target',
+        'html_attr_download',
+    ],
+}
+
+global_tests = [
     'html_attr_id',
     'html_attr_child',
     'html_attr_children',
@@ -39,6 +48,7 @@ tests = [
     'html_attr_dataset',
     'widget_key',
 ]
+
 
 widgets_map = {
     'Abbreviation': 'abbr',
@@ -143,16 +153,18 @@ def generate():
                     tearDown(() => app!.stop());
             '''
 
-        for test in tests:
+   
+
+        for test in global_tests:
             generated += '\n\n'
+
+            replacements = [
+                    ('__WidgetClass__', widget_class_name),
+                    ('__WidgetTag__', widget_tag),
+                ]
 
             test_tmpl = os.path.abspath(os.path.join(
                 templates_folder, test + '.dart.txt'))
-
-            replacements = [
-                ('__WidgetClass__', widget_class_name),
-                ('__WidgetTag__', widget_tag),
-            ]
 
             skip_context = ''
             if test in skipped_tests and widget_tag in skipped_tests[test]:
@@ -168,6 +180,19 @@ def generate():
 
             generated += utils.parse_test_from_template(
                 test_tmpl, replacements)
+
+
+        # generate widget specific tests
+
+        if widget_tag in tag_specific_tests:
+            for test in tag_specific_tests[widget_tag]:
+                generated += '\n\n'
+
+                test_tmpl = os.path.abspath(os.path.join(
+                    templates_folder, test + '.dart.txt'))
+
+                generated += utils.parse_test_from_template(
+                    test_tmpl, replacements)
 
         generated += '}); \n\n }'
 

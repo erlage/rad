@@ -678,5 +678,425 @@ void html_anchor_test() {
       expect(element2!.context.key.value, endsWith('some-local-key'));
       expect(element3!.context.key.value, equals('some-global-key'));
     });
+
+    test('should set href', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), href: 'some-href'),
+          Anchor(key: GlobalKey('el-2'), href: 'another-href'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('href'), equals('some-href'));
+      expect(element2.getAttribute('href'), equals('another-href'));
+    });
+
+    test('should update href', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), href: 'some-href'),
+          Anchor(key: GlobalKey('el-2'), href: 'another-href'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), href: 'updated-href'),
+          Anchor(key: GlobalKey('el-2'), href: 'another-href'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('href'), equals('updated-href'));
+      expect(element2.getAttribute('href'), equals('another-href'));
+    });
+
+    test('should clear href', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1')),
+          Anchor(key: GlobalKey('el-2'), href: 'another-href'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1')),
+          Anchor(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('href'), equals(null));
+      expect(element2.getAttribute('href'), equals(null));
+    });
+
+    test('should set rel', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), rel: 'some-rel'),
+          Anchor(key: GlobalKey('el-2'), rel: 'another-rel'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('rel'), equals('some-rel'));
+      expect(element2.getAttribute('rel'), equals('another-rel'));
+    });
+
+    test('should update rel', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), rel: 'some-rel'),
+          Anchor(key: GlobalKey('el-2'), rel: 'another-rel'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), rel: 'updated-rel'),
+          Anchor(key: GlobalKey('el-2'), rel: 'another-rel'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('rel'), equals('updated-rel'));
+      expect(element2.getAttribute('rel'), equals('another-rel'));
+    });
+
+    test('should clear rel', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1')),
+          Anchor(key: GlobalKey('el-2'), rel: 'another-rel'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1')),
+          Anchor(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('rel'), equals(null));
+      expect(element2.getAttribute('rel'), equals(null));
+    });
+
+    test('should set target', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), target: 'some-target'),
+          Anchor(key: GlobalKey('el-2'), target: 'another-target'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('target'), equals('some-target'));
+      expect(element2.getAttribute('target'), equals('another-target'));
+    });
+
+    test('should update target', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), target: 'some-target'),
+          Anchor(key: GlobalKey('el-2'), target: 'another-target'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), target: 'updated-target'),
+          Anchor(key: GlobalKey('el-2'), target: 'another-target'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('target'), equals('updated-target'));
+      expect(element2.getAttribute('target'), equals('another-target'));
+    });
+
+    test('should clear target', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1')),
+          Anchor(key: GlobalKey('el-2'), target: 'another-target'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1')),
+          Anchor(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('target'), equals(null));
+      expect(element2.getAttribute('target'), equals(null));
+    });
+
+    test('should set download', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), download: 'some-download'),
+          Anchor(key: GlobalKey('el-2'), download: 'another-download'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('download'), equals('some-download'));
+      expect(element2.getAttribute('download'), equals('another-download'));
+    });
+
+    test('should update download', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), download: 'some-download'),
+          Anchor(key: GlobalKey('el-2'), download: 'another-download'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), download: 'updated-download'),
+          Anchor(key: GlobalKey('el-2'), download: 'another-download'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('download'), equals('updated-download'));
+      expect(element2.getAttribute('download'), equals('another-download'));
+    });
+
+    test('should clear download', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1')),
+          Anchor(key: GlobalKey('el-2'), download: 'another-download'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1')),
+          Anchor(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('download'), equals(null));
+      expect(element2.getAttribute('download'), equals(null));
+    });
   });
 }

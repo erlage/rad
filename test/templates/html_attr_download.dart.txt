@@ -1,0 +1,104 @@
+test('should set download', () {
+    app!.framework.buildChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1'), download: 'some-download'),
+        __WidgetClass__(key: GlobalKey('el-2'), download: 'another-download'),
+    ],
+    parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('download'), equals('some-download'));
+    expect(element2.getAttribute('download'), equals('another-download'));
+});
+
+test('should update download', () {
+    app!.framework.buildChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1'), download: 'some-download'),
+        __WidgetClass__(key: GlobalKey('el-2'), download: 'another-download'),
+    ],
+    parentContext: app!.appContext,
+    );
+
+    app!.framework.updateChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1'), download: 'updated-download'),
+        __WidgetClass__(key: GlobalKey('el-2'), download: 'another-download'),
+    ],
+    updateType: UpdateType.setState,
+    parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('download'), equals('updated-download'));
+    expect(element2.getAttribute('download'), equals('another-download'));
+});
+
+test('should clear download', () {
+    app!.framework.buildChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1')),
+        __WidgetClass__(key: GlobalKey('el-2'), download: 'another-download'),
+    ],
+    parentContext: app!.appContext,
+    );
+
+    app!.framework.updateChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1')),
+        __WidgetClass__(key: GlobalKey('el-2')),
+    ],
+    updateType: UpdateType.setState,
+    parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('download'), equals(null));
+    expect(element2.getAttribute('download'), equals(null));
+});
