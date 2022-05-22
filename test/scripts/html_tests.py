@@ -95,6 +95,11 @@ tag_specific_tests = {
         'html_attr_colspan',
         'html_attr_headers',
     ],
+    'th': [
+        'html_attr_rowspan',
+        'html_attr_colspan',
+        'html_attr_headers',
+    ],
     'textarea': [
         'html_attr_name',
         'html_attr_placeholder',

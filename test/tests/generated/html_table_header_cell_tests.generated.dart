@@ -680,5 +680,458 @@ void html_table_header_cell_test() {
       expect(element2!.context.key.value, endsWith('some-local-key'));
       expect(element3!.context.key.value, equals('some-global-key'));
     });
+
+    test('should set attribute "rowSpan"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1'), rowSpan: 10),
+          TableHeaderCell(key: GlobalKey('el-2'), rowSpan: 0),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('rowspan'), equals('10'));
+      expect(element2.getAttribute('rowspan'), equals('0'));
+    });
+
+    test('should update attribute "rowSpan"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1'), rowSpan: 10),
+          TableHeaderCell(key: GlobalKey('el-2'), rowSpan: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1'), rowSpan: 20),
+          TableHeaderCell(key: GlobalKey('el-2'), rowSpan: 20),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('rowspan'), equals('20'));
+      expect(element2.getAttribute('rowspan'), equals('20'));
+    });
+
+    test('should clear attribute "rowSpan"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1')),
+          TableHeaderCell(key: GlobalKey('el-2'), rowSpan: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1')),
+          TableHeaderCell(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('rowspan'), equals(null));
+      expect(element2.getAttribute('rowspan'), equals(null));
+    });
+
+    test('should clear attribute "rowSpan" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1'), rowSpan: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1'), rowSpan: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('rowspan'), equals(null));
+    });
+
+    test('should not set attribute "rowSpan" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1'), rowSpan: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('rowspan'), equals(null));
+    });
+
+    test('should set attribute "colSpan"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1'), colSpan: 10),
+          TableHeaderCell(key: GlobalKey('el-2'), colSpan: 0),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('colspan'), equals('10'));
+      expect(element2.getAttribute('colspan'), equals('0'));
+    });
+
+    test('should update attribute "colSpan"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1'), colSpan: 10),
+          TableHeaderCell(key: GlobalKey('el-2'), colSpan: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1'), colSpan: 20),
+          TableHeaderCell(key: GlobalKey('el-2'), colSpan: 20),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('colspan'), equals('20'));
+      expect(element2.getAttribute('colspan'), equals('20'));
+    });
+
+    test('should clear attribute "colSpan"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1')),
+          TableHeaderCell(key: GlobalKey('el-2'), colSpan: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1')),
+          TableHeaderCell(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('colspan'), equals(null));
+      expect(element2.getAttribute('colspan'), equals(null));
+    });
+
+    test('should clear attribute "colSpan" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1'), colSpan: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1'), colSpan: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('colspan'), equals(null));
+    });
+
+    test('should not set attribute "colSpan" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1'), colSpan: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('colspan'), equals(null));
+    });
+
+    test('should set attribute "headers"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1'), headers: 'some-headers'),
+          TableHeaderCell(key: GlobalKey('el-2'), headers: 'another-headers'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('headers'), equals('some-headers'));
+      expect(element2.getAttribute('headers'), equals('another-headers'));
+    });
+
+    test('should update attribute "headers"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1'), headers: 'some-headers'),
+          TableHeaderCell(key: GlobalKey('el-2'), headers: 'another-headers'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1'), headers: 'updated-headers'),
+          TableHeaderCell(key: GlobalKey('el-2'), headers: 'another-headers'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('headers'), equals('updated-headers'));
+      expect(element2.getAttribute('headers'), equals('another-headers'));
+    });
+
+    test('should clear attribute "headers"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1')),
+          TableHeaderCell(key: GlobalKey('el-2'), headers: 'another-headers'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1')),
+          TableHeaderCell(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('headers'), equals(null));
+      expect(element2.getAttribute('headers'), equals(null));
+    });
+
+    test('should clear attribute "headers" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1'), headers: 'some-headers'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1'), headers: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('headers'), equals(null));
+    });
+
+    test('should not set attribute "headers" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1'), headers: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('headers'), equals(null));
+    });
   });
 }
