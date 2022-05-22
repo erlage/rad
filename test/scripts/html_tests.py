@@ -28,6 +28,9 @@ tag_specific_tests = {
         'html_attr_target',
         'html_attr_download',
     ],
+    'blockquote': [
+        'html_attr_cite',
+    ],
 }
 
 global_tests = [

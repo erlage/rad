@@ -678,5 +678,156 @@ void html_blockquote_test() {
       expect(element2!.context.key.value, endsWith('some-local-key'));
       expect(element3!.context.key.value, equals('some-global-key'));
     });
+
+    test('should set attribute "cite"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Blockquote(key: GlobalKey('el-1'), cite: 'some-cite'),
+          Blockquote(key: GlobalKey('el-2'), cite: 'another-cite'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('cite'), equals('some-cite'));
+      expect(element2.getAttribute('cite'), equals('another-cite'));
+    });
+
+    test('should update attribute "cite"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Blockquote(key: GlobalKey('el-1'), cite: 'some-cite'),
+          Blockquote(key: GlobalKey('el-2'), cite: 'another-cite'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Blockquote(key: GlobalKey('el-1'), cite: 'updated-cite'),
+          Blockquote(key: GlobalKey('el-2'), cite: 'another-cite'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('cite'), equals('updated-cite'));
+      expect(element2.getAttribute('cite'), equals('another-cite'));
+    });
+
+    test('should clear attribute "cite"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Blockquote(key: GlobalKey('el-1')),
+          Blockquote(key: GlobalKey('el-2'), cite: 'another-cite'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Blockquote(key: GlobalKey('el-1')),
+          Blockquote(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('cite'), equals(null));
+      expect(element2.getAttribute('cite'), equals(null));
+    });
+
+    test('should clear attribute "cite" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Blockquote(key: GlobalKey('el-1'), cite: 'some-cite'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Blockquote(key: GlobalKey('el-1'), cite: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('cite'), equals(null));
+    });
+
+    test('should not set attribute "cite" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Blockquote(key: GlobalKey('el-1'), cite: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('cite'), equals(null));
+    });
   });
 }
