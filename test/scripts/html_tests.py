@@ -37,6 +37,9 @@ tag_specific_tests = {
         'html_attr_disabled',
         'html_attr_button_type',
     ],
+    'fieldset': [
+        'html_attr_disabled',
+    ],
 }
 
 global_tests = [

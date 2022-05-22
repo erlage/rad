@@ -678,5 +678,104 @@ void html_field_set_test() {
       expect(element2!.context.key.value, endsWith('some-local-key'));
       expect(element3!.context.key.value, equals('some-global-key'));
     });
+
+    test('should set attribute "disabled" only if its true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          FieldSet(key: GlobalKey('el-1'), disabled: false),
+          FieldSet(key: GlobalKey('el-2'), disabled: null),
+          FieldSet(key: GlobalKey('el-3'), disabled: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element3 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('disabled'), equals(null));
+      expect(element2.getAttribute('disabled'), equals(null));
+      expect(element3.getAttribute('disabled'), equals('true'));
+    });
+
+    test('should clear attribute "disabled" if updated value is not true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          FieldSet(key: GlobalKey('el-1'), disabled: true),
+          FieldSet(key: GlobalKey('el-2'), disabled: true),
+          FieldSet(key: GlobalKey('el-3'), disabled: true),
+          FieldSet(key: GlobalKey('el-4'), disabled: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          FieldSet(key: GlobalKey('el-1'), disabled: true),
+          FieldSet(key: GlobalKey('el-2'), disabled: false),
+          FieldSet(key: GlobalKey('el-3'), disabled: null),
+          FieldSet(key: GlobalKey('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element3 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element4 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-4'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('disabled'), equals('true'));
+      expect(element2.getAttribute('disabled'), equals(null));
+      expect(element3.getAttribute('disabled'), equals(null));
+      expect(element4.getAttribute('disabled'), equals(null));
+    });
   });
 }
