@@ -1,8 +1,8 @@
-test('should set attribute "max"', () {
+test('should set attribute "value"', () {
     app!.framework.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), max: 10),
-            __WidgetClass__(key: GlobalKey('el-2'), max: 0),
+            __WidgetClass__(key: GlobalKey('el-1'), value: 10.2),
+            __WidgetClass__(key: GlobalKey('el-2'), value: 0),
         ],
         parentContext: app!.appContext,
     );
@@ -23,23 +23,23 @@ test('should set attribute "max"', () {
         )!
         .element;
 
-    expect(element1.getAttribute('max'), equals('10'));
-    expect(element2.getAttribute('max'), equals('0'));
+    expect(element1.getAttribute('value'), equals('10.2'));
+    expect(element2.getAttribute('value'), equals('0'));
 });
 
-test('should update attribute "max"', () {
+test('should update attribute "value"', () {
     app!.framework.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), max: 10),
-            __WidgetClass__(key: GlobalKey('el-2'), max: 10),
+            __WidgetClass__(key: GlobalKey('el-1'), value: 10.2),
+            __WidgetClass__(key: GlobalKey('el-2'), value: 10.2),
         ],
         parentContext: app!.appContext,
     );
 
     app!.framework.updateChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), max: 20),
-            __WidgetClass__(key: GlobalKey('el-2'), max: 20),
+            __WidgetClass__(key: GlobalKey('el-1'), value: 20.3),
+            __WidgetClass__(key: GlobalKey('el-2'), value: 20.3),
         ],
         updateType: UpdateType.setState,
         parentContext: app!.appContext,
@@ -61,15 +61,15 @@ test('should update attribute "max"', () {
         )!
         .element;
 
-    expect(element1.getAttribute('max'), equals('20'));
-    expect(element2.getAttribute('max'), equals('20'));
+    expect(element1.getAttribute('value'), equals('20.3'));
+    expect(element2.getAttribute('value'), equals('20.3'));
 });
 
-test('should clear attribute "max"', () {
+test('should clear attribute "value"', () {
     app!.framework.buildChildren(
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1')),
-            __WidgetClass__(key: GlobalKey('el-2'), max: 10),
+            __WidgetClass__(key: GlobalKey('el-2'), value: 10.2),
         ],
         parentContext: app!.appContext,
     );
@@ -99,21 +99,21 @@ test('should clear attribute "max"', () {
         )!
         .element;
 
-    expect(element1.getAttribute('max'), equals(null));
-    expect(element2.getAttribute('max'), equals(null));
+    expect(element1.getAttribute('value'), equals(null));
+    expect(element2.getAttribute('value'), equals(null));
 });
 
-test('should clear attribute "max" if updated value is null', () {
+test('should clear attribute "value" if updated value is null', () {
     app!.framework.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), max: 10),
+            __WidgetClass__(key: GlobalKey('el-1'), value: 10.2),
         ],
         parentContext: app!.appContext,
     );
 
     app!.framework.updateChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), max: null),
+            __WidgetClass__(key: GlobalKey('el-1'), value: null),
         ],
         updateType: UpdateType.setState,
         parentContext: app!.appContext,
@@ -127,13 +127,13 @@ test('should clear attribute "max" if updated value is null', () {
         )!
         .element;
 
-    expect(element1.getAttribute('max'), equals(null));
+    expect(element1.getAttribute('value'), equals(null));
 });
 
-test('should not set attribute "max" if provided value is null', () {
+test('should not set attribute "value" if provided value is null', () {
     app!.framework.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), max: null),
+            __WidgetClass__(key: GlobalKey('el-1'), value: null),
         ],
         parentContext: app!.appContext,
     );
@@ -146,5 +146,5 @@ test('should not set attribute "max" if provided value is null', () {
         )!
         .element;
 
-    expect(element1.getAttribute('max'), equals(null));
+    expect(element1.getAttribute('value'), equals(null));
 });

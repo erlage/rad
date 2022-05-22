@@ -682,8 +682,8 @@ void html_progress_test() {
     test('should set attribute "value"', () {
       app!.framework.buildChildren(
         widgets: [
-          Progress(key: GlobalKey('el-1'), value: 'some-value'),
-          Progress(key: GlobalKey('el-2'), value: 'another-value'),
+          Progress(key: GlobalKey('el-1'), value: 10.2),
+          Progress(key: GlobalKey('el-2'), value: 0),
         ],
         parentContext: app!.appContext,
       );
@@ -704,23 +704,23 @@ void html_progress_test() {
           )!
           .element;
 
-      expect(element1.getAttribute('value'), equals('some-value'));
-      expect(element2.getAttribute('value'), equals('another-value'));
+      expect(element1.getAttribute('value'), equals('10.2'));
+      expect(element2.getAttribute('value'), equals('0'));
     });
 
     test('should update attribute "value"', () {
       app!.framework.buildChildren(
         widgets: [
-          Progress(key: GlobalKey('el-1'), value: 'some-value'),
-          Progress(key: GlobalKey('el-2'), value: 'another-value'),
+          Progress(key: GlobalKey('el-1'), value: 10.2),
+          Progress(key: GlobalKey('el-2'), value: 10.2),
         ],
         parentContext: app!.appContext,
       );
 
       app!.framework.updateChildren(
         widgets: [
-          Progress(key: GlobalKey('el-1'), value: 'updated-value'),
-          Progress(key: GlobalKey('el-2'), value: 'another-value'),
+          Progress(key: GlobalKey('el-1'), value: 20.3),
+          Progress(key: GlobalKey('el-2'), value: 20.3),
         ],
         updateType: UpdateType.setState,
         parentContext: app!.appContext,
@@ -742,15 +742,15 @@ void html_progress_test() {
           )!
           .element;
 
-      expect(element1.getAttribute('value'), equals('updated-value'));
-      expect(element2.getAttribute('value'), equals('another-value'));
+      expect(element1.getAttribute('value'), equals('20.3'));
+      expect(element2.getAttribute('value'), equals('20.3'));
     });
 
     test('should clear attribute "value"', () {
       app!.framework.buildChildren(
         widgets: [
           Progress(key: GlobalKey('el-1')),
-          Progress(key: GlobalKey('el-2'), value: 'another-value'),
+          Progress(key: GlobalKey('el-2'), value: 10.2),
         ],
         parentContext: app!.appContext,
       );
@@ -787,7 +787,7 @@ void html_progress_test() {
     test('should clear attribute "value" if updated value is null', () {
       app!.framework.buildChildren(
         widgets: [
-          Progress(key: GlobalKey('el-1'), value: 'some-value'),
+          Progress(key: GlobalKey('el-1'), value: 10.2),
         ],
         parentContext: app!.appContext,
       );
@@ -833,8 +833,8 @@ void html_progress_test() {
     test('should set attribute "max"', () {
       app!.framework.buildChildren(
         widgets: [
-          Progress(key: GlobalKey('el-1'), max: 'some-max'),
-          Progress(key: GlobalKey('el-2'), max: 'another-max'),
+          Progress(key: GlobalKey('el-1'), max: 10),
+          Progress(key: GlobalKey('el-2'), max: 0),
         ],
         parentContext: app!.appContext,
       );
@@ -855,23 +855,23 @@ void html_progress_test() {
           )!
           .element;
 
-      expect(element1.getAttribute('max'), equals('some-max'));
-      expect(element2.getAttribute('max'), equals('another-max'));
+      expect(element1.getAttribute('max'), equals('10'));
+      expect(element2.getAttribute('max'), equals('0'));
     });
 
     test('should update attribute "max"', () {
       app!.framework.buildChildren(
         widgets: [
-          Progress(key: GlobalKey('el-1'), max: 'some-max'),
-          Progress(key: GlobalKey('el-2'), max: 'another-max'),
+          Progress(key: GlobalKey('el-1'), max: 10),
+          Progress(key: GlobalKey('el-2'), max: 10),
         ],
         parentContext: app!.appContext,
       );
 
       app!.framework.updateChildren(
         widgets: [
-          Progress(key: GlobalKey('el-1'), max: 'updated-max'),
-          Progress(key: GlobalKey('el-2'), max: 'another-max'),
+          Progress(key: GlobalKey('el-1'), max: 20),
+          Progress(key: GlobalKey('el-2'), max: 20),
         ],
         updateType: UpdateType.setState,
         parentContext: app!.appContext,
@@ -893,15 +893,15 @@ void html_progress_test() {
           )!
           .element;
 
-      expect(element1.getAttribute('max'), equals('updated-max'));
-      expect(element2.getAttribute('max'), equals('another-max'));
+      expect(element1.getAttribute('max'), equals('20'));
+      expect(element2.getAttribute('max'), equals('20'));
     });
 
     test('should clear attribute "max"', () {
       app!.framework.buildChildren(
         widgets: [
           Progress(key: GlobalKey('el-1')),
-          Progress(key: GlobalKey('el-2'), max: 'another-max'),
+          Progress(key: GlobalKey('el-2'), max: 10),
         ],
         parentContext: app!.appContext,
       );
@@ -935,10 +935,10 @@ void html_progress_test() {
       expect(element2.getAttribute('max'), equals(null));
     });
 
-    test('should clear attribute "max" if updated max is null', () {
+    test('should clear attribute "max" if updated value is null', () {
       app!.framework.buildChildren(
         widgets: [
-          Progress(key: GlobalKey('el-1'), max: 'some-max'),
+          Progress(key: GlobalKey('el-1'), max: 10),
         ],
         parentContext: app!.appContext,
       );
@@ -962,7 +962,7 @@ void html_progress_test() {
       expect(element1.getAttribute('max'), equals(null));
     });
 
-    test('should not set attribute "max" if provided max is null', () {
+    test('should not set attribute "max" if provided value is null', () {
       app!.framework.buildChildren(
         widgets: [
           Progress(key: GlobalKey('el-1'), max: null),
