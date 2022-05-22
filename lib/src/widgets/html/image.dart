@@ -23,14 +23,12 @@ class Image extends MarkUpTagWithGlobalProps {
 
   final String? width;
   final String? height;
-  final String? size;
 
   const Image({
     this.src,
     this.alt,
     this.width,
     this.height,
-    this.size,
     Key? key,
     bool? hidden,
     bool? draggable,
