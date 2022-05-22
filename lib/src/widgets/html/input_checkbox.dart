@@ -1,14 +1,12 @@
-import 'package:meta/meta.dart';
-
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/input_tag.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/widgets/html/input.dart';
 
 /// The InputCheckBox widget (HTML's `input` tag with `type = 'checkbox'`).
 ///
-class InputCheckBox extends InputTag {
+class InputCheckBox extends Input {
   const InputCheckBox({
     Key? key,
     String? name,
@@ -55,8 +53,4 @@ class InputCheckBox extends InputTag {
           onChange: onChange,
           onClick: onClick,
         );
-
-  @nonVirtual
-  @override
-  get widgetType => '$InputCheckBox';
 }

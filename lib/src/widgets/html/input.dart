@@ -9,7 +9,9 @@ import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-abstract class InputTag extends MarkUpTagWithGlobalProps {
+/// The Input widget (HTML's `input` tag).
+///
+class Input extends MarkUpTagWithGlobalProps {
   /// Type of input tag.
   ///
   final InputType? type;
@@ -27,6 +29,22 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
   ///
   final String? accept;
 
+  /// Min length of input.
+  ///
+  final int? minLength;
+
+  /// Max length of input.
+  ///
+  final int? maxLength;
+
+  /// Match pattern for input.
+  ///
+  final String? pattern;
+
+  /// Custom placeholder.
+  ///
+  final String? placeholder;
+
   /// Allows the user to select more than one file.
   ///
   final bool? multiple;
@@ -39,18 +57,27 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
   ///
   final bool? disabled;
 
+  /// Whether control is read only.
+  ///
+  final bool? readOnly;
+
   /// Whether control is checked.
   ///
   final bool? checked;
 
-  const InputTag({
+  const Input({
     this.type,
     this.name,
     this.value,
     this.accept,
+    this.maxLength,
+    this.minLength,
+    this.pattern,
+    this.placeholder,
     this.multiple,
     this.required,
     this.checked,
+    this.readOnly,
     this.disabled,
     Key? key,
     String? id,
@@ -99,6 +126,10 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
   @override
   DomTag get correspondingTag => DomTag.input;
 
+  @nonVirtual
+  @override
+  get widgetType => '$Input';
+
   @override
   createConfiguration() {
     return InputConfiguration(
@@ -106,9 +137,14 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
       name: name,
       value: value,
       accept: accept,
+      maxLength: maxLength,
+      minLength: minLength,
+      pattern: pattern,
+      placeholder: placeholder,
       checked: checked,
       multiple: multiple,
       required: required,
+      readOnly: readOnly,
       disabled: disabled,
       globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
@@ -123,15 +159,20 @@ abstract class InputTag extends MarkUpTagWithGlobalProps {
         name != oldConfiguration.name ||
         value != oldConfiguration.value ||
         accept != oldConfiguration.accept ||
+        minLength != oldConfiguration.minLength ||
+        maxLength != oldConfiguration.maxLength ||
+        pattern != oldConfiguration.pattern ||
+        placeholder != oldConfiguration.placeholder ||
         multiple != oldConfiguration.multiple ||
         checked != oldConfiguration.checked ||
         required != oldConfiguration.required ||
+        readOnly != oldConfiguration.readOnly ||
         disabled != oldConfiguration.disabled ||
         super.isConfigurationChanged(oldConfiguration.globalConfiguration);
   }
 
   @override
-  createRenderObject(context) => InputTagRenderObject(context);
+  createRenderObject(context) => InputRenderObject(context);
 }
 
 /*
@@ -148,9 +189,17 @@ class InputConfiguration extends WidgetConfiguration {
   final String? name;
   final String? value;
   final String? accept;
+
+  final int? minLength;
+  final int? maxLength;
+
+  final String? pattern;
+  final String? placeholder;
+
   final bool? multiple;
   final bool? checked;
   final bool? required;
+  final bool? readOnly;
   final bool? disabled;
 
   const InputConfiguration({
@@ -158,8 +207,13 @@ class InputConfiguration extends WidgetConfiguration {
     this.name,
     this.value,
     this.accept,
+    this.minLength,
+    this.maxLength,
+    this.pattern,
+    this.placeholder,
     this.multiple,
     this.checked,
+    this.readOnly,
     this.disabled,
     this.required,
     required this.globalConfiguration,
@@ -172,8 +226,8 @@ class InputConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-class InputTagRenderObject extends MarkUpGlobalRenderObject {
-  const InputTagRenderObject(BuildContext context) : super(context);
+class InputRenderObject extends MarkUpGlobalRenderObject {
+  const InputRenderObject(BuildContext context) : super(context);
 
   @override
   render({
@@ -265,7 +319,39 @@ Map<String, String?> _prepareAttributes({
     }
   }
 
-  if (null != props.multiple) {
+  if (null != props.placeholder) {
+    attributes[Attributes.placeholder] = props.placeholder;
+  } else {
+    if (null != oldProps?.placeholder) {
+      attributes[Attributes.placeholder] = null;
+    }
+  }
+
+  if (null != props.pattern) {
+    attributes[Attributes.pattern] = props.pattern;
+  } else {
+    if (null != oldProps?.pattern) {
+      attributes[Attributes.pattern] = null;
+    }
+  }
+
+  if (null != props.minLength) {
+    attributes[Attributes.minLength] = '${props.minLength}';
+  } else {
+    if (null != oldProps?.minLength) {
+      attributes[Attributes.minLength] = null;
+    }
+  }
+
+  if (null != props.maxLength) {
+    attributes[Attributes.maxLength] = '${props.maxLength}';
+  } else {
+    if (null != oldProps?.maxLength) {
+      attributes[Attributes.maxLength] = null;
+    }
+  }
+
+  if (null != props.multiple && props.multiple!) {
     attributes[Attributes.multiple] = '${props.multiple}';
   } else {
     if (null != oldProps?.multiple) {
@@ -273,11 +359,27 @@ Map<String, String?> _prepareAttributes({
     }
   }
 
-  if (null != props.checked) {
+  if (null != props.checked && props.checked!) {
     attributes[Attributes.checked] = '${props.checked}';
   } else {
     if (null != oldProps?.checked) {
       attributes[Attributes.checked] = null;
+    }
+  }
+
+  if (null != props.required && props.required!) {
+    attributes[Attributes.required] = '${props.required}';
+  } else {
+    if (null != oldProps?.required) {
+      attributes[Attributes.required] = null;
+    }
+  }
+
+  if (null != props.readOnly && props.readOnly!) {
+    attributes[Attributes.readOnly] = '${props.readOnly}';
+  } else {
+    if (null != oldProps?.readOnly) {
+      attributes[Attributes.readOnly] = null;
     }
   }
 
@@ -286,14 +388,6 @@ Map<String, String?> _prepareAttributes({
   } else {
     if (null != oldProps?.disabled) {
       attributes[Attributes.disabled] = null;
-    }
-  }
-
-  if (null != props.required) {
-    attributes[Attributes.required] = '${props.required}';
-  } else {
-    if (null != oldProps?.required) {
-      attributes[Attributes.required] = null;
     }
   }
 

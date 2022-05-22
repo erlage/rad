@@ -1,14 +1,12 @@
-import 'package:meta/meta.dart';
-
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/input_tag.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/widgets/html/input.dart';
 
 /// The InputFile widget (HTML's `input` tag with `type = 'file'`).
 ///
-class InputFile extends InputTag {
+class InputFile extends Input {
   const InputFile({
     Key? key,
     String? id,
@@ -55,8 +53,4 @@ class InputFile extends InputTag {
           onChange: onChange,
           onClick: onClick,
         );
-
-  @nonVirtual
-  @override
-  get widgetType => '$InputFile';
 }

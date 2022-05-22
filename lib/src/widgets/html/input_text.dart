@@ -1,36 +1,24 @@
-import 'package:meta/meta.dart';
-
-import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/input_tag.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/widgets/html/input.dart';
 
 /// The InputText widget (HTML's `input` tag with `type = 'text'`).
 ///
-class InputText extends InputTag {
-  final bool? readOnly;
-
-  final int? minLength;
-  final int? maxLength;
-
-  final String? pattern;
-  final String? placeholder;
-
+class InputText extends Input {
   const InputText({
-    this.readOnly,
-    this.minLength,
-    this.maxLength,
-    this.pattern,
-    this.placeholder,
     bool isPassword = false,
     Key? key,
     String? id,
     String? name,
     String? value,
+    int? minLength,
+    int? maxLength,
+    String? pattern,
+    String? placeholder,
     bool? required,
+    bool? readOnly,
     bool? disabled,
     String? title,
     String? style,
@@ -56,8 +44,13 @@ class InputText extends InputTag {
           type: isPassword ? InputType.password : InputType.text,
           name: name,
           value: value,
+          minLength: minLength,
+          maxLength: maxLength,
+          pattern: pattern,
+          placeholder: placeholder,
           disabled: disabled,
           required: required,
+          readOnly: readOnly,
           title: title,
           style: style,
           classAttribute: classAttribute,
@@ -77,167 +70,4 @@ class InputText extends InputTag {
           onKeyDown: onKeyDown,
           onKeyPress: onKeyPress,
         );
-
-  @nonVirtual
-  @override
-  get widgetType => '$InputText';
-
-  @override
-  createConfiguration() {
-    return _InputTextConfiguration(
-      readOnly: readOnly,
-      minLength: minLength,
-      maxLength: maxLength,
-      pattern: pattern,
-      placeholder: placeholder,
-      inputConfiguration: super.createConfiguration() as InputConfiguration,
-    );
-  }
-
-  @override
-  isConfigurationChanged(oldConfiguration) {
-    oldConfiguration as _InputTextConfiguration;
-
-    return readOnly != oldConfiguration.readOnly ||
-        minLength != oldConfiguration.minLength ||
-        maxLength != oldConfiguration.maxLength ||
-        pattern != oldConfiguration.pattern ||
-        placeholder != oldConfiguration.placeholder ||
-        super.isConfigurationChanged(oldConfiguration.inputConfiguration);
-  }
-
-  @override
-  createRenderObject(context) => _InputTextRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _InputTextConfiguration extends WidgetConfiguration {
-  final InputConfiguration inputConfiguration;
-
-  final bool? readOnly;
-
-  final int? minLength;
-  final int? maxLength;
-
-  final String? pattern;
-  final String? placeholder;
-
-  const _InputTextConfiguration({
-    this.readOnly,
-    this.minLength,
-    this.maxLength,
-    this.pattern,
-    this.placeholder,
-    required this.inputConfiguration,
-  });
-}
-
-/*
-|--------------------------------------------------------------------------
-| render object
-|--------------------------------------------------------------------------
-*/
-
-class _InputTextRenderObject extends InputTagRenderObject {
-  const _InputTextRenderObject(BuildContext context) : super(context);
-
-  @override
-  render({
-    required covariant _InputTextConfiguration configuration,
-  }) {
-    var elementDescription = super.render(
-      configuration: configuration.inputConfiguration,
-    );
-
-    elementDescription?.attributes.addAll(
-      _prepareAttributes(
-        props: configuration,
-        oldProps: null,
-      ),
-    );
-
-    return elementDescription;
-  }
-
-  @override
-  update({
-    required updateType,
-    required covariant _InputTextConfiguration oldConfiguration,
-    required covariant _InputTextConfiguration newConfiguration,
-  }) {
-    var elementDescription = super.update(
-      updateType: updateType,
-      oldConfiguration: oldConfiguration.inputConfiguration,
-      newConfiguration: newConfiguration.inputConfiguration,
-    );
-
-    elementDescription?.attributes.addAll(
-      _prepareAttributes(
-        props: newConfiguration,
-        oldProps: oldConfiguration,
-      ),
-    );
-
-    return elementDescription;
-  }
-}
-
-/*
-|--------------------------------------------------------------------------
-| props
-|--------------------------------------------------------------------------
-*/
-
-Map<String, String?> _prepareAttributes({
-  required _InputTextConfiguration props,
-  required _InputTextConfiguration? oldProps,
-}) {
-  var attributes = <String, String?>{};
-
-  if (null != props.placeholder) {
-    attributes[Attributes.placeholder] = props.placeholder;
-  } else {
-    if (null != oldProps?.placeholder) {
-      attributes[Attributes.placeholder] = null;
-    }
-  }
-
-  if (null != props.pattern) {
-    attributes[Attributes.pattern] = props.pattern;
-  } else {
-    if (null != oldProps?.pattern) {
-      attributes[Attributes.pattern] = null;
-    }
-  }
-
-  if (null != props.readOnly) {
-    attributes[Attributes.readOnly] = '${props.readOnly}';
-  } else {
-    if (null != oldProps?.readOnly) {
-      attributes[Attributes.readOnly] = null;
-    }
-  }
-
-  if (null != props.minLength) {
-    attributes[Attributes.minLength] = '${props.minLength}';
-  } else {
-    if (null != oldProps?.minLength) {
-      attributes[Attributes.minLength] = null;
-    }
-  }
-
-  if (null != props.maxLength) {
-    attributes[Attributes.maxLength] = '${props.maxLength}';
-  } else {
-    if (null != oldProps?.maxLength) {
-      attributes[Attributes.maxLength] = null;
-    }
-  }
-
-  return attributes;
 }

@@ -23,6 +23,7 @@ export 'src/widgets/html/horizontal_rule.dart' show HorizontalRule;
 export 'src/widgets/html/idiomatic.dart' show Idiomatic;
 export 'src/widgets/html/iframe.dart' show IFrame;
 export 'src/widgets/html/image.dart' show Image;
+export 'src/widgets/html/input.dart' show Input;
 export 'src/widgets/html/input_checkbox.dart' show InputCheckBox;
 export 'src/widgets/html/input_file.dart' show InputFile;
 export 'src/widgets/html/input_radio.dart' show InputRadio;
