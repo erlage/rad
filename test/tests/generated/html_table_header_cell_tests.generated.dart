@@ -366,17 +366,8 @@ void html_table_header_cell_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var parent = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'parent',
-          )!
-          .element;
-
-      var child = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'child',
-          )!
-          .element;
+      var parent = app!.element('parent');
+      var child = app!.element('child');
 
       child.click();
       parent.click();
@@ -412,17 +403,8 @@ void html_table_header_cell_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var parent = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'parent',
-          )!
-          .element;
-
-      var child = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'child',
-          )!
-          .element;
+      var parent = app!.element('parent');
+      var child = app!.element('child');
 
       child.click();
       parent.click();
@@ -690,21 +672,8 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('rowspan'), equals('10'));
       expect(element2.getAttribute('rowspan'), equals('0'));
@@ -728,21 +697,8 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('rowspan'), equals('20'));
       expect(element2.getAttribute('rowspan'), equals('20'));
@@ -766,21 +722,8 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('rowspan'), equals(null));
       expect(element2.getAttribute('rowspan'), equals(null));
@@ -802,13 +745,7 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('rowspan'), equals(null));
     });
@@ -821,13 +758,7 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('rowspan'), equals(null));
     });
@@ -841,21 +772,8 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('colspan'), equals('10'));
       expect(element2.getAttribute('colspan'), equals('0'));
@@ -879,21 +797,8 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('colspan'), equals('20'));
       expect(element2.getAttribute('colspan'), equals('20'));
@@ -917,21 +822,8 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('colspan'), equals(null));
       expect(element2.getAttribute('colspan'), equals(null));
@@ -953,13 +845,7 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('colspan'), equals(null));
     });
@@ -972,13 +858,7 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('colspan'), equals(null));
     });
@@ -992,21 +872,8 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('headers'), equals('some-headers'));
       expect(element2.getAttribute('headers'), equals('another-headers'));
@@ -1030,21 +897,8 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('headers'), equals('updated-headers'));
       expect(element2.getAttribute('headers'), equals('another-headers'));
@@ -1068,21 +922,8 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('headers'), equals(null));
       expect(element2.getAttribute('headers'), equals(null));
@@ -1104,13 +945,7 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('headers'), equals(null));
     });
@@ -1123,13 +958,7 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('headers'), equals(null));
     });

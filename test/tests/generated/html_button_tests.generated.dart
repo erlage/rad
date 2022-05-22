@@ -364,17 +364,8 @@ void html_button_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var parent = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'parent',
-          )!
-          .element;
-
-      var child = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'child',
-          )!
-          .element;
+      var parent = app!.element('parent');
+      var child = app!.element('child');
 
       child.click();
       parent.click();
@@ -410,17 +401,8 @@ void html_button_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var parent = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'parent',
-          )!
-          .element;
-
-      var child = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'child',
-          )!
-          .element;
+      var parent = app!.element('parent');
+      var child = app!.element('child');
 
       child.click();
       parent.click();
@@ -688,21 +670,8 @@ void html_button_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('name'), equals('some-name'));
       expect(element2.getAttribute('name'), equals('another-name'));
@@ -726,21 +695,8 @@ void html_button_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('name'), equals('updated-name'));
       expect(element2.getAttribute('name'), equals('another-name'));
@@ -764,21 +720,8 @@ void html_button_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('name'), equals(null));
       expect(element2.getAttribute('name'), equals(null));
@@ -800,13 +743,7 @@ void html_button_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('name'), equals(null));
     });
@@ -819,13 +756,7 @@ void html_button_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('name'), equals(null));
     });
@@ -839,21 +770,8 @@ void html_button_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('value'), equals('some-value'));
       expect(element2.getAttribute('value'), equals('another-value'));
@@ -877,21 +795,8 @@ void html_button_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('value'), equals('updated-value'));
       expect(element2.getAttribute('value'), equals('another-value'));
@@ -915,21 +820,8 @@ void html_button_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('value'), equals(null));
       expect(element2.getAttribute('value'), equals(null));
@@ -951,13 +843,7 @@ void html_button_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('value'), equals(null));
     });
@@ -970,13 +856,7 @@ void html_button_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('value'), equals(null));
     });
@@ -991,29 +871,9 @@ void html_button_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element3 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
 
       expect(element1.getAttribute('disabled'), equals(null));
       expect(element2.getAttribute('disabled'), equals(null));
@@ -1042,37 +902,10 @@ void html_button_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element3 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element4 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-4'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+      var element4 = app!.element('el-4');
 
       expect(element1.getAttribute('disabled'), equals('true'));
       expect(element2.getAttribute('disabled'), equals(null));
@@ -1090,29 +923,9 @@ void html_button_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element3 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
 
       expect(element1.getAttribute('type'), equals('button'));
       expect(element2.getAttribute('type'), equals('reset'));
@@ -1139,29 +952,9 @@ void html_button_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element3 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
 
       expect(element1.getAttribute('type'), equals(null));
       expect(element2.getAttribute('type'), equals(null));

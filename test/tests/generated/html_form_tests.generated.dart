@@ -364,17 +364,8 @@ void html_form_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var parent = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'parent',
-          )!
-          .element;
-
-      var child = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'child',
-          )!
-          .element;
+      var parent = app!.element('parent');
+      var child = app!.element('child');
 
       child.click();
       parent.click();
@@ -410,17 +401,8 @@ void html_form_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var parent = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'parent',
-          )!
-          .element;
-
-      var child = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'child',
-          )!
-          .element;
+      var parent = app!.element('parent');
+      var child = app!.element('child');
 
       child.click();
       parent.click();
@@ -688,21 +670,8 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('name'), equals('some-name'));
       expect(element2.getAttribute('name'), equals('another-name'));
@@ -726,21 +695,8 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('name'), equals('updated-name'));
       expect(element2.getAttribute('name'), equals('another-name'));
@@ -764,21 +720,8 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('name'), equals(null));
       expect(element2.getAttribute('name'), equals(null));
@@ -800,13 +743,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('name'), equals(null));
     });
@@ -819,13 +756,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('name'), equals(null));
     });
@@ -839,21 +770,8 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('action'), equals('some-action'));
       expect(element2.getAttribute('action'), equals('another-action'));
@@ -877,21 +795,8 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('action'), equals('updated-action'));
       expect(element2.getAttribute('action'), equals('another-action'));
@@ -915,21 +820,8 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('action'), equals(null));
       expect(element2.getAttribute('action'), equals(null));
@@ -951,13 +843,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('action'), equals(null));
     });
@@ -970,13 +856,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('action'), equals(null));
     });
@@ -990,21 +870,8 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('accept'), equals('some-accept'));
       expect(element2.getAttribute('accept'), equals('another-accept'));
@@ -1028,21 +895,8 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('accept'), equals('updated-accept'));
       expect(element2.getAttribute('accept'), equals('another-accept'));
@@ -1066,21 +920,8 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('accept'), equals(null));
       expect(element2.getAttribute('accept'), equals(null));
@@ -1102,13 +943,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('accept'), equals(null));
     });
@@ -1121,13 +956,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('accept'), equals(null));
     });
@@ -1141,21 +970,8 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('target'), equals('some-target'));
       expect(element2.getAttribute('target'), equals('another-target'));
@@ -1179,21 +995,8 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('target'), equals('updated-target'));
       expect(element2.getAttribute('target'), equals('another-target'));
@@ -1217,21 +1020,8 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('target'), equals(null));
       expect(element2.getAttribute('target'), equals(null));
@@ -1253,13 +1043,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('target'), equals(null));
     });
@@ -1272,13 +1056,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('target'), equals(null));
     });
@@ -1292,21 +1070,8 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(
         element1.getAttribute('method'),
@@ -1338,29 +1103,9 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element3 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
 
       expect(
         element1.getAttribute('method'),
@@ -1389,29 +1134,9 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element3 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
 
       expect(
         element1.getAttribute('enctype'),
@@ -1450,29 +1175,9 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element3 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
 
       expect(element1.getAttribute('enctype'), equals(null));
       expect(element2.getAttribute('enctype'), equals(null));

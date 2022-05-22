@@ -364,17 +364,8 @@ void html_code_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var parent = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'parent',
-          )!
-          .element;
-
-      var child = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'child',
-          )!
-          .element;
+      var parent = app!.element('parent');
+      var child = app!.element('child');
 
       child.click();
       parent.click();
@@ -410,17 +401,8 @@ void html_code_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var parent = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'parent',
-          )!
-          .element;
-
-      var child = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'child',
-          )!
-          .element;
+      var parent = app!.element('parent');
+      var child = app!.element('child');
 
       child.click();
       parent.click();

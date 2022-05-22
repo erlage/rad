@@ -11,29 +11,9 @@ test('should set form attribute "enctype"', () {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.services.walker
-        .getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-            .value,
-        )!
-        .element;
-
-    var element2 = app!.services.walker
-        .getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-            .value,
-        )!
-        .element;
-
-    var element3 = app!.services.walker
-        .getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
-            .value,
-        )!
-        .element;
+    var element1 = app!.element('el-1');
+    var element2 = app!.element('el-2');
+    var element3 = app!.element('el-3');
 
     expect(
         element1.getAttribute('enctype'),
@@ -72,29 +52,9 @@ test('should update form attribute "enctype"', () {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.services.walker
-        .getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-            .value,
-        )!
-        .element;
-
-    var element2 = app!.services.walker
-        .getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-            .value,
-        )!
-        .element;
-
-    var element3 = app!.services.walker
-        .getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
-            .value,
-        )!
-        .element;
+    var element1 = app!.element('el-1');
+    var element2 = app!.element('el-2');
+    var element3 = app!.element('el-3');
 
     expect(element1.getAttribute('enctype'), equals(null));
     expect(element2.getAttribute('enctype'), equals(null));

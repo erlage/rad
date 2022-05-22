@@ -366,17 +366,8 @@ void html_table_column_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var parent = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'parent',
-          )!
-          .element;
-
-      var child = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'child',
-          )!
-          .element;
+      var parent = app!.element('parent');
+      var child = app!.element('child');
 
       child.click();
       parent.click();
@@ -412,17 +403,8 @@ void html_table_column_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var parent = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'parent',
-          )!
-          .element;
-
-      var child = app!.services.walker
-          .getWidgetObjectUsingKey(
-            'child',
-          )!
-          .element;
+      var parent = app!.element('parent');
+      var child = app!.element('child');
 
       child.click();
       parent.click();
@@ -690,21 +672,8 @@ void html_table_column_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('span'), equals('10'));
       expect(element2.getAttribute('span'), equals('0'));
@@ -728,21 +697,8 @@ void html_table_column_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('span'), equals('20'));
       expect(element2.getAttribute('span'), equals('20'));
@@ -766,21 +722,8 @@ void html_table_column_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
 
       expect(element1.getAttribute('span'), equals(null));
       expect(element2.getAttribute('span'), equals(null));
@@ -802,13 +745,7 @@ void html_table_column_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('span'), equals(null));
     });
@@ -821,13 +758,7 @@ void html_table_column_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.element('el-1');
 
       expect(element1.getAttribute('span'), equals(null));
     });

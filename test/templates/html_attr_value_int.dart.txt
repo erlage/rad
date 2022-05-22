@@ -7,21 +7,8 @@ test('should set attribute "value"', () {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.services.walker
-        .getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-            .value,
-        )!
-        .element;
-
-    var element2 = app!.services.walker
-        .getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-            .value,
-        )!
-        .element;
+    var element1 = app!.element('el-1');
+    var element2 = app!.element('el-2');
 
     expect(element1.getAttribute('value'), equals('10'));
     expect(element2.getAttribute('value'), equals('0'));
@@ -45,21 +32,8 @@ test('should update attribute "value"', () {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.services.walker
-        .getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-            .value,
-        )!
-        .element;
-
-    var element2 = app!.services.walker
-        .getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-            .value,
-        )!
-        .element;
+    var element1 = app!.element('el-1');
+    var element2 = app!.element('el-2');
 
     expect(element1.getAttribute('value'), equals('20'));
     expect(element2.getAttribute('value'), equals('20'));
@@ -83,21 +57,8 @@ test('should clear attribute "value"', () {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.services.walker
-        .getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-            .value,
-        )!
-        .element;
-
-    var element2 = app!.services.walker
-        .getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
-            .value,
-        )!
-        .element;
+    var element1 = app!.element('el-1');
+    var element2 = app!.element('el-2');
 
     expect(element1.getAttribute('value'), equals(null));
     expect(element2.getAttribute('value'), equals(null));
@@ -119,13 +80,7 @@ test('should clear attribute "value" if updated value is null', () {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.services.walker
-        .getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-            .value,
-        )!
-        .element;
+    var element1 = app!.element('el-1');
 
     expect(element1.getAttribute('value'), equals(null));
 });
@@ -138,13 +93,7 @@ test('should not set attribute "value" if provided value is null', () {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.services.walker
-        .getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
-            .value,
-        )!
-        .element;
+    var element1 = app!.element('el-1');
 
     expect(element1.getAttribute('value'), equals(null));
 });

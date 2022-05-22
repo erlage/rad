@@ -45,18 +45,9 @@ test('should set onclick nested event listeners', () {
     parentContext: RT_TestBed.rootContext,
   );
 
-  var parent = app!.services.walker
-      .getWidgetObjectUsingKey(
-        'parent',
-      )!
-      .element;
-
-  var child = app!.services.walker
-      .getWidgetObjectUsingKey(
-        'child',
-      )!
-      .element;
-
+  var parent = app!.element('parent');
+  var child = app!.element('child');
+  
   child.click();
   parent.click();
 
@@ -91,17 +82,8 @@ test('should set onclick nested event listeners: bubbling test', () {
     parentContext: RT_TestBed.rootContext,
   );
 
-  var parent = app!.services.walker
-      .getWidgetObjectUsingKey(
-        'parent',
-      )!
-      .element;
-
-  var child = app!.services.walker
-      .getWidgetObjectUsingKey(
-        'child',
-      )!
-      .element;
+  var parent = app!.element('parent');
+  var child = app!.element('child');
 
   child.click();
   parent.click();
