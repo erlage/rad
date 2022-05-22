@@ -1,8 +1,8 @@
+import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/html/division.dart';
 import 'package:rad/src/widgets/navigator.dart';
 import 'package:rad/src/widgets/route.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
@@ -128,12 +128,6 @@ class AsyncRoute extends Route {
             waitingPlaceholderWidget: waitingPlaceholderWidget,
           ),
         );
-}
-
-/// A placeholder widget specific for async route.
-///
-class _AsyncRoutePlaceholder extends Division {
-  const _AsyncRoutePlaceholder() : super();
 }
 
 /// Async route internal builder.
@@ -275,4 +269,16 @@ class __AsyncRouteBuilderState extends State<_AsyncRouteBuilder> {
       );
     }
   }
+}
+
+/// A placeholder widget specific for async route.
+///
+class _AsyncRoutePlaceholder extends Widget {
+  const _AsyncRoutePlaceholder() : super(key: null);
+
+  @override
+  get widgetType => '$_AsyncRoutePlaceholder';
+
+  @override
+  get correspondingTag => DomTag.division;
 }
