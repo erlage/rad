@@ -268,7 +268,7 @@ Map<String, String?> _prepareAttributes({
     }
   }
 
-  if (null != props.required) {
+  if (null != props.required && props.required!) {
     attributes[Attributes.required] = '${props.required}';
   } else {
     if (null != oldProps?.required) {
@@ -276,7 +276,7 @@ Map<String, String?> _prepareAttributes({
     }
   }
 
-  if (null != props.readOnly) {
+  if (null != props.readOnly && props.readOnly!) {
     attributes[Attributes.readOnly] = '${props.readOnly}';
   } else {
     if (null != oldProps?.readOnly) {
