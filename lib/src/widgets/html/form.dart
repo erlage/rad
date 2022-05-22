@@ -89,7 +89,7 @@ class Form extends MarkUpTagWithGlobalProps {
   createConfiguration() {
     return _FormConfiguration(
       name: name,
-      value: action,
+      action: action,
       accept: accept,
       enctype: enctype,
       method: method,
@@ -104,7 +104,7 @@ class Form extends MarkUpTagWithGlobalProps {
     oldConfiguration as _FormConfiguration;
 
     return name != oldConfiguration.name ||
-        action != oldConfiguration.value ||
+        action != oldConfiguration.action ||
         accept != oldConfiguration.accept ||
         target != oldConfiguration.target ||
         enctype != oldConfiguration.enctype ||
@@ -126,7 +126,7 @@ class _FormConfiguration extends WidgetConfiguration {
   final MarkUpGlobalConfiguration globalConfiguration;
 
   final String? name;
-  final String? value;
+  final String? action;
   final String? accept;
   final String? target;
   final FormEncType? enctype;
@@ -134,7 +134,7 @@ class _FormConfiguration extends WidgetConfiguration {
 
   const _FormConfiguration({
     this.name,
-    this.value,
+    this.action,
     this.accept,
     this.target,
     this.method,
