@@ -60,7 +60,7 @@ class Attributes {
   static const required = 'required';
   static const checked = 'checked';
   static const placeholder = 'placeholder';
-  static const readOnly = 'selected';
+  static const readOnly = 'readonly';
 
   // table
 
@@ -90,7 +90,7 @@ class Attributes {
 
   static const rows = 'rows';
   static const cols = 'cols';
-  static const minLength = 'minlenth';
+  static const minLength = 'minlength';
   static const maxLength = 'maxlength';
 
   // iframe
