@@ -57,6 +57,12 @@ tag_specific_tests = {
         'html_attr_allowfullscreen',
         'html_attr_allowpaymentrequest',
     ],
+    'img': [
+        'html_attr_src',
+        'html_attr_alt',
+        'html_attr_width',
+        'html_attr_height',
+    ],
 }
 
 global_tests = [

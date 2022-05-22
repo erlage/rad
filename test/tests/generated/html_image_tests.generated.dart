@@ -680,5 +680,609 @@ void html_image_test() {
       expect(element2!.context.key.value, endsWith('some-local-key'));
       expect(element3!.context.key.value, equals('some-global-key'));
     });
+
+    test('should set attribute "src"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), src: 'some-src'),
+          Image(key: GlobalKey('el-2'), src: 'another-src'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('src'), equals('some-src'));
+      expect(element2.getAttribute('src'), equals('another-src'));
+    });
+
+    test('should update attribute "src"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), src: 'some-src'),
+          Image(key: GlobalKey('el-2'), src: 'another-src'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), src: 'updated-src'),
+          Image(key: GlobalKey('el-2'), src: 'another-src'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('src'), equals('updated-src'));
+      expect(element2.getAttribute('src'), equals('another-src'));
+    });
+
+    test('should clear attribute "src"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1')),
+          Image(key: GlobalKey('el-2'), src: 'another-src'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1')),
+          Image(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('src'), equals(null));
+      expect(element2.getAttribute('src'), equals(null));
+    });
+
+    test('should clear attribute "src" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), src: 'some-src'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), src: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('src'), equals(null));
+    });
+
+    test('should not set attribute "src" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), src: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('src'), equals(null));
+    });
+
+    test('should set attribute "alt"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), alt: 'some-alt'),
+          Image(key: GlobalKey('el-2'), alt: 'another-alt'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('alt'), equals('some-alt'));
+      expect(element2.getAttribute('alt'), equals('another-alt'));
+    });
+
+    test('should update attribute "alt"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), alt: 'some-alt'),
+          Image(key: GlobalKey('el-2'), alt: 'another-alt'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), alt: 'updated-alt'),
+          Image(key: GlobalKey('el-2'), alt: 'another-alt'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('alt'), equals('updated-alt'));
+      expect(element2.getAttribute('alt'), equals('another-alt'));
+    });
+
+    test('should clear attribute "alt"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1')),
+          Image(key: GlobalKey('el-2'), alt: 'another-alt'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1')),
+          Image(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('alt'), equals(null));
+      expect(element2.getAttribute('alt'), equals(null));
+    });
+
+    test('should clear attribute "alt" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), alt: 'some-alt'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), alt: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('alt'), equals(null));
+    });
+
+    test('should not set attribute "alt" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), alt: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('alt'), equals(null));
+    });
+
+    test('should set attribute "width"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), width: 'some-width'),
+          Image(key: GlobalKey('el-2'), width: 'another-width'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('width'), equals('some-width'));
+      expect(element2.getAttribute('width'), equals('another-width'));
+    });
+
+    test('should update attribute "width"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), width: 'some-width'),
+          Image(key: GlobalKey('el-2'), width: 'another-width'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), width: 'updated-width'),
+          Image(key: GlobalKey('el-2'), width: 'another-width'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('width'), equals('updated-width'));
+      expect(element2.getAttribute('width'), equals('another-width'));
+    });
+
+    test('should clear attribute "width"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1')),
+          Image(key: GlobalKey('el-2'), width: 'another-width'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1')),
+          Image(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('width'), equals(null));
+      expect(element2.getAttribute('width'), equals(null));
+    });
+
+    test('should clear attribute "width" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), width: 'some-width'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), width: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('width'), equals(null));
+    });
+
+    test('should not set attribute "width" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), width: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('width'), equals(null));
+    });
+
+    test('should set attribute "height"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), height: 'some-height'),
+          Image(key: GlobalKey('el-2'), height: 'another-height'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('height'), equals('some-height'));
+      expect(element2.getAttribute('height'), equals('another-height'));
+    });
+
+    test('should update attribute "height"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), height: 'some-height'),
+          Image(key: GlobalKey('el-2'), height: 'another-height'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), height: 'updated-height'),
+          Image(key: GlobalKey('el-2'), height: 'another-height'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('height'), equals('updated-height'));
+      expect(element2.getAttribute('height'), equals('another-height'));
+    });
+
+    test('should clear attribute "height"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1')),
+          Image(key: GlobalKey('el-2'), height: 'another-height'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1')),
+          Image(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('height'), equals(null));
+      expect(element2.getAttribute('height'), equals(null));
+    });
+
+    test('should clear attribute "height" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), height: 'some-height'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), height: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('height'), equals(null));
+    });
+
+    test('should not set attribute "height" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Image(key: GlobalKey('el-1'), height: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('height'), equals(null));
+    });
   });
 }
