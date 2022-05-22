@@ -84,6 +84,9 @@ tag_specific_tests = {
         'html_attr_multiple',
         'html_attr_disabled',
     ], 
+    'colgroup': [
+        'html_attr_span',
+    ],
     'textarea': [
         'html_attr_name',
         'html_attr_placeholder',

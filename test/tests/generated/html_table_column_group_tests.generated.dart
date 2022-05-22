@@ -682,5 +682,156 @@ void html_table_column_group_test() {
       expect(element2!.context.key.value, endsWith('some-local-key'));
       expect(element3!.context.key.value, equals('some-global-key'));
     });
+
+    test('should set attribute "span"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableColumnGroup(key: GlobalKey('el-1'), span: 10),
+          TableColumnGroup(key: GlobalKey('el-2'), span: 0),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('span'), equals('10'));
+      expect(element2.getAttribute('span'), equals('0'));
+    });
+
+    test('should update attribute "span"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableColumnGroup(key: GlobalKey('el-1'), span: 10),
+          TableColumnGroup(key: GlobalKey('el-2'), span: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TableColumnGroup(key: GlobalKey('el-1'), span: 20),
+          TableColumnGroup(key: GlobalKey('el-2'), span: 20),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('span'), equals('20'));
+      expect(element2.getAttribute('span'), equals('20'));
+    });
+
+    test('should clear attribute "span"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableColumnGroup(key: GlobalKey('el-1')),
+          TableColumnGroup(key: GlobalKey('el-2'), span: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TableColumnGroup(key: GlobalKey('el-1')),
+          TableColumnGroup(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('span'), equals(null));
+      expect(element2.getAttribute('span'), equals(null));
+    });
+
+    test('should clear attribute "span" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableColumnGroup(key: GlobalKey('el-1'), span: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TableColumnGroup(key: GlobalKey('el-1'), span: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('span'), equals(null));
+    });
+
+    test('should not set attribute "span" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TableColumnGroup(key: GlobalKey('el-1'), span: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('span'), equals(null));
+    });
   });
 }
