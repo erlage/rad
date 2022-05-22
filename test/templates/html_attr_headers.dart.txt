@@ -1,0 +1,150 @@
+test('should set attribute "headers"', () {
+    app!.framework.buildChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1'), headers: 'some-headers'),
+        __WidgetClass__(key: GlobalKey('el-2'), headers: 'another-headers'),
+    ],
+    parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('headers'), equals('some-headers'));
+    expect(element2.getAttribute('headers'), equals('another-headers'));
+});
+
+test('should update attribute "headers"', () {
+    app!.framework.buildChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1'), headers: 'some-headers'),
+        __WidgetClass__(key: GlobalKey('el-2'), headers: 'another-headers'),
+    ],
+    parentContext: app!.appContext,
+    );
+
+    app!.framework.updateChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1'), headers: 'updated-headers'),
+        __WidgetClass__(key: GlobalKey('el-2'), headers: 'another-headers'),
+    ],
+    updateType: UpdateType.setState,
+    parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('headers'), equals('updated-headers'));
+    expect(element2.getAttribute('headers'), equals('another-headers'));
+});
+
+test('should clear attribute "headers"', () {
+    app!.framework.buildChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1')),
+        __WidgetClass__(key: GlobalKey('el-2'), headers: 'another-headers'),
+    ],
+    parentContext: app!.appContext,
+    );
+
+    app!.framework.updateChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1')),
+        __WidgetClass__(key: GlobalKey('el-2')),
+    ],
+    updateType: UpdateType.setState,
+    parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('headers'), equals(null));
+    expect(element2.getAttribute('headers'), equals(null));
+});
+
+test('should clear attribute "headers" if updated value is null', () {
+   app!.framework.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), headers: 'some-headers'),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    app!.framework.updateChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), headers: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('headers'), equals(null));
+});
+
+test('should not set attribute "headers" if provided value is null', () {
+    app!.framework.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), headers: null),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('headers'), equals(null));
+});

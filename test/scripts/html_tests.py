@@ -90,6 +90,11 @@ tag_specific_tests = {
     'col': [
         'html_attr_span',
     ],
+    'td': [
+        'html_attr_rowspan',
+        'html_attr_colspan',
+        'html_attr_headers',
+    ],
     'textarea': [
         'html_attr_name',
         'html_attr_placeholder',
