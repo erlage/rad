@@ -84,6 +84,17 @@ tag_specific_tests = {
         'html_attr_multiple',
         'html_attr_disabled',
     ], 
+    'textarea': [
+        'html_attr_name',
+        'html_attr_placeholder',
+        'html_attr_rows',
+        'html_attr_cols',
+        'html_attr_minlength',
+        'html_attr_maxlength',
+        'html_attr_required',
+        'html_attr_readonly',
+        'html_attr_disabled',
+    ], 
 }
 
 global_tests = [

@@ -678,5 +678,1212 @@ void html_text_area_test() {
       expect(element2!.context.key.value, endsWith('some-local-key'));
       expect(element3!.context.key.value, equals('some-global-key'));
     });
+
+    test('should set attribute "name"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), name: 'some-name'),
+          TextArea(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('name'), equals('some-name'));
+      expect(element2.getAttribute('name'), equals('another-name'));
+    });
+
+    test('should update attribute "name"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), name: 'some-name'),
+          TextArea(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), name: 'updated-name'),
+          TextArea(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('name'), equals('updated-name'));
+      expect(element2.getAttribute('name'), equals('another-name'));
+    });
+
+    test('should clear attribute "name"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1')),
+          TextArea(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1')),
+          TextArea(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('name'), equals(null));
+      expect(element2.getAttribute('name'), equals(null));
+    });
+
+    test('should clear attribute "name" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), name: 'some-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), name: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('name'), equals(null));
+    });
+
+    test('should not set attribute "name" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), name: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('name'), equals(null));
+    });
+
+    test('should set attribute "placeholder"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), placeholder: 'some-placeholder'),
+          TextArea(key: GlobalKey('el-2'), placeholder: 'another-placeholder'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('placeholder'), equals('some-placeholder'));
+      expect(
+          element2.getAttribute('placeholder'), equals('another-placeholder'));
+    });
+
+    test('should update attribute "placeholder"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), placeholder: 'some-placeholder'),
+          TextArea(key: GlobalKey('el-2'), placeholder: 'another-placeholder'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), placeholder: 'updated-placeholder'),
+          TextArea(key: GlobalKey('el-2'), placeholder: 'another-placeholder'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(
+          element1.getAttribute('placeholder'), equals('updated-placeholder'));
+      expect(
+          element2.getAttribute('placeholder'), equals('another-placeholder'));
+    });
+
+    test('should clear attribute "placeholder"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1')),
+          TextArea(key: GlobalKey('el-2'), placeholder: 'another-placeholder'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1')),
+          TextArea(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('placeholder'), equals(null));
+      expect(element2.getAttribute('placeholder'), equals(null));
+    });
+
+    test('should clear attribute "placeholder" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), placeholder: 'some-placeholder'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), placeholder: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('placeholder'), equals(null));
+    });
+
+    test('should not set attribute "placeholder" if provided value is null',
+        () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), placeholder: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('placeholder'), equals(null));
+    });
+
+    test('should set attribute "rows"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), rows: 10),
+          TextArea(key: GlobalKey('el-2'), rows: 0),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('rows'), equals('10'));
+      expect(element2.getAttribute('rows'), equals('0'));
+    });
+
+    test('should update attribute "rows"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), rows: 10),
+          TextArea(key: GlobalKey('el-2'), rows: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), rows: 20),
+          TextArea(key: GlobalKey('el-2'), rows: 20),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('rows'), equals('20'));
+      expect(element2.getAttribute('rows'), equals('20'));
+    });
+
+    test('should clear attribute "rows"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1')),
+          TextArea(key: GlobalKey('el-2'), rows: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1')),
+          TextArea(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('rows'), equals(null));
+      expect(element2.getAttribute('rows'), equals(null));
+    });
+
+    test('should clear attribute "rows" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), rows: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), rows: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('rows'), equals(null));
+    });
+
+    test('should not set attribute "rows" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), rows: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('rows'), equals(null));
+    });
+
+    test('should set attribute "cols"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), cols: 10),
+          TextArea(key: GlobalKey('el-2'), cols: 0),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('cols'), equals('10'));
+      expect(element2.getAttribute('cols'), equals('0'));
+    });
+
+    test('should update attribute "cols"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), cols: 10),
+          TextArea(key: GlobalKey('el-2'), cols: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), cols: 20),
+          TextArea(key: GlobalKey('el-2'), cols: 20),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('cols'), equals('20'));
+      expect(element2.getAttribute('cols'), equals('20'));
+    });
+
+    test('should clear attribute "cols"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1')),
+          TextArea(key: GlobalKey('el-2'), cols: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1')),
+          TextArea(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('cols'), equals(null));
+      expect(element2.getAttribute('cols'), equals(null));
+    });
+
+    test('should clear attribute "cols" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), cols: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), cols: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('cols'), equals(null));
+    });
+
+    test('should not set attribute "cols" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), cols: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('cols'), equals(null));
+    });
+
+    test('should set attribute "minLength"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), minLength: 10),
+          TextArea(key: GlobalKey('el-2'), minLength: 0),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('minlength'), equals('10'));
+      expect(element2.getAttribute('minlength'), equals('0'));
+    });
+
+    test('should update attribute "minLength"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), minLength: 10),
+          TextArea(key: GlobalKey('el-2'), minLength: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), minLength: 20),
+          TextArea(key: GlobalKey('el-2'), minLength: 20),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('minlength'), equals('20'));
+      expect(element2.getAttribute('minlength'), equals('20'));
+    });
+
+    test('should clear attribute "minLength"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1')),
+          TextArea(key: GlobalKey('el-2'), minLength: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1')),
+          TextArea(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('minlength'), equals(null));
+      expect(element2.getAttribute('minlength'), equals(null));
+    });
+
+    test('should clear attribute "minLength" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), minLength: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), minLength: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('minlength'), equals(null));
+    });
+
+    test('should not set attribute "minLength" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), minLength: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('minlength'), equals(null));
+    });
+
+    test('should set attribute "maxLength"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), maxLength: 10),
+          TextArea(key: GlobalKey('el-2'), maxLength: 0),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('maxlength'), equals('10'));
+      expect(element2.getAttribute('maxlength'), equals('0'));
+    });
+
+    test('should update attribute "maxLength"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), maxLength: 10),
+          TextArea(key: GlobalKey('el-2'), maxLength: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), maxLength: 20),
+          TextArea(key: GlobalKey('el-2'), maxLength: 20),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('maxlength'), equals('20'));
+      expect(element2.getAttribute('maxlength'), equals('20'));
+    });
+
+    test('should clear attribute "maxLength"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1')),
+          TextArea(key: GlobalKey('el-2'), maxLength: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1')),
+          TextArea(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('maxlength'), equals(null));
+      expect(element2.getAttribute('maxlength'), equals(null));
+    });
+
+    test('should clear attribute "maxLength" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), maxLength: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), maxLength: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('maxlength'), equals(null));
+    });
+
+    test('should not set attribute "maxLength" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), maxLength: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('maxlength'), equals(null));
+    });
+
+    test('should set attribute "required" only if its true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), required: false),
+          TextArea(key: GlobalKey('el-2'), required: null),
+          TextArea(key: GlobalKey('el-3'), required: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element3 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('required'), equals(null));
+      expect(element2.getAttribute('required'), equals(null));
+      expect(element3.getAttribute('required'), equals('true'));
+    });
+
+    test('should clear attribute "required" if updated value is not true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), required: true),
+          TextArea(key: GlobalKey('el-2'), required: true),
+          TextArea(key: GlobalKey('el-3'), required: true),
+          TextArea(key: GlobalKey('el-4'), required: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), required: true),
+          TextArea(key: GlobalKey('el-2'), required: false),
+          TextArea(key: GlobalKey('el-3'), required: null),
+          TextArea(key: GlobalKey('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element3 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element4 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-4'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('required'), equals('true'));
+      expect(element2.getAttribute('required'), equals(null));
+      expect(element3.getAttribute('required'), equals(null));
+      expect(element4.getAttribute('required'), equals(null));
+    });
+
+    test('should set attribute "readonly" only if its true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), readOnly: false),
+          TextArea(key: GlobalKey('el-2'), readOnly: null),
+          TextArea(key: GlobalKey('el-3'), readOnly: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element3 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('readonly'), equals(null));
+      expect(element2.getAttribute('readonly'), equals(null));
+      expect(element3.getAttribute('readonly'), equals('true'));
+    });
+
+    test('should clear attribute "readonly" if updated value is not true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), readOnly: true),
+          TextArea(key: GlobalKey('el-2'), readOnly: true),
+          TextArea(key: GlobalKey('el-3'), readOnly: true),
+          TextArea(key: GlobalKey('el-4'), readOnly: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), readOnly: true),
+          TextArea(key: GlobalKey('el-2'), readOnly: false),
+          TextArea(key: GlobalKey('el-3'), readOnly: null),
+          TextArea(key: GlobalKey('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element3 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element4 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-4'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('readonly'), equals('true'));
+      expect(element2.getAttribute('readonly'), equals(null));
+      expect(element3.getAttribute('readonly'), equals(null));
+      expect(element4.getAttribute('readonly'), equals(null));
+    });
+
+    test('should set attribute "disabled" only if its true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), disabled: false),
+          TextArea(key: GlobalKey('el-2'), disabled: null),
+          TextArea(key: GlobalKey('el-3'), disabled: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element3 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('disabled'), equals(null));
+      expect(element2.getAttribute('disabled'), equals(null));
+      expect(element3.getAttribute('disabled'), equals('true'));
+    });
+
+    test('should clear attribute "disabled" if updated value is not true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), disabled: true),
+          TextArea(key: GlobalKey('el-2'), disabled: true),
+          TextArea(key: GlobalKey('el-3'), disabled: true),
+          TextArea(key: GlobalKey('el-4'), disabled: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          TextArea(key: GlobalKey('el-1'), disabled: true),
+          TextArea(key: GlobalKey('el-2'), disabled: false),
+          TextArea(key: GlobalKey('el-3'), disabled: null),
+          TextArea(key: GlobalKey('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element3 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element4 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-4'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('disabled'), equals('true'));
+      expect(element2.getAttribute('disabled'), equals(null));
+      expect(element3.getAttribute('disabled'), equals(null));
+      expect(element4.getAttribute('disabled'), equals(null));
+    });
   });
 }
