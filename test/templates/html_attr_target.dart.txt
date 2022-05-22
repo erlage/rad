@@ -65,7 +65,7 @@ test('should update target', () {
     expect(element2.getAttribute('target'), equals('another-target'));
 });
 
-test('should clear target', () {
+test('should clear attribute "target"', () {
     app!.framework.buildChildren(
     widgets: [
         __WidgetClass__(key: GlobalKey('el-1')),

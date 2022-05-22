@@ -746,7 +746,7 @@ void html_anchor_test() {
       expect(element2.getAttribute('href'), equals('another-href'));
     });
 
-    test('should clear href', () {
+    test('should clear attribute "href"', () {
       app!.framework.buildChildren(
         widgets: [
           Anchor(key: GlobalKey('el-1')),
@@ -851,7 +851,7 @@ void html_anchor_test() {
       expect(element2.getAttribute('rel'), equals('another-rel'));
     });
 
-    test('should clear rel', () {
+    test('should clear attribute "rel"', () {
       app!.framework.buildChildren(
         widgets: [
           Anchor(key: GlobalKey('el-1')),
@@ -956,7 +956,7 @@ void html_anchor_test() {
       expect(element2.getAttribute('target'), equals('another-target'));
     });
 
-    test('should clear target', () {
+    test('should clear attribute "target"', () {
       app!.framework.buildChildren(
         widgets: [
           Anchor(key: GlobalKey('el-1')),
@@ -1061,7 +1061,7 @@ void html_anchor_test() {
       expect(element2.getAttribute('download'), equals('another-download'));
     });
 
-    test('should clear download', () {
+    test('should clear attribute "download"', () {
       app!.framework.buildChildren(
         widgets: [
           Anchor(key: GlobalKey('el-1')),

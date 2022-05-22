@@ -65,7 +65,7 @@ test('should update href', () {
     expect(element2.getAttribute('href'), equals('another-href'));
 });
 
-test('should clear href', () {
+test('should clear attribute "href"', () {
     app!.framework.buildChildren(
     widgets: [
         __WidgetClass__(key: GlobalKey('el-1')),

@@ -65,7 +65,7 @@ test('should update rel', () {
     expect(element2.getAttribute('rel'), equals('another-rel'));
 });
 
-test('should clear rel', () {
+test('should clear attribute "rel"', () {
     app!.framework.buildChildren(
     widgets: [
         __WidgetClass__(key: GlobalKey('el-1')),
