@@ -49,3 +49,4 @@ import_sorter:
   comments: false
   ignored_files:
     - \/test\/*
+    - \/*.generated.dart
