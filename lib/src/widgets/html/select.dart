@@ -188,7 +188,7 @@ Map<String, String?> _prepareAttributes({
     }
   }
 
-  if (null != props.multiple) {
+  if (null != props.multiple && props.multiple!) {
     attributes[Attributes.multiple] = '${props.multiple}';
   } else {
     if (null != oldProps?.multiple) {
