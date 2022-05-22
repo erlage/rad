@@ -1,8 +1,8 @@
 test('should set attribute "rows"', () {
     app!.framework.buildChildren(
         widgets: [
-            TextArea(key: GlobalKey('el-1'), rows: 10),
-            TextArea(key: GlobalKey('el-2'), rows: 0),
+            __WidgetClass__(key: GlobalKey('el-1'), rows: 10),
+            __WidgetClass__(key: GlobalKey('el-2'), rows: 0),
         ],
         parentContext: app!.appContext,
     );
@@ -30,16 +30,16 @@ test('should set attribute "rows"', () {
 test('should update attribute "rows"', () {
     app!.framework.buildChildren(
         widgets: [
-            TextArea(key: GlobalKey('el-1'), rows: 10),
-            TextArea(key: GlobalKey('el-2'), rows: 10),
+            __WidgetClass__(key: GlobalKey('el-1'), rows: 10),
+            __WidgetClass__(key: GlobalKey('el-2'), rows: 10),
         ],
         parentContext: app!.appContext,
     );
 
     app!.framework.updateChildren(
         widgets: [
-            TextArea(key: GlobalKey('el-1'), rows: 20),
-            TextArea(key: GlobalKey('el-2'), rows: 20),
+            __WidgetClass__(key: GlobalKey('el-1'), rows: 20),
+            __WidgetClass__(key: GlobalKey('el-2'), rows: 20),
         ],
         updateType: UpdateType.setState,
         parentContext: app!.appContext,
@@ -68,16 +68,16 @@ test('should update attribute "rows"', () {
 test('should clear attribute "rows"', () {
     app!.framework.buildChildren(
         widgets: [
-            TextArea(key: GlobalKey('el-1')),
-            TextArea(key: GlobalKey('el-2'), rows: 10),
+            __WidgetClass__(key: GlobalKey('el-1')),
+            __WidgetClass__(key: GlobalKey('el-2'), rows: 10),
         ],
         parentContext: app!.appContext,
     );
 
     app!.framework.updateChildren(
         widgets: [
-            TextArea(key: GlobalKey('el-1')),
-            TextArea(key: GlobalKey('el-2')),
+            __WidgetClass__(key: GlobalKey('el-1')),
+            __WidgetClass__(key: GlobalKey('el-2')),
         ],
         updateType: UpdateType.setState,
         parentContext: app!.appContext,
@@ -106,14 +106,14 @@ test('should clear attribute "rows"', () {
 test('should clear attribute "rows" if updated value is null', () {
     app!.framework.buildChildren(
         widgets: [
-            TextArea(key: GlobalKey('el-1'), rows: 10),
+            __WidgetClass__(key: GlobalKey('el-1'), rows: 10),
         ],
         parentContext: app!.appContext,
     );
 
     app!.framework.updateChildren(
         widgets: [
-            TextArea(key: GlobalKey('el-1'), rows: null),
+            __WidgetClass__(key: GlobalKey('el-1'), rows: null),
         ],
         updateType: UpdateType.setState,
         parentContext: app!.appContext,
@@ -133,7 +133,7 @@ test('should clear attribute "rows" if updated value is null', () {
 test('should not set attribute "rows" if provided value is null', () {
     app!.framework.buildChildren(
         widgets: [
-            TextArea(key: GlobalKey('el-1'), rows: null),
+            __WidgetClass__(key: GlobalKey('el-1'), rows: null),
         ],
         parentContext: app!.appContext,
     );
