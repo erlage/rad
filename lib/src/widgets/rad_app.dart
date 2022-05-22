@@ -26,12 +26,6 @@ class RadApp extends Widget {
   get correspondingTag => DomTag.division;
 
   @override
-  createConfiguration() => const WidgetConfiguration();
-
-  @override
-  isConfigurationChanged(oldConfiguration) => false;
-
-  @override
   createRenderObject(context) => AppWidgetRenderObject(context);
 }
 

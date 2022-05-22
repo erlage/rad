@@ -117,10 +117,6 @@ abstract class StatefulWidget extends Widget {
 
   @nonVirtual
   @override
-  createConfiguration() => const WidgetConfiguration();
-
-  @nonVirtual
-  @override
   isConfigurationChanged(oldConfiguration) => true;
 
   @nonVirtual
