@@ -63,6 +63,21 @@ widget_specific_tests = {
         'html_attr_width',
         'html_attr_height',
     ],
+    'Input': [
+        'html_attr_name',
+        'html_attr_value',
+        'html_attr_accept',
+        'html_attr_minlength',
+        'html_attr_maxlength',
+        'html_attr_pattern',
+        'html_attr_placeholder',
+        'html_attr_multiple',
+        'html_attr_required',
+        'html_attr_readonly',
+        'html_attr_disabled',
+        'html_attr_checked',
+        'html_attr_input_type',
+    ],
     'Label': [
         'html_attr_for',
     ],
@@ -158,11 +173,7 @@ widgets_map = {
     'IFrame': 'iframe',
     'Idiomatic': 'i',
     'Image': 'img',
-    'InputCheckBox': 'input',
-    'InputFile': 'input',
-    'InputRadio': 'input',
-    'InputSubmit': 'input',
-    'InputText': 'input',
+    'Input': 'input',
     'Label': 'label',
     'Legend': 'legend',
     'ListItem': 'li',
@@ -188,6 +199,14 @@ widgets_map = {
     'TableRow': 'tr',
     'TextArea': 'textarea',
     'UnOrderedList': 'ul',
+
+    # additionals,
+
+    'InputCheckBox': 'input',
+    'InputFile': 'input',
+    'InputRadio': 'input',
+    'InputSubmit': 'input',
+    'InputText': 'input',
 }
 
 

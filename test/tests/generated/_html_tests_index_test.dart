@@ -30,11 +30,7 @@ part 'html_horizontal_rule_tests.generated.dart';
 part 'html_i_frame_tests.generated.dart';
 part 'html_idiomatic_tests.generated.dart';
 part 'html_image_tests.generated.dart';
-part 'html_input_check_box_tests.generated.dart';
-part 'html_input_file_tests.generated.dart';
-part 'html_input_radio_tests.generated.dart';
-part 'html_input_submit_tests.generated.dart';
-part 'html_input_text_tests.generated.dart';
+part 'html_input_tests.generated.dart';
 part 'html_label_tests.generated.dart';
 part 'html_legend_tests.generated.dart';
 part 'html_list_item_tests.generated.dart';
@@ -60,6 +56,11 @@ part 'html_table_header_cell_tests.generated.dart';
 part 'html_table_row_tests.generated.dart';
 part 'html_text_area_tests.generated.dart';
 part 'html_un_ordered_list_tests.generated.dart';
+part 'html_input_check_box_tests.generated.dart';
+part 'html_input_file_tests.generated.dart';
+part 'html_input_radio_tests.generated.dart';
+part 'html_input_submit_tests.generated.dart';
+part 'html_input_text_tests.generated.dart';
 
 void main() {
   html_abbreviation_test();
@@ -86,11 +87,7 @@ void main() {
   html_i_frame_test();
   html_idiomatic_test();
   html_image_test();
-  html_input_check_box_test();
-  html_input_file_test();
-  html_input_radio_test();
-  html_input_submit_test();
-  html_input_text_test();
+  html_input_test();
   html_label_test();
   html_legend_test();
   html_list_item_test();
@@ -116,4 +113,9 @@ void main() {
   html_table_row_test();
   html_text_area_test();
   html_un_ordered_list_test();
+  html_input_check_box_test();
+  html_input_file_test();
+  html_input_radio_test();
+  html_input_submit_test();
+  html_input_text_test();
 }

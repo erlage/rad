@@ -1,14 +1,11 @@
 // ignore_for_file: camel_case_types
 
-import 'package:rad/rad.dart';
-import 'package:rad/widgets_internals.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/interface/window/window.dart';
 import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/interface/window/delegates/browser_window.dart';
 
-import 'test_bed.dart';
-import 'test_widget.dart';
+import '../test_imports.dart';
 
 RT_AppRunner createTestApp({
   DebugOptions? debugOptions,
@@ -114,5 +111,17 @@ class RT_AppRunner {
       widgets: [RT_TestWidget(key: GlobalKey('app-widget'))],
       parentContext: RT_TestBed.rootContext,
     );
+  }
+
+  /// Get element by global key under app context.
+  ///
+  Element element(String key) {
+    return services.walker
+        .getWidgetObjectUsingKey(
+          services.keyGen
+              .getGlobalKeyUsingKey(GlobalKey(key), appContext)
+              .value,
+        )!
+        .element;
   }
 }

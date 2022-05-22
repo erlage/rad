@@ -1,0 +1,150 @@
+test('should set attribute "pattern"', () {
+    app!.framework.buildChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1'), pattern: 'some-pattern'),
+        __WidgetClass__(key: GlobalKey('el-2'), pattern: 'another-pattern'),
+    ],
+    parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('pattern'), equals('some-pattern'));
+    expect(element2.getAttribute('pattern'), equals('another-pattern'));
+});
+
+test('should update attribute "pattern"', () {
+    app!.framework.buildChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1'), pattern: 'some-pattern'),
+        __WidgetClass__(key: GlobalKey('el-2'), pattern: 'another-pattern'),
+    ],
+    parentContext: app!.appContext,
+    );
+
+    app!.framework.updateChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1'), pattern: 'updated-pattern'),
+        __WidgetClass__(key: GlobalKey('el-2'), pattern: 'another-pattern'),
+    ],
+    updateType: UpdateType.setState,
+    parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('pattern'), equals('updated-pattern'));
+    expect(element2.getAttribute('pattern'), equals('another-pattern'));
+});
+
+test('should clear attribute "pattern"', () {
+    app!.framework.buildChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1')),
+        __WidgetClass__(key: GlobalKey('el-2'), pattern: 'another-pattern'),
+    ],
+    parentContext: app!.appContext,
+    );
+
+    app!.framework.updateChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1')),
+        __WidgetClass__(key: GlobalKey('el-2')),
+    ],
+    updateType: UpdateType.setState,
+    parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('pattern'), equals(null));
+    expect(element2.getAttribute('pattern'), equals(null));
+});
+
+test('should clear attribute "pattern" if updated value is null', () {
+   app!.framework.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), pattern: 'some-pattern'),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    app!.framework.updateChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), pattern: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('pattern'), equals(null));
+});
+
+test('should not set attribute "pattern" if provided value is null', () {
+    app!.framework.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), pattern: null),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('pattern'), equals(null));
+});
