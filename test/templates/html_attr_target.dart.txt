@@ -1,4 +1,4 @@
-test('should set target', () {
+test('should set attribute "target"', () {
     app!.framework.buildChildren(
     widgets: [
         __WidgetClass__(key: GlobalKey('el-1'), target: 'some-target'),
@@ -27,7 +27,7 @@ test('should set target', () {
     expect(element2.getAttribute('target'), equals('another-target'));
 });
 
-test('should update target', () {
+test('should update attribute "target"', () {
     app!.framework.buildChildren(
     widgets: [
         __WidgetClass__(key: GlobalKey('el-1'), target: 'some-target'),

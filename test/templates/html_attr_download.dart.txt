@@ -1,4 +1,4 @@
-test('should set download', () {
+test('should set attribute "download"', () {
     app!.framework.buildChildren(
     widgets: [
         __WidgetClass__(key: GlobalKey('el-1'), download: 'some-download'),
@@ -27,7 +27,7 @@ test('should set download', () {
     expect(element2.getAttribute('download'), equals('another-download'));
 });
 
-test('should update download', () {
+test('should update attribute "download"', () {
     app!.framework.buildChildren(
     widgets: [
         __WidgetClass__(key: GlobalKey('el-1'), download: 'some-download'),

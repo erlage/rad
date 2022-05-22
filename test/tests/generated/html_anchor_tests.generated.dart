@@ -679,7 +679,7 @@ void html_anchor_test() {
       expect(element3!.context.key.value, equals('some-global-key'));
     });
 
-    test('should set href', () {
+    test('should set attribute "href"', () {
       app!.framework.buildChildren(
         widgets: [
           Anchor(key: GlobalKey('el-1'), href: 'some-href'),
@@ -708,7 +708,7 @@ void html_anchor_test() {
       expect(element2.getAttribute('href'), equals('another-href'));
     });
 
-    test('should update href', () {
+    test('should update attribute "href"', () {
       app!.framework.buildChildren(
         widgets: [
           Anchor(key: GlobalKey('el-1'), href: 'some-href'),
@@ -830,7 +830,7 @@ void html_anchor_test() {
       expect(element1.getAttribute('href'), equals(null));
     });
 
-    test('should set rel', () {
+    test('should set attribute "rel"', () {
       app!.framework.buildChildren(
         widgets: [
           Anchor(key: GlobalKey('el-1'), rel: 'some-rel'),
@@ -859,7 +859,7 @@ void html_anchor_test() {
       expect(element2.getAttribute('rel'), equals('another-rel'));
     });
 
-    test('should update rel', () {
+    test('should update attribute "rel"', () {
       app!.framework.buildChildren(
         widgets: [
           Anchor(key: GlobalKey('el-1'), rel: 'some-rel'),
@@ -981,7 +981,7 @@ void html_anchor_test() {
       expect(element1.getAttribute('rel'), equals(null));
     });
 
-    test('should set target', () {
+    test('should set attribute "target"', () {
       app!.framework.buildChildren(
         widgets: [
           Anchor(key: GlobalKey('el-1'), target: 'some-target'),
@@ -1010,7 +1010,7 @@ void html_anchor_test() {
       expect(element2.getAttribute('target'), equals('another-target'));
     });
 
-    test('should update target', () {
+    test('should update attribute "target"', () {
       app!.framework.buildChildren(
         widgets: [
           Anchor(key: GlobalKey('el-1'), target: 'some-target'),
@@ -1132,7 +1132,7 @@ void html_anchor_test() {
       expect(element1.getAttribute('target'), equals(null));
     });
 
-    test('should set download', () {
+    test('should set attribute "download"', () {
       app!.framework.buildChildren(
         widgets: [
           Anchor(key: GlobalKey('el-1'), download: 'some-download'),
@@ -1161,7 +1161,7 @@ void html_anchor_test() {
       expect(element2.getAttribute('download'), equals('another-download'));
     });
 
-    test('should update download', () {
+    test('should update attribute "download"', () {
       app!.framework.buildChildren(
         widgets: [
           Anchor(key: GlobalKey('el-1'), download: 'some-download'),

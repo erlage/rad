@@ -1,4 +1,4 @@
-test('should set rel', () {
+test('should set attribute "rel"', () {
     app!.framework.buildChildren(
     widgets: [
         __WidgetClass__(key: GlobalKey('el-1'), rel: 'some-rel'),
@@ -27,7 +27,7 @@ test('should set rel', () {
     expect(element2.getAttribute('rel'), equals('another-rel'));
 });
 
-test('should update rel', () {
+test('should update attribute "rel"', () {
     app!.framework.buildChildren(
     widgets: [
         __WidgetClass__(key: GlobalKey('el-1'), rel: 'some-rel'),
