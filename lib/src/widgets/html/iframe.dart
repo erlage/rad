@@ -252,7 +252,7 @@ Map<String, String?> _prepareAttributes({
     }
   }
 
-  if (null != props.allowFullscreen) {
+  if (null != props.allowFullscreen && props.allowFullscreen!) {
     attributes[Attributes.allowFullscreen] = '${props.allowFullscreen}';
   } else {
     if (null != oldProps?.allowFullscreen) {
@@ -260,7 +260,7 @@ Map<String, String?> _prepareAttributes({
     }
   }
 
-  if (null != props.allowPaymentRequest) {
+  if (null != props.allowPaymentRequest && props.allowPaymentRequest!) {
     var value = '${props.allowPaymentRequest}';
 
     attributes[Attributes.allowPaymentRequest] = value;
