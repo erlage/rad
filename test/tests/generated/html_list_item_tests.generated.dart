@@ -682,8 +682,8 @@ void html_list_item_test() {
     test('should set attribute "value"', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(key: GlobalKey('el-1'), value: 'some-value'),
-          ListItem(key: GlobalKey('el-2'), value: 'another-value'),
+          ListItem(key: GlobalKey('el-1'), value: 10),
+          ListItem(key: GlobalKey('el-2'), value: 0),
         ],
         parentContext: app!.appContext,
       );
@@ -704,23 +704,23 @@ void html_list_item_test() {
           )!
           .element;
 
-      expect(element1.getAttribute('value'), equals('some-value'));
-      expect(element2.getAttribute('value'), equals('another-value'));
+      expect(element1.getAttribute('value'), equals('10'));
+      expect(element2.getAttribute('value'), equals('0'));
     });
 
     test('should update attribute "value"', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(key: GlobalKey('el-1'), value: 'some-value'),
-          ListItem(key: GlobalKey('el-2'), value: 'another-value'),
+          ListItem(key: GlobalKey('el-1'), value: 10),
+          ListItem(key: GlobalKey('el-2'), value: 10),
         ],
         parentContext: app!.appContext,
       );
 
       app!.framework.updateChildren(
         widgets: [
-          ListItem(key: GlobalKey('el-1'), value: 'updated-value'),
-          ListItem(key: GlobalKey('el-2'), value: 'another-value'),
+          ListItem(key: GlobalKey('el-1'), value: 20),
+          ListItem(key: GlobalKey('el-2'), value: 20),
         ],
         updateType: UpdateType.setState,
         parentContext: app!.appContext,
@@ -742,15 +742,15 @@ void html_list_item_test() {
           )!
           .element;
 
-      expect(element1.getAttribute('value'), equals('updated-value'));
-      expect(element2.getAttribute('value'), equals('another-value'));
+      expect(element1.getAttribute('value'), equals('20'));
+      expect(element2.getAttribute('value'), equals('20'));
     });
 
     test('should clear attribute "value"', () {
       app!.framework.buildChildren(
         widgets: [
           ListItem(key: GlobalKey('el-1')),
-          ListItem(key: GlobalKey('el-2'), value: 'another-value'),
+          ListItem(key: GlobalKey('el-2'), value: 10),
         ],
         parentContext: app!.appContext,
       );
@@ -787,7 +787,7 @@ void html_list_item_test() {
     test('should clear attribute "value" if updated value is null', () {
       app!.framework.buildChildren(
         widgets: [
-          ListItem(key: GlobalKey('el-1'), value: 'some-value'),
+          ListItem(key: GlobalKey('el-1'), value: 10),
         ],
         parentContext: app!.appContext,
       );

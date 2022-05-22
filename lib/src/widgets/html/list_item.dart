@@ -13,7 +13,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 class ListItem extends MarkUpTagWithGlobalProps {
   /// Value of list item.
   ///
-  final String? value;
+  final int? value;
 
   const ListItem({
     this.value,
@@ -85,7 +85,7 @@ class ListItem extends MarkUpTagWithGlobalProps {
 class _ListItemConfiguration extends WidgetConfiguration {
   final MarkUpGlobalConfiguration globalConfiguration;
 
-  final String? value;
+  final int? value;
 
   const _ListItemConfiguration({
     this.value,

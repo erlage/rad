@@ -67,7 +67,7 @@ tag_specific_tests = {
         'html_attr_for',
     ],
     'li': [
-        'html_attr_value',
+        'html_attr_value_int',
     ],
     'option': [
         'html_attr_label',
