@@ -784,6 +784,52 @@ void html_anchor_test() {
       expect(element2.getAttribute('href'), equals(null));
     });
 
+    test('should clear attribute "href" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), href: 'some-href'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), href: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('href'), equals(null));
+    });
+
+    test('should not set attribute "href" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), href: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('href'), equals(null));
+    });
+
     test('should set rel', () {
       app!.framework.buildChildren(
         widgets: [
@@ -887,6 +933,52 @@ void html_anchor_test() {
 
       expect(element1.getAttribute('rel'), equals(null));
       expect(element2.getAttribute('rel'), equals(null));
+    });
+
+    test('should clear attribute "rel" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), rel: 'some-rel'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), rel: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('rel'), equals(null));
+    });
+
+    test('should not set attribute "rel" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), rel: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('rel'), equals(null));
     });
 
     test('should set target', () {
@@ -994,6 +1086,52 @@ void html_anchor_test() {
       expect(element2.getAttribute('target'), equals(null));
     });
 
+    test('should clear attribute "target" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), target: 'some-target'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), target: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('target'), equals(null));
+    });
+
+    test('should not set attribute "target" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), target: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('target'), equals(null));
+    });
+
     test('should set download', () {
       app!.framework.buildChildren(
         widgets: [
@@ -1097,6 +1235,52 @@ void html_anchor_test() {
 
       expect(element1.getAttribute('download'), equals(null));
       expect(element2.getAttribute('download'), equals(null));
+    });
+
+    test('should clear attribute "download" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), download: 'some-download'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), download: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('download'), equals(null));
+    });
+
+    test('should not set attribute "download" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Anchor(key: GlobalKey('el-1'), download: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('download'), equals(null));
     });
   });
 }

@@ -102,3 +102,49 @@ test('should clear attribute "download"', () {
     expect(element1.getAttribute('download'), equals(null));
     expect(element2.getAttribute('download'), equals(null));
 });
+
+test('should clear attribute "download" if updated value is null', () {
+   app!.framework.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), download: 'some-download'),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    app!.framework.updateChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), download: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('download'), equals(null));
+});
+
+test('should not set attribute "download" if provided value is null', () {
+    app!.framework.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), download: null),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('download'), equals(null));
+});
