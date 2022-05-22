@@ -662,5 +662,411 @@ void html_input_file_test() {
       expect(element2!.context.key.value, endsWith('some-local-key'));
       expect(element3!.context.key.value, equals('some-global-key'));
     });
+
+    test('should set attribute "name"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), name: 'some-name'),
+          InputFile(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('name'), equals('some-name'));
+      expect(element2.getAttribute('name'), equals('another-name'));
+    });
+
+    test('should update attribute "name"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), name: 'some-name'),
+          InputFile(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), name: 'updated-name'),
+          InputFile(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('name'), equals('updated-name'));
+      expect(element2.getAttribute('name'), equals('another-name'));
+    });
+
+    test('should clear attribute "name"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1')),
+          InputFile(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1')),
+          InputFile(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('name'), equals(null));
+      expect(element2.getAttribute('name'), equals(null));
+    });
+
+    test('should clear attribute "name" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), name: 'some-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), name: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('name'), equals(null));
+    });
+
+    test('should not set attribute "name" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), name: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('name'), equals(null));
+    });
+
+    test('should set attribute "accept"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), accept: 'some-accept'),
+          InputFile(key: GlobalKey('el-2'), accept: 'another-accept'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('accept'), equals('some-accept'));
+      expect(element2.getAttribute('accept'), equals('another-accept'));
+    });
+
+    test('should update attribute "accept"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), accept: 'some-accept'),
+          InputFile(key: GlobalKey('el-2'), accept: 'another-accept'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), accept: 'updated-accept'),
+          InputFile(key: GlobalKey('el-2'), accept: 'another-accept'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('accept'), equals('updated-accept'));
+      expect(element2.getAttribute('accept'), equals('another-accept'));
+    });
+
+    test('should clear attribute "accept"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1')),
+          InputFile(key: GlobalKey('el-2'), accept: 'another-accept'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1')),
+          InputFile(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('accept'), equals(null));
+      expect(element2.getAttribute('accept'), equals(null));
+    });
+
+    test('should clear attribute "accept" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), accept: 'some-accept'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), accept: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('accept'), equals(null));
+    });
+
+    test('should not set attribute "accept" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), accept: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('accept'), equals(null));
+    });
+
+    test('should set attribute "multiple" only if its true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), multiple: false),
+          InputFile(key: GlobalKey('el-2'), multiple: null),
+          InputFile(key: GlobalKey('el-3'), multiple: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+
+      expect(element1.getAttribute('multiple'), equals(null));
+      expect(element2.getAttribute('multiple'), equals(null));
+      expect(element3.getAttribute('multiple'), equals('true'));
+    });
+
+    test('should clear attribute "multiple" if updated value is not true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), multiple: true),
+          InputFile(key: GlobalKey('el-2'), multiple: true),
+          InputFile(key: GlobalKey('el-3'), multiple: true),
+          InputFile(key: GlobalKey('el-4'), multiple: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), multiple: true),
+          InputFile(key: GlobalKey('el-2'), multiple: false),
+          InputFile(key: GlobalKey('el-3'), multiple: null),
+          InputFile(key: GlobalKey('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+      var element4 = app!.element('el-4');
+
+      expect(element1.getAttribute('multiple'), equals('true'));
+      expect(element2.getAttribute('multiple'), equals(null));
+      expect(element3.getAttribute('multiple'), equals(null));
+      expect(element4.getAttribute('multiple'), equals(null));
+    });
+
+    test('should set attribute "required" only if its true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), required: false),
+          InputFile(key: GlobalKey('el-2'), required: null),
+          InputFile(key: GlobalKey('el-3'), required: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+
+      expect(element1.getAttribute('required'), equals(null));
+      expect(element2.getAttribute('required'), equals(null));
+      expect(element3.getAttribute('required'), equals('true'));
+    });
+
+    test('should clear attribute "required" if updated value is not true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), required: true),
+          InputFile(key: GlobalKey('el-2'), required: true),
+          InputFile(key: GlobalKey('el-3'), required: true),
+          InputFile(key: GlobalKey('el-4'), required: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), required: true),
+          InputFile(key: GlobalKey('el-2'), required: false),
+          InputFile(key: GlobalKey('el-3'), required: null),
+          InputFile(key: GlobalKey('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+      var element4 = app!.element('el-4');
+
+      expect(element1.getAttribute('required'), equals('true'));
+      expect(element2.getAttribute('required'), equals(null));
+      expect(element3.getAttribute('required'), equals(null));
+      expect(element4.getAttribute('required'), equals(null));
+    });
+
+    test('should set attribute "disabled" only if its true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), disabled: false),
+          InputFile(key: GlobalKey('el-2'), disabled: null),
+          InputFile(key: GlobalKey('el-3'), disabled: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+
+      expect(element1.getAttribute('disabled'), equals(null));
+      expect(element2.getAttribute('disabled'), equals(null));
+      expect(element3.getAttribute('disabled'), equals('true'));
+    });
+
+    test('should clear attribute "disabled" if updated value is not true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), disabled: true),
+          InputFile(key: GlobalKey('el-2'), disabled: true),
+          InputFile(key: GlobalKey('el-3'), disabled: true),
+          InputFile(key: GlobalKey('el-4'), disabled: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), disabled: true),
+          InputFile(key: GlobalKey('el-2'), disabled: false),
+          InputFile(key: GlobalKey('el-3'), disabled: null),
+          InputFile(key: GlobalKey('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+      var element4 = app!.element('el-4');
+
+      expect(element1.getAttribute('disabled'), equals('true'));
+      expect(element2.getAttribute('disabled'), equals(null));
+      expect(element3.getAttribute('disabled'), equals(null));
+      expect(element4.getAttribute('disabled'), equals(null));
+    });
+
+    test('should set input attribute "type"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2'), type: null),
+          Input(key: GlobalKey('el-3'), type: InputType.text),
+          Input(key: GlobalKey('el-4'), type: InputType.password),
+          Input(key: GlobalKey('el-5'), type: InputType.radio),
+          Input(key: GlobalKey('el-6'), type: InputType.checkbox),
+          Input(key: GlobalKey('el-7'), type: InputType.submit),
+          Input(key: GlobalKey('el-8'), type: InputType.file),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      expect(app!.element('el-1').getAttribute('type'), equals(null));
+      expect(app!.element('el-2').getAttribute('type'), equals(null));
+      expect(app!.element('el-3').getAttribute('type'), equals('text'));
+      expect(app!.element('el-4').getAttribute('type'), equals('password'));
+      expect(app!.element('el-5').getAttribute('type'), equals('radio'));
+      expect(app!.element('el-6').getAttribute('type'), equals('checkbox'));
+      expect(app!.element('el-7').getAttribute('type'), equals('submit'));
+      expect(app!.element('el-8').getAttribute('type'), equals('file'));
+    });
+
+    test('should update form attribute "type"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2'), type: null),
+          Input(key: GlobalKey('el-3'), type: InputType.text),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1'), type: InputType.text),
+          Input(key: GlobalKey('el-2'), type: null),
+          Input(key: GlobalKey('el-3')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      expect(app!.element('el-1').getAttribute('type'), equals('text'));
+      expect(app!.element('el-2').getAttribute('type'), equals(null));
+      expect(app!.element('el-3').getAttribute('type'), equals(null));
+    });
   });
 }

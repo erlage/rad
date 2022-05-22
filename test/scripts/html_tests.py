@@ -158,6 +158,14 @@ widget_specific_tests = {
         'html_attr_checked',
         'html_attr_input_type',
     ],
+    'InputFile': [
+        'html_attr_name',
+        'html_attr_accept',
+        'html_attr_multiple',
+        'html_attr_required',
+        'html_attr_disabled',
+        'html_attr_input_type',
+    ],
 }
 
 global_tests = [
