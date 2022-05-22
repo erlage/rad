@@ -237,26 +237,56 @@ void html_label_test() {
       expect(element2.getAttribute('draggable'), equals('true'));
     });
 
-    test('should set hidden', () {
+    test('should set attribute "hidden" only if its true', () {
       app!.framework.buildChildren(
         widgets: [
-          Label(
-            key: Key('widget-1'),
-            hidden: false,
-          ),
-          Label(
-            key: Key('widget-2'),
-            hidden: true,
-          ),
+          Label(key: GlobalKey('el-1'), hidden: false),
+          Label(key: GlobalKey('el-2'), hidden: null),
+          Label(key: GlobalKey('el-3'), hidden: true),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
 
-      expect(element1.hidden, equals(false));
-      expect(element2.hidden, equals(true));
+      expect(element1.getAttribute('hidden'), equals(null));
+      expect(element2.getAttribute('hidden'), equals(null));
+      expect(element3.getAttribute('hidden'), equals('true'));
+    });
+
+    test('should clear attribute "hidden" if updated value is not true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Label(key: GlobalKey('el-1'), hidden: true),
+          Label(key: GlobalKey('el-2'), hidden: true),
+          Label(key: GlobalKey('el-3'), hidden: true),
+          Label(key: GlobalKey('el-4'), hidden: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Label(key: GlobalKey('el-1'), hidden: true),
+          Label(key: GlobalKey('el-2'), hidden: false),
+          Label(key: GlobalKey('el-3'), hidden: null),
+          Label(key: GlobalKey('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+      var element4 = app!.element('el-4');
+
+      expect(element1.getAttribute('hidden'), equals('true'));
+      expect(element2.getAttribute('hidden'), equals(null));
+      expect(element3.getAttribute('hidden'), equals(null));
+      expect(element4.getAttribute('hidden'), equals(null));
     });
 
     test('should set inner text', () {
