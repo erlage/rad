@@ -69,6 +69,12 @@ tag_specific_tests = {
     'li': [
         'html_attr_value',
     ],
+    'option': [
+        'html_attr_label',
+        'html_attr_value',
+        'html_attr_selected',
+        'html_attr_disabled',
+    ],    
 }
 
 global_tests = [

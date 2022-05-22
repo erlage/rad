@@ -1,0 +1,98 @@
+test('should set attribute "selected" only if its true', () {
+    app!.framework.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), selected: false),
+            __WidgetClass__(key: GlobalKey('el-2'), selected: null),
+            __WidgetClass__(key: GlobalKey('el-3'), selected: true),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element3 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('selected'), equals(null));
+    expect(element2.getAttribute('selected'), equals(null));
+    expect(element3.getAttribute('selected'), equals('true'));
+});
+
+test('should clear attribute "selected" if updated value is not true', () {
+    app!.framework.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), selected: true),
+            __WidgetClass__(key: GlobalKey('el-2'), selected: true),
+            __WidgetClass__(key: GlobalKey('el-3'), selected: true),
+            __WidgetClass__(key: GlobalKey('el-4'), selected: true),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    app!.framework.updateChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), selected: true),
+            __WidgetClass__(key: GlobalKey('el-2'), selected: false),
+            __WidgetClass__(key: GlobalKey('el-3'), selected: null),
+            __WidgetClass__(key: GlobalKey('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element3 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element4 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-4'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('selected'), equals('true'));
+    expect(element2.getAttribute('selected'), equals(null));
+    expect(element3.getAttribute('selected'), equals(null));
+    expect(element4.getAttribute('selected'), equals(null));
+});
