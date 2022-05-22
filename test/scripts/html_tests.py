@@ -63,6 +63,9 @@ tag_specific_tests = {
         'html_attr_width',
         'html_attr_height',
     ],
+    'label': [
+        'html_attr_for',
+    ],
 }
 
 global_tests = [
