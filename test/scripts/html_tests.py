@@ -87,6 +87,9 @@ tag_specific_tests = {
     'colgroup': [
         'html_attr_span',
     ],
+    'col': [
+        'html_attr_span',
+    ],
     'textarea': [
         'html_attr_name',
         'html_attr_placeholder',
