@@ -14,12 +14,12 @@ class Progress extends MarkUpTagWithGlobalProps {
   /// This attribute specifies how much of the task that has
   /// been completed.
   ///
-  final num? value;
+  final String? value;
 
   /// This attribute describes how much work the task indicated
   /// by the progress element requires.
   ///
-  final num? max;
+  final String? max;
 
   const Progress({
     this.value,
@@ -94,8 +94,8 @@ class Progress extends MarkUpTagWithGlobalProps {
 class _ProgressConfiguration extends WidgetConfiguration {
   final MarkUpGlobalConfiguration globalConfiguration;
 
-  final num? value;
-  final num? max;
+  final String? value;
+  final String? max;
 
   const _ProgressConfiguration({
     this.value,
