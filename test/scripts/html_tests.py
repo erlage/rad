@@ -31,6 +31,12 @@ tag_specific_tests = {
     'blockquote': [
         'html_attr_cite',
     ],
+    'button': [
+        'html_attr_name',
+        'html_attr_value',
+        'html_attr_disabled',
+        'html_attr_button_type',
+    ],
 }
 
 global_tests = [

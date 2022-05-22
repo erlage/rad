@@ -678,5 +678,494 @@ void html_button_test() {
       expect(element2!.context.key.value, endsWith('some-local-key'));
       expect(element3!.context.key.value, equals('some-global-key'));
     });
+
+    test('should set attribute "name"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1'), name: 'some-name'),
+          Button(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('name'), equals('some-name'));
+      expect(element2.getAttribute('name'), equals('another-name'));
+    });
+
+    test('should update attribute "name"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1'), name: 'some-name'),
+          Button(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1'), name: 'updated-name'),
+          Button(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('name'), equals('updated-name'));
+      expect(element2.getAttribute('name'), equals('another-name'));
+    });
+
+    test('should clear attribute "name"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1')),
+          Button(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1')),
+          Button(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('name'), equals(null));
+      expect(element2.getAttribute('name'), equals(null));
+    });
+
+    test('should clear attribute "name" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1'), name: 'some-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1'), name: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('name'), equals(null));
+    });
+
+    test('should not set attribute "name" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1'), name: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('name'), equals(null));
+    });
+
+    test('should set attribute "value"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1'), value: 'some-value'),
+          Button(key: GlobalKey('el-2'), value: 'another-value'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('value'), equals('some-value'));
+      expect(element2.getAttribute('value'), equals('another-value'));
+    });
+
+    test('should update attribute "value"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1'), value: 'some-value'),
+          Button(key: GlobalKey('el-2'), value: 'another-value'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1'), value: 'updated-value'),
+          Button(key: GlobalKey('el-2'), value: 'another-value'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('value'), equals('updated-value'));
+      expect(element2.getAttribute('value'), equals('another-value'));
+    });
+
+    test('should clear attribute "value"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1')),
+          Button(key: GlobalKey('el-2'), value: 'another-value'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1')),
+          Button(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('value'), equals(null));
+      expect(element2.getAttribute('value'), equals(null));
+    });
+
+    test('should clear attribute "value" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1'), value: 'some-value'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1'), value: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('value'), equals(null));
+    });
+
+    test('should not set attribute "value" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1'), value: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('value'), equals(null));
+    });
+
+    test('should set attribute "disabled" only if its true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1'), disabled: false),
+          Button(key: GlobalKey('el-2'), disabled: null),
+          Button(key: GlobalKey('el-3'), disabled: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element3 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('disabled'), equals(null));
+      expect(element2.getAttribute('disabled'), equals(null));
+      expect(element3.getAttribute('disabled'), equals('true'));
+    });
+
+    test('should clear attribute "disabled" if updated value is not true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1'), disabled: true),
+          Button(key: GlobalKey('el-2'), disabled: true),
+          Button(key: GlobalKey('el-3'), disabled: true),
+          Button(key: GlobalKey('el-4'), disabled: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1'), disabled: true),
+          Button(key: GlobalKey('el-2'), disabled: false),
+          Button(key: GlobalKey('el-3'), disabled: null),
+          Button(key: GlobalKey('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element3 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element4 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-4'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('disabled'), equals('true'));
+      expect(element2.getAttribute('disabled'), equals(null));
+      expect(element3.getAttribute('disabled'), equals(null));
+      expect(element4.getAttribute('disabled'), equals(null));
+    });
+
+    test('should set button attribute "type"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1'), type: ButtonType.button),
+          Button(key: GlobalKey('el-2'), type: ButtonType.reset),
+          Button(key: GlobalKey('el-3'), type: ButtonType.submit),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element3 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('type'), equals('button'));
+      expect(element2.getAttribute('type'), equals('reset'));
+      expect(element3.getAttribute('type'), equals('submit'));
+    });
+
+    test('should update button attribute "type"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1'), type: ButtonType.button),
+          Button(key: GlobalKey('el-2'), type: ButtonType.reset),
+          Button(key: GlobalKey('el-3'), type: ButtonType.submit),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Button(key: GlobalKey('el-1')),
+          Button(key: GlobalKey('el-2'), type: null),
+          Button(key: GlobalKey('el-3'), type: ButtonType.button),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element2 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      var element3 = app!.services.walker
+          .getWidgetObjectUsingKey(
+            app!.services.keyGen
+                .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+                .value,
+          )!
+          .element;
+
+      expect(element1.getAttribute('type'), equals(null));
+      expect(element2.getAttribute('type'), equals(null));
+      expect(element3.getAttribute('type'), equals('button'));
+    });
   });
 }

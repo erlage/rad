@@ -1,0 +1,87 @@
+test('should set button attribute "type"', () {
+    app!.framework.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), type: ButtonType.button),
+            __WidgetClass__(key: GlobalKey('el-2'), type: ButtonType.reset),
+            __WidgetClass__(key: GlobalKey('el-3'), type: ButtonType.submit),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element3 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('type'), equals('button'));
+    expect(element2.getAttribute('type'), equals('reset'));
+    expect(element3.getAttribute('type'), equals('submit'));
+});
+
+test('should update button attribute "type"', () {
+    app!.framework.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), type: ButtonType.button),
+            __WidgetClass__(key: GlobalKey('el-2'), type: ButtonType.reset),
+            __WidgetClass__(key: GlobalKey('el-3'), type: ButtonType.submit),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    app!.framework.updateChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1')),
+            __WidgetClass__(key: GlobalKey('el-2'), type: null),
+            __WidgetClass__(key: GlobalKey('el-3'), type: ButtonType.button),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element3 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('type'), equals(null));
+    expect(element2.getAttribute('type'), equals(null));
+    expect(element3.getAttribute('type'), equals('button'));
+});
