@@ -1,0 +1,150 @@
+test('should set attribute "max"', () {
+    app!.framework.buildChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1'), max: 'some-max'),
+        __WidgetClass__(key: GlobalKey('el-2'), max: 'another-max'),
+    ],
+    parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('max'), equals('some-max'));
+    expect(element2.getAttribute('max'), equals('another-max'));
+});
+
+test('should update attribute "max"', () {
+    app!.framework.buildChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1'), max: 'some-max'),
+        __WidgetClass__(key: GlobalKey('el-2'), max: 'another-max'),
+    ],
+    parentContext: app!.appContext,
+    );
+
+    app!.framework.updateChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1'), max: 'updated-max'),
+        __WidgetClass__(key: GlobalKey('el-2'), max: 'another-max'),
+    ],
+    updateType: UpdateType.setState,
+    parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('max'), equals('updated-max'));
+    expect(element2.getAttribute('max'), equals('another-max'));
+});
+
+test('should clear attribute "max"', () {
+    app!.framework.buildChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1')),
+        __WidgetClass__(key: GlobalKey('el-2'), max: 'another-max'),
+    ],
+    parentContext: app!.appContext,
+    );
+
+    app!.framework.updateChildren(
+    widgets: [
+        __WidgetClass__(key: GlobalKey('el-1')),
+        __WidgetClass__(key: GlobalKey('el-2')),
+    ],
+    updateType: UpdateType.setState,
+    parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('max'), equals(null));
+    expect(element2.getAttribute('max'), equals(null));
+});
+
+test('should clear attribute "max" if updated max is null', () {
+   app!.framework.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), max: 'some-max'),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    app!.framework.updateChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), max: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('max'), equals(null));
+});
+
+test('should not set attribute "max" if provided max is null', () {
+    app!.framework.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), max: null),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('max'), equals(null));
+});

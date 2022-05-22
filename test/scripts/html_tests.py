@@ -74,6 +74,10 @@ tag_specific_tests = {
         'html_attr_value',
         'html_attr_selected',
         'html_attr_disabled',
+    ],  
+    'progress': [
+        'html_attr_value',
+        'html_attr_max',
     ],    
 }
 
