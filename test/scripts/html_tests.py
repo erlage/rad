@@ -66,6 +66,9 @@ tag_specific_tests = {
     'label': [
         'html_attr_for',
     ],
+    'li': [
+        'html_attr_value',
+    ],
 }
 
 global_tests = [
