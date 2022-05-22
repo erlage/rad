@@ -1018,55 +1018,5 @@ void html_input_file_test() {
       expect(element3.getAttribute('disabled'), equals(null));
       expect(element4.getAttribute('disabled'), equals(null));
     });
-
-    test('should set input attribute "type"', () {
-      app!.framework.buildChildren(
-        widgets: [
-          Input(key: GlobalKey('el-1')),
-          Input(key: GlobalKey('el-2'), type: null),
-          Input(key: GlobalKey('el-3'), type: InputType.text),
-          Input(key: GlobalKey('el-4'), type: InputType.password),
-          Input(key: GlobalKey('el-5'), type: InputType.radio),
-          Input(key: GlobalKey('el-6'), type: InputType.checkbox),
-          Input(key: GlobalKey('el-7'), type: InputType.submit),
-          Input(key: GlobalKey('el-8'), type: InputType.file),
-        ],
-        parentContext: app!.appContext,
-      );
-
-      expect(app!.element('el-1').getAttribute('type'), equals(null));
-      expect(app!.element('el-2').getAttribute('type'), equals(null));
-      expect(app!.element('el-3').getAttribute('type'), equals('text'));
-      expect(app!.element('el-4').getAttribute('type'), equals('password'));
-      expect(app!.element('el-5').getAttribute('type'), equals('radio'));
-      expect(app!.element('el-6').getAttribute('type'), equals('checkbox'));
-      expect(app!.element('el-7').getAttribute('type'), equals('submit'));
-      expect(app!.element('el-8').getAttribute('type'), equals('file'));
-    });
-
-    test('should update form attribute "type"', () {
-      app!.framework.buildChildren(
-        widgets: [
-          Input(key: GlobalKey('el-1')),
-          Input(key: GlobalKey('el-2'), type: null),
-          Input(key: GlobalKey('el-3'), type: InputType.text),
-        ],
-        parentContext: app!.appContext,
-      );
-
-      app!.framework.updateChildren(
-        widgets: [
-          Input(key: GlobalKey('el-1'), type: InputType.text),
-          Input(key: GlobalKey('el-2'), type: null),
-          Input(key: GlobalKey('el-3')),
-        ],
-        updateType: UpdateType.setState,
-        parentContext: app!.appContext,
-      );
-
-      expect(app!.element('el-1').getAttribute('type'), equals('text'));
-      expect(app!.element('el-2').getAttribute('type'), equals(null));
-      expect(app!.element('el-3').getAttribute('type'), equals(null));
-    });
   });
 }

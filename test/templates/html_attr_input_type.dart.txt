@@ -1,14 +1,14 @@
 test('should set input attribute "type"', () {
     app!.framework.buildChildren(
         widgets: [
-            Input(key: GlobalKey('el-1')),
-            Input(key: GlobalKey('el-2'), type: null),
-            Input(key: GlobalKey('el-3'), type: InputType.text),
-            Input(key: GlobalKey('el-4'), type: InputType.password),
-            Input(key: GlobalKey('el-5'), type: InputType.radio),
-            Input(key: GlobalKey('el-6'), type: InputType.checkbox),
-            Input(key: GlobalKey('el-7'), type: InputType.submit),
-            Input(key: GlobalKey('el-8'), type: InputType.file),
+            __WidgetClass__(key: GlobalKey('el-1')),
+            __WidgetClass__(key: GlobalKey('el-2'), type: null),
+            __WidgetClass__(key: GlobalKey('el-3'), type: InputType.text),
+            __WidgetClass__(key: GlobalKey('el-4'), type: InputType.password),
+            __WidgetClass__(key: GlobalKey('el-5'), type: InputType.radio),
+            __WidgetClass__(key: GlobalKey('el-6'), type: InputType.checkbox),
+            __WidgetClass__(key: GlobalKey('el-7'), type: InputType.submit),
+            __WidgetClass__(key: GlobalKey('el-8'), type: InputType.file),
         ],
         parentContext: app!.appContext,
     );
@@ -26,18 +26,18 @@ test('should set input attribute "type"', () {
 test('should update form attribute "type"', () {
     app!.framework.buildChildren(
         widgets: [
-            Input(key: GlobalKey('el-1')),
-            Input(key: GlobalKey('el-2'), type: null),
-            Input(key: GlobalKey('el-3'), type: InputType.text),
+            __WidgetClass__(key: GlobalKey('el-1')),
+            __WidgetClass__(key: GlobalKey('el-2'), type: null),
+            __WidgetClass__(key: GlobalKey('el-3'), type: InputType.text),
         ],
         parentContext: app!.appContext,
     );
 
     app!.framework.updateChildren(
         widgets: [
-            Input(key: GlobalKey('el-1'), type: InputType.text),
-            Input(key: GlobalKey('el-2'), type: null),
-            Input(key: GlobalKey('el-3')),
+            __WidgetClass__(key: GlobalKey('el-1'), type: InputType.text),
+            __WidgetClass__(key: GlobalKey('el-2'), type: null),
+            __WidgetClass__(key: GlobalKey('el-3')),
         ],
         updateType: UpdateType.setState,
         parentContext: app!.appContext,
