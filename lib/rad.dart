@@ -35,15 +35,16 @@ export 'src/widgets/inherited_widget.dart' show InheritedWidget;
 export 'src/widgets/stateful_widget.dart' show StatefulWidget, State;
 export 'src/widgets/stateless_widget.dart' show StatelessWidget;
 
+export 'src/widgets/list_view.dart' show ListView;
+export 'src/widgets/raw_markup.dart' show RawMarkUp;
+export 'src/widgets/gesture_detector.dart' show GestureDetector;
+
 // navigator
 
 export 'src/widgets/route.dart' show Route;
 export 'src/widgets/async_route.dart' show AsyncRoute;
 export 'src/widgets/navigator.dart' show Navigator, NavigatorState;
 
-// elements
+// Additional widgets.
 
-export 'src/widgets/text.dart' show Text;
-export 'src/widgets/list_view.dart' show ListView;
-export 'src/widgets/raw_markup.dart' show RawMarkUp;
-export 'src/widgets/gesture_detector.dart' show GestureDetector;
+export 'src/widgets/additional/text.dart' show Text;

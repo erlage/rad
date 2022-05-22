@@ -4,6 +4,7 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/element_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
@@ -16,7 +17,6 @@ import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/core/services/services_resolver.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/html/division.dart';
-import 'package:rad/src/widgets/utils/common_props.dart';
 
 /// Creates a scrollable, linear array of widgets from an explicit [List].
 ///
