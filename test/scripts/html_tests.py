@@ -126,6 +126,22 @@ widget_specific_tests = {
         'html_attr_readonly',
         'html_attr_disabled',
     ], 
+
+    # additional
+
+    'InputText': [
+        'html_attr_name',
+        'html_attr_value',
+        'html_attr_minlength',
+        'html_attr_maxlength',
+        'html_attr_pattern',
+        'html_attr_placeholder',
+        'html_attr_required',
+        'html_attr_readonly',
+        'html_attr_disabled',
+        'html_attr_input_type',
+        'html_input_text_is_password',
+    ],
 }
 
 global_tests = [

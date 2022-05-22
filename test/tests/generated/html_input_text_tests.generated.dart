@@ -662,5 +662,860 @@ void html_input_text_test() {
       expect(element2!.context.key.value, endsWith('some-local-key'));
       expect(element3!.context.key.value, equals('some-global-key'));
     });
+
+    test('should set attribute "name"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), name: 'some-name'),
+          InputText(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('name'), equals('some-name'));
+      expect(element2.getAttribute('name'), equals('another-name'));
+    });
+
+    test('should update attribute "name"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), name: 'some-name'),
+          InputText(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), name: 'updated-name'),
+          InputText(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('name'), equals('updated-name'));
+      expect(element2.getAttribute('name'), equals('another-name'));
+    });
+
+    test('should clear attribute "name"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1')),
+          InputText(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1')),
+          InputText(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('name'), equals(null));
+      expect(element2.getAttribute('name'), equals(null));
+    });
+
+    test('should clear attribute "name" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), name: 'some-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), name: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('name'), equals(null));
+    });
+
+    test('should not set attribute "name" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), name: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('name'), equals(null));
+    });
+
+    test('should set attribute "value"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), value: 'some-value'),
+          InputText(key: GlobalKey('el-2'), value: 'another-value'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('value'), equals('some-value'));
+      expect(element2.getAttribute('value'), equals('another-value'));
+    });
+
+    test('should update attribute "value"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), value: 'some-value'),
+          InputText(key: GlobalKey('el-2'), value: 'another-value'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), value: 'updated-value'),
+          InputText(key: GlobalKey('el-2'), value: 'another-value'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('value'), equals('updated-value'));
+      expect(element2.getAttribute('value'), equals('another-value'));
+    });
+
+    test('should clear attribute "value"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1')),
+          InputText(key: GlobalKey('el-2'), value: 'another-value'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1')),
+          InputText(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('value'), equals(null));
+      expect(element2.getAttribute('value'), equals(null));
+    });
+
+    test('should clear attribute "value" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), value: 'some-value'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), value: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('value'), equals(null));
+    });
+
+    test('should not set attribute "value" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), value: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('value'), equals(null));
+    });
+
+    test('should set attribute "minLength"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), minLength: 10),
+          InputText(key: GlobalKey('el-2'), minLength: 0),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('minlength'), equals('10'));
+      expect(element2.getAttribute('minlength'), equals('0'));
+    });
+
+    test('should update attribute "minLength"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), minLength: 10),
+          InputText(key: GlobalKey('el-2'), minLength: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), minLength: 20),
+          InputText(key: GlobalKey('el-2'), minLength: 20),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('minlength'), equals('20'));
+      expect(element2.getAttribute('minlength'), equals('20'));
+    });
+
+    test('should clear attribute "minLength"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1')),
+          InputText(key: GlobalKey('el-2'), minLength: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1')),
+          InputText(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('minlength'), equals(null));
+      expect(element2.getAttribute('minlength'), equals(null));
+    });
+
+    test('should clear attribute "minLength" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), minLength: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), minLength: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('minlength'), equals(null));
+    });
+
+    test('should not set attribute "minLength" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), minLength: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('minlength'), equals(null));
+    });
+
+    test('should set attribute "maxLength"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), maxLength: 10),
+          InputText(key: GlobalKey('el-2'), maxLength: 0),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('maxlength'), equals('10'));
+      expect(element2.getAttribute('maxlength'), equals('0'));
+    });
+
+    test('should update attribute "maxLength"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), maxLength: 10),
+          InputText(key: GlobalKey('el-2'), maxLength: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), maxLength: 20),
+          InputText(key: GlobalKey('el-2'), maxLength: 20),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('maxlength'), equals('20'));
+      expect(element2.getAttribute('maxlength'), equals('20'));
+    });
+
+    test('should clear attribute "maxLength"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1')),
+          InputText(key: GlobalKey('el-2'), maxLength: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1')),
+          InputText(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('maxlength'), equals(null));
+      expect(element2.getAttribute('maxlength'), equals(null));
+    });
+
+    test('should clear attribute "maxLength" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), maxLength: 10),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), maxLength: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('maxlength'), equals(null));
+    });
+
+    test('should not set attribute "maxLength" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), maxLength: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('maxlength'), equals(null));
+    });
+
+    test('should set attribute "pattern"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), pattern: 'some-pattern'),
+          InputText(key: GlobalKey('el-2'), pattern: 'another-pattern'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('pattern'), equals('some-pattern'));
+      expect(element2.getAttribute('pattern'), equals('another-pattern'));
+    });
+
+    test('should update attribute "pattern"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), pattern: 'some-pattern'),
+          InputText(key: GlobalKey('el-2'), pattern: 'another-pattern'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), pattern: 'updated-pattern'),
+          InputText(key: GlobalKey('el-2'), pattern: 'another-pattern'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('pattern'), equals('updated-pattern'));
+      expect(element2.getAttribute('pattern'), equals('another-pattern'));
+    });
+
+    test('should clear attribute "pattern"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1')),
+          InputText(key: GlobalKey('el-2'), pattern: 'another-pattern'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1')),
+          InputText(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('pattern'), equals(null));
+      expect(element2.getAttribute('pattern'), equals(null));
+    });
+
+    test('should clear attribute "pattern" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), pattern: 'some-pattern'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), pattern: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('pattern'), equals(null));
+    });
+
+    test('should not set attribute "pattern" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), pattern: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('pattern'), equals(null));
+    });
+
+    test('should set attribute "placeholder"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), placeholder: 'some-placeholder'),
+          InputText(key: GlobalKey('el-2'), placeholder: 'another-placeholder'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('placeholder'), equals('some-placeholder'));
+      expect(
+          element2.getAttribute('placeholder'), equals('another-placeholder'));
+    });
+
+    test('should update attribute "placeholder"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), placeholder: 'some-placeholder'),
+          InputText(key: GlobalKey('el-2'), placeholder: 'another-placeholder'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), placeholder: 'updated-placeholder'),
+          InputText(key: GlobalKey('el-2'), placeholder: 'another-placeholder'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(
+          element1.getAttribute('placeholder'), equals('updated-placeholder'));
+      expect(
+          element2.getAttribute('placeholder'), equals('another-placeholder'));
+    });
+
+    test('should clear attribute "placeholder"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1')),
+          InputText(key: GlobalKey('el-2'), placeholder: 'another-placeholder'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1')),
+          InputText(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('placeholder'), equals(null));
+      expect(element2.getAttribute('placeholder'), equals(null));
+    });
+
+    test('should clear attribute "placeholder" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), placeholder: 'some-placeholder'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), placeholder: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('placeholder'), equals(null));
+    });
+
+    test('should not set attribute "placeholder" if provided value is null',
+        () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), placeholder: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('placeholder'), equals(null));
+    });
+
+    test('should set attribute "required" only if its true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), required: false),
+          InputText(key: GlobalKey('el-2'), required: null),
+          InputText(key: GlobalKey('el-3'), required: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+
+      expect(element1.getAttribute('required'), equals(null));
+      expect(element2.getAttribute('required'), equals(null));
+      expect(element3.getAttribute('required'), equals('true'));
+    });
+
+    test('should clear attribute "required" if updated value is not true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), required: true),
+          InputText(key: GlobalKey('el-2'), required: true),
+          InputText(key: GlobalKey('el-3'), required: true),
+          InputText(key: GlobalKey('el-4'), required: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), required: true),
+          InputText(key: GlobalKey('el-2'), required: false),
+          InputText(key: GlobalKey('el-3'), required: null),
+          InputText(key: GlobalKey('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+      var element4 = app!.element('el-4');
+
+      expect(element1.getAttribute('required'), equals('true'));
+      expect(element2.getAttribute('required'), equals(null));
+      expect(element3.getAttribute('required'), equals(null));
+      expect(element4.getAttribute('required'), equals(null));
+    });
+
+    test('should set attribute "readonly" only if its true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), readOnly: false),
+          InputText(key: GlobalKey('el-2'), readOnly: null),
+          InputText(key: GlobalKey('el-3'), readOnly: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+
+      expect(element1.getAttribute('readonly'), equals(null));
+      expect(element2.getAttribute('readonly'), equals(null));
+      expect(element3.getAttribute('readonly'), equals('true'));
+    });
+
+    test('should clear attribute "readonly" if updated value is not true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), readOnly: true),
+          InputText(key: GlobalKey('el-2'), readOnly: true),
+          InputText(key: GlobalKey('el-3'), readOnly: true),
+          InputText(key: GlobalKey('el-4'), readOnly: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), readOnly: true),
+          InputText(key: GlobalKey('el-2'), readOnly: false),
+          InputText(key: GlobalKey('el-3'), readOnly: null),
+          InputText(key: GlobalKey('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+      var element4 = app!.element('el-4');
+
+      expect(element1.getAttribute('readonly'), equals('true'));
+      expect(element2.getAttribute('readonly'), equals(null));
+      expect(element3.getAttribute('readonly'), equals(null));
+      expect(element4.getAttribute('readonly'), equals(null));
+    });
+
+    test('should set attribute "disabled" only if its true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), disabled: false),
+          InputText(key: GlobalKey('el-2'), disabled: null),
+          InputText(key: GlobalKey('el-3'), disabled: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+
+      expect(element1.getAttribute('disabled'), equals(null));
+      expect(element2.getAttribute('disabled'), equals(null));
+      expect(element3.getAttribute('disabled'), equals('true'));
+    });
+
+    test('should clear attribute "disabled" if updated value is not true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), disabled: true),
+          InputText(key: GlobalKey('el-2'), disabled: true),
+          InputText(key: GlobalKey('el-3'), disabled: true),
+          InputText(key: GlobalKey('el-4'), disabled: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), disabled: true),
+          InputText(key: GlobalKey('el-2'), disabled: false),
+          InputText(key: GlobalKey('el-3'), disabled: null),
+          InputText(key: GlobalKey('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+      var element4 = app!.element('el-4');
+
+      expect(element1.getAttribute('disabled'), equals('true'));
+      expect(element2.getAttribute('disabled'), equals(null));
+      expect(element3.getAttribute('disabled'), equals(null));
+      expect(element4.getAttribute('disabled'), equals(null));
+    });
+
+    test('should set input attribute "type"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2'), type: null),
+          Input(key: GlobalKey('el-3'), type: InputType.text),
+          Input(key: GlobalKey('el-4'), type: InputType.password),
+          Input(key: GlobalKey('el-5'), type: InputType.radio),
+          Input(key: GlobalKey('el-6'), type: InputType.checkbox),
+          Input(key: GlobalKey('el-7'), type: InputType.submit),
+          Input(key: GlobalKey('el-8'), type: InputType.file),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      expect(app!.element('el-1').getAttribute('type'), equals(null));
+      expect(app!.element('el-2').getAttribute('type'), equals(null));
+      expect(app!.element('el-3').getAttribute('type'), equals('text'));
+      expect(app!.element('el-4').getAttribute('type'), equals('password'));
+      expect(app!.element('el-5').getAttribute('type'), equals('radio'));
+      expect(app!.element('el-6').getAttribute('type'), equals('checkbox'));
+      expect(app!.element('el-7').getAttribute('type'), equals('submit'));
+      expect(app!.element('el-8').getAttribute('type'), equals('file'));
+    });
+
+    test('should update form attribute "type"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2'), type: null),
+          Input(key: GlobalKey('el-3'), type: InputType.text),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1'), type: InputType.text),
+          Input(key: GlobalKey('el-2'), type: null),
+          Input(key: GlobalKey('el-3')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      expect(app!.element('el-1').getAttribute('type'), equals('text'));
+      expect(app!.element('el-2').getAttribute('type'), equals(null));
+      expect(app!.element('el-3').getAttribute('type'), equals(null));
+    });
+
+    test('should set correct input type if "isPassword" is set', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), isPassword: false),
+          InputText(key: GlobalKey('el-2'), isPassword: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('type'), equals('text'));
+      expect(element2.getAttribute('type'), equals('password'));
+    });
+
+    test('should update input type if "isPassword" is set', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), isPassword: false),
+          InputText(key: GlobalKey('el-2'), isPassword: true),
+          InputText(key: GlobalKey('el-3'), isPassword: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputText(key: GlobalKey('el-1'), isPassword: true),
+          InputText(key: GlobalKey('el-2'), isPassword: false),
+          InputText(key: GlobalKey('el-3')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+
+      expect(element1.getAttribute('type'), equals('password'));
+      expect(element2.getAttribute('type'), equals('text'));
+      expect(element3.getAttribute('type'), equals(null));
+    });
   });
 }
