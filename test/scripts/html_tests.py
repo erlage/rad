@@ -162,6 +162,12 @@ widget_specific_tests = {
         'html_attr_required',
         'html_attr_disabled',
     ],
+    'InputSubmit': [
+        'html_attr_name',
+        'html_attr_value',
+        'html_attr_required',
+        'html_attr_disabled',
+    ],
 }
 
 global_tests = [
