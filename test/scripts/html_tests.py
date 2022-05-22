@@ -79,6 +79,11 @@ tag_specific_tests = {
         'html_attr_value',
         'html_attr_max',
     ],    
+    'select': [
+        'html_attr_name',
+        'html_attr_multiple',
+        'html_attr_disabled',
+    ], 
 }
 
 global_tests = [
