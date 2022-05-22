@@ -213,6 +213,14 @@ Map<String, String?> _prepareAttributes({
     }
   }
 
+  if (null != props.action) {
+    attributes[Attributes.action] = props.action;
+  } else {
+    if (null != oldProps?.action) {
+      attributes[Attributes.action] = null;
+    }
+  }
+
   if (null != props.accept) {
     attributes[Attributes.accept] = props.accept;
   } else {

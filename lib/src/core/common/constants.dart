@@ -82,6 +82,7 @@ class Attributes {
 
   // form
 
+  static const action = 'action';
   static const method = 'method';
   static const enctype = 'enctype';
 
