@@ -1515,7 +1515,12 @@ void html_input_text_test() {
 
       expect(element1.getAttribute('type'), equals('password'));
       expect(element2.getAttribute('type'), equals('text'));
-      expect(element3.getAttribute('type'), equals(null));
+
+      if ('$InputText' == 'InputText') {
+        // InputText should set input type to text if user doesn't
+        // set isPassword
+        expect(element3.getAttribute('type'), equals('text'));
+      }
     });
   });
 }
