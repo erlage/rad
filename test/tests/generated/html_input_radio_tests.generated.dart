@@ -662,5 +662,411 @@ void html_input_radio_test() {
       expect(element2!.context.key.value, endsWith('some-local-key'));
       expect(element3!.context.key.value, equals('some-global-key'));
     });
+
+    test('should set attribute "name"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), name: 'some-name'),
+          InputRadio(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('name'), equals('some-name'));
+      expect(element2.getAttribute('name'), equals('another-name'));
+    });
+
+    test('should update attribute "name"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), name: 'some-name'),
+          InputRadio(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), name: 'updated-name'),
+          InputRadio(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('name'), equals('updated-name'));
+      expect(element2.getAttribute('name'), equals('another-name'));
+    });
+
+    test('should clear attribute "name"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1')),
+          InputRadio(key: GlobalKey('el-2'), name: 'another-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1')),
+          InputRadio(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('name'), equals(null));
+      expect(element2.getAttribute('name'), equals(null));
+    });
+
+    test('should clear attribute "name" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), name: 'some-name'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), name: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('name'), equals(null));
+    });
+
+    test('should not set attribute "name" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), name: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('name'), equals(null));
+    });
+
+    test('should set attribute "value"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), value: 'some-value'),
+          InputRadio(key: GlobalKey('el-2'), value: 'another-value'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('value'), equals('some-value'));
+      expect(element2.getAttribute('value'), equals('another-value'));
+    });
+
+    test('should update attribute "value"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), value: 'some-value'),
+          InputRadio(key: GlobalKey('el-2'), value: 'another-value'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), value: 'updated-value'),
+          InputRadio(key: GlobalKey('el-2'), value: 'another-value'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('value'), equals('updated-value'));
+      expect(element2.getAttribute('value'), equals('another-value'));
+    });
+
+    test('should clear attribute "value"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1')),
+          InputRadio(key: GlobalKey('el-2'), value: 'another-value'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1')),
+          InputRadio(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+
+      expect(element1.getAttribute('value'), equals(null));
+      expect(element2.getAttribute('value'), equals(null));
+    });
+
+    test('should clear attribute "value" if updated value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), value: 'some-value'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), value: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('value'), equals(null));
+    });
+
+    test('should not set attribute "value" if provided value is null', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), value: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+
+      expect(element1.getAttribute('value'), equals(null));
+    });
+
+    test('should set attribute "required" only if its true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), required: false),
+          InputRadio(key: GlobalKey('el-2'), required: null),
+          InputRadio(key: GlobalKey('el-3'), required: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+
+      expect(element1.getAttribute('required'), equals(null));
+      expect(element2.getAttribute('required'), equals(null));
+      expect(element3.getAttribute('required'), equals('true'));
+    });
+
+    test('should clear attribute "required" if updated value is not true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), required: true),
+          InputRadio(key: GlobalKey('el-2'), required: true),
+          InputRadio(key: GlobalKey('el-3'), required: true),
+          InputRadio(key: GlobalKey('el-4'), required: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), required: true),
+          InputRadio(key: GlobalKey('el-2'), required: false),
+          InputRadio(key: GlobalKey('el-3'), required: null),
+          InputRadio(key: GlobalKey('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+      var element4 = app!.element('el-4');
+
+      expect(element1.getAttribute('required'), equals('true'));
+      expect(element2.getAttribute('required'), equals(null));
+      expect(element3.getAttribute('required'), equals(null));
+      expect(element4.getAttribute('required'), equals(null));
+    });
+
+    test('should set attribute "disabled" only if its true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), disabled: false),
+          InputRadio(key: GlobalKey('el-2'), disabled: null),
+          InputRadio(key: GlobalKey('el-3'), disabled: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+
+      expect(element1.getAttribute('disabled'), equals(null));
+      expect(element2.getAttribute('disabled'), equals(null));
+      expect(element3.getAttribute('disabled'), equals('true'));
+    });
+
+    test('should clear attribute "disabled" if updated value is not true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), disabled: true),
+          InputRadio(key: GlobalKey('el-2'), disabled: true),
+          InputRadio(key: GlobalKey('el-3'), disabled: true),
+          InputRadio(key: GlobalKey('el-4'), disabled: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), disabled: true),
+          InputRadio(key: GlobalKey('el-2'), disabled: false),
+          InputRadio(key: GlobalKey('el-3'), disabled: null),
+          InputRadio(key: GlobalKey('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+      var element4 = app!.element('el-4');
+
+      expect(element1.getAttribute('disabled'), equals('true'));
+      expect(element2.getAttribute('disabled'), equals(null));
+      expect(element3.getAttribute('disabled'), equals(null));
+      expect(element4.getAttribute('disabled'), equals(null));
+    });
+
+    test('should set attribute "checked" only if its true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), checked: false),
+          InputRadio(key: GlobalKey('el-2'), checked: null),
+          InputRadio(key: GlobalKey('el-3'), checked: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+
+      expect(element1.getAttribute('checked'), equals(null));
+      expect(element2.getAttribute('checked'), equals(null));
+      expect(element3.getAttribute('checked'), equals('true'));
+    });
+
+    test('should clear attribute "checked" if updated value is not true', () {
+      app!.framework.buildChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), checked: true),
+          InputRadio(key: GlobalKey('el-2'), checked: true),
+          InputRadio(key: GlobalKey('el-3'), checked: true),
+          InputRadio(key: GlobalKey('el-4'), checked: true),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputRadio(key: GlobalKey('el-1'), checked: true),
+          InputRadio(key: GlobalKey('el-2'), checked: false),
+          InputRadio(key: GlobalKey('el-3'), checked: null),
+          InputRadio(key: GlobalKey('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.element('el-1');
+      var element2 = app!.element('el-2');
+      var element3 = app!.element('el-3');
+      var element4 = app!.element('el-4');
+
+      expect(element1.getAttribute('checked'), equals('true'));
+      expect(element2.getAttribute('checked'), equals(null));
+      expect(element3.getAttribute('checked'), equals(null));
+      expect(element4.getAttribute('checked'), equals(null));
+    });
+
+    test('should set input attribute "type"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2'), type: null),
+          Input(key: GlobalKey('el-3'), type: InputType.text),
+          Input(key: GlobalKey('el-4'), type: InputType.password),
+          Input(key: GlobalKey('el-5'), type: InputType.radio),
+          Input(key: GlobalKey('el-6'), type: InputType.checkbox),
+          Input(key: GlobalKey('el-7'), type: InputType.submit),
+          Input(key: GlobalKey('el-8'), type: InputType.file),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      expect(app!.element('el-1').getAttribute('type'), equals(null));
+      expect(app!.element('el-2').getAttribute('type'), equals(null));
+      expect(app!.element('el-3').getAttribute('type'), equals('text'));
+      expect(app!.element('el-4').getAttribute('type'), equals('password'));
+      expect(app!.element('el-5').getAttribute('type'), equals('radio'));
+      expect(app!.element('el-6').getAttribute('type'), equals('checkbox'));
+      expect(app!.element('el-7').getAttribute('type'), equals('submit'));
+      expect(app!.element('el-8').getAttribute('type'), equals('file'));
+    });
+
+    test('should update form attribute "type"', () {
+      app!.framework.buildChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2'), type: null),
+          Input(key: GlobalKey('el-3'), type: InputType.text),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1'), type: InputType.text),
+          Input(key: GlobalKey('el-2'), type: null),
+          Input(key: GlobalKey('el-3')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      expect(app!.element('el-1').getAttribute('type'), equals('text'));
+      expect(app!.element('el-2').getAttribute('type'), equals(null));
+      expect(app!.element('el-3').getAttribute('type'), equals(null));
+    });
   });
 }
