@@ -1,0 +1,98 @@
+test('should set attribute "allowPaymentRequest" only if its true', () {
+    app!.framework.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), allowPaymentRequest: false),
+            __WidgetClass__(key: GlobalKey('el-2'), allowPaymentRequest: null),
+            __WidgetClass__(key: GlobalKey('el-3'), allowPaymentRequest: true),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element3 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('allowpaymentrequest'), equals(null));
+    expect(element2.getAttribute('allowpaymentrequest'), equals(null));
+    expect(element3.getAttribute('allowpaymentrequest'), equals('true'));
+});
+
+test('should clear attribute "allowPaymentRequest" if updated value is not true', () {
+    app!.framework.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), allowPaymentRequest: true),
+            __WidgetClass__(key: GlobalKey('el-2'), allowPaymentRequest: true),
+            __WidgetClass__(key: GlobalKey('el-3'), allowPaymentRequest: true),
+            __WidgetClass__(key: GlobalKey('el-4'), allowPaymentRequest: true),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    app!.framework.updateChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), allowPaymentRequest: true),
+            __WidgetClass__(key: GlobalKey('el-2'), allowPaymentRequest: false),
+            __WidgetClass__(key: GlobalKey('el-3'), allowPaymentRequest: null),
+            __WidgetClass__(key: GlobalKey('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-1'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element2 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-2'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element3 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-3'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    var element4 = app!.services.walker
+        .getWidgetObjectUsingKey(
+        app!.services.keyGen
+            .getGlobalKeyUsingKey(GlobalKey('el-4'), app!.appContext)
+            .value,
+        )!
+        .element;
+
+    expect(element1.getAttribute('allowpaymentrequest'), equals('true'));
+    expect(element2.getAttribute('allowpaymentrequest'), equals(null));
+    expect(element3.getAttribute('allowpaymentrequest'), equals(null));
+    expect(element4.getAttribute('allowpaymentrequest'), equals(null));
+});

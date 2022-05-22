@@ -48,6 +48,15 @@ tag_specific_tests = {
         'html_attr_form_method',
         'html_attr_form_enctype',
     ],
+    'iframe': [
+        'html_attr_name',
+        'html_attr_allow',
+        'html_attr_src',
+        'html_attr_width',
+        'html_attr_height',
+        'html_attr_allowfullscreen',
+        'html_attr_allowpaymentrequest',
+    ],
 }
 
 global_tests = [
