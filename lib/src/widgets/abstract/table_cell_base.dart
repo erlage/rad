@@ -73,8 +73,8 @@ abstract class TableCellBase extends MarkUpTagWithGlobalProps {
   createConfiguration() {
     return _TableCellBaseConfiguration(
       headers: headers,
-      rowSpan: colSpan,
-      colSpan: rowSpan,
+      rowSpan: rowSpan,
+      colSpan: colSpan,
       globalConfiguration:
           super.createConfiguration() as MarkUpGlobalConfiguration,
     );
