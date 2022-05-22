@@ -203,7 +203,7 @@ Map<String, String?> _prepareAttributes({
     }
   }
 
-  if (null != props.selected) {
+  if (null != props.selected && props.selected!) {
     attributes[Attributes.selected] = '${props.selected}';
   } else {
     if (null != oldProps?.selected) {
