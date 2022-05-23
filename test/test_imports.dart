@@ -17,3 +17,4 @@ export 'fixers/test_app.dart';
 export 'fixers/test_bed.dart';
 export 'fixers/test_stack.dart';
 export 'fixers/test_widget.dart';
+export 'fixers/test_widget_stateful.dart';
