@@ -33,10 +33,8 @@ class JobQueue {
     _isLocked = true;
 
     try {
-      var jobs = List<Callback>.from(_jobs.reversed);
-
-      while (jobs.isNotEmpty) {
-        jobs.removeLast()();
+      for (final job in _jobs) {
+        job();
       }
     } finally {
       _jobs.clear();
