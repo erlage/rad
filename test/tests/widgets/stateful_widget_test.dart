@@ -322,4 +322,84 @@ void main() {
 
     //
   });
+
+  group('Widget building proccess :', () {
+    RT_AppRunner? app;
+
+    setUp(() {
+      app = createTestApp()..start();
+    });
+
+    tearDown(() => app!.stop());
+
+    test('should build widgets in order', () async {
+      var testStack = RT_TestStack();
+
+      app!.framework.buildChildren(
+        widgets: [
+          RT_StatefulTestWidget(
+            stateEventBuild: () => testStack.push('build-1a'),
+          ),
+          RT_StatefulTestWidget(
+            stateEventBuild: () => testStack.push('build-1b'),
+          ),
+          RT_StatefulTestWidget(
+            stateEventBuild: () => testStack.push('build-1c'),
+          ),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      await Future.delayed(Duration.zero, () {
+        expect(testStack.popFromStart(), equals('build-1a'));
+        expect(testStack.popFromStart(), equals('build-1b'));
+        expect(testStack.popFromStart(), equals('build-1c'));
+
+        expect(testStack.canPop(), equals(false));
+      });
+    });
+
+    test('should update widgets in order', () async {
+      var testStack = RT_TestStack();
+
+      app!.framework.buildChildren(
+        widgets: [
+          RT_StatefulTestWidget(
+            stateEventBuild: () => testStack.push('build-a'),
+          ),
+          RT_StatefulTestWidget(
+            stateEventBuild: () => testStack.push('build-b'),
+          ),
+          RT_StatefulTestWidget(
+            stateEventBuild: () => testStack.push('build-c'),
+          ),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.framework.updateChildren(
+        widgets: [
+          RT_StatefulTestWidget(),
+          RT_StatefulTestWidget(),
+          RT_StatefulTestWidget(),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      await Future.delayed(Duration.zero, () {
+        expect(testStack.popFromStart(), equals('build-a'));
+        expect(testStack.popFromStart(), equals('build-b'));
+        expect(testStack.popFromStart(), equals('build-c'));
+
+        // stateful widgets always call build on previous state object
+
+        expect(testStack.popFromStart(), equals('build-a'));
+        expect(testStack.popFromStart(), equals('build-b'));
+        expect(testStack.popFromStart(), equals('build-c'));
+
+        expect(testStack.canPop(), equals(false));
+      });
+    });
+  });
 }
