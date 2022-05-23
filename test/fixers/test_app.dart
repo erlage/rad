@@ -92,6 +92,8 @@ class RT_AppRunner {
   }
 
   void _startServices() {
+    ServicesRegistry.instance.unRegisterServices(rootContext);
+
     _services = Services(appOptions)..startServices();
   }
 
