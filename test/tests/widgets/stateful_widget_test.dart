@@ -76,7 +76,7 @@ void main() {
           throwsA(
             predicate(
               (e) => '$e'.startsWith(
-                'Exception: State.context instance cannot be saccessed in state',
+                'Exception: State.context instance cannot be accessed in state',
               ),
             ),
           ),
