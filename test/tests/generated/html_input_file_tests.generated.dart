@@ -1048,5 +1048,88 @@ void html_input_file_test() {
       expect(element3.getAttribute('disabled'), equals(null));
       expect(element4.getAttribute('disabled'), equals(null));
     });
+
+    test('should set "change" event listener', () async {
+      var testStack = RT_TestStack();
+
+      app!.framework.buildChildren(
+        widgets: [
+          InputFile(
+            key: GlobalKey('el-1'),
+            onChange: (event) => testStack.push('change-1'),
+          ),
+          InputFile(
+            key: GlobalKey('el-2'),
+            onChange: (event) => testStack.push('change-2'),
+          ),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.element('el-1').dispatchEvent(Event('change'));
+      app!.element('el-2').dispatchEvent(Event('change'));
+
+      await Future.delayed(Duration(seconds: 1), () {
+        expect(testStack.popFromStart(), equals('change-1'));
+        expect(testStack.popFromStart(), equals('change-2'));
+        expect(testStack.canPop(), equals(false));
+      });
+    });
+
+    test('should set "change" event listener only if provided', () async {
+      void listener(event) => {};
+
+      app!.framework.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1')),
+          InputFile(key: GlobalKey('el-2'), onChange: null),
+          InputFile(key: GlobalKey('el-3'), onChange: listener),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var listeners1 = app!.widget('el-1').widgetEventListeners;
+      var listeners2 = app!.widget('el-2').widgetEventListeners;
+      var listeners3 = app!.widget('el-3').widgetEventListeners;
+
+      expect(listeners1[DomEventType.change], equals(null));
+      expect(listeners2[DomEventType.change], equals(null));
+      expect(listeners3[DomEventType.change], equals(listener));
+    });
+
+    test('should clear "change" event listner', () {
+      void listener(event) => {};
+
+      app!.framework.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1')),
+          InputFile(key: GlobalKey('el-2'), onChange: listener),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var listeners1 = app!.widget('el-1').widgetEventListeners;
+      var listeners2 = app!.widget('el-2').widgetEventListeners;
+
+      expect(listeners1[DomEventType.change], equals(null));
+      expect(listeners2[DomEventType.change], equals(listener));
+
+      // update
+
+      app!.framework.updateChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1')),
+          InputFile(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      listeners1 = app!.widget('el-1').widgetEventListeners;
+      listeners2 = app!.widget('el-2').widgetEventListeners;
+
+      expect(listeners1[DomEventType.change], equals(null));
+      expect(listeners2[DomEventType.change], equals(null));
+    });
   });
 }

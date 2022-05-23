@@ -3,6 +3,7 @@
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/interface/window/window.dart';
 import 'package:rad/src/core/common/objects/app_options.dart';
+import 'package:rad/src/core/common/objects/widget_object.dart';
 import 'package:rad/src/core/interface/window/delegates/browser_window.dart';
 
 import '../test_imports.dart';
@@ -113,15 +114,19 @@ class RT_AppRunner {
     );
   }
 
+  /// Get widget object by global key under app context.
+  ///
+  WidgetObject widgetObject(String key) {
+    return services.walker.getWidgetObjectUsingKey(
+      services.keyGen.getGlobalKeyUsingKey(GlobalKey(key), appContext).value,
+    )!;
+  }
+
+  /// Get widget by global key under app context.
+  ///
+  Widget widget(String key) => widgetObject(key).widget;
+
   /// Get element by global key under app context.
   ///
-  Element element(String key) {
-    return services.walker
-        .getWidgetObjectUsingKey(
-          services.keyGen
-              .getGlobalKeyUsingKey(GlobalKey(key), appContext)
-              .value,
-        )!
-        .element;
-  }
+  Element element(String key) => widgetObject(key).element;
 }

@@ -77,6 +77,11 @@ widget_specific_tests = {
         'html_attr_disabled',
         'html_attr_checked',
         'html_attr_input_type',
+        'html_attr_on_change',
+        'html_attr_on_input',
+        'html_attr_on_key_press',
+        'html_attr_on_key_up',
+        'html_attr_on_key_down',
     ],
     'Label': [
         'html_attr_for',
@@ -140,6 +145,11 @@ widget_specific_tests = {
         'html_attr_readonly',
         'html_attr_disabled',
         'html_input_text_is_password',
+        'html_attr_on_change',
+        'html_attr_on_input',
+        'html_attr_on_key_press',
+        'html_attr_on_key_up',
+        'html_attr_on_key_down',        
     ],
     'InputCheckBox': [
         'html_attr_name',
@@ -147,6 +157,7 @@ widget_specific_tests = {
         'html_attr_required',
         'html_attr_disabled',
         'html_attr_checked',
+        'html_attr_on_change',
     ],
     'InputRadio': [
         'html_attr_name',
@@ -154,6 +165,7 @@ widget_specific_tests = {
         'html_attr_required',
         'html_attr_disabled',
         'html_attr_checked',
+        'html_attr_on_change',
     ],
     'InputFile': [
         'html_attr_name',
@@ -161,6 +173,7 @@ widget_specific_tests = {
         'html_attr_multiple',
         'html_attr_required',
         'html_attr_disabled',
+        'html_attr_on_change',
     ],
     'InputSubmit': [
         'html_attr_name',

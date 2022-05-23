@@ -1706,5 +1706,420 @@ void html_input_test() {
       expect(app!.element('el-2').getAttribute('type'), equals(null));
       expect(app!.element('el-3').getAttribute('type'), equals(null));
     });
+
+    test('should set "change" event listener', () async {
+      var testStack = RT_TestStack();
+
+      app!.framework.buildChildren(
+        widgets: [
+          Input(
+            key: GlobalKey('el-1'),
+            onChange: (event) => testStack.push('change-1'),
+          ),
+          Input(
+            key: GlobalKey('el-2'),
+            onChange: (event) => testStack.push('change-2'),
+          ),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.element('el-1').dispatchEvent(Event('change'));
+      app!.element('el-2').dispatchEvent(Event('change'));
+
+      await Future.delayed(Duration(seconds: 1), () {
+        expect(testStack.popFromStart(), equals('change-1'));
+        expect(testStack.popFromStart(), equals('change-2'));
+        expect(testStack.canPop(), equals(false));
+      });
+    });
+
+    test('should set "change" event listener only if provided', () async {
+      void listener(event) => {};
+
+      app!.framework.buildChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2'), onChange: null),
+          Input(key: GlobalKey('el-3'), onChange: listener),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var listeners1 = app!.widget('el-1').widgetEventListeners;
+      var listeners2 = app!.widget('el-2').widgetEventListeners;
+      var listeners3 = app!.widget('el-3').widgetEventListeners;
+
+      expect(listeners1[DomEventType.change], equals(null));
+      expect(listeners2[DomEventType.change], equals(null));
+      expect(listeners3[DomEventType.change], equals(listener));
+    });
+
+    test('should clear "change" event listner', () {
+      void listener(event) => {};
+
+      app!.framework.buildChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2'), onChange: listener),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var listeners1 = app!.widget('el-1').widgetEventListeners;
+      var listeners2 = app!.widget('el-2').widgetEventListeners;
+
+      expect(listeners1[DomEventType.change], equals(null));
+      expect(listeners2[DomEventType.change], equals(listener));
+
+      // update
+
+      app!.framework.updateChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      listeners1 = app!.widget('el-1').widgetEventListeners;
+      listeners2 = app!.widget('el-2').widgetEventListeners;
+
+      expect(listeners1[DomEventType.change], equals(null));
+      expect(listeners2[DomEventType.change], equals(null));
+    });
+
+    test('should set "input" event listener', () async {
+      var testStack = RT_TestStack();
+
+      app!.framework.buildChildren(
+        widgets: [
+          Input(
+            key: GlobalKey('el-1'),
+            onInput: (event) => testStack.push('input-1'),
+          ),
+          Input(
+            key: GlobalKey('el-2'),
+            onInput: (event) => testStack.push('input-2'),
+          ),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.element('el-1').dispatchEvent(Event('input'));
+      app!.element('el-2').dispatchEvent(Event('input'));
+
+      await Future.delayed(Duration(seconds: 1), () {
+        expect(testStack.popFromStart(), equals('input-1'));
+        expect(testStack.popFromStart(), equals('input-2'));
+        expect(testStack.canPop(), equals(false));
+      });
+    });
+
+    test('should set "input" event listener only if provided', () async {
+      void listener(event) => {};
+
+      app!.framework.buildChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2'), onInput: null),
+          Input(key: GlobalKey('el-3'), onInput: listener),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var listeners1 = app!.widget('el-1').widgetEventListeners;
+      var listeners2 = app!.widget('el-2').widgetEventListeners;
+      var listeners3 = app!.widget('el-3').widgetEventListeners;
+
+      expect(listeners1[DomEventType.input], equals(null));
+      expect(listeners2[DomEventType.input], equals(null));
+      expect(listeners3[DomEventType.input], equals(listener));
+    });
+
+    test('should clear "input" event listner', () {
+      void listener(event) => {};
+
+      app!.framework.buildChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2'), onInput: listener),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var listeners1 = app!.widget('el-1').widgetEventListeners;
+      var listeners2 = app!.widget('el-2').widgetEventListeners;
+
+      expect(listeners1[DomEventType.input], equals(null));
+      expect(listeners2[DomEventType.input], equals(listener));
+
+      // update
+
+      app!.framework.updateChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      listeners1 = app!.widget('el-1').widgetEventListeners;
+      listeners2 = app!.widget('el-2').widgetEventListeners;
+
+      expect(listeners1[DomEventType.input], equals(null));
+      expect(listeners2[DomEventType.input], equals(null));
+    });
+
+    test('should set "KeyPress" event listener', () async {
+      var testStack = RT_TestStack();
+
+      app!.framework.buildChildren(
+        widgets: [
+          Input(
+            key: GlobalKey('el-1'),
+            onKeyPress: (event) => testStack.push('keypress-1'),
+          ),
+          Input(
+            key: GlobalKey('el-2'),
+            onKeyPress: (event) => testStack.push('keypress-2'),
+          ),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.element('el-1').dispatchEvent(Event('keypress'));
+      app!.element('el-2').dispatchEvent(Event('keypress'));
+
+      await Future.delayed(Duration(seconds: 1), () {
+        expect(testStack.popFromStart(), equals('keypress-1'));
+        expect(testStack.popFromStart(), equals('keypress-2'));
+        expect(testStack.canPop(), equals(false));
+      });
+    });
+
+    test('should set "KeyPress" event listener only if provided', () async {
+      void listener(event) => {};
+
+      app!.framework.buildChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2'), onKeyPress: null),
+          Input(key: GlobalKey('el-3'), onKeyPress: listener),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var listeners1 = app!.widget('el-1').widgetEventListeners;
+      var listeners2 = app!.widget('el-2').widgetEventListeners;
+      var listeners3 = app!.widget('el-3').widgetEventListeners;
+
+      expect(listeners1[DomEventType.keyPress], equals(null));
+      expect(listeners2[DomEventType.keyPress], equals(null));
+      expect(listeners3[DomEventType.keyPress], equals(listener));
+    });
+
+    test('should clear "KeyPress" event listner', () {
+      void listener(event) => {};
+
+      app!.framework.buildChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2'), onKeyPress: listener),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var listeners1 = app!.widget('el-1').widgetEventListeners;
+      var listeners2 = app!.widget('el-2').widgetEventListeners;
+
+      expect(listeners1[DomEventType.keyPress], equals(null));
+      expect(listeners2[DomEventType.keyPress], equals(listener));
+
+      // update
+
+      app!.framework.updateChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      listeners1 = app!.widget('el-1').widgetEventListeners;
+      listeners2 = app!.widget('el-2').widgetEventListeners;
+
+      expect(listeners1[DomEventType.keyPress], equals(null));
+      expect(listeners2[DomEventType.keyPress], equals(null));
+    });
+
+    test('should set "KeyUp" event listener', () async {
+      var testStack = RT_TestStack();
+
+      app!.framework.buildChildren(
+        widgets: [
+          Input(
+            key: GlobalKey('el-1'),
+            onKeyUp: (event) => testStack.push('keyup-1'),
+          ),
+          Input(
+            key: GlobalKey('el-2'),
+            onKeyUp: (event) => testStack.push('keyup-2'),
+          ),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.element('el-1').dispatchEvent(Event('keyup'));
+      app!.element('el-2').dispatchEvent(Event('keyup'));
+
+      await Future.delayed(Duration(seconds: 1), () {
+        expect(testStack.popFromStart(), equals('keyup-1'));
+        expect(testStack.popFromStart(), equals('keyup-2'));
+        expect(testStack.canPop(), equals(false));
+      });
+    });
+
+    test('should set "KeyUp" event listener only if provided', () async {
+      void listener(event) => {};
+
+      app!.framework.buildChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2'), onKeyUp: null),
+          Input(key: GlobalKey('el-3'), onKeyUp: listener),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var listeners1 = app!.widget('el-1').widgetEventListeners;
+      var listeners2 = app!.widget('el-2').widgetEventListeners;
+      var listeners3 = app!.widget('el-3').widgetEventListeners;
+
+      expect(listeners1[DomEventType.keyUp], equals(null));
+      expect(listeners2[DomEventType.keyUp], equals(null));
+      expect(listeners3[DomEventType.keyUp], equals(listener));
+    });
+
+    test('should clear "KeyUp" event listner', () {
+      void listener(event) => {};
+
+      app!.framework.buildChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2'), onKeyUp: listener),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var listeners1 = app!.widget('el-1').widgetEventListeners;
+      var listeners2 = app!.widget('el-2').widgetEventListeners;
+
+      expect(listeners1[DomEventType.keyUp], equals(null));
+      expect(listeners2[DomEventType.keyUp], equals(listener));
+
+      // update
+
+      app!.framework.updateChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      listeners1 = app!.widget('el-1').widgetEventListeners;
+      listeners2 = app!.widget('el-2').widgetEventListeners;
+
+      expect(listeners1[DomEventType.keyUp], equals(null));
+      expect(listeners2[DomEventType.keyUp], equals(null));
+    });
+
+    test('should set "KeyDown" event listener', () async {
+      var testStack = RT_TestStack();
+
+      app!.framework.buildChildren(
+        widgets: [
+          Input(
+            key: GlobalKey('el-1'),
+            onKeyDown: (event) => testStack.push('keydown-1'),
+          ),
+          Input(
+            key: GlobalKey('el-2'),
+            onKeyDown: (event) => testStack.push('keydown-2'),
+          ),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      app!.element('el-1').dispatchEvent(Event('keydown'));
+      app!.element('el-2').dispatchEvent(Event('keydown'));
+
+      await Future.delayed(Duration(seconds: 1), () {
+        expect(testStack.popFromStart(), equals('keydown-1'));
+        expect(testStack.popFromStart(), equals('keydown-2'));
+        expect(testStack.canPop(), equals(false));
+      });
+    });
+
+    test('should set "KeyDown" event listener only if provided', () async {
+      void listener(event) => {};
+
+      app!.framework.buildChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2'), onKeyDown: null),
+          Input(key: GlobalKey('el-3'), onKeyDown: listener),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var listeners1 = app!.widget('el-1').widgetEventListeners;
+      var listeners2 = app!.widget('el-2').widgetEventListeners;
+      var listeners3 = app!.widget('el-3').widgetEventListeners;
+
+      expect(listeners1[DomEventType.keyDown], equals(null));
+      expect(listeners2[DomEventType.keyDown], equals(null));
+      expect(listeners3[DomEventType.keyDown], equals(listener));
+    });
+
+    test('should clear "KeyDown" event listner', () {
+      void listener(event) => {};
+
+      app!.framework.buildChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2'), onKeyDown: listener),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var listeners1 = app!.widget('el-1').widgetEventListeners;
+      var listeners2 = app!.widget('el-2').widgetEventListeners;
+
+      expect(listeners1[DomEventType.keyDown], equals(null));
+      expect(listeners2[DomEventType.keyDown], equals(listener));
+
+      // update
+
+      app!.framework.updateChildren(
+        widgets: [
+          Input(key: GlobalKey('el-1')),
+          Input(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      listeners1 = app!.widget('el-1').widgetEventListeners;
+      listeners2 = app!.widget('el-2').widgetEventListeners;
+
+      expect(listeners1[DomEventType.keyDown], equals(null));
+      expect(listeners2[DomEventType.keyDown], equals(null));
+    });
   });
 }
