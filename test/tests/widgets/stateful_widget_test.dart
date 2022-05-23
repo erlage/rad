@@ -8,7 +8,7 @@ void main() {
       ServicesRegistry.instance.unRegisterServices(RT_TestBed.rootContext);
     });
 
-    test('should bind widget before initState', () {
+    test('should bind widget before initState', () async {
       runApp(
         app: RT_StatefulTestWidget(
           key: GlobalKey('widget'),
@@ -18,6 +18,8 @@ void main() {
         ),
         targetId: RT_TestBed.rootKey.value,
       );
+
+      await Future.delayed(Duration.zero);
     });
 
     test('should bind widget before initState', () {
@@ -74,7 +76,7 @@ void main() {
           throwsA(
             predicate(
               (e) => '$e'.startsWith(
-                'Exception: State.context instance cannot be accessed in state',
+                'Exception: State.context instance cannot be saccessed in state',
               ),
             ),
           ),
