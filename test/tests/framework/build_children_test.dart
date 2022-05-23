@@ -273,6 +273,27 @@ void main() {
       );
     });
 
+    test('should build widgets in order', () async {
+      var testStack = RT_TestStack();
+
+      app!.framework.buildChildren(
+        widgets: [
+          RT_TestWidget(roEventHookRender: () => testStack.push('build-1a')),
+          RT_TestWidget(roEventHookRender: () => testStack.push('build-1b')),
+          RT_TestWidget(roEventHookRender: () => testStack.push('build-1c')),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      await Future.delayed(Duration.zero, () {
+        expect(testStack.popFromStart(), equals('build-1a'));
+        expect(testStack.popFromStart(), equals('build-1b'));
+        expect(testStack.popFromStart(), equals('build-1c'));
+
+        expect(testStack.canPop(), equals(false));
+      });
+    });
+
     test('should trigger hooks in order', () {
       var testStack = RT_TestStack();
 
