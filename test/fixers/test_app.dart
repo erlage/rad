@@ -129,4 +129,12 @@ class RT_AppRunner {
   /// Get element by global key under app context.
   ///
   Element element(String key) => widgetObject(key).element;
+
+  /// Get app's element.
+  ///
+  Element get appElement => element('app-widget');
+
+  /// Get element by id.
+  ///
+  Element elementById(String id) => document.getElementById(id)!;
 }
