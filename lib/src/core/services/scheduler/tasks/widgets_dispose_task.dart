@@ -25,5 +25,5 @@ class WidgetsDisposeTask extends SchedulerTask {
         );
 
   @override
-  get taskType => SchedulerTaskType.dispose;
+  SchedulerTaskType get taskType => SchedulerTaskType.dispose;
 }

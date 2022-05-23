@@ -14,7 +14,7 @@ import 'package:rad/src/core/services/events/emitted_event.dart';
 class EventsService extends Service {
   final EventsOptions options;
 
-  final _eventSubscriptions = <StreamSubscription>[];
+  final _eventSubscriptions = <StreamSubscription<Event>>[];
 
   EventsService(BuildContext context, this.options) : super(context);
 

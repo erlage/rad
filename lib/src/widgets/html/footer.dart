@@ -45,8 +45,8 @@ class Footer extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$Footer';
+  String get widgetType => '$Footer';
 
   @override
-  get correspondingTag => DomTag.footer;
+  DomTag get correspondingTag => DomTag.footer;
 }

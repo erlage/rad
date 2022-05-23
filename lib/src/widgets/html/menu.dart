@@ -45,8 +45,8 @@ class Menu extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$Menu';
+  String get widgetType => '$Menu';
 
   @override
-  get correspondingTag => DomTag.menu;
+  DomTag get correspondingTag => DomTag.menu;
 }

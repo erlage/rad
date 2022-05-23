@@ -45,8 +45,8 @@ class StrikeThrough extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$StrikeThrough';
+  String get widgetType => '$StrikeThrough';
 
   @override
-  get correspondingTag => DomTag.strikeThrough;
+  DomTag get correspondingTag => DomTag.strikeThrough;
 }

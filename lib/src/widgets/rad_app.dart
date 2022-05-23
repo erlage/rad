@@ -17,13 +17,13 @@ class RadApp extends Widget {
   }) : super(key: key);
 
   @override
-  get widgetChildren => [child];
+  List<Widget> get widgetChildren => [child];
 
   @override
-  get widgetType => '$RadApp';
+  String get widgetType => '$RadApp';
 
   @override
-  get correspondingTag => DomTag.division;
+  DomTag get correspondingTag => DomTag.division;
 
   @override
   createRenderObject(context) => AppWidgetRenderObject(context);

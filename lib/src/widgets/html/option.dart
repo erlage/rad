@@ -71,10 +71,10 @@ class Option extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$Option';
+  String get widgetType => '$Option';
 
   @override
-  get correspondingTag => DomTag.option;
+  DomTag get correspondingTag => DomTag.option;
 
   @override
   createConfiguration() {

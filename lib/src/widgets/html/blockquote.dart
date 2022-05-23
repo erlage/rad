@@ -53,10 +53,10 @@ class Blockquote extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$Blockquote';
+  String get widgetType => '$Blockquote';
 
   @override
-  get correspondingTag => DomTag.blockquote;
+  DomTag get correspondingTag => DomTag.blockquote;
 
   @override
   createConfiguration() {

@@ -51,8 +51,8 @@ class TableDataCell extends TableCellBase {
 
   @nonVirtual
   @override
-  get widgetType => '$TableDataCell';
+  String get widgetType => '$TableDataCell';
 
   @override
-  get correspondingTag => DomTag.tableDataCell;
+  DomTag get correspondingTag => DomTag.tableDataCell;
 }

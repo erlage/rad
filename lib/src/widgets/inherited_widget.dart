@@ -50,15 +50,15 @@ abstract class InheritedWidget extends Widget {
   */
 
   @override
-  get widgetChildren => [child];
+  List<Widget> get widgetChildren => [child];
 
   @nonVirtual
   @override
-  get widgetType => '$InheritedWidget';
+  String get widgetType => '$InheritedWidget';
 
   @nonVirtual
   @override
-  get correspondingTag => DomTag.division;
+  DomTag get correspondingTag => DomTag.division;
 
   @nonVirtual
   @override

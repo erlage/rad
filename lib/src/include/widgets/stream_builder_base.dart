@@ -1,3 +1,5 @@
+// ignore_for_file: inference_failure_on_untyped_parameter
+
 import 'dart:async' show StreamSubscription;
 
 import 'package:rad/src/core/common/objects/build_context.dart';

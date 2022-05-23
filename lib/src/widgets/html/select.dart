@@ -68,10 +68,10 @@ class Select extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$Select';
+  String get widgetType => '$Select';
 
   @override
-  get correspondingTag => DomTag.select;
+  DomTag get correspondingTag => DomTag.select;
 
   @override
   createConfiguration() {

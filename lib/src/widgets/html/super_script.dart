@@ -49,8 +49,8 @@ class SuperScript extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$SuperScript';
+  String get widgetType => '$SuperScript';
 
   @override
-  get correspondingTag => DomTag.superScript;
+  DomTag get correspondingTag => DomTag.superScript;
 }

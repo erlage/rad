@@ -56,7 +56,7 @@ class Key {
   }
 
   @override
-  get hashCode => hashValues(runtimeType, value);
+  int get hashCode => hashValues(runtimeType, value);
 
   @override
   toString() => value;

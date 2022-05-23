@@ -37,5 +37,5 @@ class Text extends Span {
         );
 
   @override
-  get correspondingTag => DomTag.span;
+  DomTag get correspondingTag => DomTag.span;
 }

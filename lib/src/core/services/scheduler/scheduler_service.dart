@@ -11,7 +11,7 @@ import 'package:rad/src/core/services/scheduler/abstract.dart';
 class SchedulerService extends Service {
   final SchedulerOptions options;
 
-  final _listeners = <String, StreamSubscription?>{};
+  final _listeners = <String, StreamSubscription<SchedulerTask>?>{};
 
   StreamController<SchedulerTask>? _tasksStream;
 

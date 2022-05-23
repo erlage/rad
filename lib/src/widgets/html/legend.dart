@@ -48,8 +48,8 @@ class Legend extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$Legend';
+  String get widgetType => '$Legend';
 
   @override
-  get correspondingTag => DomTag.legend;
+  DomTag get correspondingTag => DomTag.legend;
 }

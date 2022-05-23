@@ -47,10 +47,10 @@ class RT_TestWidget extends Widget {
 
   @nonVirtual
   @override
-  get widgetType => '$RT_TestWidget';
+  String get widgetType => '$RT_TestWidget';
 
   @override
-  get correspondingTag => DomTag.division;
+  DomTag get correspondingTag => DomTag.division;
 
   @override
   get widgetChildren => children ?? [];

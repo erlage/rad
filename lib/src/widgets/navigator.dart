@@ -372,11 +372,11 @@ class Navigator extends Widget {
 
   @nonVirtual
   @override
-  get widgetType => '$Navigator';
+  String get widgetType => '$Navigator';
 
   @nonVirtual
   @override
-  get correspondingTag => DomTag.division;
+  DomTag get correspondingTag => DomTag.division;
 
   @nonVirtual
   @override

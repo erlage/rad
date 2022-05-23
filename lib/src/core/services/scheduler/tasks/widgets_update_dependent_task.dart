@@ -20,5 +20,5 @@ class WidgetsUpdateDependentTask extends SchedulerTask {
         );
 
   @override
-  get taskType => SchedulerTaskType.updateDependent;
+  SchedulerTaskType get taskType => SchedulerTaskType.updateDependent;
 }

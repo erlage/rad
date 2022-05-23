@@ -45,8 +45,8 @@ class HorizontalRule extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$HorizontalRule';
+  String get widgetType => '$HorizontalRule';
 
   @override
-  get correspondingTag => DomTag.horizontalRule;
+  DomTag get correspondingTag => DomTag.horizontalRule;
 }

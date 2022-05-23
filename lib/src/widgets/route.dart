@@ -43,13 +43,13 @@ class Route extends Widget {
 
   @nonVirtual
   @override
-  get widgetType => '$Route';
+  String get widgetType => '$Route';
 
   @override
-  get correspondingTag => DomTag.division;
+  DomTag get correspondingTag => DomTag.division;
 
   @override
-  get widgetChildren => [page];
+  List<Widget> get widgetChildren => [page];
 
   @override
   createConfiguration() => RouteConfiguration(name: name, path: path);

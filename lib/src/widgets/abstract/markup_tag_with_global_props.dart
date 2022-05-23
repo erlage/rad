@@ -139,10 +139,12 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
         super(key: key);
 
   @override
-  get widgetChildren => children ?? (null != child ? [child!] : []);
+  List<Widget> get widgetChildren {
+    return children ?? (null != child ? [child!] : []);
+  }
 
   @override
-  get widgetEventListeners {
+  Map<DomEventType, EventCallback?> get widgetEventListeners {
     if (null == onClick &&
         null == onInput &&
         null == onChange &&

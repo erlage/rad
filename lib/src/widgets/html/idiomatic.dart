@@ -45,8 +45,8 @@ class Idiomatic extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$Idiomatic';
+  String get widgetType => '$Idiomatic';
 
   @override
-  get correspondingTag => DomTag.idiomatic;
+  DomTag get correspondingTag => DomTag.idiomatic;
 }

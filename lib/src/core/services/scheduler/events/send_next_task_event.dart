@@ -7,5 +7,5 @@ class SendNextTaskEvent extends SchedulerEvent {
   SendNextTaskEvent(String listenerKey) : super(listenerKey);
 
   @override
-  get eventType => SchedulerEventType.sendNextTask;
+  SchedulerEventType get eventType => SchedulerEventType.sendNextTask;
 }

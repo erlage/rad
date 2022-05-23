@@ -277,8 +277,8 @@ class _AsyncRoutePlaceholder extends Widget {
   const _AsyncRoutePlaceholder() : super(key: null);
 
   @override
-  get widgetType => '$_AsyncRoutePlaceholder';
+  String get widgetType => '$_AsyncRoutePlaceholder';
 
   @override
-  get correspondingTag => DomTag.division;
+  DomTag get correspondingTag => DomTag.division;
 }

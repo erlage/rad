@@ -79,15 +79,15 @@ class ListView extends Widget {
         super(key: key);
 
   @override
-  get widgetChildren => children;
+  List<Widget> get widgetChildren => children;
 
   @nonVirtual
   @override
-  get widgetType => '$ListView';
+  String get widgetType => '$ListView';
 
   @nonVirtual
   @override
-  get correspondingTag => DomTag.division;
+  DomTag get correspondingTag => DomTag.division;
 
   @nonVirtual
   @override
@@ -366,13 +366,13 @@ class _ListViewBuilderState with ServicesResolver {
         ? {
             'root': element,
           }
-        : {};
+        : <dynamic, dynamic>{};
 
     _observer = IntersectionObserver(_intersectionHandler, options);
   }
 
   void _intersectionHandler(
-    List entries,
+    List<dynamic> entries,
     IntersectionObserver observer,
   ) {
     for (final entry in entries) {

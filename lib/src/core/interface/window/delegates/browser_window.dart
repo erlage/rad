@@ -10,13 +10,13 @@ class BrowserWindow extends WindowDelegate {
   final _psListeners = <String, PopStateEventCallback>{};
 
   @override
-  get locationHref => window.location.href;
+  String get locationHref => window.location.href;
 
   @override
-  get locationHash => window.location.hash;
+  String get locationHash => window.location.hash;
 
   @override
-  get locationPathName => window.location.pathname ?? '';
+  String get locationPathName => window.location.pathname ?? '';
 
   @override
   locationReload() => window.location.reload();

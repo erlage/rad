@@ -34,7 +34,7 @@ class JobQueue {
     _isLocked = true;
 
     try {
-      var jobs = List.from(_jobs.reversed);
+      var jobs = List<Callback>.from(_jobs.reversed);
 
       while (jobs.isNotEmpty) {
         jobs.removeLast()();

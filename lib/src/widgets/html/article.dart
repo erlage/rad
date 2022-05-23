@@ -45,8 +45,8 @@ class Article extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$Article';
+  String get widgetType => '$Article';
 
   @override
-  get correspondingTag => DomTag.article;
+  DomTag get correspondingTag => DomTag.article;
 }

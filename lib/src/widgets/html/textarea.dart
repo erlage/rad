@@ -83,10 +83,10 @@ class TextArea extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$TextArea';
+  String get widgetType => '$TextArea';
 
   @override
-  get correspondingTag => DomTag.textArea;
+  DomTag get correspondingTag => DomTag.textArea;
 
   @override
   createConfiguration() {

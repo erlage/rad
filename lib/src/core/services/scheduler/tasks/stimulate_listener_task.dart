@@ -8,7 +8,7 @@ import 'package:rad/src/core/services/scheduler/abstract.dart';
 ///
 class StimulateListenerTask extends SchedulerTask {
   @override
-  get taskType => SchedulerTaskType.stimulateListener;
+  SchedulerTaskType get taskType => SchedulerTaskType.stimulateListener;
 
   StimulateListenerTask({
     Callback? afterTaskCallback,

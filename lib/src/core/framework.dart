@@ -68,7 +68,7 @@ class Framework with ServicesResolver {
     //
     // -- flags --
     //
-    flagCleanParentContents = true,
+    bool flagCleanParentContents = true,
     //
   }) {
     if (widgets.isEmpty) {
@@ -98,7 +98,7 @@ class Framework with ServicesResolver {
     //
     // -- flags --
     //
-    flagAddIfNotFound = true, // add childs right where they are missing
+    bool flagAddIfNotFound = true, // add childs right where they are missing
   }) {
     renderer.reRender(
       widgets: widgets,

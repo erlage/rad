@@ -31,11 +31,11 @@ abstract class StatelessWidget extends Widget {
 
   @nonVirtual
   @override
-  get widgetType => '$StatelessWidget';
+  String get widgetType => '$StatelessWidget';
 
   @nonVirtual
   @override
-  get correspondingTag => DomTag.division;
+  DomTag get correspondingTag => DomTag.division;
 
   @nonVirtual
   @override

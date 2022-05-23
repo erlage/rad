@@ -48,8 +48,8 @@ class Span extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$Span';
+  String get widgetType => '$Span';
 
   @override
-  get correspondingTag => DomTag.span;
+  DomTag get correspondingTag => DomTag.span;
 }

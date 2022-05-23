@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_asserts_with_message
+// ignore_for_file: inference_failure_on_untyped_parameter
 
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/include/async/async_snapshot.dart';

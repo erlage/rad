@@ -42,8 +42,8 @@ class RT_EventfulWidget extends Widget {
       };
 
   @override
-  get widgetType => '$RT_EventfulWidget';
+  String get widgetType => '$RT_EventfulWidget';
 
   @override
-  get correspondingTag => DomTag.division;
+  DomTag get correspondingTag => DomTag.division;
 }

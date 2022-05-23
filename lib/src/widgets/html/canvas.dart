@@ -45,8 +45,8 @@ class Canvas extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$Canvas';
+  String get widgetType => '$Canvas';
 
   @override
-  get correspondingTag => DomTag.canvas;
+  DomTag get correspondingTag => DomTag.canvas;
 }

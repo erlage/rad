@@ -45,10 +45,10 @@ class Heading1 extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$Heading1';
+  String get widgetType => '$Heading1';
 
   @override
-  get correspondingTag => DomTag.heading1;
+  DomTag get correspondingTag => DomTag.heading1;
 }
 
 /// The Heading2 widget (HTML's `h2` tag).
@@ -90,10 +90,10 @@ class Heading2 extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$Heading2';
+  String get widgetType => '$Heading2';
 
   @override
-  get correspondingTag => DomTag.heading2;
+  DomTag get correspondingTag => DomTag.heading2;
 }
 
 /// The Heading3 widget (HTML's `h3` tag).
@@ -135,10 +135,10 @@ class Heading3 extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$Heading3';
+  String get widgetType => '$Heading3';
 
   @override
-  get correspondingTag => DomTag.heading3;
+  DomTag get correspondingTag => DomTag.heading3;
 }
 
 /// The Heading4 widget (HTML's `h4` tag).
@@ -180,10 +180,10 @@ class Heading4 extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$Heading4';
+  String get widgetType => '$Heading4';
 
   @override
-  get correspondingTag => DomTag.heading4;
+  DomTag get correspondingTag => DomTag.heading4;
 }
 
 /// The Heading5 widget (HTML's `h5` tag).
@@ -225,10 +225,10 @@ class Heading5 extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$Heading5';
+  String get widgetType => '$Heading5';
 
   @override
-  get correspondingTag => DomTag.heading5;
+  DomTag get correspondingTag => DomTag.heading5;
 }
 
 /// The Heading6 widget (HTML's `h6` tag).
@@ -270,8 +270,8 @@ class Heading6 extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  get widgetType => '$Heading6';
+  String get widgetType => '$Heading6';
 
   @override
-  get correspondingTag => DomTag.heading6;
+  DomTag get correspondingTag => DomTag.heading6;
 }

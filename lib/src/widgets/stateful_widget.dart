@@ -109,11 +109,11 @@ abstract class StatefulWidget extends Widget {
 
   @nonVirtual
   @override
-  get widgetType => '$StatefulWidget';
+  String get widgetType => '$StatefulWidget';
 
   @nonVirtual
   @override
-  get correspondingTag => DomTag.division;
+  DomTag get correspondingTag => DomTag.division;
 
   @nonVirtual
   @override
