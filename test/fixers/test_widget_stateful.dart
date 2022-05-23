@@ -171,8 +171,8 @@ class RT_StatefulTestWidget_State extends State<RT_StatefulTestWidget> {
       _stateHookInitState = widget.stateHookInitState;
     }
 
-    if (null != widget.stateHookInitState) {
-      _stateHookInitState = widget.stateHookInitState;
+    if (null != widget.stateHookBuild) {
+      _stateHookBuild = widget.stateHookBuild;
     }
 
     if (null != widget.stateHookDidUpdateWidget) {
