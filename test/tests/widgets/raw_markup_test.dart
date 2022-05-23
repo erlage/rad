@@ -58,8 +58,6 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      print(app!.appElement.innerHtml);
-
       expect(app!.elementById('raw').innerHtml, equals('nuffin'));
 
       app!.framework.updateChildren(
