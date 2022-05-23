@@ -1,0 +1,82 @@
+test('should set "click" event listener', () async {
+    var testStack = RT_TestStack();
+
+    app!.framework.buildChildren(
+        widgets: [
+            __WidgetClass__(
+                key: GlobalKey('el-1'),
+                onClick: (event) => testStack.push('click-1'),
+            ),
+            __WidgetClass__(
+                key: GlobalKey('el-2'),
+                onClick: (event) => testStack.push('click-2'),
+            ),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    app!.element('el-1').dispatchEvent(Event('click'));
+    app!.element('el-2').dispatchEvent(Event('click'));
+
+    await Future.delayed(Duration(seconds: 1), () {
+        expect(testStack.popFromStart(), equals('click-1'));
+        expect(testStack.popFromStart(), equals('click-2'));
+        expect(testStack.canPop(), equals(false));
+    });
+});
+
+test('should set "click" event listener only if provided', () async {
+    void listener(event) => {};
+
+    app!.framework.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1')),
+            __WidgetClass__(key: GlobalKey('el-2'), onClick: null),
+            __WidgetClass__(key: GlobalKey('el-3'), onClick: listener),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    var listeners1 = app!.widget('el-1').widgetEventListeners;
+    var listeners2 = app!.widget('el-2').widgetEventListeners;
+    var listeners3 = app!.widget('el-3').widgetEventListeners;
+
+    expect(listeners1[DomEventType.click], equals(null));
+    expect(listeners2[DomEventType.click], equals(null));
+    expect(listeners3[DomEventType.click], equals(listener));
+});
+
+test('should clear "click" event listner', () {
+    void listener(event) => {};
+
+    app!.framework.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1')),
+            __WidgetClass__(key: GlobalKey('el-2'), onClick: listener),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    var listeners1 = app!.widget('el-1').widgetEventListeners;
+    var listeners2 = app!.widget('el-2').widgetEventListeners;
+
+    expect(listeners1[DomEventType.click], equals(null));
+    expect(listeners2[DomEventType.click], equals(listener));
+
+    // update
+
+    app!.framework.updateChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1')),
+            __WidgetClass__(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+    );
+
+    listeners1 = app!.widget('el-1').widgetEventListeners;
+    listeners2 = app!.widget('el-2').widgetEventListeners;
+
+    expect(listeners1[DomEventType.click], equals(null));
+    expect(listeners2[DomEventType.click], equals(null));
+});

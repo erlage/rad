@@ -349,99 +349,87 @@ void html_table_header_cell_test() {
       );
     });
 
-    test('should set onclick event listener', () {
+    test('should set "click" event listener', () async {
       var testStack = RT_TestStack();
 
       app!.framework.buildChildren(
         widgets: [
           TableHeaderCell(
-            key: GlobalKey('some-global-key'),
-            onClick: (event) => testStack.push('clicked'),
+            key: GlobalKey('el-1'),
+            onClick: (event) => testStack.push('click-1'),
+          ),
+          TableHeaderCell(
+            key: GlobalKey('el-2'),
+            onClick: (event) => testStack.push('click-2'),
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      app!.element('el-1').dispatchEvent(Event('click'));
+      app!.element('el-2').dispatchEvent(Event('click'));
 
-      element1
-        ..click()
-        ..click();
-
-      expect(testStack.popFromStart(), equals('clicked'));
-      expect(testStack.popFromStart(), equals('clicked'));
-      expect(testStack.canPop(), equals(false));
+      await Future.delayed(Duration(seconds: 1), () {
+        expect(testStack.popFromStart(), equals('click-1'));
+        expect(testStack.popFromStart(), equals('click-2'));
+        expect(testStack.canPop(), equals(false));
+      });
     });
 
-    test('should set onclick nested event listeners', () {
-      var testStack = RT_TestStack();
+    test('should set "click" event listener only if provided', () async {
+      void listener(event) => {};
 
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(
-            key: GlobalKey('parent'),
-            onClick: (event) {
-              testStack.push('parent clicked');
-            },
-            children: [
-              TableHeaderCell(
-                key: GlobalKey('child'),
-                onClick: (event) {
-                  testStack.push('child clicked');
-                },
-              ),
-            ],
-          )
+          TableHeaderCell(key: GlobalKey('el-1')),
+          TableHeaderCell(key: GlobalKey('el-2'), onClick: null),
+          TableHeaderCell(key: GlobalKey('el-3'), onClick: listener),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
-      var parent = app!.element('parent');
-      var child = app!.element('child');
+      var listeners1 = app!.widget('el-1').widgetEventListeners;
+      var listeners2 = app!.widget('el-2').widgetEventListeners;
+      var listeners3 = app!.widget('el-3').widgetEventListeners;
 
-      child.click();
-      parent.click();
-
-      expect(testStack.popFromStart(), equals('child clicked'));
-      expect(testStack.popFromStart(), equals('parent clicked'));
-      expect(testStack.popFromStart(), equals('parent clicked'));
-      expect(testStack.canPop(), equals(false));
+      expect(listeners1[DomEventType.click], equals(null));
+      expect(listeners2[DomEventType.click], equals(null));
+      expect(listeners3[DomEventType.click], equals(listener));
     });
 
-    test('should set onclick nested event listeners: bubbling test', () {
-      var testStack = RT_TestStack();
+    test('should clear "click" event listner', () {
+      void listener(event) => {};
 
       app!.framework.buildChildren(
         widgets: [
-          TableHeaderCell(
-            key: GlobalKey('parent'),
-            onClick: (event) {
-              testStack.push('parent clicked');
-            },
-            children: [
-              TableHeaderCell(
-                key: GlobalKey('child'),
-                onClick: (event) {
-                  event.stopPropagation();
-
-                  testStack.push('child clicked');
-                },
-              ),
-            ],
-          )
+          TableHeaderCell(key: GlobalKey('el-1')),
+          TableHeaderCell(key: GlobalKey('el-2'), onClick: listener),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentContext: app!.appContext,
       );
 
-      var parent = app!.element('parent');
-      var child = app!.element('child');
+      var listeners1 = app!.widget('el-1').widgetEventListeners;
+      var listeners2 = app!.widget('el-2').widgetEventListeners;
 
-      child.click();
-      parent.click();
+      expect(listeners1[DomEventType.click], equals(null));
+      expect(listeners2[DomEventType.click], equals(listener));
 
-      expect(testStack.popFromStart(), equals('child clicked'));
-      expect(testStack.popFromStart(), equals('parent clicked'));
-      expect(testStack.canPop(), equals(false));
+      // update
+
+      app!.framework.updateChildren(
+        widgets: [
+          TableHeaderCell(key: GlobalKey('el-1')),
+          TableHeaderCell(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      listeners1 = app!.widget('el-1').widgetEventListeners;
+      listeners2 = app!.widget('el-2').widgetEventListeners;
+
+      expect(listeners1[DomEventType.click], equals(null));
+      expect(listeners2[DomEventType.click], equals(null));
     });
 
     test('should set style', () {
