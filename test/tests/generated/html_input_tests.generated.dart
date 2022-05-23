@@ -369,7 +369,7 @@ void html_input_test() {
       app!.element('el-1').dispatchEvent(Event('click'));
       app!.element('el-2').dispatchEvent(Event('click'));
 
-      await Future.delayed(Duration(seconds: 1), () {
+      await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('click-1'));
         expect(testStack.popFromStart(), equals('click-2'));
         expect(testStack.canPop(), equals(false));
@@ -1715,7 +1715,7 @@ void html_input_test() {
       app!.element('el-1').dispatchEvent(Event('change'));
       app!.element('el-2').dispatchEvent(Event('change'));
 
-      await Future.delayed(Duration(seconds: 1), () {
+      await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('change-1'));
         expect(testStack.popFromStart(), equals('change-2'));
         expect(testStack.canPop(), equals(false));
@@ -1798,7 +1798,7 @@ void html_input_test() {
       app!.element('el-1').dispatchEvent(Event('input'));
       app!.element('el-2').dispatchEvent(Event('input'));
 
-      await Future.delayed(Duration(seconds: 1), () {
+      await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('input-1'));
         expect(testStack.popFromStart(), equals('input-2'));
         expect(testStack.canPop(), equals(false));
@@ -1881,7 +1881,7 @@ void html_input_test() {
       app!.element('el-1').dispatchEvent(Event('keypress'));
       app!.element('el-2').dispatchEvent(Event('keypress'));
 
-      await Future.delayed(Duration(seconds: 1), () {
+      await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('keypress-1'));
         expect(testStack.popFromStart(), equals('keypress-2'));
         expect(testStack.canPop(), equals(false));
@@ -1964,7 +1964,7 @@ void html_input_test() {
       app!.element('el-1').dispatchEvent(Event('keyup'));
       app!.element('el-2').dispatchEvent(Event('keyup'));
 
-      await Future.delayed(Duration(seconds: 1), () {
+      await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('keyup-1'));
         expect(testStack.popFromStart(), equals('keyup-2'));
         expect(testStack.canPop(), equals(false));
@@ -2047,7 +2047,7 @@ void html_input_test() {
       app!.element('el-1').dispatchEvent(Event('keydown'));
       app!.element('el-2').dispatchEvent(Event('keydown'));
 
-      await Future.delayed(Duration(seconds: 1), () {
+      await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('keydown-1'));
         expect(testStack.popFromStart(), equals('keydown-2'));
         expect(testStack.canPop(), equals(false));

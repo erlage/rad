@@ -369,7 +369,7 @@ void html_input_file_test() {
       app!.element('el-1').dispatchEvent(Event('click'));
       app!.element('el-2').dispatchEvent(Event('click'));
 
-      await Future.delayed(Duration(seconds: 1), () {
+      await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('click-1'));
         expect(testStack.popFromStart(), equals('click-2'));
         expect(testStack.canPop(), equals(false));
@@ -1057,7 +1057,7 @@ void html_input_file_test() {
       app!.element('el-1').dispatchEvent(Event('change'));
       app!.element('el-2').dispatchEvent(Event('change'));
 
-      await Future.delayed(Duration(seconds: 1), () {
+      await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('change-1'));
         expect(testStack.popFromStart(), equals('change-2'));
         expect(testStack.canPop(), equals(false));

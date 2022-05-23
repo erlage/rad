@@ -18,7 +18,7 @@ test('should set "KeyUp" event listener', () async {
     app!.element('el-1').dispatchEvent(Event('keyup'));
     app!.element('el-2').dispatchEvent(Event('keyup'));
 
-    await Future.delayed(Duration(seconds: 1), () {
+    await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('keyup-1'));
         expect(testStack.popFromStart(), equals('keyup-2'));
         expect(testStack.canPop(), equals(false));
