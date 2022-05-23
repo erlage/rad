@@ -3,8 +3,7 @@ import 'package:rad/src/core/common/types.dart';
 
 /// A simple job queue that stack jobs and callbacks.
 ///
-/// Jobs are dispatched in FIFO order.
-/// However, order in which PostCallbacks are fired is undefined.
+/// Jobs and PostCallbacks are dispatched in FIFO order.
 ///
 class JobQueue {
   final _jobs = <Callback>[];
@@ -42,10 +41,12 @@ class JobQueue {
     } finally {
       _jobs.clear();
 
-      if (_jobs.isEmpty) {
-        while (_postJobCallbacks.isNotEmpty) {
-          _postJobCallbacks.removeLast()();
+      try {
+        for (final callback in _postJobCallbacks) {
+          callback();
         }
+      } finally {
+        _postJobCallbacks.clear();
       }
     }
   }
