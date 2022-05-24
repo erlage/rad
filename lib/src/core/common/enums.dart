@@ -30,6 +30,10 @@ enum UpdateType {
   ///
   dependencyChanged,
 
+  /// Some logic has visited and want the widget to update.
+  ///
+  visit,
+
   /// Undefined.
   ///
   undefined,

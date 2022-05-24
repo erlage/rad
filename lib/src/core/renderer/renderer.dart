@@ -544,14 +544,21 @@ class Renderer with ServicesResolver {
 
       // update widget interface
 
+      // if it's a inherited widget update, we allow immediate childs
+      // to build without checking whether they are const or not.
+      //
+      // or
+      //
+      // if it's a update from widget visitor, we allow immediate childs
+      // to build without checking whether they are const or not.
+
+      // but if they further have child widgets of their owns, we want
+      // the framework to short-circuit rebuild if possible, this can be
+      // acheived by resetting update type to something else
+
       if (UpdateType.dependencyChanged == updateType) {
-        // if it's a inherited widget update, we allow immediate childs
-        // to build without checking whether they are const or not.
-
-        // but if they further have child widgets of their owns, we want
-        // the framework to short-circuit rebuild if possible, this can be
-        // acheived by resetting update type to something else
-
+        updateType = UpdateType.undefined;
+      } else if (UpdateType.visit == updateType) {
         updateType = UpdateType.undefined;
       } else {
         if (oldWidget == newWidget) {
