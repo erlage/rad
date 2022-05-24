@@ -279,10 +279,11 @@ void main() {
           expect(testStack.popFromStart(), equals('create config 1a'));
           expect(testStack.popFromStart(), equals('render 1a'));
 
+          expect(testStack.popFromStart(), equals('rebind widget 1a'));
+
           expect(testStack.popFromStart(), equals('is changed 2a'));
           expect(testStack.popFromStart(), equals('create config 2a'));
 
-          expect(testStack.popFromStart(), equals('rebind widget 1a'));
           expect(testStack.popFromStart(), equals('update 1a'));
 
           expect(testStack.canPop(), equals(false));
@@ -364,10 +365,11 @@ void main() {
           expect(testStack.popFromStart(), equals('create config 1a'));
           expect(testStack.popFromStart(), equals('render 1a'));
 
+          expect(testStack.popFromStart(), equals('rebind widget 1a'));
+
           expect(testStack.popFromStart(), equals('is changed 2a'));
           expect(testStack.popFromStart(), equals('create config 2a'));
 
-          expect(testStack.popFromStart(), equals('rebind widget 1a'));
           expect(testStack.popFromStart(), equals('update 1a'));
 
           expect(testStack.canPop(), equals(false));
