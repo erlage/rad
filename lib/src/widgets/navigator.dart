@@ -595,7 +595,6 @@ class NavigatorState with ServicesResolver {
         WidgetsManageTask(
           parentContext: context,
           flagIterateInReverseOrder: true,
-          updateType: UpdateType.setState,
           widgetActionCallback: (widgetObject) {
             var configuration = widgetObject.configuration;
 
@@ -630,7 +629,6 @@ class NavigatorState with ServicesResolver {
         WidgetsManageTask(
           parentContext: context,
           flagIterateInReverseOrder: true,
-          updateType: UpdateType.setState,
           widgetActionCallback: (widgetObject) {
             return [WidgetAction.hideWidget];
           },
@@ -817,7 +815,6 @@ class NavigatorState with ServicesResolver {
       WidgetsManageTask(
         parentContext: context,
         flagIterateInReverseOrder: true,
-        updateType: updateType,
         widgetActionCallback: (widgetObject) {
           var configuration = widgetObject.configuration;
 

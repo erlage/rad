@@ -47,7 +47,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.undefined,
+          updateType: UpdateType.visit,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
             testStack.push(widgetObject.context.key.value);
@@ -84,7 +84,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.undefined,
+          updateType: UpdateType.visit,
           parentContext: app!.appContext,
           flagIterateInReverseOrder: false,
           widgetActionCallback: (widgetObject) {
@@ -122,7 +122,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.undefined,
+          updateType: UpdateType.visit,
           parentContext: app!.appContext,
           flagIterateInReverseOrder: true,
           widgetActionCallback: (widgetObject) {
@@ -162,7 +162,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.undefined,
+          updateType: UpdateType.visit,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
             testStack.push(widgetObject.context.key.value);
@@ -201,7 +201,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.undefined,
+          updateType: UpdateType.visit,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
             testStack.push(widgetObject.context.key.value);
@@ -246,7 +246,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.undefined,
+          updateType: UpdateType.visit,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
             testStack.push(widgetObject.context.key.value);
@@ -282,14 +282,20 @@ void main() {
             ),
             RT_TestWidget(
               key: GlobalKey('widget-2'),
+              roEventHookUpdate: () => testStack.push('update-2'),
               children: [
                 RT_TestWidget(
                   key: GlobalKey('widget-2-1'),
-                  children: [],
+                  children: [
+                    RT_TestWidget(
+                      key: GlobalKey('widget-2-1-1'),
+                      children: [],
+                      roEventHookUpdate: () => testStack.push('update-2-1-1'),
+                    ),
+                  ],
                   roEventHookUpdate: () => testStack.push('update-2-1'),
                 ),
               ],
-              roEventHookUpdate: () => testStack.push('update-2'),
             ),
             RT_TestWidget(
               key: GlobalKey('widget-3'),
@@ -300,7 +306,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.undefined,
+          updateType: UpdateType.visit,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
             testStack.push(widgetObject.context.key.value);
@@ -334,7 +340,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.undefined,
+          updateType: UpdateType.visit,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
             return [WidgetAction.hideWidget];
@@ -377,7 +383,7 @@ void main() {
         // first hide widgets
 
         app!.framework.manageChildren(
-          updateType: UpdateType.undefined,
+          updateType: UpdateType.visit,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
             return [WidgetAction.hideWidget];
@@ -385,7 +391,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.undefined,
+          updateType: UpdateType.visit,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
             return [WidgetAction.showWidget];
@@ -430,7 +436,14 @@ void main() {
               children: [
                 RT_TestWidget(
                   key: GlobalKey('widget-2-1'),
-                  children: [],
+                  children: [
+                    RT_TestWidget(
+                      key: GlobalKey('widget-2-1-1'),
+                      children: [],
+                      // should never cascade update to this level
+                      roEventHookUpdate: () => testStack.push('update-2-1-1'),
+                    ),
+                  ],
                   roEventHookUpdate: () => testStack.push('update-2-1'),
                   roEventHookBeforeUnMount: () => testStack.push('dispose-2-1'),
                 ),
@@ -449,7 +462,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.undefined,
+          updateType: UpdateType.visit,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
             testStack.push(widgetObject.context.key.value);

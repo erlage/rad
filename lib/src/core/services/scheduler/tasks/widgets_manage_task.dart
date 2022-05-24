@@ -15,7 +15,7 @@ class WidgetsManageTask extends SchedulerTask {
   ///
   final BuildContext parentContext;
 
-  /// Update type when necessary.
+  /// Update type.
   ///
   final UpdateType updateType;
 
@@ -24,7 +24,7 @@ class WidgetsManageTask extends SchedulerTask {
   final bool flagIterateInReverseOrder;
 
   WidgetsManageTask({
-    this.updateType = UpdateType.undefined,
+    this.updateType = UpdateType.visit,
     required this.parentContext,
     required this.widgetActionCallback,
     this.flagIterateInReverseOrder = false,
