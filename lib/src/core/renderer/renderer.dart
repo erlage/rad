@@ -503,7 +503,11 @@ class Renderer with ServicesResolver {
       var oldWidget = widgetObject.widget;
       var newMountAtIndex = updateObject.newMountAtIndex;
 
-      // move element if position has changed
+      /*
+      |------------------------------------------------------------------------
+      | update widget mount position if requested
+      |------------------------------------------------------------------------
+      */
 
       if (null != newMountAtIndex) {
         var parentNode = matchedNode.parent;
@@ -542,7 +546,11 @@ class Renderer with ServicesResolver {
         }
       }
 
-      // update widget interface
+      /*
+      |------------------------------------------------------------------------
+      | check whether we can short-circuit the rebuild process
+      |------------------------------------------------------------------------
+      */
 
       // if it's a inherited widget update, we allow immediate childs
       // to build without checking whether they are const or not.
@@ -570,7 +578,26 @@ class Renderer with ServicesResolver {
         }
       }
 
-      // check whether anything else has to be updated.
+      /*
+      |------------------------------------------------------------------------
+      | rebind widget instance, always
+      |------------------------------------------------------------------------
+      */
+
+      widgetObject
+        ..frameworkRebindWidget(newWidget)
+        ..renderObject.afterWidgetRebind(
+          updateType: updateType,
+          oldWidget: oldWidget,
+          newWidget: newWidget,
+        );
+
+      /*
+      |------------------------------------------------------------------------
+      | check whether widget itself has to be updated
+      |------------------------------------------------------------------------
+      */
+
       var oldConfiguration = widgetObject.configuration;
       var isChanged = newWidget.isConfigurationChanged(oldConfiguration);
 
@@ -581,15 +608,7 @@ class Renderer with ServicesResolver {
 
         var newConfiguration = newWidget.createConfiguration();
 
-        widgetObject
-          ..frameworkRebindWidget(newWidget)
-          ..frameworkRebindWidgetConfiguration(newConfiguration);
-
-        widgetObject.renderObject.afterWidgetRebind(
-          newWidget: newWidget,
-          oldWidget: oldWidget,
-          updateType: updateType,
-        );
+        widgetObject.frameworkRebindWidgetConfiguration(newConfiguration);
 
         // publish update
 
@@ -607,24 +626,16 @@ class Renderer with ServicesResolver {
           element: widgetObject.element,
         );
       } else {
-        // check if widget instance needs to be updated
-
-        var hasEventListeners = newWidget.widgetEventListeners.isNotEmpty;
-
-        if (hasEventListeners || oldWidget.widgetEventListeners.isNotEmpty) {
-          widgetObject
-            ..frameworkRebindWidget(newWidget)
-            ..renderObject.afterWidgetRebind(
-              updateType: updateType,
-              oldWidget: oldWidget,
-              newWidget: newWidget,
-            );
-        }
-
         if (services.debug.widgetLogs) {
           print('Skipped: ${widgetObject.context}');
         }
       }
+
+      /*
+      |------------------------------------------------------------------------
+      | check whether widget childs has to be updated
+      |------------------------------------------------------------------------
+      */
 
       // whether old widget happen to have child widgets
       var hadChilds = oldWidget.widgetChildren.isNotEmpty;
