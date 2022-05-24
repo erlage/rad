@@ -144,27 +144,15 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
   }
 
   @override
-  Map<DomEventType, EventCallback?> get widgetEventListeners {
-    if (null == onClick &&
-        null == onInput &&
-        null == onChange &&
-        null == onSubmit &&
-        null == onKeyUp &&
-        null == onKeyDown &&
-        null == onKeyPress) {
-      return const {};
-    }
-
-    return {
-      DomEventType.click: onClick,
-      DomEventType.input: onInput,
-      DomEventType.change: onChange,
-      DomEventType.submit: onSubmit,
-      DomEventType.keyUp: onKeyUp,
-      DomEventType.keyDown: onKeyDown,
-      DomEventType.keyPress: onKeyPress,
-    };
-  }
+  Map<DomEventType, EventCallback?> get widgetEventListeners => {
+        DomEventType.click: onClick,
+        DomEventType.input: onInput,
+        DomEventType.change: onChange,
+        DomEventType.submit: onSubmit,
+        DomEventType.keyUp: onKeyUp,
+        DomEventType.keyDown: onKeyDown,
+        DomEventType.keyPress: onKeyPress,
+      };
 
   @override
   createConfiguration() {
