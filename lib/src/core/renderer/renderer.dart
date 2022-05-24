@@ -558,7 +558,7 @@ class Renderer with ServicesResolver {
 
       if (UpdateType.dependencyChanged == updateType) {
         updateType = UpdateType.undefined;
-      } else if (UpdateType.visit == updateType) {
+      } else if (UpdateType.visitorUpdate == updateType) {
         updateType = UpdateType.undefined;
       } else {
         if (oldWidget == newWidget) {

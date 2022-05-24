@@ -47,7 +47,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.visit,
+          updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
             testStack.push(widgetObject.context.key.value);
@@ -84,7 +84,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.visit,
+          updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           flagIterateInReverseOrder: false,
           widgetActionCallback: (widgetObject) {
@@ -122,7 +122,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.visit,
+          updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           flagIterateInReverseOrder: true,
           widgetActionCallback: (widgetObject) {
@@ -162,7 +162,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.visit,
+          updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
             testStack.push(widgetObject.context.key.value);
@@ -201,7 +201,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.visit,
+          updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
             testStack.push(widgetObject.context.key.value);
@@ -246,7 +246,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.visit,
+          updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
             testStack.push(widgetObject.context.key.value);
@@ -306,7 +306,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.visit,
+          updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
             testStack.push(widgetObject.context.key.value);
@@ -340,7 +340,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.visit,
+          updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
             return [WidgetAction.hideWidget];
@@ -383,7 +383,7 @@ void main() {
         // first hide widgets
 
         app!.framework.manageChildren(
-          updateType: UpdateType.visit,
+          updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
             return [WidgetAction.hideWidget];
@@ -391,7 +391,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.visit,
+          updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
             return [WidgetAction.showWidget];
@@ -462,7 +462,7 @@ void main() {
         );
 
         app!.framework.manageChildren(
-          updateType: UpdateType.visit,
+          updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
             testStack.push(widgetObject.context.key.value);

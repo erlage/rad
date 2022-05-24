@@ -32,7 +32,7 @@ enum UpdateType {
 
   /// Some logic has visited and want the widget to update.
   ///
-  visit,
+  visitorUpdate,
 
   /// Undefined.
   ///
