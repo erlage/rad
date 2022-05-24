@@ -228,64 +228,6 @@ void main() {
       );
 
       test(
-        'should not rebind a widget instance '
-        'if widget configuration has not changed',
-        () async {
-          var testStack = RT_TestStack();
-
-          await app!.buildChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1a'),
-                roEventHookUpdate: () => testStack.push('update 1a'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1a'),
-                wEventHookIsConfigurationChanged: () => testStack.push(
-                  'is changed 1a',
-                ),
-                wEventHookCreateWidgetConfiguration: () => testStack.push(
-                  'create config 1a',
-                ),
-                roEventHookAfterWidgetRebind: () => testStack.push(
-                  'rebind widget 1a',
-                ),
-                wOverrideIsConfigurationChanged: () => true,
-              ),
-            ],
-            parentContext: app!.appContext,
-          );
-
-          await app!.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 2a'),
-                roEventHookUpdate: () => testStack.push('update 2a'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 2a'),
-                wEventHookIsConfigurationChanged: () => testStack.push(
-                  'is changed 2a',
-                ),
-                wEventHookCreateWidgetConfiguration: () => testStack.push(
-                  'create config 2a',
-                ),
-                roEventHookAfterWidgetRebind: () => testStack.push(
-                  'rebind widget 2a',
-                ),
-                wOverrideIsConfigurationChanged: () => false,
-              ),
-            ],
-            updateType: UpdateType.undefined,
-            parentContext: app!.appContext,
-          );
-
-          expect(testStack.popFromStart(), equals('create config 1a'));
-          expect(testStack.popFromStart(), equals('render 1a'));
-
-          expect(testStack.popFromStart(), equals('is changed 2a'));
-
-          expect(testStack.canPop(), equals(false));
-        },
-      );
-
-      test(
         'should  rebind a widget instance '
         'if widget configuration has changed',
         () async {
