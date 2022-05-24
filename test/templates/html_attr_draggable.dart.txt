@@ -1,5 +1,5 @@
-test('should set draggable', () {
-  app!.framework.buildChildren(
+test('should set draggable', () async {
+  await app!.buildChildren(
     widgets: [
       __WidgetClass__(
         key: Key('widget-1'),

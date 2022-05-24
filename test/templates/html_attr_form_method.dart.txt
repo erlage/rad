@@ -1,5 +1,5 @@
-test('should set form attribute "method"', () {
-    app!.framework.buildChildren(
+test('should set form attribute "method"', () async {
+    await app!.buildChildren(
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1'), method: FormMethod.get),
             __WidgetClass__(key: GlobalKey('el-2'), method: FormMethod.post),
@@ -7,8 +7,8 @@ test('should set form attribute "method"', () {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.element('el-1');
-    var element2 = app!.element('el-2');
+    var element1 = app!.elementByGlobalKey('el-1');
+    var element2 = app!.elementByGlobalKey('el-2');
 
     expect(
         element1.getAttribute('method'),
@@ -20,8 +20,8 @@ test('should set form attribute "method"', () {
     );
 });
 
-test('should update form attribute "method"', () {
-    app!.framework.buildChildren(
+test('should update form attribute "method"', () async {
+    await app!.buildChildren(
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1'), method: FormMethod.get),
             __WidgetClass__(key: GlobalKey('el-2'), method: FormMethod.post),
@@ -30,7 +30,7 @@ test('should update form attribute "method"', () {
         parentContext: app!.appContext,
     );
 
-    app!.framework.updateChildren(
+    await app!.updateChildren(
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1')),
             __WidgetClass__(key: GlobalKey('el-2'), method: null),
@@ -40,9 +40,9 @@ test('should update form attribute "method"', () {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.element('el-1');
-    var element2 = app!.element('el-2');
-    var element3 = app!.element('el-3');
+    var element1 = app!.elementByGlobalKey('el-1');
+    var element2 = app!.elementByGlobalKey('el-2');
+    var element3 = app!.elementByGlobalKey('el-3');
 
     expect(
         element1.getAttribute('method'),

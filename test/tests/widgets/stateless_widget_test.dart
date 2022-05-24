@@ -15,7 +15,7 @@ void main() {
     test('should render widgets returned by the build method', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_StatelessWidget(
             eventBuild: () => testStack.push('build-1'),
@@ -25,25 +25,23 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      await Future.delayed(Duration.zero, () {
-        expect(testStack.popFromStart(), equals('build-1'));
-        expect(testStack.canPop(), equals(false));
+      expect(testStack.popFromStart(), equals('build-1'));
+      expect(testStack.canPop(), equals(false));
 
-        expect(app!.appElement, RT_hasContents('contents'));
-      });
+      expect(app!.appElement, RT_hasContents('contents'));
     });
 
     test('should always call build on new widget instance', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_StatelessWidget(eventBuild: () => testStack.push('build-1a')),
         ],
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           RT_StatelessWidget(eventBuild: () => testStack.push('build-2a')),
         ],
@@ -51,7 +49,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           RT_StatelessWidget(eventBuild: () => testStack.push('build-3a')),
         ],
@@ -59,19 +57,17 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      await Future.delayed(Duration.zero, () {
-        expect(testStack.popFromStart(), equals('build-1a'));
-        expect(testStack.popFromStart(), equals('build-2a'));
-        expect(testStack.popFromStart(), equals('build-3a'));
+      expect(testStack.popFromStart(), equals('build-1a'));
+      expect(testStack.popFromStart(), equals('build-2a'));
+      expect(testStack.popFromStart(), equals('build-3a'));
 
-        expect(testStack.canPop(), equals(false));
-      });
+      expect(testStack.canPop(), equals(false));
     });
 
     test('should build widgets in order', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_StatelessWidget(eventBuild: () => testStack.push('build-1a')),
           RT_StatelessWidget(eventBuild: () => testStack.push('build-1b')),
@@ -80,19 +76,17 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      await Future.delayed(Duration.zero, () {
-        expect(testStack.popFromStart(), equals('build-1a'));
-        expect(testStack.popFromStart(), equals('build-1b'));
-        expect(testStack.popFromStart(), equals('build-1c'));
+      expect(testStack.popFromStart(), equals('build-1a'));
+      expect(testStack.popFromStart(), equals('build-1b'));
+      expect(testStack.popFromStart(), equals('build-1c'));
 
-        expect(testStack.canPop(), equals(false));
-      });
+      expect(testStack.canPop(), equals(false));
     });
 
     test('should update widgets in order', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_StatelessWidget(eventBuild: () => testStack.push('build-a')),
           RT_StatelessWidget(eventBuild: () => testStack.push('build-b')),
@@ -101,7 +95,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           RT_StatelessWidget(eventBuild: () => testStack.push('update-a')),
           RT_StatelessWidget(eventBuild: () => testStack.push('update-b')),
@@ -111,17 +105,15 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      await Future.delayed(Duration.zero, () {
-        expect(testStack.popFromStart(), equals('build-a'));
-        expect(testStack.popFromStart(), equals('build-b'));
-        expect(testStack.popFromStart(), equals('build-c'));
+      expect(testStack.popFromStart(), equals('build-a'));
+      expect(testStack.popFromStart(), equals('build-b'));
+      expect(testStack.popFromStart(), equals('build-c'));
 
-        expect(testStack.popFromStart(), equals('update-a'));
-        expect(testStack.popFromStart(), equals('update-b'));
-        expect(testStack.popFromStart(), equals('update-c'));
+      expect(testStack.popFromStart(), equals('update-a'));
+      expect(testStack.popFromStart(), equals('update-b'));
+      expect(testStack.popFromStart(), equals('update-c'));
 
-        expect(testStack.canPop(), equals(false));
-      });
+      expect(testStack.canPop(), equals(false));
     });
   });
 }

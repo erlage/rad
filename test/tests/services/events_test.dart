@@ -19,7 +19,7 @@ void main() {
     test('should propagate event', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_EventfulWidget(
             key: GlobalKey('el-g-parent'),
@@ -41,38 +41,36 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var gparent = app!.element('el-g-parent');
-      var parent = app!.element('el-parent');
-      var child = app!.element('el-child');
+      var gparent = app!.elementByGlobalKey('el-g-parent');
+      var parent = app!.elementByGlobalKey('el-parent');
+      var child = app!.elementByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second
       child.dispatchEvent(Event('click')); // third
 
-      await Future.delayed(Duration.zero, () {
-        // after 1st dispatch
+      // after 1st dispatch
 
-        expect(testStack.popFromStart(), equals('click-g-parent'));
+      expect(testStack.popFromStart(), equals('click-g-parent'));
 
-        // after 2nd dispatch
+      // after 2nd dispatch
 
-        expect(testStack.popFromStart(), equals('click-parent'));
-        expect(testStack.popFromStart(), equals('click-g-parent'));
+      expect(testStack.popFromStart(), equals('click-parent'));
+      expect(testStack.popFromStart(), equals('click-g-parent'));
 
-        // after 3rd dispatch
+      // after 3rd dispatch
 
-        expect(testStack.popFromStart(), equals('click-child'));
-        expect(testStack.popFromStart(), equals('click-parent'));
-        expect(testStack.popFromStart(), equals('click-g-parent'));
+      expect(testStack.popFromStart(), equals('click-child'));
+      expect(testStack.popFromStart(), equals('click-parent'));
+      expect(testStack.popFromStart(), equals('click-g-parent'));
 
-        expect(testStack.canPop(), equals(false));
-      });
+      expect(testStack.canPop(), equals(false));
     });
 
     test('should stop propagation after stopPropagation() is called', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_EventfulWidget(
             key: GlobalKey('el-g-parent'),
@@ -98,30 +96,28 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var gparent = app!.element('el-g-parent');
-      var parent = app!.element('el-parent');
-      var child = app!.element('el-child');
+      var gparent = app!.elementByGlobalKey('el-g-parent');
+      var parent = app!.elementByGlobalKey('el-parent');
+      var child = app!.elementByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second
       child.dispatchEvent(Event('click')); // third
 
-      await Future.delayed(Duration.zero, () {
-        // after 1st dispatch
+      // after 1st dispatch
 
-        expect(testStack.popFromStart(), equals('click-g-parent'));
+      expect(testStack.popFromStart(), equals('click-g-parent'));
 
-        // after 2nd dispatch
+      // after 2nd dispatch
 
-        expect(testStack.popFromStart(), equals('click-parent'));
+      expect(testStack.popFromStart(), equals('click-parent'));
 
-        // after 3rd dispatch
+      // after 3rd dispatch
 
-        expect(testStack.popFromStart(), equals('click-child'));
-        expect(testStack.popFromStart(), equals('click-parent'));
+      expect(testStack.popFromStart(), equals('click-child'));
+      expect(testStack.popFromStart(), equals('click-parent'));
 
-        expect(testStack.canPop(), equals(false));
-      });
+      expect(testStack.canPop(), equals(false));
     });
 
     test(
@@ -129,7 +125,7 @@ void main() {
       () async {
         var testStack = RT_TestStack();
 
-        app!.framework.buildChildren(
+        await app!.buildChildren(
           widgets: [
             RT_EventfulWidget(
               key: GlobalKey('el-g-parent'),
@@ -155,30 +151,28 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        var gparent = app!.element('el-g-parent');
-        var parent = app!.element('el-parent');
-        var child = app!.element('el-child');
+        var gparent = app!.elementByGlobalKey('el-g-parent');
+        var parent = app!.elementByGlobalKey('el-parent');
+        var child = app!.elementByGlobalKey('el-child');
 
         gparent.dispatchEvent(Event('click')); // first
         parent.dispatchEvent(Event('click')); // second
         child.dispatchEvent(Event('click')); // third
 
-        await Future.delayed(Duration.zero, () {
-          // after 1st dispatch
+        // after 1st dispatch
 
-          expect(testStack.popFromStart(), equals('click-g-parent'));
+        expect(testStack.popFromStart(), equals('click-g-parent'));
 
-          // after 2nd dispatch
+        // after 2nd dispatch
 
-          expect(testStack.popFromStart(), equals('click-parent'));
+        expect(testStack.popFromStart(), equals('click-parent'));
 
-          // after 3rd dispatch
+        // after 3rd dispatch
 
-          expect(testStack.popFromStart(), equals('click-child'));
-          expect(testStack.popFromStart(), equals('click-parent'));
+        expect(testStack.popFromStart(), equals('click-child'));
+        expect(testStack.popFromStart(), equals('click-parent'));
 
-          expect(testStack.canPop(), equals(false));
-        });
+        expect(testStack.canPop(), equals(false));
       },
     );
   });
@@ -193,7 +187,7 @@ void main() {
     test('should propagate event upto matching target', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_EventfulWidget(
             key: GlobalKey('el-g-parent'),
@@ -212,29 +206,27 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var gparent = app!.element('el-g-parent');
-      var parent = app!.element('el-parent');
-      var child = app!.element('el-child');
+      var gparent = app!.elementByGlobalKey('el-g-parent');
+      var parent = app!.elementByGlobalKey('el-parent');
+      var child = app!.elementByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('input')); // first
       parent.dispatchEvent(Event('input')); // second
       child.dispatchEvent(Event('input')); // third
 
-      await Future.delayed(Duration.zero, () {
-        // after 1st dispatch
+      // after 1st dispatch
 
-        expect(testStack.popFromStart(), equals('input-g-parent'));
+      expect(testStack.popFromStart(), equals('input-g-parent'));
 
-        // after 2nd dispatch
+      // after 2nd dispatch
 
-        expect(testStack.popFromStart(), equals('input-parent'));
+      expect(testStack.popFromStart(), equals('input-parent'));
 
-        // after 3rd dispatch
+      // after 3rd dispatch
 
-        expect(testStack.popFromStart(), equals('input-parent'));
+      expect(testStack.popFromStart(), equals('input-parent'));
 
-        expect(testStack.canPop(), equals(false));
-      });
+      expect(testStack.canPop(), equals(false));
     });
   });
 
@@ -248,7 +240,7 @@ void main() {
     test('should propagate event upto matching target', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_EventfulWidget(
             key: GlobalKey('el-g-parent'),
@@ -267,29 +259,27 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var gparent = app!.element('el-g-parent');
-      var parent = app!.element('el-parent');
-      var child = app!.element('el-child');
+      var gparent = app!.elementByGlobalKey('el-g-parent');
+      var parent = app!.elementByGlobalKey('el-parent');
+      var child = app!.elementByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('change')); // first
       parent.dispatchEvent(Event('change')); // second
       child.dispatchEvent(Event('change')); // third
 
-      await Future.delayed(Duration.zero, () {
-        // after 1st dispatch
+      // after 1st dispatch
 
-        expect(testStack.popFromStart(), equals('change-g-parent'));
+      expect(testStack.popFromStart(), equals('change-g-parent'));
 
-        // after 2nd dispatch
+      // after 2nd dispatch
 
-        expect(testStack.popFromStart(), equals('change-parent'));
+      expect(testStack.popFromStart(), equals('change-parent'));
 
-        // after 3rd dispatch
+      // after 3rd dispatch
 
-        expect(testStack.popFromStart(), equals('change-parent'));
+      expect(testStack.popFromStart(), equals('change-parent'));
 
-        expect(testStack.canPop(), equals(false));
-      });
+      expect(testStack.canPop(), equals(false));
     });
   });
 
@@ -303,7 +293,7 @@ void main() {
     test('should propagate event upto matching target', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_EventfulWidget(
             key: GlobalKey('el-g-parent'),
@@ -322,29 +312,27 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var gparent = app!.element('el-g-parent');
-      var parent = app!.element('el-parent');
-      var child = app!.element('el-child');
+      var gparent = app!.elementByGlobalKey('el-g-parent');
+      var parent = app!.elementByGlobalKey('el-parent');
+      var child = app!.elementByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('submit')); // first
       parent.dispatchEvent(Event('submit')); // second
       child.dispatchEvent(Event('submit')); // third
 
-      await Future.delayed(Duration.zero, () {
-        // after 1st dispatch
+      // after 1st dispatch
 
-        expect(testStack.popFromStart(), equals('submit-g-parent'));
+      expect(testStack.popFromStart(), equals('submit-g-parent'));
 
-        // after 2nd dispatch
+      // after 2nd dispatch
 
-        expect(testStack.popFromStart(), equals('submit-parent'));
+      expect(testStack.popFromStart(), equals('submit-parent'));
 
-        // after 3rd dispatch
+      // after 3rd dispatch
 
-        expect(testStack.popFromStart(), equals('submit-parent'));
+      expect(testStack.popFromStart(), equals('submit-parent'));
 
-        expect(testStack.canPop(), equals(false));
-      });
+      expect(testStack.canPop(), equals(false));
     });
   });
 
@@ -358,7 +346,7 @@ void main() {
     test('should propagate event upto matching target', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_EventfulWidget(
             key: GlobalKey('el-g-parent'),
@@ -377,29 +365,27 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var gparent = app!.element('el-g-parent');
-      var parent = app!.element('el-parent');
-      var child = app!.element('el-child');
+      var gparent = app!.elementByGlobalKey('el-g-parent');
+      var parent = app!.elementByGlobalKey('el-parent');
+      var child = app!.elementByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('keyup')); // first
       parent.dispatchEvent(Event('keyup')); // second
       child.dispatchEvent(Event('keyup')); // third
 
-      await Future.delayed(Duration.zero, () {
-        // after 1st dispatch
+      // after 1st dispatch
 
-        expect(testStack.popFromStart(), equals('keyup-g-parent'));
+      expect(testStack.popFromStart(), equals('keyup-g-parent'));
 
-        // after 2nd dispatch
+      // after 2nd dispatch
 
-        expect(testStack.popFromStart(), equals('keyup-parent'));
+      expect(testStack.popFromStart(), equals('keyup-parent'));
 
-        // after 3rd dispatch
+      // after 3rd dispatch
 
-        expect(testStack.popFromStart(), equals('keyup-parent'));
+      expect(testStack.popFromStart(), equals('keyup-parent'));
 
-        expect(testStack.canPop(), equals(false));
-      });
+      expect(testStack.canPop(), equals(false));
     });
   });
 
@@ -413,7 +399,7 @@ void main() {
     test('should propagate event upto matching target', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_EventfulWidget(
             key: GlobalKey('el-g-parent'),
@@ -432,29 +418,27 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var gparent = app!.element('el-g-parent');
-      var parent = app!.element('el-parent');
-      var child = app!.element('el-child');
+      var gparent = app!.elementByGlobalKey('el-g-parent');
+      var parent = app!.elementByGlobalKey('el-parent');
+      var child = app!.elementByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('keydown')); // first
       parent.dispatchEvent(Event('keydown')); // second
       child.dispatchEvent(Event('keydown')); // third
 
-      await Future.delayed(Duration.zero, () {
-        // after 1st dispatch
+      // after 1st dispatch
 
-        expect(testStack.popFromStart(), equals('keydown-g-parent'));
+      expect(testStack.popFromStart(), equals('keydown-g-parent'));
 
-        // after 2nd dispatch
+      // after 2nd dispatch
 
-        expect(testStack.popFromStart(), equals('keydown-parent'));
+      expect(testStack.popFromStart(), equals('keydown-parent'));
 
-        // after 3rd dispatch
+      // after 3rd dispatch
 
-        expect(testStack.popFromStart(), equals('keydown-parent'));
+      expect(testStack.popFromStart(), equals('keydown-parent'));
 
-        expect(testStack.canPop(), equals(false));
-      });
+      expect(testStack.canPop(), equals(false));
     });
   });
 
@@ -468,7 +452,7 @@ void main() {
     test('should propagate event upto matching target', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_EventfulWidget(
             key: GlobalKey('el-g-parent'),
@@ -487,29 +471,27 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var gparent = app!.element('el-g-parent');
-      var parent = app!.element('el-parent');
-      var child = app!.element('el-child');
+      var gparent = app!.elementByGlobalKey('el-g-parent');
+      var parent = app!.elementByGlobalKey('el-parent');
+      var child = app!.elementByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('keypress')); // first
       parent.dispatchEvent(Event('keypress')); // second
       child.dispatchEvent(Event('keypress')); // third
 
-      await Future.delayed(Duration.zero, () {
-        // after 1st dispatch
+      // after 1st dispatch
 
-        expect(testStack.popFromStart(), equals('keypress-g-parent'));
+      expect(testStack.popFromStart(), equals('keypress-g-parent'));
 
-        // after 2nd dispatch
+      // after 2nd dispatch
 
-        expect(testStack.popFromStart(), equals('keypress-parent'));
+      expect(testStack.popFromStart(), equals('keypress-parent'));
 
-        // after 3rd dispatch
+      // after 3rd dispatch
 
-        expect(testStack.popFromStart(), equals('keypress-parent'));
+      expect(testStack.popFromStart(), equals('keypress-parent'));
 
-        expect(testStack.canPop(), equals(false));
-      });
+      expect(testStack.canPop(), equals(false));
     });
   });
 }

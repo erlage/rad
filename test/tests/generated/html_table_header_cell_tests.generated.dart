@@ -16,8 +16,8 @@ void html_table_header_cell_test() {
 
     tearDown(() => app!.stop());
 
-    test('should set id', () {
-      app!.framework.buildChildren(
+    test('should set id', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: Key('some-key'), id: 'some-id'),
           TableHeaderCell(key: LocalKey('some-local-key'), id: 'some-local-id'),
@@ -27,39 +27,17 @@ void html_table_header_cell_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(Key('some-key'), RT_TestBed.rootContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(
-                    LocalKey('some-local-key'), RT_TestBed.rootContext)
-                .value,
-          )!
-          .element;
-
-      var element3 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(
-                    GlobalKey('some-global-key'), RT_TestBed.rootContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.elementByKey('some-key', RT_TestBed.rootContext);
+      var element2 = app!.elementByLocalKey('some-local-key');
+      var element3 = app!.elementByGlobalKey('some-global-key');
 
       expect(element1.id, endsWith('some-id'));
       expect(element2.id, endsWith('some-local-id'));
       expect(element3.id, equals('some-global-id'));
     });
 
-    test('should reset and update id', () {
-      app!.framework.buildChildren(
+    test('should reset and update id', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: Key('some-key'), id: 'some-id'),
           TableHeaderCell(key: LocalKey('some-local-key'), id: 'some-local-id'),
@@ -69,37 +47,15 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(Key('some-key'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(
-                    LocalKey('some-local-key'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element3 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(
-                    GlobalKey('some-global-key'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.elementByKey('some-key', app!.appContext);
+      var element2 = app!.elementByLocalKey('some-local-key');
+      var element3 = app!.elementByGlobalKey('some-global-key');
 
       expect(element1.id, endsWith('some-id'));
       expect(element2.id, endsWith('some-local-id'));
       expect(element3.id, equals('some-global-id'));
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           TableHeaderCell(
             key: Key('some-key'),
@@ -123,8 +79,8 @@ void html_table_header_cell_test() {
       expect(element3.id, equals('some-global-updated-id'));
     });
 
-    test('should set child widget', () {
-      app!.framework.buildChildren(
+    test('should set child widget', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(
             id: 'widget-1',
@@ -143,17 +99,20 @@ void html_table_header_cell_test() {
       expect(element2.id, equals('widget-2'));
     });
 
-    test('should set children widgets', () {
-      app!.framework.buildChildren(
+    test('should set children widgets', () async {
+      await app!.buildChildren(
         widgets: [
-          TableHeaderCell(id: 'widget-1', children: [
-            TableHeaderCell(
-              id: 'widget-2',
-            ),
-            TableHeaderCell(
-              id: 'widget-3',
-            ),
-          ]),
+          TableHeaderCell(
+            id: 'widget-1',
+            children: [
+              TableHeaderCell(
+                id: 'widget-2',
+              ),
+              TableHeaderCell(
+                id: 'widget-3',
+              ),
+            ],
+          ),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -167,8 +126,8 @@ void html_table_header_cell_test() {
       expect(element3.id, equals('widget-3'));
     });
 
-    test('should set classes', () {
-      app!.framework.buildChildren(
+    test('should set classes', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(
             id: 'widget-1',
@@ -195,8 +154,8 @@ void html_table_header_cell_test() {
       expect(element3.getAttribute('class'), equals("some 'messy' class"));
     });
 
-    test('should set contenteditable', () {
-      app!.framework.buildChildren(
+    test('should set contenteditable', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(
             key: Key('widget-1'),
@@ -217,8 +176,8 @@ void html_table_header_cell_test() {
       expect(element2.getAttribute('contenteditable'), equals('true'));
     });
 
-    test('should set draggable', () {
-      app!.framework.buildChildren(
+    test('should set draggable', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(
             key: Key('widget-1'),
@@ -239,8 +198,8 @@ void html_table_header_cell_test() {
       expect(element2.getAttribute('draggable'), equals('true'));
     });
 
-    test('should set attribute "hidden" only if its true', () {
-      app!.framework.buildChildren(
+    test('should set attribute "hidden" only if its true', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), hidden: false),
           TableHeaderCell(key: GlobalKey('el-2'), hidden: null),
@@ -249,17 +208,18 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
-      var element3 = app!.element('el-3');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
+      var element3 = app!.elementByGlobalKey('el-3');
 
       expect(element1.getAttribute('hidden'), equals(null));
       expect(element2.getAttribute('hidden'), equals(null));
       expect(element3.getAttribute('hidden'), equals('true'));
     });
 
-    test('should clear attribute "hidden" if updated value is not true', () {
-      app!.framework.buildChildren(
+    test('should clear attribute "hidden" if updated value is not true',
+        () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), hidden: true),
           TableHeaderCell(key: GlobalKey('el-2'), hidden: true),
@@ -269,7 +229,7 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), hidden: true),
           TableHeaderCell(key: GlobalKey('el-2'), hidden: false),
@@ -280,10 +240,10 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
-      var element3 = app!.element('el-3');
-      var element4 = app!.element('el-4');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
+      var element3 = app!.elementByGlobalKey('el-3');
+      var element4 = app!.elementByGlobalKey('el-4');
 
       expect(element1.getAttribute('hidden'), equals('true'));
       expect(element2.getAttribute('hidden'), equals(null));
@@ -291,8 +251,8 @@ void html_table_header_cell_test() {
       expect(element4.getAttribute('hidden'), equals(null));
     });
 
-    test('should set inner text', () {
-      app!.framework.buildChildren(
+    test('should set inner text', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(
             key: GlobalKey('widget-1'),
@@ -310,8 +270,8 @@ void html_table_header_cell_test() {
       expect(element1.innerHtml, equals('hello world'));
     });
 
-    test('should set onClick', () {
-      app!.framework.buildChildren(
+    test('should set onClick', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(
             key: Key('widget-1'),
@@ -352,7 +312,7 @@ void html_table_header_cell_test() {
     test('should set "click" event listener', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(
             key: GlobalKey('el-1'),
@@ -366,8 +326,8 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      app!.element('el-1').dispatchEvent(Event('click'));
-      app!.element('el-2').dispatchEvent(Event('click'));
+      app!.elementByGlobalKey('el-1').dispatchEvent(Event('click'));
+      app!.elementByGlobalKey('el-2').dispatchEvent(Event('click'));
 
       await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('click-1'));
@@ -379,7 +339,7 @@ void html_table_header_cell_test() {
     test('should set "click" event listener only if provided', () async {
       void listener(event) => {};
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1')),
           TableHeaderCell(key: GlobalKey('el-2'), onClick: null),
@@ -397,10 +357,10 @@ void html_table_header_cell_test() {
       expect(listeners3[DomEventType.click], equals(listener));
     });
 
-    test('should clear "click" event listner', () {
+    test('should clear "click" event listner', () async {
       void listener(event) => {};
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1')),
           TableHeaderCell(key: GlobalKey('el-2'), onClick: listener),
@@ -416,7 +376,7 @@ void html_table_header_cell_test() {
 
       // update
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1')),
           TableHeaderCell(key: GlobalKey('el-2')),
@@ -432,8 +392,8 @@ void html_table_header_cell_test() {
       expect(listeners2[DomEventType.click], equals(null));
     });
 
-    test('should set style', () {
-      app!.framework.buildChildren(
+    test('should set style', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: Key('widget-1'), style: 'some style'),
           TableHeaderCell(key: Key('widget-2'), style: 'some "messy" style'),
@@ -451,8 +411,8 @@ void html_table_header_cell_test() {
       expect(element3.getAttribute('style'), equals("some 'messy' style"));
     });
 
-    test('should set tab index', () {
-      app!.framework.buildChildren(
+    test('should set tab index', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(
             key: Key('widget-1'),
@@ -479,8 +439,8 @@ void html_table_header_cell_test() {
       expect(element3.getAttribute('tabindex'), equals('3'));
     });
 
-    test('should set title', () {
-      app!.framework.buildChildren(
+    test('should set title', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: Key('widget-1'), title: 'some title'),
           TableHeaderCell(key: Key('widget-2'), title: 'some "messy" title'),
@@ -498,8 +458,8 @@ void html_table_header_cell_test() {
       expect(element3.getAttribute('title'), equals("some 'messy' title"));
     });
 
-    test('should set correct types and markup', () {
-      app!.framework.buildChildren(
+    test('should set correct types and markup', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('some-global-key')),
         ],
@@ -531,8 +491,8 @@ void html_table_header_cell_test() {
       );
     });
 
-    test('should set data attributes', () {
-      app!.framework.buildChildren(
+    test('should set data attributes', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(
             key: GlobalKey('some-global-key'),
@@ -551,8 +511,9 @@ void html_table_header_cell_test() {
       expect(element1.dataset['another'], equals('another okay'));
     });
 
-    test('should remove obsolute and add new data attributes on update', () {
-      app!.framework.buildChildren(
+    test('should remove obsolute and add new data attributes on update',
+        () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(
             key: GlobalKey('some-global-key'),
@@ -564,7 +525,7 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           TableHeaderCell(
             key: GlobalKey('some-global-key'),
@@ -585,14 +546,15 @@ void html_table_header_cell_test() {
       expect(element1.dataset['something-new'], equals('something new'));
     });
 
-    test('should not override system reserved data attributes on build', () {
-      app!.framework.buildChildren(
+    test('should not override system reserved data attributes on build',
+        () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
-              Constants.attrWidgetType: "must ignore",
+              Constants.attrWidgetType: 'must ignore',
             },
           ),
         ],
@@ -608,28 +570,29 @@ void html_table_header_cell_test() {
       expect(element1.dataset[Constants.attrWidgetType], equals(null));
     });
 
-    test('should not remove system reserved data attributes on update', () {
-      app!.framework.buildChildren(
+    test('should not remove system reserved data attributes on update',
+        () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
-              Constants.attrWidgetType: "must ignore",
+              Constants.attrWidgetType: 'must ignore',
             },
           ),
         ],
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           TableHeaderCell(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something new',
               'something-diff': 'something diff',
-              Constants.attrWidgetType: "must ignore",
+              Constants.attrWidgetType: 'must ignore',
             },
           ),
         ],
@@ -646,8 +609,8 @@ void html_table_header_cell_test() {
       expect(element1.dataset[Constants.attrWidgetType], equals(null));
     });
 
-    test('should set key', () {
-      app!.framework.buildChildren(
+    test('should set key', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: Key('some-key')),
           TableHeaderCell(key: LocalKey('some-local-key')),
@@ -656,33 +619,17 @@ void html_table_header_cell_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = app!.services.walker.getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(Key('some-key'), RT_TestBed.rootContext)
-            .value,
-      );
+      var wO1 = app!.widgetObjectByKey('some-key', RT_TestBed.rootContext);
+      var wO2 = app!.widgetObjectByLocalKey('some-local-key');
+      var wO3 = app!.widgetObjectByGlobalKey('some-global-key');
 
-      var element2 = app!.services.walker.getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(
-                LocalKey('some-local-key'), RT_TestBed.rootContext)
-            .value,
-      );
-
-      var element3 = app!.services.walker.getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(
-                GlobalKey('some-global-key'), RT_TestBed.rootContext)
-            .value,
-      );
-
-      expect(element1!.context.key.value, endsWith('some-key'));
-      expect(element2!.context.key.value, endsWith('some-local-key'));
-      expect(element3!.context.key.value, equals('some-global-key'));
+      expect(wO1.context.key.value, endsWith('some-key'));
+      expect(wO2.context.key.value, endsWith('some-local-key'));
+      expect(wO3.context.key.value, equals('some-global-key'));
     });
 
-    test('should set attribute "rowSpan"', () {
-      app!.framework.buildChildren(
+    test('should set attribute "rowSpan"', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), rowSpan: 10),
           TableHeaderCell(key: GlobalKey('el-2'), rowSpan: 0),
@@ -690,15 +637,15 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('rowspan'), equals('10'));
       expect(element2.getAttribute('rowspan'), equals('0'));
     });
 
-    test('should update attribute "rowSpan"', () {
-      app!.framework.buildChildren(
+    test('should update attribute "rowSpan"', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), rowSpan: 10),
           TableHeaderCell(key: GlobalKey('el-2'), rowSpan: 10),
@@ -706,7 +653,7 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), rowSpan: 20),
           TableHeaderCell(key: GlobalKey('el-2'), rowSpan: 20),
@@ -715,15 +662,15 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('rowspan'), equals('20'));
       expect(element2.getAttribute('rowspan'), equals('20'));
     });
 
-    test('should clear attribute "rowSpan"', () {
-      app!.framework.buildChildren(
+    test('should clear attribute "rowSpan"', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1')),
           TableHeaderCell(key: GlobalKey('el-2'), rowSpan: 10),
@@ -731,7 +678,7 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1')),
           TableHeaderCell(key: GlobalKey('el-2')),
@@ -740,22 +687,22 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('rowspan'), equals(null));
       expect(element2.getAttribute('rowspan'), equals(null));
     });
 
-    test('should clear attribute "rowSpan" if updated value is null', () {
-      app!.framework.buildChildren(
+    test('should clear attribute "rowSpan" if updated value is null', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), rowSpan: 10),
         ],
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), rowSpan: null),
         ],
@@ -763,26 +710,27 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
+      var element1 = app!.elementByGlobalKey('el-1');
 
       expect(element1.getAttribute('rowspan'), equals(null));
     });
 
-    test('should not set attribute "rowSpan" if provided value is null', () {
-      app!.framework.buildChildren(
+    test('should not set attribute "rowSpan" if provided value is null',
+        () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), rowSpan: null),
         ],
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
+      var element1 = app!.elementByGlobalKey('el-1');
 
       expect(element1.getAttribute('rowspan'), equals(null));
     });
 
-    test('should set attribute "colSpan"', () {
-      app!.framework.buildChildren(
+    test('should set attribute "colSpan"', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), colSpan: 10),
           TableHeaderCell(key: GlobalKey('el-2'), colSpan: 0),
@@ -790,15 +738,15 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('colspan'), equals('10'));
       expect(element2.getAttribute('colspan'), equals('0'));
     });
 
-    test('should update attribute "colSpan"', () {
-      app!.framework.buildChildren(
+    test('should update attribute "colSpan"', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), colSpan: 10),
           TableHeaderCell(key: GlobalKey('el-2'), colSpan: 10),
@@ -806,7 +754,7 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), colSpan: 20),
           TableHeaderCell(key: GlobalKey('el-2'), colSpan: 20),
@@ -815,15 +763,15 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('colspan'), equals('20'));
       expect(element2.getAttribute('colspan'), equals('20'));
     });
 
-    test('should clear attribute "colSpan"', () {
-      app!.framework.buildChildren(
+    test('should clear attribute "colSpan"', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1')),
           TableHeaderCell(key: GlobalKey('el-2'), colSpan: 10),
@@ -831,7 +779,7 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1')),
           TableHeaderCell(key: GlobalKey('el-2')),
@@ -840,22 +788,22 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('colspan'), equals(null));
       expect(element2.getAttribute('colspan'), equals(null));
     });
 
-    test('should clear attribute "colSpan" if updated value is null', () {
-      app!.framework.buildChildren(
+    test('should clear attribute "colSpan" if updated value is null', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), colSpan: 10),
         ],
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), colSpan: null),
         ],
@@ -863,26 +811,27 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
+      var element1 = app!.elementByGlobalKey('el-1');
 
       expect(element1.getAttribute('colspan'), equals(null));
     });
 
-    test('should not set attribute "colSpan" if provided value is null', () {
-      app!.framework.buildChildren(
+    test('should not set attribute "colSpan" if provided value is null',
+        () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), colSpan: null),
         ],
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
+      var element1 = app!.elementByGlobalKey('el-1');
 
       expect(element1.getAttribute('colspan'), equals(null));
     });
 
-    test('should set attribute "headers"', () {
-      app!.framework.buildChildren(
+    test('should set attribute "headers"', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), headers: 'some-headers'),
           TableHeaderCell(key: GlobalKey('el-2'), headers: 'another-headers'),
@@ -890,15 +839,15 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('headers'), equals('some-headers'));
       expect(element2.getAttribute('headers'), equals('another-headers'));
     });
 
-    test('should update attribute "headers"', () {
-      app!.framework.buildChildren(
+    test('should update attribute "headers"', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), headers: 'some-headers'),
           TableHeaderCell(key: GlobalKey('el-2'), headers: 'another-headers'),
@@ -906,7 +855,7 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), headers: 'updated-headers'),
           TableHeaderCell(key: GlobalKey('el-2'), headers: 'another-headers'),
@@ -915,15 +864,15 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('headers'), equals('updated-headers'));
       expect(element2.getAttribute('headers'), equals('another-headers'));
     });
 
-    test('should clear attribute "headers"', () {
-      app!.framework.buildChildren(
+    test('should clear attribute "headers"', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1')),
           TableHeaderCell(key: GlobalKey('el-2'), headers: 'another-headers'),
@@ -931,7 +880,7 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1')),
           TableHeaderCell(key: GlobalKey('el-2')),
@@ -940,22 +889,22 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('headers'), equals(null));
       expect(element2.getAttribute('headers'), equals(null));
     });
 
-    test('should clear attribute "headers" if updated value is null', () {
-      app!.framework.buildChildren(
+    test('should clear attribute "headers" if updated value is null', () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), headers: 'some-headers'),
         ],
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), headers: null),
         ],
@@ -963,20 +912,21 @@ void html_table_header_cell_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
+      var element1 = app!.elementByGlobalKey('el-1');
 
       expect(element1.getAttribute('headers'), equals(null));
     });
 
-    test('should not set attribute "headers" if provided value is null', () {
-      app!.framework.buildChildren(
+    test('should not set attribute "headers" if provided value is null',
+        () async {
+      await app!.buildChildren(
         widgets: [
           TableHeaderCell(key: GlobalKey('el-1'), headers: null),
         ],
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
+      var element1 = app!.elementByGlobalKey('el-1');
 
       expect(element1.getAttribute('headers'), equals(null));
     });

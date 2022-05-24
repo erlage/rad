@@ -28,21 +28,27 @@ void main() {
         schedulerService.addEvent(SendNextTaskEvent('test'));
       });
 
-      schedulerService.addTask(WidgetsBuildTask(
-        widgets: [],
-        parentContext: RT_TestBed.rootContext,
-      ));
+      schedulerService.addTask(
+        WidgetsBuildTask(
+          widgets: [],
+          parentContext: RT_TestBed.rootContext,
+        ),
+      );
 
-      schedulerService.addTask(WidgetsUpdateTask(
-        widgets: [],
-        updateType: UpdateType.undefined,
-        parentContext: RT_TestBed.rootContext,
-      ));
+      schedulerService.addTask(
+        WidgetsUpdateTask(
+          widgets: [],
+          updateType: UpdateType.undefined,
+          parentContext: RT_TestBed.rootContext,
+        ),
+      );
 
-      schedulerService.addTask(WidgetsManageTask(
-        parentContext: RT_TestBed.rootContext,
-        widgetActionCallback: (widgetObject) => [],
-      ));
+      schedulerService.addTask(
+        WidgetsManageTask(
+          parentContext: RT_TestBed.rootContext,
+          widgetActionCallback: (widgetObject) => [],
+        ),
+      );
 
       schedulerService.addTask(
         WidgetsUpdateDependentTask(widgetContext: RT_TestBed.rootContext),
@@ -80,16 +86,20 @@ void main() {
           testStack.push(task.taskType.name);
         });
 
-        schedulerService.addTask(WidgetsBuildTask(
-          widgets: [],
-          parentContext: RT_TestBed.rootContext,
-        ));
+        schedulerService.addTask(
+          WidgetsBuildTask(
+            widgets: [],
+            parentContext: RT_TestBed.rootContext,
+          ),
+        );
 
-        schedulerService.addTask(WidgetsUpdateTask(
-          widgets: [],
-          updateType: UpdateType.undefined,
-          parentContext: RT_TestBed.rootContext,
-        ));
+        schedulerService.addTask(
+          WidgetsUpdateTask(
+            widgets: [],
+            updateType: UpdateType.undefined,
+            parentContext: RT_TestBed.rootContext,
+          ),
+        );
 
         schedulerService.addTask(StimulateListenerTask());
 

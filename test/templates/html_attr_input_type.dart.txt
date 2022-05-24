@@ -1,5 +1,5 @@
-test('should set input attribute "type"', () {
-    app!.framework.buildChildren(
+test('should set input attribute "type"', () async {
+    await app!.buildChildren(
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1')),
             __WidgetClass__(key: GlobalKey('el-2'), type: null),
@@ -13,18 +13,27 @@ test('should set input attribute "type"', () {
         parentContext: app!.appContext,
     );
 
-    expect(app!.element('el-1').getAttribute('type'), equals(null));
-    expect(app!.element('el-2').getAttribute('type'), equals(null));
-    expect(app!.element('el-3').getAttribute('type'), equals('text'));
-    expect(app!.element('el-4').getAttribute('type'), equals('password'));
-    expect(app!.element('el-5').getAttribute('type'), equals('radio'));
-    expect(app!.element('el-6').getAttribute('type'), equals('checkbox'));
-    expect(app!.element('el-7').getAttribute('type'), equals('submit'));
-    expect(app!.element('el-8').getAttribute('type'), equals('file'));
+    var element1 = app!.elementByGlobalKey('el-1');
+    var element2 = app!.elementByGlobalKey('el-2');
+    var element3 = app!.elementByGlobalKey('el-3');
+    var element4 = app!.elementByGlobalKey('el-4');
+    var element5 = app!.elementByGlobalKey('el-5');
+    var element6 = app!.elementByGlobalKey('el-6');
+    var element7 = app!.elementByGlobalKey('el-7');
+    var element8 = app!.elementByGlobalKey('el-8');
+
+    expect(element1.getAttribute('type'), equals(null));
+    expect(element2.getAttribute('type'), equals(null));
+    expect(element3.getAttribute('type'), equals('text'));
+    expect(element4.getAttribute('type'), equals('password'));
+    expect(element5.getAttribute('type'), equals('radio'));
+    expect(element6.getAttribute('type'), equals('checkbox'));
+    expect(element7.getAttribute('type'), equals('submit'));
+    expect(element8.getAttribute('type'), equals('file'));
 });
 
-test('should update form attribute "type"', () {
-    app!.framework.buildChildren(
+test('should update form attribute "type"', () async {
+    await app!.buildChildren(
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1')),
             __WidgetClass__(key: GlobalKey('el-2'), type: null),
@@ -33,7 +42,7 @@ test('should update form attribute "type"', () {
         parentContext: app!.appContext,
     );
 
-    app!.framework.updateChildren(
+    await app!.updateChildren(
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1'), type: InputType.text),
             __WidgetClass__(key: GlobalKey('el-2'), type: null),
@@ -43,7 +52,11 @@ test('should update form attribute "type"', () {
         parentContext: app!.appContext,
     );
 
-    expect(app!.element('el-1').getAttribute('type'), equals('text'));
-    expect(app!.element('el-2').getAttribute('type'), equals(null));
-    expect(app!.element('el-3').getAttribute('type'), equals(null));
+    var element1 = app!.elementByGlobalKey('el-1');
+    var element2 = app!.elementByGlobalKey('el-2');
+    var element3 = app!.elementByGlobalKey('el-3');
+
+    expect(element1.getAttribute('type'), equals('text'));
+    expect(element2.getAttribute('type'), equals(null));
+    expect(element3.getAttribute('type'), equals(null));
 });

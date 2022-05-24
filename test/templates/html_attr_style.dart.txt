@@ -1,5 +1,5 @@
-test('should set style', () {
-  app!.framework.buildChildren(
+test('should set style', () async {
+  await app!.buildChildren(
     widgets: [
       __WidgetClass__(key: Key('widget-1'), style: 'some style'),
       __WidgetClass__(key: Key('widget-2'), style: 'some "messy" style'),

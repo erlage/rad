@@ -20,7 +20,7 @@ class RT_IsLowerCase extends Matcher {
     void _,
     void __,
   ) {
-    mismatchDescription.add('\'$item\' != \'${item.toLowerCase()}\'');
+    mismatchDescription.add("'$item' != '${item.toLowerCase()}'");
 
     return mismatchDescription;
   }
@@ -28,7 +28,7 @@ class RT_IsLowerCase extends Matcher {
 
 class RT_IsWithoutSpace extends Matcher {
   @override
-  matches(covariant String item, void _) => 1 == item.split(" ").length;
+  matches(covariant String item, void _) => 1 == item.split(' ').length;
 
   @override
   describe(description) {

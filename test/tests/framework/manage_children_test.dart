@@ -30,12 +30,12 @@ void main() {
     tearDown(() => app!.stop());
 
     test(
-      'should iterate over all childs in insertion order if'
+      'should iterate over all childs in insertion order if '
       'flagIterateInReverseOrder is not set',
-      () {
+      () async {
         var testStack = RT_TestStack();
 
-        app!.framework.buildChildren(
+        await app!.buildChildren(
           widgets: [
             RT_TestWidget(key: GlobalKey('widget-1')),
             RT_TestWidget(key: GlobalKey('widget-2')),
@@ -46,7 +46,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        app!.framework.manageChildren(
+        await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
@@ -67,12 +67,12 @@ void main() {
     );
 
     test(
-      'should iterate over all childs in insertion order if'
+      'should iterate over all childs in insertion order if '
       'flagIterateInReverseOrder: false',
-      () {
+      () async {
         var testStack = RT_TestStack();
 
-        app!.framework.buildChildren(
+        await app!.buildChildren(
           widgets: [
             RT_TestWidget(key: GlobalKey('widget-1')),
             RT_TestWidget(key: GlobalKey('widget-2')),
@@ -83,7 +83,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        app!.framework.manageChildren(
+        await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           flagIterateInReverseOrder: false,
@@ -105,12 +105,12 @@ void main() {
     );
 
     test(
-      'should iterate over all childs in reverse order if'
+      'should iterate over all childs in reverse order if '
       'flagIterateInReverseOrder: true',
-      () {
+      () async {
         var testStack = RT_TestStack();
 
-        app!.framework.buildChildren(
+        await app!.buildChildren(
           widgets: [
             RT_TestWidget(key: GlobalKey('widget-1')),
             RT_TestWidget(key: GlobalKey('widget-2')),
@@ -121,7 +121,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        app!.framework.manageChildren(
+        await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           flagIterateInReverseOrder: true,
@@ -144,16 +144,19 @@ void main() {
 
     test(
       'should iterate over only childs at one level',
-      () {
+      () async {
         var testStack = RT_TestStack();
 
-        app!.framework.buildChildren(
+        await app!.buildChildren(
           widgets: [
             RT_TestWidget(key: GlobalKey('widget-1')),
-            RT_TestWidget(key: GlobalKey('widget-2'), children: [
-              RT_TestWidget(key: GlobalKey('widget-2-1')),
-              RT_TestWidget(key: GlobalKey('widget-2-2')),
-            ]),
+            RT_TestWidget(
+              key: GlobalKey('widget-2'),
+              children: [
+                RT_TestWidget(key: GlobalKey('widget-2-1')),
+                RT_TestWidget(key: GlobalKey('widget-2-2')),
+              ],
+            ),
             RT_TestWidget(key: GlobalKey('widget-3')),
             RT_TestWidget(key: GlobalKey('widget-4')),
             RT_TestWidget(key: GlobalKey('widget-5')),
@@ -161,7 +164,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        app!.framework.manageChildren(
+        await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
@@ -183,16 +186,19 @@ void main() {
 
     test(
       'should short circuite further iterations when encounters skip',
-      () {
+      () async {
         var testStack = RT_TestStack();
 
-        app!.framework.buildChildren(
+        await app!.buildChildren(
           widgets: [
             RT_TestWidget(key: GlobalKey('widget-1')),
-            RT_TestWidget(key: GlobalKey('widget-2'), children: [
-              RT_TestWidget(key: GlobalKey('widget-2-1')),
-              RT_TestWidget(key: GlobalKey('widget-2-2')),
-            ]),
+            RT_TestWidget(
+              key: GlobalKey('widget-2'),
+              children: [
+                RT_TestWidget(key: GlobalKey('widget-2-1')),
+                RT_TestWidget(key: GlobalKey('widget-2-2')),
+              ],
+            ),
             RT_TestWidget(key: GlobalKey('widget-3')),
             RT_TestWidget(key: GlobalKey('widget-4')),
             RT_TestWidget(key: GlobalKey('widget-5')),
@@ -200,7 +206,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        app!.framework.manageChildren(
+        await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
@@ -224,10 +230,10 @@ void main() {
 
     test(
       'should dispose widget when encounter dispose action',
-      () {
+      () async {
         var testStack = RT_TestStack();
 
-        app!.framework.buildChildren(
+        await app!.buildChildren(
           widgets: [
             RT_TestWidget(
               key: GlobalKey('widget-1'),
@@ -245,7 +251,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        app!.framework.manageChildren(
+        await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
@@ -271,10 +277,10 @@ void main() {
 
     test(
       'should update widget when encounter update action',
-      () {
+      () async {
         var testStack = RT_TestStack();
 
-        app!.framework.buildChildren(
+        await app!.buildChildren(
           widgets: [
             RT_TestWidget(
               key: GlobalKey('widget-1'),
@@ -305,7 +311,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        app!.framework.manageChildren(
+        await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
@@ -329,8 +335,8 @@ void main() {
 
     test(
       'should hide widget when encounter hide action',
-      () {
-        app!.framework.buildChildren(
+      () async {
+        await app!.buildChildren(
           widgets: [
             RT_TestWidget(key: GlobalKey('widget-1')),
             RT_TestWidget(key: GlobalKey('widget-2')),
@@ -339,7 +345,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        app!.framework.manageChildren(
+        await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
@@ -370,8 +376,8 @@ void main() {
 
     test(
       'should show widget when encounter show action',
-      () {
-        app!.framework.buildChildren(
+      () async {
+        await app!.buildChildren(
           widgets: [
             RT_TestWidget(key: GlobalKey('widget-1')),
             RT_TestWidget(key: GlobalKey('widget-2')),
@@ -382,7 +388,7 @@ void main() {
 
         // first hide widgets
 
-        app!.framework.manageChildren(
+        await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
@@ -390,7 +396,7 @@ void main() {
           },
         );
 
-        app!.framework.manageChildren(
+        await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {
@@ -421,10 +427,10 @@ void main() {
 
     test(
       'should dispatch mixed actions',
-      () {
+      () async {
         var testStack = RT_TestStack();
 
-        app!.framework.buildChildren(
+        await app!.buildChildren(
           widgets: [
             RT_TestWidget(
               key: GlobalKey('widget-1'),
@@ -461,7 +467,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        app!.framework.manageChildren(
+        await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
           parentContext: app!.appContext,
           widgetActionCallback: (widgetObject) {

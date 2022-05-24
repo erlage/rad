@@ -1,7 +1,7 @@
 test('should set "KeyUp" event listener', () async {
     var testStack = RT_TestStack();
 
-    app!.framework.buildChildren(
+    await app!.buildChildren(
         widgets: [
             __WidgetClass__(
                 key: GlobalKey('el-1'),
@@ -15,8 +15,8 @@ test('should set "KeyUp" event listener', () async {
         parentContext: app!.appContext,
     );
 
-    app!.element('el-1').dispatchEvent(Event('keyup'));
-    app!.element('el-2').dispatchEvent(Event('keyup'));
+    app!.elementByGlobalKey('el-1').dispatchEvent(Event('keyup'));
+    app!.elementByGlobalKey('el-2').dispatchEvent(Event('keyup'));
 
     await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('keyup-1'));
@@ -28,7 +28,7 @@ test('should set "KeyUp" event listener', () async {
 test('should set "KeyUp" event listener only if provided', () async {
     void listener(event) => {};
 
-    app!.framework.buildChildren(
+    await app!.buildChildren(
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1')),
             __WidgetClass__(key: GlobalKey('el-2'), onKeyUp: null),
@@ -46,10 +46,10 @@ test('should set "KeyUp" event listener only if provided', () async {
     expect(listeners3[DomEventType.keyUp], equals(listener));
 });
 
-test('should clear "KeyUp" event listner', () {
+test('should clear "KeyUp" event listner', () async {
     void listener(event) => {};
 
-    app!.framework.buildChildren(
+    await app!.buildChildren(
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1')),
             __WidgetClass__(key: GlobalKey('el-2'), onKeyUp: listener),
@@ -65,7 +65,7 @@ test('should clear "KeyUp" event listner', () {
 
     // update
 
-    app!.framework.updateChildren(
+    await app!.updateChildren(
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1')),
             __WidgetClass__(key: GlobalKey('el-2')),

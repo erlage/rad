@@ -1,5 +1,5 @@
-test('should set key', () {
-  app!.framework.buildChildren(
+test('should set key', () async {
+  await app!.buildChildren(
     widgets: [
       __WidgetClass__(key: Key('some-key')),
       __WidgetClass__(key: LocalKey('some-local-key')),
@@ -7,28 +7,12 @@ test('should set key', () {
     ],
     parentContext: RT_TestBed.rootContext,
   );
+  
+  var wO1 = app!.widgetObjectByKey('some-key', RT_TestBed.rootContext);
+  var wO2 = app!.widgetObjectByLocalKey('some-local-key');
+  var wO3 = app!.widgetObjectByGlobalKey('some-global-key');
 
-  var element1 = app!.services.walker.getWidgetObjectUsingKey(
-    app!.services.keyGen
-        .getGlobalKeyUsingKey(Key('some-key'), RT_TestBed.rootContext)
-        .value,
-  );
-
-  var element2 = app!.services.walker.getWidgetObjectUsingKey(
-    app!.services.keyGen
-        .getGlobalKeyUsingKey(
-            LocalKey('some-local-key'), RT_TestBed.rootContext)
-        .value,
-  );
-
-  var element3 = app!.services.walker.getWidgetObjectUsingKey(
-    app!.services.keyGen
-        .getGlobalKeyUsingKey(
-            GlobalKey('some-global-key'), RT_TestBed.rootContext)
-        .value,
-  );
-
-  expect(element1!.context.key.value, endsWith('some-key'));
-  expect(element2!.context.key.value, endsWith('some-local-key'));
-  expect(element3!.context.key.value, equals('some-global-key'));
+  expect(wO1.context.key.value, endsWith('some-key'));
+  expect(wO2.context.key.value, endsWith('some-local-key'));
+  expect(wO3.context.key.value, equals('some-global-key'));
 }__Skip__);

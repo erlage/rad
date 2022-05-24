@@ -30,7 +30,7 @@ void main() {
     });
 
     test('should generate keys that starts with system a identifier', () {
-      for (var key in generatedWidgetKeys) {
+      for (final key in generatedWidgetKeys) {
         expect(key.hasSystemPrefix, equals(true));
       }
     });
@@ -52,7 +52,7 @@ void main() {
     var generatedWidgetKeys = <Key>[];
 
     while (iterations-- > 0) {
-      var key = Key("$iterations");
+      var key = Key('$iterations');
 
       generatedWidgetKeys.add(
         keyGenService.getGlobalKeyUsingKey(
@@ -70,7 +70,7 @@ void main() {
     });
 
     test('should generate keys that starts with app target id', () {
-      for (var key in generatedWidgetKeys) {
+      for (final key in generatedWidgetKeys) {
         expect(
           key.value.startsWith(RT_TestBed.rootContext.appTargetId),
           equals(true),

@@ -1,5 +1,5 @@
-test('should set title', () {
-  app!.framework.buildChildren(
+test('should set title', () async {
+  await app!.buildChildren(
     widgets: [
       __WidgetClass__(key: Key('widget-1'), title: 'some title'),
       __WidgetClass__(key: Key('widget-2'), title: 'some "messy" title'),

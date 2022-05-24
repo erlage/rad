@@ -12,8 +12,8 @@ void main() {
 
     tearDown(() => app!.stop());
 
-    test('should render raw markup', () {
-      app!.framework.buildChildren(
+    test('should render raw markup', () async {
+      await app!.buildChildren(
         widgets: [
           RawMarkUp(
             '<div id="raw">s</div>',
@@ -26,13 +26,13 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var rawElement = app!.element('widget');
+      var rawElement = app!.elementByGlobalKey('widget');
 
       expect(rawElement.innerHtml, equals('<div id="raw">s</div>'));
     });
 
-    test('should allow scripts', () {
-      app!.framework.buildChildren(
+    test('should allow scripts', () async {
+      await app!.buildChildren(
         widgets: [
           RawMarkUp(
             '''
@@ -50,8 +50,8 @@ void main() {
       expect(app!.elementById('raw').innerHtml, equals('hw'));
     });
 
-    test('should update raw markup', () {
-      app!.framework.buildChildren(
+    test('should update raw markup', () async {
+      await app!.buildChildren(
         widgets: [
           RawMarkUp('<div id="raw">nuffin</div>'),
         ],
@@ -60,7 +60,7 @@ void main() {
 
       expect(app!.elementById('raw').innerHtml, equals('nuffin'));
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           RawMarkUp('<div id="raw">updated</div>'),
         ],

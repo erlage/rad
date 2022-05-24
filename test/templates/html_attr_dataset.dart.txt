@@ -1,5 +1,5 @@
-test('should set data attributes', () {
-    app!.framework.buildChildren(
+test('should set data attributes', () async {
+    await app!.buildChildren(
         widgets: [
             __WidgetClass__(
             key: GlobalKey('some-global-key'),
@@ -19,8 +19,8 @@ test('should set data attributes', () {
 }__Skip__);
 
 
-test('should remove obsolute and add new data attributes on update', () {
-    app!.framework.buildChildren(
+test('should remove obsolute and add new data attributes on update', () async {
+    await app!.buildChildren(
         widgets: [
             __WidgetClass__(
             key: GlobalKey('some-global-key'),
@@ -32,7 +32,7 @@ test('should remove obsolute and add new data attributes on update', () {
         parentContext: app!.appContext,
     );
 
-    app!.framework.updateChildren(
+    await app!.updateChildren(
         widgets: [
             __WidgetClass__(
                 key: GlobalKey('some-global-key'),
@@ -53,14 +53,14 @@ test('should remove obsolute and add new data attributes on update', () {
     expect(element1.dataset['something-new'], equals('something new'));
 }__Skip__);
 
-test('should not override system reserved data attributes on build', () {
-    app!.framework.buildChildren(
+test('should not override system reserved data attributes on build', () async {
+    await app!.buildChildren(
         widgets: [
             __WidgetClass__(
                 key: GlobalKey('some-global-key'),
                 dataAttributes: {
                     'something': 'something okay',
-                    Constants.attrWidgetType: "must ignore",
+                    Constants.attrWidgetType: 'must ignore',
                 },
             ),
         ],
@@ -76,28 +76,28 @@ test('should not override system reserved data attributes on build', () {
     expect(element1.dataset[Constants.attrWidgetType], equals(null));
 }__Skip__);
 
-test('should not remove system reserved data attributes on update', () {
-    app!.framework.buildChildren(
+test('should not remove system reserved data attributes on update', () async {
+    await app!.buildChildren(
         widgets: [
             __WidgetClass__(
             key: GlobalKey('some-global-key'),
                 dataAttributes: {
                     'something': 'something okay',
-                    Constants.attrWidgetType: "must ignore",
+                    Constants.attrWidgetType: 'must ignore',
                 },
             ),
         ],
         parentContext: app!.appContext,
     );
 
-    app!.framework.updateChildren(
+    await app!.updateChildren(
         widgets: [
             __WidgetClass__(
                 key: GlobalKey('some-global-key'),
                 dataAttributes: {
                     'something': 'something new',
                     'something-diff': 'something diff',
-                    Constants.attrWidgetType: "must ignore",
+                    Constants.attrWidgetType: 'must ignore',
                 },
             ),
         ],

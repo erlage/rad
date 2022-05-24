@@ -16,8 +16,8 @@ void html_break_line_test() {
 
     tearDown(() => app!.stop());
 
-    test('should set id', () {
-      app!.framework.buildChildren(
+    test('should set id', () async {
+      await app!.buildChildren(
         widgets: [
           BreakLine(key: Key('some-key'), id: 'some-id'),
           BreakLine(key: LocalKey('some-local-key'), id: 'some-local-id'),
@@ -26,39 +26,17 @@ void html_break_line_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(Key('some-key'), RT_TestBed.rootContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(
-                    LocalKey('some-local-key'), RT_TestBed.rootContext)
-                .value,
-          )!
-          .element;
-
-      var element3 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(
-                    GlobalKey('some-global-key'), RT_TestBed.rootContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.elementByKey('some-key', RT_TestBed.rootContext);
+      var element2 = app!.elementByLocalKey('some-local-key');
+      var element3 = app!.elementByGlobalKey('some-global-key');
 
       expect(element1.id, endsWith('some-id'));
       expect(element2.id, endsWith('some-local-id'));
       expect(element3.id, equals('some-global-id'));
     });
 
-    test('should reset and update id', () {
-      app!.framework.buildChildren(
+    test('should reset and update id', () async {
+      await app!.buildChildren(
         widgets: [
           BreakLine(key: Key('some-key'), id: 'some-id'),
           BreakLine(key: LocalKey('some-local-key'), id: 'some-local-id'),
@@ -67,37 +45,15 @@ void html_break_line_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(Key('some-key'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(
-                    LocalKey('some-local-key'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element3 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(
-                    GlobalKey('some-global-key'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.elementByKey('some-key', app!.appContext);
+      var element2 = app!.elementByLocalKey('some-local-key');
+      var element3 = app!.elementByGlobalKey('some-global-key');
 
       expect(element1.id, endsWith('some-id'));
       expect(element2.id, endsWith('some-local-id'));
       expect(element3.id, equals('some-global-id'));
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           BreakLine(
             key: Key('some-key'),
@@ -121,8 +77,8 @@ void html_break_line_test() {
       expect(element3.id, equals('some-global-updated-id'));
     });
 
-    test('should set child widget', () {
-      app!.framework.buildChildren(
+    test('should set child widget', () async {
+      await app!.buildChildren(
         widgets: [
           BreakLine(
             id: 'widget-1',
@@ -141,17 +97,20 @@ void html_break_line_test() {
       expect(element2.id, equals('widget-2'));
     });
 
-    test('should set children widgets', () {
-      app!.framework.buildChildren(
+    test('should set children widgets', () async {
+      await app!.buildChildren(
         widgets: [
-          BreakLine(id: 'widget-1', children: [
-            BreakLine(
-              id: 'widget-2',
-            ),
-            BreakLine(
-              id: 'widget-3',
-            ),
-          ]),
+          BreakLine(
+            id: 'widget-1',
+            children: [
+              BreakLine(
+                id: 'widget-2',
+              ),
+              BreakLine(
+                id: 'widget-3',
+              ),
+            ],
+          ),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -165,8 +124,8 @@ void html_break_line_test() {
       expect(element3.id, equals('widget-3'));
     });
 
-    test('should set classes', () {
-      app!.framework.buildChildren(
+    test('should set classes', () async {
+      await app!.buildChildren(
         widgets: [
           BreakLine(
             id: 'widget-1',
@@ -193,8 +152,8 @@ void html_break_line_test() {
       expect(element3.getAttribute('class'), equals("some 'messy' class"));
     });
 
-    test('should set contenteditable', () {
-      app!.framework.buildChildren(
+    test('should set contenteditable', () async {
+      await app!.buildChildren(
         widgets: [
           BreakLine(
             key: Key('widget-1'),
@@ -215,8 +174,8 @@ void html_break_line_test() {
       expect(element2.getAttribute('contenteditable'), equals('true'));
     });
 
-    test('should set draggable', () {
-      app!.framework.buildChildren(
+    test('should set draggable', () async {
+      await app!.buildChildren(
         widgets: [
           BreakLine(
             key: Key('widget-1'),
@@ -237,8 +196,8 @@ void html_break_line_test() {
       expect(element2.getAttribute('draggable'), equals('true'));
     });
 
-    test('should set attribute "hidden" only if its true', () {
-      app!.framework.buildChildren(
+    test('should set attribute "hidden" only if its true', () async {
+      await app!.buildChildren(
         widgets: [
           BreakLine(key: GlobalKey('el-1'), hidden: false),
           BreakLine(key: GlobalKey('el-2'), hidden: null),
@@ -247,17 +206,18 @@ void html_break_line_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
-      var element3 = app!.element('el-3');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
+      var element3 = app!.elementByGlobalKey('el-3');
 
       expect(element1.getAttribute('hidden'), equals(null));
       expect(element2.getAttribute('hidden'), equals(null));
       expect(element3.getAttribute('hidden'), equals('true'));
     });
 
-    test('should clear attribute "hidden" if updated value is not true', () {
-      app!.framework.buildChildren(
+    test('should clear attribute "hidden" if updated value is not true',
+        () async {
+      await app!.buildChildren(
         widgets: [
           BreakLine(key: GlobalKey('el-1'), hidden: true),
           BreakLine(key: GlobalKey('el-2'), hidden: true),
@@ -267,7 +227,7 @@ void html_break_line_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           BreakLine(key: GlobalKey('el-1'), hidden: true),
           BreakLine(key: GlobalKey('el-2'), hidden: false),
@@ -278,10 +238,10 @@ void html_break_line_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
-      var element3 = app!.element('el-3');
-      var element4 = app!.element('el-4');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
+      var element3 = app!.elementByGlobalKey('el-3');
+      var element4 = app!.elementByGlobalKey('el-4');
 
       expect(element1.getAttribute('hidden'), equals('true'));
       expect(element2.getAttribute('hidden'), equals(null));
@@ -289,8 +249,8 @@ void html_break_line_test() {
       expect(element4.getAttribute('hidden'), equals(null));
     });
 
-    test('should set inner text', () {
-      app!.framework.buildChildren(
+    test('should set inner text', () async {
+      await app!.buildChildren(
         widgets: [
           BreakLine(
             key: GlobalKey('widget-1'),
@@ -310,8 +270,8 @@ void html_break_line_test() {
       'chrome': Skip('Failing for br on chrome'),
     });
 
-    test('should set onClick', () {
-      app!.framework.buildChildren(
+    test('should set onClick', () async {
+      await app!.buildChildren(
         widgets: [
           BreakLine(
             key: Key('widget-1'),
@@ -352,7 +312,7 @@ void html_break_line_test() {
     test('should set "click" event listener', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           BreakLine(
             key: GlobalKey('el-1'),
@@ -366,8 +326,8 @@ void html_break_line_test() {
         parentContext: app!.appContext,
       );
 
-      app!.element('el-1').dispatchEvent(Event('click'));
-      app!.element('el-2').dispatchEvent(Event('click'));
+      app!.elementByGlobalKey('el-1').dispatchEvent(Event('click'));
+      app!.elementByGlobalKey('el-2').dispatchEvent(Event('click'));
 
       await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('click-1'));
@@ -379,7 +339,7 @@ void html_break_line_test() {
     test('should set "click" event listener only if provided', () async {
       void listener(event) => {};
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           BreakLine(key: GlobalKey('el-1')),
           BreakLine(key: GlobalKey('el-2'), onClick: null),
@@ -397,10 +357,10 @@ void html_break_line_test() {
       expect(listeners3[DomEventType.click], equals(listener));
     });
 
-    test('should clear "click" event listner', () {
+    test('should clear "click" event listner', () async {
       void listener(event) => {};
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           BreakLine(key: GlobalKey('el-1')),
           BreakLine(key: GlobalKey('el-2'), onClick: listener),
@@ -416,7 +376,7 @@ void html_break_line_test() {
 
       // update
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           BreakLine(key: GlobalKey('el-1')),
           BreakLine(key: GlobalKey('el-2')),
@@ -432,8 +392,8 @@ void html_break_line_test() {
       expect(listeners2[DomEventType.click], equals(null));
     });
 
-    test('should set style', () {
-      app!.framework.buildChildren(
+    test('should set style', () async {
+      await app!.buildChildren(
         widgets: [
           BreakLine(key: Key('widget-1'), style: 'some style'),
           BreakLine(key: Key('widget-2'), style: 'some "messy" style'),
@@ -451,8 +411,8 @@ void html_break_line_test() {
       expect(element3.getAttribute('style'), equals("some 'messy' style"));
     });
 
-    test('should set tab index', () {
-      app!.framework.buildChildren(
+    test('should set tab index', () async {
+      await app!.buildChildren(
         widgets: [
           BreakLine(
             key: Key('widget-1'),
@@ -479,8 +439,8 @@ void html_break_line_test() {
       expect(element3.getAttribute('tabindex'), equals('3'));
     });
 
-    test('should set title', () {
-      app!.framework.buildChildren(
+    test('should set title', () async {
+      await app!.buildChildren(
         widgets: [
           BreakLine(key: Key('widget-1'), title: 'some title'),
           BreakLine(key: Key('widget-2'), title: 'some "messy" title'),
@@ -498,8 +458,8 @@ void html_break_line_test() {
       expect(element3.getAttribute('title'), equals("some 'messy' title"));
     });
 
-    test('should set correct types and markup', () {
-      app!.framework.buildChildren(
+    test('should set correct types and markup', () async {
+      await app!.buildChildren(
         widgets: [
           BreakLine(key: GlobalKey('some-global-key')),
         ],
@@ -531,8 +491,8 @@ void html_break_line_test() {
       );
     });
 
-    test('should set data attributes', () {
-      app!.framework.buildChildren(
+    test('should set data attributes', () async {
+      await app!.buildChildren(
         widgets: [
           BreakLine(
             key: GlobalKey('some-global-key'),
@@ -551,8 +511,9 @@ void html_break_line_test() {
       expect(element1.dataset['another'], equals('another okay'));
     });
 
-    test('should remove obsolute and add new data attributes on update', () {
-      app!.framework.buildChildren(
+    test('should remove obsolute and add new data attributes on update',
+        () async {
+      await app!.buildChildren(
         widgets: [
           BreakLine(
             key: GlobalKey('some-global-key'),
@@ -564,7 +525,7 @@ void html_break_line_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           BreakLine(
             key: GlobalKey('some-global-key'),
@@ -585,14 +546,15 @@ void html_break_line_test() {
       expect(element1.dataset['something-new'], equals('something new'));
     });
 
-    test('should not override system reserved data attributes on build', () {
-      app!.framework.buildChildren(
+    test('should not override system reserved data attributes on build',
+        () async {
+      await app!.buildChildren(
         widgets: [
           BreakLine(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
-              Constants.attrWidgetType: "must ignore",
+              Constants.attrWidgetType: 'must ignore',
             },
           ),
         ],
@@ -608,28 +570,29 @@ void html_break_line_test() {
       expect(element1.dataset[Constants.attrWidgetType], equals(null));
     });
 
-    test('should not remove system reserved data attributes on update', () {
-      app!.framework.buildChildren(
+    test('should not remove system reserved data attributes on update',
+        () async {
+      await app!.buildChildren(
         widgets: [
           BreakLine(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
-              Constants.attrWidgetType: "must ignore",
+              Constants.attrWidgetType: 'must ignore',
             },
           ),
         ],
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           BreakLine(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something new',
               'something-diff': 'something diff',
-              Constants.attrWidgetType: "must ignore",
+              Constants.attrWidgetType: 'must ignore',
             },
           ),
         ],
@@ -646,8 +609,8 @@ void html_break_line_test() {
       expect(element1.dataset[Constants.attrWidgetType], equals(null));
     });
 
-    test('should set key', () {
-      app!.framework.buildChildren(
+    test('should set key', () async {
+      await app!.buildChildren(
         widgets: [
           BreakLine(key: Key('some-key')),
           BreakLine(key: LocalKey('some-local-key')),
@@ -656,29 +619,13 @@ void html_break_line_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = app!.services.walker.getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(Key('some-key'), RT_TestBed.rootContext)
-            .value,
-      );
+      var wO1 = app!.widgetObjectByKey('some-key', RT_TestBed.rootContext);
+      var wO2 = app!.widgetObjectByLocalKey('some-local-key');
+      var wO3 = app!.widgetObjectByGlobalKey('some-global-key');
 
-      var element2 = app!.services.walker.getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(
-                LocalKey('some-local-key'), RT_TestBed.rootContext)
-            .value,
-      );
-
-      var element3 = app!.services.walker.getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(
-                GlobalKey('some-global-key'), RT_TestBed.rootContext)
-            .value,
-      );
-
-      expect(element1!.context.key.value, endsWith('some-key'));
-      expect(element2!.context.key.value, endsWith('some-local-key'));
-      expect(element3!.context.key.value, equals('some-global-key'));
+      expect(wO1.context.key.value, endsWith('some-key'));
+      expect(wO2.context.key.value, endsWith('some-local-key'));
+      expect(wO3.context.key.value, equals('some-global-key'));
     });
   });
 }

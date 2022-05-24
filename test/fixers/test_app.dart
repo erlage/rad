@@ -1,10 +1,10 @@
 // ignore_for_file: camel_case_types
 
-import 'package:rad/src/core/framework.dart';
-import 'package:rad/src/core/interface/window/window.dart';
 import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/common/objects/widget_object.dart';
+import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/interface/window/delegates/browser_window.dart';
+import 'package:rad/src/core/interface/window/window.dart';
 
 import '../test_imports.dart';
 
@@ -12,7 +12,7 @@ RT_AppRunner createTestApp({
   DebugOptions? debugOptions,
 }) {
   return RT_AppRunner(
-    app: Text('hello world'),
+    app: const Text('hello world'),
     targetId: 'root-div',
     debugOptions: debugOptions,
   );
@@ -116,9 +116,25 @@ class RT_AppRunner {
     );
   }
 
+  /// Get widget object by key under app context.
+  ///
+  WidgetObject widgetObjectByKey(String key, BuildContext parentContext) {
+    return services.walker.getWidgetObjectUsingKey(
+      services.keyGen.getGlobalKeyUsingKey(Key(key), parentContext).value,
+    )!;
+  }
+
+  /// Get widget object by local key under app context.
+  ///
+  WidgetObject widgetObjectByLocalKey(String key) {
+    return services.walker.getWidgetObjectUsingKey(
+      services.keyGen.getGlobalKeyUsingKey(LocalKey(key), appContext).value,
+    )!;
+  }
+
   /// Get widget object by global key under app context.
   ///
-  WidgetObject widgetObject(String key) {
+  WidgetObject widgetObjectByGlobalKey(String key) {
     return services.walker.getWidgetObjectUsingKey(
       services.keyGen.getGlobalKeyUsingKey(GlobalKey(key), appContext).value,
     )!;
@@ -126,17 +142,97 @@ class RT_AppRunner {
 
   /// Get widget by global key under app context.
   ///
-  Widget widget(String key) => widgetObject(key).widget;
+  Widget widget(String key) => widgetObjectByGlobalKey(key).widget;
+
+  /// Get element by key under app context.
+  ///
+  Element elementByKey(String key, BuildContext parentContext) =>
+      services.walker
+          .getWidgetObjectUsingKey(
+            services.keyGen.getGlobalKeyUsingKey(Key(key), parentContext).value,
+          )!
+          .element;
+
+  /// Get element by local key under app context.
+  ///
+  Element elementByLocalKey(String key) => services.walker
+      .getWidgetObjectUsingKey(
+        services.keyGen
+            .getGlobalKeyUsingKey(LocalKey(key), RT_TestBed.rootContext)
+            .value,
+      )!
+      .element;
 
   /// Get element by global key under app context.
   ///
-  Element element(String key) => widgetObject(key).element;
+  Element elementByGlobalKey(String key) =>
+      widgetObjectByGlobalKey(key).element;
 
   /// Get app's element.
   ///
-  Element get appElement => element('app-widget');
+  Element get appElement => elementByGlobalKey('app-widget');
 
   /// Get element by id.
   ///
   Element elementById(String id) => document.getElementById(id)!;
+
+  Future<void> buildChildren({
+    required List<Widget> widgets,
+    required BuildContext parentContext,
+    int? mountAtIndex,
+    bool flagCleanParentContents = true,
+  }) async {
+    framework.buildChildren(
+      widgets: widgets,
+      parentContext: parentContext,
+      mountAtIndex: mountAtIndex,
+      flagCleanParentContents: flagCleanParentContents,
+    );
+
+    await Future.delayed(Duration.zero);
+  }
+
+  Future<void> updateChildren({
+    required List<Widget> widgets,
+    required BuildContext parentContext,
+    required UpdateType updateType,
+    bool flagAddIfNotFound = true,
+  }) async {
+    framework.updateChildren(
+      widgets: widgets,
+      parentContext: parentContext,
+      updateType: updateType,
+      flagAddIfNotFound: flagAddIfNotFound,
+    );
+
+    await Future.delayed(Duration.zero);
+  }
+
+  Future<void> manageChildren({
+    required BuildContext parentContext,
+    required WidgetActionCallback widgetActionCallback,
+    required UpdateType updateType,
+    bool flagIterateInReverseOrder = false,
+  }) async {
+    framework.manageChildren(
+      updateType: updateType,
+      parentContext: parentContext,
+      widgetActionCallback: widgetActionCallback,
+      flagIterateInReverseOrder: flagIterateInReverseOrder,
+    );
+
+    await Future.delayed(Duration.zero);
+  }
+
+  Future<void> disposeWidget({
+    required WidgetObject? widgetObject,
+    required bool flagPreserveTarget,
+  }) async {
+    framework.disposeWidget(
+      widgetObject: widgetObject,
+      flagPreserveTarget: flagPreserveTarget,
+    );
+
+    await Future.delayed(Duration.zero);
+  }
 }

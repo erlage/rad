@@ -19,7 +19,7 @@ void main() {
         targetId: RT_TestBed.rootKey.value,
       );
 
-      await Future.delayed(Duration(seconds: 1), () {
+      await Future.delayed(Duration.zero, () {
         expect(RT_TestBed.rootElement, RT_hasContents('hello world'));
       });
     });

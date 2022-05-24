@@ -22,7 +22,7 @@ void main() {
 
   group('mapDomEventType() :', () {
     test('mapped dom events should be available', () {
-      for (var element in DomEventType.values) {
+      for (final element in DomEventType.values) {
         expect(
           fnMapDomEventType(element),
           RT_IsInKnownItems<String>(RT_DomEvents.available),
@@ -31,7 +31,7 @@ void main() {
     });
 
     test('mapped dom events should be implemented', () {
-      for (var element in DomEventType.values) {
+      for (final element in DomEventType.values) {
         expect(
           fnMapDomEventType(element),
           RT_IsInKnownItems<String>(RT_DomEvents.implemented),
@@ -40,7 +40,7 @@ void main() {
     });
 
     test('mapped dom events should be lowercase', () {
-      for (var element in DomEventType.values) {
+      for (final element in DomEventType.values) {
         expect(fnMapDomEventType(element), RT_IsLowerCase());
       }
     });
@@ -54,7 +54,7 @@ void main() {
 
   group('mapInputType() :', () {
     test('mapped input types should be available', () {
-      for (var element in InputType.values) {
+      for (final element in InputType.values) {
         expect(
           fnMapInputType(element),
           RT_IsInKnownItems<String>(RT_InputTypes.available),
@@ -63,7 +63,7 @@ void main() {
     });
 
     test('mapped input types should be implemented', () {
-      for (var element in InputType.values) {
+      for (final element in InputType.values) {
         expect(
           fnMapInputType(element),
           RT_IsInKnownItems<String>(RT_InputTypes.implemented),
@@ -72,7 +72,7 @@ void main() {
     });
 
     test('mapped input types should be lowercase', () {
-      for (var element in InputType.values) {
+      for (final element in InputType.values) {
         expect(fnMapInputType(element), RT_IsLowerCase());
       }
     });
@@ -86,7 +86,7 @@ void main() {
 
   group('mapButtonType() :', () {
     test('mapped button types should be available', () {
-      for (var element in ButtonType.values) {
+      for (final element in ButtonType.values) {
         expect(
           fnMapButtonType(element),
           RT_IsInKnownItems<String>(RT_ButtonTypes.available),
@@ -95,7 +95,7 @@ void main() {
     });
 
     test('mapped button types should be implemented', () {
-      for (var element in ButtonType.values) {
+      for (final element in ButtonType.values) {
         expect(
           fnMapButtonType(element),
           RT_IsInKnownItems<String>(RT_ButtonTypes.implemented),
@@ -104,7 +104,7 @@ void main() {
     });
 
     test('mapped button types should be lowercase', () {
-      for (var element in ButtonType.values) {
+      for (final element in ButtonType.values) {
         expect(fnMapButtonType(element), RT_IsLowerCase());
       }
     });
@@ -118,7 +118,7 @@ void main() {
 
   group('mapFormEncType() :', () {
     test('mapped form types should be available', () {
-      for (var element in FormEncType.values) {
+      for (final element in FormEncType.values) {
         expect(
           fnMapFormEncType(element),
           RT_IsInKnownItems<String>(RT_FormTypes.available),
@@ -127,7 +127,7 @@ void main() {
     });
 
     test('mapped form types should be implemented', () {
-      for (var element in FormEncType.values) {
+      for (final element in FormEncType.values) {
         expect(
           fnMapFormEncType(element),
           RT_IsInKnownItems<String>(RT_FormTypes.implemented),
@@ -136,7 +136,7 @@ void main() {
     });
 
     test('mapped form types should be lowercase', () {
-      for (var element in FormEncType.values) {
+      for (final element in FormEncType.values) {
         expect(fnMapFormEncType(element), RT_IsLowerCase());
       }
     });
@@ -150,7 +150,7 @@ void main() {
 
   group('mapFormMethod() :', () {
     test('mapped form methods should be available', () {
-      for (var element in FormMethod.values) {
+      for (final element in FormMethod.values) {
         expect(
           fnMapFormMethod(element),
           RT_IsInKnownItems<String>(RT_FormMethods.available),
@@ -159,7 +159,7 @@ void main() {
     });
 
     test('mapped form methods should be implemented', () {
-      for (var element in FormMethod.values) {
+      for (final element in FormMethod.values) {
         expect(
           fnMapFormMethod(element),
           RT_IsInKnownItems<String>(RT_FormMethods.implemented),
@@ -168,7 +168,7 @@ void main() {
     });
 
     test('mapped form methods should be lowercase', () {
-      for (var element in FormMethod.values) {
+      for (final element in FormMethod.values) {
         expect(fnMapFormMethod(element), RT_IsLowerCase());
       }
     });
@@ -182,7 +182,7 @@ void main() {
 
   group('mapDomTag() :', () {
     test('mapped dom tags should be available', () {
-      for (var element in DomTag.values) {
+      for (final element in DomTag.values) {
         expect(
           fnMapDomTag(element),
           RT_IsInKnownItems<String>(RT_DomTags.available),
@@ -191,7 +191,7 @@ void main() {
     });
 
     test('mapped dom tags should be implemented', () {
-      for (var element in DomTag.values) {
+      for (final element in DomTag.values) {
         expect(
           fnMapDomTag(element),
           RT_IsInKnownItems<String>(RT_DomTags.implemented),
@@ -200,13 +200,13 @@ void main() {
     });
 
     test('mapped dom tags should be lowercase', () {
-      for (var element in DomTag.values) {
+      for (final element in DomTag.values) {
         expect(fnMapDomTag(element), RT_IsLowerCase());
       }
     });
 
     test('mapped dom tags should be without space', () {
-      for (var element in DomTag.values) {
+      for (final element in DomTag.values) {
         expect(fnMapDomTag(element), RT_IsWithoutSpace());
       }
     });

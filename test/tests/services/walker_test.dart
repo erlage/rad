@@ -26,10 +26,10 @@ void main() {
       expect(widget, equals(null));
     });
 
-    test('should return matching widget from ancestors', () {
+    test('should return matching widget from ancestors', () async {
       var walker = app!.services.walker;
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           RT_TestWidget(),
           RT_TestWidget(
@@ -49,10 +49,10 @@ void main() {
       expect('${widget.runtimeType}', equals('$RT_TestWidget'));
     });
 
-    test('should return nearest matching widget from ancestors', () {
+    test('should return nearest matching widget from ancestors', () async {
       var walker = app!.services.walker;
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           RT_TestWidget(),
           RT_TestWidget(
@@ -81,10 +81,10 @@ void main() {
 
     test(
       'should return widget with exact runtime type(ignore super classes)',
-      () {
+      () async {
         var walker = app!.services.walker;
 
-        app!.framework.updateChildren(
+        await app!.updateChildren(
           widgets: [
             RT_AnotherTestWidget(),
             RT_AnotherTestWidget(
@@ -112,10 +112,10 @@ void main() {
       },
     );
 
-    test('should return null if no direct ancestor matched', () {
+    test('should return null if no direct ancestor matched', () async {
       var walker = app!.services.walker;
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           RT_AnotherTestWidget(),
           RT_TestWidget(
@@ -159,10 +159,10 @@ void main() {
       expect(widgetObject, equals(null));
     });
 
-    test('should return matching widget from ancestors', () {
+    test('should return matching widget from ancestors', () async {
       var walker = app!.services.walker;
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           RT_TestWidget(),
           RT_TestWidget(
@@ -182,10 +182,10 @@ void main() {
       expect(widgetObject.context.widgetRuntimeType, equals('$RT_TestWidget'));
     });
 
-    test('should return nearest matching widget from ancestors', () {
+    test('should return nearest matching widget from ancestors', () async {
       var walker = app!.services.walker;
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           RT_TestWidget(),
           RT_TestWidget(
@@ -214,10 +214,10 @@ void main() {
 
     test(
       'should return widget with exact runtime type(ignore super classes)',
-      () {
+      () async {
         var walker = app!.services.walker;
 
-        app!.framework.updateChildren(
+        await app!.updateChildren(
           widgets: [
             RT_AnotherTestWidget(),
             RT_AnotherTestWidget(
@@ -249,10 +249,10 @@ void main() {
       },
     );
 
-    test('should return null if no direct ancestor matched', () {
+    test('should return null if no direct ancestor matched', () async {
       var walker = app!.services.walker;
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           RT_AnotherTestWidget(),
           RT_TestWidget(
@@ -299,7 +299,7 @@ void main() {
     test('should return matching state from ancestors', () async {
       var walker = app!.services.walker;
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           RT_StatefulTestWidget(),
           RT_StatefulTestWidget(
@@ -312,19 +312,17 @@ void main() {
         updateType: UpdateType.setState,
       );
 
-      await Future.delayed(Duration(seconds: 1), () {
-        var state = walker.findAncestorStateOfType<RT_StatefulTestWidget_State>(
-          app!.services.walker.getWidgetObjectUsingKey('child-widget')!.context,
-        )!;
+      var state = walker.findAncestorStateOfType<RT_StatefulTestWidget_State>(
+        app!.services.walker.getWidgetObjectUsingKey('child-widget')!.context,
+      )!;
 
-        expect('${state.runtimeType}', equals('$RT_StatefulTestWidget_State'));
-      });
+      expect('${state.runtimeType}', equals('$RT_StatefulTestWidget_State'));
     });
 
     test('should return nearest matching state from ancestors', () async {
       var walker = app!.services.walker;
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           RT_StatefulTestWidget(),
           RT_StatefulTestWidget(
@@ -343,20 +341,18 @@ void main() {
         updateType: UpdateType.setState,
       );
 
-      await Future.delayed(Duration(seconds: 1), () {
-        var state = walker.findAncestorStateOfType<RT_StatefulTestWidget_State>(
-          app!.services.walker.getWidgetObjectUsingKey('child-widget')!.context,
-        )!;
+      var state = walker.findAncestorStateOfType<RT_StatefulTestWidget_State>(
+        app!.services.walker.getWidgetObjectUsingKey('child-widget')!.context,
+      )!;
 
-        expect('${state.runtimeType}', equals('$RT_StatefulTestWidget_State'));
-        expect(state.widget.hash, equals('2'));
-      });
+      expect('${state.runtimeType}', equals('$RT_StatefulTestWidget_State'));
+      expect(state.widget.hash, equals('2'));
     });
 
     test('should return null if no direct ancestor matched', () async {
       var walker = app!.services.walker;
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           RT_AnotherStatefulWidget(),
           RT_StatefulTestWidget(
@@ -373,14 +369,12 @@ void main() {
         updateType: UpdateType.setState,
       );
 
-      await Future.delayed(Duration(seconds: 1), () {
-        var state =
-            walker.findAncestorStateOfType<RT_AnotherStatefulWidget_State>(
-          app!.services.walker.getWidgetObjectUsingKey('child-widget')!.context,
-        );
+      var state =
+          walker.findAncestorStateOfType<RT_AnotherStatefulWidget_State>(
+        app!.services.walker.getWidgetObjectUsingKey('child-widget')!.context,
+      );
 
-        expect(state, equals(null));
-      });
+      expect(state, equals(null));
     });
   });
 }

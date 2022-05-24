@@ -1,7 +1,7 @@
 test('should set "KeyPress" event listener', () async {
     var testStack = RT_TestStack();
 
-    app!.framework.buildChildren(
+    await app!.buildChildren(
         widgets: [
             __WidgetClass__(
                 key: GlobalKey('el-1'),
@@ -15,8 +15,8 @@ test('should set "KeyPress" event listener', () async {
         parentContext: app!.appContext,
     );
 
-    app!.element('el-1').dispatchEvent(Event('keypress'));
-    app!.element('el-2').dispatchEvent(Event('keypress'));
+    app!.elementByGlobalKey('el-1').dispatchEvent(Event('keypress'));
+    app!.elementByGlobalKey('el-2').dispatchEvent(Event('keypress'));
 
     await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('keypress-1'));
@@ -28,7 +28,7 @@ test('should set "KeyPress" event listener', () async {
 test('should set "KeyPress" event listener only if provided', () async {
     void listener(event) => {};
 
-    app!.framework.buildChildren(
+    await app!.buildChildren(
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1')),
             __WidgetClass__(key: GlobalKey('el-2'), onKeyPress: null),
@@ -46,10 +46,10 @@ test('should set "KeyPress" event listener only if provided', () async {
     expect(listeners3[DomEventType.keyPress], equals(listener));
 });
 
-test('should clear "KeyPress" event listner', () {
+test('should clear "KeyPress" event listner', () async {
     void listener(event) => {};
 
-    app!.framework.buildChildren(
+    await app!.buildChildren(
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1')),
             __WidgetClass__(key: GlobalKey('el-2'), onKeyPress: listener),
@@ -65,7 +65,7 @@ test('should clear "KeyPress" event listner', () {
 
     // update
 
-    app!.framework.updateChildren(
+    await app!.updateChildren(
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1')),
             __WidgetClass__(key: GlobalKey('el-2')),

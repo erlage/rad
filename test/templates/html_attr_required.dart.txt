@@ -1,5 +1,5 @@
-test('should set attribute "required" only if its true', () {
-    app!.framework.buildChildren(
+test('should set attribute "required" only if its true', () async {
+    await app!.buildChildren(
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1'), required: false),
             __WidgetClass__(key: GlobalKey('el-2'), required: null),
@@ -8,17 +8,17 @@ test('should set attribute "required" only if its true', () {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.element('el-1');
-    var element2 = app!.element('el-2');
-    var element3 = app!.element('el-3');
+    var element1 = app!.elementByGlobalKey('el-1');
+    var element2 = app!.elementByGlobalKey('el-2');
+    var element3 = app!.elementByGlobalKey('el-3');
 
     expect(element1.getAttribute('required'), equals(null));
     expect(element2.getAttribute('required'), equals(null));
     expect(element3.getAttribute('required'), equals('true'));
 });
 
-test('should clear attribute "required" if updated value is not true', () {
-    app!.framework.buildChildren(
+test('should clear attribute "required" if updated value is not true', () async {
+    await app!.buildChildren(
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1'), required: true),
             __WidgetClass__(key: GlobalKey('el-2'), required: true),
@@ -28,7 +28,7 @@ test('should clear attribute "required" if updated value is not true', () {
         parentContext: app!.appContext,
     );
 
-    app!.framework.updateChildren(
+    await app!.updateChildren(
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1'), required: true),
             __WidgetClass__(key: GlobalKey('el-2'), required: false),
@@ -39,10 +39,10 @@ test('should clear attribute "required" if updated value is not true', () {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.element('el-1');
-    var element2 = app!.element('el-2');
-    var element3 = app!.element('el-3');
-    var element4 = app!.element('el-4');
+    var element1 = app!.elementByGlobalKey('el-1');
+    var element2 = app!.elementByGlobalKey('el-2');
+    var element3 = app!.elementByGlobalKey('el-3');
+    var element4 = app!.elementByGlobalKey('el-4');
 
     expect(element1.getAttribute('required'), equals('true'));
     expect(element2.getAttribute('required'), equals(null));

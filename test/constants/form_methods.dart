@@ -2,12 +2,12 @@
 
 class RT_FormMethods {
   static const implemented = [
-    "get",
-    "post",
+    'get',
+    'post',
   ];
 
   static const available = [
-    "get",
-    "post",
+    'get',
+    'post',
   ];
 }

@@ -15,7 +15,7 @@ void main() {
     test('should render child', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_InheritedWidget(
             eventUpdateShouldNotify: () => testStack.push('notify-1'),
@@ -24,7 +24,6 @@ void main() {
         ],
         parentContext: app!.appContext,
       );
-      await Future.delayed(Duration.zero);
 
       expect(testStack.canPop(), equals(false));
 
@@ -34,7 +33,7 @@ void main() {
     test('should not call updateShouldNotify on initial build', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_InheritedWidget(
             eventUpdateShouldNotify: () => testStack.push('notify'),
@@ -43,7 +42,6 @@ void main() {
         ],
         parentContext: app!.appContext,
       );
-      await Future.delayed(Duration.zero);
 
       expect(testStack.canPop(), equals(false));
 
@@ -53,7 +51,7 @@ void main() {
     test('should call updateShouldNotify on new instance', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_InheritedWidget(
             customHash: 'widget-1a',
@@ -71,9 +69,8 @@ void main() {
         ],
         parentContext: app!.appContext,
       );
-      await Future.delayed(Duration.zero);
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           RT_InheritedWidget(
             customHash: 'widget-2a',
@@ -92,9 +89,8 @@ void main() {
         updateType: UpdateType.setState,
         parentContext: app!.appContext,
       );
-      await Future.delayed(Duration.zero);
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           RT_InheritedWidget(
             customHash: 'widget-3a',
@@ -113,7 +109,6 @@ void main() {
         updateType: UpdateType.setState,
         parentContext: app!.appContext,
       );
-      await Future.delayed(Duration.zero);
 
       // check stack
 
@@ -147,7 +142,7 @@ void main() {
           ],
         );
 
-        app!.framework.buildChildren(
+        await app!.buildChildren(
           widgets: [
             RT_InheritedWidget(
               eventUpdateShouldNotify: () => testStack.push('notify-1a'),
@@ -160,9 +155,8 @@ void main() {
           ],
           parentContext: app!.appContext,
         );
-        await Future.delayed(Duration.zero);
 
-        app!.framework.updateChildren(
+        await app!.updateChildren(
           widgets: [
             RT_InheritedWidget(
               overrideUpdateShouldNotify: () => true,
@@ -177,9 +171,8 @@ void main() {
           updateType: UpdateType.setState,
           parentContext: app!.appContext,
         );
-        await Future.delayed(Duration.zero);
 
-        app!.framework.updateChildren(
+        await app!.updateChildren(
           widgets: [
             RT_InheritedWidget(
               overrideUpdateShouldNotify: () => false,
@@ -194,9 +187,8 @@ void main() {
           updateType: UpdateType.setState,
           parentContext: app!.appContext,
         );
-        await Future.delayed(Duration.zero);
 
-        app!.framework.updateChildren(
+        await app!.updateChildren(
           widgets: [
             RT_InheritedWidget(
               overrideUpdateShouldNotify: () => true,
@@ -211,7 +203,6 @@ void main() {
           updateType: UpdateType.setState,
           parentContext: app!.appContext,
         );
-        await Future.delayed(Duration.zero);
 
         // build phase
 
@@ -260,7 +251,7 @@ void main() {
           ],
         );
 
-        app!.framework.buildChildren(
+        await app!.buildChildren(
           widgets: [
             RT_InheritedWidget(
               eventUpdateShouldNotify: () => testStack.push('notify-1a'),
@@ -273,9 +264,8 @@ void main() {
           ],
           parentContext: app!.appContext,
         );
-        await Future.delayed(Duration.zero);
 
-        app!.framework.updateChildren(
+        await app!.updateChildren(
           widgets: [
             RT_InheritedWidget(
               overrideUpdateShouldNotify: () => true,
@@ -290,9 +280,8 @@ void main() {
           updateType: UpdateType.setState,
           parentContext: app!.appContext,
         );
-        await Future.delayed(Duration.zero);
 
-        app!.framework.updateChildren(
+        await app!.updateChildren(
           widgets: [
             RT_InheritedWidget(
               overrideUpdateShouldNotify: () => false,
@@ -307,9 +296,8 @@ void main() {
           updateType: UpdateType.setState,
           parentContext: app!.appContext,
         );
-        await Future.delayed(Duration.zero);
 
-        app!.framework.updateChildren(
+        await app!.updateChildren(
           widgets: [
             RT_InheritedWidget(
               overrideUpdateShouldNotify: () => true,
@@ -324,7 +312,6 @@ void main() {
           updateType: UpdateType.setState,
           parentContext: app!.appContext,
         );
-        await Future.delayed(Duration.zero);
 
         // build phase
 
@@ -352,7 +339,7 @@ void main() {
     test('should build widgets in order', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_InheritedWidget(
             child: RT_TestWidget(
@@ -384,7 +371,7 @@ void main() {
     test('should update widgets in order', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_InheritedWidget(
             child: RT_TestWidget(
@@ -407,9 +394,8 @@ void main() {
         ],
         parentContext: app!.appContext,
       );
-      await Future.delayed(Duration.zero);
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           RT_InheritedWidget(child: RT_TestWidget()),
           RT_InheritedWidget(child: RT_TestWidget()),
@@ -418,7 +404,6 @@ void main() {
         updateType: UpdateType.setState,
         parentContext: app!.appContext,
       );
-      await Future.delayed(Duration.zero);
 
       expect(testStack.popFromStart(), equals('mount-a'));
       expect(testStack.popFromStart(), equals('mount-b'));

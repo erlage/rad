@@ -29,10 +29,10 @@ void main() {
 
       test(
         'should not create new configuration if configuration has not changed',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.buildChildren(
+          await app!.buildChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1a'),
@@ -50,7 +50,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 2a'),
@@ -80,10 +80,10 @@ void main() {
 
       test(
         'should create new configuration if configuration has changed',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.buildChildren(
+          await app!.buildChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1a'),
@@ -101,7 +101,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 2a'),
@@ -132,10 +132,10 @@ void main() {
 
       test(
         'should never re create a render object',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.buildChildren(
+          await app!.buildChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1a'),
@@ -153,7 +153,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 2a'),
@@ -172,7 +172,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 3a'),
@@ -191,7 +191,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 4a'),
@@ -230,10 +230,10 @@ void main() {
       test(
         'should not rebind a widget instance '
         'if widget configuration has not changed',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.buildChildren(
+          await app!.buildChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1a'),
@@ -254,7 +254,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 2a'),
@@ -288,10 +288,10 @@ void main() {
       test(
         'should  rebind a widget instance '
         'if widget configuration has changed',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.buildChildren(
+          await app!.buildChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1a'),
@@ -312,7 +312,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 2a'),
@@ -348,12 +348,12 @@ void main() {
       );
 
       test(
-        'should  rebind a widget instance (instance test)'
+        'should  rebind a widget instance (instance test) '
         'if widget configuration has changed',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.buildChildren(
+          await app!.buildChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('widget'),
@@ -395,7 +395,7 @@ void main() {
 
           expect(hash, equals('original-instance'));
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('widget'),
@@ -432,10 +432,10 @@ void main() {
         },
       );
 
-      test('should check childs if parent configuration is changed', () {
+      test('should check childs if parent configuration is changed', () async {
         var testStack = RT_TestStack();
 
-        app!.framework.buildChildren(
+        await app!.buildChildren(
           widgets: [
             RT_TestWidget(
               roEventHookRender: () => testStack.push('render parent'),
@@ -452,7 +452,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        app!.framework.updateChildren(
+        await app!.updateChildren(
           widgets: [
             RT_TestWidget(
               roEventHookRender: () => testStack.push('render parent'),
@@ -480,10 +480,10 @@ void main() {
 
       test(
         'should check childs even if parent configuration is not changed',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.buildChildren(
+          await app!.buildChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render parent'),
@@ -500,7 +500,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render parent'),
@@ -526,7 +526,7 @@ void main() {
         },
       );
 
-      test('should skip childs on short-circuit', () {
+      test('should skip childs on short-circuit', () async {
         var testStack = RT_TestStack();
 
         var constantWidget = RT_TestWidget(
@@ -541,12 +541,12 @@ void main() {
           ],
         );
 
-        app!.framework.buildChildren(
+        await app!.buildChildren(
           widgets: [constantWidget],
           parentContext: app!.appContext,
         );
 
-        app!.framework.updateChildren(
+        await app!.updateChildren(
           widgets: [constantWidget],
           updateType: UpdateType.setState,
           parentContext: app!.appContext,
@@ -562,10 +562,10 @@ void main() {
 
       test(
         'should dispose and match immediate if mismatched without keys',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1a-1'),
@@ -587,7 +587,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 roEventHookRender: () => testStack.push('render 1b-1'),
@@ -624,10 +624,10 @@ void main() {
 
       test(
         'should dispose correct mismatch in the start',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('widget-1'),
@@ -652,7 +652,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 key: GlobalKey('widget-1'),
@@ -692,10 +692,10 @@ void main() {
 
       test(
         'should dispose correct mismatch in the middle',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('widget-1'),
@@ -720,7 +720,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('widget-1'),
@@ -760,10 +760,10 @@ void main() {
 
       test(
         'should dispose correct mismatch in the end',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('widget-1'),
@@ -788,7 +788,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('widget-1'),
@@ -828,10 +828,10 @@ void main() {
 
       test(
         'should dispose mismatch and append new childs in the end',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('widget-1'),
@@ -856,7 +856,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('widget-1'),
@@ -903,10 +903,10 @@ void main() {
 
       test(
         'should skip mismatch and reuse existing widget(prevent loosing state when childs are added optionally)',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('widget-1'),
@@ -931,7 +931,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('widget-1'),
@@ -981,14 +981,14 @@ void main() {
 
       test(
         'should dispose correct mis matches, mixed hardcoded version',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
           // render childs
           // ----------------expected
           // render 1a-1, render 1a-2, render 1a-3, render 1a-4
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('widget-1'),
@@ -1025,7 +1025,7 @@ void main() {
           // update 1a-1, render 1b-2, update 1a-3, update 1a-4
           //
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('widget-1'),
@@ -1062,7 +1062,7 @@ void main() {
           // render 1b-1, update 1b-2, update 1a-3, update 1a-4
           //
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 key: GlobalKey('widget-1'),
@@ -1098,7 +1098,7 @@ void main() {
           // dispose 1a-3, dispose 1a-4
           // update 1b-1, update 1b-2, render 1b-3, render 1b-4
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 key: GlobalKey('widget-1'),

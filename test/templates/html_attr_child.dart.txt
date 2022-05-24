@@ -1,5 +1,5 @@
-test('should set child widget', () {
-  app!.framework.buildChildren(
+test('should set child widget', () async {
+  await app!.buildChildren(
     widgets: [
       __WidgetClass__(
         id: 'widget-1',

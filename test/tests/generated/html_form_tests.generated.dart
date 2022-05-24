@@ -16,8 +16,8 @@ void html_form_test() {
 
     tearDown(() => app!.stop());
 
-    test('should set id', () {
-      app!.framework.buildChildren(
+    test('should set id', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: Key('some-key'), id: 'some-id'),
           Form(key: LocalKey('some-local-key'), id: 'some-local-id'),
@@ -26,39 +26,17 @@ void html_form_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(Key('some-key'), RT_TestBed.rootContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(
-                    LocalKey('some-local-key'), RT_TestBed.rootContext)
-                .value,
-          )!
-          .element;
-
-      var element3 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(
-                    GlobalKey('some-global-key'), RT_TestBed.rootContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.elementByKey('some-key', RT_TestBed.rootContext);
+      var element2 = app!.elementByLocalKey('some-local-key');
+      var element3 = app!.elementByGlobalKey('some-global-key');
 
       expect(element1.id, endsWith('some-id'));
       expect(element2.id, endsWith('some-local-id'));
       expect(element3.id, equals('some-global-id'));
     });
 
-    test('should reset and update id', () {
-      app!.framework.buildChildren(
+    test('should reset and update id', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: Key('some-key'), id: 'some-id'),
           Form(key: LocalKey('some-local-key'), id: 'some-local-id'),
@@ -67,37 +45,15 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(Key('some-key'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element2 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(
-                    LocalKey('some-local-key'), app!.appContext)
-                .value,
-          )!
-          .element;
-
-      var element3 = app!.services.walker
-          .getWidgetObjectUsingKey(
-            app!.services.keyGen
-                .getGlobalKeyUsingKey(
-                    GlobalKey('some-global-key'), app!.appContext)
-                .value,
-          )!
-          .element;
+      var element1 = app!.elementByKey('some-key', app!.appContext);
+      var element2 = app!.elementByLocalKey('some-local-key');
+      var element3 = app!.elementByGlobalKey('some-global-key');
 
       expect(element1.id, endsWith('some-id'));
       expect(element2.id, endsWith('some-local-id'));
       expect(element3.id, equals('some-global-id'));
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           Form(
             key: Key('some-key'),
@@ -121,8 +77,8 @@ void html_form_test() {
       expect(element3.id, equals('some-global-updated-id'));
     });
 
-    test('should set child widget', () {
-      app!.framework.buildChildren(
+    test('should set child widget', () async {
+      await app!.buildChildren(
         widgets: [
           Form(
             id: 'widget-1',
@@ -141,17 +97,20 @@ void html_form_test() {
       expect(element2.id, equals('widget-2'));
     });
 
-    test('should set children widgets', () {
-      app!.framework.buildChildren(
+    test('should set children widgets', () async {
+      await app!.buildChildren(
         widgets: [
-          Form(id: 'widget-1', children: [
-            Form(
-              id: 'widget-2',
-            ),
-            Form(
-              id: 'widget-3',
-            ),
-          ]),
+          Form(
+            id: 'widget-1',
+            children: [
+              Form(
+                id: 'widget-2',
+              ),
+              Form(
+                id: 'widget-3',
+              ),
+            ],
+          ),
         ],
         parentContext: RT_TestBed.rootContext,
       );
@@ -165,8 +124,8 @@ void html_form_test() {
       expect(element3.id, equals('widget-3'));
     });
 
-    test('should set classes', () {
-      app!.framework.buildChildren(
+    test('should set classes', () async {
+      await app!.buildChildren(
         widgets: [
           Form(
             id: 'widget-1',
@@ -193,8 +152,8 @@ void html_form_test() {
       expect(element3.getAttribute('class'), equals("some 'messy' class"));
     });
 
-    test('should set contenteditable', () {
-      app!.framework.buildChildren(
+    test('should set contenteditable', () async {
+      await app!.buildChildren(
         widgets: [
           Form(
             key: Key('widget-1'),
@@ -215,8 +174,8 @@ void html_form_test() {
       expect(element2.getAttribute('contenteditable'), equals('true'));
     });
 
-    test('should set draggable', () {
-      app!.framework.buildChildren(
+    test('should set draggable', () async {
+      await app!.buildChildren(
         widgets: [
           Form(
             key: Key('widget-1'),
@@ -237,8 +196,8 @@ void html_form_test() {
       expect(element2.getAttribute('draggable'), equals('true'));
     });
 
-    test('should set attribute "hidden" only if its true', () {
-      app!.framework.buildChildren(
+    test('should set attribute "hidden" only if its true', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), hidden: false),
           Form(key: GlobalKey('el-2'), hidden: null),
@@ -247,17 +206,18 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
-      var element3 = app!.element('el-3');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
+      var element3 = app!.elementByGlobalKey('el-3');
 
       expect(element1.getAttribute('hidden'), equals(null));
       expect(element2.getAttribute('hidden'), equals(null));
       expect(element3.getAttribute('hidden'), equals('true'));
     });
 
-    test('should clear attribute "hidden" if updated value is not true', () {
-      app!.framework.buildChildren(
+    test('should clear attribute "hidden" if updated value is not true',
+        () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), hidden: true),
           Form(key: GlobalKey('el-2'), hidden: true),
@@ -267,7 +227,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), hidden: true),
           Form(key: GlobalKey('el-2'), hidden: false),
@@ -278,10 +238,10 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
-      var element3 = app!.element('el-3');
-      var element4 = app!.element('el-4');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
+      var element3 = app!.elementByGlobalKey('el-3');
+      var element4 = app!.elementByGlobalKey('el-4');
 
       expect(element1.getAttribute('hidden'), equals('true'));
       expect(element2.getAttribute('hidden'), equals(null));
@@ -289,8 +249,8 @@ void html_form_test() {
       expect(element4.getAttribute('hidden'), equals(null));
     });
 
-    test('should set inner text', () {
-      app!.framework.buildChildren(
+    test('should set inner text', () async {
+      await app!.buildChildren(
         widgets: [
           Form(
             key: GlobalKey('widget-1'),
@@ -308,8 +268,8 @@ void html_form_test() {
       expect(element1.innerHtml, equals('hello world'));
     });
 
-    test('should set onClick', () {
-      app!.framework.buildChildren(
+    test('should set onClick', () async {
+      await app!.buildChildren(
         widgets: [
           Form(
             key: Key('widget-1'),
@@ -350,7 +310,7 @@ void html_form_test() {
     test('should set "click" event listener', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           Form(
             key: GlobalKey('el-1'),
@@ -364,8 +324,8 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      app!.element('el-1').dispatchEvent(Event('click'));
-      app!.element('el-2').dispatchEvent(Event('click'));
+      app!.elementByGlobalKey('el-1').dispatchEvent(Event('click'));
+      app!.elementByGlobalKey('el-2').dispatchEvent(Event('click'));
 
       await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('click-1'));
@@ -377,7 +337,7 @@ void html_form_test() {
     test('should set "click" event listener only if provided', () async {
       void listener(event) => {};
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1')),
           Form(key: GlobalKey('el-2'), onClick: null),
@@ -395,10 +355,10 @@ void html_form_test() {
       expect(listeners3[DomEventType.click], equals(listener));
     });
 
-    test('should clear "click" event listner', () {
+    test('should clear "click" event listner', () async {
       void listener(event) => {};
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1')),
           Form(key: GlobalKey('el-2'), onClick: listener),
@@ -414,7 +374,7 @@ void html_form_test() {
 
       // update
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           Form(key: GlobalKey('el-1')),
           Form(key: GlobalKey('el-2')),
@@ -430,8 +390,8 @@ void html_form_test() {
       expect(listeners2[DomEventType.click], equals(null));
     });
 
-    test('should set style', () {
-      app!.framework.buildChildren(
+    test('should set style', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: Key('widget-1'), style: 'some style'),
           Form(key: Key('widget-2'), style: 'some "messy" style'),
@@ -449,8 +409,8 @@ void html_form_test() {
       expect(element3.getAttribute('style'), equals("some 'messy' style"));
     });
 
-    test('should set tab index', () {
-      app!.framework.buildChildren(
+    test('should set tab index', () async {
+      await app!.buildChildren(
         widgets: [
           Form(
             key: Key('widget-1'),
@@ -477,8 +437,8 @@ void html_form_test() {
       expect(element3.getAttribute('tabindex'), equals('3'));
     });
 
-    test('should set title', () {
-      app!.framework.buildChildren(
+    test('should set title', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: Key('widget-1'), title: 'some title'),
           Form(key: Key('widget-2'), title: 'some "messy" title'),
@@ -496,8 +456,8 @@ void html_form_test() {
       expect(element3.getAttribute('title'), equals("some 'messy' title"));
     });
 
-    test('should set correct types and markup', () {
-      app!.framework.buildChildren(
+    test('should set correct types and markup', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('some-global-key')),
         ],
@@ -529,8 +489,8 @@ void html_form_test() {
       );
     });
 
-    test('should set data attributes', () {
-      app!.framework.buildChildren(
+    test('should set data attributes', () async {
+      await app!.buildChildren(
         widgets: [
           Form(
             key: GlobalKey('some-global-key'),
@@ -549,8 +509,9 @@ void html_form_test() {
       expect(element1.dataset['another'], equals('another okay'));
     });
 
-    test('should remove obsolute and add new data attributes on update', () {
-      app!.framework.buildChildren(
+    test('should remove obsolute and add new data attributes on update',
+        () async {
+      await app!.buildChildren(
         widgets: [
           Form(
             key: GlobalKey('some-global-key'),
@@ -562,7 +523,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           Form(
             key: GlobalKey('some-global-key'),
@@ -583,14 +544,15 @@ void html_form_test() {
       expect(element1.dataset['something-new'], equals('something new'));
     });
 
-    test('should not override system reserved data attributes on build', () {
-      app!.framework.buildChildren(
+    test('should not override system reserved data attributes on build',
+        () async {
+      await app!.buildChildren(
         widgets: [
           Form(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
-              Constants.attrWidgetType: "must ignore",
+              Constants.attrWidgetType: 'must ignore',
             },
           ),
         ],
@@ -606,28 +568,29 @@ void html_form_test() {
       expect(element1.dataset[Constants.attrWidgetType], equals(null));
     });
 
-    test('should not remove system reserved data attributes on update', () {
-      app!.framework.buildChildren(
+    test('should not remove system reserved data attributes on update',
+        () async {
+      await app!.buildChildren(
         widgets: [
           Form(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something okay',
-              Constants.attrWidgetType: "must ignore",
+              Constants.attrWidgetType: 'must ignore',
             },
           ),
         ],
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           Form(
             key: GlobalKey('some-global-key'),
             dataAttributes: {
               'something': 'something new',
               'something-diff': 'something diff',
-              Constants.attrWidgetType: "must ignore",
+              Constants.attrWidgetType: 'must ignore',
             },
           ),
         ],
@@ -644,8 +607,8 @@ void html_form_test() {
       expect(element1.dataset[Constants.attrWidgetType], equals(null));
     });
 
-    test('should set key', () {
-      app!.framework.buildChildren(
+    test('should set key', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: Key('some-key')),
           Form(key: LocalKey('some-local-key')),
@@ -654,33 +617,17 @@ void html_form_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = app!.services.walker.getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(Key('some-key'), RT_TestBed.rootContext)
-            .value,
-      );
+      var wO1 = app!.widgetObjectByKey('some-key', RT_TestBed.rootContext);
+      var wO2 = app!.widgetObjectByLocalKey('some-local-key');
+      var wO3 = app!.widgetObjectByGlobalKey('some-global-key');
 
-      var element2 = app!.services.walker.getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(
-                LocalKey('some-local-key'), RT_TestBed.rootContext)
-            .value,
-      );
-
-      var element3 = app!.services.walker.getWidgetObjectUsingKey(
-        app!.services.keyGen
-            .getGlobalKeyUsingKey(
-                GlobalKey('some-global-key'), RT_TestBed.rootContext)
-            .value,
-      );
-
-      expect(element1!.context.key.value, endsWith('some-key'));
-      expect(element2!.context.key.value, endsWith('some-local-key'));
-      expect(element3!.context.key.value, equals('some-global-key'));
+      expect(wO1.context.key.value, endsWith('some-key'));
+      expect(wO2.context.key.value, endsWith('some-local-key'));
+      expect(wO3.context.key.value, equals('some-global-key'));
     });
 
-    test('should set attribute "name"', () {
-      app!.framework.buildChildren(
+    test('should set attribute "name"', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), name: 'some-name'),
           Form(key: GlobalKey('el-2'), name: 'another-name'),
@@ -688,15 +635,15 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('name'), equals('some-name'));
       expect(element2.getAttribute('name'), equals('another-name'));
     });
 
-    test('should update attribute "name"', () {
-      app!.framework.buildChildren(
+    test('should update attribute "name"', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), name: 'some-name'),
           Form(key: GlobalKey('el-2'), name: 'another-name'),
@@ -704,7 +651,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), name: 'updated-name'),
           Form(key: GlobalKey('el-2'), name: 'another-name'),
@@ -713,15 +660,15 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('name'), equals('updated-name'));
       expect(element2.getAttribute('name'), equals('another-name'));
     });
 
-    test('should clear attribute "name"', () {
-      app!.framework.buildChildren(
+    test('should clear attribute "name"', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1')),
           Form(key: GlobalKey('el-2'), name: 'another-name'),
@@ -729,7 +676,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           Form(key: GlobalKey('el-1')),
           Form(key: GlobalKey('el-2')),
@@ -738,22 +685,22 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('name'), equals(null));
       expect(element2.getAttribute('name'), equals(null));
     });
 
-    test('should clear attribute "name" if updated value is null', () {
-      app!.framework.buildChildren(
+    test('should clear attribute "name" if updated value is null', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), name: 'some-name'),
         ],
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), name: null),
         ],
@@ -761,26 +708,26 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
+      var element1 = app!.elementByGlobalKey('el-1');
 
       expect(element1.getAttribute('name'), equals(null));
     });
 
-    test('should not set attribute "name" if provided value is null', () {
-      app!.framework.buildChildren(
+    test('should not set attribute "name" if provided value is null', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), name: null),
         ],
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
+      var element1 = app!.elementByGlobalKey('el-1');
 
       expect(element1.getAttribute('name'), equals(null));
     });
 
-    test('should set attribute "action"', () {
-      app!.framework.buildChildren(
+    test('should set attribute "action"', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), action: 'some-action'),
           Form(key: GlobalKey('el-2'), action: 'another-action'),
@@ -788,15 +735,15 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('action'), equals('some-action'));
       expect(element2.getAttribute('action'), equals('another-action'));
     });
 
-    test('should update attribute "action"', () {
-      app!.framework.buildChildren(
+    test('should update attribute "action"', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), action: 'some-action'),
           Form(key: GlobalKey('el-2'), action: 'another-action'),
@@ -804,7 +751,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), action: 'updated-action'),
           Form(key: GlobalKey('el-2'), action: 'another-action'),
@@ -813,15 +760,15 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('action'), equals('updated-action'));
       expect(element2.getAttribute('action'), equals('another-action'));
     });
 
-    test('should clear attribute "action"', () {
-      app!.framework.buildChildren(
+    test('should clear attribute "action"', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1')),
           Form(key: GlobalKey('el-2'), action: 'another-action'),
@@ -829,7 +776,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           Form(key: GlobalKey('el-1')),
           Form(key: GlobalKey('el-2')),
@@ -838,22 +785,22 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('action'), equals(null));
       expect(element2.getAttribute('action'), equals(null));
     });
 
-    test('should clear attribute "action" if updated value is null', () {
-      app!.framework.buildChildren(
+    test('should clear attribute "action" if updated value is null', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), action: 'some-action'),
         ],
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), action: null),
         ],
@@ -861,26 +808,27 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
+      var element1 = app!.elementByGlobalKey('el-1');
 
       expect(element1.getAttribute('action'), equals(null));
     });
 
-    test('should not set attribute "action" if provided value is null', () {
-      app!.framework.buildChildren(
+    test('should not set attribute "action" if provided value is null',
+        () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), action: null),
         ],
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
+      var element1 = app!.elementByGlobalKey('el-1');
 
       expect(element1.getAttribute('action'), equals(null));
     });
 
-    test('should set attribute "accept"', () {
-      app!.framework.buildChildren(
+    test('should set attribute "accept"', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), accept: 'some-accept'),
           Form(key: GlobalKey('el-2'), accept: 'another-accept'),
@@ -888,15 +836,15 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('accept'), equals('some-accept'));
       expect(element2.getAttribute('accept'), equals('another-accept'));
     });
 
-    test('should update attribute "accept"', () {
-      app!.framework.buildChildren(
+    test('should update attribute "accept"', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), accept: 'some-accept'),
           Form(key: GlobalKey('el-2'), accept: 'another-accept'),
@@ -904,7 +852,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), accept: 'updated-accept'),
           Form(key: GlobalKey('el-2'), accept: 'another-accept'),
@@ -913,15 +861,15 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('accept'), equals('updated-accept'));
       expect(element2.getAttribute('accept'), equals('another-accept'));
     });
 
-    test('should clear attribute "accept"', () {
-      app!.framework.buildChildren(
+    test('should clear attribute "accept"', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1')),
           Form(key: GlobalKey('el-2'), accept: 'another-accept'),
@@ -929,7 +877,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           Form(key: GlobalKey('el-1')),
           Form(key: GlobalKey('el-2')),
@@ -938,22 +886,22 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('accept'), equals(null));
       expect(element2.getAttribute('accept'), equals(null));
     });
 
-    test('should clear attribute "accept" if updated value is null', () {
-      app!.framework.buildChildren(
+    test('should clear attribute "accept" if updated value is null', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), accept: 'some-accept'),
         ],
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), accept: null),
         ],
@@ -961,26 +909,27 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
+      var element1 = app!.elementByGlobalKey('el-1');
 
       expect(element1.getAttribute('accept'), equals(null));
     });
 
-    test('should not set attribute "accept" if provided value is null', () {
-      app!.framework.buildChildren(
+    test('should not set attribute "accept" if provided value is null',
+        () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), accept: null),
         ],
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
+      var element1 = app!.elementByGlobalKey('el-1');
 
       expect(element1.getAttribute('accept'), equals(null));
     });
 
-    test('should set attribute "target"', () {
-      app!.framework.buildChildren(
+    test('should set attribute "target"', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), target: 'some-target'),
           Form(key: GlobalKey('el-2'), target: 'another-target'),
@@ -988,15 +937,15 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('target'), equals('some-target'));
       expect(element2.getAttribute('target'), equals('another-target'));
     });
 
-    test('should update attribute "target"', () {
-      app!.framework.buildChildren(
+    test('should update attribute "target"', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), target: 'some-target'),
           Form(key: GlobalKey('el-2'), target: 'another-target'),
@@ -1004,7 +953,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), target: 'updated-target'),
           Form(key: GlobalKey('el-2'), target: 'another-target'),
@@ -1013,15 +962,15 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('target'), equals('updated-target'));
       expect(element2.getAttribute('target'), equals('another-target'));
     });
 
-    test('should clear attribute "target"', () {
-      app!.framework.buildChildren(
+    test('should clear attribute "target"', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1')),
           Form(key: GlobalKey('el-2'), target: 'another-target'),
@@ -1029,7 +978,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           Form(key: GlobalKey('el-1')),
           Form(key: GlobalKey('el-2')),
@@ -1038,22 +987,22 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(element1.getAttribute('target'), equals(null));
       expect(element2.getAttribute('target'), equals(null));
     });
 
-    test('should clear attribute "target" if updated value is null', () {
-      app!.framework.buildChildren(
+    test('should clear attribute "target" if updated value is null', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), target: 'some-target'),
         ],
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), target: null),
         ],
@@ -1061,26 +1010,27 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
+      var element1 = app!.elementByGlobalKey('el-1');
 
       expect(element1.getAttribute('target'), equals(null));
     });
 
-    test('should not set attribute "target" if provided value is null', () {
-      app!.framework.buildChildren(
+    test('should not set attribute "target" if provided value is null',
+        () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), target: null),
         ],
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
+      var element1 = app!.elementByGlobalKey('el-1');
 
       expect(element1.getAttribute('target'), equals(null));
     });
 
-    test('should set form attribute "method"', () {
-      app!.framework.buildChildren(
+    test('should set form attribute "method"', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), method: FormMethod.get),
           Form(key: GlobalKey('el-2'), method: FormMethod.post),
@@ -1088,8 +1038,8 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
 
       expect(
         element1.getAttribute('method'),
@@ -1101,8 +1051,8 @@ void html_form_test() {
       );
     });
 
-    test('should update form attribute "method"', () {
-      app!.framework.buildChildren(
+    test('should update form attribute "method"', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), method: FormMethod.get),
           Form(key: GlobalKey('el-2'), method: FormMethod.post),
@@ -1111,7 +1061,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           Form(key: GlobalKey('el-1')),
           Form(key: GlobalKey('el-2'), method: null),
@@ -1121,9 +1071,9 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
-      var element3 = app!.element('el-3');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
+      var element3 = app!.elementByGlobalKey('el-3');
 
       expect(
         element1.getAttribute('method'),
@@ -1139,8 +1089,8 @@ void html_form_test() {
       );
     });
 
-    test('should set form attribute "enctype"', () {
-      app!.framework.buildChildren(
+    test('should set form attribute "enctype"', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), enctype: FormEncType.textPlain),
           Form(key: GlobalKey('el-2'), enctype: FormEncType.multipartFormData),
@@ -1152,9 +1102,9 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
-      var element3 = app!.element('el-3');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
+      var element3 = app!.elementByGlobalKey('el-3');
 
       expect(
         element1.getAttribute('enctype'),
@@ -1170,8 +1120,8 @@ void html_form_test() {
       );
     });
 
-    test('should update form attribute "enctype"', () {
-      app!.framework.buildChildren(
+    test('should update form attribute "enctype"', () async {
+      await app!.buildChildren(
         widgets: [
           Form(key: GlobalKey('el-1'), enctype: FormEncType.textPlain),
           Form(key: GlobalKey('el-2'), enctype: FormEncType.multipartFormData),
@@ -1183,7 +1133,7 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           Form(key: GlobalKey('el-1')),
           Form(key: GlobalKey('el-2'), enctype: null),
@@ -1193,9 +1143,9 @@ void html_form_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.element('el-1');
-      var element2 = app!.element('el-2');
-      var element3 = app!.element('el-3');
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
+      var element3 = app!.elementByGlobalKey('el-3');
 
       expect(element1.getAttribute('enctype'), equals(null));
       expect(element2.getAttribute('enctype'), equals(null));

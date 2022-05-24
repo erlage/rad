@@ -1,5 +1,5 @@
-test('should set children widgets', () {
-  app!.framework.buildChildren(
+test('should set children widgets', () async {
+  await app!.buildChildren(
     widgets: [
       __WidgetClass__(id: 'widget-1', children: [
         __WidgetClass__(
@@ -8,7 +8,7 @@ test('should set children widgets', () {
         __WidgetClass__(
           id: 'widget-3',
         ),
-      ]),
+      ],),
     ],
     parentContext: RT_TestBed.rootContext,
   );

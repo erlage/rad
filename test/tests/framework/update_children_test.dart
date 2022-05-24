@@ -38,10 +38,10 @@ void main() {
 
       test(
         'should build widget when runtime types of widgets are different',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1'),
@@ -53,7 +53,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 roEventHookRender: () => testStack.push('render 2'),
@@ -67,7 +67,7 @@ void main() {
 
           // do one more swap
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1'),
@@ -79,7 +79,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1'),
@@ -103,12 +103,12 @@ void main() {
       );
 
       test(
-        'should build widget when runtime types of widgets are different,'
+        'should build widget when runtime types of widgets are different, '
         'even if widget keys are matched',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: Key('key-original'),
@@ -121,7 +121,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 key: Key('key-original'),
@@ -134,7 +134,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 key: Key('key-original'),
@@ -157,12 +157,12 @@ void main() {
       );
 
       test(
-        'should build widget when runtime types of widgets are different,'
+        'should build widget when runtime types of widgets are different, '
         'even if widget local keys are matched',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: LocalKey('key-original'),
@@ -175,7 +175,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 key: LocalKey('key-original'),
@@ -188,7 +188,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 key: LocalKey('key-original'),
@@ -211,12 +211,12 @@ void main() {
       );
 
       test(
-        'should build widget when runtime types of widgets are different,'
+        'should build widget when runtime types of widgets are different, '
         'even if widget global keys are matched',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('key-original'),
@@ -229,7 +229,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 key: GlobalKey('key-original'),
@@ -242,7 +242,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 key: GlobalKey('key-original'),
@@ -265,12 +265,12 @@ void main() {
       );
 
       test(
-        'should build widget when runtime types of widgets are matched,'
+        'should build widget when runtime types of widgets are matched, '
         'but keys are not matched',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: Key('key-original'),
@@ -283,7 +283,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: Key('key-new'),
@@ -296,7 +296,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: Key('key-new'),
@@ -319,12 +319,12 @@ void main() {
       );
 
       test(
-        'should build widget when runtime types of widgets are matched,'
+        'should build widget when runtime types of widgets are matched, '
         'and keys are matched as well but keys have different runtime type',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: Key('key-original'),
@@ -337,7 +337,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: LocalKey('key-original'),
@@ -350,7 +350,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('key-original'),
@@ -363,7 +363,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('key-original'),
@@ -376,7 +376,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: Key('key-original'),
@@ -406,10 +406,10 @@ void main() {
 
       test(
         'should update widget when runtime types are matched and keys not set',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1'),
@@ -420,7 +420,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 2'),
@@ -431,7 +431,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 2'),
@@ -452,10 +452,10 @@ void main() {
 
       test(
         'should update widget when both runtime types and keys are matched',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: Key('key-original'),
@@ -467,7 +467,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: Key('key-original'),
@@ -479,7 +479,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: Key('key-original'),
@@ -501,10 +501,10 @@ void main() {
 
       test(
         'should update widget when both runtime types and local keys are matched',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: LocalKey('key-original'),
@@ -516,7 +516,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: LocalKey('key-original'),
@@ -528,7 +528,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: LocalKey('key-original'),
@@ -550,10 +550,10 @@ void main() {
 
       test(
         'should update widget when both runtime types and global keys are matched',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('key-original'),
@@ -565,7 +565,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('key-original'),
@@ -577,7 +577,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('key-original'),
@@ -601,10 +601,10 @@ void main() {
 
       test(
         'should dispose obsolute widgets',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1'),
@@ -616,7 +616,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 roEventHookRender: () => testStack.push('render 2'),
@@ -628,7 +628,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1'),
@@ -651,12 +651,12 @@ void main() {
       );
 
       test(
-        'should not add new widget if'
+        'should not add new widget if '
         ': flagAddIfNotFound: false',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1a'),
@@ -668,7 +668,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 roEventHookRender: () => testStack.push('render 1b'),
@@ -681,7 +681,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 2a'),
@@ -702,12 +702,12 @@ void main() {
       );
 
       test(
-        'should not add new widget if'
+        'should not add new widget if '
         ': flagAddIfNotFound: true',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1a'),
@@ -719,7 +719,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 roEventHookRender: () => testStack.push('render 1b'),
@@ -732,7 +732,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 key: Key('another widget'),
@@ -769,10 +769,10 @@ void main() {
 
       test(
         'should build widget when runtime types of widgets are different',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1'),
@@ -784,7 +784,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 roEventHookRender: () => testStack.push('render 2'),
@@ -798,7 +798,7 @@ void main() {
 
           // do one more swap
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1'),
@@ -810,7 +810,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1'),
@@ -834,12 +834,12 @@ void main() {
       );
 
       test(
-        'should build widget when runtime types of widgets are different,'
+        'should build widget when runtime types of widgets are different, '
         'even if widget keys are matched',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: Key('key-original'),
@@ -852,7 +852,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 key: Key('key-original'),
@@ -865,7 +865,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 key: Key('key-original'),
@@ -888,12 +888,12 @@ void main() {
       );
 
       test(
-        'should build widget when runtime types of widgets are different,'
+        'should build widget when runtime types of widgets are different, '
         'even if widget local keys are matched',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: LocalKey('key-original'),
@@ -906,7 +906,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 key: LocalKey('key-original'),
@@ -919,7 +919,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 key: LocalKey('key-original'),
@@ -942,12 +942,12 @@ void main() {
       );
 
       test(
-        'should build widget when runtime types of widgets are different,'
+        'should build widget when runtime types of widgets are different, '
         'even if widget global keys are matched',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('key-original'),
@@ -960,7 +960,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 key: GlobalKey('key-original'),
@@ -973,7 +973,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 key: GlobalKey('key-original'),
@@ -996,12 +996,12 @@ void main() {
       );
 
       test(
-        'should build widget when runtime types of widgets are matched,'
+        'should build widget when runtime types of widgets are matched, '
         'but keys are not matched',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: Key('key-original'),
@@ -1014,7 +1014,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: Key('key-new'),
@@ -1027,7 +1027,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: Key('key-new'),
@@ -1050,12 +1050,12 @@ void main() {
       );
 
       test(
-        'should build widget when runtime types of widgets are matched,'
+        'should build widget when runtime types of widgets are matched, '
         'and keys are matched as well but keys have different runtime type',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: Key('key-original'),
@@ -1068,7 +1068,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: LocalKey('key-original'),
@@ -1081,7 +1081,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('key-original'),
@@ -1094,7 +1094,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('key-original'),
@@ -1107,7 +1107,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: Key('key-original'),
@@ -1137,10 +1137,10 @@ void main() {
 
       test(
         'should update widget when runtime types are matched and keys not set',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1'),
@@ -1151,7 +1151,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 2'),
@@ -1162,7 +1162,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 2'),
@@ -1183,10 +1183,10 @@ void main() {
 
       test(
         'should update widget when both runtime types and keys are matched',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: Key('key-original'),
@@ -1198,7 +1198,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: Key('key-original'),
@@ -1210,7 +1210,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: Key('key-original'),
@@ -1232,10 +1232,10 @@ void main() {
 
       test(
         'should update widget when both runtime types and local keys are matched',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: LocalKey('key-original'),
@@ -1247,7 +1247,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: LocalKey('key-original'),
@@ -1259,7 +1259,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: LocalKey('key-original'),
@@ -1281,10 +1281,10 @@ void main() {
 
       test(
         'should update widget when both runtime types and global keys are matched',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('key-original'),
@@ -1296,7 +1296,7 @@ void main() {
             parentContext: app!.appContext,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('key-original'),
@@ -1308,7 +1308,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('key-original'),
@@ -1332,10 +1332,10 @@ void main() {
 
       test(
         'should dispose obsolute widgets',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1'),
@@ -1347,7 +1347,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 roEventHookRender: () => testStack.push('render 2'),
@@ -1359,7 +1359,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1'),
@@ -1385,10 +1385,10 @@ void main() {
 
       test(
         'should dispose obsolute widgets',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1'),
@@ -1405,7 +1405,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 roEventHookRender: () => testStack.push('render 2'),
@@ -1422,7 +1422,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1'),
@@ -1455,12 +1455,12 @@ void main() {
       );
 
       test(
-        '(multiple) should not add new widget if'
+        '(multiple) should not add new widget if '
         ': flagAddIfNotFound: false',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1a-1'),
@@ -1477,7 +1477,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 roEventHookRender: () => testStack.push('render 1b-1'),
@@ -1495,7 +1495,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 2a-1'),
@@ -1523,12 +1523,12 @@ void main() {
       );
 
       test(
-        '(multiple) should add new widget if'
+        '(multiple) should add new widget if '
         ': flagAddIfNotFound: true',
-        () {
+        () async {
           var testStack = RT_TestStack();
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render 1a-1'),
@@ -1550,7 +1550,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 roEventHookRender: () => testStack.push('render 1b-1'),
@@ -1573,7 +1573,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
                 key: Key('another widget'),

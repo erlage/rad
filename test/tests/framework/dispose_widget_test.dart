@@ -34,10 +34,10 @@ void main() {
       app!.stop();
     });
 
-    test('should dispose single widget', () {
+    test('should dispose single widget', () async {
       // build a test app widget with few child widgets to test
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_TestWidget(
             key: GlobalKey('widget'),
@@ -63,7 +63,7 @@ void main() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      app!.framework.disposeWidget(
+      await app!.disposeWidget(
         widgetObject: app!.services.walker.getWidgetObjectUsingKey('child-0-0'),
         flagPreserveTarget: false,
       );
@@ -79,10 +79,10 @@ void main() {
       );
     });
 
-    test('should dispose multiple widgets', () {
+    test('should dispose multiple widgets', () async {
       // build a test app widget with few child widgets to test
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_TestWidget(
             key: GlobalKey('widget'),
@@ -108,12 +108,12 @@ void main() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      app!.framework.disposeWidget(
+      await app!.disposeWidget(
         widgetObject: app!.services.walker.getWidgetObjectUsingKey('child-0-0'),
         flagPreserveTarget: false,
       );
 
-      app!.framework.disposeWidget(
+      await app!.disposeWidget(
         widgetObject: app!.services.walker.getWidgetObjectUsingKey('child-0-1'),
         flagPreserveTarget: false,
       );
@@ -133,8 +133,8 @@ void main() {
       );
     });
 
-    test('should dispose widgets recursively', () {
-      app!.framework.buildChildren(
+    test('should dispose widgets recursively', () async {
+      await app!.buildChildren(
         widgets: [
           RT_TestWidget(
             key: GlobalKey('widget'),
@@ -160,7 +160,7 @@ void main() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      app!.framework.disposeWidget(
+      await app!.disposeWidget(
         widgetObject: app!.services.walker.getWidgetObjectUsingKey('child-0'),
         flagPreserveTarget: false,
       );
@@ -184,8 +184,8 @@ void main() {
       );
     });
 
-    test('method call should be idempotent', () {
-      app!.framework.buildChildren(
+    test('method call should be idempotent', () async {
+      await app!.buildChildren(
         widgets: [
           RT_TestWidget(key: GlobalKey('widget')),
         ],
@@ -194,20 +194,22 @@ void main() {
 
       // widget should be ready for dispose by now
 
-      expect(null == app!.services.walker.getWidgetObjectUsingKey('widget'),
-          equals(false));
+      expect(
+        null == app!.services.walker.getWidgetObjectUsingKey('widget'),
+        equals(false),
+      );
 
-      app!.framework.disposeWidget(
+      await app!.disposeWidget(
         widgetObject: app!.services.walker.getWidgetObjectUsingKey('widget'),
         flagPreserveTarget: false,
       );
 
-      app!.framework.disposeWidget(
+      await app!.disposeWidget(
         widgetObject: app!.services.walker.getWidgetObjectUsingKey('widget'),
         flagPreserveTarget: false,
       );
 
-      app!.framework.disposeWidget(
+      await app!.disposeWidget(
         widgetObject: app!.services.walker.getWidgetObjectUsingKey('widget'),
         flagPreserveTarget: false,
       );
@@ -218,8 +220,8 @@ void main() {
       );
     });
 
-    test('should preserve target(parent) when asked to', () {
-      app!.framework.buildChildren(
+    test('should preserve target(parent) when asked to', () async {
+      await app!.buildChildren(
         widgets: [
           RT_TestWidget(
             key: GlobalKey('widget'),
@@ -245,7 +247,7 @@ void main() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      app!.framework.disposeWidget(
+      await app!.disposeWidget(
         widgetObject: app!.services.walker.getWidgetObjectUsingKey('child-0'),
         flagPreserveTarget: true,
       );
@@ -269,12 +271,13 @@ void main() {
       );
     });
 
-    test('should dispose existing widgets, in order, starting from bottom', () {
+    test('should dispose existing widgets, in order, starting from bottom',
+        () async {
       var testStack = RT_TestStack();
 
       // create app widget containing some child widgets to test
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_TestWidget(
             key: GlobalKey('widget'),
@@ -355,7 +358,7 @@ void main() {
       //    1-1        : d(6)
       //
 
-      app!.framework.disposeWidget(
+      await app!.disposeWidget(
         widgetObject: app!.services.walker.getWidgetObjectUsingKey('widget'),
         flagPreserveTarget: true,
       );

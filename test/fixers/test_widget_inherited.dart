@@ -2,17 +2,18 @@
 
 import '../test_imports.dart';
 
+/// A InheritedWidget that allows hooking its internals.
+///
 class RT_InheritedWidget extends InheritedWidget {
+  final String hash;
+
   final Callback? eventUpdateShouldNotify;
+  final bool Function()? overrideUpdateShouldNotify;
 
   final void Function({
     required RT_InheritedWidget calledOnWidget,
     required RT_InheritedWidget calledWithWidget,
   })? hookUpdateShouldNotify;
-
-  final bool Function()? overrideUpdateShouldNotify;
-
-  final String hash;
 
   RT_InheritedWidget({
     Key? key,

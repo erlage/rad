@@ -26,8 +26,8 @@ void main() {
 
       tearDown(() => app!.stop());
 
-      test('should render widgets in order', () {
-        app!.framework.updateChildren(
+      test('should render widgets in order', () async {
+        await app!.updateChildren(
           widgets: [
             Text('widget 1'),
             Text('widget 2'),
@@ -41,8 +41,8 @@ void main() {
 
       test(
         'should re-render widgets in order',
-        () {
-          app!.framework.updateChildren(
+        () async {
+          await app!.updateChildren(
             widgets: [
               Text('widget 1'),
               Text('widget 2'),
@@ -51,7 +51,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               Text('widget 1 updated'),
               Text('widget 2'),
@@ -65,7 +65,7 @@ void main() {
             RT_hasContents('widget 1 updated|widget 2'),
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               Text('widget 1'),
               Text('widget 2 updated'),
@@ -79,7 +79,7 @@ void main() {
             RT_hasContents('widget 1|widget 2 updated'),
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               Text('widget 1 updated'),
               Text('widget 2 updated'),
@@ -97,8 +97,8 @@ void main() {
 
       test(
         'should keep order if a new widget is appended',
-        () {
-          app!.framework.updateChildren(
+        () async {
+          await app!.updateChildren(
             widgets: [
               Text('widget 1'),
               Text('widget 2'),
@@ -107,7 +107,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               Text('widget 1'),
               Text('widget 2'),
@@ -126,8 +126,8 @@ void main() {
 
       test(
         'should re-order if a new widget is inserted',
-        () {
-          app!.framework.updateChildren(
+        () async {
+          await app!.updateChildren(
             widgets: [
               Text('widget 1'),
               Text('widget 2'),
@@ -136,7 +136,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               Text('widget 1'),
               Division(innerText: 'widget 3'),
@@ -155,8 +155,8 @@ void main() {
 
       test(
         'should respect order in which new widgets are recieved',
-        () {
-          app!.framework.updateChildren(
+        () async {
+          await app!.updateChildren(
             widgets: [
               Text('widget 1'),
               Text('widget 2'),
@@ -165,7 +165,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          app!.framework.updateChildren(
+          await app!.updateChildren(
             widgets: [
               Text('widget 2'),
               Text('widget 1'),
@@ -173,12 +173,14 @@ void main() {
             parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
+
           expect(RT_TestBed.rootElement, RT_hasContents('widget 2|widget 1'));
         },
       );
 
-      test('should respect order in which new keyed widgets are recieved', () {
-        app!.framework.updateChildren(
+      test('should respect order in which new keyed widgets are recieved',
+          () async {
+        await app!.updateChildren(
           widgets: [
             Text('widget 1'),
             Text('widget 2', key: Key('widget 2')),
@@ -187,7 +189,7 @@ void main() {
           updateType: UpdateType.undefined,
         );
 
-        app!.framework.updateChildren(
+        await app!.updateChildren(
           widgets: [
             Text('widget 2', key: Key('widget 2')),
             Text('widget 1'),
@@ -195,6 +197,7 @@ void main() {
           parentContext: app!.appContext,
           updateType: UpdateType.undefined,
         );
+
         expect(RT_TestBed.rootElement, RT_hasContents('widget 2|widget 1'));
       });
 

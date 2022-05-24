@@ -2,14 +2,14 @@
 
 class RT_ButtonTypes {
   static const implemented = [
-    "button",
-    "submit",
-    "reset",
+    'button',
+    'submit',
+    'reset',
   ];
 
   static const available = [
-    "button",
-    "submit",
-    "reset",
+    'button',
+    'submit',
+    'reset',
   ];
 }

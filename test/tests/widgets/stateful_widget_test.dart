@@ -8,7 +8,7 @@ void main() {
       ServicesRegistry.instance.unRegisterServices(RT_TestBed.rootContext);
     });
 
-    test('should bind widget before initState', () async {
+    test('should bind widget before initState, type test', () async {
       runApp(
         app: RT_StatefulTestWidget(
           key: GlobalKey('widget'),
@@ -22,7 +22,7 @@ void main() {
       await Future.delayed(Duration.zero);
     });
 
-    test('should bind widget before initState', () {
+    test('should bind widget before initState, key test', () async {
       runApp(
         app: RT_StatefulTestWidget(
           key: GlobalKey('widget'),
@@ -32,6 +32,8 @@ void main() {
         ),
         targetId: RT_TestBed.rootKey.value,
       );
+
+      await Future.delayed(Duration.zero);
     });
 
     test(
@@ -56,6 +58,8 @@ void main() {
             ),
           ),
         );
+
+        await Future.delayed(Duration.zero);
       },
     );
 
@@ -81,6 +85,8 @@ void main() {
             ),
           ),
         );
+
+        await Future.delayed(Duration.zero);
       },
     );
 
@@ -190,7 +196,7 @@ void main() {
 
         var app = createTestApp()..start();
 
-        app.framework.buildChildren(
+        await app.buildChildren(
           widgets: [
             RT_StatefulTestWidget(
               customHash: 'old',
@@ -214,42 +220,35 @@ void main() {
           parentContext: app.appContext,
         );
 
-        await Future.delayed(Duration.zero, () {
-          app.framework.updateChildren(
-            widgets: [
-              RT_StatefulTestWidget(
-                customHash: 'new',
-                stateEventCreateState: () => testStack.push('create state 1b'),
-                stateEventInitState: () => testStack.push('init state 1b'),
-                stateEventBuild: () => testStack.push('build-${i++} 1b'),
-                stateEventDidUpdateWidget: () => testStack.push(
-                  'did update widget 1b',
-                ),
-                stateHookDidUpdateWidget: (state, widget) {
-                  throw "should never gets called";
-                },
-                stateEventDidChangeDependencies: () => testStack.push(
-                  'did change dependencies 1b',
-                ),
+        await app.updateChildren(
+          widgets: [
+            RT_StatefulTestWidget(
+              customHash: 'new',
+              stateEventCreateState: () => testStack.push('create state 1b'),
+              stateEventInitState: () => testStack.push('init state 1b'),
+              stateEventBuild: () => testStack.push('build-${i++} 1b'),
+              stateEventDidUpdateWidget: () => testStack.push(
+                'did update widget 1b',
               ),
-            ],
-            updateType: UpdateType.undefined,
-            parentContext: app.appContext,
-          );
-        });
+              stateHookDidUpdateWidget: (state, widget) {
+                throw Exception('should never gets called');
+              },
+              stateEventDidChangeDependencies: () => testStack.push(
+                'did change dependencies 1b',
+              ),
+            ),
+          ],
+          updateType: UpdateType.undefined,
+          parentContext: app.appContext,
+        );
 
-        await Future.delayed(Duration.zero, () {
-          expect(testStack.popFromStart(), equals('create state 1a'));
-          expect(testStack.popFromStart(), equals('init state 1a'));
-          expect(
-            testStack.popFromStart(),
-            equals('did change dependencies 1a'),
-          );
-          expect(testStack.popFromStart(), equals('build-1 1a'));
-          expect(testStack.popFromStart(), equals('did update widget 1a'));
-          expect(testStack.popFromStart(), equals('build-2 1a'));
-          expect(testStack.canPop(), equals(false));
-        });
+        expect(testStack.popFromStart(), equals('create state 1a'));
+        expect(testStack.popFromStart(), equals('init state 1a'));
+        expect(testStack.popFromStart(), equals('did change dependencies 1a'));
+        expect(testStack.popFromStart(), equals('build-1 1a'));
+        expect(testStack.popFromStart(), equals('did update widget 1a'));
+        expect(testStack.popFromStart(), equals('build-2 1a'));
+        expect(testStack.canPop(), equals(false));
       },
     );
 
@@ -258,7 +257,7 @@ void main() {
 
       var app = createTestApp()..start();
 
-      app.framework.buildChildren(
+      await app.buildChildren(
         widgets: [
           RT_StatefulTestWidget(
             key: GlobalKey('old'),
@@ -277,47 +276,39 @@ void main() {
         parentContext: app.appContext,
       );
 
-      await Future.delayed(Duration.zero, () {
-        app.framework.updateChildren(
-          widgets: [
-            RT_StatefulTestWidget(
-              key: GlobalKey('new'),
-              stateEventCreateState: () => testStack.push('create state 1b'),
-              stateEventInitState: () => testStack.push('init state 1b'),
-              stateEventBuild: () => testStack.push('build 1b'),
-              stateEventDidUpdateWidget: () => testStack.push(
-                'did update widget 1b',
-              ),
-              stateEventDidChangeDependencies: () => testStack.push(
-                'did change dependencies 1b',
-              ),
-              stateEventDispose: () => testStack.push('dispose 1b'),
+      await app.updateChildren(
+        widgets: [
+          RT_StatefulTestWidget(
+            key: GlobalKey('new'),
+            stateEventCreateState: () => testStack.push('create state 1b'),
+            stateEventInitState: () => testStack.push('init state 1b'),
+            stateEventBuild: () => testStack.push('build 1b'),
+            stateEventDidUpdateWidget: () => testStack.push(
+              'did update widget 1b',
             ),
-          ],
-          updateType: UpdateType.undefined,
-          parentContext: app.appContext,
-        );
-      });
+            stateEventDidChangeDependencies: () => testStack.push(
+              'did change dependencies 1b',
+            ),
+            stateEventDispose: () => testStack.push('dispose 1b'),
+          ),
+        ],
+        updateType: UpdateType.undefined,
+        parentContext: app.appContext,
+      );
 
-      await Future.delayed(Duration.zero, () {
-        expect(testStack.popFromStart(), equals('create state 1a'));
-        expect(testStack.popFromStart(), equals('init state 1a'));
-        expect(
-          testStack.popFromStart(),
-          equals('did change dependencies 1a'),
-        );
-        expect(testStack.popFromStart(), equals('build 1a'));
-        expect(testStack.popFromStart(), equals('dispose 1a'));
-        // after dispose
-        expect(testStack.popFromStart(), equals('create state 1b'));
-        expect(testStack.popFromStart(), equals('init state 1b'));
-        expect(
-          testStack.popFromStart(),
-          equals('did change dependencies 1b'),
-        );
-        expect(testStack.popFromStart(), equals('build 1b'));
-        expect(testStack.canPop(), equals(false));
-      });
+      expect(testStack.popFromStart(), equals('create state 1a'));
+      expect(testStack.popFromStart(), equals('init state 1a'));
+      expect(testStack.popFromStart(), equals('did change dependencies 1a'));
+      expect(testStack.popFromStart(), equals('build 1a'));
+      expect(testStack.popFromStart(), equals('dispose 1a'));
+
+      // after dispose
+
+      expect(testStack.popFromStart(), equals('create state 1b'));
+      expect(testStack.popFromStart(), equals('init state 1b'));
+      expect(testStack.popFromStart(), equals('did change dependencies 1b'));
+      expect(testStack.popFromStart(), equals('build 1b'));
+      expect(testStack.canPop(), equals(false));
     });
 
     //
@@ -335,7 +326,7 @@ void main() {
     test('should build widgets in order', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_StatefulTestWidget(
             stateEventBuild: () => testStack.push('build-1a'),
@@ -350,19 +341,17 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      await Future.delayed(Duration.zero, () {
-        expect(testStack.popFromStart(), equals('build-1a'));
-        expect(testStack.popFromStart(), equals('build-1b'));
-        expect(testStack.popFromStart(), equals('build-1c'));
+      expect(testStack.popFromStart(), equals('build-1a'));
+      expect(testStack.popFromStart(), equals('build-1b'));
+      expect(testStack.popFromStart(), equals('build-1c'));
 
-        expect(testStack.canPop(), equals(false));
-      });
+      expect(testStack.canPop(), equals(false));
     });
 
     test('should update widgets in order', () async {
       var testStack = RT_TestStack();
 
-      app!.framework.buildChildren(
+      await app!.buildChildren(
         widgets: [
           RT_StatefulTestWidget(
             stateEventBuild: () => testStack.push('build-a'),
@@ -377,7 +366,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.framework.updateChildren(
+      await app!.updateChildren(
         widgets: [
           RT_StatefulTestWidget(),
           RT_StatefulTestWidget(),
@@ -387,19 +376,17 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      await Future.delayed(Duration.zero, () {
-        expect(testStack.popFromStart(), equals('build-a'));
-        expect(testStack.popFromStart(), equals('build-b'));
-        expect(testStack.popFromStart(), equals('build-c'));
+      expect(testStack.popFromStart(), equals('build-a'));
+      expect(testStack.popFromStart(), equals('build-b'));
+      expect(testStack.popFromStart(), equals('build-c'));
 
-        // stateful widgets always call build on previous state object
+      // stateful widgets always call build on previous state object
 
-        expect(testStack.popFromStart(), equals('build-a'));
-        expect(testStack.popFromStart(), equals('build-b'));
-        expect(testStack.popFromStart(), equals('build-c'));
+      expect(testStack.popFromStart(), equals('build-a'));
+      expect(testStack.popFromStart(), equals('build-b'));
+      expect(testStack.popFromStart(), equals('build-c'));
 
-        expect(testStack.canPop(), equals(false));
-      });
+      expect(testStack.canPop(), equals(false));
     });
   });
 }
