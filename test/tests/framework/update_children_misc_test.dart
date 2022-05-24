@@ -552,6 +552,109 @@ void main() {
         },
       );
 
+      test(
+        'should rebind widget instance if configuration has changed',
+        () async {
+          await app!.buildChildren(
+            widgets: [
+              RT_TestWidget(
+                customHash: '1a',
+                key: GlobalKey('widget'),
+                wOverrideIsConfigurationChanged: () => true,
+              ),
+            ],
+            parentContext: app!.appContext,
+          );
+
+          var widgetObject = app!.widgetObjectByGlobalKey('widget');
+          expect((widgetObject.widget as RT_TestWidget).hash, equals('1a'));
+
+          await app!.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                customHash: '2a',
+                key: GlobalKey('widget'),
+                wOverrideIsConfigurationChanged: () => true,
+              ),
+            ],
+            updateType: UpdateType.setState,
+            parentContext: app!.appContext,
+          );
+
+          expect((widgetObject.widget as RT_TestWidget).hash, equals('2a'));
+
+          await app!.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                customHash: '3a',
+                key: GlobalKey('widget'),
+                wOverrideIsConfigurationChanged: () => true,
+              ),
+            ],
+            updateType: UpdateType.setState,
+            parentContext: app!.appContext,
+          );
+
+          expect((widgetObject.widget as RT_TestWidget).hash, equals('3a'));
+        },
+      );
+
+      test(
+        'should rebind widget instance even if configuration has not changed',
+        () async {
+          // Rebinding isn't required if both(old and new) instances of widget
+          // are same, e.g in const costructors. But in all other cases
+          // framework must update widget instance, even if widget's
+          // configuration hasn't changed. This is because some properties of
+          // widget are not part of widget's configuration such as
+          // widgetChildren, widgetEventListeners. instead these properties are
+          // checked at framework side. updating instance will ensure that
+          // framework is dealing with at-least correct values.
+
+          await app!.buildChildren(
+            widgets: [
+              RT_TestWidget(
+                customHash: '1a',
+                key: GlobalKey('widget'),
+                wOverrideIsConfigurationChanged: () => false,
+              ),
+            ],
+            parentContext: app!.appContext,
+          );
+
+          var widgetObject = app!.widgetObjectByGlobalKey('widget');
+          expect((widgetObject.widget as RT_TestWidget).hash, equals('1a'));
+
+          await app!.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                customHash: '2a',
+                key: GlobalKey('widget'),
+                wOverrideIsConfigurationChanged: () => false,
+              ),
+            ],
+            updateType: UpdateType.setState,
+            parentContext: app!.appContext,
+          );
+
+          expect((widgetObject.widget as RT_TestWidget).hash, equals('2a'));
+
+          await app!.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                customHash: '3a',
+                key: GlobalKey('widget'),
+                wOverrideIsConfigurationChanged: () => false,
+              ),
+            ],
+            updateType: UpdateType.setState,
+            parentContext: app!.appContext,
+          );
+
+          expect((widgetObject.widget as RT_TestWidget).hash, equals('3a'));
+        },
+      );
+
       // widgets matching tests
 
       test(
