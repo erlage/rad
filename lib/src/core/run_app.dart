@@ -148,7 +148,7 @@ class AppRunner {
   }
 
   void _prepareMount() {
-    var targetElement = document.getElementById(targetId) as HtmlElement?;
+    var targetElement = document.getElementById(targetId);
 
     if (null == targetElement) {
       throw Exception('Unable to locate target element in HTML document');
