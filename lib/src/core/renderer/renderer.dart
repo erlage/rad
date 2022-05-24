@@ -557,9 +557,9 @@ class Renderer with ServicesResolver {
         if (oldWidget == newWidget) {
           if (services.debug.frameworkLogs) {
             print('Short-circuit: ${widgetObject.context}');
-
-            return;
           }
+
+          return;
         }
       }
 
