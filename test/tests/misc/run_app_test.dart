@@ -23,5 +23,19 @@ void main() {
         expect(RT_TestBed.rootElement, RT_hasContents('hello world'));
       });
     });
+
+    test('should throw if target not found', () async {
+      expect(
+        () => runApp(
+          app: Text('hello world'),
+          targetId: 'some-non-existent-target',
+        ),
+        throwsA(
+          predicate(
+            (e) => '$e'.startsWith('Exception: Unable to locate target'),
+          ),
+        ),
+      );
+    });
   });
 }
