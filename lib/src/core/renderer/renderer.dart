@@ -85,6 +85,10 @@ class Renderer with ServicesResolver {
         ..renderObject.afterMount();
     });
 
+    if (services.debug.widgetLogs) {
+      print('Build widget: $context');
+    }
+
     return widgetObject;
   }
 
