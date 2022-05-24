@@ -34,6 +34,67 @@ void main() {
       app!.stop();
     });
 
+    test('should dispose widget', () async {
+      await app!.buildChildren(
+        widgets: [
+          RT_TestWidget(key: GlobalKey('el-1'), children: [Text('widget-1')]),
+          RT_TestWidget(key: GlobalKey('el-2'), children: [Text('widget-2')]),
+          RT_TestWidget(key: GlobalKey('el-3'), children: [Text('widget-3')]),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      await app!.disposeWidget(
+        widgetObject: app!.services.walker.getWidgetObjectUsingKey('el-2'),
+        flagPreserveTarget: false,
+      );
+
+      expect(
+        RT_TestBed.rootElement,
+        RT_hasContents('widget-1|widget-3'),
+      );
+    });
+
+    test('should dispose widgets if updated children list is empty', () async {
+      await app!.buildChildren(
+        widgets: [
+          RT_TestWidget(
+            key: GlobalKey('el-1'),
+            children: [],
+          ),
+        ],
+        parentContext: app!.appContext,
+      );
+      expect(RT_TestBed.rootElement, RT_hasContents(''));
+
+      await app!.updateChildren(
+        widgets: [
+          RT_TestWidget(
+            key: GlobalKey('el-1'),
+            children: [
+              RT_TestWidget(key: GlobalKey('child-1'), children: [Text('1')]),
+              RT_TestWidget(key: GlobalKey('child-2'), children: [Text('2')]),
+              RT_TestWidget(key: GlobalKey('child-3'), children: [Text('3')]),
+            ],
+          ),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      expect(RT_TestBed.rootElement, RT_hasContents('1|2|3'));
+
+      await app!.updateChildren(
+        widgets: [
+          RT_TestWidget(key: GlobalKey('el-1')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      expect(RT_TestBed.rootElement, RT_hasContents(''));
+    });
+
     test('should dispose single widget', () async {
       // build a test app widget with few child widgets to test
 
