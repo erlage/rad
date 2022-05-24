@@ -575,6 +575,10 @@ class Renderer with ServicesResolver {
       var isChanged = newWidget.isConfigurationChanged(oldConfiguration);
 
       if (isChanged) {
+        if (services.debug.frameworkLogs) {
+          print('Update widget: ${widgetObject.context}');
+        }
+
         var newConfiguration = newWidget.createConfiguration();
 
         widgetObject
