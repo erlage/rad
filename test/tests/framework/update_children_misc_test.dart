@@ -432,6 +432,97 @@ void main() {
         },
       );
 
+      test('should check childs if parent configuration is changed', () {
+        var testStack = RT_TestStack();
+
+        app!.framework.buildChildren(
+          widgets: [
+            RT_TestWidget(
+              roEventHookRender: () => testStack.push('render parent'),
+              roEventHookUpdate: () => testStack.push('update parent'),
+              wOverrideIsConfigurationChanged: () => true,
+              children: [
+                RT_TestWidget(
+                  roEventHookRender: () => testStack.push('render child'),
+                  roEventHookUpdate: () => testStack.push('update child'),
+                )
+              ],
+            ),
+          ],
+          parentContext: app!.appContext,
+        );
+
+        app!.framework.updateChildren(
+          widgets: [
+            RT_TestWidget(
+              roEventHookRender: () => testStack.push('render parent'),
+              roEventHookUpdate: () => testStack.push('update parent'),
+              wOverrideIsConfigurationChanged: () => true,
+              children: [
+                RT_TestWidget(
+                  roEventHookRender: () => testStack.push('render child'),
+                  roEventHookUpdate: () => testStack.push('update child'),
+                )
+              ],
+            ),
+          ],
+          updateType: UpdateType.setState,
+          parentContext: app!.appContext,
+        );
+
+        expect(testStack.popFromStart(), equals('render parent'));
+        expect(testStack.popFromStart(), equals('render child'));
+        expect(testStack.popFromStart(), equals('update parent'));
+        expect(testStack.popFromStart(), equals('update child'));
+
+        expect(testStack.canPop(), equals(false));
+      });
+
+      test('should check childs if parent configuration is not changed', () {
+        var testStack = RT_TestStack();
+
+        app!.framework.buildChildren(
+          widgets: [
+            RT_TestWidget(
+              roEventHookRender: () => testStack.push('render parent'),
+              roEventHookUpdate: () => testStack.push('update parent'),
+              wOverrideIsConfigurationChanged: () => false,
+              children: [
+                RT_TestWidget(
+                  roEventHookRender: () => testStack.push('render child'),
+                  roEventHookUpdate: () => testStack.push('update child'),
+                )
+              ],
+            ),
+          ],
+          parentContext: app!.appContext,
+        );
+
+        app!.framework.updateChildren(
+          widgets: [
+            RT_TestWidget(
+              roEventHookRender: () => testStack.push('render parent'),
+              roEventHookUpdate: () => testStack.push('update parent'),
+              wOverrideIsConfigurationChanged: () => false,
+              children: [
+                RT_TestWidget(
+                  roEventHookRender: () => testStack.push('render child'),
+                  roEventHookUpdate: () => testStack.push('update child'),
+                )
+              ],
+            ),
+          ],
+          updateType: UpdateType.setState,
+          parentContext: app!.appContext,
+        );
+
+        expect(testStack.popFromStart(), equals('render parent'));
+        expect(testStack.popFromStart(), equals('render child'));
+        expect(testStack.popFromStart(), equals('update child'));
+
+        expect(testStack.canPop(), equals(false));
+      });
+
       // widgets matching tests
 
       test(
