@@ -558,6 +558,56 @@ void main() {
         expect(testStack.canPop(), equals(false));
       });
 
+      test(
+        'should add/dispose childs depending on updated children list',
+        () async {
+          await app!.buildChildren(
+            widgets: [
+              RT_TestWidget(
+                key: GlobalKey('widget'),
+                wOverrideIsConfigurationChanged: () => false,
+                children: [],
+              ),
+            ],
+            parentContext: app!.appContext,
+          );
+
+          expect(RT_TestBed.rootElement, RT_hasContents(''));
+
+          await app!.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                key: GlobalKey('widget'),
+                wOverrideIsConfigurationChanged: () => false,
+                children: [
+                  Text('a'),
+                  Text('b'),
+                  Text('c'),
+                ],
+              ),
+            ],
+            updateType: UpdateType.setState,
+            parentContext: app!.appContext,
+          );
+
+          expect(RT_TestBed.rootElement, RT_hasContents('a|b|c'));
+
+          await app!.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                key: GlobalKey('widget'),
+                wOverrideIsConfigurationChanged: () => false,
+                children: [],
+              ),
+            ],
+            updateType: UpdateType.setState,
+            parentContext: app!.appContext,
+          );
+
+          expect(RT_TestBed.rootElement, RT_hasContents(''));
+        },
+      );
+
       // widgets matching tests
 
       test(
