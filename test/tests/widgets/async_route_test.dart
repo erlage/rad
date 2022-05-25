@@ -408,6 +408,8 @@ void main() {
       expect(testStack.popFromStart(), equals('failed'));
       expect(testStack.popFromStart(), equals('trying'));
       expect(testStack.popFromStart(), equals('loaded'));
+
+      expect(testStack.canPop(), equals(false));
     });
   });
 }
