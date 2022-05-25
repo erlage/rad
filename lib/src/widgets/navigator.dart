@@ -644,6 +644,10 @@ class NavigatorState with ServicesResolver {
   /// Go back.
   ///
   void back() {
+    if (_historyStack.length < 2) {
+      services.debug.exception('Navigator: No previous route to go back.');
+    }
+
     var previousPage = _historyStack.removeLast();
 
     frameworkUpdateCurrentName(_historyStack.last.name);
