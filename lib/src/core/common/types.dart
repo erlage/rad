@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:html';
 
 import 'package:rad/src/core/common/enums.dart';
@@ -21,7 +22,7 @@ typedef NavigatorRouteChangeCallback = void Function(String name);
 
 typedef NavigatorStateCallback = void Function(NavigatorState state);
 
-typedef AsyncWidgetBuilderCallback = Future<Widget> Function();
+typedef AsyncWidgetBuilderCallback = FutureOr<Widget> Function();
 
 typedef WidgetBuilderContextualCallback = Widget Function(BuildContext context);
 

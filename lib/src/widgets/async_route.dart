@@ -213,7 +213,7 @@ class __AsyncRouteBuilderState extends State<_AsyncRouteBuilder> {
     _isBuilderFailed = false;
 
     var builder = widget.builder;
-    var future = widget.builder();
+    var futureOrWidget = widget.builder();
 
     if (null != widget.waitingRoute) {
       Navigator.of(context).open(
@@ -223,10 +223,14 @@ class __AsyncRouteBuilderState extends State<_AsyncRouteBuilder> {
       );
     }
 
-    future.then(
-      (createdWidget) => _handleWidget(builder, createdWidget),
-      onError: _handleError,
-    );
+    if (futureOrWidget is Widget) {
+      _handleWidget(builder, futureOrWidget);
+    } else {
+      futureOrWidget.then(
+        (createdWidget) => _handleWidget(builder, createdWidget),
+        onError: _handleError,
+      );
+    }
   }
 
   void _handleWidget(AsyncWidgetBuilderCallback builder, Widget createdWidget) {
