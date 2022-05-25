@@ -504,7 +504,7 @@ class NavigatorState with ServicesResolver {
   ///
   final pathToRouteMap = <String, Route>{};
 
-  // Name of the active route. Route, that's currently on top of
+  /// Name of the active route. Route, that's currently on top of
   /// Navigator stack.
   ///
   String get currentRouteName => _currentName;
@@ -537,11 +537,6 @@ class NavigatorState with ServicesResolver {
   ///
   /// Will throw exception if Navigator doesn't have a route with the provided
   /// name.
-  ///
-  /// If [name] is prefixed with a forward slash '/', and if current navigator
-  /// doesn't have a matching named route, then it'll delegate open call to a
-  /// parent navigator(if exists). If there are no navigator in ancestors, it'll
-  /// throw an exception.
   ///
   void open({
     required String name,
