@@ -57,7 +57,7 @@ abstract class StatelessWidget extends Widget {
 */
 
 class _StatelessWidgetConfiguration extends WidgetConfiguration {
-  final WidgetBuilderCallback widgetBuilder;
+  final WidgetBuilderContextualCallback widgetBuilder;
 
   const _StatelessWidgetConfiguration(this.widgetBuilder);
 }

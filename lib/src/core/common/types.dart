@@ -21,9 +21,9 @@ typedef NavigatorRouteChangeCallback = void Function(String name);
 
 typedef NavigatorStateCallback = void Function(NavigatorState state);
 
-typedef WidgetBuilderCallback = Widget Function(BuildContext context);
-
 typedef AsyncWidgetBuilderCallback = Future<Widget> Function();
+
+typedef WidgetBuilderContextualCallback = Widget Function(BuildContext context);
 
 typedef ExceptionCallback = void Function(Exception event);
 
