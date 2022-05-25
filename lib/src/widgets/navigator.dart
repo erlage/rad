@@ -739,6 +739,20 @@ class NavigatorState with ServicesResolver {
 
     for (final route in routes) {
       if (services.debug.additionalChecks) {
+        if (RegExp(r'^ *$').hasMatch(route.name)) {
+          if (route.name.isEmpty) {
+            return services.debug.exception(
+              "Navigator's Route's name can't be empty."
+              '\n Route: ${route.name} -> ${route.name} is not allowed',
+            );
+          }
+
+          return services.debug.exception(
+            "Navigator's Route's name cannot contain empty spaces."
+            '\n Route: ${route.name} -> ${route.path} is not allowed',
+          );
+        }
+
         if (!RegExp(r'^[a-zA-Z0-9_\-]+$').hasMatch(route.path)) {
           if (route.path.isEmpty) {
             return services.debug.exception(
