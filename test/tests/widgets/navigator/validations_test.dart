@@ -23,6 +23,26 @@ void main() {
 
     tearDown(() => app!.stop());
 
+    test('should throw if routes list is empty', () {
+      expect(
+        () => app!.buildChildren(
+          widgets: [
+            Navigator(
+              routes: [],
+            ),
+          ],
+          parentContext: app!.appContext,
+        ),
+        throwsA(
+          predicate(
+            (e) => '$e'.startsWith(
+              'Exception: Navigator instance must have at least one route',
+            ),
+          ),
+        ),
+      );
+    });
+
     test('should throw if name is empty', () {
       expect(
         () => app!.buildChildren(
@@ -242,6 +262,17 @@ void main() {
     });
 
     tearDown(() => app!.stop());
+
+    test('should not throw if routes list is empty', () async {
+      await app!.buildChildren(
+        widgets: [
+          Navigator(
+            routes: [],
+          ),
+        ],
+        parentContext: app!.appContext,
+      );
+    });
 
     test('should not throw if name is empty', () async {
       await app!.buildChildren(
