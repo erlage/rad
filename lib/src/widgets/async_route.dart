@@ -214,20 +214,20 @@ class __AsyncRouteBuilderState extends State<_AsyncRouteBuilder> {
 
     var builder = widget.builder;
 
-    if (null != widget.waitingRoute) {
-      Navigator.of(context).open(
-        name: widget.waitingRoute!,
-        values: {'': widget.name},
-        updateHistory: widget.enableWaitingHistory,
-      );
-    }
-
     try {
       var futureOrWidget = widget.builder();
 
       if (futureOrWidget is Widget) {
         _handleWidget(builder, futureOrWidget);
       } else {
+        if (null != widget.waitingRoute) {
+          Navigator.of(context).open(
+            name: widget.waitingRoute!,
+            values: {'': widget.name},
+            updateHistory: widget.enableWaitingHistory,
+          );
+        }
+
         futureOrWidget.then(
           (createdWidget) => _handleWidget(builder, createdWidget),
           onError: _handleError,
