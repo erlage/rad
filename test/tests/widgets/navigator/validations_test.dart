@@ -183,7 +183,7 @@ void main() {
             Navigator(
               routes: [
                 Route(name: 'route-1', page: Text('route-1')),
-                AsyncRoute(name: 'route-1', page: () async => Text('route-2')),
+                AsyncRoute(name: 'route-1', page: () => Text('route-2')),
               ],
             ),
           ],
@@ -345,7 +345,7 @@ void main() {
           Navigator(
             routes: [
               Route(name: 'route-1', page: Text('route-1')),
-              AsyncRoute(name: 'route-1', page: () async => Text('route-2')),
+              AsyncRoute(name: 'route-1', page: () => Text('route-2')),
             ],
           ),
         ],

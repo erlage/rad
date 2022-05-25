@@ -21,7 +21,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           Navigator(routes: [
-            AsyncRoute(name: 'some', page: () async => Text('contents')),
+            AsyncRoute(name: 'some', page: () => Text('contents')),
           ]),
         ],
         parentContext: app!.appContext,
@@ -37,7 +37,7 @@ void main() {
             AsyncRoute(
               key: GlobalKey('a'),
               name: 'some',
-              page: () async => Text('a'),
+              page: () => Text('a'),
             ),
           ]),
         ],
@@ -57,7 +57,7 @@ void main() {
               key: GlobalKey('a'),
               name: 'some',
               path: 'path',
-              page: () async => Text('a'),
+              page: () => Text('a'),
             ),
           ]),
         ],
@@ -155,7 +155,7 @@ void main() {
               AsyncRoute(
                 name: 'async-route',
                 errorRoute: 'error-route',
-                page: () async => throw Exception(),
+                page: () => throw Exception(),
               ),
               Route(name: 'error-route', page: Text('error route contents')),
             ],
@@ -180,7 +180,7 @@ void main() {
                 name: 'async-route',
                 errorRoute: 'error-route',
                 errorPlaceholderWidget: Text('error widget contents'),
-                page: () async => throw Exception(),
+                page: () => throw Exception(),
               ),
               Route(name: 'error-route', page: Text('error route contents')),
             ],
@@ -243,7 +243,7 @@ void main() {
                 name: 'async-route',
                 enableErrorHistory: false,
                 errorRoute: 'error-route',
-                page: () async => throw Exception(),
+                page: () => throw Exception(),
               ),
               Route(name: 'error-route', page: Text('error route contents')),
             ],
@@ -268,7 +268,7 @@ void main() {
                 name: 'async-route',
                 enableErrorHistory: true,
                 errorRoute: 'error-route',
-                page: () async => throw Exception(),
+                page: () => throw Exception(),
               ),
               Route(name: 'error-route', page: Text('error route contents')),
             ],
