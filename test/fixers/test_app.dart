@@ -57,6 +57,7 @@ class RT_AppRunner {
 
   void start() {
     this
+      .._clearPossibleState()
       .._createRootContext()
       .._prepareOptions()
       .._setupDelegates()
@@ -71,6 +72,12 @@ class RT_AppRunner {
     this
       .._disposeFrameworkInstance()
       .._stopServices();
+  }
+
+  void _clearPossibleState() {
+    // clear location
+
+    window.history.pushState('', '/', '/');
   }
 
   void _createRootContext() {
