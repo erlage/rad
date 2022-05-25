@@ -100,6 +100,7 @@ class AsyncRoute extends Route {
   /// Create AsyncRoute with [name], and associate route with [page] builder.
   ///
   AsyncRoute({
+    Key? key,
     this.errorRoute,
     this.waitingRoute,
     this.keepInitialBuilder = true,
@@ -113,6 +114,7 @@ class AsyncRoute extends Route {
     required AsyncWidgetBuilderCallback page,
   })  : builder = page,
         super(
+          key: key,
           name: name,
           path: path,
           page: _AsyncRouteBuilder(
