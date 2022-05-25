@@ -5,6 +5,7 @@ export 'package:rad/widgets_html.dart';
 export 'package:rad/widgets_async.dart';
 export 'package:rad/widgets_internals.dart';
 export 'package:rad/src/core/common/functions.dart';
+export 'package:rad/src/widgets/navigator.dart';
 
 export 'package:test/expect.dart';
 export 'package:test/scaffolding.dart';
