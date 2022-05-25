@@ -269,6 +269,8 @@ class __AsyncRouteBuilderState extends State<_AsyncRouteBuilder> {
         values: {'': widget.name},
         updateHistory: widget.enableErrorHistory,
       );
+    } else {
+      setState(() {});
     }
   }
 }
