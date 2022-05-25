@@ -212,6 +212,7 @@ Below is the list of available widgets in this framework.
 , [IFrame](https://pub.dev/documentation/rad/latest/rad/IFrame-class.html)
 , [Idiomatic](https://pub.dev/documentation/rad/latest/rad/Idiomatic-class.html)
 , [Image](https://pub.dev/documentation/rad/latest/rad/Image-class.html)
+, [Input](https://pub.dev/documentation/rad/latest/rad/Input-class.html)
 , [InputCheckBox](https://pub.dev/documentation/rad/latest/rad/InputCheckBox-class.html)
 , [InputFile](https://pub.dev/documentation/rad/latest/rad/InputFile-class.html)
 , [InputRadio](https://pub.dev/documentation/rad/latest/rad/InputRadio-class.html)
