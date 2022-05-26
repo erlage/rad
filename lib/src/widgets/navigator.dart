@@ -731,12 +731,14 @@ class NavigatorState with ServicesResolver {
 
   @protected
   void frameworkInitState() {
-    if (services.debug.additionalChecks) {
-      if (widget.routes.isEmpty) {
-        return services.debug.exception(
+    if (widget.routes.isEmpty) {
+      if (services.debug.additionalChecks) {
+        services.debug.exception(
           'Navigator instance must have at least one route.',
         );
       }
+
+      return;
     }
 
     routes.addAll(widget.routes);
@@ -794,6 +796,10 @@ class NavigatorState with ServicesResolver {
 
   @protected
   void frameworkRender() {
+    if (widget.routes.isEmpty) {
+      return;
+    }
+
     var name = services.router.getPath(context.key.value);
 
     var needsReplacement = name.isEmpty;
@@ -824,6 +830,10 @@ class NavigatorState with ServicesResolver {
 
   @protected
   void frameworkUpdate(UpdateType updateType) {
+    if (widget.routes.isEmpty) {
+      return;
+    }
+
     services.scheduler.addTask(
       WidgetsManageTask(
         parentContext: context,
