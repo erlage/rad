@@ -39,4 +39,10 @@ abstract class WindowDelegate {
     required String url,
     required BuildContext context,
   });
+
+  /// Issue a back action, dynamically.
+  ///
+  void historyBack({
+    required BuildContext context,
+  });
 }

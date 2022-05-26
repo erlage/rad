@@ -58,6 +58,13 @@ class BrowserWindow extends WindowDelegate {
     window.history.replaceState(context.appTargetId, title, url);
   }
 
+  @override
+  historyBack({
+    required context,
+  }) {
+    window.history.back();
+  }
+
   void _psEnsureListening() {
     if (_psIsListening) return;
 

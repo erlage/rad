@@ -188,6 +188,12 @@ class RouterService extends Service {
     _routerStack.push(entry);
   }
 
+  /// Mannually dispatch a back action.
+  ///
+  void dispatchBackAction() {
+    Window.delegate.historyBack(context: rootContext);
+  }
+
   /// Get current path based on Navigator's access.
   ///
   /// Returns empty string, if matches nothing. Navigators should display
