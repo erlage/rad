@@ -183,6 +183,14 @@ class RT_AppRunner {
   ///
   Element elementById(String id) => document.getElementById(id)!;
 
+  /// Get state of navigator with global key.
+  ///
+  NavigatorState navigatorState(String key) {
+    var wo = widgetObjectByGlobalKey(key);
+
+    return (wo.renderObject as NavigatorRenderObject).state;
+  }
+
   Future<void> buildChildren({
     required List<Widget> widgets,
     required BuildContext parentContext,
@@ -241,5 +249,23 @@ class RT_AppRunner {
     );
 
     await Future.delayed(Duration.zero);
+  }
+
+  Future<void> setPath(String toSet) async {
+    if (services.router.options.enableHashBasedRouting) {
+      window.location.pathname = '/#$toSet';
+    } else {
+      window.location.pathname = toSet;
+    }
+
+    await Future.delayed(Duration(milliseconds: 100));
+  }
+
+  void assertMatchPath(String toMatch) {
+    if (services.router.options.enableHashBasedRouting) {
+      expect(window.location.hash, '#$toMatch');
+    } else {
+      expect(window.location.pathname, toMatch);
+    }
   }
 }
