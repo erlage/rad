@@ -644,34 +644,11 @@ class NavigatorState with ServicesResolver {
   /// Go back.
   ///
   void back() {
-    if (_historyStack.length < 2) {
+    if (canGoBack()) {
+      services.router.dispatchBackAction();
+    } else {
       services.debug.exception('Navigator: No previous route to go back.');
     }
-
-    var previousPage = _historyStack.removeLast();
-
-    frameworkUpdateCurrentName(_historyStack.last.name);
-
-    services.scheduler.addTask(
-      WidgetsManageTask(
-        parentContext: context,
-        flagIterateInReverseOrder: true,
-        widgetActionCallback: (widgetObject) {
-          var configuration = widgetObject.configuration;
-
-          if (configuration is RouteConfiguration) {
-            var routeName = configuration.name;
-
-            if (previousPage.name == routeName) {
-              return [WidgetAction.showWidget];
-            }
-          }
-
-          return [WidgetAction.hideWidget];
-        },
-        afterTaskCallback: _updateProcedure,
-      ),
-    );
   }
 
   /// Get value from URL following the provided segment.
@@ -873,6 +850,16 @@ class NavigatorState with ServicesResolver {
         values: {},
         navigatorKey: context.key.value,
       );
+    }
+  }
+
+  /// Framework fires this when a back action is processed.
+  ///
+  void frameworkOnBack() {
+    if (canGoBack()) {
+      _historyStack.removeLast();
+
+      frameworkUpdateCurrentName(_historyStack.last.name);
     }
   }
 

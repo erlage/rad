@@ -426,11 +426,13 @@ class RouterService extends Service {
           print('Router: onPopState: open: ${entry.name}');
         }
 
-        navigatorState.open(
-          name: entry.name,
-          values: entry.values,
-          updateHistory: false,
-        );
+        navigatorState
+          ..frameworkOnBack()
+          ..open(
+            name: entry.name,
+            values: entry.values,
+            updateHistory: false,
+          );
       }
     } catch (e) {
       // reload window if anything goes wrong
