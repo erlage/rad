@@ -273,22 +273,24 @@ bool fnIsKeyValueMapEqual(
   return true;
 }
 
+/// Return slash joined encoded key value map.
+///
 String fnEncodeKeyValueMap(Map<String, String> valueMap) {
-  var encodedMap = '';
+  var encodedMapValues = <String>[];
 
   for (final key in valueMap.keys) {
     if (key.isNotEmpty) {
-      encodedMap += '/${fnEncodeValue(key)}';
+      encodedMapValues.add(fnEncodeValue(key));
     }
 
     var value = valueMap[key];
 
     if (null != value && value.isNotEmpty) {
-      encodedMap += '/${fnEncodeValue(valueMap[key]!)}';
+      encodedMapValues.add(fnEncodeValue(valueMap[key]!));
     }
   }
 
-  return encodedMap;
+  return encodedMapValues.join('/');
 }
 
 String? fnCommonPrepareClassAttribute({

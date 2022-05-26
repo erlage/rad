@@ -359,31 +359,31 @@ void main() {
     });
 
     test('should encode key value map to slash joined string literal', () {
-      expect(fnEncodeKeyValueMap({'a': 'b'}), equals('/a/b'));
+      expect(fnEncodeKeyValueMap({'a': 'b'}), equals('a/b'));
     });
 
     test('should skip empty keys', () {
-      expect(fnEncodeKeyValueMap({'': 'b', 'c': 'd'}), equals('/b/c/d'));
+      expect(fnEncodeKeyValueMap({'': 'b', 'c': 'd'}), equals('b/c/d'));
     });
 
     test('should skip empty value', () {
-      expect(fnEncodeKeyValueMap({'a': '', 'c': 'd'}), equals('/a/c/d'));
+      expect(fnEncodeKeyValueMap({'a': '', 'c': 'd'}), equals('a/c/d'));
     });
 
     test('should escape special characters', () {
-      expect(fnEncodeKeyValueMap({'a/b': 'c/d'}), equals('/a%2Fb/c%2Fd'));
-      expect(fnEncodeKeyValueMap({'a///b': ''}), equals('/a%2F%2F%2Fb'));
+      expect(fnEncodeKeyValueMap({'a/b': 'c/d'}), equals('a%2Fb/c%2Fd'));
+      expect(fnEncodeKeyValueMap({'a///b': ''}), equals('a%2F%2F%2Fb'));
 
       expect(
         fnEncodeKeyValueMap({'a + b': 'c + d'}),
-        equals('/a%20%2B%20b/c%20%2B%20d'),
+        equals('a%20%2B%20b/c%20%2B%20d'),
       );
 
-      expect(fnEncodeKeyValueMap({'\uFFFE': ''}), equals('/%EF%BF%BE'));
+      expect(fnEncodeKeyValueMap({'\uFFFE': ''}), equals('%EF%BF%BE'));
 
       expect(
         fnEncodeKeyValueMap({'\uFFFE': '\uFFFE'}),
-        equals('/%EF%BF%BE/%EF%BF%BE'),
+        equals('%EF%BF%BE/%EF%BF%BE'),
       );
     });
   });

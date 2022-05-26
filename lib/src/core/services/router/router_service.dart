@@ -95,6 +95,9 @@ class RouterService extends Service {
       var preparedSegs = _prepareSegments(protectedSegments(navigatorKey));
 
       var encodedValues = fnEncodeKeyValueMap(values);
+      if (encodedValues.isNotEmpty) {
+        encodedValues = '/$encodedValues';
+      }
 
       var historyEntry = "${preparedSegs.join("/")}/$name$encodedValues";
 
@@ -153,6 +156,9 @@ class RouterService extends Service {
     var preparedSegs = _prepareSegments(protectedSegments(navigatorKey));
 
     var encodedValues = fnEncodeKeyValueMap(values);
+    if (encodedValues.isNotEmpty) {
+      encodedValues = '/$encodedValues';
+    }
 
     var historyEntry = "${preparedSegs.join("/")}/$name$encodedValues";
 
