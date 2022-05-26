@@ -256,6 +256,10 @@ String fnMapFormMethod(FormMethod method) {
   }
 }
 
+String fnEncodeValue(String value) => Uri.encodeComponent(value);
+
+String fnDecodeValue(String value) => Uri.decodeComponent(value);
+
 bool fnIsKeyValueMapEqual(
   Map<String, String> mapOne,
   Map<String, String> mapTwo,
@@ -274,13 +278,13 @@ String fnEncodeKeyValueMap(Map<String, String> valueMap) {
 
   for (final key in valueMap.keys) {
     if (key.isNotEmpty) {
-      encodedMap += '/${Uri.encodeComponent(key)}';
+      encodedMap += '/${fnEncodeValue(key)}';
     }
 
     var value = valueMap[key];
 
     if (null != value && value.isNotEmpty) {
-      encodedMap += '/${Uri.encodeComponent(valueMap[key]!)}';
+      encodedMap += '/${fnEncodeValue(valueMap[key]!)}';
     }
   }
 

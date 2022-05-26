@@ -309,6 +309,46 @@ void main() {
 
   /*
   |--------------------------------------------------------------------------
+  | fnEncodeValue() | uri encoding
+  |--------------------------------------------------------------------------
+  */
+
+  group('encodeValue() :', () {
+    test('should encode empty value to empty string literal', () {
+      expect(fnEncodeValue(''), equals(''));
+    });
+
+    test('should encode special characters', () {
+      expect(fnEncodeValue('a/b'), equals('a%2Fb'));
+      expect(fnEncodeValue('a///b'), equals('a%2F%2F%2Fb'));
+      expect(fnEncodeValue('a + b'), equals('a%20%2B%20b'));
+      expect(fnEncodeValue('\uFFFE'), equals('%EF%BF%BE'));
+      expect(fnEncodeValue('\uFFFE'), equals('%EF%BF%BE'));
+    });
+  });
+
+  /*
+  |--------------------------------------------------------------------------
+  | fnDecodeValue() | uri encoding
+  |--------------------------------------------------------------------------
+  */
+
+  group('decodeValue() :', () {
+    test('should decode empty value to empty string literal', () {
+      expect(fnDecodeValue(''), equals(''));
+    });
+
+    test('should decode special characters', () {
+      expect(fnDecodeValue('a%2Fb'), equals('a/b'));
+      expect(fnDecodeValue('a%2F%2F%2Fb'), equals('a///b'));
+      expect(fnDecodeValue('a%20%2B%20b'), equals('a + b'));
+      expect(fnDecodeValue('%EF%BF%BE'), equals('\uFFFE'));
+      expect(fnDecodeValue('%EF%BF%BE'), equals('\uFFFE'));
+    });
+  });
+
+  /*
+  |--------------------------------------------------------------------------
   | fnEncodeKeyValueMap() | uri encoding
   |--------------------------------------------------------------------------
   */
