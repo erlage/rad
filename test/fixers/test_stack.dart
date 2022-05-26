@@ -18,5 +18,5 @@ class RT_TestStack {
 
   bool canPop() => _entries.isNotEmpty;
 
-  void clear() => _entries.clear();
+  void clearState() => _entries.clear();
 }

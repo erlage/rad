@@ -39,6 +39,7 @@ class RT_AppRunner {
   Framework? _framework;
   Framework get framework => _framework!;
 
+  final stack = RT_TestStack();
   final window = RT_TestWindow();
 
   var _isDebugInformationEnabled = false;
@@ -81,6 +82,7 @@ class RT_AppRunner {
   void _clearState() {
     disableDebugInformation();
 
+    stack.clearState();
     window.clearState();
 
     if (null != _rootContext) {
@@ -293,6 +295,10 @@ class RT_AppRunner {
     if (_isDebugInformationEnabled) {
       for (final entry in window.logs) {
         print('Window: $entry');
+      }
+
+      for (final entry in stack.entries) {
+        print('Stack: $entry');
       }
     }
   }
