@@ -3,7 +3,6 @@
 import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/common/objects/widget_object.dart';
 import 'package:rad/src/core/framework.dart';
-import 'package:rad/src/core/interface/window/delegates/browser_window.dart';
 import 'package:rad/src/core/interface/window/window.dart';
 
 import '../test_imports.dart';
@@ -40,6 +39,10 @@ class RT_AppRunner {
   Framework? _framework;
   Framework get framework => _framework!;
 
+  final window = RT_TestWindow();
+
+  var _isDebugInformationEnabled = false;
+
   BuildContext get appContext => services.walker
       .getWidgetObjectUsingKey(
         'app-widget',
@@ -57,7 +60,7 @@ class RT_AppRunner {
 
   void start() {
     this
-      .._clearPossibleState()
+      .._clearState()
       .._createRootContext()
       .._prepareOptions()
       .._setupDelegates()
@@ -70,14 +73,25 @@ class RT_AppRunner {
   ///
   void stop() {
     this
+      .._printDebugInformation()
       .._disposeFrameworkInstance()
       .._stopServices();
   }
 
-  void _clearPossibleState() {
-    // clear location
+  void _clearState() {
+    disableDebugInformation();
 
-    window.history.pushState('', '/', '/');
+    window.clearState();
+
+    if (null != _rootContext) {
+      ServicesRegistry.instance.unRegisterServices(_rootContext!);
+    }
+
+    ServicesRegistry.instance.unRegisterServices(RT_TestBed.rootContext);
+
+    this
+      .._disposeFrameworkInstance()
+      .._stopServices();
   }
 
   void _createRootContext() {
@@ -95,17 +109,15 @@ class RT_AppRunner {
   }
 
   void _setupDelegates() {
-    Window.instance.bindDelegate(BrowserWindow());
+    Window.instance.bindDelegate(window);
   }
 
   void _startServices() {
-    ServicesRegistry.instance.unRegisterServices(rootContext);
-
     _services = Services(appOptions)..startServices();
   }
 
   void _stopServices() {
-    services.stopServices();
+    _services?.stopServices();
   }
 
   void _createFrameworkInstance() {
@@ -113,7 +125,7 @@ class RT_AppRunner {
   }
 
   void _disposeFrameworkInstance() {
-    _framework!.dispose();
+    _framework?.dispose();
   }
 
   void _buildAppWidget() {
@@ -253,9 +265,9 @@ class RT_AppRunner {
 
   Future<void> setPath(String toSet) async {
     if (services.router.options.enableHashBasedRouting) {
-      window.location.pathname = '/#$toSet';
+      window.setPath('/#$toSet');
     } else {
-      window.location.pathname = toSet;
+      window.setPath(toSet);
     }
 
     await Future.delayed(Duration(milliseconds: 100));
@@ -263,9 +275,25 @@ class RT_AppRunner {
 
   void assertMatchPath(String toMatch) {
     if (services.router.options.enableHashBasedRouting) {
-      expect(window.location.hash, '#$toMatch');
+      expect(window.locationHash, '#$toMatch');
     } else {
-      expect(window.location.pathname, toMatch);
+      expect(window.locationPathName, toMatch);
+    }
+  }
+
+  void enableDebugInformation() {
+    _isDebugInformationEnabled = true;
+  }
+
+  void disableDebugInformation() {
+    _isDebugInformationEnabled = true;
+  }
+
+  void _printDebugInformation() {
+    if (_isDebugInformationEnabled) {
+      for (final entry in window.logs) {
+        print('Window: $entry');
+      }
     }
   }
 }

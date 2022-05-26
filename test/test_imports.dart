@@ -22,3 +22,5 @@ export 'fixers/test_widget_stateful.dart';
 export 'fixers/test_widget_eventful.dart';
 export 'fixers/test_widget_stateless.dart';
 export 'fixers/test_widget_inherited.dart';
+
+export 'mocks/test_window.dart';
