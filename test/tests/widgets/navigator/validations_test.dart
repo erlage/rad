@@ -14,10 +14,7 @@ void main() {
 
     setUp(() {
       app = createTestApp(
-        debugOptions: DebugOptions(
-          routerLogs: true,
-          additionalChecks: true,
-        ),
+        debugOptions: DebugOptions.developmentMode,
       )..start();
     });
 
@@ -254,10 +251,7 @@ void main() {
 
     setUp(() {
       app = createTestApp(
-        debugOptions: DebugOptions(
-          routerLogs: true,
-          additionalChecks: false,
-        ),
+        debugOptions: DebugOptions.productionMode,
       )..start();
     });
 
