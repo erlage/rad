@@ -227,13 +227,15 @@ class RouterService extends Service {
   /// Get value following the provided segment in URL.
   ///
   String getValue(String navigatorKey, String segment) {
+    var encodedSegment = fnEncodeValue(segment);
+
     var path = accessibleSegments(navigatorKey).join('/');
 
     // try to find a value that's following the provided segment in path
 
-    var match = RegExp(segment + r'\/+([^\/]+)').firstMatch(path);
+    var match = RegExp(encodedSegment + r'\/+([^\/]+)').firstMatch(path);
 
-    return (null == match) ? '' : Uri.decodeFull(match.group(1) ?? '');
+    return (null == match) ? '' : fnDecodeValue(match.group(1) ?? '');
   }
 
   void updateCurrentSegments() {
