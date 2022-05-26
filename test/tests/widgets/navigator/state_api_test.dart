@@ -3,7 +3,7 @@ import '../../../test_imports.dart';
 void main() {
   /*
   |--------------------------------------------------------------------------
-  | API | Default route tests
+  | State API | Default route tests
   |--------------------------------------------------------------------------
   */
 
@@ -78,7 +78,7 @@ void main() {
 
   /*
   |--------------------------------------------------------------------------
-  | API | Opening route tests
+  | State API | Opening route tests
   |--------------------------------------------------------------------------
   */
 
@@ -354,7 +354,7 @@ void main() {
 
   /*
   |--------------------------------------------------------------------------
-  | API | Can go back tests
+  | State API | Can go back tests
   |--------------------------------------------------------------------------
   */
 
@@ -417,7 +417,7 @@ void main() {
 
   /*
   |--------------------------------------------------------------------------
-  | API | Going back tests
+  | State API | Going back tests
   |--------------------------------------------------------------------------
   */
 
@@ -543,7 +543,7 @@ void main() {
 
   /*
   |--------------------------------------------------------------------------
-  | API | Getting value tests
+  | State API | Getting value tests
   |--------------------------------------------------------------------------
   */
 
@@ -594,6 +594,56 @@ void main() {
 
       expect(state.getValue('something'), 'value');
     });
+
+    test(
+      'should return segment following the current route if getValue '
+      'is called using current route',
+      () async {
+        await app!.buildChildren(
+          widgets: [
+            Navigator(
+              key: GlobalKey('navigator'),
+              routes: [
+                Route(name: 'route-1', page: Text('route-1')),
+              ],
+            ),
+          ],
+          parentContext: app!.appContext,
+        );
+
+        var state = app!.navigatorState('navigator');
+
+        state.open(name: 'route-1', values: {'': 'value'});
+        await Future.delayed(Duration(milliseconds: 100));
+
+        expect(app!.navigatorState('navigator').getValue('route-1'), 'value');
+      },
+    );
+
+    test(
+      'should return segment following the current route if getValue '
+      'is called using empty string',
+      () async {
+        await app!.buildChildren(
+          widgets: [
+            Navigator(
+              key: GlobalKey('navigator'),
+              routes: [
+                Route(name: 'route-1', page: Text('route-1')),
+              ],
+            ),
+          ],
+          parentContext: app!.appContext,
+        );
+
+        var state = app!.navigatorState('navigator');
+
+        state.open(name: 'route-1', values: {'something': 'value'});
+        await Future.delayed(Duration(milliseconds: 100));
+
+        expect(app!.navigatorState('navigator').getValue(''), 'something');
+      },
+    );
 
     test('should return value only if previously if set', () async {
       await app!.buildChildren(
