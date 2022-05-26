@@ -516,7 +516,7 @@ class NavigatorState with ServicesResolver {
 
   // internal stack data
 
-  final _activeStack = <String>[];
+  final _pageStack = <String>[];
   final _historyStack = <OpenHistoryEntry>[];
 
   NavigatorState({
@@ -616,7 +616,7 @@ class NavigatorState with ServicesResolver {
         return services.debug.exception(Constants.coreError);
       }
 
-      _activeStack.add(name);
+      _pageStack.add(name);
 
       // hide all existing widgets
 
@@ -710,7 +710,7 @@ class NavigatorState with ServicesResolver {
 
   /// Whether current active stack contains a route with matching [name].
   ///
-  bool isPageStacked({required String name}) => _activeStack.contains(name);
+  bool isPageStacked({required String name}) => _pageStack.contains(name);
 
   /// Whether navigator can go back to a page.
   ///
