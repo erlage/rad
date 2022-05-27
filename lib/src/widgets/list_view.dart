@@ -281,9 +281,6 @@ class ListViewBuilderRenderObject extends RenderObject {
         newBaseConfig.classAttribute != oldBaseConfig.classAttribute ||
         newBaseConfig.scrollDirection != oldBaseConfig.scrollDirection) {
       return ElementDescription(
-        dataset: {
-          Constants.attrWidgetType: '$ListView',
-        },
         attributes: _prepareAttributes(
           props: newBaseConfig,
           oldProps: oldBaseConfig,

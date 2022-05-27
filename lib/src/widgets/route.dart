@@ -102,10 +102,7 @@ class RouteRenderObject extends RenderObject {
     required oldConfiguration,
     required covariant RouteConfiguration newConfiguration,
   }) {
-    return ElementDescription(
-      dataset: {
-        Constants.attrWidgetType: '$Route',
-      },
-    );
+    // Route's element description never changes
+    return null;
   }
 }
