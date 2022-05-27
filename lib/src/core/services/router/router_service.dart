@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:html';
 
 import 'package:rad/src/core/common/constants.dart';
@@ -7,6 +8,7 @@ import 'package:rad/src/core/common/objects/options/router_options.dart';
 import 'package:rad/src/core/interface/window/window.dart';
 import 'package:rad/src/core/services/abstract.dart';
 import 'package:rad/src/core/services/router/navigator_route_object.dart';
+import 'package:rad/src/core/services/router/router_request.dart';
 import 'package:rad/src/core/services/router/router_stack.dart';
 import 'package:rad/src/core/services/router/router_stack_entry.dart';
 import 'package:rad/src/core/services/services_registry.dart';
@@ -32,6 +34,8 @@ class RouterService extends Service {
 
   final _routerStack = RouterStack();
 
+  StreamController<RouterRequest>? _routerRequestsStream;
+
   RouterService(BuildContext context, this.options) : super(context);
 
   @override
@@ -40,10 +44,15 @@ class RouterService extends Service {
       context: rootContext,
       callback: _onPopState,
     );
+
+    _routerRequestsStream = StreamController<RouterRequest>();
+    _routerRequestsStream?.stream.listen(_proccessRouterRequest);
   }
 
   @override
   stopService() {
+    _routerRequestsStream?.close();
+
     _routeObjects.clear();
     _stateObjects.clear();
     _routerStack.clear();
@@ -83,51 +92,15 @@ class RouterService extends Service {
     required String navigatorKey,
     required bool updateHistory,
   }) {
-    if (updateHistory) {
-      var preparedSegs = _prepareSegments(protectedSegments(navigatorKey));
-
-      var encodedValues = fnEncodeKeyValueMap(values);
-      if (encodedValues.isNotEmpty) {
-        encodedValues = '/$encodedValues';
-      }
-
-      var historyEntry = "${preparedSegs.join("/")}/$name$encodedValues";
-
-      var currentPath = _getCurrentPath();
-
-      if (currentPath.isNotEmpty) {
-        if (!historyEntry.startsWith('/')) {
-          historyEntry = '/$historyEntry';
-        }
-      }
-
-      Window.delegate.historyPushState(
-        title: '',
-        url: historyEntry,
-        context: rootContext,
-      );
-
-      var routeObject = _routeObjects[navigatorKey];
-      var state = _stateObjects[navigatorKey];
-      var childRouteObject = routeObject?.child;
-
-      if (null != childRouteObject && null != state) {
-        if (state.currentRouteName == childRouteObject.segments.last) {
-          var childState = _stateObjects[childRouteObject.context.key.value];
-
-          childState?.frameworkOnParentRouteChange(name);
-        }
-      }
-    }
-
-    var entry = RouterStackEntry(
-      name: name,
-      values: values,
-      navigatorKey: navigatorKey,
-      location: Window.delegate.locationHref,
+    _routerRequestsStream?.sink.add(
+      RouterRequest(
+        name: name,
+        values: values,
+        navigatorKey: navigatorKey,
+        updateHistory: updateHistory,
+        isReplacement: false,
+      ),
     );
-
-    _routerStack.push(entry);
   }
 
   /// Push page entry as replacement.
@@ -139,41 +112,15 @@ class RouterService extends Service {
     required Map<String, String> values,
     required String navigatorKey,
   }) {
-    var currentLocation = Window.delegate.locationHref;
-
-    _routerStack.entries.remove(currentLocation);
-
-    var preparedSegs = _prepareSegments(protectedSegments(navigatorKey));
-
-    var encodedValues = fnEncodeKeyValueMap(values);
-    if (encodedValues.isNotEmpty) {
-      encodedValues = '/$encodedValues';
-    }
-
-    var historyEntry = "${preparedSegs.join("/")}/$name$encodedValues";
-
-    var currentPath = _getCurrentPath();
-
-    if (currentPath.isNotEmpty) {
-      if (!historyEntry.startsWith('/')) {
-        historyEntry = '/$historyEntry';
-      }
-    }
-
-    Window.delegate.historyReplaceState(
-      title: '',
-      url: historyEntry,
-      context: rootContext,
+    _routerRequestsStream?.sink.add(
+      RouterRequest(
+        name: name,
+        values: values,
+        navigatorKey: navigatorKey,
+        isReplacement: true,
+        updateHistory: true, // irrelevant if is replacement
+      ),
     );
-
-    var entry = RouterStackEntry(
-      name: name,
-      values: values,
-      navigatorKey: navigatorKey,
-      location: Window.delegate.locationHref,
-    );
-
-    _routerStack.push(entry);
   }
 
   /// Mannually dispatch a back action.
@@ -463,6 +410,97 @@ class RouterService extends Service {
     }
 
     return preparedSegs;
+  }
+
+  void _proccessRouterRequest(RouterRequest request) {
+    var name = request.name;
+    var values = request.values;
+    var navigatorKey = request.navigatorKey;
+    var updateHistory = request.updateHistory;
+
+    if (request.isReplacement) {
+      var currentLocation = Window.delegate.locationHref;
+
+      _routerStack.entries.remove(currentLocation);
+
+      var preparedSegs = _prepareSegments(protectedSegments(navigatorKey));
+
+      var encodedValues = fnEncodeKeyValueMap(values);
+      if (encodedValues.isNotEmpty) {
+        encodedValues = '/$encodedValues';
+      }
+
+      var historyEntry = "${preparedSegs.join("/")}/$name$encodedValues";
+
+      var currentPath = _getCurrentPath();
+
+      if (currentPath.isNotEmpty) {
+        if (!historyEntry.startsWith('/')) {
+          historyEntry = '/$historyEntry';
+        }
+      }
+
+      Window.delegate.historyReplaceState(
+        title: '',
+        url: historyEntry,
+        context: rootContext,
+      );
+
+      var entry = RouterStackEntry(
+        name: name,
+        values: values,
+        navigatorKey: navigatorKey,
+        location: Window.delegate.locationHref,
+      );
+
+      _routerStack.push(entry);
+    } else {
+      if (updateHistory) {
+        var preparedSegs = _prepareSegments(protectedSegments(navigatorKey));
+
+        var encodedValues = fnEncodeKeyValueMap(values);
+        if (encodedValues.isNotEmpty) {
+          encodedValues = '/$encodedValues';
+        }
+
+        var historyEntry = "${preparedSegs.join("/")}/$name$encodedValues";
+
+        var currentPath = _getCurrentPath();
+
+        if (currentPath.isNotEmpty) {
+          if (!historyEntry.startsWith('/')) {
+            historyEntry = '/$historyEntry';
+          }
+        }
+
+        Window.delegate.historyPushState(
+          title: '',
+          url: historyEntry,
+          context: rootContext,
+        );
+
+        var routeObject = _routeObjects[navigatorKey];
+        var state = _stateObjects[navigatorKey];
+        var childRouteObject = routeObject?.child;
+
+        if (null != childRouteObject && null != state) {
+          if (state.currentRouteName == childRouteObject.segments.last) {
+            var childState = _stateObjects[childRouteObject.context.key.value];
+
+            childState?.frameworkOnParentRouteChange(name);
+          }
+        }
+      }
+
+      var entry = RouterStackEntry(
+        name: name,
+        values: values,
+        navigatorKey: navigatorKey,
+        location: Window.delegate.locationHref,
+      );
+
+      _routerStack.push(entry);
+    }
   }
 
   /// Register logic, actual.
