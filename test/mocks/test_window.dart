@@ -19,6 +19,7 @@ class RT_TestWindow extends WindowDelegate {
   final hrefStack = <String>[];
 
   final _history = <_HistoryEntry>[];
+  final _forwardableHistory = <_HistoryEntry>[];
 
   void clearState() {
     window.history.pushState('', '/', '/');
@@ -30,6 +31,7 @@ class RT_TestWindow extends WindowDelegate {
     _locationHref = window.location.href;
 
     _history.clear();
+    _forwardableHistory.clear();
 
     logs.clear();
     hashStack.clear();
@@ -78,6 +80,8 @@ class RT_TestWindow extends WindowDelegate {
     required url,
     required context,
   }) {
+    _forwardableHistory.clear();
+
     var entry = _HistoryEntry(
       url: url,
       title: title,
@@ -95,6 +99,8 @@ class RT_TestWindow extends WindowDelegate {
     required url,
     required context,
   }) {
+    _forwardableHistory.clear();
+
     if (_history.isNotEmpty) {
       _history.removeLast();
 
@@ -122,7 +128,8 @@ class RT_TestWindow extends WindowDelegate {
       throw Exception('History is empty');
     }
 
-    _history.removeLast();
+    _forwardableHistory.add(_history.removeLast());
+
     hashStack.removeLast();
     pathStack.removeLast();
     hrefStack.removeLast();
@@ -132,15 +139,16 @@ class RT_TestWindow extends WindowDelegate {
     _psOnPopState(_history.last.data);
   }
 
-  void forceBack() {
-    if (_history.length < 2) {
-      throw Exception('History is empty');
+  void dispatchBackAction() {
+    historyBack(context: RT_TestBed.rootContext);
+  }
+
+  void dispatchForwardAction() {
+    if (_forwardableHistory.isEmpty) {
+      throw Exception('Forwardable History is empty');
     }
 
-    _history.removeLast();
-    hashStack.removeLast();
-    pathStack.removeLast();
-    hrefStack.removeLast();
+    _history.add(_forwardableHistory.removeLast());
 
     _setHistoryEntry(_history.last);
 
