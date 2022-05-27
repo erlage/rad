@@ -1,4 +1,4 @@
-export 'dart:html' hide Navigator, Text, Window;
+export 'dart:html' hide Navigator, Text, Window, VoidCallback;
 
 export 'package:rad/rad.dart';
 export 'package:rad/widgets_html.dart';
@@ -19,6 +19,12 @@ export 'package:rad/src/core/interface/window/abstract.dart';
 export 'package:rad/src/core/interface/window/window.dart';
 
 export 'package:rad/src/widgets/navigator.dart';
+
+export 'package:rad/src/include/async/async_snapshot.dart';
+export 'package:rad/src/include/async/async_widget_builder.dart';
+export 'package:rad/src/include/async/connection_state.dart';
+export 'package:rad/src/include/widgets/stream_builder_base.dart';
+export 'package:rad/src/include/foundation/change_notifier.dart';
 
 export 'package:test/expect.dart';
 export 'package:test/scaffolding.dart';
