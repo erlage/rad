@@ -463,6 +463,42 @@ void main() {
       },
     );
 
+    test(
+      'should open matched child route with interleaving special values',
+      () async {
+        //
+        await app!.setPath('/p-route-1/some%%thing/c-route-2/something');
+
+        await app!.buildChildren(
+          widgets: [
+            Navigator(
+              key: GlobalKey('parent'),
+              routes: [
+                Route(
+                  name: 'p-route-1',
+                  page: Navigator(
+                    key: GlobalKey('child'),
+                    routes: [
+                      Route(name: 'c-route-1', page: Text('c-route-1')),
+                      Route(name: 'c-route-2', page: Text('c-route-2')),
+                    ],
+                  ),
+                ),
+                Route(name: 'p-route-2', page: Text('p-route-2')),
+              ],
+            )
+          ],
+          parentContext: app!.appContext,
+        );
+
+        var parent = app!.navigatorState('parent');
+        var child = app!.navigatorState('child');
+
+        expect(parent.currentRouteName, 'p-route-1');
+        expect(child.currentRouteName, 'c-route-2');
+      },
+    );
+
     test('(lvl-3) should open matched child route', () async {
       //
       await app!.setPath('/g-p-route-2/p-route-1/c-route-2/');
