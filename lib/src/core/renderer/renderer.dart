@@ -1091,10 +1091,6 @@ class Renderer with ServicesResolver {
         });
       }
 
-      if (null != description.classAttribute) {
-        element.className = description.classAttribute!;
-      }
-
       if (description.dataset.isNotEmpty) {
         description.dataset.forEach((key, value) {
           if (null != value) {

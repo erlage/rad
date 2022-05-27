@@ -196,7 +196,7 @@ class ListViewRenderObject extends RenderObject {
       dataset: {
         Constants.attrWidgetType: '$ListView',
       },
-      classAttribute: _prepareClassAttribute(
+      attributes: _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
@@ -210,7 +210,7 @@ class ListViewRenderObject extends RenderObject {
     required covariant _ListViewConfiguration newConfiguration,
   }) {
     return ElementDescription(
-      classAttribute: _prepareClassAttribute(
+      attributes: _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
@@ -247,7 +247,7 @@ class ListViewBuilderRenderObject extends RenderObject {
       dataset: {
         Constants.attrWidgetType: '$ListView',
       },
-      classAttribute: _prepareClassAttribute(
+      attributes: _prepareAttributes(
         props: baseConfiguration,
         oldProps: null,
       ),
@@ -284,7 +284,7 @@ class ListViewBuilderRenderObject extends RenderObject {
         dataset: {
           Constants.attrWidgetType: '$ListView',
         },
-        classAttribute: _prepareClassAttribute(
+        attributes: _prepareAttributes(
           props: newBaseConfig,
           oldProps: oldBaseConfig,
         ),
@@ -510,10 +510,12 @@ class _ListViewBuilderState with ServicesResolver {
 |--------------------------------------------------------------------------
 */
 
-String? _prepareClassAttribute({
+Map<String, String?> _prepareAttributes({
   required _ListViewConfiguration props,
   required _ListViewConfiguration? oldProps,
 }) {
+  var attributes = <String, String?>{};
+
   var classAttribute = fnCommonPrepareClassAttribute(
         classAttribute: props.classAttribute,
         oldClassAttribute: null,
@@ -536,5 +538,7 @@ String? _prepareClassAttribute({
     classAttribute += ' ${Constants.classListViewVeritcal}';
   }
 
-  return classAttribute;
+  attributes[Attributes.classAttribute] = classAttribute;
+
+  return attributes;
 }

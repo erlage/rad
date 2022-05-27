@@ -253,11 +253,6 @@ class MarkUpGlobalRenderObject extends RenderObject {
       oldProps: null,
     );
 
-    var classAttribute = fnCommonPrepareClassAttribute(
-      classAttribute: configuration.classAttribute,
-      oldClassAttribute: null,
-    );
-
     var dataset = fnCommonPrepareDataset(
       dataAttributes: configuration.dataAttributes,
       oldDataAttributes: null,
@@ -266,7 +261,6 @@ class MarkUpGlobalRenderObject extends RenderObject {
     return ElementDescription(
       dataset: dataset,
       attributes: attributes,
-      classAttribute: classAttribute,
       textContents: configuration.innerText,
     );
   }
@@ -279,11 +273,6 @@ class MarkUpGlobalRenderObject extends RenderObject {
   }) {
     oldConfiguration as MarkUpGlobalConfiguration;
     newConfiguration as MarkUpGlobalConfiguration;
-
-    var classAttribute = fnCommonPrepareClassAttribute(
-      classAttribute: newConfiguration.classAttribute,
-      oldClassAttribute: oldConfiguration.classAttribute,
-    );
 
     var dataset = fnCommonPrepareDataset(
       dataAttributes: newConfiguration.dataAttributes,
@@ -298,7 +287,6 @@ class MarkUpGlobalRenderObject extends RenderObject {
     return ElementDescription(
       dataset: dataset,
       attributes: attributes,
-      classAttribute: classAttribute,
       textContents: newConfiguration.innerText,
     );
   }
@@ -337,6 +325,14 @@ Map<String, String?> _prepareAttributes({
   } else {
     if (null != oldProps?.style) {
       attributes[Attributes.style] = null;
+    }
+  }
+
+  if (null != props.classAttribute) {
+    attributes[Attributes.classAttribute] = props.classAttribute;
+  } else {
+    if (null != oldProps?.classAttribute) {
+      attributes[Attributes.classAttribute] = null;
     }
   }
 
