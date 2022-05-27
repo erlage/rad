@@ -645,6 +645,10 @@ class NavigatorState with ServicesResolver {
   ///
   void back() {
     if (canGoBack()) {
+      _historyStack.removeLast();
+
+      frameworkUpdateCurrentName(_historyStack.last.name);
+
       services.router.dispatchBackAction();
     } else {
       services.debug.exception('Navigator: No previous route to go back.');
@@ -850,16 +854,6 @@ class NavigatorState with ServicesResolver {
         values: {},
         navigatorKey: context.key.value,
       );
-    }
-  }
-
-  /// Framework fires this when a back action is processed.
-  ///
-  void frameworkOnBack() {
-    if (canGoBack()) {
-      _historyStack.removeLast();
-
-      frameworkUpdateCurrentName(_historyStack.last.name);
     }
   }
 
