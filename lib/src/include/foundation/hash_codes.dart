@@ -130,3 +130,15 @@ int hashList(Iterable<Object?>? arguments) {
   }
   return _finish(result);
 }
+
+/// Returns a 5 character long hexadecimal string generated from
+/// [Object.hashCode]'s 20 least-significant bits.
+String shortHash(Object? object) {
+  return object.hashCode.toUnsigned(20).toRadixString(16).padLeft(5, '0');
+}
+
+/// Returns a summary of the runtime type and hash code of `object`.
+///
+String describeIdentity(Object? object) => '${object.runtimeType}}#${shortHash(
+      object,
+    )}';
