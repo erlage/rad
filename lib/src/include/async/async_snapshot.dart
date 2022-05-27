@@ -19,6 +19,7 @@ class AsyncSnapshot<T> {
   /// Creates an [AsyncSnapshot] with the specified [connectionState],
   /// and optionally either [data] or [error] with an optional [stackTrace]
   /// (but not both data and error).
+  ///
   const AsyncSnapshot._(
     this.connectionState,
     this.data,
@@ -58,6 +59,7 @@ class AsyncSnapshot<T> {
   ]) : this._(state, null, error, stackTrace);
 
   /// Current state of connection to the asynchronous computation.
+  ///
   final ConnectionState connectionState;
 
   /// The latest data received by the asynchronous computation.
@@ -69,12 +71,14 @@ class AsyncSnapshot<T> {
   /// If the asynchronous computation has never returned a value, this may be
   /// set to an initial data value specified by the relevant widget. See
   /// [FutureBuilder.initialData] and [StreamBuilder.initialData].
+  ///
   final T? data;
 
   /// Returns latest data received, failing if there is no data.
   ///
   /// Throws [error], if [hasError]. Throws [StateError], if neither [hasData]
   /// nor [hasError].
+  ///
   T get requireData {
     if (hasData) return data!;
     if (hasError) Error.throwWithStackTrace(error!, stackTrace!);
@@ -86,6 +90,7 @@ class AsyncSnapshot<T> {
   /// If this is non-null, [hasError] will be true.
   ///
   /// If [data] is not null, this will be null.
+  ///
   final Object? error;
 
   /// The latest stack trace object received by the asynchronous computation.
@@ -95,12 +100,14 @@ class AsyncSnapshot<T> {
   ///
   /// However, even when not null, [stackTrace] might be empty. The stack trace
   /// is empty when there is an error but no stack trace has been provided.
+  ///
   final StackTrace? stackTrace;
 
   /// Returns a snapshot like this one, but in the specified [state].
   ///
   /// The [data], [error], and [stackTrace] fields persist unmodified, even if
   /// the new state is [ConnectionState.none].
+  ///
   AsyncSnapshot<T> inState(ConnectionState state) =>
       AsyncSnapshot<T>._(state, data, error, stackTrace);
 
@@ -110,12 +117,14 @@ class AsyncSnapshot<T> {
   /// successfully, if the computation did not return a non-null value. For
   /// example, a [Future<void>] will complete with the null value even if it
   /// completes successfully.
+  ///
   bool get hasData => data != null;
 
   /// Returns whether this snapshot contains a non-null [error] value.
   ///
   /// This is always true if the asynchronous computation's last result was
   /// failure.
+  ///
   bool get hasError => error != null;
 
   @override
@@ -130,4 +139,7 @@ class AsyncSnapshot<T> {
 
   @override
   int get hashCode => hashValues(connectionState, data, error);
+
+  @override
+  toString() => '$runtimeType($connectionState, $data, $error, $stackTrace)';
 }
