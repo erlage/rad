@@ -11,9 +11,7 @@ void main() {
     RT_AppRunner? app;
 
     setUp(() {
-      app = createTestApp(
-        debugOptions: DebugOptions(routerLogs: true),
-      )..start();
+      app = createTestApp()..start();
     });
 
     tearDown(() => app!.stop());
@@ -354,9 +352,7 @@ void main() {
     RT_AppRunner? app;
 
     setUp(() {
-      app = createTestApp(
-        debugOptions: DebugOptions(routerLogs: true),
-      )..start();
+      app = createTestApp()..start();
     });
 
     tearDown(() => app!.stop());
