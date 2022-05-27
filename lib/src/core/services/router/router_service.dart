@@ -275,13 +275,13 @@ class RouterService extends Service {
     var matcher = '';
 
     if (routeObject.segments.length < 3) {
-      matcher = r'^\/*[\w\/]*(' + routeObject.segments.last + r'[\/\w]*)';
+      matcher = r'^\/*.*(' + routeObject.segments.last + r'.*)';
     } else {
       matcher = r'^\/*' +
           routeObject.segments[1] +
-          r'[\w\/]*(' +
+          r'.*(' +
           routeObject.segments.last +
-          r'[\/\w]*)';
+          r'.*)';
     }
 
     var path = currentSegments.join('/');
@@ -332,17 +332,17 @@ class RouterService extends Service {
     var matchRoutes = stateObject.nameToPathMap.values.join(r'|\/');
 
     if (routeObject.segments.length < 3) {
-      matcher = r'(^\/*[\w\/]*' +
+      matcher = r'(^\/*.*' +
           routeObject.segments.last +
-          r'[\w\/]*(?=\/' +
+          r'.*(?=\/' +
           matchRoutes +
           r'))';
     } else {
       matcher = r'(^\/*' +
           routeObject.segments[1] +
-          r'[\w\/]*' +
+          r'.*' +
           routeObject.segments.last +
-          r'[\w\/]*(?=\/' +
+          r'.*(?=\/' +
           matchRoutes +
           r'))';
     }
