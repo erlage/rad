@@ -261,11 +261,19 @@ String fnEncodeValue(String value) => Uri.encodeComponent(value);
 String fnDecodeValue(String value) => Uri.decodeComponent(value);
 
 bool fnIsKeyValueMapEqual(
-  Map<String, String> mapOne,
-  Map<String, String> mapTwo,
+  Map<String, String>? mapOne,
+  Map<String, String>? mapTwo,
 ) {
+  // 1. if same instance(or both are null)
+  if (mapOne == mapTwo) return true;
+
+  // 2. if one of them is null, this mean other is not
+  if (null == mapOne || null == mapTwo) return false;
+
+  // 3. if lengths are different
   if (mapOne.length != mapTwo.length) return false;
 
+  // 4. walk
   for (final key in mapOne.keys) {
     if (mapOne[key] != mapTwo[key]) return false;
   }

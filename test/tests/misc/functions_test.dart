@@ -292,6 +292,15 @@ void main() {
         equals(false),
       );
     });
+
+    test('should be equal if both are null', () {
+      expect(fnIsKeyValueMapEqual(null, null), equals(true));
+    });
+
+    test('should be unequal if one of them is null', () {
+      expect(fnIsKeyValueMapEqual(null, {}), equals(false));
+      expect(fnIsKeyValueMapEqual({}, null), equals(false));
+    });
   });
 
   /*
