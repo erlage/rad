@@ -267,7 +267,7 @@ class RT_AppRunner {
 
   Future<void> setPath(String toSet) async {
     if (services.router.options.enableHashBasedRouting) {
-      window.setPath('/#$toSet');
+      window.setHash(toSet);
     } else {
       window.setPath(toSet);
     }
@@ -283,12 +283,32 @@ class RT_AppRunner {
     }
   }
 
+  void assertMatchPathStack(List<String> toMatch) {
+    var stack = <String>[];
+
+    if (services.router.options.enableHashBasedRouting) {
+      stack.addAll(window.hashStack.reversed);
+    } else {
+      stack.addAll(window.pathStack.reversed);
+    }
+
+    for (final entry in toMatch) {
+      if (services.router.options.enableHashBasedRouting) {
+        expect(stack.removeLast(), '#$entry');
+      } else {
+        expect(stack.removeLast(), entry);
+      }
+    }
+
+    expect(stack.isEmpty, equals(true));
+  }
+
   void enableDebugInformation() {
     _isDebugInformationEnabled = true;
   }
 
   void disableDebugInformation() {
-    _isDebugInformationEnabled = true;
+    _isDebugInformationEnabled = false;
   }
 
   void _printDebugInformation() {

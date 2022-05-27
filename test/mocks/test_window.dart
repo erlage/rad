@@ -14,6 +14,9 @@ class RT_TestWindow extends WindowDelegate {
   var _locationHref = window.location.host;
   var _host = window.location.host;
   final logs = <String>[];
+  final hashStack = <String>[];
+  final pathStack = <String>[];
+  final hrefStack = <String>[];
 
   final _history = <_HistoryEntry>[];
 
@@ -27,7 +30,11 @@ class RT_TestWindow extends WindowDelegate {
     _locationHref = window.location.href;
 
     _history.clear();
+
     logs.clear();
+    hashStack.clear();
+    pathStack.clear();
+    hrefStack.clear();
   }
 
   @override
@@ -39,9 +46,11 @@ class RT_TestWindow extends WindowDelegate {
   @override
   String get locationPathName => _locationPathname;
 
-  void setHref(String toSet) => _locationHref = toSet;
-  void setHash(String toSet) => _locationHash = toSet;
-  void setPath(String toSet) => _locationPathname = toSet;
+  String get locationHost => _host;
+
+  void setHref(String toSet) => _updateLocation('/$toSet');
+  void setHash(String toSet) => _updateLocation('/#/$toSet');
+  void setPath(String toSet) => _updateLocation('/$toSet');
 
   @override
   locationReload() => throw UnimplementedError();
@@ -88,6 +97,10 @@ class RT_TestWindow extends WindowDelegate {
   }) {
     if (_history.isNotEmpty) {
       _history.removeLast();
+
+      hashStack.removeLast();
+      pathStack.removeLast();
+      hrefStack.removeLast();
     }
 
     var entry = _HistoryEntry(
@@ -110,6 +123,24 @@ class RT_TestWindow extends WindowDelegate {
     }
 
     _history.removeLast();
+    hashStack.removeLast();
+    pathStack.removeLast();
+    hrefStack.removeLast();
+
+    _setHistoryEntry(_history.last);
+
+    _psOnPopState(_history.last.data);
+  }
+
+  void forceBack() {
+    if (_history.length < 2) {
+      throw Exception('History is empty');
+    }
+
+    _history.removeLast();
+    hashStack.removeLast();
+    pathStack.removeLast();
+    hrefStack.removeLast();
 
     _setHistoryEntry(_history.last);
 
@@ -130,11 +161,23 @@ class RT_TestWindow extends WindowDelegate {
   }
 
   void _setHistoryEntry(_HistoryEntry entry) {
-    var cleanedUrl = entry.url.replaceAll(RegExp(r'\/\/+'), '/');
+    _updateLocation(entry.url);
 
-    _locationHref = '$_host/$cleanedUrl'.replaceAll(RegExp(r'\/\/+'), '/');
+    logs.add(
+      'Set href: $locationHref, hash: $locationHash, path: $locationPathName',
+    );
 
-    var split = cleanedUrl.split('#');
+    hrefStack.add(locationHref);
+    hashStack.add(locationHash);
+    pathStack.add(locationPathName);
+  }
+
+  void _updateLocation(String location) {
+    var pathWithHash = location.replaceAll(RegExp(r'\/\/+'), '/');
+
+    _locationHref = '$_host/$pathWithHash'.replaceAll(RegExp(r'\/\/+'), '/');
+
+    var split = pathWithHash.split('#');
 
     if (split.isNotEmpty) {
       _locationPathname = split[0];
@@ -147,10 +190,6 @@ class RT_TestWindow extends WindowDelegate {
     } else {
       _locationHash = '';
     }
-
-    logs.add(
-      'Set href: $locationHref, hash: $locationHash, path: $locationPathName',
-    );
   }
 }
 
