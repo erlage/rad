@@ -57,8 +57,6 @@ void main() {
 
       app!.elementByGlobalKey('text').dispatchEvent(Event('click'));
 
-      print('${testStack.entries}');
-
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.popFromStart(), equals('parent-clicked'));
       expect(testStack.canPop(), equals(false));

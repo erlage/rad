@@ -1,11 +1,4 @@
-import 'package:rad/rad.dart';
-import 'package:rad/widgets_internals.dart';
-import 'package:test/scaffolding.dart';
-import 'package:test/expect.dart';
-import 'package:rad/src/core/common/objects/app_options.dart';
-
-import '../../fixers/test_bed.dart';
-import '../../fixers/test_stack.dart';
+import '../../test_imports.dart';
 
 /*
 |--------------------------------------------------------------------------

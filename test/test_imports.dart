@@ -1,10 +1,23 @@
-export 'dart:html' hide Navigator, Text;
+export 'dart:html' hide Navigator, Text, Window;
 
 export 'package:rad/rad.dart';
 export 'package:rad/widgets_html.dart';
 export 'package:rad/widgets_async.dart';
 export 'package:rad/widgets_internals.dart';
+
+export 'package:rad/src/core/framework.dart';
 export 'package:rad/src/core/common/functions.dart';
+export 'package:rad/src/core/common/objects/app_options.dart';
+export 'package:rad/src/core/common/objects/build_context.dart';
+export 'package:rad/src/core/common/objects/element_description.dart';
+export 'package:rad/src/core/common/objects/key.dart';
+export 'package:rad/src/core/common/objects/options/debug_options.dart';
+export 'package:rad/src/core/common/objects/options/router_options.dart';
+export 'package:rad/src/core/common/objects/render_object.dart';
+export 'package:rad/src/core/common/objects/widget_object.dart';
+export 'package:rad/src/core/interface/window/abstract.dart';
+export 'package:rad/src/core/interface/window/window.dart';
+
 export 'package:rad/src/widgets/navigator.dart';
 
 export 'package:test/expect.dart';
@@ -14,13 +27,20 @@ export 'matchers/has_contents.dart';
 export 'matchers/is_in_known_items.dart';
 export 'matchers/string_matchers.dart';
 
-export 'fixers/test_app.dart';
-export 'fixers/test_bed.dart';
-export 'fixers/test_stack.dart';
-export 'fixers/test_widget.dart';
-export 'fixers/test_widget_stateful.dart';
-export 'fixers/test_widget_eventful.dart';
-export 'fixers/test_widget_stateless.dart';
-export 'fixers/test_widget_inherited.dart';
+export 'constants/button_types.dart';
+export 'constants/dom_events.dart';
+export 'constants/dom_tags.dart';
+export 'constants/form_methods.dart';
+export 'constants/form_types.dart';
+export 'constants/input_types.dart';
+
+export 'fixtures/test_app.dart';
+export 'fixtures/test_bed.dart';
+export 'fixtures/test_stack.dart';
+export 'fixtures/test_widget.dart';
+export 'fixtures/test_widget_stateful.dart';
+export 'fixtures/test_widget_eventful.dart';
+export 'fixtures/test_widget_stateless.dart';
+export 'fixtures/test_widget_inherited.dart';
 
 export 'mocks/test_window.dart';

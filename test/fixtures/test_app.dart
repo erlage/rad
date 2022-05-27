@@ -1,10 +1,5 @@
 // ignore_for_file: camel_case_types
 
-import 'package:rad/src/core/common/objects/app_options.dart';
-import 'package:rad/src/core/common/objects/widget_object.dart';
-import 'package:rad/src/core/framework.dart';
-import 'package:rad/src/core/interface/window/window.dart';
-
 import '../test_imports.dart';
 
 RT_AppRunner createTestApp({

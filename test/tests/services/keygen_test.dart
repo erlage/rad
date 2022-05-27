@@ -1,5 +1,3 @@
-import 'package:rad/src/core/common/objects/app_options.dart';
-
 import '../../test_imports.dart';
 
 void main() {
