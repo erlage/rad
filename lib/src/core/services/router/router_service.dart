@@ -40,12 +40,10 @@ class RouterService extends Service {
       context: rootContext,
       callback: _onPopState,
     );
-
   }
 
   @override
   stopService() {
-
     _routeObjects.clear();
     _stateObjects.clear();
     _routerStack.clear();
