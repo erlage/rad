@@ -172,7 +172,55 @@ void main() {
     tearDown(() => app!.stop());
 
     test(
-      'should consume back/forward action only on nested navigator',
+      'should consume back/forward action only on nested navigator '
+      'without leaving nested route',
+      () async {
+        await app!.buildChildren(
+          widgets: [
+            Navigator(
+              key: GlobalKey('parent'),
+              routes: [
+                Route(name: 'p-route-1', page: Text('route-1')),
+                Route(name: 'p-route-2', page: Text('route-2')),
+                Route(
+                  name: 'p-route-3',
+                  page: Navigator(
+                    key: GlobalKey('child'),
+                    routes: [
+                      Route(name: 'c-route-1', page: Text('route-1')),
+                      Route(name: 'c-route-2', page: Text('route-2')),
+                      Route(name: 'c-route-3', page: Text('route-2')),
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ],
+          parentContext: app!.appContext,
+        );
+
+        var parent = app!.navigatorState('parent');
+
+        parent.open(name: 'p-route-3');
+        await Future.delayed(Duration(milliseconds: 100));
+
+        var child = app!.navigatorState('child');
+        child.open(name: 'c-route-2');
+        await Future.delayed(Duration(milliseconds: 100));
+        child.open(name: 'c-route-1');
+        await Future.delayed(Duration(milliseconds: 100));
+
+        app!.window.dispatchBackAction(); // should go to c-route-2
+        expect(child.currentRouteName, 'c-route-2');
+
+        app!.window.dispatchForwardAction(); // should go to c-route-1
+        expect(child.currentRouteName, 'c-route-1');
+      },
+    );
+
+    test(
+      'should consume back/forward action only on nested navigator '
+      'when doing a revisit',
       () async {
         await app!.buildChildren(
           widgets: [
