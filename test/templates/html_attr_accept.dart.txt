@@ -97,3 +97,42 @@ test('should not set attribute "accept" if provided value is null', () async {
 
     expect(element1.getAttribute('accept'), equals(null));
 }__Skip__);
+
+test('should set messy "accept"', () async {
+  await app!.buildChildren(
+    widgets: [
+      __WidgetClass__(
+        key: Key('widget-1'),
+        accept: 'some accept',
+      ),
+      __WidgetClass__(
+        key: Key('widget-2'),
+        accept: 'some "messy" accept',
+      ),
+      __WidgetClass__(
+        key: Key('widget-3'),
+        accept: "some 'messy' accept",
+      ),
+    ],
+    parentContext: RT_TestBed.rootContext,
+  );
+
+  var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+  var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+  var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+
+  expect(
+    element1.getAttribute('accept'),
+    equals('some accept'),
+  );
+
+  expect(
+    element2.getAttribute('accept'),
+    equals('some "messy" accept'),
+  );
+
+  expect(
+    element3.getAttribute('accept'),
+    equals("some 'messy' accept"),
+  );
+}__Skip__);

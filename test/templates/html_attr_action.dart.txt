@@ -97,3 +97,42 @@ test('should not set attribute "action" if provided value is null', () async {
 
     expect(element1.getAttribute('action'), equals(null));
 });
+
+test('should set messy "action"', () async {
+  await app!.buildChildren(
+    widgets: [
+      __WidgetClass__(
+        key: Key('widget-1'),
+        action: 'some action',
+      ),
+      __WidgetClass__(
+        key: Key('widget-2'),
+        action: 'some "messy" action',
+      ),
+      __WidgetClass__(
+        key: Key('widget-3'),
+        action: "some 'messy' action",
+      ),
+    ],
+    parentContext: RT_TestBed.rootContext,
+  );
+
+  var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+  var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+  var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+
+  expect(
+    element1.getAttribute('action'),
+    equals('some action'),
+  );
+
+  expect(
+    element2.getAttribute('action'),
+    equals('some "messy" action'),
+  );
+
+  expect(
+    element3.getAttribute('action'),
+    equals("some 'messy' action"),
+  );
+}__Skip__);

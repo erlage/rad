@@ -84,7 +84,7 @@ widget_specific_tests = {
         'html_attr_on_key_down',
     ],
     'Label': [
-        'html_attr_for',
+        'html_attr_for_attribute',
     ],
     'ListItem': [
         'html_attr_value_int',
@@ -187,12 +187,12 @@ global_tests = [
     'html_attr_id',
     'html_attr_child',
     'html_attr_children',
-    'html_attr_classes',
+    'html_attr_class_attribute',
     'html_attr_contenteditable',
     'html_attr_draggable',
     'html_attr_hidden',
     'html_attr_innertext',
-    'html_attr_onclick_attribute',
+    'html_attr_on_click_attribute',
     'html_attr_on_click',
     'html_attr_style',
     'html_attr_tabindex',

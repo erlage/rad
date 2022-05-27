@@ -1,0 +1,138 @@
+test('should set attribute "onClickAttribute"', () async {
+    await app!.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
+            __WidgetClass__(key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.elementByGlobalKey('el-1');
+    var element2 = app!.elementByGlobalKey('el-2');
+
+    expect(element1.getAttribute('onClick'), equals('some-on-click'));
+    expect(element2.getAttribute('onClick'), equals('another-on-click'));
+}__Skip__);
+
+test('should update attribute "onClickAttribute"', () async {
+    await app!.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
+            __WidgetClass__(key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    await app!.updateChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), onClickAttribute: 'updated-on-click'),
+            __WidgetClass__(key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.elementByGlobalKey('el-1');
+    var element2 = app!.elementByGlobalKey('el-2');
+
+    expect(element1.getAttribute('onClick'), equals('updated-on-click'));
+    expect(element2.getAttribute('onClick'), equals('another-on-click'));
+}__Skip__);
+
+test('should clear attribute "onClickAttribute"', () async {
+    await app!.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1')),
+            __WidgetClass__(key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    await app!.updateChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1')),
+            __WidgetClass__(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.elementByGlobalKey('el-1');
+    var element2 = app!.elementByGlobalKey('el-2');
+
+    expect(element1.getAttribute('onClick'), equals(null));
+    expect(element2.getAttribute('onClick'), equals(null));
+});
+
+test('should clear attribute "onClickAttribute" if updated value is null', () async {
+   await app!.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    await app!.updateChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), onClickAttribute: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.elementByGlobalKey('el-1');
+
+    expect(element1.getAttribute('onClick'), equals(null));
+});
+
+test('should not set attribute "onClickAttribute" if provided value is null', () async {
+    await app!.buildChildren(
+        widgets: [
+            __WidgetClass__(key: GlobalKey('el-1'), onClickAttribute: null),
+        ],
+        parentContext: app!.appContext,
+    );
+
+    var element1 = app!.elementByGlobalKey('el-1');
+
+    expect(element1.getAttribute('onClick'), equals(null));
+});
+
+test('should set messy "onClickAttribute"', () async {
+  await app!.buildChildren(
+    widgets: [
+      __WidgetClass__(
+        key: Key('widget-1'),
+        onClickAttribute: 'some onClick',
+      ),
+      __WidgetClass__(
+        key: Key('widget-2'),
+        onClickAttribute: 'some "messy" onClick',
+      ),
+      __WidgetClass__(
+        key: Key('widget-3'),
+        onClickAttribute: "some 'messy' onClick",
+      ),
+    ],
+    parentContext: RT_TestBed.rootContext,
+  );
+
+  var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+  var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+  var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+
+  expect(
+    element1.getAttribute('onclick'),
+    equals('some onClick'),
+  );
+
+  expect(
+    element2.getAttribute('onclick'),
+    equals('some "messy" onClick'),
+  );
+
+  expect(
+    element3.getAttribute('onclick'),
+    equals("some 'messy' onClick"),
+  );
+}__Skip__);

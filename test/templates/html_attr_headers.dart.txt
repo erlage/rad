@@ -97,3 +97,42 @@ test('should not set attribute "headers" if provided value is null', () async {
 
     expect(element1.getAttribute('headers'), equals(null));
 });
+
+test('should set messy "headers"', () async {
+  await app!.buildChildren(
+    widgets: [
+      __WidgetClass__(
+        key: Key('widget-1'),
+        headers: 'some headers',
+      ),
+      __WidgetClass__(
+        key: Key('widget-2'),
+        headers: 'some "messy" headers',
+      ),
+      __WidgetClass__(
+        key: Key('widget-3'),
+        headers: "some 'messy' headers",
+      ),
+    ],
+    parentContext: RT_TestBed.rootContext,
+  );
+
+  var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+  var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+  var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+
+  expect(
+    element1.getAttribute('headers'),
+    equals('some headers'),
+  );
+
+  expect(
+    element2.getAttribute('headers'),
+    equals('some "messy" headers'),
+  );
+
+  expect(
+    element3.getAttribute('headers'),
+    equals("some 'messy' headers"),
+  );
+}__Skip__);

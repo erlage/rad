@@ -97,3 +97,42 @@ test('should not set attribute "label" if provided value is null', () async {
 
     expect(element1.getAttribute('label'), equals(null));
 });
+
+test('should set messy "label"', () async {
+  await app!.buildChildren(
+    widgets: [
+      __WidgetClass__(
+        key: Key('widget-1'),
+        label: 'some label',
+      ),
+      __WidgetClass__(
+        key: Key('widget-2'),
+        label: 'some "messy" label',
+      ),
+      __WidgetClass__(
+        key: Key('widget-3'),
+        label: "some 'messy' label",
+      ),
+    ],
+    parentContext: RT_TestBed.rootContext,
+  );
+
+  var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+  var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+  var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+
+  expect(
+    element1.getAttribute('label'),
+    equals('some label'),
+  );
+
+  expect(
+    element2.getAttribute('label'),
+    equals('some "messy" label'),
+  );
+
+  expect(
+    element3.getAttribute('label'),
+    equals("some 'messy' label"),
+  );
+}__Skip__);

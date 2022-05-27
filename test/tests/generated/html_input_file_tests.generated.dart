@@ -77,6 +77,45 @@ void html_input_file_test() {
       expect(element3.id, equals('some-global-updated-id'));
     });
 
+    test('should set messy "id"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputFile(
+            key: Key('widget-1'),
+            id: 'some id',
+          ),
+          InputFile(
+            key: Key('widget-2'),
+            id: 'some "messy" id',
+          ),
+          InputFile(
+            key: Key('widget-3'),
+            id: "some 'messy' id",
+          ),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+      var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+
+      expect(
+        element1.getAttribute('id'),
+        equals('some id'),
+      );
+
+      expect(
+        element2.getAttribute('id'),
+        equals('some "messy" id'),
+      );
+
+      expect(
+        element3.getAttribute('id'),
+        equals("some 'messy' id"),
+      );
+    });
+
     test('should set child widget', () async {
       await app!.buildChildren(
         widgets: [
@@ -124,20 +163,145 @@ void html_input_file_test() {
       expect(element3.id, equals('widget-3'));
     });
 
-    test('should set classes', () async {
+    test('should set attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
           InputFile(
-            id: 'widget-1',
-            classAttribute: 'some class',
+            key: GlobalKey('el-1'),
+            classAttribute: 'some-classes',
           ),
           InputFile(
-            id: 'widget-2',
-            classAttribute: 'some "messy" class',
+            key: GlobalKey('el-2'),
+            classAttribute: 'another-classes',
+          ),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
+
+      expect(element1.getAttribute('class'), equals('some-classes'));
+      expect(element2.getAttribute('class'), equals('another-classes'));
+    });
+
+    test('should update attribute "classes"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputFile(
+            key: GlobalKey('el-1'),
+            classAttribute: 'some-classes',
           ),
           InputFile(
-            id: 'widget-3',
-            classAttribute: "some 'messy' class",
+            key: GlobalKey('el-2'),
+            classAttribute: 'another-classes',
+          ),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputFile(
+            key: GlobalKey('el-1'),
+            classAttribute: 'updated-classes',
+          ),
+          InputFile(
+            key: GlobalKey('el-2'),
+            classAttribute: 'another-classes',
+          ),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
+
+      expect(element1.getAttribute('class'), equals('updated-classes'));
+      expect(element2.getAttribute('class'), equals('another-classes'));
+    });
+
+    test('should clear attribute "classes"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1')),
+          InputFile(
+            key: GlobalKey('el-2'),
+            classAttribute: 'another-classes',
+          ),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1')),
+          InputFile(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
+
+      expect(element1.getAttribute('class'), equals(null));
+      expect(element2.getAttribute('class'), equals(null));
+    });
+
+    test('should clear attribute "classes" if updated value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputFile(
+            key: GlobalKey('el-1'),
+            classAttribute: 'some-classes',
+          ),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), classAttribute: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.elementByGlobalKey('el-1');
+
+      expect(element1.getAttribute('class'), equals(null));
+    });
+
+    test('should not set attribute "classes" if provided value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), classAttribute: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.elementByGlobalKey('el-1');
+
+      expect(element1.getAttribute('class'), equals(null));
+    });
+
+    test('should set messy "classes"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputFile(
+            key: Key('widget-1'),
+            classAttribute: 'some classes',
+          ),
+          InputFile(
+            key: Key('widget-2'),
+            classAttribute: 'some "messy" classes',
+          ),
+          InputFile(
+            key: Key('widget-3'),
+            classAttribute: "some 'messy' classes",
           ),
         ],
         parentContext: RT_TestBed.rootContext,
@@ -147,9 +311,20 @@ void html_input_file_test() {
       var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
       var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
 
-      expect(element1.getAttribute('class'), equals('some class'));
-      expect(element2.getAttribute('class'), equals('some "messy" class'));
-      expect(element3.getAttribute('class'), equals("some 'messy' class"));
+      expect(
+        element1.getAttribute('class'),
+        equals('some classes'),
+      );
+
+      expect(
+        element2.getAttribute('class'),
+        equals('some "messy" classes'),
+      );
+
+      expect(
+        element3.getAttribute('class'),
+        equals("some 'messy' classes"),
+      );
     });
 
     test('should set contenteditable', () async {
@@ -270,7 +445,115 @@ void html_input_file_test() {
       'chrome': Skip('Failing for input on chrome'),
     });
 
-    test('should set onClick', () async {
+    test('should set attribute "onClickAttribute"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
+          InputFile(
+              key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
+
+      expect(element1.getAttribute('onClick'), equals('some-on-click'));
+      expect(element2.getAttribute('onClick'), equals('another-on-click'));
+    });
+
+    test('should update attribute "onClickAttribute"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
+          InputFile(
+              key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputFile(
+              key: GlobalKey('el-1'), onClickAttribute: 'updated-on-click'),
+          InputFile(
+              key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
+
+      expect(element1.getAttribute('onClick'), equals('updated-on-click'));
+      expect(element2.getAttribute('onClick'), equals('another-on-click'));
+    });
+
+    test('should clear attribute "onClickAttribute"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1')),
+          InputFile(
+              key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1')),
+          InputFile(key: GlobalKey('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.elementByGlobalKey('el-1');
+      var element2 = app!.elementByGlobalKey('el-2');
+
+      expect(element1.getAttribute('onClick'), equals(null));
+      expect(element2.getAttribute('onClick'), equals(null));
+    });
+
+    test('should clear attribute "onClickAttribute" if updated value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), onClickAttribute: null),
+        ],
+        updateType: UpdateType.setState,
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.elementByGlobalKey('el-1');
+
+      expect(element1.getAttribute('onClick'), equals(null));
+    });
+
+    test(
+        'should not set attribute "onClickAttribute" if provided value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          InputFile(key: GlobalKey('el-1'), onClickAttribute: null),
+        ],
+        parentContext: app!.appContext,
+      );
+
+      var element1 = app!.elementByGlobalKey('el-1');
+
+      expect(element1.getAttribute('onClick'), equals(null));
+    });
+
+    test('should set messy "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
           InputFile(
@@ -728,6 +1011,45 @@ void html_input_file_test() {
       expect(element1.getAttribute('name'), equals(null));
     });
 
+    test('should set messy "name"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputFile(
+            key: Key('widget-1'),
+            name: 'some name',
+          ),
+          InputFile(
+            key: Key('widget-2'),
+            name: 'some "messy" name',
+          ),
+          InputFile(
+            key: Key('widget-3'),
+            name: "some 'messy' name",
+          ),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+      var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+
+      expect(
+        element1.getAttribute('name'),
+        equals('some name'),
+      );
+
+      expect(
+        element2.getAttribute('name'),
+        equals('some "messy" name'),
+      );
+
+      expect(
+        element3.getAttribute('name'),
+        equals("some 'messy' name"),
+      );
+    });
+
     test('should set attribute "accept"', () async {
       await app!.buildChildren(
         widgets: [
@@ -827,6 +1149,45 @@ void html_input_file_test() {
       var element1 = app!.elementByGlobalKey('el-1');
 
       expect(element1.getAttribute('accept'), equals(null));
+    });
+
+    test('should set messy "accept"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputFile(
+            key: Key('widget-1'),
+            accept: 'some accept',
+          ),
+          InputFile(
+            key: Key('widget-2'),
+            accept: 'some "messy" accept',
+          ),
+          InputFile(
+            key: Key('widget-3'),
+            accept: "some 'messy' accept",
+          ),
+        ],
+        parentContext: RT_TestBed.rootContext,
+      );
+
+      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+      var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+
+      expect(
+        element1.getAttribute('accept'),
+        equals('some accept'),
+      );
+
+      expect(
+        element2.getAttribute('accept'),
+        equals('some "messy" accept'),
+      );
+
+      expect(
+        element3.getAttribute('accept'),
+        equals("some 'messy' accept"),
+      );
     });
 
     test('should set attribute "multiple" only if its true', () async {

@@ -58,3 +58,42 @@ test('should reset and update id', () async {
   expect(element2.id, endsWith('some-local-updated-id'));
   expect(element3.id, equals('some-global-updated-id'));
 }__Skip__);
+
+test('should set messy "id"', () async {
+  await app!.buildChildren(
+    widgets: [
+      __WidgetClass__(
+        key: Key('widget-1'),
+        id: 'some id',
+      ),
+      __WidgetClass__(
+        key: Key('widget-2'),
+        id: 'some "messy" id',
+      ),
+      __WidgetClass__(
+        key: Key('widget-3'),
+        id: "some 'messy' id",
+      ),
+    ],
+    parentContext: RT_TestBed.rootContext,
+  );
+
+  var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+  var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+  var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+
+  expect(
+    element1.getAttribute('id'),
+    equals('some id'),
+  );
+
+  expect(
+    element2.getAttribute('id'),
+    equals('some "messy" id'),
+  );
+
+  expect(
+    element3.getAttribute('id'),
+    equals("some 'messy' id"),
+  );
+}__Skip__);
