@@ -12,7 +12,7 @@ test('should set attribute "target"', () async {
 
     expect(element1.getAttribute('target'), equals('some-target'));
     expect(element2.getAttribute('target'), equals('another-target'));
-});
+}__Skip__);
 
 test('should update attribute "target"', () async {
     await app!.buildChildren(
@@ -37,7 +37,7 @@ test('should update attribute "target"', () async {
 
     expect(element1.getAttribute('target'), equals('updated-target'));
     expect(element2.getAttribute('target'), equals('another-target'));
-});
+}__Skip__);
 
 test('should clear attribute "target"', () async {
     await app!.buildChildren(

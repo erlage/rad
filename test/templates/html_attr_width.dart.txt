@@ -12,7 +12,7 @@ test('should set attribute "width"', () async {
 
     expect(element1.getAttribute('width'), equals('some-width'));
     expect(element2.getAttribute('width'), equals('another-width'));
-});
+}__Skip__);
 
 test('should update attribute "width"', () async {
     await app!.buildChildren(
@@ -37,7 +37,7 @@ test('should update attribute "width"', () async {
 
     expect(element1.getAttribute('width'), equals('updated-width'));
     expect(element2.getAttribute('width'), equals('another-width'));
-});
+}__Skip__);
 
 test('should clear attribute "width"', () async {
     await app!.buildChildren(

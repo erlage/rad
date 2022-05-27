@@ -15,7 +15,7 @@ test('should set attribute "allowFullscreen" only if its true', () async {
     expect(element1.getAttribute('allowfullscreen'), equals(null));
     expect(element2.getAttribute('allowfullscreen'), equals(null));
     expect(element3.getAttribute('allowfullscreen'), equals('true'));
-});
+}__Skip__);
 
 test('should clear attribute "allowFullscreen" if updated value is not true', () async {
     await app!.buildChildren(

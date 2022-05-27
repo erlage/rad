@@ -15,7 +15,7 @@ test('should set button attribute "type"', () async {
     expect(element1.getAttribute('type'), equals('button'));
     expect(element2.getAttribute('type'), equals('reset'));
     expect(element3.getAttribute('type'), equals('submit'));
-});
+}__Skip__);
 
 test('should update button attribute "type"', () async {
     await app!.buildChildren(
@@ -44,4 +44,4 @@ test('should update button attribute "type"', () async {
     expect(element1.getAttribute('type'), equals(null));
     expect(element2.getAttribute('type'), equals(null));
     expect(element3.getAttribute('type'), equals('button'));
-});
+}__Skip__);

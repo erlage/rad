@@ -30,7 +30,7 @@ test('should set input attribute "type"', () async {
     expect(element6.getAttribute('type'), equals('checkbox'));
     expect(element7.getAttribute('type'), equals('submit'));
     expect(element8.getAttribute('type'), equals('file'));
-});
+}__Skip__);
 
 test('should update form attribute "type"', () async {
     await app!.buildChildren(

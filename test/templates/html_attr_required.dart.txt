@@ -15,7 +15,7 @@ test('should set attribute "required" only if its true', () async {
     expect(element1.getAttribute('required'), equals(null));
     expect(element2.getAttribute('required'), equals(null));
     expect(element3.getAttribute('required'), equals('true'));
-});
+}__Skip__);
 
 test('should clear attribute "required" if updated value is not true', () async {
     await app!.buildChildren(

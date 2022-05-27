@@ -12,7 +12,7 @@ test('should set attribute "headers"', () async {
 
     expect(element1.getAttribute('headers'), equals('some-headers'));
     expect(element2.getAttribute('headers'), equals('another-headers'));
-});
+}__Skip__);
 
 test('should update attribute "headers"', () async {
     await app!.buildChildren(
@@ -37,7 +37,7 @@ test('should update attribute "headers"', () async {
 
     expect(element1.getAttribute('headers'), equals('updated-headers'));
     expect(element2.getAttribute('headers'), equals('another-headers'));
-});
+}__Skip__);
 
 test('should clear attribute "headers"', () async {
     await app!.buildChildren(

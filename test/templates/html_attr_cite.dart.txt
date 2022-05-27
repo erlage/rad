@@ -12,7 +12,7 @@ test('should set attribute "cite"', () async {
 
     expect(element1.getAttribute('cite'), equals('some-cite'));
     expect(element2.getAttribute('cite'), equals('another-cite'));
-});
+}__Skip__);
 
 test('should update attribute "cite"', () async {
     await app!.buildChildren(
@@ -37,7 +37,7 @@ test('should update attribute "cite"', () async {
 
     expect(element1.getAttribute('cite'), equals('updated-cite'));
     expect(element2.getAttribute('cite'), equals('another-cite'));
-});
+}__Skip__);
 
 test('should clear attribute "cite"', () async {
     await app!.buildChildren(

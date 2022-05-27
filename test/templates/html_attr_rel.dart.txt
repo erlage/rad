@@ -12,7 +12,7 @@ test('should set attribute "rel"', () async {
 
     expect(element1.getAttribute('rel'), equals('some-rel'));
     expect(element2.getAttribute('rel'), equals('another-rel'));
-});
+}__Skip__);
 
 test('should update attribute "rel"', () async {
     await app!.buildChildren(
@@ -37,7 +37,7 @@ test('should update attribute "rel"', () async {
 
     expect(element1.getAttribute('rel'), equals('updated-rel'));
     expect(element2.getAttribute('rel'), equals('another-rel'));
-});
+}__Skip__);
 
 test('should clear attribute "rel"', () async {
     await app!.buildChildren(

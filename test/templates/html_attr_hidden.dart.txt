@@ -15,7 +15,7 @@ test('should set attribute "hidden" only if its true', () async {
     expect(element1.getAttribute('hidden'), equals(null));
     expect(element2.getAttribute('hidden'), equals(null));
     expect(element3.getAttribute('hidden'), equals('true'));
-});
+}__Skip__);
 
 test('should clear attribute "hidden" if updated value is not true', () async {
     await app!.buildChildren(

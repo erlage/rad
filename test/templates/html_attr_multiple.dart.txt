@@ -15,7 +15,7 @@ test('should set attribute "multiple" only if its true', () async {
     expect(element1.getAttribute('multiple'), equals(null));
     expect(element2.getAttribute('multiple'), equals(null));
     expect(element3.getAttribute('multiple'), equals('true'));
-});
+}__Skip__);
 
 test('should clear attribute "multiple" if updated value is not true', () async {
     await app!.buildChildren(

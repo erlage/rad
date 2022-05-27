@@ -15,7 +15,7 @@ test('should set attribute "checked" only if its true', () async {
     expect(element1.getAttribute('checked'), equals(null));
     expect(element2.getAttribute('checked'), equals(null));
     expect(element3.getAttribute('checked'), equals('true'));
-});
+}__Skip__);
 
 test('should clear attribute "checked" if updated value is not true', () async {
     await app!.buildChildren(

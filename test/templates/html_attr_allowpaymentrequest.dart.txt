@@ -15,7 +15,7 @@ test('should set attribute "allowPaymentRequest" only if its true', () async {
     expect(element1.getAttribute('allowpaymentrequest'), equals(null));
     expect(element2.getAttribute('allowpaymentrequest'), equals(null));
     expect(element3.getAttribute('allowpaymentrequest'), equals('true'));
-});
+}__Skip__);
 
 test('should clear attribute "allowPaymentRequest" if updated value is not true', () async {
     await app!.buildChildren(

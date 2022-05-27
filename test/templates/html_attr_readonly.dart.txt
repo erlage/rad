@@ -15,7 +15,7 @@ test('should set attribute "readonly" only if its true', () async {
     expect(element1.getAttribute('readonly'), equals(null));
     expect(element2.getAttribute('readonly'), equals(null));
     expect(element3.getAttribute('readonly'), equals('true'));
-});
+}__Skip__);
 
 test('should clear attribute "readonly" if updated value is not true', () async {
     await app!.buildChildren(

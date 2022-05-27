@@ -12,7 +12,7 @@ test('should set attribute "download"', () async {
 
     expect(element1.getAttribute('download'), equals('some-download'));
     expect(element2.getAttribute('download'), equals('another-download'));
-});
+}__Skip__);
 
 test('should update attribute "download"', () async {
     await app!.buildChildren(
@@ -37,7 +37,7 @@ test('should update attribute "download"', () async {
 
     expect(element1.getAttribute('download'), equals('updated-download'));
     expect(element2.getAttribute('download'), equals('another-download'));
-});
+}__Skip__);
 
 test('should clear attribute "download"', () async {
     await app!.buildChildren(

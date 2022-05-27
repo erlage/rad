@@ -12,7 +12,7 @@ test('should set attribute "src"', () async {
 
     expect(element1.getAttribute('src'), equals('some-src'));
     expect(element2.getAttribute('src'), equals('another-src'));
-});
+}__Skip__);
 
 test('should update attribute "src"', () async {
     await app!.buildChildren(
@@ -37,7 +37,7 @@ test('should update attribute "src"', () async {
 
     expect(element1.getAttribute('src'), equals('updated-src'));
     expect(element2.getAttribute('src'), equals('another-src'));
-});
+}__Skip__);
 
 test('should clear attribute "src"', () async {
     await app!.buildChildren(
