@@ -30,8 +30,6 @@ class RouterService extends Service {
   ///
   final _stateObjects = <String, NavigatorState>{};
 
-  final _currentSegments = <String>[];
-
   final _routerStack = RouterStack();
 
   RouterService(BuildContext context, this.options) : super(context);
@@ -43,17 +41,13 @@ class RouterService extends Service {
       callback: _onPopState,
     );
 
-    updateCurrentSegments();
   }
 
   @override
   stopService() {
-    _currentSegments.clear();
 
     _routeObjects.clear();
-
     _stateObjects.clear();
-
     _routerStack.clear();
 
     Window.delegate.removePopStateListener(rootContext);
@@ -115,8 +109,6 @@ class RouterService extends Service {
         context: rootContext,
       );
 
-      updateCurrentSegments();
-
       var routeObject = _routeObjects[navigatorKey];
       var state = _stateObjects[navigatorKey];
       var childRouteObject = routeObject?.child;
@@ -176,8 +168,6 @@ class RouterService extends Service {
       context: rootContext,
     );
 
-    updateCurrentSegments();
-
     var entry = RouterStackEntry(
       name: name,
       values: values,
@@ -223,7 +213,8 @@ class RouterService extends Service {
     if (services.debug.routerLogs) {
       print(
         'Navigator(#$navigatorKey) matched: '
-        "'$matchedPathSegment' from '${segments.join("/")}'",
+        "'$matchedPathSegment' from '${segments.join("/")} < "
+        " (${_getCurrentSegments()})'",
       );
     }
 
@@ -242,16 +233,6 @@ class RouterService extends Service {
     var match = RegExp(encodedSegment + r'\/+([^\/]+)').firstMatch(path);
 
     return (null == match) ? '' : fnDecodeValue(match.group(1) ?? '');
-  }
-
-  void updateCurrentSegments() {
-    _currentSegments.clear();
-
-    var path = _getCurrentPath();
-
-    _currentSegments.addAll(
-      path.split('/')..removeWhere((sgmt) => sgmt.trim().isEmpty),
-    );
   }
 
   void ensureNavigatorIsVisible(NavigatorRouteObject routeObject) {
@@ -275,6 +256,7 @@ class RouterService extends Service {
   ///
   List<String> accessibleSegments(String navigatorKey) {
     var routeObject = _routeObjects[navigatorKey];
+    var currentSegments = _getCurrentSegments();
 
     if (null == routeObject) {
       services.debug.exception(Constants.coreError);
@@ -285,7 +267,7 @@ class RouterService extends Service {
     // if root navigator, all segments are available
 
     if (null == routeObject.parent) {
-      return _currentSegments;
+      return currentSegments;
     }
 
     // else limit part of path that's visible to current navigator
@@ -302,7 +284,7 @@ class RouterService extends Service {
           r'[\/\w]*)';
     }
 
-    var path = _currentSegments.join('/');
+    var path = currentSegments.join('/');
 
     var match = RegExp(matcher).firstMatch(path);
 
@@ -365,15 +347,17 @@ class RouterService extends Service {
           r'))';
     }
 
-    var path = _currentSegments.join('/');
+    var currentSegments = _getCurrentSegments();
+
+    var path = currentSegments.join('/');
 
     var match = RegExp(matcher).firstMatch(path);
 
-    if (null == match) return _currentSegments;
+    if (null == match) return currentSegments;
 
     var group = match.group(1);
 
-    if (null == group) return _currentSegments;
+    if (null == group) return currentSegments;
 
     return group.split('/');
   }
@@ -415,8 +399,6 @@ class RouterService extends Service {
         // for active history, our implementation is ready, see below.
 
       } else {
-        updateCurrentSegments();
-
         var routeObject = _routeObjects[entry.navigatorKey]!;
         var navigatorState = _stateObjects[entry.navigatorKey]!;
 
@@ -443,24 +425,6 @@ class RouterService extends Service {
   ///
   String _getRoutingPath() => options.path;
 
-  /// Prepare router segments.
-  ///
-  List<String> _prepareSegments(List<String> segments) {
-    var preparedSegs = <String>[];
-
-    if (options.enableHashBasedRouting) {
-      preparedSegs.add('#');
-    }
-
-    for (final segment in segments) {
-      if (segment.isNotEmpty) {
-        preparedSegs.add(segment);
-      }
-    }
-
-    return preparedSegs;
-  }
-
   /// Get current location.
   ///
   String _getCurrentPath() {
@@ -478,6 +442,29 @@ class RouterService extends Service {
     }
 
     return currentPath;
+  }
+
+  List<String> _getCurrentSegments() {
+    return _getCurrentPath().split('/')
+      ..removeWhere((segment) => segment.trim().isEmpty);
+  }
+
+  /// Prepare router segments.
+  ///
+  List<String> _prepareSegments(List<String> segments) {
+    var preparedSegs = <String>[];
+
+    if (options.enableHashBasedRouting) {
+      preparedSegs.add('#');
+    }
+
+    for (final segment in segments) {
+      if (segment.isNotEmpty) {
+        preparedSegs.add(segment);
+      }
+    }
+
+    return preparedSegs;
   }
 
   /// Register logic, actual.
