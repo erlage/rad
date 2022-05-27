@@ -45,39 +45,6 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
   /// The data-* attributes is used to store custom data
   /// private to the page or application.
   ///
-  /// ## Performance consideration.
-  ///
-  /// Data attributes are deeply checked by the diffing mechanism. Re-using
-  /// instance of map that contains your data attributes can speed up the
-  /// diffing proccess in mission critical scenarios.
-  ///
-  /// ```dart
-  /// // rather than doing this
-  ///
-  /// Span(
-  ///   dataAttributes: {
-  ///     'my-att': 'data',
-  ///   }
-  /// );
-  ///
-  /// // do this
-  ///
-  /// var data = {
-  ///   'my-att': 'data'
-  /// };
-  ///
-  /// Span(
-  ///   dataAttributes: data
-  /// );
-  ///
-  /// // and when you want to update data set
-  ///
-  /// data = Map<String, String>.from(data)..addAll({'new': 'data'};
-  ///
-  /// Span(
-  ///   dataAttributes: data
-  /// );
-  /// ```
   final Map<String, String>? dataAttributes;
 
   /// The hidden attribute is a boolean attribute.
