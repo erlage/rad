@@ -1019,7 +1019,7 @@ class Renderer with ServicesResolver {
     // If there are no old widgets, add all the new ones
 
     if (parentNode.children.isEmpty) {
-      return _prepareUpdatesAddAllWithouClean(
+      return _prepareUpdatesAddAllWithoutClean(
         widgets: widgets,
         flagAddIfNotFound: flagAddIfNotFound,
       );
@@ -1033,7 +1033,7 @@ class Renderer with ServicesResolver {
     );
   }
 
-  Iterable<WidgetUpdateObject> _prepareUpdatesAddAllWithouClean({
+  Iterable<WidgetUpdateObject> _prepareUpdatesAddAllWithoutClean({
     required List<Widget> widgets,
     required bool flagAddIfNotFound,
   }) {
