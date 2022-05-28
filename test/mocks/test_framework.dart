@@ -93,8 +93,6 @@ void testWidgets(String description, WidgetTesterCallback callback) {
   } catch (e) {
     rethrow;
   } finally {
-    print(RT_TestBed.rootElement.innerHtml);
-
     app?.stop();
   }
 }
