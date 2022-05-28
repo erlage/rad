@@ -423,7 +423,7 @@ class Renderer with ServicesResolver {
 
     var updates = prepareUpdates(
       widgets: widgets,
-      parent: parentObject.renderNode,
+      parentNode: parentObject.renderNode,
       parentContext: parentContext,
       flagAddIfNotFound: flagAddIfNotFound,
     );
@@ -999,13 +999,13 @@ class Renderer with ServicesResolver {
   ///
   Iterable<WidgetUpdateObject> prepareUpdates({
     required List<Widget> widgets,
-    required RenderNode parent,
+    required RenderNode parentNode,
     required BuildContext parentContext,
     required bool flagAddIfNotFound,
   }) {
     return _prepareUpdatesUsingRadAlgo(
       widgets: widgets,
-      parent: parent,
+      parent: parentNode,
       parentContext: parentContext,
       flagAddIfNotFound: flagAddIfNotFound,
     );
