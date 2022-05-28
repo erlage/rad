@@ -30,8 +30,8 @@ void html_article_test() {
       var element2 = app!.elementByLocalKey('some-local-key');
       var element3 = app!.elementByGlobalKey('some-global-key');
 
-      expect(element1.id, endsWith('some-id'));
-      expect(element2.id, endsWith('some-local-id'));
+      expect(element1.id, equals('some-id'));
+      expect(element2.id, equals('some-local-id'));
       expect(element3.id, equals('some-global-id'));
     });
 
@@ -49,8 +49,8 @@ void html_article_test() {
       var element2 = app!.elementByLocalKey('some-local-key');
       var element3 = app!.elementByGlobalKey('some-global-key');
 
-      expect(element1.id, endsWith('some-id'));
-      expect(element2.id, endsWith('some-local-id'));
+      expect(element1.id, equals('some-id'));
+      expect(element2.id, equals('some-local-id'));
       expect(element3.id, equals('some-global-id'));
 
       await app!.updateChildren(
@@ -72,8 +72,8 @@ void html_article_test() {
         parentContext: app!.appContext,
       );
 
-      expect(element1.id, endsWith('some-updated-id'));
-      expect(element2.id, endsWith('some-local-updated-id'));
+      expect(element1.id, equals('some-updated-id'));
+      expect(element2.id, equals('some-local-updated-id'));
       expect(element3.id, equals('some-global-updated-id'));
     });
 
