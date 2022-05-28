@@ -293,9 +293,11 @@ class Renderer with ServicesResolver {
     }
   }
 
-  //
-  //                  private
-  //
+  /*
+  |--------------------------------------------------------------------------
+  | Methods that could be private
+  |--------------------------------------------------------------------------
+  */
 
   /// Build widgets using a fragment.
   ///
@@ -749,145 +751,6 @@ class Renderer with ServicesResolver {
     });
   }
 
-  /// Prepare list of updates.
-  ///
-  Iterable<WidgetUpdateObject> prepareUpdates({
-    required List<Widget> widgets,
-    required RenderNode parent,
-    required BuildContext parentContext,
-    required bool flagAddIfNotFound,
-  }) {
-    // -------------------------
-
-    var keyGenService = services.keyGen;
-
-    var hasherForOldNodes = keyGenService.createCompatibilityHashGenerator();
-    var hasherForNewNodes = keyGenService.createCompatibilityHashGenerator();
-
-    // -------------------------
-
-    // Widgetkey's hash : System action to take
-    var widgetSystemActions = <String, WidgetUpdateObject>{};
-
-    var oldRenderNodesHashMap = <String, RenderNode>{};
-    var oldRenderNodesPositions = <String, int>{};
-    var oldRenderNodesHashRegistry = <String, String>{};
-
-    // prepare hash map from existing render nodes
-    var oldPositionIndex = -1;
-    for (final node in parent.children) {
-      oldPositionIndex++;
-
-      var oldNodeKey = node.context.key;
-
-      //
-      // Unique hash. Can be used to find a matching widget at the same level of
-      // tree.
-      //
-      var oldNodeHash = hasherForOldNodes.createCompatibilityHash(
-        widgetKey: oldNodeKey,
-        widgetRuntimeType: node.context.widgetRuntimeType,
-      );
-
-      // register hash
-      oldRenderNodesHashRegistry[oldNodeKey.value] = oldNodeHash;
-
-      oldRenderNodesPositions[oldNodeHash] = oldPositionIndex;
-      oldRenderNodesHashMap[oldNodeHash] = node;
-    }
-
-    // for keeping track of nodes that were missing and added or moved to top
-    var slippedInNodesCount = 0;
-
-    // for keeping track of new widget's position
-    var newPositionIndex = -1;
-    for (final widget in widgets) {
-      newPositionIndex++;
-
-      var newKey = keyGenService.computeWidgetKey(
-        widget: widget,
-        parentContext: parentContext,
-      );
-
-      var newNodeHash = hasherForNewNodes.createCompatibilityHash(
-        widgetKey: newKey,
-        widgetRuntimeType: '${widget.runtimeType}',
-      );
-
-      var existingRenderNode = oldRenderNodesHashMap[newNodeHash];
-
-      // if matching node not found
-      if (null == existingRenderNode) {
-        if (!flagAddIfNotFound) {
-          continue;
-        }
-
-        slippedInNodesCount++;
-
-        widgetSystemActions[newNodeHash] = WidgetUpdateObjectActionAdd(
-          widget: widget,
-          mountAtIndex: newPositionIndex,
-          widgetPositionIndex: newPositionIndex,
-        );
-
-        continue;
-      }
-
-      // else a existing widget has been matched
-
-      // ignore: avoid_init_to_null
-      int? mountAtIndex = null;
-
-      var newPositionY = newPositionIndex;
-      var oldPositionY = oldRenderNodesPositions[newNodeHash];
-
-      if (null != oldPositionY) {
-        var expectedOldPosition = oldPositionY + slippedInNodesCount;
-
-        if (expectedOldPosition != newPositionY) {
-          mountAtIndex = newPositionY;
-
-          slippedInNodesCount++;
-        }
-      }
-
-      widgetSystemActions[newNodeHash] = WidgetUpdateObjectActionUpdate(
-        widget: widget,
-        newMountAtIndex: mountAtIndex,
-        widgetPositionIndex: newPositionIndex,
-        existingRenderNode: existingRenderNode,
-      );
-    }
-
-    var preparedSystemActions = <WidgetUpdateObject>[];
-
-    // deal with obsolute nodes
-
-    for (final node in parent.children) {
-      var nodeKeyValue = node.context.key.value;
-
-      // compatibility hash
-      var oldNodeHash = oldRenderNodesHashRegistry[nodeKeyValue];
-
-      if (null != oldNodeHash) {
-        if (!widgetSystemActions.containsKey(oldNodeHash)) {
-          preparedSystemActions.add(WidgetUpdateObjectActionDispose(node));
-        }
-      }
-    }
-
-    preparedSystemActions.addAll(widgetSystemActions.values);
-
-    // -------------------------
-
-    keyGenService.disposeHashGenerator(hasherForOldNodes);
-    keyGenService.disposeHashGenerator(hasherForNewNodes);
-
-    // -------------------------
-
-    return preparedSystemActions;
-  }
-
   /// Prepare list of widget actions(by iterating widgets under a context).
   ///
   List<WidgetActionObject> prepareWidgetActions({
@@ -1135,6 +998,172 @@ class Renderer with ServicesResolver {
     }
   }
 
+  /*
+  |--------------------------------------------------------------------------
+  | Below methods tries to match new widgets with exisiting widgets and 
+  | prepare dom operations that are required to bring DOM into desired state.
+  |
+  | This is probably the place where small optimisations can make big 
+  | improvements.
+  |--------------------------------------------------------------------------
+  */
 
+  /// Prepare widget updates.
+  ///
+  Iterable<WidgetUpdateObject> prepareUpdates({
+    required List<Widget> widgets,
+    required RenderNode parent,
+    required BuildContext parentContext,
+    required bool flagAddIfNotFound,
+  }) {
+    return _prepareUpdatesUsingRadAlgo(
+      widgets: widgets,
+      parent: parent,
+      parentContext: parentContext,
+      flagAddIfNotFound: flagAddIfNotFound,
+    );
+  }
 
+  /// Prepare list of widget updates using Rad's algorithm.
+  ///
+  /// Previous algorithm was of complexity O(n^2) but very lightweight compares
+  /// to this one. It might be better to use previous algorithm when sum of
+  /// number of childs(under both nodes that we're comparing) is small.
+  ///
+  Iterable<WidgetUpdateObject> _prepareUpdatesUsingRadAlgo({
+    required List<Widget> widgets,
+    required RenderNode parent,
+    required BuildContext parentContext,
+    required bool flagAddIfNotFound,
+  }) {
+    // -------------------------
+
+    var keyGenService = services.keyGen;
+
+    var hasherForOldNodes = keyGenService.createCompatibilityHashGenerator();
+    var hasherForNewNodes = keyGenService.createCompatibilityHashGenerator();
+
+    // -------------------------
+
+    // Widgetkey's hash : System action to take
+    var widgetSystemActions = <String, WidgetUpdateObject>{};
+
+    var oldRenderNodesHashMap = <String, RenderNode>{};
+    var oldRenderNodesPositions = <String, int>{};
+    var oldRenderNodesHashRegistry = <String, String>{};
+
+    // prepare hash map from existing render nodes
+    var oldPositionIndex = -1;
+    for (final node in parent.children) {
+      oldPositionIndex++;
+
+      var oldNodeKey = node.context.key;
+
+      //
+      // Unique hash. Can be used to find a matching widget at the same level of
+      // tree.
+      //
+      var oldNodeHash = hasherForOldNodes.createCompatibilityHash(
+        widgetKey: oldNodeKey,
+        widgetRuntimeType: node.context.widgetRuntimeType,
+      );
+
+      // register hash
+      oldRenderNodesHashRegistry[oldNodeKey.value] = oldNodeHash;
+
+      oldRenderNodesPositions[oldNodeHash] = oldPositionIndex;
+      oldRenderNodesHashMap[oldNodeHash] = node;
+    }
+
+    // for keeping track of nodes that were missing and added or moved to top
+    var slippedInNodesCount = 0;
+
+    // for keeping track of new widget's position
+    var newPositionIndex = -1;
+    for (final widget in widgets) {
+      newPositionIndex++;
+
+      var newKey = keyGenService.computeWidgetKey(
+        widget: widget,
+        parentContext: parentContext,
+      );
+
+      var newNodeHash = hasherForNewNodes.createCompatibilityHash(
+        widgetKey: newKey,
+        widgetRuntimeType: '${widget.runtimeType}',
+      );
+
+      var existingRenderNode = oldRenderNodesHashMap[newNodeHash];
+
+      // if matching node not found
+      if (null == existingRenderNode) {
+        if (!flagAddIfNotFound) {
+          continue;
+        }
+
+        slippedInNodesCount++;
+
+        widgetSystemActions[newNodeHash] = WidgetUpdateObjectActionAdd(
+          widget: widget,
+          mountAtIndex: newPositionIndex,
+          widgetPositionIndex: newPositionIndex,
+        );
+
+        continue;
+      }
+
+      // else a existing widget has been matched
+
+      // ignore: avoid_init_to_null
+      int? mountAtIndex = null;
+
+      var newPositionY = newPositionIndex;
+      var oldPositionY = oldRenderNodesPositions[newNodeHash];
+
+      if (null != oldPositionY) {
+        var expectedOldPosition = oldPositionY + slippedInNodesCount;
+
+        if (expectedOldPosition != newPositionY) {
+          mountAtIndex = newPositionY;
+
+          slippedInNodesCount++;
+        }
+      }
+
+      widgetSystemActions[newNodeHash] = WidgetUpdateObjectActionUpdate(
+        widget: widget,
+        newMountAtIndex: mountAtIndex,
+        widgetPositionIndex: newPositionIndex,
+        existingRenderNode: existingRenderNode,
+      );
+    }
+
+    var preparedSystemActions = <WidgetUpdateObject>[];
+
+    // deal with obsolute nodes
+
+    for (final node in parent.children) {
+      var nodeKeyValue = node.context.key.value;
+
+      // compatibility hash
+      var oldNodeHash = oldRenderNodesHashRegistry[nodeKeyValue];
+
+      if (null != oldNodeHash) {
+        if (!widgetSystemActions.containsKey(oldNodeHash)) {
+          preparedSystemActions.add(WidgetUpdateObjectActionDispose(node));
+        }
+      }
+    }
+
+    preparedSystemActions.addAll(widgetSystemActions.values);
+
+    // -------------------------
+
+    keyGenService.disposeHashGenerator(hasherForOldNodes);
+    keyGenService.disposeHashGenerator(hasherForNewNodes);
+
+    // -------------------------
+
+    return preparedSystemActions;
+  }
 }
