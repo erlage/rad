@@ -34,7 +34,7 @@ class Renderer with ServicesResolver {
     var widgetObjects = services.walker.dumpWidgetObjects();
 
     for (final widgetObject in widgetObjects) {
-      disposeWidgets(
+      disposeWidget(
         context: widgetObject.context,
         flagPreserveTarget: false,
       );
@@ -265,7 +265,7 @@ class Renderer with ServicesResolver {
     }
   }
 
-  void disposeWidgets({
+  void disposeWidget({
     //
     // -- widgets to dispose under context --
     //
@@ -280,7 +280,7 @@ class Renderer with ServicesResolver {
 
     // ------------------------------------ //
 
-    disposeWidgetObjects(
+    disposeWidgetObject(
       widgetObject: services.walker.getWidgetObject(context),
       flagPreserveTarget: flagPreserveTarget,
       jobQueue: queue,
@@ -451,7 +451,7 @@ class Renderer with ServicesResolver {
         case WidgetUpdateType.dispose:
           updateObject as WidgetUpdateObjectActionDispose;
 
-          disposeWidgets(
+          disposeWidget(
             jobQueue: jobQueue,
             flagPreserveTarget: false,
             context: updateObject.existingRenderNode.context,
@@ -836,7 +836,7 @@ class Renderer with ServicesResolver {
           break;
 
         case WidgetAction.dispose:
-          disposeWidgets(
+          disposeWidget(
             context: widgetActionObject.widgetObject.context,
             flagPreserveTarget: false,
           );
@@ -887,7 +887,7 @@ class Renderer with ServicesResolver {
       parentContext,
     );
 
-    disposeWidgetObjects(
+    disposeWidgetObject(
       widgetObject: parentWidgetObject,
       flagPreserveTarget: true,
       flagEnqeueChildElementRemoval: false,
@@ -907,7 +907,18 @@ class Renderer with ServicesResolver {
     });
   }
 
-  void disposeWidgetObjects({
+  /// Dispose widget object and descendants.
+  ///
+  /// [flagPreserveTarget] - Whether to remove descendants but preserve the
+  /// widget itself.
+  ///
+  /// [flagEnqeueTargetElementRemoval] - Whether to remove [widgetObject]'s
+  /// element from DOM by making a explict call to element.remove
+  ///
+  /// [flagEnqeueChildElementRemoval] - Whether to remove ecah children of
+  /// [widgetObject] from DOM by making a explict call to element.remove
+  ///
+  void disposeWidgetObject({
     WidgetObject? widgetObject,
     //
     // -- flags --
@@ -930,7 +941,7 @@ class Renderer with ServicesResolver {
 
     if (children.isNotEmpty) {
       for (final childElement in [...children]) {
-        disposeWidgetObjects(
+        disposeWidgetObject(
           widgetObject: services.walker.getWidgetObject(
             childElement.context,
           ),

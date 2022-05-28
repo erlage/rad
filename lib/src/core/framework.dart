@@ -148,7 +148,7 @@ class Framework with ServicesResolver {
     required bool flagPreserveTarget,
   }) {
     if (null != widgetObject) {
-      renderer.disposeWidgets(
+      renderer.disposeWidget(
         context: widgetObject.context,
         flagPreserveTarget: flagPreserveTarget,
       );
