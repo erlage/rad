@@ -636,36 +636,17 @@ class Renderer with ServicesResolver {
 
       /*
       |------------------------------------------------------------------------
-      | check whether widget childs has to be updated
+      | run update on child nodes
       |------------------------------------------------------------------------
       */
 
-      // whether old widget happen to have child widgets
-      var hadChilds = oldWidget.widgetChildren.isNotEmpty;
-
-      // whether new widget has any childs
-      var hasChilds = updateObject.widget.widgetChildren.isNotEmpty;
-
-      // if widget has childs, update them
-      if (hasChilds) {
-        updateWidgetsUnderContext(
-          jobQueue: jobQueue,
-          updateType: updateType,
-          parentContext: widgetObject.context,
-          flagAddIfNotFound: flagAddIfNotFound,
-          widgets: updateObject.widget.widgetChildren,
-        );
-      } else {
-        // if new widget has no childs but old had, we have to remove
-        // those orphan childs.
-        if (hadChilds) {
-          disposeWidgets(
-            jobQueue: jobQueue,
-            flagPreserveTarget: true,
-            context: widgetObject.context,
-          );
-        }
-      }
+      updateWidgetsUnderContext(
+        jobQueue: jobQueue,
+        updateType: updateType,
+        parentContext: widgetObject.context,
+        flagAddIfNotFound: flagAddIfNotFound,
+        widgets: updateObject.widget.widgetChildren,
+      );
     } else {
       services.debug.exception(Constants.coreError);
     }
