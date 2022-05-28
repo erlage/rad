@@ -758,8 +758,10 @@ class Renderer with ServicesResolver {
   }) {
     // -------------------------
 
-    var hasherForOldNodes = services.keyGen.createCompatibilityHashGenerator();
-    var hasherForNewNodes = services.keyGen.createCompatibilityHashGenerator();
+    var keyGenService = services.keyGen;
+
+    var hasherForOldNodes = keyGenService.createCompatibilityHashGenerator();
+    var hasherForNewNodes = keyGenService.createCompatibilityHashGenerator();
 
     // -------------------------
 
@@ -775,17 +777,19 @@ class Renderer with ServicesResolver {
     for (final node in parent.children) {
       oldPositionIndex++;
 
+      var oldNodeKey = node.context.key;
+
       //
       // Unique hash. Can be used to find a matching widget at the same level of
       // tree.
       //
       var oldNodeHash = hasherForOldNodes.createCompatibilityHash(
-        widgetKey: node.context.key,
+        widgetKey: oldNodeKey,
         widgetRuntimeType: node.context.widgetRuntimeType,
       );
 
       // register hash
-      oldRenderNodesHashRegistry[node.context.key.value] = oldNodeHash;
+      oldRenderNodesHashRegistry[oldNodeKey.value] = oldNodeHash;
 
       oldRenderNodesPositions[oldNodeHash] = oldPositionIndex;
       oldRenderNodesHashMap[oldNodeHash] = node;
@@ -799,7 +803,7 @@ class Renderer with ServicesResolver {
     for (final widget in widgets) {
       newPositionIndex++;
 
-      var newKey = services.keyGen.computeWidgetKey(
+      var newKey = keyGenService.computeWidgetKey(
         widget: widget,
         parentContext: parentContext,
       );
@@ -875,8 +879,8 @@ class Renderer with ServicesResolver {
 
     // -------------------------
 
-    services.keyGen.disposeHashGenerator(hasherForOldNodes);
-    services.keyGen.disposeHashGenerator(hasherForNewNodes);
+    keyGenService.disposeHashGenerator(hasherForOldNodes);
+    keyGenService.disposeHashGenerator(hasherForNewNodes);
 
     // -------------------------
 
@@ -1039,8 +1043,10 @@ class Renderer with ServicesResolver {
 
     // cascade dispose to its childs first
 
-    if (widgetObject.renderNode.children.isNotEmpty) {
-      for (final childElement in [...widgetObject.renderNode.children]) {
+    var children = widgetObject.renderNode.children;
+
+    if (children.isNotEmpty) {
+      for (final childElement in [...children]) {
         disposeWidgetObjects(
           widgetObject: services.walker.getWidgetObject(
             childElement.context,

@@ -446,17 +446,18 @@ class NavigatorRenderObject extends RenderObject {
 
   void addDependent(BuildContext dependentContext) {
     var dependentsOnCurrentPage = dependents[state.currentRouteName];
+    var dependentKeyValue = dependentContext.key.value;
 
     if (null == dependentsOnCurrentPage) {
       dependents[state.currentRouteName] = {
-        dependentContext.key.value: dependentContext
+        dependentKeyValue: dependentContext
       };
 
       return;
     }
 
-    if (!dependentsOnCurrentPage.containsKey(dependentContext.key.value)) {
-      dependentsOnCurrentPage[dependentContext.key.value] = dependentContext;
+    if (!dependentsOnCurrentPage.containsKey(dependentKeyValue)) {
+      dependentsOnCurrentPage[dependentKeyValue] = dependentContext;
     }
   }
 

@@ -63,17 +63,19 @@ class RouterService extends Service {
   /// Register navigator's state.
   ///
   void register(BuildContext context, NavigatorState state) {
-    if (_routeObjects.containsKey(context.key.value)) {
+    var navigatorKeyValue = context.key.value;
+
+    if (_routeObjects.containsKey(navigatorKeyValue)) {
       return services.debug.exception(Constants.coreError);
     }
 
-    if (_stateObjects.containsKey(context.key.value)) {
+    if (_stateObjects.containsKey(navigatorKeyValue)) {
       return services.debug.exception(Constants.coreError);
     }
 
     _register(context, state.routes);
 
-    _stateObjects[context.key.value] = state;
+    _stateObjects[navigatorKeyValue] = state;
   }
 
   void unRegister(BuildContext context) {
@@ -514,8 +516,10 @@ class RouterService extends Service {
 
     // if no Navigator in ancestors i.e we're dealing with a root navigator
 
+    var navigatorKeyValue = context.key.value;
+
     if (null == parentWidgetObject) {
-      _routeObjects[context.key.value] = NavigatorRouteObject(
+      _routeObjects[navigatorKeyValue] = NavigatorRouteObject(
         context: context,
         routes: routes,
         segments: [_getRoutingPath()],
@@ -523,9 +527,7 @@ class RouterService extends Service {
 
       if (services.debug.routerLogs) {
         print(
-          'Navigator Registered: #${context.key.value} at ${[
-            _getRoutingPath()
-          ]}',
+          'Navigator Registered: #$navigatorKeyValue at ${[_getRoutingPath()]}',
         );
       }
 
@@ -537,8 +539,8 @@ class RouterService extends Service {
     var parentRenderObject = parentWidgetObject.renderObject;
 
     var parentState = (parentRenderObject as NavigatorRenderObject).state;
-
-    var parentObject = _routeObjects[parentWidgetObject.context.key.value];
+    var parentNavigatorKeyValue = parentWidgetObject.context.key.value;
+    var parentObject = _routeObjects[parentNavigatorKeyValue];
 
     if (null == parentObject) {
       return services.debug.exception(Constants.coreError);
@@ -548,7 +550,7 @@ class RouterService extends Service {
 
     // add route object for current navigator
 
-    _routeObjects[context.key.value] = NavigatorRouteObject(
+    _routeObjects[navigatorKeyValue] = NavigatorRouteObject(
       context: context,
       routes: routes,
       segments: segments,
@@ -557,16 +559,16 @@ class RouterService extends Service {
 
     // recreate parent object with child reference
 
-    _routeObjects[parentWidgetObject.context.key.value] = NavigatorRouteObject(
+    _routeObjects[parentNavigatorKeyValue] = NavigatorRouteObject(
       context: parentObject.context,
       routes: parentObject.routes,
       segments: parentObject.segments,
       parent: parentObject.parent,
-      child: _routeObjects[context.key.value],
+      child: _routeObjects[navigatorKeyValue],
     );
 
     if (services.debug.routerLogs) {
-      print('Navigator Registered: #${context.key.value} at $segments');
+      print('Navigator Registered: #$navigatorKeyValue at $segments');
     }
   }
 }

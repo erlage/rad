@@ -97,8 +97,10 @@ class InheritedWidgetRenderObject extends RenderObject {
   InheritedWidgetRenderObject(BuildContext context) : super(context);
 
   void addDependent(BuildContext dependentContext) {
-    if (!dependents.containsKey(dependentContext.key.value)) {
-      dependents[dependentContext.key.value] = dependentContext;
+    var dependentKeyValue = dependentContext.key.value;
+
+    if (!dependents.containsKey(dependentKeyValue)) {
+      dependents[dependentKeyValue] = dependentContext;
     }
   }
 

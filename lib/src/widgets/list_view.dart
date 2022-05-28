@@ -415,11 +415,12 @@ class _ListViewBuilderState with ServicesResolver {
 
     Element? lastItemContainer;
 
-    if (element.children.length > 3) {
-      lastItemContainer = element.children[element.children.length - 3];
+    var childLength = element.children.length;
+
+    if (childLength > 3) {
+      lastItemContainer = element.children[childLength - 3];
     } else {
-      lastItemContainer =
-          element.children.isNotEmpty ? element.children.last : null;
+      lastItemContainer = childLength > 0 ? element.children.last : null;
     }
 
     if (null != lastItemContainer) {
