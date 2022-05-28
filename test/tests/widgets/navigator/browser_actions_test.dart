@@ -212,9 +212,11 @@ void main() {
 
         app!.window.dispatchBackAction(); // should go to c-route-2
         expect(child.currentRouteName, 'c-route-2');
+        expect(parent.currentRouteName, 'p-route-3');
 
         app!.window.dispatchForwardAction(); // should go to c-route-1
         expect(child.currentRouteName, 'c-route-1');
+        expect(parent.currentRouteName, 'p-route-3');
       },
     );
 
@@ -269,9 +271,12 @@ void main() {
         await Future.delayed(Duration(milliseconds: 100));
 
         app!.window.dispatchBackAction(); // should go to p-route-3, c-route-2
-        app!.window.dispatchBackAction(); // should go to p-route-3, c-route-1
+        expect(child.currentRouteName, 'c-route-2');
+        expect(parent.currentRouteName, 'p-route-3');
 
+        app!.window.dispatchBackAction(); // should go to p-route-3, c-route-1
         expect(child.currentRouteName, 'c-route-1');
+        expect(parent.currentRouteName, 'p-route-3');
       },
     );
 
