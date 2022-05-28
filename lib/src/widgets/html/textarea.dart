@@ -291,5 +291,6 @@ Map<String, String?> _prepareAttributes({
       attributes[Attributes.disabled] = null;
     }
   }
+
   return attributes;
 }
