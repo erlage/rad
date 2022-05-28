@@ -7,6 +7,7 @@ import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/element_description.dart';
 import 'package:rad/src/core/common/objects/widget_object.dart';
 import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/core/renderer/dumb_node_validator.dart';
 import 'package:rad/src/core/renderer/job_queue.dart';
 import 'package:rad/src/core/renderer/render_node.dart';
 import 'package:rad/src/core/renderer/tree_fragment.dart';
@@ -1120,7 +1121,10 @@ class Renderer with ServicesResolver {
       }
 
       if (null != description.rawContents) {
-        element.setInnerHtml(description.rawContents, validator: const _None());
+        element.setInnerHtml(
+          description.rawContents,
+          validator: const DumbNodeValidator(),
+        );
       }
     }
 
@@ -1130,16 +1134,7 @@ class Renderer with ServicesResolver {
       job();
     }
   }
-}
 
-/// A node validator that won't validate...
-///
-class _None implements NodeValidator {
-  const _None();
 
-  @override
-  allowsElement(_) => true;
 
-  @override
-  allowsAttribute(_, __, ___) => true;
 }
