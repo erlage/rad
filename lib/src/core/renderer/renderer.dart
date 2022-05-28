@@ -397,28 +397,33 @@ class Renderer with ServicesResolver {
     required UpdateType updateType,
     required bool flagAddIfNotFound,
     required JobQueue jobQueue,
+    //
+    // -- optionally, if callee already had fetched the parent object --
+    //
+    WidgetObject? parentObject,
+    //
   }) {
-    var parentObject = services.walker.getWidgetObject(
-      parentContext,
-    );
-
     if (null == parentObject) {
-      render(
-        widgets: widgets,
-        jobQueue: jobQueue,
-        mountAtIndex: null,
-        parentContext: parentContext,
-        flagCleanParentContents: true,
+      parentObject = services.walker.getWidgetObject(
+        parentContext,
       );
 
-      return;
-    }
+      if (null == parentObject) {
+        render(
+          widgets: widgets,
+          jobQueue: jobQueue,
+          mountAtIndex: null,
+          parentContext: parentContext,
+          flagCleanParentContents: true,
+        );
 
-    var parentNode = parentObject.renderNode;
+        return;
+      }
+    }
 
     var updates = prepareUpdates(
       widgets: widgets,
-      parent: parentNode,
+      parent: parentObject.renderNode,
       parentContext: parentContext,
       flagAddIfNotFound: flagAddIfNotFound,
     );
@@ -644,6 +649,7 @@ class Renderer with ServicesResolver {
         jobQueue: jobQueue,
         updateType: updateType,
         parentContext: widgetObject.context,
+        parentObject: widgetObject,
         flagAddIfNotFound: flagAddIfNotFound,
         widgets: updateObject.widget.widgetChildren,
       );
