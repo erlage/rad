@@ -890,6 +890,7 @@ class Renderer with ServicesResolver {
     disposeWidgetObjects(
       widgetObject: parentWidgetObject,
       flagPreserveTarget: true,
+      flagEnqeueChildElementRemoval: false,
       jobQueue: jobQueue,
     );
 
@@ -908,7 +909,15 @@ class Renderer with ServicesResolver {
 
   void disposeWidgetObjects({
     WidgetObject? widgetObject,
+    //
+    // -- flags --
+    //
     bool flagPreserveTarget = false,
+    bool flagEnqeueTargetElementRemoval = true,
+    bool flagEnqeueChildElementRemoval = true,
+    //
+    // -- job queue --
+    //
     required JobQueue jobQueue,
   }) {
     if (null == widgetObject) {
@@ -925,29 +934,42 @@ class Renderer with ServicesResolver {
           widgetObject: services.walker.getWidgetObject(
             childElement.context,
           ),
+          //
+          // child should be removed
+          //
+          flagPreserveTarget: false,
+          //
+          // whether to enqeue child's element removal depends on flag
+          // if parent is cleaning all objects, then it should be false
+          //
+          flagEnqeueTargetElementRemoval: flagEnqeueChildElementRemoval,
+          //
+          // since child will be removed, there's no need to enqeue removals
+          // of childs of child's element.
+          //
+          flagEnqeueChildElementRemoval: false,
+          //
           jobQueue: jobQueue,
         );
       }
     }
 
-    // if widget itself has to be preserved
+    if (!flagPreserveTarget) {
+      if (flagEnqeueTargetElementRemoval) {
+        jobQueue.addJob(() {
+          widgetObject.element.remove();
+        });
+      }
 
-    if (flagPreserveTarget) {
-      return;
-    }
+      widgetObject
+        ..renderObject.beforeUnMount()
+        ..renderNode.detach();
 
-    widgetObject
-      ..renderObject.beforeUnMount()
-      ..renderNode.detach();
+      services.walker.unRegisterWidgetObject(widgetObject);
 
-    jobQueue.addJob(() {
-      widgetObject.element.remove();
-    });
-
-    services.walker.unRegisterWidgetObject(widgetObject);
-
-    if (services.debug.widgetLogs) {
-      print('Dispose: ${widgetObject.context}');
+      if (services.debug.widgetLogs) {
+        print('Dispose: ${widgetObject.context}');
+      }
     }
   }
 
