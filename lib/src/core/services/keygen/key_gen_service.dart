@@ -41,8 +41,8 @@ class KeyGenService extends Service {
   GlobalKey generateGlobalKey() {
     ++_keyCounter;
 
-    return GlobalKey(
-      '${Constants.contextGenKeyPrefix}${rootContext.appTargetId}_$_keyCounter',
+    return GlobalKey.generateForFramework(
+      '_${rootContext.appTargetId}_$_keyCounter',
     );
   }
 
@@ -73,18 +73,6 @@ class KeyGenService extends Service {
     // whether key is provided explicitly in widget constructor
 
     var isKeyProvided = Constants.contextKeyNotSet != widget.initialKey;
-
-    // ensure key is not using system prefix
-    // if in dev mode
-
-    if (services.debug.additionalChecks) {
-      if (isKeyProvided && widget.initialKey.hasSystemPrefix) {
-        services.debug.exception(
-          'Keys starting with ${Constants.contextGenKeyPrefix} are reserved '
-          'for framework.',
-        );
-      }
-    }
 
     if (isKeyProvided) {
       return getGlobalKeyUsingKey(widget.initialKey, parentContext);
@@ -141,7 +129,7 @@ class _CompatibilityHashGenerator {
     required GlobalKey widgetKey,
     required String widgetRuntimeType,
   }) {
-    if (widgetKey.hasSystemPrefix) {
+    if (widgetKey.isFrameworkGenerated) {
       return '$widgetRuntimeType:${_generateCountForType(widgetRuntimeType)}';
     }
 

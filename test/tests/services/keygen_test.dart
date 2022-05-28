@@ -27,9 +27,9 @@ void main() {
       );
     });
 
-    test('should generate keys that starts with system a identifier', () {
+    test('should generate keys with framework-generated flag on', () {
       for (final key in generatedWidgetKeys) {
-        expect(key.hasSystemPrefix, equals(true));
+        expect(key.isFrameworkGenerated, equals(true));
       }
     });
   });
@@ -72,6 +72,15 @@ void main() {
         expect(
           key.value.startsWith(RT_TestBed.rootContext.appTargetId),
           equals(true),
+        );
+      }
+    });
+
+    test('should generate keys with framework-generated flag off', () {
+      for (final key in generatedWidgetKeys) {
+        expect(
+          key.isFrameworkGenerated,
+          equals(false),
         );
       }
     });
