@@ -479,6 +479,19 @@ class Renderer with ServicesResolver {
 
           break;
 
+        case WidgetUpdateType.addAllWithoutClean:
+          updateObject as WidgetUpdateObjectActionAddAllWithoutClean;
+
+          render(
+            mountAtIndex: null,
+            widgets: updateObject.widgets,
+            parentContext: parentContext,
+            flagCleanParentContents: false,
+            jobQueue: jobQueue,
+          );
+
+          break;
+
         case WidgetUpdateType.update:
           processWidgetUpdateObjectActionUpdate(
             jobQueue: jobQueue,
@@ -1003,12 +1016,36 @@ class Renderer with ServicesResolver {
     required BuildContext parentContext,
     required bool flagAddIfNotFound,
   }) {
+    // If there are no old widgets, add all the new ones
+
+    if (parentNode.children.isEmpty) {
+      return _prepareUpdatesAddAllWithouClean(
+        widgets: widgets,
+        flagAddIfNotFound: flagAddIfNotFound,
+      );
+    }
+
     return _prepareUpdatesUsingRadAlgo(
       widgets: widgets,
       parent: parentNode,
       parentContext: parentContext,
       flagAddIfNotFound: flagAddIfNotFound,
     );
+  }
+
+  Iterable<WidgetUpdateObject> _prepareUpdatesAddAllWithouClean({
+    required List<Widget> widgets,
+    required bool flagAddIfNotFound,
+  }) {
+    if (widgets.isEmpty || !flagAddIfNotFound) {
+      return [];
+    }
+
+    return [
+      WidgetUpdateObjectActionAddAllWithoutClean(
+        widgets: widgets,
+      )
+    ];
   }
 
   /// Prepare list of widget updates using Rad's algorithm.

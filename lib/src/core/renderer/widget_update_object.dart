@@ -13,6 +13,10 @@ enum WidgetUpdateType {
   add,
   update,
   dispose,
+
+  /// Add new widgets without cleaning parent contents.
+  ///
+  addAllWithoutClean,
 }
 
 class WidgetUpdateObjectActionAdd extends WidgetUpdateObject {
@@ -33,6 +37,16 @@ class WidgetUpdateObjectActionAdd extends WidgetUpdateObject {
     required this.mountAtIndex,
     required this.widgetPositionIndex,
   }) : super(WidgetUpdateType.add);
+}
+
+class WidgetUpdateObjectActionAddAllWithoutClean extends WidgetUpdateObject {
+  /// New widgets.
+  ///
+  final List<Widget> widgets;
+
+  WidgetUpdateObjectActionAddAllWithoutClean({
+    required this.widgets,
+  }) : super(WidgetUpdateType.addAllWithoutClean);
 }
 
 class WidgetUpdateObjectActionUpdate extends WidgetUpdateObject {
