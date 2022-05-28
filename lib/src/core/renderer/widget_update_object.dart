@@ -6,17 +6,29 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 abstract class WidgetUpdateObject {
   final WidgetUpdateType widgetUpdateType;
 
-  WidgetUpdateObject(this.widgetUpdateType);
+  const WidgetUpdateObject(this.widgetUpdateType);
 }
 
 enum WidgetUpdateType {
+  /// Add a new widget.
+  ///
   add,
+
+  /// Update a existing widget.
+  ///
   update,
+
+  /// Dispose widget.
+  ///
   dispose,
 
   /// Add new widgets without cleaning parent contents.
   ///
   addAllWithoutClean,
+
+  /// Dispose all widgets under context.
+  ///
+  cleanParent,
 }
 
 class WidgetUpdateObjectActionAdd extends WidgetUpdateObject {
@@ -82,4 +94,15 @@ class WidgetUpdateObjectActionDispose extends WidgetUpdateObject {
   WidgetUpdateObjectActionDispose(
     this.existingRenderNode,
   ) : super(WidgetUpdateType.dispose);
+}
+
+class WidgetUpdateObjectActionCleanParent extends WidgetUpdateObject {
+  static const _cached = WidgetUpdateObjectActionCleanParent._();
+
+  factory WidgetUpdateObjectActionCleanParent() => _cached;
+
+  const WidgetUpdateObjectActionCleanParent._()
+      : super(
+          WidgetUpdateType.cleanParent,
+        );
 }

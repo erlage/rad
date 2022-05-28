@@ -459,6 +459,16 @@ class Renderer with ServicesResolver {
 
           break;
 
+        case WidgetUpdateType.cleanParent:
+          updateObject as WidgetUpdateObjectActionCleanParent;
+
+          cleanParentContents(
+            parentContext: parentContext,
+            jobQueue: jobQueue,
+          );
+
+          break;
+
         case WidgetUpdateType.add:
           updateObject as WidgetUpdateObjectActionAdd;
 
@@ -1016,6 +1026,15 @@ class Renderer with ServicesResolver {
     required BuildContext parentContext,
     required bool flagAddIfNotFound,
   }) {
+    // If there are no new widgets, dispose all the old ones
+
+    if (widgets.isEmpty) {
+      return _prepareUpdatesDisposeAll(
+        parentNode: parentNode,
+        flagAddIfNotFound: flagAddIfNotFound,
+      );
+    }
+
     // If there are no old widgets, add all the new ones
 
     if (parentNode.children.isEmpty) {
@@ -1046,6 +1065,18 @@ class Renderer with ServicesResolver {
         widgets: widgets,
       )
     ];
+  }
+
+  Iterable<WidgetUpdateObject> _prepareUpdatesDisposeAll({
+    required RenderNode parentNode,
+    required bool flagAddIfNotFound,
+  }) {
+    // if there are no old childs to dispose
+    if (parentNode.children.isEmpty) {
+      return [];
+    }
+
+    return [WidgetUpdateObjectActionCleanParent()];
   }
 
   /// Prepare list of widget updates using Rad's algorithm.
