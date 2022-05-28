@@ -474,14 +474,14 @@ class Renderer with ServicesResolver {
 
           if (services.debug.widgetLogs) {
             print(
-              'Add missing child of type: ${updateObject.widget.runtimeType}'
+              'Add ${updateObject.widgets.length} missing widgets: '
               ' under: $parentContext',
             );
           }
 
           render(
             jobQueue: jobQueue,
-            widgets: [updateObject.widget],
+            widgets: updateObject.widgets,
             mountAtIndex: updateObject.mountAtIndex,
             parentContext: parentContext,
             flagCleanParentContents: false,
@@ -1140,6 +1140,10 @@ class Renderer with ServicesResolver {
     var oldRenderNodesPositions = <String, int>{};
     var oldRenderNodesHashRegistry = <String, String>{};
 
+    // --------------------------------------------------
+    // Phase-1 | Collect data from old nodes
+    // --------------------------------------------------
+
     // prepare hash map from existing render nodes
     var oldPositionIndex = -1;
     for (final node in parent.children) {
@@ -1163,8 +1167,15 @@ class Renderer with ServicesResolver {
       oldRenderNodesHashMap[oldNodeHash] = node;
     }
 
+    // --------------------------------------------------
+    // Phase-2 | Traverse new widgets and prepare updates
+    // --------------------------------------------------
+
     // for keeping track of nodes that were missing and added or moved to top
     var slippedInNodesCount = 0;
+
+    // for keeping tack of last widget that's inserted
+    WidgetUpdateObjectActionAdd? lastAddedWidgetAction;
 
     // for keeping track of new widget's position
     var newPositionIndex = -1;
@@ -1191,11 +1202,32 @@ class Renderer with ServicesResolver {
 
         slippedInNodesCount++;
 
-        widgetSystemActions[newNodeHash] = WidgetUpdateObjectActionAdd(
-          widget: widget,
+        // if we've already added a widget
+        if (null != lastAddedWidgetAction) {
+          // check whether this widget is consecutive to the last added widget
+          // because we can add all consecutive widgets in a single operation
+
+          // position index of previously added widget
+          var lastWidgetPosIndex = lastAddedWidgetAction.widgetPositionIndex;
+          var lastWidgetAppendCount = lastAddedWidgetAction.widgets.length;
+
+          // expected offset
+          var expectedPosIndex = lastWidgetPosIndex + lastWidgetAppendCount;
+
+          if (expectedPosIndex == newPositionIndex) {
+            lastAddedWidgetAction.appendAnotherWidget(widget);
+
+            continue;
+          }
+        }
+
+        lastAddedWidgetAction = WidgetUpdateObjectActionAdd(
+          widgets: [widget],
           mountAtIndex: newPositionIndex,
           widgetPositionIndex: newPositionIndex,
         );
+
+        widgetSystemActions[newNodeHash] = lastAddedWidgetAction;
 
         continue;
       }

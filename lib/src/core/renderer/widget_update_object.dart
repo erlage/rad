@@ -34,7 +34,7 @@ enum WidgetUpdateType {
 class WidgetUpdateObjectActionAdd extends WidgetUpdateObject {
   /// New widget.
   ///
-  final Widget widget;
+  final List<Widget> widgets;
 
   /// Widget position in parent's child list.
   ///
@@ -44,8 +44,12 @@ class WidgetUpdateObjectActionAdd extends WidgetUpdateObject {
   ///
   final int? mountAtIndex;
 
+  /// Append a widget to the same update object.
+  ///
+  void appendAnotherWidget(Widget widget) => widgets.add(widget);
+
   WidgetUpdateObjectActionAdd({
-    required this.widget,
+    required this.widgets,
     required this.mountAtIndex,
     required this.widgetPositionIndex,
   }) : super(WidgetUpdateType.add);
