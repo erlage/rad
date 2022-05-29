@@ -110,91 +110,91 @@ class EventDetector extends Widget {
   // All events in capture mode
   // =============================================================
 
-  /// On input event listener.
+  /// On input event listener in capture phase.
   ///
   final EventCallback? onInputCapture;
 
-  /// On change event listener.
+  /// On change event listener in capture phase.
   ///
   final EventCallback? onChangeCapture;
 
-  /// On submit event listener.
+  /// On submit event listener in capture phase.
   ///
   final EventCallback? onSubmitCapture;
 
-  /// On click event listener.
+  /// On click event listener in capture phase.
   ///
   final EventCallback? onClickCapture;
 
-  /// On double click event listener.
+  /// On double click event listener in capture phase.
   ///
   final EventCallback? onDoubleClickCapture;
 
-  /// On key up event listener.
+  /// On key up event listener in capture phase.
   ///
   final EventCallback? onKeyUpCapture;
 
-  /// On key down event listener.
+  /// On key down event listener in capture phase.
   ///
   final EventCallback? onKeyDownCapture;
 
-  /// On key press event listener.
+  /// On key press event listener in capture phase.
   ///
   final EventCallback? onKeyPressCapture;
 
-  /// On Drag event listener.
+  /// On Drag event listener in capture phase.
   ///
   final EventCallback? onDragCapture;
 
-  /// On DragEnd event listener.
+  /// On DragEnd event listener in capture phase.
   ///
   final EventCallback? onDragEndCapture;
 
-  /// On DragEnter event listener.
+  /// On DragEnter event listener in capture phase.
   ///
   final EventCallback? onDragEnterCapture;
 
-  /// On DragLeave event listener.
+  /// On DragLeave event listener in capture phase.
   ///
   final EventCallback? onDragLeaveCapture;
 
-  /// On DragOver event listener.
+  /// On DragOver event listener in capture phase.
   ///
   final EventCallback? onDragOverCapture;
 
-  /// On DragStart event listener.
+  /// On DragStart event listener in capture phase.
   ///
   final EventCallback? onDragStartCapture;
 
-  /// On Drop event listener.
+  /// On Drop event listener in capture phase.
   ///
   final EventCallback? onDropCapture;
 
-  /// On on mouse down event listener.
+  /// On on mouse down event listener in capture phase.
   ///
   final EventCallback? onMouseDownCapture;
 
-  /// On on mouse enter event listener.
+  /// On on mouse enter event listener in capture phase.
   ///
   final EventCallback? onMouseEnterCapture;
 
-  /// On on mouse leave event listener.
+  /// On on mouse leave event listener in capture phase.
   ///
   final EventCallback? onMouseLeaveCapture;
 
-  /// On on mouse move event listener.
+  /// On on mouse move event listener in capture phase.
   ///
   final EventCallback? onMouseMoveCapture;
 
-  /// On on mouse over event listener.
+  /// On on mouse over event listener in capture phase.
   ///
   final EventCallback? onMouseOverCapture;
 
-  /// On on mouse out event listener.
+  /// On on mouse out event listener in capture phase.
   ///
   final EventCallback? onMouseOutCapture;
 
-  /// On on mouse up event listener.
+  /// On on mouse up event listener in capture phase.
   ///
   final EventCallback? onMouseUpCapture;
 
