@@ -8,6 +8,12 @@ import '../../test_imports.dart';
 
 void main() {
   group('start app tests :', () {
+    setUp(() {
+      // we are testing real runApp and it throws if called twice with same
+      // targetId(as expected)
+      ServicesRegistry.instance.unRegisterServices(RT_TestBed.rootContext);
+    });
+
     test('should run app', () async {
       runApp(
         app: Text('hello world'),
