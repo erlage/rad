@@ -1,5 +1,8 @@
 import '../../test_imports.dart';
 
+// we are using a generator script to generate tests for the event service
+// tests below are old and waiting to be removed
+
 void main() {
   RT_AppRunner? app;
 

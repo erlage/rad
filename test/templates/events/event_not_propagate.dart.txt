@@ -1,0 +1,44 @@
+test('should propagate event only upto matching target', () async {
+  var pap = app!;
+
+  await pap.buildChildren(
+    widgets: [
+      RT_EventfulWidget(
+        key: GlobalKey('el-g-parent'),
+        __EventAttributeName__: (_) => pap.stack.push('__EventNativeName__-g-parent'),
+        children: [
+          RT_EventfulWidget(
+            key: GlobalKey('el-parent'),
+            __EventAttributeName__: (_) => pap.stack.push('__EventNativeName__-parent'),
+            children: [
+              RT_EventfulWidget(key: GlobalKey('el-child')),
+            ],
+          ),
+        ],
+      )
+    ],
+    parentContext: pap.appContext,
+  );
+
+  var gparent = pap.elementByGlobalKey('el-g-parent');
+  var parent = pap.elementByGlobalKey('el-parent');
+  var child = pap.elementByGlobalKey('el-child');
+
+  gparent.dispatchEvent(Event('__EventNativeName__')); // first
+  parent.dispatchEvent(Event('__EventNativeName__')); // second
+  child.dispatchEvent(Event('__EventNativeName__')); // third
+
+  // after 1st dispatch
+
+  expect(pap.stack.popFromStart(), equals('__EventNativeName__-g-parent'));
+
+  // after 2nd dispatch
+
+  expect(pap.stack.popFromStart(), equals('__EventNativeName__-parent'));
+
+  // after 3rd dispatch
+
+  expect(pap.stack.popFromStart(), equals('__EventNativeName__-parent'));
+
+  expect(pap.stack.canPop(), equals(false));
+});

@@ -9,7 +9,7 @@ import main
 gen_folder = os.path.abspath(os.path.join(main.test_dir, 'tests', 'generated'))
 widgets_folder = os.path.abspath(os.path.join(
     main.rad_dir, 'lib', 'src', 'widgets', 'html'))
-templates_folder = os.path.abspath(os.path.join(main.test_dir, 'templates'))
+templates_folder = os.path.abspath(os.path.join(main.test_dir, 'templates', 'html'))
 
 skipped_tests = {
     'html_attr_innertext': {
@@ -269,7 +269,7 @@ def generate():
     invokations = ''
     part_of_directives = ''
     runner_file = os.path.abspath(os.path.join(
-        main.test_dir, 'tests', 'generated', '_html_tests_index_test.dart'))
+        main.test_dir, 'tests', 'generated', '_index_html_test.dart'))
     utils.clean_file(runner_file)
 
     for index, widget_class_name in enumerate(widgets_map):
@@ -279,13 +279,13 @@ def generate():
             widget_class_name)
 
         out_file = os.path.abspath(os.path.join(
-            main.test_dir, 'tests', 'generated', 'html_' + widget_class_name_camel_case + '_tests.generated.dart'))
+            main.test_dir, 'tests', 'generated', 'html', 'html_' + widget_class_name_camel_case + '_tests.generated.dart'))
 
         utils.clean_file(out_file)
 
         invokations += 'html_' + widget_class_name_camel_case + '_test();'
 
-        part_of_directives += "part 'html_" + \
+        part_of_directives += "part 'html/html_" + \
             widget_class_name_camel_case + "_tests.generated.dart';"
 
         generated = ''' 
@@ -295,7 +295,7 @@ def generate():
 
             // ignore_for_file: non_constant_identifier_names
 
-            part of '_html_tests_index_test.dart';
+            part of '../_index_html_test.dart';
 
             void html_''' + widget_class_name_camel_case + '''_test() {
 
@@ -362,7 +362,7 @@ def generate():
     runner_code = ''' 
         // Auto-generated file
         //
-        // Sources of these tests can be found in /test/templates folder
+        // Sources of these tests can be found in /test/templates/html folder
 
         import '../../test_imports.dart';
 

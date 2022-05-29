@@ -1,0 +1,21 @@
+test('should dispatch event', () async {
+  var pap = app!;
+
+  await pap.buildChildren(
+    widgets: [
+      RT_EventfulWidget(
+        key: GlobalKey('element'),
+        __EventAttributeName__: (_) => pap.stack.push('__EventNativeName__-element'),
+      ),
+    ],
+    parentContext: pap.appContext,
+  );
+
+  var element = pap.elementByGlobalKey('element');
+
+  element.dispatchEvent(Event('__EventNativeName__'));
+
+  expect(pap.stack.popFromStart(), equals('__EventNativeName__-element'));
+
+  expect(pap.stack.canPop(), equals(false));
+}__Skip__);

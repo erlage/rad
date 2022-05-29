@@ -1,7 +1,7 @@
 platforms:
   - chrome
 
-custom_html_template_path: test/templates/common.html.txt
+custom_html_template_path: test/templates/common.html
 
 tags:
   browser:
