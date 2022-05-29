@@ -1,6 +1,7 @@
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/renderer/renderer.dart';
+import 'package:rad/src/core/run_app.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_dispose_task.dart';
@@ -9,6 +10,8 @@ import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_t
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/core/services/services_registry.dart';
 
+/// Core's gateway.
+///
 class Framework {
   /// Renderer.
   ///
@@ -20,10 +23,11 @@ class Framework {
 
   /// Whether framework is in test mode.
   ///
-  /// Renderer that is responsible for build and managing widgets is not
-  /// exposed in app space, by default. Framework act as a gateway to renderer
-  /// in test mode so that test packages can build widgets using a very
-  /// unstable but low-level API.
+  /// Framework internally uses a renderer to build and manage widgets. Instance
+  /// of renderer is exposed only if framework is in test mode. Framework can
+  /// be bootstraped in test-mode using [AppRunner.inTestMode]. This
+  /// constructor is mostly dedicated to external packages that need
+  /// access to renderer instance e.g a test package for testing apps.
   ///
   final bool _isInTestMode;
 
