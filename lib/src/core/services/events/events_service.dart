@@ -15,41 +15,42 @@ import 'package:rad/src/core/services/events/emitted_event.dart';
 class EventsService extends Service {
   final EventsOptions options;
 
-  final _eventSubscriptions = <StreamSubscription<Event>>[];
+  final _eventSubscriptions = <DomEventType, StreamSubscription<Event>>{};
 
   EventsService(BuildContext context, this.options) : super(context);
 
   @override
-  startService() {
-    var rootElement = document.getElementById(rootContext.appTargetId);
-
-    if (null != rootElement) {
-      _eventSubscriptions.addAll([
-        Element.clickEvent.forElement(rootElement).capture(_handle),
-        Element.inputEvent.forElement(rootElement).capture(_handle),
-        Element.changeEvent.forElement(rootElement).capture(_handle),
-        Element.submitEvent.forElement(rootElement).capture(_handle),
-        Element.keyUpEvent.forElement(rootElement).capture(_handle),
-        Element.keyDownEvent.forElement(rootElement).capture(_handle),
-        Element.keyPressEvent.forElement(rootElement).capture(_handle),
-
-        // mouse events
-
-        Element.mouseDownEvent.forElement(rootElement).capture(_handle),
-        Element.mouseEnterEvent.forElement(rootElement).capture(_handle),
-        Element.mouseLeaveEvent.forElement(rootElement).capture(_handle),
-        Element.mouseMoveEvent.forElement(rootElement).capture(_handle),
-        Element.mouseOverEvent.forElement(rootElement).capture(_handle),
-        Element.mouseOutEvent.forElement(rootElement).capture(_handle),
-        Element.mouseUpEvent.forElement(rootElement).capture(_handle),
-      ]);
+  stopService() {
+    for (final subscription in _eventSubscriptions.values) {
+      subscription.cancel();
     }
   }
 
-  @override
-  stopService() {
-    while (_eventSubscriptions.isNotEmpty) {
-      _eventSubscriptions.removeLast().cancel();
+  /// Start event listener streams for event types.
+  ///
+  void setupEventListeners(Map<DomEventType, EventCallback?> eventListeners) {
+    if (eventListeners.isEmpty) {
+      return;
+    }
+
+    var rootElement = document.getElementById(rootContext.appTargetId);
+
+    if (null == rootElement) {
+      return;
+    }
+
+    for (final eventType in eventListeners.keys) {
+      // if callback is null
+      if (null == eventListeners[eventType]) {
+        continue;
+      }
+
+      // if already started
+      if (_eventSubscriptions.containsKey(eventType)) {
+        continue;
+      }
+
+      _startListeningForEventType(eventType, rootElement);
     }
   }
 
@@ -202,6 +203,80 @@ class EventsService extends Service {
       if (event.isPropagationStopped) {
         break;
       }
+    }
+  }
+
+  void _startListeningForEventType(DomEventType eventType, Element element) {
+    switch (eventType) {
+      case DomEventType.click:
+        var sub = Element.clickEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.change:
+        var sub = Element.changeEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.input:
+        var sub = Element.inputEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.submit:
+        var sub = Element.submitEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.keyUp:
+        var sub = Element.keyUpEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.keyDown:
+        var sub = Element.keyDownEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.keyPress:
+        var sub = Element.keyPressEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.mouseDown:
+        var sub = Element.mouseDownEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.mouseEnter:
+        var sub = Element.mouseEnterEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.mouseLeave:
+        var sub = Element.mouseLeaveEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.mouseMove:
+        var sub = Element.mouseMoveEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.mouseOver:
+        var sub = Element.mouseOverEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.mouseOut:
+        var sub = Element.mouseOutEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.mouseUp:
+        var sub = Element.mouseUpEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
     }
   }
 }

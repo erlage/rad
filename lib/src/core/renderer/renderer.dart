@@ -80,6 +80,11 @@ class Renderer with ServicesResolver {
     // without queue as element is in mem
     applyDescription(element: element, description: description);
 
+    // regsiter event listeners
+    services.events
+      ..setupEventListeners(widget.widgetEventListeners)
+      ..setupEventListeners(widget.widgetCaptureEventListeners);
+
     jobQueue.addPostDispatchCallback(() {
       widgetObject
         ..frameworkUpdateMountStatus(true)
