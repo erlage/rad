@@ -9,6 +9,17 @@ class RT_DomEvents {
     'keyup',
     'keydown',
     'keypress',
+
+    // mouse events
+
+    'mousedown',
+    'mouseenter',
+    'mouseleave',
+    'mousemove',
+    'mouseover',
+    'mouseout',
+    'mouseup',
+    'mousewheel',
   ];
 
   static const available = [

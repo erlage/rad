@@ -9,7 +9,8 @@ import main
 gen_folder = os.path.abspath(os.path.join(main.test_dir, 'tests', 'generated'))
 widgets_folder = os.path.abspath(os.path.join(
     main.rad_dir, 'lib', 'src', 'widgets', 'html'))
-templates_folder = os.path.abspath(os.path.join(main.test_dir, 'templates', 'events'))
+templates_folder = os.path.abspath(
+    os.path.join(main.test_dir, 'templates', 'events'))
 
 skipped_tests = {}
 
@@ -49,6 +50,44 @@ event_specific_tests = {
         'event_restart_propagate',
         'event_capture_with_restart',
     ],
+
+    # mouse events
+
+    'onMouseDown': [
+        'event_not_propagate',
+        'event_restart_propagate',
+        'event_capture_with_restart',
+    ],
+    'onMouseEnter': [
+        'event_not_propagate',
+        'event_restart_propagate',
+        'event_capture_with_restart',
+    ],
+    'onMouseLeave': [
+        'event_not_propagate',
+        'event_restart_propagate',
+        'event_capture_with_restart',
+    ],
+    'onMouseMove': [
+        'event_not_propagate',
+        'event_restart_propagate',
+        'event_capture_with_restart',
+    ],
+    'onMouseOver': [
+        'event_not_propagate',
+        'event_restart_propagate',
+        'event_capture_with_restart',
+    ],
+    'onMouseOut': [
+        'event_not_propagate',
+        'event_restart_propagate',
+        'event_capture_with_restart',
+    ],
+    'onMouseUp': [
+        'event_not_propagate',
+        'event_restart_propagate',
+        'event_capture_with_restart',
+    ],
 }
 
 global_tests = [
@@ -60,10 +99,20 @@ events_map = {
     'onClick': 'click',
     'onInput': 'input',
     'onChange': 'change',
+    'onSubmit': 'submit',
     'onKeyUp': 'keyup',
     'onKeyDown': 'keydown',
     'onKeyPress': 'keypress',
-    'onSubmit': 'submit',
+
+    # mouse events
+
+    'onMouseDown': 'mousedown',
+    'onMouseEnter': 'mouseenter',
+    'onMouseLeave': 'mouseleave',
+    'onMouseMove': 'mousemove',
+    'onMouseOver': 'mouseover',
+    'onMouseOut': 'mouseout',
+    'onMouseUp': 'mouseup',
 }
 
 

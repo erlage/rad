@@ -75,6 +75,15 @@ enum DomEventType {
   keyUp,
   keyDown,
   keyPress,
+
+  // mouse events
+  mouseDown,
+  mouseEnter,
+  mouseLeave,
+  mouseMove,
+  mouseOver,
+  mouseOut,
+  mouseUp,
 }
 
 enum InputType {

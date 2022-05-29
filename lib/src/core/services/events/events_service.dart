@@ -32,6 +32,16 @@ class EventsService extends Service {
         Element.keyUpEvent.forElement(rootElement).capture(_handle),
         Element.keyDownEvent.forElement(rootElement).capture(_handle),
         Element.keyPressEvent.forElement(rootElement).capture(_handle),
+
+        // mouse events
+
+        Element.mouseDownEvent.forElement(rootElement).capture(_handle),
+        Element.mouseEnterEvent.forElement(rootElement).capture(_handle),
+        Element.mouseLeaveEvent.forElement(rootElement).capture(_handle),
+        Element.mouseMoveEvent.forElement(rootElement).capture(_handle),
+        Element.mouseOverEvent.forElement(rootElement).capture(_handle),
+        Element.mouseOutEvent.forElement(rootElement).capture(_handle),
+        Element.mouseUpEvent.forElement(rootElement).capture(_handle),
       ]);
     }
   }
@@ -143,9 +153,13 @@ class EventsService extends Service {
     // assume current event is not absorbable
     // absorbable event means that event will auto-stop propagating when reaches
     // a target that has a matching listener for that event
+
     var isEventAbsorbable = false;
 
     switch (eventType) {
+      // these restrictions are purely framework-sided
+      // we can promote below events to bubbling events anytime we want
+      // maybe just to be more spec complaint
 
       // we should stop forwarding these events
       // if a valid listener callback got called
@@ -155,12 +169,23 @@ class EventsService extends Service {
       case DomEventType.keyUp:
       case DomEventType.keyDown:
       case DomEventType.keyPress:
+
+      // mouse events
+
+      case DomEventType.mouseDown:
+      case DomEventType.mouseEnter:
+      case DomEventType.mouseLeave:
+      case DomEventType.mouseMove:
+      case DomEventType.mouseOver:
+      case DomEventType.mouseOut:
+      case DomEventType.mouseUp:
         isEventAbsorbable = true;
 
         break;
 
       // we should forward these events to next elements
       // even if a valid listener callback got called
+
       case DomEventType.click:
         isEventAbsorbable = false;
 

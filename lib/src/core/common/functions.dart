@@ -184,6 +184,29 @@ String fnMapDomEventType(DomEventType eventType) {
 
     case DomEventType.keyPress:
       return 'keypress';
+
+    // mouse events
+
+    case DomEventType.mouseDown:
+      return 'mousedown';
+
+    case DomEventType.mouseEnter:
+      return 'mouseenter';
+
+    case DomEventType.mouseLeave:
+      return 'mouseleave';
+
+    case DomEventType.mouseMove:
+      return 'mousemove';
+
+    case DomEventType.mouseOver:
+      return 'mouseover';
+
+    case DomEventType.mouseOut:
+      return 'mouseout';
+
+    case DomEventType.mouseUp:
+      return 'mouseup';
   }
 }
 
