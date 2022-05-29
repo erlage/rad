@@ -46,10 +46,10 @@ class RT_AppRunner extends AppRunner {
   @override
   void stop() {
     this
-      .._clearState()
-      .._printDebugInformation()
       ..disposeFrameworkInstance()
-      ..stopServices();
+      ..stopServices()
+      .._printDebugInformation()
+      .._clearState();
   }
 
   void _clearState() {
