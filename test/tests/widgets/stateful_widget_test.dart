@@ -42,7 +42,7 @@ void main() {
         var app = createTestApp()..start();
 
         expect(
-          () => app.framework.buildChildren(
+          () => app.buildChildrenSync(
             widgets: [
               RT_StatefulTestWidget(
                 stateHookCreateState: (state) => state.widget,
@@ -69,7 +69,7 @@ void main() {
         var app = createTestApp()..start();
 
         expect(
-          () => app.framework.buildChildren(
+          () => app.buildChildrenSync(
             widgets: [
               RT_StatefulTestWidget(
                 stateHookCreateState: (state) => state.context,

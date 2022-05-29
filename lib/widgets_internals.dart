@@ -14,6 +14,7 @@ export 'src/core/common/objects/render_object.dart' show RenderObject;
 
 // services
 
+export 'src/core/framework.dart' show Framework;
 export 'src/core/services/debug/debug_service.dart' show DebugService;
 export 'src/core/services/router/router_service.dart' show RouterService;
 export 'src/core/services/events/events_service.dart' show EventsService;

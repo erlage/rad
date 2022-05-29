@@ -57,6 +57,7 @@ AppRunner runApp({
 class AppRunner {
   final Widget app;
   final String targetId;
+  final bool _isInTestMode;
 
   final Callback? _beforeMount;
   final DebugOptions? _debugOptions;
@@ -72,14 +73,31 @@ class AppRunner {
   Services get services => _services!;
 
   Framework? _framework;
+  Framework get framework => _framework!;
 
+  /// Create a app runner.
+  ///
   AppRunner({
     required this.app,
     required this.targetId,
     Callback? beforeMount,
     RouterOptions? routerOptions,
     DebugOptions? debugOptions,
-  })  : _beforeMount = beforeMount,
+  })  : _isInTestMode = false,
+        _beforeMount = beforeMount,
+        _routerOptions = routerOptions,
+        _debugOptions = debugOptions;
+
+  /// Create a app runner in test mode.
+  ///
+  AppRunner.inTestMode({
+    required this.app,
+    required this.targetId,
+    Callback? beforeMount,
+    RouterOptions? routerOptions,
+    DebugOptions? debugOptions,
+  })  : _isInTestMode = true,
+        _beforeMount = beforeMount,
         _routerOptions = routerOptions,
         _debugOptions = debugOptions;
 
@@ -87,12 +105,12 @@ class AppRunner {
   ///
   void start() {
     this
-      .._createRootContext()
-      .._prepareOptions()
-      .._setupDelegates()
-      .._startServices()
-      .._createFrameworkInstance()
-      .._prepareMount()
+      ..setupRootContext()
+      ..setupOptions()
+      ..setupDelegates()
+      ..startServices()
+      ..setupFrameworkInstance()
+      ..runPreMountTasks()
       .._scheduleInitialBuild();
   }
 
@@ -100,17 +118,21 @@ class AppRunner {
   ///
   void stop() {
     this
-      .._disposeFrameworkInstance()
-      .._stopServices();
+      ..disposeFrameworkInstance()
+      ..stopServices();
   }
 
-  void _createRootContext() {
+  /// Setuo root context.
+  ///
+  void setupRootContext() {
     var globalKey = GlobalKey(targetId);
 
     _rootContext = BuildContext.bigBang(globalKey);
   }
 
-  void _prepareOptions() {
+  /// Prepare options for app instance.
+  ///
+  void setupOptions() {
     _appOptions = AppOptions(
       rootContext: rootContext,
       routerOptions: _routerOptions ?? RouterOptions.defaultMode,
@@ -118,24 +140,38 @@ class AppRunner {
     );
   }
 
-  void _setupDelegates() {
+  /// Setup delegates.
+  ///
+  void setupDelegates() {
     Window.instance.bindDelegate(BrowserWindow());
   }
 
-  void _startServices() {
+  /// Start app instance associated services.
+  ///
+  void startServices() {
     _services = Services(appOptions)..startServices();
   }
 
-  void _stopServices() {
-    services.stopServices();
+  /// Stop app instance associated services.
+  ///
+  void stopServices() {
+    _services?.stopServices();
   }
 
-  void _createFrameworkInstance() {
-    _framework = Framework(rootContext)..initState();
+  /// Setup instance of framework.
+  ///
+  void setupFrameworkInstance() {
+    if (_isInTestMode) {
+      _framework = Framework.inTestMode(rootContext)..initState();
+    } else {
+      _framework = Framework(rootContext)..initState();
+    }
   }
 
-  void _disposeFrameworkInstance() {
-    _framework!.dispose();
+  /// Dispose framework instance.
+  ///
+  void disposeFrameworkInstance() {
+    _framework?.dispose();
   }
 
   void _scheduleInitialBuild() {
@@ -147,7 +183,9 @@ class AppRunner {
     );
   }
 
-  void _prepareMount() {
+  /// Run pre-mount tasks.
+  ///
+  void runPreMountTasks() {
     var targetElement = document.getElementById(targetId);
 
     if (null == targetElement) {

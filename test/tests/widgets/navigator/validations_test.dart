@@ -22,7 +22,7 @@ void main() {
 
     test('should throw if routes list is empty', () {
       expect(
-        () => app!.buildChildren(
+        () => app!.buildChildrenSync(
           widgets: [
             Navigator(
               routes: [],
@@ -42,7 +42,7 @@ void main() {
 
     test('should throw if name is empty', () {
       expect(
-        () => app!.buildChildren(
+        () => app!.buildChildrenSync(
           widgets: [
             Navigator(
               routes: [
@@ -64,7 +64,7 @@ void main() {
 
     test('should throw if name is empty(space test)', () {
       expect(
-        () => app!.buildChildren(
+        () => app!.buildChildrenSync(
           widgets: [
             Navigator(
               routes: [
@@ -86,7 +86,7 @@ void main() {
 
     test('should throw if path is empty', () {
       expect(
-        () => app!.buildChildren(
+        () => app!.buildChildrenSync(
           widgets: [
             Navigator(
               routes: [
@@ -108,7 +108,7 @@ void main() {
 
     test('should throw if path is empty(space test)', () {
       expect(
-        () => app!.buildChildren(
+        () => app!.buildChildrenSync(
           widgets: [
             Navigator(
               routes: [
@@ -130,7 +130,7 @@ void main() {
 
     test('should throw if found illegal characters in route path(space)', () {
       expect(
-        () => app!.buildChildren(
+        () => app!.buildChildrenSync(
           widgets: [
             Navigator(
               routes: [
@@ -152,7 +152,7 @@ void main() {
 
     test('should throw if found illegal characters in route path(special)', () {
       expect(
-        () => app!.buildChildren(
+        () => app!.buildChildrenSync(
           widgets: [
             Navigator(
               routes: [
@@ -174,7 +174,7 @@ void main() {
 
     test('should throw if found a duplicate route', () {
       expect(
-        () => app!.buildChildren(
+        () => app!.buildChildrenSync(
           widgets: [
             Navigator(
               routes: [
@@ -195,7 +195,7 @@ void main() {
 
     test('should throw if found a duplicate route (mixed test)', () {
       expect(
-        () => app!.buildChildren(
+        () => app!.buildChildrenSync(
           widgets: [
             Navigator(
               routes: [
@@ -216,7 +216,7 @@ void main() {
 
     test('should throw if found a duplicate route(path test)', () {
       expect(
-        () => app!.buildChildren(
+        () => app!.buildChildrenSync(
           widgets: [
             Navigator(
               routes: [

@@ -1,7 +1,5 @@
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/widget_object.dart';
-import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/renderer/renderer.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
@@ -11,39 +9,81 @@ import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_t
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/core/services/services_resolver.dart';
-import 'package:rad/src/widgets/abstract/widget.dart';
 
 class Framework with ServicesResolver {
-  final Renderer renderer;
+  /// Renderer.
+  ///
+  final Renderer _renderer;
+
+  /// Root context.
+  ///
   final BuildContext rootContext;
 
+  /// Identifier that is used to register/unregister a listener on task
+  /// scheduler.
+  ///
   var _taskListenerKey = '';
 
+  /// Whether framework is in test mode.
+  ///
+  /// Renderer that is responsible for build and managing widgets is not
+  /// exposed in app space, by default. Framework act as a gateway to renderer
+  /// in test mode so that test packages can build widgets using a very
+  /// unstable but low-level API.
+  ///
+  final bool _isInTestMode;
+
+  /// Create framework instance.
+  ///
+  Framework(this.rootContext)
+      : _isInTestMode = false,
+        _renderer = Renderer(rootContext);
+
+  /// Create framework instance with isTestMode flag on.
+  ///
+  Framework.inTestMode(this.rootContext)
+      : _isInTestMode = true,
+        _renderer = Renderer(rootContext);
+
+  /// Services associated with the current app instance.
+  ///
   Services get services => resolveServices(rootContext);
 
-  Framework(this.rootContext) : renderer = Renderer(rootContext);
+  /// Renderer is accessible only if framework instance is created in test mode.
+  ///
+  Renderer get renderer {
+    if (_isInTestMode) return _renderer;
+
+    throw Exception('Start app in test-mode for accessing renderer');
+  }
 
   /// Initialize framework state.
   ///
   void initState() {
-    renderer.initState();
+    _renderer.initState();
 
     _taskListenerKey = services.keyGen.generateStringKey();
 
-    services.scheduler.addTaskListener(_taskListenerKey, processTask);
+    services.scheduler.addTaskListener(_taskListenerKey, _processTask);
   }
 
   /// Dispose framework state.
   ///
   void dispose() {
-    renderer.dispose();
+    _renderer.dispose();
 
     services.scheduler.removeTaskListener(_taskListenerKey);
   }
 
+  /*
+  |--------------------------------------------------------------------------
+  | Internals
+  |--------------------------------------------------------------------------
+  */
+
   /// Process a scheduled task.
   ///
-  void processTask(SchedulerTask task) {
+  void _processTask(SchedulerTask task) {
     if (null != task.beforeTaskCallback) {
       task.beforeTaskCallback!();
     }
@@ -55,130 +95,26 @@ class Framework with ServicesResolver {
     }
   }
 
-  /// Build widgets under given context.
-  ///
-  void buildChildren({
-    // widgets to build
-    required List<Widget> widgets,
-    required BuildContext parentContext,
-    //
-    // -- options --
-    //
-    int? mountAtIndex, // Parent's children list index
-    //
-    // -- flags --
-    //
-    bool flagCleanParentContents = true,
-    //
-  }) {
-    if (widgets.isEmpty) {
-      return;
-    }
-
-    renderer.render(
-      widgets: widgets,
-      mountAtIndex: mountAtIndex,
-      parentContext: parentContext,
-      flagCleanParentContents: flagCleanParentContents,
-    );
-  }
-
-  /// Update childrens under provided context.
-  ///
-  void updateChildren({
-    //
-    // widgets to update
-    //
-    required List<Widget> widgets,
-    required BuildContext parentContext,
-    //
-    // -- options --
-    //
-    required UpdateType updateType,
-    //
-    // -- flags --
-    //
-    bool flagAddIfNotFound = true, // add childs right where they are missing
-  }) {
-    renderer.reRender(
-      widgets: widgets,
-      parentContext: parentContext,
-      updateType: updateType,
-      flagAddIfNotFound: flagAddIfNotFound,
-    );
-  }
-
-  /// Manage child widgets.
-  ///
-  /// Method will call [widgetActionCallback] for each child's widget object.
-  /// Whatever action the [widgetActionCallback] callback returns, framework
-  /// will execute it.
-  ///
-  void manageChildren({
-    required BuildContext parentContext,
-    required WidgetActionCallback widgetActionCallback,
-    //
-    // -- options --
-    //
-    required UpdateType updateType,
-    //
-    // -- flags --
-    //
-    bool flagIterateInReverseOrder = false,
-  }) {
-    renderer.visitWidgets(
-      updateType: updateType,
-      parentContext: parentContext,
-      widgetActionCallback: widgetActionCallback,
-      flagIterateInReverseOrder: flagIterateInReverseOrder,
-    );
-  }
-
-  /// Dispose widgets.
-  ///
-  void disposeWidget({
-    //
-    // widget object to dispose
-    //
-    required WidgetObject? widgetObject,
-    //
-    // -- flags --
-    //
-
-    required bool flagPreserveTarget,
-  }) {
-    if (null != widgetObject) {
-      renderer.disposeWidget(
-        context: widgetObject.context,
-        flagPreserveTarget: flagPreserveTarget,
-      );
-    }
-  }
-
-  /*
-  |--------------------------------------------------------------------------
-  | Internals
-  |--------------------------------------------------------------------------
-  */
-
   void _runTask(SchedulerTask task) {
     switch (task.taskType) {
       case SchedulerTaskType.build:
         task as WidgetsBuildTask;
 
-        buildChildren(
-          widgets: task.widgets,
-          parentContext: task.parentContext,
-          mountAtIndex: task.mountAtIndex,
-          flagCleanParentContents: task.flagCleanParentContents,
-        );
+        if (task.widgets.isNotEmpty) {
+          _renderer.render(
+            widgets: task.widgets,
+            parentContext: task.parentContext,
+            mountAtIndex: task.mountAtIndex,
+            flagCleanParentContents: task.flagCleanParentContents,
+          );
+        }
 
         break;
 
       case SchedulerTaskType.update:
         task as WidgetsUpdateTask;
 
-        updateChildren(
+        _renderer.reRender(
           widgets: task.widgets,
           updateType: task.updateType,
           parentContext: task.parentContext,
@@ -190,7 +126,7 @@ class Framework with ServicesResolver {
       case SchedulerTaskType.manage:
         task as WidgetsManageTask;
 
-        manageChildren(
+        _renderer.visitWidgets(
           parentContext: task.parentContext,
           updateType: task.updateType,
           widgetActionCallback: task.widgetActionCallback,
@@ -202,8 +138,8 @@ class Framework with ServicesResolver {
       case SchedulerTaskType.dispose:
         task as WidgetsDisposeTask;
 
-        disposeWidget(
-          widgetObject: task.widgetObject,
+        _renderer.disposeWidget(
+          context: task.widgetObject.context,
           flagPreserveTarget: task.flagPreserveTarget,
         );
 
@@ -212,7 +148,7 @@ class Framework with ServicesResolver {
       case SchedulerTaskType.updateDependent:
         task as WidgetsUpdateDependentTask;
 
-        renderer.reRenderContext(
+        _renderer.reRenderContext(
           context: task.widgetContext,
         );
 

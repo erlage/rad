@@ -5,35 +5,12 @@ import '../test_imports.dart';
 RT_AppRunner createTestApp({
   DebugOptions? debugOptions,
 }) {
-  return RT_AppRunner(
-    app: const Text('hello world'),
-    targetId: 'root-div',
-    debugOptions: debugOptions,
-  );
+  return RT_AppRunner(debugOptions: debugOptions);
 }
 
-/// Test App Runner.
+/// Test app runner.
 ///
-class RT_AppRunner {
-  final Widget app;
-  final String targetId;
-
-  final Callback? beforeMount;
-  final DebugOptions? _debugOptions;
-  final RouterOptions? _routerOptions;
-
-  BuildContext? _rootContext;
-  BuildContext get rootContext => _rootContext!;
-
-  AppOptions? _appOptions;
-  AppOptions get appOptions => _appOptions!;
-
-  Services? _services;
-  Services get services => _services!;
-
-  Framework? _framework;
-  Framework get framework => _framework!;
-
+class RT_AppRunner extends AppRunner {
   final stack = RT_TestStack();
   final window = RT_TestWindow();
 
@@ -46,32 +23,33 @@ class RT_AppRunner {
       .context;
 
   RT_AppRunner({
-    required this.app,
-    required this.targetId,
-    this.beforeMount,
-    RouterOptions? routerOptions,
-    DebugOptions? debugOptions,
-  })  : _routerOptions = routerOptions,
-        _debugOptions = debugOptions;
+    required DebugOptions? debugOptions,
+  }) : super.inTestMode(
+          app: Text('dont build this one'),
+          targetId: RT_TestBed.rootContext.key.value,
+          debugOptions: debugOptions,
+        );
 
+  @override
   void start() {
     this
       .._clearState()
-      .._createRootContext()
-      .._prepareOptions()
-      .._setupDelegates()
-      .._startServices()
-      .._createFrameworkInstance()
+      ..setupRootContext()
+      ..setupOptions()
+      ..setupDelegates()
+      ..startServices()
+      ..setupFrameworkInstance()
+      ..runPreMountTasks()
       .._buildAppWidget();
   }
 
-  /// Stop app and services associated.
-  ///
+  @override
   void stop() {
     this
+      .._clearState()
       .._printDebugInformation()
-      .._disposeFrameworkInstance()
-      .._stopServices();
+      ..disposeFrameworkInstance()
+      ..stopServices();
   }
 
   void _clearState() {
@@ -80,55 +58,20 @@ class RT_AppRunner {
     stack.clearState();
     window.clearState();
 
-    if (null != _rootContext) {
-      ServicesRegistry.instance.unRegisterServices(_rootContext!);
-    }
-
     ServicesRegistry.instance.unRegisterServices(RT_TestBed.rootContext);
-
-    this
-      .._disposeFrameworkInstance()
-      .._stopServices();
   }
 
-  void _createRootContext() {
-    var globalKey = GlobalKey(targetId);
-
-    _rootContext = BuildContext.bigBang(globalKey);
-  }
-
-  void _prepareOptions() {
-    _appOptions = AppOptions(
-      rootContext: rootContext,
-      routerOptions: _routerOptions ?? RouterOptions.defaultMode,
-      debugOptions: _debugOptions ?? DebugOptions.defaultMode,
-    );
-  }
-
-  void _setupDelegates() {
+  @override
+  void setupDelegates() {
     Window.instance.bindDelegate(window);
   }
 
-  void _startServices() {
-    _services = Services(appOptions)..startServices();
-  }
-
-  void _stopServices() {
-    _services?.stopServices();
-  }
-
-  void _createFrameworkInstance() {
-    _framework = Framework(rootContext)..initState();
-  }
-
-  void _disposeFrameworkInstance() {
-    _framework?.dispose();
-  }
-
   void _buildAppWidget() {
-    framework.buildChildren(
+    buildChildrenSync(
       widgets: [RT_TestWidget(key: GlobalKey('app-widget'))],
       parentContext: RT_TestBed.rootContext,
+      mountAtIndex: null,
+      flagCleanParentContents: false,
     );
   }
 
@@ -206,14 +149,30 @@ class RT_AppRunner {
     int? mountAtIndex,
     bool flagCleanParentContents = true,
   }) async {
-    framework.buildChildren(
+    services.scheduler.addTask(
+      WidgetsBuildTask(
+        widgets: widgets,
+        parentContext: parentContext,
+        mountAtIndex: mountAtIndex,
+        flagCleanParentContents: flagCleanParentContents,
+      ),
+    );
+
+    await Future.delayed(Duration.zero);
+  }
+
+  void buildChildrenSync({
+    required List<Widget> widgets,
+    required BuildContext parentContext,
+    int? mountAtIndex,
+    bool flagCleanParentContents = true,
+  }) {
+    framework.renderer.render(
       widgets: widgets,
       parentContext: parentContext,
       mountAtIndex: mountAtIndex,
       flagCleanParentContents: flagCleanParentContents,
     );
-
-    await Future.delayed(Duration.zero);
   }
 
   Future<void> updateChildren({
@@ -222,11 +181,13 @@ class RT_AppRunner {
     required UpdateType updateType,
     bool flagAddIfNotFound = true,
   }) async {
-    framework.updateChildren(
-      widgets: widgets,
-      parentContext: parentContext,
-      updateType: updateType,
-      flagAddIfNotFound: flagAddIfNotFound,
+    services.scheduler.addTask(
+      WidgetsUpdateTask(
+        widgets: widgets,
+        parentContext: parentContext,
+        updateType: updateType,
+        flagAddIfNotFound: flagAddIfNotFound,
+      ),
     );
 
     await Future.delayed(Duration.zero);
@@ -238,11 +199,13 @@ class RT_AppRunner {
     required UpdateType updateType,
     bool flagIterateInReverseOrder = false,
   }) async {
-    framework.manageChildren(
-      updateType: updateType,
-      parentContext: parentContext,
-      widgetActionCallback: widgetActionCallback,
-      flagIterateInReverseOrder: flagIterateInReverseOrder,
+    services.scheduler.addTask(
+      WidgetsManageTask(
+        updateType: updateType,
+        parentContext: parentContext,
+        widgetActionCallback: widgetActionCallback,
+        flagIterateInReverseOrder: flagIterateInReverseOrder,
+      ),
     );
 
     await Future.delayed(Duration.zero);
@@ -252,10 +215,14 @@ class RT_AppRunner {
     required WidgetObject? widgetObject,
     required bool flagPreserveTarget,
   }) async {
-    framework.disposeWidget(
-      widgetObject: widgetObject,
-      flagPreserveTarget: flagPreserveTarget,
-    );
+    if (null != widgetObject) {
+      services.scheduler.addTask(
+        WidgetsDisposeTask(
+          widgetObject: widgetObject,
+          flagPreserveTarget: flagPreserveTarget,
+        ),
+      );
+    }
 
     await Future.delayed(Duration.zero);
   }
