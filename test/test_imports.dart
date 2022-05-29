@@ -17,6 +17,7 @@ export 'package:rad/src/core/common/objects/render_object.dart';
 export 'package:rad/src/core/common/objects/widget_object.dart';
 export 'package:rad/src/core/interface/window/abstract.dart';
 export 'package:rad/src/core/interface/window/window.dart';
+export 'package:rad/src/core/interface/window/delegates/browser_window.dart';
 
 export 'package:rad/src/widgets/navigator.dart';
 
@@ -50,3 +51,4 @@ export 'fixtures/test_widget_stateless.dart';
 export 'fixtures/test_widget_inherited.dart';
 
 export 'mocks/test_window.dart';
+export 'mocks/test_pop_state_listener.dart';
