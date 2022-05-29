@@ -7,10 +7,9 @@ import 'package:rad/src/core/services/scheduler/tasks/widgets_dispose_task.dart'
 import 'package:rad/src/core/services/scheduler/tasks/widgets_manage_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
-import 'package:rad/src/core/services/services.dart';
-import 'package:rad/src/core/services/services_resolver.dart';
+import 'package:rad/src/core/services/services_registry.dart';
 
-class Framework with ServicesResolver {
+class Framework {
   /// Renderer.
   ///
   final Renderer _renderer;
@@ -40,10 +39,6 @@ class Framework with ServicesResolver {
       : _isInTestMode = true,
         _renderer = Renderer(rootContext);
 
-  /// Services associated with the current app instance.
-  ///
-  Services get services => resolveServices(rootContext);
-
   /// Renderer is accessible only if framework instance is created in test mode.
   ///
   Renderer get renderer {
@@ -57,15 +52,28 @@ class Framework with ServicesResolver {
   void initState() {
     _renderer.initState();
 
-    services.scheduler.addTaskListener(rootContext.appTargetId, _processTask);
+    ServicesRegistry.instance
+        .getScheduler(
+          rootContext,
+        )
+        .addTaskListener(
+          rootContext.appTargetId,
+          _processTask,
+        );
   }
 
   /// Dispose framework state.
   ///
   void dispose() {
-    _renderer.dispose();
+    ServicesRegistry.instance
+        .getScheduler(
+          rootContext,
+        )
+        .removeTaskListener(
+          rootContext.appTargetId,
+        );
 
-    services.scheduler.removeTaskListener(rootContext.appTargetId);
+    _renderer.dispose();
   }
 
   /*
