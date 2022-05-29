@@ -30,6 +30,7 @@ test('should propagate event', () async {
   gparent.dispatchEvent(Event('__EventNativeName__')); // first
   parent.dispatchEvent(Event('__EventNativeName__'));  // second
   child.dispatchEvent(Event('__EventNativeName__'));   // third
+  await Future.delayed(Duration(milliseconds: 50));
 
   // after 1st dispatch
 

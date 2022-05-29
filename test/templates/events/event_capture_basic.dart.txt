@@ -1,11 +1,11 @@
-test('should dispatch event', () async {
+test('should add a capture event listener', () async {
   var pap = app!;
 
   await pap.buildChildren(
     widgets: [
       RT_EventfulWidget(
         key: GlobalKey('element'),
-        __EventAttributeName__: (_) => pap.stack.push('__EventNativeName__-element'),
+        __EventAttributeName__Capture: (_) => pap.stack.push('__EventNativeName__-element'),
       ),
     ],
     parentContext: pap.appContext,

@@ -32,6 +32,30 @@ void event_on_key_up_test() {
       var element = pap.elementByGlobalKey('element');
 
       element.dispatchEvent(Event('keyup'));
+      await Future.delayed(Duration(milliseconds: 50));
+
+      expect(pap.stack.popFromStart(), equals('keyup-element'));
+
+      expect(pap.stack.canPop(), equals(false));
+    });
+
+    test('should add a capture event listener', () async {
+      var pap = app!;
+
+      await pap.buildChildren(
+        widgets: [
+          RT_EventfulWidget(
+            key: GlobalKey('element'),
+            onKeyUpCapture: (_) => pap.stack.push('keyup-element'),
+          ),
+        ],
+        parentContext: pap.appContext,
+      );
+
+      var element = pap.elementByGlobalKey('element');
+
+      element.dispatchEvent(Event('keyup'));
+      await Future.delayed(Duration(milliseconds: 50));
 
       expect(pap.stack.popFromStart(), equals('keyup-element'));
 
@@ -67,6 +91,7 @@ void event_on_key_up_test() {
       gparent.dispatchEvent(Event('keyup')); // first
       parent.dispatchEvent(Event('keyup')); // second
       child.dispatchEvent(Event('keyup')); // third
+      await Future.delayed(Duration(milliseconds: 50));
 
       // after 1st dispatch
 
@@ -114,6 +139,7 @@ void event_on_key_up_test() {
         var child = pap.elementByGlobalKey('el-child');
 
         child.dispatchEvent(Event('keyup')); // third
+        await Future.delayed(Duration(milliseconds: 50));
 
         expect(pap.stack.popFromStart(), equals('keyup-parent'));
         expect(pap.stack.popFromStart(), equals('keyup-g-parent'));
@@ -160,6 +186,7 @@ void event_on_key_up_test() {
         var child = pap.elementByGlobalKey('el-child');
 
         child.dispatchEvent(Event('keyup'));
+        await Future.delayed(Duration(milliseconds: 50));
 
         expect(pap.stack.popFromStart(), equals('keyup-child'));
         expect(pap.stack.popFromStart(), equals('keyup-parent'));
@@ -167,5 +194,134 @@ void event_on_key_up_test() {
         expect(pap.stack.canPop(), equals(false));
       },
     );
+
+// framework stop propagation of 'keyup' events
+// when they reachs a matching target(that is listening for those type of
+// events). to test capturing for keyup events, we artifically
+// restart propagation using restartPropagationIfStopped()
+
+    test('should capture event', () async {
+      var pap = app!;
+
+      await pap.buildChildren(
+        widgets: [
+          RT_EventfulWidget(
+            key: GlobalKey('el-g-parent'),
+            onKeyUp: (event) {
+              pap.stack.push('keyup-g-parent');
+
+              event.restartPropagationIfStopped();
+            },
+            children: [
+              RT_EventfulWidget(
+                key: GlobalKey('el-parent'),
+                onKeyUpCapture: (event) {
+                  pap.stack.push('keyup-parent');
+
+                  event.stopPropagation();
+                },
+                children: [
+                  RT_EventfulWidget(
+                    key: GlobalKey('el-child'),
+                    onKeyUp: (event) {
+                      pap.stack.push('keyup-child');
+
+                      event.restartPropagationIfStopped();
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+        parentContext: pap.appContext,
+      );
+
+      var gparent = pap.elementByGlobalKey('el-g-parent');
+      var parent = pap.elementByGlobalKey('el-parent');
+      var child = pap.elementByGlobalKey('el-child');
+
+      gparent.dispatchEvent(Event('keyup')); // first
+      parent.dispatchEvent(Event('keyup')); // second
+      child.dispatchEvent(Event('keyup')); // third
+      await Future.delayed(Duration(milliseconds: 50));
+
+      // after 1st dispatch
+
+      expect(pap.stack.popFromStart(), equals('keyup-g-parent'));
+
+      // after 2nd dispatch
+
+      expect(pap.stack.popFromStart(), equals('keyup-parent'));
+
+      // after 3rd dispatch
+
+      expect(pap.stack.popFromStart(), equals('keyup-parent'));
+
+      expect(pap.stack.canPop(), equals(false));
+    });
+
+    test('should capture event(with multiple capture listeners)', () async {
+      var pap = app!;
+
+      await pap.buildChildren(
+        widgets: [
+          RT_EventfulWidget(
+            key: GlobalKey('el-g-parent'),
+            onKeyUpCapture: (event) {
+              pap.stack.push('keyup-g-parent');
+
+              event.restartPropagationIfStopped();
+            },
+            children: [
+              RT_EventfulWidget(
+                key: GlobalKey('el-parent'),
+                onKeyUpCapture: (event) {
+                  pap.stack.push('keyup-parent');
+
+                  event.stopPropagation();
+                },
+                children: [
+                  RT_EventfulWidget(
+                    key: GlobalKey('el-child'),
+                    onKeyUp: (event) {
+                      pap.stack.push('keyup-child');
+
+                      event.restartPropagationIfStopped();
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+        parentContext: pap.appContext,
+      );
+
+      var gparent = pap.elementByGlobalKey('el-g-parent');
+      var parent = pap.elementByGlobalKey('el-parent');
+      var child = pap.elementByGlobalKey('el-child');
+
+      gparent.dispatchEvent(Event('keyup')); // first
+      parent.dispatchEvent(Event('keyup')); // second
+      child.dispatchEvent(Event('keyup')); // third
+      await Future.delayed(Duration(milliseconds: 50));
+
+      // after 1st dispatch
+
+      expect(pap.stack.popFromStart(), equals('keyup-g-parent'));
+
+      // after 2nd dispatch
+
+      expect(pap.stack.popFromStart(), equals('keyup-g-parent'));
+      expect(pap.stack.popFromStart(), equals('keyup-parent'));
+
+      // after 3rd dispatch
+
+      expect(pap.stack.popFromStart(), equals('keyup-g-parent'));
+      expect(pap.stack.popFromStart(), equals('keyup-parent'));
+
+      expect(pap.stack.canPop(), equals(false));
+    });
   });
 }

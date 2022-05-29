@@ -27,6 +27,7 @@ test('should propagate event only upto matching target', () async {
   gparent.dispatchEvent(Event('__EventNativeName__')); // first
   parent.dispatchEvent(Event('__EventNativeName__')); // second
   child.dispatchEvent(Event('__EventNativeName__')); // third
+  await Future.delayed(Duration(milliseconds: 50));
 
   // after 1st dispatch
 

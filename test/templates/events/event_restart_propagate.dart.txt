@@ -29,6 +29,7 @@ test(
     var child = pap.elementByGlobalKey('el-child');
 
     child.dispatchEvent(Event('__EventNativeName__')); // third
+    await Future.delayed(Duration(milliseconds: 50));
 
     expect(pap.stack.popFromStart(), equals('__EventNativeName__-parent'));
     expect(pap.stack.popFromStart(), equals('__EventNativeName__-g-parent'));
@@ -75,6 +76,7 @@ test(
     var child = pap.elementByGlobalKey('el-child');
 
     child.dispatchEvent(Event('__EventNativeName__'));
+    await Future.delayed(Duration(milliseconds: 50));
 
     expect(pap.stack.popFromStart(), equals('__EventNativeName__-child'));
     expect(pap.stack.popFromStart(), equals('__EventNativeName__-parent'));

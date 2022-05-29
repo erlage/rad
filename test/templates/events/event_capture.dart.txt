@@ -1,18 +1,18 @@
-test('should stop propagation after stopPropagation() is called', () async {
+test('should capture event', () async {
   var pap = app!;
 
   await pap.buildChildren(
     widgets: [
       RT_EventfulWidget(
-        key: GlobalKey('el-g-parent'),
-        onClick: (_) => pap.stack.push('__EventNativeName__-g-parent'),
-        children: [
+          key: GlobalKey('el-g-parent'),
+          __EventAttributeName__: (_) => pap.stack.push('__EventNativeName__-g-parent'),
+          children: [
           RT_EventfulWidget(
             key: GlobalKey('el-parent'),
-            __EventAttributeName__: (event) {
-              event.stopPropagation();
-
+            __EventAttributeName__Capture: (event) {
               pap.stack.push('__EventNativeName__-parent');
+
+              event.stopPropagation();
             },
             children: [
               RT_EventfulWidget(
@@ -22,7 +22,7 @@ test('should stop propagation after stopPropagation() is called', () async {
             ],
           ),
         ],
-      )
+      ),
     ],
     parentContext: pap.appContext,
   );
@@ -32,8 +32,8 @@ test('should stop propagation after stopPropagation() is called', () async {
   var child = pap.elementByGlobalKey('el-child');
 
   gparent.dispatchEvent(Event('__EventNativeName__')); // first
-  parent.dispatchEvent(Event('__EventNativeName__')); // second
-  child.dispatchEvent(Event('__EventNativeName__')); // third
+  parent.dispatchEvent(Event('__EventNativeName__'));  // second
+  child.dispatchEvent(Event('__EventNativeName__'));   // third
   await Future.delayed(Duration(milliseconds: 50));
 
   // after 1st dispatch
@@ -46,27 +46,26 @@ test('should stop propagation after stopPropagation() is called', () async {
 
   // after 3rd dispatch
 
-  expect(pap.stack.popFromStart(), equals('__EventNativeName__-child'));
   expect(pap.stack.popFromStart(), equals('__EventNativeName__-parent'));
 
   expect(pap.stack.canPop(), equals(false));
 }__Skip__);
 
-test('should stop after stopImmediatePropagation() is called', () async {
+test('should capture event(with multiple capture listeners)', () async {
   var pap = app!;
 
   await pap.buildChildren(
     widgets: [
       RT_EventfulWidget(
-        key: GlobalKey('el-g-parent'),
-        onClick: (_) => pap.stack.push('__EventNativeName__-g-parent'),
-        children: [
+          key: GlobalKey('el-g-parent'),
+          __EventAttributeName__Capture: (_) => pap.stack.push('__EventNativeName__-g-parent'),
+          children: [
           RT_EventfulWidget(
             key: GlobalKey('el-parent'),
-            __EventAttributeName__: (event) {
-              event.stopImmediatePropagation();
-
+            __EventAttributeName__Capture: (event) {
               pap.stack.push('__EventNativeName__-parent');
+
+              event.stopPropagation();
             },
             children: [
               RT_EventfulWidget(
@@ -76,7 +75,7 @@ test('should stop after stopImmediatePropagation() is called', () async {
             ],
           ),
         ],
-      )
+      ),
     ],
     parentContext: pap.appContext,
   );
@@ -86,8 +85,8 @@ test('should stop after stopImmediatePropagation() is called', () async {
   var child = pap.elementByGlobalKey('el-child');
 
   gparent.dispatchEvent(Event('__EventNativeName__')); // first
-  parent.dispatchEvent(Event('__EventNativeName__')); // second
-  child.dispatchEvent(Event('__EventNativeName__')); // third
+  parent.dispatchEvent(Event('__EventNativeName__'));  // second
+  child.dispatchEvent(Event('__EventNativeName__'));   // third
   await Future.delayed(Duration(milliseconds: 50));
 
   // after 1st dispatch
@@ -96,11 +95,12 @@ test('should stop after stopImmediatePropagation() is called', () async {
 
   // after 2nd dispatch
 
+  expect(pap.stack.popFromStart(), equals('__EventNativeName__-g-parent'));
   expect(pap.stack.popFromStart(), equals('__EventNativeName__-parent'));
 
   // after 3rd dispatch
 
-  expect(pap.stack.popFromStart(), equals('__EventNativeName__-child'));
+  expect(pap.stack.popFromStart(), equals('__EventNativeName__-g-parent'));
   expect(pap.stack.popFromStart(), equals('__EventNativeName__-parent'));
 
   expect(pap.stack.canPop(), equals(false));

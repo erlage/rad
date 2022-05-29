@@ -17,35 +17,43 @@ event_specific_tests = {
     'onClick': [
         'event_propagate',
         'event_stop_propagate',
+        'event_capture',
     ],
     'onInput': [
         'event_not_propagate',
         'event_restart_propagate',
+        'event_capture_with_restart',
     ],
     'onChange': [
         'event_not_propagate',
         'event_restart_propagate',
+        'event_capture_with_restart',
     ],
     'onKeyUp': [
         'event_not_propagate',
         'event_restart_propagate',
+        'event_capture_with_restart',
     ],
     'onKeyDown': [
         'event_not_propagate',
         'event_restart_propagate',
+        'event_capture_with_restart',
     ],
     'onKeyPress': [
         'event_not_propagate',
         'event_restart_propagate',
+        'event_capture_with_restart',
     ],
     'onSubmit': [
         'event_not_propagate',
         'event_restart_propagate',
+        'event_capture_with_restart',
     ],
 }
 
 global_tests = [
     'event_dispatch',
+    'event_capture_basic',
 ]
 
 events_map = {

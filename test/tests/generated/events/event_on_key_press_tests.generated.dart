@@ -32,6 +32,30 @@ void event_on_key_press_test() {
       var element = pap.elementByGlobalKey('element');
 
       element.dispatchEvent(Event('keypress'));
+      await Future.delayed(Duration(milliseconds: 50));
+
+      expect(pap.stack.popFromStart(), equals('keypress-element'));
+
+      expect(pap.stack.canPop(), equals(false));
+    });
+
+    test('should add a capture event listener', () async {
+      var pap = app!;
+
+      await pap.buildChildren(
+        widgets: [
+          RT_EventfulWidget(
+            key: GlobalKey('element'),
+            onKeyPressCapture: (_) => pap.stack.push('keypress-element'),
+          ),
+        ],
+        parentContext: pap.appContext,
+      );
+
+      var element = pap.elementByGlobalKey('element');
+
+      element.dispatchEvent(Event('keypress'));
+      await Future.delayed(Duration(milliseconds: 50));
 
       expect(pap.stack.popFromStart(), equals('keypress-element'));
 
@@ -67,6 +91,7 @@ void event_on_key_press_test() {
       gparent.dispatchEvent(Event('keypress')); // first
       parent.dispatchEvent(Event('keypress')); // second
       child.dispatchEvent(Event('keypress')); // third
+      await Future.delayed(Duration(milliseconds: 50));
 
       // after 1st dispatch
 
@@ -114,6 +139,7 @@ void event_on_key_press_test() {
         var child = pap.elementByGlobalKey('el-child');
 
         child.dispatchEvent(Event('keypress')); // third
+        await Future.delayed(Duration(milliseconds: 50));
 
         expect(pap.stack.popFromStart(), equals('keypress-parent'));
         expect(pap.stack.popFromStart(), equals('keypress-g-parent'));
@@ -160,6 +186,7 @@ void event_on_key_press_test() {
         var child = pap.elementByGlobalKey('el-child');
 
         child.dispatchEvent(Event('keypress'));
+        await Future.delayed(Duration(milliseconds: 50));
 
         expect(pap.stack.popFromStart(), equals('keypress-child'));
         expect(pap.stack.popFromStart(), equals('keypress-parent'));
@@ -167,5 +194,134 @@ void event_on_key_press_test() {
         expect(pap.stack.canPop(), equals(false));
       },
     );
+
+// framework stop propagation of 'keypress' events
+// when they reachs a matching target(that is listening for those type of
+// events). to test capturing for keypress events, we artifically
+// restart propagation using restartPropagationIfStopped()
+
+    test('should capture event', () async {
+      var pap = app!;
+
+      await pap.buildChildren(
+        widgets: [
+          RT_EventfulWidget(
+            key: GlobalKey('el-g-parent'),
+            onKeyPress: (event) {
+              pap.stack.push('keypress-g-parent');
+
+              event.restartPropagationIfStopped();
+            },
+            children: [
+              RT_EventfulWidget(
+                key: GlobalKey('el-parent'),
+                onKeyPressCapture: (event) {
+                  pap.stack.push('keypress-parent');
+
+                  event.stopPropagation();
+                },
+                children: [
+                  RT_EventfulWidget(
+                    key: GlobalKey('el-child'),
+                    onKeyPress: (event) {
+                      pap.stack.push('keypress-child');
+
+                      event.restartPropagationIfStopped();
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+        parentContext: pap.appContext,
+      );
+
+      var gparent = pap.elementByGlobalKey('el-g-parent');
+      var parent = pap.elementByGlobalKey('el-parent');
+      var child = pap.elementByGlobalKey('el-child');
+
+      gparent.dispatchEvent(Event('keypress')); // first
+      parent.dispatchEvent(Event('keypress')); // second
+      child.dispatchEvent(Event('keypress')); // third
+      await Future.delayed(Duration(milliseconds: 50));
+
+      // after 1st dispatch
+
+      expect(pap.stack.popFromStart(), equals('keypress-g-parent'));
+
+      // after 2nd dispatch
+
+      expect(pap.stack.popFromStart(), equals('keypress-parent'));
+
+      // after 3rd dispatch
+
+      expect(pap.stack.popFromStart(), equals('keypress-parent'));
+
+      expect(pap.stack.canPop(), equals(false));
+    });
+
+    test('should capture event(with multiple capture listeners)', () async {
+      var pap = app!;
+
+      await pap.buildChildren(
+        widgets: [
+          RT_EventfulWidget(
+            key: GlobalKey('el-g-parent'),
+            onKeyPressCapture: (event) {
+              pap.stack.push('keypress-g-parent');
+
+              event.restartPropagationIfStopped();
+            },
+            children: [
+              RT_EventfulWidget(
+                key: GlobalKey('el-parent'),
+                onKeyPressCapture: (event) {
+                  pap.stack.push('keypress-parent');
+
+                  event.stopPropagation();
+                },
+                children: [
+                  RT_EventfulWidget(
+                    key: GlobalKey('el-child'),
+                    onKeyPress: (event) {
+                      pap.stack.push('keypress-child');
+
+                      event.restartPropagationIfStopped();
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+        parentContext: pap.appContext,
+      );
+
+      var gparent = pap.elementByGlobalKey('el-g-parent');
+      var parent = pap.elementByGlobalKey('el-parent');
+      var child = pap.elementByGlobalKey('el-child');
+
+      gparent.dispatchEvent(Event('keypress')); // first
+      parent.dispatchEvent(Event('keypress')); // second
+      child.dispatchEvent(Event('keypress')); // third
+      await Future.delayed(Duration(milliseconds: 50));
+
+      // after 1st dispatch
+
+      expect(pap.stack.popFromStart(), equals('keypress-g-parent'));
+
+      // after 2nd dispatch
+
+      expect(pap.stack.popFromStart(), equals('keypress-g-parent'));
+      expect(pap.stack.popFromStart(), equals('keypress-parent'));
+
+      // after 3rd dispatch
+
+      expect(pap.stack.popFromStart(), equals('keypress-g-parent'));
+      expect(pap.stack.popFromStart(), equals('keypress-parent'));
+
+      expect(pap.stack.canPop(), equals(false));
+    });
   });
 }

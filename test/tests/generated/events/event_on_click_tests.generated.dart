@@ -32,6 +32,30 @@ void event_on_click_test() {
       var element = pap.elementByGlobalKey('element');
 
       element.dispatchEvent(Event('click'));
+      await Future.delayed(Duration(milliseconds: 50));
+
+      expect(pap.stack.popFromStart(), equals('click-element'));
+
+      expect(pap.stack.canPop(), equals(false));
+    });
+
+    test('should add a capture event listener', () async {
+      var pap = app!;
+
+      await pap.buildChildren(
+        widgets: [
+          RT_EventfulWidget(
+            key: GlobalKey('element'),
+            onClickCapture: (_) => pap.stack.push('click-element'),
+          ),
+        ],
+        parentContext: pap.appContext,
+      );
+
+      var element = pap.elementByGlobalKey('element');
+
+      element.dispatchEvent(Event('click'));
+      await Future.delayed(Duration(milliseconds: 50));
 
       expect(pap.stack.popFromStart(), equals('click-element'));
 
@@ -70,6 +94,7 @@ void event_on_click_test() {
       gparent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second
       child.dispatchEvent(Event('click')); // third
+      await Future.delayed(Duration(milliseconds: 50));
 
       // after 1st dispatch
 
@@ -125,6 +150,7 @@ void event_on_click_test() {
       gparent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second
       child.dispatchEvent(Event('click')); // third
+      await Future.delayed(Duration(milliseconds: 50));
 
       // after 1st dispatch
 
@@ -178,6 +204,7 @@ void event_on_click_test() {
       gparent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second
       child.dispatchEvent(Event('click')); // third
+      await Future.delayed(Duration(milliseconds: 50));
 
       // after 1st dispatch
 
@@ -190,6 +217,114 @@ void event_on_click_test() {
       // after 3rd dispatch
 
       expect(pap.stack.popFromStart(), equals('click-child'));
+      expect(pap.stack.popFromStart(), equals('click-parent'));
+
+      expect(pap.stack.canPop(), equals(false));
+    });
+
+    test('should capture event', () async {
+      var pap = app!;
+
+      await pap.buildChildren(
+        widgets: [
+          RT_EventfulWidget(
+            key: GlobalKey('el-g-parent'),
+            onClick: (_) => pap.stack.push('click-g-parent'),
+            children: [
+              RT_EventfulWidget(
+                key: GlobalKey('el-parent'),
+                onClickCapture: (event) {
+                  pap.stack.push('click-parent');
+
+                  event.stopPropagation();
+                },
+                children: [
+                  RT_EventfulWidget(
+                    key: GlobalKey('el-child'),
+                    onClick: (_) => pap.stack.push('click-child'),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+        parentContext: pap.appContext,
+      );
+
+      var gparent = pap.elementByGlobalKey('el-g-parent');
+      var parent = pap.elementByGlobalKey('el-parent');
+      var child = pap.elementByGlobalKey('el-child');
+
+      gparent.dispatchEvent(Event('click')); // first
+      parent.dispatchEvent(Event('click')); // second
+      child.dispatchEvent(Event('click')); // third
+      await Future.delayed(Duration(milliseconds: 50));
+
+      // after 1st dispatch
+
+      expect(pap.stack.popFromStart(), equals('click-g-parent'));
+
+      // after 2nd dispatch
+
+      expect(pap.stack.popFromStart(), equals('click-parent'));
+
+      // after 3rd dispatch
+
+      expect(pap.stack.popFromStart(), equals('click-parent'));
+
+      expect(pap.stack.canPop(), equals(false));
+    });
+
+    test('should capture event(with multiple capture listeners)', () async {
+      var pap = app!;
+
+      await pap.buildChildren(
+        widgets: [
+          RT_EventfulWidget(
+            key: GlobalKey('el-g-parent'),
+            onClickCapture: (_) => pap.stack.push('click-g-parent'),
+            children: [
+              RT_EventfulWidget(
+                key: GlobalKey('el-parent'),
+                onClickCapture: (event) {
+                  pap.stack.push('click-parent');
+
+                  event.stopPropagation();
+                },
+                children: [
+                  RT_EventfulWidget(
+                    key: GlobalKey('el-child'),
+                    onClick: (_) => pap.stack.push('click-child'),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+        parentContext: pap.appContext,
+      );
+
+      var gparent = pap.elementByGlobalKey('el-g-parent');
+      var parent = pap.elementByGlobalKey('el-parent');
+      var child = pap.elementByGlobalKey('el-child');
+
+      gparent.dispatchEvent(Event('click')); // first
+      parent.dispatchEvent(Event('click')); // second
+      child.dispatchEvent(Event('click')); // third
+      await Future.delayed(Duration(milliseconds: 50));
+
+      // after 1st dispatch
+
+      expect(pap.stack.popFromStart(), equals('click-g-parent'));
+
+      // after 2nd dispatch
+
+      expect(pap.stack.popFromStart(), equals('click-g-parent'));
+      expect(pap.stack.popFromStart(), equals('click-parent'));
+
+      // after 3rd dispatch
+
+      expect(pap.stack.popFromStart(), equals('click-g-parent'));
       expect(pap.stack.popFromStart(), equals('click-parent'));
 
       expect(pap.stack.canPop(), equals(false));

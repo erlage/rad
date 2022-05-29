@@ -32,6 +32,30 @@ void event_on_input_test() {
       var element = pap.elementByGlobalKey('element');
 
       element.dispatchEvent(Event('input'));
+      await Future.delayed(Duration(milliseconds: 50));
+
+      expect(pap.stack.popFromStart(), equals('input-element'));
+
+      expect(pap.stack.canPop(), equals(false));
+    });
+
+    test('should add a capture event listener', () async {
+      var pap = app!;
+
+      await pap.buildChildren(
+        widgets: [
+          RT_EventfulWidget(
+            key: GlobalKey('element'),
+            onInputCapture: (_) => pap.stack.push('input-element'),
+          ),
+        ],
+        parentContext: pap.appContext,
+      );
+
+      var element = pap.elementByGlobalKey('element');
+
+      element.dispatchEvent(Event('input'));
+      await Future.delayed(Duration(milliseconds: 50));
 
       expect(pap.stack.popFromStart(), equals('input-element'));
 
@@ -67,6 +91,7 @@ void event_on_input_test() {
       gparent.dispatchEvent(Event('input')); // first
       parent.dispatchEvent(Event('input')); // second
       child.dispatchEvent(Event('input')); // third
+      await Future.delayed(Duration(milliseconds: 50));
 
       // after 1st dispatch
 
@@ -114,6 +139,7 @@ void event_on_input_test() {
         var child = pap.elementByGlobalKey('el-child');
 
         child.dispatchEvent(Event('input')); // third
+        await Future.delayed(Duration(milliseconds: 50));
 
         expect(pap.stack.popFromStart(), equals('input-parent'));
         expect(pap.stack.popFromStart(), equals('input-g-parent'));
@@ -160,6 +186,7 @@ void event_on_input_test() {
         var child = pap.elementByGlobalKey('el-child');
 
         child.dispatchEvent(Event('input'));
+        await Future.delayed(Duration(milliseconds: 50));
 
         expect(pap.stack.popFromStart(), equals('input-child'));
         expect(pap.stack.popFromStart(), equals('input-parent'));
@@ -167,5 +194,134 @@ void event_on_input_test() {
         expect(pap.stack.canPop(), equals(false));
       },
     );
+
+// framework stop propagation of 'input' events
+// when they reachs a matching target(that is listening for those type of
+// events). to test capturing for input events, we artifically
+// restart propagation using restartPropagationIfStopped()
+
+    test('should capture event', () async {
+      var pap = app!;
+
+      await pap.buildChildren(
+        widgets: [
+          RT_EventfulWidget(
+            key: GlobalKey('el-g-parent'),
+            onInput: (event) {
+              pap.stack.push('input-g-parent');
+
+              event.restartPropagationIfStopped();
+            },
+            children: [
+              RT_EventfulWidget(
+                key: GlobalKey('el-parent'),
+                onInputCapture: (event) {
+                  pap.stack.push('input-parent');
+
+                  event.stopPropagation();
+                },
+                children: [
+                  RT_EventfulWidget(
+                    key: GlobalKey('el-child'),
+                    onInput: (event) {
+                      pap.stack.push('input-child');
+
+                      event.restartPropagationIfStopped();
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+        parentContext: pap.appContext,
+      );
+
+      var gparent = pap.elementByGlobalKey('el-g-parent');
+      var parent = pap.elementByGlobalKey('el-parent');
+      var child = pap.elementByGlobalKey('el-child');
+
+      gparent.dispatchEvent(Event('input')); // first
+      parent.dispatchEvent(Event('input')); // second
+      child.dispatchEvent(Event('input')); // third
+      await Future.delayed(Duration(milliseconds: 50));
+
+      // after 1st dispatch
+
+      expect(pap.stack.popFromStart(), equals('input-g-parent'));
+
+      // after 2nd dispatch
+
+      expect(pap.stack.popFromStart(), equals('input-parent'));
+
+      // after 3rd dispatch
+
+      expect(pap.stack.popFromStart(), equals('input-parent'));
+
+      expect(pap.stack.canPop(), equals(false));
+    });
+
+    test('should capture event(with multiple capture listeners)', () async {
+      var pap = app!;
+
+      await pap.buildChildren(
+        widgets: [
+          RT_EventfulWidget(
+            key: GlobalKey('el-g-parent'),
+            onInputCapture: (event) {
+              pap.stack.push('input-g-parent');
+
+              event.restartPropagationIfStopped();
+            },
+            children: [
+              RT_EventfulWidget(
+                key: GlobalKey('el-parent'),
+                onInputCapture: (event) {
+                  pap.stack.push('input-parent');
+
+                  event.stopPropagation();
+                },
+                children: [
+                  RT_EventfulWidget(
+                    key: GlobalKey('el-child'),
+                    onInput: (event) {
+                      pap.stack.push('input-child');
+
+                      event.restartPropagationIfStopped();
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+        parentContext: pap.appContext,
+      );
+
+      var gparent = pap.elementByGlobalKey('el-g-parent');
+      var parent = pap.elementByGlobalKey('el-parent');
+      var child = pap.elementByGlobalKey('el-child');
+
+      gparent.dispatchEvent(Event('input')); // first
+      parent.dispatchEvent(Event('input')); // second
+      child.dispatchEvent(Event('input')); // third
+      await Future.delayed(Duration(milliseconds: 50));
+
+      // after 1st dispatch
+
+      expect(pap.stack.popFromStart(), equals('input-g-parent'));
+
+      // after 2nd dispatch
+
+      expect(pap.stack.popFromStart(), equals('input-g-parent'));
+      expect(pap.stack.popFromStart(), equals('input-parent'));
+
+      // after 3rd dispatch
+
+      expect(pap.stack.popFromStart(), equals('input-g-parent'));
+      expect(pap.stack.popFromStart(), equals('input-parent'));
+
+      expect(pap.stack.canPop(), equals(false));
+    });
   });
 }
