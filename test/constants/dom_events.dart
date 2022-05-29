@@ -3,12 +3,23 @@
 class RT_DomEvents {
   static const implemented = [
     'click',
+    'dblclick',
     'change',
     'input',
     'submit',
     'keyup',
     'keydown',
     'keypress',
+
+    // drag
+
+    'drag',
+    'dragend',
+    'dragenter',
+    'dragleave',
+    'dragover',
+    'dragstart',
+    'drop',
 
     // mouse events
 

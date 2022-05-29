@@ -171,6 +171,16 @@ class EventsService extends Service {
       case DomEventType.keyDown:
       case DomEventType.keyPress:
 
+      // drag events
+
+      case DomEventType.drag:
+      case DomEventType.dragEnd:
+      case DomEventType.dragEnter:
+      case DomEventType.dragLeave:
+      case DomEventType.dragOver:
+      case DomEventType.dragStart:
+      case DomEventType.drop:
+
       // mouse events
 
       case DomEventType.mouseDown:
@@ -188,6 +198,7 @@ class EventsService extends Service {
       // even if a valid listener callback got called
 
       case DomEventType.click:
+      case DomEventType.doubleClick:
         isEventAbsorbable = false;
 
         break;
@@ -210,6 +221,11 @@ class EventsService extends Service {
     switch (eventType) {
       case DomEventType.click:
         var sub = Element.clickEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.doubleClick:
+        var sub = Element.doubleClickEvent.forElement(element).capture(_handle);
         _eventSubscriptions[eventType] = sub;
         break;
 
@@ -240,6 +256,41 @@ class EventsService extends Service {
 
       case DomEventType.keyPress:
         var sub = Element.keyPressEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.drag:
+        var sub = Element.dragEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.dragEnd:
+        var sub = Element.dragEndEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.dragEnter:
+        var sub = Element.dragEnterEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.dragLeave:
+        var sub = Element.dragLeaveEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.dragOver:
+        var sub = Element.dragOverEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.dragStart:
+        var sub = Element.dragStartEvent.forElement(element).capture(_handle);
+        _eventSubscriptions[eventType] = sub;
+        break;
+
+      case DomEventType.drop:
+        var sub = Element.dropEvent.forElement(element).capture(_handle);
         _eventSubscriptions[eventType] = sub;
         break;
 

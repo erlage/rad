@@ -5,7 +5,7 @@ test('should stop propagation after stopPropagation() is called', () async {
     widgets: [
       RT_EventfulWidget(
         key: GlobalKey('el-g-parent'),
-        onClick: (_) => pap.stack.push('__EventNativeName__-g-parent'),
+        __EventAttributeName__: (_) => pap.stack.push('__EventNativeName__-g-parent'),
         children: [
           RT_EventfulWidget(
             key: GlobalKey('el-parent'),
@@ -59,7 +59,7 @@ test('should stop after stopImmediatePropagation() is called', () async {
     widgets: [
       RT_EventfulWidget(
         key: GlobalKey('el-g-parent'),
-        onClick: (_) => pap.stack.push('__EventNativeName__-g-parent'),
+        __EventAttributeName__: (_) => pap.stack.push('__EventNativeName__-g-parent'),
         children: [
           RT_EventfulWidget(
             key: GlobalKey('el-parent'),

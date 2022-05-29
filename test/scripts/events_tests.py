@@ -20,6 +20,11 @@ event_specific_tests = {
         'event_stop_propagate',
         'event_capture',
     ],
+    'onDoubleClick': [
+        'event_propagate',
+        'event_stop_propagate',
+        'event_capture',
+    ],
     'onInput': [
         'event_not_propagate',
         'event_restart_propagate',
@@ -46,6 +51,44 @@ event_specific_tests = {
         'event_capture_with_restart',
     ],
     'onSubmit': [
+        'event_not_propagate',
+        'event_restart_propagate',
+        'event_capture_with_restart',
+    ],
+
+    # drag events
+
+    'onDrag': [
+        'event_not_propagate',
+        'event_restart_propagate',
+        'event_capture_with_restart',
+    ],
+    'onDragEnd': [
+        'event_not_propagate',
+        'event_restart_propagate',
+        'event_capture_with_restart',
+    ],
+    'onDragEnter': [
+        'event_not_propagate',
+        'event_restart_propagate',
+        'event_capture_with_restart',
+    ],
+    'onDragLeave': [
+        'event_not_propagate',
+        'event_restart_propagate',
+        'event_capture_with_restart',
+    ],
+    'onDragOver': [
+        'event_not_propagate',
+        'event_restart_propagate',
+        'event_capture_with_restart',
+    ],
+    'onDragStart': [
+        'event_not_propagate',
+        'event_restart_propagate',
+        'event_capture_with_restart',
+    ],
+    'onDrop': [
         'event_not_propagate',
         'event_restart_propagate',
         'event_capture_with_restart',
@@ -97,12 +140,23 @@ global_tests = [
 
 events_map = {
     'onClick': 'click',
+    'onDoubleClick': 'dblclick',
     'onInput': 'input',
     'onChange': 'change',
     'onSubmit': 'submit',
     'onKeyUp': 'keyup',
     'onKeyDown': 'keydown',
     'onKeyPress': 'keypress',
+
+    # drag events
+
+    'onDrag': 'drag',
+    'onDragEnd': 'dragend',
+    'onDragEnter': 'dragenter',
+    'onDragLeave': 'dragleave',
+    'onDragOver': 'dragover',
+    'onDragStart': 'dragstart',
+    'onDrop': 'drop',
 
     # mouse events
 

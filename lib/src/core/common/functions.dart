@@ -167,6 +167,9 @@ String fnMapDomEventType(DomEventType eventType) {
     case DomEventType.click:
       return 'click';
 
+    case DomEventType.doubleClick:
+      return 'dblclick';
+
     case DomEventType.change:
       return 'change';
 
@@ -184,6 +187,29 @@ String fnMapDomEventType(DomEventType eventType) {
 
     case DomEventType.keyPress:
       return 'keypress';
+
+    // drag
+
+    case DomEventType.drag:
+      return 'drag';
+
+    case DomEventType.dragEnd:
+      return 'dragend';
+
+    case DomEventType.dragEnter:
+      return 'dragenter';
+
+    case DomEventType.dragLeave:
+      return 'dragleave';
+
+    case DomEventType.dragOver:
+      return 'dragover';
+
+    case DomEventType.dragStart:
+      return 'dragstart';
+
+    case DomEventType.drop:
+      return 'drop';
 
     // mouse events
 

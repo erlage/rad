@@ -69,12 +69,23 @@ enum LayoutType {
 
 enum DomEventType {
   click,
+  doubleClick,
   change,
   input,
   submit,
   keyUp,
   keyDown,
   keyPress,
+
+  // drag
+
+  drag,
+  dragEnd,
+  dragEnter,
+  dragLeave,
+  dragOver,
+  dragStart,
+  drop,
 
   // mouse events
   mouseDown,
