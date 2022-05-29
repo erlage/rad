@@ -38,6 +38,10 @@ abstract class Widget {
   ///
   Map<DomEventType, EventCallback?> get widgetEventListeners => const {};
 
+  /// Events that this widget is listening to in capturing phase.
+  ///
+  Map<DomEventType, EventCallback?> get widgetCaptureEventListeners => const {};
+
   /*
   |--------------------------------------------------------------------------
   | constructor

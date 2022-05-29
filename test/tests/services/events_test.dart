@@ -175,6 +175,91 @@ void main() {
         expect(testStack.canPop(), equals(false));
       },
     );
+
+    test(
+      'should restart propagation if called restartPropagationIfStopped',
+      () async {
+        var testStack = RT_TestStack();
+
+        await app!.buildChildren(
+          widgets: [
+            RT_EventfulWidget(
+              key: GlobalKey('el-g-parent'),
+              onClick: (_) => testStack.push('click-g-parent'),
+              children: [
+                RT_EventfulWidget(
+                  key: GlobalKey('el-parent'),
+                  onClick: (event) {
+                    testStack.push('click-parent');
+
+                    event.restartPropagationIfStopped();
+                  },
+                  children: [
+                    RT_EventfulWidget(key: GlobalKey('el-child')),
+                  ],
+                ),
+              ],
+            )
+          ],
+          parentContext: app!.appContext,
+        );
+
+        var child = app!.elementByGlobalKey('el-child');
+
+        child.dispatchEvent(Event('click')); // third
+
+        expect(testStack.popFromStart(), equals('click-parent'));
+        expect(testStack.popFromStart(), equals('click-g-parent'));
+
+        expect(testStack.canPop(), equals(false));
+      },
+    );
+
+    test(
+      'should stop propagation if stopped after restartPropagationIfStopped',
+      () async {
+        var testStack = RT_TestStack();
+
+        await app!.buildChildren(
+          widgets: [
+            RT_EventfulWidget(
+              key: GlobalKey('el-g-parent'),
+              onClick: (_) => testStack.push('click-g-parent'),
+              children: [
+                RT_EventfulWidget(
+                  key: GlobalKey('el-parent'),
+                  onClick: (event) {
+                    testStack.push('click-parent');
+
+                    event.stopPropagation();
+                  },
+                  children: [
+                    RT_EventfulWidget(
+                      onClick: (event) {
+                        testStack.push('click-child');
+
+                        event.restartPropagationIfStopped();
+                      },
+                      key: GlobalKey('el-child'),
+                    ),
+                  ],
+                ),
+              ],
+            )
+          ],
+          parentContext: app!.appContext,
+        );
+
+        var child = app!.elementByGlobalKey('el-child');
+
+        child.dispatchEvent(Event('click')); // third
+
+        expect(testStack.popFromStart(), equals('click-child'));
+        expect(testStack.popFromStart(), equals('click-parent'));
+
+        expect(testStack.canPop(), equals(false));
+      },
+    );
   });
 
   /*
@@ -228,6 +313,91 @@ void main() {
 
       expect(testStack.canPop(), equals(false));
     });
+
+    test(
+      'should restart propagation if called restartPropagationIfStopped',
+      () async {
+        var testStack = RT_TestStack();
+
+        await app!.buildChildren(
+          widgets: [
+            RT_EventfulWidget(
+              key: GlobalKey('el-g-parent'),
+              onInput: (_) => testStack.push('input-g-parent'),
+              children: [
+                RT_EventfulWidget(
+                  key: GlobalKey('el-parent'),
+                  onInput: (event) {
+                    testStack.push('input-parent');
+
+                    event.restartPropagationIfStopped();
+                  },
+                  children: [
+                    RT_EventfulWidget(key: GlobalKey('el-child')),
+                  ],
+                ),
+              ],
+            )
+          ],
+          parentContext: app!.appContext,
+        );
+
+        var child = app!.elementByGlobalKey('el-child');
+
+        child.dispatchEvent(Event('input')); // third
+
+        expect(testStack.popFromStart(), equals('input-parent'));
+        expect(testStack.popFromStart(), equals('input-g-parent'));
+
+        expect(testStack.canPop(), equals(false));
+      },
+    );
+
+    test(
+      'should stop propagation if stopped after restartPropagationIfStopped',
+      () async {
+        var testStack = RT_TestStack();
+
+        await app!.buildChildren(
+          widgets: [
+            RT_EventfulWidget(
+              key: GlobalKey('el-g-parent'),
+              onInput: (_) => testStack.push('input-g-parent'),
+              children: [
+                RT_EventfulWidget(
+                  key: GlobalKey('el-parent'),
+                  onInput: (event) {
+                    testStack.push('input-parent');
+
+                    event.stopPropagation();
+                  },
+                  children: [
+                    RT_EventfulWidget(
+                      onInput: (event) {
+                        testStack.push('input-child');
+
+                        event.restartPropagationIfStopped();
+                      },
+                      key: GlobalKey('el-child'),
+                    ),
+                  ],
+                ),
+              ],
+            )
+          ],
+          parentContext: app!.appContext,
+        );
+
+        var child = app!.elementByGlobalKey('el-child');
+
+        child.dispatchEvent(Event('input')); // third
+
+        expect(testStack.popFromStart(), equals('input-child'));
+        expect(testStack.popFromStart(), equals('input-parent'));
+
+        expect(testStack.canPop(), equals(false));
+      },
+    );
   });
 
   /*
@@ -281,6 +451,91 @@ void main() {
 
       expect(testStack.canPop(), equals(false));
     });
+
+    test(
+      'should restart propagation if called restartPropagationIfStopped',
+      () async {
+        var testStack = RT_TestStack();
+
+        await app!.buildChildren(
+          widgets: [
+            RT_EventfulWidget(
+              key: GlobalKey('el-g-parent'),
+              onChange: (_) => testStack.push('change-g-parent'),
+              children: [
+                RT_EventfulWidget(
+                  key: GlobalKey('el-parent'),
+                  onChange: (event) {
+                    testStack.push('change-parent');
+
+                    event.restartPropagationIfStopped();
+                  },
+                  children: [
+                    RT_EventfulWidget(key: GlobalKey('el-child')),
+                  ],
+                ),
+              ],
+            )
+          ],
+          parentContext: app!.appContext,
+        );
+
+        var child = app!.elementByGlobalKey('el-child');
+
+        child.dispatchEvent(Event('change')); // third
+
+        expect(testStack.popFromStart(), equals('change-parent'));
+        expect(testStack.popFromStart(), equals('change-g-parent'));
+
+        expect(testStack.canPop(), equals(false));
+      },
+    );
+
+    test(
+      'should stop propagation if stopped after restartPropagationIfStopped',
+      () async {
+        var testStack = RT_TestStack();
+
+        await app!.buildChildren(
+          widgets: [
+            RT_EventfulWidget(
+              key: GlobalKey('el-g-parent'),
+              onChange: (_) => testStack.push('change-g-parent'),
+              children: [
+                RT_EventfulWidget(
+                  key: GlobalKey('el-parent'),
+                  onChange: (event) {
+                    testStack.push('change-parent');
+
+                    event.stopPropagation();
+                  },
+                  children: [
+                    RT_EventfulWidget(
+                      onChange: (event) {
+                        testStack.push('change-child');
+
+                        event.restartPropagationIfStopped();
+                      },
+                      key: GlobalKey('el-child'),
+                    ),
+                  ],
+                ),
+              ],
+            )
+          ],
+          parentContext: app!.appContext,
+        );
+
+        var child = app!.elementByGlobalKey('el-child');
+
+        child.dispatchEvent(Event('change')); // third
+
+        expect(testStack.popFromStart(), equals('change-child'));
+        expect(testStack.popFromStart(), equals('change-parent'));
+
+        expect(testStack.canPop(), equals(false));
+      },
+    );
   });
 
   /*
@@ -334,6 +589,91 @@ void main() {
 
       expect(testStack.canPop(), equals(false));
     });
+
+    test(
+      'should restart propagation if called restartPropagationIfStopped',
+      () async {
+        var testStack = RT_TestStack();
+
+        await app!.buildChildren(
+          widgets: [
+            RT_EventfulWidget(
+              key: GlobalKey('el-g-parent'),
+              onSubmit: (_) => testStack.push('submit-g-parent'),
+              children: [
+                RT_EventfulWidget(
+                  key: GlobalKey('el-parent'),
+                  onSubmit: (event) {
+                    testStack.push('submit-parent');
+
+                    event.restartPropagationIfStopped();
+                  },
+                  children: [
+                    RT_EventfulWidget(key: GlobalKey('el-child')),
+                  ],
+                ),
+              ],
+            )
+          ],
+          parentContext: app!.appContext,
+        );
+
+        var child = app!.elementByGlobalKey('el-child');
+
+        child.dispatchEvent(Event('submit')); // third
+
+        expect(testStack.popFromStart(), equals('submit-parent'));
+        expect(testStack.popFromStart(), equals('submit-g-parent'));
+
+        expect(testStack.canPop(), equals(false));
+      },
+    );
+
+    test(
+      'should stop propagation if stopped after restartPropagationIfStopped',
+      () async {
+        var testStack = RT_TestStack();
+
+        await app!.buildChildren(
+          widgets: [
+            RT_EventfulWidget(
+              key: GlobalKey('el-g-parent'),
+              onSubmit: (_) => testStack.push('submit-g-parent'),
+              children: [
+                RT_EventfulWidget(
+                  key: GlobalKey('el-parent'),
+                  onSubmit: (event) {
+                    testStack.push('submit-parent');
+
+                    event.stopPropagation();
+                  },
+                  children: [
+                    RT_EventfulWidget(
+                      onSubmit: (event) {
+                        testStack.push('submit-child');
+
+                        event.restartPropagationIfStopped();
+                      },
+                      key: GlobalKey('el-child'),
+                    ),
+                  ],
+                ),
+              ],
+            )
+          ],
+          parentContext: app!.appContext,
+        );
+
+        var child = app!.elementByGlobalKey('el-child');
+
+        child.dispatchEvent(Event('submit')); // third
+
+        expect(testStack.popFromStart(), equals('submit-child'));
+        expect(testStack.popFromStart(), equals('submit-parent'));
+
+        expect(testStack.canPop(), equals(false));
+      },
+    );
   });
 
   /*
@@ -387,6 +727,91 @@ void main() {
 
       expect(testStack.canPop(), equals(false));
     });
+
+    test(
+      'should restart propagation if called restartPropagationIfStopped',
+      () async {
+        var testStack = RT_TestStack();
+
+        await app!.buildChildren(
+          widgets: [
+            RT_EventfulWidget(
+              key: GlobalKey('el-g-parent'),
+              onKeyUp: (_) => testStack.push('keyup-g-parent'),
+              children: [
+                RT_EventfulWidget(
+                  key: GlobalKey('el-parent'),
+                  onKeyUp: (event) {
+                    testStack.push('keyup-parent');
+
+                    event.restartPropagationIfStopped();
+                  },
+                  children: [
+                    RT_EventfulWidget(key: GlobalKey('el-child')),
+                  ],
+                ),
+              ],
+            )
+          ],
+          parentContext: app!.appContext,
+        );
+
+        var child = app!.elementByGlobalKey('el-child');
+
+        child.dispatchEvent(Event('keyup')); // third
+
+        expect(testStack.popFromStart(), equals('keyup-parent'));
+        expect(testStack.popFromStart(), equals('keyup-g-parent'));
+
+        expect(testStack.canPop(), equals(false));
+      },
+    );
+
+    test(
+      'should stop propagation if stopped after restartPropagationIfStopped',
+      () async {
+        var testStack = RT_TestStack();
+
+        await app!.buildChildren(
+          widgets: [
+            RT_EventfulWidget(
+              key: GlobalKey('el-g-parent'),
+              onKeyUp: (_) => testStack.push('keyup-g-parent'),
+              children: [
+                RT_EventfulWidget(
+                  key: GlobalKey('el-parent'),
+                  onKeyUp: (event) {
+                    testStack.push('keyup-parent');
+
+                    event.stopPropagation();
+                  },
+                  children: [
+                    RT_EventfulWidget(
+                      onKeyUp: (event) {
+                        testStack.push('keyup-child');
+
+                        event.restartPropagationIfStopped();
+                      },
+                      key: GlobalKey('el-child'),
+                    ),
+                  ],
+                ),
+              ],
+            )
+          ],
+          parentContext: app!.appContext,
+        );
+
+        var child = app!.elementByGlobalKey('el-child');
+
+        child.dispatchEvent(Event('keyup')); // third
+
+        expect(testStack.popFromStart(), equals('keyup-child'));
+        expect(testStack.popFromStart(), equals('keyup-parent'));
+
+        expect(testStack.canPop(), equals(false));
+      },
+    );
   });
 
   /*
@@ -440,6 +865,91 @@ void main() {
 
       expect(testStack.canPop(), equals(false));
     });
+
+    test(
+      'should restart propagation if called restartPropagationIfStopped',
+      () async {
+        var testStack = RT_TestStack();
+
+        await app!.buildChildren(
+          widgets: [
+            RT_EventfulWidget(
+              key: GlobalKey('el-g-parent'),
+              onKeyDown: (_) => testStack.push('keydown-g-parent'),
+              children: [
+                RT_EventfulWidget(
+                  key: GlobalKey('el-parent'),
+                  onKeyDown: (event) {
+                    testStack.push('keydown-parent');
+
+                    event.restartPropagationIfStopped();
+                  },
+                  children: [
+                    RT_EventfulWidget(key: GlobalKey('el-child')),
+                  ],
+                ),
+              ],
+            )
+          ],
+          parentContext: app!.appContext,
+        );
+
+        var child = app!.elementByGlobalKey('el-child');
+
+        child.dispatchEvent(Event('keydown')); // third
+
+        expect(testStack.popFromStart(), equals('keydown-parent'));
+        expect(testStack.popFromStart(), equals('keydown-g-parent'));
+
+        expect(testStack.canPop(), equals(false));
+      },
+    );
+
+    test(
+      'should stop propagation if stopped after restartPropagationIfStopped',
+      () async {
+        var testStack = RT_TestStack();
+
+        await app!.buildChildren(
+          widgets: [
+            RT_EventfulWidget(
+              key: GlobalKey('el-g-parent'),
+              onKeyDown: (_) => testStack.push('keydown-g-parent'),
+              children: [
+                RT_EventfulWidget(
+                  key: GlobalKey('el-parent'),
+                  onKeyDown: (event) {
+                    testStack.push('keydown-parent');
+
+                    event.stopPropagation();
+                  },
+                  children: [
+                    RT_EventfulWidget(
+                      onKeyDown: (event) {
+                        testStack.push('keydown-child');
+
+                        event.restartPropagationIfStopped();
+                      },
+                      key: GlobalKey('el-child'),
+                    ),
+                  ],
+                ),
+              ],
+            )
+          ],
+          parentContext: app!.appContext,
+        );
+
+        var child = app!.elementByGlobalKey('el-child');
+
+        child.dispatchEvent(Event('keydown')); // third
+
+        expect(testStack.popFromStart(), equals('keydown-child'));
+        expect(testStack.popFromStart(), equals('keydown-parent'));
+
+        expect(testStack.canPop(), equals(false));
+      },
+    );
   });
 
   /*
@@ -493,5 +1003,90 @@ void main() {
 
       expect(testStack.canPop(), equals(false));
     });
+
+    test(
+      'should restart propagation if called restartPropagationIfStopped',
+      () async {
+        var testStack = RT_TestStack();
+
+        await app!.buildChildren(
+          widgets: [
+            RT_EventfulWidget(
+              key: GlobalKey('el-g-parent'),
+              onKeyPress: (_) => testStack.push('keypress-g-parent'),
+              children: [
+                RT_EventfulWidget(
+                  key: GlobalKey('el-parent'),
+                  onKeyPress: (event) {
+                    testStack.push('keypress-parent');
+
+                    event.restartPropagationIfStopped();
+                  },
+                  children: [
+                    RT_EventfulWidget(key: GlobalKey('el-child')),
+                  ],
+                ),
+              ],
+            )
+          ],
+          parentContext: app!.appContext,
+        );
+
+        var child = app!.elementByGlobalKey('el-child');
+
+        child.dispatchEvent(Event('keypress')); // third
+
+        expect(testStack.popFromStart(), equals('keypress-parent'));
+        expect(testStack.popFromStart(), equals('keypress-g-parent'));
+
+        expect(testStack.canPop(), equals(false));
+      },
+    );
+
+    test(
+      'should stop propagation if stopped after restartPropagationIfStopped',
+      () async {
+        var testStack = RT_TestStack();
+
+        await app!.buildChildren(
+          widgets: [
+            RT_EventfulWidget(
+              key: GlobalKey('el-g-parent'),
+              onKeyPress: (_) => testStack.push('keypress-g-parent'),
+              children: [
+                RT_EventfulWidget(
+                  key: GlobalKey('el-parent'),
+                  onKeyPress: (event) {
+                    testStack.push('keypress-parent');
+
+                    event.stopPropagation();
+                  },
+                  children: [
+                    RT_EventfulWidget(
+                      onKeyPress: (event) {
+                        testStack.push('keypress-child');
+
+                        event.restartPropagationIfStopped();
+                      },
+                      key: GlobalKey('el-child'),
+                    ),
+                  ],
+                ),
+              ],
+            )
+          ],
+          parentContext: app!.appContext,
+        );
+
+        var child = app!.elementByGlobalKey('el-child');
+
+        child.dispatchEvent(Event('keypress')); // third
+
+        expect(testStack.popFromStart(), equals('keypress-child'));
+        expect(testStack.popFromStart(), equals('keypress-parent'));
+
+        expect(testStack.canPop(), equals(false));
+      },
+    );
   });
 }
