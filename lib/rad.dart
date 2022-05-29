@@ -37,6 +37,7 @@ export 'src/widgets/stateless_widget.dart' show StatelessWidget;
 
 export 'src/widgets/list_view.dart' show ListView;
 export 'src/widgets/raw_markup.dart' show RawMarkUp;
+export 'src/widgets/event_detector.dart' show EventDetector;
 export 'src/widgets/gesture_detector.dart' show GestureDetector;
 
 // navigator

@@ -189,6 +189,7 @@ Below is the list of available widgets in this framework.
 - [RawMarkUp](https://pub.dev/documentation/rad/latest/rad/RawMarkUp-class.html)
 - [Text](https://pub.dev/documentation/rad/latest/rad/Text-class.html) \[*different*\]
 - [ListView](https://pub.dev/documentation/rad/latest/rad/ListView-class.html) \[*same*\]
+- [EventDetector](https://pub.dev/documentation/rad/latest/rad/EventDetector-class.html)
 - [GestureDetector](https://pub.dev/documentation/rad/latest/rad/GestureDetector-class.html) \[*experimental*\]
 
 ### HTML Widgets
