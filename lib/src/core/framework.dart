@@ -19,11 +19,6 @@ class Framework with ServicesResolver {
   ///
   final BuildContext rootContext;
 
-  /// Identifier that is used to register/unregister a listener on task
-  /// scheduler.
-  ///
-  var _taskListenerKey = '';
-
   /// Whether framework is in test mode.
   ///
   /// Renderer that is responsible for build and managing widgets is not
@@ -62,9 +57,7 @@ class Framework with ServicesResolver {
   void initState() {
     _renderer.initState();
 
-    _taskListenerKey = services.keyGen.generateStringKey();
-
-    services.scheduler.addTaskListener(_taskListenerKey, _processTask);
+    services.scheduler.addTaskListener(rootContext.appTargetId, _processTask);
   }
 
   /// Dispose framework state.
@@ -72,7 +65,7 @@ class Framework with ServicesResolver {
   void dispose() {
     _renderer.dispose();
 
-    services.scheduler.removeTaskListener(_taskListenerKey);
+    services.scheduler.removeTaskListener(rootContext.appTargetId);
   }
 
   /*
