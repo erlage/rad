@@ -140,7 +140,9 @@ class EventsService extends Service {
     required DomEventType eventType,
     required EmittedEvent event,
   }) {
-    // assume event is not absorbed yet
+    // assume current event is not absorbable
+    // absorbable event means that event will auto-stop propagating when reaches
+    // a target that has a matching listener for that event
     var isEventAbsorbable = false;
 
     switch (eventType) {
