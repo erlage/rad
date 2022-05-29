@@ -1,3 +1,5 @@
+// !WARN: manually run browser_window_test.dart after updating this file.
+
 import 'dart:html';
 
 import 'package:rad/src/core/common/types.dart';
@@ -74,10 +76,9 @@ class BrowserWindow extends WindowDelegate {
   }
 
   void _psOnPopState(PopStateEvent event) {
-    var appTargetKey = '';
-    try {
-      appTargetKey = event.state;
-    } finally {
+    if (event.state is String) {
+      var appTargetKey = event.state;
+
       var listener = _psListeners[appTargetKey];
 
       if (null != listener) {
