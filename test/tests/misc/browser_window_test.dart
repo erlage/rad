@@ -23,29 +23,33 @@ void main() {
       testListener = null;
     });
 
-    test('should replace state', () async {
-      browserWindow!.addPopStateListener(
-        callback: testListener!.listener,
-        context: RT_TestBed.rootContext,
-      );
+    test(
+      'should replace state',
+      () async {
+        browserWindow!.addPopStateListener(
+          callback: testListener!.listener,
+          context: RT_TestBed.rootContext,
+        );
 
-      browserWindow!.historyReplaceState(
-        title: '/',
-        url: '/',
-        context: RT_TestBed.rootContext,
-      );
+        browserWindow!.historyReplaceState(
+          title: '/',
+          url: '/',
+          context: RT_TestBed.rootContext,
+        );
 
-      browserWindow!.historyReplaceState(
-        title: '/',
-        url: '/',
-        context: RT_TestBed.rootContext,
-      );
+        browserWindow!.historyReplaceState(
+          title: '/',
+          url: '/',
+          context: RT_TestBed.rootContext,
+        );
 
-      browserWindow!.historyBack(context: RT_TestBed.rootContext);
-      await Future.delayed(Duration(milliseconds: 100));
+        browserWindow!.historyBack(context: RT_TestBed.rootContext);
+        await Future.delayed(Duration(milliseconds: 100));
 
-      expect(testListener!.events.isEmpty, equals(true));
-    });
+        expect(testListener!.events.isEmpty, equals(true));
+      },
+      skip: 'this test has to be run locally(or in a different proccess)',
+    );
 
     test('should add a listener', () async {
       browserWindow!.addPopStateListener(
