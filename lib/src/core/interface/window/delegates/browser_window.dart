@@ -77,9 +77,9 @@ class BrowserWindow extends WindowDelegate {
 
   void _psOnPopState(PopStateEvent event) {
     if (event.state is String) {
-      var appTargetKey = event.state;
+      var appTargetId = event.state;
 
-      var listener = _psListeners[appTargetKey];
+      var listener = _psListeners[appTargetId];
 
       if (null != listener) {
         listener(event);

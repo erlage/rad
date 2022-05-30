@@ -154,11 +154,11 @@ class RT_TestWindow extends WindowDelegate {
   }
 
   void _psOnPopState(dynamic data) {
-    var appTargetKey = '';
+    var appTargetId = '';
     try {
-      appTargetKey = data;
+      appTargetId = data;
     } finally {
-      var listener = _psListeners[appTargetKey];
+      var listener = _psListeners[appTargetId];
 
       if (null != listener) {
         listener(PopStateEvent(''));
