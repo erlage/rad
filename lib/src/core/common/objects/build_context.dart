@@ -80,14 +80,6 @@ class BuildContext {
   |--------------------------------------------------------------------------
   */
 
-  /// Returns element that's associated with the current context.
-  ///
-  Element findElement() {
-    var walkerService = ServicesRegistry.instance.getWalker(this);
-
-    return walkerService.findElement(this);
-  }
-
   /// Returns the nearest ancestor widget of the given type `T`, which must be
   /// the type of a concrete [Widget] subclass.
   ///
@@ -116,6 +108,16 @@ class BuildContext {
     var walkerService = ServicesRegistry.instance.getWalker(this);
 
     return walkerService.dependOnInheritedWidgetOfExactType<T>(this);
+  }
+
+  /// Returns element that's associated with the current context.
+  ///
+  /// Note: This method might get removed in future(will be deprecated soon)
+  ///
+  Element findElement() {
+    var walkerService = ServicesRegistry.instance.getWalker(this);
+
+    return walkerService.findElement(this);
   }
 
   /*
