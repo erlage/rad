@@ -32,7 +32,7 @@
 
 - Important additions to core are event delegation, element tree, batched DOM updates and a brand new algorithm for matching widgets during updates(new algorithm: `O(n)`, previous algorithm: `O(n²)`). 
 
-- A new widget `EventDetector` is also added that leverages core's event-delegation to allow you to register event listeners both in capture and as well as in bubbling phase. 
+- A new widget `EventDetector` is also added that leverages core's event-delegation to allow you to register event listeners both in capture and bubbling phase. 
 
 - `beforeMount` hook is now removed. Previously `render` hook gets called after `beforeMount` as widgets are using `render` hook to decorate their corresponding element in DOM. Now with batched DOM updates, widget will not be able to access actual element since mount will happen at a later stage.
 
