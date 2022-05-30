@@ -4,174 +4,124 @@ import '../test_imports.dart';
 
 /// A test widget that implement all event listeners.
 ///
-class RT_EventfulWidget extends Widget {
-  final EventCallback? onInput;
-
-  final EventCallback? onChange;
-
-  final EventCallback? onSubmit;
-
-  final EventCallback? onClick;
-
-  final EventCallback? onDoubleClick;
-
-  final EventCallback? onKeyUp;
-
-  final EventCallback? onKeyDown;
-
-  final EventCallback? onKeyPress;
-
-  // -------------------------------------------------------------
-  // Drag events
-  // -------------------------------------------------------------
-
-  final EventCallback? onDrag;
-
-  final EventCallback? onDragEnd;
-
-  final EventCallback? onDragEnter;
-
-  final EventCallback? onDragLeave;
-
-  final EventCallback? onDragOver;
-
-  final EventCallback? onDragStart;
-
-  final EventCallback? onDrop;
-
-  // -------------------------------------------------------------
-  // Mouse events
-  // -------------------------------------------------------------
-
-  final EventCallback? onMouseDown;
-
-  final EventCallback? onMouseEnter;
-
-  final EventCallback? onMouseLeave;
-
-  final EventCallback? onMouseMove;
-
-  final EventCallback? onMouseOver;
-
-  final EventCallback? onMouseOut;
-
-  final EventCallback? onMouseUp;
-
-  // =============================================================
-  // All events in capture mode
-  // =============================================================
-
-  final EventCallback? onInputCapture;
-
-  final EventCallback? onChangeCapture;
-
-  final EventCallback? onSubmitCapture;
-
-  final EventCallback? onClickCapture;
-
-  final EventCallback? onDoubleClickCapture;
-
-  final EventCallback? onKeyUpCapture;
-
-  final EventCallback? onKeyDownCapture;
-
-  final EventCallback? onKeyPressCapture;
-
-  final EventCallback? onDragCapture;
-
-  final EventCallback? onDragEndCapture;
-
-  final EventCallback? onDragEnterCapture;
-
-  final EventCallback? onDragLeaveCapture;
-
-  final EventCallback? onDragOverCapture;
-
-  final EventCallback? onDragStartCapture;
-
-  final EventCallback? onDropCapture;
-
-  final EventCallback? onMouseDownCapture;
-
-  final EventCallback? onMouseEnterCapture;
-
-  final EventCallback? onMouseLeaveCapture;
-
-  final EventCallback? onMouseMoveCapture;
-
-  final EventCallback? onMouseOverCapture;
-
-  final EventCallback? onMouseOutCapture;
-
-  final EventCallback? onMouseUpCapture;
-
+class RT_EventfulWidget extends EventDetector {
   final List<Widget> children;
 
-  const RT_EventfulWidget({
+  RT_EventfulWidget({
     Key? key,
-    this.onClick,
-    this.onDoubleClick,
-    this.onInput,
-    this.onChange,
-    this.onSubmit,
-    this.onKeyUp,
-    this.onKeyDown,
-    this.onKeyPress,
+
+    // basic
+
+    EventCallback? onClick,
+    EventCallback? onDoubleClick,
+    EventCallback? onInput,
+    EventCallback? onChange,
+    EventCallback? onSubmit,
+    EventCallback? onKeyUp,
+    EventCallback? onKeyDown,
+    EventCallback? onKeyPress,
 
     // drag events
 
-    this.onDrag,
-    this.onDragEnd,
-    this.onDragEnter,
-    this.onDragLeave,
-    this.onDragOver,
-    this.onDragStart,
-    this.onDrop,
+    EventCallback? onDrag,
+    EventCallback? onDragEnd,
+    EventCallback? onDragEnter,
+    EventCallback? onDragLeave,
+    EventCallback? onDragOver,
+    EventCallback? onDragStart,
+    EventCallback? onDrop,
 
     // mouse events
 
-    this.onMouseDown,
-    this.onMouseEnter,
-    this.onMouseLeave,
-    this.onMouseMove,
-    this.onMouseOver,
-    this.onMouseOut,
-    this.onMouseUp,
+    EventCallback? onMouseDown,
+    EventCallback? onMouseEnter,
+    EventCallback? onMouseLeave,
+    EventCallback? onMouseMove,
+    EventCallback? onMouseOver,
+    EventCallback? onMouseOut,
+    EventCallback? onMouseUp,
 
     // ---------------------------------------------
     // all above callbacks but in capture phase
     // ---------------------------------------------
 
-    this.onClickCapture,
-    this.onDoubleClickCapture,
-    this.onInputCapture,
-    this.onChangeCapture,
-    this.onSubmitCapture,
-    this.onKeyUpCapture,
-    this.onKeyDownCapture,
-    this.onKeyPressCapture,
+    EventCallback? onClickCapture,
+    EventCallback? onDoubleClickCapture,
+    EventCallback? onInputCapture,
+    EventCallback? onChangeCapture,
+    EventCallback? onSubmitCapture,
+    EventCallback? onKeyUpCapture,
+    EventCallback? onKeyDownCapture,
+    EventCallback? onKeyPressCapture,
 
     // drag events
 
-    this.onDragCapture,
-    this.onDragEndCapture,
-    this.onDragEnterCapture,
-    this.onDragLeaveCapture,
-    this.onDragOverCapture,
-    this.onDragStartCapture,
-    this.onDropCapture,
+    EventCallback? onDragCapture,
+    EventCallback? onDragEndCapture,
+    EventCallback? onDragEnterCapture,
+    EventCallback? onDragLeaveCapture,
+    EventCallback? onDragOverCapture,
+    EventCallback? onDragStartCapture,
+    EventCallback? onDropCapture,
 
     // mouse events
 
-    this.onMouseDownCapture,
-    this.onMouseEnterCapture,
-    this.onMouseLeaveCapture,
-    this.onMouseMoveCapture,
-    this.onMouseOverCapture,
-    this.onMouseOutCapture,
-    this.onMouseUpCapture,
+    EventCallback? onMouseDownCapture,
+    EventCallback? onMouseEnterCapture,
+    EventCallback? onMouseLeaveCapture,
+    EventCallback? onMouseMoveCapture,
+    EventCallback? onMouseOverCapture,
+    EventCallback? onMouseOutCapture,
+    EventCallback? onMouseUpCapture,
     this.children = const [],
-  }) : super(key: key);
+  }) : super(
+          key: key,
+          child: Text('hw'),
+          onClick: onClick,
+          onDoubleClick: onDoubleClick,
+          onInput: onInput,
+          onChange: onChange,
+          onSubmit: onSubmit,
+          onKeyUp: onKeyUp,
+          onKeyDown: onKeyDown,
+          onKeyPress: onKeyPress,
+          onDrag: onDrag,
+          onDragEnd: onDragEnd,
+          onDragEnter: onDragEnter,
+          onDragLeave: onDragLeave,
+          onDragOver: onDragOver,
+          onDragStart: onDragStart,
+          onDrop: onDrop,
+          onMouseDown: onMouseDown,
+          onMouseEnter: onMouseEnter,
+          onMouseLeave: onMouseLeave,
+          onMouseMove: onMouseMove,
+          onMouseOver: onMouseOver,
+          onMouseOut: onMouseOut,
+          onMouseUp: onMouseUp,
+          onClickCapture: onClickCapture,
+          onDoubleClickCapture: onDoubleClickCapture,
+          onInputCapture: onInputCapture,
+          onChangeCapture: onChangeCapture,
+          onSubmitCapture: onSubmitCapture,
+          onKeyUpCapture: onKeyUpCapture,
+          onKeyDownCapture: onKeyDownCapture,
+          onKeyPressCapture: onKeyPressCapture,
+          onDragCapture: onDragCapture,
+          onDragEndCapture: onDragEndCapture,
+          onDragEnterCapture: onDragEnterCapture,
+          onDragLeaveCapture: onDragLeaveCapture,
+          onDragOverCapture: onDragOverCapture,
+          onDragStartCapture: onDragStartCapture,
+          onDropCapture: onDropCapture,
+          onMouseDownCapture: onMouseDownCapture,
+          onMouseEnterCapture: onMouseEnterCapture,
+          onMouseLeaveCapture: onMouseLeaveCapture,
+          onMouseMoveCapture: onMouseMoveCapture,
+          onMouseOverCapture: onMouseOverCapture,
+          onMouseOutCapture: onMouseOutCapture,
+          onMouseUpCapture: onMouseUpCapture,
+        );
 
   @override
   get widgetChildren => children;
