@@ -999,6 +999,50 @@ void main() {
       );
 
       test(
+        'should be able to run update on tree containing non-direct childs '
+        'direct childs means childs that are rendered by the state of widget it self',
+        () async {
+          var pap = app!;
+
+          await pap.updateChildren(
+            widgets: [
+              Navigator(
+                routes: [
+                  Route(
+                    key: GlobalKey('route'),
+                    name: 'some-name',
+                    page: Text(''),
+                  ),
+                ],
+              ),
+            ],
+            parentContext: pap.appContext,
+            updateType: UpdateType.setState,
+          );
+
+          await pap.updateChildren(
+            widgets: [
+              Navigator(
+                routes: [
+                  Route(
+                    key: GlobalKey('route'),
+                    name: 'some-name',
+                    page: Text(''),
+                  ),
+                ],
+              ),
+            ],
+            parentContext: app!.appContext,
+            updateType: UpdateType.setState,
+          );
+
+          var route = pap.widget('route');
+
+          expect((route as Route).name, equals('some-name'));
+        },
+      );
+
+      test(
         'should skip mismatch and reuse existing widget(prevent loosing state when childs are added optionally)',
         () async {
           var testStack = RT_TestStack();
