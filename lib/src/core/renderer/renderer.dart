@@ -574,8 +574,6 @@ class Renderer with ServicesResolver {
                   element,
                   parentElement.children[newMountAtIndex],
                 );
-
-                return;
               }
             }
           });
@@ -683,13 +681,13 @@ class Renderer with ServicesResolver {
       */
 
       // whether old widget happen to have direct child widgets
-      var hadChilds = oldWidget.widgetChildren.isNotEmpty;
+      var hadDirectChilds = oldWidget.widgetChildren.isNotEmpty;
 
       // whether new widget has direct childs
-      var hasChilds = updateObject.widget.widgetChildren.isNotEmpty;
+      var hasDirectChilds = updateObject.widget.widgetChildren.isNotEmpty;
 
       // if widget has or had direct childs, run update
-      if (hasChilds || hadChilds) {
+      if (hasDirectChilds || hadDirectChilds) {
         updateWidgetsUnderContext(
           jobQueue: jobQueue,
           updateType: updateType,
