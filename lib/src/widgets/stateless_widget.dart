@@ -68,7 +68,7 @@ class _StatelessWidgetConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-const statelessWidgetDescription = ElementDescription(
+const _description = ElementDescription(
   dataset: {
     Constants.attrWidgetType: 'StatelessWidget',
   },
@@ -84,7 +84,7 @@ class _StatelessWidgetRenderObject extends RenderObject {
   const _StatelessWidgetRenderObject(BuildContext context) : super(context);
 
   @override
-  render({required configuration}) => statelessWidgetDescription;
+  render({required configuration}) => _description;
 
   @override
   void afterMount() {

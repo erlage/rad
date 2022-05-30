@@ -22,10 +22,25 @@ void widget_inherited_widget_test() {
       expect(widget.widgetType, '$InheritedWidget');
     });
 
-    test('Inherited widget - description test', () {
-      var set = inheritedWidgetDescription.dataset;
+    test('Inherited widget - description test', () async {
+      var pap = app!;
 
-      expect(set[Constants.attrWidgetType], '$InheritedWidget');
+      await pap.buildChildren(
+        widgets: [
+          RT_InheritedWidget(
+            key: GlobalKey('widget'),
+            child: Text('hw'),
+          ),
+        ],
+        parentContext: pap.appContext,
+      );
+
+      var element = pap.elementByGlobalKey('widget');
+
+      expect(
+        element.dataset[Constants.attrWidgetType],
+        equals('$InheritedWidget'),
+      );
     });
   });
 }

@@ -133,7 +133,7 @@ abstract class StatefulWidget extends Widget {
 |--------------------------------------------------------------------------
 */
 
-const statefulWidgetDescription = ElementDescription(
+const _description = ElementDescription(
   dataset: {
     Constants.attrWidgetType: 'StatefulWidget',
   },
@@ -154,7 +154,7 @@ class StatefulWidgetRenderObject extends RenderObject {
   }) : super(context);
 
   @override
-  render({required configuration}) => statefulWidgetDescription;
+  render({required configuration}) => _description;
 
   @override
   afterMount() {

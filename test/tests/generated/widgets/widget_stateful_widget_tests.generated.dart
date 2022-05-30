@@ -22,10 +22,24 @@ void widget_stateful_widget_test() {
       expect(widget.widgetType, '$StatefulWidget');
     });
 
-    test('Stateful widget - description test', () {
-      var set = statefulWidgetDescription.dataset;
+    test('Stateful widget - description test', () async {
+      var pap = app!;
 
-      expect(set[Constants.attrWidgetType], '$StatefulWidget');
+      await pap.buildChildren(
+        widgets: [
+          RT_StatefulTestWidget(
+            key: GlobalKey('widget'),
+          ),
+        ],
+        parentContext: pap.appContext,
+      );
+
+      var element = pap.elementByGlobalKey('widget');
+
+      expect(
+        element.dataset[Constants.attrWidgetType],
+        equals('$StatefulWidget'),
+      );
     });
   });
 }

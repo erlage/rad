@@ -91,7 +91,7 @@ class _InheritedWidgetConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-const inheritedWidgetDescription = ElementDescription(
+const _description = ElementDescription(
   dataset: {
     Constants.attrWidgetType: 'InheritedWidget',
   },
@@ -117,7 +117,7 @@ class InheritedWidgetRenderObject extends RenderObject {
   }
 
   @override
-  render({required configuration}) => inheritedWidgetDescription;
+  render({required configuration}) => _description;
 
   @override
   update({

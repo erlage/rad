@@ -4,8 +4,23 @@ test('Inherited widget - widgetType override test', () {
   expect(widget.widgetType, '$InheritedWidget');
 });
 
-test('Inherited widget - description test', () {
-  var set = inheritedWidgetDescription.dataset;
-  
-  expect(set[Constants.attrWidgetType], '$InheritedWidget');
+test('Inherited widget - description test', () async {
+  var pap = app!;
+
+  await pap.buildChildren(
+    widgets: [
+      RT_InheritedWidget(
+        key: GlobalKey('widget'),
+        child: Text('hw'),
+      ),
+    ],
+    parentContext: pap.appContext,
+  );
+
+  var element = pap.elementByGlobalKey('widget');
+
+  expect(
+    element.dataset[Constants.attrWidgetType],
+    equals('$InheritedWidget'),
+  );
 });

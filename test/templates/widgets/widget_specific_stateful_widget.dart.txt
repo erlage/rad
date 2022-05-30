@@ -4,8 +4,22 @@ test('Stateful widget - widgetType override test', () {
   expect(widget.widgetType, '$StatefulWidget');
 });
 
-test('Stateful widget - description test', () {
-  var set = statefulWidgetDescription.dataset;
-  
-  expect(set[Constants.attrWidgetType], '$StatefulWidget');
+test('Stateful widget - description test', () async {
+  var pap = app!;
+
+  await pap.buildChildren(
+    widgets: [
+      RT_StatefulTestWidget(
+        key: GlobalKey('widget'),
+      ),
+    ],
+    parentContext: pap.appContext,
+  );
+
+  var element = pap.elementByGlobalKey('widget');
+
+  expect(
+    element.dataset[Constants.attrWidgetType],
+    equals('$StatefulWidget'),
+  );
 });
