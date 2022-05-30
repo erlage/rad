@@ -9,6 +9,9 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// A widget for detecting dom events on a widget or part of tree.
 ///
+/// Event detector can be used to register event listeners in capturing as well
+/// as in bubbling phase.
+///
 class EventDetector extends Widget {
   /// Child widget.
   ///
@@ -82,31 +85,31 @@ class EventDetector extends Widget {
   // Mouse events
   // -------------------------------------------------------------
 
-  /// On on mouse down event listener.
+  /// On mouse down event listener.
   ///
   final EventCallback? onMouseDown;
 
-  /// On on mouse enter event listener.
+  /// On mouse enter event listener.
   ///
   final EventCallback? onMouseEnter;
 
-  /// On on mouse leave event listener.
+  /// On mouse leave event listener.
   ///
   final EventCallback? onMouseLeave;
 
-  /// On on mouse move event listener.
+  /// On mouse move event listener.
   ///
   final EventCallback? onMouseMove;
 
-  /// On on mouse over event listener.
+  /// On mouse over event listener.
   ///
   final EventCallback? onMouseOver;
 
-  /// On on mouse out event listener.
+  /// On mouse out event listener.
   ///
   final EventCallback? onMouseOut;
 
-  /// On on mouse up event listener.
+  /// On mouse up event listener.
   ///
   final EventCallback? onMouseUp;
 
@@ -174,31 +177,31 @@ class EventDetector extends Widget {
   ///
   final EventCallback? onDropCapture;
 
-  /// On on mouse down event listener in capture phase.
+  /// On mouse down event listener in capture phase.
   ///
   final EventCallback? onMouseDownCapture;
 
-  /// On on mouse enter event listener in capture phase.
+  /// On mouse enter event listener in capture phase.
   ///
   final EventCallback? onMouseEnterCapture;
 
-  /// On on mouse leave event listener in capture phase.
+  /// On mouse leave event listener in capture phase.
   ///
   final EventCallback? onMouseLeaveCapture;
 
-  /// On on mouse move event listener in capture phase.
+  /// On mouse move event listener in capture phase.
   ///
   final EventCallback? onMouseMoveCapture;
 
-  /// On on mouse over event listener in capture phase.
+  /// On mouse over event listener in capture phase.
   ///
   final EventCallback? onMouseOverCapture;
 
-  /// On on mouse out event listener in capture phase.
+  /// On mouse out event listener in capture phase.
   ///
   final EventCallback? onMouseOutCapture;
 
-  /// On on mouse up event listener in capture phase.
+  /// On mouse up event listener in capture phase.
   ///
   final EventCallback? onMouseUpCapture;
 
