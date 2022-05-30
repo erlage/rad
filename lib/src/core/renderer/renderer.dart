@@ -670,17 +670,35 @@ class Renderer with ServicesResolver {
       /*
       |------------------------------------------------------------------------
       | run update on child nodes
+      |
+      | there are two types of child a widget can have:
+      |
+      | - direct(provided in widget's widgetChildren getter)
+      | - non-direct(rendered by the widget's state)
+      |
+      | we run updateWidgetsUnderContext() only if there are direct childs 
+      | because framework is not responsible for dispatching updates to 
+      | non-direct childs of a widget.
       |------------------------------------------------------------------------
       */
 
-      updateWidgetsUnderContext(
-        jobQueue: jobQueue,
-        updateType: updateType,
-        parentContext: widgetObject.context,
-        parentObject: widgetObject,
-        flagAddIfNotFound: flagAddIfNotFound,
-        widgets: updateObject.widget.widgetChildren,
-      );
+      // whether old widget happen to have direct child widgets
+      var hadChilds = oldWidget.widgetChildren.isNotEmpty;
+
+      // whether new widget has direct childs
+      var hasChilds = updateObject.widget.widgetChildren.isNotEmpty;
+
+      // if widget has or had direct childs, run update
+      if (hasChilds || hadChilds) {
+        updateWidgetsUnderContext(
+          jobQueue: jobQueue,
+          updateType: updateType,
+          parentContext: widgetObject.context,
+          parentObject: widgetObject,
+          flagAddIfNotFound: flagAddIfNotFound,
+          widgets: updateObject.widget.widgetChildren,
+        );
+      }
     } else {
       services.debug.exception(Constants.coreError);
     }
