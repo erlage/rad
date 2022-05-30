@@ -1,6 +1,8 @@
 import 'package:rad/src/widgets/gesture_detector.dart';
 
-/// Defines [GestureDetector] behaviour
+/// Defines [GestureDetector] behaviour.
+///
+/// Applies to only tap/doubleTap events.
 ///
 enum HitTestBehavior {
   /// Child gesture detectors will receive events and won't let them propagate
