@@ -45,7 +45,7 @@ class Navigation extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  String get widgetType => '$Navigation';
+  String get widgetType => 'Navigation';
 
   @override
   DomTag get correspondingTag => DomTag.navigation;

@@ -20,7 +20,7 @@ class RadApp extends Widget {
   List<Widget> get widgetChildren => [child];
 
   @override
-  String get widgetType => '$RadApp';
+  String get widgetType => 'RadApp';
 
   @override
   DomTag get correspondingTag => DomTag.division;

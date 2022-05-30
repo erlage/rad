@@ -45,7 +45,7 @@ class Abbreviation extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  String get widgetType => '$Abbreviation';
+  String get widgetType => 'Abbreviation';
 
   @override
   DomTag get correspondingTag => DomTag.abbreviation;

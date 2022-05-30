@@ -21,5 +21,11 @@ void widget_inherited_widget_test() {
 
       expect(widget.widgetType, '$InheritedWidget');
     });
+
+    test('Inherited widget - description test', () {
+      var set = inheritedWidgetDescription.dataset;
+
+      expect(set[Constants.attrWidgetType], '$InheritedWidget');
+    });
   });
 }

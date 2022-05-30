@@ -45,7 +45,7 @@ class Division extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  String get widgetType => '$Division';
+  String get widgetType => 'Division';
 
   @override
   DomTag get correspondingTag => DomTag.division;

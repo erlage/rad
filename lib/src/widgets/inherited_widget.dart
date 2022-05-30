@@ -54,7 +54,7 @@ abstract class InheritedWidget extends Widget {
 
   @nonVirtual
   @override
-  String get widgetType => '$InheritedWidget';
+  String get widgetType => 'InheritedWidget';
 
   @nonVirtual
   @override
@@ -87,6 +87,18 @@ class _InheritedWidgetConfiguration extends WidgetConfiguration {
 
 /*
 |--------------------------------------------------------------------------
+| description(never changes for inherited widget)
+|--------------------------------------------------------------------------
+*/
+
+const inheritedWidgetDescription = ElementDescription(
+  dataset: {
+    Constants.attrWidgetType: 'InheritedWidget',
+  },
+);
+
+/*
+|--------------------------------------------------------------------------
 | render object
 |--------------------------------------------------------------------------
 */
@@ -105,15 +117,7 @@ class InheritedWidgetRenderObject extends RenderObject {
   }
 
   @override
-  render({
-    required covariant _InheritedWidgetConfiguration configuration,
-  }) {
-    return ElementDescription(
-      dataset: {
-        Constants.attrWidgetType: '$InheritedWidget',
-      },
-    );
-  }
+  render({required configuration}) => inheritedWidgetDescription;
 
   @override
   update({

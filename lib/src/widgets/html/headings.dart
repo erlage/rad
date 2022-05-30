@@ -45,7 +45,7 @@ class Heading1 extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  String get widgetType => '$Heading1';
+  String get widgetType => 'Heading1';
 
   @override
   DomTag get correspondingTag => DomTag.heading1;
@@ -90,7 +90,7 @@ class Heading2 extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  String get widgetType => '$Heading2';
+  String get widgetType => 'Heading2';
 
   @override
   DomTag get correspondingTag => DomTag.heading2;
@@ -135,7 +135,7 @@ class Heading3 extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  String get widgetType => '$Heading3';
+  String get widgetType => 'Heading3';
 
   @override
   DomTag get correspondingTag => DomTag.heading3;
@@ -180,7 +180,7 @@ class Heading4 extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  String get widgetType => '$Heading4';
+  String get widgetType => 'Heading4';
 
   @override
   DomTag get correspondingTag => DomTag.heading4;
@@ -225,7 +225,7 @@ class Heading5 extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  String get widgetType => '$Heading5';
+  String get widgetType => 'Heading5';
 
   @override
   DomTag get correspondingTag => DomTag.heading5;
@@ -270,7 +270,7 @@ class Heading6 extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  String get widgetType => '$Heading6';
+  String get widgetType => 'Heading6';
 
   @override
   DomTag get correspondingTag => DomTag.heading6;

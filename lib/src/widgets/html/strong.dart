@@ -48,7 +48,7 @@ class Strong extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  String get widgetType => '$Strong';
+  String get widgetType => 'Strong';
 
   @override
   DomTag get correspondingTag => DomTag.strong;

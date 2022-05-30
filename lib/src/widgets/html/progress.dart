@@ -59,7 +59,7 @@ class Progress extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  String get widgetType => '$Progress';
+  String get widgetType => 'Progress';
 
   @override
   DomTag get correspondingTag => DomTag.progress;

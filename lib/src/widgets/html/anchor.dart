@@ -68,7 +68,7 @@ class Anchor extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  String get widgetType => '$Anchor';
+  String get widgetType => 'Anchor';
 
   @override
   DomTag get correspondingTag => DomTag.anchor;

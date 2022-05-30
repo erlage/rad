@@ -372,7 +372,7 @@ class Navigator extends Widget {
 
   @nonVirtual
   @override
-  String get widgetType => '$Navigator';
+  String get widgetType => 'Navigator';
 
   @nonVirtual
   @override

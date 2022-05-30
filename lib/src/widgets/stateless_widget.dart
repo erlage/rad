@@ -31,7 +31,7 @@ abstract class StatelessWidget extends Widget {
 
   @nonVirtual
   @override
-  String get widgetType => '$StatelessWidget';
+  String get widgetType => 'StatelessWidget';
 
   @nonVirtual
   @override
@@ -64,6 +64,18 @@ class _StatelessWidgetConfiguration extends WidgetConfiguration {
 
 /*
 |--------------------------------------------------------------------------
+| description(never changes for stateless widget)
+|--------------------------------------------------------------------------
+*/
+
+const statelessWidgetDescription = ElementDescription(
+  dataset: {
+    Constants.attrWidgetType: 'StatelessWidget',
+  },
+);
+
+/*
+|--------------------------------------------------------------------------
 | render object
 |--------------------------------------------------------------------------
 */
@@ -72,15 +84,7 @@ class _StatelessWidgetRenderObject extends RenderObject {
   const _StatelessWidgetRenderObject(BuildContext context) : super(context);
 
   @override
-  render({
-    required covariant _StatelessWidgetConfiguration configuration,
-  }) {
-    return ElementDescription(
-      dataset: {
-        Constants.attrWidgetType: '$StatelessWidget',
-      },
-    );
-  }
+  render({required configuration}) => statelessWidgetDescription;
 
   @override
   void afterMount() {

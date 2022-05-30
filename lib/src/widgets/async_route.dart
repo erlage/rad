@@ -289,8 +289,9 @@ class __AsyncRouteBuilderState extends State<_AsyncRouteBuilder> {
 class _AsyncRoutePlaceholder extends Widget {
   const _AsyncRoutePlaceholder() : super(key: null);
 
+  // !WARN: careful. hardcoded & not covered by the tests for this widget
   @override
-  String get widgetType => '$_AsyncRoutePlaceholder';
+  String get widgetType => '_AsyncRoutePlaceholder';
 
   @override
   DomTag get correspondingTag => DomTag.division;

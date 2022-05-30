@@ -47,7 +47,7 @@ class Caption extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  String get widgetType => '$Caption';
+  String get widgetType => 'Caption';
 
   @override
   DomTag get correspondingTag => DomTag.caption;

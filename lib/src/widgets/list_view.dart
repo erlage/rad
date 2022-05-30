@@ -83,7 +83,7 @@ class ListView extends Widget {
 
   @nonVirtual
   @override
-  String get widgetType => '$ListView';
+  String get widgetType => 'ListView';
 
   @nonVirtual
   @override

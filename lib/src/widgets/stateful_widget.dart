@@ -109,7 +109,7 @@ abstract class StatefulWidget extends Widget {
 
   @nonVirtual
   @override
-  String get widgetType => '$StatefulWidget';
+  String get widgetType => 'StatefulWidget';
 
   @nonVirtual
   @override
@@ -129,6 +129,18 @@ abstract class StatefulWidget extends Widget {
 
 /*
 |--------------------------------------------------------------------------
+| description(never changes for stateful widget)
+|--------------------------------------------------------------------------
+*/
+
+const statefulWidgetDescription = ElementDescription(
+  dataset: {
+    Constants.attrWidgetType: 'StatefulWidget',
+  },
+);
+
+/*
+|--------------------------------------------------------------------------
 | render object
 |--------------------------------------------------------------------------
 */
@@ -142,15 +154,7 @@ class StatefulWidgetRenderObject extends RenderObject {
   }) : super(context);
 
   @override
-  render({
-    required configuration,
-  }) {
-    return ElementDescription(
-      dataset: {
-        Constants.attrWidgetType: '$StatefulWidget',
-      },
-    );
-  }
+  render({required configuration}) => statefulWidgetDescription;
 
   @override
   afterMount() {

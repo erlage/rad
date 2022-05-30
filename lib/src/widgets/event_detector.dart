@@ -336,7 +336,7 @@ class EventDetector extends Widget {
   List<Widget> get widgetChildren => [child];
 
   @override
-  String get widgetType => '$EventDetector';
+  String get widgetType => 'EventDetector';
 
   @override
   DomTag get correspondingTag => DomTag.division;

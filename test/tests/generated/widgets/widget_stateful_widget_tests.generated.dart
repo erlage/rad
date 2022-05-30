@@ -21,5 +21,11 @@ void widget_stateful_widget_test() {
 
       expect(widget.widgetType, '$StatefulWidget');
     });
+
+    test('Stateful widget - description test', () {
+      var set = statefulWidgetDescription.dataset;
+
+      expect(set[Constants.attrWidgetType], '$StatefulWidget');
+    });
   });
 }

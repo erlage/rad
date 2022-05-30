@@ -54,7 +54,7 @@ class FieldSet extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  String get widgetType => '$FieldSet';
+  String get widgetType => 'FieldSet';
 
   @override
   DomTag get correspondingTag => DomTag.fieldSet;

@@ -27,7 +27,7 @@ class RawMarkUp extends Widget {
 
   @nonVirtual
   @override
-  String get widgetType => '$RawMarkUp';
+  String get widgetType => 'RawMarkUp';
 
   @override
   DomTag get correspondingTag => DomTag.division;

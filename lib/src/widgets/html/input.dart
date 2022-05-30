@@ -128,7 +128,7 @@ class Input extends MarkUpTagWithGlobalProps {
 
   @nonVirtual
   @override
-  String get widgetType => '$Input';
+  String get widgetType => 'Input';
 
   @override
   createConfiguration() {

@@ -7,6 +7,7 @@ export 'package:rad/widgets_internals.dart';
 
 export 'package:rad/src/core/framework.dart';
 export 'package:rad/src/core/common/functions.dart';
+export 'package:rad/src/core/common/constants.dart';
 export 'package:rad/src/core/common/objects/app_options.dart';
 export 'package:rad/src/core/common/objects/build_context.dart';
 export 'package:rad/src/core/common/objects/element_description.dart';
@@ -20,6 +21,9 @@ export 'package:rad/src/core/interface/window/window.dart';
 export 'package:rad/src/core/interface/window/delegates/browser_window.dart';
 
 export 'package:rad/src/widgets/navigator.dart';
+export 'package:rad/src/widgets/stateful_widget.dart';
+export 'package:rad/src/widgets/stateless_widget.dart';
+export 'package:rad/src/widgets/inherited_widget.dart';
 
 export 'package:rad/src/include/async/async_snapshot.dart';
 export 'package:rad/src/include/async/async_widget_builder.dart';
