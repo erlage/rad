@@ -1000,7 +1000,8 @@ void main() {
 
       test(
         'should be able to run update on tree containing non-direct childs '
-        'direct childs means childs that are rendered by the state of widget it self',
+        'direct childs are the childs that widget provides in widget constructor '
+        'non-direct childs are the childs that are rendered by the state of widget it-self',
         () async {
           var pap = app!;
 
