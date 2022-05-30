@@ -9,7 +9,7 @@
     - Open `pubspec.yaml` in newly created app folder and add `rad` to your dependencies:
       ```yaml
       dependencies:
-        rad: 0.7.1
+        rad: 0.8.0
       ```
 
 3. Import Rad widgets in your `main.dart`
@@ -20,16 +20,16 @@
 3. Create App
     ```dart
     void main() {
-      RadApp(
+      runApp(
                             // 'output' is the id of div in your web/index.html
                             // framework will mount your app inside that div
                             // if you don't have a div with id 'output' in web/index.html, 
-        targetKey: "output", // you've to create it
+        targetId: "output", // you've to create it
                             // e.g
                             //    <body>
                             //      <div id="output"></div> 
                             //    ...
-        child: Text("hello"),
+        app: Text("hello world"),
       );
     }
     ```

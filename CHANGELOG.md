@@ -1,3 +1,43 @@
+## 0.8.0
+
+### New
+
+- Support for running multiple apps on the same page.
+- Widget keys(`Key`, `LocalKey` and `GlobalKey`). (previously key was just a string)
+- `AsyncRoute` and `EventDetector` widgets along with number of new HTML widgets.
+
+### Changes
+
+- All HTML widgets now has an `id` attribute.
+- From now on, you've to use `runApp()` to bootstrap your apps. (see docs)
+- Widget's keys are not String literals anymore. Use `Key`, `LocalKey`, or `GlobalKey`.
+- `size` property has been removed from `Image` and `IFrame` widget.
+- Getters `element` and `isRebuilding` has been removed from `StatefulWidget`.
+- Following properties are changed:
+    - `onClick` is renamed to `onClickAttribute`
+    - `onClickEventListener` is renamed to `onClick`
+    - `onInputEventListener` is renamed to `onInput`
+    - `onChangeEventListener` is renamed to `onChange`
+    - `onSubmitEventListener` is renamed to `onSubmit`
+    - Signature for all `on*` callbacks has been changed to `void Function(EmittedEvent)`, previously it was `void Function (Event)`. `EmittedEvent` is a new type, compaitble with `Event`. 
+
+- Minor changes to imports:
+    - `import/rad/rad.dart` - Main library
+    - `import/rad/widgets_html.dart` - Library that exports HTML widgets
+    - `import/rad/widgets_async.dart` - Library that exports async widgets such as `FutureBuilder`
+    - `import/rad/widgets_internals.dart` - Library that exports low-level types/objects.
+
+
+### Core Changes
+
+- Important additions to core are event delegation, element tree, batched DOM updates and a brand new algorithm for matching widgets during updates(new algorithm: `O(n)`, previous algorithm: `O(n²)`). 
+
+- A new widget `EventDetector` is also added that leverages core's event-delegation to allow you to register event listeners both in capture and as well as in bubbling phase. 
+
+- `beforeMount` hook is now removed. Previously `render` hook gets called after `beforeMount` as widgets are using `render` hook to decorate their corresponding element in DOM. Now with batched DOM updates, widget will not be able to access actual element since mount will happen at a later stage.
+
+- If a widget wants to decorate actual DOM element then it can optionally return a `ElementDescription` object which will be operated on real DOM element when DOM updates are dispatched. Similarly widget can return updated `ElementDescription` object on `update` hook.
+
 ## 0.7.0
 
 ### New
