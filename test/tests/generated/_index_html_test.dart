@@ -47,6 +47,7 @@ part 'html/html_strong_tests.generated.dart';
 part 'html/html_sub_script_tests.generated.dart';
 part 'html/html_super_script_tests.generated.dart';
 part 'html/html_table_tests.generated.dart';
+part 'html/html_table_body_tests.generated.dart';
 part 'html/html_table_column_tests.generated.dart';
 part 'html/html_table_column_group_tests.generated.dart';
 part 'html/html_table_data_cell_tests.generated.dart';
@@ -104,6 +105,7 @@ void main() {
   html_sub_script_test();
   html_super_script_test();
   html_table_test();
+  html_table_body_test();
   html_table_column_test();
   html_table_column_group_test();
   html_table_data_cell_test();

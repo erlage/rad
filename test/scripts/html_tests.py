@@ -245,6 +245,7 @@ widgets_map = {
     'SubScript': 'sub',
     'SuperScript': 'sup',
     'Table': 'table',
+    'TableBody': 'tbody',
     'TableColumn': 'col',
     'TableColumnGroup': 'colgroup',
     'TableDataCell': 'td',

@@ -235,6 +235,7 @@ Below is the list of available widgets in this framework.
 , [SubScript](https://pub.dev/documentation/rad/latest/rad/SubScript-class.html)
 , [SuperScript](https://pub.dev/documentation/rad/latest/rad/SuperScript-class.html)
 , [Table](https://pub.dev/documentation/rad/latest/rad/Table-class.html)
+, [TableBody](https://pub.dev/documentation/rad/latest/rad/TableBody-class.html)
 , [TableColumn](https://pub.dev/documentation/rad/latest/rad/TableColumn-class.html)
 , [TableColumnGroup](https://pub.dev/documentation/rad/latest/rad/TableColumnGroup-class.html)
 , [TableDataCell](https://pub.dev/documentation/rad/latest/rad/TableDataCell-class.html)
