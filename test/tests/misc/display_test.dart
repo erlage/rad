@@ -1,8 +1,6 @@
 import '../../test_imports.dart';
 
 void main() {
-  // experimental widget
-
   RT_AppRunner? app;
 
   setUp(() {

@@ -11,6 +11,7 @@ rad_dir = os.path.abspath(os.path.join(test_dir, os.path.pardir))
 
 import html_tests
 import events_tests
+import widgets_tests
 
 def help():
     print('A small script for managing tests\n')
@@ -24,6 +25,7 @@ def help():
 def gen():
     html_tests.generate()
     events_tests.generate()
+    widgets_tests.generate()
 
 
 commands = {

@@ -1,0 +1,8 @@
+test('Route widget - widgetType override test', () {
+  var widget = Route(
+    name: '',
+    page: Text('hw'),
+  );
+
+  expect(widget.widgetType, '$Route');
+});
