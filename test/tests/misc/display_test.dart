@@ -12,7 +12,8 @@ void main() {
   /*
   |--------------------------------------------------------------------------
   | these tests are to ensure that we're setting display: contents for widgets
-  | that must not have any visuals in dom.
+  | that must not have any visuals in dom. we're also planning to remove these
+  | widgets from dom completely.
   |--------------------------------------------------------------------------
   */
 
@@ -33,10 +34,7 @@ void main() {
 
       var element = pap.elementByGlobalKey('widget');
 
-      expect(
-        element.dataset[Constants.attrWidgetType],
-        equals('$Route'),
-      );
+      expect(element.getComputedStyle().display, equals('contents'));
     });
 
     test('Navigator widget', () async {
@@ -54,10 +52,7 @@ void main() {
 
       var element = pap.elementByGlobalKey('widget');
 
-      expect(
-        element.dataset[Constants.attrWidgetType],
-        equals('$Navigator'),
-      );
+      expect(element.getComputedStyle().display, equals('contents'));
     });
 
     test('EventDetector widget', () async {
@@ -75,10 +70,7 @@ void main() {
 
       var element = pap.elementByGlobalKey('widget');
 
-      expect(
-        element.dataset[Constants.attrWidgetType],
-        equals('$EventDetector'),
-      );
+      expect(element.getComputedStyle().display, equals('contents'));
     });
 
     test('InheritedWidget widget', () async {
@@ -96,10 +88,7 @@ void main() {
 
       var element = pap.elementByGlobalKey('widget');
 
-      expect(
-        element.dataset[Constants.attrWidgetType],
-        equals('$InheritedWidget'),
-      );
+      expect(element.getComputedStyle().display, equals('contents'));
     });
 
     test('Stateful widget', () async {
@@ -112,10 +101,7 @@ void main() {
 
       var element = pap.elementByGlobalKey('widget');
 
-      expect(
-        element.dataset[Constants.attrWidgetType],
-        equals('$StatefulWidget'),
-      );
+      expect(element.getComputedStyle().display, equals('contents'));
     });
 
     test('Stateless widget', () async {
@@ -128,10 +114,7 @@ void main() {
 
       var element = pap.elementByGlobalKey('widget');
 
-      expect(
-        element.dataset[Constants.attrWidgetType],
-        equals('$StatelessWidget'),
-      );
+      expect(element.getComputedStyle().display, equals('contents'));
     });
   });
 }
