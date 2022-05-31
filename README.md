@@ -100,7 +100,7 @@ div(
 )
 ```
 
-Apart from synaxt/names, there are two very important characteristics of HTML widgets that we'd like to talk about:
+Apart from syntax/names, there are two very important characteristics of HTML widgets that we'd like to talk about:
 
 ### 1. HTML widgets are composable
 
