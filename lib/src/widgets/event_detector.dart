@@ -352,6 +352,18 @@ class EventDetector extends Widget {
 
 /*
 |--------------------------------------------------------------------------
+| description(never changes for event detector widget)
+|--------------------------------------------------------------------------
+*/
+
+const _description = ElementDescription(
+  dataset: {
+    Constants.attrWidgetType: 'EventDetector',
+  },
+);
+
+/*
+|--------------------------------------------------------------------------
 | render object
 |--------------------------------------------------------------------------
 */
@@ -360,13 +372,5 @@ class _EventDetectorRenderObject extends RenderObject {
   const _EventDetectorRenderObject(BuildContext context) : super(context);
 
   @override
-  render({
-    required configuration,
-  }) {
-    return ElementDescription(
-      dataset: {
-        Constants.attrWidgetType: '$EventDetector',
-      },
-    );
-  }
+  render({required configuration}) => _description;
 }

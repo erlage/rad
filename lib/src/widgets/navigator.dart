@@ -394,6 +394,18 @@ class Navigator extends Widget {
 
 /*
 |--------------------------------------------------------------------------
+| description(never changes for event detector widget)
+|--------------------------------------------------------------------------
+*/
+
+const _description = ElementDescription(
+  dataset: {
+    Constants.attrWidgetType: 'Navigator',
+  },
+);
+
+/*
+|--------------------------------------------------------------------------
 | render object
 |--------------------------------------------------------------------------
 */
@@ -411,15 +423,7 @@ class NavigatorRenderObject extends RenderObject {
   }) : super(context);
 
   @override
-  render({
-    required configuration,
-  }) {
-    return ElementDescription(
-      dataset: {
-        Constants.attrWidgetType: '$Navigator',
-      },
-    );
-  }
+  render({required configuration}) => _description;
 
   @override
   afterMount() {

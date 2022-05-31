@@ -25,5 +25,28 @@ void widget_navigator_test() {
 
       expect(widget.widgetType, equals('$Navigator'));
     });
+
+    test('Navigator widget - description test', () async {
+      var pap = app!;
+
+      await pap.buildChildren(
+        widgets: [
+          Navigator(
+            key: GlobalKey('widget'),
+            routes: [
+              Route(name: 'name', page: Text('hw')),
+            ],
+          ),
+        ],
+        parentContext: pap.appContext,
+      );
+
+      var element = pap.elementByGlobalKey('widget');
+
+      expect(
+        element.dataset[Constants.attrWidgetType],
+        equals('$Navigator'),
+      );
+    });
   });
 }

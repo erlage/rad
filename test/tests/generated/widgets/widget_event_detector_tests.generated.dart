@@ -21,5 +21,26 @@ void widget_event_detector_test() {
 
       expect(widget.widgetType, equals('$EventDetector'));
     });
+
+    test('EventDetector widget - description test', () async {
+      var pap = app!;
+
+      await pap.buildChildren(
+        widgets: [
+          EventDetector(
+            key: GlobalKey('widget'),
+            child: Text('hw'),
+          ),
+        ],
+        parentContext: pap.appContext,
+      );
+
+      var element = pap.elementByGlobalKey('widget');
+
+      expect(
+        element.dataset[Constants.attrWidgetType],
+        equals('$EventDetector'),
+      );
+    });
   });
 }
