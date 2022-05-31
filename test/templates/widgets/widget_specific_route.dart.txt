@@ -6,3 +6,25 @@ test('Route widget - widgetType override test', () {
 
   expect(widget.widgetType, '$Route');
 });
+
+test('Route widget - description test', () async {
+  var pap = app!;
+
+  await pap.buildChildren(
+    widgets: [
+      Route(
+        key: GlobalKey('widget'),
+        name: 'some-name',
+        page: Text('hw'),
+      ),
+    ],
+    parentContext: pap.appContext,
+  );
+
+  var element = pap.elementByGlobalKey('widget');
+
+  expect(
+    element.dataset[Constants.attrWidgetType],
+    equals('$Route'),
+  );
+});

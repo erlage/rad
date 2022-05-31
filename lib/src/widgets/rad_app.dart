@@ -31,6 +31,18 @@ class RadApp extends Widget {
 
 /*
 |--------------------------------------------------------------------------
+| description(never changes for rad app widget)
+|--------------------------------------------------------------------------
+*/
+
+const _description = ElementDescription(
+  dataset: {
+    Constants.attrWidgetType: 'RadApp',
+  },
+);
+
+/*
+|--------------------------------------------------------------------------
 | render object
 |--------------------------------------------------------------------------
 */
@@ -39,13 +51,5 @@ class AppWidgetRenderObject extends RenderObject {
   const AppWidgetRenderObject(BuildContext context) : super(context);
 
   @override
-  render({
-    required configuration,
-  }) {
-    return ElementDescription(
-      dataset: {
-        Constants.attrWidgetType: '$RadApp',
-      },
-    );
-  }
+  render({required configuration}) => _description;
 }

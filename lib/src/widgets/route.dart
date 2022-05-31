@@ -78,6 +78,18 @@ class RouteConfiguration extends WidgetConfiguration {
 
 /*
 |--------------------------------------------------------------------------
+| description(never changes for route widget)
+|--------------------------------------------------------------------------
+*/
+
+const _description = ElementDescription(
+  dataset: {
+    Constants.attrWidgetType: 'Route',
+  },
+);
+
+/*
+|--------------------------------------------------------------------------
 | render object
 |--------------------------------------------------------------------------
 */
@@ -86,23 +98,5 @@ class RouteRenderObject extends RenderObject {
   const RouteRenderObject(BuildContext context) : super(context);
 
   @override
-  render({
-    required covariant RouteConfiguration configuration,
-  }) {
-    return ElementDescription(
-      dataset: {
-        Constants.attrWidgetType: '$Route',
-      },
-    );
-  }
-
-  @override
-  update({
-    required updateType,
-    required oldConfiguration,
-    required covariant RouteConfiguration newConfiguration,
-  }) {
-    // Route's element description never changes
-    return null;
-  }
+  render({required configuration}) => _description;
 }

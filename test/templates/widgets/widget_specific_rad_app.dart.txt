@@ -2,3 +2,24 @@ test('RadApp widget - widgetType override test', () {
   var widget = RadApp(child: Text(''));
   expect(widget.widgetType, '$RadApp');
 });
+
+test('RadApp widget - description test', () async {
+  var pap = app!;
+
+  await pap.buildChildren(
+    widgets: [
+      RadApp(
+        key: GlobalKey('widget'),
+        child: Text('hw'),
+      ),
+    ],
+    parentContext: pap.appContext,
+  );
+
+  var element = pap.elementByGlobalKey('widget');
+
+  expect(
+    element.dataset[Constants.attrWidgetType],
+    equals('$RadApp'),
+  );
+});
