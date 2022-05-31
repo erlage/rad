@@ -3,175 +3,175 @@ import '../../test_imports.dart';
 void main() {
   /*
   |--------------------------------------------------------------------------
-  | fnMapDomEventType() | Dom event type mappings
+  | Enum | DomEventType mappings
   |--------------------------------------------------------------------------
   */
 
   group('mapDomEventType() :', () {
     test('mapped dom events should be available', () {
-      for (final element in DomEventType.values) {
+      for (final eventType in DomEventType.values) {
         expect(
-          fnMapDomEventType(element),
+          eventType.nativeName,
           RT_IsInKnownItems<String>(RT_DomEvents.available),
         );
       }
     });
 
     test('mapped dom events should be implemented', () {
-      for (final element in DomEventType.values) {
+      for (final eventType in DomEventType.values) {
         expect(
-          fnMapDomEventType(element),
+          eventType.nativeName,
           RT_IsInKnownItems<String>(RT_DomEvents.implemented),
         );
       }
     });
 
     test('mapped dom events should be lowercase', () {
-      for (final element in DomEventType.values) {
-        expect(fnMapDomEventType(element), RT_IsLowerCase());
+      for (final eventType in DomEventType.values) {
+        expect(eventType.nativeName, RT_IsLowerCase());
       }
     });
   });
 
   /*
   |--------------------------------------------------------------------------
-  | fnMapInputType() | Input type mappings
+  | Enum | InputType mappings
   |--------------------------------------------------------------------------
   */
 
   group('mapInputType() :', () {
     test('mapped input types should be available', () {
-      for (final element in InputType.values) {
+      for (final inputType in InputType.values) {
         expect(
-          fnMapInputType(element),
+          inputType.nativeName,
           RT_IsInKnownItems<String>(RT_InputTypes.available),
         );
       }
     });
 
     test('mapped input types should be implemented', () {
-      for (final element in InputType.values) {
+      for (final inputType in InputType.values) {
         expect(
-          fnMapInputType(element),
+          inputType.nativeName,
           RT_IsInKnownItems<String>(RT_InputTypes.implemented),
         );
       }
     });
 
     test('mapped input types should be lowercase', () {
-      for (final element in InputType.values) {
-        expect(fnMapInputType(element), RT_IsLowerCase());
+      for (final inputType in InputType.values) {
+        expect(inputType.nativeName, RT_IsLowerCase());
       }
     });
   });
 
   /*
   |--------------------------------------------------------------------------
-  | fnMapButtonType() | Button type mappings
+  | Enum | ButtonType mappings
   |--------------------------------------------------------------------------
   */
 
   group('mapButtonType() :', () {
     test('mapped button types should be available', () {
-      for (final element in ButtonType.values) {
+      for (final buttonType in ButtonType.values) {
         expect(
-          fnMapButtonType(element),
+          buttonType.nativeName,
           RT_IsInKnownItems<String>(RT_ButtonTypes.available),
         );
       }
     });
 
     test('mapped button types should be implemented', () {
-      for (final element in ButtonType.values) {
+      for (final buttonType in ButtonType.values) {
         expect(
-          fnMapButtonType(element),
+          buttonType.nativeName,
           RT_IsInKnownItems<String>(RT_ButtonTypes.implemented),
         );
       }
     });
 
     test('mapped button types should be lowercase', () {
-      for (final element in ButtonType.values) {
-        expect(fnMapButtonType(element), RT_IsLowerCase());
+      for (final buttonType in ButtonType.values) {
+        expect(buttonType.nativeName, RT_IsLowerCase());
       }
     });
   });
 
   /*
   |--------------------------------------------------------------------------
-  | fnMapFormEncType() | Form encoding type mappings
+  | Enum | FormEncType mappings
   |--------------------------------------------------------------------------
   */
 
   group('mapFormEncType() :', () {
     test('mapped form types should be available', () {
-      for (final element in FormEncType.values) {
+      for (final enctype in FormEncType.values) {
         expect(
-          fnMapFormEncType(element),
+          enctype.nativeName,
           RT_IsInKnownItems<String>(RT_FormTypes.available),
         );
       }
     });
 
     test('mapped form types should be implemented', () {
-      for (final element in FormEncType.values) {
+      for (final enctype in FormEncType.values) {
         expect(
-          fnMapFormEncType(element),
+          enctype.nativeName,
           RT_IsInKnownItems<String>(RT_FormTypes.implemented),
         );
       }
     });
 
     test('mapped form types should be lowercase', () {
-      for (final element in FormEncType.values) {
-        expect(fnMapFormEncType(element), RT_IsLowerCase());
+      for (final enctype in FormEncType.values) {
+        expect(enctype.nativeName, RT_IsLowerCase());
       }
     });
   });
 
   /*
   |--------------------------------------------------------------------------
-  | fnMapFormMethod() | Form method mappings
+  | Enum | FormMethod mappings
   |--------------------------------------------------------------------------
   */
 
-  group('mapFormMethod() :', () {
+  group('formMethod enum :', () {
     test('mapped form methods should be available', () {
-      for (final element in FormMethod.values) {
+      for (final method in FormMethod.values) {
         expect(
-          fnMapFormMethod(element),
+          method.nativeName,
           RT_IsInKnownItems<String>(RT_FormMethods.available),
         );
       }
     });
 
     test('mapped form methods should be implemented', () {
-      for (final element in FormMethod.values) {
+      for (final method in FormMethod.values) {
         expect(
-          fnMapFormMethod(element),
+          method.nativeName,
           RT_IsInKnownItems<String>(RT_FormMethods.implemented),
         );
       }
     });
 
     test('mapped form methods should be lowercase', () {
-      for (final element in FormMethod.values) {
-        expect(fnMapFormMethod(element), RT_IsLowerCase());
+      for (final method in FormMethod.values) {
+        expect(method.nativeName, RT_IsLowerCase());
       }
     });
   });
 
   /*
   |--------------------------------------------------------------------------
-  | fnMapDomTag() | Dom tag mappings
+  | Enum | DomTag mappings
   |--------------------------------------------------------------------------
   */
 
   group('mapDomTag() :', () {
     test('mapped dom tags should be available', () {
-      for (final element in DomTag.values) {
+      for (final domTag in DomTag.values) {
         expect(
-          fnMapDomTag(element),
+          domTag.nativeName,
           RT_IsInKnownItems<String>(RT_DomTags.available),
         );
       }
@@ -180,21 +180,21 @@ void main() {
     test('mapped dom tags should be implemented', () {
       for (final element in DomTag.values) {
         expect(
-          fnMapDomTag(element),
+          element.nativeName,
           RT_IsInKnownItems<String>(RT_DomTags.implemented),
         );
       }
     });
 
     test('mapped dom tags should be lowercase', () {
-      for (final element in DomTag.values) {
-        expect(fnMapDomTag(element), RT_IsLowerCase());
+      for (final domTag in DomTag.values) {
+        expect(domTag.nativeName, RT_IsLowerCase());
       }
     });
 
     test('mapped dom tags should be without space', () {
       for (final element in DomTag.values) {
-        expect(fnMapDomTag(element), RT_IsWithoutSpace());
+        expect(element.nativeName, RT_IsWithoutSpace());
       }
     });
   });

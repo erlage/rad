@@ -17,15 +17,15 @@ test('should set form attribute "enctype"', () async {
 
     expect(
         element1.getAttribute('enctype'),
-        equals(fnMapFormEncType(FormEncType.textPlain)),
+        equals(FormEncType.textPlain.nativeName),
     );
     expect(
         element2.getAttribute('enctype'),
-        equals(fnMapFormEncType(FormEncType.multipartFormData)),
+        equals(FormEncType.multipartFormData.nativeName),
     );
     expect(
         element3.getAttribute('enctype'),
-        equals(fnMapFormEncType(FormEncType.applicationXwwwFormUrlEncoded)),
+        equals(FormEncType.applicationXwwwFormUrlEncoded.nativeName),
     );
 });
 
@@ -61,6 +61,6 @@ test('should update form attribute "enctype"', () async {
 
     expect(
         element3.getAttribute('enctype'),
-        equals(fnMapFormEncType(FormEncType.multipartFormData)),
+        equals(FormEncType.multipartFormData.nativeName),
     );
 });

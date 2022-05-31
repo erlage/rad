@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -238,7 +237,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.method) {
-    attributes[Attributes.method] = fnMapFormMethod(props.method!);
+    attributes[Attributes.method] = props.method!.nativeName;
   } else {
     if (null != oldProps?.method) {
       attributes[Attributes.method] = null;
@@ -246,7 +245,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != props.enctype) {
-    attributes[Attributes.enctype] = fnMapFormEncType(props.enctype!);
+    attributes[Attributes.enctype] = props.enctype!.nativeName;
   } else {
     if (null != oldProps?.enctype) {
       attributes[Attributes.enctype] = null;

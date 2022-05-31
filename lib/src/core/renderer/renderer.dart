@@ -2,7 +2,6 @@ import 'dart:html';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/element_description.dart';
 import 'package:rad/src/core/common/objects/widget_object.dart';
@@ -56,7 +55,7 @@ class Renderer with ServicesResolver {
 
     var renderObject = widget.createRenderObject(context);
 
-    var element = document.createElement(fnMapDomTag(widget.correspondingTag));
+    var element = document.createElement(widget.correspondingTag.nativeName);
 
     var widgetObject = WidgetObject(
       widget: widget,

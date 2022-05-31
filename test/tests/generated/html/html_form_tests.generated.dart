@@ -1448,11 +1448,11 @@ void html_form_test() {
 
       expect(
         element1.getAttribute('method'),
-        equals(fnMapFormMethod(FormMethod.get)),
+        equals(FormMethod.get.nativeName),
       );
       expect(
         element2.getAttribute('method'),
-        equals(fnMapFormMethod(FormMethod.post)),
+        equals(FormMethod.post.nativeName),
       );
     });
 
@@ -1490,7 +1490,7 @@ void html_form_test() {
       );
       expect(
         element3.getAttribute('method'),
-        equals(fnMapFormMethod(FormMethod.post)),
+        equals(FormMethod.post.nativeName),
       );
     });
 
@@ -1513,15 +1513,15 @@ void html_form_test() {
 
       expect(
         element1.getAttribute('enctype'),
-        equals(fnMapFormEncType(FormEncType.textPlain)),
+        equals(FormEncType.textPlain.nativeName),
       );
       expect(
         element2.getAttribute('enctype'),
-        equals(fnMapFormEncType(FormEncType.multipartFormData)),
+        equals(FormEncType.multipartFormData.nativeName),
       );
       expect(
         element3.getAttribute('enctype'),
-        equals(fnMapFormEncType(FormEncType.applicationXwwwFormUrlEncoded)),
+        equals(FormEncType.applicationXwwwFormUrlEncoded.nativeName),
       );
     });
 
@@ -1557,7 +1557,7 @@ void html_form_test() {
 
       expect(
         element3.getAttribute('enctype'),
-        equals(fnMapFormEncType(FormEncType.multipartFormData)),
+        equals(FormEncType.multipartFormData.nativeName),
       );
     });
   });

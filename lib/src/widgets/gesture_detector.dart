@@ -125,14 +125,14 @@ class _GestureDetectorState extends State<GestureDetector> {
   }
 
   void _addListener(DomEventType eventType) {
-    var nativeType = fnMapDomEventType(eventType);
+    var nativeType = eventType.nativeName;
     var useCapture = HitTestBehavior.opaque == widget.behaviour;
 
     element.addEventListener(nativeType, _handleNative, useCapture);
   }
 
   void _removeListener(DomEventType eventType) {
-    var nativeType = fnMapDomEventType(eventType);
+    var nativeType = eventType.nativeName;
 
     element.removeEventListener(nativeType, _handleNative);
   }

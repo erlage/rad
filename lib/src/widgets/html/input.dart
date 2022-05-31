@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -288,7 +287,7 @@ Map<String, String?> _prepareAttributes({
   var attributes = <String, String?>{};
 
   if (null != props.type) {
-    attributes[Attributes.type] = fnMapInputType(props.type!);
+    attributes[Attributes.type] = props.type!.nativeName;
   } else {
     if (null != oldProps?.type) {
       attributes[Attributes.type] = null;

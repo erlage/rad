@@ -69,125 +69,6 @@ enum LayoutType {
   expand,
 }
 
-enum DomEventType {
-  click,
-  doubleClick,
-  change,
-  input,
-  submit,
-  keyUp,
-  keyDown,
-  keyPress,
-
-  // drag
-
-  drag,
-  dragEnd,
-  dragEnter,
-  dragLeave,
-  dragOver,
-  dragStart,
-  drop,
-
-  // mouse events
-  mouseDown,
-  mouseEnter,
-  mouseLeave,
-  mouseMove,
-  mouseOver,
-  mouseOut,
-  mouseUp,
-}
-
-enum InputType {
-  text,
-  password,
-  file,
-  radio,
-  checkbox,
-  submit,
-}
-
-enum FormEncType {
-  applicationXwwwFormUrlEncoded,
-  multipartFormData,
-  textPlain,
-}
-
-enum FormMethod {
-  post,
-  get,
-}
-
-/// Type of Button.
-///
-/// Possible values are [button], [submit] and [reset]
-///
-enum ButtonType {
-  button,
-  submit,
-  reset,
-}
-
-/// Widget's corresponding DOM tag.
-///
-enum DomTag {
-  abbreviation,
-  article,
-  code,
-  header,
-  footer,
-  menu,
-  navigation,
-  division,
-  span,
-  anchor,
-  blockquote,
-  horizontalRule,
-  label,
-  iFrame,
-  breakLine,
-  image,
-  canvas,
-  paragraph,
-  input,
-  form,
-  fieldSet,
-  idiomatic,
-  strong,
-  strikeThrough,
-  small,
-  subScript,
-  superScript,
-  unOrderedList,
-  listItem,
-  button,
-  select,
-  option,
-  legend,
-  progress,
-  textArea,
-  heading1,
-  heading2,
-  heading3,
-  heading4,
-  heading5,
-  heading6,
-
-  // table
-
-  caption,
-  table,
-  tableColumn,
-  tableColumnGroup,
-  tableHead,
-  tableDataCell,
-  tableHeaderCell,
-  tableBody,
-  tableFoot,
-  tableRow,
-}
-
 enum WidgetAction {
   dispose,
   hideWidget,
@@ -207,4 +88,154 @@ enum SchedulerTaskType {
 
 enum SchedulerEventType {
   sendNextTask,
+}
+
+enum DomEventType {
+  click('click'),
+  doubleClick('dblclick'),
+  change('change'),
+  input('input'),
+  submit('submit'),
+  keyUp('keyup'),
+  keyDown('keydown'),
+  keyPress('keypress'),
+
+  // drag
+
+  drag('drag'),
+  dragEnd('dragend'),
+  dragEnter('dragenter'),
+  dragLeave('dragleave'),
+  dragOver('dragover'),
+  dragStart('dragstart'),
+  drop('drop'),
+
+  // mouse events
+
+  mouseDown('mousedown'),
+  mouseEnter('mouseenter'),
+  mouseLeave('mouseleave'),
+  mouseMove('mousemove'),
+  mouseOver('mouseover'),
+  mouseOut('mouseout'),
+  mouseUp('mouseup'),
+  ;
+
+  final String nativeName;
+
+  const DomEventType(this.nativeName);
+}
+
+enum InputType {
+  text('text'),
+  password('password'),
+  file('file'),
+  radio('radio'),
+  checkbox('checkbox'),
+  submit('submit'),
+  ;
+
+  final String nativeName;
+
+  const InputType(this.nativeName);
+}
+
+enum FormEncType {
+  applicationXwwwFormUrlEncoded('application/x-www-form-urlencoded'),
+  multipartFormData('multipart/form-data'),
+  textPlain('text/plain'),
+  ;
+
+  final String nativeName;
+
+  const FormEncType(this.nativeName);
+}
+
+enum FormMethod {
+  post('post'),
+  get('get'),
+  ;
+
+  final String nativeName;
+
+  const FormMethod(this.nativeName);
+}
+
+/// Type of Button.
+///
+/// Possible values are [button], [submit] and [reset]
+///
+enum ButtonType {
+  button('button'),
+  submit('submit'),
+  reset('reset'),
+  ;
+
+  final String nativeName;
+
+  const ButtonType(this.nativeName);
+}
+
+/// Widget's corresponding DOM tag.
+///
+enum DomTag {
+  abbreviation('abbr'),
+  article('article'),
+  code('code'),
+  header('header'),
+  footer('footer'),
+  menu('menu'),
+  navigation('nav'),
+  division('div'),
+  span('span'),
+  anchor('a'),
+  blockquote('blockquote'),
+  horizontalRule('hr'),
+  label('label'),
+  iFrame('iframe'),
+  breakLine('br'),
+  image('img'),
+  canvas('canvas'),
+  paragraph('p'),
+  input('input'),
+  form('form'),
+  fieldSet('fieldset'),
+  idiomatic('i'),
+  strong('strong'),
+  strikeThrough('s'),
+  small('small'),
+  subScript('sub'),
+  superScript('sup'),
+  unOrderedList('ul'),
+  listItem('li'),
+  button('button'),
+  select('select'),
+  option('option'),
+  legend('legend'),
+  progress('progress'),
+  textArea('textarea'),
+  heading1('h1'),
+  heading2('h2'),
+  heading3('h3'),
+  heading4('h4'),
+  heading5('h5'),
+  heading6('h6'),
+
+  // table
+
+  caption('caption'),
+  table('table'),
+  tableColumn('col'),
+  tableColumnGroup('colgroup'),
+  tableHead('thead'),
+  tableDataCell('td'),
+  tableHeaderCell('th'),
+  tableBody('tbody'),
+  tableFoot('tfoot'),
+  tableRow('tr'),
+  ;
+
+  final String nativeName;
+
+  const DomTag(this.nativeName);
 }
