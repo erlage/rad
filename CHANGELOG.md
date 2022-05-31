@@ -1,3 +1,8 @@
+## 0.8.1
+
+- Short syntax for HTML widgets.
+- Minor bug fixes in documentation.
+
 ## 0.8.0
 
 ### New
