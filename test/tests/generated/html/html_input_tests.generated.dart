@@ -887,6 +887,16 @@ void html_input_test() {
       expect(element1.dataset[Constants.attrWidgetType], equals(null));
     });
 
+    test('should have a short-tag alias', () async {
+      var widget = Input();
+      var widgetShort = input();
+
+      expect(
+        widget.runtimeType,
+        equals(widgetShort.runtimeType),
+      );
+    });
+
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [

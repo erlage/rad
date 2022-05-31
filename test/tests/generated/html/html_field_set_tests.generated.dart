@@ -890,6 +890,16 @@ void html_field_set_test() {
       expect(element1.dataset[Constants.attrWidgetType], equals(null));
     });
 
+    test('should have a short-tag alias', () async {
+      var widget = FieldSet();
+      var widgetShort = fieldset();
+
+      expect(
+        widget.runtimeType,
+        equals(widgetShort.runtimeType),
+      );
+    });
+
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [

@@ -890,6 +890,16 @@ void html_table_foot_test() {
       expect(element1.dataset[Constants.attrWidgetType], equals(null));
     });
 
+    test('should have a short-tag alias', () async {
+      var widget = TableFoot();
+      var widgetShort = tfoot();
+
+      expect(
+        widget.runtimeType,
+        equals(widgetShort.runtimeType),
+      );
+    });
+
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [

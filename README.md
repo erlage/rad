@@ -77,7 +77,30 @@ These widgets has same syntax as their Flutter's counterparts. Not just syntax, 
 
 ## HTML widgets
 
-There are two important characteristics of HTML widgets that we'd like to talk about:
+Let's take a look at another markup example:
+```html
+<div>
+  <p>Hey there!</p>
+</div>
+```
+Here's how we'll write this using widgets:
+```dart
+Division(
+  children: [
+    Paragraph(innerText: 'Hey there!'),  
+  ]
+)
+```
+Although it's very descriptive but some people might find it bit more verbose so there's also an alternative syntax for HTML widgets:
+```dart
+div(
+  children: [
+    p(innerText: 'Hey there!'),
+  ]
+)
+```
+
+Apart from synaxt/names, there are two very important characteristics of HTML widgets that we'd like to talk about:
 
 ### 1. HTML widgets are composable
 
@@ -129,40 +152,18 @@ and that's pretty much it. Here's how you can use our newly created Stack widget
       StackEntry(Text('hellow 2')),
     ]
   )
-```
+``` 
 This might not look like a big improvement at first but we've actually created a brand new widget that has its own identity and semantics using existing widget. Unlike other frameworks where you'd create a component by implementing bunch of methods, in Rad you can extend widgets to create new widgets.
-
-## FAQ
-
-> Can we use Rad for creating a static website?
-
-  Yes.
-
-> Can we use Rad for creating a dynamic website?
-
-  Yes, that's something this framework is good at.
-
-> Can we use Rad for creating a single page application/or a web app?
-
-  Yes, that'll be perfect. Rad has widgets with powerful mechanics for dealing with nested routing, deep linking, history and state management.
-
-> Is it SEO friendly?
-
-  Rad is a frontend framework and server side rendering is a must for better SEOs. Some frontend frameworks provides SSR but unfortunately we don't have that at the moment. However you can use a backend technology(PHP, Node, Erlang etc.) to stuff meta information in your root page, based on location that a client requested, before serving the page to client. We assure you that this is a sane, simple, and effective approach.
 
 ## Widgets Index
 
-Below is the list of available widgets in this framework.
+Below is the list of available widgets in this framework. Some widgets are named after Flutter widgets because they either works exactly same or can be used to acheive same things but in a differnet way(more or less). All those widgets are tagged according to their similarity level. Please note that these taggings are based solely on my understanding of Flutter widgets/src. If you happen to find any big differences, do let me know.
 
-> Some widgets are named after Flutter widgets because they either works exactly same or can be used to acheive same things but in a differnet way(more or less). All those widgets are marked according to their similarity level.
-> 
-> Markings:
->   - *exact*: Exact syntax, similar semantics.
->   - *same*: Exact syntax with few exceptions, similar semantics.
->   - *different*: Different syntax, different semantics.
->   - *experimental*: --
->
-> Please note that these markings are based solely on my understanding of Flutter widgets/src. If you happen to find any big differences, do let me know.
+Similarity tags:
+  - *exact*: Exact syntax, similar semantics.
+  - *same*: Exact syntax with few exceptions, similar semantics.
+  - *different*: Different syntax, different semantics.
+  - *experimental*: --
 
 ### Abstract
 
@@ -246,9 +247,31 @@ Below is the list of available widgets in this framework.
 , [TextArea](https://pub.dev/documentation/rad/latest/widgets_html/TextArea-class.html)
 , [UnOrderedList](https://pub.dev/documentation/rad/latest/widgets_html/UnOrderedList-class.html)
 
-## Why Dart?
+
+## FAQ
+
+**Q. Can we use Rad for creating a static website?**
+
+Yes.
+
+**Q. Can we use Rad for creating a dynamic website?**
+
+Yes, that's something this framework is good at.
+
+**Q. Can we use Rad for creating a single page application/or a web app?**
+
+Yes, that'll be perfect. Rad has widgets with powerful mechanics for dealing with nested routing, deep linking, history and state management.
+
+**Q. Is it SEO friendly?**
+
+Rad is a frontend framework and server side rendering is a must for better SEOs. Some frontend frameworks provides SSR but unfortunately we don't have that at the moment. However you can use a backend technology(PHP, Node, Erlang etc.) to stuff meta information in your root page, based on location that a client requested, before serving the page to client. We assure you that this is a sane, simple, and effective approach.
+
+**Q. Why Dart?**
+
+In-short: Peace of mind.
 
 I actually tried writing [this in TypeScript before](https://github.com/erlage/proton-framework). While we can do awesome things with types in TS, it also inherits craziness from JS (has to bind 'this', use arrow fun, and more things like that). Later I decided to give Dart a try and I quickly realized that Dart is a very underrated language. You don't have to trust me on that. I had wrote a lot of Dart code with Flutter, but the fact that I choosed TS at first place really shows how underrated Dart actually is. I deeply believe Dart is a amazing language, and I am thankful to all the people who helped create Dart and/or contributing to it, one way or the other.
+
 
 ## Contributing
 For reporting bugs/queries, feel free to open issue. Read [contributing guide](https://github.com/erlage/rad/blob/main/CONTRIBUTING.md) for more.

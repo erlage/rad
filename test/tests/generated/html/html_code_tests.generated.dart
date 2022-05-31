@@ -885,6 +885,16 @@ void html_code_test() {
       expect(element1.dataset[Constants.attrWidgetType], equals(null));
     });
 
+    test('should have a short-tag alias', () async {
+      var widget = Code();
+      var widgetShort = code();
+
+      expect(
+        widget.runtimeType,
+        equals(widgetShort.runtimeType),
+      );
+    });
+
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [

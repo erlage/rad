@@ -885,6 +885,16 @@ void html_label_test() {
       expect(element1.dataset[Constants.attrWidgetType], equals(null));
     });
 
+    test('should have a short-tag alias', () async {
+      var widget = Label();
+      var widgetShort = label();
+
+      expect(
+        widget.runtimeType,
+        equals(widgetShort.runtimeType),
+      );
+    });
+
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [

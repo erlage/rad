@@ -4,6 +4,7 @@ export 'package:rad/rad.dart';
 export 'package:rad/widgets_html.dart';
 export 'package:rad/widgets_async.dart';
 export 'package:rad/widgets_internals.dart';
+export 'package:rad/widgets_short_html.dart';
 
 export 'package:rad/src/core/framework.dart';
 export 'package:rad/src/core/common/functions.dart';

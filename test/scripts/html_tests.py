@@ -9,7 +9,8 @@ import main
 gen_folder = os.path.abspath(os.path.join(main.test_dir, 'tests', 'generated'))
 widgets_folder = os.path.abspath(os.path.join(
     main.rad_dir, 'lib', 'src', 'widgets', 'html'))
-templates_folder = os.path.abspath(os.path.join(main.test_dir, 'templates', 'html'))
+templates_folder = os.path.abspath(
+    os.path.join(main.test_dir, 'templates', 'html'))
 
 skipped_tests = {
     'html_attr_innertext': {
@@ -18,7 +19,17 @@ skipped_tests = {
         'br': ['chrome'],     # works on firefox
         'hr': ['chrome'],     # works on firefox
         'input': ['chrome'],  # works on firefox
-    },
+    }
+}
+
+skipped_generation_for_class = {
+    'html_short_tag': [
+        'InputCheckBox',
+        'InputFile',
+        'InputRadio',
+        'InputSubmit',
+        'InputText',
+    ]
 }
 
 widget_specific_tests = {
@@ -94,16 +105,16 @@ widget_specific_tests = {
         'html_attr_value',
         'html_attr_selected',
         'html_attr_disabled',
-    ],  
+    ],
     'Progress': [
         'html_attr_value_num',
         'html_attr_max',
-    ],    
+    ],
     'Select': [
         'html_attr_name',
         'html_attr_multiple',
         'html_attr_disabled',
-    ], 
+    ],
     'TableColumnGroup': [
         'html_attr_span',
     ],
@@ -130,7 +141,7 @@ widget_specific_tests = {
         'html_attr_required',
         'html_attr_readonly',
         'html_attr_disabled',
-    ], 
+    ],
 
     # additional
 
@@ -149,7 +160,7 @@ widget_specific_tests = {
         'html_attr_on_input',
         'html_attr_on_key_press',
         'html_attr_on_key_up',
-        'html_attr_on_key_down',        
+        'html_attr_on_key_down',
     ],
     'InputCheckBox': [
         'html_attr_name',
@@ -199,6 +210,7 @@ global_tests = [
     'html_attr_title',
     'html_internal_markup',
     'html_attr_dataset',
+    'html_short_tag',
     'widget_key',
 ]
 
@@ -311,15 +323,19 @@ def generate():
                     tearDown(() => app!.stop());
             '''
 
-   
-
         for test in global_tests:
+            
+            if test in skipped_generation_for_class:
+                skipable_for = skipped_generation_for_class[test]
+                if widget_class_name in skipable_for:
+                    continue
+
             generated += '\n\n'
 
             replacements = [
-                    ('__WidgetClass__', widget_class_name),
-                    ('__WidgetTag__', widget_tag),
-                ]
+                ('__WidgetClass__', widget_class_name),
+                ('__WidgetTag__', widget_tag),
+            ]
 
             test_tmpl = os.path.abspath(os.path.join(
                 templates_folder, test + '.dart.txt'))
@@ -338,7 +354,6 @@ def generate():
 
             generated += utils.parse_test_from_template(
                 test_tmpl, replacements)
-
 
         # generate widget specific tests
 
