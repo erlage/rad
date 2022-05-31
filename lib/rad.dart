@@ -43,7 +43,7 @@ export 'src/widgets/gesture_detector.dart' show GestureDetector;
 // navigator
 
 export 'src/widgets/route.dart' show Route;
-export 'src/widgets/async_route.dart' show AsyncRoute;
+export 'src/widgets/async_route.dart' show AsyncRoute; // mb, move to wi*_async
 export 'src/widgets/navigator.dart' show Navigator, NavigatorState;
 
 // Additional widgets.
