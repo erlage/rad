@@ -105,6 +105,7 @@ class AppRunner {
   ///
   void start() {
     this
+      ..prepareTargetElement()
       ..setupRootContext()
       ..setupOptions()
       ..setupDelegates()
@@ -183,9 +184,9 @@ class AppRunner {
     );
   }
 
-  /// Run pre-mount tasks.
+  /// Prepare target element.
   ///
-  void runPreMountTasks() {
+  void prepareTargetElement() {
     var targetElement = document.getElementById(targetId);
 
     if (null == targetElement) {
@@ -193,7 +194,11 @@ class AppRunner {
     }
 
     targetElement.dataset[Constants.attrWidgetType] = 'Target';
+  }
 
+  /// Run pre-mount tasks.
+  ///
+  void runPreMountTasks() {
     Components.instance.injectStyleComponent(RadStylesComponent());
 
     _beforeMount?.call();

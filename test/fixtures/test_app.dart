@@ -34,6 +34,7 @@ class RT_AppRunner extends AppRunner {
   void start() {
     this
       .._clearState()
+      ..prepareTargetElement()
       ..setupRootContext()
       ..setupOptions()
       ..setupDelegates()
