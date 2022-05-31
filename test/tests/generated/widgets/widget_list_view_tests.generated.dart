@@ -4,7 +4,7 @@
 
 // ignore_for_file: non_constant_identifier_names
 
-part of '../_index_widgets_tests.dart';
+part of '../_index_widgets_test.dart';
 
 void widget_list_view_test() {
   group('Widget specific tests for ListView widget:', () {
@@ -18,7 +18,8 @@ void widget_list_view_test() {
 
     test('ListView widget - widgetType override test', () {
       var widget = ListView(children: []);
-      expect(widget.widgetType, '$ListView');
+
+      expect(widget.widgetType, equals('$ListView'));
     });
   });
 }

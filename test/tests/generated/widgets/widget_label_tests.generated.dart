@@ -4,7 +4,7 @@
 
 // ignore_for_file: non_constant_identifier_names
 
-part of '../_index_widgets_tests.dart';
+part of '../_index_widgets_test.dart';
 
 void widget_label_test() {
   group('Widget specific tests for Label widget:', () {

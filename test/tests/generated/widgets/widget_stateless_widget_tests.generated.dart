@@ -4,7 +4,7 @@
 
 // ignore_for_file: non_constant_identifier_names
 
-part of '../_index_widgets_tests.dart';
+part of '../_index_widgets_test.dart';
 
 void widget_stateless_widget_test() {
   group('Widget specific tests for StatelessWidget widget:', () {
@@ -19,7 +19,7 @@ void widget_stateless_widget_test() {
     test('Stateless widget - widgetType override test', () {
       var widget = RT_StatelessWidget();
 
-      expect(widget.widgetType, '$StatelessWidget');
+      expect(widget.widgetType, equals('$StatelessWidget'));
     });
 
     test('Stateless widget - description test', () async {

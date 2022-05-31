@@ -1,4 +1,5 @@
 test('EventDetector widget - widgetType override test', () {
   var widget = EventDetector(child: Text('hw'));
-  expect(widget.widgetType, '$EventDetector');
+
+  expect(widget.widgetType,  equals('$EventDetector'));
 });

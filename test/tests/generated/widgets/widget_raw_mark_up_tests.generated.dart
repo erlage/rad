@@ -4,7 +4,7 @@
 
 // ignore_for_file: non_constant_identifier_names
 
-part of '../_index_widgets_tests.dart';
+part of '../_index_widgets_test.dart';
 
 void widget_raw_mark_up_test() {
   group('Widget specific tests for RawMarkUp widget:', () {
@@ -18,7 +18,8 @@ void widget_raw_mark_up_test() {
 
     test('RawMarkUp widget - widgetType override test', () {
       var widget = RawMarkUp('');
-      expect(widget.widgetType, '$RawMarkUp');
+
+      expect(widget.widgetType, equals('$RawMarkUp'));
     });
   });
 }

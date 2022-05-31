@@ -1,7 +1,7 @@
 test('Stateful widget - widgetType override test', () {
   var widget = RT_StatefulTestWidget();
 
-  expect(widget.widgetType, '$StatefulWidget');
+  expect(widget.widgetType,  equals('$StatefulWidget'));
 });
 
 test('Stateful widget - description test', () async {

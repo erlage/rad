@@ -4,7 +4,7 @@
 
 // ignore_for_file: non_constant_identifier_names
 
-part of '../_index_widgets_tests.dart';
+part of '../_index_widgets_test.dart';
 
 void widget_route_test() {
   group('Widget specific tests for Route widget:', () {
@@ -22,7 +22,29 @@ void widget_route_test() {
         page: Text('hw'),
       );
 
-      expect(widget.widgetType, '$Route');
+      expect(widget.widgetType, equals('$Route'));
+    });
+
+    test('Route widget - description test', () async {
+      var pap = app!;
+
+      await pap.buildChildren(
+        widgets: [
+          Route(
+            key: GlobalKey('widget'),
+            name: 'some-name',
+            page: Text('hw'),
+          ),
+        ],
+        parentContext: pap.appContext,
+      );
+
+      var element = pap.elementByGlobalKey('widget');
+
+      expect(
+        element.dataset[Constants.attrWidgetType],
+        equals('$Route'),
+      );
     });
   });
 }

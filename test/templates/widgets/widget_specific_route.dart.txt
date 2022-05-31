@@ -4,7 +4,7 @@ test('Route widget - widgetType override test', () {
     page: Text('hw'),
   );
 
-  expect(widget.widgetType, '$Route');
+  expect(widget.widgetType,  equals('$Route'));
 });
 
 test('Route widget - description test', () async {

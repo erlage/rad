@@ -4,7 +4,7 @@
 
 // ignore_for_file: non_constant_identifier_names
 
-part of '../_index_widgets_tests.dart';
+part of '../_index_widgets_test.dart';
 
 void widget_rad_app_test() {
   group('Widget specific tests for RadApp widget:', () {
@@ -18,7 +18,29 @@ void widget_rad_app_test() {
 
     test('RadApp widget - widgetType override test', () {
       var widget = RadApp(child: Text(''));
-      expect(widget.widgetType, '$RadApp');
+
+      expect(widget.widgetType, equals('$RadApp'));
+    });
+
+    test('RadApp widget - description test', () async {
+      var pap = app!;
+
+      await pap.buildChildren(
+        widgets: [
+          RadApp(
+            key: GlobalKey('widget'),
+            child: Text('hw'),
+          ),
+        ],
+        parentContext: pap.appContext,
+      );
+
+      var element = pap.elementByGlobalKey('widget');
+
+      expect(
+        element.dataset[Constants.attrWidgetType],
+        equals('$RadApp'),
+      );
     });
   });
 }

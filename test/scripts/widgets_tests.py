@@ -125,7 +125,7 @@ def generate():
     part_of_directives = ''
 
     runner_file = os.path.abspath(os.path.join(
-        main.test_dir, 'tests', 'generated', '_index_widgets_tests.dart'))
+        main.test_dir, 'tests', 'generated', '_index_widgets_test.dart'))
     utils.clean_file(runner_file)
 
     for index, widget_class_name in enumerate(widget_specific_tests):
@@ -154,7 +154,7 @@ def generate():
 
             // ignore_for_file: non_constant_identifier_names
 
-            part of '../_index_widgets_tests.dart';
+            part of '../_index_widgets_test.dart';
 
             void widget_''' + widget_class_name_camel_case + '''_test() {
 

@@ -4,7 +4,7 @@
 
 // ignore_for_file: non_constant_identifier_names
 
-part of '../_index_widgets_tests.dart';
+part of '../_index_widgets_test.dart';
 
 void widget_event_detector_test() {
   group('Widget specific tests for EventDetector widget:', () {
@@ -18,7 +18,8 @@ void widget_event_detector_test() {
 
     test('EventDetector widget - widgetType override test', () {
       var widget = EventDetector(child: Text('hw'));
-      expect(widget.widgetType, '$EventDetector');
+
+      expect(widget.widgetType, equals('$EventDetector'));
     });
   });
 }
