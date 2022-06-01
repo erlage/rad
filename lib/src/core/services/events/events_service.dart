@@ -37,10 +37,6 @@ class EventsService extends Service {
   /// Start event listener streams for event types.
   ///
   void setupEventListeners(Map<DomEventType, EventCallback?> eventListeners) {
-    if (eventListeners.isEmpty) {
-      return;
-    }
-
     for (final eventType in eventListeners.keys) {
       // if callback is null
       if (null == eventListeners[eventType]) {
