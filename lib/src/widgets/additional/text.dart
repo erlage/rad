@@ -35,7 +35,4 @@ class Text extends Span {
           onClick: onClick,
           innerText: text,
         );
-
-  @override
-  DomTag get correspondingTag => DomTag.span;
 }
