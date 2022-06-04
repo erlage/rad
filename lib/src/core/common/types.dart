@@ -42,7 +42,3 @@ typedef RenderElementCallback = void Function(
 typedef WidgetActionCallback = List<WidgetAction> Function(
   WidgetObject widgetObject,
 );
-
-typedef WidgetActionCallbackV2 = List<WidgetAction> Function(
-  WidgetObject widgetObject,
-);

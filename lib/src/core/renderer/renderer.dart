@@ -231,7 +231,7 @@ class Renderer with ServicesResolver {
   ///
   void visitWidgets({
     required BuildContext parentContext,
-    required WidgetActionCallbackV2 widgetActionCallback,
+    required WidgetActionCallback widgetActionCallback,
     //
     // -- options --
     //
@@ -785,7 +785,7 @@ class Renderer with ServicesResolver {
   ///
   List<WidgetActionObject> prepareWidgetActions({
     required BuildContext parentContext,
-    required WidgetActionCallbackV2 widgetActionCallback,
+    required WidgetActionCallback widgetActionCallback,
     required bool flagIterateInReverseOrder,
   }) {
     var widgetObject = services.walker.getWidgetObject(
