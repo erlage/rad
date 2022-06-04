@@ -377,9 +377,6 @@ abstract class State<T extends StatefulWidget> {
   /// The framework always calls [build] after calling [didUpdateWidget], which
   /// means any calls to [setState] in [didUpdateWidget] are redundant.
   ///
-  /// Implementations of this method should start with a call to the inherited
-  /// method, as in `super.didUpdateWidget(oldWidget)`.
-  ///
   /// The framework always calls [build] after calling [didUpdateWidget], which
   /// means any calls to [setState] in [didUpdateWidget] are redundant.
   ///
