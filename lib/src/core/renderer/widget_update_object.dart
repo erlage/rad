@@ -1,3 +1,4 @@
+import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/renderer/render_node.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
@@ -7,28 +8,6 @@ abstract class WidgetUpdateObject {
   final WidgetUpdateType widgetUpdateType;
 
   const WidgetUpdateObject(this.widgetUpdateType);
-}
-
-enum WidgetUpdateType {
-  /// Add a new widget.
-  ///
-  add,
-
-  /// Update a existing widget.
-  ///
-  update,
-
-  /// Dispose widget.
-  ///
-  dispose,
-
-  /// Add new widgets without cleaning parent contents.
-  ///
-  addAllWithoutClean,
-
-  /// Dispose all widgets under context.
-  ///
-  cleanParent,
 }
 
 class WidgetUpdateObjectActionAdd extends WidgetUpdateObject {

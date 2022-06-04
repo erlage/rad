@@ -41,6 +41,28 @@ enum UpdateType {
   undefined,
 }
 
+enum WidgetUpdateType {
+  /// Add a new widget.
+  ///
+  add,
+
+  /// Update a existing widget.
+  ///
+  update,
+
+  /// Dispose widget.
+  ///
+  dispose,
+
+  /// Add new widgets without cleaning parent contents.
+  ///
+  addAllWithoutClean,
+
+  /// Dispose all widgets under context.
+  ///
+  cleanParent,
+}
+
 /// The two cardinal directions in two dimensions.
 ///
 enum Axis {
