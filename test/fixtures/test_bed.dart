@@ -15,4 +15,12 @@ class RT_TestBed {
   static final rootContext = BuildContext.bigBang(rootKey);
 
   static Element get rootElement => document.getElementById(rootKey.value)!;
+
+  static DebugOptions developmentModeWithoutLogs = DebugOptions(
+    routerLogs: false,
+    widgetLogs: false,
+    frameworkLogs: false,
+    additionalChecks: true,
+    suppressExceptions: false,
+  );
 }

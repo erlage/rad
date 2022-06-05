@@ -14,7 +14,7 @@ void main() {
 
     setUp(() {
       app = createTestApp(
-        debugOptions: DebugOptions.developmentMode,
+        debugOptions: RT_TestBed.developmentModeWithoutLogs,
       )..start();
     });
 

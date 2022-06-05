@@ -78,9 +78,5 @@ class Components {
         'Creating a body(or head) in your page will fix this problem.',
       );
     }
-
-    // log if flag is on
-
-    print(flagLogEntry);
   }
 }
