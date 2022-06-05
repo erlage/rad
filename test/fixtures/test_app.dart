@@ -194,6 +194,18 @@ class RT_AppRunner extends AppRunner {
     await Future.delayed(Duration.zero);
   }
 
+  Future<void> updateDependent(
+    BuildContext widgetContext,
+  ) async {
+    services.scheduler.addTask(
+      WidgetsUpdateDependentTask(
+        widgetContext: widgetContext,
+      ),
+    );
+
+    await Future.delayed(Duration.zero);
+  }
+
   Future<void> manageChildren({
     required BuildContext parentContext,
     required WidgetActionCallback widgetActionCallback,

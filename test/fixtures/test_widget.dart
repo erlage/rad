@@ -18,6 +18,8 @@ class RT_TestWidget extends Widget {
   final Callback? wEventHookCreateWidgetConfiguration;
   final Callback? wEventHookIsConfigurationChanged;
 
+  final Function(UpdateType)? roHookUpdate;
+
   final String hash;
 
   // overrides
@@ -41,6 +43,7 @@ class RT_TestWidget extends Widget {
     this.wEventHookCreateRenderObject,
     this.wOverrideCreateConfiguration,
     this.wOverrideIsConfigurationChanged,
+    this.roHookUpdate,
     String? customHash,
   })  : hash = customHash ?? 'none',
         super(key: key);
@@ -94,6 +97,7 @@ class RT_TestWidget extends Widget {
       roEventHookAfterMount: roEventHookAfterMount,
       roEventHookAfterWidgetRebind: roEventHookAfterWidgetRebind,
       roEventHookBeforeUnMount: roEventHookBeforeUnMount,
+      roHookUpdate: roHookUpdate,
     );
   }
 }
@@ -105,6 +109,8 @@ class RT_TestWidgetRenderObject extends RenderObject {
   final Callback? roEventHookAfterWidgetRebind;
   final Callback? roEventHookBeforeUnMount;
 
+  final Function(UpdateType)? roHookUpdate;
+
   const RT_TestWidgetRenderObject(
     BuildContext context, {
     this.roEventHookRender,
@@ -112,6 +118,7 @@ class RT_TestWidgetRenderObject extends RenderObject {
     this.roEventHookAfterMount,
     this.roEventHookAfterWidgetRebind,
     this.roEventHookBeforeUnMount,
+    this.roHookUpdate,
   }) : super(context);
 
   @override
@@ -131,6 +138,10 @@ class RT_TestWidgetRenderObject extends RenderObject {
   }) {
     if (null != roEventHookUpdate) {
       roEventHookUpdate!();
+    }
+
+    if (null != roHookUpdate) {
+      roHookUpdate!(updateType);
     }
 
     return null;
