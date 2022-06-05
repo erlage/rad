@@ -201,6 +201,224 @@ void main() {
         expect(RT_TestBed.rootElement, RT_hasContents('widget 2|widget 1'));
       });
 
+      test(
+        'should respect order in which new non-keyed widgets are recieved '
+        '(widgets without corresponding dom elements)',
+        () async {
+          await app!.updateChildren(
+            widgets: [
+              RT_StatefulTestWidget(
+                children: [
+                  Text('widget 1'),
+                  Division(innerText: 'widget 2'),
+                ],
+              )
+            ],
+            parentContext: app!.appContext,
+            updateType: UpdateType.undefined,
+          );
+
+          expect(
+            RT_TestBed.rootElement,
+            RT_hasContents('widget 1|widget 2'),
+          );
+
+          await app!.updateChildren(
+            widgets: [
+              RT_StatefulTestWidget(
+                children: [
+                  Division(innerText: 'widget 2'),
+                  Text('widget 1'),
+                ],
+              ),
+            ],
+            parentContext: app!.appContext,
+            updateType: UpdateType.undefined,
+          );
+
+          expect(
+            RT_TestBed.rootElement,
+            RT_hasContents('widget 2|widget 1'),
+          );
+        },
+      );
+
+      test(
+        'should respect order in which new keyed widgets are recieved '
+        '(widgets without corresponding dom elements)',
+        () async {
+          await app!.updateChildren(
+            widgets: [
+              RT_StatefulTestWidget(
+                children: [
+                  Text('widget 1', key: GlobalKey('widget')),
+                  Division(innerText: 'widget 2'),
+                ],
+              )
+            ],
+            parentContext: app!.appContext,
+            updateType: UpdateType.undefined,
+          );
+
+          expect(
+            RT_TestBed.rootElement,
+            RT_hasContents('widget 1|widget 2'),
+          );
+
+          await app!.updateChildren(
+            widgets: [
+              RT_StatefulTestWidget(
+                children: [
+                  Division(innerText: 'widget 2'),
+                  Text('widget 1', key: GlobalKey('widget')),
+                ],
+              ),
+            ],
+            parentContext: app!.appContext,
+            updateType: UpdateType.undefined,
+          );
+
+          expect(
+            RT_TestBed.rootElement,
+            RT_hasContents('widget 2|widget 1'),
+          );
+        },
+      );
+
+      test(
+        'should respect order in which new non-keyed widgets are recieved '
+        '(mixed widgets, re-order mixed widget)',
+        () async {
+          await app!.updateChildren(
+            widgets: [
+              Text('widget 1'),
+              Text('widget 2'),
+              RT_StatefulTestWidget(
+                children: [
+                  Text('widget 3'),
+                ],
+              )
+            ],
+            parentContext: app!.appContext,
+            updateType: UpdateType.undefined,
+          );
+
+          expect(
+            RT_TestBed.rootElement,
+            RT_hasContents('widget 1|widget 2|widget 3'),
+          );
+
+          await app!.updateChildren(
+            widgets: [
+              Text('widget 1'),
+              RT_StatefulTestWidget(
+                children: [
+                  Text('widget 3'),
+                ],
+              ),
+              Text('widget 2'),
+            ],
+            parentContext: app!.appContext,
+            updateType: UpdateType.undefined,
+          );
+
+          expect(
+            RT_TestBed.rootElement,
+            RT_hasContents('widget 1|widget 3|widget 2'),
+          );
+        },
+      );
+
+      test(
+        'should respect order in which new keyed widgets are recieved '
+        '(mixed widgets, re-order mixed widget)',
+        () async {
+          await app!.updateChildren(
+            widgets: [
+              Text('widget 1'),
+              Text('widget 2', key: GlobalKey('widget 2')),
+              RT_StatefulTestWidget(
+                children: [
+                  Text('widget 3'),
+                ],
+              )
+            ],
+            parentContext: app!.appContext,
+            updateType: UpdateType.undefined,
+          );
+
+          expect(
+            RT_TestBed.rootElement,
+            RT_hasContents('widget 1|widget 2|widget 3'),
+          );
+
+          await app!.updateChildren(
+            widgets: [
+              Text('widget 1'),
+              RT_StatefulTestWidget(
+                children: [
+                  Text('widget 3'),
+                ],
+              ),
+              Text('widget 2', key: GlobalKey('widget 2')),
+            ],
+            parentContext: app!.appContext,
+            updateType: UpdateType.undefined,
+          );
+
+          expect(
+            RT_TestBed.rootElement,
+            RT_hasContents('widget 1|widget 3|widget 2'),
+          );
+        },
+      );
+
+      test(
+        'should respect order in which new keyed widgets are recieved '
+        '(mixed widgets, order change at multiple levels)',
+        () async {
+          await app!.updateChildren(
+            widgets: [
+              Text('widget 1'),
+              Text('widget 2', key: Key('widget 2')),
+              RT_StatefulTestWidget(
+                children: [
+                  Text('widget 3'),
+                  Division(innerText: 'widget 4'),
+                ],
+              ),
+            ],
+            parentContext: app!.appContext,
+            updateType: UpdateType.undefined,
+          );
+
+          expect(
+            RT_TestBed.rootElement,
+            RT_hasContents('widget 1|widget 2|widget 3|widget 4'),
+          );
+
+          await app!.updateChildren(
+            widgets: [
+              Text('widget 2', key: Key('widget 2')),
+              RT_StatefulTestWidget(
+                children: [
+                  Division(innerText: 'widget 4'),
+                  Text('widget 3'),
+                ],
+              ),
+              Text('widget 1'),
+            ],
+            parentContext: app!.appContext,
+            updateType: UpdateType.undefined,
+          );
+
+          expect(
+            RT_TestBed.rootElement,
+            RT_hasContents('widget 2|widget 4|widget 3|widget 1'),
+          );
+        },
+      );
+
       //
     },
   );

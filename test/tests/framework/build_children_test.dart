@@ -188,6 +188,58 @@ void main() {
       );
     });
 
+    test(
+      'should build widgets in order. mixed widgets test: '
+      'widgets that has no corresponding dom tags but has direct childs',
+      () async {
+        await app!.buildChildren(
+          widgets: [
+            Text('widget 1'),
+            RT_InheritedWidget(
+              child: Division(
+                children: [
+                  Text('widget 2'),
+                  Division(innerText: 'widget 3'),
+                ],
+              ),
+            ),
+            Text('widget 4'),
+          ],
+          parentContext: app!.appContext,
+        );
+
+        expect(
+          RT_TestBed.rootElement,
+          RT_hasContents('widget 1|widget 2|widget 3|widget 4'),
+        );
+      },
+    );
+
+    test(
+      'should build widgets in order. mixed widgets test: '
+      'widgets that has no corresponding dom tags but has non-direct childs',
+      () async {
+        await app!.buildChildren(
+          widgets: [
+            Text('widget 1'),
+            RT_StatefulTestWidget(
+              children: [
+                Text('widget 2'),
+                Division(innerText: 'widget 3'),
+              ],
+            ),
+            Text('widget 4'),
+          ],
+          parentContext: app!.appContext,
+        );
+
+        expect(
+          RT_TestBed.rootElement,
+          RT_hasContents('widget 1|widget 2|widget 3|widget 4'),
+        );
+      },
+    );
+
     test('should build widgets in order', () async {
       var testStack = RT_TestStack();
 
