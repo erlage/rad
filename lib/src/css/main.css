@@ -2,8 +2,7 @@
    * RadApp widget
    */
 
-[data-rad-wtype="RadApp"],
-[data-rad-wtype="Target"] {
+[data-rad-wtype="RadApp"] {
     width: 100%;
     height: 100%;
 }

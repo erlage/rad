@@ -1,6 +1,5 @@
 import 'dart:html';
 
-import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
@@ -192,8 +191,6 @@ class AppRunner {
     if (null == targetElement) {
       throw Exception('Unable to locate target element in HTML document');
     }
-
-    targetElement.dataset[Constants.attrWidgetType] = 'Target';
   }
 
   /// Run pre-mount tasks.
