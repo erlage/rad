@@ -64,6 +64,26 @@ class Input extends MarkUpTagWithGlobalProps {
   ///
   final bool? checked;
 
+  /// On input event listener.
+  ///
+  final EventCallback? onInput;
+
+  /// On change event listener.
+  ///
+  final EventCallback? onChange;
+
+  /// On key up event listener.
+  ///
+  final EventCallback? onKeyUp;
+
+  /// On key down event listener.
+  ///
+  final EventCallback? onKeyDown;
+
+  /// On key press event listener.
+  ///
+  final EventCallback? onKeyPress;
+
   const Input({
     this.type,
     this.name,
@@ -78,6 +98,11 @@ class Input extends MarkUpTagWithGlobalProps {
     this.checked,
     this.readOnly,
     this.disabled,
+    this.onInput,
+    this.onChange,
+    this.onKeyUp,
+    this.onKeyDown,
+    this.onKeyPress,
     Key? key,
     String? id,
     String? title,
@@ -92,12 +117,7 @@ class Input extends MarkUpTagWithGlobalProps {
     String? innerText,
     Widget? child,
     List<Widget>? children,
-    EventCallback? onInput,
-    EventCallback? onChange,
     EventCallback? onClick,
-    EventCallback? onKeyUp,
-    EventCallback? onKeyDown,
-    EventCallback? onKeyPress,
   }) : super(
           key: key,
           id: id,
@@ -113,12 +133,7 @@ class Input extends MarkUpTagWithGlobalProps {
           innerText: innerText,
           child: child,
           children: children,
-          onInput: onInput,
-          onChange: onChange,
           onClick: onClick,
-          onKeyUp: onKeyUp,
-          onKeyDown: onKeyDown,
-          onKeyPress: onKeyPress,
         );
 
   @nonVirtual
@@ -128,6 +143,16 @@ class Input extends MarkUpTagWithGlobalProps {
   @nonVirtual
   @override
   String get widgetType => 'Input';
+
+  @override
+  Map<DomEventType, EventCallback?> get widgetEventListeners => {
+        DomEventType.click: onClick,
+        DomEventType.input: onInput,
+        DomEventType.change: onChange,
+        DomEventType.keyUp: onKeyUp,
+        DomEventType.keyDown: onKeyDown,
+        DomEventType.keyPress: onKeyPress,
+      };
 
   @override
   createConfiguration() {

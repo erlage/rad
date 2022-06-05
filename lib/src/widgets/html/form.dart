@@ -35,6 +35,10 @@ class Form extends MarkUpTagWithGlobalProps {
   ///
   final String? target;
 
+  /// On submit event listener.
+  ///
+  final EventCallback? onSubmit;
+
   const Form({
     this.name,
     this.action,
@@ -42,6 +46,7 @@ class Form extends MarkUpTagWithGlobalProps {
     this.enctype,
     this.target,
     this.method,
+    this.onSubmit,
     Key? key,
     String? id,
     String? title,
@@ -56,7 +61,6 @@ class Form extends MarkUpTagWithGlobalProps {
     String? innerText,
     Widget? child,
     List<Widget>? children,
-    EventCallback? onSubmit,
     EventCallback? onClick,
   }) : super(
           key: key,
@@ -73,7 +77,6 @@ class Form extends MarkUpTagWithGlobalProps {
           innerText: innerText,
           child: child,
           children: children,
-          onSubmit: onSubmit,
           onClick: onClick,
         );
 
@@ -83,6 +86,12 @@ class Form extends MarkUpTagWithGlobalProps {
 
   @override
   String get widgetType => 'Form';
+
+  @override
+  Map<DomEventType, EventCallback?> get widgetEventListeners => {
+        DomEventType.click: onClick,
+        DomEventType.submit: onSubmit,
+      };
 
   @override
   createConfiguration() {

@@ -58,6 +58,7 @@ widget_specific_tests = {
         'html_attr_target',
         'html_attr_form_method',
         'html_attr_form_enctype',
+        'html_attr_on_submit',
     ],
     'IFrame': [
         'html_attr_name',
@@ -114,6 +115,7 @@ widget_specific_tests = {
         'html_attr_name',
         'html_attr_multiple',
         'html_attr_disabled',
+        'html_attr_on_change',
     ],
     'TableColumnGroup': [
         'html_attr_span',
@@ -141,6 +143,11 @@ widget_specific_tests = {
         'html_attr_required',
         'html_attr_readonly',
         'html_attr_disabled',
+        'html_attr_on_change',
+        'html_attr_on_input',
+        'html_attr_on_key_press',
+        'html_attr_on_key_up',
+        'html_attr_on_key_down',
     ],
 
     # additional

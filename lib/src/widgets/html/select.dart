@@ -27,10 +27,15 @@ class Select extends MarkUpTagWithGlobalProps {
   ///
   final bool? disabled;
 
+  /// On change event listener.
+  ///
+  final EventCallback? onChange;
+
   const Select({
     this.name,
     this.multiple,
     this.disabled,
+    this.onChange,
     Key? key,
     String? id,
     bool? hidden,
@@ -45,7 +50,6 @@ class Select extends MarkUpTagWithGlobalProps {
     String? innerText,
     Widget? child,
     List<Widget>? children,
-    EventCallback? onChange,
     EventCallback? onClick,
   }) : super(
           key: key,
@@ -62,7 +66,6 @@ class Select extends MarkUpTagWithGlobalProps {
           innerText: innerText,
           child: child,
           children: children,
-          onChange: onChange,
           onClick: onClick,
         );
 
@@ -72,6 +75,12 @@ class Select extends MarkUpTagWithGlobalProps {
 
   @override
   DomTag get correspondingTag => DomTag.select;
+
+  @override
+  Map<DomEventType, EventCallback?> get widgetEventListeners => {
+        DomEventType.click: onClick,
+        DomEventType.change: onChange,
+      };
 
   @override
   createConfiguration() {

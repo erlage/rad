@@ -28,6 +28,26 @@ class TextArea extends MarkUpTagWithGlobalProps {
   final bool? readOnly;
   final bool? disabled;
 
+  /// On input event listener.
+  ///
+  final EventCallback? onInput;
+
+  /// On change event listener.
+  ///
+  final EventCallback? onChange;
+
+  /// On key up event listener.
+  ///
+  final EventCallback? onKeyUp;
+
+  /// On key down event listener.
+  ///
+  final EventCallback? onKeyDown;
+
+  /// On key press event listener.
+  ///
+  final EventCallback? onKeyPress;
+
   const TextArea({
     this.name,
     this.placeholder,
@@ -38,6 +58,11 @@ class TextArea extends MarkUpTagWithGlobalProps {
     this.required,
     this.readOnly,
     this.disabled,
+    this.onChange,
+    this.onInput,
+    this.onKeyUp,
+    this.onKeyDown,
+    this.onKeyPress,
     Key? key,
     String? id,
     bool? hidden,
@@ -52,12 +77,7 @@ class TextArea extends MarkUpTagWithGlobalProps {
     String? innerText,
     Widget? child,
     List<Widget>? children,
-    EventCallback? onChange,
-    EventCallback? onInput,
     EventCallback? onClick,
-    EventCallback? onKeyUp,
-    EventCallback? onKeyDown,
-    EventCallback? onKeyPress,
   }) : super(
           key: key,
           id: id,
@@ -73,12 +93,7 @@ class TextArea extends MarkUpTagWithGlobalProps {
           innerText: innerText,
           child: child,
           children: children,
-          onChange: onChange,
-          onInput: onInput,
           onClick: onClick,
-          onKeyUp: onKeyUp,
-          onKeyDown: onKeyDown,
-          onKeyPress: onKeyPress,
         );
 
   @nonVirtual
@@ -87,6 +102,16 @@ class TextArea extends MarkUpTagWithGlobalProps {
 
   @override
   DomTag get correspondingTag => DomTag.textArea;
+
+  @override
+  Map<DomEventType, EventCallback?> get widgetEventListeners => {
+        DomEventType.click: onClick,
+        DomEventType.input: onInput,
+        DomEventType.change: onChange,
+        DomEventType.keyUp: onKeyUp,
+        DomEventType.keyDown: onKeyDown,
+        DomEventType.keyPress: onKeyPress,
+      };
 
   @override
   createConfiguration() {

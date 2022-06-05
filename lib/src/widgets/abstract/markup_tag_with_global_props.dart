@@ -80,33 +80,9 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
   ///
   final List<Widget>? children;
 
-  /// On input event listener.
-  ///
-  final EventCallback? onInput;
-
-  /// On change event listener.
-  ///
-  final EventCallback? onChange;
-
-  /// On submit event listener.
-  ///
-  final EventCallback? onSubmit;
-
   /// On click event listener.
   ///
   final EventCallback? onClick;
-
-  /// On key up event listener.
-  ///
-  final EventCallback? onKeyUp;
-
-  /// On key down event listener.
-  ///
-  final EventCallback? onKeyDown;
-
-  /// On key press event listener.
-  ///
-  final EventCallback? onKeyPress;
 
   const MarkUpTagWithGlobalProps({
     Key? key,
@@ -123,13 +99,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
     this.innerText,
     this.child,
     this.children,
-    this.onInput,
-    this.onChange,
-    this.onSubmit,
     this.onClick,
-    this.onKeyUp,
-    this.onKeyDown,
-    this.onKeyPress,
   })  : assert(
           (null == children && null == child) ||
               (null == child && null == innerText) ||
@@ -146,12 +116,6 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
   @override
   Map<DomEventType, EventCallback?> get widgetEventListeners => {
         DomEventType.click: onClick,
-        DomEventType.input: onInput,
-        DomEventType.change: onChange,
-        DomEventType.submit: onSubmit,
-        DomEventType.keyUp: onKeyUp,
-        DomEventType.keyDown: onKeyDown,
-        DomEventType.keyPress: onKeyPress,
       };
 
   @override
