@@ -5,12 +5,12 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Blockquote widget (HTML's `blockquote` tag).
 ///
-class Blockquote extends MarkUpTagWithGlobalProps {
+class Blockquote extends HTMLWidgetBase {
   /// A URL for the source of the quotation may be given using the cite
   /// attribute.
   ///
@@ -63,7 +63,7 @@ class Blockquote extends MarkUpTagWithGlobalProps {
     return _BlockquoteConfiguration(
       cite: cite,
       globalConfiguration:
-          super.createConfiguration() as MarkUpGlobalConfiguration,
+          super.createConfiguration() as HTMLWidgetBaseConfiguration,
     );
   }
 
@@ -84,7 +84,7 @@ class Blockquote extends MarkUpTagWithGlobalProps {
 */
 
 class _BlockquoteConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalConfiguration;
+  final HTMLWidgetBaseConfiguration globalConfiguration;
 
   final String? cite;
 

@@ -5,7 +5,7 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The TextArea widget (HTML's `textarea` tag).
@@ -14,7 +14,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// useful when you want to allow users to enter a sizeable amount of free-form
 /// text, for example a comment on a review or feedback form.
 ///
-class TextArea extends MarkUpTagWithGlobalProps {
+class TextArea extends HTMLWidgetBase {
   final String? name;
 
   final String? placeholder;
@@ -126,7 +126,7 @@ class TextArea extends MarkUpTagWithGlobalProps {
       readOnly: readOnly,
       disabled: disabled,
       globalConfiguration:
-          super.createConfiguration() as MarkUpGlobalConfiguration,
+          super.createConfiguration() as HTMLWidgetBaseConfiguration,
     );
   }
 
@@ -155,7 +155,7 @@ class TextArea extends MarkUpTagWithGlobalProps {
 */
 
 class _TextAreaConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalConfiguration;
+  final HTMLWidgetBaseConfiguration globalConfiguration;
 
   final String? name;
   final String? placeholder;

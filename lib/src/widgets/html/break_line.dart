@@ -3,12 +3,12 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The BreakLine widget (HTML's `br` tag).
 ///
-class BreakLine extends MarkUpTagWithGlobalProps {
+class BreakLine extends HTMLWidgetBase {
   const BreakLine({
     Key? key,
     String? id,

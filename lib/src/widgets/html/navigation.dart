@@ -3,12 +3,12 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Navigation widget (HTML's `nav` tag).
 ///
-class Navigation extends MarkUpTagWithGlobalProps {
+class Navigation extends HTMLWidgetBase {
   const Navigation({
     Key? key,
     String? id,

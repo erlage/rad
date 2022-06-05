@@ -2,12 +2,12 @@ import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Abstract class for TableColumn and TableColumnGroup.
 ///
-abstract class TableColumnBase extends MarkUpTagWithGlobalProps {
+abstract class TableColumnBase extends HTMLWidgetBase {
   /// This attribute contains a positive integer indicating the number of
   /// consecutive columns the TableColumn spans. If not present, its default
   /// value is 1.
@@ -54,7 +54,7 @@ abstract class TableColumnBase extends MarkUpTagWithGlobalProps {
     return _TableColumnBaseConfiguration(
       span: span,
       globalConfiguration:
-          super.createConfiguration() as MarkUpGlobalConfiguration,
+          super.createConfiguration() as HTMLWidgetBaseConfiguration,
     );
   }
 
@@ -77,7 +77,7 @@ abstract class TableColumnBase extends MarkUpTagWithGlobalProps {
 */
 
 class _TableColumnBaseConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalConfiguration;
+  final HTMLWidgetBaseConfiguration globalConfiguration;
 
   final int? span;
 

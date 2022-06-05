@@ -5,14 +5,14 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The FieldSet widget (HTML's `fieldset` tag).
 ///
 /// Group several controls as well as labels (<label>) within a web form.
 ///
-class FieldSet extends MarkUpTagWithGlobalProps {
+class FieldSet extends HTMLWidgetBase {
   /// Whether field set is disabled.
   ///
   final bool? disabled;
@@ -64,7 +64,7 @@ class FieldSet extends MarkUpTagWithGlobalProps {
     return _FieldSetConfiguration(
       disabled: disabled,
       globalConfiguration:
-          super.createConfiguration() as MarkUpGlobalConfiguration,
+          super.createConfiguration() as HTMLWidgetBaseConfiguration,
     );
   }
 
@@ -85,7 +85,7 @@ class FieldSet extends MarkUpTagWithGlobalProps {
 */
 
 class _FieldSetConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalConfiguration;
+  final HTMLWidgetBaseConfiguration globalConfiguration;
 
   final bool? disabled;
 

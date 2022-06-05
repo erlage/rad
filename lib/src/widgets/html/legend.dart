@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Legend widget (HTML's `legend` tag).
@@ -11,7 +11,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// The legend HTML dom node represents a caption for the content of
 /// its parent fieldset.
 ///
-class Legend extends MarkUpTagWithGlobalProps {
+class Legend extends HTMLWidgetBase {
   const Legend({
     Key? key,
     String? id,

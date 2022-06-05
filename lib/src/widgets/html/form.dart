@@ -5,12 +5,12 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Form widget (HTML's `form` tag).
 ///
-class Form extends MarkUpTagWithGlobalProps {
+class Form extends HTMLWidgetBase {
   /// Name of the form.
   ///
   final String? name;
@@ -103,7 +103,7 @@ class Form extends MarkUpTagWithGlobalProps {
       method: method,
       target: target,
       globalConfiguration:
-          super.createConfiguration() as MarkUpGlobalConfiguration,
+          super.createConfiguration() as HTMLWidgetBaseConfiguration,
     );
   }
 
@@ -131,7 +131,7 @@ class Form extends MarkUpTagWithGlobalProps {
 */
 
 class _FormConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalConfiguration;
+  final HTMLWidgetBaseConfiguration globalConfiguration;
 
   final String? name;
   final String? action;

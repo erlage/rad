@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Small widget (HTML's `small` tag).
@@ -11,7 +11,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// This HTML dom node represents side-comments and small print, like copyright
 /// and legal text, independent of its styled presentation.
 ///
-class Small extends MarkUpTagWithGlobalProps {
+class Small extends HTMLWidgetBase {
   const Small({
     Key? key,
     String? id,

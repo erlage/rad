@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Span widget (HTML's `span` tag).
@@ -11,7 +11,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// This HTML dom node is a generic inline container for phrasing content,
 /// which does not inherently represent anything.
 ///
-class Span extends MarkUpTagWithGlobalProps {
+class Span extends HTMLWidgetBase {
   const Span({
     Key? key,
     String? id,

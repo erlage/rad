@@ -3,12 +3,12 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Article widget (HTML's `article` tag).
 ///
-class Article extends MarkUpTagWithGlobalProps {
+class Article extends HTMLWidgetBase {
   const Article({
     Key? key,
     String? id,

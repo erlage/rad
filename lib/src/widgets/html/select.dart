@@ -5,14 +5,14 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Select widget (HTML's `select` tag).
 ///
 /// This HTML dom node represents a control that provides a menu of options.
 ///
-class Select extends MarkUpTagWithGlobalProps {
+class Select extends HTMLWidgetBase {
   /// Associated Name.
   /// Used if Select is part of a form.
   ///
@@ -89,7 +89,7 @@ class Select extends MarkUpTagWithGlobalProps {
       multiple: multiple,
       disabled: disabled,
       globalConfiguration:
-          super.createConfiguration() as MarkUpGlobalConfiguration,
+          super.createConfiguration() as HTMLWidgetBaseConfiguration,
     );
   }
 
@@ -112,7 +112,7 @@ class Select extends MarkUpTagWithGlobalProps {
 */
 
 class _SelectConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalConfiguration;
+  final HTMLWidgetBaseConfiguration globalConfiguration;
 
   final String? name;
 

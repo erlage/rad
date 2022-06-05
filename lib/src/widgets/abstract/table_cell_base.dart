@@ -2,7 +2,7 @@ import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/html/table_body.dart';
 import 'package:rad/src/widgets/html/table_foot.dart';
@@ -10,7 +10,7 @@ import 'package:rad/src/widgets/html/table_head.dart';
 
 /// Abstract class for TableCell and TableHeaderCell.
 ///
-abstract class TableCellBase extends MarkUpTagWithGlobalProps {
+abstract class TableCellBase extends HTMLWidgetBase {
   /// This attribute contains a non-negative integer value that indicates for
   /// how many rows the cell extends. Its default value is 1; if its value is
   /// set to 0, it extends until the end of the table section ([TableHead],
@@ -76,7 +76,7 @@ abstract class TableCellBase extends MarkUpTagWithGlobalProps {
       rowSpan: rowSpan,
       colSpan: colSpan,
       globalConfiguration:
-          super.createConfiguration() as MarkUpGlobalConfiguration,
+          super.createConfiguration() as HTMLWidgetBaseConfiguration,
     );
   }
 
@@ -101,7 +101,7 @@ abstract class TableCellBase extends MarkUpTagWithGlobalProps {
 */
 
 class _TableCellBaseConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalConfiguration;
+  final HTMLWidgetBaseConfiguration globalConfiguration;
 
   final int? rowSpan;
 

@@ -5,12 +5,12 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Anchor widget (HTML's `a` tag).
 ///
-class Anchor extends MarkUpTagWithGlobalProps {
+class Anchor extends HTMLWidgetBase {
   /// The URL that the hyperlink points to.
   ///
   final String? href;
@@ -81,7 +81,7 @@ class Anchor extends MarkUpTagWithGlobalProps {
       target: target,
       download: download,
       globalConfiguration:
-          super.createConfiguration() as MarkUpGlobalConfiguration,
+          super.createConfiguration() as HTMLWidgetBaseConfiguration,
     );
   }
 
@@ -105,7 +105,7 @@ class Anchor extends MarkUpTagWithGlobalProps {
 */
 
 class _AnchorConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalConfiguration;
+  final HTMLWidgetBaseConfiguration globalConfiguration;
 
   final String? href;
 

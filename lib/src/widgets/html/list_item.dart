@@ -5,12 +5,12 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The ListItem widget (HTML's `li` tag).
 ///
-class ListItem extends MarkUpTagWithGlobalProps {
+class ListItem extends HTMLWidgetBase {
   /// Value of list item.
   ///
   final int? value;
@@ -62,7 +62,7 @@ class ListItem extends MarkUpTagWithGlobalProps {
     return _ListItemConfiguration(
       value: value,
       globalConfiguration:
-          super.createConfiguration() as MarkUpGlobalConfiguration,
+          super.createConfiguration() as HTMLWidgetBaseConfiguration,
     );
   }
 
@@ -83,7 +83,7 @@ class ListItem extends MarkUpTagWithGlobalProps {
 */
 
 class _ListItemConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalConfiguration;
+  final HTMLWidgetBaseConfiguration globalConfiguration;
 
   final int? value;
 

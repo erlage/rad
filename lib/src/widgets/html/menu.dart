@@ -3,12 +3,12 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Menu widget (HTML's `menu` tag).
 ///
-class Menu extends MarkUpTagWithGlobalProps {
+class Menu extends HTMLWidgetBase {
   const Menu({
     Key? key,
     String? id,

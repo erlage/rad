@@ -10,7 +10,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Base class for HTML widgets that support global attributes.
 ///
-abstract class MarkUpTagWithGlobalProps extends Widget {
+abstract class HTMLWidgetBase extends Widget {
   /// ID of dom node.
   ///
   final String? id;
@@ -84,7 +84,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
   ///
   final EventCallback? onClick;
 
-  const MarkUpTagWithGlobalProps({
+  const HTMLWidgetBase({
     Key? key,
     this.id,
     this.title,
@@ -120,7 +120,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
 
   @override
   createConfiguration() {
-    return MarkUpGlobalConfiguration(
+    return HTMLWidgetBaseConfiguration(
       id: id,
       title: title,
       tabIndex: tabIndex,
@@ -137,7 +137,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
 
   @override
   isConfigurationChanged(oldConfiguration) {
-    oldConfiguration as MarkUpGlobalConfiguration;
+    oldConfiguration as HTMLWidgetBaseConfiguration;
 
     return id != oldConfiguration.id ||
         title != oldConfiguration.title ||
@@ -165,7 +165,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
 |--------------------------------------------------------------------------
 */
 
-class MarkUpGlobalConfiguration extends WidgetConfiguration {
+class HTMLWidgetBaseConfiguration extends WidgetConfiguration {
   final String? id;
   final String? title;
   final String? style;
@@ -179,7 +179,7 @@ class MarkUpGlobalConfiguration extends WidgetConfiguration {
   final String? classAttribute;
   final Map<String, String>? dataAttributes;
 
-  const MarkUpGlobalConfiguration({
+  const HTMLWidgetBaseConfiguration({
     this.id,
     this.title,
     this.tabIndex,
@@ -213,7 +213,7 @@ class MarkUpGlobalRenderObject extends RenderObject {
   render({
     required configuration,
   }) {
-    configuration as MarkUpGlobalConfiguration;
+    configuration as HTMLWidgetBaseConfiguration;
 
     var attributes = _prepareAttributes(
       props: configuration,
@@ -238,17 +238,17 @@ class MarkUpGlobalRenderObject extends RenderObject {
     required oldConfiguration,
     required newConfiguration,
   }) {
-    oldConfiguration as MarkUpGlobalConfiguration;
-    newConfiguration as MarkUpGlobalConfiguration;
-
-    var dataset = fnCommonPrepareDataset(
-      dataAttributes: newConfiguration.dataAttributes,
-      oldDataAttributes: oldConfiguration.dataAttributes,
-    );
+    oldConfiguration as HTMLWidgetBaseConfiguration;
+    newConfiguration as HTMLWidgetBaseConfiguration;
 
     var attributes = _prepareAttributes(
       props: newConfiguration,
       oldProps: oldConfiguration,
+    );
+
+    var dataset = fnCommonPrepareDataset(
+      dataAttributes: newConfiguration.dataAttributes,
+      oldDataAttributes: oldConfiguration.dataAttributes,
     );
 
     return DomNodeDescription(
@@ -266,8 +266,8 @@ class MarkUpGlobalRenderObject extends RenderObject {
 */
 
 Map<String, String?> _prepareAttributes({
-  required MarkUpGlobalConfiguration props,
-  required MarkUpGlobalConfiguration? oldProps,
+  required HTMLWidgetBaseConfiguration props,
+  required HTMLWidgetBaseConfiguration? oldProps,
 }) {
   var attributes = <String, String?>{};
 

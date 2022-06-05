@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The SuperScript widget (HTML's `sup` tag).
@@ -12,7 +12,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// superscript for solely typographical reasons. Superscripts are usually
 /// rendered with a raised baseline using smaller text.
 ///
-class SuperScript extends MarkUpTagWithGlobalProps {
+class SuperScript extends HTMLWidgetBase {
   const SuperScript({
     Key? key,
     String? id,

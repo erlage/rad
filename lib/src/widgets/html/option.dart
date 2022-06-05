@@ -5,12 +5,12 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Option widget (HTML's `option` tag).
 ///
-class Option extends MarkUpTagWithGlobalProps {
+class Option extends HTMLWidgetBase {
   /// The content of this attribute represents the value
   /// to be submitted with the form
   ///
@@ -84,7 +84,7 @@ class Option extends MarkUpTagWithGlobalProps {
       selected: selected,
       disabled: disabled,
       globalConfiguration:
-          super.createConfiguration() as MarkUpGlobalConfiguration,
+          super.createConfiguration() as HTMLWidgetBaseConfiguration,
     );
   }
 
@@ -108,7 +108,7 @@ class Option extends MarkUpTagWithGlobalProps {
 */
 
 class _OptionConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalConfiguration;
+  final HTMLWidgetBaseConfiguration globalConfiguration;
 
   final String? value;
   final String? label;

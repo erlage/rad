@@ -5,12 +5,12 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Input widget (HTML's `input` tag).
 ///
-class Input extends MarkUpTagWithGlobalProps {
+class Input extends HTMLWidgetBase {
   /// Type of input tag.
   ///
   final InputType? type;
@@ -171,7 +171,7 @@ class Input extends MarkUpTagWithGlobalProps {
       readOnly: readOnly,
       disabled: disabled,
       globalConfiguration:
-          super.createConfiguration() as MarkUpGlobalConfiguration,
+          super.createConfiguration() as HTMLWidgetBaseConfiguration,
     );
   }
 
@@ -206,7 +206,7 @@ class Input extends MarkUpTagWithGlobalProps {
 */
 
 class InputConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalConfiguration;
+  final HTMLWidgetBaseConfiguration globalConfiguration;
 
   final InputType? type;
 

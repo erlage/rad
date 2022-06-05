@@ -3,12 +3,12 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Heading1 widget (HTML's `h1` tag).
 ///
-class Heading1 extends MarkUpTagWithGlobalProps {
+class Heading1 extends HTMLWidgetBase {
   const Heading1({
     Key? key,
     String? title,
@@ -53,7 +53,7 @@ class Heading1 extends MarkUpTagWithGlobalProps {
 
 /// The Heading2 widget (HTML's `h2` tag).
 ///
-class Heading2 extends MarkUpTagWithGlobalProps {
+class Heading2 extends HTMLWidgetBase {
   const Heading2({
     Key? key,
     String? title,
@@ -98,7 +98,7 @@ class Heading2 extends MarkUpTagWithGlobalProps {
 
 /// The Heading3 widget (HTML's `h3` tag).
 ///
-class Heading3 extends MarkUpTagWithGlobalProps {
+class Heading3 extends HTMLWidgetBase {
   const Heading3({
     Key? key,
     String? title,
@@ -143,7 +143,7 @@ class Heading3 extends MarkUpTagWithGlobalProps {
 
 /// The Heading4 widget (HTML's `h4` tag).
 ///
-class Heading4 extends MarkUpTagWithGlobalProps {
+class Heading4 extends HTMLWidgetBase {
   const Heading4({
     Key? key,
     String? title,
@@ -188,7 +188,7 @@ class Heading4 extends MarkUpTagWithGlobalProps {
 
 /// The Heading5 widget (HTML's `h5` tag).
 ///
-class Heading5 extends MarkUpTagWithGlobalProps {
+class Heading5 extends HTMLWidgetBase {
   const Heading5({
     Key? key,
     String? title,
@@ -233,7 +233,7 @@ class Heading5 extends MarkUpTagWithGlobalProps {
 
 /// The Heading6 widget (HTML's `h6` tag).
 ///
-class Heading6 extends MarkUpTagWithGlobalProps {
+class Heading6 extends HTMLWidgetBase {
   const Heading6({
     Key? key,
     String? title,

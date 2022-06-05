@@ -5,12 +5,12 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Progress widget (HTML's `progress` tag).
 ///
-class Progress extends MarkUpTagWithGlobalProps {
+class Progress extends HTMLWidgetBase {
   /// This attribute specifies how much of the task that has
   /// been completed.
   ///
@@ -70,7 +70,7 @@ class Progress extends MarkUpTagWithGlobalProps {
       value: value,
       max: max,
       globalConfiguration:
-          super.createConfiguration() as MarkUpGlobalConfiguration,
+          super.createConfiguration() as HTMLWidgetBaseConfiguration,
     );
   }
 
@@ -92,7 +92,7 @@ class Progress extends MarkUpTagWithGlobalProps {
 */
 
 class _ProgressConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalConfiguration;
+  final HTMLWidgetBaseConfiguration globalConfiguration;
 
   final num? value;
   final num? max;

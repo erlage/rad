@@ -5,12 +5,12 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Button widget (HTML's `button` tag).
 ///
-class Button extends MarkUpTagWithGlobalProps {
+class Button extends HTMLWidgetBase {
   /// Associated Name.
   /// Used if Button is part of a form.
   ///
@@ -81,7 +81,7 @@ class Button extends MarkUpTagWithGlobalProps {
       type: type,
       disabled: disabled,
       globalConfiguration:
-          super.createConfiguration() as MarkUpGlobalConfiguration,
+          super.createConfiguration() as HTMLWidgetBaseConfiguration,
     );
   }
 
@@ -105,7 +105,7 @@ class Button extends MarkUpTagWithGlobalProps {
 */
 
 class _ButtonConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalConfiguration;
+  final HTMLWidgetBaseConfiguration globalConfiguration;
 
   final String? name;
   final String? value;

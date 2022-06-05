@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Strong widget (HTML's `strong` tag).
@@ -11,7 +11,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// This HTML dom node indicates that its contents have strong importance,
 /// seriousness, or urgency. Browsers typically render the contents in bold type
 ///
-class Strong extends MarkUpTagWithGlobalProps {
+class Strong extends HTMLWidgetBase {
   const Strong({
     Key? key,
     String? id,

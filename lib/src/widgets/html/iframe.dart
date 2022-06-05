@@ -5,12 +5,12 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The IFrame widget (HTML's `iframe` tag).
 ///
-class IFrame extends MarkUpTagWithGlobalProps {
+class IFrame extends HTMLWidgetBase {
   /// src of Iframe.
   ///
   final String? src;
@@ -99,7 +99,7 @@ class IFrame extends MarkUpTagWithGlobalProps {
       width: width,
       height: height,
       globalConfiguration:
-          super.createConfiguration() as MarkUpGlobalConfiguration,
+          super.createConfiguration() as HTMLWidgetBaseConfiguration,
     );
   }
 
@@ -126,7 +126,7 @@ class IFrame extends MarkUpTagWithGlobalProps {
 */
 
 class _IFrameConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalConfiguration;
+  final HTMLWidgetBaseConfiguration globalConfiguration;
 
   final String? src;
   final String? name;

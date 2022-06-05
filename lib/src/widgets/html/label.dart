@@ -5,12 +5,12 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Label widget (HTML's `label` tag).
 ///
-class Label extends MarkUpTagWithGlobalProps {
+class Label extends HTMLWidgetBase {
   /// The value of the [forAttribute] attribute must be a single key for a
   /// labelable form-related dom node in the same document as the <label> dom
   /// node
@@ -64,7 +64,7 @@ class Label extends MarkUpTagWithGlobalProps {
     return _LabelConfiguration(
       forAttribute: forAttribute,
       globalConfiguration:
-          super.createConfiguration() as MarkUpGlobalConfiguration,
+          super.createConfiguration() as HTMLWidgetBaseConfiguration,
     );
   }
 
@@ -85,7 +85,7 @@ class Label extends MarkUpTagWithGlobalProps {
 */
 
 class _LabelConfiguration extends WidgetConfiguration {
-  final MarkUpGlobalConfiguration globalConfiguration;
+  final HTMLWidgetBaseConfiguration globalConfiguration;
 
   final String? forAttribute;
 

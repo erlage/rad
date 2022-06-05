@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/markup_tag_with_global_props.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Table Head widget (HTML's `thead` tag).
@@ -11,7 +11,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// This is usually used to define a set of rows defining the head of the
 /// columns of the table.
 ///
-class TableHead extends MarkUpTagWithGlobalProps {
+class TableHead extends HTMLWidgetBase {
   const TableHead({
     Key? key,
     String? id,
