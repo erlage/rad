@@ -22,4 +22,4 @@ test('Stateless widget - description test', () async {
     element.dataset[Constants.attrWidgetType],
     equals('$StatelessWidget'),
   );
-});
+}, skip: 'we dont associate a dom node with StatelessWidget, since rad-0.9',);

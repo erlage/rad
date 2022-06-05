@@ -23,4 +23,4 @@ test('EventDetector widget - description test', () async {
     element.dataset[Constants.attrWidgetType],
     equals('$EventDetector'),
   );
-});
+}, skip: 'we dont associate a dom node with EventDetector, since rad-0.9',);

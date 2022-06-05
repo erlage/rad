@@ -259,9 +259,13 @@ class ListViewBuilderRenderObject extends RenderObject {
     var services = ServicesRegistry.instance.getServices(context);
     var element = services.walker.getWidgetObject(context)!.element;
 
-    state
-      ..frameworkUpdateElementBinding(element)
-      ..frameworkRender();
+    if (null == element) {
+      services.debug.exception(Constants.coreError);
+    } else {
+      state
+        ..frameworkUpdateElementBinding(element)
+        ..frameworkRender();
+    }
   }
 
   @override

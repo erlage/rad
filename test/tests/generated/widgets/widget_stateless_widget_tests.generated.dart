@@ -22,24 +22,28 @@ void widget_stateless_widget_test() {
       expect(widget.widgetType, equals('$StatelessWidget'));
     });
 
-    test('Stateless widget - description test', () async {
-      var pap = app!;
+    test(
+      'Stateless widget - description test',
+      () async {
+        var pap = app!;
 
-      await pap.buildChildren(
-        widgets: [
-          RT_StatelessWidget(
-            key: GlobalKey('widget'),
-          ),
-        ],
-        parentContext: pap.appContext,
-      );
+        await pap.buildChildren(
+          widgets: [
+            RT_StatelessWidget(
+              key: GlobalKey('widget'),
+            ),
+          ],
+          parentContext: pap.appContext,
+        );
 
-      var element = pap.elementByGlobalKey('widget');
+        var element = pap.elementByGlobalKey('widget');
 
-      expect(
-        element.dataset[Constants.attrWidgetType],
-        equals('$StatelessWidget'),
-      );
-    });
+        expect(
+          element.dataset[Constants.attrWidgetType],
+          equals('$StatelessWidget'),
+        );
+      },
+      skip: 'we dont associate a dom node with StatelessWidget, since rad-0.9',
+    );
   });
 }

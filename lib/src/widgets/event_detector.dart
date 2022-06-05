@@ -1,9 +1,5 @@
-import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/element_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
@@ -342,35 +338,5 @@ class EventDetector extends Widget {
   String get widgetType => 'EventDetector';
 
   @override
-  DomTag get correspondingTag => DomTag.division;
-
-  @override
-  createRenderObject(BuildContext context) {
-    return _EventDetectorRenderObject(context);
-  }
-}
-
-/*
-|--------------------------------------------------------------------------
-| description(never changes for event detector widget)
-|--------------------------------------------------------------------------
-*/
-
-const _description = ElementDescription(
-  dataset: {
-    Constants.attrWidgetType: 'EventDetector',
-  },
-);
-
-/*
-|--------------------------------------------------------------------------
-| render object
-|--------------------------------------------------------------------------
-*/
-
-class _EventDetectorRenderObject extends RenderObject {
-  const _EventDetectorRenderObject(BuildContext context) : super(context);
-
-  @override
-  render({required configuration}) => _description;
+  DomTag? get correspondingTag => null;
 }

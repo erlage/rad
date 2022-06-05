@@ -27,7 +27,7 @@ class BuildContext {
 
   final String widgetRuntimeType;
 
-  final DomTag widgetCorrespondingTag;
+  final DomTag? widgetCorrespondingTag;
 
   final BuildContext? _parent;
 
@@ -112,12 +112,14 @@ class BuildContext {
 
   /// Returns element that's associated with the current context.
   ///
-  /// Note: This method might get removed in future(will be deprecated soon)
+  /// If widget has no corresponding element then this method will return the
+  /// closest element from descendants. If there are no elements in descendants
+  /// then this method will return closest element from ancestors.
   ///
   Element findElement() {
     var walkerService = ServicesRegistry.instance.getWalker(this);
 
-    return walkerService.findElement(this);
+    return walkerService.findClosestElement(this);
   }
 
   /*

@@ -351,17 +351,17 @@ void main() {
         var widget3 = app!.services.walker.getWidgetObjectUsingKey('widget-3');
 
         expect(
-          widget1!.element.classes.contains(Constants.classHidden),
+          widget1!.element?.classes.contains(Constants.classHidden),
           equals(true),
         );
 
         expect(
-          widget2!.element.classes.contains(Constants.classHidden),
+          widget2!.element?.classes.contains(Constants.classHidden),
           equals(true),
         );
 
         expect(
-          widget3!.element.classes.contains(Constants.classHidden),
+          widget3!.element?.classes.contains(Constants.classHidden),
           equals(true),
         );
       },
@@ -402,17 +402,17 @@ void main() {
         var widget3 = app!.services.walker.getWidgetObjectUsingKey('widget-3');
 
         expect(
-          widget1!.element.classes.contains(Constants.classHidden),
+          widget1!.element?.classes.contains(Constants.classHidden),
           equals(false),
         );
 
         expect(
-          widget2!.element.classes.contains(Constants.classHidden),
+          widget2!.element?.classes.contains(Constants.classHidden),
           equals(false),
         );
 
         expect(
-          widget3!.element.classes.contains(Constants.classHidden),
+          widget3!.element?.classes.contains(Constants.classHidden),
           equals(false),
         );
       },
@@ -495,12 +495,12 @@ void main() {
         var widget3 = app!.services.walker.getWidgetObjectUsingKey('widget-3');
 
         expect(
-          widget1!.element.classes.contains(Constants.classHidden),
+          widget1!.element?.classes.contains(Constants.classHidden),
           equals(false),
         );
 
         expect(
-          widget3!.element.classes.contains(Constants.classHidden),
+          widget3!.element?.classes.contains(Constants.classHidden),
           equals(true),
         );
 

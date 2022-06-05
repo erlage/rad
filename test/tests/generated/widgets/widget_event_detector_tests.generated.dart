@@ -22,25 +22,29 @@ void widget_event_detector_test() {
       expect(widget.widgetType, equals('$EventDetector'));
     });
 
-    test('EventDetector widget - description test', () async {
-      var pap = app!;
+    test(
+      'EventDetector widget - description test',
+      () async {
+        var pap = app!;
 
-      await pap.buildChildren(
-        widgets: [
-          EventDetector(
-            key: GlobalKey('widget'),
-            child: Text('hw'),
-          ),
-        ],
-        parentContext: pap.appContext,
-      );
+        await pap.buildChildren(
+          widgets: [
+            EventDetector(
+              key: GlobalKey('widget'),
+              child: Text('hw'),
+            ),
+          ],
+          parentContext: pap.appContext,
+        );
 
-      var element = pap.elementByGlobalKey('widget');
+        var element = pap.elementByGlobalKey('widget');
 
-      expect(
-        element.dataset[Constants.attrWidgetType],
-        equals('$EventDetector'),
-      );
-    });
+        expect(
+          element.dataset[Constants.attrWidgetType],
+          equals('$EventDetector'),
+        );
+      },
+      skip: 'we dont associate a dom node with EventDetector, since rad-0.9',
+    );
   });
 }

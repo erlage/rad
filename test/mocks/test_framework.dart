@@ -141,6 +141,10 @@ abstract class _MatchTextFinder extends MatchFinder {
   bool matches(WidgetObject candidate) {
     var element = candidate.element;
 
+    if (null == element) {
+      return false;
+    }
+
     return matchesText(element.children.isNotEmpty ? '-' : element.innerText);
   }
 }

@@ -57,7 +57,10 @@ class WalkerService extends Service {
     }
 
     _widgetKeyToWidgetObjectMap[widgetKey] = widgetObject;
-    _elementToWidgetKeyMap[widgetObject.element] = widgetKey;
+
+    if (widgetObject.hasDomNode) {
+      _elementToWidgetKeyMap[widgetObject.element!] = widgetKey;
+    }
   }
 
   String? getWidgetKeyValueUsingElement(Element? element) {
@@ -80,7 +83,10 @@ class WalkerService extends Service {
     var widgetKey = widgetObject.renderObject.context.key.value;
 
     _widgetKeyToWidgetObjectMap.remove(widgetKey);
-    _elementToWidgetKeyMap.remove(widgetObject.element);
+
+    if (widgetObject.hasDomNode) {
+      _elementToWidgetKeyMap.remove(widgetObject.element);
+    }
   }
 
   /// Return all registered widget objects.
@@ -101,9 +107,9 @@ class WalkerService extends Service {
   |--------------------------------------------------------------------------
   */
 
-  /// Find widget's corresponding element.
+  /// Find closest element to context.
   ///
-  Element findElement(BuildContext context) {
+  Element findClosestElement(BuildContext context) {
     var widgetObject = getWidgetObject(context);
 
     if (null == widgetObject) {
@@ -112,7 +118,13 @@ class WalkerService extends Service {
 
     widgetObject as WidgetObject;
 
-    return widgetObject.element;
+    var element = widgetObject.element;
+
+    element ??= findClosestElementInDescendants(context);
+    element ??= findClosestElementInAncestors(context);
+    element ??= document.getElementById(context.appTargetId)!;
+
+    return element;
   }
 
   /// Returns the nearest ancestor widget of the given type [T], which must be
@@ -210,6 +222,84 @@ class WalkerService extends Service {
       widgetObject: widgetObject,
       matchWidgetRuntimeType: '$T',
     );
+  }
+
+  Element? findClosestElementInAncestors(BuildContext context) {
+    // -------------------------------------------------
+
+    if (context.isRoot) {
+      return null;
+    }
+
+    var firstAncestorContext = context.parent;
+
+    // -------------------------------------------------
+
+    WidgetObject? ancestorWidgetObject = getWidgetObject(
+      firstAncestorContext,
+    );
+
+    Element? element = ancestorWidgetObject?.element;
+
+    // -------------------------------------------------
+
+    while (null == element) {
+      if (null == ancestorWidgetObject || ancestorWidgetObject.context.isRoot) {
+        break;
+      }
+
+      ancestorWidgetObject = getWidgetObject(
+        ancestorWidgetObject.context.parent,
+      );
+
+      element = ancestorWidgetObject?.element;
+    }
+
+    return element;
+  }
+
+  Element? findClosestElementInDescendants(BuildContext context) {
+    // -------------------------------------------------
+
+    var widgetObject = getWidgetObject(context);
+
+    if (null == widgetObject) {
+      return null;
+    }
+
+    if (widgetObject.renderNode.children.isEmpty) {
+      return null;
+    }
+
+    var firstDescendantContext = widgetObject.renderNode.children.first.context;
+
+    // -------------------------------------------------
+
+    WidgetObject? descendantsWidgetObject = getWidgetObject(
+      firstDescendantContext,
+    );
+
+    Element? element = descendantsWidgetObject?.element;
+
+    // -------------------------------------------------
+
+    while (null == element) {
+      if (null == descendantsWidgetObject) {
+        break;
+      }
+
+      if (descendantsWidgetObject.renderNode.children.isEmpty) {
+        break;
+      }
+
+      descendantsWidgetObject = getWidgetObject(
+        descendantsWidgetObject.renderNode.children.first.context,
+      );
+
+      element = descendantsWidgetObject?.element;
+    }
+
+    return element;
   }
 
   WidgetObject? _findWidgetObjectInAncestors({

@@ -1,12 +1,18 @@
 import 'dart:html';
 
+import 'package:meta/meta.dart';
+
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
+import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/element_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/events/emitted_event.dart';
+import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/stateful_widget.dart';
 
 /// A widget that detects gestures.
 ///
@@ -16,7 +22,7 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///
 ///  * [HitTestBehavior], behaviour of a [GestureDetector]
 ///
-class GestureDetector extends StatefulWidget {
+class GestureDetector extends Widget {
   final Widget child;
 
   final Callback? onTap;
@@ -51,34 +57,143 @@ class GestureDetector extends StatefulWidget {
         DomEventType.mouseLeave: onMouseLeaveEvent,
       };
 
+  /*
+  |--------------------------------------------------------------------------
+  | widget internals
+  |--------------------------------------------------------------------------
+  */
+
   @override
-  State<GestureDetector> createState() => _GestureDetectorState();
+  List<Widget> get widgetChildren => [child];
+
+  @nonVirtual
+  @override
+  String get widgetType => 'GestureDetector';
+
+  @nonVirtual
+  @override
+  DomTag get correspondingTag => DomTag.division;
+
+  @override
+  createConfiguration() => _GestureDetectorConfiguration(
+        behaviour: behaviour,
+        onTap: onTap,
+        onDoubleTap: onDoubleTap,
+        onTapEvent: onTapEvent,
+        onDoubleTapEvent: onDoubleTapEvent,
+      );
+
+  @nonVirtual
+  @override
+  isConfigurationChanged(oldConfiguration) => true;
+
+  @nonVirtual
+  @override
+  createRenderObject(context) => _GestureDetectorRenderObject(
+        context: context,
+        state: _GestureDetectorState(),
+      );
 }
 
-class _GestureDetectorState extends State<GestureDetector> {
-  HtmlElement? _element;
-  HtmlElement get element => _element!;
+/*
+|--------------------------------------------------------------------------
+| configuration
+|--------------------------------------------------------------------------
+*/
+
+class _GestureDetectorConfiguration extends WidgetConfiguration {
+  final Callback? onTap;
+  final Callback? onDoubleTap;
+  final EventCallback? onTapEvent;
+  final EventCallback? onDoubleTapEvent;
+
+  final HitTestBehavior behaviour;
+
+  const _GestureDetectorConfiguration({
+    this.onTap,
+    this.onDoubleTap,
+    this.onTapEvent,
+    this.onDoubleTapEvent,
+    this.behaviour = HitTestBehavior.deferToChild,
+  });
+}
+
+/*
+|--------------------------------------------------------------------------
+| description(never changes for rad app widget)
+|--------------------------------------------------------------------------
+*/
+
+const _description = ElementDescription(
+  dataset: {
+    Constants.attrWidgetType: 'GestureDetector',
+  },
+);
+
+/*
+|--------------------------------------------------------------------------
+| render object
+|--------------------------------------------------------------------------
+*/
+
+class _GestureDetectorRenderObject extends RenderObject {
+  final _GestureDetectorState state;
+
+  const _GestureDetectorRenderObject({
+    required BuildContext context,
+    required this.state,
+  }) : super(context);
+
+  @override
+  render({
+    required covariant _GestureDetectorConfiguration configuration,
+  }) {
+    var services = ServicesRegistry.instance.getServices(context);
+    var widget = services.walker.getWidgetObject(context)!.widget;
+
+    state
+      ..frameworkBindElement(context.findElement())
+      ..frameworkBindWidget(widget)
+      ..initState();
+
+    return _description;
+  }
+
+  @override
+  afterWidgetRebind({
+    required oldWidget,
+    required newWidget,
+    required updateType,
+  }) {
+    state.frameworkReBindWidget(
+      oldWidget: oldWidget,
+      newWidget: newWidget,
+    );
+  }
+
+  @override
+  beforeUnMount() => state.frameworkDispose();
+}
+
+class _GestureDetectorState {
+  Element? _element;
+  Element get element => _element!;
+
+  GestureDetector? _widget;
+  GestureDetector get widget => _widget!;
 
   final _availableEventListeners = [
     DomEventType.click,
     DomEventType.doubleClick,
   ];
 
-  @override
-  initState() {
-    _element = context.findElement() as HtmlElement;
-
+  void initState() {
     _refreshEventListeners(null);
   }
 
-  @override
-  dispose() => _removeListeners();
-
-  @override
-  build(context) => widget.child;
-
-  @override
-  didUpdateWidget(oldWidget) => _refreshEventListeners(oldWidget);
+  void didUpdateWidget(GestureDetector oldWidget) {
+    _refreshEventListeners(oldWidget);
+  }
 
   void _refreshEventListeners(GestureDetector? oldWidget) {
     for (final eventType in _availableEventListeners) {
@@ -184,5 +299,44 @@ class _GestureDetectorState extends State<GestureDetector> {
     if (null != eventListener) {
       eventListener(event);
     }
+  }
+
+  void dispose() {
+    _removeListeners();
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | for internal use
+  |--------------------------------------------------------------------------
+  */
+
+  @nonVirtual
+  @protected
+  void frameworkBindElement(Element element) {
+    _element = element;
+  }
+
+  @nonVirtual
+  @protected
+  void frameworkBindWidget(Widget widget) {
+    _widget = widget as GestureDetector;
+  }
+
+  @nonVirtual
+  @protected
+  void frameworkReBindWidget({
+    required Widget oldWidget,
+    required Widget newWidget,
+  }) {
+    _widget = newWidget as GestureDetector;
+
+    didUpdateWidget(oldWidget as GestureDetector);
+  }
+
+  @nonVirtual
+  @protected
+  void frameworkDispose() {
+    dispose();
   }
 }

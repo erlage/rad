@@ -15,6 +15,7 @@ part 'widgets/widget_event_detector_tests.generated.dart';
 part 'widgets/widget_inherited_widget_tests.generated.dart';
 part 'widgets/widget_stateless_widget_tests.generated.dart';
 part 'widgets/widget_stateful_widget_tests.generated.dart';
+part 'widgets/widget_gesture_detector_tests.generated.dart';
 part 'widgets/widget_abbreviation_tests.generated.dart';
 part 'widgets/widget_anchor_tests.generated.dart';
 part 'widgets/widget_article_tests.generated.dart';
@@ -77,6 +78,7 @@ void main() {
   widget_inherited_widget_test();
   widget_stateless_widget_test();
   widget_stateful_widget_test();
+  widget_gesture_detector_test();
   widget_abbreviation_test();
   widget_anchor_test();
   widget_article_test();

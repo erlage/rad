@@ -1,9 +1,7 @@
 import 'package:meta/meta.dart';
 
-import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/element_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -35,7 +33,7 @@ abstract class StatelessWidget extends Widget {
 
   @nonVirtual
   @override
-  DomTag get correspondingTag => DomTag.division;
+  DomTag? get correspondingTag => null;
 
   @nonVirtual
   @override
@@ -64,27 +62,12 @@ class _StatelessWidgetConfiguration extends WidgetConfiguration {
 
 /*
 |--------------------------------------------------------------------------
-| description(never changes for stateless widget)
-|--------------------------------------------------------------------------
-*/
-
-const _description = ElementDescription(
-  dataset: {
-    Constants.attrWidgetType: 'StatelessWidget',
-  },
-);
-
-/*
-|--------------------------------------------------------------------------
 | render object
 |--------------------------------------------------------------------------
 */
 
 class _StatelessWidgetRenderObject extends RenderObject {
   const _StatelessWidgetRenderObject(BuildContext context) : super(context);
-
-  @override
-  render({required configuration}) => _description;
 
   @override
   void afterMount() {

@@ -1,3 +1,7 @@
+@Skip('These tests are not required anymore')
+
+// todo (before publish 0.9.0): delete this file
+
 import '../../test_imports.dart';
 
 void main() {

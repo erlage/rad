@@ -11,9 +11,14 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 class WidgetObject {
   final BuildContext context;
 
-  final Element element;
+  final Element? element;
+
   final RenderNode renderNode;
   final RenderObject renderObject;
+
+  /// Whether a dom node is associated with widget.
+  ///
+  final bool hasDomNode;
 
   bool _isMounted = false;
   bool get isMounted => _isMounted;
@@ -35,6 +40,7 @@ class WidgetObject {
     required Widget widget,
     required WidgetConfiguration configuration,
   })  : _widget = widget,
+        hasDomNode = null != element,
         _configuration = configuration;
 
   // framework reserved internals

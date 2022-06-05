@@ -21,10 +21,12 @@ class RenderObject {
 
   /// Render hook.
   ///
-  /// Implementation can optionally return description of element.
+  /// Implementation can optionally return description of element that will be
+  /// applied on element associated with current widget. If current widget has
+  /// no [Widget.correspondingTag] then description will returned by this
+  /// method will be thrown away.
   ///
-  /// Note that at this point, element might not be present in the actual DOM.
-  /// For getting access to widget's element use [afterMount] hook.
+  /// This hook gets called exactly once during lifetime of a widget.
   ///
   ElementDescription? render({
     required WidgetConfiguration configuration,
@@ -34,14 +36,22 @@ class RenderObject {
 
   /// After mount hook.
   ///
-  /// This hook gets called after widget's element is mounted and is available
-  /// in actual DOM.
+  /// Framework calls this hook when after mounting current widget in both
+  /// trees(render-tree and dom-tree).
+  ///
+  /// This hook gets called exactly once during lifetime of a widget.
   ///
   void afterMount() {}
 
   /// Update hook.
   ///
-  /// Implementation can optionally return description of element.
+  /// Implementation can optionally return description of element that will be
+  /// applied on element associated with current widget. If current widget has
+  /// no [Widget.correspondingTag] then description will returned by this
+  /// method will be thrown away.
+  ///
+  /// This hook gets called everytime [Widget.isConfigurationChanged] returns
+  /// true.
   ///
   ElementDescription? update({
     required UpdateType updateType,
@@ -53,13 +63,21 @@ class RenderObject {
 
   /// After widget's rebind hook.
   ///
+  /// This hook gets called everytime a state change happens in the parent
+  /// context of current widget.
+  ///
   void afterWidgetRebind({
     required Widget oldWidget,
     required Widget newWidget,
     required UpdateType updateType,
   }) {}
 
-  /// Before UnMount hook.
+  /// Before unMount hook.
+  ///
+  /// Framework calls this hook when its about to remove widget from both trees
+  /// (render-tree and dom-tree).
+  ///
+  /// This hook gets called exactly once during lifetime of a widget.
   ///
   void beforeUnMount() {}
 }

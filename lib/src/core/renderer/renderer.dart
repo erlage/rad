@@ -9,7 +9,6 @@ import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/renderer/dumb_node_validator.dart';
 import 'package:rad/src/core/renderer/job_queue.dart';
 import 'package:rad/src/core/renderer/render_node.dart';
-import 'package:rad/src/core/renderer/tree_fragment.dart';
 import 'package:rad/src/core/renderer/widget_action_object.dart';
 import 'package:rad/src/core/renderer/widget_update_object.dart';
 import 'package:rad/src/core/services/services.dart';
@@ -42,61 +41,6 @@ class Renderer with ServicesResolver {
     document.getElementById(rootContext.appTargetId)?.innerHtml = '';
   }
 
-  /// Create widget object.
-  ///
-  WidgetObject createWidgetObject({
-    required Widget widget,
-    required BuildContext context,
-    required JobQueue jobQueue,
-  }) {
-    var renderNode = RenderNode(context);
-
-    var configuration = widget.createConfiguration();
-
-    var renderObject = widget.createRenderObject(context);
-
-    var element = document.createElement(widget.correspondingTag.nativeName);
-
-    var widgetObject = WidgetObject(
-      widget: widget,
-      context: context,
-      element: element,
-      configuration: configuration,
-      renderNode: renderNode,
-      renderObject: renderObject,
-    );
-
-    services.walker.registerWidgetObject(widgetObject);
-
-    // create description
-
-    var description = renderObject.render(
-      configuration: configuration,
-    );
-
-    widgetObject.frameworkRebindElementDescription(description);
-
-    // without queue as element is in mem
-    applyDescription(element: element, description: description);
-
-    // regsiter event listeners
-    services.events
-      ..setupEventListeners(widget.widgetEventListeners)
-      ..setupEventListeners(widget.widgetCaptureEventListeners);
-
-    jobQueue.addPostDispatchCallback(() {
-      widgetObject
-        ..frameworkUpdateMountStatus(true)
-        ..renderObject.afterMount();
-    });
-
-    if (services.debug.widgetLogs) {
-      print('Build widget: $context');
-    }
-
-    return widgetObject;
-  }
-
   void render({
     //
     // -- widgets to render --
@@ -127,20 +71,28 @@ class Renderer with ServicesResolver {
       );
     }
 
-    var treeFragment = TreeFragment();
+    // create temp nodes for holding new widgets
 
-    buildWidgetsUnderFragment(
-      jobQueue: queue,
+    var tempDomNode = document.createElement('div');
+    var tempRenderNode = RenderNode(parentContext);
+
+    // build widgets under temp nodes
+
+    buildWidgetsUnderContext(
       widgets: widgets,
-      treeFragment: treeFragment,
-      parentContext: parentContext,
+      parentElement: tempDomNode,
+      parentRenderNode: tempRenderNode,
+      jobQueue: queue,
     );
 
-    mountFragment(
-      jobQueue: queue,
-      treeFragment: treeFragment,
-      mountAtIndex: mountAtIndex,
+    // mount widgets from temp nodes
+
+    mountWidgets(
       parentContext: parentContext,
+      mountAtIndex: mountAtIndex,
+      containerElement: tempDomNode,
+      containerRenderNode: tempRenderNode,
+      jobQueue: queue,
     );
 
     // ------------------------------------ //
@@ -303,93 +255,125 @@ class Renderer with ServicesResolver {
   |--------------------------------------------------------------------------
   */
 
-  /// Build widgets using a fragment.
+  /// Build widget.
   ///
-  /// Fragments allows dom elements to be built under a emulated document.
-  /// Which means rather than adding document jobs to queue, framework can
-  /// directly prepare a sub-tree/elements in memory and append it to real dom
-  /// in one go.
-  ///
-  void buildWidgetsUnderFragment({
-    required List<Widget> widgets,
+  WidgetObject createWidgetObject({
+    required Widget widget,
     required BuildContext parentContext,
-    required TreeFragment treeFragment,
     required JobQueue jobQueue,
   }) {
-    for (final widget in widgets) {
-      var key = services.keyGen.computeWidgetKey(
-        widget: widget,
-        parentContext: parentContext,
-      );
+    // 1. Create key
 
-      var context = BuildContext.fromParent(
-        key: key,
-        widget: widget,
-        parentContext: parentContext,
-      );
+    var key = services.keyGen.computeWidgetKey(
+      widget: widget,
+      parentContext: parentContext,
+    );
 
-      var widgetObject = createWidgetObject(
-        widget: widget,
-        context: context,
-        jobQueue: jobQueue,
-      );
+    // 2. Create context
 
-      treeFragment
-        ..appendElement(widgetObject.element)
-        ..appendRenderNode(widgetObject.renderNode);
+    var context = BuildContext.fromParent(
+      key: key,
+      widget: widget,
+      parentContext: parentContext,
+    );
 
-      // build child nodes
+    // 3. Create render node, config and render object of widget
 
-      buildWidgetsAndActivelyLinkElements(
-        parentContext: context,
-        widgets: widget.widgetChildren,
-        parentWidgetObject: widgetObject,
-        jobQueue: jobQueue,
-      );
+    var renderNode = RenderNode(context);
+    var configuration = widget.createConfiguration();
+    var renderObject = widget.createRenderObject(context);
+
+    // 4. Create element(if widget.correspondingTag is non-null)
+
+    Element? element;
+
+    var tagName = widget.correspondingTag?.nativeName;
+
+    if (null != tagName) {
+      element = document.createElement(tagName);
     }
+
+    // 5. Wrap all objects in single object
+
+    var widgetObject = WidgetObject(
+      widget: widget,
+      context: context,
+      element: element,
+      configuration: configuration,
+      renderNode: renderNode,
+      renderObject: renderObject,
+    );
+
+    services.walker.registerWidgetObject(widgetObject);
+
+    // 6. Create description
+
+    var description = renderObject.render(
+      configuration: configuration,
+    );
+
+    widgetObject.frameworkRebindElementDescription(description);
+
+    // 7. Apply description(if widget has a associated dom element)
+
+    if (null != element) {
+      // without queue as element is in mem
+      applyDescription(element: element, description: description);
+    }
+
+    // 8. Register event listeners
+
+    services.events
+      ..setupEventListeners(widget.widgetEventListeners)
+      ..setupEventListeners(widget.widgetCaptureEventListeners);
+
+    // 9. Register post job callbacks
+
+    jobQueue.addPostDispatchCallback(() {
+      widgetObject
+        ..frameworkUpdateMountStatus(true)
+        ..renderObject.afterMount();
+    });
+
+    if (services.debug.widgetLogs) {
+      print('Build widget: $context');
+    }
+
+    return widgetObject;
   }
 
-  /// Build widgets and immediatly interlink elements.
+  /// Build widgets under a available parent element and parent render node.
   ///
-  /// This function is intedended to be called only by
-  /// [buildWidgetsUnderFragment]. Calling it on a parent context whos element
-  /// is mounted on real document will slow down things.
-  ///
-  void buildWidgetsAndActivelyLinkElements({
+  void buildWidgetsUnderContext({
     required List<Widget> widgets,
-    required BuildContext parentContext,
-    required WidgetObject parentWidgetObject,
+    required Element parentElement,
+    required RenderNode parentRenderNode,
     required JobQueue jobQueue,
   }) {
     for (final widget in widgets) {
-      var key = services.keyGen.computeWidgetKey(
-        widget: widget,
-        parentContext: parentContext,
-      );
-
-      var context = BuildContext.fromParent(
-        key: key,
-        widget: widget,
-        parentContext: parentContext,
-      );
-
       var widgetObject = createWidgetObject(
         widget: widget,
-        context: context,
+        parentContext: parentRenderNode.context,
         jobQueue: jobQueue,
       );
 
-      parentWidgetObject.renderNode.append(widgetObject.renderNode);
-      parentWidgetObject.element.append(widgetObject.element);
+      var currentElement = widgetObject.element;
+      var currentRenderNode = widgetObject.renderNode;
 
-      // build child nodes
+      parentRenderNode.append(currentRenderNode);
 
-      buildWidgetsAndActivelyLinkElements(
-        parentContext: context,
-        parentWidgetObject: widgetObject,
-        widgets: widget.widgetChildren,
-        jobQueue: jobQueue,
-      );
+      if (null != currentElement) {
+        parentElement.append(currentElement);
+      }
+
+      if (widget.widgetChildren.isNotEmpty) {
+        buildWidgetsUnderContext(
+          widgets: widget.widgetChildren,
+          parentElement: currentElement ?? parentElement,
+          parentRenderNode: currentRenderNode,
+          jobQueue: jobQueue,
+        );
+      }
     }
   }
 
@@ -545,19 +529,30 @@ class Renderer with ServicesResolver {
       */
 
       if (null != newMountAtIndex) {
+        Element? elementToReMount;
+
+        if (widgetObject.hasDomNode) {
+          elementToReMount = widgetObject.element;
+        } else {
+          elementToReMount = services.walker.findClosestElementInDescendants(
+            widgetObject.context,
+          );
+        }
+
         var parentNode = matchedNode.parent;
 
         if (null != parentNode) {
-          // update render node
           parentNode.insertAt(
             matchedNode,
             updateObject.newMountAtIndex,
           );
 
-          // update dom
           jobQueue.addJob(() {
-            var element = widgetObject.element;
-            var parentElement = element.parent;
+            if (null == elementToReMount) {
+              return;
+            }
+
+            var parentElement = elementToReMount.parent;
 
             // insertBefore is a must here.
             // todo: remove these unneccesary checks.
@@ -570,7 +565,7 @@ class Renderer with ServicesResolver {
                 // mount at specific index
                 //
                 parentElement.insertBefore(
-                  element,
+                  elementToReMount,
                   parentElement.children[newMountAtIndex],
                 );
               }
@@ -652,12 +647,15 @@ class Renderer with ServicesResolver {
         );
 
         widgetObject.frameworkRebindElementDescription(newDescription);
+        var element = widgetObject.element;
 
-        applyDescription(
-          jobQueue: jobQueue,
-          description: newDescription,
-          element: widgetObject.element,
-        );
+        if (null != element) {
+          applyDescription(
+            jobQueue: jobQueue,
+            description: newDescription,
+            element: element,
+          );
+        }
       } else {
         if (services.debug.widgetLogs) {
           print('Skipped: ${widgetObject.context}');
@@ -701,23 +699,26 @@ class Renderer with ServicesResolver {
     }
   }
 
-  /// Mount fragment containing widgets.
+  /// Mount widgets.
   ///
   /// This process mount both the render nodes and HTML elements on Render tree
   /// and DOM respectively. Updates on Render tree are synchoronous while DOM
   /// updates are queued and dispatched in a batch.
   ///
-  void mountFragment({
+  void mountWidgets({
     required JobQueue jobQueue,
     required int? mountAtIndex,
+    required Element containerElement,
+    required RenderNode containerRenderNode,
     required BuildContext parentContext,
-    required TreeFragment treeFragment,
   }) {
     var parentWidgetObject = services.walker.getWidgetObject(
       parentContext,
     );
 
-    // add nodes to render tree
+    // 1. Add nodes to render tree
+
+    var firstRenderNodeInNewWidgets = containerRenderNode.children.first;
 
     if (null != parentWidgetObject) {
       if (null != mountAtIndex) {
@@ -725,7 +726,7 @@ class Renderer with ServicesResolver {
         // mount at specific index
         //
         var index = mountAtIndex - 1;
-        for (final node in treeFragment.renderNodes) {
+        for (final node in [...containerRenderNode.children]) {
           index++;
 
           parentWidgetObject.renderNode.insertAt(node, index);
@@ -734,50 +735,107 @@ class Renderer with ServicesResolver {
         //
         // append
         //
-        for (final node in treeFragment.renderNodes) {
+        for (final node in [...containerRenderNode.children]) {
           parentWidgetObject.renderNode.append(node);
         }
       }
     }
 
-    // add nodes to dom
+    // 2. Find closest widget that has an element in dom and get mount location
 
-    jobQueue.addJob(() {
-      Element? parentElement;
-
-      if (null != parentWidgetObject) {
-        parentElement = parentWidgetObject.element;
-      } else {
-        parentElement = document.getElementById(parentContext.key.value);
-      }
-
-      if (null == parentElement) {
-        services.debug.exception(
-          'Unable to locate target element #${parentContext.key.value} in HTML'
-          ' document',
-        );
-      } else {
-        // if mount is requested at a specific index
+    if (null != parentWidgetObject) {
+      if (!parentWidgetObject.hasDomNode) {
+        // if parent has no dom node and mountAtIndex is null then its a
+        // widgetbuildtask for in-direct child widgets.
         //
-        if (null != mountAtIndex && mountAtIndex >= 0) {
-          //
-          // if index is available
-          //
-          if (parentElement.children.length > mountAtIndex) {
-            //
-            // mount at specific index
-            //
-            parentElement.insertBefore(
-              treeFragment.documentFragment,
-              parentElement.children[mountAtIndex],
-            );
+        // e.g a stateful widget doesn't have direct childs but issue a build
+        // widgets task for in-direct childs. those indirect childs has to be
+        // mounted on a specific position in parent's element
+        var requiresMountAtSpecificPosition = null == mountAtIndex;
 
-            return;
+        // a render node in path between parent render node(that has dom
+        // node) and the widget that we're going to mount. this render node is
+        // immediate to parent render node.
+        var immediateRenderNode = firstRenderNodeInNewWidgets;
+
+        while (true) {
+          if (null == parentWidgetObject) {
+            break;
           }
+
+          if (parentWidgetObject.hasDomNode) {
+            break;
+          }
+
+          immediateRenderNode = parentWidgetObject.renderNode;
+
+          parentContext = parentWidgetObject.context.parent;
+
+          parentWidgetObject = services.walker.getWidgetObject(parentContext);
         }
 
-        parentElement.append(treeFragment.documentFragment);
+        if (requiresMountAtSpecificPosition && null != parentWidgetObject) {
+          mountAtIndex = parentWidgetObject.renderNode.children.indexOf(
+            immediateRenderNode,
+          );
+        }
       }
+    }
+
+    // 3. Get element for mounting
+
+    Element? mountTargetElement;
+
+    if (null != parentWidgetObject) {
+      mountTargetElement = parentWidgetObject.element;
+    } else {
+      mountTargetElement = document.getElementById(parentContext.key.value);
+    }
+
+    if (null == mountTargetElement) {
+      services.debug.exception(
+        'Unable to locate target element #${parentContext.key.value} in HTML'
+        ' document',
+      );
+
+      return;
+    }
+
+    // 4. Prepare new elements for mounting
+
+    var documentFragment = DocumentFragment();
+
+    for (final node in [...containerElement.childNodes]) {
+      documentFragment.append(node);
+    }
+
+    // 5. Add a mount job
+
+    jobQueue.addJob(() {
+      if (null == mountTargetElement) {
+        return;
+      }
+
+      // if mount is requested at a specific index
+      //
+      if (null != mountAtIndex && mountAtIndex >= 0) {
+        //
+        // if index is available
+        //
+        if (mountTargetElement.children.length > mountAtIndex) {
+          //
+          // mount at specific index
+          //
+          mountTargetElement.insertBefore(
+            documentFragment,
+            mountTargetElement.children[mountAtIndex],
+          );
+
+          return;
+        }
+      }
+
+      mountTargetElement.append(documentFragment);
     });
   }
 
@@ -838,8 +896,10 @@ class Renderer with ServicesResolver {
           break;
 
         case WidgetAction.showWidget:
+          var element = widgetActionObject.widgetObject.context.findElement();
+
           jobQueue.addJob(() {
-            widgetActionObject.widgetObject.element.classes.remove(
+            element.classes.remove(
               Constants.classHidden,
             );
           });
@@ -847,8 +907,10 @@ class Renderer with ServicesResolver {
           break;
 
         case WidgetAction.hideWidget:
+          var element = widgetActionObject.widgetObject.context.findElement();
+
           jobQueue.addJob(() {
-            widgetActionObject.widgetObject.element.classes.add(
+            element.classes.add(
               Constants.classHidden,
             );
           });
@@ -875,12 +937,15 @@ class Renderer with ServicesResolver {
           ); // bit of mess ^ but required
 
           widgetObject.frameworkRebindElementDescription(newDescription);
+          var element = widgetObject.element;
 
-          applyDescription(
-            jobQueue: jobQueue,
-            description: newDescription,
-            element: widgetObject.element,
-          );
+          if (null != element) {
+            applyDescription(
+              jobQueue: jobQueue,
+              description: newDescription,
+              element: element,
+            );
+          }
 
           // call update on child widgets
 
@@ -987,9 +1052,11 @@ class Renderer with ServicesResolver {
 
     if (!flagPreserveTarget) {
       if (flagEnqeueTargetElementRemoval) {
-        jobQueue.addJob(() {
-          widgetObject.element.remove();
-        });
+        var element = widgetObject.element;
+
+        if (null != element) {
+          jobQueue.addJob(element.remove);
+        }
       }
 
       widgetObject
@@ -1280,7 +1347,9 @@ class Renderer with ServicesResolver {
 
     var preparedSystemActions = <WidgetUpdateObject>[];
 
-    // deal with obsolute nodes
+    // --------------------------------------------------
+    // Phase-3 | Deal with obsolute nodes
+    // --------------------------------------------------
 
     for (final node in parent.children) {
       var nodeKeyValue = node.context.key.value;

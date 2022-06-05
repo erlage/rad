@@ -22,7 +22,6 @@ no_tests_for = [
     '_AsyncRoutePlaceholder',
     'FutureBuilder',
     'StreamBuilder',
-    'GestureDetector',
     'ValueListenableBuilder',
     'Text',
     'InputText',
@@ -43,6 +42,7 @@ widget_specific_tests = {
     'InheritedWidget': ['widget_specific_inherited_widget'],
     'StatelessWidget': ['widget_specific_stateless_widget'],
     'StatefulWidget': ['widget_specific_stateful_widget'],
+    'GestureDetector': ['widget_specific_gesture_detector_widget'],
 
     # html,
 

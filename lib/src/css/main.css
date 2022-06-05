@@ -14,10 +14,7 @@
 
 [data-rad-wtype="Route"],
 [data-rad-wtype="Navigator"],
-[data-rad-wtype="EventDetector"],
-[data-rad-wtype="InheritedWidget"],
-[data-rad-wtype="StatefulWidget"],
-[data-rad-wtype="StatelessWidget"] {
+[data-rad-wtype="GestureDetector"] {
     display: contents;
 }
 

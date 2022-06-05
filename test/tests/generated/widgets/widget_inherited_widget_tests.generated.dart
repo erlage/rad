@@ -22,25 +22,29 @@ void widget_inherited_widget_test() {
       expect(widget.widgetType, equals('$InheritedWidget'));
     });
 
-    test('Inherited widget - description test', () async {
-      var pap = app!;
+    test(
+      'Inherited widget - description test',
+      () async {
+        var pap = app!;
 
-      await pap.buildChildren(
-        widgets: [
-          RT_InheritedWidget(
-            key: GlobalKey('widget'),
-            child: Text('hw'),
-          ),
-        ],
-        parentContext: pap.appContext,
-      );
+        await pap.buildChildren(
+          widgets: [
+            RT_InheritedWidget(
+              key: GlobalKey('widget'),
+              child: Text('hw'),
+            ),
+          ],
+          parentContext: pap.appContext,
+        );
 
-      var element = pap.elementByGlobalKey('widget');
+        var element = pap.elementByGlobalKey('widget');
 
-      expect(
-        element.dataset[Constants.attrWidgetType],
-        equals('$InheritedWidget'),
-      );
-    });
+        expect(
+          element.dataset[Constants.attrWidgetType],
+          equals('$InheritedWidget'),
+        );
+      },
+      skip: 'we dont associate a dom node with InheritedWidget, since rad-0.9',
+    );
   });
 }

@@ -28,7 +28,7 @@ abstract class Widget {
 
   /// Corresponding HTML tag to use to render this widget
   ///
-  DomTag get correspondingTag;
+  DomTag? get correspondingTag;
 
   /// Child widgets if any.
   ///

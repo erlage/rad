@@ -3,7 +3,6 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/element_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -27,6 +26,7 @@ import 'package:rad/src/widgets/stateless_widget.dart';
 ///   Rad uses a extremely lightweight yet powerful mechanism to build and
 ///   update DOM. Below are some general tips along with high level
 ///   understanding of how things works under the hood:
+///
 ///
 /// * Push the state to the leaves. Having state at top level of application is
 ///   acceptable as well but it's worth noting that having less childs to update
@@ -113,7 +113,7 @@ abstract class StatefulWidget extends Widget {
 
   @nonVirtual
   @override
-  DomTag get correspondingTag => DomTag.division;
+  DomTag? get correspondingTag => null;
 
   @nonVirtual
   @override
@@ -129,18 +129,6 @@ abstract class StatefulWidget extends Widget {
 
 /*
 |--------------------------------------------------------------------------
-| description(never changes for stateful widget)
-|--------------------------------------------------------------------------
-*/
-
-const _description = ElementDescription(
-  dataset: {
-    Constants.attrWidgetType: 'StatefulWidget',
-  },
-);
-
-/*
-|--------------------------------------------------------------------------
 | render object
 |--------------------------------------------------------------------------
 */
@@ -152,9 +140,6 @@ class StatefulWidgetRenderObject extends RenderObject {
     required this.state,
     required BuildContext context,
   }) : super(context);
-
-  @override
-  render({required configuration}) => _description;
 
   @override
   afterMount() {
@@ -227,6 +212,7 @@ class StatefulWidgetRenderObject extends RenderObject {
 ///
 /// Framework calls lifecycle hooks on particular events,
 ///
+///
 /// 1. [State.initState] - is called when framework decides to inflate the
 /// widget.
 /// It's called exactly once during lifetime of this widget.
@@ -242,13 +228,17 @@ class StatefulWidgetRenderObject extends RenderObject {
 /// 3. [State.dispose] - is called when framework is about to dispose widget and
 /// its state.
 ///
+///
 /// Apart from three main hooks, [State] has two additional hooks that
 /// implementations can override when needed. These are,
 ///
+///
 /// [State.didUpdateWidget] - Called whenever the widget configuration changes.
+///
 ///
 /// [State.didChangeDependencies]- Called when a dependency of this [State]
 /// object changes.
+///
 ///
 /// Apart from lifecycle hooks, there is a [State.setState] function which a
 /// widget can use to tell framework to rebuild widget's interface because some

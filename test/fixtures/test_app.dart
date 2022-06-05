@@ -111,7 +111,7 @@ class RT_AppRunner extends AppRunner {
           .getWidgetObjectUsingKey(
             services.keyGen.getGlobalKeyUsingKey(Key(key), parentContext).value,
           )!
-          .element;
+          .element!;
 
   /// Get element by local key under app context.
   ///
@@ -121,12 +121,12 @@ class RT_AppRunner extends AppRunner {
             .getGlobalKeyUsingKey(LocalKey(key), RT_TestBed.rootContext)
             .value,
       )!
-      .element;
+      .element!;
 
   /// Get element by global key under app context.
   ///
   Element elementByGlobalKey(String key) =>
-      widgetObjectByGlobalKey(key).element;
+      widgetObjectByGlobalKey(key).element!;
 
   /// Get app's element.
   ///
