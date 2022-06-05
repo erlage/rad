@@ -120,7 +120,7 @@ class _GestureDetectorConfiguration extends WidgetConfiguration {
 
 /*
 |--------------------------------------------------------------------------
-| description(never changes for rad app widget)
+| description(never changes for gesture detector widget)
 |--------------------------------------------------------------------------
 */
 
