@@ -9,7 +9,8 @@
 
 
 /**
-   * widgets without any styles/display
+   * widgets that has corresponding node in dom 
+   * but we want to limit their impact/disrupt in layout/markup
    */
 
 .rad-route,

@@ -45,6 +45,13 @@ class Route extends Widget {
   @override
   String get widgetType => 'Route';
 
+  // route creates a dom node(div) because when navigator open/close route, it
+  // does that using css.
+  //
+  // if route didn't have its own dom node, framework will try applying css
+  // rules on a closest node. this might don't work correctly as closest node
+  // can already have conflicting set of css rules.
+
   @override
   DomTag get correspondingTag => DomTag.division;
 

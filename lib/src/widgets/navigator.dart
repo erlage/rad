@@ -374,6 +374,11 @@ class Navigator extends Widget {
   @override
   String get widgetType => 'Navigator';
 
+  // navigator creates a dom node(div) because it has multiple child nodes to
+  // manage. another reason for having a corresponding dom node is that someone
+  // might want to style navigator default area and they can simply override
+  // css rules of navigator class if navigator has its own dom node
+
   @nonVirtual
   @override
   DomTag get correspondingTag => DomTag.division;
