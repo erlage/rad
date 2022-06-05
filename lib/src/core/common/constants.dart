@@ -5,11 +5,7 @@ import 'package:rad/src/core/common/objects/key.dart';
 class Constants {
   // widget attributes
 
-  static const attrWidgetType = 'rad-wtype';
-
-  static const reservedAttributes = [
-    attrWidgetType,
-  ];
+  static const reservedAttributes = [];
 
   // context specific
 
