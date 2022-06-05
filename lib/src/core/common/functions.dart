@@ -81,7 +81,7 @@ Map<String, String?> fnCommonPrepareDataset({
 
   if (null != dataAttributes) {
     dataAttributes.removeWhere(
-      (key, value) => Constants.allAttributes.contains(key),
+      (key, value) => Constants.reservedAttributes.contains(key),
     );
 
     for (final attributeName in dataAttributes.keys) {
@@ -93,7 +93,7 @@ Map<String, String?> fnCommonPrepareDataset({
     oldDataAttributes.removeWhere(
       (key, value) {
         var isSet = null != dataAttributes && dataAttributes.containsKey(key);
-        var isReserved = Constants.allAttributes.contains(key);
+        var isReserved = Constants.reservedAttributes.contains(key);
 
         return isSet || isReserved;
       },

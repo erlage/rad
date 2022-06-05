@@ -7,7 +7,7 @@ class Constants {
 
   static const attrWidgetType = 'rad-wtype';
 
-  static const allAttributes = [
+  static const reservedAttributes = [
     attrWidgetType,
   ];
 
