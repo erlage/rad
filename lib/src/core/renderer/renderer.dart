@@ -1103,14 +1103,6 @@ class Renderer with ServicesResolver {
         });
       }
 
-      description.styleProperties.forEach((key, value) {
-        if (null != value) {
-          domNode.style.setProperty(key, value);
-        } else {
-          domNode.style.removeProperty(key);
-        }
-      });
-
       if (null != description.textContents) {
         domNode.innerText = description.textContents!;
       }
