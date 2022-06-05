@@ -74,33 +74,34 @@ String? fnCommonPrepareClassAttribute({
 }
 
 Map<String, String?> fnCommonPrepareDataset({
-  required Map<String, String>? dataAttributes,
-  required Map<String, String>? oldDataAttributes,
+  required Map<String, String?>? dataAttributes,
+  required Map<String, String?>? oldDataAttributes,
 }) {
   var prepared = <String, String?>{};
 
   if (null != dataAttributes) {
-    dataAttributes.removeWhere(
-      (key, value) => Constants.reservedAttributes.contains(key),
-    );
-
     for (final attributeName in dataAttributes.keys) {
+      if (Constants.reservedAttributes.isNotEmpty) {
+        if (Constants.reservedAttributes.contains(attributeName)) {
+          continue;
+        }
+      }
+
       prepared[attributeName] = dataAttributes[attributeName];
     }
   }
 
   if (null != oldDataAttributes) {
-    oldDataAttributes.removeWhere(
-      (key, value) {
-        var isSet = null != dataAttributes && dataAttributes.containsKey(key);
-        var isReserved = Constants.reservedAttributes.contains(key);
-
-        return isSet || isReserved;
-      },
-    );
-
     for (final attributeName in oldDataAttributes.keys) {
-      prepared[attributeName] = null;
+      if (Constants.reservedAttributes.isNotEmpty) {
+        if (Constants.reservedAttributes.contains(attributeName)) {
+          continue;
+        }
+      }
+
+      if (!prepared.containsKey(attributeName)) {
+        prepared[attributeName] = null;
+      }
     }
   }
 
