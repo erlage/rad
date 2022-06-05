@@ -36,8 +36,8 @@ class RadApp extends Widget {
 */
 
 const _description = DomNodeDescription(
-  dataset: {
-    Constants.attrWidgetType: 'RadApp',
+  attributes: {
+    Attributes.classAttribute: Constants.classRadApp,
   },
 );
 

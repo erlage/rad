@@ -145,10 +145,12 @@ class StylesBuilder implements Builder {
     genContents = '// ignore_for_file: non_constant_identifier_names\n'
         '// ignore_for_file: directives_ordering\n'
         '// ignore_for_file: prefer_single_quotes\n'
+        '// ignore_for_file: constant_identifier_names\n'
         '// ignore_for_file: avoid_escaping_inner_quotes\n'
         "\n// auto-generated. please don't edit this file\n\n"
         '$importStatements'
-        'final GEN_STYLES_${genConstant}_CSS = ""$genContents';
+        'const GEN_STYLES_${genConstant}_CSS = ""$genContents';
+    // change const to final if there's interpolation
 
     genContents = '$genContents;\n';
 

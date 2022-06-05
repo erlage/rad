@@ -193,9 +193,6 @@ class ListViewRenderObject extends RenderObject {
     required covariant _ListViewConfiguration configuration,
   }) {
     return DomNodeDescription(
-      dataset: {
-        Constants.attrWidgetType: '$ListView',
-      },
       attributes: _prepareAttributes(
         props: configuration,
         oldProps: null,
@@ -244,9 +241,6 @@ class ListViewBuilderRenderObject extends RenderObject {
       ..frameworkUpdateConfigurationBinding(configuration);
 
     return DomNodeDescription(
-      dataset: {
-        Constants.attrWidgetType: '$ListView',
-      },
       attributes: _prepareAttributes(
         props: baseConfiguration,
         oldProps: null,
@@ -519,10 +513,12 @@ Map<String, String?> _prepareAttributes({
   var attributes = <String, String?>{};
 
   var classAttribute = fnCommonPrepareClassAttribute(
-        classAttribute: props.classAttribute,
-        oldClassAttribute: null,
+        classAttribute: '${props.classAttribute}',
+        oldClassAttribute: null, // not required, new attribute is always set
       ) ??
       '';
+
+  classAttribute += ' ${Constants.classListView}';
 
   if (LayoutType.contain == props.layoutType) {
     classAttribute += ' ${Constants.classListViewContained}';

@@ -43,10 +43,7 @@ void widget_navigator_test() {
 
       var domNode = pap.domNodeByGlobalKey('widget');
 
-      expect(
-        domNode.dataset[Constants.attrWidgetType],
-        equals('$Navigator'),
-      );
+      expect(domNode.getComputedStyle().display, equals('contents'));
     });
   });
 }

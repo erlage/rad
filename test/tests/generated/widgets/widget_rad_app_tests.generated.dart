@@ -22,7 +22,7 @@ void widget_rad_app_test() {
       expect(widget.widgetType, equals('$RadApp'));
     });
 
-    test('RadApp widget - description test', () async {
+    test('RadApp widget - display test', () async {
       var pap = app!;
 
       await pap.buildChildren(
@@ -37,10 +37,7 @@ void widget_rad_app_test() {
 
       var domNode = pap.domNodeByGlobalKey('widget');
 
-      expect(
-        domNode.dataset[Constants.attrWidgetType],
-        equals('$RadApp'),
-      );
+      expect(domNode.getComputedStyle().display, equals('contents'));
     });
   });
 }

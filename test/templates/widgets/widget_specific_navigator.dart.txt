@@ -25,8 +25,5 @@ test('Navigator widget - description test', () async {
 
   var domNode = pap.domNodeByGlobalKey('widget');
 
-  expect(
-    domNode.dataset[Constants.attrWidgetType],
-    equals('$Navigator'),
-  );
+  expect(domNode.getComputedStyle().display, equals('contents'));
 });

@@ -83,8 +83,8 @@ class RouteConfiguration extends WidgetConfiguration {
 */
 
 const _description = DomNodeDescription(
-  dataset: {
-    Constants.attrWidgetType: 'Route',
+  attributes: {
+    Attributes.classAttribute: Constants.classRoute,
   },
 );
 

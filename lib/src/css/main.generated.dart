@@ -1,22 +1,17 @@
 // ignore_for_file: non_constant_identifier_names
 // ignore_for_file: directives_ordering
 // ignore_for_file: prefer_single_quotes
+// ignore_for_file: constant_identifier_names
 // ignore_for_file: avoid_escaping_inner_quotes
 
 // auto-generated. please don't edit this file
 
-import 'package:rad/src/widgets/rad_app.dart';
-import 'package:rad/src/widgets/route.dart';
-import 'package:rad/src/widgets/navigator.dart';
-import 'package:rad/src/widgets/gesture_detector.dart';
-import 'package:rad/src/widgets/list_view.dart';
-
-final GEN_STYLES_MAIN_CSS = ""
+const GEN_STYLES_MAIN_CSS = ""
     " /** "
     "    * RadApp widget "
     "    */ "
     "  "
-    " [data-rad-wtype=\"$RadApp\"] { "
+    " .rad-app { "
     "     width: 100%; "
     "     height: 100%; "
     " } "
@@ -26,9 +21,9 @@ final GEN_STYLES_MAIN_CSS = ""
     "    * widgets without any styles/display "
     "    */ "
     "  "
-    " [data-rad-wtype=\"$Route\"], "
-    " [data-rad-wtype=\"$Navigator\"], "
-    " [data-rad-wtype=\"$GestureDetector\"] { "
+    " .rad-route, "
+    " .rad-navigator, "
+    " .rad-gesture-detector { "
     "     display: contents; "
     " } "
     "  "
@@ -37,7 +32,7 @@ final GEN_STYLES_MAIN_CSS = ""
     "    * ListView widget "
     "    */ "
     "  "
-    " [data-rad-wtype=\"$ListView\"] { "
+    " .rad-list-view { "
     "     width: 100%; "
     "     height: 100%; "
     " } "
@@ -69,7 +64,7 @@ final GEN_STYLES_MAIN_CSS = ""
     "    * Make sure flex do not shrink/grow for ListView's childs "
     "    */ "
     "  "
-    " [data-rad-wtype=\"$ListView\"]>*, "
+    " .rad-list-view>*, "
     " .rad-list-view-item-container>* { "
     "     flex-grow: 0; "
     "     flex-shrink: 0; "

@@ -41,10 +41,7 @@ void widget_route_test() {
 
       var domNode = pap.domNodeByGlobalKey('widget');
 
-      expect(
-        domNode.dataset[Constants.attrWidgetType],
-        equals('$Route'),
-      );
+      expect(domNode.getComputedStyle().display, equals('contents'));
     });
   });
 }

@@ -25,8 +25,16 @@ class Constants {
 
   static const classHidden = 'rad-hidden';
 
+  // widgets related
+
+  static const classRadApp = 'rad-app';
+  static const classRoute = 'rad-route';
+  static const classNavigator = 'rad-navigator';
+  static const classGestureDetector = 'rad-gesture-detector';
+
   // list view related
 
+  static const classListView = 'rad-list-view';
   static const classListViewContained = 'rad-list-view-layout-contained';
   static const classListViewExpanded = 'rad-list-view-layout-expanded';
   static const classListViewVeritcal = 'rad-list-view-vertical';

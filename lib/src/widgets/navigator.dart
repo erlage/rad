@@ -394,13 +394,13 @@ class Navigator extends Widget {
 
 /*
 |--------------------------------------------------------------------------
-| description(never changes for event detector widget)
+| description(never changes for navigator widget)
 |--------------------------------------------------------------------------
 */
 
 const _description = DomNodeDescription(
-  dataset: {
-    Constants.attrWidgetType: 'Navigator',
+  attributes: {
+    Attributes.classAttribute: Constants.classNavigator,
   },
 );
 
