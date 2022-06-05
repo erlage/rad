@@ -21,23 +21,5 @@ void widget_rad_app_test() {
 
       expect(widget.widgetType, equals('$RadApp'));
     });
-
-    test('RadApp widget - display test', () async {
-      var pap = app!;
-
-      await pap.buildChildren(
-        widgets: [
-          RadApp(
-            key: GlobalKey('widget'),
-            child: Text('hw'),
-          ),
-        ],
-        parentContext: pap.appContext,
-      );
-
-      var domNode = pap.domNodeByGlobalKey('widget');
-
-      expect(domNode.getComputedStyle().display, equals('contents'));
-    });
   });
 }
