@@ -203,7 +203,7 @@ void main() {
 
       test(
         'should respect order in which new non-keyed widgets are recieved '
-        '(widgets without corresponding dom elements)',
+        '(widgets without corresponding dom domNodes)',
         () async {
           await app!.updateChildren(
             widgets: [
@@ -245,7 +245,7 @@ void main() {
 
       test(
         'should respect order in which new keyed widgets are recieved '
-        '(widgets without corresponding dom elements)',
+        '(widgets without corresponding dom domNodes)',
         () async {
           await app!.updateChildren(
             widgets: [

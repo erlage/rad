@@ -15,8 +15,8 @@ test('should set "input" event listener', () async {
         parentContext: app!.appContext,
     );
 
-    app!.elementByGlobalKey('el-1').dispatchEvent(Event('input'));
-    app!.elementByGlobalKey('el-2').dispatchEvent(Event('input'));
+    app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('input'));
+    app!.domNodeByGlobalKey('el-2').dispatchEvent(Event('input'));
 
     await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('input-1'));

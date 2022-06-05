@@ -6,7 +6,7 @@ import 'package:rad/rad.dart';
 
 /// Test Bed.
 ///
-/// Provides root context, root element, or anything that is required
+/// Provides root context, root dom node, or anything that is required
 /// for setting up tests.
 ///
 class RT_TestBed {

@@ -18,11 +18,11 @@ void main() {
       );
 
       var nonNullEventListeners = widget.widgetEventListeners.values.toList()
-        ..removeWhere((element) => null == element);
+        ..removeWhere((domNode) => null == domNode);
 
       var nonNullCaptureEventListeners =
           widget.widgetCaptureEventListeners.values.toList()
-            ..removeWhere((element) => null == element);
+            ..removeWhere((domNode) => null == domNode);
 
       expect(nonNullEventListeners.isEmpty, equals(true));
       expect(nonNullCaptureEventListeners.isEmpty, equals(true));
@@ -35,7 +35,7 @@ void main() {
       );
 
       var nonNullEventListeners = widget.widgetEventListeners.values.toList()
-        ..removeWhere((element) => null == element);
+        ..removeWhere((domNode) => null == domNode);
 
       expect(nonNullEventListeners.length, equals(1));
     });
@@ -48,7 +48,7 @@ void main() {
 
       var nonNullCaptureEventListeners =
           widget.widgetCaptureEventListeners.values.toList()
-            ..removeWhere((element) => null == element);
+            ..removeWhere((domNode) => null == domNode);
 
       expect(nonNullCaptureEventListeners.length, equals(1));
     });
@@ -61,11 +61,11 @@ void main() {
       );
 
       var nonNullEventListeners = widget.widgetEventListeners.values.toList()
-        ..removeWhere((element) => null == element);
+        ..removeWhere((domNode) => null == domNode);
 
       var nonNullCaptureEventListeners =
           widget.widgetCaptureEventListeners.values.toList()
-            ..removeWhere((element) => null == element);
+            ..removeWhere((domNode) => null == domNode);
 
       expect(nonNullEventListeners.length, equals(1));
       expect(nonNullCaptureEventListeners.length, equals(1));
@@ -232,11 +232,11 @@ void main() {
       );
 
       var nonNullEventListeners = widget.widgetEventListeners.values.toList()
-        ..removeWhere((element) => null == element);
+        ..removeWhere((domNode) => null == domNode);
 
       var nonNullCaptureEventListeners =
           widget.widgetCaptureEventListeners.values.toList()
-            ..removeWhere((element) => null == element);
+            ..removeWhere((domNode) => null == domNode);
 
       expect(nonNullCaptureEventListeners.length, equals(0));
       expect(nonNullEventListeners.length, equals(22));
@@ -403,11 +403,11 @@ void main() {
       );
 
       var nonNullEventListeners = widget.widgetEventListeners.values.toList()
-        ..removeWhere((element) => null == element);
+        ..removeWhere((domNode) => null == domNode);
 
       var nonNullCaptureEventListeners =
           widget.widgetCaptureEventListeners.values.toList()
-            ..removeWhere((element) => null == element);
+            ..removeWhere((domNode) => null == domNode);
 
       expect(nonNullEventListeners.length, equals(0));
       expect(nonNullCaptureEventListeners.length, equals(22));

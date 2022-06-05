@@ -9,11 +9,11 @@ test('should set inner text', () async {
     parentContext: RT_TestBed.rootContext,
   );
 
-  var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+  var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
 
   
   // we are using innerHtml as inner text is not accessible 
   // or returns empty string for some node(e.g progress)
 
-  expect(element1.innerHtml, equals('hello world'));
+  expect(domNode1.innerHtml, equals('hello world'));
 }__Skip__);

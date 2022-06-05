@@ -7,11 +7,11 @@ test('should set attribute "pattern"', () async {
     parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-    expect(element1.getAttribute('pattern'), equals('some-pattern'));
-    expect(element2.getAttribute('pattern'), equals('another-pattern'));
+    expect(domNode1.getAttribute('pattern'), equals('some-pattern'));
+    expect(domNode2.getAttribute('pattern'), equals('another-pattern'));
 }__Skip__);
 
 test('should update attribute "pattern"', () async {
@@ -32,11 +32,11 @@ test('should update attribute "pattern"', () async {
     parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-    expect(element1.getAttribute('pattern'), equals('updated-pattern'));
-    expect(element2.getAttribute('pattern'), equals('another-pattern'));
+    expect(domNode1.getAttribute('pattern'), equals('updated-pattern'));
+    expect(domNode2.getAttribute('pattern'), equals('another-pattern'));
 }__Skip__);
 
 test('should clear attribute "pattern"', () async {
@@ -57,11 +57,11 @@ test('should clear attribute "pattern"', () async {
     parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-    expect(element1.getAttribute('pattern'), equals(null));
-    expect(element2.getAttribute('pattern'), equals(null));
+    expect(domNode1.getAttribute('pattern'), equals(null));
+    expect(domNode2.getAttribute('pattern'), equals(null));
 });
 
 test('should clear attribute "pattern" if updated value is null', () async {
@@ -80,9 +80,9 @@ test('should clear attribute "pattern" if updated value is null', () async {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-    expect(element1.getAttribute('pattern'), equals(null));
+    expect(domNode1.getAttribute('pattern'), equals(null));
 });
 
 test('should not set attribute "pattern" if provided value is null', () async {
@@ -93,7 +93,7 @@ test('should not set attribute "pattern" if provided value is null', () async {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-    expect(element1.getAttribute('pattern'), equals(null));
+    expect(domNode1.getAttribute('pattern'), equals(null));
 });

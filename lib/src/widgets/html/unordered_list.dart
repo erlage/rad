@@ -8,7 +8,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The UnOrderedList widget (HTML's `ul` tag).
 ///
-/// This HTML element represents an unordered list of items.
+/// This HTML dom node represents an unordered list of items.
 ///
 class UnOrderedList extends MarkUpTagWithGlobalProps {
   const UnOrderedList({

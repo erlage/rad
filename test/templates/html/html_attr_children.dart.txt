@@ -13,11 +13,11 @@ test('should set children widgets', () async {
     parentContext: RT_TestBed.rootContext,
   );
 
-  var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-  var element2 = element1.childNodes[0] as HtmlElement;
-  var element3 = element1.childNodes[1] as HtmlElement;
+  var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+  var domNode2 = domNode1.childNodes[0] as HtmlElement;
+  var domNode3 = domNode1.childNodes[1] as HtmlElement;
 
-  expect(element1.id, equals('widget-1'));
-  expect(element2.id, equals('widget-2'));
-  expect(element3.id, equals('widget-3'));
+  expect(domNode1.id, equals('widget-1'));
+  expect(domNode2.id, equals('widget-2'));
+  expect(domNode3.id, equals('widget-3'));
 }__Skip__);

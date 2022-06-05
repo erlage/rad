@@ -178,9 +178,9 @@ void main() {
     });
 
     test('mapped dom tags should be implemented', () {
-      for (final element in DomTag.values) {
+      for (final domNodeType in DomTag.values) {
         expect(
-          element.nativeName,
+          domNodeType.nativeName,
           RT_IsInKnownItems<String>(RT_DomTags.implemented),
         );
       }
@@ -193,8 +193,8 @@ void main() {
     });
 
     test('mapped dom tags should be without space', () {
-      for (final element in DomTag.values) {
-        expect(element.nativeName, RT_IsWithoutSpace());
+      for (final domNodeType in DomTag.values) {
+        expect(domNodeType.nativeName, RT_IsWithoutSpace());
       }
     });
   });

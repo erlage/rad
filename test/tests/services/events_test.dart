@@ -44,9 +44,9 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var gparent = app!.elementByGlobalKey('el-g-parent');
-      var parent = app!.elementByGlobalKey('el-parent');
-      var child = app!.elementByGlobalKey('el-child');
+      var gparent = app!.domNodeByGlobalKey('el-g-parent');
+      var parent = app!.domNodeByGlobalKey('el-parent');
+      var child = app!.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second
@@ -99,9 +99,9 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var gparent = app!.elementByGlobalKey('el-g-parent');
-      var parent = app!.elementByGlobalKey('el-parent');
-      var child = app!.elementByGlobalKey('el-child');
+      var gparent = app!.domNodeByGlobalKey('el-g-parent');
+      var parent = app!.domNodeByGlobalKey('el-parent');
+      var child = app!.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second
@@ -154,9 +154,9 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        var gparent = app!.elementByGlobalKey('el-g-parent');
-        var parent = app!.elementByGlobalKey('el-parent');
-        var child = app!.elementByGlobalKey('el-child');
+        var gparent = app!.domNodeByGlobalKey('el-g-parent');
+        var parent = app!.domNodeByGlobalKey('el-parent');
+        var child = app!.domNodeByGlobalKey('el-child');
 
         gparent.dispatchEvent(Event('click')); // first
         parent.dispatchEvent(Event('click')); // second
@@ -207,7 +207,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        var child = app!.elementByGlobalKey('el-child');
+        var child = app!.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('click')); // third
 
@@ -253,7 +253,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        var child = app!.elementByGlobalKey('el-child');
+        var child = app!.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('click')); // third
 
@@ -294,9 +294,9 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var gparent = app!.elementByGlobalKey('el-g-parent');
-      var parent = app!.elementByGlobalKey('el-parent');
-      var child = app!.elementByGlobalKey('el-child');
+      var gparent = app!.domNodeByGlobalKey('el-g-parent');
+      var parent = app!.domNodeByGlobalKey('el-parent');
+      var child = app!.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('input')); // first
       parent.dispatchEvent(Event('input')); // second
@@ -345,7 +345,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        var child = app!.elementByGlobalKey('el-child');
+        var child = app!.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('input')); // third
 
@@ -391,7 +391,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        var child = app!.elementByGlobalKey('el-child');
+        var child = app!.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('input')); // third
 
@@ -432,9 +432,9 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var gparent = app!.elementByGlobalKey('el-g-parent');
-      var parent = app!.elementByGlobalKey('el-parent');
-      var child = app!.elementByGlobalKey('el-child');
+      var gparent = app!.domNodeByGlobalKey('el-g-parent');
+      var parent = app!.domNodeByGlobalKey('el-parent');
+      var child = app!.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('change')); // first
       parent.dispatchEvent(Event('change')); // second
@@ -483,7 +483,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        var child = app!.elementByGlobalKey('el-child');
+        var child = app!.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('change')); // third
 
@@ -529,7 +529,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        var child = app!.elementByGlobalKey('el-child');
+        var child = app!.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('change')); // third
 
@@ -570,9 +570,9 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var gparent = app!.elementByGlobalKey('el-g-parent');
-      var parent = app!.elementByGlobalKey('el-parent');
-      var child = app!.elementByGlobalKey('el-child');
+      var gparent = app!.domNodeByGlobalKey('el-g-parent');
+      var parent = app!.domNodeByGlobalKey('el-parent');
+      var child = app!.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('submit')); // first
       parent.dispatchEvent(Event('submit')); // second
@@ -621,7 +621,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        var child = app!.elementByGlobalKey('el-child');
+        var child = app!.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('submit')); // third
 
@@ -667,7 +667,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        var child = app!.elementByGlobalKey('el-child');
+        var child = app!.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('submit')); // third
 
@@ -708,9 +708,9 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var gparent = app!.elementByGlobalKey('el-g-parent');
-      var parent = app!.elementByGlobalKey('el-parent');
-      var child = app!.elementByGlobalKey('el-child');
+      var gparent = app!.domNodeByGlobalKey('el-g-parent');
+      var parent = app!.domNodeByGlobalKey('el-parent');
+      var child = app!.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('keyup')); // first
       parent.dispatchEvent(Event('keyup')); // second
@@ -759,7 +759,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        var child = app!.elementByGlobalKey('el-child');
+        var child = app!.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('keyup')); // third
 
@@ -805,7 +805,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        var child = app!.elementByGlobalKey('el-child');
+        var child = app!.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('keyup')); // third
 
@@ -846,9 +846,9 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var gparent = app!.elementByGlobalKey('el-g-parent');
-      var parent = app!.elementByGlobalKey('el-parent');
-      var child = app!.elementByGlobalKey('el-child');
+      var gparent = app!.domNodeByGlobalKey('el-g-parent');
+      var parent = app!.domNodeByGlobalKey('el-parent');
+      var child = app!.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('keydown')); // first
       parent.dispatchEvent(Event('keydown')); // second
@@ -897,7 +897,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        var child = app!.elementByGlobalKey('el-child');
+        var child = app!.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('keydown')); // third
 
@@ -943,7 +943,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        var child = app!.elementByGlobalKey('el-child');
+        var child = app!.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('keydown')); // third
 
@@ -984,9 +984,9 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var gparent = app!.elementByGlobalKey('el-g-parent');
-      var parent = app!.elementByGlobalKey('el-parent');
-      var child = app!.elementByGlobalKey('el-child');
+      var gparent = app!.domNodeByGlobalKey('el-g-parent');
+      var parent = app!.domNodeByGlobalKey('el-parent');
+      var child = app!.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('keypress')); // first
       parent.dispatchEvent(Event('keypress')); // second
@@ -1035,7 +1035,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        var child = app!.elementByGlobalKey('el-child');
+        var child = app!.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('keypress')); // third
 
@@ -1081,7 +1081,7 @@ void main() {
           parentContext: app!.appContext,
         );
 
-        var child = app!.elementByGlobalKey('el-child');
+        var child = app!.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('keypress')); // third
 

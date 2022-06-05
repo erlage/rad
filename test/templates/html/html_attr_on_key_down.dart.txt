@@ -15,8 +15,8 @@ test('should set "KeyDown" event listener', () async {
         parentContext: app!.appContext,
     );
 
-    app!.elementByGlobalKey('el-1').dispatchEvent(Event('keydown'));
-    app!.elementByGlobalKey('el-2').dispatchEvent(Event('keydown'));
+    app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('keydown'));
+    app!.domNodeByGlobalKey('el-2').dispatchEvent(Event('keydown'));
 
     await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('keydown-1'));

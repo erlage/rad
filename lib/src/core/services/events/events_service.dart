@@ -15,11 +15,11 @@ import 'package:rad/src/core/services/events/emitted_event.dart';
 class EventsService extends Service {
   final EventsOptions options;
 
-  /// App's target element.
+  /// App's target dom node.
   ///
   final Element target;
 
-  /// Event subscriptions attached to target element.
+  /// Event subscriptions attached to target dom node.
   ///
   final _eventSubscriptions = <DomEventType, StreamSubscription<Event>>{};
 
@@ -66,14 +66,14 @@ class EventsService extends Service {
     }
   }
 
-  WidgetObject? _getClosestTargetWidgetObject(Element element) {
-    var widgetObject = services.walker.getWidgetObjectUsingElement(element);
+  WidgetObject? _getClosestTargetWidgetObject(Element domNode) {
+    var widgetObject = services.walker.getWidgetObjectUsingElement(domNode);
 
     if (null != widgetObject) {
       return widgetObject;
     }
 
-    var parent = element.parent;
+    var parent = domNode.parent;
 
     if (null != parent) {
       return _getClosestTargetWidgetObject(parent);
@@ -192,7 +192,7 @@ class EventsService extends Service {
 
         break;
 
-      // we should forward these events to next elements
+      // we should forward these events to next dom nodes
       // even if a valid listener callback got called
 
       case DomEventType.click:

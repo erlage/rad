@@ -7,11 +7,11 @@ test('should set attribute "classes"', () async {
     parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-    expect(element1.getAttribute('class'), equals('some-classes'));
-    expect(element2.getAttribute('class'), equals('another-classes'));
+    expect(domNode1.getAttribute('class'), equals('some-classes'));
+    expect(domNode2.getAttribute('class'), equals('another-classes'));
 }__Skip__);
 
 test('should update attribute "classes"', () async {
@@ -32,11 +32,11 @@ test('should update attribute "classes"', () async {
       parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-    expect(element1.getAttribute('class'), equals('updated-classes'));
-    expect(element2.getAttribute('class'), equals('another-classes'));
+    expect(domNode1.getAttribute('class'), equals('updated-classes'));
+    expect(domNode2.getAttribute('class'), equals('another-classes'));
 }__Skip__);
 
 test('should clear attribute "classes"', () async {
@@ -57,11 +57,11 @@ test('should clear attribute "classes"', () async {
       parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-    expect(element1.getAttribute('class'), equals(null));
-    expect(element2.getAttribute('class'), equals(null));
+    expect(domNode1.getAttribute('class'), equals(null));
+    expect(domNode2.getAttribute('class'), equals(null));
 });
 
 test('should clear attribute "classes" if updated value is null', () async {
@@ -80,9 +80,9 @@ test('should clear attribute "classes" if updated value is null', () async {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-    expect(element1.getAttribute('class'), equals(null));
+    expect(domNode1.getAttribute('class'), equals(null));
 });
 
 test('should not set attribute "classes" if provided value is null', () async {
@@ -93,9 +93,9 @@ test('should not set attribute "classes" if provided value is null', () async {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-    expect(element1.getAttribute('class'), equals(null));
+    expect(domNode1.getAttribute('class'), equals(null));
 });
 
 test('should set messy "classes"', () async {
@@ -117,22 +117,22 @@ test('should set messy "classes"', () async {
     parentContext: RT_TestBed.rootContext,
   );
 
-  var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-  var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-  var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+  var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+  var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+  var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
 
   expect(
-    element1.getAttribute('class'),
+    domNode1.getAttribute('class'),
     equals('some classes'),
   );
 
   expect(
-    element2.getAttribute('class'),
+    domNode2.getAttribute('class'),
     equals('some "messy" classes'),
   );
 
   expect(
-    element3.getAttribute('class'),
+    domNode3.getAttribute('class'),
     equals("some 'messy' classes"),
   );
 }__Skip__);

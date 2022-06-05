@@ -27,9 +27,9 @@ test('should capture event', () async {
     parentContext: pap.appContext,
   );
 
-  var gparent = pap.elementByGlobalKey('el-g-parent');
-  var parent = pap.elementByGlobalKey('el-parent');
-  var child = pap.elementByGlobalKey('el-child');
+  var gparent = pap.domNodeByGlobalKey('el-g-parent');
+  var parent = pap.domNodeByGlobalKey('el-parent');
+  var child = pap.domNodeByGlobalKey('el-child');
 
   gparent.dispatchEvent(Event('__EventNativeName__')); // first
   parent.dispatchEvent(Event('__EventNativeName__'));  // second
@@ -80,9 +80,9 @@ test('should capture event(with multiple capture listeners)', () async {
     parentContext: pap.appContext,
   );
 
-  var gparent = pap.elementByGlobalKey('el-g-parent');
-  var parent = pap.elementByGlobalKey('el-parent');
-  var child = pap.elementByGlobalKey('el-child');
+  var gparent = pap.domNodeByGlobalKey('el-g-parent');
+  var parent = pap.domNodeByGlobalKey('el-parent');
+  var child = pap.domNodeByGlobalKey('el-child');
 
   gparent.dispatchEvent(Event('__EventNativeName__')); // first
   parent.dispatchEvent(Event('__EventNativeName__'));  // second

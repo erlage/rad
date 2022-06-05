@@ -18,7 +18,7 @@ void main() {
           RawMarkUp(
             '<div id="raw">s</div>',
             //
-            // so we can get element associated with raw markup
+            // so we can get domNode associated with raw markup
             //
             key: GlobalKey('widget'),
           ),
@@ -26,7 +26,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var rawElement = app!.elementByGlobalKey('widget');
+      var rawElement = app!.domNodeByGlobalKey('widget');
 
       expect(rawElement.innerHtml, equals('<div id="raw">s</div>'));
     });
@@ -47,7 +47,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      expect(app!.elementById('raw').innerHtml, equals('hw'));
+      expect(app!.domNodeById('raw').innerHtml, equals('hw'));
     });
 
     test('should update raw markup', () async {
@@ -58,7 +58,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      expect(app!.elementById('raw').innerHtml, equals('nuffin'));
+      expect(app!.domNodeById('raw').innerHtml, equals('nuffin'));
 
       await app!.updateChildren(
         widgets: [
@@ -68,7 +68,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      expect(app!.elementById('raw').innerHtml, equals('updated'));
+      expect(app!.domNodeById('raw').innerHtml, equals('updated'));
     });
   });
 }

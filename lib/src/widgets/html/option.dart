@@ -18,7 +18,7 @@ class Option extends MarkUpTagWithGlobalProps {
 
   /// This attribute is text for the label indicating the meaning
   /// of the option. If the label attribute isn't defined, its value
-  /// is that of the element text content.
+  /// is that of the dom node text content.
   ///
   final String? label;
 
@@ -138,18 +138,18 @@ class _OptionRenderObject extends MarkUpGlobalRenderObject {
   render({
     required covariant _OptionConfiguration configuration,
   }) {
-    var elementDescription = super.render(
+    var domNodeDescription = super.render(
       configuration: configuration.globalConfiguration,
     );
 
-    elementDescription?.attributes.addAll(
+    domNodeDescription?.attributes.addAll(
       _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
     );
 
-    return elementDescription;
+    return domNodeDescription;
   }
 
   @override
@@ -158,20 +158,20 @@ class _OptionRenderObject extends MarkUpGlobalRenderObject {
     required covariant _OptionConfiguration oldConfiguration,
     required covariant _OptionConfiguration newConfiguration,
   }) {
-    var elementDescription = super.update(
+    var domNodeDescription = super.update(
       updateType: updateType,
       oldConfiguration: oldConfiguration.globalConfiguration,
       newConfiguration: newConfiguration.globalConfiguration,
     );
 
-    elementDescription?.attributes.addAll(
+    domNodeDescription?.attributes.addAll(
       _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
     );
 
-    return elementDescription;
+    return domNodeDescription;
   }
 }
 

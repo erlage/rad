@@ -22,19 +22,19 @@ void event_on_drag_end_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('element'),
-            onDragEnd: (_) => pap.stack.push('dragend-element'),
+            key: GlobalKey('domNode'),
+            onDragEnd: (_) => pap.stack.push('dragend-domNode'),
           ),
         ],
         parentContext: pap.appContext,
       );
 
-      var element = pap.elementByGlobalKey('element');
+      var domNode = pap.domNodeByGlobalKey('domNode');
 
-      element.dispatchEvent(Event('dragend'));
+      domNode.dispatchEvent(Event('dragend'));
       await Future.delayed(Duration(milliseconds: 50));
 
-      expect(pap.stack.popFromStart(), equals('dragend-element'));
+      expect(pap.stack.popFromStart(), equals('dragend-domNode'));
 
       expect(pap.stack.canPop(), equals(false));
     });
@@ -45,19 +45,19 @@ void event_on_drag_end_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('element'),
-            onDragEndCapture: (_) => pap.stack.push('dragend-element'),
+            key: GlobalKey('domNode'),
+            onDragEndCapture: (_) => pap.stack.push('dragend-domNode'),
           ),
         ],
         parentContext: pap.appContext,
       );
 
-      var element = pap.elementByGlobalKey('element');
+      var domNode = pap.domNodeByGlobalKey('domNode');
 
-      element.dispatchEvent(Event('dragend'));
+      domNode.dispatchEvent(Event('dragend'));
       await Future.delayed(Duration(milliseconds: 50));
 
-      expect(pap.stack.popFromStart(), equals('dragend-element'));
+      expect(pap.stack.popFromStart(), equals('dragend-domNode'));
 
       expect(pap.stack.canPop(), equals(false));
     });
@@ -84,9 +84,9 @@ void event_on_drag_end_test() {
         parentContext: pap.appContext,
       );
 
-      var gparent = pap.elementByGlobalKey('el-g-parent');
-      var parent = pap.elementByGlobalKey('el-parent');
-      var child = pap.elementByGlobalKey('el-child');
+      var gparent = pap.domNodeByGlobalKey('el-g-parent');
+      var parent = pap.domNodeByGlobalKey('el-parent');
+      var child = pap.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('dragend')); // first
       parent.dispatchEvent(Event('dragend')); // second
@@ -136,7 +136,7 @@ void event_on_drag_end_test() {
           parentContext: pap.appContext,
         );
 
-        var child = pap.elementByGlobalKey('el-child');
+        var child = pap.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('dragend')); // third
         await Future.delayed(Duration(milliseconds: 50));
@@ -183,7 +183,7 @@ void event_on_drag_end_test() {
           parentContext: pap.appContext,
         );
 
-        var child = pap.elementByGlobalKey('el-child');
+        var child = pap.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('dragend'));
         await Future.delayed(Duration(milliseconds: 50));
@@ -237,9 +237,9 @@ void event_on_drag_end_test() {
         parentContext: pap.appContext,
       );
 
-      var gparent = pap.elementByGlobalKey('el-g-parent');
-      var parent = pap.elementByGlobalKey('el-parent');
-      var child = pap.elementByGlobalKey('el-child');
+      var gparent = pap.domNodeByGlobalKey('el-g-parent');
+      var parent = pap.domNodeByGlobalKey('el-parent');
+      var child = pap.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('dragend')); // first
       parent.dispatchEvent(Event('dragend')); // second
@@ -298,9 +298,9 @@ void event_on_drag_end_test() {
         parentContext: pap.appContext,
       );
 
-      var gparent = pap.elementByGlobalKey('el-g-parent');
-      var parent = pap.elementByGlobalKey('el-parent');
-      var child = pap.elementByGlobalKey('el-child');
+      var gparent = pap.domNodeByGlobalKey('el-g-parent');
+      var parent = pap.domNodeByGlobalKey('el-parent');
+      var child = pap.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('dragend')); // first
       parent.dispatchEvent(Event('dragend')); // second

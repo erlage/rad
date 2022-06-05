@@ -12,7 +12,8 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 ///
 class Label extends MarkUpTagWithGlobalProps {
   /// The value of the [forAttribute] attribute must be a single key for a
-  /// labelable form-related element in the same document as the <label> element
+  /// labelable form-related dom node in the same document as the <label> dom
+  /// node
   ///
   final String? forAttribute;
 
@@ -107,18 +108,18 @@ class _LabelRenderObject extends MarkUpGlobalRenderObject {
   render({
     required covariant _LabelConfiguration configuration,
   }) {
-    var elementDescription = super.render(
+    var domNodeDescription = super.render(
       configuration: configuration.globalConfiguration,
     );
 
-    elementDescription?.attributes.addAll(
+    domNodeDescription?.attributes.addAll(
       _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
     );
 
-    return elementDescription;
+    return domNodeDescription;
   }
 
   @override
@@ -127,20 +128,20 @@ class _LabelRenderObject extends MarkUpGlobalRenderObject {
     required covariant _LabelConfiguration oldConfiguration,
     required covariant _LabelConfiguration newConfiguration,
   }) {
-    var elementDescription = super.update(
+    var domNodeDescription = super.update(
       updateType: updateType,
       oldConfiguration: oldConfiguration.globalConfiguration,
       newConfiguration: newConfiguration.globalConfiguration,
     );
 
-    elementDescription?.attributes.addAll(
+    domNodeDescription?.attributes.addAll(
       _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
     );
 
-    return elementDescription;
+    return domNodeDescription;
   }
 }
 

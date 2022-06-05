@@ -17,10 +17,10 @@ test('EventDetector widget - description test', () async {
     parentContext: pap.appContext,
   );
 
-  var element = pap.elementByGlobalKey('widget');
+  var domNode = pap.domNodeByGlobalKey('widget');
 
   expect(
-    element.dataset[Constants.attrWidgetType],
+    domNode.dataset[Constants.attrWidgetType],
     equals('$EventDetector'),
   );
 }, skip: 'we dont associate a dom node with EventDetector, since rad-0.9',);

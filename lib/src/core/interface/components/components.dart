@@ -65,13 +65,13 @@ class Components {
     _insertIntoDocument(stylesheet, 'Styles injected: $component');
   }
 
-  void _insertIntoDocument(HtmlElement element, String flagLogEntry) {
+  void _insertIntoDocument(HtmlElement domNode, String flagLogEntry) {
     // insert stylesheet where possible
 
     if (null != document.head) {
-      document.head!.insertBefore(element, null);
+      document.head!.insertBefore(domNode, null);
     } else if (null != document.body) {
-      document.head!.insertBefore(element, null);
+      document.head!.insertBefore(domNode, null);
     } else {
       throw Exception(
         'For Rad to work, your page must have either a head tag or a body. '

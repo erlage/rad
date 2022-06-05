@@ -35,10 +35,10 @@ void widget_rad_app_test() {
         parentContext: pap.appContext,
       );
 
-      var element = pap.elementByGlobalKey('widget');
+      var domNode = pap.domNodeByGlobalKey('widget');
 
       expect(
-        element.dataset[Constants.attrWidgetType],
+        domNode.dataset[Constants.attrWidgetType],
         equals('$RadApp'),
       );
     });

@@ -11,7 +11,6 @@ export 'package:rad/src/core/common/functions.dart';
 export 'package:rad/src/core/common/constants.dart';
 export 'package:rad/src/core/common/objects/app_options.dart';
 export 'package:rad/src/core/common/objects/build_context.dart';
-export 'package:rad/src/core/common/objects/element_description.dart';
 export 'package:rad/src/core/common/objects/key.dart';
 export 'package:rad/src/core/common/objects/options/debug_options.dart';
 export 'package:rad/src/core/common/objects/options/router_options.dart';

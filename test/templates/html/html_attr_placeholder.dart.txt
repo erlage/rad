@@ -7,11 +7,11 @@ test('should set attribute "placeholder"', () async {
     parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-    expect(element1.getAttribute('placeholder'), equals('some-placeholder'));
-    expect(element2.getAttribute('placeholder'), equals('another-placeholder'));
+    expect(domNode1.getAttribute('placeholder'), equals('some-placeholder'));
+    expect(domNode2.getAttribute('placeholder'), equals('another-placeholder'));
 }__Skip__);
 
 test('should update attribute "placeholder"', () async {
@@ -32,11 +32,11 @@ test('should update attribute "placeholder"', () async {
     parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-    expect(element1.getAttribute('placeholder'), equals('updated-placeholder'));
-    expect(element2.getAttribute('placeholder'), equals('another-placeholder'));
+    expect(domNode1.getAttribute('placeholder'), equals('updated-placeholder'));
+    expect(domNode2.getAttribute('placeholder'), equals('another-placeholder'));
 }__Skip__);
 
 test('should clear attribute "placeholder"', () async {
@@ -57,11 +57,11 @@ test('should clear attribute "placeholder"', () async {
     parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-    expect(element1.getAttribute('placeholder'), equals(null));
-    expect(element2.getAttribute('placeholder'), equals(null));
+    expect(domNode1.getAttribute('placeholder'), equals(null));
+    expect(domNode2.getAttribute('placeholder'), equals(null));
 });
 
 test('should clear attribute "placeholder" if updated value is null', () async {
@@ -80,9 +80,9 @@ test('should clear attribute "placeholder" if updated value is null', () async {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-    expect(element1.getAttribute('placeholder'), equals(null));
+    expect(domNode1.getAttribute('placeholder'), equals(null));
 });
 
 test('should not set attribute "placeholder" if provided value is null', () async {
@@ -93,7 +93,7 @@ test('should not set attribute "placeholder" if provided value is null', () asyn
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-    expect(element1.getAttribute('placeholder'), equals(null));
+    expect(domNode1.getAttribute('placeholder'), equals(null));
 });

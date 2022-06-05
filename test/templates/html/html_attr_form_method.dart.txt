@@ -7,15 +7,15 @@ test('should set form attribute "method"', () async {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
 
     expect(
-        element1.getAttribute('method'),
+        domNode1.getAttribute('method'),
         equals(FormMethod.get.nativeName),
     );
     expect(
-        element2.getAttribute('method'),
+        domNode2.getAttribute('method'),
         equals(FormMethod.post.nativeName),
     );
 });
@@ -40,20 +40,20 @@ test('should update form attribute "method"', () async {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
-    var element3 = app!.elementByGlobalKey('el-3');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
+    var domNode3 = app!.domNodeByGlobalKey('el-3');
 
     expect(
-        element1.getAttribute('method'),
+        domNode1.getAttribute('method'),
         equals(null),
     );
     expect(
-        element2.getAttribute('method'),
+        domNode2.getAttribute('method'),
         equals(null),
     );
     expect(
-        element3.getAttribute('method'),
+        domNode3.getAttribute('method'),
         equals(FormMethod.post.nativeName),
     );
 });

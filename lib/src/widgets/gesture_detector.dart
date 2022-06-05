@@ -6,7 +6,7 @@ import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/element_description.dart';
+import 'package:rad/src/core/common/objects/dom_node_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -124,7 +124,7 @@ class _GestureDetectorConfiguration extends WidgetConfiguration {
 |--------------------------------------------------------------------------
 */
 
-const _description = ElementDescription(
+const _description = DomNodeDescription(
   dataset: {
     Constants.attrWidgetType: 'GestureDetector',
   },
@@ -152,7 +152,7 @@ class _GestureDetectorRenderObject extends RenderObject {
     var widget = services.walker.getWidgetObject(context)!.widget;
 
     state
-      ..frameworkBindElement(context.findElement())
+      ..frameworkBindDomNode(context.findDomNode())
       ..frameworkBindWidget(widget)
       ..initState();
 
@@ -176,8 +176,8 @@ class _GestureDetectorRenderObject extends RenderObject {
 }
 
 class _GestureDetectorState {
-  Element? _element;
-  Element get element => _element!;
+  Element? _domNode;
+  Element get domNode => _domNode!;
 
   GestureDetector? _widget;
   GestureDetector get widget => _widget!;
@@ -243,13 +243,13 @@ class _GestureDetectorState {
     var nativeType = eventType.nativeName;
     var useCapture = HitTestBehavior.opaque == widget.behaviour;
 
-    element.addEventListener(nativeType, _handleNative, useCapture);
+    domNode.addEventListener(nativeType, _handleNative, useCapture);
   }
 
   void _removeListener(DomEventType eventType) {
     var nativeType = eventType.nativeName;
 
-    element.removeEventListener(nativeType, _handleNative);
+    domNode.removeEventListener(nativeType, _handleNative);
   }
 
   void _handleNative(Event event) {
@@ -313,8 +313,8 @@ class _GestureDetectorState {
 
   @nonVirtual
   @protected
-  void frameworkBindElement(Element element) {
-    _element = element;
+  void frameworkBindDomNode(Element domNode) {
+    _domNode = domNode;
   }
 
   @nonVirtual

@@ -139,13 +139,13 @@ abstract class _MatchTextFinder extends MatchFinder {
 
   @override
   bool matches(WidgetObject candidate) {
-    var element = candidate.element;
+    var domNode = candidate.domNode;
 
-    if (null == element) {
+    if (null == domNode) {
       return false;
     }
 
-    return matchesText(element.children.isNotEmpty ? '-' : element.innerText);
+    return matchesText(domNode.children.isNotEmpty ? '-' : domNode.innerText);
   }
 }
 

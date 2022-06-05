@@ -22,19 +22,19 @@ void event_on_click_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('element'),
-            onClick: (_) => pap.stack.push('click-element'),
+            key: GlobalKey('domNode'),
+            onClick: (_) => pap.stack.push('click-domNode'),
           ),
         ],
         parentContext: pap.appContext,
       );
 
-      var element = pap.elementByGlobalKey('element');
+      var domNode = pap.domNodeByGlobalKey('domNode');
 
-      element.dispatchEvent(Event('click'));
+      domNode.dispatchEvent(Event('click'));
       await Future.delayed(Duration(milliseconds: 50));
 
-      expect(pap.stack.popFromStart(), equals('click-element'));
+      expect(pap.stack.popFromStart(), equals('click-domNode'));
 
       expect(pap.stack.canPop(), equals(false));
     });
@@ -45,19 +45,19 @@ void event_on_click_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('element'),
-            onClickCapture: (_) => pap.stack.push('click-element'),
+            key: GlobalKey('domNode'),
+            onClickCapture: (_) => pap.stack.push('click-domNode'),
           ),
         ],
         parentContext: pap.appContext,
       );
 
-      var element = pap.elementByGlobalKey('element');
+      var domNode = pap.domNodeByGlobalKey('domNode');
 
-      element.dispatchEvent(Event('click'));
+      domNode.dispatchEvent(Event('click'));
       await Future.delayed(Duration(milliseconds: 50));
 
-      expect(pap.stack.popFromStart(), equals('click-element'));
+      expect(pap.stack.popFromStart(), equals('click-domNode'));
 
       expect(pap.stack.canPop(), equals(false));
     });
@@ -87,9 +87,9 @@ void event_on_click_test() {
         parentContext: pap.appContext,
       );
 
-      var gparent = pap.elementByGlobalKey('el-g-parent');
-      var parent = pap.elementByGlobalKey('el-parent');
-      var child = pap.elementByGlobalKey('el-child');
+      var gparent = pap.domNodeByGlobalKey('el-g-parent');
+      var parent = pap.domNodeByGlobalKey('el-parent');
+      var child = pap.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second
@@ -143,9 +143,9 @@ void event_on_click_test() {
         parentContext: pap.appContext,
       );
 
-      var gparent = pap.elementByGlobalKey('el-g-parent');
-      var parent = pap.elementByGlobalKey('el-parent');
-      var child = pap.elementByGlobalKey('el-child');
+      var gparent = pap.domNodeByGlobalKey('el-g-parent');
+      var parent = pap.domNodeByGlobalKey('el-parent');
+      var child = pap.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second
@@ -197,9 +197,9 @@ void event_on_click_test() {
         parentContext: pap.appContext,
       );
 
-      var gparent = pap.elementByGlobalKey('el-g-parent');
-      var parent = pap.elementByGlobalKey('el-parent');
-      var child = pap.elementByGlobalKey('el-child');
+      var gparent = pap.domNodeByGlobalKey('el-g-parent');
+      var parent = pap.domNodeByGlobalKey('el-parent');
+      var child = pap.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second
@@ -251,9 +251,9 @@ void event_on_click_test() {
         parentContext: pap.appContext,
       );
 
-      var gparent = pap.elementByGlobalKey('el-g-parent');
-      var parent = pap.elementByGlobalKey('el-parent');
-      var child = pap.elementByGlobalKey('el-child');
+      var gparent = pap.domNodeByGlobalKey('el-g-parent');
+      var parent = pap.domNodeByGlobalKey('el-parent');
+      var child = pap.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second
@@ -304,9 +304,9 @@ void event_on_click_test() {
         parentContext: pap.appContext,
       );
 
-      var gparent = pap.elementByGlobalKey('el-g-parent');
-      var parent = pap.elementByGlobalKey('el-parent');
-      var child = pap.elementByGlobalKey('el-child');
+      var gparent = pap.domNodeByGlobalKey('el-g-parent');
+      var parent = pap.domNodeByGlobalKey('el-parent');
+      var child = pap.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second

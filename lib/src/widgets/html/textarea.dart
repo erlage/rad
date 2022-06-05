@@ -10,8 +10,8 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The TextArea widget (HTML's `textarea` tag).
 ///
-/// This HTML element represents a multi-line plain-text editing control, useful
-/// when you want to allow users to enter a sizeable amount of free-form
+/// This HTML dom node represents a multi-line plain-text editing control, 
+/// useful when you want to allow users to enter a sizeable amount of free-form
 /// text, for example a comment on a review or feedback form.
 ///
 class TextArea extends MarkUpTagWithGlobalProps {
@@ -171,18 +171,18 @@ class _TextAreaRenderObject extends MarkUpGlobalRenderObject {
   render({
     required covariant _TextAreaConfiguration configuration,
   }) {
-    var elementDescription = super.render(
+    var domNodeDescription = super.render(
       configuration: configuration.globalConfiguration,
     );
 
-    elementDescription?.attributes.addAll(
+    domNodeDescription?.attributes.addAll(
       _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
     );
 
-    return elementDescription;
+    return domNodeDescription;
   }
 
   @override
@@ -191,20 +191,20 @@ class _TextAreaRenderObject extends MarkUpGlobalRenderObject {
     required covariant _TextAreaConfiguration oldConfiguration,
     required covariant _TextAreaConfiguration newConfiguration,
   }) {
-    var elementDescription = super.update(
+    var domNodeDescription = super.update(
       updateType: updateType,
       oldConfiguration: oldConfiguration.globalConfiguration,
       newConfiguration: newConfiguration.globalConfiguration,
     );
 
-    elementDescription?.attributes.addAll(
+    domNodeDescription?.attributes.addAll(
       _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
     );
 
-    return elementDescription;
+    return domNodeDescription;
   }
 }
 

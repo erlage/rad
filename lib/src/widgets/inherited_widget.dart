@@ -124,7 +124,7 @@ class InheritedWidgetRenderObject extends RenderObject {
       });
     }
 
-    // inherited widget's element's description never changes.
+    // inherited widget's dom node's description never changes.
     return null;
   }
 }

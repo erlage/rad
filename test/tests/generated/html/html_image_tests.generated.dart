@@ -26,13 +26,13 @@ void html_image_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = app!.elementByKey('some-key', RT_TestBed.rootContext);
-      var element2 = app!.elementByLocalKey('some-local-key');
-      var element3 = app!.elementByGlobalKey('some-global-key');
+      var domNode1 = app!.domNodeByKey('some-key', RT_TestBed.rootContext);
+      var domNode2 = app!.domNodeByLocalKey('some-local-key');
+      var domNode3 = app!.domNodeByGlobalKey('some-global-key');
 
-      expect(element1.id, equals('some-id'));
-      expect(element2.id, equals('some-local-id'));
-      expect(element3.id, equals('some-global-id'));
+      expect(domNode1.id, equals('some-id'));
+      expect(domNode2.id, equals('some-local-id'));
+      expect(domNode3.id, equals('some-global-id'));
     });
 
     test('should reset and update id', () async {
@@ -45,13 +45,13 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByKey('some-key', app!.appContext);
-      var element2 = app!.elementByLocalKey('some-local-key');
-      var element3 = app!.elementByGlobalKey('some-global-key');
+      var domNode1 = app!.domNodeByKey('some-key', app!.appContext);
+      var domNode2 = app!.domNodeByLocalKey('some-local-key');
+      var domNode3 = app!.domNodeByGlobalKey('some-global-key');
 
-      expect(element1.id, equals('some-id'));
-      expect(element2.id, equals('some-local-id'));
-      expect(element3.id, equals('some-global-id'));
+      expect(domNode1.id, equals('some-id'));
+      expect(domNode2.id, equals('some-local-id'));
+      expect(domNode3.id, equals('some-global-id'));
 
       await app!.updateChildren(
         widgets: [
@@ -72,9 +72,9 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      expect(element1.id, equals('some-updated-id'));
-      expect(element2.id, equals('some-local-updated-id'));
-      expect(element3.id, equals('some-global-updated-id'));
+      expect(domNode1.id, equals('some-updated-id'));
+      expect(domNode2.id, equals('some-local-updated-id'));
+      expect(domNode3.id, equals('some-global-updated-id'));
     });
 
     test('should set messy "id"', () async {
@@ -96,22 +96,22 @@ void html_image_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
 
       expect(
-        element1.getAttribute('id'),
+        domNode1.getAttribute('id'),
         equals('some id'),
       );
 
       expect(
-        element2.getAttribute('id'),
+        domNode2.getAttribute('id'),
         equals('some "messy" id'),
       );
 
       expect(
-        element3.getAttribute('id'),
+        domNode3.getAttribute('id'),
         equals("some 'messy' id"),
       );
     });
@@ -129,11 +129,11 @@ void html_image_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var element2 = element1.childNodes[0] as HtmlElement;
+      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode2 = domNode1.childNodes[0] as HtmlElement;
 
-      expect(element1.id, equals('widget-1'));
-      expect(element2.id, equals('widget-2'));
+      expect(domNode1.id, equals('widget-1'));
+      expect(domNode2.id, equals('widget-2'));
     });
 
     test('should set children widgets', () async {
@@ -154,13 +154,13 @@ void html_image_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var element2 = element1.childNodes[0] as HtmlElement;
-      var element3 = element1.childNodes[1] as HtmlElement;
+      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode2 = domNode1.childNodes[0] as HtmlElement;
+      var domNode3 = domNode1.childNodes[1] as HtmlElement;
 
-      expect(element1.id, equals('widget-1'));
-      expect(element2.id, equals('widget-2'));
-      expect(element3.id, equals('widget-3'));
+      expect(domNode1.id, equals('widget-1'));
+      expect(domNode2.id, equals('widget-2'));
+      expect(domNode3.id, equals('widget-3'));
     });
 
     test('should set attribute "classes"', () async {
@@ -178,11 +178,11 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-      expect(element1.getAttribute('class'), equals('some-classes'));
-      expect(element2.getAttribute('class'), equals('another-classes'));
+      expect(domNode1.getAttribute('class'), equals('some-classes'));
+      expect(domNode2.getAttribute('class'), equals('another-classes'));
     });
 
     test('should update attribute "classes"', () async {
@@ -215,11 +215,11 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-      expect(element1.getAttribute('class'), equals('updated-classes'));
-      expect(element2.getAttribute('class'), equals('another-classes'));
+      expect(domNode1.getAttribute('class'), equals('updated-classes'));
+      expect(domNode2.getAttribute('class'), equals('another-classes'));
     });
 
     test('should clear attribute "classes"', () async {
@@ -243,11 +243,11 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-      expect(element1.getAttribute('class'), equals(null));
-      expect(element2.getAttribute('class'), equals(null));
+      expect(domNode1.getAttribute('class'), equals(null));
+      expect(domNode2.getAttribute('class'), equals(null));
     });
 
     test('should clear attribute "classes" if updated value is null', () async {
@@ -269,9 +269,9 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-      expect(element1.getAttribute('class'), equals(null));
+      expect(domNode1.getAttribute('class'), equals(null));
     });
 
     test('should not set attribute "classes" if provided value is null',
@@ -283,9 +283,9 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-      expect(element1.getAttribute('class'), equals(null));
+      expect(domNode1.getAttribute('class'), equals(null));
     });
 
     test('should set messy "classes"', () async {
@@ -307,22 +307,22 @@ void html_image_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
 
       expect(
-        element1.getAttribute('class'),
+        domNode1.getAttribute('class'),
         equals('some classes'),
       );
 
       expect(
-        element2.getAttribute('class'),
+        domNode2.getAttribute('class'),
         equals('some "messy" classes'),
       );
 
       expect(
-        element3.getAttribute('class'),
+        domNode3.getAttribute('class'),
         equals("some 'messy' classes"),
       );
     });
@@ -342,11 +342,11 @@ void html_image_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
 
-      expect(element1.getAttribute('contenteditable'), equals('false'));
-      expect(element2.getAttribute('contenteditable'), equals('true'));
+      expect(domNode1.getAttribute('contenteditable'), equals('false'));
+      expect(domNode2.getAttribute('contenteditable'), equals('true'));
     });
 
     test('should set draggable', () async {
@@ -364,11 +364,11 @@ void html_image_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
 
-      expect(element1.getAttribute('draggable'), equals('false'));
-      expect(element2.getAttribute('draggable'), equals('true'));
+      expect(domNode1.getAttribute('draggable'), equals('false'));
+      expect(domNode2.getAttribute('draggable'), equals('true'));
     });
 
     test('should set attribute "hidden" only if its true', () async {
@@ -381,13 +381,13 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
-      var element3 = app!.elementByGlobalKey('el-3');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode3 = app!.domNodeByGlobalKey('el-3');
 
-      expect(element1.getAttribute('hidden'), equals(null));
-      expect(element2.getAttribute('hidden'), equals(null));
-      expect(element3.getAttribute('hidden'), equals('true'));
+      expect(domNode1.getAttribute('hidden'), equals(null));
+      expect(domNode2.getAttribute('hidden'), equals(null));
+      expect(domNode3.getAttribute('hidden'), equals('true'));
     });
 
     test('should clear attribute "hidden" if updated value is not true',
@@ -413,15 +413,15 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
-      var element3 = app!.elementByGlobalKey('el-3');
-      var element4 = app!.elementByGlobalKey('el-4');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode3 = app!.domNodeByGlobalKey('el-3');
+      var domNode4 = app!.domNodeByGlobalKey('el-4');
 
-      expect(element1.getAttribute('hidden'), equals('true'));
-      expect(element2.getAttribute('hidden'), equals(null));
-      expect(element3.getAttribute('hidden'), equals(null));
-      expect(element4.getAttribute('hidden'), equals(null));
+      expect(domNode1.getAttribute('hidden'), equals('true'));
+      expect(domNode2.getAttribute('hidden'), equals(null));
+      expect(domNode3.getAttribute('hidden'), equals(null));
+      expect(domNode4.getAttribute('hidden'), equals(null));
     });
 
     test('should set inner text', () async {
@@ -435,12 +435,12 @@ void html_image_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
 
       // we are using innerHtml as inner text is not accessible
       // or returns empty string for some node(e.g progress)
 
-      expect(element1.innerHtml, equals('hello world'));
+      expect(domNode1.innerHtml, equals('hello world'));
     }, onPlatform: {
       'chrome': Skip('Failing for img on chrome'),
     });
@@ -454,11 +454,11 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-      expect(element1.getAttribute('onClick'), equals('some-on-click'));
-      expect(element2.getAttribute('onClick'), equals('another-on-click'));
+      expect(domNode1.getAttribute('onClick'), equals('some-on-click'));
+      expect(domNode2.getAttribute('onClick'), equals('another-on-click'));
     });
 
     test('should update attribute "onClickAttribute"', () async {
@@ -479,11 +479,11 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-      expect(element1.getAttribute('onClick'), equals('updated-on-click'));
-      expect(element2.getAttribute('onClick'), equals('another-on-click'));
+      expect(domNode1.getAttribute('onClick'), equals('updated-on-click'));
+      expect(domNode2.getAttribute('onClick'), equals('another-on-click'));
     });
 
     test('should clear attribute "onClickAttribute"', () async {
@@ -504,11 +504,11 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-      expect(element1.getAttribute('onClick'), equals(null));
-      expect(element2.getAttribute('onClick'), equals(null));
+      expect(domNode1.getAttribute('onClick'), equals(null));
+      expect(domNode2.getAttribute('onClick'), equals(null));
     });
 
     test('should clear attribute "onClickAttribute" if updated value is null',
@@ -528,9 +528,9 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-      expect(element1.getAttribute('onClick'), equals(null));
+      expect(domNode1.getAttribute('onClick'), equals(null));
     });
 
     test(
@@ -543,9 +543,9 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-      expect(element1.getAttribute('onClick'), equals(null));
+      expect(domNode1.getAttribute('onClick'), equals(null));
     });
 
     test('should set messy "onClickAttribute"', () async {
@@ -567,22 +567,22 @@ void html_image_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
 
       expect(
-        element1.getAttribute('onclick'),
+        domNode1.getAttribute('onclick'),
         equals('some onClick'),
       );
 
       expect(
-        element2.getAttribute('onclick'),
+        domNode2.getAttribute('onclick'),
         equals('some "messy" onClick'),
       );
 
       expect(
-        element3.getAttribute('onclick'),
+        domNode3.getAttribute('onclick'),
         equals("some 'messy' onClick"),
       );
     });
@@ -604,8 +604,8 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('el-1').dispatchEvent(Event('click'));
-      app!.elementByGlobalKey('el-2').dispatchEvent(Event('click'));
+      app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('click'));
+      app!.domNodeByGlobalKey('el-2').dispatchEvent(Event('click'));
 
       await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('click-1'));
@@ -680,13 +680,13 @@ void html_image_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
 
-      expect(element1.getAttribute('style'), equals('some style'));
-      expect(element2.getAttribute('style'), equals('some "messy" style'));
-      expect(element3.getAttribute('style'), equals("some 'messy' style"));
+      expect(domNode1.getAttribute('style'), equals('some style'));
+      expect(domNode2.getAttribute('style'), equals('some "messy" style'));
+      expect(domNode3.getAttribute('style'), equals("some 'messy' style"));
     });
 
     test('should set tab index', () async {
@@ -708,13 +708,13 @@ void html_image_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
 
-      expect(element1.getAttribute('tabindex'), equals('1'));
-      expect(element2.getAttribute('tabindex'), equals('2'));
-      expect(element3.getAttribute('tabindex'), equals('3'));
+      expect(domNode1.getAttribute('tabindex'), equals('1'));
+      expect(domNode2.getAttribute('tabindex'), equals('2'));
+      expect(domNode3.getAttribute('tabindex'), equals('3'));
     });
 
     test('should set title', () async {
@@ -727,13 +727,13 @@ void html_image_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
 
-      expect(element1.getAttribute('title'), equals('some title'));
-      expect(element2.getAttribute('title'), equals('some "messy" title'));
-      expect(element3.getAttribute('title'), equals("some 'messy' title"));
+      expect(domNode1.getAttribute('title'), equals('some title'));
+      expect(domNode2.getAttribute('title'), equals('some "messy" title'));
+      expect(domNode3.getAttribute('title'), equals("some 'messy' title"));
     });
 
     test('should set correct types and markup', () async {
@@ -783,10 +783,10 @@ void html_image_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
 
-      expect(element1.dataset['something'], equals('something okay'));
-      expect(element1.dataset['another'], equals('another okay'));
+      expect(domNode1.dataset['something'], equals('something okay'));
+      expect(domNode1.dataset['another'], equals('another okay'));
     });
 
     test('should remove obsolute and add new data attributes on update',
@@ -816,12 +816,12 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
+      var domNode1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
 
-      element1 as HtmlElement;
+      domNode1 as HtmlElement;
 
-      expect(element1.dataset['something'], equals(null));
-      expect(element1.dataset['something-new'], equals('something new'));
+      expect(domNode1.dataset['something'], equals(null));
+      expect(domNode1.dataset['something-new'], equals('something new'));
     });
 
     test('should not override system reserved data attributes on build',
@@ -839,13 +839,13 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
+      var domNode1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
 
-      element1 as HtmlElement;
+      domNode1 as HtmlElement;
 
-      expect(element1.dataset['something'], equals('something okay'));
+      expect(domNode1.dataset['something'], equals('something okay'));
 
-      expect(element1.dataset[Constants.attrWidgetType], equals(null));
+      expect(domNode1.dataset[Constants.attrWidgetType], equals(null));
     });
 
     test('should not remove system reserved data attributes on update',
@@ -878,13 +878,13 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
+      var domNode1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
 
-      element1 as HtmlElement;
+      domNode1 as HtmlElement;
 
-      expect(element1.dataset['something'], equals('something new'));
-      expect(element1.dataset['something-diff'], equals('something diff'));
-      expect(element1.dataset[Constants.attrWidgetType], equals(null));
+      expect(domNode1.dataset['something'], equals('something new'));
+      expect(domNode1.dataset['something-diff'], equals('something diff'));
+      expect(domNode1.dataset[Constants.attrWidgetType], equals(null));
     });
 
     test('should have a short-tag alias', () async {
@@ -925,11 +925,11 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-      expect(element1.getAttribute('src'), equals('some-src'));
-      expect(element2.getAttribute('src'), equals('another-src'));
+      expect(domNode1.getAttribute('src'), equals('some-src'));
+      expect(domNode2.getAttribute('src'), equals('another-src'));
     });
 
     test('should update attribute "src"', () async {
@@ -950,11 +950,11 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-      expect(element1.getAttribute('src'), equals('updated-src'));
-      expect(element2.getAttribute('src'), equals('another-src'));
+      expect(domNode1.getAttribute('src'), equals('updated-src'));
+      expect(domNode2.getAttribute('src'), equals('another-src'));
     });
 
     test('should clear attribute "src"', () async {
@@ -975,11 +975,11 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-      expect(element1.getAttribute('src'), equals(null));
-      expect(element2.getAttribute('src'), equals(null));
+      expect(domNode1.getAttribute('src'), equals(null));
+      expect(domNode2.getAttribute('src'), equals(null));
     });
 
     test('should clear attribute "src" if updated value is null', () async {
@@ -998,9 +998,9 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-      expect(element1.getAttribute('src'), equals(null));
+      expect(domNode1.getAttribute('src'), equals(null));
     });
 
     test('should not set attribute "src" if provided value is null', () async {
@@ -1011,9 +1011,9 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-      expect(element1.getAttribute('src'), equals(null));
+      expect(domNode1.getAttribute('src'), equals(null));
     });
 
     test('should set attribute "alt"', () async {
@@ -1025,11 +1025,11 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-      expect(element1.getAttribute('alt'), equals('some-alt'));
-      expect(element2.getAttribute('alt'), equals('another-alt'));
+      expect(domNode1.getAttribute('alt'), equals('some-alt'));
+      expect(domNode2.getAttribute('alt'), equals('another-alt'));
     });
 
     test('should update attribute "alt"', () async {
@@ -1050,11 +1050,11 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-      expect(element1.getAttribute('alt'), equals('updated-alt'));
-      expect(element2.getAttribute('alt'), equals('another-alt'));
+      expect(domNode1.getAttribute('alt'), equals('updated-alt'));
+      expect(domNode2.getAttribute('alt'), equals('another-alt'));
     });
 
     test('should clear attribute "alt"', () async {
@@ -1075,11 +1075,11 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-      expect(element1.getAttribute('alt'), equals(null));
-      expect(element2.getAttribute('alt'), equals(null));
+      expect(domNode1.getAttribute('alt'), equals(null));
+      expect(domNode2.getAttribute('alt'), equals(null));
     });
 
     test('should clear attribute "alt" if updated value is null', () async {
@@ -1098,9 +1098,9 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-      expect(element1.getAttribute('alt'), equals(null));
+      expect(domNode1.getAttribute('alt'), equals(null));
     });
 
     test('should not set attribute "alt" if provided value is null', () async {
@@ -1111,9 +1111,9 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-      expect(element1.getAttribute('alt'), equals(null));
+      expect(domNode1.getAttribute('alt'), equals(null));
     });
 
     test('should set messy "alt"', () async {
@@ -1135,22 +1135,22 @@ void html_image_test() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
 
       expect(
-        element1.getAttribute('alt'),
+        domNode1.getAttribute('alt'),
         equals('some alt'),
       );
 
       expect(
-        element2.getAttribute('alt'),
+        domNode2.getAttribute('alt'),
         equals('some "messy" alt'),
       );
 
       expect(
-        element3.getAttribute('alt'),
+        domNode3.getAttribute('alt'),
         equals("some 'messy' alt"),
       );
     });
@@ -1164,11 +1164,11 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-      expect(element1.getAttribute('width'), equals('some-width'));
-      expect(element2.getAttribute('width'), equals('another-width'));
+      expect(domNode1.getAttribute('width'), equals('some-width'));
+      expect(domNode2.getAttribute('width'), equals('another-width'));
     });
 
     test('should update attribute "width"', () async {
@@ -1189,11 +1189,11 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-      expect(element1.getAttribute('width'), equals('updated-width'));
-      expect(element2.getAttribute('width'), equals('another-width'));
+      expect(domNode1.getAttribute('width'), equals('updated-width'));
+      expect(domNode2.getAttribute('width'), equals('another-width'));
     });
 
     test('should clear attribute "width"', () async {
@@ -1214,11 +1214,11 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-      expect(element1.getAttribute('width'), equals(null));
-      expect(element2.getAttribute('width'), equals(null));
+      expect(domNode1.getAttribute('width'), equals(null));
+      expect(domNode2.getAttribute('width'), equals(null));
     });
 
     test('should clear attribute "width" if updated value is null', () async {
@@ -1237,9 +1237,9 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-      expect(element1.getAttribute('width'), equals(null));
+      expect(domNode1.getAttribute('width'), equals(null));
     });
 
     test('should not set attribute "width" if provided value is null',
@@ -1251,9 +1251,9 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-      expect(element1.getAttribute('width'), equals(null));
+      expect(domNode1.getAttribute('width'), equals(null));
     });
 
     test('should set attribute "height"', () async {
@@ -1265,11 +1265,11 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-      expect(element1.getAttribute('height'), equals('some-height'));
-      expect(element2.getAttribute('height'), equals('another-height'));
+      expect(domNode1.getAttribute('height'), equals('some-height'));
+      expect(domNode2.getAttribute('height'), equals('another-height'));
     });
 
     test('should update attribute "height"', () async {
@@ -1290,11 +1290,11 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-      expect(element1.getAttribute('height'), equals('updated-height'));
-      expect(element2.getAttribute('height'), equals('another-height'));
+      expect(domNode1.getAttribute('height'), equals('updated-height'));
+      expect(domNode2.getAttribute('height'), equals('another-height'));
     });
 
     test('should clear attribute "height"', () async {
@@ -1315,11 +1315,11 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-      expect(element1.getAttribute('height'), equals(null));
-      expect(element2.getAttribute('height'), equals(null));
+      expect(domNode1.getAttribute('height'), equals(null));
+      expect(domNode2.getAttribute('height'), equals(null));
     });
 
     test('should clear attribute "height" if updated value is null', () async {
@@ -1338,9 +1338,9 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-      expect(element1.getAttribute('height'), equals(null));
+      expect(domNode1.getAttribute('height'), equals(null));
     });
 
     test('should not set attribute "height" if provided value is null',
@@ -1352,9 +1352,9 @@ void html_image_test() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-      expect(element1.getAttribute('height'), equals(null));
+      expect(domNode1.getAttribute('height'), equals(null));
     });
   });
 }

@@ -11,20 +11,20 @@ test('should set form attribute "enctype"', () async {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
-    var element3 = app!.elementByGlobalKey('el-3');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
+    var domNode3 = app!.domNodeByGlobalKey('el-3');
 
     expect(
-        element1.getAttribute('enctype'),
+        domNode1.getAttribute('enctype'),
         equals(FormEncType.textPlain.nativeName),
     );
     expect(
-        element2.getAttribute('enctype'),
+        domNode2.getAttribute('enctype'),
         equals(FormEncType.multipartFormData.nativeName),
     );
     expect(
-        element3.getAttribute('enctype'),
+        domNode3.getAttribute('enctype'),
         equals(FormEncType.applicationXwwwFormUrlEncoded.nativeName),
     );
 });
@@ -52,15 +52,15 @@ test('should update form attribute "enctype"', () async {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
-    var element3 = app!.elementByGlobalKey('el-3');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
+    var domNode3 = app!.domNodeByGlobalKey('el-3');
 
-    expect(element1.getAttribute('enctype'), equals(null));
-    expect(element2.getAttribute('enctype'), equals(null));
+    expect(domNode1.getAttribute('enctype'), equals(null));
+    expect(domNode2.getAttribute('enctype'), equals(null));
 
     expect(
-        element3.getAttribute('enctype'),
+        domNode3.getAttribute('enctype'),
         equals(FormEncType.multipartFormData.nativeName),
     );
 });

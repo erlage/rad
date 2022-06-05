@@ -16,10 +16,10 @@ test('Stateless widget - description test', () async {
     parentContext: pap.appContext,
   );
 
-  var element = pap.elementByGlobalKey('widget');
+  var domNode = pap.domNodeByGlobalKey('widget');
 
   expect(
-    element.dataset[Constants.attrWidgetType],
+    domNode.dataset[Constants.attrWidgetType],
     equals('$StatelessWidget'),
   );
 }, skip: 'we dont associate a dom node with StatelessWidget, since rad-0.9',);

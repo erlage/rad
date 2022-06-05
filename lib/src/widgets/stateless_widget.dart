@@ -103,7 +103,7 @@ class _StatelessWidgetRenderObject extends RenderObject {
       ),
     );
 
-    // stateless widget's element's description never changes.
+    // stateless widget's dom node's description never changes.
     return null;
   }
 }

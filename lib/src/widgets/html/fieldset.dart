@@ -108,18 +108,18 @@ class _FieldSetRenderObject extends MarkUpGlobalRenderObject {
   render({
     required covariant _FieldSetConfiguration configuration,
   }) {
-    var elementDescription = super.render(
+    var domNodeDescription = super.render(
       configuration: configuration.globalConfiguration,
     );
 
-    elementDescription?.attributes.addAll(
+    domNodeDescription?.attributes.addAll(
       _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
     );
 
-    return elementDescription;
+    return domNodeDescription;
   }
 
   @override
@@ -128,20 +128,20 @@ class _FieldSetRenderObject extends MarkUpGlobalRenderObject {
     required covariant _FieldSetConfiguration oldConfiguration,
     required covariant _FieldSetConfiguration newConfiguration,
   }) {
-    var elementDescription = super.update(
+    var domNodeDescription = super.update(
       updateType: updateType,
       oldConfiguration: oldConfiguration.globalConfiguration,
       newConfiguration: newConfiguration.globalConfiguration,
     );
 
-    elementDescription?.attributes.addAll(
+    domNodeDescription?.attributes.addAll(
       _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
     );
 
-    return elementDescription;
+    return domNodeDescription;
   }
 }
 

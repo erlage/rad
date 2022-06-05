@@ -110,16 +110,16 @@ class BuildContext {
     return walkerService.dependOnInheritedWidgetOfExactType<T>(this);
   }
 
-  /// Returns element that's associated with the current context.
+  /// Returns dom node that's associated with the current context.
   ///
-  /// If widget has no corresponding element then this method will return the
-  /// closest element from descendants. If there are no elements in descendants
-  /// then this method will return closest element from ancestors.
+  /// If widget has no corresponding dom node then this method will return the
+  /// closest dom node from descendants. If there are no dom nodes in
+  /// descendants then this method will return closest dom node from ancestors.
   ///
-  Element findElement() {
+  Element findDomNode() {
     var walkerService = ServicesRegistry.instance.getWalker(this);
 
-    return walkerService.findClosestElement(this);
+    return walkerService.findClosestDomNode(this);
   }
 
   /*

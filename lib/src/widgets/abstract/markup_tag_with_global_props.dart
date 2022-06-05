@@ -2,7 +2,7 @@ import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/element_description.dart';
+import 'package:rad/src/core/common/objects/dom_node_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -11,15 +11,15 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// Base class for HTML widgets that support global attributes.
 ///
 abstract class MarkUpTagWithGlobalProps extends Widget {
-  /// ID of element.
+  /// ID of dom node.
   ///
   final String? id;
 
-  /// The title attribute specifies extra information about an element.
+  /// The title attribute specifies extra information about an dom node.
   ///
   final String? title;
 
-  /// The classes attribute specifies one or more class names for an element.
+  /// The classes attribute specifies one or more class names for an dom node.
   ///
   final String? classAttribute;
 
@@ -28,17 +28,17 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
   final String? style;
 
   /// The tabindex attribute specifies the tab order of an
-  /// element (when the "tab" button is used for navigating).
+  /// dom node (when the "tab" button is used for navigating).
   ///
   final int? tabIndex;
 
-  /// The draggable attribute specifies whether an element
+  /// The draggable attribute specifies whether an dom node
   /// is draggable or not.
   ///
   final bool? draggable;
 
   /// The contenteditable attribute specifies whether the content of an
-  /// element is editable or not.
+  /// dom node is editable or not.
   ///
   final bool? contenteditable;
 
@@ -48,7 +48,7 @@ abstract class MarkUpTagWithGlobalProps extends Widget {
   final Map<String, String>? dataAttributes;
 
   /// The hidden attribute is a boolean attribute.
-  /// When present, it specifies that an element is not yet, or
+  /// When present, it specifies that an dom node is not yet, or
   /// is no longer, relevant.
   ///
   final bool? hidden;
@@ -261,7 +261,7 @@ class MarkUpGlobalRenderObject extends RenderObject {
       oldDataAttributes: null,
     );
 
-    return ElementDescription(
+    return DomNodeDescription(
       dataset: dataset,
       attributes: attributes,
       textContents: configuration.innerText,
@@ -287,7 +287,7 @@ class MarkUpGlobalRenderObject extends RenderObject {
       oldProps: oldConfiguration,
     );
 
-    return ElementDescription(
+    return DomNodeDescription(
       dataset: dataset,
       attributes: attributes,
       textContents: newConfiguration.innerText,

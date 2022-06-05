@@ -22,22 +22,22 @@ class WalkerService extends Service {
 
   /// Registered widget keys.
   ///
-  /// Element to widget-key-value mappings.
+  /// Dom node to widget-key-value mappings.
   ///
-  final _elementToWidgetKeyMap = <Element, String>{};
+  final _domNodeToWidgetKeyMap = <Element, String>{};
 
   WalkerService(BuildContext context, this.options) : super(context);
 
   @override
   startService() {
     _widgetKeyToWidgetObjectMap.clear();
-    _elementToWidgetKeyMap.clear();
+    _domNodeToWidgetKeyMap.clear();
   }
 
   @override
   stopService() {
     _widgetKeyToWidgetObjectMap.clear();
-    _elementToWidgetKeyMap.clear();
+    _domNodeToWidgetKeyMap.clear();
   }
 
   void registerWidgetObject(WidgetObject widgetObject) {
@@ -59,12 +59,12 @@ class WalkerService extends Service {
     _widgetKeyToWidgetObjectMap[widgetKey] = widgetObject;
 
     if (widgetObject.hasDomNode) {
-      _elementToWidgetKeyMap[widgetObject.element!] = widgetKey;
+      _domNodeToWidgetKeyMap[widgetObject.domNode!] = widgetKey;
     }
   }
 
-  String? getWidgetKeyValueUsingElement(Element? element) {
-    return _elementToWidgetKeyMap[element];
+  String? getWidgetKeyValueUsingElement(Element? domNode) {
+    return _domNodeToWidgetKeyMap[domNode];
   }
 
   WidgetObject? getWidgetObject(BuildContext context) {
@@ -75,8 +75,8 @@ class WalkerService extends Service {
     return _widgetKeyToWidgetObjectMap[key];
   }
 
-  WidgetObject? getWidgetObjectUsingElement(Element? element) {
-    return _widgetKeyToWidgetObjectMap[getWidgetKeyValueUsingElement(element)];
+  WidgetObject? getWidgetObjectUsingElement(Element? domNode) {
+    return _widgetKeyToWidgetObjectMap[getWidgetKeyValueUsingElement(domNode)];
   }
 
   void unRegisterWidgetObject(WidgetObject widgetObject) {
@@ -85,7 +85,7 @@ class WalkerService extends Service {
     _widgetKeyToWidgetObjectMap.remove(widgetKey);
 
     if (widgetObject.hasDomNode) {
-      _elementToWidgetKeyMap.remove(widgetObject.element);
+      _domNodeToWidgetKeyMap.remove(widgetObject.domNode);
     }
   }
 
@@ -98,7 +98,7 @@ class WalkerService extends Service {
   /// Return all registered widget keys.
   ///
   List<String> dumpWidgetKeys() {
-    return _elementToWidgetKeyMap.values.toList();
+    return _domNodeToWidgetKeyMap.values.toList();
   }
 
   /*
@@ -107,9 +107,9 @@ class WalkerService extends Service {
   |--------------------------------------------------------------------------
   */
 
-  /// Find closest element to context.
+  /// Find closest dom node to context.
   ///
-  Element findClosestElement(BuildContext context) {
+  Element findClosestDomNode(BuildContext context) {
     var widgetObject = getWidgetObject(context);
 
     if (null == widgetObject) {
@@ -118,13 +118,13 @@ class WalkerService extends Service {
 
     widgetObject as WidgetObject;
 
-    var element = widgetObject.element;
+    var domNode = widgetObject.domNode;
 
-    element ??= findClosestElementInDescendants(context);
-    element ??= findClosestElementInAncestors(context);
-    element ??= document.getElementById(context.appTargetId)!;
+    domNode ??= findClosestDomNodeInDescendants(context);
+    domNode ??= findClosestDomNodeInAncestors(context);
+    domNode ??= document.getElementById(context.appTargetId)!;
 
-    return element;
+    return domNode;
   }
 
   /// Returns the nearest ancestor widget of the given type [T], which must be
@@ -224,7 +224,7 @@ class WalkerService extends Service {
     );
   }
 
-  Element? findClosestElementInAncestors(BuildContext context) {
+  Element? findClosestDomNodeInAncestors(BuildContext context) {
     // -------------------------------------------------
 
     if (context.isRoot) {
@@ -239,11 +239,11 @@ class WalkerService extends Service {
       firstAncestorContext,
     );
 
-    Element? element = ancestorWidgetObject?.element;
+    Element? domNode = ancestorWidgetObject?.domNode;
 
     // -------------------------------------------------
 
-    while (null == element) {
+    while (null == domNode) {
       if (null == ancestorWidgetObject || ancestorWidgetObject.context.isRoot) {
         break;
       }
@@ -252,13 +252,13 @@ class WalkerService extends Service {
         ancestorWidgetObject.context.parent,
       );
 
-      element = ancestorWidgetObject?.element;
+      domNode = ancestorWidgetObject?.domNode;
     }
 
-    return element;
+    return domNode;
   }
 
-  Element? findClosestElementInDescendants(BuildContext context) {
+  Element? findClosestDomNodeInDescendants(BuildContext context) {
     // -------------------------------------------------
 
     var widgetObject = getWidgetObject(context);
@@ -279,11 +279,11 @@ class WalkerService extends Service {
       firstDescendantContext,
     );
 
-    Element? element = descendantsWidgetObject?.element;
+    Element? domNode = descendantsWidgetObject?.domNode;
 
     // -------------------------------------------------
 
-    while (null == element) {
+    while (null == domNode) {
       if (null == descendantsWidgetObject) {
         break;
       }
@@ -296,10 +296,10 @@ class WalkerService extends Service {
         descendantsWidgetObject.renderNode.children.first.context,
       );
 
-      element = descendantsWidgetObject?.element;
+      domNode = descendantsWidgetObject?.domNode;
     }
 
-    return element;
+    return domNode;
   }
 
   WidgetObject? _findWidgetObjectInAncestors({

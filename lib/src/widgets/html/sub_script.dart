@@ -8,7 +8,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The SubScript widget (HTML's `sub` tag).
 ///
-/// This HTML element specifies inline text which should be displayed as
+/// This HTML dom node specifies inline text which should be displayed as
 /// subscript for solely typographical reasons. Subscripts are typically
 /// rendered with a lowered baseline using smaller text.
 ///

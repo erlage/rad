@@ -22,19 +22,19 @@ void event_on_mouse_enter_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('element'),
-            onMouseEnter: (_) => pap.stack.push('mouseenter-element'),
+            key: GlobalKey('domNode'),
+            onMouseEnter: (_) => pap.stack.push('mouseenter-domNode'),
           ),
         ],
         parentContext: pap.appContext,
       );
 
-      var element = pap.elementByGlobalKey('element');
+      var domNode = pap.domNodeByGlobalKey('domNode');
 
-      element.dispatchEvent(Event('mouseenter'));
+      domNode.dispatchEvent(Event('mouseenter'));
       await Future.delayed(Duration(milliseconds: 50));
 
-      expect(pap.stack.popFromStart(), equals('mouseenter-element'));
+      expect(pap.stack.popFromStart(), equals('mouseenter-domNode'));
 
       expect(pap.stack.canPop(), equals(false));
     });
@@ -45,19 +45,19 @@ void event_on_mouse_enter_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('element'),
-            onMouseEnterCapture: (_) => pap.stack.push('mouseenter-element'),
+            key: GlobalKey('domNode'),
+            onMouseEnterCapture: (_) => pap.stack.push('mouseenter-domNode'),
           ),
         ],
         parentContext: pap.appContext,
       );
 
-      var element = pap.elementByGlobalKey('element');
+      var domNode = pap.domNodeByGlobalKey('domNode');
 
-      element.dispatchEvent(Event('mouseenter'));
+      domNode.dispatchEvent(Event('mouseenter'));
       await Future.delayed(Duration(milliseconds: 50));
 
-      expect(pap.stack.popFromStart(), equals('mouseenter-element'));
+      expect(pap.stack.popFromStart(), equals('mouseenter-domNode'));
 
       expect(pap.stack.canPop(), equals(false));
     });
@@ -84,9 +84,9 @@ void event_on_mouse_enter_test() {
         parentContext: pap.appContext,
       );
 
-      var gparent = pap.elementByGlobalKey('el-g-parent');
-      var parent = pap.elementByGlobalKey('el-parent');
-      var child = pap.elementByGlobalKey('el-child');
+      var gparent = pap.domNodeByGlobalKey('el-g-parent');
+      var parent = pap.domNodeByGlobalKey('el-parent');
+      var child = pap.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('mouseenter')); // first
       parent.dispatchEvent(Event('mouseenter')); // second
@@ -136,7 +136,7 @@ void event_on_mouse_enter_test() {
           parentContext: pap.appContext,
         );
 
-        var child = pap.elementByGlobalKey('el-child');
+        var child = pap.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('mouseenter')); // third
         await Future.delayed(Duration(milliseconds: 50));
@@ -183,7 +183,7 @@ void event_on_mouse_enter_test() {
           parentContext: pap.appContext,
         );
 
-        var child = pap.elementByGlobalKey('el-child');
+        var child = pap.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('mouseenter'));
         await Future.delayed(Duration(milliseconds: 50));
@@ -237,9 +237,9 @@ void event_on_mouse_enter_test() {
         parentContext: pap.appContext,
       );
 
-      var gparent = pap.elementByGlobalKey('el-g-parent');
-      var parent = pap.elementByGlobalKey('el-parent');
-      var child = pap.elementByGlobalKey('el-child');
+      var gparent = pap.domNodeByGlobalKey('el-g-parent');
+      var parent = pap.domNodeByGlobalKey('el-parent');
+      var child = pap.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('mouseenter')); // first
       parent.dispatchEvent(Event('mouseenter')); // second
@@ -298,9 +298,9 @@ void event_on_mouse_enter_test() {
         parentContext: pap.appContext,
       );
 
-      var gparent = pap.elementByGlobalKey('el-g-parent');
-      var parent = pap.elementByGlobalKey('el-parent');
-      var child = pap.elementByGlobalKey('el-child');
+      var gparent = pap.domNodeByGlobalKey('el-g-parent');
+      var parent = pap.domNodeByGlobalKey('el-parent');
+      var child = pap.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('mouseenter')); // first
       parent.dispatchEvent(Event('mouseenter')); // second

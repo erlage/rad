@@ -27,8 +27,8 @@ abstract class TableCellBase extends MarkUpTagWithGlobalProps {
   final int? colSpan;
 
   /// This attribute contains a list of space-separated strings, each
-  /// corresponding to the id attribute of the <th> elements that apply to this
-  /// element.
+  /// corresponding to the id attribute of the <th> dom nodes that apply to this
+  /// dom node.
   ///
   final String? headers;
 
@@ -130,18 +130,18 @@ class _TableCellBaseRenderObject extends MarkUpGlobalRenderObject {
   render({
     required covariant _TableCellBaseConfiguration configuration,
   }) {
-    var elementDescription = super.render(
+    var domNodeDescription = super.render(
       configuration: configuration.globalConfiguration,
     );
 
-    elementDescription?.attributes.addAll(
+    domNodeDescription?.attributes.addAll(
       _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
     );
 
-    return elementDescription;
+    return domNodeDescription;
   }
 
   @override
@@ -150,20 +150,20 @@ class _TableCellBaseRenderObject extends MarkUpGlobalRenderObject {
     required covariant _TableCellBaseConfiguration oldConfiguration,
     required covariant _TableCellBaseConfiguration newConfiguration,
   }) {
-    var elementDescription = super.update(
+    var domNodeDescription = super.update(
       updateType: updateType,
       oldConfiguration: oldConfiguration.globalConfiguration,
       newConfiguration: newConfiguration.globalConfiguration,
     );
 
-    elementDescription?.attributes.addAll(
+    domNodeDescription?.attributes.addAll(
       _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
     );
 
-    return elementDescription;
+    return domNodeDescription;
   }
 }
 

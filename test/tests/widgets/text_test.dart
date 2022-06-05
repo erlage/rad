@@ -106,13 +106,13 @@ void main() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
 
-      expect(element1.getAttribute('title'), equals('some title'));
-      expect(element2.getAttribute('title'), equals('some "messy" title'));
-      expect(element3.getAttribute('title'), equals("some 'messy' title"));
+      expect(domNode1.getAttribute('title'), equals('some title'));
+      expect(domNode2.getAttribute('title'), equals('some "messy" title'));
+      expect(domNode3.getAttribute('title'), equals("some 'messy' title"));
     });
 
     test('should set style', () async {
@@ -125,13 +125,13 @@ void main() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
 
-      expect(element1.getAttribute('style'), equals('some style'));
-      expect(element2.getAttribute('style'), equals('some "messy" style'));
-      expect(element3.getAttribute('style'), equals("some 'messy' style"));
+      expect(domNode1.getAttribute('style'), equals('some style'));
+      expect(domNode2.getAttribute('style'), equals('some "messy" style'));
+      expect(domNode3.getAttribute('style'), equals("some 'messy' style"));
     });
 
     test('should set classes', () async {
@@ -144,13 +144,13 @@ void main() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
 
-      expect(element1.getAttribute('class'), equals('some class'));
-      expect(element2.getAttribute('class'), equals('some "messy" class'));
-      expect(element3.getAttribute('class'), equals("some 'messy' class"));
+      expect(domNode1.getAttribute('class'), equals('some class'));
+      expect(domNode2.getAttribute('class'), equals('some "messy" class'));
+      expect(domNode3.getAttribute('class'), equals("some 'messy' class"));
     });
 
     test('should set attribute "hidden" only if its true', () async {
@@ -163,13 +163,13 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
-      var element3 = app!.elementByGlobalKey('el-3');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode3 = app!.domNodeByGlobalKey('el-3');
 
-      expect(element1.getAttribute('hidden'), equals(null));
-      expect(element2.getAttribute('hidden'), equals(null));
-      expect(element3.getAttribute('hidden'), equals('true'));
+      expect(domNode1.getAttribute('hidden'), equals(null));
+      expect(domNode2.getAttribute('hidden'), equals(null));
+      expect(domNode3.getAttribute('hidden'), equals('true'));
     });
 
     test('should clear attribute "hidden" if updated value is not true',
@@ -195,15 +195,15 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var element1 = app!.elementByGlobalKey('el-1');
-      var element2 = app!.elementByGlobalKey('el-2');
-      var element3 = app!.elementByGlobalKey('el-3');
-      var element4 = app!.elementByGlobalKey('el-4');
+      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode3 = app!.domNodeByGlobalKey('el-3');
+      var domNode4 = app!.domNodeByGlobalKey('el-4');
 
-      expect(element1.getAttribute('hidden'), equals('true'));
-      expect(element2.getAttribute('hidden'), equals(null));
-      expect(element3.getAttribute('hidden'), equals(null));
-      expect(element4.getAttribute('hidden'), equals(null));
+      expect(domNode1.getAttribute('hidden'), equals('true'));
+      expect(domNode2.getAttribute('hidden'), equals(null));
+      expect(domNode3.getAttribute('hidden'), equals(null));
+      expect(domNode4.getAttribute('hidden'), equals(null));
     });
 
     test('should set onClick', () async {
@@ -228,22 +228,22 @@ void main() {
         parentContext: RT_TestBed.rootContext,
       );
 
-      var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
 
       expect(
-        element1.getAttribute('onclick'),
+        domNode1.getAttribute('onclick'),
         equals('some onClick'),
       );
 
       expect(
-        element2.getAttribute('onclick'),
+        domNode2.getAttribute('onclick'),
         equals('some "messy" onClick'),
       );
 
       expect(
-        element3.getAttribute('onclick'),
+        domNode3.getAttribute('onclick'),
         equals("some 'messy' onClick"),
       );
     });
@@ -267,8 +267,8 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('el-1').dispatchEvent(Event('click'));
-      app!.elementByGlobalKey('el-2').dispatchEvent(Event('click'));
+      app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('click'));
+      app!.domNodeByGlobalKey('el-2').dispatchEvent(Event('click'));
 
       await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('click-1'));

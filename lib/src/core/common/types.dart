@@ -3,7 +3,6 @@ import 'dart:html';
 
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/objects/widget_object.dart';
 import 'package:rad/src/core/services/events/emitted_event.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
@@ -33,11 +32,6 @@ typedef ExceptionCallback = void Function(Exception event);
 typedef PopStateEventCallback = void Function(PopStateEvent event);
 
 typedef IndexedWidgetBuilder = Widget Function(BuildContext context, int index);
-
-typedef RenderElementCallback = void Function(
-  RenderObject renderObject,
-  HtmlElement element,
-);
 
 typedef WidgetActionCallback = List<WidgetAction> Function(
   WidgetObject widgetObject,

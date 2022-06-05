@@ -22,19 +22,19 @@ void event_on_mouse_over_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('element'),
-            onMouseOver: (_) => pap.stack.push('mouseover-element'),
+            key: GlobalKey('domNode'),
+            onMouseOver: (_) => pap.stack.push('mouseover-domNode'),
           ),
         ],
         parentContext: pap.appContext,
       );
 
-      var element = pap.elementByGlobalKey('element');
+      var domNode = pap.domNodeByGlobalKey('domNode');
 
-      element.dispatchEvent(Event('mouseover'));
+      domNode.dispatchEvent(Event('mouseover'));
       await Future.delayed(Duration(milliseconds: 50));
 
-      expect(pap.stack.popFromStart(), equals('mouseover-element'));
+      expect(pap.stack.popFromStart(), equals('mouseover-domNode'));
 
       expect(pap.stack.canPop(), equals(false));
     });
@@ -45,19 +45,19 @@ void event_on_mouse_over_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('element'),
-            onMouseOverCapture: (_) => pap.stack.push('mouseover-element'),
+            key: GlobalKey('domNode'),
+            onMouseOverCapture: (_) => pap.stack.push('mouseover-domNode'),
           ),
         ],
         parentContext: pap.appContext,
       );
 
-      var element = pap.elementByGlobalKey('element');
+      var domNode = pap.domNodeByGlobalKey('domNode');
 
-      element.dispatchEvent(Event('mouseover'));
+      domNode.dispatchEvent(Event('mouseover'));
       await Future.delayed(Duration(milliseconds: 50));
 
-      expect(pap.stack.popFromStart(), equals('mouseover-element'));
+      expect(pap.stack.popFromStart(), equals('mouseover-domNode'));
 
       expect(pap.stack.canPop(), equals(false));
     });
@@ -84,9 +84,9 @@ void event_on_mouse_over_test() {
         parentContext: pap.appContext,
       );
 
-      var gparent = pap.elementByGlobalKey('el-g-parent');
-      var parent = pap.elementByGlobalKey('el-parent');
-      var child = pap.elementByGlobalKey('el-child');
+      var gparent = pap.domNodeByGlobalKey('el-g-parent');
+      var parent = pap.domNodeByGlobalKey('el-parent');
+      var child = pap.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('mouseover')); // first
       parent.dispatchEvent(Event('mouseover')); // second
@@ -136,7 +136,7 @@ void event_on_mouse_over_test() {
           parentContext: pap.appContext,
         );
 
-        var child = pap.elementByGlobalKey('el-child');
+        var child = pap.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('mouseover')); // third
         await Future.delayed(Duration(milliseconds: 50));
@@ -183,7 +183,7 @@ void event_on_mouse_over_test() {
           parentContext: pap.appContext,
         );
 
-        var child = pap.elementByGlobalKey('el-child');
+        var child = pap.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('mouseover'));
         await Future.delayed(Duration(milliseconds: 50));
@@ -237,9 +237,9 @@ void event_on_mouse_over_test() {
         parentContext: pap.appContext,
       );
 
-      var gparent = pap.elementByGlobalKey('el-g-parent');
-      var parent = pap.elementByGlobalKey('el-parent');
-      var child = pap.elementByGlobalKey('el-child');
+      var gparent = pap.domNodeByGlobalKey('el-g-parent');
+      var parent = pap.domNodeByGlobalKey('el-parent');
+      var child = pap.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('mouseover')); // first
       parent.dispatchEvent(Event('mouseover')); // second
@@ -298,9 +298,9 @@ void event_on_mouse_over_test() {
         parentContext: pap.appContext,
       );
 
-      var gparent = pap.elementByGlobalKey('el-g-parent');
-      var parent = pap.elementByGlobalKey('el-parent');
-      var child = pap.elementByGlobalKey('el-child');
+      var gparent = pap.domNodeByGlobalKey('el-g-parent');
+      var parent = pap.domNodeByGlobalKey('el-parent');
+      var child = pap.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('mouseover')); // first
       parent.dispatchEvent(Event('mouseover')); // second

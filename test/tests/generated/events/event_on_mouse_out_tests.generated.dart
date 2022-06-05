@@ -22,19 +22,19 @@ void event_on_mouse_out_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('element'),
-            onMouseOut: (_) => pap.stack.push('mouseout-element'),
+            key: GlobalKey('domNode'),
+            onMouseOut: (_) => pap.stack.push('mouseout-domNode'),
           ),
         ],
         parentContext: pap.appContext,
       );
 
-      var element = pap.elementByGlobalKey('element');
+      var domNode = pap.domNodeByGlobalKey('domNode');
 
-      element.dispatchEvent(Event('mouseout'));
+      domNode.dispatchEvent(Event('mouseout'));
       await Future.delayed(Duration(milliseconds: 50));
 
-      expect(pap.stack.popFromStart(), equals('mouseout-element'));
+      expect(pap.stack.popFromStart(), equals('mouseout-domNode'));
 
       expect(pap.stack.canPop(), equals(false));
     });
@@ -45,19 +45,19 @@ void event_on_mouse_out_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('element'),
-            onMouseOutCapture: (_) => pap.stack.push('mouseout-element'),
+            key: GlobalKey('domNode'),
+            onMouseOutCapture: (_) => pap.stack.push('mouseout-domNode'),
           ),
         ],
         parentContext: pap.appContext,
       );
 
-      var element = pap.elementByGlobalKey('element');
+      var domNode = pap.domNodeByGlobalKey('domNode');
 
-      element.dispatchEvent(Event('mouseout'));
+      domNode.dispatchEvent(Event('mouseout'));
       await Future.delayed(Duration(milliseconds: 50));
 
-      expect(pap.stack.popFromStart(), equals('mouseout-element'));
+      expect(pap.stack.popFromStart(), equals('mouseout-domNode'));
 
       expect(pap.stack.canPop(), equals(false));
     });
@@ -84,9 +84,9 @@ void event_on_mouse_out_test() {
         parentContext: pap.appContext,
       );
 
-      var gparent = pap.elementByGlobalKey('el-g-parent');
-      var parent = pap.elementByGlobalKey('el-parent');
-      var child = pap.elementByGlobalKey('el-child');
+      var gparent = pap.domNodeByGlobalKey('el-g-parent');
+      var parent = pap.domNodeByGlobalKey('el-parent');
+      var child = pap.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('mouseout')); // first
       parent.dispatchEvent(Event('mouseout')); // second
@@ -136,7 +136,7 @@ void event_on_mouse_out_test() {
           parentContext: pap.appContext,
         );
 
-        var child = pap.elementByGlobalKey('el-child');
+        var child = pap.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('mouseout')); // third
         await Future.delayed(Duration(milliseconds: 50));
@@ -183,7 +183,7 @@ void event_on_mouse_out_test() {
           parentContext: pap.appContext,
         );
 
-        var child = pap.elementByGlobalKey('el-child');
+        var child = pap.domNodeByGlobalKey('el-child');
 
         child.dispatchEvent(Event('mouseout'));
         await Future.delayed(Duration(milliseconds: 50));
@@ -237,9 +237,9 @@ void event_on_mouse_out_test() {
         parentContext: pap.appContext,
       );
 
-      var gparent = pap.elementByGlobalKey('el-g-parent');
-      var parent = pap.elementByGlobalKey('el-parent');
-      var child = pap.elementByGlobalKey('el-child');
+      var gparent = pap.domNodeByGlobalKey('el-g-parent');
+      var parent = pap.domNodeByGlobalKey('el-parent');
+      var child = pap.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('mouseout')); // first
       parent.dispatchEvent(Event('mouseout')); // second
@@ -298,9 +298,9 @@ void event_on_mouse_out_test() {
         parentContext: pap.appContext,
       );
 
-      var gparent = pap.elementByGlobalKey('el-g-parent');
-      var parent = pap.elementByGlobalKey('el-parent');
-      var child = pap.elementByGlobalKey('el-child');
+      var gparent = pap.domNodeByGlobalKey('el-g-parent');
+      var parent = pap.domNodeByGlobalKey('el-parent');
+      var child = pap.domNodeByGlobalKey('el-child');
 
       gparent.dispatchEvent(Event('mouseout')); // first
       parent.dispatchEvent(Event('mouseout')); // second

@@ -8,13 +8,13 @@ test('should set button attribute "type"', () async {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
-    var element3 = app!.elementByGlobalKey('el-3');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
+    var domNode3 = app!.domNodeByGlobalKey('el-3');
 
-    expect(element1.getAttribute('type'), equals('button'));
-    expect(element2.getAttribute('type'), equals('reset'));
-    expect(element3.getAttribute('type'), equals('submit'));
+    expect(domNode1.getAttribute('type'), equals('button'));
+    expect(domNode2.getAttribute('type'), equals('reset'));
+    expect(domNode3.getAttribute('type'), equals('submit'));
 }__Skip__);
 
 test('should update button attribute "type"', () async {
@@ -37,11 +37,11 @@ test('should update button attribute "type"', () async {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
-    var element3 = app!.elementByGlobalKey('el-3');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
+    var domNode3 = app!.domNodeByGlobalKey('el-3');
 
-    expect(element1.getAttribute('type'), equals(null));
-    expect(element2.getAttribute('type'), equals(null));
-    expect(element3.getAttribute('type'), equals('button'));
+    expect(domNode1.getAttribute('type'), equals(null));
+    expect(domNode2.getAttribute('type'), equals(null));
+    expect(domNode3.getAttribute('type'), equals('button'));
 }__Skip__);

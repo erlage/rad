@@ -41,10 +41,10 @@ void widget_navigator_test() {
         parentContext: pap.appContext,
       );
 
-      var element = pap.elementByGlobalKey('widget');
+      var domNode = pap.domNodeByGlobalKey('widget');
 
       expect(
-        element.dataset[Constants.attrWidgetType],
+        domNode.dataset[Constants.attrWidgetType],
         equals('$Navigator'),
       );
     });

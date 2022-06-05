@@ -36,9 +36,9 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var element = pap.elementByGlobalKey('widget');
+      var domNode = pap.domNodeByGlobalKey('widget');
 
-      expect(element.getComputedStyle().display, equals('contents'));
+      expect(domNode.getComputedStyle().display, equals('contents'));
     });
 
     test('Navigator widget', () async {
@@ -54,9 +54,9 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var element = pap.elementByGlobalKey('widget');
+      var domNode = pap.domNodeByGlobalKey('widget');
 
-      expect(element.getComputedStyle().display, equals('contents'));
+      expect(domNode.getComputedStyle().display, equals('contents'));
     });
 
     test('EventDetector widget', () async {
@@ -72,9 +72,9 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var element = pap.elementByGlobalKey('widget');
+      var domNode = pap.domNodeByGlobalKey('widget');
 
-      expect(element.getComputedStyle().display, equals('contents'));
+      expect(domNode.getComputedStyle().display, equals('contents'));
     });
 
     test('InheritedWidget widget', () async {
@@ -90,9 +90,9 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var element = pap.elementByGlobalKey('widget');
+      var domNode = pap.domNodeByGlobalKey('widget');
 
-      expect(element.getComputedStyle().display, equals('contents'));
+      expect(domNode.getComputedStyle().display, equals('contents'));
     });
 
     test('Stateful widget', () async {
@@ -103,9 +103,9 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var element = pap.elementByGlobalKey('widget');
+      var domNode = pap.domNodeByGlobalKey('widget');
 
-      expect(element.getComputedStyle().display, equals('contents'));
+      expect(domNode.getComputedStyle().display, equals('contents'));
     });
 
     test('Stateless widget', () async {
@@ -116,9 +116,9 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      var element = pap.elementByGlobalKey('widget');
+      var domNode = pap.domNodeByGlobalKey('widget');
 
-      expect(element.getComputedStyle().display, equals('contents'));
+      expect(domNode.getComputedStyle().display, equals('contents'));
     });
   });
 }

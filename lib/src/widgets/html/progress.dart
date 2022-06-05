@@ -17,7 +17,7 @@ class Progress extends MarkUpTagWithGlobalProps {
   final num? value;
 
   /// This attribute describes how much work the task indicated
-  /// by the progress element requires.
+  /// by the progress dom node requires.
   ///
   final num? max;
 
@@ -117,18 +117,18 @@ class _ProgressRenderObject extends MarkUpGlobalRenderObject {
   render({
     required covariant _ProgressConfiguration configuration,
   }) {
-    var elementDescription = super.render(
+    var domNodeDescription = super.render(
       configuration: configuration.globalConfiguration,
     );
 
-    elementDescription?.attributes.addAll(
+    domNodeDescription?.attributes.addAll(
       _prepareAttributes(
         props: configuration,
         oldProps: null,
       ),
     );
 
-    return elementDescription;
+    return domNodeDescription;
   }
 
   @override
@@ -137,20 +137,20 @@ class _ProgressRenderObject extends MarkUpGlobalRenderObject {
     required covariant _ProgressConfiguration oldConfiguration,
     required covariant _ProgressConfiguration newConfiguration,
   }) {
-    var elementDescription = super.update(
+    var domNodeDescription = super.update(
       updateType: updateType,
       oldConfiguration: oldConfiguration.globalConfiguration,
       newConfiguration: newConfiguration.globalConfiguration,
     );
 
-    elementDescription?.attributes.addAll(
+    domNodeDescription?.attributes.addAll(
       _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
       ),
     );
 
-    return elementDescription;
+    return domNodeDescription;
   }
 }
 

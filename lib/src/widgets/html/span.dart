@@ -8,7 +8,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Span widget (HTML's `span` tag).
 ///
-/// This HTML element is a generic inline container for phrasing content,
+/// This HTML dom node is a generic inline container for phrasing content,
 /// which does not inherently represent anything.
 ///
 class Span extends MarkUpTagWithGlobalProps {

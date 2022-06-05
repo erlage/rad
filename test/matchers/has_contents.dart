@@ -10,7 +10,7 @@ class RT_hasContents extends Matcher {
   const RT_hasContents(this.expected);
 
   @override
-  matches(Object? item, void _) => _elementText(item) == expected;
+  matches(Object? item, void _) => _domNodeText(item) == expected;
 
   @override
   describe(description) {
@@ -26,7 +26,7 @@ class RT_hasContents extends Matcher {
     void _,
     void __,
   ) {
-    mismatchDescription.add("Serialized contents: '${_elementText(item)}'");
+    mismatchDescription.add("Serialized contents: '${_domNodeText(item)}'");
 
     return mismatchDescription;
   }
@@ -34,20 +34,20 @@ class RT_hasContents extends Matcher {
 
 // Taken from Angular Dart.
 
-String? _elementText(Object? n) {
+String? _domNodeText(Object? n) {
   if (n is Iterable) {
-    return n.map(_elementText).join('|');
+    return n.map(_domNodeText).join('|');
   } else if (n is Node) {
     if (n is ContentElement) {
-      return _elementText(n.getDistributedNodes());
+      return _domNodeText(n.getDistributedNodes());
     }
 
     if (n is Element && n.shadowRoot != null) {
-      return _elementText(n.shadowRoot!.nodes);
+      return _domNodeText(n.shadowRoot!.nodes);
     }
 
     if (n.nodes.isNotEmpty) {
-      return _elementText(n.nodes);
+      return _domNodeText(n.nodes);
     }
 
     return n.text;

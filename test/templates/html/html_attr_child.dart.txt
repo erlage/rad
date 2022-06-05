@@ -11,9 +11,9 @@ test('should set child widget', () async {
     parentContext: RT_TestBed.rootContext,
   );
 
-  var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-  var element2 = element1.childNodes[0] as HtmlElement;
+  var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+  var domNode2 = domNode1.childNodes[0] as HtmlElement;
 
-  expect(element1.id, equals('widget-1'));
-  expect(element2.id, equals('widget-2'));
+  expect(domNode1.id, equals('widget-1'));
+  expect(domNode2.id, equals('widget-2'));
 }__Skip__);

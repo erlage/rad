@@ -1,7 +1,7 @@
 import 'dart:html';
 
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/element_description.dart';
+import 'package:rad/src/core/common/objects/dom_node_description.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/renderer/render_node.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
@@ -11,8 +11,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 class WidgetObject {
   final BuildContext context;
 
-  final Element? element;
-
+  final Element? domNode;
   final RenderNode renderNode;
   final RenderObject renderObject;
 
@@ -29,18 +28,18 @@ class WidgetObject {
   WidgetConfiguration _configuration;
   WidgetConfiguration get configuration => _configuration;
 
-  ElementDescription? _description;
-  ElementDescription get description => _description!;
+  DomNodeDescription? _description;
+  DomNodeDescription get description => _description!;
 
   WidgetObject({
     required this.context,
-    required this.element,
+    required this.domNode,
     required this.renderNode,
     required this.renderObject,
     required Widget widget,
     required WidgetConfiguration configuration,
   })  : _widget = widget,
-        hasDomNode = null != element,
+        hasDomNode = null != domNode,
         _configuration = configuration;
 
   // framework reserved internals
@@ -57,7 +56,7 @@ class WidgetObject {
     _configuration = configuration;
   }
 
-  void frameworkRebindElementDescription(ElementDescription? description) {
+  void frameworkRebindElementDescription(DomNodeDescription? description) {
     _description = description;
   }
 }

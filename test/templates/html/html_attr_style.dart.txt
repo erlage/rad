@@ -8,11 +8,11 @@ test('should set style', () async {
     parentContext: RT_TestBed.rootContext,
   );
 
-  var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-  var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-  var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+  var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+  var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+  var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
 
-  expect(element1.getAttribute('style'), equals('some style'));
-  expect(element2.getAttribute('style'), equals('some "messy" style'));
-  expect(element3.getAttribute('style'), equals("some 'messy' style"));
+  expect(domNode1.getAttribute('style'), equals('some style'));
+  expect(domNode2.getAttribute('style'), equals('some "messy" style'));
+  expect(domNode3.getAttribute('style'), equals("some 'messy' style"));
 }__Skip__);

@@ -7,11 +7,11 @@ test('should set attribute "download"', () async {
     parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-    expect(element1.getAttribute('download'), equals('some-download'));
-    expect(element2.getAttribute('download'), equals('another-download'));
+    expect(domNode1.getAttribute('download'), equals('some-download'));
+    expect(domNode2.getAttribute('download'), equals('another-download'));
 }__Skip__);
 
 test('should update attribute "download"', () async {
@@ -32,11 +32,11 @@ test('should update attribute "download"', () async {
     parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-    expect(element1.getAttribute('download'), equals('updated-download'));
-    expect(element2.getAttribute('download'), equals('another-download'));
+    expect(domNode1.getAttribute('download'), equals('updated-download'));
+    expect(domNode2.getAttribute('download'), equals('another-download'));
 }__Skip__);
 
 test('should clear attribute "download"', () async {
@@ -57,11 +57,11 @@ test('should clear attribute "download"', () async {
     parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
 
-    expect(element1.getAttribute('download'), equals(null));
-    expect(element2.getAttribute('download'), equals(null));
+    expect(domNode1.getAttribute('download'), equals(null));
+    expect(domNode2.getAttribute('download'), equals(null));
 });
 
 test('should clear attribute "download" if updated value is null', () async {
@@ -80,9 +80,9 @@ test('should clear attribute "download" if updated value is null', () async {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-    expect(element1.getAttribute('download'), equals(null));
+    expect(domNode1.getAttribute('download'), equals(null));
 });
 
 test('should not set attribute "download" if provided value is null', () async {
@@ -93,9 +93,9 @@ test('should not set attribute "download" if provided value is null', () async {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
 
-    expect(element1.getAttribute('download'), equals(null));
+    expect(domNode1.getAttribute('download'), equals(null));
 });
 
 test('should set messy "download"', () async {
@@ -117,22 +117,22 @@ test('should set messy "download"', () async {
     parentContext: RT_TestBed.rootContext,
   );
 
-  var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-  var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-  var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+  var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+  var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+  var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
 
   expect(
-    element1.getAttribute('download'),
+    domNode1.getAttribute('download'),
     equals('some download'),
   );
 
   expect(
-    element2.getAttribute('download'),
+    domNode2.getAttribute('download'),
     equals('some "messy" download'),
   );
 
   expect(
-    element3.getAttribute('download'),
+    domNode3.getAttribute('download'),
     equals("some 'messy' download"),
   );
 }__Skip__);

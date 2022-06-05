@@ -1,9 +1,9 @@
 import 'package:meta/meta.dart';
 
-/// Description patch for a element in DOM.
+/// Description patch for a dom node in DOM.
 ///
 @immutable
-class ElementDescription {
+class DomNodeDescription {
   final Map<String, String?> dataset;
   final Map<String, String?> attributes;
   final Map<String, String?> styleProperties;
@@ -11,7 +11,7 @@ class ElementDescription {
   final String? textContents;
   final String? rawContents;
 
-  const ElementDescription({
+  const DomNodeDescription({
     this.dataset = const {},
     this.attributes = const {},
     this.styleProperties = const {},

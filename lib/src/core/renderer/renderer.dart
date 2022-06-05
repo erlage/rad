@@ -3,7 +3,7 @@ import 'dart:html';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/element_description.dart';
+import 'package:rad/src/core/common/objects/dom_node_description.dart';
 import 'package:rad/src/core/common/objects/widget_object.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/renderer/dumb_node_validator.dart';
@@ -283,14 +283,14 @@ class Renderer with ServicesResolver {
     var configuration = widget.createConfiguration();
     var renderObject = widget.createRenderObject(context);
 
-    // 4. Create element(if widget.correspondingTag is non-null)
+    // 4. Create dom node(if widget.correspondingTag is non-null)
 
-    Element? element;
+    Element? domNode;
 
     var tagName = widget.correspondingTag?.nativeName;
 
     if (null != tagName) {
-      element = document.createElement(tagName);
+      domNode = document.createElement(tagName);
     }
 
     // 5. Wrap all objects in single object
@@ -298,7 +298,7 @@ class Renderer with ServicesResolver {
     var widgetObject = WidgetObject(
       widget: widget,
       context: context,
-      element: element,
+      domNode: domNode,
       configuration: configuration,
       renderNode: renderNode,
       renderObject: renderObject,
@@ -314,11 +314,11 @@ class Renderer with ServicesResolver {
 
     widgetObject.frameworkRebindElementDescription(description);
 
-    // 7. Apply description(if widget has a associated dom element)
+    // 7. Apply description(if widget has a associated dom dom node)
 
-    if (null != element) {
-      // without queue as element is in mem
-      applyDescription(element: element, description: description);
+    if (null != domNode) {
+      // without queue as dom node is in mem
+      applyDescription(domNode: domNode, description: description);
     }
 
     // 8. Register event listeners
@@ -342,7 +342,7 @@ class Renderer with ServicesResolver {
     return widgetObject;
   }
 
-  /// Build widgets under a available parent element and parent render node.
+  /// Build widgets under a available parent dom node and parent render node.
   ///
   void buildWidgetsUnderContext({
     required List<Widget> widgets,
@@ -357,7 +357,7 @@ class Renderer with ServicesResolver {
         jobQueue: jobQueue,
       );
 
-      var currentElement = widgetObject.element;
+      var currentElement = widgetObject.domNode;
       var currentRenderNode = widgetObject.renderNode;
 
       parentRenderNode.append(currentRenderNode);
@@ -529,12 +529,12 @@ class Renderer with ServicesResolver {
       */
 
       if (null != newMountAtIndex) {
-        Element? elementToReMount;
+        Element? domNodeToReMount;
 
         if (widgetObject.hasDomNode) {
-          elementToReMount = widgetObject.element;
+          domNodeToReMount = widgetObject.domNode;
         } else {
-          elementToReMount = services.walker.findClosestElementInDescendants(
+          domNodeToReMount = services.walker.findClosestDomNodeInDescendants(
             widgetObject.context,
           );
         }
@@ -548,11 +548,11 @@ class Renderer with ServicesResolver {
           );
 
           jobQueue.addJob(() {
-            if (null == elementToReMount) {
+            if (null == domNodeToReMount) {
               return;
             }
 
-            var parentElement = elementToReMount.parent;
+            var parentElement = domNodeToReMount.parent;
 
             // insertBefore is a must here.
             // todo: remove these unneccesary checks.
@@ -565,7 +565,7 @@ class Renderer with ServicesResolver {
                 // mount at specific index
                 //
                 parentElement.insertBefore(
-                  elementToReMount,
+                  domNodeToReMount,
                   parentElement.children[newMountAtIndex],
                 );
               }
@@ -649,13 +649,13 @@ class Renderer with ServicesResolver {
         );
 
         widgetObject.frameworkRebindElementDescription(newDescription);
-        var element = widgetObject.element;
+        var domNode = widgetObject.domNode;
 
-        if (null != element) {
+        if (null != domNode) {
           applyDescription(
             jobQueue: jobQueue,
             description: newDescription,
-            element: element,
+            domNode: domNode,
           );
         }
       } else {
@@ -703,7 +703,7 @@ class Renderer with ServicesResolver {
 
   /// Mount widgets.
   ///
-  /// This process mount both the render nodes and HTML elements on Render tree
+  /// This process mount both the render nodes and HTML dom nodes on Render tree
   /// and DOM respectively. Updates on Render tree are synchoronous while DOM
   /// updates are queued and dispatched in a batch.
   ///
@@ -743,7 +743,7 @@ class Renderer with ServicesResolver {
       }
     }
 
-    // 2. Find closest widget that has an element in dom and get mount location
+    // 2. Find closest widget that has an dom node in dom and get mount location
 
     if (null != parentWidgetObject) {
       if (!parentWidgetObject.hasDomNode) {
@@ -752,7 +752,7 @@ class Renderer with ServicesResolver {
         //
         // e.g a stateful widget doesn't have direct childs but issue a build
         // widgets task for in-direct childs. those indirect childs has to be
-        // mounted on a specific position in parent's element
+        // mounted on a specific position in parent's dom node
         var requiresMountAtSpecificPosition = null == mountAtIndex;
 
         // a render node in path between parent render node(that has dom
@@ -784,26 +784,26 @@ class Renderer with ServicesResolver {
       }
     }
 
-    // 3. Get element for mounting
+    // 3. Get dom node for mounting
 
-    Element? mountTargetElement;
+    Element? mountTargetDomNode;
 
     if (null != parentWidgetObject) {
-      mountTargetElement = parentWidgetObject.element;
+      mountTargetDomNode = parentWidgetObject.domNode;
     } else {
-      mountTargetElement = document.getElementById(parentContext.key.value);
+      mountTargetDomNode = document.getElementById(parentContext.key.value);
     }
 
-    if (null == mountTargetElement) {
+    if (null == mountTargetDomNode) {
       services.debug.exception(
-        'Unable to locate target element #${parentContext.key.value} in HTML'
+        'Unable to locate target dom node #${parentContext.key.value} in HTML'
         ' document',
       );
 
       return;
     }
 
-    // 4. Prepare new elements for mounting
+    // 4. Prepare new dom nodes for mounting
 
     var documentFragment = DocumentFragment();
 
@@ -814,7 +814,7 @@ class Renderer with ServicesResolver {
     // 5. Add a mount job
 
     jobQueue.addJob(() {
-      if (null == mountTargetElement) {
+      if (null == mountTargetDomNode) {
         return;
       }
 
@@ -824,20 +824,20 @@ class Renderer with ServicesResolver {
         //
         // if index is available
         //
-        if (mountTargetElement.children.length > mountAtIndex) {
+        if (mountTargetDomNode.children.length > mountAtIndex) {
           //
           // mount at specific index
           //
-          mountTargetElement.insertBefore(
+          mountTargetDomNode.insertBefore(
             documentFragment,
-            mountTargetElement.children[mountAtIndex],
+            mountTargetDomNode.children[mountAtIndex],
           );
 
           return;
         }
       }
 
-      mountTargetElement.append(documentFragment);
+      mountTargetDomNode.append(documentFragment);
     });
   }
 
@@ -898,10 +898,10 @@ class Renderer with ServicesResolver {
           break;
 
         case WidgetAction.showWidget:
-          var element = widgetActionObject.widgetObject.context.findElement();
+          var domNode = widgetActionObject.widgetObject.context.findDomNode();
 
           jobQueue.addJob(() {
-            element.classes.remove(
+            domNode.classes.remove(
               Constants.classHidden,
             );
           });
@@ -909,10 +909,10 @@ class Renderer with ServicesResolver {
           break;
 
         case WidgetAction.hideWidget:
-          var element = widgetActionObject.widgetObject.context.findElement();
+          var domNode = widgetActionObject.widgetObject.context.findDomNode();
 
           jobQueue.addJob(() {
-            element.classes.add(
+            domNode.classes.add(
               Constants.classHidden,
             );
           });
@@ -939,13 +939,13 @@ class Renderer with ServicesResolver {
           ); // bit of mess ^ but required
 
           widgetObject.frameworkRebindElementDescription(newDescription);
-          var element = widgetObject.element;
+          var domNode = widgetObject.domNode;
 
-          if (null != element) {
+          if (null != domNode) {
             applyDescription(
               jobQueue: jobQueue,
               description: newDescription,
-              element: element,
+              domNode: domNode,
             );
           }
 
@@ -964,7 +964,7 @@ class Renderer with ServicesResolver {
     }
   }
 
-  /// Clean existing widgets/elements
+  /// Clean existing widgets/dom nodes
   ///
   void cleanParentContents({
     required BuildContext parentContext,
@@ -985,7 +985,7 @@ class Renderer with ServicesResolver {
       Element? parentElement;
 
       if (null != parentWidgetObject) {
-        parentElement = parentWidgetObject.element;
+        parentElement = parentWidgetObject.domNode;
       } else {
         parentElement = document.getElementById(parentContext.key.value);
       }
@@ -1000,10 +1000,10 @@ class Renderer with ServicesResolver {
   /// widget itself.
   ///
   /// [flagEnqeueTargetElementRemoval] - Whether to remove [widgetObject]'s
-  /// element from DOM by making a explict call to element.remove
+  /// dom node from DOM by making a explict call to domNode.remove
   ///
   /// [flagEnqeueChildElementRemoval] - Whether to remove ecah children of
-  /// [widgetObject] from DOM by making a explict call to element.remove
+  /// [widgetObject] from DOM by making a explict call to domNode.remove
   ///
   void disposeWidgetObject({
     WidgetObject? widgetObject,
@@ -1037,13 +1037,13 @@ class Renderer with ServicesResolver {
           //
           flagPreserveTarget: false,
           //
-          // whether to enqeue child's element removal depends on flag
+          // whether to enqeue child's dom node removal depends on flag
           // if parent is cleaning all objects, then it should be false
           //
           flagEnqeueTargetElementRemoval: flagEnqeueChildElementRemoval,
           //
           // since child will be removed, there's no need to enqeue removals
-          // of childs of child's element.
+          // of childs of child's dom node.
           //
           flagEnqeueChildElementRemoval: false,
           //
@@ -1054,10 +1054,10 @@ class Renderer with ServicesResolver {
 
     if (!flagPreserveTarget) {
       if (flagEnqeueTargetElementRemoval) {
-        var element = widgetObject.element;
+        var domNode = widgetObject.domNode;
 
-        if (null != element) {
-          jobQueue.addJob(element.remove);
+        if (null != domNode) {
+          jobQueue.addJob(domNode.remove);
         }
       }
 
@@ -1074,8 +1074,8 @@ class Renderer with ServicesResolver {
   }
 
   void applyDescription({
-    required Element element,
-    ElementDescription? description,
+    required Element domNode,
+    DomNodeDescription? description,
     JobQueue? jobQueue,
   }) {
     if (null == description) {
@@ -1086,9 +1086,9 @@ class Renderer with ServicesResolver {
       if (description.attributes.isNotEmpty) {
         description.attributes.forEach((key, value) {
           if (null != value) {
-            element.setAttribute(key, value);
+            domNode.setAttribute(key, value);
           } else {
-            element.removeAttribute(key);
+            domNode.removeAttribute(key);
           }
         });
       }
@@ -1096,27 +1096,27 @@ class Renderer with ServicesResolver {
       if (description.dataset.isNotEmpty) {
         description.dataset.forEach((key, value) {
           if (null != value) {
-            element.dataset[key] = value;
+            domNode.dataset[key] = value;
           } else {
-            element.dataset.remove(key);
+            domNode.dataset.remove(key);
           }
         });
       }
 
       description.styleProperties.forEach((key, value) {
         if (null != value) {
-          element.style.setProperty(key, value);
+          domNode.style.setProperty(key, value);
         } else {
-          element.style.removeProperty(key);
+          domNode.style.removeProperty(key);
         }
       });
 
       if (null != description.textContents) {
-        element.innerText = description.textContents!;
+        domNode.innerText = description.textContents!;
       }
 
       if (null != description.rawContents) {
-        element.setInnerHtml(
+        domNode.setInnerHtml(
           description.rawContents,
           validator: const DumbNodeValidator(),
         );

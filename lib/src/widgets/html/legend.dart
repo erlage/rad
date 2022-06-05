@@ -8,7 +8,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Legend widget (HTML's `legend` tag).
 ///
-/// The legend HTML element represents a caption for the content of
+/// The legend HTML dom node represents a caption for the content of
 /// its parent fieldset.
 ///
 class Legend extends MarkUpTagWithGlobalProps {

@@ -2,7 +2,7 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/element_description.dart';
+import 'package:rad/src/core/common/objects/dom_node_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/widgets_internals.dart';
@@ -69,7 +69,7 @@ class _RawMarkupRenderObject extends RenderObject {
   render({
     required covariant _RawMarkUpConfiguration configuration,
   }) {
-    return ElementDescription(rawContents: configuration.html);
+    return DomNodeDescription(rawContents: configuration.html);
   }
 
   @override
@@ -78,6 +78,6 @@ class _RawMarkupRenderObject extends RenderObject {
     required oldConfiguration,
     required covariant _RawMarkUpConfiguration newConfiguration,
   }) {
-    return ElementDescription(rawContents: newConfiguration.html);
+    return DomNodeDescription(rawContents: newConfiguration.html);
   }
 }

@@ -17,11 +17,11 @@ test('should set tab index', () async {
     parentContext: RT_TestBed.rootContext,
   );
 
-  var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-  var element2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-  var element3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+  var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+  var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+  var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
 
-  expect(element1.getAttribute('tabindex'), equals('1'));
-  expect(element2.getAttribute('tabindex'), equals('2'));
-  expect(element3.getAttribute('tabindex'), equals('3'));
+  expect(domNode1.getAttribute('tabindex'), equals('1'));
+  expect(domNode2.getAttribute('tabindex'), equals('2'));
+  expect(domNode3.getAttribute('tabindex'), equals('3'));
 }__Skip__);

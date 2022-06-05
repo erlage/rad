@@ -15,8 +15,8 @@ test('should set "KeyPress" event listener', () async {
         parentContext: app!.appContext,
     );
 
-    app!.elementByGlobalKey('el-1').dispatchEvent(Event('keypress'));
-    app!.elementByGlobalKey('el-2').dispatchEvent(Event('keypress'));
+    app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('keypress'));
+    app!.domNodeByGlobalKey('el-2').dispatchEvent(Event('keypress'));
 
     await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('keypress-1'));

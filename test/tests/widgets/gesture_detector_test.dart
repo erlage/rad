@@ -33,7 +33,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('clicked'));
       expect(testStack.canPop(), equals(false));
@@ -57,7 +57,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.popFromStart(), equals('parent-clicked'));
@@ -81,7 +81,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('parent-clicked'));
       expect(testStack.canPop(), equals(false));
@@ -104,7 +104,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.canPop(), equals(false));
@@ -131,7 +131,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('clicked'));
       expect(testStack.canPop(), equals(false));
@@ -155,7 +155,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.popFromStart(), equals('parent-clicked'));
@@ -179,7 +179,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('parent-clicked'));
       expect(testStack.canPop(), equals(false));
@@ -202,7 +202,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.canPop(), equals(false));
@@ -229,7 +229,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('clicked'));
       expect(testStack.canPop(), equals(false));
@@ -253,7 +253,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.popFromStart(), equals('parent-clicked'));
@@ -277,7 +277,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('parent-clicked'));
       expect(testStack.canPop(), equals(false));
@@ -300,7 +300,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.canPop(), equals(false));
@@ -331,7 +331,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.popFromStart(), equals('parent-clicked'));
@@ -365,7 +365,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.popFromStart(), equals('parent-clicked'));
@@ -393,7 +393,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('clicked'));
       expect(testStack.canPop(), equals(false));
@@ -417,7 +417,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.popFromStart(), equals('parent-clicked'));
@@ -441,7 +441,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('parent-clicked'));
       expect(testStack.canPop(), equals(false));
@@ -464,7 +464,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.canPop(), equals(false));
@@ -495,7 +495,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.popFromStart(), equals('parent-clicked'));
@@ -529,7 +529,7 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      app!.elementByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.popFromStart(), equals('parent-clicked'));

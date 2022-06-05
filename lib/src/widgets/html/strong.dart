@@ -8,7 +8,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Strong widget (HTML's `strong` tag).
 ///
-/// This HTML element indicates that its contents have strong importance,
+/// This HTML dom node indicates that its contents have strong importance,
 /// seriousness, or urgency. Browsers typically render the contents in bold type
 ///
 class Strong extends MarkUpTagWithGlobalProps {

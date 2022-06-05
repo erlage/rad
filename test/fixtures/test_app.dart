@@ -34,7 +34,7 @@ class RT_AppRunner extends AppRunner {
   void start() {
     this
       .._clearState()
-      ..prepareTargetElement()
+      ..prepareTargetDomNode()
       ..setupRootContext()
       ..setupOptions()
       ..setupDelegates()
@@ -104,37 +104,37 @@ class RT_AppRunner extends AppRunner {
   ///
   Widget widget(String key) => widgetObjectByGlobalKey(key).widget;
 
-  /// Get element by key under app context.
+  /// Get dom node by key under app context.
   ///
-  Element elementByKey(String key, BuildContext parentContext) =>
+  Element domNodeByKey(String key, BuildContext parentContext) =>
       services.walker
           .getWidgetObjectUsingKey(
             services.keyGen.getGlobalKeyUsingKey(Key(key), parentContext).value,
           )!
-          .element!;
+          .domNode!;
 
-  /// Get element by local key under app context.
+  /// Get dom node by local key under app context.
   ///
-  Element elementByLocalKey(String key) => services.walker
+  Element domNodeByLocalKey(String key) => services.walker
       .getWidgetObjectUsingKey(
         services.keyGen
             .getGlobalKeyUsingKey(LocalKey(key), RT_TestBed.rootContext)
             .value,
       )!
-      .element!;
+      .domNode!;
 
-  /// Get element by global key under app context.
+  /// Get dom node by global key under app context.
   ///
-  Element elementByGlobalKey(String key) =>
-      widgetObjectByGlobalKey(key).element!;
+  Element domNodeByGlobalKey(String key) =>
+      widgetObjectByGlobalKey(key).domNode!;
 
-  /// Get app's element.
+  /// Get app's dom node.
   ///
-  Element get appElement => elementByGlobalKey('app-widget');
+  Element get appDomNode => domNodeByGlobalKey('app-widget');
 
-  /// Get element by id.
+  /// Get dom node by id.
   ///
-  Element elementById(String id) => document.getElementById(id)!;
+  Element domNodeById(String id) => document.getElementById(id)!;
 
   /// Get state of navigator with global key.
   ///

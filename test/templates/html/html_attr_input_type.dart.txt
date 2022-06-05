@@ -13,23 +13,23 @@ test('should set input attribute "type"', () async {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
-    var element3 = app!.elementByGlobalKey('el-3');
-    var element4 = app!.elementByGlobalKey('el-4');
-    var element5 = app!.elementByGlobalKey('el-5');
-    var element6 = app!.elementByGlobalKey('el-6');
-    var element7 = app!.elementByGlobalKey('el-7');
-    var element8 = app!.elementByGlobalKey('el-8');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
+    var domNode3 = app!.domNodeByGlobalKey('el-3');
+    var domNode4 = app!.domNodeByGlobalKey('el-4');
+    var domNode5 = app!.domNodeByGlobalKey('el-5');
+    var domNode6 = app!.domNodeByGlobalKey('el-6');
+    var domNode7 = app!.domNodeByGlobalKey('el-7');
+    var domNode8 = app!.domNodeByGlobalKey('el-8');
 
-    expect(element1.getAttribute('type'), equals(null));
-    expect(element2.getAttribute('type'), equals(null));
-    expect(element3.getAttribute('type'), equals('text'));
-    expect(element4.getAttribute('type'), equals('password'));
-    expect(element5.getAttribute('type'), equals('radio'));
-    expect(element6.getAttribute('type'), equals('checkbox'));
-    expect(element7.getAttribute('type'), equals('submit'));
-    expect(element8.getAttribute('type'), equals('file'));
+    expect(domNode1.getAttribute('type'), equals(null));
+    expect(domNode2.getAttribute('type'), equals(null));
+    expect(domNode3.getAttribute('type'), equals('text'));
+    expect(domNode4.getAttribute('type'), equals('password'));
+    expect(domNode5.getAttribute('type'), equals('radio'));
+    expect(domNode6.getAttribute('type'), equals('checkbox'));
+    expect(domNode7.getAttribute('type'), equals('submit'));
+    expect(domNode8.getAttribute('type'), equals('file'));
 }__Skip__);
 
 test('should update form attribute "type"', () async {
@@ -52,11 +52,11 @@ test('should update form attribute "type"', () async {
         parentContext: app!.appContext,
     );
 
-    var element1 = app!.elementByGlobalKey('el-1');
-    var element2 = app!.elementByGlobalKey('el-2');
-    var element3 = app!.elementByGlobalKey('el-3');
+    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode2 = app!.domNodeByGlobalKey('el-2');
+    var domNode3 = app!.domNodeByGlobalKey('el-3');
 
-    expect(element1.getAttribute('type'), equals('text'));
-    expect(element2.getAttribute('type'), equals(null));
-    expect(element3.getAttribute('type'), equals(null));
+    expect(domNode1.getAttribute('type'), equals('text'));
+    expect(domNode2.getAttribute('type'), equals(null));
+    expect(domNode3.getAttribute('type'), equals(null));
 });

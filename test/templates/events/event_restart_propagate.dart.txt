@@ -26,7 +26,7 @@ test(
       parentContext: pap.appContext,
     );
 
-    var child = pap.elementByGlobalKey('el-child');
+    var child = pap.domNodeByGlobalKey('el-child');
 
     child.dispatchEvent(Event('__EventNativeName__')); // third
     await Future.delayed(Duration(milliseconds: 50));
@@ -73,7 +73,7 @@ test(
       parentContext: pap.appContext,
     );
 
-    var child = pap.elementByGlobalKey('el-child');
+    var child = pap.domNodeByGlobalKey('el-child');
 
     child.dispatchEvent(Event('__EventNativeName__'));
     await Future.delayed(Duration(milliseconds: 50));

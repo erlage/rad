@@ -6,7 +6,7 @@ import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/element_description.dart';
+import 'package:rad/src/core/common/objects/dom_node_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -25,7 +25,7 @@ class ListView extends Widget {
   ///
   final String? style;
 
-  /// The classes attribute specifies one or more class names for an element.
+  /// The classes attribute specifies one or more class names for dom node.
   ///
   final String? classAttribute;
 
@@ -192,7 +192,7 @@ class ListViewRenderObject extends RenderObject {
   render({
     required covariant _ListViewConfiguration configuration,
   }) {
-    return ElementDescription(
+    return DomNodeDescription(
       dataset: {
         Constants.attrWidgetType: '$ListView',
       },
@@ -209,7 +209,7 @@ class ListViewRenderObject extends RenderObject {
     required covariant _ListViewConfiguration oldConfiguration,
     required covariant _ListViewConfiguration newConfiguration,
   }) {
-    return ElementDescription(
+    return DomNodeDescription(
       attributes: _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,
@@ -243,7 +243,7 @@ class ListViewBuilderRenderObject extends RenderObject {
       ..frameworkBindLayoutType(layoutType)
       ..frameworkUpdateConfigurationBinding(configuration);
 
-    return ElementDescription(
+    return DomNodeDescription(
       dataset: {
         Constants.attrWidgetType: '$ListView',
       },
@@ -257,13 +257,13 @@ class ListViewBuilderRenderObject extends RenderObject {
   @override
   afterMount() {
     var services = ServicesRegistry.instance.getServices(context);
-    var element = services.walker.getWidgetObject(context)!.element;
+    var domNode = services.walker.getWidgetObject(context)!.domNode;
 
-    if (null == element) {
+    if (null == domNode) {
       services.debug.exception(Constants.coreError);
     } else {
       state
-        ..frameworkUpdateElementBinding(element)
+        ..frameworkUpdateDomNodeBinding(domNode)
         ..frameworkRender();
     }
   }
@@ -284,7 +284,7 @@ class ListViewBuilderRenderObject extends RenderObject {
     if (newBaseConfig.style != oldBaseConfig.style ||
         newBaseConfig.classAttribute != oldBaseConfig.classAttribute ||
         newBaseConfig.scrollDirection != oldBaseConfig.scrollDirection) {
-      return ElementDescription(
+      return DomNodeDescription(
         attributes: _prepareAttributes(
           props: newBaseConfig,
           oldProps: oldBaseConfig,
@@ -338,8 +338,8 @@ class _ListViewBuilderState with ServicesResolver {
   |--------------------------------------------------------------------------
   */
 
-  Element? _element;
-  Element get element => _element!;
+  Element? _domNode;
+  Element get domNode => _domNode!;
 
   LayoutType _layoutType = LayoutType.contain;
 
@@ -365,7 +365,7 @@ class _ListViewBuilderState with ServicesResolver {
   void _initObserver() {
     var options = LayoutType.contain == _layoutType
         ? {
-            'root': element,
+            'root': domNode,
           }
         : <dynamic, dynamic>{};
 
@@ -419,12 +419,12 @@ class _ListViewBuilderState with ServicesResolver {
 
     Element? lastItemContainer;
 
-    var childLength = element.children.length;
+    var childLength = domNode.children.length;
 
     if (childLength > 3) {
-      lastItemContainer = element.children[childLength - 3];
+      lastItemContainer = domNode.children[childLength - 3];
     } else {
-      lastItemContainer = childLength > 0 ? element.children.last : null;
+      lastItemContainer = childLength > 0 ? domNode.children.last : null;
     }
 
     if (null != lastItemContainer) {
@@ -493,8 +493,8 @@ class _ListViewBuilderState with ServicesResolver {
     _configuration = configuration;
   }
 
-  void frameworkUpdateElementBinding(Element element) {
-    _element = element;
+  void frameworkUpdateDomNodeBinding(Element domNode) {
+    _domNode = domNode;
   }
 
   void frameworkDispose() {

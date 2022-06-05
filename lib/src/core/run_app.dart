@@ -23,7 +23,7 @@ import 'package:rad/src/widgets/rad_app.dart';
 ///
 /// ### Arguments
 ///
-/// - [targetId] - id of element where you want the app to mount.
+/// - [targetId] - id of dom node where you want the app to mount.
 ///
 /// - [app] - A widget(any widget). For convenience we've a [RadApp] widget.
 ///
@@ -104,7 +104,7 @@ class AppRunner {
   ///
   void start() {
     this
-      ..prepareTargetElement()
+      ..prepareTargetDomNode()
       ..setupRootContext()
       ..setupOptions()
       ..setupDelegates()
@@ -183,13 +183,13 @@ class AppRunner {
     );
   }
 
-  /// Prepare target element.
+  /// Prepare target dom node.
   ///
-  void prepareTargetElement() {
+  void prepareTargetDomNode() {
     var targetElement = document.getElementById(targetId);
 
     if (null == targetElement) {
-      throw Exception('Unable to locate target element in HTML document');
+      throw Exception('Unable to locate target dom node in HTML document');
     }
   }
 

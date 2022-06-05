@@ -4,7 +4,7 @@ import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/element_description.dart';
+import 'package:rad/src/core/common/objects/dom_node_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -398,7 +398,7 @@ class Navigator extends Widget {
 |--------------------------------------------------------------------------
 */
 
-const _description = ElementDescription(
+const _description = DomNodeDescription(
   dataset: {
     Constants.attrWidgetType: 'Navigator',
   },
@@ -441,7 +441,7 @@ class NavigatorRenderObject extends RenderObject {
   }) {
     state.frameworkUpdate(updateType);
 
-    // Navigator's element's description never changes
+    // Navigator's dom node's description never changes
     return null;
   }
 

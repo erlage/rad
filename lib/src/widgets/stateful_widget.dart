@@ -180,7 +180,7 @@ class StatefulWidgetRenderObject extends RenderObject {
       ),
     );
 
-    // state's element's description never changes
+    // state's dom node's description never changes
     return null;
   }
 

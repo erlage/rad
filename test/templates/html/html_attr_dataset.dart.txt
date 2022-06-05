@@ -12,10 +12,10 @@ test('should set data attributes', () async {
         parentContext: RT_TestBed.rootContext,
     );
 
-    var element1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+    var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
 
-    expect(element1.dataset['something'], equals('something okay'));
-    expect(element1.dataset['another'], equals('another okay'));
+    expect(domNode1.dataset['something'], equals('something okay'));
+    expect(domNode1.dataset['another'], equals('another okay'));
 }__Skip__);
 
 
@@ -45,12 +45,12 @@ test('should remove obsolute and add new data attributes on update', () async {
         parentContext: app!.appContext,
     );
 
-    var element1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
+    var domNode1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
 
-    element1 as HtmlElement;
+    domNode1 as HtmlElement;
 
-    expect(element1.dataset['something'], equals(null));
-    expect(element1.dataset['something-new'], equals('something new'));
+    expect(domNode1.dataset['something'], equals(null));
+    expect(domNode1.dataset['something-new'], equals('something new'));
 }__Skip__);
 
 test('should not override system reserved data attributes on build', () async {
@@ -67,13 +67,13 @@ test('should not override system reserved data attributes on build', () async {
         parentContext: app!.appContext,
     );
 
-    var element1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
+    var domNode1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
 
-    element1 as HtmlElement;
+    domNode1 as HtmlElement;
 
-    expect(element1.dataset['something'], equals('something okay'));
+    expect(domNode1.dataset['something'], equals('something okay'));
 
-    expect(element1.dataset[Constants.attrWidgetType], equals(null));
+    expect(domNode1.dataset[Constants.attrWidgetType], equals(null));
 }__Skip__);
 
 test('should not remove system reserved data attributes on update', () async {
@@ -105,11 +105,11 @@ test('should not remove system reserved data attributes on update', () async {
         parentContext: app!.appContext,
     );
     
-    var element1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
+    var domNode1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
 
-    element1 as HtmlElement;
+    domNode1 as HtmlElement;
 
-    expect(element1.dataset['something'], equals('something new'));
-    expect(element1.dataset['something-diff'], equals('something diff'));
-    expect(element1.dataset[Constants.attrWidgetType], equals(null));
+    expect(domNode1.dataset['something'], equals('something new'));
+    expect(domNode1.dataset['something-diff'], equals('something diff'));
+    expect(domNode1.dataset[Constants.attrWidgetType], equals(null));
 }__Skip__);

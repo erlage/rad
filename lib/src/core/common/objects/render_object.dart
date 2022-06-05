@@ -2,7 +2,7 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/element_description.dart';
+import 'package:rad/src/core/common/objects/dom_node_description.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Widget's Render object.
@@ -21,14 +21,14 @@ class RenderObject {
 
   /// Render hook.
   ///
-  /// Implementation can optionally return description of element that will be
-  /// applied on element associated with current widget. If current widget has
+  /// Implementation can optionally return description of dom node that will be
+  /// applied on dom node associated with current widget. If current widget has
   /// no [Widget.correspondingTag] then description will returned by this
   /// method will be thrown away.
   ///
   /// This hook gets called exactly once during lifetime of a widget.
   ///
-  ElementDescription? render({
+  DomNodeDescription? render({
     required WidgetConfiguration configuration,
   }) {
     return null;
@@ -45,15 +45,15 @@ class RenderObject {
 
   /// Update hook.
   ///
-  /// Implementation can optionally return description of element that will be
-  /// applied on element associated with current widget. If current widget has
+  /// Implementation can optionally return description of dom node that will be
+  /// applied on dom node associated with current widget. If current widget has
   /// no [Widget.correspondingTag] then description will returned by this
   /// method will be thrown away.
   ///
   /// This hook gets called everytime [Widget.isConfigurationChanged] returns
   /// true.
   ///
-  ElementDescription? update({
+  DomNodeDescription? update({
     required UpdateType updateType,
     required WidgetConfiguration oldConfiguration,
     required WidgetConfiguration newConfiguration,

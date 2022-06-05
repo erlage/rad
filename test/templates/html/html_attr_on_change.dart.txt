@@ -15,8 +15,8 @@ test('should set "change" event listener', () async {
         parentContext: app!.appContext,
     );
 
-    app!.elementByGlobalKey('el-1').dispatchEvent(Event('change'));
-    app!.elementByGlobalKey('el-2').dispatchEvent(Event('change'));
+    app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('change'));
+    app!.domNodeByGlobalKey('el-2').dispatchEvent(Event('change'));
 
     await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('change-1'));
