@@ -125,8 +125,8 @@ class _GestureDetectorConfiguration extends WidgetConfiguration {
 */
 
 const _description = DomNodeDescription(
-  dataset: {
-    Constants.attrWidgetType: 'GestureDetector',
+  attributes: {
+    Attributes.classAttribute: Constants.classGestureDetector,
   },
 );
 

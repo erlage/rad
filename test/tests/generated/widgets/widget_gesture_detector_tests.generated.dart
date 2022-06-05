@@ -34,10 +34,7 @@ void widget_gesture_detector_test() {
 
       var domNode = pap.domNodeByGlobalKey('widget');
 
-      expect(
-        domNode.dataset[Constants.attrWidgetType],
-        equals('$GestureDetector'),
-      );
+      expect(domNode.getComputedStyle().display, equals('contents'));
     });
   });
 }
