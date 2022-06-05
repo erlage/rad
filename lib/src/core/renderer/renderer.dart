@@ -592,10 +592,12 @@ class Renderer with ServicesResolver {
       // the framework to short-circuit rebuild if possible, this can be
       // acheived by resetting update type to something else
 
+      var updateTypeForChildWidgets = updateType;
+
       if (UpdateType.dependencyChanged == updateType) {
-        updateType = UpdateType.undefined;
+        updateTypeForChildWidgets = UpdateType.undefined;
       } else if (UpdateType.visitorUpdate == updateType) {
-        updateType = UpdateType.undefined;
+        updateTypeForChildWidgets = UpdateType.undefined;
       } else {
         if (oldWidget == newWidget) {
           if (services.debug.frameworkLogs) {
@@ -687,7 +689,7 @@ class Renderer with ServicesResolver {
       if (hasDirectChilds || hadDirectChilds) {
         updateWidgetsUnderContext(
           jobQueue: jobQueue,
-          updateType: updateType,
+          updateType: updateTypeForChildWidgets,
           parentContext: widgetObject.context,
           parentObject: widgetObject,
           flagAddIfNotFound: flagAddIfNotFound,
