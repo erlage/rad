@@ -27,7 +27,7 @@ void main() {
 
       expect(testStack.canPop(), equals(false));
 
-      expect(app!.appElement, RT_hasContents('contents'));
+      expect(app!.appDomNode, RT_hasContents('contents'));
     });
 
     test('should not call updateShouldNotify on initial build', () async {
@@ -45,7 +45,7 @@ void main() {
 
       expect(testStack.canPop(), equals(false));
 
-      expect(app!.appElement, RT_hasContents('contents'));
+      expect(app!.appDomNode, RT_hasContents('contents'));
     });
 
     test('should call updateShouldNotify on new instance', () async {

@@ -28,7 +28,7 @@ void main() {
       expect(testStack.popFromStart(), equals('build-1'));
       expect(testStack.canPop(), equals(false));
 
-      expect(app!.appElement, RT_hasContents('contents'));
+      expect(app!.appDomNode, RT_hasContents('contents'));
     });
 
     test('should always call build on new widget instance', () async {
