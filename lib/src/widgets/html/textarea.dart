@@ -10,7 +10,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The TextArea widget (HTML's `textarea` tag).
 ///
-/// This HTML dom node represents a multi-line plain-text editing control, 
+/// This HTML dom node represents a multi-line plain-text editing control,
 /// useful when you want to allow users to enter a sizeable amount of free-form
 /// text, for example a comment on a review or feedback form.
 ///
