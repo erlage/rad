@@ -53,63 +53,66 @@ test('should remove obsolute and add new data attributes on update', () async {
     expect(domNode1.dataset['something-new'], equals('something new'));
 }__Skip__);
 
-test('should not override system reserved data attributes on build', () async {
-    await app!.buildChildren(
-        widgets: [
-            __WidgetClass__(
+for(final reservedAttribute in Constants.reservedAttributes)
+{
+    test('should not override system reserved attribute: $reservedAttribute on build', () async {
+        await app!.buildChildren(
+            widgets: [
+                __WidgetClass__(
+                    key: GlobalKey('some-global-key'),
+                    dataAttributes: {
+                        'something': 'something okay',
+                        reservedAttribute: 'must ignore',
+                    },
+                ),
+            ],
+            parentContext: app!.appContext,
+        );
+
+        var domNode1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
+
+        domNode1 as HtmlElement;
+
+        expect(domNode1.dataset['something'], equals('something okay'));
+
+        expect(domNode1.dataset[reservedAttribute], equals(null));
+    }__Skip__);
+
+    test('should not remove system reserved data attribute: $reservedAttribute on update', () async {
+        await app!.buildChildren(
+            widgets: [
+                __WidgetClass__(
                 key: GlobalKey('some-global-key'),
-                dataAttributes: {
-                    'something': 'something okay',
-                    Constants.attrWidgetType: 'must ignore',
-                },
-            ),
-        ],
-        parentContext: app!.appContext,
-    );
+                    dataAttributes: {
+                        'something': 'something okay',
+                        reservedAttribute: 'must ignore',
+                    },
+                ),
+            ],
+            parentContext: app!.appContext,
+        );
 
-    var domNode1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
+        await app!.updateChildren(
+            widgets: [
+                __WidgetClass__(
+                    key: GlobalKey('some-global-key'),
+                    dataAttributes: {
+                        'something': 'something new',
+                        'something-diff': 'something diff',
+                        reservedAttribute: 'must ignore',
+                    },
+                ),
+            ],
+            updateType: UpdateType.undefined,
+            parentContext: app!.appContext,
+        );
+        
+        var domNode1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
 
-    domNode1 as HtmlElement;
+        domNode1 as HtmlElement;
 
-    expect(domNode1.dataset['something'], equals('something okay'));
-
-    expect(domNode1.dataset[Constants.attrWidgetType], equals(null));
-}__Skip__);
-
-test('should not remove system reserved data attributes on update', () async {
-    await app!.buildChildren(
-        widgets: [
-            __WidgetClass__(
-            key: GlobalKey('some-global-key'),
-                dataAttributes: {
-                    'something': 'something okay',
-                    Constants.attrWidgetType: 'must ignore',
-                },
-            ),
-        ],
-        parentContext: app!.appContext,
-    );
-
-    await app!.updateChildren(
-        widgets: [
-            __WidgetClass__(
-                key: GlobalKey('some-global-key'),
-                dataAttributes: {
-                    'something': 'something new',
-                    'something-diff': 'something diff',
-                    Constants.attrWidgetType: 'must ignore',
-                },
-            ),
-        ],
-        updateType: UpdateType.undefined,
-        parentContext: app!.appContext,
-    );
-    
-    var domNode1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
-
-    domNode1 as HtmlElement;
-
-    expect(domNode1.dataset['something'], equals('something new'));
-    expect(domNode1.dataset['something-diff'], equals('something diff'));
-    expect(domNode1.dataset[Constants.attrWidgetType], equals(null));
-}__Skip__);
+        expect(domNode1.dataset['something'], equals('something new'));
+        expect(domNode1.dataset['something-diff'], equals('something diff'));
+        expect(domNode1.dataset[reservedAttribute], equals(null));
+    }__Skip__);
+}
