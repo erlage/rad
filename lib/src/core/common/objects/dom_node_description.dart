@@ -4,15 +4,15 @@ import 'package:meta/meta.dart';
 ///
 @immutable
 class DomNodeDescription {
-  final Map<String, String?> dataset;
-  final Map<String, String?> attributes;
+  final Map<String, String?>? dataset;
+  final Map<String, String?>? attributes;
 
   final String? textContents;
   final String? rawContents;
 
   const DomNodeDescription({
-    this.dataset = const {},
-    this.attributes = const {},
+    this.dataset,
+    this.attributes,
     this.textContents,
     this.rawContents,
   });

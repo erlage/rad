@@ -74,8 +74,8 @@ String? fnCommonPrepareClassAttribute({
 }
 
 Map<String, String?> fnCommonPrepareDataset({
-  required Map<String, String?>? dataAttributes,
-  required Map<String, String?>? oldDataAttributes,
+  required Map<String, String>? dataAttributes,
+  required Map<String, String>? oldDataAttributes,
 }) {
   var prepared = <String, String?>{};
 

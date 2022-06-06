@@ -200,7 +200,7 @@ class _TextAreaRenderObject extends MarkUpGlobalRenderObject {
       configuration: configuration.globalConfiguration,
     );
 
-    domNodeDescription?.attributes.addAll(
+    domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
         props: configuration,
         oldProps: null,
@@ -222,7 +222,7 @@ class _TextAreaRenderObject extends MarkUpGlobalRenderObject {
       newConfiguration: newConfiguration.globalConfiguration,
     );
 
-    domNodeDescription?.attributes.addAll(
+    domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
         props: newConfiguration,
         oldProps: oldConfiguration,

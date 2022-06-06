@@ -1083,33 +1083,42 @@ class Renderer with ServicesResolver {
     }
 
     void job() {
-      if (description.attributes.isNotEmpty) {
-        description.attributes.forEach((key, value) {
-          if (null != value) {
-            domNode.setAttribute(key, value);
-          } else {
-            domNode.removeAttribute(key);
-          }
-        });
+      var dataset = description.dataset;
+      var attributes = description.attributes;
+      var rawContents = description.rawContents;
+      var textContents = description.textContents;
+
+      if (null != attributes) {
+        if (attributes.isNotEmpty) {
+          attributes.forEach((key, value) {
+            if (null != value) {
+              domNode.setAttribute(key, value);
+            } else {
+              domNode.removeAttribute(key);
+            }
+          });
+        }
       }
 
-      if (description.dataset.isNotEmpty) {
-        description.dataset.forEach((key, value) {
-          if (null != value) {
-            domNode.dataset[key] = value;
-          } else {
-            domNode.dataset.remove(key);
-          }
-        });
+      if (null != dataset) {
+        if (dataset.isNotEmpty) {
+          dataset.forEach((key, value) {
+            if (null != value) {
+              domNode.dataset[key] = value;
+            } else {
+              domNode.dataset.remove(key);
+            }
+          });
+        }
       }
 
-      if (null != description.textContents) {
-        domNode.innerText = description.textContents!;
+      if (null != textContents) {
+        domNode.innerText = textContents;
       }
 
-      if (null != description.rawContents) {
+      if (null != rawContents) {
         domNode.setInnerHtml(
-          description.rawContents,
+          rawContents,
           validator: const DumbNodeValidator(),
         );
       }
