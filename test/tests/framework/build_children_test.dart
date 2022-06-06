@@ -2,16 +2,14 @@ import '../../test_imports.dart';
 
 /*
 |--------------------------------------------------------------------------
-| Component tests for core/framework.dart
-|
-| Methods to test in this file: buildChildren()
+| Component tests for core/framework
 |--------------------------------------------------------------------------
 */
 
 void main() {
   /*
   |--------------------------------------------------------------------------
-  | common tests | should pass irrespective of dev/prod mode
+  | build children common tests | should pass irrespective of dev/prod mode
   |--------------------------------------------------------------------------
   */
 

@@ -2,20 +2,14 @@ import '../../test_imports.dart';
 
 /*
 |--------------------------------------------------------------------------
-| Component tests for core/framework.dart
-|
-| Methods to test in this file: updateChildren()
-|
-| This is some hard coded stuff. Name of stack entries are kind of confusing
-| because of the evolution in this part of framework but we're trying to 
-| be more consisten with every new update.
+| Component tests for core/framework
 |--------------------------------------------------------------------------
 */
 
 void main() {
   /*
   |--------------------------------------------------------------------------
-  | updateChildren tests
+  | update children tests
   |--------------------------------------------------------------------------
   */
 

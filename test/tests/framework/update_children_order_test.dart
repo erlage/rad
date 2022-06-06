@@ -2,18 +2,14 @@ import '../../test_imports.dart';
 
 /*
 |--------------------------------------------------------------------------
-| Component tests for core/framework.dart
-|
-| Methods to test in this file: updateChildren()
-|
-| This file contains widget order tests
+| Component tests for core/framework
 |--------------------------------------------------------------------------
 */
 
 void main() {
   /*
   |--------------------------------------------------------------------------
-  | updateChildren tests
+  | widget order during update tests
   |--------------------------------------------------------------------------
   */
 

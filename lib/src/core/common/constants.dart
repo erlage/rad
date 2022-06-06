@@ -5,7 +5,7 @@ import 'package:rad/src/core/common/objects/key.dart';
 class Constants {
   // widget attributes
 
-  static const reservedAttributes = [];
+  static const reservedAttributes = <String>[];
 
   // context specific
 
@@ -17,7 +17,9 @@ class Constants {
   static const coreError = 'Framework has gone wild.';
   static const routerError = 'Router has gone wild.';
 
+  // --------------------------------------------------------------------------
   // css classes
+  // --------------------------------------------------------------------------
 
   static const classHidden = 'rad-hidden';
 

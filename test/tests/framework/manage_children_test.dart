@@ -2,16 +2,14 @@ import '../../test_imports.dart';
 
 /*
 |--------------------------------------------------------------------------
-| Component tests for core/framework.dart
-|
-| Methods to test in this file: manageChildren()
+| Component tests for core/framework
 |--------------------------------------------------------------------------
 */
 
 void main() {
   /*
   |--------------------------------------------------------------------------
-  | manageChildren tests
+  | manage(visit) children tests
   |--------------------------------------------------------------------------
   */
 

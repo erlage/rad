@@ -2,16 +2,14 @@ import '../../test_imports.dart';
 
 /*
 |--------------------------------------------------------------------------
-| Component tests for core/framework.dart
-|
-| Methods to test in this file: disposeWidget()
+| Component tests for core/framework
 |--------------------------------------------------------------------------
 */
 
 void main() {
   /*
   |--------------------------------------------------------------------------
-  | disposeWidget tests
+  | dispose widgets tests
   |--------------------------------------------------------------------------
   */
 

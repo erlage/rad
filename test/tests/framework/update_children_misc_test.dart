@@ -2,19 +2,14 @@ import '../../test_imports.dart';
 
 /*
 |--------------------------------------------------------------------------
-| Component tests for core/framework.dart
-|
-| Methods to test in this file: updateChildren()
-|
-| These are some important test that should be kept in separate as
-| original file(update_children_test.dart) is already grown very large.
+| Component tests for core/framework
 |--------------------------------------------------------------------------
 */
 
 void main() {
   /*
   |--------------------------------------------------------------------------
-  | updateChildren tests
+  | update children misc tests
   |--------------------------------------------------------------------------
   */
 
