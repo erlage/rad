@@ -1441,8 +1441,8 @@ void html_form_test() {
     test('should set form attribute "method"', () async {
       await app!.buildChildren(
         widgets: [
-          Form(key: GlobalKey('el-1'), method: FormMethod.get),
-          Form(key: GlobalKey('el-2'), method: FormMethod.post),
+          Form(key: GlobalKey('el-1'), method: FormMethodType.get),
+          Form(key: GlobalKey('el-2'), method: FormMethodType.post),
         ],
         parentContext: app!.appContext,
       );
@@ -1452,20 +1452,20 @@ void html_form_test() {
 
       expect(
         domNode1.getAttribute('method'),
-        equals(FormMethod.get.nativeName),
+        equals(FormMethodType.get.nativeName),
       );
       expect(
         domNode2.getAttribute('method'),
-        equals(FormMethod.post.nativeName),
+        equals(FormMethodType.post.nativeName),
       );
     });
 
     test('should update form attribute "method"', () async {
       await app!.buildChildren(
         widgets: [
-          Form(key: GlobalKey('el-1'), method: FormMethod.get),
-          Form(key: GlobalKey('el-2'), method: FormMethod.post),
-          Form(key: GlobalKey('el-3'), method: FormMethod.get),
+          Form(key: GlobalKey('el-1'), method: FormMethodType.get),
+          Form(key: GlobalKey('el-2'), method: FormMethodType.post),
+          Form(key: GlobalKey('el-3'), method: FormMethodType.get),
         ],
         parentContext: app!.appContext,
       );
@@ -1474,7 +1474,7 @@ void html_form_test() {
         widgets: [
           Form(key: GlobalKey('el-1')),
           Form(key: GlobalKey('el-2'), method: null),
-          Form(key: GlobalKey('el-3'), method: FormMethod.post),
+          Form(key: GlobalKey('el-3'), method: FormMethodType.post),
         ],
         updateType: UpdateType.setState,
         parentContext: app!.appContext,
@@ -1494,7 +1494,7 @@ void html_form_test() {
       );
       expect(
         domNode3.getAttribute('method'),
-        equals(FormMethod.post.nativeName),
+        equals(FormMethodType.post.nativeName),
       );
     });
 

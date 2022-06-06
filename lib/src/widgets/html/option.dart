@@ -74,7 +74,7 @@ class Option extends HTMLWidgetBase {
   String get widgetType => 'Option';
 
   @override
-  DomTag get correspondingTag => DomTag.option;
+  DomTagType get correspondingTag => DomTagType.option;
 
   @override
   createConfiguration() {

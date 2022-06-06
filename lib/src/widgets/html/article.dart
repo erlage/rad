@@ -48,5 +48,5 @@ class Article extends HTMLWidgetBase {
   String get widgetType => 'Article';
 
   @override
-  DomTag get correspondingTag => DomTag.article;
+  DomTagType get correspondingTag => DomTagType.article;
 }

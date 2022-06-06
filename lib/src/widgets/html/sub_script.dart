@@ -52,5 +52,5 @@ class SubScript extends HTMLWidgetBase {
   String get widgetType => 'SubScript';
 
   @override
-  DomTag get correspondingTag => DomTag.subScript;
+  DomTagType get correspondingTag => DomTagType.subScript;
 }

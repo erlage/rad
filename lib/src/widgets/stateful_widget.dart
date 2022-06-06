@@ -113,7 +113,7 @@ abstract class StatefulWidget extends Widget {
 
   @nonVirtual
   @override
-  DomTag? get correspondingTag => null;
+  DomTagType? get correspondingTag => null;
 
   @nonVirtual
   @override

@@ -138,7 +138,7 @@ class Input extends HTMLWidgetBase {
 
   @nonVirtual
   @override
-  DomTag get correspondingTag => DomTag.input;
+  DomTagType get correspondingTag => DomTagType.input;
 
   @nonVirtual
   @override

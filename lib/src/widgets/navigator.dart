@@ -381,7 +381,7 @@ class Navigator extends Widget {
 
   @nonVirtual
   @override
-  DomTag get correspondingTag => DomTag.division;
+  DomTagType get correspondingTag => DomTagType.division;
 
   @nonVirtual
   @override

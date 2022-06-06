@@ -48,5 +48,5 @@ class Idiomatic extends HTMLWidgetBase {
   String get widgetType => 'Idiomatic';
 
   @override
-  DomTag get correspondingTag => DomTag.idiomatic;
+  DomTagType get correspondingTag => DomTagType.idiomatic;
 }

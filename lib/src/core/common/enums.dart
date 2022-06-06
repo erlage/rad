@@ -19,6 +19,34 @@ enum HitTestBehavior {
   translucent,
 }
 
+/// The two cardinal directions in two dimensions.
+///
+enum Axis {
+  /// Left and right.
+  ///
+  horizontal,
+
+  /// Up and down.
+  ///
+  vertical,
+}
+
+/// Type of layout.
+///
+enum LayoutType {
+  /// Contain (Default).
+  ///
+  /// Widget will try containing itself in its parent bounds.
+  ///
+  contain,
+
+  /// Expand.
+  ///
+  /// Widget will try adapting to the available screen size.
+  ///
+  expand,
+}
+
 /// Type of update event that's happend in parent tree.
 ///
 /// Widgets can act according to type of update events.
@@ -61,34 +89,6 @@ enum WidgetUpdateType {
   /// Dispose all widgets under context.
   ///
   cleanParent,
-}
-
-/// The two cardinal directions in two dimensions.
-///
-enum Axis {
-  /// Left and right.
-  ///
-  horizontal,
-
-  /// Up and down.
-  ///
-  vertical,
-}
-
-/// Type of layout.
-///
-enum LayoutType {
-  /// Contain (Default).
-  ///
-  /// Widget will try containing itself in its parent bounds.
-  ///
-  contain,
-
-  /// Expand.
-  ///
-  /// Widget will try adapting to the available screen size.
-  ///
-  expand,
 }
 
 enum WidgetAction {
@@ -173,14 +173,14 @@ enum FormEncType {
   const FormEncType(this.nativeName);
 }
 
-enum FormMethod {
+enum FormMethodType {
   post('post'),
   get('get'),
   ;
 
   final String nativeName;
 
-  const FormMethod(this.nativeName);
+  const FormMethodType(this.nativeName);
 }
 
 /// Type of Button.
@@ -200,7 +200,7 @@ enum ButtonType {
 
 /// Widget's corresponding DOM tag.
 ///
-enum DomTag {
+enum DomTagType {
   abbreviation('abbr'),
   article('article'),
   code('code'),
@@ -259,5 +259,5 @@ enum DomTag {
 
   final String nativeName;
 
-  const DomTag(this.nativeName);
+  const DomTagType(this.nativeName);
 }

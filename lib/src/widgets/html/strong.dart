@@ -51,5 +51,5 @@ class Strong extends HTMLWidgetBase {
   String get widgetType => 'Strong';
 
   @override
-  DomTag get correspondingTag => DomTag.strong;
+  DomTagType get correspondingTag => DomTagType.strong;
 }

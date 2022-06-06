@@ -101,7 +101,7 @@ class TextArea extends HTMLWidgetBase {
   String get widgetType => 'TextArea';
 
   @override
-  DomTag get correspondingTag => DomTag.textArea;
+  DomTagType get correspondingTag => DomTagType.textArea;
 
   @override
   Map<DomEventType, EventCallback?> get widgetEventListeners => {

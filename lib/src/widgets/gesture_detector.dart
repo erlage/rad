@@ -75,7 +75,7 @@ class GestureDetector extends Widget {
 
   @nonVirtual
   @override
-  DomTag get correspondingTag => DomTag.division;
+  DomTagType get correspondingTag => DomTagType.division;
 
   @override
   createConfiguration() => _GestureDetectorConfiguration(

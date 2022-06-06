@@ -67,7 +67,7 @@ class Image extends HTMLWidgetBase {
   String get widgetType => 'Image';
 
   @override
-  DomTag get correspondingTag => DomTag.image;
+  DomTagType get correspondingTag => DomTagType.image;
 
   @override
   createConfiguration() {

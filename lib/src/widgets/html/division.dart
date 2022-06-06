@@ -48,5 +48,5 @@ class Division extends HTMLWidgetBase {
   String get widgetType => 'Division';
 
   @override
-  DomTag get correspondingTag => DomTag.division;
+  DomTagType get correspondingTag => DomTagType.division;
 }

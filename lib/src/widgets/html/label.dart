@@ -57,7 +57,7 @@ class Label extends HTMLWidgetBase {
   String get widgetType => 'Label';
 
   @override
-  DomTag get correspondingTag => DomTag.label;
+  DomTagType get correspondingTag => DomTagType.label;
 
   @override
   createConfiguration() {

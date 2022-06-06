@@ -48,5 +48,5 @@ class Menu extends HTMLWidgetBase {
   String get widgetType => 'Menu';
 
   @override
-  DomTag get correspondingTag => DomTag.menu;
+  DomTagType get correspondingTag => DomTagType.menu;
 }

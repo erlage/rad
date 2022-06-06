@@ -50,5 +50,5 @@ class UnOrderedList extends HTMLWidgetBase {
   String get widgetType => 'UnOrderedList';
 
   @override
-  DomTag get correspondingTag => DomTag.unOrderedList;
+  DomTagType get correspondingTag => DomTagType.unOrderedList;
 }

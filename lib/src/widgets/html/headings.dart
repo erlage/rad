@@ -48,7 +48,7 @@ class Heading1 extends HTMLWidgetBase {
   String get widgetType => 'Heading1';
 
   @override
-  DomTag get correspondingTag => DomTag.heading1;
+  DomTagType get correspondingTag => DomTagType.heading1;
 }
 
 /// The Heading2 widget (HTML's `h2` tag).
@@ -93,7 +93,7 @@ class Heading2 extends HTMLWidgetBase {
   String get widgetType => 'Heading2';
 
   @override
-  DomTag get correspondingTag => DomTag.heading2;
+  DomTagType get correspondingTag => DomTagType.heading2;
 }
 
 /// The Heading3 widget (HTML's `h3` tag).
@@ -138,7 +138,7 @@ class Heading3 extends HTMLWidgetBase {
   String get widgetType => 'Heading3';
 
   @override
-  DomTag get correspondingTag => DomTag.heading3;
+  DomTagType get correspondingTag => DomTagType.heading3;
 }
 
 /// The Heading4 widget (HTML's `h4` tag).
@@ -183,7 +183,7 @@ class Heading4 extends HTMLWidgetBase {
   String get widgetType => 'Heading4';
 
   @override
-  DomTag get correspondingTag => DomTag.heading4;
+  DomTagType get correspondingTag => DomTagType.heading4;
 }
 
 /// The Heading5 widget (HTML's `h5` tag).
@@ -228,7 +228,7 @@ class Heading5 extends HTMLWidgetBase {
   String get widgetType => 'Heading5';
 
   @override
-  DomTag get correspondingTag => DomTag.heading5;
+  DomTagType get correspondingTag => DomTagType.heading5;
 }
 
 /// The Heading6 widget (HTML's `h6` tag).
@@ -273,5 +273,5 @@ class Heading6 extends HTMLWidgetBase {
   String get widgetType => 'Heading6';
 
   @override
-  DomTag get correspondingTag => DomTag.heading6;
+  DomTagType get correspondingTag => DomTagType.heading6;
 }

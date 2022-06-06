@@ -48,5 +48,5 @@ class StrikeThrough extends HTMLWidgetBase {
   String get widgetType => 'StrikeThrough';
 
   @override
-  DomTag get correspondingTag => DomTag.strikeThrough;
+  DomTagType get correspondingTag => DomTagType.strikeThrough;
 }

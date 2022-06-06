@@ -23,7 +23,7 @@ class RadApp extends Widget {
   String get widgetType => 'RadApp';
 
   @override
-  DomTag get correspondingTag => DomTag.division;
+  DomTagType get correspondingTag => DomTagType.division;
 
   @override
   createRenderObject(context) => AppWidgetRenderObject(context);

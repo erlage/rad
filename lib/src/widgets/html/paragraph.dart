@@ -48,5 +48,5 @@ class Paragraph extends HTMLWidgetBase {
   String get widgetType => 'Paragraph';
 
   @override
-  DomTag get correspondingTag => DomTag.paragraph;
+  DomTagType get correspondingTag => DomTagType.paragraph;
 }

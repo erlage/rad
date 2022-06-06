@@ -51,5 +51,5 @@ class Legend extends HTMLWidgetBase {
   String get widgetType => 'Legend';
 
   @override
-  DomTag get correspondingTag => DomTag.legend;
+  DomTagType get correspondingTag => DomTagType.legend;
 }

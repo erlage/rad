@@ -48,5 +48,5 @@ class Code extends HTMLWidgetBase {
   String get widgetType => 'Code';
 
   @override
-  DomTag get correspondingTag => DomTag.code;
+  DomTagType get correspondingTag => DomTagType.code;
 }

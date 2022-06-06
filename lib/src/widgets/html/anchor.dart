@@ -71,7 +71,7 @@ class Anchor extends HTMLWidgetBase {
   String get widgetType => 'Anchor';
 
   @override
-  DomTag get correspondingTag => DomTag.anchor;
+  DomTagType get correspondingTag => DomTagType.anchor;
 
   @override
   createConfiguration() {

@@ -86,7 +86,7 @@ class IFrame extends HTMLWidgetBase {
   String get widgetType => 'IFrame';
 
   @override
-  DomTag get correspondingTag => DomTag.iFrame;
+  DomTagType get correspondingTag => DomTagType.iFrame;
 
   @override
   createConfiguration() {

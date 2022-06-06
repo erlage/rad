@@ -52,5 +52,5 @@ class SuperScript extends HTMLWidgetBase {
   String get widgetType => 'SuperScript';
 
   @override
-  DomTag get correspondingTag => DomTag.superScript;
+  DomTagType get correspondingTag => DomTagType.superScript;
 }

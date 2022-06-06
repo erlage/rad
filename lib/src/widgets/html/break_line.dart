@@ -48,5 +48,5 @@ class BreakLine extends HTMLWidgetBase {
   String get widgetType => 'BreakLine';
 
   @override
-  DomTag get correspondingTag => DomTag.breakLine;
+  DomTagType get correspondingTag => DomTagType.breakLine;
 }

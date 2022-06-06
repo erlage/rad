@@ -54,5 +54,5 @@ class TableDataCell extends TableCellBase {
   String get widgetType => 'TableDataCell';
 
   @override
-  DomTag get correspondingTag => DomTag.tableDataCell;
+  DomTagType get correspondingTag => DomTagType.tableDataCell;
 }

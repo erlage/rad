@@ -48,5 +48,5 @@ class Canvas extends HTMLWidgetBase {
   String get widgetType => 'Canvas';
 
   @override
-  DomTag get correspondingTag => DomTag.canvas;
+  DomTagType get correspondingTag => DomTagType.canvas;
 }

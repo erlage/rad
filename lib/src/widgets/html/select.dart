@@ -74,7 +74,7 @@ class Select extends HTMLWidgetBase {
   String get widgetType => 'Select';
 
   @override
-  DomTag get correspondingTag => DomTag.select;
+  DomTagType get correspondingTag => DomTagType.select;
 
   @override
   Map<DomEventType, EventCallback?> get widgetEventListeners => {

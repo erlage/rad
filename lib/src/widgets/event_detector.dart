@@ -338,5 +338,5 @@ class EventDetector extends Widget {
   String get widgetType => 'EventDetector';
 
   @override
-  DomTag? get correspondingTag => null;
+  DomTagType? get correspondingTag => null;
 }

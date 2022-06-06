@@ -62,7 +62,7 @@ class Progress extends HTMLWidgetBase {
   String get widgetType => 'Progress';
 
   @override
-  DomTag get correspondingTag => DomTag.progress;
+  DomTagType get correspondingTag => DomTagType.progress;
 
   @override
   createConfiguration() {

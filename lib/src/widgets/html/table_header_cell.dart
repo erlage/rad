@@ -54,5 +54,5 @@ class TableHeaderCell extends TableCellBase {
   String get widgetType => 'TableHeaderCell';
 
   @override
-  DomTag get correspondingTag => DomTag.tableHeaderCell;
+  DomTagType get correspondingTag => DomTagType.tableHeaderCell;
 }

@@ -71,7 +71,7 @@ class Button extends HTMLWidgetBase {
   String get widgetType => 'Button';
 
   @override
-  DomTag get correspondingTag => DomTag.button;
+  DomTagType get correspondingTag => DomTagType.button;
 
   @override
   createConfiguration() {

@@ -55,7 +55,7 @@ class ListItem extends HTMLWidgetBase {
   String get widgetType => 'ListItem';
 
   @override
-  DomTag get correspondingTag => DomTag.listItem;
+  DomTagType get correspondingTag => DomTagType.listItem;
 
   @override
   createConfiguration() {

@@ -27,7 +27,7 @@ class BuildContext {
 
   final String widgetRuntimeType;
 
-  final DomTag? widgetCorrespondingTag;
+  final DomTagType? widgetCorrespondingTag;
 
   final BuildContext? _parent;
 
@@ -70,7 +70,7 @@ class BuildContext {
   BuildContext.bigBang(this.key)
       : _parent = null,
         appTargetId = key.value,
-        widgetCorrespondingTag = DomTag.division,
+        widgetCorrespondingTag = DomTagType.division,
         widgetType = Constants.contextTypeBigBang,
         widgetRuntimeType = Constants.contextTypeBigBang;
 

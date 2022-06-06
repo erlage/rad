@@ -50,5 +50,5 @@ class TableColumnGroup extends TableColumnBase {
   String get widgetType => 'TableColumnGroup';
 
   @override
-  DomTag get correspondingTag => DomTag.tableColumnGroup;
+  DomTagType get correspondingTag => DomTagType.tableColumnGroup;
 }

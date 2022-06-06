@@ -48,5 +48,5 @@ class Abbreviation extends HTMLWidgetBase {
   String get widgetType => 'Abbreviation';
 
   @override
-  DomTag get correspondingTag => DomTag.abbreviation;
+  DomTagType get correspondingTag => DomTagType.abbreviation;
 }

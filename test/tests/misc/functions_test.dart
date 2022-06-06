@@ -137,7 +137,7 @@ void main() {
 
   group('formMethod enum :', () {
     test('mapped form methods should be available', () {
-      for (final method in FormMethod.values) {
+      for (final method in FormMethodType.values) {
         expect(
           method.nativeName,
           RT_IsInKnownItems<String>(RT_FormMethods.available),
@@ -146,7 +146,7 @@ void main() {
     });
 
     test('mapped form methods should be implemented', () {
-      for (final method in FormMethod.values) {
+      for (final method in FormMethodType.values) {
         expect(
           method.nativeName,
           RT_IsInKnownItems<String>(RT_FormMethods.implemented),
@@ -155,7 +155,7 @@ void main() {
     });
 
     test('mapped form methods should be lowercase', () {
-      for (final method in FormMethod.values) {
+      for (final method in FormMethodType.values) {
         expect(method.nativeName, RT_IsLowerCase());
       }
     });
@@ -169,7 +169,7 @@ void main() {
 
   group('mapDomTag() :', () {
     test('mapped dom tags should be available', () {
-      for (final domTag in DomTag.values) {
+      for (final domTag in DomTagType.values) {
         expect(
           domTag.nativeName,
           RT_IsInKnownItems<String>(RT_DomTags.available),
@@ -178,7 +178,7 @@ void main() {
     });
 
     test('mapped dom tags should be implemented', () {
-      for (final domNodeType in DomTag.values) {
+      for (final domNodeType in DomTagType.values) {
         expect(
           domNodeType.nativeName,
           RT_IsInKnownItems<String>(RT_DomTags.implemented),
@@ -187,13 +187,13 @@ void main() {
     });
 
     test('mapped dom tags should be lowercase', () {
-      for (final domTag in DomTag.values) {
+      for (final domTag in DomTagType.values) {
         expect(domTag.nativeName, RT_IsLowerCase());
       }
     });
 
     test('mapped dom tags should be without space', () {
-      for (final domNodeType in DomTag.values) {
+      for (final domNodeType in DomTagType.values) {
         expect(domNodeType.nativeName, RT_IsWithoutSpace());
       }
     });

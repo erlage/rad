@@ -194,5 +194,5 @@ class RT_EventfulWidget extends EventDetector {
   String get widgetType => '$RT_EventfulWidget';
 
   @override
-  DomTag get correspondingTag => DomTag.division;
+  DomTagType get correspondingTag => DomTagType.division;
 }

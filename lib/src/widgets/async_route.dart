@@ -294,5 +294,5 @@ class _AsyncRoutePlaceholder extends Widget {
   String get widgetType => '_AsyncRoutePlaceholder';
 
   @override
-  DomTag get correspondingTag => DomTag.division;
+  DomTagType get correspondingTag => DomTagType.division;
 }

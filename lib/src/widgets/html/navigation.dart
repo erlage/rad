@@ -48,5 +48,5 @@ class Navigation extends HTMLWidgetBase {
   String get widgetType => 'Navigation';
 
   @override
-  DomTag get correspondingTag => DomTag.navigation;
+  DomTagType get correspondingTag => DomTagType.navigation;
 }

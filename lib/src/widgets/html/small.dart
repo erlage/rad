@@ -51,5 +51,5 @@ class Small extends HTMLWidgetBase {
   String get widgetType => 'Small';
 
   @override
-  DomTag get correspondingTag => DomTag.small;
+  DomTagType get correspondingTag => DomTagType.small;
 }

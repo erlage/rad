@@ -29,7 +29,7 @@ class Form extends HTMLWidgetBase {
 
   /// The HTTP method to submit the form with.
   ///
-  final FormMethod? method;
+  final FormMethodType? method;
 
   /// Indicates where to display the response after submitting the form.
   ///
@@ -82,7 +82,7 @@ class Form extends HTMLWidgetBase {
 
   @nonVirtual
   @override
-  DomTag get correspondingTag => DomTag.form;
+  DomTagType get correspondingTag => DomTagType.form;
 
   @override
   String get widgetType => 'Form';
@@ -138,7 +138,7 @@ class _FormConfiguration extends WidgetConfiguration {
   final String? accept;
   final String? target;
   final FormEncType? enctype;
-  final FormMethod? method;
+  final FormMethodType? method;
 
   const _FormConfiguration({
     this.name,

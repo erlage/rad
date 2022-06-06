@@ -51,5 +51,5 @@ class Span extends HTMLWidgetBase {
   String get widgetType => 'Span';
 
   @override
-  DomTag get correspondingTag => DomTag.span;
+  DomTagType get correspondingTag => DomTagType.span;
 }

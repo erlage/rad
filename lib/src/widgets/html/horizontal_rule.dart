@@ -48,5 +48,5 @@ class HorizontalRule extends HTMLWidgetBase {
   String get widgetType => 'HorizontalRule';
 
   @override
-  DomTag get correspondingTag => DomTag.horizontalRule;
+  DomTagType get correspondingTag => DomTagType.horizontalRule;
 }

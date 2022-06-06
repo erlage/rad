@@ -50,5 +50,5 @@ class TableColumn extends TableColumnBase {
   String get widgetType => 'TableColumn';
 
   @override
-  DomTag get correspondingTag => DomTag.tableColumn;
+  DomTagType get correspondingTag => DomTagType.tableColumn;
 }

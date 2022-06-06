@@ -48,5 +48,5 @@ class Footer extends HTMLWidgetBase {
   String get widgetType => 'Footer';
 
   @override
-  DomTag get correspondingTag => DomTag.footer;
+  DomTagType get correspondingTag => DomTagType.footer;
 }

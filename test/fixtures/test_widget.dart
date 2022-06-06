@@ -53,7 +53,7 @@ class RT_TestWidget extends Widget {
   String get widgetType => '$RT_TestWidget';
 
   @override
-  DomTag get correspondingTag => DomTag.division;
+  DomTagType get correspondingTag => DomTagType.division;
 
   @override
   get widgetChildren => children ?? [];

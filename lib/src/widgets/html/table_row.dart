@@ -48,5 +48,5 @@ class TableRow extends HTMLWidgetBase {
   String get widgetType => 'TableRow';
 
   @override
-  DomTag get correspondingTag => DomTag.tableRow;
+  DomTagType get correspondingTag => DomTagType.tableRow;
 }

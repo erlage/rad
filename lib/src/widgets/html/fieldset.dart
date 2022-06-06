@@ -57,7 +57,7 @@ class FieldSet extends HTMLWidgetBase {
   String get widgetType => 'FieldSet';
 
   @override
-  DomTag get correspondingTag => DomTag.fieldSet;
+  DomTagType get correspondingTag => DomTagType.fieldSet;
 
   @override
   createConfiguration() {

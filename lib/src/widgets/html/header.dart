@@ -48,5 +48,5 @@ class Header extends HTMLWidgetBase {
   String get widgetType => 'Header';
 
   @override
-  DomTag get correspondingTag => DomTag.header;
+  DomTagType get correspondingTag => DomTagType.header;
 }

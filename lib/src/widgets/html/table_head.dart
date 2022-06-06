@@ -51,5 +51,5 @@ class TableHead extends HTMLWidgetBase {
   String get widgetType => 'TableHead';
 
   @override
-  DomTag get correspondingTag => DomTag.tableHead;
+  DomTagType get correspondingTag => DomTagType.tableHead;
 }

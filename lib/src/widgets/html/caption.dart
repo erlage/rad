@@ -50,5 +50,5 @@ class Caption extends HTMLWidgetBase {
   String get widgetType => 'Caption';
 
   @override
-  DomTag get correspondingTag => DomTag.caption;
+  DomTagType get correspondingTag => DomTagType.caption;
 }

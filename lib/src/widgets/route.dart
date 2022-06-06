@@ -53,7 +53,7 @@ class Route extends Widget {
   // can already have conflicting set of css rules.
 
   @override
-  DomTag get correspondingTag => DomTag.division;
+  DomTagType get correspondingTag => DomTagType.division;
 
   @override
   List<Widget> get widgetChildren => [page];

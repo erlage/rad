@@ -48,5 +48,5 @@ class TableFoot extends HTMLWidgetBase {
   String get widgetType => 'TableFoot';
 
   @override
-  DomTag get correspondingTag => DomTag.tableFoot;
+  DomTagType get correspondingTag => DomTagType.tableFoot;
 }

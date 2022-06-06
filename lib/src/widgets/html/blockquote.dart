@@ -56,7 +56,7 @@ class Blockquote extends HTMLWidgetBase {
   String get widgetType => 'Blockquote';
 
   @override
-  DomTag get correspondingTag => DomTag.blockquote;
+  DomTagType get correspondingTag => DomTagType.blockquote;
 
   @override
   createConfiguration() {
