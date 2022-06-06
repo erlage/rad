@@ -81,7 +81,7 @@ class AsyncRoute extends Route {
 
   /// Async Page builder.
   ///
-  final AsyncWidgetBuilderCallback builder;
+  final AsyncOrSyncWidgetBuilder builder;
 
   /// Placeholder widget to show while page is loading.
   ///
@@ -111,7 +111,7 @@ class AsyncRoute extends Route {
     this.waitingPlaceholderWidget = const _AsyncRoutePlaceholder(),
     String? path,
     required String name,
-    required AsyncWidgetBuilderCallback page,
+    required AsyncOrSyncWidgetBuilder page,
   })  : builder = page,
         super(
           key: key,
@@ -147,7 +147,7 @@ class _AsyncRouteBuilder extends StatefulWidget {
   final Widget errorPlaceholderWidget;
   final Widget waitingPlaceholderWidget;
 
-  final AsyncWidgetBuilderCallback builder;
+  final AsyncOrSyncWidgetBuilder builder;
 
   const _AsyncRouteBuilder({
     Key? key,
@@ -238,7 +238,7 @@ class __AsyncRouteBuilderState extends State<_AsyncRouteBuilder> {
     }
   }
 
-  void _handleWidget(AsyncWidgetBuilderCallback builder, Widget createdWidget) {
+  void _handleWidget(AsyncOrSyncWidgetBuilder builder, Widget createdWidget) {
     if (_isBuilderDisposed) {
       return;
     }

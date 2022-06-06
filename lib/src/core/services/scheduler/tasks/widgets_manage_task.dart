@@ -9,7 +9,7 @@ import 'package:rad/src/core/services/scheduler/abstract.dart';
 class WidgetsManageTask extends SchedulerTask {
   /// Callback to fire on each widget iteration.
   ///
-  final WidgetActionCallback widgetActionCallback;
+  final WidgetActionsBuilder widgetActionCallback;
 
   /// Target context.
   ///

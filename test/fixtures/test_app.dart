@@ -208,7 +208,7 @@ class RT_AppRunner extends AppRunner {
 
   Future<void> manageChildren({
     required BuildContext parentContext,
-    required WidgetActionCallback widgetActionCallback,
+    required WidgetActionsBuilder widgetActionCallback,
     required UpdateType updateType,
     bool flagIterateInReverseOrder = false,
   }) async {
