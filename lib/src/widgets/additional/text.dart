@@ -15,8 +15,10 @@ import 'package:rad/src/widgets/html/span.dart';
 /// ```
 ///
 class Text extends Span {
+  final String text;
+
   const Text(
-    String text, {
+    this.text, {
     Key? key,
     String? title,
     String? style,
