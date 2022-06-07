@@ -5,12 +5,15 @@
 /// This library contain exports that are required for implementing external
 /// components and widget implementations.
 ///
-
 library widgets_internals;
 
 export 'src/core/common/constants.dart' show Constants;
 export 'src/widgets/abstract/widget.dart' show WidgetConfiguration;
 export 'src/core/common/objects/render_object.dart' show RenderObject;
+export 'src/core/common/objects/widget_object.dart' show WidgetObject;
+
+export 'src/core/interface/window/window.dart' show Window;
+export 'src/core/interface/window/abstract.dart' show WindowDelegate;
 
 // services
 

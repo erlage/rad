@@ -250,10 +250,6 @@ Similarity tags:
 
 ## FAQ
 
-**Q. Can we use Rad for creating a static website?**
-
-Yes.
-
 **Q. Can we use Rad for creating a dynamic website?**
 
 Yes, that's something this framework is good at.
