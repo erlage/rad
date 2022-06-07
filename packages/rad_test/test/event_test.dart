@@ -22,8 +22,7 @@ void main() {
       expect(tester.stack.canPop(), equals(false));
     });
 
-    testWidgets('should throw if matched n-widgets by default',
-        (tester) async {
+    testWidgets('should throw if matched n-widgets by default', (tester) async {
       await tester.pumpWidget(
         const Span(
           child: Span(
