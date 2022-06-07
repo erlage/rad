@@ -40,6 +40,10 @@ class WidgetTester {
   ///
   var _isDebugInformationDisabled = true;
 
+  /// Widgets that are pumped last.
+  ///
+  List<Widget>? _lastPumpedWidgets;
+
   WidgetTester(
     this._app,
     this.testRunner, {
@@ -55,7 +59,9 @@ class WidgetTester {
   Future<void> pump({
     Duration? duration,
   }) async {
-    await updateContextAsIfDependant(_app.appContext);
+    if (null != _lastPumpedWidgets) {
+      await rePumpMultipleWidgets(_lastPumpedWidgets!);
+    }
 
     await Future<void>.delayed(duration ?? Duration.zero);
   }
@@ -68,7 +74,7 @@ class WidgetTester {
   Future<void> pumpAndSettle({
     Duration? duration,
   }) async {
-    await updateContextAsIfDependant(_app.appContext);
+    await pump();
 
     await Future<void>.delayed(duration ?? const Duration(milliseconds: 100));
   }
