@@ -24,5 +24,5 @@ void main() {
 
 ### License
 
-Source is governed by a BSD-style license that can be found in LICENSE. Parts of source in this library are borrowed from flutter testing library which is also governed by a BSD-style license that can be found [here](https://github.com/flutter/flutter/blob/master/LICENSE).
+Source is governed by a BSD-style license that can be found in LICENSE file. Parts of source code in this library are borrowed from flutter testing library which is also governed by a BSD-style license that can be found [here](https://github.com/flutter/flutter/blob/master/LICENSE).
 
