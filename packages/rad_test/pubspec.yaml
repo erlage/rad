@@ -2,7 +2,7 @@ name: rad_test
 version: 0.1.1
 description: A testing library for testing applications that are written using Rad.
 
-homepage: https://github.com/erlage/rad/packages/rad_test
+homepage: https://github.com/erlage/rad
 documentation: https://github.com/erlage#readme
 
 environment:
