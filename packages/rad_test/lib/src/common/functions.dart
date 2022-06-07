@@ -48,3 +48,46 @@ bool fnIsDomNodeVisible(Element node) {
 
   return false;
 }
+
+bool fnIsWidgetTextEditable(Widget widget) {
+  if (widget is TextArea) {
+    return true;
+  }
+
+  if (widget is Input) {
+    if (widget.type == InputType.file) return false;
+    if (widget.type == InputType.radio) return false;
+    if (widget.type == InputType.submit) return false;
+    if (widget.type == InputType.checkbox) return false;
+
+    return true;
+  }
+
+  return false;
+}
+
+void fnEnterTextOnWidgetObject({
+  required String textToEnter,
+  required WidgetObject widgetObject,
+}) {
+  var widget = widgetObject.widget;
+  var domNode = widgetObject.domNode;
+
+  if (null == domNode) return;
+
+  if (widget is Input) {
+    domNode as InputElement;
+
+    domNode
+      ..focus()
+      ..value = textToEnter;
+  }
+
+  if (widget is TextArea) {
+    domNode as TextAreaElement;
+
+    domNode
+      ..focus()
+      ..value = textToEnter;
+  }
+}

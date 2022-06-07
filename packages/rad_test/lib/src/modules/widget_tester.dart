@@ -1,6 +1,7 @@
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
 
+import 'package:rad_test/src/common/functions.dart';
 import 'package:rad_test/src/imports.dart';
 import 'package:rad_test/src/modules/finders.dart';
 import 'package:rad_test/src/modules/testers.dart';
@@ -219,6 +220,73 @@ class WidgetTester {
     }
   }
 
+  /// Give the text input widget specified by [finder] the focus and replace its
+  /// content with [text].
+  ///
+  /// Note that widget must of subtype of [Input] or [TextArea].
+  ///
+  Future<void> enterText(Finder finder, String text) async {
+    var widgetObjects = finder.evaluate();
+
+    if (widgetObjects.isEmpty) {
+      _app.services.debug.exception(
+        'Unable find any matching widgets with the finder: "$finder".',
+      );
+
+      return;
+    }
+
+    var targetWidgetObject = widgetObjects.first;
+    var widget = targetWidgetObject.widget;
+
+    if (!fnIsWidgetTextEditable(widget)) {
+      _app.services.debug.exception(
+        'Matched widget is of type "${widget.runtimeType}" which is not a '
+        'text editable widget.',
+      );
+
+      return;
+    }
+
+    fnEnterTextOnWidgetObject(
+      textToEnter: text,
+      widgetObject: targetWidgetObject,
+    );
+  }
+
+  /// Give the text input widget specified by [finder] the focus, as if the
+  /// onscreen keyboard had appeared.
+  ///
+  Future<void> focus(Finder finder) async {
+    var widgetObjects = finder.evaluate();
+
+    if (widgetObjects.isEmpty) {
+      _app.services.debug.exception(
+        'Unable find any matching widgets with the finder: "$finder".',
+      );
+
+      return;
+    }
+
+    var targetWidgetObject = widgetObjects.first;
+    var widget = targetWidgetObject.widget;
+
+    if (!fnIsWidgetTextEditable(widget)) {
+      _app.services.debug.exception(
+        'Matched widget is of type "${widget.runtimeType}" which is not a '
+        'text editable widget.',
+      );
+
+      return;
+    }
+
+    var domNode = targetWidgetObject.domNode;
+
+    if (null == domNode) return;
+
+    domNode.focus();
+  }
+
   /// Find app's dom node.
   ///
   Element? get getAppDomNode => getDomNodeByGlobalKey(_app.appContext.key);
@@ -413,6 +481,24 @@ class WidgetTester {
         }
       }
     }
+  }
+
+  /// Alias to [click],
+  ///
+  Future<void> tap(
+    Finder finder, {
+    bool dispatchToMultipleNodes = false,
+  }) async {
+    return tap(
+      finder,
+      dispatchToMultipleNodes: dispatchToMultipleNodes,
+    );
+  }
+
+  /// Alias to [focus].
+  ///
+  Future<void> showKeyBoard(Finder finder) async {
+    return focus(finder);
   }
 
   // private
