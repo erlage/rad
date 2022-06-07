@@ -419,6 +419,26 @@ void main() {
       );
     });
   });
+
+  group('skip flag', () {
+    testWidgets(
+      'should skip this test',
+      (tester) {
+        expect(false, equals(true));
+      },
+      skip: true,
+    );
+  });
+
+  group(
+    'skip flag on group',
+    () {
+      testWidgets('should skip this test', (tester) {
+        expect(false, equals(true));
+      });
+    },
+    skip: true,
+  );
 }
 
 const List<Widget> fooBarTexts = <Text>[

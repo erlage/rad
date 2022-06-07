@@ -26,6 +26,7 @@ import 'package:rad_test/src/runner/test_runner.dart';
 /// - [debugOptions] - Debug options for test app in which test will ran.
 /// - [routerOptions] - Router options for test app in which test will ran.
 /// - [useWindowMock] - Whether to mock window object. Helpful in testing
+/// - [skip] - Skip mode for current test.
 /// routing related tasks.
 ///
 /// ## Example
@@ -45,6 +46,7 @@ void testWidgets(
   DebugOptions? debugOptions,
   RouterOptions? routerOptions,
   bool? useWindowMock,
+  bool? skip,
 }) {
   var testRunner = TestRunner(
     useWindowMock: useWindowMock ?? false,
@@ -52,5 +54,9 @@ void testWidgets(
     routerOptions: routerOptions,
   );
 
-  testRunner.testWidgets(description, callback);
+  testRunner.testWidgets(
+    description,
+    callback,
+    skip: skip,
+  );
 }
