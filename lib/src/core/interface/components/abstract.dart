@@ -17,7 +17,7 @@ abstract class AppComponent {
   String get version;
 
   @override
-  toString() => 'From $name (v$version). Author: $author';
+  toString() => '$name (v$version by $author)';
 }
 
 /// Interface for style injection.
