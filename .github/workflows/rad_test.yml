@@ -1,0 +1,40 @@
+name: rad_test(pkg)
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'packages/rad_test/**'
+  
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'packages/rad_test/**'
+  
+jobs:
+  analyze: 
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Run analyze
+        run: |
+          cd packages/rad_test
+          dart pub get
+          dart format --output=none --set-exit-if-changed .
+          dart analyze --fatal-infos
+
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
+      
+      - name: Run tests
+        run: |
+          cd packages/rad_test
+          dart pub get
+          dart test
