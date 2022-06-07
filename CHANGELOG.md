@@ -1,3 +1,11 @@
+## 0.9.0
+
+### Core
+
+- Core now generates noise-free markup. Previously every widget had a corresponding element in DOM. Now widgets can exists on their own in tree without ever creating a corresponding dom node. As a exception, Text widget is allowed to have a corresponding dom node(not a text node) because we allow styling and adding event listerners to contents of a text widget.
+
+- There are number of changes to Public API but most of them are relevant to external packages that depend on core.
+
 ## 0.8.1
 
 - Short syntax for HTML widgets.
