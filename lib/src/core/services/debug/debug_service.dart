@@ -33,6 +33,12 @@ class DebugService extends Service {
   @override
   stopService() => _onException = supressException;
 
+  /// Set custom exception handler for app.
+  ///
+  void setExceptionHandler(ExceptionCallback exceptionHandler) {
+    _onException = exceptionHandler;
+  }
+
   void exception(String message) {
     onException(Exception(message));
   }
