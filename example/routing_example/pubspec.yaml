@@ -22,4 +22,4 @@ dev_dependencies:
 
 dependency_overrides:
   rad:
-    path: ../../
+    path: ../../packages/rad

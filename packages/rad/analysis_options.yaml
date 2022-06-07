@@ -11,7 +11,7 @@
 # (the recommended set includes the core lints).
 # The core lints are also what is used by pub.dev for scoring packages.
 
-include: lints/rad.yaml
+include: ../../lints/rad.yaml
 
 analyzer:
   language:
