@@ -13,7 +13,6 @@ import 'app.dart';
 void main() {
   group('basic widget test', () {
     testWidgets('should build text widget', (WidgetTester tester) async {
-      
       await tester.pumpWidget(Text('hello world'));
 
       expect(tester.find.text('hello world'), findsOneWidget);
