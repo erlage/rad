@@ -99,6 +99,18 @@ const Matcher hasOneLineDescription = _HasOneLineDescription();
 ///
 const Matcher hasAGoodToStringDeep = _HasGoodToStringDeep();
 
+/// Asserts that node has focus.
+///
+const Matcher hasFocus = _DomNodeHasFocus(negate: false);
+
+/// Asserts that node doesn't have focus.
+///
+const Matcher hasNotFocus = _DomNodeHasFocus(negate: true);
+
+/// Asserts that node.value of a input/textarea node is equals to [value].
+///
+Matcher hasValue(String value) => _DomNodeHasValue(value);
+
 /// Asserts that textual contents of a dom's node are equals to [contents].
 ///
 Matcher hasContents(String contents) => _DomNodeHasContents(contents);
@@ -385,6 +397,76 @@ class _HasGoodToStringDeep extends Matcher {
   @override
   Description describe(Description description) {
     return description.add('multi line description');
+  }
+}
+
+class _DomNodeHasFocus extends Matcher {
+  final bool negate;
+
+  const _DomNodeHasFocus({this.negate = false});
+
+  @override
+  matches(Object? item, void _) {
+    if (negate) {
+      return item != document.activeElement;
+    }
+
+    return item == document.activeElement;
+  }
+
+  @override
+  describe(description) => description;
+
+  @override
+  describeMismatch(
+    item,
+    mismatchDescription,
+    void _,
+    void __,
+  ) {
+    mismatchDescription.add("Current focus: '${document.activeElement}'");
+
+    return mismatchDescription;
+  }
+}
+
+class _DomNodeHasValue extends Matcher {
+  final String expected;
+
+  const _DomNodeHasValue(this.expected);
+
+  @override
+  matches(Object? item, void _) => _domNodeValue(item) == expected;
+
+  @override
+  describe(description) {
+    description.add(expected);
+
+    return description;
+  }
+
+  @override
+  describeMismatch(
+    item,
+    mismatchDescription,
+    void _,
+    void __,
+  ) {
+    mismatchDescription.add("Serialized value: '${_domNodeValue(item)}'");
+
+    return mismatchDescription;
+  }
+
+  String? _domNodeValue(Object? n) {
+    if (n is InputElement) {
+      return n.value;
+    }
+
+    if (n is TextAreaElement) {
+      return n.value;
+    }
+
+    return '';
   }
 }
 
