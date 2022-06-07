@@ -1,10 +1,11 @@
+import 'package:test/test.dart';
+
 import 'package:rad_test/src/common/types.dart';
 import 'package:rad_test/src/imports.dart';
 import 'package:rad_test/src/modules/widget_tester.dart';
 import 'package:rad_test/src/runner/app_runner_registry.dart';
 import 'package:rad_test/src/utilities/test_stack.dart';
 import 'package:rad_test/src/utilities/test_window.dart';
-import 'package:test/scaffolding.dart';
 
 /// Test environment(Test runner).
 ///
@@ -53,23 +54,36 @@ class TestRunner {
           exceptionsContainer: unCaughtExceptions,
         );
 
-        // 5. Run test body
+        try {
+          // 5. Run test body
 
-        await testBody(widgetTester);
+          await testBody(widgetTester);
+        } catch (e) {
+          if (unCaughtExceptions.isNotEmpty) {
+            widgetTester.printDebuggingInformation();
 
-        // 6. Dispose test app
+            for (final exception in unCaughtExceptions) {
+              // ignore: only_throw_errors
+              throw exception;
+            }
+          } else {
+            rethrow;
+          }
+        } finally {
+          // 6. Dispose test app
 
-        AppRunnerRegistry.instance.disposeAppRunner(app);
-        app.stop();
+          AppRunnerRegistry.instance.disposeAppRunner(app);
+          app.stop();
 
-        // 7. Check results
+          // 7. Check again results
 
-        if (unCaughtExceptions.isNotEmpty) {
-          widgetTester.printDebuggingInformation();
+          if (unCaughtExceptions.isNotEmpty) {
+            widgetTester.printDebuggingInformation();
 
-          for (final exception in unCaughtExceptions) {
-            // ignore: only_throw_errors
-            throw exception;
+            for (final exception in unCaughtExceptions) {
+              // ignore: only_throw_errors
+              throw exception;
+            }
           }
         }
       },
