@@ -92,8 +92,10 @@ class WidgetTester {
 
   /// Re-Renders the UI from the given [widget].
   ///
-  /// Calls to this are different from [pump] in that it allows you to specify
-  /// new UI while [pump] rebuild only the exisiting widgets.
+  /// Subsequent calls to this is different from [pumpWidget] in that
+  /// [pumpWidget] forces a full rebuild of the tree, even if [widget] is the
+  /// same as the previous call. While [rePumpWidget] will only rebuild the
+  /// widgets that have changed.
   ///
   Future<void> rePumpWidget(
     Widget widget, {
