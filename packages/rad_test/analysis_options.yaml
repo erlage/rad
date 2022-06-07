@@ -1,0 +1,15 @@
+
+include: ../../lints/rad.yaml
+
+analyzer:
+  language:
+    strict-inference: true
+    strict-raw-types: true
+
+  exclude:
+    - example/**
+    # - test/**
+
+linter:
+  rules:
+    directives_ordering: false
