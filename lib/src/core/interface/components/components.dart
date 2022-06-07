@@ -69,9 +69,9 @@ class Components {
     // insert stylesheet where possible
 
     if (null != document.head) {
-      document.head!.insertBefore(domNode, null);
+      document.head!.append(domNode);
     } else if (null != document.body) {
-      document.head!.insertBefore(domNode, null);
+      document.head!.append(domNode);
     } else {
       throw Exception(
         'For Rad to work, your page must have either a head tag or a body. '
