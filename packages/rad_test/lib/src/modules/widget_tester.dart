@@ -40,10 +40,6 @@ class WidgetTester {
   ///
   var _isDebugInformationDisabled = true;
 
-  /// Widgets that are pumped last.
-  ///
-  List<Widget>? _lastPumpedWidgets;
-
   WidgetTester(
     this._app,
     this.testRunner, {
@@ -52,31 +48,28 @@ class WidgetTester {
     required this.exceptionsContainer,
   }) : find = CommonFinders(_app);
 
-  /// Triggers widgets rebuilds sequence.
-  ///
-  /// Equivalent to calling setState() on root widget.
+  /// Pump event queue.
   ///
   Future<void> pump({
     Duration? duration,
   }) async {
-    if (null != _lastPumpedWidgets) {
-      await rePumpMultipleWidgets(_lastPumpedWidgets!);
-    }
+    await pumpEventQueue();
 
-    await Future<void>.delayed(duration ?? Duration.zero);
+    if (null != duration) {
+      await Future<void>.delayed(duration);
+    }
   }
 
-  /// Triggers widgets rebuilds sequence.
-  ///
-  /// Equivalent to calling setState() on root widget and waiting for 100
-  /// miliseconds(if [duration] is not specified)
+  /// Pump event queue two times.
   ///
   Future<void> pumpAndSettle({
     Duration? duration,
   }) async {
-    await pump();
+    await pumpEventQueue(times: 2);
 
-    await Future<void>.delayed(duration ?? const Duration(milliseconds: 100));
+    if (null != duration) {
+      await Future<void>.delayed(duration);
+    }
   }
 
   /// Renders the UI from the given [widget].
@@ -123,7 +116,7 @@ class WidgetTester {
   ///
   /// See also:
   ///
-  ///   * [pumpWidget], for pumping single widget
+  ///   * [pumpWidget], for pumping a widget
   ///
   Future<void> pumpMultipleWidgets(
     List<Widget> widgets, {
@@ -144,7 +137,7 @@ class WidgetTester {
   ///
   /// See also:
   ///
-  ///   * [rePumpWidget], for re-pumping single widget
+  ///   * [rePumpWidget], for re-pumping a widget
   ///
   Future<void> rePumpMultipleWidgets(
     List<Widget> widgets, {
