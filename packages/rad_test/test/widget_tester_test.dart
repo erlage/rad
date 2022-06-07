@@ -1,9 +1,67 @@
 import 'package:rad_test/src/imports.dart';
 import 'package:rad_test/src/modules/matchers.dart';
 import 'package:rad_test/src/modules/testers.dart';
+import 'package:rad_test/src/utilities/test_widget.dart';
 import 'package:test/test.dart';
 
 void main() {
+  group('re-pumping widgets', () {
+    testWidgets('should re-pump widgets', (tester) async {
+      await tester.pumpWidget(
+        TestWidget(
+          roEventHookUpdate: () => tester.stack.push('update'),
+        ),
+      );
+
+      await tester.rePumpWidget(
+        const TestWidget(),
+      );
+
+      expect(tester.stack.popFromStart(), equals('update'));
+
+      expect(tester.stack.canPop(), equals(false));
+    });
+
+    testWidgets('should repump multiple widgets', (tester) async {
+      await tester.pumpMultipleWidgets([
+        TestWidget(
+          roEventHookUpdate: () => tester.stack.push('update 1'),
+        ),
+        TestWidget(
+          roEventHookUpdate: () => tester.stack.push('update 2'),
+        ),
+      ]);
+
+      await tester.rePumpMultipleWidgets([
+        const TestWidget(),
+        const TestWidget(),
+      ]);
+
+      expect(tester.stack.popFromStart(), equals('update 1'));
+      expect(tester.stack.popFromStart(), equals('update 2'));
+
+      expect(tester.stack.canPop(), equals(false));
+    });
+
+    testWidgets('should repump multiple widgets over pump', (tester) async {
+      await tester.pumpWidget(
+        TestWidget(
+          roEventHookUpdate: () => tester.stack.push('update 1'),
+        ),
+      );
+
+      await tester.rePumpMultipleWidgets([
+        const TestWidget(),
+        TestWidget(roEventHookRender: () => tester.stack.push('render 2')),
+      ]);
+
+      expect(tester.stack.popFromStart(), equals('update 1'));
+      expect(tester.stack.popFromStart(), equals('render 2'));
+
+      expect(tester.stack.canPop(), equals(false));
+    });
+  });
+
   group('findsOneWidget', () {
     testWidgets('finds exactly one widget', (tester) async {
       await tester.pumpWidget(const Text('foo'));
