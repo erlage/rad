@@ -1,7 +1,6 @@
 ## Rad - Testing library
 
-A testing library for Rad applications, heavly inspired from [flutter_test](https://api.flutter.dev/flutter/flutter_test/flutter_test-library.html) with number of new APIs for testing applications that are written using [Rad](https://github.com/erlage/rad).
-
+A testing library for Rad applications, heavly inspired from [flutter_test](https://api.flutter.dev/flutter/flutter_test/flutter_test-library.html).
 
 ### Example usage
 
@@ -20,6 +19,8 @@ void main() {
   });
 }
 ```
+
+For more please checkout [examples here](https://github.com/erlage/rad/tree/main/packages/rad/test/tests/framework).
 
 ### License
 
