@@ -15,7 +15,7 @@ import 'package:rad_test/src/utilities/test_window.dart';
 class WidgetTester {
   /// App runner instance.
   ///
-  final AppRunner _app;
+  final AppRunner app;
 
   /// Parent test runner under which this widget tester is running.
   ///
@@ -42,12 +42,12 @@ class WidgetTester {
   var _isDebugInformationDisabled = true;
 
   WidgetTester(
-    this._app,
+    this.app,
     this.testRunner, {
     required this.stack,
     this.window,
     required this.exceptionsContainer,
-  }) : find = CommonFinders(_app);
+  }) : find = CommonFinders(app);
 
   /// Pump event queue.
   ///
@@ -85,7 +85,7 @@ class WidgetTester {
   }) async {
     await _buildChildren(
       widgets: [widget],
-      parentContext: _app.appContext,
+      parentContext: app.appContext,
     );
 
     await Future<void>.delayed(duration ?? const Duration(milliseconds: 100));
@@ -105,7 +105,7 @@ class WidgetTester {
   }) async {
     await _updateChildren(
       widgets: [widget],
-      parentContext: _app.appContext,
+      parentContext: app.appContext,
       updateType: updateType ?? UpdateType.setState,
     );
 
@@ -127,7 +127,7 @@ class WidgetTester {
   }) async {
     await _buildChildren(
       widgets: widgets,
-      parentContext: _app.appContext,
+      parentContext: app.appContext,
     );
 
     await Future<void>.delayed(duration ?? const Duration(milliseconds: 100));
@@ -149,7 +149,7 @@ class WidgetTester {
   }) async {
     await _updateChildren(
       widgets: widgets,
-      parentContext: _app.appContext,
+      parentContext: app.appContext,
       updateType: updateType ?? UpdateType.setState,
     );
 
@@ -194,7 +194,7 @@ class WidgetTester {
     var widgetObjects = finder.evaluate();
 
     if (widgetObjects.isEmpty) {
-      _app.services.debug.exception(
+      app.services.debug.exception(
         'Unable find any matching widgets with the finder: "$finder".',
       );
 
@@ -202,7 +202,7 @@ class WidgetTester {
     }
 
     if (!dispatchToMultipleNodes && widgetObjects.length > 1) {
-      _app.services.debug.exception(
+      app.services.debug.exception(
         'Found multiple matching widgets with the finder: "$finder". '
         'Consider enabling dispatchToMultipleNodes if you want to dispatch '
         'event to multiple dom nodes',
@@ -229,7 +229,7 @@ class WidgetTester {
     var widgetObjects = finder.evaluate();
 
     if (widgetObjects.isEmpty) {
-      _app.services.debug.exception(
+      app.services.debug.exception(
         'Unable find any matching widgets with the finder: "$finder".',
       );
 
@@ -240,7 +240,7 @@ class WidgetTester {
     var widget = targetWidgetObject.widget;
 
     if (!fnIsWidgetTextEditable(widget)) {
-      _app.services.debug.exception(
+      app.services.debug.exception(
         'Matched widget is of type "${widget.runtimeType}" which is not a '
         'text editable widget.',
       );
@@ -261,7 +261,7 @@ class WidgetTester {
     var widgetObjects = finder.evaluate();
 
     if (widgetObjects.isEmpty) {
-      _app.services.debug.exception(
+      app.services.debug.exception(
         'Unable find any matching widgets with the finder: "$finder".',
       );
 
@@ -272,7 +272,7 @@ class WidgetTester {
     var widget = targetWidgetObject.widget;
 
     if (!fnIsWidgetTextEditable(widget)) {
-      _app.services.debug.exception(
+      app.services.debug.exception(
         'Matched widget is of type "${widget.runtimeType}" which is not a '
         'text editable widget.',
       );
@@ -289,7 +289,7 @@ class WidgetTester {
 
   /// Find app's dom node.
   ///
-  Element? get getAppDomNode => getDomNodeByGlobalKey(_app.appContext.key);
+  Element? get getAppDomNode => getDomNodeByGlobalKey(app.appContext.key);
 
   /// Find dom node by id.
   ///
@@ -315,41 +315,41 @@ class WidgetTester {
   /// Find widget object by key under app context.
   ///
   WidgetObject? getWidgetObjectByKey(Key key, BuildContext parentContext) {
-    return _app.services.walker.getWidgetObjectUsingKey(
-      _app.services.keyGen.getGlobalKeyUsingKey(key, parentContext).value,
+    return app.services.walker.getWidgetObjectUsingKey(
+      app.services.keyGen.getGlobalKeyUsingKey(key, parentContext).value,
     );
   }
 
   /// Find widget object by local key under app context.
   ///
   WidgetObject? getWidgetObjectByLocalKey(LocalKey key) {
-    return _app.services.walker.getWidgetObjectUsingKey(
-      _app.services.keyGen.getGlobalKeyUsingKey(key, _app.appContext).value,
+    return app.services.walker.getWidgetObjectUsingKey(
+      app.services.keyGen.getGlobalKeyUsingKey(key, app.appContext).value,
     );
   }
 
   /// Find widget object by global key under app context.
   ///
   WidgetObject? getWidgetObjectByGlobalKey(GlobalKey key) {
-    return _app.services.walker.getWidgetObjectUsingKey(
-      _app.services.keyGen.getGlobalKeyUsingKey(key, _app.appContext).value,
+    return app.services.walker.getWidgetObjectUsingKey(
+      app.services.keyGen.getGlobalKeyUsingKey(key, app.appContext).value,
     );
   }
 
   /// Find dom node by key under app context.
   ///
   Element? getDomNodeByKey(Key key, BuildContext parentContext) =>
-      _app.services.walker
+      app.services.walker
           .getWidgetObjectUsingKey(
-            _app.services.keyGen.getGlobalKeyUsingKey(key, parentContext).value,
+            app.services.keyGen.getGlobalKeyUsingKey(key, parentContext).value,
           )
           ?.domNode;
 
   /// Find dom node by local key under app context.
   ///
-  Element? getDomNodeByLocalKey(LocalKey key) => _app.services.walker
+  Element? getDomNodeByLocalKey(LocalKey key) => app.services.walker
       .getWidgetObjectUsingKey(
-        _app.services.keyGen.getGlobalKeyUsingKey(key, _app.rootContext).value,
+        app.services.keyGen.getGlobalKeyUsingKey(key, app.rootContext).value,
       )
       ?.domNode;
 
@@ -364,7 +364,7 @@ class WidgetTester {
   Future<void> updateContextAsIfDependant(
     BuildContext widgetContext,
   ) async {
-    _app.services.scheduler.addTask(
+    app.services.scheduler.addTask(
       WidgetsUpdateDependentTask(
         widgetContext: widgetContext,
       ),
@@ -381,7 +381,7 @@ class WidgetTester {
     required UpdateType updateType,
     bool flagIterateInReverseOrder = false,
   }) async {
-    _app.services.scheduler.addTask(
+    app.services.scheduler.addTask(
       WidgetsManageTask(
         updateType: updateType,
         parentContext: parentContext,
@@ -400,7 +400,7 @@ class WidgetTester {
     required bool flagPreserveTarget,
   }) async {
     if (null != widgetObject) {
-      _app.services.scheduler.addTask(
+      app.services.scheduler.addTask(
         WidgetsDisposeTask(
           widgetObject: widgetObject,
           flagPreserveTarget: flagPreserveTarget,
@@ -414,7 +414,7 @@ class WidgetTester {
   /// Set window path(is using window mock)
   ///
   Future<void> setPath(String toSet) async {
-    if (_app.services.router.options.enableHashBasedRouting) {
+    if (app.services.router.options.enableHashBasedRouting) {
       window?.setHash(toSet);
     } else {
       window?.setPath(toSet);
@@ -426,7 +426,7 @@ class WidgetTester {
   /// Assert current path(if using window mock)
   ///
   void assertMatchPath(String toMatch, {bool addHashIfMising = true}) {
-    if (_app.services.router.options.enableHashBasedRouting) {
+    if (app.services.router.options.enableHashBasedRouting) {
       if (addHashIfMising) {
         toMatch = '#$toMatch';
       }
@@ -442,14 +442,14 @@ class WidgetTester {
   void assertMatchPathStack(List<String> toMatch) {
     var stack = <String>[];
 
-    if (_app.services.router.options.enableHashBasedRouting) {
+    if (app.services.router.options.enableHashBasedRouting) {
       stack.addAll(window?.hashStack.reversed ?? []);
     } else {
       stack.addAll(window?.pathStack.reversed ?? []);
     }
 
     for (final entry in toMatch) {
-      if (_app.services.router.options.enableHashBasedRouting) {
+      if (app.services.router.options.enableHashBasedRouting) {
         expect(stack.removeLast(), '#$entry');
       } else {
         expect(stack.removeLast(), entry);
@@ -511,7 +511,7 @@ class WidgetTester {
     int? mountAtIndex,
     bool flagCleanParentContents = true,
   }) async {
-    _app.services.scheduler.addTask(
+    app.services.scheduler.addTask(
       WidgetsBuildTask(
         widgets: widgets,
         parentContext: parentContext,
@@ -531,7 +531,7 @@ class WidgetTester {
     required UpdateType updateType,
     bool flagAddIfNotFound = true,
   }) async {
-    _app.services.scheduler.addTask(
+    app.services.scheduler.addTask(
       WidgetsUpdateTask(
         widgets: widgets,
         parentContext: parentContext,
