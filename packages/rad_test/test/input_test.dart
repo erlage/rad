@@ -40,7 +40,7 @@ void main() {
         const Input(key: gkey),
       );
 
-      expect(tester.getDomNodeByGlobalKey(gkey), hasNotFocus);
+      expect(tester.getDomNodeByGlobalKey(gkey), nodeHasNotFocus);
     });
 
     testWidgets('should focus', (tester) async {
@@ -52,7 +52,7 @@ void main() {
 
       await tester.focus(tester.find.byType(Input));
 
-      expect(tester.getDomNodeByGlobalKey(gkey), hasFocus);
+      expect(tester.getDomNodeByGlobalKey(gkey), nodeHasFocus);
     });
   });
 }

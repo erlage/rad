@@ -7,16 +7,16 @@ import 'package:rad_test/src/imports.dart';
 /// A widget that allows hooking its internals.
 ///
 class TestWidget extends Widget {
-  final Callback? roEventHookRender;
-  final Callback? roEventHookUpdate;
-  final Callback? roEventHookBeforeMount;
-  final Callback? roEventHookAfterMount;
-  final Callback? roEventHookAfterWidgetRebind;
-  final Callback? roEventHookBeforeUnMount;
+  final Callback? roEventRender;
+  final Callback? roEventUpdate;
+  final Callback? roEventBeforeMount;
+  final Callback? roEventAfterMount;
+  final Callback? roEventAfterWidgetRebind;
+  final Callback? roEventBeforeUnMount;
 
-  final Callback? wEventHookCreateRenderObject;
-  final Callback? wEventHookCreateWidgetConfiguration;
-  final Callback? wEventHookIsConfigurationChanged;
+  final Callback? wEventCreateRenderObject;
+  final Callback? wEventCreateWidgetConfiguration;
+  final Callback? wEventIsConfigurationChanged;
 
   final Function(UpdateType)? roHookUpdate;
 
@@ -32,15 +32,15 @@ class TestWidget extends Widget {
   const TestWidget({
     Key? key,
     this.children,
-    this.roEventHookRender,
-    this.roEventHookUpdate,
-    this.roEventHookBeforeMount,
-    this.roEventHookAfterMount,
-    this.roEventHookAfterWidgetRebind,
-    this.roEventHookBeforeUnMount,
-    this.wEventHookCreateWidgetConfiguration,
-    this.wEventHookIsConfigurationChanged,
-    this.wEventHookCreateRenderObject,
+    this.roEventRender,
+    this.roEventUpdate,
+    this.roEventBeforeMount,
+    this.roEventAfterMount,
+    this.roEventAfterWidgetRebind,
+    this.roEventBeforeUnMount,
+    this.wEventCreateWidgetConfiguration,
+    this.wEventIsConfigurationChanged,
+    this.wEventCreateRenderObject,
     this.wOverrideCreateConfiguration,
     this.wOverrideIsConfigurationChanged,
     this.roHookUpdate,
@@ -60,8 +60,8 @@ class TestWidget extends Widget {
 
   @override
   createConfiguration() {
-    if (null != wEventHookCreateWidgetConfiguration) {
-      wEventHookCreateWidgetConfiguration!();
+    if (null != wEventCreateWidgetConfiguration) {
+      wEventCreateWidgetConfiguration!();
     }
 
     if (null != wOverrideCreateConfiguration) {
@@ -73,8 +73,8 @@ class TestWidget extends Widget {
 
   @override
   isConfigurationChanged(oldConfiguration) {
-    if (null != wEventHookIsConfigurationChanged) {
-      wEventHookIsConfigurationChanged!();
+    if (null != wEventIsConfigurationChanged) {
+      wEventIsConfigurationChanged!();
     }
 
     if (null != wOverrideIsConfigurationChanged) {
@@ -86,45 +86,45 @@ class TestWidget extends Widget {
 
   @override
   createRenderObject(context) {
-    if (null != wEventHookCreateRenderObject) {
-      wEventHookCreateRenderObject!();
+    if (null != wEventCreateRenderObject) {
+      wEventCreateRenderObject!();
     }
 
     return TestWidgetRenderObject(
       context,
-      roEventHookRender: roEventHookRender,
-      roEventHookUpdate: roEventHookUpdate,
-      roEventHookAfterMount: roEventHookAfterMount,
-      roEventHookAfterWidgetRebind: roEventHookAfterWidgetRebind,
-      roEventHookBeforeUnMount: roEventHookBeforeUnMount,
+      roEventRender: roEventRender,
+      roEventUpdate: roEventUpdate,
+      roEventAfterMount: roEventAfterMount,
+      roEventAfterWidgetRebind: roEventAfterWidgetRebind,
+      roEventBeforeUnMount: roEventBeforeUnMount,
       roHookUpdate: roHookUpdate,
     );
   }
 }
 
 class TestWidgetRenderObject extends RenderObject {
-  final Callback? roEventHookRender;
-  final Callback? roEventHookUpdate;
-  final Callback? roEventHookAfterMount;
-  final Callback? roEventHookAfterWidgetRebind;
-  final Callback? roEventHookBeforeUnMount;
+  final Callback? roEventRender;
+  final Callback? roEventUpdate;
+  final Callback? roEventAfterMount;
+  final Callback? roEventAfterWidgetRebind;
+  final Callback? roEventBeforeUnMount;
 
   final Function(UpdateType)? roHookUpdate;
 
   const TestWidgetRenderObject(
     BuildContext context, {
-    this.roEventHookRender,
-    this.roEventHookUpdate,
-    this.roEventHookAfterMount,
-    this.roEventHookAfterWidgetRebind,
-    this.roEventHookBeforeUnMount,
+    this.roEventRender,
+    this.roEventUpdate,
+    this.roEventAfterMount,
+    this.roEventAfterWidgetRebind,
+    this.roEventBeforeUnMount,
     this.roHookUpdate,
   }) : super(context);
 
   @override
   render({required configuration}) {
-    if (null != roEventHookRender) {
-      roEventHookRender!();
+    if (null != roEventRender) {
+      roEventRender!();
     }
 
     return null;
@@ -136,8 +136,8 @@ class TestWidgetRenderObject extends RenderObject {
     required oldConfiguration,
     required newConfiguration,
   }) {
-    if (null != roEventHookUpdate) {
-      roEventHookUpdate!();
+    if (null != roEventUpdate) {
+      roEventUpdate!();
     }
 
     if (null != roHookUpdate) {
@@ -149,8 +149,8 @@ class TestWidgetRenderObject extends RenderObject {
 
   @override
   afterMount() {
-    if (null != roEventHookAfterMount) {
-      roEventHookAfterMount!();
+    if (null != roEventAfterMount) {
+      roEventAfterMount!();
     }
   }
 
@@ -160,15 +160,15 @@ class TestWidgetRenderObject extends RenderObject {
     required oldWidget,
     required newWidget,
   }) {
-    if (null != roEventHookAfterWidgetRebind) {
-      roEventHookAfterWidgetRebind!();
+    if (null != roEventAfterWidgetRebind) {
+      roEventAfterWidgetRebind!();
     }
   }
 
   @override
   beforeUnMount() {
-    if (null != roEventHookBeforeUnMount) {
-      roEventHookBeforeUnMount!();
+    if (null != roEventBeforeUnMount) {
+      roEventBeforeUnMount!();
     }
   }
 }

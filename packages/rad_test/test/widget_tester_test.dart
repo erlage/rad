@@ -9,7 +9,7 @@ void main() {
     testWidgets('should re-pump widgets', (tester) async {
       await tester.pumpWidget(
         TestWidget(
-          roEventHookUpdate: () => tester.stack.push('update'),
+          roEventUpdate: () => tester.stack.push('update'),
         ),
       );
 
@@ -25,10 +25,10 @@ void main() {
     testWidgets('should repump multiple widgets', (tester) async {
       await tester.pumpMultipleWidgets([
         TestWidget(
-          roEventHookUpdate: () => tester.stack.push('update 1'),
+          roEventUpdate: () => tester.stack.push('update 1'),
         ),
         TestWidget(
-          roEventHookUpdate: () => tester.stack.push('update 2'),
+          roEventUpdate: () => tester.stack.push('update 2'),
         ),
       ]);
 
@@ -46,13 +46,13 @@ void main() {
     testWidgets('should repump multiple widgets over pump', (tester) async {
       await tester.pumpWidget(
         TestWidget(
-          roEventHookUpdate: () => tester.stack.push('update 1'),
+          roEventUpdate: () => tester.stack.push('update 1'),
         ),
       );
 
       await tester.rePumpMultipleWidgets([
         const TestWidget(),
-        TestWidget(roEventHookRender: () => tester.stack.push('render 2')),
+        TestWidget(roEventRender: () => tester.stack.push('render 2')),
       ]);
 
       expect(tester.stack.popFromStart(), equals('update 1'));

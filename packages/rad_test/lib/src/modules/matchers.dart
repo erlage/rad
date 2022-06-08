@@ -101,11 +101,39 @@ const Matcher hasAGoodToStringDeep = _HasGoodToStringDeep();
 
 /// Asserts that node has focus.
 ///
-const Matcher hasFocus = _DomNodeHasFocus(negate: false);
+const Matcher nodeHasFocus = _DomNodeHasFocus(negate: false);
 
 /// Asserts that node doesn't have focus.
 ///
-const Matcher hasNotFocus = _DomNodeHasFocus(negate: true);
+const Matcher nodeHasNotFocus = _DomNodeHasFocus(negate: true);
+
+/// Asserts that a widget object is mounted.
+///
+const Matcher widgetObjectIsMounted = _WidgetObjectsAreMounted(
+  negate: false,
+  isMultiple: false,
+);
+
+/// Asserts that a widget object is not mounted.
+///
+const Matcher widgetObjectIsNotMounted = _WidgetObjectsAreMounted(
+  negate: true,
+  isMultiple: false,
+);
+
+/// Asserts that list of widget objects are mounted.
+///
+const Matcher widgetObjectsAreMounted = _WidgetObjectsAreMounted(
+  negate: false,
+  isMultiple: true,
+);
+
+/// Asserts that list of widget objects are not mounted.
+///
+const Matcher widgetObjectsAreNotMounted = _WidgetObjectsAreMounted(
+  negate: true,
+  isMultiple: true,
+);
 
 /// Asserts that node.value of a input/textarea node is equals to [value].
 ///
@@ -113,7 +141,7 @@ Matcher hasValue(String value) => _DomNodeHasValue(value);
 
 /// Asserts that textual contents of a dom's node are equals to [contents].
 ///
-Matcher hasContents(String contents) => _DomNodeHasContents(contents);
+Matcher nodeHasContents(String contents) => _DomNodeHasContents(contents);
 
 /// A matcher for [AssertionError].
 ///
@@ -397,6 +425,120 @@ class _HasGoodToStringDeep extends Matcher {
   @override
   Description describe(Description description) {
     return description.add('multi line description');
+  }
+}
+
+class _WidgetObjectsAreMounted extends Matcher {
+  final bool negate;
+  final bool isMultiple;
+
+  const _WidgetObjectsAreMounted({
+    required this.negate,
+    required this.isMultiple,
+  });
+
+  @override
+  matches(Object? items, void _) {
+    var results = <WidgetObject>[];
+
+    if (items is Finder) {
+      results.addAll(items.evaluate());
+    }
+
+    if (items is WidgetObject) {
+      results.add(items);
+    }
+
+    if (isMultiple) {
+      if (results.length < 2) {
+        return false;
+      }
+    } else {
+      if (results.length != 1) {
+        return false;
+      }
+    }
+
+    for (final item in results) {
+      if (!_isMatched(item)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  bool _isMatched(Object widgetObject) {
+    if (widgetObject is WidgetObject) {
+      if (negate) {
+        return !widgetObject.isMounted;
+      }
+
+      return widgetObject.isMounted;
+    }
+
+    return false;
+  }
+
+  @override
+  describe(description) {
+    if (isMultiple) {
+      if (negate) {
+        description.add('more than one widgets objects are not mounted');
+      } else {
+        description.add('more than one widgets objects are mounted');
+      }
+    } else {
+      if (negate) {
+        description.add('exactly one widgets object is not mounted');
+      } else {
+        description.add('exactly one widgets object is mounted');
+      }
+    }
+
+    return description;
+  }
+
+  @override
+  describeMismatch(
+    items,
+    mismatchDescription,
+    void _,
+    void __,
+  ) {
+    var results = <WidgetObject>[];
+
+    if (items is Finder) {
+      results.addAll(items.evaluate());
+    }
+
+    if (items is WidgetObject) {
+      results.add(items);
+    }
+
+    if (isMultiple) {
+      if (results.length < 2) {
+        mismatchDescription.add("Expected multiple widgets but found: $items'");
+
+        return mismatchDescription;
+      }
+    } else {
+      if (results.length != 1) {
+        mismatchDescription.add("Expected single widget but found: $items'");
+
+        return mismatchDescription;
+      }
+    }
+
+    for (final item in results) {
+      if (!_isMatched(item)) {
+        mismatchDescription.add("Mount state: '${item.isMounted}'");
+
+        return mismatchDescription;
+      }
+    }
+
+    return mismatchDescription;
   }
 }
 
