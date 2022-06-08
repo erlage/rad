@@ -79,13 +79,26 @@ class WidgetTester {
   /// rebuild of the tree, even if [widget] is the same as the previous call.
   /// [pump] will only rebuild the widgets that have changed.
   ///
+  ///
+  /// This method exposes system controls which can be used to control the
+  /// behavior of framework's internal renderer.
+  ///
+  /// Available system controls:
+  ///
+  /// - [mountAtIndex]
+  /// - [flagCleanParentContents]
+  ///
   Future<void> pumpWidget(
     Widget widget, {
     Duration? duration,
+    int? mountAtIndex,
+    bool? flagCleanParentContents,
   }) async {
     await _buildChildren(
       widgets: [widget],
       parentContext: app.appContext,
+      mountAtIndex: mountAtIndex,
+      flagCleanParentContents: flagCleanParentContents,
     );
 
     await Future<void>.delayed(duration ?? const Duration(milliseconds: 100));
@@ -98,15 +111,26 @@ class WidgetTester {
   /// same as the previous call. While [rePumpWidget] will only rebuild the
   /// widgets that have changed.
   ///
+  ///
+  /// This method exposes system controls which can be used to control the
+  /// behavior of framework's internal renderer.
+  ///
+  /// Available system controls:
+  ///
+  /// - [updateType]
+  /// - [flagAddIfNotFound]
+  ///
   Future<void> rePumpWidget(
     Widget widget, {
     Duration? duration,
     UpdateType? updateType,
+    bool? flagAddIfNotFound,
   }) async {
     await _updateChildren(
       widgets: [widget],
       parentContext: app.appContext,
       updateType: updateType ?? UpdateType.setState,
+      flagAddIfNotFound: flagAddIfNotFound,
     );
 
     await Future<void>.delayed(duration ?? const Duration(milliseconds: 100));
@@ -117,6 +141,15 @@ class WidgetTester {
   /// This is different from [pumpWidget] in that it allows you to pump
   /// multiple widgets at root level.
   ///
+  ///
+  /// This method exposes system controls which can be used to control the
+  /// behavior of framework's internal renderer.
+  ///
+  /// Available system controls:
+  ///
+  /// - [mountAtIndex]
+  /// - [flagCleanParentContents]
+  ///
   /// See also:
   ///
   ///   * [pumpWidget], for pumping a widget
@@ -124,10 +157,14 @@ class WidgetTester {
   Future<void> pumpMultipleWidgets(
     List<Widget> widgets, {
     Duration? duration,
+    int? mountAtIndex,
+    bool? flagCleanParentContents,
   }) async {
     await _buildChildren(
       widgets: widgets,
       parentContext: app.appContext,
+      mountAtIndex: mountAtIndex,
+      flagCleanParentContents: flagCleanParentContents,
     );
 
     await Future<void>.delayed(duration ?? const Duration(milliseconds: 100));
@@ -138,6 +175,15 @@ class WidgetTester {
   /// This is different from [rePumpWidget] in that it allows you to re-pump
   /// multiple widgets at root level.
   ///
+  ///
+  /// This method exposes system flags which can be used to control the behavior
+  /// of framework's internal renderer.
+  ///
+  /// Available system flags:
+  ///
+  /// - [updateType]
+  /// - [flagAddIfNotFound]
+  ///
   /// See also:
   ///
   ///   * [rePumpWidget], for re-pumping a widget
@@ -146,11 +192,13 @@ class WidgetTester {
     List<Widget> widgets, {
     Duration? duration,
     UpdateType? updateType,
+    bool? flagAddIfNotFound,
   }) async {
     await _updateChildren(
       widgets: widgets,
       parentContext: app.appContext,
       updateType: updateType ?? UpdateType.setState,
+      flagAddIfNotFound: flagAddIfNotFound,
     );
 
     await Future<void>.delayed(duration ?? const Duration(milliseconds: 100));
@@ -527,14 +575,14 @@ class WidgetTester {
     required List<Widget> widgets,
     required BuildContext parentContext,
     int? mountAtIndex,
-    bool flagCleanParentContents = true,
+    bool? flagCleanParentContents,
   }) async {
     app.services.scheduler.addTask(
       WidgetsBuildTask(
         widgets: widgets,
         parentContext: parentContext,
         mountAtIndex: mountAtIndex,
-        flagCleanParentContents: flagCleanParentContents,
+        flagCleanParentContents: flagCleanParentContents ?? true,
       ),
     );
 
@@ -547,14 +595,14 @@ class WidgetTester {
     required List<Widget> widgets,
     required BuildContext parentContext,
     required UpdateType updateType,
-    bool flagAddIfNotFound = true,
+    bool? flagAddIfNotFound,
   }) async {
     app.services.scheduler.addTask(
       WidgetsUpdateTask(
         widgets: widgets,
         parentContext: parentContext,
         updateType: updateType,
-        flagAddIfNotFound: flagAddIfNotFound,
+        flagAddIfNotFound: flagAddIfNotFound ?? true,
       ),
     );
 
