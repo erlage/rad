@@ -17,7 +17,7 @@ class CommonFinders {
 
   /// Finds [Text widgets containing string equal to the `text` argument.
   ///
-  /// If the `skipOffstage` argument is true (the default), then this skips
+  /// If the `skipOffstage` argument is false (the default), then this skips
   /// nodes that are Offstage or that are from inactive [Route]s.
   ///
   /// ## Example
@@ -28,7 +28,7 @@ class CommonFinders {
   ///
   Finder text(
     String text, {
-    bool skipOffstage = true,
+    bool skipOffstage = false,
   }) {
     return _TextFinder(
       text: text,
@@ -39,7 +39,7 @@ class CommonFinders {
 
   /// Finds [Text] widgets which contain the given `pattern` argument.
   ///
-  /// If the `skipOffstage` argument is true (the default), then this skips
+  /// If the `skipOffstage` argument is false (the default), then this skips
   /// nodes that are Offstage or that are from inactive [Route]s.
   ///
   /// ## Example
@@ -51,7 +51,7 @@ class CommonFinders {
   ///
   Finder textContaining(
     Pattern pattern, {
-    bool skipOffstage = true,
+    bool skipOffstage = false,
   }) {
     return _TextContainingFinder(
       pattern: pattern,
@@ -75,13 +75,13 @@ class CommonFinders {
   /// tester.click(tester.find.widgetWithText(Button, 'Update'));
   /// ```
   ///
-  /// If the `skipOffstage` argument is true (the default), then this skips
+  /// If the `skipOffstage` argument is false (the default), then this skips
   /// nodes that are Offstage or that are from inactive [Route]s.
   ///
   Finder widgetWithText(
     Type widgetType,
     String text, {
-    bool skipOffstage = true,
+    bool skipOffstage = false,
   }) {
     return ancestor(
       of: this.text(text, skipOffstage: skipOffstage),
@@ -97,12 +97,12 @@ class CommonFinders {
   /// expect(tester.find.byKey(backKey), findsOneWidget);
   /// ```
   ///
-  /// If the `skipOffstage` argument is true (the default), then this skips
+  /// If the `skipOffstage` argument is false (the default), then this skips
   /// nodes that are Offstage or that are from inactive [Route]s.
   ///
   Finder byKey(
     Key key, {
-    bool skipOffstage = true,
+    bool skipOffstage = false,
   }) =>
       _KeyFinder(
         key: key,
@@ -121,14 +121,14 @@ class CommonFinders {
   /// expect(tester.find.bySubtype<Span>(), findsOneWidget);
   /// ```
   ///
-  /// If the `skipOffstage` argument is true (the default), then this skips
+  /// If the `skipOffstage` argument is false (the default), then this skips
   /// nodes that are Offstage or that are from inactive [Route]s.
   ///
   /// See also:
   /// * [byType], which does not do subtype tests.
   ///
   Finder bySubtype<T extends Widget>({
-    bool skipOffstage = true,
+    bool skipOffstage = false,
   }) =>
       _WidgetSubtypeFinder<T>(
         appContext: _app.appContext,
@@ -149,7 +149,7 @@ class CommonFinders {
   /// expect(tester.find.byType(Span), findsOneWidget);
   /// ```
   ///
-  /// If the `skipOffstage` argument is true (the default), then this skips
+  /// If the `skipOffstage` argument is false (the default), then this skips
   /// nodes that are Offstage or that are from inactive [Route]s.
   ///
   /// See also:
@@ -157,7 +157,7 @@ class CommonFinders {
   ///
   Finder byType(
     Type type, {
-    bool skipOffstage = true,
+    bool skipOffstage = false,
   }) =>
       _WidgetTypeFinder(
         widgetType: type,
@@ -180,12 +180,12 @@ class CommonFinders {
   /// tester.tap(find.byWidget(myButton));
   /// ```
   ///
-  /// If the `skipOffstage` argument is true (the default), then this skips
+  /// If the `skipOffstage` argument is false (the default), then this skips
   /// nodes that are Offstage or that are from inactive [Route]s.
   ///
   Finder byWidget(
     Widget widget, {
-    bool skipOffstage = true,
+    bool skipOffstage = false,
   }) =>
       _WidgetFinder(
         widget: widget,
@@ -204,13 +204,13 @@ class CommonFinders {
   /// ), findsOneWidget);
   /// ```
   ///
-  /// If the `skipOffstage` argument is true (the default), then this skips
+  /// If the `skipOffstage` argument is false (the default), then this skips
   /// nodes that are Offstage or that are from inactive [Route]s.
   ///
   Finder byWidgetPredicate(
     WidgetPredicate predicate, {
     String? description,
-    bool skipOffstage = true,
+    bool skipOffstage = false,
   }) {
     return _WidgetPredicateFinder(
       predicate: predicate,
@@ -222,13 +222,13 @@ class CommonFinders {
 
   /// Finds widgets using an widget object [predicate].
   ///
-  /// If the `skipOffstage` argument is true (the default), then this skips
+  /// If the `skipOffstage` argument is false (the default), then this skips
   /// nodes that are Offstage or that are from inactive [Route]s.
   ///
   Finder byWidgetObjectPredicate(
     WidgetObjectPredicate predicate, {
     String? description,
-    bool skipOffstage = true,
+    bool skipOffstage = false,
   }) {
     return _WidgetObjectPredicateFinder(
       predicate: predicate,
@@ -259,7 +259,7 @@ class CommonFinders {
     required Finder of,
     required Finder matching,
     bool matchRoot = false,
-    bool skipOffstage = true,
+    bool skipOffstage = false,
   }) {
     return _DescendantFinder(
       ancestor: of,
