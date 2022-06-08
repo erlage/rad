@@ -1,6 +1,8 @@
 name: rad_test(pkg)
 
 on:
+  workflow_dispatch:
+
   push:
     branches: [ main ]
     paths:
