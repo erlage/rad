@@ -161,8 +161,7 @@ void main() {
       expect(
         message,
         contains(
-          'Actual: _TextFinder:<exactly one widget with text "foo" '
-          '(ignoring offstage)',
+          'Actual: _TextFinder:<exactly one widget with text "foo"',
         ),
       );
 
