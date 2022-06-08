@@ -54,7 +54,7 @@ class WidgetTester {
   Future<void> pump({
     Duration? duration,
   }) async {
-    await pumpEventQueue();
+    await pumpEventQueue(times: 1);
 
     if (null != duration) {
       await Future<void>.delayed(duration);
@@ -101,7 +101,7 @@ class WidgetTester {
       flagCleanParentContents: flagCleanParentContents,
     );
 
-    await Future<void>.delayed(duration ?? const Duration(milliseconds: 100));
+    await pump(duration: duration);
   }
 
   /// Re-Renders the UI from the given [widget].
@@ -133,7 +133,7 @@ class WidgetTester {
       flagAddIfNotFound: flagAddIfNotFound,
     );
 
-    await Future<void>.delayed(duration ?? const Duration(milliseconds: 100));
+    await pump(duration: duration);
   }
 
   /// Renders the UI from the given [widgets].
@@ -167,7 +167,7 @@ class WidgetTester {
       flagCleanParentContents: flagCleanParentContents,
     );
 
-    await Future<void>.delayed(duration ?? const Duration(milliseconds: 100));
+    await pump(duration: duration);
   }
 
   /// Re-Renders the UI from the given [widgets].
@@ -201,7 +201,7 @@ class WidgetTester {
       flagAddIfNotFound: flagAddIfNotFound,
     );
 
-    await Future<void>.delayed(duration ?? const Duration(milliseconds: 100));
+    await pump(duration: duration);
   }
 
   /// Returns the exception most recently caught by the Rad framework.
