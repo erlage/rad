@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types
 
 import 'package:meta/meta.dart';
+import 'package:rad_test/rad_test.dart';
 
 import '../test_imports.dart';
 
@@ -202,6 +203,40 @@ class RT_AnotherTestWidget extends RT_TestWidget {
               wEventHookCreateWidgetConfiguration,
           wEventHookIsConfigurationChanged: wEventHookIsConfigurationChanged,
           wEventHookCreateRenderObject: wEventHookCreateRenderObject,
+          wOverrideCreateConfiguration: wOverrideCreateConfiguration,
+          wOverrideIsConfigurationChanged: wOverrideIsConfigurationChanged,
+          customHash: customHash,
+        );
+}
+
+/// Another test widget with different runtime type.
+///
+class AnotherTestWidget extends TestWidget {
+  const AnotherTestWidget({
+    Key? key,
+    List<Widget>? children,
+    Callback? roEventRender,
+    Callback? roEventUpdate,
+    Callback? roEventAfterMount,
+    Callback? roEventAfterWidgetRebind,
+    Callback? roEventBeforeUnMount,
+    Callback? wEventCreateRenderObject,
+    Callback? wEventCreateWidgetConfiguration,
+    Callback? wEventIsConfigurationChanged,
+    WidgetConfiguration Function()? wOverrideCreateConfiguration,
+    bool Function()? wOverrideIsConfigurationChanged,
+    String? customHash,
+  }) : super(
+          key: key,
+          children: children,
+          roEventRender: roEventRender,
+          roEventUpdate: roEventUpdate,
+          roEventAfterMount: roEventAfterMount,
+          roEventAfterWidgetRebind: roEventAfterWidgetRebind,
+          roEventBeforeUnMount: roEventBeforeUnMount,
+          wEventCreateWidgetConfiguration: wEventCreateWidgetConfiguration,
+          wEventIsConfigurationChanged: wEventIsConfigurationChanged,
+          wEventCreateRenderObject: wEventCreateRenderObject,
           wOverrideCreateConfiguration: wOverrideCreateConfiguration,
           wOverrideIsConfigurationChanged: wOverrideIsConfigurationChanged,
           customHash: customHash,

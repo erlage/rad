@@ -273,7 +273,7 @@ packages:
       name: meta
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.0"
+    version: "1.8.0"
   mime:
     dependency: transitive
     description:
@@ -330,6 +330,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  rad_test:
+    dependency: "direct dev"
+    description:
+      name: rad_test
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   scratch_space:
     dependency: transitive
     description:

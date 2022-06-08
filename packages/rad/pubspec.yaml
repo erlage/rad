@@ -14,7 +14,7 @@ platforms:
 
 dependencies:
 
-  meta: ^1.7.0
+  meta: ^1.8.0
 
   #
   # why we're using this package?
@@ -39,6 +39,8 @@ dev_dependencies:
   # and are not part of production code.
 
   test: ^1.21.1
+  rad_test: ^0.2.0
+  
   build: ^2.3.0
   build_runner: ^2.1.11
   import_sorter: ^4.6.0
