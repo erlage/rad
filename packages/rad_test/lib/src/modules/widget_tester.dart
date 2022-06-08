@@ -459,6 +459,20 @@ class WidgetTester {
     expect(stack.isEmpty, equals(true));
   }
 
+  /// Assert match stack entries
+  ///
+  void assertMatchStack(List<String> expectedStack, {bool inversed = true}) {
+    for (final entry in expectedStack) {
+      if (inversed) {
+        expect(stack.popFromStart(), entry);
+      } else {
+        expect(stack.pop(), entry);
+      }
+    }
+
+    expect(stack.canPop(), equals(false));
+  }
+
   /// Enable debugging logs.
   ///
   void enableDebuggingInformation() => _isDebugInformationDisabled = false;
@@ -500,6 +514,10 @@ class WidgetTester {
   Future<void> showKeyBoard(Finder finder) async {
     return focus(finder);
   }
+
+  /// Alias to [WidgetTester.stack.push]
+  ///
+  void push(String entry) => stack.push(entry);
 
   // private
 
