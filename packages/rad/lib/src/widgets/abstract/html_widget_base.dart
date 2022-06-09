@@ -110,7 +110,7 @@ abstract class HTMLWidgetBase extends Widget {
 
   @override
   List<Widget> get widgetChildren {
-    return children ?? (null != child ? [child!] : []);
+    return children ?? (null != child ? [child!] : const []);
   }
 
   @override

@@ -853,7 +853,7 @@ class Renderer with ServicesResolver {
     );
 
     if (null == widgetObject) {
-      return [];
+      return const [];
     }
 
     var widgetActionObjects = <WidgetActionObject>[];
@@ -1180,7 +1180,7 @@ class Renderer with ServicesResolver {
     required bool flagAddIfNotFound,
   }) {
     if (widgets.isEmpty || !flagAddIfNotFound) {
-      return [];
+      return const [];
     }
 
     return [
@@ -1196,7 +1196,7 @@ class Renderer with ServicesResolver {
   }) {
     // if there are no old childs to dispose
     if (parentNode.children.isEmpty) {
-      return [];
+      return const [];
     }
 
     return [WidgetUpdateObjectActionCleanParent()];
