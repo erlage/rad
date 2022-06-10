@@ -415,6 +415,42 @@ void main() {
         );
       },
     );
+    test(
+      'should be able to run update on tree containing non-direct childs '
+      'direct childs are the childs that widget provides in widget constructor '
+      'non-direct childs are the childs that are rendered by the state of widget it-self',
+      () async {
+        var pap = app!;
+
+        await pap.updateChildren(
+          widgets: [
+            Navigator(
+              routes: [
+                Route(
+                  key: GlobalKey('route'),
+                  name: 'some-name',
+                  page: Text(''),
+                ),
+              ],
+            ),
+          ],
+          parentContext: pap.appContext,
+          updateType: UpdateType.setState,
+        );
+
+        await app!.manageChildren(
+          updateType: UpdateType.visitorUpdate,
+          parentContext: app!.appContext,
+          widgetActionCallback: (widgetObject) {
+            return [WidgetAction.updateWidget];
+          },
+        );
+
+        var route = pap.widget('route');
+
+        expect((route as Route).name, equals('some-name'));
+      },
+    );
 
     test(
       'should dispatch mixed actions',
