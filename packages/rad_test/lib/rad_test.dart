@@ -9,5 +9,3 @@ export 'package:rad_test/src/modules/matchers.dart';
 export 'package:rad_test/src/modules/testers.dart';
 export 'package:rad_test/src/modules/testers.dart';
 export 'package:rad_test/src/modules/widget_tester.dart';
-
-export 'package:rad_test/src/utilities/test_widget.dart';
