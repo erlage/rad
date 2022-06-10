@@ -157,6 +157,15 @@ class EventsService extends Service {
 
     switch (eventType) {
 
+      // we should forwarding below type of events to next nodes
+      // in propagation chain even if a valid listener has already got called
+
+      case DomEventType.click:
+      case DomEventType.doubleClick:
+        isEventAbsorbable = false;
+
+        break;
+
       // we should stop forwarding below type of events
       // if a valid event listener callback already got called
 
@@ -187,15 +196,6 @@ class EventsService extends Service {
       case DomEventType.mouseOut:
       case DomEventType.mouseUp:
         isEventAbsorbable = true;
-
-        break;
-
-      // we should forwarding below type of events to next nodes
-      // in propagation chain even if a valid listener has already got called
-
-      case DomEventType.click:
-      case DomEventType.doubleClick:
-        isEventAbsorbable = false;
 
         break;
 
