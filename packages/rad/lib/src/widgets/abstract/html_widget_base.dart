@@ -281,10 +281,10 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (null != widget.onClickAttribute) {
-    attributes[Attributes.onClick] = widget.onClickAttribute;
+    attributes[Attributes.onClickAttribute] = widget.onClickAttribute;
   } else {
     if (null != oldWidget?.onClickAttribute) {
-      attributes[Attributes.onClick] = null;
+      attributes[Attributes.onClickAttribute] = null;
     }
   }
 

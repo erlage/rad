@@ -53,7 +53,7 @@ class Attributes {
   static const tabIndex = 'tabindex';
   static const draggable = 'draggable';
   static const contentEditable = 'contenteditable';
-  static const onClick = 'onclick';
+  static const onClickAttribute = 'onclick';
 
   // input
 
