@@ -156,12 +156,10 @@ class EventsService extends Service {
     var isEventAbsorbable = false;
 
     switch (eventType) {
-      // these restrictions are purely framework-sided
-      // we can promote below events to bubbling events anytime we want
-      // maybe just to be more spec complaint
 
-      // we should stop forwarding these events
-      // if a valid listener callback got called
+      // we should stop forwarding below type of events
+      // if a valid event listener callback already got called
+
       case DomEventType.change:
       case DomEventType.input:
       case DomEventType.submit:
@@ -192,14 +190,19 @@ class EventsService extends Service {
 
         break;
 
-      // we should forward these events to next dom nodes
-      // even if a valid listener callback got called
+      // we should forwarding below type of events to next nodes
+      // in propagation chain even if a valid listener has already got called
 
       case DomEventType.click:
       case DomEventType.doubleClick:
         isEventAbsorbable = false;
 
         break;
+
+      // these restrictions are purely framework-sided
+      // we can promote below events to bubbling events anytime we want
+      // maybe just to be more spec complaint
+
     }
 
     for (final listener in listeners) {
