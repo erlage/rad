@@ -79,7 +79,7 @@ class GestureDetector extends Widget {
 
   @nonVirtual
   @override
-  bool shouldUpdateWidget(oldWidget) => true;
+  bool shouldWidgetUpdate(oldWidget) => true;
 
   @nonVirtual
   @override

@@ -626,9 +626,9 @@ class Renderer with ServicesResolver {
       |------------------------------------------------------------------------
       */
 
-      var shouldUpdateWidget = newWidget.shouldUpdateWidget(oldWidget);
+      var shouldWidgetUpdate = newWidget.shouldWidgetUpdate(oldWidget);
 
-      if (shouldUpdateWidget) {
+      if (shouldWidgetUpdate) {
         if (services.debug.frameworkLogs) {
           print('Update widget: ${widgetObject.context}');
         }
@@ -665,14 +665,14 @@ class Renderer with ServicesResolver {
 
       // get permission from widget which owns the child widgets
 
-      var shouldUpdateWidgetChildren = newWidget.shouldUpdateWidgetChildren(
+      var shouldWidgetChildrenUpdate = newWidget.shouldWidgetChildrenUpdate(
         oldWidget,
-        shouldUpdateWidget,
+        shouldWidgetUpdate,
       );
 
       // i hope its not granted
 
-      if (shouldUpdateWidgetChildren) {
+      if (shouldWidgetChildrenUpdate) {
         updateWidgetsUnderContext(
           jobQueue: jobQueue,
           updateType: updateTypeForChildWidgets,

@@ -77,12 +77,12 @@ class Option extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.option;
 
   @override
-  bool shouldUpdateWidget(covariant Option oldWidget) {
+  bool shouldWidgetUpdate(covariant Option oldWidget) {
     return value != oldWidget.value ||
         label != oldWidget.label ||
         selected != oldWidget.selected ||
         disabled != oldWidget.disabled ||
-        super.shouldUpdateWidget(oldWidget);
+        super.shouldWidgetUpdate(oldWidget);
   }
 
   @override

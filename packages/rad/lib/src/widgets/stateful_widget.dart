@@ -52,11 +52,11 @@ import 'package:rad/src/widgets/stateless_widget.dart';
 ///   parent widget will bring back everything back in DOM.
 ///
 ///
-/// * And for mission critical situations, you have [shouldUpdateWidget] at
+/// * And for mission critical situations, you have [shouldWidgetUpdate] at
 ///   your disposal on every widget. If you know that in some situations your
 ///   widget doesn’t need to update, you can return false from
-///   [shouldUpdateWidget] instead, to skip the whole rendering process.
-///   But remember maintaining [shouldUpdateWidget] is hard so it's not
+///   [shouldWidgetUpdate] instead, to skip the whole rendering process.
+///   But remember maintaining [shouldWidgetUpdate] is hard so it's not
 ///   something you should be using everywhere.
 ///
 ///
@@ -121,16 +121,16 @@ abstract class StatefulWidget extends Widget {
   DomTagType? get correspondingTag => null;
 
   @override
-  bool shouldUpdateWidget(oldWidget) => true;
+  bool shouldWidgetUpdate(oldWidget) => true;
 
   /// Overriding this method on [StatefulWidget] can result in unexpected
   /// behavior as [StatefulWidget] build its childs from its state. If you don't
   /// want the [StatefulWidget] to update its child widgets, override
-  /// [shouldUpdateWidget] instead.
+  /// [shouldWidgetUpdate] instead.
   ///
   @nonVirtual
   @override
-  bool shouldUpdateWidgetChildren(oldWidget, shouldUpdateWidget) => false;
+  bool shouldWidgetChildrenUpdate(oldWidget, shouldWidgetUpdate) => false;
 
   @nonVirtual
   @override

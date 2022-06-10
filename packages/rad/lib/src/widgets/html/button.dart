@@ -74,12 +74,12 @@ class Button extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.button;
 
   @override
-  bool shouldUpdateWidget(covariant Button oldWidget) {
+  bool shouldWidgetUpdate(covariant Button oldWidget) {
     return name != oldWidget.name ||
         value != oldWidget.value ||
         type != oldWidget.type ||
         disabled != oldWidget.disabled ||
-        super.shouldUpdateWidget(oldWidget);
+        super.shouldWidgetUpdate(oldWidget);
   }
 
   @override

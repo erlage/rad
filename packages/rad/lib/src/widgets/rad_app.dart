@@ -26,7 +26,7 @@ class RadApp extends Widget {
   DomTagType get correspondingTag => DomTagType.division;
 
   @override
-  bool shouldUpdateWidget(Widget oldWidget) => false;
+  bool shouldWidgetUpdate(Widget oldWidget) => false;
 
   @override
   createRenderObject(context) => AppWidgetRenderObject(context);

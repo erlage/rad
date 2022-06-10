@@ -45,7 +45,7 @@ class RenderObject {
 
   /// Update hook.
   ///
-  /// This hook gets called everytime [Widget.shouldUpdateWidget] returns
+  /// This hook gets called everytime [Widget.shouldWidgetUpdate] returns
   /// true.
   ///
   ///

@@ -70,12 +70,12 @@ class Image extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.image;
 
   @override
-  bool shouldUpdateWidget(covariant Image oldWidget) {
+  bool shouldWidgetUpdate(covariant Image oldWidget) {
     return src != oldWidget.src ||
         alt != oldWidget.alt ||
         width != oldWidget.width ||
         height != oldWidget.height ||
-        super.shouldUpdateWidget(oldWidget);
+        super.shouldWidgetUpdate(oldWidget);
   }
 
   @override

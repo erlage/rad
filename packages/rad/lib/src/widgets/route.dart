@@ -59,7 +59,7 @@ class Route extends Widget {
   List<Widget> get widgetChildren => [page];
 
   @override
-  bool shouldUpdateWidget(oldWidget) => false;
+  bool shouldWidgetUpdate(oldWidget) => false;
 
   @override
   createRenderObject(context) => RouteRenderObject(context);

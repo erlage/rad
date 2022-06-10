@@ -60,9 +60,9 @@ class FieldSet extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.fieldSet;
 
   @override
-  bool shouldUpdateWidget(covariant FieldSet oldWidget) {
+  bool shouldWidgetUpdate(covariant FieldSet oldWidget) {
     return disabled != oldWidget.disabled ||
-        super.shouldUpdateWidget(oldWidget);
+        super.shouldWidgetUpdate(oldWidget);
   }
 
   @override

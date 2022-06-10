@@ -59,8 +59,8 @@ class Blockquote extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.blockquote;
 
   @override
-  bool shouldUpdateWidget(covariant Blockquote oldWidget) {
-    return cite != oldWidget.cite || super.shouldUpdateWidget(oldWidget);
+  bool shouldWidgetUpdate(covariant Blockquote oldWidget) {
+    return cite != oldWidget.cite || super.shouldWidgetUpdate(oldWidget);
   }
 
   @override

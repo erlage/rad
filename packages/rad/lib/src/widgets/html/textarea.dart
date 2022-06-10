@@ -114,7 +114,7 @@ class TextArea extends HTMLWidgetBase {
       };
 
   @override
-  bool shouldUpdateWidget(covariant TextArea oldWidget) {
+  bool shouldWidgetUpdate(covariant TextArea oldWidget) {
     return name != oldWidget.name ||
         placeholder != oldWidget.placeholder ||
         rows != oldWidget.rows ||
@@ -124,7 +124,7 @@ class TextArea extends HTMLWidgetBase {
         required != oldWidget.required ||
         readOnly != oldWidget.readOnly ||
         disabled != oldWidget.disabled ||
-        super.shouldUpdateWidget(oldWidget);
+        super.shouldWidgetUpdate(oldWidget);
   }
 
   @override

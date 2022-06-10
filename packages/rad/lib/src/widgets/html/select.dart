@@ -83,11 +83,11 @@ class Select extends HTMLWidgetBase {
       };
 
   @override
-  bool shouldUpdateWidget(covariant Select oldWidget) {
+  bool shouldWidgetUpdate(covariant Select oldWidget) {
     return name != oldWidget.name ||
         multiple != oldWidget.multiple ||
         disabled != oldWidget.disabled ||
-        super.shouldUpdateWidget(oldWidget);
+        super.shouldWidgetUpdate(oldWidget);
   }
 
   @override

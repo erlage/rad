@@ -58,8 +58,8 @@ class ListItem extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.listItem;
 
   @override
-  bool shouldUpdateWidget(covariant ListItem oldWidget) {
-    return value != oldWidget.value || super.shouldUpdateWidget(oldWidget);
+  bool shouldWidgetUpdate(covariant ListItem oldWidget) {
+    return value != oldWidget.value || super.shouldWidgetUpdate(oldWidget);
   }
 
   @override

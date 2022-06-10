@@ -37,23 +37,23 @@ void widget_gesture_detector_test() {
       expect(domNode.getComputedStyle().display, equals('contents'));
     });
 
-    test('should return false from shouldUpdateWidgetChildren', () {
-      var shouldUpdateWidgetChildren = false;
+    test('should return false from shouldWidgetChildrenUpdate', () {
+      var shouldWidgetChildrenUpdate = false;
 
       var oldWidget = GestureDetector(child: Text('hw'));
       var newWidget = GestureDetector(child: Text('hw'));
 
-      shouldUpdateWidgetChildren = newWidget.shouldUpdateWidgetChildren(
+      shouldWidgetChildrenUpdate = newWidget.shouldWidgetChildrenUpdate(
         oldWidget,
         false,
       );
-      expect(shouldUpdateWidgetChildren, equals(true));
+      expect(shouldWidgetChildrenUpdate, equals(true));
 
-      shouldUpdateWidgetChildren = newWidget.shouldUpdateWidgetChildren(
+      shouldWidgetChildrenUpdate = newWidget.shouldWidgetChildrenUpdate(
         oldWidget,
         true,
       );
-      expect(shouldUpdateWidgetChildren, equals(true));
+      expect(shouldWidgetChildrenUpdate, equals(true));
     });
   });
 }

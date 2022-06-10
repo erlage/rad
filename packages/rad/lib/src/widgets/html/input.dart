@@ -155,7 +155,7 @@ class Input extends HTMLWidgetBase {
       };
 
   @override
-  bool shouldUpdateWidget(covariant Input oldWidget) {
+  bool shouldWidgetUpdate(covariant Input oldWidget) {
     return type != oldWidget.type ||
         name != oldWidget.name ||
         value != oldWidget.value ||
@@ -169,7 +169,7 @@ class Input extends HTMLWidgetBase {
         required != oldWidget.required ||
         readOnly != oldWidget.readOnly ||
         disabled != oldWidget.disabled ||
-        super.shouldUpdateWidget(oldWidget);
+        super.shouldWidgetUpdate(oldWidget);
   }
 
   @override

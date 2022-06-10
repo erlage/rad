@@ -70,7 +70,7 @@ abstract class TableCellBase extends HTMLWidgetBase {
         );
 
   @override
-  bool shouldUpdateWidget(
+  bool shouldWidgetUpdate(
     covariant oldWidget,
   ) {
     oldWidget as TableCellBase;
@@ -78,7 +78,7 @@ abstract class TableCellBase extends HTMLWidgetBase {
     return rowSpan != oldWidget.colSpan ||
         colSpan != oldWidget.rowSpan ||
         headers != oldWidget.headers ||
-        super.shouldUpdateWidget(oldWidget);
+        super.shouldWidgetUpdate(oldWidget);
   }
 
   @override

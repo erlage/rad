@@ -119,7 +119,7 @@ abstract class HTMLWidgetBase extends Widget {
       };
 
   @override
-  bool shouldUpdateWidget(oldWidget) {
+  bool shouldWidgetUpdate(oldWidget) {
     oldWidget as HTMLWidgetBase;
 
     return id != oldWidget.id ||

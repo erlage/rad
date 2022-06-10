@@ -1056,7 +1056,7 @@ void main() {
       );
 
       test(
-        'should call shouldUpdateWidgetChild with previous result of shouldupdate',
+        'should call shouldWidgetUpdateChild with previous result of shouldupdate',
         () async {
           var testStack = RT_TestStack();
 

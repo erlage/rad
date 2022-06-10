@@ -91,7 +91,7 @@ class ListView extends Widget {
 
   @nonVirtual
   @override
-  bool shouldUpdateWidget(covariant ListView oldWidget) {
+  bool shouldWidgetUpdate(covariant ListView oldWidget) {
     if (isListViewBuilder) {
       return true;
     }

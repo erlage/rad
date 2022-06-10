@@ -94,14 +94,14 @@ class Form extends HTMLWidgetBase {
       };
 
   @override
-  bool shouldUpdateWidget(covariant Form oldWidget) {
+  bool shouldWidgetUpdate(covariant Form oldWidget) {
     return name != oldWidget.name ||
         action != oldWidget.action ||
         accept != oldWidget.accept ||
         target != oldWidget.target ||
         enctype != oldWidget.enctype ||
         method != oldWidget.method ||
-        super.shouldUpdateWidget(oldWidget);
+        super.shouldWidgetUpdate(oldWidget);
   }
 
   @override

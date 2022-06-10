@@ -384,16 +384,16 @@ class Navigator extends Widget {
   DomTagType get correspondingTag => DomTagType.division;
 
   @override
-  bool shouldUpdateWidget(oldWidget) => true;
+  bool shouldWidgetUpdate(oldWidget) => true;
 
   /// Overriding this method on [Navigator] can result in unexpected
   /// behavior as [Navigator] build its childs from its state. If you don't
   /// want the [Navigator] to update its child widgets, override
-  /// [shouldUpdateWidget] instead.
+  /// [shouldWidgetUpdate] instead.
   ///
   @nonVirtual
   @override
-  bool shouldUpdateWidgetChildren(oldWidget, shouldUpdateWidget) => false;
+  bool shouldWidgetChildrenUpdate(oldWidget, shouldWidgetUpdate) => false;
 
   @override
   createRenderObject(context) => NavigatorRenderObject(

@@ -276,12 +276,12 @@ void main() {
 
             // should not call this
             wEventShouldUpdateWidget: () => testStack.push(
-              'shouldUpdateWidget',
+              'shouldWidgetUpdate',
             ),
 
             // should not call this
             wEventShouldUpdateWidgetChildren: () => testStack.push(
-              'shouldUpdateWidgetChildren',
+              'shouldWidgetChildrenUpdate',
             ),
 
             // should call this

@@ -51,10 +51,10 @@ abstract class TableColumnBase extends HTMLWidgetBase {
 
   @override
   @override
-  bool shouldUpdateWidget(
+  bool shouldWidgetUpdate(
     covariant TableColumnBase oldWidget,
   ) {
-    return span != oldWidget.span || super.shouldUpdateWidget(oldWidget);
+    return span != oldWidget.span || super.shouldWidgetUpdate(oldWidget);
   }
 
   @override

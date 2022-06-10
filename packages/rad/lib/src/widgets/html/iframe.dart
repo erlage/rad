@@ -89,7 +89,7 @@ class IFrame extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.iFrame;
 
   @override
-  bool shouldUpdateWidget(covariant IFrame oldWidget) {
+  bool shouldWidgetUpdate(covariant IFrame oldWidget) {
     return src != oldWidget.src ||
         name != oldWidget.name ||
         allow != oldWidget.allow ||
@@ -97,7 +97,7 @@ class IFrame extends HTMLWidgetBase {
         allowPaymentRequest != oldWidget.allowPaymentRequest ||
         width != oldWidget.width ||
         height != oldWidget.height ||
-        super.shouldUpdateWidget(oldWidget);
+        super.shouldWidgetUpdate(oldWidget);
   }
 
   @override

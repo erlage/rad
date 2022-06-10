@@ -81,7 +81,7 @@ class RT_TestWidget extends Widget {
   get widgetChildren => children ?? [];
 
   @override
-  bool shouldUpdateWidget(oldWidget) {
+  bool shouldWidgetUpdate(oldWidget) {
     if (null != wEventShouldUpdateWidget) {
       wEventShouldUpdateWidget!();
     }
@@ -98,13 +98,13 @@ class RT_TestWidget extends Widget {
   }
 
   @override
-  bool shouldUpdateWidgetChildren(oldWidget, shouldUpdateWidget) {
+  bool shouldWidgetChildrenUpdate(oldWidget, shouldWidgetUpdate) {
     if (null != wEventShouldUpdateWidgetChildren) {
       wEventShouldUpdateWidgetChildren!();
     }
 
     if (null != wHookShouldUpdateWidgetChildren) {
-      wHookShouldUpdateWidgetChildren!(oldWidget, shouldUpdateWidget);
+      wHookShouldUpdateWidgetChildren!(oldWidget, shouldWidgetUpdate);
     }
 
     if (null != wOverrideShouldUpdateWidgetChildren) {

@@ -33,7 +33,7 @@ class RawMarkUp extends Widget {
   DomTagType get correspondingTag => DomTagType.division;
 
   @override
-  bool shouldUpdateWidget(covariant RawMarkUp oldWidget) {
+  bool shouldWidgetUpdate(covariant RawMarkUp oldWidget) {
     return html != oldWidget.html;
   }
 

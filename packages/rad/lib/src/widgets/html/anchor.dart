@@ -74,12 +74,12 @@ class Anchor extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.anchor;
 
   @override
-  bool shouldUpdateWidget(covariant Anchor oldWidget) {
+  bool shouldWidgetUpdate(covariant Anchor oldWidget) {
     return href != oldWidget.href ||
         rel != oldWidget.rel ||
         target != oldWidget.target ||
         download != oldWidget.download ||
-        super.shouldUpdateWidget(oldWidget);
+        super.shouldWidgetUpdate(oldWidget);
   }
 
   @override

@@ -65,10 +65,10 @@ class Progress extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.progress;
 
   @override
-  bool shouldUpdateWidget(covariant Progress oldWidget) {
+  bool shouldWidgetUpdate(covariant Progress oldWidget) {
     return value != oldWidget.value ||
         max != oldWidget.max ||
-        super.shouldUpdateWidget(oldWidget);
+        super.shouldWidgetUpdate(oldWidget);
   }
 
   @override

@@ -35,16 +35,16 @@ abstract class StatelessWidget extends Widget {
   DomTagType? get correspondingTag => null;
 
   @override
-  bool shouldUpdateWidget(oldWidget) => true;
+  bool shouldWidgetUpdate(oldWidget) => true;
 
   /// Overriding this method on [StatelessWidget] can result in unexpected
   /// behavior as [StatelessWidget] build its childs at a later stage. If you
   /// don't want the [StatelessWidget] to update its child widgets, override
-  /// [shouldUpdateWidget] instead.
+  /// [shouldWidgetUpdate] instead.
   ///
   @nonVirtual
   @override
-  bool shouldUpdateWidgetChildren(oldWidget, shouldUpdateWidget) => false;
+  bool shouldWidgetChildrenUpdate(oldWidget, shouldWidgetUpdate) => false;
 
   @nonVirtual
   @override

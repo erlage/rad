@@ -60,9 +60,9 @@ class Label extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.label;
 
   @override
-  bool shouldUpdateWidget(covariant Label oldWidget) {
+  bool shouldWidgetUpdate(covariant Label oldWidget) {
     return forAttribute != oldWidget.forAttribute ||
-        super.shouldUpdateWidget(oldWidget);
+        super.shouldWidgetUpdate(oldWidget);
   }
 
   @override
