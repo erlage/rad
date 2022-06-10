@@ -155,93 +155,25 @@ class Input extends HTMLWidgetBase {
       };
 
   @override
-  createConfiguration() {
-    return InputConfiguration(
-      type: type,
-      name: name,
-      value: value,
-      accept: accept,
-      maxLength: maxLength,
-      minLength: minLength,
-      pattern: pattern,
-      placeholder: placeholder,
-      checked: checked,
-      multiple: multiple,
-      required: required,
-      readOnly: readOnly,
-      disabled: disabled,
-      globalConfiguration:
-          super.createConfiguration() as HTMLWidgetBaseConfiguration,
-    );
-  }
-
-  @override
-  isConfigurationChanged(oldConfiguration) {
-    oldConfiguration as InputConfiguration;
-
-    return type != oldConfiguration.type ||
-        name != oldConfiguration.name ||
-        value != oldConfiguration.value ||
-        accept != oldConfiguration.accept ||
-        minLength != oldConfiguration.minLength ||
-        maxLength != oldConfiguration.maxLength ||
-        pattern != oldConfiguration.pattern ||
-        placeholder != oldConfiguration.placeholder ||
-        multiple != oldConfiguration.multiple ||
-        checked != oldConfiguration.checked ||
-        required != oldConfiguration.required ||
-        readOnly != oldConfiguration.readOnly ||
-        disabled != oldConfiguration.disabled ||
-        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
+  bool shouldUpdateWidget(covariant Input oldWidget) {
+    return type != oldWidget.type ||
+        name != oldWidget.name ||
+        value != oldWidget.value ||
+        accept != oldWidget.accept ||
+        minLength != oldWidget.minLength ||
+        maxLength != oldWidget.maxLength ||
+        pattern != oldWidget.pattern ||
+        placeholder != oldWidget.placeholder ||
+        multiple != oldWidget.multiple ||
+        checked != oldWidget.checked ||
+        required != oldWidget.required ||
+        readOnly != oldWidget.readOnly ||
+        disabled != oldWidget.disabled ||
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override
   createRenderObject(context) => InputRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class InputConfiguration extends WidgetConfiguration {
-  final HTMLWidgetBaseConfiguration globalConfiguration;
-
-  final InputType? type;
-
-  final String? name;
-  final String? value;
-  final String? accept;
-
-  final int? minLength;
-  final int? maxLength;
-
-  final String? pattern;
-  final String? placeholder;
-
-  final bool? multiple;
-  final bool? checked;
-  final bool? required;
-  final bool? readOnly;
-  final bool? disabled;
-
-  const InputConfiguration({
-    this.type,
-    this.name,
-    this.value,
-    this.accept,
-    this.minLength,
-    this.maxLength,
-    this.pattern,
-    this.placeholder,
-    this.multiple,
-    this.checked,
-    this.readOnly,
-    this.disabled,
-    this.required,
-    required this.globalConfiguration,
-  });
 }
 
 /*
@@ -255,18 +187,16 @@ class InputRenderObject extends MarkUpGlobalRenderObject {
 
   @override
   render({
-    required configuration,
+    required covariant Input widget,
   }) {
-    configuration as InputConfiguration;
-
     var domNodeDescription = super.render(
-      configuration: configuration.globalConfiguration,
+      widget: widget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: configuration,
-        oldProps: null,
+        widget: widget,
+        oldWidget: null,
       ),
     );
 
@@ -276,22 +206,19 @@ class InputRenderObject extends MarkUpGlobalRenderObject {
   @override
   update({
     required updateType,
-    required oldConfiguration,
-    required newConfiguration,
+    required covariant Input oldWidget,
+    required covariant Input newWidget,
   }) {
-    oldConfiguration as InputConfiguration;
-    newConfiguration as InputConfiguration;
-
     var domNodeDescription = super.update(
       updateType: updateType,
-      oldConfiguration: oldConfiguration.globalConfiguration,
-      newConfiguration: newConfiguration.globalConfiguration,
+      oldWidget: oldWidget,
+      newWidget: newWidget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: newConfiguration,
-        oldProps: oldConfiguration,
+        widget: newWidget,
+        oldWidget: oldWidget,
       ),
     );
 
@@ -306,111 +233,111 @@ class InputRenderObject extends MarkUpGlobalRenderObject {
 */
 
 Map<String, String?> _prepareAttributes({
-  required InputConfiguration props,
-  required InputConfiguration? oldProps,
+  required Input widget,
+  required Input? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
-  if (null != props.type) {
-    attributes[Attributes.type] = props.type!.nativeName;
+  if (null != widget.type) {
+    attributes[Attributes.type] = widget.type!.nativeName;
   } else {
-    if (null != oldProps?.type) {
+    if (null != oldWidget?.type) {
       attributes[Attributes.type] = null;
     }
   }
 
-  if (null != props.name) {
-    attributes[Attributes.name] = props.name;
+  if (null != widget.name) {
+    attributes[Attributes.name] = widget.name;
   } else {
-    if (null != oldProps?.name) {
+    if (null != oldWidget?.name) {
       attributes[Attributes.name] = null;
     }
   }
 
-  if (null != props.value) {
-    attributes[Attributes.value] = props.value;
+  if (null != widget.value) {
+    attributes[Attributes.value] = widget.value;
   } else {
-    if (null != oldProps?.value) {
+    if (null != oldWidget?.value) {
       attributes[Attributes.value] = null;
     }
   }
 
-  if (null != props.accept) {
-    attributes[Attributes.accept] = props.accept;
+  if (null != widget.accept) {
+    attributes[Attributes.accept] = widget.accept;
   } else {
-    if (null != oldProps?.accept) {
+    if (null != oldWidget?.accept) {
       attributes[Attributes.accept] = null;
     }
   }
 
-  if (null != props.placeholder) {
-    attributes[Attributes.placeholder] = props.placeholder;
+  if (null != widget.placeholder) {
+    attributes[Attributes.placeholder] = widget.placeholder;
   } else {
-    if (null != oldProps?.placeholder) {
+    if (null != oldWidget?.placeholder) {
       attributes[Attributes.placeholder] = null;
     }
   }
 
-  if (null != props.pattern) {
-    attributes[Attributes.pattern] = props.pattern;
+  if (null != widget.pattern) {
+    attributes[Attributes.pattern] = widget.pattern;
   } else {
-    if (null != oldProps?.pattern) {
+    if (null != oldWidget?.pattern) {
       attributes[Attributes.pattern] = null;
     }
   }
 
-  if (null != props.minLength) {
-    attributes[Attributes.minLength] = '${props.minLength}';
+  if (null != widget.minLength) {
+    attributes[Attributes.minLength] = '${widget.minLength}';
   } else {
-    if (null != oldProps?.minLength) {
+    if (null != oldWidget?.minLength) {
       attributes[Attributes.minLength] = null;
     }
   }
 
-  if (null != props.maxLength) {
-    attributes[Attributes.maxLength] = '${props.maxLength}';
+  if (null != widget.maxLength) {
+    attributes[Attributes.maxLength] = '${widget.maxLength}';
   } else {
-    if (null != oldProps?.maxLength) {
+    if (null != oldWidget?.maxLength) {
       attributes[Attributes.maxLength] = null;
     }
   }
 
-  if (null != props.multiple && props.multiple!) {
-    attributes[Attributes.multiple] = '${props.multiple}';
+  if (null != widget.multiple && widget.multiple!) {
+    attributes[Attributes.multiple] = '${widget.multiple}';
   } else {
-    if (null != oldProps?.multiple) {
+    if (null != oldWidget?.multiple) {
       attributes[Attributes.multiple] = null;
     }
   }
 
-  if (null != props.checked && props.checked!) {
-    attributes[Attributes.checked] = '${props.checked}';
+  if (null != widget.checked && widget.checked!) {
+    attributes[Attributes.checked] = '${widget.checked}';
   } else {
-    if (null != oldProps?.checked) {
+    if (null != oldWidget?.checked) {
       attributes[Attributes.checked] = null;
     }
   }
 
-  if (null != props.required && props.required!) {
-    attributes[Attributes.required] = '${props.required}';
+  if (null != widget.required && widget.required!) {
+    attributes[Attributes.required] = '${widget.required}';
   } else {
-    if (null != oldProps?.required) {
+    if (null != oldWidget?.required) {
       attributes[Attributes.required] = null;
     }
   }
 
-  if (null != props.readOnly && props.readOnly!) {
-    attributes[Attributes.readOnly] = '${props.readOnly}';
+  if (null != widget.readOnly && widget.readOnly!) {
+    attributes[Attributes.readOnly] = '${widget.readOnly}';
   } else {
-    if (null != oldProps?.readOnly) {
+    if (null != oldWidget?.readOnly) {
       attributes[Attributes.readOnly] = null;
     }
   }
 
-  if (null != props.disabled && props.disabled!) {
-    attributes[Attributes.disabled] = '${props.disabled}';
+  if (null != widget.disabled && widget.disabled!) {
+    attributes[Attributes.disabled] = '${widget.disabled}';
   } else {
-    if (null != oldProps?.disabled) {
+    if (null != oldWidget?.disabled) {
       attributes[Attributes.disabled] = null;
     }
   }

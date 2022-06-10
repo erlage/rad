@@ -60,39 +60,13 @@ class Label extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.label;
 
   @override
-  createConfiguration() {
-    return _LabelConfiguration(
-      forAttribute: forAttribute,
-      globalConfiguration:
-          super.createConfiguration() as HTMLWidgetBaseConfiguration,
-    );
-  }
-
-  @override
-  isConfigurationChanged(covariant _LabelConfiguration oldConfiguration) {
-    return forAttribute != oldConfiguration.forAttribute ||
-        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
+  bool shouldUpdateWidget(covariant Label oldWidget) {
+    return forAttribute != oldWidget.forAttribute ||
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override
   createRenderObject(context) => _LabelRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _LabelConfiguration extends WidgetConfiguration {
-  final HTMLWidgetBaseConfiguration globalConfiguration;
-
-  final String? forAttribute;
-
-  const _LabelConfiguration({
-    this.forAttribute,
-    required this.globalConfiguration,
-  });
 }
 
 /*
@@ -106,16 +80,16 @@ class _LabelRenderObject extends MarkUpGlobalRenderObject {
 
   @override
   render({
-    required covariant _LabelConfiguration configuration,
+    required covariant Label widget,
   }) {
     var domNodeDescription = super.render(
-      configuration: configuration.globalConfiguration,
+      widget: widget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: configuration,
-        oldProps: null,
+        widget: widget,
+        oldWidget: null,
       ),
     );
 
@@ -125,19 +99,19 @@ class _LabelRenderObject extends MarkUpGlobalRenderObject {
   @override
   update({
     required updateType,
-    required covariant _LabelConfiguration oldConfiguration,
-    required covariant _LabelConfiguration newConfiguration,
+    required covariant Label oldWidget,
+    required covariant Label newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
-      oldConfiguration: oldConfiguration.globalConfiguration,
-      newConfiguration: newConfiguration.globalConfiguration,
+      oldWidget: oldWidget,
+      newWidget: newWidget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: newConfiguration,
-        oldProps: oldConfiguration,
+        widget: newWidget,
+        oldWidget: oldWidget,
       ),
     );
 
@@ -152,15 +126,15 @@ class _LabelRenderObject extends MarkUpGlobalRenderObject {
 */
 
 Map<String, String?> _prepareAttributes({
-  required _LabelConfiguration props,
-  required _LabelConfiguration? oldProps,
+  required Label widget,
+  required Label? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
-  if (null != props.forAttribute) {
-    attributes[Attributes.forAttribute] = props.forAttribute;
+  if (null != widget.forAttribute) {
+    attributes[Attributes.forAttribute] = widget.forAttribute;
   } else {
-    if (null != oldProps?.forAttribute) {
+    if (null != oldWidget?.forAttribute) {
       attributes[Attributes.forAttribute] = null;
     }
   }

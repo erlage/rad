@@ -15,11 +15,11 @@ void main() {
       'flagIterateInReverseOrder is not set',
       (tester) async {
         await tester.pumpMultipleWidgets([
-          TestWidget(customHash: 'widget-1'),
-          TestWidget(customHash: 'widget-2'),
-          TestWidget(customHash: 'widget-3'),
-          TestWidget(customHash: 'widget-4'),
-          TestWidget(customHash: 'widget-5'),
+          RT_TestWidget(customHash: 'widget-1'),
+          RT_TestWidget(customHash: 'widget-2'),
+          RT_TestWidget(customHash: 'widget-3'),
+          RT_TestWidget(customHash: 'widget-4'),
+          RT_TestWidget(customHash: 'widget-5'),
         ]);
 
         await tester.visitChildren(
@@ -28,7 +28,7 @@ void main() {
           widgetActionCallback: (widgetObject) {
             var widget = widgetObject.widget;
 
-            if (widget is TestWidget) {
+            if (widget is RT_TestWidget) {
               tester.push(widget.hash);
             }
 
@@ -51,11 +51,11 @@ void main() {
       'flagIterateInReverseOrder: false',
       (tester) async {
         await tester.pumpMultipleWidgets([
-          TestWidget(customHash: 'widget-1'),
-          TestWidget(customHash: 'widget-2'),
-          TestWidget(customHash: 'widget-3'),
-          TestWidget(customHash: 'widget-4'),
-          TestWidget(customHash: 'widget-5'),
+          RT_TestWidget(customHash: 'widget-1'),
+          RT_TestWidget(customHash: 'widget-2'),
+          RT_TestWidget(customHash: 'widget-3'),
+          RT_TestWidget(customHash: 'widget-4'),
+          RT_TestWidget(customHash: 'widget-5'),
         ]);
 
         await tester.visitChildren(
@@ -65,7 +65,7 @@ void main() {
           widgetActionCallback: (widgetObject) {
             var widget = widgetObject.widget;
 
-            if (widget is TestWidget) {
+            if (widget is RT_TestWidget) {
               tester.push(widget.hash);
             }
 
@@ -88,11 +88,11 @@ void main() {
       'flagIterateInReverseOrder: true',
       (tester) async {
         await tester.pumpMultipleWidgets([
-          TestWidget(customHash: 'widget-1'),
-          TestWidget(customHash: 'widget-2'),
-          TestWidget(customHash: 'widget-3'),
-          TestWidget(customHash: 'widget-4'),
-          TestWidget(customHash: 'widget-5'),
+          RT_TestWidget(customHash: 'widget-1'),
+          RT_TestWidget(customHash: 'widget-2'),
+          RT_TestWidget(customHash: 'widget-3'),
+          RT_TestWidget(customHash: 'widget-4'),
+          RT_TestWidget(customHash: 'widget-5'),
         ]);
 
         await tester.visitChildren(
@@ -102,7 +102,7 @@ void main() {
           widgetActionCallback: (widgetObject) {
             var widget = widgetObject.widget;
 
-            if (widget is TestWidget) {
+            if (widget is RT_TestWidget) {
               tester.push(widget.hash);
             }
 
@@ -124,14 +124,14 @@ void main() {
       'should iterate over only childs at one level',
       (tester) async {
         await tester.pumpMultipleWidgets([
-          TestWidget(customHash: 'widget-1'),
-          TestWidget(customHash: 'widget-2'),
-          TestWidget(customHash: 'widget-3', children: [
-            TestWidget(customHash: 'widget-3-1'),
-            TestWidget(customHash: 'widget-3-2'),
+          RT_TestWidget(customHash: 'widget-1'),
+          RT_TestWidget(customHash: 'widget-2'),
+          RT_TestWidget(customHash: 'widget-3', children: [
+            RT_TestWidget(customHash: 'widget-3-1'),
+            RT_TestWidget(customHash: 'widget-3-2'),
           ]),
-          TestWidget(customHash: 'widget-4'),
-          TestWidget(customHash: 'widget-5'),
+          RT_TestWidget(customHash: 'widget-4'),
+          RT_TestWidget(customHash: 'widget-5'),
         ]);
 
         await tester.visitChildren(
@@ -140,7 +140,7 @@ void main() {
           widgetActionCallback: (widgetObject) {
             var widget = widgetObject.widget;
 
-            if (widget is TestWidget) {
+            if (widget is RT_TestWidget) {
               tester.push(widget.hash);
             }
 
@@ -162,11 +162,11 @@ void main() {
       'should short circuite further iterations when encounters skip',
       (tester) async {
         await tester.pumpMultipleWidgets([
-          TestWidget(customHash: 'widget-1'),
-          TestWidget(customHash: 'widget-2'),
-          TestWidget(customHash: 'widget-3'),
-          TestWidget(customHash: 'widget-4'),
-          TestWidget(customHash: 'widget-5'),
+          RT_TestWidget(customHash: 'widget-1'),
+          RT_TestWidget(customHash: 'widget-2'),
+          RT_TestWidget(customHash: 'widget-3'),
+          RT_TestWidget(customHash: 'widget-4'),
+          RT_TestWidget(customHash: 'widget-5'),
         ]);
 
         await tester.visitChildren(
@@ -175,7 +175,7 @@ void main() {
           widgetActionCallback: (widgetObject) {
             var widget = widgetObject.widget;
 
-            if (widget is TestWidget) {
+            if (widget is RT_TestWidget) {
               tester.push(widget.hash);
 
               if ('widget-3' == widget.hash) {
@@ -199,21 +199,21 @@ void main() {
       'should dispose widget when encounter dispose action',
       (tester) async {
         await tester.pumpMultipleWidgets([
-          TestWidget(
+          RT_TestWidget(
             customHash: 'widget-1',
-            roEventBeforeUnMount: () => tester.push('dispose 1'),
+            roEventHookBeforeUnMount: () => tester.push('dispose 1'),
           ),
-          TestWidget(
+          RT_TestWidget(
             customHash: 'widget-2',
-            roEventBeforeUnMount: () => tester.push('dispose 2'),
+            roEventHookBeforeUnMount: () => tester.push('dispose 2'),
           ),
-          TestWidget(
+          RT_TestWidget(
             customHash: 'widget-3',
-            roEventBeforeUnMount: () => tester.push('dispose 3'),
+            roEventHookBeforeUnMount: () => tester.push('dispose 3'),
           ),
-          TestWidget(
+          RT_TestWidget(
             customHash: 'widget-4',
-            roEventBeforeUnMount: () => tester.push('dispose 3'),
+            roEventHookBeforeUnMount: () => tester.push('dispose 3'),
           ),
         ]);
 
@@ -223,7 +223,7 @@ void main() {
           widgetActionCallback: (widgetObject) {
             var widget = widgetObject.widget;
 
-            if (widget is TestWidget) {
+            if (widget is RT_TestWidget) {
               tester.push(widget.hash);
 
               if ('widget-3' == widget.hash) {
@@ -251,30 +251,30 @@ void main() {
       'should update widget when encounter update action',
       (tester) async {
         await tester.pumpMultipleWidgets([
-          TestWidget(
+          RT_TestWidget(
             customHash: 'widget-1',
-            roEventUpdate: () => tester.push('update-1'),
+            roEventHookUpdate: () => tester.push('update-1'),
           ),
-          TestWidget(
+          RT_TestWidget(
             customHash: 'widget-2',
-            roEventUpdate: () => tester.push('update-2'),
+            roEventHookUpdate: () => tester.push('update-2'),
             children: [
-              TestWidget(
+              RT_TestWidget(
                 customHash: 'widget-2-1',
                 children: [
-                  TestWidget(
+                  RT_TestWidget(
                     customHash: 'widget-2-1-1',
                     children: [],
-                    roEventUpdate: () => tester.push('update-2-1-1'),
+                    roEventHookUpdate: () => tester.push('update-2-1-1'),
                   ),
                 ],
-                roEventUpdate: () => tester.push('update-2-1'),
+                roEventHookUpdate: () => tester.push('update-2-1'),
               ),
             ],
           ),
-          TestWidget(
+          RT_TestWidget(
             customHash: 'widget-3',
-            roEventUpdate: () => tester.push('update-3'),
+            roEventHookUpdate: () => tester.push('update-3'),
           ),
         ]);
 
@@ -284,7 +284,7 @@ void main() {
           widgetActionCallback: (widgetObject) {
             var widget = widgetObject.widget;
 
-            if (widget is TestWidget) {
+            if (widget is RT_TestWidget) {
               tester.push(widget.hash);
             }
 
@@ -308,9 +308,9 @@ void main() {
       'should hide widget when encounter hide action',
       (tester) async {
         await tester.pumpMultipleWidgets([
-          TestWidget(key: GlobalKey('1')),
-          TestWidget(key: GlobalKey('2')),
-          TestWidget(key: GlobalKey('3')),
+          RT_TestWidget(key: GlobalKey('1')),
+          RT_TestWidget(key: GlobalKey('2')),
+          RT_TestWidget(key: GlobalKey('3')),
         ]);
 
         await tester.visitChildren(
@@ -352,9 +352,9 @@ void main() {
       'should show widget when encounter show action',
       (tester) async {
         await tester.pumpMultipleWidgets([
-          TestWidget(key: GlobalKey('1')),
-          TestWidget(key: GlobalKey('2')),
-          TestWidget(key: GlobalKey('3')),
+          RT_TestWidget(key: GlobalKey('1')),
+          RT_TestWidget(key: GlobalKey('2')),
+          RT_TestWidget(key: GlobalKey('3')),
         ]);
 
         // first hide widgets
@@ -406,39 +406,39 @@ void main() {
       'should dispatch mixed actions',
       (tester) async {
         await tester.pumpMultipleWidgets([
-          TestWidget(
+          RT_TestWidget(
             key: GlobalKey('1'),
             customHash: 'widget-1',
-            roEventUpdate: () => tester.push('update-1'),
-            roEventBeforeUnMount: () => tester.push('dispose-1'),
+            roEventHookUpdate: () => tester.push('update-1'),
+            roEventHookBeforeUnMount: () => tester.push('dispose-1'),
           ),
-          TestWidget(
+          RT_TestWidget(
             customHash: 'widget-2',
             children: [
-              TestWidget(
+              RT_TestWidget(
                 customHash: 'widget-2-1',
                 children: [
-                  TestWidget(
+                  RT_TestWidget(
                     customHash: 'widget-2-1-1',
                     children: [],
                     // should never cascade update to this level
-                    roEventUpdate: () => tester.push('update-2-1-1'),
+                    roEventHookUpdate: () => tester.push('update-2-1-1'),
                   ),
                 ],
-                roEventUpdate: () => tester.push('update-2-1'),
-                roEventBeforeUnMount: () => tester.push('dispose-2-1'),
+                roEventHookUpdate: () => tester.push('update-2-1'),
+                roEventHookBeforeUnMount: () => tester.push('dispose-2-1'),
               ),
             ],
-            roEventUpdate: () => tester.push('update-2'),
-            roEventBeforeUnMount: () => tester.push('dispose-2'),
+            roEventHookUpdate: () => tester.push('update-2'),
+            roEventHookBeforeUnMount: () => tester.push('dispose-2'),
           ),
-          TestWidget(
+          RT_TestWidget(
             key: GlobalKey('3'),
             customHash: 'widget-3',
-            roEventUpdate: () => tester.push('update-3'),
-            roEventBeforeUnMount: () => tester.push('dispose-3'),
+            roEventHookUpdate: () => tester.push('update-3'),
+            roEventHookBeforeUnMount: () => tester.push('dispose-3'),
           ),
-          TestWidget(customHash: 'widget-4'),
+          RT_TestWidget(customHash: 'widget-4'),
         ]);
 
         await tester.visitChildren(
@@ -447,7 +447,7 @@ void main() {
           widgetActionCallback: (widgetObject) {
             var widget = widgetObject.widget;
 
-            if (widget is TestWidget) {
+            if (widget is RT_TestWidget) {
               var hash = widget.hash;
               tester.push(hash);
 

@@ -94,61 +94,18 @@ class Form extends HTMLWidgetBase {
       };
 
   @override
-  createConfiguration() {
-    return _FormConfiguration(
-      name: name,
-      action: action,
-      accept: accept,
-      enctype: enctype,
-      method: method,
-      target: target,
-      globalConfiguration:
-          super.createConfiguration() as HTMLWidgetBaseConfiguration,
-    );
-  }
-
-  @override
-  isConfigurationChanged(oldConfiguration) {
-    oldConfiguration as _FormConfiguration;
-
-    return name != oldConfiguration.name ||
-        action != oldConfiguration.action ||
-        accept != oldConfiguration.accept ||
-        target != oldConfiguration.target ||
-        enctype != oldConfiguration.enctype ||
-        method != oldConfiguration.method ||
-        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
+  bool shouldUpdateWidget(covariant Form oldWidget) {
+    return name != oldWidget.name ||
+        action != oldWidget.action ||
+        accept != oldWidget.accept ||
+        target != oldWidget.target ||
+        enctype != oldWidget.enctype ||
+        method != oldWidget.method ||
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override
   createRenderObject(context) => _FormRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _FormConfiguration extends WidgetConfiguration {
-  final HTMLWidgetBaseConfiguration globalConfiguration;
-
-  final String? name;
-  final String? action;
-  final String? accept;
-  final String? target;
-  final FormEncType? enctype;
-  final FormMethodType? method;
-
-  const _FormConfiguration({
-    this.name,
-    this.action,
-    this.accept,
-    this.target,
-    this.method,
-    this.enctype,
-    required this.globalConfiguration,
-  });
 }
 
 /*
@@ -162,16 +119,16 @@ class _FormRenderObject extends MarkUpGlobalRenderObject {
 
   @override
   render({
-    required covariant _FormConfiguration configuration,
+    required covariant Form widget,
   }) {
     var domNodeDescription = super.render(
-      configuration: configuration.globalConfiguration,
+      widget: widget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: configuration,
-        oldProps: null,
+        widget: widget,
+        oldWidget: null,
       ),
     );
 
@@ -181,19 +138,19 @@ class _FormRenderObject extends MarkUpGlobalRenderObject {
   @override
   update({
     required updateType,
-    required covariant _FormConfiguration oldConfiguration,
-    required covariant _FormConfiguration newConfiguration,
+    required covariant Form oldWidget,
+    required covariant Form newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
-      oldConfiguration: oldConfiguration.globalConfiguration,
-      newConfiguration: newConfiguration.globalConfiguration,
+      oldWidget: oldWidget,
+      newWidget: newWidget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: newConfiguration,
-        oldProps: oldConfiguration,
+        widget: newWidget,
+        oldWidget: oldWidget,
       ),
     );
 
@@ -208,55 +165,55 @@ class _FormRenderObject extends MarkUpGlobalRenderObject {
 */
 
 Map<String, String?> _prepareAttributes({
-  required _FormConfiguration props,
-  required _FormConfiguration? oldProps,
+  required Form widget,
+  required Form? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
-  if (null != props.name) {
-    attributes[Attributes.name] = props.name;
+  if (null != widget.name) {
+    attributes[Attributes.name] = widget.name;
   } else {
-    if (null != oldProps?.name) {
+    if (null != oldWidget?.name) {
       attributes[Attributes.name] = null;
     }
   }
 
-  if (null != props.action) {
-    attributes[Attributes.action] = props.action;
+  if (null != widget.action) {
+    attributes[Attributes.action] = widget.action;
   } else {
-    if (null != oldProps?.action) {
+    if (null != oldWidget?.action) {
       attributes[Attributes.action] = null;
     }
   }
 
-  if (null != props.accept) {
-    attributes[Attributes.accept] = props.accept;
+  if (null != widget.accept) {
+    attributes[Attributes.accept] = widget.accept;
   } else {
-    if (null != oldProps?.accept) {
+    if (null != oldWidget?.accept) {
       attributes[Attributes.accept] = null;
     }
   }
 
-  if (null != props.target) {
-    attributes[Attributes.target] = props.target;
+  if (null != widget.target) {
+    attributes[Attributes.target] = widget.target;
   } else {
-    if (null != oldProps?.target) {
+    if (null != oldWidget?.target) {
       attributes[Attributes.target] = null;
     }
   }
 
-  if (null != props.method) {
-    attributes[Attributes.method] = props.method!.nativeName;
+  if (null != widget.method) {
+    attributes[Attributes.method] = widget.method!.nativeName;
   } else {
-    if (null != oldProps?.method) {
+    if (null != oldWidget?.method) {
       attributes[Attributes.method] = null;
     }
   }
 
-  if (null != props.enctype) {
-    attributes[Attributes.enctype] = props.enctype!.nativeName;
+  if (null != widget.enctype) {
+    attributes[Attributes.enctype] = widget.enctype!.nativeName;
   } else {
-    if (null != oldProps?.enctype) {
+    if (null != oldWidget?.enctype) {
       attributes[Attributes.enctype] = null;
     }
   }

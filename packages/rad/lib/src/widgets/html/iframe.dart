@@ -89,65 +89,19 @@ class IFrame extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.iFrame;
 
   @override
-  createConfiguration() {
-    return _IFrameConfiguration(
-      src: src,
-      name: name,
-      allow: allow,
-      allowFullscreen: allowFullscreen,
-      allowPaymentRequest: allowPaymentRequest,
-      width: width,
-      height: height,
-      globalConfiguration:
-          super.createConfiguration() as HTMLWidgetBaseConfiguration,
-    );
-  }
-
-  @override
-  isConfigurationChanged(covariant _IFrameConfiguration oldConfiguration) {
-    return src != oldConfiguration.src ||
-        name != oldConfiguration.name ||
-        allow != oldConfiguration.allow ||
-        allowFullscreen != oldConfiguration.allowFullscreen ||
-        allowPaymentRequest != oldConfiguration.allowPaymentRequest ||
-        width != oldConfiguration.width ||
-        height != oldConfiguration.height ||
-        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
+  bool shouldUpdateWidget(covariant IFrame oldWidget) {
+    return src != oldWidget.src ||
+        name != oldWidget.name ||
+        allow != oldWidget.allow ||
+        allowFullscreen != oldWidget.allowFullscreen ||
+        allowPaymentRequest != oldWidget.allowPaymentRequest ||
+        width != oldWidget.width ||
+        height != oldWidget.height ||
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override
   createRenderObject(context) => _IFrameRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _IFrameConfiguration extends WidgetConfiguration {
-  final HTMLWidgetBaseConfiguration globalConfiguration;
-
-  final String? src;
-  final String? name;
-
-  final String? allow;
-  final bool? allowFullscreen;
-  final bool? allowPaymentRequest;
-
-  final String? width;
-  final String? height;
-
-  const _IFrameConfiguration({
-    this.src,
-    this.name,
-    this.allow,
-    this.allowFullscreen,
-    this.allowPaymentRequest,
-    this.width,
-    this.height,
-    required this.globalConfiguration,
-  });
 }
 
 /*
@@ -161,16 +115,16 @@ class _IFrameRenderObject extends MarkUpGlobalRenderObject {
 
   @override
   render({
-    required covariant _IFrameConfiguration configuration,
+    required covariant IFrame widget,
   }) {
     var domNodeDescription = super.render(
-      configuration: configuration.globalConfiguration,
+      widget: widget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: configuration,
-        oldProps: null,
+        widget: widget,
+        oldWidget: null,
       ),
     );
 
@@ -180,19 +134,19 @@ class _IFrameRenderObject extends MarkUpGlobalRenderObject {
   @override
   update({
     required updateType,
-    required covariant _IFrameConfiguration oldConfiguration,
-    required covariant _IFrameConfiguration newConfiguration,
+    required covariant IFrame oldWidget,
+    required covariant IFrame newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
-      oldConfiguration: oldConfiguration.globalConfiguration,
-      newConfiguration: newConfiguration.globalConfiguration,
+      oldWidget: oldWidget,
+      newWidget: newWidget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: newConfiguration,
-        oldProps: oldConfiguration,
+        widget: newWidget,
+        oldWidget: oldWidget,
       ),
     );
 
@@ -207,65 +161,65 @@ class _IFrameRenderObject extends MarkUpGlobalRenderObject {
 */
 
 Map<String, String?> _prepareAttributes({
-  required _IFrameConfiguration props,
-  required _IFrameConfiguration? oldProps,
+  required IFrame widget,
+  required IFrame? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
-  if (null != props.src) {
-    attributes[Attributes.src] = props.src;
+  if (null != widget.src) {
+    attributes[Attributes.src] = widget.src;
   } else {
-    if (null != oldProps?.src) {
+    if (null != oldWidget?.src) {
       attributes[Attributes.src] = null;
     }
   }
 
-  if (null != props.name) {
-    attributes[Attributes.name] = props.name;
+  if (null != widget.name) {
+    attributes[Attributes.name] = widget.name;
   } else {
-    if (null != oldProps?.name) {
+    if (null != oldWidget?.name) {
       attributes[Attributes.name] = null;
     }
   }
 
-  if (null != props.width) {
-    attributes[Attributes.width] = props.width;
+  if (null != widget.width) {
+    attributes[Attributes.width] = widget.width;
   } else {
-    if (null != oldProps?.width) {
+    if (null != oldWidget?.width) {
       attributes[Attributes.width] = null;
     }
   }
 
-  if (null != props.height) {
-    attributes[Attributes.height] = props.height;
+  if (null != widget.height) {
+    attributes[Attributes.height] = widget.height;
   } else {
-    if (null != oldProps?.height) {
+    if (null != oldWidget?.height) {
       attributes[Attributes.height] = null;
     }
   }
 
-  if (null != props.allow) {
-    attributes[Attributes.allow] = props.allow;
+  if (null != widget.allow) {
+    attributes[Attributes.allow] = widget.allow;
   } else {
-    if (null != oldProps?.allow) {
+    if (null != oldWidget?.allow) {
       attributes[Attributes.allow] = null;
     }
   }
 
-  if (null != props.allowFullscreen && props.allowFullscreen!) {
-    attributes[Attributes.allowFullscreen] = '${props.allowFullscreen}';
+  if (null != widget.allowFullscreen && widget.allowFullscreen!) {
+    attributes[Attributes.allowFullscreen] = '${widget.allowFullscreen}';
   } else {
-    if (null != oldProps?.allowFullscreen) {
+    if (null != oldWidget?.allowFullscreen) {
       attributes[Attributes.allowFullscreen] = null;
     }
   }
 
-  if (null != props.allowPaymentRequest && props.allowPaymentRequest!) {
-    var value = '${props.allowPaymentRequest}';
+  if (null != widget.allowPaymentRequest && widget.allowPaymentRequest!) {
+    var value = '${widget.allowPaymentRequest}';
 
     attributes[Attributes.allowPaymentRequest] = value;
   } else {
-    if (null != oldProps?.allowPaymentRequest) {
+    if (null != oldWidget?.allowPaymentRequest) {
       attributes[Attributes.allowPaymentRequest] = null;
     }
   }

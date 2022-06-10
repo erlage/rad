@@ -269,15 +269,23 @@ void main() {
 
             // render object hooks
 
+            // should call this
             roEventHookAfterMount: () => testStack.push('afterMount'),
+            // should call this
             roEventHookRender: () => testStack.push('render'),
 
-            // widget hooks
-
-            wEventHookCreateWidgetConfiguration: () => testStack.push(
-              'createWidgetConfiguration',
+            // should not call this
+            wEventShouldUpdateWidget: () => testStack.push(
+              'shouldUpdateWidget',
             ),
-            wEventHookCreateRenderObject: () => testStack.push(
+
+            // should not call this
+            wEventShouldUpdateWidgetChildren: () => testStack.push(
+              'shouldUpdateWidgetChildren',
+            ),
+
+            // should call this
+            wEventCreateRenderObject: () => testStack.push(
               'createRenderObject',
             ),
           )
@@ -285,7 +293,6 @@ void main() {
         parentContext: app!.appContext,
       );
 
-      expect(testStack.popFromStart(), equals('createWidgetConfiguration'));
       expect(testStack.popFromStart(), equals('createRenderObject'));
 
       expect(testStack.popFromStart(), equals('render'));

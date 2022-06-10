@@ -280,7 +280,6 @@ class Renderer with ServicesResolver {
     // 3. Create render node, config and render object of widget
 
     var renderNode = RenderNode(context);
-    var configuration = widget.createConfiguration();
     var renderObject = widget.createRenderObject(context);
 
     // 4. Create dom node(if widget.correspondingTag is non-null)
@@ -299,7 +298,6 @@ class Renderer with ServicesResolver {
       widget: widget,
       context: context,
       domNode: domNode,
-      configuration: configuration,
       renderNode: renderNode,
       renderObject: renderObject,
     );
@@ -309,7 +307,7 @@ class Renderer with ServicesResolver {
     // 6. Create description
 
     var description = renderObject.render(
-      configuration: configuration,
+      widget: widget,
     );
 
     widgetObject.frameworkRebindElementDescription(description);
@@ -628,24 +626,19 @@ class Renderer with ServicesResolver {
       |------------------------------------------------------------------------
       */
 
-      var oldConfiguration = widgetObject.configuration;
-      var isChanged = newWidget.isConfigurationChanged(oldConfiguration);
+      var shouldUpdateWidget = newWidget.shouldUpdateWidget(oldWidget);
 
-      if (isChanged) {
+      if (shouldUpdateWidget) {
         if (services.debug.frameworkLogs) {
           print('Update widget: ${widgetObject.context}');
         }
-
-        var newConfiguration = newWidget.createConfiguration();
-
-        widgetObject.frameworkRebindWidgetConfiguration(newConfiguration);
 
         // publish update
 
         var newDescription = widgetObject.renderObject.update(
           updateType: updateType,
-          oldConfiguration: oldConfiguration,
-          newConfiguration: newConfiguration,
+          oldWidget: oldWidget,
+          newWidget: newWidget,
         );
 
         widgetObject.frameworkRebindElementDescription(newDescription);
@@ -667,26 +660,19 @@ class Renderer with ServicesResolver {
       /*
       |------------------------------------------------------------------------
       | run update on child nodes
-      |
-      | there are two types of child a widget can have:
-      |
-      | - direct(provided in widget's widgetChildren getter)
-      | - non-direct(rendered by the widget's state)
-      |
-      | we run updateWidgetsUnderContext() only if there are direct childs 
-      | because framework is not responsible for dispatching updates to 
-      | non-direct childs of a widget.
       |------------------------------------------------------------------------
       */
 
-      // whether old widget happen to have direct child widgets
-      var hadDirectChilds = oldWidget.widgetChildren.isNotEmpty;
+      // get permission from widget which owns the child widgets
 
-      // whether new widget has direct childs
-      var hasDirectChilds = updateObject.widget.widgetChildren.isNotEmpty;
+      var shouldUpdateWidgetChildren = newWidget.shouldUpdateWidgetChildren(
+        oldWidget,
+        shouldUpdateWidget,
+      );
 
-      // if widget has or had direct childs, run update
-      if (hasDirectChilds || hadDirectChilds) {
+      // i hope its not granted
+
+      if (shouldUpdateWidgetChildren) {
         updateWidgetsUnderContext(
           jobQueue: jobQueue,
           updateType: updateTypeForChildWidgets,
@@ -934,8 +920,8 @@ class Renderer with ServicesResolver {
 
           var newDescription = widgetObject.renderObject.update(
             updateType: updateType,
-            newConfiguration: widgetObject.configuration,
-            oldConfiguration: widgetObject.configuration,
+            newWidget: widgetObject.widget,
+            oldWidget: widgetObject.widget,
           ); // bit of mess ^ but required
 
           widgetObject.frameworkRebindElementDescription(newDescription);

@@ -91,38 +91,15 @@ class ListView extends Widget {
 
   @nonVirtual
   @override
-  createConfiguration() {
-    var configuration = _ListViewConfiguration(
-      style: style,
-      layoutType: layoutType,
-      classAttribute: classAttribute,
-      scrollDirection: scrollDirection,
-    );
-
-    if (isListViewBuilder) {
-      return _ListViewBuilderConfiguration(
-        itemCount: itemCount,
-        itemBuilder: itemBuilder!,
-        baseConfiguration: configuration,
-      );
-    }
-
-    return configuration;
-  }
-
-  @nonVirtual
-  @override
-  isConfigurationChanged(oldConfiguration) {
+  bool shouldUpdateWidget(covariant ListView oldWidget) {
     if (isListViewBuilder) {
       return true;
     }
 
-    oldConfiguration as _ListViewConfiguration;
-
-    return style != oldConfiguration.style ||
-        layoutType != oldConfiguration.layoutType ||
-        classAttribute != oldConfiguration.classAttribute ||
-        scrollDirection != oldConfiguration.scrollDirection;
+    return style != oldWidget.style ||
+        layoutType != oldWidget.layoutType ||
+        classAttribute != oldWidget.classAttribute ||
+        scrollDirection != oldWidget.scrollDirection;
   }
 
   @nonVirtual
@@ -141,46 +118,6 @@ class ListView extends Widget {
 
 /*
 |--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _ListViewConfiguration extends WidgetConfiguration {
-  final String? style;
-  final String? classAttribute;
-
-  final LayoutType layoutType;
-  final Axis scrollDirection;
-
-  const _ListViewConfiguration({
-    this.style,
-    this.classAttribute,
-    required this.layoutType,
-    required this.scrollDirection,
-  });
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration for builder version
-|--------------------------------------------------------------------------
-*/
-
-class _ListViewBuilderConfiguration extends WidgetConfiguration {
-  final _ListViewConfiguration baseConfiguration;
-
-  final int? itemCount;
-  final IndexedWidgetBuilder itemBuilder;
-
-  const _ListViewBuilderConfiguration({
-    this.itemCount,
-    required this.itemBuilder,
-    required this.baseConfiguration,
-  });
-}
-
-/*
-|--------------------------------------------------------------------------
 | render object
 |--------------------------------------------------------------------------
 */
@@ -190,12 +127,12 @@ class ListViewRenderObject extends RenderObject {
 
   @override
   render({
-    required covariant _ListViewConfiguration configuration,
+    required covariant ListView widget,
   }) {
     return DomNodeDescription(
       attributes: _prepareAttributes(
-        props: configuration,
-        oldProps: null,
+        widget: widget,
+        oldWidget: null,
       ),
     );
   }
@@ -203,13 +140,13 @@ class ListViewRenderObject extends RenderObject {
   @override
   update({
     required updateType,
-    required covariant _ListViewConfiguration oldConfiguration,
-    required covariant _ListViewConfiguration newConfiguration,
+    required covariant ListView oldWidget,
+    required covariant ListView newWidget,
   }) {
     return DomNodeDescription(
       attributes: _prepareAttributes(
-        props: newConfiguration,
-        oldProps: oldConfiguration,
+        widget: newWidget,
+        oldWidget: oldWidget,
       ),
     );
   }
@@ -231,19 +168,16 @@ class ListViewBuilderRenderObject extends RenderObject {
 
   @override
   render({
-    required covariant _ListViewBuilderConfiguration configuration,
+    required covariant ListView widget,
   }) {
-    var baseConfiguration = configuration.baseConfiguration;
-    var layoutType = baseConfiguration.layoutType;
-
     state
-      ..frameworkBindLayoutType(layoutType)
-      ..frameworkUpdateConfigurationBinding(configuration);
+      ..frameworkBindLayoutType(widget.layoutType)
+      ..frameworkBindWidget(widget);
 
     return DomNodeDescription(
       attributes: _prepareAttributes(
-        props: baseConfiguration,
-        oldProps: null,
+        widget: widget,
+        oldWidget: null,
       ),
     );
   }
@@ -257,7 +191,7 @@ class ListViewBuilderRenderObject extends RenderObject {
       services.debug.exception(Constants.coreError);
     } else {
       state
-        ..frameworkUpdateDomNodeBinding(domNode)
+        ..frameworkRebindDomNode(domNode)
         ..frameworkRender();
     }
   }
@@ -265,23 +199,20 @@ class ListViewBuilderRenderObject extends RenderObject {
   @override
   update({
     required updateType,
-    required covariant _ListViewBuilderConfiguration oldConfiguration,
-    required covariant _ListViewBuilderConfiguration newConfiguration,
+    required covariant ListView oldWidget,
+    required covariant ListView newWidget,
   }) {
-    var newBaseConfig = newConfiguration.baseConfiguration;
-    var oldBaseConfig = oldConfiguration.baseConfiguration;
-
     state
-      ..frameworkUpdateConfigurationBinding(newConfiguration)
+      ..frameworkRebindWidget(newWidget)
       ..frameworkUpdate(updateType);
 
-    if (newBaseConfig.style != oldBaseConfig.style ||
-        newBaseConfig.classAttribute != oldBaseConfig.classAttribute ||
-        newBaseConfig.scrollDirection != oldBaseConfig.scrollDirection) {
+    if (newWidget.style != oldWidget.style ||
+        newWidget.classAttribute != oldWidget.classAttribute ||
+        newWidget.scrollDirection != oldWidget.scrollDirection) {
       return DomNodeDescription(
         attributes: _prepareAttributes(
-          props: newBaseConfig,
-          oldProps: oldBaseConfig,
+          widget: newWidget,
+          oldWidget: oldWidget,
         ),
       );
     }
@@ -335,13 +266,13 @@ class _ListViewBuilderState with ServicesResolver {
   Element? _domNode;
   Element get domNode => _domNode!;
 
+  ListView? _widget;
+  ListView get widget => _widget!;
+
   LayoutType _layoutType = LayoutType.contain;
 
-  _ListViewBuilderConfiguration? _configuration;
-  _ListViewBuilderConfiguration get configuration => _configuration!;
-
   int get renderUptoIndex {
-    var itemCount = configuration.itemCount;
+    var itemCount = widget.itemCount;
 
     if (null != itemCount && _renderableUptoIndex > itemCount) {
       return itemCount;
@@ -391,7 +322,7 @@ class _ListViewBuilderState with ServicesResolver {
                 (i) => Division(
                   key: Key('lv_item_${i + currentIndex}_${context.key.value}'),
                   classAttribute: Constants.classListViewItemContainer,
-                  child: configuration.itemBuilder(context, i + currentIndex),
+                  child: widget.itemBuilder!(context, i + currentIndex),
                 ),
               ),
               afterTaskCallback: _updateObserverTarget,
@@ -455,7 +386,7 @@ class _ListViewBuilderState with ServicesResolver {
           (i) => Division(
             key: Key('lv_item_${i}_${context.key.value}'),
             classAttribute: Constants.classListViewItemContainer,
-            child: configuration.itemBuilder(context, i),
+            child: widget.itemBuilder!(context, i),
           ),
         ),
         afterTaskCallback: _updateObserverTarget,
@@ -473,7 +404,7 @@ class _ListViewBuilderState with ServicesResolver {
           (i) => Division(
             key: Key('lv_item_${i}_${context.key.value}'),
             classAttribute: Constants.classListViewItemContainer,
-            child: configuration.itemBuilder(context, i),
+            child: widget.itemBuilder!(context, i),
           ),
         ),
         afterTaskCallback: _updateObserverTarget,
@@ -481,13 +412,19 @@ class _ListViewBuilderState with ServicesResolver {
     );
   }
 
-  void frameworkUpdateConfigurationBinding(
-    _ListViewBuilderConfiguration configuration,
-  ) {
-    _configuration = configuration;
+  void frameworkBindWidget(ListView widget) {
+    if (null != _widget) {
+      throw Exception(Constants.coreError);
+    }
+
+    _widget = widget;
   }
 
-  void frameworkUpdateDomNodeBinding(Element domNode) {
+  void frameworkRebindWidget(ListView widget) {
+    _widget = widget;
+  }
+
+  void frameworkRebindDomNode(Element domNode) {
     _domNode = domNode;
   }
 
@@ -507,32 +444,32 @@ class _ListViewBuilderState with ServicesResolver {
 */
 
 Map<String, String?> _prepareAttributes({
-  required _ListViewConfiguration props,
-  required _ListViewConfiguration? oldProps,
+  required ListView widget,
+  required ListView? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
   var classAttribute = fnCommonPrepareClassAttribute(
-        classAttribute: '${props.classAttribute}',
+        classAttribute: '${widget.classAttribute}',
         oldClassAttribute: null, // not required, new attribute is always set
       ) ??
       '';
 
   classAttribute += ' ${Constants.classListView}';
 
-  if (LayoutType.contain == props.layoutType) {
+  if (LayoutType.contain == widget.layoutType) {
     classAttribute += ' ${Constants.classListViewContained}';
   }
 
-  if (LayoutType.expand == props.layoutType) {
+  if (LayoutType.expand == widget.layoutType) {
     classAttribute += ' ${Constants.classListViewExpanded}';
   }
 
-  if (Axis.horizontal == props.scrollDirection) {
+  if (Axis.horizontal == widget.scrollDirection) {
     classAttribute += ' ${Constants.classListViewHorizontal}';
   }
 
-  if (Axis.vertical == props.scrollDirection) {
+  if (Axis.vertical == widget.scrollDirection) {
     classAttribute += ' ${Constants.classListViewVeritcal}';
   }
 

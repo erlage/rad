@@ -115,9 +115,17 @@ abstract class StatefulWidget extends Widget {
   @override
   DomTagType? get correspondingTag => null;
 
+  @override
+  bool shouldUpdateWidget(oldWidget) => true;
+
+  /// Overriding this method on [StatefulWidget] can result in unexpected
+  /// behavior as [StatefulWidget] build its childs from its state. If you don't
+  /// want the [StatefulWidget] to update its child widgets, override
+  /// [shouldUpdateWidget] instead.
+  ///
   @nonVirtual
   @override
-  isConfigurationChanged(oldConfiguration) => true;
+  bool shouldUpdateWidgetChildren(oldWidget, shouldUpdateWidget) => false;
 
   @nonVirtual
   @override
@@ -163,8 +171,8 @@ class StatefulWidgetRenderObject extends RenderObject {
   @override
   update({
     required updateType,
-    required oldConfiguration,
-    required newConfiguration,
+    required oldWidget,
+    required newWidget,
   }) {
     if (UpdateType.dependencyChanged == updateType) {
       state.didChangeDependencies();

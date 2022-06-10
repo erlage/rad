@@ -383,9 +383,17 @@ class Navigator extends Widget {
   @override
   DomTagType get correspondingTag => DomTagType.division;
 
+  @override
+  bool shouldUpdateWidget(oldWidget) => true;
+
+  /// Overriding this method on [Navigator] can result in unexpected
+  /// behavior as [Navigator] build its childs from its state. If you don't
+  /// want the [Navigator] to update its child widgets, override
+  /// [shouldUpdateWidget] instead.
+  ///
   @nonVirtual
   @override
-  isConfigurationChanged(oldConfiguration) => true;
+  bool shouldUpdateWidgetChildren(oldWidget, shouldUpdateWidget) => false;
 
   @override
   createRenderObject(context) => NavigatorRenderObject(
@@ -428,7 +436,7 @@ class NavigatorRenderObject extends RenderObject {
   }) : super(context);
 
   @override
-  render({required configuration}) => _description;
+  render({required widget}) => _description;
 
   @override
   afterMount() {
@@ -441,8 +449,8 @@ class NavigatorRenderObject extends RenderObject {
   @override
   update({
     required updateType,
-    required oldConfiguration,
-    required newConfiguration,
+    required oldWidget,
+    required newWidget,
   }) {
     state.frameworkUpdate(updateType);
 
@@ -601,10 +609,10 @@ class NavigatorState with ServicesResolver {
           parentContext: context,
           flagIterateInReverseOrder: true,
           widgetActionCallback: (widgetObject) {
-            var configuration = widgetObject.configuration;
+            var widget = widgetObject.widget;
 
-            if (configuration is RouteConfiguration) {
-              var routeName = configuration.name;
+            if (widget is Route) {
+              var routeName = widget.name;
 
               if (name == routeName) {
                 return [WidgetAction.showWidget];
@@ -830,10 +838,10 @@ class NavigatorState with ServicesResolver {
         parentContext: context,
         flagIterateInReverseOrder: true,
         widgetActionCallback: (widgetObject) {
-          var configuration = widgetObject.configuration;
+          var widget = widgetObject.widget;
 
-          if (configuration is RouteConfiguration) {
-            var routeName = configuration.name;
+          if (widget is Route) {
+            var routeName = widget.name;
 
             if (currentRouteName == routeName) {
               return [WidgetAction.updateWidget];

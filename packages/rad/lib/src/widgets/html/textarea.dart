@@ -114,73 +114,21 @@ class TextArea extends HTMLWidgetBase {
       };
 
   @override
-  createConfiguration() {
-    return _TextAreaConfiguration(
-      name: name,
-      placeholder: placeholder,
-      rows: rows,
-      cols: cols,
-      minLength: minLength,
-      maxLength: maxLength,
-      required: required,
-      readOnly: readOnly,
-      disabled: disabled,
-      globalConfiguration:
-          super.createConfiguration() as HTMLWidgetBaseConfiguration,
-    );
-  }
-
-  @override
-  isConfigurationChanged(covariant _TextAreaConfiguration oldConfiguration) {
-    return name != oldConfiguration.name ||
-        placeholder != oldConfiguration.placeholder ||
-        rows != oldConfiguration.rows ||
-        cols != oldConfiguration.cols ||
-        minLength != oldConfiguration.minLength ||
-        maxLength != oldConfiguration.maxLength ||
-        required != oldConfiguration.required ||
-        readOnly != oldConfiguration.readOnly ||
-        disabled != oldConfiguration.disabled ||
-        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
+  bool shouldUpdateWidget(covariant TextArea oldWidget) {
+    return name != oldWidget.name ||
+        placeholder != oldWidget.placeholder ||
+        rows != oldWidget.rows ||
+        cols != oldWidget.cols ||
+        minLength != oldWidget.minLength ||
+        maxLength != oldWidget.maxLength ||
+        required != oldWidget.required ||
+        readOnly != oldWidget.readOnly ||
+        disabled != oldWidget.disabled ||
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override
   createRenderObject(context) => _TextAreaRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _TextAreaConfiguration extends WidgetConfiguration {
-  final HTMLWidgetBaseConfiguration globalConfiguration;
-
-  final String? name;
-  final String? placeholder;
-
-  final int? rows;
-  final int? cols;
-  final int? minLength;
-  final int? maxLength;
-
-  final bool? required;
-  final bool? readOnly;
-  final bool? disabled;
-
-  const _TextAreaConfiguration({
-    this.name,
-    this.placeholder,
-    this.rows,
-    this.cols,
-    this.minLength,
-    this.maxLength,
-    this.required,
-    this.readOnly,
-    this.disabled,
-    required this.globalConfiguration,
-  });
 }
 
 /*
@@ -194,16 +142,16 @@ class _TextAreaRenderObject extends MarkUpGlobalRenderObject {
 
   @override
   render({
-    required covariant _TextAreaConfiguration configuration,
+    required covariant TextArea widget,
   }) {
     var domNodeDescription = super.render(
-      configuration: configuration.globalConfiguration,
+      widget: widget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: configuration,
-        oldProps: null,
+        widget: widget,
+        oldWidget: null,
       ),
     );
 
@@ -213,19 +161,19 @@ class _TextAreaRenderObject extends MarkUpGlobalRenderObject {
   @override
   update({
     required updateType,
-    required covariant _TextAreaConfiguration oldConfiguration,
-    required covariant _TextAreaConfiguration newConfiguration,
+    required covariant TextArea oldWidget,
+    required covariant TextArea newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
-      oldConfiguration: oldConfiguration.globalConfiguration,
-      newConfiguration: newConfiguration.globalConfiguration,
+      oldWidget: oldWidget,
+      newWidget: newWidget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: newConfiguration,
-        oldProps: oldConfiguration,
+        widget: newWidget,
+        oldWidget: oldWidget,
       ),
     );
 
@@ -240,79 +188,79 @@ class _TextAreaRenderObject extends MarkUpGlobalRenderObject {
 */
 
 Map<String, String?> _prepareAttributes({
-  required _TextAreaConfiguration props,
-  required _TextAreaConfiguration? oldProps,
+  required TextArea widget,
+  required TextArea? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
-  if (null != props.name) {
-    attributes[Attributes.name] = props.name;
+  if (null != widget.name) {
+    attributes[Attributes.name] = widget.name;
   } else {
-    if (null != oldProps?.name) {
+    if (null != oldWidget?.name) {
       attributes[Attributes.name] = null;
     }
   }
 
-  if (null != props.placeholder) {
-    attributes[Attributes.placeholder] = props.placeholder;
+  if (null != widget.placeholder) {
+    attributes[Attributes.placeholder] = widget.placeholder;
   } else {
-    if (null != oldProps?.placeholder) {
+    if (null != oldWidget?.placeholder) {
       attributes[Attributes.placeholder] = null;
     }
   }
 
-  if (null != props.rows) {
-    attributes[Attributes.rows] = '${props.rows}';
+  if (null != widget.rows) {
+    attributes[Attributes.rows] = '${widget.rows}';
   } else {
-    if (null != oldProps?.rows) {
+    if (null != oldWidget?.rows) {
       attributes[Attributes.rows] = null;
     }
   }
 
-  if (null != props.cols) {
-    attributes[Attributes.cols] = '${props.cols}';
+  if (null != widget.cols) {
+    attributes[Attributes.cols] = '${widget.cols}';
   } else {
-    if (null != oldProps?.cols) {
+    if (null != oldWidget?.cols) {
       attributes[Attributes.cols] = null;
     }
   }
 
-  if (null != props.minLength) {
-    attributes[Attributes.minLength] = '${props.minLength}';
+  if (null != widget.minLength) {
+    attributes[Attributes.minLength] = '${widget.minLength}';
   } else {
-    if (null != oldProps?.minLength) {
+    if (null != oldWidget?.minLength) {
       attributes[Attributes.minLength] = null;
     }
   }
 
-  if (null != props.maxLength) {
-    attributes[Attributes.maxLength] = '${props.maxLength}';
+  if (null != widget.maxLength) {
+    attributes[Attributes.maxLength] = '${widget.maxLength}';
   } else {
-    if (null != oldProps?.maxLength) {
+    if (null != oldWidget?.maxLength) {
       attributes[Attributes.maxLength] = null;
     }
   }
 
-  if (null != props.required && props.required!) {
-    attributes[Attributes.required] = '${props.required}';
+  if (null != widget.required && widget.required!) {
+    attributes[Attributes.required] = '${widget.required}';
   } else {
-    if (null != oldProps?.required) {
+    if (null != oldWidget?.required) {
       attributes[Attributes.required] = null;
     }
   }
 
-  if (null != props.readOnly && props.readOnly!) {
-    attributes[Attributes.readOnly] = '${props.readOnly}';
+  if (null != widget.readOnly && widget.readOnly!) {
+    attributes[Attributes.readOnly] = '${widget.readOnly}';
   } else {
-    if (null != oldProps?.readOnly) {
+    if (null != oldWidget?.readOnly) {
       attributes[Attributes.readOnly] = null;
     }
   }
 
-  if (null != props.disabled && props.disabled!) {
-    attributes[Attributes.disabled] = '${props.disabled}';
+  if (null != widget.disabled && widget.disabled!) {
+    attributes[Attributes.disabled] = '${widget.disabled}';
   } else {
-    if (null != oldProps?.disabled) {
+    if (null != oldWidget?.disabled) {
       attributes[Attributes.disabled] = null;
     }
   }

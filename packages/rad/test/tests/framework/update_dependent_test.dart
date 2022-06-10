@@ -8,9 +8,9 @@ void main() {
       var gkey = GlobalKey('gkey');
 
       await tester.pumpWidget(
-        TestWidget(
+        RT_TestWidget(
           key: gkey,
-          roEventUpdate: () => tester.push('update'),
+          roEventHookUpdate: () => tester.push('update'),
         ),
       );
 
@@ -29,7 +29,7 @@ void main() {
       var gkey = GlobalKey('gkey');
 
       await tester.pumpWidget(
-        TestWidget(
+        RT_TestWidget(
           key: gkey,
           roHookUpdate: (type) => tester.push(type.name),
         ),

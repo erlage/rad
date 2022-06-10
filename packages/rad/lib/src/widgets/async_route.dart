@@ -295,4 +295,10 @@ class _AsyncRoutePlaceholder extends Widget {
 
   @override
   DomTagType get correspondingTag => DomTagType.division;
+
+  @override
+  bool shouldUpdateWidget(oldWidget) => false;
+
+  @override
+  bool shouldUpdateWidgetChildren(oldWidget, shouldUpdateWidget) => false;
 }

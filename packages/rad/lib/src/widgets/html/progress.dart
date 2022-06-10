@@ -65,43 +65,14 @@ class Progress extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.progress;
 
   @override
-  createConfiguration() {
-    return _ProgressConfiguration(
-      value: value,
-      max: max,
-      globalConfiguration:
-          super.createConfiguration() as HTMLWidgetBaseConfiguration,
-    );
-  }
-
-  @override
-  isConfigurationChanged(covariant _ProgressConfiguration oldConfiguration) {
-    return value != oldConfiguration.value ||
-        max != oldConfiguration.max ||
-        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
+  bool shouldUpdateWidget(covariant Progress oldWidget) {
+    return value != oldWidget.value ||
+        max != oldWidget.max ||
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override
   createRenderObject(context) => _ProgressRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _ProgressConfiguration extends WidgetConfiguration {
-  final HTMLWidgetBaseConfiguration globalConfiguration;
-
-  final num? value;
-  final num? max;
-
-  const _ProgressConfiguration({
-    this.value,
-    this.max,
-    required this.globalConfiguration,
-  });
 }
 
 /*
@@ -115,16 +86,16 @@ class _ProgressRenderObject extends MarkUpGlobalRenderObject {
 
   @override
   render({
-    required covariant _ProgressConfiguration configuration,
+    required covariant Progress widget,
   }) {
     var domNodeDescription = super.render(
-      configuration: configuration.globalConfiguration,
+      widget: widget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: configuration,
-        oldProps: null,
+        widget: widget,
+        oldWidget: null,
       ),
     );
 
@@ -134,19 +105,19 @@ class _ProgressRenderObject extends MarkUpGlobalRenderObject {
   @override
   update({
     required updateType,
-    required covariant _ProgressConfiguration oldConfiguration,
-    required covariant _ProgressConfiguration newConfiguration,
+    required covariant Progress oldWidget,
+    required covariant Progress newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
-      oldConfiguration: oldConfiguration.globalConfiguration,
-      newConfiguration: newConfiguration.globalConfiguration,
+      oldWidget: oldWidget,
+      newWidget: newWidget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: newConfiguration,
-        oldProps: oldConfiguration,
+        widget: newWidget,
+        oldWidget: oldWidget,
       ),
     );
 
@@ -161,23 +132,23 @@ class _ProgressRenderObject extends MarkUpGlobalRenderObject {
 */
 
 Map<String, String?> _prepareAttributes({
-  required _ProgressConfiguration props,
-  required _ProgressConfiguration? oldProps,
+  required Progress widget,
+  required Progress? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
-  if (null != props.max) {
-    attributes[Attributes.max] = '${props.max}';
+  if (null != widget.max) {
+    attributes[Attributes.max] = '${widget.max}';
   } else {
-    if (null != oldProps?.max) {
+    if (null != oldWidget?.max) {
       attributes[Attributes.max] = null;
     }
   }
 
-  if (null != props.value) {
-    attributes[Attributes.value] = '${props.value}';
+  if (null != widget.value) {
+    attributes[Attributes.value] = '${widget.value}';
   } else {
-    if (null != oldProps?.value) {
+    if (null != oldWidget?.value) {
       attributes[Attributes.value] = null;
     }
   }

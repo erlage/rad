@@ -74,53 +74,16 @@ class Button extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.button;
 
   @override
-  createConfiguration() {
-    return _ButtonConfiguration(
-      name: name,
-      value: value,
-      type: type,
-      disabled: disabled,
-      globalConfiguration:
-          super.createConfiguration() as HTMLWidgetBaseConfiguration,
-    );
-  }
-
-  @override
-  isConfigurationChanged(covariant _ButtonConfiguration oldConfiguration) {
-    return name != oldConfiguration.name ||
-        value != oldConfiguration.value ||
-        type != oldConfiguration.type ||
-        disabled != oldConfiguration.disabled ||
-        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
+  bool shouldUpdateWidget(covariant Button oldWidget) {
+    return name != oldWidget.name ||
+        value != oldWidget.value ||
+        type != oldWidget.type ||
+        disabled != oldWidget.disabled ||
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override
   createRenderObject(context) => _ButtonRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _ButtonConfiguration extends WidgetConfiguration {
-  final HTMLWidgetBaseConfiguration globalConfiguration;
-
-  final String? name;
-  final String? value;
-
-  final ButtonType? type;
-
-  final bool? disabled;
-
-  const _ButtonConfiguration({
-    this.name,
-    this.type,
-    this.value,
-    this.disabled,
-    required this.globalConfiguration,
-  });
 }
 
 /*
@@ -134,16 +97,16 @@ class _ButtonRenderObject extends MarkUpGlobalRenderObject {
 
   @override
   render({
-    required covariant _ButtonConfiguration configuration,
+    required covariant Button widget,
   }) {
     var domNodeDescription = super.render(
-      configuration: configuration.globalConfiguration,
+      widget: widget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: configuration,
-        oldProps: null,
+        widget: widget,
+        oldWidget: null,
       ),
     );
 
@@ -153,19 +116,19 @@ class _ButtonRenderObject extends MarkUpGlobalRenderObject {
   @override
   update({
     required updateType,
-    required covariant _ButtonConfiguration oldConfiguration,
-    required covariant _ButtonConfiguration newConfiguration,
+    required covariant Button oldWidget,
+    required covariant Button newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
-      oldConfiguration: oldConfiguration.globalConfiguration,
-      newConfiguration: newConfiguration.globalConfiguration,
+      oldWidget: oldWidget,
+      newWidget: newWidget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: newConfiguration,
-        oldProps: oldConfiguration,
+        widget: newWidget,
+        oldWidget: oldWidget,
       ),
     );
 
@@ -180,39 +143,39 @@ class _ButtonRenderObject extends MarkUpGlobalRenderObject {
 */
 
 Map<String, String?> _prepareAttributes({
-  required _ButtonConfiguration props,
-  required _ButtonConfiguration? oldProps,
+  required Button widget,
+  required Button? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
-  if (null != props.name) {
-    attributes[Attributes.name] = props.name;
+  if (null != widget.name) {
+    attributes[Attributes.name] = widget.name;
   } else {
-    if (null != oldProps?.name) {
+    if (null != oldWidget?.name) {
       attributes[Attributes.name] = null;
     }
   }
 
-  if (null != props.value) {
-    attributes[Attributes.value] = props.value;
+  if (null != widget.value) {
+    attributes[Attributes.value] = widget.value;
   } else {
-    if (null != oldProps?.value) {
+    if (null != oldWidget?.value) {
       attributes[Attributes.value] = null;
     }
   }
 
-  if (null != props.type) {
-    attributes[Attributes.type] = props.type!.nativeName;
+  if (null != widget.type) {
+    attributes[Attributes.type] = widget.type!.nativeName;
   } else {
-    if (null != oldProps?.type) {
+    if (null != oldWidget?.type) {
       attributes[Attributes.type] = null;
     }
   }
 
-  if (null != props.disabled && props.disabled!) {
-    attributes[Attributes.disabled] = '${props.disabled}';
+  if (null != widget.disabled && widget.disabled!) {
+    attributes[Attributes.disabled] = '${widget.disabled}';
   } else {
-    if (null != oldProps?.disabled) {
+    if (null != oldWidget?.disabled) {
       attributes[Attributes.disabled] = null;
     }
   }

@@ -59,28 +59,10 @@ class Route extends Widget {
   List<Widget> get widgetChildren => [page];
 
   @override
-  createConfiguration() => RouteConfiguration(name: name, path: path);
-
-  @override
-  isConfigurationChanged(covariant RouteConfiguration oldConfiguration) {
-    return path != oldConfiguration.path || name != oldConfiguration.name;
-  }
+  bool shouldUpdateWidget(oldWidget) => false;
 
   @override
   createRenderObject(context) => RouteRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class RouteConfiguration extends WidgetConfiguration {
-  final String name;
-  final String path;
-
-  const RouteConfiguration({required this.name, required this.path});
 }
 
 /*
@@ -105,5 +87,5 @@ class RouteRenderObject extends RenderObject {
   const RouteRenderObject(BuildContext context) : super(context);
 
   @override
-  render({required configuration}) => _description;
+  render({required widget}) => _description;
 }

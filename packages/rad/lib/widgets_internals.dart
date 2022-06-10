@@ -8,7 +8,6 @@
 library widgets_internals;
 
 export 'src/core/common/constants.dart' show Constants;
-export 'src/widgets/abstract/widget.dart' show WidgetConfiguration;
 export 'src/core/common/objects/render_object.dart' show RenderObject;
 export 'src/core/common/objects/widget_object.dart' show WidgetObject;
 

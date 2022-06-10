@@ -25,9 +25,6 @@ class WidgetObject {
   Widget _widget;
   Widget get widget => _widget;
 
-  WidgetConfiguration _configuration;
-  WidgetConfiguration get configuration => _configuration;
-
   DomNodeDescription? _description;
   DomNodeDescription get description => _description!;
 
@@ -37,10 +34,8 @@ class WidgetObject {
     required this.renderNode,
     required this.renderObject,
     required Widget widget,
-    required WidgetConfiguration configuration,
   })  : _widget = widget,
-        hasDomNode = null != domNode,
-        _configuration = configuration;
+        hasDomNode = null != domNode;
 
   // framework reserved internals
 
@@ -50,10 +45,6 @@ class WidgetObject {
 
   void frameworkRebindWidget(Widget widget) {
     _widget = widget;
-  }
-
-  void frameworkRebindWidgetConfiguration(WidgetConfiguration configuration) {
-    _configuration = configuration;
   }
 
   void frameworkRebindElementDescription(DomNodeDescription? description) {

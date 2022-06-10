@@ -60,39 +60,13 @@ class FieldSet extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.fieldSet;
 
   @override
-  createConfiguration() {
-    return _FieldSetConfiguration(
-      disabled: disabled,
-      globalConfiguration:
-          super.createConfiguration() as HTMLWidgetBaseConfiguration,
-    );
-  }
-
-  @override
-  isConfigurationChanged(covariant _FieldSetConfiguration oldConfiguration) {
-    return disabled != oldConfiguration.disabled ||
-        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
+  bool shouldUpdateWidget(covariant FieldSet oldWidget) {
+    return disabled != oldWidget.disabled ||
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override
   createRenderObject(context) => _FieldSetRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _FieldSetConfiguration extends WidgetConfiguration {
-  final HTMLWidgetBaseConfiguration globalConfiguration;
-
-  final bool? disabled;
-
-  const _FieldSetConfiguration({
-    this.disabled,
-    required this.globalConfiguration,
-  });
 }
 
 /*
@@ -106,16 +80,16 @@ class _FieldSetRenderObject extends MarkUpGlobalRenderObject {
 
   @override
   render({
-    required covariant _FieldSetConfiguration configuration,
+    required covariant FieldSet widget,
   }) {
     var domNodeDescription = super.render(
-      configuration: configuration.globalConfiguration,
+      widget: widget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: configuration,
-        oldProps: null,
+        widget: widget,
+        oldWidget: null,
       ),
     );
 
@@ -125,19 +99,19 @@ class _FieldSetRenderObject extends MarkUpGlobalRenderObject {
   @override
   update({
     required updateType,
-    required covariant _FieldSetConfiguration oldConfiguration,
-    required covariant _FieldSetConfiguration newConfiguration,
+    required covariant FieldSet oldWidget,
+    required covariant FieldSet newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
-      oldConfiguration: oldConfiguration.globalConfiguration,
-      newConfiguration: newConfiguration.globalConfiguration,
+      oldWidget: oldWidget,
+      newWidget: newWidget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: newConfiguration,
-        oldProps: oldConfiguration,
+        widget: newWidget,
+        oldWidget: oldWidget,
       ),
     );
 
@@ -152,15 +126,15 @@ class _FieldSetRenderObject extends MarkUpGlobalRenderObject {
 */
 
 Map<String, String?> _prepareAttributes({
-  required _FieldSetConfiguration props,
-  required _FieldSetConfiguration? oldProps,
+  required FieldSet widget,
+  required FieldSet? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
-  if (null != props.disabled && props.disabled!) {
-    attributes[Attributes.disabled] = '${props.disabled}';
+  if (null != widget.disabled && widget.disabled!) {
+    attributes[Attributes.disabled] = '${widget.disabled}';
   } else {
-    if (null != oldProps?.disabled) {
+    if (null != oldWidget?.disabled) {
       attributes[Attributes.disabled] = null;
     }
   }

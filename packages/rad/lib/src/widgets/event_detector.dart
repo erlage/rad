@@ -339,4 +339,7 @@ class EventDetector extends Widget {
 
   @override
   DomTagType? get correspondingTag => null;
+
+  @override
+  bool shouldUpdateWidget(oldWidget) => false;
 }

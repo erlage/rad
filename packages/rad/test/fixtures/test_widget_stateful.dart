@@ -370,3 +370,29 @@ class RT_AnotherStatefulWidget_State extends State<RT_AnotherStatefulWidget> {
     }
   }
 }
+
+/// A stateful widget with single child.
+///
+class RT_SingleChildStateful extends StatefulWidget {
+  final Widget child;
+
+  RT_SingleChildStateful({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  _RT_SingleChildStatefulState createState() => _RT_SingleChildStatefulState();
+}
+
+class _RT_SingleChildStatefulState extends State<RT_SingleChildStateful> {
+  Widget? child;
+
+  @override
+  void initState() {
+    child = widget.child;
+  }
+
+  @override
+  build(context) => child!;
+}

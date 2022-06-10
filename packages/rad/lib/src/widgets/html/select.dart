@@ -83,48 +83,15 @@ class Select extends HTMLWidgetBase {
       };
 
   @override
-  createConfiguration() {
-    return _SelectConfiguration(
-      name: name,
-      multiple: multiple,
-      disabled: disabled,
-      globalConfiguration:
-          super.createConfiguration() as HTMLWidgetBaseConfiguration,
-    );
-  }
-
-  @override
-  isConfigurationChanged(covariant _SelectConfiguration oldConfiguration) {
-    return name != oldConfiguration.name ||
-        multiple != oldConfiguration.multiple ||
-        disabled != oldConfiguration.disabled ||
-        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
+  bool shouldUpdateWidget(covariant Select oldWidget) {
+    return name != oldWidget.name ||
+        multiple != oldWidget.multiple ||
+        disabled != oldWidget.disabled ||
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override
   createRenderObject(context) => _SelectRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _SelectConfiguration extends WidgetConfiguration {
-  final HTMLWidgetBaseConfiguration globalConfiguration;
-
-  final String? name;
-
-  final bool? multiple;
-  final bool? disabled;
-
-  const _SelectConfiguration({
-    this.name,
-    this.multiple,
-    this.disabled,
-    required this.globalConfiguration,
-  });
 }
 
 /*
@@ -138,16 +105,16 @@ class _SelectRenderObject extends MarkUpGlobalRenderObject {
 
   @override
   render({
-    required covariant _SelectConfiguration configuration,
+    required covariant Select widget,
   }) {
     var domNodeDescription = super.render(
-      configuration: configuration.globalConfiguration,
+      widget: widget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: configuration,
-        oldProps: null,
+        widget: widget,
+        oldWidget: null,
       ),
     );
 
@@ -157,19 +124,19 @@ class _SelectRenderObject extends MarkUpGlobalRenderObject {
   @override
   update({
     required updateType,
-    required covariant _SelectConfiguration oldConfiguration,
-    required covariant _SelectConfiguration newConfiguration,
+    required covariant Select oldWidget,
+    required covariant Select newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
-      oldConfiguration: oldConfiguration.globalConfiguration,
-      newConfiguration: newConfiguration.globalConfiguration,
+      oldWidget: oldWidget,
+      newWidget: newWidget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: newConfiguration,
-        oldProps: oldConfiguration,
+        widget: newWidget,
+        oldWidget: oldWidget,
       ),
     );
 
@@ -184,31 +151,31 @@ class _SelectRenderObject extends MarkUpGlobalRenderObject {
 */
 
 Map<String, String?> _prepareAttributes({
-  required _SelectConfiguration props,
-  required _SelectConfiguration? oldProps,
+  required Select widget,
+  required Select? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
-  if (null != props.name) {
-    attributes[Attributes.name] = props.name;
+  if (null != widget.name) {
+    attributes[Attributes.name] = widget.name;
   } else {
-    if (null != oldProps?.name) {
+    if (null != oldWidget?.name) {
       attributes[Attributes.name] = null;
     }
   }
 
-  if (null != props.multiple && props.multiple!) {
-    attributes[Attributes.multiple] = '${props.multiple}';
+  if (null != widget.multiple && widget.multiple!) {
+    attributes[Attributes.multiple] = '${widget.multiple}';
   } else {
-    if (null != oldProps?.multiple) {
+    if (null != oldWidget?.multiple) {
       attributes[Attributes.multiple] = null;
     }
   }
 
-  if (null != props.disabled && props.disabled!) {
-    attributes[Attributes.disabled] = '${props.disabled}';
+  if (null != widget.disabled && widget.disabled!) {
+    attributes[Attributes.disabled] = '${widget.disabled}';
   } else {
-    if (null != oldProps?.disabled) {
+    if (null != oldWidget?.disabled) {
       attributes[Attributes.disabled] = null;
     }
   }

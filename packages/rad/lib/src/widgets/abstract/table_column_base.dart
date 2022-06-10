@@ -50,41 +50,15 @@ abstract class TableColumnBase extends HTMLWidgetBase {
         );
 
   @override
-  createConfiguration() {
-    return _TableColumnBaseConfiguration(
-      span: span,
-      globalConfiguration:
-          super.createConfiguration() as HTMLWidgetBaseConfiguration,
-    );
-  }
-
   @override
-  isConfigurationChanged(
-    covariant _TableColumnBaseConfiguration oldConfiguration,
+  bool shouldUpdateWidget(
+    covariant TableColumnBase oldWidget,
   ) {
-    return span != oldConfiguration.span ||
-        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
+    return span != oldWidget.span || super.shouldUpdateWidget(oldWidget);
   }
 
   @override
   createRenderObject(context) => _TableColumnBaseRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _TableColumnBaseConfiguration extends WidgetConfiguration {
-  final HTMLWidgetBaseConfiguration globalConfiguration;
-
-  final int? span;
-
-  const _TableColumnBaseConfiguration({
-    this.span,
-    required this.globalConfiguration,
-  });
 }
 
 /*
@@ -98,16 +72,16 @@ class _TableColumnBaseRenderObject extends MarkUpGlobalRenderObject {
 
   @override
   render({
-    required covariant _TableColumnBaseConfiguration configuration,
+    required covariant TableColumnBase widget,
   }) {
     var domNodeDescription = super.render(
-      configuration: configuration.globalConfiguration,
+      widget: widget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: configuration,
-        oldProps: null,
+        widget: widget,
+        oldWidget: null,
       ),
     );
 
@@ -117,19 +91,19 @@ class _TableColumnBaseRenderObject extends MarkUpGlobalRenderObject {
   @override
   update({
     required updateType,
-    required covariant _TableColumnBaseConfiguration oldConfiguration,
-    required covariant _TableColumnBaseConfiguration newConfiguration,
+    required covariant TableColumnBase oldWidget,
+    required covariant TableColumnBase newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
-      oldConfiguration: oldConfiguration.globalConfiguration,
-      newConfiguration: newConfiguration.globalConfiguration,
+      oldWidget: oldWidget,
+      newWidget: newWidget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: newConfiguration,
-        oldProps: oldConfiguration,
+        widget: newWidget,
+        oldWidget: oldWidget,
       ),
     );
 
@@ -144,15 +118,15 @@ class _TableColumnBaseRenderObject extends MarkUpGlobalRenderObject {
 */
 
 Map<String, String?> _prepareAttributes({
-  required _TableColumnBaseConfiguration props,
-  required _TableColumnBaseConfiguration? oldProps,
+  required TableColumnBase widget,
+  required TableColumnBase? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
-  if (null != props.span) {
-    attributes[Attributes.span] = '${props.span}';
+  if (null != widget.span) {
+    attributes[Attributes.span] = '${widget.span}';
   } else {
-    if (null != oldProps?.span) {
+    if (null != oldWidget?.span) {
       attributes[Attributes.span] = null;
     }
   }

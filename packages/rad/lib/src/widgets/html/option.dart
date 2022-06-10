@@ -77,52 +77,16 @@ class Option extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.option;
 
   @override
-  createConfiguration() {
-    return _OptionConfiguration(
-      value: value,
-      label: label,
-      selected: selected,
-      disabled: disabled,
-      globalConfiguration:
-          super.createConfiguration() as HTMLWidgetBaseConfiguration,
-    );
-  }
-
-  @override
-  isConfigurationChanged(covariant _OptionConfiguration oldConfiguration) {
-    return value != oldConfiguration.value ||
-        label != oldConfiguration.label ||
-        selected != oldConfiguration.selected ||
-        disabled != oldConfiguration.disabled ||
-        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
+  bool shouldUpdateWidget(covariant Option oldWidget) {
+    return value != oldWidget.value ||
+        label != oldWidget.label ||
+        selected != oldWidget.selected ||
+        disabled != oldWidget.disabled ||
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override
   createRenderObject(context) => _OptionRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _OptionConfiguration extends WidgetConfiguration {
-  final HTMLWidgetBaseConfiguration globalConfiguration;
-
-  final String? value;
-  final String? label;
-
-  final bool? selected;
-  final bool? disabled;
-
-  const _OptionConfiguration({
-    this.value,
-    this.selected,
-    this.disabled,
-    this.label,
-    required this.globalConfiguration,
-  });
 }
 
 /*
@@ -136,16 +100,16 @@ class _OptionRenderObject extends MarkUpGlobalRenderObject {
 
   @override
   render({
-    required covariant _OptionConfiguration configuration,
+    required covariant Option widget,
   }) {
     var domNodeDescription = super.render(
-      configuration: configuration.globalConfiguration,
+      widget: widget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: configuration,
-        oldProps: null,
+        widget: widget,
+        oldWidget: null,
       ),
     );
 
@@ -155,19 +119,19 @@ class _OptionRenderObject extends MarkUpGlobalRenderObject {
   @override
   update({
     required updateType,
-    required covariant _OptionConfiguration oldConfiguration,
-    required covariant _OptionConfiguration newConfiguration,
+    required covariant Option oldWidget,
+    required covariant Option newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
-      oldConfiguration: oldConfiguration.globalConfiguration,
-      newConfiguration: newConfiguration.globalConfiguration,
+      oldWidget: oldWidget,
+      newWidget: newWidget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: newConfiguration,
-        oldProps: oldConfiguration,
+        widget: newWidget,
+        oldWidget: oldWidget,
       ),
     );
 
@@ -182,39 +146,39 @@ class _OptionRenderObject extends MarkUpGlobalRenderObject {
 */
 
 Map<String, String?> _prepareAttributes({
-  required _OptionConfiguration props,
-  required _OptionConfiguration? oldProps,
+  required Option widget,
+  required Option? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
-  if (null != props.value) {
-    attributes[Attributes.value] = props.value;
+  if (null != widget.value) {
+    attributes[Attributes.value] = widget.value;
   } else {
-    if (null != oldProps?.value) {
+    if (null != oldWidget?.value) {
       attributes[Attributes.value] = null;
     }
   }
 
-  if (null != props.label) {
-    attributes[Attributes.label] = props.label;
+  if (null != widget.label) {
+    attributes[Attributes.label] = widget.label;
   } else {
-    if (null != oldProps?.label) {
+    if (null != oldWidget?.label) {
       attributes[Attributes.label] = null;
     }
   }
 
-  if (null != props.selected && props.selected!) {
-    attributes[Attributes.selected] = '${props.selected}';
+  if (null != widget.selected && widget.selected!) {
+    attributes[Attributes.selected] = '${widget.selected}';
   } else {
-    if (null != oldProps?.selected) {
+    if (null != oldWidget?.selected) {
       attributes[Attributes.selected] = null;
     }
   }
 
-  if (null != props.disabled && props.disabled!) {
-    attributes[Attributes.disabled] = '${props.disabled}';
+  if (null != widget.disabled && widget.disabled!) {
+    attributes[Attributes.disabled] = '${widget.disabled}';
   } else {
-    if (null != oldProps?.disabled) {
+    if (null != oldWidget?.disabled) {
       attributes[Attributes.disabled] = null;
     }
   }

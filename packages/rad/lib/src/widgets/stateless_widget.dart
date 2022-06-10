@@ -4,7 +4,6 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_object.dart';
-import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/core/services/services_registry.dart';
@@ -35,29 +34,21 @@ abstract class StatelessWidget extends Widget {
   @override
   DomTagType? get correspondingTag => null;
 
-  @nonVirtual
   @override
-  createConfiguration() => _StatelessWidgetConfiguration(build);
+  bool shouldUpdateWidget(oldWidget) => true;
 
+  /// Overriding this method on [StatelessWidget] can result in unexpected
+  /// behavior as [StatelessWidget] build its childs at a later stage. If you
+  /// don't want the [StatelessWidget] to update its child widgets, override
+  /// [shouldUpdateWidget] instead.
+  ///
   @nonVirtual
   @override
-  isConfigurationChanged(oldConfiguration) => true;
+  bool shouldUpdateWidgetChildren(oldWidget, shouldUpdateWidget) => false;
 
   @nonVirtual
   @override
   createRenderObject(context) => _StatelessWidgetRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _StatelessWidgetConfiguration extends WidgetConfiguration {
-  final ContextualWidgetBuilder widgetBuilder;
-
-  const _StatelessWidgetConfiguration(this.widgetBuilder);
 }
 
 /*
@@ -75,14 +66,12 @@ class _StatelessWidgetRenderObject extends RenderObject {
 
     var widgetObject = services.walker.getWidgetObject(context)!;
 
-    var configuration = widgetObject.configuration;
-
-    configuration as _StatelessWidgetConfiguration;
+    var widget = widgetObject.widget as StatelessWidget;
 
     services.scheduler.addTask(
       WidgetsBuildTask(
         parentContext: context,
-        widgets: [configuration.widgetBuilder(context)],
+        widgets: [widget.build(context)],
       ),
     );
   }
@@ -90,8 +79,8 @@ class _StatelessWidgetRenderObject extends RenderObject {
   @override
   update({
     required updateType,
-    required oldConfiguration,
-    required covariant _StatelessWidgetConfiguration newConfiguration,
+    required oldWidget,
+    required covariant StatelessWidget newWidget,
   }) {
     var schedulerService = ServicesRegistry.instance.getScheduler(context);
 
@@ -99,7 +88,7 @@ class _StatelessWidgetRenderObject extends RenderObject {
       WidgetsUpdateTask(
         updateType: updateType,
         parentContext: context,
-        widgets: [newConfiguration.widgetBuilder(context)],
+        widgets: [newWidget.build(context)],
       ),
     );
 

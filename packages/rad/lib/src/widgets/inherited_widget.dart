@@ -60,27 +60,11 @@ abstract class InheritedWidget extends Widget {
 
   @nonVirtual
   @override
-  createConfiguration() => _InheritedWidgetConfiguration(this);
-
-  @nonVirtual
-  @override
-  isConfigurationChanged(oldConfiguration) => true;
+  bool shouldUpdateWidget(oldWidget) => true;
 
   @nonVirtual
   @override
   createRenderObject(context) => InheritedWidgetRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _InheritedWidgetConfiguration extends WidgetConfiguration {
-  final InheritedWidget widget;
-
-  const _InheritedWidgetConfiguration(this.widget);
 }
 
 /*
@@ -105,12 +89,10 @@ class InheritedWidgetRenderObject extends RenderObject {
   @override
   update({
     required updateType,
-    required covariant _InheritedWidgetConfiguration oldConfiguration,
-    required covariant _InheritedWidgetConfiguration newConfiguration,
+    required covariant InheritedWidget oldWidget,
+    required covariant InheritedWidget newWidget,
   }) {
-    var updateShouldNotify = newConfiguration.widget.updateShouldNotify(
-      oldConfiguration.widget,
-    );
+    var updateShouldNotify = newWidget.updateShouldNotify(oldWidget);
 
     if (updateShouldNotify) {
       var schedulerService = ServicesRegistry.instance.getScheduler(context);

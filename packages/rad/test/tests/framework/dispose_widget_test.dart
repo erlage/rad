@@ -48,21 +48,21 @@ void main() {
       var gkey = GlobalKey('child-0-0');
 
       await tester.pumpWidget(
-        TestWidget(
+        RT_TestWidget(
           children: [
-            TestWidget(
+            RT_TestWidget(
               children: [
                 Text('0'),
-                TestWidget(
+                RT_TestWidget(
                   key: gkey,
                   children: [Text('0-0')],
                 ),
-                TestWidget(
+                RT_TestWidget(
                   children: [Text('0-1')],
                 ),
               ],
             ),
-            TestWidget(children: [Text('1')]),
+            RT_TestWidget(children: [Text('1')]),
           ],
         ),
       );
@@ -81,22 +81,22 @@ void main() {
       var gkey2 = GlobalKey('child-0-1');
 
       await tester.pumpWidget(
-        TestWidget(
+        RT_TestWidget(
           children: [
-            TestWidget(
+            RT_TestWidget(
               children: [
                 Text('0'),
-                TestWidget(
+                RT_TestWidget(
                   key: gkey1,
                   children: [Text('0-0')],
                 ),
-                TestWidget(
+                RT_TestWidget(
                   key: gkey2,
                   children: [Text('0-1')],
                 ),
               ],
             ),
-            TestWidget(children: [Text('1')]),
+            RT_TestWidget(children: [Text('1')]),
           ],
         ),
       );
@@ -119,22 +119,22 @@ void main() {
       var gkey = GlobalKey('child-0');
 
       await tester.pumpWidget(
-        TestWidget(
+        RT_TestWidget(
           key: GlobalKey('widget'),
           children: [
-            TestWidget(
+            RT_TestWidget(
               key: gkey,
               children: [
                 Text('0'),
-                TestWidget(
+                RT_TestWidget(
                   children: [Text('0-0')],
                 ),
-                TestWidget(
+                RT_TestWidget(
                   children: [Text('0-1')],
                 ),
               ],
             ),
-            TestWidget(children: [Text('1')]),
+            RT_TestWidget(children: [Text('1')]),
           ],
         ),
       );
@@ -152,17 +152,17 @@ void main() {
       var gkey = GlobalKey('widget');
 
       await tester.pumpWidget(
-        TestWidget(key: gkey),
+        RT_TestWidget(key: gkey),
       );
 
-      expect(tester.find.byType(TestWidget), findsOneWidget);
+      expect(tester.find.byType(RT_TestWidget), findsOneWidget);
 
       await tester.disposeWidget(
         widgetObject: tester.getWidgetObjectByGlobalKey(gkey),
         flagPreserveTarget: false,
       );
 
-      expect(tester.find.byType(TestWidget), findsNothing);
+      expect(tester.find.byType(RT_TestWidget), findsNothing);
 
       await tester.disposeWidget(
         widgetObject: tester.getWidgetObjectByGlobalKey(gkey),
@@ -174,28 +174,28 @@ void main() {
         flagPreserveTarget: false,
       );
 
-      expect(tester.find.byType(TestWidget), findsNothing);
+      expect(tester.find.byType(RT_TestWidget), findsNothing);
     });
 
     testWidgets('should preserve target(parent) when asked to', (tester) async {
       var gkey = GlobalKey('child-0');
 
       await tester.pumpWidget(
-        TestWidget(
+        RT_TestWidget(
           children: [
-            TestWidget(
+            RT_TestWidget(
               children: [
                 Text('0'),
-                TestWidget(
+                RT_TestWidget(
                   key: gkey,
                   children: [Text('0-0')],
                 ),
-                TestWidget(
+                RT_TestWidget(
                   children: [Text('0-1')],
                 ),
               ],
             ),
-            TestWidget(children: [Text('1')]),
+            RT_TestWidget(children: [Text('1')]),
           ],
         ),
       );
@@ -206,7 +206,7 @@ void main() {
       );
 
       expect(tester.find.byType(Text), findsNWidgets(3));
-      expect(tester.find.byType(TestWidget), findsNWidgets(5));
+      expect(tester.find.byType(RT_TestWidget), findsNWidgets(5));
     });
 
     testWidgets(
@@ -217,26 +217,26 @@ void main() {
         // create app widget containing some child widgets to test
 
         await tester.pumpWidget(
-          TestWidget(
+          RT_TestWidget(
             key: gkey,
-            roEventBeforeUnMount: () => tester.push('root-dispose'),
+            roEventHookBeforeUnMount: () => tester.push('root-dispose'),
             children: [
-              TestWidget(
-                roEventBeforeUnMount: () => tester.push('dispose-0'),
+              RT_TestWidget(
+                roEventHookBeforeUnMount: () => tester.push('dispose-0'),
                 children: [
-                  TestWidget(
-                    roEventBeforeUnMount: () => tester.push('dispose-0-0'),
+                  RT_TestWidget(
+                    roEventHookBeforeUnMount: () => tester.push('dispose-0-0'),
                   ),
-                  TestWidget(
-                    roEventBeforeUnMount: () => tester.push('dispose-0-1'),
+                  RT_TestWidget(
+                    roEventHookBeforeUnMount: () => tester.push('dispose-0-1'),
                     children: [
-                      TestWidget(
-                        roEventBeforeUnMount: () => tester.push(
+                      RT_TestWidget(
+                        roEventHookBeforeUnMount: () => tester.push(
                           'dispose-0-1-0',
                         ),
                       ),
-                      TestWidget(
-                        roEventBeforeUnMount: () => tester.push(
+                      RT_TestWidget(
+                        roEventHookBeforeUnMount: () => tester.push(
                           'dispose-0-1-1',
                         ),
                       ),
@@ -244,15 +244,15 @@ void main() {
                   ),
                 ],
               ),
-              TestWidget(
-                roEventBeforeUnMount: () => tester.push('dispose-1'),
+              RT_TestWidget(
+                roEventHookBeforeUnMount: () => tester.push('dispose-1'),
                 children: [
                   // nested child widgets
-                  TestWidget(
-                    roEventBeforeUnMount: () => tester.push('dispose-1-0'),
+                  RT_TestWidget(
+                    roEventHookBeforeUnMount: () => tester.push('dispose-1-0'),
                   ),
-                  TestWidget(
-                    roEventBeforeUnMount: () => tester.push('dispose-1-1'),
+                  RT_TestWidget(
+                    roEventHookBeforeUnMount: () => tester.push('dispose-1-1'),
                   ),
                 ],
               ),

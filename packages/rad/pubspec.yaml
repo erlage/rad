@@ -39,7 +39,7 @@ dev_dependencies:
   # and are not part of production code.
 
   test: ^1.21.1
-  rad_test: ^0.2.0
+  rad_test: ^0.3.0
   
   build: ^2.3.0
   build_runner: ^2.1.11

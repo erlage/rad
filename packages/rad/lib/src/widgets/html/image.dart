@@ -70,52 +70,16 @@ class Image extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.image;
 
   @override
-  createConfiguration() {
-    return _ImageConfiguration(
-      src: src,
-      alt: alt,
-      width: width,
-      height: height,
-      globalConfiguration:
-          super.createConfiguration() as HTMLWidgetBaseConfiguration,
-    );
-  }
-
-  @override
-  isConfigurationChanged(covariant _ImageConfiguration oldConfiguration) {
-    return src != oldConfiguration.src ||
-        alt != oldConfiguration.alt ||
-        width != oldConfiguration.width ||
-        height != oldConfiguration.height ||
-        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
+  bool shouldUpdateWidget(covariant Image oldWidget) {
+    return src != oldWidget.src ||
+        alt != oldWidget.alt ||
+        width != oldWidget.width ||
+        height != oldWidget.height ||
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override
   createRenderObject(context) => _ImageRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _ImageConfiguration extends WidgetConfiguration {
-  final HTMLWidgetBaseConfiguration globalConfiguration;
-
-  final String? src;
-  final String? alt;
-
-  final String? width;
-  final String? height;
-
-  const _ImageConfiguration({
-    this.src,
-    this.alt,
-    this.width,
-    this.height,
-    required this.globalConfiguration,
-  });
 }
 
 /*
@@ -129,16 +93,16 @@ class _ImageRenderObject extends MarkUpGlobalRenderObject {
 
   @override
   render({
-    required covariant _ImageConfiguration configuration,
+    required covariant Image widget,
   }) {
     var domNodeDescription = super.render(
-      configuration: configuration.globalConfiguration,
+      widget: widget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: configuration,
-        oldProps: null,
+        widget: widget,
+        oldWidget: null,
       ),
     );
 
@@ -148,19 +112,19 @@ class _ImageRenderObject extends MarkUpGlobalRenderObject {
   @override
   update({
     required updateType,
-    required covariant _ImageConfiguration oldConfiguration,
-    required covariant _ImageConfiguration newConfiguration,
+    required covariant Image oldWidget,
+    required covariant Image newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
-      oldConfiguration: oldConfiguration.globalConfiguration,
-      newConfiguration: newConfiguration.globalConfiguration,
+      oldWidget: oldWidget,
+      newWidget: newWidget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: newConfiguration,
-        oldProps: oldConfiguration,
+        widget: newWidget,
+        oldWidget: oldWidget,
       ),
     );
 
@@ -175,39 +139,39 @@ class _ImageRenderObject extends MarkUpGlobalRenderObject {
 */
 
 Map<String, String?> _prepareAttributes({
-  required _ImageConfiguration props,
-  required _ImageConfiguration? oldProps,
+  required Image widget,
+  required Image? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
-  if (null != props.src) {
-    attributes[Attributes.src] = props.src;
+  if (null != widget.src) {
+    attributes[Attributes.src] = widget.src;
   } else {
-    if (null != oldProps?.src) {
+    if (null != oldWidget?.src) {
       attributes[Attributes.src] = null;
     }
   }
 
-  if (null != props.alt) {
-    attributes[Attributes.alt] = props.alt;
+  if (null != widget.alt) {
+    attributes[Attributes.alt] = widget.alt;
   } else {
-    if (null != oldProps?.alt) {
+    if (null != oldWidget?.alt) {
       attributes[Attributes.alt] = null;
     }
   }
 
-  if (null != props.height) {
-    attributes[Attributes.height] = props.height;
+  if (null != widget.height) {
+    attributes[Attributes.height] = widget.height;
   } else {
-    if (null != oldProps?.height) {
+    if (null != oldWidget?.height) {
       attributes[Attributes.height] = null;
     }
   }
 
-  if (null != props.width) {
-    attributes[Attributes.width] = props.width;
+  if (null != widget.width) {
+    attributes[Attributes.width] = widget.width;
   } else {
-    if (null != oldProps?.width) {
+    if (null != oldWidget?.width) {
       attributes[Attributes.width] = null;
     }
   }

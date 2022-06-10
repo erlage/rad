@@ -77,18 +77,9 @@ class GestureDetector extends Widget {
   @override
   DomTagType get correspondingTag => DomTagType.division;
 
-  @override
-  createConfiguration() => _GestureDetectorConfiguration(
-        behaviour: behaviour,
-        onTap: onTap,
-        onDoubleTap: onDoubleTap,
-        onTapEvent: onTapEvent,
-        onDoubleTapEvent: onDoubleTapEvent,
-      );
-
   @nonVirtual
   @override
-  isConfigurationChanged(oldConfiguration) => true;
+  bool shouldUpdateWidget(oldWidget) => true;
 
   @nonVirtual
   @override
@@ -96,29 +87,6 @@ class GestureDetector extends Widget {
         context: context,
         state: _GestureDetectorState(),
       );
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _GestureDetectorConfiguration extends WidgetConfiguration {
-  final Callback? onTap;
-  final Callback? onDoubleTap;
-  final EventCallback? onTapEvent;
-  final EventCallback? onDoubleTapEvent;
-
-  final HitTestBehavior behaviour;
-
-  const _GestureDetectorConfiguration({
-    this.onTap,
-    this.onDoubleTap,
-    this.onTapEvent,
-    this.onDoubleTapEvent,
-    this.behaviour = HitTestBehavior.deferToChild,
-  });
 }
 
 /*
@@ -149,7 +117,7 @@ class _GestureDetectorRenderObject extends RenderObject {
 
   @override
   render({
-    required covariant _GestureDetectorConfiguration configuration,
+    required covariant GestureDetector widget,
   }) {
     var services = ServicesRegistry.instance.getServices(context);
     var widget = services.walker.getWidgetObject(context)!.widget;
@@ -168,7 +136,7 @@ class _GestureDetectorRenderObject extends RenderObject {
     required newWidget,
     required updateType,
   }) {
-    state.frameworkReBindWidget(
+    state.frameworkRebindWidget(
       oldWidget: oldWidget,
       newWidget: newWidget,
     );
@@ -328,7 +296,7 @@ class _GestureDetectorState {
 
   @nonVirtual
   @protected
-  void frameworkReBindWidget({
+  void frameworkRebindWidget({
     required Widget oldWidget,
     required Widget newWidget,
   }) {

@@ -59,39 +59,12 @@ class Blockquote extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.blockquote;
 
   @override
-  createConfiguration() {
-    return _BlockquoteConfiguration(
-      cite: cite,
-      globalConfiguration:
-          super.createConfiguration() as HTMLWidgetBaseConfiguration,
-    );
-  }
-
-  @override
-  isConfigurationChanged(covariant _BlockquoteConfiguration oldConfiguration) {
-    return cite != oldConfiguration.cite ||
-        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
+  bool shouldUpdateWidget(covariant Blockquote oldWidget) {
+    return cite != oldWidget.cite || super.shouldUpdateWidget(oldWidget);
   }
 
   @override
   createRenderObject(context) => _BlockquoteRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _BlockquoteConfiguration extends WidgetConfiguration {
-  final HTMLWidgetBaseConfiguration globalConfiguration;
-
-  final String? cite;
-
-  const _BlockquoteConfiguration({
-    this.cite,
-    required this.globalConfiguration,
-  });
 }
 
 /*
@@ -105,16 +78,16 @@ class _BlockquoteRenderObject extends MarkUpGlobalRenderObject {
 
   @override
   render({
-    required covariant _BlockquoteConfiguration configuration,
+    required covariant Blockquote widget,
   }) {
     var domNodeDescription = super.render(
-      configuration: configuration.globalConfiguration,
+      widget: widget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: configuration,
-        oldProps: null,
+        widget: widget,
+        oldWidget: null,
       ),
     );
 
@@ -124,19 +97,19 @@ class _BlockquoteRenderObject extends MarkUpGlobalRenderObject {
   @override
   update({
     required updateType,
-    required covariant _BlockquoteConfiguration oldConfiguration,
-    required covariant _BlockquoteConfiguration newConfiguration,
+    required covariant Blockquote oldWidget,
+    required covariant Blockquote newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
-      oldConfiguration: oldConfiguration.globalConfiguration,
-      newConfiguration: newConfiguration.globalConfiguration,
+      oldWidget: oldWidget,
+      newWidget: newWidget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: newConfiguration,
-        oldProps: oldConfiguration,
+        widget: newWidget,
+        oldWidget: oldWidget,
       ),
     );
 
@@ -151,15 +124,15 @@ class _BlockquoteRenderObject extends MarkUpGlobalRenderObject {
 */
 
 Map<String, String?> _prepareAttributes({
-  required _BlockquoteConfiguration props,
-  required _BlockquoteConfiguration? oldProps,
+  required Blockquote widget,
+  required Blockquote? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
-  if (null != props.cite) {
-    attributes[Attributes.cite] = props.cite;
+  if (null != widget.cite) {
+    attributes[Attributes.cite] = widget.cite;
   } else {
-    if (null != oldProps?.cite) {
+    if (null != oldWidget?.cite) {
       attributes[Attributes.cite] = null;
     }
   }

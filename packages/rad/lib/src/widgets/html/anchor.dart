@@ -74,54 +74,16 @@ class Anchor extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.anchor;
 
   @override
-  createConfiguration() {
-    return _AnchorConfiguration(
-      href: href,
-      rel: rel,
-      target: target,
-      download: download,
-      globalConfiguration:
-          super.createConfiguration() as HTMLWidgetBaseConfiguration,
-    );
-  }
-
-  @override
-  isConfigurationChanged(covariant _AnchorConfiguration oldConfiguration) {
-    return href != oldConfiguration.href ||
-        rel != oldConfiguration.rel ||
-        target != oldConfiguration.target ||
-        download != oldConfiguration.download ||
-        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
+  bool shouldUpdateWidget(covariant Anchor oldWidget) {
+    return href != oldWidget.href ||
+        rel != oldWidget.rel ||
+        target != oldWidget.target ||
+        download != oldWidget.download ||
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override
   createRenderObject(context) => _AnchorRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _AnchorConfiguration extends WidgetConfiguration {
-  final HTMLWidgetBaseConfiguration globalConfiguration;
-
-  final String? href;
-
-  final String? rel;
-
-  final String? target;
-
-  final String? download;
-
-  const _AnchorConfiguration({
-    this.href,
-    this.rel,
-    this.target,
-    this.download,
-    required this.globalConfiguration,
-  });
 }
 
 /*
@@ -135,16 +97,16 @@ class _AnchorRenderObject extends MarkUpGlobalRenderObject {
 
   @override
   render({
-    required covariant _AnchorConfiguration configuration,
+    required covariant Anchor widget,
   }) {
     var domNodeDescription = super.render(
-      configuration: configuration.globalConfiguration,
+      widget: widget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: configuration,
-        oldProps: null,
+        widget: widget,
+        oldWidget: null,
       ),
     );
 
@@ -154,19 +116,19 @@ class _AnchorRenderObject extends MarkUpGlobalRenderObject {
   @override
   update({
     required updateType,
-    required covariant _AnchorConfiguration oldConfiguration,
-    required covariant _AnchorConfiguration newConfiguration,
+    required covariant Anchor oldWidget,
+    required covariant Anchor newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
-      oldConfiguration: oldConfiguration.globalConfiguration,
-      newConfiguration: newConfiguration.globalConfiguration,
+      oldWidget: oldWidget,
+      newWidget: newWidget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: newConfiguration,
-        oldProps: oldConfiguration,
+        widget: newWidget,
+        oldWidget: oldWidget,
       ),
     );
 
@@ -181,39 +143,39 @@ class _AnchorRenderObject extends MarkUpGlobalRenderObject {
 */
 
 Map<String, String?> _prepareAttributes({
-  required _AnchorConfiguration props,
-  required _AnchorConfiguration? oldProps,
+  required Anchor widget,
+  required Anchor? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
-  if (null != props.href) {
-    attributes[Attributes.href] = props.href;
+  if (null != widget.href) {
+    attributes[Attributes.href] = widget.href;
   } else {
-    if (null != oldProps?.href) {
+    if (null != oldWidget?.href) {
       attributes[Attributes.href] = null;
     }
   }
 
-  if (null != props.download) {
-    attributes[Attributes.download] = props.download;
+  if (null != widget.download) {
+    attributes[Attributes.download] = widget.download;
   } else {
-    if (null != oldProps?.download) {
+    if (null != oldWidget?.download) {
       attributes[Attributes.download] = null;
     }
   }
 
-  if (null != props.rel) {
-    attributes[Attributes.rel] = props.rel;
+  if (null != widget.rel) {
+    attributes[Attributes.rel] = widget.rel;
   } else {
-    if (null != oldProps?.rel) {
+    if (null != oldWidget?.rel) {
       attributes[Attributes.rel] = null;
     }
   }
 
-  if (null != props.target) {
-    attributes[Attributes.target] = props.target;
+  if (null != widget.target) {
+    attributes[Attributes.target] = widget.target;
   } else {
-    if (null != oldProps?.target) {
+    if (null != oldWidget?.target) {
       attributes[Attributes.target] = null;
     }
   }

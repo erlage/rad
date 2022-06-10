@@ -23,109 +23,6 @@ void main() {
       tearDown(() => app!.stop());
 
       test(
-        'should not create new configuration if configuration has not changed',
-        () async {
-          var testStack = RT_TestStack();
-
-          await app!.buildChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1a'),
-                roEventHookUpdate: () => testStack.push('update 1a'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1a'),
-                wEventHookIsConfigurationChanged: () => testStack.push(
-                  'is changed 1a',
-                ),
-                wEventHookCreateWidgetConfiguration: () => testStack.push(
-                  'create config 1a',
-                ),
-                wOverrideIsConfigurationChanged: () => false,
-              ),
-            ],
-            parentContext: app!.appContext,
-          );
-
-          await app!.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 2a'),
-                roEventHookUpdate: () => testStack.push('update 2a'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 2a'),
-                wEventHookIsConfigurationChanged: () => testStack.push(
-                  'is changed 2a',
-                ),
-                wEventHookCreateWidgetConfiguration: () => testStack.push(
-                  'create config 2a',
-                ),
-                wOverrideIsConfigurationChanged: () => false,
-              ),
-            ],
-            parentContext: app!.appContext,
-            updateType: UpdateType.undefined,
-          );
-
-          expect(testStack.popFromStart(), equals('create config 1a'));
-          expect(testStack.popFromStart(), equals('render 1a'));
-
-          expect(testStack.popFromStart(), equals('is changed 2a'));
-
-          expect(testStack.canPop(), equals(false));
-        },
-      );
-
-      test(
-        'should create new configuration if configuration has changed',
-        () async {
-          var testStack = RT_TestStack();
-
-          await app!.buildChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 1a'),
-                roEventHookUpdate: () => testStack.push('update 1a'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 1a'),
-                wEventHookIsConfigurationChanged: () => testStack.push(
-                  'is changed 1a',
-                ),
-                wEventHookCreateWidgetConfiguration: () => testStack.push(
-                  'create config 1a',
-                ),
-                wOverrideIsConfigurationChanged: () => true,
-              ),
-            ],
-            parentContext: app!.appContext,
-          );
-
-          await app!.updateChildren(
-            widgets: [
-              RT_TestWidget(
-                roEventHookRender: () => testStack.push('render 2a'),
-                roEventHookUpdate: () => testStack.push('update 2a'),
-                roEventHookBeforeUnMount: () => testStack.push('dispose 2a'),
-                wEventHookIsConfigurationChanged: () => testStack.push(
-                  'is changed 2a',
-                ),
-                wEventHookCreateWidgetConfiguration: () => testStack.push(
-                  'create config 2a',
-                ),
-                wOverrideIsConfigurationChanged: () => true,
-              ),
-            ],
-            parentContext: app!.appContext,
-            updateType: UpdateType.undefined,
-          );
-
-          expect(testStack.popFromStart(), equals('create config 1a'));
-          expect(testStack.popFromStart(), equals('render 1a'));
-          expect(testStack.popFromStart(), equals('is changed 2a'));
-          expect(testStack.popFromStart(), equals('create config 2a'));
-          expect(testStack.popFromStart(), equals('update 1a'));
-
-          expect(testStack.canPop(), equals(false));
-        },
-      );
-
-      test(
         'should never re create a render object',
         () async {
           var testStack = RT_TestStack();
@@ -136,13 +33,13 @@ void main() {
                 roEventHookRender: () => testStack.push('render 1a'),
                 roEventHookUpdate: () => testStack.push('update 1a'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a'),
-                wEventHookIsConfigurationChanged: () => testStack.push(
+                wEventShouldUpdateWidget: () => testStack.push(
                   'is changed 1a',
                 ),
-                wEventHookCreateWidgetConfiguration: () => testStack.push(
-                  'create config 1a',
+                wEventShouldUpdateWidgetChildren: () => testStack.push(
+                  'is changed child 1a',
                 ),
-                wOverrideIsConfigurationChanged: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             parentContext: app!.appContext,
@@ -154,13 +51,13 @@ void main() {
                 roEventHookRender: () => testStack.push('render 2a'),
                 roEventHookUpdate: () => testStack.push('update 2a'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2a'),
-                wEventHookIsConfigurationChanged: () => testStack.push(
+                wEventShouldUpdateWidget: () => testStack.push(
                   'is changed 2a',
                 ),
-                wEventHookCreateWidgetConfiguration: () => testStack.push(
-                  'create config 2a',
+                wEventShouldUpdateWidgetChildren: () => testStack.push(
+                  'is changed child 2a',
                 ),
-                wOverrideIsConfigurationChanged: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             parentContext: app!.appContext,
@@ -173,13 +70,13 @@ void main() {
                 roEventHookRender: () => testStack.push('render 3a'),
                 roEventHookUpdate: () => testStack.push('update 3a'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 3a'),
-                wEventHookIsConfigurationChanged: () => testStack.push(
+                wEventShouldUpdateWidget: () => testStack.push(
                   'is changed 3a',
                 ),
-                wEventHookCreateWidgetConfiguration: () => testStack.push(
-                  'create config 3a',
+                wEventShouldUpdateWidgetChildren: () => testStack.push(
+                  'is changed child 3a',
                 ),
-                wOverrideIsConfigurationChanged: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             parentContext: app!.appContext,
@@ -192,31 +89,31 @@ void main() {
                 roEventHookRender: () => testStack.push('render 4a'),
                 roEventHookUpdate: () => testStack.push('update 4a'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 4a'),
-                wEventHookIsConfigurationChanged: () => testStack.push(
+                wEventShouldUpdateWidget: () => testStack.push(
                   'is changed 4a',
                 ),
-                wEventHookCreateWidgetConfiguration: () => testStack.push(
-                  'create config 4a',
+                wEventShouldUpdateWidgetChildren: () => testStack.push(
+                  'is changed child 4a',
                 ),
-                wOverrideIsConfigurationChanged: () => false,
+                wOverrideShouldUpdateWidget: () => false,
               ),
             ],
             parentContext: app!.appContext,
             updateType: UpdateType.undefined,
           );
 
-          expect(testStack.popFromStart(), equals('create config 1a'));
           expect(testStack.popFromStart(), equals('render 1a'));
 
           expect(testStack.popFromStart(), equals('is changed 2a'));
-          expect(testStack.popFromStart(), equals('create config 2a'));
           expect(testStack.popFromStart(), equals('update 1a'));
+          expect(testStack.popFromStart(), equals('is changed child 2a'));
 
           expect(testStack.popFromStart(), equals('is changed 3a'));
-          expect(testStack.popFromStart(), equals('create config 3a'));
           expect(testStack.popFromStart(), equals('update 1a'));
+          expect(testStack.popFromStart(), equals('is changed child 3a'));
 
           expect(testStack.popFromStart(), equals('is changed 4a'));
+          expect(testStack.popFromStart(), equals('is changed child 4a'));
 
           expect(testStack.canPop(), equals(false));
         },
@@ -234,16 +131,16 @@ void main() {
                 roEventHookRender: () => testStack.push('render 1a'),
                 roEventHookUpdate: () => testStack.push('update 1a'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a'),
-                wEventHookIsConfigurationChanged: () => testStack.push(
+                wEventShouldUpdateWidget: () => testStack.push(
                   'is changed 1a',
                 ),
-                wEventHookCreateWidgetConfiguration: () => testStack.push(
-                  'create config 1a',
+                wEventShouldUpdateWidgetChildren: () => testStack.push(
+                  'is changed child 1a',
                 ),
-                roEventHookAfterWidgetRebind: () => testStack.push(
+                roEventAfterWidgetRebind: () => testStack.push(
                   'rebind widget 1a',
                 ),
-                wOverrideIsConfigurationChanged: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             parentContext: app!.appContext,
@@ -255,31 +152,29 @@ void main() {
                 roEventHookRender: () => testStack.push('render 2a'),
                 roEventHookUpdate: () => testStack.push('update 2a'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2a'),
-                wEventHookIsConfigurationChanged: () => testStack.push(
+                wEventShouldUpdateWidget: () => testStack.push(
                   'is changed 2a',
                 ),
-                wEventHookCreateWidgetConfiguration: () => testStack.push(
-                  'create config 2a',
+                wEventShouldUpdateWidgetChildren: () => testStack.push(
+                  'is changed child 2a',
                 ),
-                roEventHookAfterWidgetRebind: () => testStack.push(
+                roEventAfterWidgetRebind: () => testStack.push(
                   'rebind widget 2a',
                 ),
-                wOverrideIsConfigurationChanged: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             updateType: UpdateType.undefined,
             parentContext: app!.appContext,
           );
 
-          expect(testStack.popFromStart(), equals('create config 1a'));
           expect(testStack.popFromStart(), equals('render 1a'));
 
           expect(testStack.popFromStart(), equals('rebind widget 1a'));
 
           expect(testStack.popFromStart(), equals('is changed 2a'));
-          expect(testStack.popFromStart(), equals('create config 2a'));
-
           expect(testStack.popFromStart(), equals('update 1a'));
+          expect(testStack.popFromStart(), equals('is changed child 2a'));
 
           expect(testStack.canPop(), equals(false));
         },
@@ -299,13 +194,13 @@ void main() {
                 roEventHookRender: () => testStack.push('render 1a'),
                 roEventHookUpdate: () => testStack.push('update 1a'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 1a'),
-                wEventHookIsConfigurationChanged: () => testStack.push(
+                wEventShouldUpdateWidget: () => testStack.push(
                   'is changed 1a',
                 ),
-                wEventHookCreateWidgetConfiguration: () => testStack.push(
-                  'create config 1a',
+                wEventShouldUpdateWidgetChildren: () => testStack.push(
+                  'is changed child 1a',
                 ),
-                roEventHookAfterWidgetRebind: () {
+                roEventAfterWidgetRebind: () {
                   testStack.push(
                     'rebind widget 1a',
                   );
@@ -319,7 +214,7 @@ void main() {
 
                   expect(hash, equals('new-instance'));
                 },
-                wOverrideIsConfigurationChanged: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             parentContext: app!.appContext,
@@ -341,31 +236,29 @@ void main() {
                 roEventHookRender: () => testStack.push('render 2a'),
                 roEventHookUpdate: () => testStack.push('update 2a'),
                 roEventHookBeforeUnMount: () => testStack.push('dispose 2a'),
-                wEventHookIsConfigurationChanged: () => testStack.push(
+                wEventShouldUpdateWidget: () => testStack.push(
                   'is changed 2a',
                 ),
-                wEventHookCreateWidgetConfiguration: () => testStack.push(
-                  'create config 2a',
+                wEventShouldUpdateWidgetChildren: () => testStack.push(
+                  'is changed child 2a',
                 ),
-                roEventHookAfterWidgetRebind: () => testStack.push(
+                roEventAfterWidgetRebind: () => testStack.push(
                   'rebind widget 2a',
                 ),
-                wOverrideIsConfigurationChanged: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             updateType: UpdateType.undefined,
             parentContext: app!.appContext,
           );
 
-          expect(testStack.popFromStart(), equals('create config 1a'));
           expect(testStack.popFromStart(), equals('render 1a'));
 
           expect(testStack.popFromStart(), equals('rebind widget 1a'));
 
           expect(testStack.popFromStart(), equals('is changed 2a'));
-          expect(testStack.popFromStart(), equals('create config 2a'));
-
           expect(testStack.popFromStart(), equals('update 1a'));
+          expect(testStack.popFromStart(), equals('is changed child 2a'));
 
           expect(testStack.canPop(), equals(false));
         },
@@ -379,7 +272,7 @@ void main() {
             RT_TestWidget(
               roEventHookRender: () => testStack.push('render parent'),
               roEventHookUpdate: () => testStack.push('update parent'),
-              wOverrideIsConfigurationChanged: () => true,
+              wOverrideShouldUpdateWidget: () => true,
               children: [
                 RT_TestWidget(
                   roEventHookRender: () => testStack.push('render child'),
@@ -396,7 +289,7 @@ void main() {
             RT_TestWidget(
               roEventHookRender: () => testStack.push('render parent'),
               roEventHookUpdate: () => testStack.push('update parent'),
-              wOverrideIsConfigurationChanged: () => true,
+              wOverrideShouldUpdateWidget: () => true,
               children: [
                 RT_TestWidget(
                   roEventHookRender: () => testStack.push('render child'),
@@ -427,7 +320,7 @@ void main() {
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render parent'),
                 roEventHookUpdate: () => testStack.push('update parent'),
-                wOverrideIsConfigurationChanged: () => false,
+                wOverrideShouldUpdateWidget: () => false,
                 children: [
                   RT_TestWidget(
                     roEventHookRender: () => testStack.push('render child'),
@@ -444,7 +337,7 @@ void main() {
               RT_TestWidget(
                 roEventHookRender: () => testStack.push('render parent'),
                 roEventHookUpdate: () => testStack.push('update parent'),
-                wOverrideIsConfigurationChanged: () => false,
+                wOverrideShouldUpdateWidget: () => false,
                 children: [
                   RT_TestWidget(
                     roEventHookRender: () => testStack.push('render child'),
@@ -471,7 +364,7 @@ void main() {
         var constantWidget = RT_TestWidget(
           roEventHookRender: () => testStack.push('render parent'),
           roEventHookUpdate: () => testStack.push('update parent'),
-          wOverrideIsConfigurationChanged: () => false,
+          wOverrideShouldUpdateWidget: () => false,
           children: [
             RT_TestWidget(
               roEventHookRender: () => testStack.push('render child'),
@@ -504,7 +397,7 @@ void main() {
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('widget'),
-                wOverrideIsConfigurationChanged: () => false,
+                wOverrideShouldUpdateWidget: () => false,
                 children: [],
               ),
             ],
@@ -517,7 +410,7 @@ void main() {
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('widget'),
-                wOverrideIsConfigurationChanged: () => false,
+                wOverrideShouldUpdateWidget: () => false,
                 children: [
                   Text('a'),
                   Text('b'),
@@ -535,7 +428,7 @@ void main() {
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('widget'),
-                wOverrideIsConfigurationChanged: () => false,
+                wOverrideShouldUpdateWidget: () => false,
                 children: [],
               ),
             ],
@@ -555,7 +448,7 @@ void main() {
               RT_TestWidget(
                 customHash: '1a',
                 key: GlobalKey('widget'),
-                wOverrideIsConfigurationChanged: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             parentContext: app!.appContext,
@@ -569,7 +462,7 @@ void main() {
               RT_TestWidget(
                 customHash: '2a',
                 key: GlobalKey('widget'),
-                wOverrideIsConfigurationChanged: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             updateType: UpdateType.setState,
@@ -583,7 +476,7 @@ void main() {
               RT_TestWidget(
                 customHash: '3a',
                 key: GlobalKey('widget'),
-                wOverrideIsConfigurationChanged: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             updateType: UpdateType.setState,
@@ -611,7 +504,7 @@ void main() {
               RT_TestWidget(
                 customHash: '1a',
                 key: GlobalKey('widget'),
-                wOverrideIsConfigurationChanged: () => false,
+                wOverrideShouldUpdateWidget: () => false,
               ),
             ],
             parentContext: app!.appContext,
@@ -625,7 +518,7 @@ void main() {
               RT_TestWidget(
                 customHash: '2a',
                 key: GlobalKey('widget'),
-                wOverrideIsConfigurationChanged: () => false,
+                wOverrideShouldUpdateWidget: () => false,
               ),
             ],
             updateType: UpdateType.setState,
@@ -639,7 +532,7 @@ void main() {
               RT_TestWidget(
                 customHash: '3a',
                 key: GlobalKey('widget'),
-                wOverrideIsConfigurationChanged: () => false,
+                wOverrideShouldUpdateWidget: () => false,
               ),
             ],
             updateType: UpdateType.setState,
@@ -1035,6 +928,186 @@ void main() {
           var route = pap.widget('route');
 
           expect((route as Route).name, equals('some-name'));
+        },
+      );
+
+      test(
+        'should be able to run update on tree containing non-direct childs '
+        'stateful widget test',
+        () async {
+          var pap = app!;
+
+          await pap.updateChildren(
+            widgets: [
+              RT_SingleChildStateful(
+                child: Text('some text'),
+              ),
+            ],
+            parentContext: pap.appContext,
+            updateType: UpdateType.setState,
+          );
+
+          await pap.updateChildren(
+            widgets: [
+              RT_SingleChildStateful(
+                child: Text('ignore text'),
+              ),
+            ],
+            parentContext: app!.appContext,
+            updateType: UpdateType.setState,
+          );
+
+          expect(RT_TestBed.rootElement, RT_hasContents('some text'));
+        },
+      );
+
+      test(
+        'should be able to run update on tree containing non-direct childs '
+        'stateless widget test',
+        () async {
+          var pap = app!;
+
+          await pap.updateChildren(
+            widgets: [
+              RT_StatelessWidget(
+                children: [
+                  Text('some text'),
+                ],
+              ),
+            ],
+            parentContext: pap.appContext,
+            updateType: UpdateType.setState,
+          );
+
+          await pap.updateChildren(
+            widgets: [
+              RT_StatelessWidget(
+                children: [
+                  Text('updated text'),
+                ],
+              ),
+            ],
+            parentContext: app!.appContext,
+            updateType: UpdateType.setState,
+          );
+
+          expect(RT_TestBed.rootElement, RT_hasContents('updated text'));
+        },
+      );
+
+      test(
+        'should be able to run update on tree containing direct childs '
+        'inherited widget test',
+        () async {
+          var pap = app!;
+
+          await pap.updateChildren(
+            widgets: [
+              RT_InheritedWidget(
+                child: Text('some text'),
+              ),
+            ],
+            parentContext: pap.appContext,
+            updateType: UpdateType.setState,
+          );
+
+          await pap.updateChildren(
+            widgets: [
+              RT_InheritedWidget(
+                child: Text('updated text'),
+              ),
+            ],
+            parentContext: app!.appContext,
+            updateType: UpdateType.setState,
+          );
+
+          expect(RT_TestBed.rootElement, RT_hasContents('updated text'));
+        },
+      );
+
+      test(
+        'should be able to run update on tree containing non-direct childs '
+        'event detector widget test',
+        () async {
+          var pap = app!;
+
+          await pap.updateChildren(
+            widgets: [
+              EventDetector(
+                child: Text('some text'),
+              ),
+            ],
+            parentContext: pap.appContext,
+            updateType: UpdateType.setState,
+          );
+
+          await pap.updateChildren(
+            widgets: [
+              EventDetector(
+                child: Text('updated text'),
+              ),
+            ],
+            parentContext: app!.appContext,
+            updateType: UpdateType.setState,
+          );
+
+          expect(RT_TestBed.rootElement, RT_hasContents('updated text'));
+        },
+      );
+
+      test(
+        'should call shouldUpdateWidgetChild with previous result of shouldupdate',
+        () async {
+          var testStack = RT_TestStack();
+
+          await app!.buildChildren(
+            widgets: [
+              RT_TestWidget(
+                wOverrideShouldUpdateWidget: () => true,
+                wHookShouldUpdateWidgetChildren: (
+                  widget,
+                  results,
+                ) =>
+                    testStack.push(results ? 'y' : 'n'),
+              ),
+            ],
+            parentContext: app!.appContext,
+          );
+
+          await app!.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                wOverrideShouldUpdateWidget: () => true,
+                wHookShouldUpdateWidgetChildren: (
+                  widget,
+                  results,
+                ) =>
+                    testStack.push(results ? 'y' : 'n'),
+              ),
+            ],
+            parentContext: app!.appContext,
+            updateType: UpdateType.undefined,
+          );
+
+          await app!.updateChildren(
+            widgets: [
+              RT_TestWidget(
+                wOverrideShouldUpdateWidget: () => false,
+                wHookShouldUpdateWidgetChildren: (
+                  widget,
+                  results,
+                ) =>
+                    testStack.push(results ? 'y' : 'n'),
+              ),
+            ],
+            parentContext: app!.appContext,
+            updateType: UpdateType.undefined,
+          );
+
+          expect(testStack.popFromStart(), equals('y'));
+          expect(testStack.popFromStart(), equals('n'));
+
+          expect(testStack.canPop(), equals(false));
         },
       );
 

@@ -52,17 +52,40 @@ abstract class Widget {
 
   /*
   |--------------------------------------------------------------------------
-  | configuration
+  | widget configuration methods
   |--------------------------------------------------------------------------
   */
 
-  /// Create widget's configuration.
+  /// Whether to update current widget.
   ///
-  WidgetConfiguration createConfiguration() => const WidgetConfiguration();
+  ///
+  /// Framework calls this method on new widget, when new widget matches with a
+  /// old widget,to check whether old widget need to update. This method should
+  /// contain the logic to compare new widget with old.
+  ///
+  ///
+  /// Diffing proccess will always call [shouldUpdateWidget] on child widgets
+  /// of current widget even if [shouldUpdateWidget] return false. This means
+  /// whatever diffing logic is present in this method, its scope should be
+  /// limited to checking just the current widget. If a widget want to
+  /// short-circuit diffing proccess(i.e no [shouldUpdateWidget] on child
+  /// widgets) then it can override [shouldUpdateWidgetChildren] method.
+  ///
+  bool shouldUpdateWidget(Widget oldWidget);
 
-  /// Whether configuration has changed.
+  /// Whether to update current widget's children.
   ///
-  bool isConfigurationChanged(WidgetConfiguration oldConfiguration) => false;
+  /// Framwork will always call this method after calling [shouldUpdateWidget]
+  /// along with results of the previous call to [shouldUpdateWidget] on
+  /// current widget.
+  ///
+  /// If current widget knows in advance whether widgets below it
+  /// doesn't need to update then it can override this method and return
+  /// false which will short-circuit the diffing the proccess.
+  ///
+  bool shouldUpdateWidgetChildren(Widget oldWidget, bool shouldUpdateWidget) {
+    return true;
+  }
 
   /*
   |--------------------------------------------------------------------------
@@ -75,13 +98,4 @@ abstract class Widget {
   RenderObject createRenderObject(BuildContext context) {
     return RenderObject(context);
   }
-}
-
-/// Widget's configuration.
-///
-/// Widgets are responsible for extending this class if they want to pass around
-/// their configuration during builds.
-///
-class WidgetConfiguration {
-  const WidgetConfiguration();
 }

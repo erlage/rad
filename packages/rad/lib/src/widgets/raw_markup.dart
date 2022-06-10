@@ -33,27 +33,12 @@ class RawMarkUp extends Widget {
   DomTagType get correspondingTag => DomTagType.division;
 
   @override
-  createConfiguration() => _RawMarkUpConfiguration(html);
-
-  @override
-  isConfigurationChanged(covariant _RawMarkUpConfiguration oldConfiguration) {
-    return html != oldConfiguration.html;
+  bool shouldUpdateWidget(covariant RawMarkUp oldWidget) {
+    return html != oldWidget.html;
   }
 
   @override
   createRenderObject(context) => _RawMarkupRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _RawMarkUpConfiguration extends WidgetConfiguration {
-  final String html;
-
-  const _RawMarkUpConfiguration(this.html);
 }
 
 /*
@@ -67,17 +52,17 @@ class _RawMarkupRenderObject extends RenderObject {
 
   @override
   render({
-    required covariant _RawMarkUpConfiguration configuration,
+    required covariant RawMarkUp widget,
   }) {
-    return DomNodeDescription(rawContents: configuration.html);
+    return DomNodeDescription(rawContents: widget.html);
   }
 
   @override
   update({
     required updateType,
-    required oldConfiguration,
-    required covariant _RawMarkUpConfiguration newConfiguration,
+    required oldWidget,
+    required covariant RawMarkUp newWidget,
   }) {
-    return DomNodeDescription(rawContents: newConfiguration.html);
+    return DomNodeDescription(rawContents: newWidget.html);
   }
 }

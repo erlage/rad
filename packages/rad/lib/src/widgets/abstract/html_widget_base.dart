@@ -119,79 +119,24 @@ abstract class HTMLWidgetBase extends Widget {
       };
 
   @override
-  createConfiguration() {
-    return HTMLWidgetBaseConfiguration(
-      id: id,
-      title: title,
-      tabIndex: tabIndex,
-      style: style,
-      classAttribute: classAttribute,
-      dataAttributes: dataAttributes,
-      hidden: hidden,
-      draggable: draggable,
-      contentEditable: contenteditable,
-      onClick: onClickAttribute,
-      innerText: innerText,
-    );
-  }
+  bool shouldUpdateWidget(oldWidget) {
+    oldWidget as HTMLWidgetBase;
 
-  @override
-  isConfigurationChanged(oldConfiguration) {
-    oldConfiguration as HTMLWidgetBaseConfiguration;
-
-    return id != oldConfiguration.id ||
-        title != oldConfiguration.title ||
-        tabIndex != oldConfiguration.tabIndex ||
-        style != oldConfiguration.style ||
-        classAttribute != oldConfiguration.classAttribute ||
-        !fnIsKeyValueMapEqual(
-          dataAttributes,
-          oldConfiguration.dataAttributes,
-        ) ||
-        hidden != oldConfiguration.hidden ||
-        draggable != oldConfiguration.draggable ||
-        contenteditable != oldConfiguration.contentEditable ||
-        onClickAttribute != oldConfiguration.onClick ||
-        innerText != oldConfiguration.innerText;
+    return id != oldWidget.id ||
+        title != oldWidget.title ||
+        tabIndex != oldWidget.tabIndex ||
+        style != oldWidget.style ||
+        classAttribute != oldWidget.classAttribute ||
+        !fnIsKeyValueMapEqual(dataAttributes, oldWidget.dataAttributes) ||
+        hidden != oldWidget.hidden ||
+        draggable != oldWidget.draggable ||
+        contenteditable != oldWidget.contenteditable ||
+        onClickAttribute != oldWidget.onClickAttribute ||
+        innerText != oldWidget.innerText;
   }
 
   @override
   createRenderObject(context) => MarkUpGlobalRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class HTMLWidgetBaseConfiguration extends WidgetConfiguration {
-  final String? id;
-  final String? title;
-  final String? style;
-  final int? tabIndex;
-  final bool? draggable;
-  final bool? contentEditable;
-  final bool? hidden;
-  final String? onClick;
-  final String? innerText;
-
-  final String? classAttribute;
-  final Map<String, String>? dataAttributes;
-
-  const HTMLWidgetBaseConfiguration({
-    this.id,
-    this.title,
-    this.tabIndex,
-    this.style,
-    this.classAttribute,
-    this.dataAttributes,
-    this.hidden,
-    this.draggable,
-    this.contentEditable,
-    this.onClick,
-    this.innerText,
-  });
 }
 
 /*
@@ -211,50 +156,50 @@ class MarkUpGlobalRenderObject extends RenderObject {
 
   @override
   render({
-    required configuration,
+    required widget,
   }) {
-    configuration as HTMLWidgetBaseConfiguration;
+    widget as HTMLWidgetBase;
 
     var attributes = _prepareAttributes(
-      props: configuration,
-      oldProps: null,
+      widget: widget,
+      oldWidget: null,
     );
 
     var dataset = fnCommonPrepareDataset(
-      dataAttributes: configuration.dataAttributes,
+      dataAttributes: widget.dataAttributes,
       oldDataAttributes: null,
     );
 
     return DomNodeDescription(
       dataset: dataset,
       attributes: attributes,
-      textContents: configuration.innerText,
+      textContents: widget.innerText,
     );
   }
 
   @override
   update({
     required updateType,
-    required oldConfiguration,
-    required newConfiguration,
+    required oldWidget,
+    required newWidget,
   }) {
-    oldConfiguration as HTMLWidgetBaseConfiguration;
-    newConfiguration as HTMLWidgetBaseConfiguration;
+    oldWidget as HTMLWidgetBase;
+    newWidget as HTMLWidgetBase;
 
     var attributes = _prepareAttributes(
-      props: newConfiguration,
-      oldProps: oldConfiguration,
+      widget: newWidget,
+      oldWidget: oldWidget,
     );
 
     var dataset = fnCommonPrepareDataset(
-      dataAttributes: newConfiguration.dataAttributes,
-      oldDataAttributes: oldConfiguration.dataAttributes,
+      dataAttributes: newWidget.dataAttributes,
+      oldDataAttributes: oldWidget.dataAttributes,
     );
 
     return DomNodeDescription(
       dataset: dataset,
       attributes: attributes,
-      textContents: newConfiguration.innerText,
+      textContents: newWidget.innerText,
     );
   }
 }
@@ -266,79 +211,79 @@ class MarkUpGlobalRenderObject extends RenderObject {
 */
 
 Map<String, String?> _prepareAttributes({
-  required HTMLWidgetBaseConfiguration props,
-  required HTMLWidgetBaseConfiguration? oldProps,
+  required HTMLWidgetBase widget,
+  required HTMLWidgetBase? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
-  if (null != props.id) {
-    attributes[Attributes.id] = props.id;
+  if (null != widget.id) {
+    attributes[Attributes.id] = widget.id;
   } else {
-    if (null != oldProps?.id) {
+    if (null != oldWidget?.id) {
       attributes[Attributes.id] = null;
     }
   }
 
-  if (null != props.title) {
-    attributes[Attributes.title] = props.title;
+  if (null != widget.title) {
+    attributes[Attributes.title] = widget.title;
   } else {
-    if (null != oldProps?.title) {
+    if (null != oldWidget?.title) {
       attributes[Attributes.title] = null;
     }
   }
 
-  if (null != props.style) {
-    attributes[Attributes.style] = props.style;
+  if (null != widget.style) {
+    attributes[Attributes.style] = widget.style;
   } else {
-    if (null != oldProps?.style) {
+    if (null != oldWidget?.style) {
       attributes[Attributes.style] = null;
     }
   }
 
-  if (null != props.classAttribute) {
-    attributes[Attributes.classAttribute] = props.classAttribute;
+  if (null != widget.classAttribute) {
+    attributes[Attributes.classAttribute] = widget.classAttribute;
   } else {
-    if (null != oldProps?.classAttribute) {
+    if (null != oldWidget?.classAttribute) {
       attributes[Attributes.classAttribute] = null;
     }
   }
 
-  if (null != props.tabIndex) {
-    attributes[Attributes.tabIndex] = '${props.tabIndex}';
+  if (null != widget.tabIndex) {
+    attributes[Attributes.tabIndex] = '${widget.tabIndex}';
   } else {
-    if (null != oldProps?.tabIndex) {
+    if (null != oldWidget?.tabIndex) {
       attributes[Attributes.tabIndex] = null;
     }
   }
 
-  if (null != props.hidden && props.hidden!) {
-    attributes[Attributes.hidden] = '${props.hidden}';
+  if (null != widget.hidden && widget.hidden!) {
+    attributes[Attributes.hidden] = '${widget.hidden}';
   } else {
-    if (null != oldProps?.hidden) {
+    if (null != oldWidget?.hidden) {
       attributes[Attributes.hidden] = null;
     }
   }
 
-  if (null != props.draggable) {
-    attributes[Attributes.draggable] = '${props.draggable}';
+  if (null != widget.draggable) {
+    attributes[Attributes.draggable] = '${widget.draggable}';
   } else {
-    if (null != oldProps?.draggable) {
+    if (null != oldWidget?.draggable) {
       attributes[Attributes.draggable] = null;
     }
   }
 
-  if (null != props.contentEditable) {
-    attributes[Attributes.contentEditable] = '${props.contentEditable}';
+  if (null != widget.contenteditable) {
+    attributes[Attributes.contentEditable] = '${widget.contenteditable}';
   } else {
-    if (null != oldProps?.contentEditable) {
+    if (null != oldWidget?.contenteditable) {
       attributes[Attributes.contentEditable] = null;
     }
   }
 
-  if (null != props.onClick) {
-    attributes[Attributes.onClick] = props.onClick;
+  if (null != widget.onClickAttribute) {
+    attributes[Attributes.onClick] = widget.onClickAttribute;
   } else {
-    if (null != oldProps?.onClick) {
+    if (null != oldWidget?.onClickAttribute) {
       attributes[Attributes.onClick] = null;
     }
   }

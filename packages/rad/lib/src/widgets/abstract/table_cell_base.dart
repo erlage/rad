@@ -70,51 +70,19 @@ abstract class TableCellBase extends HTMLWidgetBase {
         );
 
   @override
-  createConfiguration() {
-    return _TableCellBaseConfiguration(
-      headers: headers,
-      rowSpan: rowSpan,
-      colSpan: colSpan,
-      globalConfiguration:
-          super.createConfiguration() as HTMLWidgetBaseConfiguration,
-    );
-  }
-
-  @override
-  isConfigurationChanged(
-    covariant _TableCellBaseConfiguration oldConfiguration,
+  bool shouldUpdateWidget(
+    covariant oldWidget,
   ) {
-    return rowSpan != oldConfiguration.colSpan ||
-        colSpan != oldConfiguration.rowSpan ||
-        headers != oldConfiguration.headers ||
-        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
+    oldWidget as TableCellBase;
+
+    return rowSpan != oldWidget.colSpan ||
+        colSpan != oldWidget.rowSpan ||
+        headers != oldWidget.headers ||
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override
   createRenderObject(context) => _TableCellBaseRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _TableCellBaseConfiguration extends WidgetConfiguration {
-  final HTMLWidgetBaseConfiguration globalConfiguration;
-
-  final int? rowSpan;
-
-  final int? colSpan;
-
-  final String? headers;
-
-  const _TableCellBaseConfiguration({
-    this.rowSpan,
-    this.colSpan,
-    this.headers,
-    required this.globalConfiguration,
-  });
 }
 
 /*
@@ -128,16 +96,16 @@ class _TableCellBaseRenderObject extends MarkUpGlobalRenderObject {
 
   @override
   render({
-    required covariant _TableCellBaseConfiguration configuration,
+    required covariant TableCellBase widget,
   }) {
     var domNodeDescription = super.render(
-      configuration: configuration.globalConfiguration,
+      widget: widget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: configuration,
-        oldProps: null,
+        widget: widget,
+        oldWidget: null,
       ),
     );
 
@@ -147,19 +115,19 @@ class _TableCellBaseRenderObject extends MarkUpGlobalRenderObject {
   @override
   update({
     required updateType,
-    required covariant _TableCellBaseConfiguration oldConfiguration,
-    required covariant _TableCellBaseConfiguration newConfiguration,
+    required covariant TableCellBase oldWidget,
+    required covariant TableCellBase newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
-      oldConfiguration: oldConfiguration.globalConfiguration,
-      newConfiguration: newConfiguration.globalConfiguration,
+      oldWidget: oldWidget,
+      newWidget: newWidget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: newConfiguration,
-        oldProps: oldConfiguration,
+        widget: newWidget,
+        oldWidget: oldWidget,
       ),
     );
 
@@ -174,31 +142,31 @@ class _TableCellBaseRenderObject extends MarkUpGlobalRenderObject {
 */
 
 Map<String, String?> _prepareAttributes({
-  required _TableCellBaseConfiguration props,
-  required _TableCellBaseConfiguration? oldProps,
+  required TableCellBase widget,
+  required TableCellBase? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
-  if (null != props.headers) {
-    attributes[Attributes.headers] = props.headers;
+  if (null != widget.headers) {
+    attributes[Attributes.headers] = widget.headers;
   } else {
-    if (null != oldProps?.headers) {
+    if (null != oldWidget?.headers) {
       attributes[Attributes.headers] = null;
     }
   }
 
-  if (null != props.rowSpan) {
-    attributes[Attributes.rowSpan] = '${props.rowSpan}';
+  if (null != widget.rowSpan) {
+    attributes[Attributes.rowSpan] = '${widget.rowSpan}';
   } else {
-    if (null != oldProps?.rowSpan) {
+    if (null != oldWidget?.rowSpan) {
       attributes[Attributes.rowSpan] = null;
     }
   }
 
-  if (null != props.colSpan) {
-    attributes[Attributes.colSpan] = '${props.colSpan}';
+  if (null != widget.colSpan) {
+    attributes[Attributes.colSpan] = '${widget.colSpan}';
   } else {
-    if (null != oldProps?.colSpan) {
+    if (null != oldWidget?.colSpan) {
       attributes[Attributes.colSpan] = null;
     }
   }

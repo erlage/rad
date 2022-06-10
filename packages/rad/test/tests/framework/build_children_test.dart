@@ -82,9 +82,9 @@ void main() {
 
     testWidgets('should trigger afterMount hook after mount', (tester) async {
       await tester.pumpWidget(
-        TestWidget(
-          roEventAfterMount: () {
-            expect(tester.find.byType(TestWidget), widgetObjectIsMounted);
+        RT_TestWidget(
+          roEventHookAfterMount: () {
+            expect(tester.find.byType(RT_TestWidget), widgetObjectIsMounted);
           },
         ),
       );
@@ -94,12 +94,12 @@ void main() {
 
     testWidgets('should call render before mount', (tester) async {
       await tester.pumpWidget(
-        TestWidget(
-          roEventRender: () {
+        RT_TestWidget(
+          roEventHookRender: () {
             // if widget is not mounted, then test framework will not be able
             // to collect it. that's also the reason why we can't use the matcher
             // widgetObjectIsNotMounted here
-            expect(tester.find.byType(TestWidget), findsNothing);
+            expect(tester.find.byType(RT_TestWidget), findsNothing);
           },
         ),
       );
@@ -157,9 +157,9 @@ void main() {
 
     testWidgets('should build widgets in order', (tester) async {
       await tester.pumpMultipleWidgets([
-        TestWidget(roEventRender: () => tester.push('build-1a')),
-        TestWidget(roEventRender: () => tester.push('build-1b')),
-        TestWidget(roEventRender: () => tester.push('build-1c')),
+        RT_TestWidget(roEventHookRender: () => tester.push('build-1a')),
+        RT_TestWidget(roEventHookRender: () => tester.push('build-1b')),
+        RT_TestWidget(roEventHookRender: () => tester.push('build-1c')),
       ]);
 
       tester.assertMatchStack([
@@ -171,25 +171,21 @@ void main() {
 
     testWidgets('should trigger hooks in order', (tester) async {
       await tester.pumpWidget(
-        TestWidget(
+        RT_TestWidget(
           // widget hooks
 
-          wEventCreateWidgetConfiguration: () => tester.push(
-            'createWidgetConfiguration',
-          ),
           wEventCreateRenderObject: () => tester.push(
             'createRenderObject',
           ),
 
           // render object hooks
 
-          roEventRender: () => tester.push('render'),
-          roEventAfterMount: () => tester.push('afterMount'),
+          roEventHookRender: () => tester.push('render'),
+          roEventHookAfterMount: () => tester.push('afterMount'),
         ),
       );
 
       tester.assertMatchStack([
-        'createWidgetConfiguration',
         'createRenderObject',
         'render',
         'afterMount',
@@ -198,37 +194,37 @@ void main() {
 
     testWidgets('should build widgets, in order, from top', (tester) async {
       await tester.pumpWidget(
-        TestWidget(
-          roEventRender: () => tester.push('render-root'),
+        RT_TestWidget(
+          roEventHookRender: () => tester.push('render-root'),
           children: [
-            TestWidget(
-              roEventRender: () => tester.push('render-0'),
+            RT_TestWidget(
+              roEventHookRender: () => tester.push('render-0'),
               children: [
-                TestWidget(
-                  roEventRender: () => tester.push('render-0-0'),
+                RT_TestWidget(
+                  roEventHookRender: () => tester.push('render-0-0'),
                 ),
-                TestWidget(
-                  roEventRender: () => tester.push('render-0-1'),
+                RT_TestWidget(
+                  roEventHookRender: () => tester.push('render-0-1'),
                   children: [
-                    TestWidget(
-                      roEventRender: () => tester.push('render-0-1-0'),
+                    RT_TestWidget(
+                      roEventHookRender: () => tester.push('render-0-1-0'),
                     ),
-                    TestWidget(
-                      roEventRender: () => tester.push('render-0-1-1'),
+                    RT_TestWidget(
+                      roEventHookRender: () => tester.push('render-0-1-1'),
                     ),
                   ],
                 ),
               ],
             ),
-            TestWidget(
-              roEventRender: () => tester.push('render-1'),
+            RT_TestWidget(
+              roEventHookRender: () => tester.push('render-1'),
               children: [
                 // nested child widgets
-                TestWidget(
-                  roEventRender: () => tester.push('render-1-0'),
+                RT_TestWidget(
+                  roEventHookRender: () => tester.push('render-1-0'),
                 ),
-                TestWidget(
-                  roEventRender: () => tester.push('render-1-1'),
+                RT_TestWidget(
+                  roEventHookRender: () => tester.push('render-1-1'),
                 ),
               ],
             ),
@@ -276,21 +272,21 @@ void main() {
         await tester.pumpWidget(
           Span(
             children: [
-              TestWidget(
+              RT_TestWidget(
                 children: [
-                  TestWidget(
+                  RT_TestWidget(
                     children: [
-                      TestWidget(),
-                      TestWidget(),
+                      RT_TestWidget(),
+                      RT_TestWidget(),
                     ],
                   ),
                 ],
               ),
-              TestWidget(
+              RT_TestWidget(
                 children: [
-                  TestWidget(),
-                  TestWidget(),
-                  TestWidget(),
+                  RT_TestWidget(),
+                  RT_TestWidget(),
+                  RT_TestWidget(),
                 ],
               ),
             ],
@@ -298,13 +294,13 @@ void main() {
         );
 
         // ensure all child widgets are built
-        expect(tester.find.byType(TestWidget), findsNWidgets(8));
+        expect(tester.find.byType(RT_TestWidget), findsNWidgets(8));
 
         // rebuild root widget but without any child widgets
         await tester.pumpWidget(Span());
 
         // ensure all child widgets are disposed off
-        expect(tester.find.byType(TestWidget), findsNothing);
+        expect(tester.find.byType(RT_TestWidget), findsNothing);
       },
     );
 

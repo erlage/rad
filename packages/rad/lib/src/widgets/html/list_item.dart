@@ -58,39 +58,12 @@ class ListItem extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.listItem;
 
   @override
-  createConfiguration() {
-    return _ListItemConfiguration(
-      value: value,
-      globalConfiguration:
-          super.createConfiguration() as HTMLWidgetBaseConfiguration,
-    );
-  }
-
-  @override
-  isConfigurationChanged(covariant _ListItemConfiguration oldConfiguration) {
-    return value != oldConfiguration.value ||
-        super.isConfigurationChanged(oldConfiguration.globalConfiguration);
+  bool shouldUpdateWidget(covariant ListItem oldWidget) {
+    return value != oldWidget.value || super.shouldUpdateWidget(oldWidget);
   }
 
   @override
   createRenderObject(context) => _ListItemRenderObject(context);
-}
-
-/*
-|--------------------------------------------------------------------------
-| configuration
-|--------------------------------------------------------------------------
-*/
-
-class _ListItemConfiguration extends WidgetConfiguration {
-  final HTMLWidgetBaseConfiguration globalConfiguration;
-
-  final int? value;
-
-  const _ListItemConfiguration({
-    this.value,
-    required this.globalConfiguration,
-  });
 }
 
 /*
@@ -104,16 +77,16 @@ class _ListItemRenderObject extends MarkUpGlobalRenderObject {
 
   @override
   render({
-    required covariant _ListItemConfiguration configuration,
+    required covariant ListItem widget,
   }) {
     var domNodeDescription = super.render(
-      configuration: configuration.globalConfiguration,
+      widget: widget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: configuration,
-        oldProps: null,
+        widget: widget,
+        oldWidget: null,
       ),
     );
 
@@ -123,19 +96,19 @@ class _ListItemRenderObject extends MarkUpGlobalRenderObject {
   @override
   update({
     required updateType,
-    required covariant _ListItemConfiguration oldConfiguration,
-    required covariant _ListItemConfiguration newConfiguration,
+    required covariant ListItem oldWidget,
+    required covariant ListItem newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
-      oldConfiguration: oldConfiguration.globalConfiguration,
-      newConfiguration: newConfiguration.globalConfiguration,
+      oldWidget: oldWidget,
+      newWidget: newWidget,
     );
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
-        props: newConfiguration,
-        oldProps: oldConfiguration,
+        widget: newWidget,
+        oldWidget: oldWidget,
       ),
     );
 
@@ -150,15 +123,15 @@ class _ListItemRenderObject extends MarkUpGlobalRenderObject {
 */
 
 Map<String, String?> _prepareAttributes({
-  required _ListItemConfiguration props,
-  required _ListItemConfiguration? oldProps,
+  required ListItem widget,
+  required ListItem? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
-  if (null != props.value) {
-    attributes[Attributes.value] = '${props.value}';
+  if (null != widget.value) {
+    attributes[Attributes.value] = '${widget.value}';
   } else {
-    if (null != oldProps?.value) {
+    if (null != oldWidget?.value) {
       attributes[Attributes.value] = null;
     }
   }

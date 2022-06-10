@@ -29,7 +29,7 @@ class RenderObject {
   /// This hook gets called exactly once during lifetime of a widget.
   ///
   DomNodeDescription? render({
-    required WidgetConfiguration configuration,
+    required Widget widget,
   }) {
     return null;
   }
@@ -45,18 +45,19 @@ class RenderObject {
 
   /// Update hook.
   ///
+  /// This hook gets called everytime [Widget.shouldUpdateWidget] returns
+  /// true.
+  ///
+  ///
   /// Implementation can optionally return description of dom node that will be
   /// applied on dom node associated with current widget. If current widget has
   /// no [Widget.correspondingTag] then description will returned by this
   /// method will be thrown away.
   ///
-  /// This hook gets called everytime [Widget.isConfigurationChanged] returns
-  /// true.
-  ///
   DomNodeDescription? update({
     required UpdateType updateType,
-    required WidgetConfiguration oldConfiguration,
-    required WidgetConfiguration newConfiguration,
+    required Widget oldWidget,
+    required Widget newWidget,
   }) {
     return null;
   }
