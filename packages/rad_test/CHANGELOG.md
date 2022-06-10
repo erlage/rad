@@ -1,3 +1,7 @@
+## 0.3.0
+
+- Segregated unstable APIs.
+
 ## 0.2.0
 
 - Added enterText, focus, showKeyBoard & tap actions to WidgetTester.
