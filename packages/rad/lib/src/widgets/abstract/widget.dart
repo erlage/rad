@@ -76,12 +76,11 @@ abstract class Widget {
   /// Whether to update current widget's children.
   ///
   /// Framwork will always call this method after calling [shouldUpdateWidget]
-  /// along with results of the previous call to [shouldUpdateWidget] on
-  /// current widget.
+  /// along with results of call to [shouldUpdateWidget] on current widget.
   ///
   /// If current widget knows in advance whether widgets below it
   /// doesn't need to update then it can override this method and return
-  /// false which will short-circuit the diffing the proccess.
+  /// false which will short-circuit the diffing proccess.
   ///
   bool shouldUpdateWidgetChildren(Widget oldWidget, bool shouldUpdateWidget) {
     return true;

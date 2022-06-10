@@ -23,22 +23,19 @@ import 'package:rad/src/widgets/stateless_widget.dart';
 /// state, or depending on some system state.
 ///
 /// ## Performance consideration
+///
 ///   Rad uses a extremely lightweight yet powerful mechanism to build and
 ///   update DOM. Below are some general tips along with high level
 ///   understanding of how things works under the hood:
 ///
 ///
-/// * Push the state to the leaves. Having state at top level of application is
-///   acceptable as well but it's worth noting that having less childs to update
-///   means updates can be dispatched and processed faster.
-///
-///
 /// * Use const constructors where possible.
-///   A rebuild process involves cascading a update call to all child widgets.
-///   Child widgets then *can* cascade update to their childs and so on. Every
-///   widget will update its corresponding DOM only if its description has
-///   changed. But when you use a const constructor, framework short circuit the
-///   rebuild process at the point where it encounters a constant.
+///
+///
+/// * Push the state to the leaves.
+///   Having state at top level of application is acceptable as well but it's
+///   worth noting that having less childs to update means updates can be
+///   dispatched and processed faster.
 ///
 ///
 /// * In worst case, framework rebuild widgets from scratch. Complete rebuild
@@ -53,6 +50,14 @@ import 'package:rad/src/widgets/stateless_widget.dart';
 ///   that's required to build a widget. This means even if you remove child
 ///   nodes/or part of DOM tree using browser inspector, calling setState() in a
 ///   parent widget will bring back everything back in DOM.
+///
+///
+/// * And for mission critical situations, you have [shouldUpdateWidget] at
+///   your disposal on every widget. If you know that in some situations your
+///   widget doesn’t need to update, you can return false from
+///   [shouldUpdateWidget] instead, to skip the whole rendering process.
+///   But remember maintaining [shouldUpdateWidget] is hard so it's not
+///   something you should be using everywhere.
 ///
 ///
 /// ## A Stateful widget example: 'click to toggle'
