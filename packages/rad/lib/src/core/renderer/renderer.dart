@@ -915,13 +915,14 @@ class Renderer with ServicesResolver {
 
         case WidgetAction.updateWidget:
           var widgetObject = widgetActionObject.widgetObject;
+          var widget = widgetObject.widget;
 
           // publish update
 
           var newDescription = widgetObject.renderObject.update(
             updateType: updateType,
-            newWidget: widgetObject.widget,
-            oldWidget: widgetObject.widget,
+            newWidget: widget,
+            oldWidget: widget,
           ); // bit of mess ^ but required
 
           widgetObject.frameworkRebindElementDescription(newDescription);
@@ -937,15 +938,22 @@ class Renderer with ServicesResolver {
 
           // call update on child widgets
 
-          updateWidgetsUnderContext(
-            jobQueue: jobQueue,
-            updateType: updateType,
-            parentContext: widgetObject.context,
-            flagAddIfNotFound: true,
-            widgets: widgetObject.widget.widgetChildren,
+          var shouldWidgetUpdateChild = widget.shouldWidgetChildrenUpdate(
+            widget,
+            true,
           );
 
-          break;
+          if (shouldWidgetUpdateChild) {
+            updateWidgetsUnderContext(
+              jobQueue: jobQueue,
+              updateType: updateType,
+              parentContext: widgetObject.context,
+              flagAddIfNotFound: true,
+              widgets: widgetObject.widget.widgetChildren,
+            );
+
+            break;
+          }
       }
     }
   }
