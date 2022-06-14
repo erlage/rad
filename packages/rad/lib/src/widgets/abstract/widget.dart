@@ -1,6 +1,7 @@
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/cache.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -36,11 +37,15 @@ abstract class Widget {
 
   /// Events that this widget is listening to in bubbling phase.
   ///
-  Map<DomEventType, EventCallback?> get widgetEventListeners => const {};
+  Map<DomEventType, EventCallback?> get widgetEventListeners {
+    return ccImmutableEmptyMapOfEventListeners;
+  }
 
   /// Events that this widget is listening to in capturing phase.
   ///
-  Map<DomEventType, EventCallback?> get widgetCaptureEventListeners => const {};
+  Map<DomEventType, EventCallback?> get widgetCaptureEventListeners {
+    return ccImmutableEmptyMapOfEventListeners;
+  }
 
   /*
   |--------------------------------------------------------------------------

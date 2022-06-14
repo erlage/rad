@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
+import 'package:rad/src/core/common/objects/cache.dart';
 import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_element.dart';
@@ -49,10 +50,16 @@ class GestureDetector extends SingleChildWidget {
   }) : super(key: key, child: child);
 
   @override
-  Map<DomEventType, EventCallback?> get widgetEventListeners => {
-        DomEventType.mouseEnter: onMouseEnterEvent,
-        DomEventType.mouseLeave: onMouseLeaveEvent,
-      };
+  Map<DomEventType, EventCallback?> get widgetEventListeners {
+    if (null == onMouseEnterEvent && null == onMouseLeaveEvent) {
+      return ccImmutableEmptyMapOfEventListeners;
+    }
+
+    return {
+      DomEventType.mouseEnter: onMouseEnterEvent,
+      DomEventType.mouseLeave: onMouseLeaveEvent,
+    };
+  }
 
   /*
   |--------------------------------------------------------------------------

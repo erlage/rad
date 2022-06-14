@@ -111,9 +111,15 @@ abstract class HTMLWidgetBase extends Widget {
         super(key: key);
 
   @override
-  Map<DomEventType, EventCallback?> get widgetEventListeners => {
-        DomEventType.click: onClick,
-      };
+  Map<DomEventType, EventCallback?> get widgetEventListeners {
+    if (null == onClick) {
+      return ccImmutableEmptyMapOfEventListeners;
+    }
+
+    return {
+      DomEventType.click: onClick,
+    };
+  }
 
   @override
   bool shouldUpdateWidget(oldWidget) {

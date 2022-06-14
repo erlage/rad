@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/cache.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
@@ -76,10 +77,16 @@ class Select extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.select;
 
   @override
-  Map<DomEventType, EventCallback?> get widgetEventListeners => {
-        DomEventType.click: onClick,
-        DomEventType.change: onChange,
-      };
+  Map<DomEventType, EventCallback?> get widgetEventListeners {
+    if (null == onClick && null == onChange) {
+      return ccImmutableEmptyMapOfEventListeners;
+    }
+
+    return {
+      DomEventType.click: onClick,
+      DomEventType.change: onChange,
+    };
+  }
 
   @override
   bool shouldUpdateWidget(covariant Select oldWidget) {

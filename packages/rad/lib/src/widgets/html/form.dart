@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/cache.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
@@ -87,10 +88,16 @@ class Form extends HTMLWidgetBase {
   String get widgetType => 'Form';
 
   @override
-  Map<DomEventType, EventCallback?> get widgetEventListeners => {
-        DomEventType.click: onClick,
-        DomEventType.submit: onSubmit,
-      };
+  Map<DomEventType, EventCallback?> get widgetEventListeners {
+    if (null == onClick && null == onSubmit) {
+      return ccImmutableEmptyMapOfEventListeners;
+    }
+
+    return {
+      DomEventType.click: onClick,
+      DomEventType.submit: onSubmit,
+    };
+  }
 
   @override
   bool shouldUpdateWidget(covariant Form oldWidget) {
