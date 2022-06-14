@@ -82,6 +82,10 @@ enum WidgetUpdateType {
   ///
   dispose,
 
+  /// Dispose multiple widgets.
+  ///
+  disposeMultiple,
+
   /// Add new widgets without cleaning parent contents.
   ///
   addAllWithoutClean,

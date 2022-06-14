@@ -407,6 +407,21 @@ class Renderer with ServicesResolver {
 
           break;
 
+        case WidgetUpdateType.disposeMultiple:
+          updateObject as WidgetUpdateObjectActionDisposeMultiple;
+
+          var iterable = updateObject.elementsToDispose;
+
+          for (final renderElement in iterable) {
+            disposeWidget(
+              jobQueue: jobQueue,
+              flagPreserveTarget: false,
+              renderElement: renderElement,
+            );
+          }
+
+          break;
+
         case WidgetUpdateType.cleanParent:
           updateObject as WidgetUpdateObjectActionCleanParent;
 
@@ -1144,8 +1159,8 @@ class Renderer with ServicesResolver {
 
     // -------------------------
 
-    // Widgetkey's hash : System action to take
-    var widgetSystemActions = <String, WidgetUpdateObject>{};
+    // System action to take on a widget
+    var widgetSystemActions = <WidgetUpdateObject>[];
 
     var oldRenderElementsHashMap = <String, RenderElement>{};
     var oldRenderElementsPositions = <String, int>{};
@@ -1191,7 +1206,7 @@ class Renderer with ServicesResolver {
         widgetRuntimeType: '${widget.runtimeType}',
       );
 
-      var existingRenderNode = oldRenderElementsHashMap[newNodeHash];
+      var existingRenderNode = oldRenderElementsHashMap.remove(newNodeHash);
 
       // if matching node not found
       if (null == existingRenderNode) {
@@ -1226,7 +1241,7 @@ class Renderer with ServicesResolver {
           widgetPositionIndex: newPositionIndex,
         );
 
-        widgetSystemActions[newNodeHash] = lastAddedWidgetAction;
+        widgetSystemActions.add(lastAddedWidgetAction);
 
         continue;
       }
@@ -1249,31 +1264,37 @@ class Renderer with ServicesResolver {
         }
       }
 
-      widgetSystemActions[newNodeHash] = WidgetUpdateObjectActionUpdate(
-        widget: widget,
-        newMountAtIndex: mountAtIndex,
-        widgetPositionIndex: newPositionIndex,
-        existingRenderElement: existingRenderNode,
+      widgetSystemActions.add(
+        WidgetUpdateObjectActionUpdate(
+          widget: widget,
+          newMountAtIndex: mountAtIndex,
+          widgetPositionIndex: newPositionIndex,
+          existingRenderElement: existingRenderNode,
+        ),
       );
     }
-
-    var preparedSystemActions = <WidgetUpdateObject>[];
 
     // --------------------------------------------------
     // Phase-3 | Deal with obsolute nodes
     // --------------------------------------------------
 
-    for (final oldNodeHash in oldRenderElementsHashMap.keys) {
-      if (!widgetSystemActions.containsKey(oldNodeHash)) {
-        var nodeToDispose = oldRenderElementsHashMap[oldNodeHash]!;
+    if (oldRenderElementsHashMap.isNotEmpty) {
+      // create a new list
+      var updatedList = <WidgetUpdateObject>[
+        WidgetUpdateObjectActionDisposeMultiple(
+          oldRenderElementsHashMap.values,
+        ),
+      ];
 
-        preparedSystemActions.add(
-          WidgetUpdateObjectActionDispose(nodeToDispose),
-        );
-      }
+      // append updates to new list because we want framework to process
+      // dispose actions before updates/builds
+
+      updatedList.addAll(widgetSystemActions);
+
+      widgetSystemActions = updatedList;
+
+      // maybe use insert(0, ) and prevent creating new list
     }
-
-    preparedSystemActions.addAll(widgetSystemActions.values);
 
     // -------------------------
 
@@ -1282,6 +1303,6 @@ class Renderer with ServicesResolver {
 
     // -------------------------
 
-    return preparedSystemActions;
+    return widgetSystemActions;
   }
 }

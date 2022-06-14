@@ -79,6 +79,16 @@ class WidgetUpdateObjectActionDispose extends WidgetUpdateObject {
   ) : super(WidgetUpdateType.dispose);
 }
 
+class WidgetUpdateObjectActionDisposeMultiple extends WidgetUpdateObject {
+  /// Existing nodes to dispose
+  ///
+  final Iterable<RenderElement> elementsToDispose;
+
+  WidgetUpdateObjectActionDisposeMultiple(
+    this.elementsToDispose,
+  ) : super(WidgetUpdateType.disposeMultiple);
+}
+
 class WidgetUpdateObjectActionCleanParent extends WidgetUpdateObject {
   static const _cached = WidgetUpdateObjectActionCleanParent._();
 
