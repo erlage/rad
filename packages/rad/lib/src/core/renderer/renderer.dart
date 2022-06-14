@@ -1279,21 +1279,12 @@ class Renderer with ServicesResolver {
     // --------------------------------------------------
 
     if (oldRenderElementsHashMap.isNotEmpty) {
-      // create a new list
-      var updatedList = <WidgetUpdateObject>[
+      widgetSystemActions.insert(
+        0,
         WidgetUpdateObjectActionDisposeMultiple(
           oldRenderElementsHashMap.values,
         ),
-      ];
-
-      // append updates to new list because we want framework to process
-      // dispose actions before updates/builds
-
-      updatedList.addAll(widgetSystemActions);
-
-      widgetSystemActions = updatedList;
-
-      // maybe use insert(0, ) and prevent creating new list
+      );
     }
 
     // -------------------------
