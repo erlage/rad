@@ -27,7 +27,7 @@ class Progress extends HTMLWidgetBase {
     String? id,
     bool? hidden,
     bool? draggable,
-    bool? contenteditable,
+    bool? contentEditable,
     int? tabIndex,
     String? title,
     String? style,
@@ -44,7 +44,7 @@ class Progress extends HTMLWidgetBase {
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
-          contenteditable: contenteditable,
+          contentEditable: contentEditable,
           hidden: hidden,
           style: style,
           classAttribute: classAttribute,
@@ -64,10 +64,10 @@ class Progress extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.progress;
 
   @override
-  bool shouldWidgetUpdate(covariant Progress oldWidget) {
+  bool shouldUpdateWidget(covariant Progress oldWidget) {
     return value != oldWidget.value ||
         max != oldWidget.max ||
-        super.shouldWidgetUpdate(oldWidget);
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override

@@ -41,7 +41,7 @@ abstract class TableCellBase extends HTMLWidgetBase {
     String? id,
     bool? hidden,
     bool? draggable,
-    bool? contenteditable,
+    bool? contentEditable,
     int? tabIndex,
     String? title,
     String? style,
@@ -58,7 +58,7 @@ abstract class TableCellBase extends HTMLWidgetBase {
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
-          contenteditable: contenteditable,
+          contentEditable: contentEditable,
           hidden: hidden,
           style: style,
           classAttribute: classAttribute,
@@ -71,7 +71,7 @@ abstract class TableCellBase extends HTMLWidgetBase {
         );
 
   @override
-  bool shouldWidgetUpdate(
+  bool shouldUpdateWidget(
     covariant oldWidget,
   ) {
     oldWidget as TableCellBase;
@@ -79,7 +79,7 @@ abstract class TableCellBase extends HTMLWidgetBase {
     return rowSpan != oldWidget.colSpan ||
         colSpan != oldWidget.rowSpan ||
         headers != oldWidget.headers ||
-        super.shouldWidgetUpdate(oldWidget);
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override

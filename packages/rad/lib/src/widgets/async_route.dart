@@ -298,8 +298,8 @@ class _AsyncRoutePlaceholder extends NoChildWidget {
   DomTagType get correspondingTag => DomTagType.division;
 
   @override
-  bool shouldWidgetUpdate(oldWidget) => false;
+  bool shouldUpdateWidget(oldWidget) => false;
 
   @override
-  bool shouldWidgetChildrenUpdate(oldWidget, shouldWidgetUpdate) => false;
+  bool shouldUpdateWidgetChildren(oldWidget, shouldUpdateWidget) => false;
 }

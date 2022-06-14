@@ -6,8 +6,8 @@
 
 part of '../_index_html_test.dart';
 
-void html_blockquote_test() {
-  group('HTML Blockquote tests:', () {
+void html_block_quote_test() {
+  group('HTML BlockQuote tests:', () {
     RT_AppRunner? app;
 
     setUp(() {
@@ -19,9 +19,9 @@ void html_blockquote_test() {
     test('should set id', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('some-key-1'), id: 'some-id-1'),
-          Blockquote(key: GlobalKey('some-key-2'), id: 'some-id-2'),
-          Blockquote(key: GlobalKey('some-key-3'), id: 'some-id-3'),
+          BlockQuote(key: GlobalKey('some-key-1'), id: 'some-id-1'),
+          BlockQuote(key: GlobalKey('some-key-2'), id: 'some-id-2'),
+          BlockQuote(key: GlobalKey('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -38,9 +38,9 @@ void html_blockquote_test() {
     test('should reset and update id', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('some-key-1'), id: 'some-id-1'),
-          Blockquote(key: GlobalKey('some-key-2'), id: 'some-id-2'),
-          Blockquote(key: GlobalKey('some-key-3'), id: 'some-id-3'),
+          BlockQuote(key: GlobalKey('some-key-1'), id: 'some-id-1'),
+          BlockQuote(key: GlobalKey('some-key-2'), id: 'some-id-2'),
+          BlockQuote(key: GlobalKey('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -55,15 +55,15 @@ void html_blockquote_test() {
 
       await app!.updateChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
             key: GlobalKey('some-key-1'),
             id: 'some-updated-id',
           ),
-          Blockquote(
+          BlockQuote(
             key: GlobalKey('some-key-2'),
             id: 'some-local-updated-id',
           ),
-          Blockquote(
+          BlockQuote(
             key: GlobalKey('some-key-3'),
             id: 'some-global-updated-id',
           ),
@@ -80,15 +80,15 @@ void html_blockquote_test() {
     test('should set messy "id"', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
             key: Key('widget-1'),
             id: 'some id',
           ),
-          Blockquote(
+          BlockQuote(
             key: Key('widget-2'),
             id: 'some "messy" id',
           ),
-          Blockquote(
+          BlockQuote(
             key: Key('widget-3'),
             id: "some 'messy' id",
           ),
@@ -119,9 +119,9 @@ void html_blockquote_test() {
     test('should set child widget', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
             id: 'widget-1',
-            child: Blockquote(
+            child: BlockQuote(
               id: 'widget-2',
             ),
           ),
@@ -139,13 +139,13 @@ void html_blockquote_test() {
     test('should set children widgets', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
             id: 'widget-1',
             children: [
-              Blockquote(
+              BlockQuote(
                 id: 'widget-2',
               ),
-              Blockquote(
+              BlockQuote(
                 id: 'widget-3',
               ),
             ],
@@ -166,11 +166,11 @@ void html_blockquote_test() {
     test('should set attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
             key: GlobalKey('el-1'),
             classAttribute: 'some-classes',
           ),
-          Blockquote(
+          BlockQuote(
             key: GlobalKey('el-2'),
             classAttribute: 'another-classes',
           ),
@@ -188,11 +188,11 @@ void html_blockquote_test() {
     test('should update attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
             key: GlobalKey('el-1'),
             classAttribute: 'some-classes',
           ),
-          Blockquote(
+          BlockQuote(
             key: GlobalKey('el-2'),
             classAttribute: 'another-classes',
           ),
@@ -202,11 +202,11 @@ void html_blockquote_test() {
 
       await app!.updateChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
             key: GlobalKey('el-1'),
             classAttribute: 'updated-classes',
           ),
-          Blockquote(
+          BlockQuote(
             key: GlobalKey('el-2'),
             classAttribute: 'another-classes',
           ),
@@ -225,8 +225,8 @@ void html_blockquote_test() {
     test('should clear attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1')),
-          Blockquote(
+          BlockQuote(key: GlobalKey('el-1')),
+          BlockQuote(
             key: GlobalKey('el-2'),
             classAttribute: 'another-classes',
           ),
@@ -236,8 +236,8 @@ void html_blockquote_test() {
 
       await app!.updateChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1')),
-          Blockquote(key: GlobalKey('el-2')),
+          BlockQuote(key: GlobalKey('el-1')),
+          BlockQuote(key: GlobalKey('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -253,7 +253,7 @@ void html_blockquote_test() {
     test('should clear attribute "classes" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
             key: GlobalKey('el-1'),
             classAttribute: 'some-classes',
           ),
@@ -263,7 +263,7 @@ void html_blockquote_test() {
 
       await app!.updateChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1'), classAttribute: null),
+          BlockQuote(key: GlobalKey('el-1'), classAttribute: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -278,7 +278,7 @@ void html_blockquote_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1'), classAttribute: null),
+          BlockQuote(key: GlobalKey('el-1'), classAttribute: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -291,15 +291,15 @@ void html_blockquote_test() {
     test('should set messy "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
             key: Key('widget-1'),
             classAttribute: 'some classes',
           ),
-          Blockquote(
+          BlockQuote(
             key: Key('widget-2'),
             classAttribute: 'some "messy" classes',
           ),
-          Blockquote(
+          BlockQuote(
             key: Key('widget-3'),
             classAttribute: "some 'messy' classes",
           ),
@@ -327,16 +327,16 @@ void html_blockquote_test() {
       );
     });
 
-    test('should set contenteditable', () async {
+    test('should set contentEditable', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
             key: Key('widget-1'),
-            contenteditable: false,
+            contentEditable: false,
           ),
-          Blockquote(
+          BlockQuote(
             key: Key('widget-2'),
-            contenteditable: true,
+            contentEditable: true,
           ),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
@@ -345,18 +345,18 @@ void html_blockquote_test() {
       var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
       var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
 
-      expect(domNode1.getAttribute('contenteditable'), equals('false'));
-      expect(domNode2.getAttribute('contenteditable'), equals('true'));
+      expect(domNode1.getAttribute('contentEditable'), equals('false'));
+      expect(domNode2.getAttribute('contentEditable'), equals('true'));
     });
 
     test('should set draggable', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
             key: Key('widget-1'),
             draggable: false,
           ),
-          Blockquote(
+          BlockQuote(
             key: Key('widget-2'),
             draggable: true,
           ),
@@ -374,9 +374,9 @@ void html_blockquote_test() {
     test('should set attribute "hidden" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1'), hidden: false),
-          Blockquote(key: GlobalKey('el-2'), hidden: null),
-          Blockquote(key: GlobalKey('el-3'), hidden: true),
+          BlockQuote(key: GlobalKey('el-1'), hidden: false),
+          BlockQuote(key: GlobalKey('el-2'), hidden: null),
+          BlockQuote(key: GlobalKey('el-3'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -394,20 +394,20 @@ void html_blockquote_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1'), hidden: true),
-          Blockquote(key: GlobalKey('el-2'), hidden: true),
-          Blockquote(key: GlobalKey('el-3'), hidden: true),
-          Blockquote(key: GlobalKey('el-4'), hidden: true),
+          BlockQuote(key: GlobalKey('el-1'), hidden: true),
+          BlockQuote(key: GlobalKey('el-2'), hidden: true),
+          BlockQuote(key: GlobalKey('el-3'), hidden: true),
+          BlockQuote(key: GlobalKey('el-4'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1'), hidden: true),
-          Blockquote(key: GlobalKey('el-2'), hidden: false),
-          Blockquote(key: GlobalKey('el-3'), hidden: null),
-          Blockquote(key: GlobalKey('el-4')),
+          BlockQuote(key: GlobalKey('el-1'), hidden: true),
+          BlockQuote(key: GlobalKey('el-2'), hidden: false),
+          BlockQuote(key: GlobalKey('el-3'), hidden: null),
+          BlockQuote(key: GlobalKey('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -427,7 +427,7 @@ void html_blockquote_test() {
     test('should set inner text', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
             key: GlobalKey('widget-1'),
             innerText: 'hello world',
           ),
@@ -446,8 +446,8 @@ void html_blockquote_test() {
     test('should set attribute "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
-          Blockquote(
+          BlockQuote(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
+          BlockQuote(
               key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
@@ -463,8 +463,8 @@ void html_blockquote_test() {
     test('should update attribute "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
-          Blockquote(
+          BlockQuote(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
+          BlockQuote(
               key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
@@ -472,9 +472,9 @@ void html_blockquote_test() {
 
       await app!.updateChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
               key: GlobalKey('el-1'), onClickAttribute: 'updated-on-click'),
-          Blockquote(
+          BlockQuote(
               key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
         ],
         updateType: UpdateType.setState,
@@ -491,8 +491,8 @@ void html_blockquote_test() {
     test('should clear attribute "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1')),
-          Blockquote(
+          BlockQuote(key: GlobalKey('el-1')),
+          BlockQuote(
               key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
@@ -500,8 +500,8 @@ void html_blockquote_test() {
 
       await app!.updateChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1')),
-          Blockquote(key: GlobalKey('el-2')),
+          BlockQuote(key: GlobalKey('el-1')),
+          BlockQuote(key: GlobalKey('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -518,14 +518,14 @@ void html_blockquote_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
+          BlockQuote(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1'), onClickAttribute: null),
+          BlockQuote(key: GlobalKey('el-1'), onClickAttribute: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -541,7 +541,7 @@ void html_blockquote_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1'), onClickAttribute: null),
+          BlockQuote(key: GlobalKey('el-1'), onClickAttribute: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -554,15 +554,15 @@ void html_blockquote_test() {
     test('should set messy "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
             key: Key('widget-1'),
             onClickAttribute: 'some onClick',
           ),
-          Blockquote(
+          BlockQuote(
             key: Key('widget-2'),
             onClickAttribute: 'some "messy" onClick',
           ),
-          Blockquote(
+          BlockQuote(
             key: Key('widget-3'),
             onClickAttribute: "some 'messy' onClick",
           ),
@@ -595,11 +595,11 @@ void html_blockquote_test() {
 
       await app!.buildChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
             key: GlobalKey('el-1'),
             onClick: (event) => testStack.push('click-1'),
           ),
-          Blockquote(
+          BlockQuote(
             key: GlobalKey('el-2'),
             onClick: (event) => testStack.push('click-2'),
           ),
@@ -622,9 +622,9 @@ void html_blockquote_test() {
 
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1')),
-          Blockquote(key: GlobalKey('el-2'), onClick: null),
-          Blockquote(key: GlobalKey('el-3'), onClick: listener),
+          BlockQuote(key: GlobalKey('el-1')),
+          BlockQuote(key: GlobalKey('el-2'), onClick: null),
+          BlockQuote(key: GlobalKey('el-3'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -643,8 +643,8 @@ void html_blockquote_test() {
 
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1')),
-          Blockquote(key: GlobalKey('el-2'), onClick: listener),
+          BlockQuote(key: GlobalKey('el-1')),
+          BlockQuote(key: GlobalKey('el-2'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -659,8 +659,8 @@ void html_blockquote_test() {
 
       await app!.updateChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1')),
-          Blockquote(key: GlobalKey('el-2')),
+          BlockQuote(key: GlobalKey('el-1')),
+          BlockQuote(key: GlobalKey('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -676,9 +676,9 @@ void html_blockquote_test() {
     test('should set style', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: Key('widget-1'), style: 'some style'),
-          Blockquote(key: Key('widget-2'), style: 'some "messy" style'),
-          Blockquote(key: Key('widget-3'), style: "some 'messy' style"),
+          BlockQuote(key: Key('widget-1'), style: 'some style'),
+          BlockQuote(key: Key('widget-2'), style: 'some "messy" style'),
+          BlockQuote(key: Key('widget-3'), style: "some 'messy' style"),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -695,15 +695,15 @@ void html_blockquote_test() {
     test('should set tab index', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
             key: Key('widget-1'),
             tabIndex: 1,
           ),
-          Blockquote(
+          BlockQuote(
             key: Key('widget-2'),
             tabIndex: 2,
           ),
-          Blockquote(
+          BlockQuote(
             key: Key('widget-3'),
             tabIndex: 3,
           ),
@@ -723,9 +723,9 @@ void html_blockquote_test() {
     test('should set title', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: Key('widget-1'), title: 'some title'),
-          Blockquote(key: Key('widget-2'), title: 'some "messy" title'),
-          Blockquote(key: Key('widget-3'), title: "some 'messy' title"),
+          BlockQuote(key: Key('widget-1'), title: 'some title'),
+          BlockQuote(key: Key('widget-2'), title: 'some "messy" title'),
+          BlockQuote(key: Key('widget-3'), title: "some 'messy' title"),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -742,7 +742,7 @@ void html_blockquote_test() {
     test('should set correct types and markup', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('some-key-3')),
+          BlockQuote(key: GlobalKey('some-key-3')),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -775,7 +775,7 @@ void html_blockquote_test() {
     test('should set data attributes', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
             key: GlobalKey('some-key-3'),
             dataAttributes: {
               'something': 'something okay',
@@ -796,7 +796,7 @@ void html_blockquote_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
             key: GlobalKey('some-key-3'),
             dataAttributes: {
               'something': 'something okay',
@@ -808,7 +808,7 @@ void html_blockquote_test() {
 
       await app!.updateChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
             key: GlobalKey('some-key-3'),
             dataAttributes: {
               'something-new': 'something new',
@@ -833,7 +833,7 @@ void html_blockquote_test() {
           () async {
         await app!.buildChildren(
           widgets: [
-            Blockquote(
+            BlockQuote(
               key: GlobalKey('some-key-3'),
               dataAttributes: {
                 'something': 'something okay',
@@ -858,7 +858,7 @@ void html_blockquote_test() {
           () async {
         await app!.buildChildren(
           widgets: [
-            Blockquote(
+            BlockQuote(
               key: GlobalKey('some-key-3'),
               dataAttributes: {
                 'something': 'something okay',
@@ -871,7 +871,7 @@ void html_blockquote_test() {
 
         await app!.updateChildren(
           widgets: [
-            Blockquote(
+            BlockQuote(
               key: GlobalKey('some-key-3'),
               dataAttributes: {
                 'something': 'something new',
@@ -895,7 +895,7 @@ void html_blockquote_test() {
     }
 
     test('should have a short-tag alias', () async {
-      var widget = Blockquote();
+      var widget = BlockQuote();
       var widgetShort = blockquote();
 
       expect(
@@ -907,9 +907,9 @@ void html_blockquote_test() {
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('some-key-1')),
-          Blockquote(key: GlobalKey('some-key-2')),
-          Blockquote(key: GlobalKey('some-key-3')),
+          BlockQuote(key: GlobalKey('some-key-1')),
+          BlockQuote(key: GlobalKey('some-key-2')),
+          BlockQuote(key: GlobalKey('some-key-3')),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -926,8 +926,8 @@ void html_blockquote_test() {
     test('should set attribute "cite"', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1'), cite: 'some-cite'),
-          Blockquote(key: GlobalKey('el-2'), cite: 'another-cite'),
+          BlockQuote(key: GlobalKey('el-1'), cite: 'some-cite'),
+          BlockQuote(key: GlobalKey('el-2'), cite: 'another-cite'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -942,16 +942,16 @@ void html_blockquote_test() {
     test('should update attribute "cite"', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1'), cite: 'some-cite'),
-          Blockquote(key: GlobalKey('el-2'), cite: 'another-cite'),
+          BlockQuote(key: GlobalKey('el-1'), cite: 'some-cite'),
+          BlockQuote(key: GlobalKey('el-2'), cite: 'another-cite'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1'), cite: 'updated-cite'),
-          Blockquote(key: GlobalKey('el-2'), cite: 'another-cite'),
+          BlockQuote(key: GlobalKey('el-1'), cite: 'updated-cite'),
+          BlockQuote(key: GlobalKey('el-2'), cite: 'another-cite'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -967,16 +967,16 @@ void html_blockquote_test() {
     test('should clear attribute "cite"', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1')),
-          Blockquote(key: GlobalKey('el-2'), cite: 'another-cite'),
+          BlockQuote(key: GlobalKey('el-1')),
+          BlockQuote(key: GlobalKey('el-2'), cite: 'another-cite'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1')),
-          Blockquote(key: GlobalKey('el-2')),
+          BlockQuote(key: GlobalKey('el-1')),
+          BlockQuote(key: GlobalKey('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -992,14 +992,14 @@ void html_blockquote_test() {
     test('should clear attribute "cite" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1'), cite: 'some-cite'),
+          BlockQuote(key: GlobalKey('el-1'), cite: 'some-cite'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1'), cite: null),
+          BlockQuote(key: GlobalKey('el-1'), cite: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1013,7 +1013,7 @@ void html_blockquote_test() {
     test('should not set attribute "cite" if provided value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(key: GlobalKey('el-1'), cite: null),
+          BlockQuote(key: GlobalKey('el-1'), cite: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1026,15 +1026,15 @@ void html_blockquote_test() {
     test('should set messy "cite"', () async {
       await app!.buildChildren(
         widgets: [
-          Blockquote(
+          BlockQuote(
             key: Key('widget-1'),
             cite: 'some cite',
           ),
-          Blockquote(
+          BlockQuote(
             key: Key('widget-2'),
             cite: 'some "messy" cite',
           ),
-          Blockquote(
+          BlockQuote(
             key: Key('widget-3'),
             cite: "some 'messy' cite",
           ),

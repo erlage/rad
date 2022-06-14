@@ -7,7 +7,7 @@ import '../test_imports.dart';
 class RT_InheritedWidget extends InheritedWidget {
   final String hash;
 
-  final Callback? eventUpdateShouldNotify;
+  final VoidCallback? eventUpdateShouldNotify;
   final bool Function()? overrideUpdateShouldNotify;
 
   final void Function({

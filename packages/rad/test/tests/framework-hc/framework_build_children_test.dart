@@ -261,13 +261,13 @@ void main() {
             roEventRender: () => testStack.push('render'),
 
             // should not call this
-            wEventshouldWidgetUpdate: () => testStack.push(
-              'shouldWidgetUpdate',
+            wEventshouldUpdateWidget: () => testStack.push(
+              'shouldUpdateWidget',
             ),
 
             // should not call this
-            wEventshouldWidgetChildrenUpdate: () => testStack.push(
-              'shouldWidgetChildrenUpdate',
+            wEventshouldUpdateWidgetChildren: () => testStack.push(
+              'shouldUpdateWidgetChildren',
             ),
 
             // should call this

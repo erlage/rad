@@ -22,15 +22,15 @@ test('GestureDetector widget - description test', () async {
   expect(domNode.getComputedStyle().display, equals('contents'));
 });
 
-test('should return false from shouldWidgetChildrenUpdate', () {
-  var shouldWidgetChildrenUpdate = false;
+test('should return false from shouldUpdateWidgetChildren', () {
+  var shouldUpdateWidgetChildren = false;
   
   var oldWidget = GestureDetector(child: Text('hw'));
   var newWidget = GestureDetector(child: Text('hw'));
 
-  shouldWidgetChildrenUpdate = newWidget.shouldWidgetChildrenUpdate(oldWidget, false,);
-  expect(shouldWidgetChildrenUpdate,  equals(true));
+  shouldUpdateWidgetChildren = newWidget.shouldUpdateWidgetChildren(oldWidget, false,);
+  expect(shouldUpdateWidgetChildren,  equals(true));
 
-  shouldWidgetChildrenUpdate = newWidget.shouldWidgetChildrenUpdate(oldWidget, true,);
-  expect(shouldWidgetChildrenUpdate,  equals(true));
+  shouldUpdateWidgetChildren = newWidget.shouldUpdateWidgetChildren(oldWidget, true,);
+  expect(shouldUpdateWidgetChildren,  equals(true));
 });

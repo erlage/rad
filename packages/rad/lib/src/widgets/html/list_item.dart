@@ -20,7 +20,7 @@ class ListItem extends HTMLWidgetBase {
     String? id,
     bool? hidden,
     bool? draggable,
-    bool? contenteditable,
+    bool? contentEditable,
     int? tabIndex,
     String? title,
     String? style,
@@ -37,7 +37,7 @@ class ListItem extends HTMLWidgetBase {
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
-          contenteditable: contenteditable,
+          contentEditable: contentEditable,
           hidden: hidden,
           style: style,
           classAttribute: classAttribute,
@@ -57,8 +57,8 @@ class ListItem extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.listItem;
 
   @override
-  bool shouldWidgetUpdate(covariant ListItem oldWidget) {
-    return value != oldWidget.value || super.shouldWidgetUpdate(oldWidget);
+  bool shouldUpdateWidget(covariant ListItem oldWidget) {
+    return value != oldWidget.value || super.shouldUpdateWidget(oldWidget);
   }
 
   @override

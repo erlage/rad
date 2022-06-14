@@ -50,7 +50,7 @@ class IFrame extends HTMLWidgetBase {
     Key? key,
     bool? hidden,
     bool? draggable,
-    bool? contenteditable,
+    bool? contentEditable,
     int? tabIndex,
     String? id,
     String? title,
@@ -68,7 +68,7 @@ class IFrame extends HTMLWidgetBase {
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
-          contenteditable: contenteditable,
+          contentEditable: contentEditable,
           hidden: hidden,
           style: style,
           classAttribute: classAttribute,
@@ -88,7 +88,7 @@ class IFrame extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.iFrame;
 
   @override
-  bool shouldWidgetUpdate(covariant IFrame oldWidget) {
+  bool shouldUpdateWidget(covariant IFrame oldWidget) {
     return src != oldWidget.src ||
         name != oldWidget.name ||
         allow != oldWidget.allow ||
@@ -96,7 +96,7 @@ class IFrame extends HTMLWidgetBase {
         allowPaymentRequest != oldWidget.allowPaymentRequest ||
         width != oldWidget.width ||
         height != oldWidget.height ||
-        super.shouldWidgetUpdate(oldWidget);
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override

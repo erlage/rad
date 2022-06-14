@@ -28,8 +28,8 @@ class WidgetsManageTask extends SchedulerTask {
     required this.parentRenderElement,
     required this.widgetActionCallback,
     this.flagIterateInReverseOrder = false,
-    Callback? afterTaskCallback,
-    Callback? beforeTaskCallback,
+    VoidCallback? afterTaskCallback,
+    VoidCallback? beforeTaskCallback,
   }) : super(
           afterTaskCallback: afterTaskCallback,
           beforeTaskCallback: beforeTaskCallback,

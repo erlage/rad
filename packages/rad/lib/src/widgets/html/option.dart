@@ -39,7 +39,7 @@ class Option extends HTMLWidgetBase {
     String? id,
     bool? hidden,
     bool? draggable,
-    bool? contenteditable,
+    bool? contentEditable,
     int? tabIndex,
     String? title,
     String? style,
@@ -56,7 +56,7 @@ class Option extends HTMLWidgetBase {
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
-          contenteditable: contenteditable,
+          contentEditable: contentEditable,
           hidden: hidden,
           style: style,
           classAttribute: classAttribute,
@@ -76,12 +76,12 @@ class Option extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.option;
 
   @override
-  bool shouldWidgetUpdate(covariant Option oldWidget) {
+  bool shouldUpdateWidget(covariant Option oldWidget) {
     return value != oldWidget.value ||
         label != oldWidget.label ||
         selected != oldWidget.selected ||
         disabled != oldWidget.disabled ||
-        super.shouldWidgetUpdate(oldWidget);
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override

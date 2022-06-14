@@ -28,8 +28,8 @@ class WidgetsBuildTask extends SchedulerTask {
     required this.widgets,
     this.mountAtIndex,
     this.flagCleanParentContents = true,
-    Callback? afterTaskCallback,
-    Callback? beforeTaskCallback,
+    VoidCallback? afterTaskCallback,
+    VoidCallback? beforeTaskCallback,
   }) : super(
           afterTaskCallback: afterTaskCallback,
           beforeTaskCallback: beforeTaskCallback,

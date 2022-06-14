@@ -4,15 +4,15 @@ test('Stateful widget - widgetType override test', () {
   expect(widget.widgetType,  equals('$StatefulWidget'));
 });
 
-test('should return false from shouldWidgetChildrenUpdate', () {
-  var shouldWidgetChildrenUpdate = true;
+test('should return false from shouldUpdateWidgetChildren', () {
+  var shouldUpdateWidgetChildren = true;
   
   var oldWidget = RT_StatefulTestWidget();
   var newWidget = RT_StatefulTestWidget();
 
-  shouldWidgetChildrenUpdate = newWidget.shouldWidgetChildrenUpdate(oldWidget, false,);
-  expect(shouldWidgetChildrenUpdate,  equals(false));
+  shouldUpdateWidgetChildren = newWidget.shouldUpdateWidgetChildren(oldWidget, false,);
+  expect(shouldUpdateWidgetChildren,  equals(false));
 
-  shouldWidgetChildrenUpdate = newWidget.shouldWidgetChildrenUpdate(oldWidget, true,);
-  expect(shouldWidgetChildrenUpdate,  equals(false));
+  shouldUpdateWidgetChildren = newWidget.shouldUpdateWidgetChildren(oldWidget, true,);
+  expect(shouldUpdateWidgetChildren,  equals(false));
 });

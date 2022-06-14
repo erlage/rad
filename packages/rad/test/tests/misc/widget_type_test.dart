@@ -101,7 +101,7 @@ void main() {
     });
 
     test('Blockquote widget', () {
-      expect(Blockquote().widgetType, equals('$Blockquote'));
+      expect(BlockQuote().widgetType, equals('$BlockQuote'));
     });
 
     test('BreakLine widget', () {

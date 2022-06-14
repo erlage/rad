@@ -8,7 +8,7 @@ abstract class NoChildWidget extends Widget {
   const NoChildWidget({super.key});
 
   @override
-  shouldWidgetChildrenUpdate(oldWidget, shouldWidgetUpdate) => false;
+  shouldUpdateWidgetChildren(oldWidget, shouldUpdateWidget) => false;
 
   @override
   createRenderElement(parent) => NoChildRenderElement(this, parent);

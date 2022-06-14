@@ -22,23 +22,23 @@ void widget_stateful_widget_test() {
       expect(widget.widgetType, equals('$StatefulWidget'));
     });
 
-    test('should return false from shouldWidgetChildrenUpdate', () {
-      var shouldWidgetChildrenUpdate = true;
+    test('should return false from shouldUpdateWidgetChildren', () {
+      var shouldUpdateWidgetChildren = true;
 
       var oldWidget = RT_StatefulTestWidget();
       var newWidget = RT_StatefulTestWidget();
 
-      shouldWidgetChildrenUpdate = newWidget.shouldWidgetChildrenUpdate(
+      shouldUpdateWidgetChildren = newWidget.shouldUpdateWidgetChildren(
         oldWidget,
         false,
       );
-      expect(shouldWidgetChildrenUpdate, equals(false));
+      expect(shouldUpdateWidgetChildren, equals(false));
 
-      shouldWidgetChildrenUpdate = newWidget.shouldWidgetChildrenUpdate(
+      shouldUpdateWidgetChildren = newWidget.shouldUpdateWidgetChildren(
         oldWidget,
         true,
       );
-      expect(shouldWidgetChildrenUpdate, equals(false));
+      expect(shouldUpdateWidgetChildren, equals(false));
     });
   });
 }

@@ -7,7 +7,7 @@ library widgets_html;
 export 'src/widgets/html/abbreviation.dart' show Abbreviation;
 export 'src/widgets/html/anchor.dart' show Anchor;
 export 'src/widgets/html/article.dart' show Article;
-export 'src/widgets/html/blockquote.dart' show Blockquote;
+export 'src/widgets/html/block_quote.dart' show BlockQuote;
 export 'src/widgets/html/break_line.dart' show BreakLine;
 export 'src/widgets/html/button.dart' show Button;
 export 'src/widgets/html/canvas.dart' show Canvas;

@@ -66,7 +66,7 @@ class TextArea extends HTMLWidgetBase {
     String? id,
     bool? hidden,
     bool? draggable,
-    bool? contenteditable,
+    bool? contentEditable,
     int? tabIndex,
     String? title,
     String? style,
@@ -83,7 +83,7 @@ class TextArea extends HTMLWidgetBase {
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
-          contenteditable: contenteditable,
+          contentEditable: contentEditable,
           hidden: hidden,
           style: style,
           classAttribute: classAttribute,
@@ -113,7 +113,7 @@ class TextArea extends HTMLWidgetBase {
       };
 
   @override
-  bool shouldWidgetUpdate(covariant TextArea oldWidget) {
+  bool shouldUpdateWidget(covariant TextArea oldWidget) {
     return name != oldWidget.name ||
         placeholder != oldWidget.placeholder ||
         rows != oldWidget.rows ||
@@ -123,7 +123,7 @@ class TextArea extends HTMLWidgetBase {
         required != oldWidget.required ||
         readOnly != oldWidget.readOnly ||
         disabled != oldWidget.disabled ||
-        super.shouldWidgetUpdate(oldWidget);
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override

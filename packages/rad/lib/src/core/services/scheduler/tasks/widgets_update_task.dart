@@ -28,8 +28,8 @@ class WidgetsUpdateTask extends SchedulerTask {
     required this.parentRenderElement,
     required this.updateType,
     this.flagAddIfNotFound = true,
-    Callback? afterTaskCallback,
-    Callback? beforeTaskCallback,
+    VoidCallback? afterTaskCallback,
+    VoidCallback? beforeTaskCallback,
   }) : super(
           afterTaskCallback: afterTaskCallback,
           beforeTaskCallback: beforeTaskCallback,

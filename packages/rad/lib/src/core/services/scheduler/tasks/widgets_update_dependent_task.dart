@@ -12,8 +12,8 @@ class WidgetsUpdateDependentTask extends SchedulerTask {
 
   WidgetsUpdateDependentTask({
     required this.dependentRenderElement,
-    Callback? afterTaskCallback,
-    Callback? beforeTaskCallback,
+    VoidCallback? afterTaskCallback,
+    VoidCallback? beforeTaskCallback,
   }) : super(
           afterTaskCallback: afterTaskCallback,
           beforeTaskCallback: beforeTaskCallback,

@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/dom_node_description.dart';
+import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
@@ -102,7 +102,7 @@ abstract class RenderElement implements BuildContext {
   /// 2) When it finishes updating current widget and as part of completing the
   /// proccess, it'll check whether widget has children to update and update
   /// them if so. Note that framework will not check children if widget returns
-  /// false from [Widget.shouldWidgetChildrenUpdate].
+  /// false from [Widget.shouldUpdateWidgetChildren].
   ///
   List<Widget> get childWidgets;
 
@@ -163,7 +163,7 @@ abstract class RenderElement implements BuildContext {
   /// hook can optionally return a patch which will be applied on dom node
   /// associated with the current element(if there's any).
   ///
-  DomNodeDescription? render({required Widget widget}) => null;
+  DomNodePatch? render({required Widget widget}) => null;
 
   /// After mount hook.
   ///
@@ -178,7 +178,7 @@ abstract class RenderElement implements BuildContext {
   /// hook can optionally return a patch which will be applied on dom node
   /// associated with the current element(if there's any).
   ///
-  DomNodeDescription? update({
+  DomNodePatch? update({
     required UpdateType updateType,
     required Widget oldWidget,
     required Widget newWidget,
@@ -410,7 +410,7 @@ abstract class RenderElement implements BuildContext {
   }
 
   @nonVirtual
-  DomNodeDescription? frameworkRender({required Widget widget}) {
+  DomNodePatch? frameworkRender({required Widget widget}) {
     init();
 
     return render(widget: widget);
@@ -439,7 +439,7 @@ abstract class RenderElement implements BuildContext {
   }
 
   @nonVirtual
-  DomNodeDescription? frameworkUpdate({
+  DomNodePatch? frameworkUpdate({
     required UpdateType updateType,
     required Widget oldWidget,
     required Widget newWidget,

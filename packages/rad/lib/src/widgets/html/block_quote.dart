@@ -9,18 +9,18 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Blockquote widget (HTML's `blockquote` tag).
 ///
-class Blockquote extends HTMLWidgetBase {
+class BlockQuote extends HTMLWidgetBase {
   /// A URL for the source of the quotation may be given using the cite
   /// attribute.
   ///
   final String? cite;
 
-  const Blockquote({
+  const BlockQuote({
     Key? key,
     this.cite,
     bool? hidden,
     bool? draggable,
-    bool? contenteditable,
+    bool? contentEditable,
     int? tabIndex,
     String? id,
     String? title,
@@ -41,7 +41,7 @@ class Blockquote extends HTMLWidgetBase {
           hidden: hidden,
           style: style,
           classAttribute: classAttribute,
-          contenteditable: contenteditable,
+          contentEditable: contentEditable,
           dataAttributes: dataAttributes,
           onClickAttribute: onClickAttribute,
           innerText: innerText,
@@ -52,14 +52,14 @@ class Blockquote extends HTMLWidgetBase {
 
   @nonVirtual
   @override
-  String get widgetType => 'Blockquote';
+  String get widgetType => 'BlockQuote';
 
   @override
-  DomTagType get correspondingTag => DomTagType.blockquote;
+  DomTagType get correspondingTag => DomTagType.blockQuote;
 
   @override
-  bool shouldWidgetUpdate(covariant Blockquote oldWidget) {
-    return cite != oldWidget.cite || super.shouldWidgetUpdate(oldWidget);
+  bool shouldUpdateWidget(covariant BlockQuote oldWidget) {
+    return cite != oldWidget.cite || super.shouldUpdateWidget(oldWidget);
   }
 
   @override
@@ -79,7 +79,7 @@ class BlockquoteRenderElement extends HTMLBaseElement {
 
   @override
   render({
-    required covariant Blockquote widget,
+    required covariant BlockQuote widget,
   }) {
     var domNodeDescription = super.render(
       widget: widget,
@@ -98,8 +98,8 @@ class BlockquoteRenderElement extends HTMLBaseElement {
   @override
   update({
     required updateType,
-    required covariant Blockquote oldWidget,
-    required covariant Blockquote newWidget,
+    required covariant BlockQuote oldWidget,
+    required covariant BlockQuote newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
@@ -125,8 +125,8 @@ class BlockquoteRenderElement extends HTMLBaseElement {
 */
 
 Map<String, String?> _prepareAttributes({
-  required Blockquote widget,
-  required Blockquote? oldWidget,
+  required BlockQuote widget,
+  required BlockQuote? oldWidget,
 }) {
   var attributes = <String, String?>{};
 

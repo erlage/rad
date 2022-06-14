@@ -6,8 +6,8 @@
 
 part of '../_index_widgets_test.dart';
 
-void widget_blockquote_test() {
-  group('Widget specific tests for Blockquote widget:', () {
+void widget_block_quote_test() {
+  group('Widget specific tests for BlockQuote widget:', () {
     RT_AppRunner? app;
 
     setUp(() {
@@ -16,8 +16,8 @@ void widget_blockquote_test() {
 
     tearDown(() => app!.stop());
 
-    test('Blockquote widget - widgetType override test', () {
-      expect(Blockquote().widgetType, equals('$Blockquote'));
+    test('BlockQuote widget - widgetType override test', () {
+      expect(BlockQuote().widgetType, equals('$BlockQuote'));
     });
   });
 }

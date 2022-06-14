@@ -2,7 +2,7 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/dom_node_description.dart';
+import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/widgets/abstract/single_child_widget.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
@@ -51,7 +51,7 @@ class Route extends SingleChildWidget {
   DomTagType get correspondingTag => DomTagType.division;
 
   @override
-  shouldWidgetUpdate(Widget oldWidget) => false;
+  shouldUpdateWidget(Widget oldWidget) => false;
 
   @override
   createRenderElement(parent) => RouteRenderElement(this, parent);
@@ -63,7 +63,7 @@ class Route extends SingleChildWidget {
 |--------------------------------------------------------------------------
 */
 
-const _description = DomNodeDescription(
+const _description = DomNodePatch(
   attributes: {
     Attributes.classAttribute: Constants.classRoute,
   },

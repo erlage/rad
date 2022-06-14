@@ -6,11 +6,11 @@ import 'package:rad/src/core/common/types.dart';
 abstract class SchedulerTask {
   /// This callback is supposed to get called just before running task.
   ///
-  final Callback? beforeTaskCallback;
+  final VoidCallback? beforeTaskCallback;
 
   /// This callback is supposed to get called after task has be run.
   ///
-  final Callback? afterTaskCallback;
+  final VoidCallback? afterTaskCallback;
 
   SchedulerTask({
     this.afterTaskCallback,

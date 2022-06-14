@@ -53,7 +53,7 @@ class Form extends HTMLWidgetBase {
     String? classAttribute,
     int? tabIndex,
     bool? draggable,
-    bool? contenteditable,
+    bool? contentEditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
     String? onClickAttribute,
@@ -69,7 +69,7 @@ class Form extends HTMLWidgetBase {
           classAttribute: classAttribute,
           tabIndex: tabIndex,
           draggable: draggable,
-          contenteditable: contenteditable,
+          contentEditable: contentEditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
           onClickAttribute: onClickAttribute,
@@ -93,14 +93,14 @@ class Form extends HTMLWidgetBase {
       };
 
   @override
-  bool shouldWidgetUpdate(covariant Form oldWidget) {
+  bool shouldUpdateWidget(covariant Form oldWidget) {
     return name != oldWidget.name ||
         action != oldWidget.action ||
         accept != oldWidget.accept ||
         target != oldWidget.target ||
         enctype != oldWidget.enctype ||
         method != oldWidget.method ||
-        super.shouldWidgetUpdate(oldWidget);
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override

@@ -11,8 +11,8 @@ class StimulateListenerTask extends SchedulerTask {
   SchedulerTaskType get taskType => SchedulerTaskType.stimulateListener;
 
   StimulateListenerTask({
-    Callback? afterTaskCallback,
-    Callback? beforeTaskCallback,
+    VoidCallback? afterTaskCallback,
+    VoidCallback? beforeTaskCallback,
   }) : super(
           afterTaskCallback: afterTaskCallback,
           beforeTaskCallback: beforeTaskCallback,

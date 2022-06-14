@@ -7,7 +7,7 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/cache.dart';
-import 'package:rad/src/core/common/objects/dom_node_description.dart';
+import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -88,7 +88,7 @@ class ListView extends Widget {
 
   @nonVirtual
   @override
-  bool shouldWidgetUpdate(covariant ListView oldWidget) {
+  bool shouldUpdateWidget(covariant ListView oldWidget) {
     if (isListViewBuilder) {
       return true;
     }
@@ -100,7 +100,7 @@ class ListView extends Widget {
   }
 
   @override
-  shouldWidgetChildrenUpdate(oldWidget, shouldWidgetUpdate) =>
+  shouldUpdateWidgetChildren(oldWidget, shouldUpdateWidget) =>
       !isListViewBuilder;
 
   @nonVirtual
@@ -132,7 +132,7 @@ class ListViewRenderElement extends RenderElement {
   render({
     required covariant ListView widget,
   }) {
-    return DomNodeDescription(
+    return DomNodePatch(
       attributes: _prepareAttributes(
         widget: widget,
         oldWidget: null,
@@ -146,7 +146,7 @@ class ListViewRenderElement extends RenderElement {
     required covariant ListView oldWidget,
     required covariant ListView newWidget,
   }) {
-    return DomNodeDescription(
+    return DomNodePatch(
       attributes: _prepareAttributes(
         widget: newWidget,
         oldWidget: oldWidget,
@@ -188,7 +188,7 @@ class ListViewBuilderRenderElement extends RenderElement {
   render({
     required covariant ListView widget,
   }) {
-    return DomNodeDescription(
+    return DomNodePatch(
       attributes: _prepareAttributes(
         widget: widget,
         oldWidget: null,
@@ -217,7 +217,7 @@ class ListViewBuilderRenderElement extends RenderElement {
     if (newWidget.style != oldWidget.style ||
         newWidget.classAttribute != oldWidget.classAttribute ||
         newWidget.scrollDirection != oldWidget.scrollDirection) {
-      return DomNodeDescription(
+      return DomNodePatch(
         attributes: _prepareAttributes(
           widget: newWidget,
           oldWidget: oldWidget,

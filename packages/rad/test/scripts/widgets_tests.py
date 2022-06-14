@@ -49,7 +49,7 @@ widget_specific_tests = {
     'Abbreviation': ['widget_specific_html_widgets'],
     'Anchor': ['widget_specific_html_widgets'],
     'Article': ['widget_specific_html_widgets'],
-    'Blockquote': ['widget_specific_html_widgets'],
+    'BlockQuote': ['widget_specific_html_widgets'],
     'BreakLine': ['widget_specific_html_widgets'],
     'Button': ['widget_specific_html_widgets'],
     'Canvas': ['widget_specific_html_widgets'],

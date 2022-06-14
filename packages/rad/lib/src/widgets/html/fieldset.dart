@@ -21,7 +21,7 @@ class FieldSet extends HTMLWidgetBase {
     Key? key,
     bool? hidden,
     bool? draggable,
-    bool? contenteditable,
+    bool? contentEditable,
     int? tabIndex,
     String? id,
     String? title,
@@ -39,7 +39,7 @@ class FieldSet extends HTMLWidgetBase {
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
-          contenteditable: contenteditable,
+          contentEditable: contentEditable,
           hidden: hidden,
           style: style,
           classAttribute: classAttribute,
@@ -59,9 +59,9 @@ class FieldSet extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.fieldSet;
 
   @override
-  bool shouldWidgetUpdate(covariant FieldSet oldWidget) {
+  bool shouldUpdateWidget(covariant FieldSet oldWidget) {
     return disabled != oldWidget.disabled ||
-        super.shouldWidgetUpdate(oldWidget);
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override

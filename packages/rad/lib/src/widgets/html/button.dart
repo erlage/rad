@@ -36,7 +36,7 @@ class Button extends HTMLWidgetBase {
     String? id,
     bool? hidden,
     bool? draggable,
-    bool? contenteditable,
+    bool? contentEditable,
     int? tabIndex,
     String? title,
     String? style,
@@ -53,7 +53,7 @@ class Button extends HTMLWidgetBase {
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
-          contenteditable: contenteditable,
+          contentEditable: contentEditable,
           hidden: hidden,
           style: style,
           classAttribute: classAttribute,
@@ -73,12 +73,12 @@ class Button extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.button;
 
   @override
-  bool shouldWidgetUpdate(covariant Button oldWidget) {
+  bool shouldUpdateWidget(covariant Button oldWidget) {
     return name != oldWidget.name ||
         value != oldWidget.value ||
         type != oldWidget.type ||
         disabled != oldWidget.disabled ||
-        super.shouldWidgetUpdate(oldWidget);
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override

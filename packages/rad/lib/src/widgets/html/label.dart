@@ -22,7 +22,7 @@ class Label extends HTMLWidgetBase {
     this.forAttribute,
     bool? hidden,
     bool? draggable,
-    bool? contenteditable,
+    bool? contentEditable,
     int? tabIndex,
     String? title,
     String? style,
@@ -39,7 +39,7 @@ class Label extends HTMLWidgetBase {
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
-          contenteditable: contenteditable,
+          contentEditable: contentEditable,
           hidden: hidden,
           style: style,
           classAttribute: classAttribute,
@@ -59,9 +59,9 @@ class Label extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.label;
 
   @override
-  bool shouldWidgetUpdate(covariant Label oldWidget) {
+  bool shouldUpdateWidget(covariant Label oldWidget) {
     return forAttribute != oldWidget.forAttribute ||
-        super.shouldWidgetUpdate(oldWidget);
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override

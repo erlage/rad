@@ -33,13 +33,13 @@ void main() {
                 roEventRender: () => testStack.push('render 1a'),
                 roEventUpdate: () => testStack.push('update 1a'),
                 roEventBeforeUnMount: () => testStack.push('dispose 1a'),
-                wEventshouldWidgetUpdate: () => testStack.push(
+                wEventshouldUpdateWidget: () => testStack.push(
                   'is changed 1a',
                 ),
-                wEventshouldWidgetChildrenUpdate: () => testStack.push(
+                wEventshouldUpdateWidgetChildren: () => testStack.push(
                   'is changed child 1a',
                 ),
-                wOverrideShouldWidgetUpdate: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             parentRenderElement: app!.appRenderElement,
@@ -51,13 +51,13 @@ void main() {
                 roEventRender: () => testStack.push('render 2a'),
                 roEventUpdate: () => testStack.push('update 2a'),
                 roEventBeforeUnMount: () => testStack.push('dispose 2a'),
-                wEventshouldWidgetUpdate: () => testStack.push(
+                wEventshouldUpdateWidget: () => testStack.push(
                   'is changed 2a',
                 ),
-                wEventshouldWidgetChildrenUpdate: () => testStack.push(
+                wEventshouldUpdateWidgetChildren: () => testStack.push(
                   'is changed child 2a',
                 ),
-                wOverrideShouldWidgetUpdate: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             parentRenderElement: app!.appRenderElement,
@@ -70,13 +70,13 @@ void main() {
                 roEventRender: () => testStack.push('render 3a'),
                 roEventUpdate: () => testStack.push('update 3a'),
                 roEventBeforeUnMount: () => testStack.push('dispose 3a'),
-                wEventshouldWidgetUpdate: () => testStack.push(
+                wEventshouldUpdateWidget: () => testStack.push(
                   'is changed 3a',
                 ),
-                wEventshouldWidgetChildrenUpdate: () => testStack.push(
+                wEventshouldUpdateWidgetChildren: () => testStack.push(
                   'is changed child 3a',
                 ),
-                wOverrideShouldWidgetUpdate: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             parentRenderElement: app!.appRenderElement,
@@ -89,13 +89,13 @@ void main() {
                 roEventRender: () => testStack.push('render 4a'),
                 roEventUpdate: () => testStack.push('update 4a'),
                 roEventBeforeUnMount: () => testStack.push('dispose 4a'),
-                wEventshouldWidgetUpdate: () => testStack.push(
+                wEventshouldUpdateWidget: () => testStack.push(
                   'is changed 4a',
                 ),
-                wEventshouldWidgetChildrenUpdate: () => testStack.push(
+                wEventshouldUpdateWidgetChildren: () => testStack.push(
                   'is changed child 4a',
                 ),
-                wOverrideShouldWidgetUpdate: () => false,
+                wOverrideShouldUpdateWidget: () => false,
               ),
             ],
             parentRenderElement: app!.appRenderElement,
@@ -131,16 +131,16 @@ void main() {
                 roEventRender: () => testStack.push('render 1a'),
                 roEventUpdate: () => testStack.push('update 1a'),
                 roEventBeforeUnMount: () => testStack.push('dispose 1a'),
-                wEventshouldWidgetUpdate: () => testStack.push(
+                wEventshouldUpdateWidget: () => testStack.push(
                   'is changed 1a',
                 ),
-                wEventshouldWidgetChildrenUpdate: () => testStack.push(
+                wEventshouldUpdateWidgetChildren: () => testStack.push(
                   'is changed child 1a',
                 ),
                 roEventAfterWidgetRebind: () => testStack.push(
                   'rebind widget 1a',
                 ),
-                wOverrideShouldWidgetUpdate: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             parentRenderElement: app!.appRenderElement,
@@ -152,16 +152,16 @@ void main() {
                 roEventRender: () => testStack.push('render 2a'),
                 roEventUpdate: () => testStack.push('update 2a'),
                 roEventBeforeUnMount: () => testStack.push('dispose 2a'),
-                wEventshouldWidgetUpdate: () => testStack.push(
+                wEventshouldUpdateWidget: () => testStack.push(
                   'is changed 2a',
                 ),
-                wEventshouldWidgetChildrenUpdate: () => testStack.push(
+                wEventshouldUpdateWidgetChildren: () => testStack.push(
                   'is changed child 2a',
                 ),
                 roEventAfterWidgetRebind: () => testStack.push(
                   'rebind widget 2a',
                 ),
-                wOverrideShouldWidgetUpdate: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             updateType: UpdateType.undefined,
@@ -194,10 +194,10 @@ void main() {
                 roEventRender: () => testStack.push('render 1a'),
                 roEventUpdate: () => testStack.push('update 1a'),
                 roEventBeforeUnMount: () => testStack.push('dispose 1a'),
-                wEventshouldWidgetUpdate: () => testStack.push(
+                wEventshouldUpdateWidget: () => testStack.push(
                   'is changed 1a',
                 ),
-                wEventshouldWidgetChildrenUpdate: () => testStack.push(
+                wEventshouldUpdateWidgetChildren: () => testStack.push(
                   'is changed child 1a',
                 ),
                 roEventAfterWidgetRebind: () {
@@ -211,7 +211,7 @@ void main() {
 
                   expect(hash, equals('new-instance'));
                 },
-                wOverrideShouldWidgetUpdate: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             parentRenderElement: app!.appRenderElement,
@@ -231,16 +231,16 @@ void main() {
                 roEventRender: () => testStack.push('render 2a'),
                 roEventUpdate: () => testStack.push('update 2a'),
                 roEventBeforeUnMount: () => testStack.push('dispose 2a'),
-                wEventshouldWidgetUpdate: () => testStack.push(
+                wEventshouldUpdateWidget: () => testStack.push(
                   'is changed 2a',
                 ),
-                wEventshouldWidgetChildrenUpdate: () => testStack.push(
+                wEventshouldUpdateWidgetChildren: () => testStack.push(
                   'is changed child 2a',
                 ),
                 roEventAfterWidgetRebind: () => testStack.push(
                   'rebind widget 2a',
                 ),
-                wOverrideShouldWidgetUpdate: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             updateType: UpdateType.undefined,
@@ -267,7 +267,7 @@ void main() {
             RT_TestWidget(
               roEventRender: () => testStack.push('render parent'),
               roEventUpdate: () => testStack.push('update parent'),
-              wOverrideShouldWidgetUpdate: () => true,
+              wOverrideShouldUpdateWidget: () => true,
               children: [
                 RT_TestWidget(
                   roEventRender: () => testStack.push('render child'),
@@ -284,7 +284,7 @@ void main() {
             RT_TestWidget(
               roEventRender: () => testStack.push('render parent'),
               roEventUpdate: () => testStack.push('update parent'),
-              wOverrideShouldWidgetUpdate: () => true,
+              wOverrideShouldUpdateWidget: () => true,
               children: [
                 RT_TestWidget(
                   roEventRender: () => testStack.push('render child'),
@@ -315,7 +315,7 @@ void main() {
               RT_TestWidget(
                 roEventRender: () => testStack.push('render parent'),
                 roEventUpdate: () => testStack.push('update parent'),
-                wOverrideShouldWidgetUpdate: () => false,
+                wOverrideShouldUpdateWidget: () => false,
                 children: [
                   RT_TestWidget(
                     roEventRender: () => testStack.push('render child'),
@@ -332,7 +332,7 @@ void main() {
               RT_TestWidget(
                 roEventRender: () => testStack.push('render parent'),
                 roEventUpdate: () => testStack.push('update parent'),
-                wOverrideShouldWidgetUpdate: () => false,
+                wOverrideShouldUpdateWidget: () => false,
                 children: [
                   RT_TestWidget(
                     roEventRender: () => testStack.push('render child'),
@@ -359,7 +359,7 @@ void main() {
         var constantWidget = RT_TestWidget(
           roEventRender: () => testStack.push('render parent'),
           roEventUpdate: () => testStack.push('update parent'),
-          wOverrideShouldWidgetUpdate: () => false,
+          wOverrideShouldUpdateWidget: () => false,
           children: [
             RT_TestWidget(
               roEventRender: () => testStack.push('render child'),
@@ -392,7 +392,7 @@ void main() {
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('widget'),
-                wOverrideShouldWidgetUpdate: () => false,
+                wOverrideShouldUpdateWidget: () => false,
                 children: [],
               ),
             ],
@@ -405,7 +405,7 @@ void main() {
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('widget'),
-                wOverrideShouldWidgetUpdate: () => false,
+                wOverrideShouldUpdateWidget: () => false,
                 children: [
                   Text('a'),
                   Text('b'),
@@ -423,7 +423,7 @@ void main() {
             widgets: [
               RT_TestWidget(
                 key: GlobalKey('widget'),
-                wOverrideShouldWidgetUpdate: () => false,
+                wOverrideShouldUpdateWidget: () => false,
                 children: [],
               ),
             ],
@@ -443,7 +443,7 @@ void main() {
               RT_TestWidget(
                 customHash: '1a',
                 key: GlobalKey('widget'),
-                wOverrideShouldWidgetUpdate: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             parentRenderElement: app!.appRenderElement,
@@ -457,7 +457,7 @@ void main() {
               RT_TestWidget(
                 customHash: '2a',
                 key: GlobalKey('widget'),
-                wOverrideShouldWidgetUpdate: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             updateType: UpdateType.setState,
@@ -471,7 +471,7 @@ void main() {
               RT_TestWidget(
                 customHash: '3a',
                 key: GlobalKey('widget'),
-                wOverrideShouldWidgetUpdate: () => true,
+                wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             updateType: UpdateType.setState,
@@ -499,7 +499,7 @@ void main() {
               RT_TestWidget(
                 customHash: '1a',
                 key: GlobalKey('widget'),
-                wOverrideShouldWidgetUpdate: () => false,
+                wOverrideShouldUpdateWidget: () => false,
               ),
             ],
             parentRenderElement: app!.appRenderElement,
@@ -513,7 +513,7 @@ void main() {
               RT_TestWidget(
                 customHash: '2a',
                 key: GlobalKey('widget'),
-                wOverrideShouldWidgetUpdate: () => false,
+                wOverrideShouldUpdateWidget: () => false,
               ),
             ],
             updateType: UpdateType.setState,
@@ -527,7 +527,7 @@ void main() {
               RT_TestWidget(
                 customHash: '3a',
                 key: GlobalKey('widget'),
-                wOverrideShouldWidgetUpdate: () => false,
+                wOverrideShouldUpdateWidget: () => false,
               ),
             ],
             updateType: UpdateType.setState,
@@ -1051,15 +1051,15 @@ void main() {
       );
 
       test(
-        'should call shouldWidgetUpdateChild with previous result of shouldupdate',
+        'should call shouldUpdateWidgetChild with previous result of shouldupdate',
         () async {
           var testStack = RT_TestStack();
 
           await app!.buildChildren(
             widgets: [
               RT_TestWidget(
-                wOverrideShouldWidgetUpdate: () => true,
-                wHookShouldWidgetChildrenUpdate: (
+                wOverrideShouldUpdateWidget: () => true,
+                wHookShouldUpdateWidgetChildren: (
                   widget,
                   results,
                 ) =>
@@ -1072,8 +1072,8 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                wOverrideShouldWidgetUpdate: () => true,
-                wHookShouldWidgetChildrenUpdate: (
+                wOverrideShouldUpdateWidget: () => true,
+                wHookShouldUpdateWidgetChildren: (
                   widget,
                   results,
                 ) =>
@@ -1087,8 +1087,8 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                wOverrideShouldWidgetUpdate: () => false,
-                wHookShouldWidgetChildrenUpdate: (
+                wOverrideShouldUpdateWidget: () => false,
+                wHookShouldUpdateWidgetChildren: (
                   widget,
                   results,
                 ) =>

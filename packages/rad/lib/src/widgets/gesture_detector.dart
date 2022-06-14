@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
-import 'package:rad/src/core/common/objects/dom_node_description.dart';
+import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -22,8 +22,8 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 ///  * [HitTestBehavior], behaviour of a [GestureDetector]
 ///
 class GestureDetector extends SingleChildWidget {
-  final Callback? onTap;
-  final Callback? onDoubleTap;
+  final VoidCallback? onTap;
+  final VoidCallback? onDoubleTap;
   final EventCallback? onTapEvent;
   final EventCallback? onDoubleTapEvent;
 
@@ -72,7 +72,7 @@ class GestureDetector extends SingleChildWidget {
   DomTagType get correspondingTag => DomTagType.division;
 
   @override
-  shouldWidgetUpdate(Widget oldWidget) => true;
+  shouldUpdateWidget(Widget oldWidget) => true;
 
   @nonVirtual
   @override
@@ -85,7 +85,7 @@ class GestureDetector extends SingleChildWidget {
 |--------------------------------------------------------------------------
 */
 
-const _description = DomNodeDescription(
+const _description = DomNodePatch(
   attributes: {
     Attributes.classAttribute: Constants.classGestureDetector,
   },
@@ -243,7 +243,7 @@ class _GestureDetectorState {
   }
 
   void _dispatch(EmittedEvent event) {
-    Callback? listener;
+    VoidCallback? listener;
     EventCallback? eventListener;
 
     switch (fnMapEventTypeToDomEventType(event.type)) {

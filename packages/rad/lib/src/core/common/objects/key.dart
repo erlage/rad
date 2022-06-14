@@ -6,7 +6,8 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// A [Key] is an identifier for [Widget]s.
 ///
-/// Keys must be unique amongst the [Widget]s with the same parent.
+/// Keys must be unique amongst the [Widget]s with the same parent. In contrast,
+/// [GlobalKey] must be unique within a single app instance.
 ///
 @immutable
 class Key {
@@ -39,7 +40,8 @@ class Key {
 ///
 /// Note that this is the only difference between a normal Key and a GlobalKey.
 /// For exampple, A widget with key equals to `Key('s')` will match with a
-/// widget that has key equals to `GlobalKey('s')`.
+/// widget that has key equals to `GlobalKey('s')` and can be used to update
+/// the other widget.
 ///
 class GlobalKey extends Key {
   /// Creates a global key.

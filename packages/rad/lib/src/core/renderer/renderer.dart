@@ -4,7 +4,7 @@ import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/common_render_elements.dart';
-import 'package:rad/src/core/common/objects/dom_node_description.dart';
+import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/renderer/dumb_node_validator.dart';
@@ -582,9 +582,9 @@ class Renderer with ServicesResolver {
     |------------------------------------------------------------------------
     */
 
-    var shouldWidgetUpdate = newWidget.shouldWidgetUpdate(oldWidget);
+    var shouldUpdateWidget = newWidget.shouldUpdateWidget(oldWidget);
 
-    if (shouldWidgetUpdate) {
+    if (shouldUpdateWidget) {
       if (services.debug.frameworkLogs) {
         print('Update widget: $matchedRenderElement');
       }
@@ -621,9 +621,9 @@ class Renderer with ServicesResolver {
 
     // get permission from widget which owns the child widgets
 
-    var shouldUpdateChildWidgets = newWidget.shouldWidgetChildrenUpdate(
+    var shouldUpdateChildWidgets = newWidget.shouldUpdateWidgetChildren(
       oldWidget,
-      shouldWidgetUpdate,
+      shouldUpdateWidget,
     );
 
     // i hope its not granted
@@ -880,12 +880,12 @@ class Renderer with ServicesResolver {
 
           // call update on child widgets
 
-          var shouldWidgetUpdateChild = widget.shouldWidgetChildrenUpdate(
+          var shouldUpdateWidgetChild = widget.shouldUpdateWidgetChildren(
             widget,
             true,
           );
 
-          if (shouldWidgetUpdateChild) {
+          if (shouldUpdateWidgetChild) {
             updateWidgetsUnderContext(
               jobQueue: jobQueue,
               updateType: updateType,
@@ -1000,7 +1000,7 @@ class Renderer with ServicesResolver {
 
   void applyDescription({
     required Element domNode,
-    required DomNodeDescription description,
+    required DomNodePatch description,
     JobQueue? jobQueue,
   }) {
     void job() {

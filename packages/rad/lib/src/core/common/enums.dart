@@ -211,7 +211,7 @@ enum DomTagType {
   division('div'),
   span('span'),
   anchor('a'),
-  blockquote('blockquote'),
+  blockQuote('blockquote'),
   horizontalRule('hr'),
   label('label'),
   iFrame('iframe'),

@@ -7,7 +7,7 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/cache.dart';
-import 'package:rad/src/core/common/objects/dom_node_description.dart';
+import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -355,16 +355,16 @@ class Navigator extends Widget {
   DomTagType get correspondingTag => DomTagType.division;
 
   @override
-  bool shouldWidgetUpdate(oldWidget) => true;
+  bool shouldUpdateWidget(oldWidget) => true;
 
   /// Overriding this method on [Navigator] can result in unexpected
   /// behavior as [Navigator] build its childs from its state. If you don't
   /// want the [Navigator] to update its child widgets, override
-  /// [shouldWidgetUpdate] instead.
+  /// [shouldUpdateWidget] instead.
   ///
   @nonVirtual
   @override
-  bool shouldWidgetChildrenUpdate(oldWidget, shouldWidgetUpdate) => false;
+  bool shouldUpdateWidgetChildren(oldWidget, shouldUpdateWidget) => false;
 
   @override
   createRenderElement(parent) => NavigatorRenderElement(this, parent);
@@ -376,7 +376,7 @@ class Navigator extends Widget {
 |--------------------------------------------------------------------------
 */
 
-const _description = DomNodeDescription(
+const _description = DomNodePatch(
   attributes: {
     Attributes.classAttribute: Constants.classNavigator,
   },
@@ -690,7 +690,7 @@ class NavigatorState with ServicesResolver {
   |--------------------------------------------------------------------------
   */
 
-  Callback? _updateProcedure;
+  VoidCallback? _updateProcedure;
 
   @protected
   void frameworkBindContext(BuildContext context) {
@@ -703,7 +703,7 @@ class NavigatorState with ServicesResolver {
   }
 
   @protected
-  void frameworkBindUpdateProcedure(Callback updateProcedure) {
+  void frameworkBindUpdateProcedure(VoidCallback updateProcedure) {
     _updateProcedure = updateProcedure;
   }
 

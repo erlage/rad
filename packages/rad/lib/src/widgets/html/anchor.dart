@@ -35,7 +35,7 @@ class Anchor extends HTMLWidgetBase {
     this.download,
     bool? hidden,
     bool? draggable,
-    bool? contenteditable,
+    bool? contentEditable,
     int? tabIndex,
     String? id,
     String? title,
@@ -53,7 +53,7 @@ class Anchor extends HTMLWidgetBase {
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
-          contenteditable: contenteditable,
+          contentEditable: contentEditable,
           hidden: hidden,
           style: style,
           classAttribute: classAttribute,
@@ -73,12 +73,12 @@ class Anchor extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.anchor;
 
   @override
-  bool shouldWidgetUpdate(covariant Anchor oldWidget) {
+  bool shouldUpdateWidget(covariant Anchor oldWidget) {
     return href != oldWidget.href ||
         rel != oldWidget.rel ||
         target != oldWidget.target ||
         download != oldWidget.download ||
-        super.shouldWidgetUpdate(oldWidget);
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override

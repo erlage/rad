@@ -17,8 +17,8 @@ class WidgetsDisposeTask extends SchedulerTask {
   WidgetsDisposeTask({
     required this.renderElement,
     this.flagPreserveTarget = false,
-    Callback? afterTaskCallback,
-    Callback? beforeTaskCallback,
+    VoidCallback? afterTaskCallback,
+    VoidCallback? beforeTaskCallback,
   }) : super(
           afterTaskCallback: afterTaskCallback,
           beforeTaskCallback: beforeTaskCallback,

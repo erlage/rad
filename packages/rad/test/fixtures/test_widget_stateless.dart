@@ -3,9 +3,9 @@
 import '../test_imports.dart';
 
 class RT_StatelessWidget extends StatelessWidget {
-  final Callback? eventConstruct;
+  final VoidCallback? eventConstruct;
 
-  final Callback? eventBuild;
+  final VoidCallback? eventBuild;
   final Function(BuildContext context)? hookBuild;
 
   final List<Widget> children;
@@ -43,8 +43,8 @@ class RT_StatelessWidget extends StatelessWidget {
 class RT_AnotherStatelessWidget extends RT_StatelessWidget {
   RT_AnotherStatelessWidget({
     Key? key,
-    Callback? eventConstruct,
-    Callback? eventBuild,
+    VoidCallback? eventConstruct,
+    VoidCallback? eventBuild,
     Function(BuildContext context)? hookBuild,
     List<Widget> children = const [],
     String? customHash,

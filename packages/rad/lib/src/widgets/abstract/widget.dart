@@ -64,25 +64,25 @@ abstract class Widget {
   /// contain the logic to compare new widget with old.
   ///
   ///
-  /// Diffing proccess will always call [shouldWidgetUpdate] on child widgets
-  /// of current widget even if [shouldWidgetUpdate] return false. This means
+  /// Diffing proccess will always call [shouldUpdateWidget] on child widgets
+  /// of current widget even if [shouldUpdateWidget] return false. This means
   /// whatever diffing logic is present in this method, its scope should be
   /// limited to checking just the current widget. If a widget want to
-  /// short-circuit diffing proccess(i.e no [shouldWidgetUpdate] on child
-  /// widgets) then it can override [shouldWidgetChildrenUpdate] method.
+  /// short-circuit diffing proccess(i.e no [shouldUpdateWidget] on child
+  /// widgets) then it can override [shouldUpdateWidgetChildren] method.
   ///
-  bool shouldWidgetUpdate(Widget oldWidget);
+  bool shouldUpdateWidget(Widget oldWidget);
 
   /// Whether to update current widget's children.
   ///
-  /// Framwork will always call this method after calling [shouldWidgetUpdate]
-  /// along with results of call to [shouldWidgetUpdate] on current widget.
+  /// Framwork will always call this method after calling [shouldUpdateWidget]
+  /// along with results of call to [shouldUpdateWidget] on current widget.
   ///
   /// If current widget knows in advance whether widgets below it
   /// doesn't need to update then it can override this method and return
   /// false which will short-circuit the diffing proccess.
   ///
-  bool shouldWidgetChildrenUpdate(Widget oldWidget, bool shouldWidgetUpdate) {
+  bool shouldUpdateWidgetChildren(Widget oldWidget, bool shouldUpdateWidget) {
     return true;
   }
 

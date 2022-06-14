@@ -109,7 +109,7 @@ class Input extends HTMLWidgetBase {
     String? classAttribute,
     int? tabIndex,
     bool? draggable,
-    bool? contenteditable,
+    bool? contentEditable,
     Map<String, String>? dataAttributes,
     bool? hidden,
     String? onClickAttribute,
@@ -125,7 +125,7 @@ class Input extends HTMLWidgetBase {
           classAttribute: classAttribute,
           tabIndex: tabIndex,
           draggable: draggable,
-          contenteditable: contenteditable,
+          contentEditable: contentEditable,
           dataAttributes: dataAttributes,
           hidden: hidden,
           onClickAttribute: onClickAttribute,
@@ -154,7 +154,7 @@ class Input extends HTMLWidgetBase {
       };
 
   @override
-  bool shouldWidgetUpdate(covariant Input oldWidget) {
+  bool shouldUpdateWidget(covariant Input oldWidget) {
     return type != oldWidget.type ||
         name != oldWidget.name ||
         value != oldWidget.value ||
@@ -168,7 +168,7 @@ class Input extends HTMLWidgetBase {
         required != oldWidget.required ||
         readOnly != oldWidget.readOnly ||
         disabled != oldWidget.disabled ||
-        super.shouldWidgetUpdate(oldWidget);
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override

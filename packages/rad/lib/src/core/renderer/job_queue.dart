@@ -5,18 +5,18 @@ import 'package:rad/src/core/common/types.dart';
 /// Jobs and PostCallbacks are dispatched in FIFO order.
 ///
 class JobQueue {
-  final _jobs = <Callback>[];
-  final _postJobCallbacks = <Callback>[];
+  final _jobs = <VoidCallback>[];
+  final _postJobCallbacks = <VoidCallback>[];
 
   var _isLocked = false;
 
-  void addJob(Callback job) {
+  void addJob(VoidCallback job) {
     assert(!_isLocked, 'JobQueue is already locked');
 
     _jobs.add(job);
   }
 
-  void addPostDispatchCallback(Callback callback) {
+  void addPostDispatchCallback(VoidCallback callback) {
     _postJobCallbacks.add(callback);
   }
 

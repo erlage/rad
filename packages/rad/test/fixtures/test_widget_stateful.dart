@@ -5,12 +5,12 @@ import '../test_imports.dart';
 /// A StatefulWidget that allows hooking its internals.
 ///
 class RT_StatefulTestWidget extends StatefulWidget {
-  final Callback? stateEventInitState;
-  final Callback? stateEventDidChangeDependencies;
-  final Callback? stateEventDidUpdateWidget;
-  final Callback? stateEventBuild;
-  final Callback? stateEventDispose;
-  final Callback? stateEventCreateState;
+  final VoidCallback? stateEventInitState;
+  final VoidCallback? stateEventDidChangeDependencies;
+  final VoidCallback? stateEventDidUpdateWidget;
+  final VoidCallback? stateEventBuild;
+  final VoidCallback? stateEventDispose;
+  final VoidCallback? stateEventCreateState;
 
   final Function(RT_StatefulTestWidget_State state)? stateHookInitState;
 
@@ -59,11 +59,11 @@ class RT_StatefulTestWidget extends StatefulWidget {
 }
 
 class RT_StatefulTestWidget_State extends State<RT_StatefulTestWidget> {
-  Callback? _stateEventInitState;
-  Callback? _stateEventDidChangeDependencies;
-  Callback? _stateEventDidUpdateWidget;
-  Callback? _stateEventBuild;
-  Callback? _stateEventDispose;
+  VoidCallback? _stateEventInitState;
+  VoidCallback? _stateEventDidChangeDependencies;
+  VoidCallback? _stateEventDidUpdateWidget;
+  VoidCallback? _stateEventBuild;
+  VoidCallback? _stateEventDispose;
 
   Function(RT_StatefulTestWidget_State state)? _stateHookInitState;
 
@@ -79,7 +79,7 @@ class RT_StatefulTestWidget_State extends State<RT_StatefulTestWidget> {
   )? _stateHookDidUpdateWidget;
 
   RT_StatefulTestWidget_State({
-    Callback? stateEventCreateState,
+    VoidCallback? stateEventCreateState,
     Function(RT_StatefulTestWidget_State state)? stateHookCreateState,
   }) {
     if (null != stateEventCreateState) {
@@ -190,12 +190,12 @@ class RT_StatefulTestWidget_State extends State<RT_StatefulTestWidget> {
 /// Another stateful widget.
 ///
 class RT_AnotherStatefulWidget extends StatefulWidget {
-  final Callback? stateEventInitState;
-  final Callback? stateEventDidChangeDependencies;
-  final Callback? stateEventDidUpdateWidget;
-  final Callback? stateEventBuild;
-  final Callback? stateEventDispose;
-  final Callback? stateEventCreateState;
+  final VoidCallback? stateEventInitState;
+  final VoidCallback? stateEventDidChangeDependencies;
+  final VoidCallback? stateEventDidUpdateWidget;
+  final VoidCallback? stateEventBuild;
+  final VoidCallback? stateEventDispose;
+  final VoidCallback? stateEventCreateState;
 
   final Function(RT_AnotherStatefulWidget_State state)? stateHookInitState;
 
@@ -245,11 +245,11 @@ class RT_AnotherStatefulWidget extends StatefulWidget {
 }
 
 class RT_AnotherStatefulWidget_State extends State<RT_AnotherStatefulWidget> {
-  Callback? _stateEventInitState;
-  Callback? _stateEventDidChangeDependencies;
-  Callback? _stateEventDidUpdateWidget;
-  Callback? _stateEventBuild;
-  Callback? _stateEventDispose;
+  VoidCallback? _stateEventInitState;
+  VoidCallback? _stateEventDidChangeDependencies;
+  VoidCallback? _stateEventDidUpdateWidget;
+  VoidCallback? _stateEventBuild;
+  VoidCallback? _stateEventDispose;
 
   Function(RT_AnotherStatefulWidget_State state)? _stateHookInitState;
 
@@ -265,7 +265,7 @@ class RT_AnotherStatefulWidget_State extends State<RT_AnotherStatefulWidget> {
   )? _stateHookDidUpdateWidget;
 
   RT_AnotherStatefulWidget_State({
-    Callback? stateEventCreateState,
+    VoidCallback? stateEventCreateState,
     Function(RT_AnotherStatefulWidget_State state)? stateHookCreateState,
   }) {
     if (null != stateEventCreateState) {

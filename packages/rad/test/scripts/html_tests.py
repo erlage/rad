@@ -39,7 +39,7 @@ widget_specific_tests = {
         'html_attr_target',
         'html_attr_download',
     ],
-    'Blockquote': [
+    'BlockQuote': [
         'html_attr_cite',
     ],
     'Button': [
@@ -226,7 +226,7 @@ widgets_map = {
     'Abbreviation': 'abbr',
     'Anchor': 'a',
     'Article': 'article',
-    'Blockquote': 'blockquote',
+    'BlockQuote': 'blockquote',
     'BreakLine': 'br',
     'Button': 'button',
     'Canvas': 'canvas',

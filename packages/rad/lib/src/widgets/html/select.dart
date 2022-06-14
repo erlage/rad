@@ -39,7 +39,7 @@ class Select extends HTMLWidgetBase {
     String? id,
     bool? hidden,
     bool? draggable,
-    bool? contenteditable,
+    bool? contentEditable,
     int? tabIndex,
     String? title,
     String? style,
@@ -56,7 +56,7 @@ class Select extends HTMLWidgetBase {
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
-          contenteditable: contenteditable,
+          contentEditable: contentEditable,
           hidden: hidden,
           style: style,
           classAttribute: classAttribute,
@@ -82,11 +82,11 @@ class Select extends HTMLWidgetBase {
       };
 
   @override
-  bool shouldWidgetUpdate(covariant Select oldWidget) {
+  bool shouldUpdateWidget(covariant Select oldWidget) {
     return name != oldWidget.name ||
         multiple != oldWidget.multiple ||
         disabled != oldWidget.disabled ||
-        super.shouldWidgetUpdate(oldWidget);
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override

@@ -52,11 +52,11 @@ import 'package:rad/src/widgets/stateless_widget.dart';
 ///   parent widget will bring back everything back in DOM.
 ///
 ///
-/// * And for mission critical situations, you have [shouldWidgetUpdate] at
+/// * And for mission critical situations, you have [shouldUpdateWidget] at
 ///   your disposal on every widget. If you know that in some situations your
 ///   widget doesn’t need to update, you can return false from
-///   [shouldWidgetUpdate] instead, to skip the whole rendering process.
-///   But remember maintaining [shouldWidgetUpdate] is hard so it's not
+///   [shouldUpdateWidget] instead, to skip the whole rendering process.
+///   But remember maintaining [shouldUpdateWidget] is hard so it's not
 ///   something you should be using everywhere.
 ///
 ///
@@ -121,16 +121,16 @@ abstract class StatefulWidget extends Widget {
   DomTagType? get correspondingTag => null;
 
   @override
-  bool shouldWidgetUpdate(oldWidget) => true;
+  bool shouldUpdateWidget(oldWidget) => true;
 
   /// Overriding this method on [StatefulWidget] can result in unexpected
   /// behavior as [StatefulWidget] build its childs from its state. If you don't
   /// want the [StatefulWidget] to update its child widgets, override
-  /// [shouldWidgetUpdate] instead.
+  /// [shouldUpdateWidget] instead.
   ///
   @nonVirtual
   @override
-  bool shouldWidgetChildrenUpdate(oldWidget, shouldWidgetUpdate) => false;
+  bool shouldUpdateWidgetChildren(oldWidget, shouldUpdateWidget) => false;
 
   @override
   createRenderElement(parent) => StatefulRenderElement(this, parent);
@@ -418,7 +418,7 @@ abstract class State<T extends StatefulWidget> {
   ///
   @nonVirtual
   @protected
-  void setState(Callback? callable) {
+  void setState(VoidCallback? callable) {
     var element = _element!;
     var scheduler = element.services.scheduler;
 

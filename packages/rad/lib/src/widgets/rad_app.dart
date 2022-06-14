@@ -1,6 +1,6 @@
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/dom_node_description.dart';
+import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/widgets/abstract/single_child_widget.dart';
@@ -21,7 +21,7 @@ class RadApp extends SingleChildWidget {
   DomTagType get correspondingTag => DomTagType.division;
 
   @override
-  bool shouldWidgetUpdate(Widget oldWidget) => false;
+  bool shouldUpdateWidget(Widget oldWidget) => false;
 
   @override
   createRenderElement(parent) => RadAppRenderElement(this, parent);
@@ -33,7 +33,7 @@ class RadApp extends SingleChildWidget {
 |--------------------------------------------------------------------------
 */
 
-const _description = DomNodeDescription(
+const _description = DomNodePatch(
   attributes: {
     Attributes.classAttribute: Constants.classRadApp,
   },

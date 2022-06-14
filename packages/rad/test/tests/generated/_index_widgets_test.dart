@@ -19,7 +19,7 @@ part 'widgets/widget_gesture_detector_tests.generated.dart';
 part 'widgets/widget_abbreviation_tests.generated.dart';
 part 'widgets/widget_anchor_tests.generated.dart';
 part 'widgets/widget_article_tests.generated.dart';
-part 'widgets/widget_blockquote_tests.generated.dart';
+part 'widgets/widget_block_quote_tests.generated.dart';
 part 'widgets/widget_break_line_tests.generated.dart';
 part 'widgets/widget_button_tests.generated.dart';
 part 'widgets/widget_canvas_tests.generated.dart';
@@ -82,7 +82,7 @@ void main() {
   widget_abbreviation_test();
   widget_anchor_test();
   widget_article_test();
-  widget_blockquote_test();
+  widget_block_quote_test();
   widget_break_line_test();
   widget_button_test();
   widget_canvas_test();

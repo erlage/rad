@@ -22,23 +22,23 @@ void widget_inherited_widget_test() {
       expect(widget.widgetType, equals('$InheritedWidget'));
     });
 
-    test('should return false from shouldWidgetChildrenUpdate', () {
-      var shouldWidgetChildrenUpdate = false;
+    test('should return false from shouldUpdateWidgetChildren', () {
+      var shouldUpdateWidgetChildren = false;
 
       var oldWidget = RT_InheritedWidget(child: Text('hw'));
       var newWidget = RT_InheritedWidget(child: Text('hw'));
 
-      shouldWidgetChildrenUpdate = newWidget.shouldWidgetChildrenUpdate(
+      shouldUpdateWidgetChildren = newWidget.shouldUpdateWidgetChildren(
         oldWidget,
         false,
       );
-      expect(shouldWidgetChildrenUpdate, equals(true));
+      expect(shouldUpdateWidgetChildren, equals(true));
 
-      shouldWidgetChildrenUpdate = newWidget.shouldWidgetChildrenUpdate(
+      shouldUpdateWidgetChildren = newWidget.shouldUpdateWidgetChildren(
         oldWidget,
         true,
       );
-      expect(shouldWidgetChildrenUpdate, equals(true));
+      expect(shouldUpdateWidgetChildren, equals(true));
     });
   });
 }

@@ -57,7 +57,7 @@ abstract class InheritedWidget extends Widget {
   DomTagType? get correspondingTag => null;
 
   @override
-  shouldWidgetUpdate(oldWidget) => true;
+  shouldUpdateWidget(oldWidget) => true;
 
   @nonVirtual
   @override

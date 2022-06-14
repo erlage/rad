@@ -9,7 +9,7 @@ import '../../test_imports.dart';
 part 'html/html_abbreviation_tests.generated.dart';
 part 'html/html_anchor_tests.generated.dart';
 part 'html/html_article_tests.generated.dart';
-part 'html/html_blockquote_tests.generated.dart';
+part 'html/html_block_quote_tests.generated.dart';
 part 'html/html_break_line_tests.generated.dart';
 part 'html/html_button_tests.generated.dart';
 part 'html/html_canvas_tests.generated.dart';
@@ -67,7 +67,7 @@ void main() {
   html_abbreviation_test();
   html_anchor_test();
   html_article_test();
-  html_blockquote_test();
+  html_block_quote_test();
   html_break_line_test();
   html_button_test();
   html_canvas_test();

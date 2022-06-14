@@ -9,9 +9,7 @@ import 'package:rad/src/core/services/scheduler/abstract.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/navigator.dart';
 
-typedef Callback = void Function();
-
-typedef VoidCallback = Callback;
+typedef VoidCallback = void Function();
 
 typedef EventCallback = void Function(EmittedEvent event);
 

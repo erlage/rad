@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/dom_node_description.dart';
+import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/widgets/abstract/no_child_widget.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
@@ -32,10 +32,10 @@ class RawMarkUp extends Widget {
   DomTagType get correspondingTag => DomTagType.division;
 
   @override
-  shouldWidgetUpdate(covariant RawMarkUp oldWidget) => html != oldWidget.html;
+  shouldUpdateWidget(covariant RawMarkUp oldWidget) => html != oldWidget.html;
 
   @override
-  shouldWidgetChildrenUpdate(oldWidget, shouldWidgetUpdate) => false;
+  shouldUpdateWidgetChildren(oldWidget, shouldUpdateWidget) => false;
 
   @override
   createRenderElement(parent) => RawMarkupRenderElement(this, parent);
@@ -56,7 +56,7 @@ class RawMarkupRenderElement extends NoChildRenderElement {
   render({
     required covariant RawMarkUp widget,
   }) {
-    return DomNodeDescription(rawContents: widget.html);
+    return DomNodePatch(rawContents: widget.html);
   }
 
   @override
@@ -65,6 +65,6 @@ class RawMarkupRenderElement extends NoChildRenderElement {
     required oldWidget,
     required covariant RawMarkUp newWidget,
   }) {
-    return DomNodeDescription(rawContents: newWidget.html);
+    return DomNodePatch(rawContents: newWidget.html);
   }
 }

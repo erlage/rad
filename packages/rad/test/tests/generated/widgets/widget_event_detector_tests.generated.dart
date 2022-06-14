@@ -22,23 +22,23 @@ void widget_event_detector_test() {
       expect(widget.widgetType, equals('$EventDetector'));
     });
 
-    test('should return false from shouldWidgetChildrenUpdate', () {
-      var shouldWidgetChildrenUpdate = false;
+    test('should return false from shouldUpdateWidgetChildren', () {
+      var shouldUpdateWidgetChildren = false;
 
       var oldWidget = EventDetector(child: Text('hw'));
       var newWidget = EventDetector(child: Text('hw'));
 
-      shouldWidgetChildrenUpdate = newWidget.shouldWidgetChildrenUpdate(
+      shouldUpdateWidgetChildren = newWidget.shouldUpdateWidgetChildren(
         oldWidget,
         false,
       );
-      expect(shouldWidgetChildrenUpdate, equals(true));
+      expect(shouldUpdateWidgetChildren, equals(true));
 
-      shouldWidgetChildrenUpdate = newWidget.shouldWidgetChildrenUpdate(
+      shouldUpdateWidgetChildren = newWidget.shouldUpdateWidgetChildren(
         oldWidget,
         true,
       );
-      expect(shouldWidgetChildrenUpdate, equals(true));
+      expect(shouldUpdateWidgetChildren, equals(true));
     });
   });
 }

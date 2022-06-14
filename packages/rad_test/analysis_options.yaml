@@ -8,7 +8,7 @@ analyzer:
 
   exclude:
     - example/**
-    # - test/**
+    - test/**
 
 linter:
   rules:

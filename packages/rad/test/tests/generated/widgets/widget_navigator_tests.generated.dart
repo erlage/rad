@@ -46,23 +46,23 @@ void widget_navigator_test() {
       expect(domNode.getComputedStyle().display, equals('contents'));
     });
 
-    test('should return true from shouldWidgetChildrenUpdate', () {
-      var shouldWidgetChildrenUpdate = true;
+    test('should return true from shouldUpdateWidgetChildren', () {
+      var shouldUpdateWidgetChildren = true;
 
       var oldWidget = Navigator(routes: []);
       var newWidget = Navigator(routes: []);
 
-      shouldWidgetChildrenUpdate = newWidget.shouldWidgetChildrenUpdate(
+      shouldUpdateWidgetChildren = newWidget.shouldUpdateWidgetChildren(
         oldWidget,
         false,
       );
-      expect(shouldWidgetChildrenUpdate, equals(false));
+      expect(shouldUpdateWidgetChildren, equals(false));
 
-      shouldWidgetChildrenUpdate = newWidget.shouldWidgetChildrenUpdate(
+      shouldUpdateWidgetChildren = newWidget.shouldUpdateWidgetChildren(
         oldWidget,
         true,
       );
-      expect(shouldWidgetChildrenUpdate, equals(false));
+      expect(shouldUpdateWidgetChildren, equals(false));
     });
   });
 }

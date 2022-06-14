@@ -21,7 +21,7 @@ abstract class TableColumnBase extends HTMLWidgetBase {
     String? id,
     bool? hidden,
     bool? draggable,
-    bool? contenteditable,
+    bool? contentEditable,
     int? tabIndex,
     String? title,
     String? style,
@@ -38,7 +38,7 @@ abstract class TableColumnBase extends HTMLWidgetBase {
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
-          contenteditable: contenteditable,
+          contentEditable: contentEditable,
           hidden: hidden,
           style: style,
           classAttribute: classAttribute,
@@ -52,10 +52,10 @@ abstract class TableColumnBase extends HTMLWidgetBase {
 
   @override
   @override
-  bool shouldWidgetUpdate(
+  bool shouldUpdateWidget(
     covariant TableColumnBase oldWidget,
   ) {
-    return span != oldWidget.span || super.shouldWidgetUpdate(oldWidget);
+    return span != oldWidget.span || super.shouldUpdateWidget(oldWidget);
   }
 
   @override

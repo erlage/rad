@@ -31,7 +31,7 @@ class Image extends HTMLWidgetBase {
     Key? key,
     bool? hidden,
     bool? draggable,
-    bool? contenteditable,
+    bool? contentEditable,
     int? tabIndex,
     String? id,
     String? title,
@@ -49,7 +49,7 @@ class Image extends HTMLWidgetBase {
           title: title,
           tabIndex: tabIndex,
           draggable: draggable,
-          contenteditable: contenteditable,
+          contentEditable: contentEditable,
           hidden: hidden,
           style: style,
           classAttribute: classAttribute,
@@ -69,12 +69,12 @@ class Image extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.image;
 
   @override
-  bool shouldWidgetUpdate(covariant Image oldWidget) {
+  bool shouldUpdateWidget(covariant Image oldWidget) {
     return src != oldWidget.src ||
         alt != oldWidget.alt ||
         width != oldWidget.width ||
         height != oldWidget.height ||
-        super.shouldWidgetUpdate(oldWidget);
+        super.shouldUpdateWidget(oldWidget);
   }
 
   @override

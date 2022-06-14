@@ -35,7 +35,7 @@ import 'package:rad/src/widgets/rad_app.dart';
 AppRunner runApp({
   required Widget app,
   required String targetId,
-  Callback? beforeMount,
+  VoidCallback? beforeMount,
   RouterOptions? routerOptions,
   DebugOptions? debugOptions,
 }) {
@@ -59,7 +59,7 @@ class AppRunner {
   final String targetId;
   final bool _isInTestMode;
 
-  final Callback? _beforeMount;
+  final VoidCallback? _beforeMount;
   final DebugOptions? _debugOptions;
   final RouterOptions? _routerOptions;
 
@@ -80,7 +80,7 @@ class AppRunner {
   AppRunner({
     required this.app,
     required this.targetId,
-    Callback? beforeMount,
+    VoidCallback? beforeMount,
     RouterOptions? routerOptions,
     DebugOptions? debugOptions,
   })  : _isInTestMode = false,
@@ -93,7 +93,7 @@ class AppRunner {
   AppRunner.inTestMode({
     required this.app,
     required this.targetId,
-    Callback? beforeMount,
+    VoidCallback? beforeMount,
     RouterOptions? routerOptions,
     DebugOptions? debugOptions,
   })  : _isInTestMode = true,

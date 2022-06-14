@@ -327,16 +327,16 @@ void html_paragraph_test() {
       );
     });
 
-    test('should set contenteditable', () async {
+    test('should set contentEditable', () async {
       await app!.buildChildren(
         widgets: [
           Paragraph(
             key: Key('widget-1'),
-            contenteditable: false,
+            contentEditable: false,
           ),
           Paragraph(
             key: Key('widget-2'),
-            contenteditable: true,
+            contentEditable: true,
           ),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
@@ -345,8 +345,8 @@ void html_paragraph_test() {
       var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
       var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
 
-      expect(domNode1.getAttribute('contenteditable'), equals('false'));
-      expect(domNode2.getAttribute('contenteditable'), equals('true'));
+      expect(domNode1.getAttribute('contentEditable'), equals('false'));
+      expect(domNode2.getAttribute('contentEditable'), equals('true'));
     });
 
     test('should set draggable', () async {

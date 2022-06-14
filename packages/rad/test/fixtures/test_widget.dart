@@ -9,29 +9,29 @@ import '../test_imports.dart';
 class RT_TestWidget extends Widget {
   // widget events
 
-  final Callback? wEventCreateRenderObject;
-  final Callback? wEventshouldWidgetUpdate;
-  final Callback? wEventshouldWidgetChildrenUpdate;
+  final VoidCallback? wEventCreateRenderObject;
+  final VoidCallback? wEventshouldUpdateWidget;
+  final VoidCallback? wEventshouldUpdateWidgetChildren;
 
   // render element events
 
-  final Callback? roEventRender;
-  final Callback? roEventUpdate;
-  final Callback? roEventBeforeMount;
-  final Callback? roEventAfterMount;
-  final Callback? roEventAfterWidgetRebind;
-  final Callback? roEventBeforeUnMount;
+  final VoidCallback? roEventRender;
+  final VoidCallback? roEventUpdate;
+  final VoidCallback? roEventBeforeMount;
+  final VoidCallback? roEventAfterMount;
+  final VoidCallback? roEventAfterWidgetRebind;
+  final VoidCallback? roEventBeforeUnMount;
 
   // data hooks
 
-  final Function(Widget)? wHookShouldWidgetUpdate;
-  final Function(Widget, bool)? wHookShouldWidgetChildrenUpdate;
+  final Function(Widget)? wHookShouldUpdateWidget;
+  final Function(Widget, bool)? wHookShouldUpdateWidgetChildren;
   final Function(UpdateType)? roHookUpdate;
 
   // overrides
 
-  final bool Function()? wOverrideShouldWidgetUpdate;
-  final bool Function()? wOverrideShouldWidgetChildrenUpdate;
+  final bool Function()? wOverrideShouldUpdateWidget;
+  final bool Function()? wOverrideShouldUpdateWidgetChildren;
 
   final List<Widget>? children;
 
@@ -53,19 +53,19 @@ class RT_TestWidget extends Widget {
     // widget events
 
     this.wEventCreateRenderObject,
-    this.wEventshouldWidgetUpdate,
-    this.wEventshouldWidgetChildrenUpdate,
+    this.wEventshouldUpdateWidget,
+    this.wEventshouldUpdateWidgetChildren,
 
     // overrides
 
-    this.wOverrideShouldWidgetUpdate,
-    this.wOverrideShouldWidgetChildrenUpdate,
+    this.wOverrideShouldUpdateWidget,
+    this.wOverrideShouldUpdateWidgetChildren,
 
     // data hokks
 
     this.roHookUpdate,
-    this.wHookShouldWidgetUpdate,
-    this.wHookShouldWidgetChildrenUpdate,
+    this.wHookShouldUpdateWidget,
+    this.wHookShouldUpdateWidgetChildren,
     String? customHash,
   })  : hash = customHash ?? 'none',
         super(key: key);
@@ -78,34 +78,34 @@ class RT_TestWidget extends Widget {
   DomTagType get correspondingTag => DomTagType.division;
 
   @override
-  bool shouldWidgetUpdate(oldWidget) {
-    if (null != wEventshouldWidgetUpdate) {
-      wEventshouldWidgetUpdate!();
+  bool shouldUpdateWidget(oldWidget) {
+    if (null != wEventshouldUpdateWidget) {
+      wEventshouldUpdateWidget!();
     }
 
-    if (null != wHookShouldWidgetUpdate) {
-      wHookShouldWidgetUpdate!(oldWidget);
+    if (null != wHookShouldUpdateWidget) {
+      wHookShouldUpdateWidget!(oldWidget);
     }
 
-    if (null != wOverrideShouldWidgetUpdate) {
-      return wOverrideShouldWidgetUpdate!();
+    if (null != wOverrideShouldUpdateWidget) {
+      return wOverrideShouldUpdateWidget!();
     }
 
     return true;
   }
 
   @override
-  bool shouldWidgetChildrenUpdate(oldWidget, shouldWidgetUpdate) {
-    if (null != wEventshouldWidgetChildrenUpdate) {
-      wEventshouldWidgetChildrenUpdate!();
+  bool shouldUpdateWidgetChildren(oldWidget, shouldUpdateWidget) {
+    if (null != wEventshouldUpdateWidgetChildren) {
+      wEventshouldUpdateWidgetChildren!();
     }
 
-    if (null != wHookShouldWidgetChildrenUpdate) {
-      wHookShouldWidgetChildrenUpdate!(oldWidget, shouldWidgetUpdate);
+    if (null != wHookShouldUpdateWidgetChildren) {
+      wHookShouldUpdateWidgetChildren!(oldWidget, shouldUpdateWidget);
     }
 
-    if (null != wOverrideShouldWidgetChildrenUpdate) {
-      return wOverrideShouldWidgetChildrenUpdate!();
+    if (null != wOverrideShouldUpdateWidgetChildren) {
+      return wOverrideShouldUpdateWidgetChildren!();
     }
 
     return true;
@@ -133,11 +133,11 @@ class RT_TestWidget extends Widget {
 /// Render object of test widget.
 ///
 class RT_TestRenderElement extends RenderElement {
-  final Callback? roEventRender;
-  final Callback? roEventUpdate;
-  final Callback? roEventAfterMount;
-  final Callback? roEventAfterWidgetRebind;
-  final Callback? roEventBeforeUnMount;
+  final VoidCallback? roEventRender;
+  final VoidCallback? roEventUpdate;
+  final VoidCallback? roEventAfterMount;
+  final VoidCallback? roEventAfterWidgetRebind;
+  final VoidCallback? roEventBeforeUnMount;
 
   final Function(UpdateType)? roHookUpdate;
 
@@ -213,19 +213,19 @@ class RT_AnotherTestWidget extends RT_TestWidget {
   const RT_AnotherTestWidget({
     Key? key,
     List<Widget>? children,
-    Callback? roEventRender,
-    Callback? roEventUpdate,
-    Callback? roEventAfterMount,
-    Callback? roEventAfterWidgetRebind,
-    Callback? roEventBeforeUnMount,
-    Callback? wEventCreateRenderObject,
+    VoidCallback? roEventRender,
+    VoidCallback? roEventUpdate,
+    VoidCallback? roEventAfterMount,
+    VoidCallback? roEventAfterWidgetRebind,
+    VoidCallback? roEventBeforeUnMount,
+    VoidCallback? wEventCreateRenderObject,
 
     // should update
 
-    Callback? wEventshouldWidgetUpdate,
-    Callback? wEventshouldWidgetChildrenUpdate,
-    bool Function()? wOverrideShouldWidgetUpdate,
-    bool Function()? wOverrideShouldWidgetChildrenUpdate,
+    VoidCallback? wEventshouldUpdateWidget,
+    VoidCallback? wEventshouldUpdateWidgetChildren,
+    bool Function()? wOverrideShouldUpdateWidget,
+    bool Function()? wOverrideShouldUpdateWidgetChildren,
     String? customHash,
   }) : super(
           key: key,
@@ -239,11 +239,11 @@ class RT_AnotherTestWidget extends RT_TestWidget {
 
           // should update
 
-          wEventshouldWidgetUpdate: wEventshouldWidgetUpdate,
-          wEventshouldWidgetChildrenUpdate: wEventshouldWidgetChildrenUpdate,
-          wOverrideShouldWidgetUpdate: wOverrideShouldWidgetUpdate,
-          wOverrideShouldWidgetChildrenUpdate:
-              wOverrideShouldWidgetChildrenUpdate,
+          wEventshouldUpdateWidget: wEventshouldUpdateWidget,
+          wEventshouldUpdateWidgetChildren: wEventshouldUpdateWidgetChildren,
+          wOverrideShouldUpdateWidget: wOverrideShouldUpdateWidget,
+          wOverrideShouldUpdateWidgetChildren:
+              wOverrideShouldUpdateWidgetChildren,
           customHash: customHash,
         );
 }

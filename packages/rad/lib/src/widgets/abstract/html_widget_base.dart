@@ -4,7 +4,7 @@ import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/cache.dart';
-import 'package:rad/src/core/common/objects/dom_node_description.dart';
+import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -39,10 +39,10 @@ abstract class HTMLWidgetBase extends Widget {
   ///
   final bool? draggable;
 
-  /// The contenteditable attribute specifies whether the content of an
+  /// The contentEditable attribute specifies whether the content of an
   /// dom node is editable or not.
   ///
-  final bool? contenteditable;
+  final bool? contentEditable;
 
   /// The data-* attributes is used to store custom data
   /// private to the page or application.
@@ -96,7 +96,7 @@ abstract class HTMLWidgetBase extends Widget {
     this.dataAttributes,
     this.hidden,
     this.draggable,
-    this.contenteditable,
+    this.contentEditable,
     this.onClickAttribute,
     this.innerText,
     this.child,
@@ -116,7 +116,7 @@ abstract class HTMLWidgetBase extends Widget {
       };
 
   @override
-  bool shouldWidgetUpdate(oldWidget) {
+  bool shouldUpdateWidget(oldWidget) {
     oldWidget as HTMLWidgetBase;
 
     return id != oldWidget.id ||
@@ -126,7 +126,7 @@ abstract class HTMLWidgetBase extends Widget {
         classAttribute != oldWidget.classAttribute ||
         hidden != oldWidget.hidden ||
         draggable != oldWidget.draggable ||
-        contenteditable != oldWidget.contenteditable ||
+        contentEditable != oldWidget.contentEditable ||
         onClickAttribute != oldWidget.onClickAttribute ||
         innerText != oldWidget.innerText ||
         !fnIsKeyValueMapEqual(dataAttributes, oldWidget.dataAttributes);
@@ -187,7 +187,7 @@ class HTMLBaseElement extends RenderElement {
       oldDataAttributes: null,
     );
 
-    return DomNodeDescription(
+    return DomNodePatch(
       dataset: dataset,
       attributes: attributes,
       textContents: widget.innerText,
@@ -227,7 +227,7 @@ class HTMLBaseElement extends RenderElement {
       oldDataAttributes: oldWidget.dataAttributes,
     );
 
-    return DomNodeDescription(
+    return DomNodePatch(
       dataset: dataset,
       attributes: attributes,
       textContents: newWidget.innerText,
@@ -303,10 +303,10 @@ Map<String, String?> _prepareAttributes({
     }
   }
 
-  if (null != widget.contenteditable) {
-    attributes[Attributes.contentEditable] = '${widget.contenteditable}';
+  if (null != widget.contentEditable) {
+    attributes[Attributes.contentEditable] = '${widget.contentEditable}';
   } else {
-    if (null != oldWidget?.contenteditable) {
+    if (null != oldWidget?.contentEditable) {
       attributes[Attributes.contentEditable] = null;
     }
   }
