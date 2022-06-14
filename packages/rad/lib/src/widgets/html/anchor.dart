@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
@@ -83,17 +82,19 @@ class Anchor extends HTMLWidgetBase {
   }
 
   @override
-  createRenderObject(context) => _AnchorRenderObject(context);
+  createRenderElement(parent) => AnchorRenderElement(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class _AnchorRenderObject extends MarkUpGlobalRenderObject {
-  const _AnchorRenderObject(BuildContext context) : super(context);
+/// Anchor render element.
+///
+class AnchorRenderElement extends HTMLBaseElement {
+  AnchorRenderElement(super.widget, super.parent);
 
   @override
   render({

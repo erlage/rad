@@ -34,14 +34,14 @@ void main() {
             RT_TestWidget(key: GlobalKey('widget-4')),
             RT_TestWidget(key: GlobalKey('widget-5')),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: app!.appContext,
-          widgetActionCallback: (widgetObject) {
-            testStack.push(widgetObject.context.key.value);
+          parentRenderElement: app!.appRenderElement,
+          widgetActionCallback: (renderElement) {
+            testStack.push(renderElement.key?.value ?? '');
 
             return [];
           },
@@ -71,15 +71,15 @@ void main() {
             RT_TestWidget(key: GlobalKey('widget-4')),
             RT_TestWidget(key: GlobalKey('widget-5')),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
           flagIterateInReverseOrder: false,
-          widgetActionCallback: (widgetObject) {
-            testStack.push(widgetObject.context.key.value);
+          widgetActionCallback: (renderElement) {
+            testStack.push(renderElement.key?.value ?? '');
 
             return [];
           },
@@ -109,15 +109,15 @@ void main() {
             RT_TestWidget(key: GlobalKey('widget-4')),
             RT_TestWidget(key: GlobalKey('widget-5')),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
           flagIterateInReverseOrder: true,
-          widgetActionCallback: (widgetObject) {
-            testStack.push(widgetObject.context.key.value);
+          widgetActionCallback: (renderElement) {
+            testStack.push(renderElement.key?.value ?? '');
 
             return [];
           },
@@ -152,14 +152,14 @@ void main() {
             RT_TestWidget(key: GlobalKey('widget-4')),
             RT_TestWidget(key: GlobalKey('widget-5')),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: app!.appContext,
-          widgetActionCallback: (widgetObject) {
-            testStack.push(widgetObject.context.key.value);
+          parentRenderElement: app!.appRenderElement,
+          widgetActionCallback: (renderElement) {
+            testStack.push(renderElement.key?.value ?? '');
 
             return [];
           },
@@ -194,16 +194,16 @@ void main() {
             RT_TestWidget(key: GlobalKey('widget-4')),
             RT_TestWidget(key: GlobalKey('widget-5')),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: app!.appContext,
-          widgetActionCallback: (widgetObject) {
-            testStack.push(widgetObject.context.key.value);
+          parentRenderElement: app!.appRenderElement,
+          widgetActionCallback: (renderElement) {
+            testStack.push(renderElement.key?.value ?? '');
 
-            if ('widget-3' == widgetObject.context.key.value) {
+            if ('widget-3' == (renderElement.key?.value ?? '')) {
               return [WidgetAction.skipRest];
             }
 
@@ -228,27 +228,27 @@ void main() {
           widgets: [
             RT_TestWidget(
               key: GlobalKey('widget-1'),
-              roEventHookBeforeUnMount: () => testStack.push('dispose-1'),
+              roEventBeforeUnMount: () => testStack.push('dispose-1'),
             ),
             RT_TestWidget(
               key: GlobalKey('widget-2'),
-              roEventHookBeforeUnMount: () => testStack.push('dispose-2'),
+              roEventBeforeUnMount: () => testStack.push('dispose-2'),
             ),
             RT_TestWidget(
               key: GlobalKey('widget-3'),
-              roEventHookBeforeUnMount: () => testStack.push('dispose-3'),
+              roEventBeforeUnMount: () => testStack.push('dispose-3'),
             ),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: app!.appContext,
-          widgetActionCallback: (widgetObject) {
-            testStack.push(widgetObject.context.key.value);
+          parentRenderElement: app!.appRenderElement,
+          widgetActionCallback: (renderElement) {
+            testStack.push(renderElement.key?.value ?? '');
 
-            if ('widget-3' == widgetObject.context.key.value) {
+            if ('widget-3' == (renderElement.key?.value ?? '')) {
               return [WidgetAction.skipRest];
             }
 
@@ -275,11 +275,11 @@ void main() {
           widgets: [
             RT_TestWidget(
               key: GlobalKey('widget-1'),
-              roEventHookUpdate: () => testStack.push('update-1'),
+              roEventUpdate: () => testStack.push('update-1'),
             ),
             RT_TestWidget(
               key: GlobalKey('widget-2'),
-              roEventHookUpdate: () => testStack.push('update-2'),
+              roEventUpdate: () => testStack.push('update-2'),
               children: [
                 RT_TestWidget(
                   key: GlobalKey('widget-2-1'),
@@ -287,26 +287,26 @@ void main() {
                     RT_TestWidget(
                       key: GlobalKey('widget-2-1-1'),
                       children: [],
-                      roEventHookUpdate: () => testStack.push('update-2-1-1'),
+                      roEventUpdate: () => testStack.push('update-2-1-1'),
                     ),
                   ],
-                  roEventHookUpdate: () => testStack.push('update-2-1'),
+                  roEventUpdate: () => testStack.push('update-2-1'),
                 ),
               ],
             ),
             RT_TestWidget(
               key: GlobalKey('widget-3'),
-              roEventHookUpdate: () => testStack.push('update-3'),
+              roEventUpdate: () => testStack.push('update-3'),
             ),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: app!.appContext,
-          widgetActionCallback: (widgetObject) {
-            testStack.push(widgetObject.context.key.value);
+          parentRenderElement: app!.appRenderElement,
+          widgetActionCallback: (renderElement) {
+            testStack.push(renderElement.key?.value ?? '');
 
             return [WidgetAction.updateWidget];
           },
@@ -333,33 +333,33 @@ void main() {
             RT_TestWidget(key: GlobalKey('widget-2')),
             RT_TestWidget(key: GlobalKey('widget-3')),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: app!.appContext,
-          widgetActionCallback: (widgetObject) {
+          parentRenderElement: app!.appRenderElement,
+          widgetActionCallback: (renderElement) {
             return [WidgetAction.hideWidget];
           },
         );
 
-        var widget1 = app!.services.walker.getWidgetObjectUsingKey('widget-1');
-        var widget2 = app!.services.walker.getWidgetObjectUsingKey('widget-2');
-        var widget3 = app!.services.walker.getWidgetObjectUsingKey('widget-3');
+        var element1 = app!.renderElementByGlobalKey('widget-1')!;
+        var element2 = app!.renderElementByGlobalKey('widget-2')!;
+        var element3 = app!.renderElementByGlobalKey('widget-3')!;
 
         expect(
-          widget1!.domNode?.classes.contains(Constants.classHidden),
+          element1.domNode?.classes.contains(Constants.classHidden),
           equals(true),
         );
 
         expect(
-          widget2!.domNode?.classes.contains(Constants.classHidden),
+          element2.domNode?.classes.contains(Constants.classHidden),
           equals(true),
         );
 
         expect(
-          widget3!.domNode?.classes.contains(Constants.classHidden),
+          element3.domNode?.classes.contains(Constants.classHidden),
           equals(true),
         );
       },
@@ -374,47 +374,48 @@ void main() {
             RT_TestWidget(key: GlobalKey('widget-2')),
             RT_TestWidget(key: GlobalKey('widget-3')),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         // first hide widgets
 
         await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: app!.appContext,
-          widgetActionCallback: (widgetObject) {
+          parentRenderElement: app!.appRenderElement,
+          widgetActionCallback: (renderElement) {
             return [WidgetAction.hideWidget];
           },
         );
 
         await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: app!.appContext,
-          widgetActionCallback: (widgetObject) {
+          parentRenderElement: app!.appRenderElement,
+          widgetActionCallback: (renderElement) {
             return [WidgetAction.showWidget];
           },
         );
 
-        var widget1 = app!.services.walker.getWidgetObjectUsingKey('widget-1');
-        var widget2 = app!.services.walker.getWidgetObjectUsingKey('widget-2');
-        var widget3 = app!.services.walker.getWidgetObjectUsingKey('widget-3');
+        var element1 = app!.renderElementByGlobalKey('widget-1')!;
+        var element2 = app!.renderElementByGlobalKey('widget-2')!;
+        var element3 = app!.renderElementByGlobalKey('widget-3')!;
 
         expect(
-          widget1!.domNode?.classes.contains(Constants.classHidden),
+          element1.domNode?.classes.contains(Constants.classHidden),
           equals(false),
         );
 
         expect(
-          widget2!.domNode?.classes.contains(Constants.classHidden),
+          element2.domNode?.classes.contains(Constants.classHidden),
           equals(false),
         );
 
         expect(
-          widget3!.domNode?.classes.contains(Constants.classHidden),
+          element3.domNode?.classes.contains(Constants.classHidden),
           equals(false),
         );
       },
     );
+
     test(
       'should be able to run update on tree containing non-direct childs '
       'direct childs are the childs that widget provides in widget constructor '
@@ -434,19 +435,19 @@ void main() {
               ],
             ),
           ],
-          parentContext: pap.appContext,
+          parentRenderElement: pap.appRenderElement,
           updateType: UpdateType.setState,
         );
 
         await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: app!.appContext,
-          widgetActionCallback: (widgetObject) {
+          parentRenderElement: app!.appRenderElement,
+          widgetActionCallback: (renderElement) {
             return [WidgetAction.updateWidget];
           },
         );
 
-        var route = pap.widget('route');
+        var route = pap.widgetByGlobalKey('route');
 
         expect((route as Route).name, equals('some-name'));
       },
@@ -461,8 +462,8 @@ void main() {
           widgets: [
             RT_TestWidget(
               key: GlobalKey('widget-1'),
-              roEventHookUpdate: () => testStack.push('update-1'),
-              roEventHookBeforeUnMount: () => testStack.push('dispose-1'),
+              roEventUpdate: () => testStack.push('update-1'),
+              roEventBeforeUnMount: () => testStack.push('dispose-1'),
             ),
             RT_TestWidget(
               key: GlobalKey('widget-2'),
@@ -474,33 +475,33 @@ void main() {
                       key: GlobalKey('widget-2-1-1'),
                       children: [],
                       // should never cascade update to this level
-                      roEventHookUpdate: () => testStack.push('update-2-1-1'),
+                      roEventUpdate: () => testStack.push('update-2-1-1'),
                     ),
                   ],
-                  roEventHookUpdate: () => testStack.push('update-2-1'),
-                  roEventHookBeforeUnMount: () => testStack.push('dispose-2-1'),
+                  roEventUpdate: () => testStack.push('update-2-1'),
+                  roEventBeforeUnMount: () => testStack.push('dispose-2-1'),
                 ),
               ],
-              roEventHookUpdate: () => testStack.push('update-2'),
-              roEventHookBeforeUnMount: () => testStack.push('dispose-2'),
+              roEventUpdate: () => testStack.push('update-2'),
+              roEventBeforeUnMount: () => testStack.push('dispose-2'),
             ),
             RT_TestWidget(
               key: GlobalKey('widget-3'),
-              roEventHookUpdate: () => testStack.push('update-3'),
-              roEventHookBeforeUnMount: () => testStack.push('dispose-3'),
+              roEventUpdate: () => testStack.push('update-3'),
+              roEventBeforeUnMount: () => testStack.push('dispose-3'),
             ),
             RT_TestWidget(key: GlobalKey('widget-4')),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         await app!.manageChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: app!.appContext,
-          widgetActionCallback: (widgetObject) {
-            testStack.push(widgetObject.context.key.value);
+          parentRenderElement: app!.appRenderElement,
+          widgetActionCallback: (renderElement) {
+            testStack.push(renderElement.key?.value ?? '');
 
-            switch (widgetObject.context.key.value) {
+            switch (renderElement.key?.value ?? '') {
               case 'widget-1':
                 return [
                   WidgetAction.hideWidget,
@@ -525,16 +526,16 @@ void main() {
           },
         );
 
-        var widget1 = app!.services.walker.getWidgetObjectUsingKey('widget-1');
-        var widget3 = app!.services.walker.getWidgetObjectUsingKey('widget-3');
+        var element1 = app!.renderElementByGlobalKey('widget-1')!;
+        var element3 = app!.renderElementByGlobalKey('widget-3')!;
 
         expect(
-          widget1!.domNode?.classes.contains(Constants.classHidden),
+          element1.domNode?.classes.contains(Constants.classHidden),
           equals(false),
         );
 
         expect(
-          widget3!.domNode?.classes.contains(Constants.classHidden),
+          element3.domNode?.classes.contains(Constants.classHidden),
           equals(true),
         );
 

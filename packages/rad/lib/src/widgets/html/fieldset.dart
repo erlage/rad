@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
@@ -66,17 +65,19 @@ class FieldSet extends HTMLWidgetBase {
   }
 
   @override
-  createRenderObject(context) => _FieldSetRenderObject(context);
+  createRenderElement(parent) => FieldSetRenderElement(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class _FieldSetRenderObject extends MarkUpGlobalRenderObject {
-  const _FieldSetRenderObject(BuildContext context) : super(context);
+/// Field set render element.
+///
+class FieldSetRenderElement extends HTMLBaseElement {
+  FieldSetRenderElement(super.widget, super.parent);
 
   @override
   render({

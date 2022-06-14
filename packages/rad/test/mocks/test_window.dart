@@ -57,11 +57,11 @@ class RT_TestWindow extends WindowDelegate {
 
   @override
   addPopStateListener({
-    required context,
+    required rootElement,
     required callback,
   }) {
-    if (!_psListeners.containsKey(context.appTargetId)) {
-      _psListeners[context.appTargetId] = callback;
+    if (!_psListeners.containsKey(rootElement.appTargetId)) {
+      _psListeners[rootElement.appTargetId] = callback;
     }
   }
 
@@ -138,7 +138,7 @@ class RT_TestWindow extends WindowDelegate {
   }
 
   void dispatchBackAction() {
-    historyBack(context: RT_TestBed.rootContext);
+    historyBack(context: RT_TestBed.rootRenderElement);
   }
 
   void dispatchForwardAction() {

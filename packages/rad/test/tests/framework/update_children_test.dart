@@ -19,17 +19,17 @@ void main() {
         (tester) async {
       await tester.pumpWidget(
         RT_TestWidget(
-          roEventHookRender: () => tester.push('render 1a'),
-          roEventHookUpdate: () => tester.push('update 1a'),
-          roEventHookBeforeUnMount: () => tester.push('dispose 1a'),
+          roEventRender: () => tester.push('render 1a'),
+          roEventUpdate: () => tester.push('update 1a'),
+          roEventBeforeUnMount: () => tester.push('dispose 1a'),
         ),
       );
 
       await tester.rePumpWidget(
         RT_AnotherTestWidget(
-          roEventHookRender: () => tester.push('render 1b'),
-          roEventHookUpdate: () => tester.push('update 1b'),
-          roEventHookBeforeUnMount: () => tester.push('dispose 1b'),
+          roEventRender: () => tester.push('render 1b'),
+          roEventUpdate: () => tester.push('update 1b'),
+          roEventBeforeUnMount: () => tester.push('dispose 1b'),
         ),
       );
 
@@ -37,9 +37,9 @@ void main() {
 
       await tester.rePumpWidget(
         RT_TestWidget(
-          roEventHookRender: () => tester.push('render 1c'),
-          roEventHookUpdate: () => tester.push('update 1c'),
-          roEventHookBeforeUnMount: () => tester.push('dispose 1c'),
+          roEventRender: () => tester.push('render 1c'),
+          roEventUpdate: () => tester.push('update 1c'),
+          roEventBeforeUnMount: () => tester.push('dispose 1c'),
         ),
       );
 
@@ -57,17 +57,17 @@ void main() {
       (tester) async {
         await tester.pumpWidget(
           RT_TestWidget(
-            roEventHookRender: () => tester.push('render 1a'),
-            roEventHookUpdate: () => tester.push('update 1a'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1a'),
+            roEventRender: () => tester.push('render 1a'),
+            roEventUpdate: () => tester.push('update 1a'),
+            roEventBeforeUnMount: () => tester.push('dispose 1a'),
           ),
         );
 
         await tester.rePumpWidget(
           RT_AnotherTestWidget(
-            roEventHookRender: () => tester.push('render 1b'),
-            roEventHookUpdate: () => tester.push('update 1b'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1b'),
+            roEventRender: () => tester.push('render 1b'),
+            roEventUpdate: () => tester.push('update 1b'),
+            roEventBeforeUnMount: () => tester.push('dispose 1b'),
           ),
         );
 
@@ -75,9 +75,9 @@ void main() {
 
         await tester.rePumpWidget(
           RT_TestWidget(
-            roEventHookRender: () => tester.push('render 1c'),
-            roEventHookUpdate: () => tester.push('update 1c'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1c'),
+            roEventRender: () => tester.push('render 1c'),
+            roEventUpdate: () => tester.push('update 1c'),
+            roEventBeforeUnMount: () => tester.push('dispose 1c'),
           ),
         );
 
@@ -98,18 +98,18 @@ void main() {
         await tester.pumpWidget(
           RT_TestWidget(
             key: Key('key-original'),
-            roEventHookRender: () => tester.push('render 1a'),
-            roEventHookUpdate: () => tester.push('update 1a'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1a'),
+            roEventRender: () => tester.push('render 1a'),
+            roEventUpdate: () => tester.push('update 1a'),
+            roEventBeforeUnMount: () => tester.push('dispose 1a'),
           ),
         );
 
         await tester.rePumpWidget(
           RT_AnotherTestWidget(
             key: Key('key-original'),
-            roEventHookRender: () => tester.push('render 1b'),
-            roEventHookUpdate: () => tester.push('update 1b'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1b'),
+            roEventRender: () => tester.push('render 1b'),
+            roEventUpdate: () => tester.push('update 1b'),
+            roEventBeforeUnMount: () => tester.push('dispose 1b'),
           ),
         );
 
@@ -118,9 +118,9 @@ void main() {
         await tester.rePumpWidget(
           RT_TestWidget(
             key: Key('key-original'),
-            roEventHookRender: () => tester.push('render 1c'),
-            roEventHookUpdate: () => tester.push('update 1c'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1c'),
+            roEventRender: () => tester.push('render 1c'),
+            roEventUpdate: () => tester.push('update 1c'),
+            roEventBeforeUnMount: () => tester.push('dispose 1c'),
           ),
         );
 
@@ -140,19 +140,19 @@ void main() {
       (tester) async {
         await tester.pumpWidget(
           RT_TestWidget(
-            key: LocalKey('key-original'),
-            roEventHookRender: () => tester.push('render 1a'),
-            roEventHookUpdate: () => tester.push('update 1a'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1a'),
+            key: GlobalKey('key-original'),
+            roEventRender: () => tester.push('render 1a'),
+            roEventUpdate: () => tester.push('update 1a'),
+            roEventBeforeUnMount: () => tester.push('dispose 1a'),
           ),
         );
 
         await tester.rePumpWidget(
           RT_AnotherTestWidget(
-            key: LocalKey('key-original'),
-            roEventHookRender: () => tester.push('render 1b'),
-            roEventHookUpdate: () => tester.push('update 1b'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1b'),
+            key: GlobalKey('key-original'),
+            roEventRender: () => tester.push('render 1b'),
+            roEventUpdate: () => tester.push('update 1b'),
+            roEventBeforeUnMount: () => tester.push('dispose 1b'),
           ),
         );
 
@@ -160,10 +160,10 @@ void main() {
 
         await tester.rePumpWidget(
           RT_TestWidget(
-            key: LocalKey('key-original'),
-            roEventHookRender: () => tester.push('render 1c'),
-            roEventHookUpdate: () => tester.push('update 1c'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1c'),
+            key: GlobalKey('key-original'),
+            roEventRender: () => tester.push('render 1c'),
+            roEventUpdate: () => tester.push('update 1c'),
+            roEventBeforeUnMount: () => tester.push('dispose 1c'),
           ),
         );
 
@@ -184,18 +184,18 @@ void main() {
         await tester.pumpWidget(
           RT_TestWidget(
             key: GlobalKey('key-original'),
-            roEventHookRender: () => tester.push('render 1a'),
-            roEventHookUpdate: () => tester.push('update 1a'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1a'),
+            roEventRender: () => tester.push('render 1a'),
+            roEventUpdate: () => tester.push('update 1a'),
+            roEventBeforeUnMount: () => tester.push('dispose 1a'),
           ),
         );
 
         await tester.rePumpWidget(
           RT_AnotherTestWidget(
             key: GlobalKey('key-original'),
-            roEventHookRender: () => tester.push('render 1b'),
-            roEventHookUpdate: () => tester.push('update 1b'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1b'),
+            roEventRender: () => tester.push('render 1b'),
+            roEventUpdate: () => tester.push('update 1b'),
+            roEventBeforeUnMount: () => tester.push('dispose 1b'),
           ),
         );
 
@@ -204,9 +204,9 @@ void main() {
         await tester.rePumpWidget(
           RT_TestWidget(
             key: GlobalKey('key-original'),
-            roEventHookRender: () => tester.push('render 1c'),
-            roEventHookUpdate: () => tester.push('update 1c'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1c'),
+            roEventRender: () => tester.push('render 1c'),
+            roEventUpdate: () => tester.push('update 1c'),
+            roEventBeforeUnMount: () => tester.push('dispose 1c'),
           ),
         );
 
@@ -227,18 +227,18 @@ void main() {
         await tester.pumpWidget(
           RT_TestWidget(
             key: Key('key-original'),
-            roEventHookRender: () => tester.push('render 1a'),
-            roEventHookUpdate: () => tester.push('update 1a'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1a'),
+            roEventRender: () => tester.push('render 1a'),
+            roEventUpdate: () => tester.push('update 1a'),
+            roEventBeforeUnMount: () => tester.push('dispose 1a'),
           ),
         );
 
         await tester.rePumpWidget(
           RT_TestWidget(
             key: Key('key-changed'),
-            roEventHookRender: () => tester.push('render 1b'),
-            roEventHookUpdate: () => tester.push('update 1b'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1b'),
+            roEventRender: () => tester.push('render 1b'),
+            roEventUpdate: () => tester.push('update 1b'),
+            roEventBeforeUnMount: () => tester.push('dispose 1b'),
           ),
         );
 
@@ -247,9 +247,9 @@ void main() {
         await tester.rePumpWidget(
           RT_TestWidget(
             key: Key('key-orginal'),
-            roEventHookRender: () => tester.push('render 1c'),
-            roEventHookUpdate: () => tester.push('update 1c'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1c'),
+            roEventRender: () => tester.push('render 1c'),
+            roEventUpdate: () => tester.push('update 1c'),
+            roEventBeforeUnMount: () => tester.push('dispose 1c'),
           ),
         );
 
@@ -264,45 +264,50 @@ void main() {
     );
 
     testWidgets(
-      'should build new widget when runtime types of widgets are matched '
-      'and keys are matched as well but keys have different runtime type',
-      (tester) async {
-        await tester.pumpWidget(
-          RT_TestWidget(
-            key: Key('key-original'),
-            roEventHookRender: () => tester.push('render 1a'),
-            roEventHookUpdate: () => tester.push('update 1a'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1a'),
-          ),
-        );
+        'should build new widget when runtime types of widgets are matched '
+        'and keys are matched as well but keys have different runtime type',
+        (tester) async {
+      await tester.pumpWidget(
+        RT_TestWidget(
+          key: Key('key-original'),
+          roEventRender: () => tester.push('render 1a'),
+          roEventUpdate: () => tester.push('update 1a'),
+          roEventBeforeUnMount: () => tester.push('dispose 1a'),
+        ),
+      );
 
-        await tester.rePumpWidget(
-          RT_TestWidget(
-            key: LocalKey('key-original'),
-            roEventHookRender: () => tester.push('render 1b'),
-            roEventHookUpdate: () => tester.push('update 1b'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1b'),
-          ),
-        );
+      await tester.rePumpWidget(
+        RT_TestWidget(
+          key: GlobalKey('key-original'),
+          roEventRender: () => tester.push('render 1b'),
+          roEventUpdate: () => tester.push('update 1b'),
+          roEventBeforeUnMount: () => tester.push('dispose 1b'),
+        ),
+      );
 
-        await tester.rePumpWidget(
-          RT_TestWidget(
-            key: GlobalKey('key-original'),
-            roEventHookRender: () => tester.push('render 1c'),
-            roEventHookUpdate: () => tester.push('update 1c'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1c'),
-          ),
-        );
+      await tester.rePumpWidget(
+        RT_TestWidget(
+          key: GlobalKey('key-original'),
+          roEventRender: () => tester.push('render 1c'),
+          roEventUpdate: () => tester.push('update 1c'),
+          roEventBeforeUnMount: () => tester.push('dispose 1c'),
+        ),
+      );
 
-        tester.assertMatchStack([
-          'render 1a',
-          'dispose 1a',
-          'render 1b',
-          'dispose 1b',
-          'render 1c',
-        ]);
-      },
-    );
+      tester.assertMatchStack([
+        'render 1a',
+        'dispose 1a',
+        'render 1b',
+        'update 1b',
+      ]);
+
+      // Definition of global key has changed
+
+      // we can get the desired behaviour by internally adding a K/GKs prefix
+      // to values of keys. For now I've decided to make no distinction between
+      // global and normal keys other than that elements with global keys are registered
+      // and can be fetched from walker service
+    }, skip: true);
 
     // update tests
 
@@ -312,17 +317,17 @@ void main() {
       (tester) async {
         await tester.pumpWidget(
           RT_TestWidget(
-            roEventHookRender: () => tester.push('render 1a'),
-            roEventHookUpdate: () => tester.push('update 1a'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1a'),
+            roEventRender: () => tester.push('render 1a'),
+            roEventUpdate: () => tester.push('update 1a'),
+            roEventBeforeUnMount: () => tester.push('dispose 1a'),
           ),
         );
 
         await tester.rePumpWidget(
           RT_TestWidget(
-            roEventHookRender: () => tester.push('render 2a'),
-            roEventHookUpdate: () => tester.push('update 2a'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 2a'),
+            roEventRender: () => tester.push('render 2a'),
+            roEventUpdate: () => tester.push('update 2a'),
+            roEventBeforeUnMount: () => tester.push('dispose 2a'),
           ),
         );
 
@@ -330,9 +335,9 @@ void main() {
 
         await tester.rePumpWidget(
           RT_TestWidget(
-            roEventHookRender: () => tester.push('render 3a'),
-            roEventHookUpdate: () => tester.push('update 3a'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 3a'),
+            roEventRender: () => tester.push('render 3a'),
+            roEventUpdate: () => tester.push('update 3a'),
+            roEventBeforeUnMount: () => tester.push('dispose 3a'),
           ),
         );
 
@@ -350,18 +355,18 @@ void main() {
         await tester.pumpWidget(
           RT_TestWidget(
             key: Key('key-original'),
-            roEventHookRender: () => tester.push('render 1a'),
-            roEventHookUpdate: () => tester.push('update 1a'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1a'),
+            roEventRender: () => tester.push('render 1a'),
+            roEventUpdate: () => tester.push('update 1a'),
+            roEventBeforeUnMount: () => tester.push('dispose 1a'),
           ),
         );
 
         await tester.rePumpWidget(
           RT_TestWidget(
             key: Key('key-original'),
-            roEventHookRender: () => tester.push('render 2a'),
-            roEventHookUpdate: () => tester.push('update 2a'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 2a'),
+            roEventRender: () => tester.push('render 2a'),
+            roEventUpdate: () => tester.push('update 2a'),
+            roEventBeforeUnMount: () => tester.push('dispose 2a'),
           ),
         );
 
@@ -370,9 +375,9 @@ void main() {
         await tester.rePumpWidget(
           RT_TestWidget(
             key: Key('key-original'),
-            roEventHookRender: () => tester.push('render 3a'),
-            roEventHookUpdate: () => tester.push('update 3a'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 3a'),
+            roEventRender: () => tester.push('render 3a'),
+            roEventUpdate: () => tester.push('update 3a'),
+            roEventBeforeUnMount: () => tester.push('dispose 3a'),
           ),
         );
 
@@ -389,19 +394,19 @@ void main() {
       (tester) async {
         await tester.pumpWidget(
           RT_TestWidget(
-            key: LocalKey('key-original'),
-            roEventHookRender: () => tester.push('render 1a'),
-            roEventHookUpdate: () => tester.push('update 1a'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1a'),
+            key: GlobalKey('key-original'),
+            roEventRender: () => tester.push('render 1a'),
+            roEventUpdate: () => tester.push('update 1a'),
+            roEventBeforeUnMount: () => tester.push('dispose 1a'),
           ),
         );
 
         await tester.rePumpWidget(
           RT_TestWidget(
-            key: LocalKey('key-original'),
-            roEventHookRender: () => tester.push('render 2a'),
-            roEventHookUpdate: () => tester.push('update 2a'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 2a'),
+            key: GlobalKey('key-original'),
+            roEventRender: () => tester.push('render 2a'),
+            roEventUpdate: () => tester.push('update 2a'),
+            roEventBeforeUnMount: () => tester.push('dispose 2a'),
           ),
         );
 
@@ -409,10 +414,10 @@ void main() {
 
         await tester.rePumpWidget(
           RT_TestWidget(
-            key: LocalKey('key-original'),
-            roEventHookRender: () => tester.push('render 3a'),
-            roEventHookUpdate: () => tester.push('update 3a'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 3a'),
+            key: GlobalKey('key-original'),
+            roEventRender: () => tester.push('render 3a'),
+            roEventUpdate: () => tester.push('update 3a'),
+            roEventBeforeUnMount: () => tester.push('dispose 3a'),
           ),
         );
 
@@ -430,18 +435,18 @@ void main() {
         await tester.pumpWidget(
           RT_TestWidget(
             key: GlobalKey('key-original'),
-            roEventHookRender: () => tester.push('render 1a'),
-            roEventHookUpdate: () => tester.push('update 1a'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1a'),
+            roEventRender: () => tester.push('render 1a'),
+            roEventUpdate: () => tester.push('update 1a'),
+            roEventBeforeUnMount: () => tester.push('dispose 1a'),
           ),
         );
 
         await tester.rePumpWidget(
           RT_TestWidget(
             key: GlobalKey('key-original'),
-            roEventHookRender: () => tester.push('render 2a'),
-            roEventHookUpdate: () => tester.push('update 2a'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 2a'),
+            roEventRender: () => tester.push('render 2a'),
+            roEventUpdate: () => tester.push('update 2a'),
+            roEventBeforeUnMount: () => tester.push('dispose 2a'),
           ),
         );
 
@@ -450,9 +455,9 @@ void main() {
         await tester.rePumpWidget(
           RT_TestWidget(
             key: GlobalKey('key-original'),
-            roEventHookRender: () => tester.push('render 3a'),
-            roEventHookUpdate: () => tester.push('update 3a'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 3a'),
+            roEventRender: () => tester.push('render 3a'),
+            roEventUpdate: () => tester.push('update 3a'),
+            roEventBeforeUnMount: () => tester.push('dispose 3a'),
           ),
         );
 
@@ -471,40 +476,40 @@ void main() {
       (tester) async {
         await tester.pumpMultipleWidgets([
           RT_TestWidget(
-            roEventHookRender: () => tester.push('render 1a-1'),
-            roEventHookUpdate: () => tester.push('update 1a-1'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1a-1'),
+            roEventRender: () => tester.push('render 1a-1'),
+            roEventUpdate: () => tester.push('update 1a-1'),
+            roEventBeforeUnMount: () => tester.push('dispose 1a-1'),
           ),
           RT_TestWidget(
-            roEventHookRender: () => tester.push('render 1a-2'),
-            roEventHookUpdate: () => tester.push('update 1a-2'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1a-2'),
+            roEventRender: () => tester.push('render 1a-2'),
+            roEventUpdate: () => tester.push('update 1a-2'),
+            roEventBeforeUnMount: () => tester.push('dispose 1a-2'),
           ),
         ]);
 
         await tester.rePumpMultipleWidgets([
           RT_AnotherTestWidget(
-            roEventHookRender: () => tester.push('render 1b-1'),
-            roEventHookUpdate: () => tester.push('update 1b-1'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1b-1'),
+            roEventRender: () => tester.push('render 1b-1'),
+            roEventUpdate: () => tester.push('update 1b-1'),
+            roEventBeforeUnMount: () => tester.push('dispose 1b-1'),
           ),
           RT_AnotherTestWidget(
-            roEventHookRender: () => tester.push('render 1b-2'),
-            roEventHookUpdate: () => tester.push('update 1b-2'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1b-2'),
+            roEventRender: () => tester.push('render 1b-2'),
+            roEventUpdate: () => tester.push('update 1b-2'),
+            roEventBeforeUnMount: () => tester.push('dispose 1b-2'),
           ),
         ], flagAddIfNotFound: false);
 
         await tester.rePumpMultipleWidgets([
           RT_TestWidget(
-            roEventHookRender: () => tester.push('render 1c-1'),
-            roEventHookUpdate: () => tester.push('update 1c-1'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1c-1'),
+            roEventRender: () => tester.push('render 1c-1'),
+            roEventUpdate: () => tester.push('update 1c-1'),
+            roEventBeforeUnMount: () => tester.push('dispose 1c-1'),
           ),
           RT_TestWidget(
-            roEventHookRender: () => tester.push('render 1c-2'),
-            roEventHookUpdate: () => tester.push('update 1c-2'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1c-2'),
+            roEventRender: () => tester.push('render 1c-2'),
+            roEventUpdate: () => tester.push('update 1c-2'),
+            roEventBeforeUnMount: () => tester.push('dispose 1c-2'),
           ),
         ], flagAddIfNotFound: false);
 
@@ -522,40 +527,40 @@ void main() {
       (tester) async {
         await tester.pumpMultipleWidgets([
           RT_TestWidget(
-            roEventHookRender: () => tester.push('render 1a-1'),
-            roEventHookUpdate: () => tester.push('update 1a-1'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1a-1'),
+            roEventRender: () => tester.push('render 1a-1'),
+            roEventUpdate: () => tester.push('update 1a-1'),
+            roEventBeforeUnMount: () => tester.push('dispose 1a-1'),
           ),
           RT_TestWidget(
-            roEventHookRender: () => tester.push('render 1a-2'),
-            roEventHookUpdate: () => tester.push('update 1a-2'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1a-2'),
+            roEventRender: () => tester.push('render 1a-2'),
+            roEventUpdate: () => tester.push('update 1a-2'),
+            roEventBeforeUnMount: () => tester.push('dispose 1a-2'),
           ),
         ]);
 
         await tester.rePumpMultipleWidgets([
           RT_AnotherTestWidget(
-            roEventHookRender: () => tester.push('render 1b-1'),
-            roEventHookUpdate: () => tester.push('update 1b-1'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1b-1'),
+            roEventRender: () => tester.push('render 1b-1'),
+            roEventUpdate: () => tester.push('update 1b-1'),
+            roEventBeforeUnMount: () => tester.push('dispose 1b-1'),
           ),
           RT_AnotherTestWidget(
-            roEventHookRender: () => tester.push('render 1b-2'),
-            roEventHookUpdate: () => tester.push('update 1b-2'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1b-2'),
+            roEventRender: () => tester.push('render 1b-2'),
+            roEventUpdate: () => tester.push('update 1b-2'),
+            roEventBeforeUnMount: () => tester.push('dispose 1b-2'),
           ),
         ], flagAddIfNotFound: true);
 
         await tester.rePumpMultipleWidgets([
           RT_TestWidget(
-            roEventHookRender: () => tester.push('render 1c-1'),
-            roEventHookUpdate: () => tester.push('update 1c-1'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1c-1'),
+            roEventRender: () => tester.push('render 1c-1'),
+            roEventUpdate: () => tester.push('update 1c-1'),
+            roEventBeforeUnMount: () => tester.push('dispose 1c-1'),
           ),
           RT_TestWidget(
-            roEventHookRender: () => tester.push('render 1c-2'),
-            roEventHookUpdate: () => tester.push('update 1c-2'),
-            roEventHookBeforeUnMount: () => tester.push('dispose 1c-2'),
+            roEventRender: () => tester.push('render 1c-2'),
+            roEventUpdate: () => tester.push('update 1c-2'),
+            roEventBeforeUnMount: () => tester.push('dispose 1c-2'),
           ),
         ], flagAddIfNotFound: true);
 

@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
@@ -66,17 +65,19 @@ class Label extends HTMLWidgetBase {
   }
 
   @override
-  createRenderObject(context) => _LabelRenderObject(context);
+  createRenderElement(parent) => LabelRenderElement(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class _LabelRenderObject extends MarkUpGlobalRenderObject {
-  const _LabelRenderObject(BuildContext context) : super(context);
+/// Label render element.
+///
+class LabelRenderElement extends HTMLBaseElement {
+  LabelRenderElement(super.widget, super.parent);
 
   @override
   render({

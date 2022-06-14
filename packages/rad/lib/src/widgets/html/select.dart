@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
@@ -91,17 +90,19 @@ class Select extends HTMLWidgetBase {
   }
 
   @override
-  createRenderObject(context) => _SelectRenderObject(context);
+  createRenderElement(parent) => SelectRenderElement(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class _SelectRenderObject extends MarkUpGlobalRenderObject {
-  const _SelectRenderObject(BuildContext context) : super(context);
+/// Select render element.
+///
+class SelectRenderElement extends HTMLBaseElement {
+  SelectRenderElement(super.widget, super.parent);
 
   @override
   render({

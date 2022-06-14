@@ -1,5 +1,6 @@
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/constants.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
@@ -82,18 +83,21 @@ abstract class TableCellBase extends HTMLWidgetBase {
   }
 
   @override
-  createRenderObject(context) => _TableCellBaseRenderObject(context);
+  createRenderElement(parent) => TableCellBaseRenderElement(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class _TableCellBaseRenderObject extends MarkUpGlobalRenderObject {
-  const _TableCellBaseRenderObject(BuildContext context) : super(context);
+/// Table's cell base render element.
+///
+class TableCellBaseRenderElement extends HTMLBaseElement {
+  TableCellBaseRenderElement(super.wudget, super.parent);
 
+  @mustCallSuper
   @override
   render({
     required covariant TableCellBase widget,
@@ -112,6 +116,7 @@ class _TableCellBaseRenderObject extends MarkUpGlobalRenderObject {
     return domNodeDescription;
   }
 
+  @mustCallSuper
   @override
   update({
     required updateType,

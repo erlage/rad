@@ -16,17 +16,16 @@ class RT_AppRunner extends AppRunner {
 
   var _isDebugInformationEnabled = false;
 
-  BuildContext get appContext => services.walker
-      .getWidgetObjectUsingKey(
-        'app-widget',
-      )!
-      .context;
+  RenderElement get appRenderElement =>
+      services.walker.getRenderElementAssociatedWithGlobalKey(
+        GlobalKey('app-widget'),
+      )!;
 
   RT_AppRunner({
     required DebugOptions? debugOptions,
   }) : super.inTestMode(
           app: Text('dont build this one'),
-          targetId: RT_TestBed.rootContext.key.value,
+          targetId: RT_TestBed.rootTargetId,
           debugOptions: debugOptions,
         );
 
@@ -35,7 +34,7 @@ class RT_AppRunner extends AppRunner {
     this
       .._clearState()
       ..prepareTargetDomNode()
-      ..setupRootContext()
+      ..setupRootElement()
       ..setupOptions()
       ..setupDelegates()
       ..startServices()
@@ -59,7 +58,7 @@ class RT_AppRunner extends AppRunner {
     stack.clearState();
     window.clearState();
 
-    ServicesRegistry.instance.unRegisterServices(RT_TestBed.rootContext);
+    ServicesRegistry.instance.unRegisterServices(RT_TestBed.rootRenderElement);
   }
 
   @override
@@ -70,63 +69,28 @@ class RT_AppRunner extends AppRunner {
   void _buildAppWidget() {
     buildChildrenSync(
       widgets: [RT_TestWidget(key: GlobalKey('app-widget'))],
-      parentContext: RT_TestBed.rootContext,
+      parentRenderElement: rootElement,
       mountAtIndex: null,
       flagCleanParentContents: false,
     );
   }
 
-  /// Get widget object by key under app context.
+  /// Get render element by global key under app context.
   ///
-  WidgetObject widgetObjectByKey(String key, BuildContext parentContext) {
-    return services.walker.getWidgetObjectUsingKey(
-      services.keyGen.getGlobalKeyUsingKey(Key(key), parentContext).value,
-    )!;
-  }
-
-  /// Get widget object by local key under app context.
-  ///
-  WidgetObject widgetObjectByLocalKey(String key) {
-    return services.walker.getWidgetObjectUsingKey(
-      services.keyGen.getGlobalKeyUsingKey(LocalKey(key), appContext).value,
-    )!;
-  }
-
-  /// Get widget object by global key under app context.
-  ///
-  WidgetObject widgetObjectByGlobalKey(String key) {
-    return services.walker.getWidgetObjectUsingKey(
-      services.keyGen.getGlobalKeyUsingKey(GlobalKey(key), appContext).value,
-    )!;
+  RenderElement? renderElementByGlobalKey(String key) {
+    return services.walker.getRenderElementAssociatedWithGlobalKey(
+      GlobalKey(key),
+    );
   }
 
   /// Get widget by global key under app context.
   ///
-  Widget widget(String key) => widgetObjectByGlobalKey(key).widget;
-
-  /// Get dom node by key under app context.
-  ///
-  Element domNodeByKey(String key, BuildContext parentContext) =>
-      services.walker
-          .getWidgetObjectUsingKey(
-            services.keyGen.getGlobalKeyUsingKey(Key(key), parentContext).value,
-          )!
-          .domNode!;
-
-  /// Get dom node by local key under app context.
-  ///
-  Element domNodeByLocalKey(String key) => services.walker
-      .getWidgetObjectUsingKey(
-        services.keyGen
-            .getGlobalKeyUsingKey(LocalKey(key), RT_TestBed.rootContext)
-            .value,
-      )!
-      .domNode!;
+  Widget widgetByGlobalKey(String key) => renderElementByGlobalKey(key)!.widget;
 
   /// Get dom node by global key under app context.
   ///
   Element domNodeByGlobalKey(String key) =>
-      widgetObjectByGlobalKey(key).domNode!;
+      renderElementByGlobalKey(key)!.domNode!;
 
   /// Get app's dom node.
   ///
@@ -139,21 +103,21 @@ class RT_AppRunner extends AppRunner {
   /// Get state of navigator with global key.
   ///
   NavigatorState navigatorState(String key) {
-    var wo = widgetObjectByGlobalKey(key);
+    var wo = renderElementByGlobalKey(key);
 
-    return (wo.renderObject as NavigatorRenderObject).state;
+    return (wo as NavigatorRenderElement).state;
   }
 
   Future<void> buildChildren({
     required List<Widget> widgets,
-    required BuildContext parentContext,
+    required RenderElement parentRenderElement,
     int? mountAtIndex,
     bool flagCleanParentContents = true,
   }) async {
     services.scheduler.addTask(
       WidgetsBuildTask(
         widgets: widgets,
-        parentContext: parentContext,
+        parentRenderElement: parentRenderElement,
         mountAtIndex: mountAtIndex,
         flagCleanParentContents: flagCleanParentContents,
       ),
@@ -164,13 +128,13 @@ class RT_AppRunner extends AppRunner {
 
   void buildChildrenSync({
     required List<Widget> widgets,
-    required BuildContext parentContext,
+    required RenderElement parentRenderElement,
     int? mountAtIndex,
     bool flagCleanParentContents = true,
   }) {
     framework.renderer.render(
       widgets: widgets,
-      parentContext: parentContext,
+      parentRenderElement: parentRenderElement,
       mountAtIndex: mountAtIndex,
       flagCleanParentContents: flagCleanParentContents,
     );
@@ -178,14 +142,14 @@ class RT_AppRunner extends AppRunner {
 
   Future<void> updateChildren({
     required List<Widget> widgets,
-    required BuildContext parentContext,
+    required RenderElement parentRenderElement,
     required UpdateType updateType,
     bool flagAddIfNotFound = true,
   }) async {
     services.scheduler.addTask(
       WidgetsUpdateTask(
         widgets: widgets,
-        parentContext: parentContext,
+        parentRenderElement: parentRenderElement,
         updateType: updateType,
         flagAddIfNotFound: flagAddIfNotFound,
       ),
@@ -195,11 +159,11 @@ class RT_AppRunner extends AppRunner {
   }
 
   Future<void> updateDependent(
-    BuildContext widgetContext,
+    RenderElement dependentRenderElement,
   ) async {
     services.scheduler.addTask(
       WidgetsUpdateDependentTask(
-        widgetContext: widgetContext,
+        dependentRenderElement: dependentRenderElement,
       ),
     );
 
@@ -207,7 +171,7 @@ class RT_AppRunner extends AppRunner {
   }
 
   Future<void> manageChildren({
-    required BuildContext parentContext,
+    required RenderElement parentRenderElement,
     required WidgetActionsBuilder widgetActionCallback,
     required UpdateType updateType,
     bool flagIterateInReverseOrder = false,
@@ -215,7 +179,7 @@ class RT_AppRunner extends AppRunner {
     services.scheduler.addTask(
       WidgetsManageTask(
         updateType: updateType,
-        parentContext: parentContext,
+        parentRenderElement: parentRenderElement,
         widgetActionCallback: widgetActionCallback,
         flagIterateInReverseOrder: flagIterateInReverseOrder,
       ),
@@ -225,13 +189,13 @@ class RT_AppRunner extends AppRunner {
   }
 
   Future<void> disposeWidget({
-    required WidgetObject? widgetObject,
+    required RenderElement? renderElement,
     required bool flagPreserveTarget,
   }) async {
-    if (null != widgetObject) {
+    if (null != renderElement) {
       services.scheduler.addTask(
         WidgetsDisposeTask(
-          widgetObject: widgetObject,
+          renderElement: renderElement,
           flagPreserveTarget: flagPreserveTarget,
         ),
       );

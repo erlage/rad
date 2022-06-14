@@ -1,4 +1,5 @@
 import 'package:rad/src/core/common/objects/app_options.dart';
+import 'package:rad/src/core/common/objects/common_render_elements.dart';
 import 'package:rad/src/core/services/abstract.dart';
 import 'package:rad/src/core/services/debug/debug_service.dart';
 import 'package:rad/src/core/services/events/events_service.dart';
@@ -11,7 +12,13 @@ import 'package:rad/src/core/services/walker/walker_service.dart';
 /// Services object.
 ///
 class Services {
+  /// App options.
+  ///
   final AppOptions appOptions;
+
+  /// Root element.
+  ///
+  final RootElement rootElement;
 
   final Service _debug;
   final Service _walker;
@@ -27,34 +34,18 @@ class Services {
   KeyGenService get keyGen => _keyGen as KeyGenService;
   SchedulerService get scheduler => _scheduler as SchedulerService;
 
-  Services(this.appOptions)
-      : _debug = DebugService(
-          appOptions.rootContext,
-          appOptions.debugOptions,
-        ),
-        _keyGen = KeyGenService(
-          appOptions.rootContext,
-          appOptions.keyGenOptions,
-        ),
-        _walker = WalkerService(
-          appOptions.rootContext,
-          appOptions.walkerOptions,
-        ),
-        _events = EventsService(
-          appOptions.rootContext,
-          appOptions.eventsOptions,
-        ),
-        _router = RouterService(
-          appOptions.rootContext,
-          appOptions.routerOptions,
-        ),
-        _scheduler = SchedulerService(
-          appOptions.rootContext,
-          appOptions.schedulerOptions,
-        );
+  Services({
+    required this.appOptions,
+    required this.rootElement,
+  })  : _debug = DebugService(rootElement, appOptions.debugOptions),
+        _keyGen = KeyGenService(rootElement, appOptions.keyGenOptions),
+        _walker = WalkerService(rootElement, appOptions.walkerOptions),
+        _events = EventsService(rootElement, appOptions.eventsOptions),
+        _router = RouterService(rootElement, appOptions.routerOptions),
+        _scheduler = SchedulerService(rootElement, appOptions.schedulerOptions);
 
   void startServices() {
-    ServicesRegistry.instance.registerServices(appOptions.rootContext, this);
+    ServicesRegistry.instance.registerServices(rootElement, this);
 
     _debug.startService();
     _keyGen.startService();
@@ -72,6 +63,6 @@ class Services {
     _router.stopService();
     _scheduler.stopService();
 
-    ServicesRegistry.instance.unRegisterServices(appOptions.rootContext);
+    ServicesRegistry.instance.unRegisterServices(rootElement);
   }
 }

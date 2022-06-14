@@ -6,7 +6,7 @@ void main() {
 
     setUp(() {
       debugService = DebugService(
-        RT_TestBed.rootContext,
+        RT_TestBed.rootRenderElement,
         DebugOptions.defaultMode,
       )..startService();
     });
@@ -29,7 +29,7 @@ void main() {
 
     setUp(() {
       debugService = DebugService(
-        RT_TestBed.rootContext,
+        RT_TestBed.rootRenderElement,
         DebugOptions.developmentMode,
       )..startService();
     });
@@ -52,7 +52,7 @@ void main() {
 
     setUp(() {
       debugService = DebugService(
-        RT_TestBed.rootContext,
+        RT_TestBed.rootRenderElement,
         DebugOptions.productionMode,
       )..startService();
     });
@@ -75,7 +75,7 @@ void main() {
 
     setUp(() {
       debugService = DebugService(
-        RT_TestBed.rootContext,
+        RT_TestBed.rootRenderElement,
         DebugOptions.developmentMode,
       )..startService();
     });
@@ -99,7 +99,7 @@ void main() {
 
     setUp(() {
       debugService = DebugService(
-        RT_TestBed.rootContext,
+        RT_TestBed.rootRenderElement,
         DebugOptions.productionMode,
       )..startService();
     });
@@ -114,14 +114,14 @@ void main() {
   group('should respect explicit settings', () {
     test(':: DebugOptions.additionalChecks', () {
       var debugServiceFalse = DebugService(
-        RT_TestBed.rootContext,
+        RT_TestBed.rootRenderElement,
         DebugOptions(additionalChecks: false),
       )..startService();
 
       expect(debugServiceFalse.additionalChecks, equals(false));
 
       var debugServiceTrue = DebugService(
-        RT_TestBed.rootContext,
+        RT_TestBed.rootRenderElement,
         DebugOptions(additionalChecks: true),
       )..startService();
 
@@ -130,14 +130,14 @@ void main() {
 
     test(':: DebugOptions.widgetLogs', () {
       var debugServiceFalse = DebugService(
-        RT_TestBed.rootContext,
+        RT_TestBed.rootRenderElement,
         DebugOptions(widgetLogs: false),
       )..startService();
 
       expect(debugServiceFalse.widgetLogs, equals(false));
 
       var debugServiceTrue = DebugService(
-        RT_TestBed.rootContext,
+        RT_TestBed.rootRenderElement,
         DebugOptions(widgetLogs: true),
       )..startService();
 
@@ -146,14 +146,14 @@ void main() {
 
     test(':: DebugOptions.routerLogs', () {
       var debugServiceFalse = DebugService(
-        RT_TestBed.rootContext,
+        RT_TestBed.rootRenderElement,
         DebugOptions(routerLogs: false),
       )..startService();
 
       expect(debugServiceFalse.routerLogs, equals(false));
 
       var debugServiceTrue = DebugService(
-        RT_TestBed.rootContext,
+        RT_TestBed.rootRenderElement,
         DebugOptions(routerLogs: true),
       )..startService();
 
@@ -162,14 +162,14 @@ void main() {
 
     test(':: DebugOptions.frameworkLogs', () {
       var debugServiceFalse = DebugService(
-        RT_TestBed.rootContext,
+        RT_TestBed.rootRenderElement,
         DebugOptions(frameworkLogs: false),
       )..startService();
 
       expect(debugServiceFalse.frameworkLogs, equals(false));
 
       var debugServiceTrue = DebugService(
-        RT_TestBed.rootContext,
+        RT_TestBed.rootRenderElement,
         DebugOptions(frameworkLogs: true),
       )..startService();
 
@@ -178,7 +178,7 @@ void main() {
 
     test(':: DebugOptions.suppressExceptions', () {
       var debugServiceFalse = DebugService(
-        RT_TestBed.rootContext,
+        RT_TestBed.rootRenderElement,
         DebugOptions(suppressExceptions: false),
       )..startService();
 
@@ -192,7 +192,7 @@ void main() {
       );
 
       var debugServiceTrue = DebugService(
-        RT_TestBed.rootContext,
+        RT_TestBed.rootRenderElement,
         DebugOptions(suppressExceptions: true),
       )..startService();
 

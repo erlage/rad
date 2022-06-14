@@ -1,10 +1,7 @@
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/options/debug_options.dart';
 import 'package:rad/src/core/common/objects/options/router_options.dart';
 
 class AppOptions {
-  final BuildContext rootContext;
-
   final DebugOptions debugOptions;
   final RouterOptions routerOptions;
   final KeyGenOptions keyGenOptions;
@@ -13,7 +10,6 @@ class AppOptions {
   final SchedulerOptions schedulerOptions;
 
   const AppOptions({
-    required this.rootContext,
     required this.debugOptions,
     required this.routerOptions,
   })  : walkerOptions = WalkerOptions.defaultMode,

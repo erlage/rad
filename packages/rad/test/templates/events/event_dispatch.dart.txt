@@ -8,7 +8,7 @@ test('should dispatch event', () async {
         __EventAttributeName__: (_) => pap.stack.push('__EventNativeName__-domNode'),
       ),
     ],
-    parentContext: pap.appContext,
+    parentRenderElement: pap.appRenderElement,
   );
 
   var domNode = pap.domNodeByGlobalKey('domNode');

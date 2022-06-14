@@ -108,7 +108,7 @@ class Framework {
         if (task.widgets.isNotEmpty) {
           _renderer.render(
             widgets: task.widgets,
-            parentContext: task.parentContext,
+            parentRenderElement: task.parentRenderElement,
             mountAtIndex: task.mountAtIndex,
             flagCleanParentContents: task.flagCleanParentContents,
           );
@@ -122,7 +122,7 @@ class Framework {
         _renderer.reRender(
           widgets: task.widgets,
           updateType: task.updateType,
-          parentContext: task.parentContext,
+          parentRenderElement: task.parentRenderElement,
           flagAddIfNotFound: task.flagAddIfNotFound,
         );
 
@@ -132,8 +132,8 @@ class Framework {
         task as WidgetsManageTask;
 
         _renderer.visitWidgets(
-          parentContext: task.parentContext,
           updateType: task.updateType,
+          parentRenderElement: task.parentRenderElement,
           widgetActionCallback: task.widgetActionCallback,
           flagIterateInReverseOrder: task.flagIterateInReverseOrder,
         );
@@ -144,7 +144,7 @@ class Framework {
         task as WidgetsDisposeTask;
 
         _renderer.disposeWidget(
-          context: task.widgetObject.context,
+          renderElement: task.renderElement,
           flagPreserveTarget: task.flagPreserveTarget,
         );
 
@@ -154,7 +154,7 @@ class Framework {
         task as WidgetsUpdateDependentTask;
 
         _renderer.reRenderContext(
-          context: task.widgetContext,
+          renderElement: task.dependentRenderElement,
         );
 
         break;

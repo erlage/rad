@@ -2,11 +2,11 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/cache.dart';
 import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
-import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// A widget that does not require mutable state.
@@ -46,32 +46,32 @@ abstract class StatelessWidget extends Widget {
   @override
   bool shouldWidgetChildrenUpdate(oldWidget, shouldWidgetUpdate) => false;
 
-  @nonVirtual
   @override
-  createRenderObject(context) => _StatelessWidgetRenderObject(context);
+  createRenderElement(parent) => StatelessRenderElement(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class _StatelessWidgetRenderObject extends RenderObject {
-  const _StatelessWidgetRenderObject(BuildContext context) : super(context);
+/// StatelessWidget render element.
+///
+class StatelessRenderElement extends RenderElement {
+  StatelessRenderElement(super.widget, super.parent);
 
   @override
-  void afterMount() {
-    var services = ServicesRegistry.instance.getServices(context);
+  List<Widget> get childWidgets => ccImmutableEmptyListOfWidgets;
 
-    var widgetObject = services.walker.getWidgetObject(context)!;
-
-    var widget = widgetObject.widget as StatelessWidget;
-
+  // we build child of stateless widget after mount so that users can call
+  // any method from context.* inside build method
+  @override
+  afterMount() {
     services.scheduler.addTask(
       WidgetsBuildTask(
-        parentContext: context,
-        widgets: [widget.build(context)],
+        parentRenderElement: this,
+        widgets: [(widget as StatelessWidget).build(this)],
       ),
     );
   }
@@ -82,17 +82,14 @@ class _StatelessWidgetRenderObject extends RenderObject {
     required oldWidget,
     required covariant StatelessWidget newWidget,
   }) {
-    var schedulerService = ServicesRegistry.instance.getScheduler(context);
-
-    schedulerService.addTask(
+    services.scheduler.addTask(
       WidgetsUpdateTask(
+        parentRenderElement: this,
+        widgets: [(widget as StatelessWidget).build(this)],
         updateType: updateType,
-        parentContext: context,
-        widgets: [newWidget.build(context)],
       ),
     );
 
-    // stateless widget's dom node's description never changes.
     return null;
   }
 }

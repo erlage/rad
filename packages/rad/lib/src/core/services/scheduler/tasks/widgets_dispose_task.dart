@@ -1,21 +1,21 @@
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/widget_object.dart';
+import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
 
 /// A task that dispose widgets.
 ///
 class WidgetsDisposeTask extends SchedulerTask {
-  /// Widget object to dispose.
+  /// Element to dispose.
   ///
-  final WidgetObject widgetObject;
+  final RenderElement renderElement;
 
   /// Whether to preserve target.
   ///
   final bool flagPreserveTarget;
 
   WidgetsDisposeTask({
-    required this.widgetObject,
+    required this.renderElement,
     this.flagPreserveTarget = false,
     Callback? afterTaskCallback,
     Callback? beforeTaskCallback,

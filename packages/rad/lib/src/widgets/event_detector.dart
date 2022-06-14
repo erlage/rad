@@ -1,6 +1,7 @@
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/widgets/abstract/single_child_widget.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// A widget for detecting dom events on a widget or part of tree.
@@ -8,11 +9,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// Event detector can be used to register event listeners in capturing as well
 /// as in bubbling phase.
 ///
-class EventDetector extends Widget {
-  /// Child widget.
-  ///
-  final Widget child;
-
+class EventDetector extends SingleChildWidget {
   /// On input event listener.
   ///
   final EventCallback? onInput;
@@ -264,8 +261,11 @@ class EventDetector extends Widget {
     this.onMouseOverCapture,
     this.onMouseOutCapture,
     this.onMouseUpCapture,
-    required this.child,
-  }) : super(key: key);
+
+    // child widget
+
+    required Widget child,
+  }) : super(key: key, child: child);
 
   @override
   Map<DomEventType, EventCallback?> get widgetEventListeners => {
@@ -330,9 +330,6 @@ class EventDetector extends Widget {
         DomEventType.mouseOut: onMouseOutCapture,
         DomEventType.mouseUp: onMouseUpCapture,
       };
-
-  @override
-  List<Widget> get widgetChildren => [child];
 
   @override
   String get widgetType => 'EventDetector';

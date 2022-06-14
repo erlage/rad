@@ -10,7 +10,7 @@ test('should set input attribute "type"', () async {
             __WidgetClass__(key: GlobalKey('el-7'), type: InputType.submit),
             __WidgetClass__(key: GlobalKey('el-8'), type: InputType.file),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -39,7 +39,7 @@ test('should update form attribute "type"', () async {
             __WidgetClass__(key: GlobalKey('el-2'), type: null),
             __WidgetClass__(key: GlobalKey('el-3'), type: InputType.text),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
@@ -49,7 +49,7 @@ test('should update form attribute "type"', () async {
             __WidgetClass__(key: GlobalKey('el-3')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     var domNode1 = app!.domNodeByGlobalKey('el-1');

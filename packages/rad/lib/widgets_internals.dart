@@ -8,11 +8,21 @@
 library widgets_internals;
 
 export 'src/core/common/constants.dart' show Constants;
-export 'src/core/common/objects/render_object.dart' show RenderObject;
-export 'src/core/common/objects/widget_object.dart' show WidgetObject;
 
 export 'src/core/interface/window/window.dart' show Window;
 export 'src/core/interface/window/abstract.dart' show WindowDelegate;
+
+// render elements
+
+export 'src/core/common/objects/common_render_elements.dart';
+
+// base widgets
+
+export 'src/widgets/abstract/html_widget_base.dart';
+export 'src/widgets/abstract/no_child_widget.dart';
+export 'src/widgets/abstract/single_child_widget.dart';
+export 'src/widgets/abstract/table_cell_base.dart';
+export 'src/widgets/abstract/table_column_base.dart';
 
 // services
 

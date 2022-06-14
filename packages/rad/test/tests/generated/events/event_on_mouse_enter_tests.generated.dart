@@ -26,7 +26,7 @@ void event_on_mouse_enter_test() {
             onMouseEnter: (_) => pap.stack.push('mouseenter-domNode'),
           ),
         ],
-        parentContext: pap.appContext,
+        parentRenderElement: pap.appRenderElement,
       );
 
       var domNode = pap.domNodeByGlobalKey('domNode');
@@ -49,7 +49,7 @@ void event_on_mouse_enter_test() {
             onMouseEnterCapture: (_) => pap.stack.push('mouseenter-domNode'),
           ),
         ],
-        parentContext: pap.appContext,
+        parentRenderElement: pap.appRenderElement,
       );
 
       var domNode = pap.domNodeByGlobalKey('domNode');
@@ -81,7 +81,7 @@ void event_on_mouse_enter_test() {
             ],
           )
         ],
-        parentContext: pap.appContext,
+        parentRenderElement: pap.appRenderElement,
       );
 
       var gparent = pap.domNodeByGlobalKey('el-g-parent');
@@ -133,7 +133,7 @@ void event_on_mouse_enter_test() {
               ],
             )
           ],
-          parentContext: pap.appContext,
+          parentRenderElement: pap.appRenderElement,
         );
 
         var child = pap.domNodeByGlobalKey('el-child');
@@ -180,7 +180,7 @@ void event_on_mouse_enter_test() {
               ],
             )
           ],
-          parentContext: pap.appContext,
+          parentRenderElement: pap.appRenderElement,
         );
 
         var child = pap.domNodeByGlobalKey('el-child');
@@ -234,7 +234,7 @@ void event_on_mouse_enter_test() {
             ],
           ),
         ],
-        parentContext: pap.appContext,
+        parentRenderElement: pap.appRenderElement,
       );
 
       var gparent = pap.domNodeByGlobalKey('el-g-parent');
@@ -295,7 +295,7 @@ void event_on_mouse_enter_test() {
             ],
           ),
         ],
-        parentContext: pap.appContext,
+        parentRenderElement: pap.appRenderElement,
       );
 
       var gparent = pap.domNodeByGlobalKey('el-g-parent');

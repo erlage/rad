@@ -38,7 +38,7 @@ void widget_navigator_test() {
             ],
           ),
         ],
-        parentContext: pap.appContext,
+        parentRenderElement: pap.appRenderElement,
       );
 
       var domNode = pap.domNodeByGlobalKey('widget');

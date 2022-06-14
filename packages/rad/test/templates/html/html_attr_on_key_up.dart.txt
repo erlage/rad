@@ -12,7 +12,7 @@ test('should set "KeyUp" event listener', () async {
                 onKeyUp: (event) => testStack.push('keyup-2'),
             ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('keyup'));
@@ -34,12 +34,12 @@ test('should set "KeyUp" event listener only if provided', () async {
             __WidgetClass__(key: GlobalKey('el-2'), onKeyUp: null),
             __WidgetClass__(key: GlobalKey('el-3'), onKeyUp: listener),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
-    var listeners1 = app!.widget('el-1').widgetEventListeners;
-    var listeners2 = app!.widget('el-2').widgetEventListeners;
-    var listeners3 = app!.widget('el-3').widgetEventListeners;
+    var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
+    var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+    var listeners3 = app!.widgetByGlobalKey('el-3').widgetEventListeners;
 
     expect(listeners1[DomEventType.keyUp], equals(null));
     expect(listeners2[DomEventType.keyUp], equals(null));
@@ -54,11 +54,11 @@ test('should clear "KeyUp" event listner', () async {
             __WidgetClass__(key: GlobalKey('el-1')),
             __WidgetClass__(key: GlobalKey('el-2'), onKeyUp: listener),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
-    var listeners1 = app!.widget('el-1').widgetEventListeners;
-    var listeners2 = app!.widget('el-2').widgetEventListeners;
+    var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
+    var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
 
     expect(listeners1[DomEventType.keyUp], equals(null));
     expect(listeners2[DomEventType.keyUp], equals(listener));
@@ -71,11 +71,11 @@ test('should clear "KeyUp" event listner', () async {
             __WidgetClass__(key: GlobalKey('el-2')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
-    listeners1 = app!.widget('el-1').widgetEventListeners;
-    listeners2 = app!.widget('el-2').widgetEventListeners;
+    listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
+    listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
 
     expect(listeners1[DomEventType.keyUp], equals(null));
     expect(listeners2[DomEventType.keyUp], equals(null));

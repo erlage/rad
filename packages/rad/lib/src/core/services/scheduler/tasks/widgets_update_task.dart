@@ -1,5 +1,5 @@
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
@@ -9,7 +9,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 class WidgetsUpdateTask extends SchedulerTask {
   /// Target context.
   ///
-  final BuildContext parentContext;
+  final RenderElement parentRenderElement;
 
   /// List of widgets to update.
   ///
@@ -25,7 +25,7 @@ class WidgetsUpdateTask extends SchedulerTask {
 
   WidgetsUpdateTask({
     required this.widgets,
-    required this.parentContext,
+    required this.parentRenderElement,
     required this.updateType,
     this.flagAddIfNotFound = true,
     Callback? afterTaskCallback,

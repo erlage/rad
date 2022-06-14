@@ -1,12 +1,15 @@
+import 'dart:collection';
+
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/cache.dart';
 import 'package:rad/src/core/common/objects/dom_node_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/router/open_history_entry.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
@@ -127,24 +130,6 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///     }
 ///     ```
 ///
-/// n. Also, here's how you can look for a specific Navigator instance:
-///
-///     ```dart
-///     // 1. Give Navigator instance a global/local key
-///
-///     var key = GlobalKey('my-navigator');
-///
-///     Navigator(key: key)
-///
-///     // 2. Use of(context, key) anywhere in the subtree of that Navigator,
-///
-///     Navigator.of(context, key);
-///
-///     // or
-///
-///     Navigator.of(context, GlobalKey('my-navigator'));
-///
-///     ```
 /// ### onRouteChange hook:
 ///
 /// This hooks gets called when Navigator opens a route. This allows Navigator's
@@ -314,54 +299,40 @@ class Navigator extends Widget {
   /// Navigator's state from the closest instance of this class
   /// that encloses the given context.
   ///
-  static NavigatorState of(BuildContext context, [Key? navigatorKey]) {
-    var services = ServicesRegistry.instance.getServices(context);
+  static NavigatorState of(BuildContext context) {
+    NavigatorRenderElement? parent;
 
-    var targetContext = context;
+    context.visitAncestorElements((element) {
+      if (element is NavigatorRenderElement) {
+        parent = element;
 
-    while (true) {
-      var widgetObject = services.walker.findAncestorWidgetObject<Navigator>(
-        targetContext,
+        return false;
+      }
+
+      return true;
+    });
+
+    var parentNavigator = parent;
+
+    if (null == parentNavigator) {
+      var debugService = ServicesRegistry.instance.getDebug(context);
+
+      debugService.exception(
+        'Navigator operation requested with a context that does not include '
+        'a Navigator.\n'
+        'The context used to push or pop routes from the Navigator must be '
+        'that of a widget that is a descendant of a Navigator widget.',
       );
 
-      if (null == widgetObject) {
-        services.debug.exception(
-          'Navigator operation requested with a context that does not include '
-          'a Navigator.\n'
-          'The context used to push or pop routes from the Navigator must be '
-          'that of a widget that is a descendant of a Navigator widget.',
-        );
-
-        /// Return dummy state if user has registered there own error handler
-        /// that doesn't throw exception onError.
-        ///
-        return NavigatorState(
-          context: context,
-          widget: const Navigator(routes: []),
-        );
-      }
-
-      if (null != navigatorKey) {
-        var widgetKey = services.keyGen.getGlobalKeyUsingKey(
-          navigatorKey,
-          context, // for local key, any context works
-        );
-
-        if (widgetKey == widgetObject.context.key) {
-          targetContext = widgetObject.context;
-
-          continue;
-        }
-      }
-
-      var renderObject = widgetObject.renderObject;
-
-      renderObject as NavigatorRenderObject;
-
-      renderObject.addDependent(context);
-
-      return renderObject.state;
+      /// Return dummy state if user has registered their own error handler
+      /// in debug service, which may not throw exception on error above.
+      ///
+      return NavigatorState(const Navigator(routes: []));
     }
+
+    parentNavigator.addDependent(context);
+
+    return parentNavigator.state;
   }
 
   /*
@@ -396,13 +367,7 @@ class Navigator extends Widget {
   bool shouldWidgetChildrenUpdate(oldWidget, shouldWidgetUpdate) => false;
 
   @override
-  createRenderObject(context) => NavigatorRenderObject(
-        context: context,
-        state: NavigatorState(
-          widget: this,
-          context: context,
-        ),
-      );
+  createRenderElement(parent) => NavigatorRenderElement(this, parent);
 }
 
 /*
@@ -423,17 +388,21 @@ const _description = DomNodeDescription(
 |--------------------------------------------------------------------------
 */
 
-class NavigatorRenderObject extends RenderObject {
+class NavigatorRenderElement extends RenderElement {
   final NavigatorState state;
 
   /// currentPage => {widgetKey => widgetContext}
   ///
-  final dependents = <String, Map<String, BuildContext>>{};
+  final dependents = <String, HashSet<RenderElement>>{};
 
-  NavigatorRenderObject({
-    required this.state,
-    required BuildContext context,
-  }) : super(context);
+  NavigatorRenderElement(
+    Navigator widget,
+    RenderElement parent,
+  )   : state = NavigatorState(widget),
+        super(widget, parent);
+
+  @override
+  List<Widget> get childWidgets => ccImmutableEmptyListOfWidgets;
 
   @override
   render({required widget}) => _description;
@@ -441,6 +410,8 @@ class NavigatorRenderObject extends RenderObject {
   @override
   afterMount() {
     state
+      ..frameworkBindContext(this)
+      ..frameworkBindRenderElement(this)
       ..frameworkBindUpdateProcedure(updateProcedure)
       ..frameworkInitState()
       ..frameworkRender();
@@ -462,33 +433,28 @@ class NavigatorRenderObject extends RenderObject {
   beforeUnMount() => state.frameworkDispose();
 
   void addDependent(BuildContext dependentContext) {
+    dependentContext as RenderElement;
+
     var dependentsOnCurrentPage = dependents[state.currentRouteName];
-    var dependentKeyValue = dependentContext.key.value;
 
     if (null == dependentsOnCurrentPage) {
-      dependents[state.currentRouteName] = {
-        dependentKeyValue: dependentContext
-      };
+      dependents[state.currentRouteName] = HashSet()..add(dependentContext);
 
       return;
     }
 
-    if (!dependentsOnCurrentPage.containsKey(dependentKeyValue)) {
-      dependentsOnCurrentPage[dependentKeyValue] = dependentContext;
-    }
+    dependentsOnCurrentPage.add(dependentContext);
   }
 
   void updateProcedure() {
     var dependentsOnCurrentPage = dependents[state.currentRouteName];
 
     if (null != dependentsOnCurrentPage) {
-      var schedulerService = ServicesRegistry.instance.getScheduler(context);
-
-      dependentsOnCurrentPage.forEach((widgetKey, widgetContext) {
-        schedulerService.addTask(
-          WidgetsUpdateDependentTask(widgetContext: widgetContext),
+      for (final dependant in dependentsOnCurrentPage) {
+        services.scheduler.addTask(
+          WidgetsUpdateDependentTask(dependentRenderElement: dependant),
         );
-      });
+      }
     }
   }
 }
@@ -502,10 +468,6 @@ class NavigatorRenderObject extends RenderObject {
 /// State that each navigator creates and manage.
 ///
 class NavigatorState with ServicesResolver {
-  /// Root context.
-  ///
-  final BuildContext context;
-
   /// Resolve services reference.
   ///
   Services get services => resolveServices(context);
@@ -528,19 +490,26 @@ class NavigatorState with ServicesResolver {
   String get currentRouteName => _currentName;
   var _currentName = '_';
 
-  /// Navigator widget's instance.
-  ///
-  final Navigator widget;
-
   // internal stack data
 
   final _pageStack = <String>[];
   final _historyStack = <OpenHistoryEntry>[];
 
-  NavigatorState({
-    required this.widget,
-    required this.context,
-  });
+  /// Navigator widget's instance.
+  ///
+  final Navigator widget;
+
+  /// Navigator's context
+  ///
+  BuildContext get context => _context!;
+  BuildContext? _context;
+
+  /// Navigator's render element
+  ///
+  NavigatorRenderElement get renderElement => _renderElement!;
+  NavigatorRenderElement? _renderElement;
+
+  NavigatorState(this.widget);
 
   /*
   |--------------------------------------------------------------------------
@@ -588,13 +557,13 @@ class NavigatorState with ServicesResolver {
 
     if (updateHistory) {
       if (services.debug.routerLogs) {
-        print('${context.key.value}: Push entry: $name');
+        print('$context: Push entry: $name');
       }
 
       services.router.pushEntry(
         name: name,
         values: values,
-        navigatorKey: context.key.value,
+        navigator: renderElement,
         updateHistory: updateHistory,
       );
     }
@@ -606,7 +575,7 @@ class NavigatorState with ServicesResolver {
     if (isPageStacked(name: name)) {
       services.scheduler.addTask(
         WidgetsManageTask(
-          parentContext: context,
+          parentRenderElement: renderElement,
           flagIterateInReverseOrder: true,
           widgetActionCallback: (widgetObject) {
             var widget = widgetObject.widget;
@@ -640,7 +609,7 @@ class NavigatorState with ServicesResolver {
 
       services.scheduler.addTask(
         WidgetsManageTask(
-          parentContext: context,
+          parentRenderElement: renderElement,
           flagIterateInReverseOrder: true,
           widgetActionCallback: (widgetObject) {
             return [WidgetAction.hideWidget];
@@ -649,7 +618,7 @@ class NavigatorState with ServicesResolver {
             services.scheduler.addTask(
               WidgetsBuildTask(
                 widgets: [page],
-                parentContext: context,
+                parentRenderElement: renderElement,
                 flagCleanParentContents: 1 == _historyStack.length,
               ),
             );
@@ -703,7 +672,7 @@ class NavigatorState with ServicesResolver {
   /// ```
   ///
   String getValue(String segment) => services.router.getValue(
-        context.key.value,
+        renderElement,
         segment,
       );
 
@@ -722,6 +691,16 @@ class NavigatorState with ServicesResolver {
   */
 
   Callback? _updateProcedure;
+
+  @protected
+  void frameworkBindContext(BuildContext context) {
+    _context = context;
+  }
+
+  @protected
+  void frameworkBindRenderElement(NavigatorRenderElement element) {
+    _renderElement = element;
+  }
 
   @protected
   void frameworkBindUpdateProcedure(Callback updateProcedure) {
@@ -790,7 +769,7 @@ class NavigatorState with ServicesResolver {
       pathToRouteMap[route.path] = route;
     }
 
-    services.router.register(context, this);
+    services.router.register(renderElement);
   }
 
   @protected
@@ -799,7 +778,7 @@ class NavigatorState with ServicesResolver {
       return;
     }
 
-    var name = services.router.getPath(context.key.value);
+    var name = services.router.getPath(renderElement);
 
     var needsReplacement = name.isEmpty;
 
@@ -814,13 +793,13 @@ class NavigatorState with ServicesResolver {
 
     if (needsReplacement && name.isNotEmpty) {
       if (services.debug.routerLogs) {
-        print('${context.key.value}: Push replacement: $name');
+        print('$context: Push replacement: $name');
       }
 
       services.router.pushReplacement(
         name: name,
         values: {},
-        navigatorKey: context.key.value,
+        navigator: renderElement,
       );
     }
 
@@ -835,7 +814,7 @@ class NavigatorState with ServicesResolver {
 
     services.scheduler.addTask(
       WidgetsManageTask(
-        parentContext: context,
+        parentRenderElement: renderElement,
         flagIterateInReverseOrder: true,
         widgetActionCallback: (widgetObject) {
           var widget = widgetObject.widget;
@@ -855,22 +834,22 @@ class NavigatorState with ServicesResolver {
   }
 
   @protected
-  void frameworkDispose() => services.router.unRegister(context);
+  void frameworkDispose() => services.router.unRegister(renderElement);
 
   /// Framework fires this when parent route changes.
   ///
   void frameworkOnParentRouteChange(String name) {
-    var routeName = services.router.getPath(context.key.value);
+    var routeName = services.router.getPath(renderElement);
 
     if (routeName != currentRouteName) {
       if (services.debug.routerLogs) {
-        print('${context.key.value}: Push replacement: $routeName');
+        print('$context: Push replacement: $routeName');
       }
 
       services.router.pushReplacement(
         name: currentRouteName,
         values: {},
-        navigatorKey: context.key.value,
+        navigator: renderElement,
       );
     }
   }

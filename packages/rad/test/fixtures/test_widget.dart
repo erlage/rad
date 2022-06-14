@@ -10,28 +10,28 @@ class RT_TestWidget extends Widget {
   // widget events
 
   final Callback? wEventCreateRenderObject;
-  final Callback? wEventShouldUpdateWidget;
-  final Callback? wEventShouldUpdateWidgetChildren;
+  final Callback? wEventshouldWidgetUpdate;
+  final Callback? wEventshouldWidgetChildrenUpdate;
 
-  // render object events
+  // render element events
 
-  final Callback? roEventHookRender;
-  final Callback? roEventHookUpdate;
+  final Callback? roEventRender;
+  final Callback? roEventUpdate;
   final Callback? roEventBeforeMount;
-  final Callback? roEventHookAfterMount;
+  final Callback? roEventAfterMount;
   final Callback? roEventAfterWidgetRebind;
-  final Callback? roEventHookBeforeUnMount;
+  final Callback? roEventBeforeUnMount;
 
   // data hooks
 
-  final Function(Widget)? wHookShouldUpdateWidget;
-  final Function(Widget, bool)? wHookShouldUpdateWidgetChildren;
+  final Function(Widget)? wHookShouldWidgetUpdate;
+  final Function(Widget, bool)? wHookShouldWidgetChildrenUpdate;
   final Function(UpdateType)? roHookUpdate;
 
   // overrides
 
-  final bool Function()? wOverrideShouldUpdateWidget;
-  final bool Function()? wOverrideShouldUpdateWidgetChildren;
+  final bool Function()? wOverrideShouldWidgetUpdate;
+  final bool Function()? wOverrideShouldWidgetChildrenUpdate;
 
   final List<Widget>? children;
 
@@ -43,29 +43,29 @@ class RT_TestWidget extends Widget {
 
     // render object events
 
-    this.roEventHookRender,
-    this.roEventHookUpdate,
+    this.roEventRender,
+    this.roEventUpdate,
     this.roEventBeforeMount,
-    this.roEventHookAfterMount,
+    this.roEventAfterMount,
     this.roEventAfterWidgetRebind,
-    this.roEventHookBeforeUnMount,
+    this.roEventBeforeUnMount,
 
     // widget events
 
     this.wEventCreateRenderObject,
-    this.wEventShouldUpdateWidget,
-    this.wEventShouldUpdateWidgetChildren,
+    this.wEventshouldWidgetUpdate,
+    this.wEventshouldWidgetChildrenUpdate,
 
     // overrides
 
-    this.wOverrideShouldUpdateWidget,
-    this.wOverrideShouldUpdateWidgetChildren,
+    this.wOverrideShouldWidgetUpdate,
+    this.wOverrideShouldWidgetChildrenUpdate,
 
     // data hokks
 
     this.roHookUpdate,
-    this.wHookShouldUpdateWidget,
-    this.wHookShouldUpdateWidgetChildren,
+    this.wHookShouldWidgetUpdate,
+    this.wHookShouldWidgetChildrenUpdate,
     String? customHash,
   })  : hash = customHash ?? 'none',
         super(key: key);
@@ -78,20 +78,17 @@ class RT_TestWidget extends Widget {
   DomTagType get correspondingTag => DomTagType.division;
 
   @override
-  get widgetChildren => children ?? [];
-
-  @override
   bool shouldWidgetUpdate(oldWidget) {
-    if (null != wEventShouldUpdateWidget) {
-      wEventShouldUpdateWidget!();
+    if (null != wEventshouldWidgetUpdate) {
+      wEventshouldWidgetUpdate!();
     }
 
-    if (null != wHookShouldUpdateWidget) {
-      wHookShouldUpdateWidget!(oldWidget);
+    if (null != wHookShouldWidgetUpdate) {
+      wHookShouldWidgetUpdate!(oldWidget);
     }
 
-    if (null != wOverrideShouldUpdateWidget) {
-      return wOverrideShouldUpdateWidget!();
+    if (null != wOverrideShouldWidgetUpdate) {
+      return wOverrideShouldWidgetUpdate!();
     }
 
     return true;
@@ -99,34 +96,35 @@ class RT_TestWidget extends Widget {
 
   @override
   bool shouldWidgetChildrenUpdate(oldWidget, shouldWidgetUpdate) {
-    if (null != wEventShouldUpdateWidgetChildren) {
-      wEventShouldUpdateWidgetChildren!();
+    if (null != wEventshouldWidgetChildrenUpdate) {
+      wEventshouldWidgetChildrenUpdate!();
     }
 
-    if (null != wHookShouldUpdateWidgetChildren) {
-      wHookShouldUpdateWidgetChildren!(oldWidget, shouldWidgetUpdate);
+    if (null != wHookShouldWidgetChildrenUpdate) {
+      wHookShouldWidgetChildrenUpdate!(oldWidget, shouldWidgetUpdate);
     }
 
-    if (null != wOverrideShouldUpdateWidgetChildren) {
-      return wOverrideShouldUpdateWidgetChildren!();
+    if (null != wOverrideShouldWidgetChildrenUpdate) {
+      return wOverrideShouldWidgetChildrenUpdate!();
     }
 
     return true;
   }
 
   @override
-  createRenderObject(context) {
+  createRenderElement(parent) {
     if (null != wEventCreateRenderObject) {
       wEventCreateRenderObject!();
     }
 
-    return RT_TestWidgetRenderObject(
-      context,
-      roEventRender: roEventHookRender,
-      roEventUpdate: roEventHookUpdate,
-      roEventAfterMount: roEventHookAfterMount,
+    return RT_TestRenderElement(
+      this,
+      parent,
+      roEventRender: roEventRender,
+      roEventUpdate: roEventUpdate,
+      roEventAfterMount: roEventAfterMount,
       roEventAfterWidgetRebind: roEventAfterWidgetRebind,
-      roEventBeforeUnMount: roEventHookBeforeUnMount,
+      roEventBeforeUnMount: roEventBeforeUnMount,
       roHookUpdate: roHookUpdate,
     );
   }
@@ -134,7 +132,7 @@ class RT_TestWidget extends Widget {
 
 /// Render object of test widget.
 ///
-class RT_TestWidgetRenderObject extends RenderObject {
+class RT_TestRenderElement extends RenderElement {
   final Callback? roEventRender;
   final Callback? roEventUpdate;
   final Callback? roEventAfterMount;
@@ -143,15 +141,19 @@ class RT_TestWidgetRenderObject extends RenderObject {
 
   final Function(UpdateType)? roHookUpdate;
 
-  const RT_TestWidgetRenderObject(
-    BuildContext context, {
+  RT_TestRenderElement(
+    RT_TestWidget widget,
+    RenderElement parent, {
     this.roEventRender,
     this.roEventUpdate,
     this.roEventAfterMount,
     this.roEventAfterWidgetRebind,
     this.roEventBeforeUnMount,
     this.roHookUpdate,
-  }) : super(context);
+  }) : super(widget, parent);
+
+  @override
+  List<Widget> get childWidgets => (widget as RT_TestWidget).children ?? [];
 
   @override
   render({required widget}) {
@@ -211,37 +213,37 @@ class RT_AnotherTestWidget extends RT_TestWidget {
   const RT_AnotherTestWidget({
     Key? key,
     List<Widget>? children,
-    Callback? roEventHookRender,
-    Callback? roEventHookUpdate,
+    Callback? roEventRender,
+    Callback? roEventUpdate,
     Callback? roEventAfterMount,
     Callback? roEventAfterWidgetRebind,
-    Callback? roEventHookBeforeUnMount,
+    Callback? roEventBeforeUnMount,
     Callback? wEventCreateRenderObject,
 
     // should update
 
-    Callback? wEventShouldUpdateWidget,
-    Callback? wEventShouldUpdateWidgetChildren,
-    bool Function()? wOverrideShouldUpdateWidget,
-    bool Function()? wOverrideShouldUpdateWidgetChildren,
+    Callback? wEventshouldWidgetUpdate,
+    Callback? wEventshouldWidgetChildrenUpdate,
+    bool Function()? wOverrideShouldWidgetUpdate,
+    bool Function()? wOverrideShouldWidgetChildrenUpdate,
     String? customHash,
   }) : super(
           key: key,
           children: children,
-          roEventHookRender: roEventHookRender,
-          roEventHookUpdate: roEventHookUpdate,
-          roEventHookAfterMount: roEventAfterMount,
+          roEventRender: roEventRender,
+          roEventUpdate: roEventUpdate,
+          roEventAfterMount: roEventAfterMount,
           roEventAfterWidgetRebind: roEventAfterWidgetRebind,
-          roEventHookBeforeUnMount: roEventHookBeforeUnMount,
+          roEventBeforeUnMount: roEventBeforeUnMount,
           wEventCreateRenderObject: wEventCreateRenderObject,
 
           // should update
 
-          wEventShouldUpdateWidget: wEventShouldUpdateWidget,
-          wEventShouldUpdateWidgetChildren: wEventShouldUpdateWidgetChildren,
-          wOverrideShouldUpdateWidget: wOverrideShouldUpdateWidget,
-          wOverrideShouldUpdateWidgetChildren:
-              wOverrideShouldUpdateWidgetChildren,
+          wEventshouldWidgetUpdate: wEventshouldWidgetUpdate,
+          wEventshouldWidgetChildrenUpdate: wEventshouldWidgetChildrenUpdate,
+          wOverrideShouldWidgetUpdate: wOverrideShouldWidgetUpdate,
+          wOverrideShouldWidgetChildrenUpdate:
+              wOverrideShouldWidgetChildrenUpdate,
           customHash: customHash,
         );
 }

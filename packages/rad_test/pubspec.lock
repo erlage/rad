@@ -186,9 +186,9 @@ packages:
   rad:
     dependency: "direct main"
     description:
-      name: rad
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../rad"
+      relative: true
+    source: path
     version: "0.9.0"
   shelf:
     dependency: transitive

@@ -2,17 +2,18 @@ test('should set data attributes', () async {
     await app!.buildChildren(
         widgets: [
             __WidgetClass__(
-            key: GlobalKey('some-global-key'),
+            key: GlobalKey('some-key-3'),
                 dataAttributes: {
                     'something': 'something okay',
                     'another': 'another okay',
                 },
             ),
         ],
-        parentContext: RT_TestBed.rootContext,
+                parentRenderElement: RT_TestBed.rootRenderElement,
+
     );
 
-    var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+    var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
 
     expect(domNode1.dataset['something'], equals('something okay'));
     expect(domNode1.dataset['another'], equals('another okay'));
@@ -23,29 +24,29 @@ test('should remove obsolute and add new data attributes on update', () async {
     await app!.buildChildren(
         widgets: [
             __WidgetClass__(
-            key: GlobalKey('some-global-key'),
+            key: GlobalKey('some-key-3'),
                 dataAttributes: {
                     'something': 'something okay',
                 },
             ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
         widgets: [
             __WidgetClass__(
-                key: GlobalKey('some-global-key'),
+                key: GlobalKey('some-key-3'),
                 dataAttributes: {
                     'something-new': 'something new',
                 },
             ),
         ],
         updateType: UpdateType.undefined,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
+    var domNode1 = RT_TestBed.rootDomNode.childNodes[0].childNodes[0];
 
     domNode1 as HtmlElement;
 
@@ -59,17 +60,17 @@ for(final reservedAttribute in Constants.reservedAttributes)
         await app!.buildChildren(
             widgets: [
                 __WidgetClass__(
-                    key: GlobalKey('some-global-key'),
+                    key: GlobalKey('some-key-3'),
                     dataAttributes: {
                         'something': 'something okay',
                         reservedAttribute: 'must ignore',
                     },
                 ),
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
         );
 
-        var domNode1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
+        var domNode1 = RT_TestBed.rootDomNode.childNodes[0].childNodes[0];
 
         domNode1 as HtmlElement;
 
@@ -82,20 +83,20 @@ for(final reservedAttribute in Constants.reservedAttributes)
         await app!.buildChildren(
             widgets: [
                 __WidgetClass__(
-                key: GlobalKey('some-global-key'),
+                key: GlobalKey('some-key-3'),
                     dataAttributes: {
                         'something': 'something okay',
                         reservedAttribute: 'must ignore',
                     },
                 ),
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
         );
 
         await app!.updateChildren(
             widgets: [
                 __WidgetClass__(
-                    key: GlobalKey('some-global-key'),
+                    key: GlobalKey('some-key-3'),
                     dataAttributes: {
                         'something': 'something new',
                         'something-diff': 'something diff',
@@ -104,10 +105,10 @@ for(final reservedAttribute in Constants.reservedAttributes)
                 ),
             ],
             updateType: UpdateType.undefined,
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
         );
         
-        var domNode1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
+        var domNode1 = RT_TestBed.rootDomNode.childNodes[0].childNodes[0];
 
         domNode1 as HtmlElement;
 

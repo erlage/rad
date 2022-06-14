@@ -1,21 +1,19 @@
-import 'package:rad/src/core/common/objects/key.dart';
-
 /// Class containing framework specific attributes and constants.
 ///
 class Constants {
-  // widget attributes
-
+  /// List of data attributes that are reserved and can't be set on HTML
+  /// widgets.
+  ///
   static const reservedAttributes = <String>[];
-
-  // context specific
-
-  static const contextTypeBigBang = 'BigBang';
-  static const contextKeyNotSet = GlobalKey.generateForFramework('');
 
   // errors
 
   static const coreError = 'Framework has gone wild.';
   static const routerError = 'Router has gone wild.';
+
+  /// Widget's type for root element.
+  ///
+  static const contextTypeBigBang = 'BigBang';
 
   // --------------------------------------------------------------------------
   // css classes

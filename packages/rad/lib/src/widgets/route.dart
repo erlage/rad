@@ -2,10 +2,9 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/dom_node_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/widgets/abstract/single_child_widget.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/async_route.dart';
 import 'package:rad/src/widgets/navigator.dart';
@@ -20,7 +19,7 @@ import 'package:rad/src/widgets/navigator.dart';
 ///
 ///  * [AsyncRoute], for asynchronous routes.
 ///
-class Route extends Widget {
+class Route extends SingleChildWidget {
   /// Name of the Route path.
   ///
   final String path;
@@ -29,17 +28,13 @@ class Route extends Widget {
   ///
   final String name;
 
-  /// Route's contents.
-  ///
-  final Widget page;
-
   const Route({
     Key? key,
     String? path,
     required this.name,
-    required this.page,
+    required Widget page,
   })  : path = path ?? name,
-        super(key: key);
+        super(key: key, child: page);
 
   @nonVirtual
   @override
@@ -56,13 +51,10 @@ class Route extends Widget {
   DomTagType get correspondingTag => DomTagType.division;
 
   @override
-  List<Widget> get widgetChildren => [page];
+  shouldWidgetUpdate(Widget oldWidget) => false;
 
   @override
-  bool shouldWidgetUpdate(oldWidget) => false;
-
-  @override
-  createRenderObject(context) => RouteRenderObject(context);
+  createRenderElement(parent) => RouteRenderElement(this, parent);
 }
 
 /*
@@ -79,12 +71,14 @@ const _description = DomNodeDescription(
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class RouteRenderObject extends RenderObject {
-  const RouteRenderObject(BuildContext context) : super(context);
+/// Route render element.
+///
+class RouteRenderElement extends SingleChildRenderElement {
+  RouteRenderElement(super.widget, super.parent);
 
   @override
   render({required widget}) => _description;

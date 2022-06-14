@@ -14,8 +14,6 @@ export 'package:rad/src/core/common/objects/build_context.dart';
 export 'package:rad/src/core/common/objects/key.dart';
 export 'package:rad/src/core/common/objects/options/debug_options.dart';
 export 'package:rad/src/core/common/objects/options/router_options.dart';
-export 'package:rad/src/core/common/objects/render_object.dart';
-export 'package:rad/src/core/common/objects/widget_object.dart';
 export 'package:rad/src/core/interface/window/abstract.dart';
 export 'package:rad/src/core/interface/window/window.dart';
 export 'package:rad/src/core/interface/window/delegates/browser_window.dart';

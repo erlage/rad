@@ -26,7 +26,7 @@ void event_on_click_test() {
             onClick: (_) => pap.stack.push('click-domNode'),
           ),
         ],
-        parentContext: pap.appContext,
+        parentRenderElement: pap.appRenderElement,
       );
 
       var domNode = pap.domNodeByGlobalKey('domNode');
@@ -49,7 +49,7 @@ void event_on_click_test() {
             onClickCapture: (_) => pap.stack.push('click-domNode'),
           ),
         ],
-        parentContext: pap.appContext,
+        parentRenderElement: pap.appRenderElement,
       );
 
       var domNode = pap.domNodeByGlobalKey('domNode');
@@ -84,7 +84,7 @@ void event_on_click_test() {
             ],
           ),
         ],
-        parentContext: pap.appContext,
+        parentRenderElement: pap.appRenderElement,
       );
 
       var gparent = pap.domNodeByGlobalKey('el-g-parent');
@@ -140,7 +140,7 @@ void event_on_click_test() {
             ],
           )
         ],
-        parentContext: pap.appContext,
+        parentRenderElement: pap.appRenderElement,
       );
 
       var gparent = pap.domNodeByGlobalKey('el-g-parent');
@@ -194,7 +194,7 @@ void event_on_click_test() {
             ],
           )
         ],
-        parentContext: pap.appContext,
+        parentRenderElement: pap.appRenderElement,
       );
 
       var gparent = pap.domNodeByGlobalKey('el-g-parent');
@@ -248,7 +248,7 @@ void event_on_click_test() {
             ],
           ),
         ],
-        parentContext: pap.appContext,
+        parentRenderElement: pap.appRenderElement,
       );
 
       var gparent = pap.domNodeByGlobalKey('el-g-parent');
@@ -301,7 +301,7 @@ void event_on_click_test() {
             ],
           ),
         ],
-        parentContext: pap.appContext,
+        parentRenderElement: pap.appRenderElement,
       );
 
       var gparent = pap.domNodeByGlobalKey('el-g-parent');

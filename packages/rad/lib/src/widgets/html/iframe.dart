@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
@@ -101,17 +100,19 @@ class IFrame extends HTMLWidgetBase {
   }
 
   @override
-  createRenderObject(context) => _IFrameRenderObject(context);
+  createRenderElement(parent) => IFrameRenderObject(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class _IFrameRenderObject extends MarkUpGlobalRenderObject {
-  const _IFrameRenderObject(BuildContext context) : super(context);
+/// IFrame render element.
+///
+class IFrameRenderObject extends HTMLBaseElement {
+  IFrameRenderObject(super.widget, super.parent);
 
   @override
   render({

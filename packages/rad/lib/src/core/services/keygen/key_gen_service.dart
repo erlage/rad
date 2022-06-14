@@ -1,11 +1,9 @@
 import 'dart:math';
 
-import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/objects/app_options.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/common_render_elements.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/services/abstract.dart';
-import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Key generator service.
 ///
@@ -13,10 +11,6 @@ class KeyGenService extends Service {
   final KeyGenOptions options;
 
   final _random = Random();
-
-  /// Number of generated keys from generateGlobalKey()
-  ///
-  var _keyCounter = -1;
 
   /// Number of generated keys from generateRandomKey()
   ///
@@ -26,59 +20,14 @@ class KeyGenService extends Service {
   ///
   final _availableHashers = <_CompatibilityHashGenerator>[];
 
-  KeyGenService(BuildContext context, this.options) : super(context);
+  KeyGenService(RootElement rootElement, this.options) : super(rootElement);
 
   /// Generates a new string key.
   ///
   String generateStringKey() {
     ++_extraCounter;
 
-    return '${_extraCounter}_${rootContext.appTargetId}';
-  }
-
-  /// Generates a new global key.
-  ///
-  GlobalKey generateGlobalKey() {
-    ++_keyCounter;
-
-    return GlobalKey.generateForFramework(
-      '_${rootContext.appTargetId}_$_keyCounter',
-    );
-  }
-
-  /// Get a global key for widget using key that's provided explicitly.
-  ///
-  GlobalKey getGlobalKeyUsingKey(Key key, BuildContext parentContext) {
-    if (key is GlobalKey) {
-      return key;
-    }
-
-    if (key is LocalKey) {
-      return GlobalKey('${parentContext.appTargetId}_${key.value}');
-    }
-
-    return GlobalKey('${parentContext.key.value}__${key.value}');
-
-    // Using different separator for local(_) and for non-local(__) keys ensure
-    // that generated keys will be different even if value of appTargetId is
-    // exactly same as value of parentContext.key.value(happens at root point)
-  }
-
-  /// Create [GlobalKey] for widget.
-  ///
-  GlobalKey computeWidgetKey({
-    required Widget widget,
-    required BuildContext parentContext,
-  }) {
-    // whether key is provided explicitly in widget constructor
-
-    var isKeyProvided = Constants.contextKeyNotSet != widget.initialKey;
-
-    if (isKeyProvided) {
-      return getGlobalKeyUsingKey(widget.initialKey, parentContext);
-    }
-
-    return generateGlobalKey();
+    return '${_extraCounter}_${rootElement.appTargetId}';
   }
 
   /// Generate random string of requested length.
@@ -126,14 +75,14 @@ class _CompatibilityHashGenerator {
   /// at the same level of tree.
   ///
   String createCompatibilityHash({
-    required GlobalKey widgetKey,
+    required Key? widgetKey,
     required String widgetRuntimeType,
   }) {
-    if (widgetKey.isFrameworkGenerated) {
-      return '$widgetRuntimeType:${_generateCountForType(widgetRuntimeType)}';
+    if (null != widgetKey) {
+      return '$widgetRuntimeType:${widgetKey.value}';
     }
 
-    return '$widgetRuntimeType:${widgetKey.value}';
+    return '$widgetRuntimeType:${_generateCountForType(widgetRuntimeType)}';
   }
 
   int _generateCountForType(String type) {

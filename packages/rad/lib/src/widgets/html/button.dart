@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
@@ -83,17 +82,19 @@ class Button extends HTMLWidgetBase {
   }
 
   @override
-  createRenderObject(context) => _ButtonRenderObject(context);
+  createRenderElement(parent) => ButtonRenderElement(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class _ButtonRenderObject extends MarkUpGlobalRenderObject {
-  const _ButtonRenderObject(BuildContext context) : super(context);
+/// Button render element.
+///
+class ButtonRenderElement extends HTMLBaseElement {
+  ButtonRenderElement(super.widget, super.parent);
 
   @override
   render({

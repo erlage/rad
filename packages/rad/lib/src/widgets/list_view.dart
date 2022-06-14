@@ -6,14 +6,14 @@ import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/cache.dart';
 import 'package:rad/src/core/common/objects/dom_node_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/core/services/services.dart';
-import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/core/services/services_resolver.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/html/division.dart';
@@ -78,9 +78,6 @@ class ListView extends Widget {
         children = const <Widget>[],
         super(key: key);
 
-  @override
-  List<Widget> get widgetChildren => children;
-
   @nonVirtual
   @override
   String get widgetType => 'ListView';
@@ -102,28 +99,34 @@ class ListView extends Widget {
         scrollDirection != oldWidget.scrollDirection;
   }
 
+  @override
+  shouldWidgetChildrenUpdate(oldWidget, shouldWidgetUpdate) =>
+      !isListViewBuilder;
+
   @nonVirtual
   @override
-  createRenderObject(context) {
+  createRenderElement(parent) {
     if (isListViewBuilder) {
-      return ListViewBuilderRenderObject(
-        context: context,
-        state: _ListViewBuilderState(context),
-      );
+      return ListViewBuilderRenderElement(this, parent);
     }
 
-    return ListViewRenderObject(context);
+    return ListViewRenderElement(this, parent);
   }
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class ListViewRenderObject extends RenderObject {
-  const ListViewRenderObject(BuildContext context) : super(context);
+/// ListView render element.
+///
+class ListViewRenderElement extends RenderElement {
+  ListViewRenderElement(super.widget, super.parent);
+
+  @override
+  List<Widget> get childWidgets => (widget as ListView).children;
 
   @override
   render({
@@ -158,22 +161,33 @@ class ListViewRenderObject extends RenderObject {
 |--------------------------------------------------------------------------
 */
 
-class ListViewBuilderRenderObject extends RenderObject {
+/// List view render element for builder version.
+///
+class ListViewBuilderRenderElement extends RenderElement {
+  /// List view builder state.
+  ///
   final _ListViewBuilderState state;
 
-  const ListViewBuilderRenderObject({
-    required this.state,
-    required BuildContext context,
-  }) : super(context);
+  ListViewBuilderRenderElement(
+    ListView widget,
+    RenderElement parent,
+  )   : state = _ListViewBuilderState(),
+        super(widget, parent);
+
+  @override
+  List<Widget> get childWidgets => ccImmutableEmptyListOfWidgets;
+
+  @override
+  init() {
+    state
+      ..frameworkBindLayoutType((widget as ListView).layoutType)
+      ..frameworkBindWidget(widget);
+  }
 
   @override
   render({
     required covariant ListView widget,
   }) {
-    state
-      ..frameworkBindLayoutType(widget.layoutType)
-      ..frameworkBindWidget(widget);
-
     return DomNodeDescription(
       attributes: _prepareAttributes(
         widget: widget,
@@ -184,16 +198,10 @@ class ListViewBuilderRenderObject extends RenderObject {
 
   @override
   afterMount() {
-    var services = ServicesRegistry.instance.getServices(context);
-    var domNode = services.walker.getWidgetObject(context)!.domNode;
-
-    if (null == domNode) {
-      services.debug.exception(Constants.coreError);
-    } else {
-      state
-        ..frameworkRebindDomNode(domNode)
-        ..frameworkRender();
-    }
+    state
+      ..frameworkBindRenderElement(this)
+      ..frameworkBindDomNode(domNode!)
+      ..frameworkRender();
   }
 
   @override
@@ -230,6 +238,8 @@ class ListViewBuilderRenderObject extends RenderObject {
 |--------------------------------------------------------------------------
 */
 
+/// List View builder state.
+///
 class _ListViewBuilderState with ServicesResolver {
   /*
   |--------------------------------------------------------------------------
@@ -237,7 +247,9 @@ class _ListViewBuilderState with ServicesResolver {
   |--------------------------------------------------------------------------
   */
 
-  final BuildContext context;
+  RenderElement? _element;
+
+  BuildContext get context => _element!;
 
   int _renderableUptoIndex = 3;
 
@@ -248,14 +260,6 @@ class _ListViewBuilderState with ServicesResolver {
   /// Resolve services reference.
   ///
   Services get services => resolveServices(context);
-
-  /*
-  |--------------------------------------------------------------------------
-  | constructor
-  |--------------------------------------------------------------------------
-  */
-
-  _ListViewBuilderState(this.context);
 
   /*
   |--------------------------------------------------------------------------
@@ -314,13 +318,13 @@ class _ListViewBuilderState with ServicesResolver {
         if (itemsToGenerate > 0) {
           services.scheduler.addTask(
             WidgetsBuildTask(
-              parentContext: context,
+              parentRenderElement: _element!,
               mountAtIndex: null,
               flagCleanParentContents: false,
               widgets: List.generate(
                 itemsToGenerate,
                 (i) => Division(
-                  key: Key('lv_item_${i + currentIndex}_${context.key.value}'),
+                  key: Key('lv_item_${i + currentIndex}_${context.key}'),
                   classAttribute: Constants.classListViewItemContainer,
                   child: widget.itemBuilder!(context, i + currentIndex),
                 ),
@@ -380,11 +384,11 @@ class _ListViewBuilderState with ServicesResolver {
 
     services.scheduler.addTask(
       WidgetsBuildTask(
-        parentContext: context,
+        parentRenderElement: _element!,
         widgets: List.generate(
           renderUptoIndex,
           (i) => Division(
-            key: Key('lv_item_${i}_${context.key.value}'),
+            key: Key('lv_item_${i}_${context.key}'),
             classAttribute: Constants.classListViewItemContainer,
             child: widget.itemBuilder!(context, i),
           ),
@@ -397,12 +401,12 @@ class _ListViewBuilderState with ServicesResolver {
   void frameworkUpdate(UpdateType updateType) {
     services.scheduler.addTask(
       WidgetsUpdateTask(
-        parentContext: context,
+        parentRenderElement: _element!,
         updateType: updateType,
         widgets: List.generate(
           renderUptoIndex,
           (i) => Division(
-            key: Key('lv_item_${i}_${context.key.value}'),
+            key: Key('lv_item_${i}_${context.key}'),
             classAttribute: Constants.classListViewItemContainer,
             child: widget.itemBuilder!(context, i),
           ),
@@ -412,19 +416,29 @@ class _ListViewBuilderState with ServicesResolver {
     );
   }
 
-  void frameworkBindWidget(ListView widget) {
+  void frameworkBindWidget(Widget widget) {
     if (null != _widget) {
       throw Exception(Constants.coreError);
     }
 
+    widget as ListView;
+
     _widget = widget;
+  }
+
+  void frameworkBindRenderElement(RenderElement element) {
+    if (null != _element) {
+      throw Exception(Constants.coreError);
+    }
+
+    _element = element;
   }
 
   void frameworkRebindWidget(ListView widget) {
     _widget = widget;
   }
 
-  void frameworkRebindDomNode(Element domNode) {
+  void frameworkBindDomNode(Element domNode) {
     _domNode = domNode;
   }
 

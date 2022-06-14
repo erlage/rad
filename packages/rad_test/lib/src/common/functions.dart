@@ -68,10 +68,10 @@ bool fnIsWidgetTextEditable(Widget widget) {
 
 void fnEnterTextOnWidgetObject({
   required String textToEnter,
-  required WidgetObject widgetObject,
+  required RenderElement renderElement,
 }) {
-  var widget = widgetObject.widget;
-  var domNode = widgetObject.domNode;
+  var widget = renderElement.widget;
+  var domNode = renderElement.domNode;
 
   if (null == domNode) return;
 

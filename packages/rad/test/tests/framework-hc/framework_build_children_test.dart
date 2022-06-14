@@ -29,10 +29,10 @@ void main() {
         widgets: [
           Text('hello world'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('hello world'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('hello world'));
     });
 
     test('should build multiple childs', () async {
@@ -41,10 +41,10 @@ void main() {
           Text('child1'),
           Text('child2'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('child1|child2'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('child1|child2'));
     });
 
     test('should build nested childs', () async {
@@ -57,10 +57,10 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('child1|child2'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('child1|child2'));
     });
 
     test('should build mixed and nested childs', () async {
@@ -81,26 +81,22 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('c1|c2|c3|c4|c5|c6'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('c1|c2|c3|c4|c5|c6'));
     });
 
-    test('should register widget object', () async {
+    test('should register render element', () async {
       await app!.buildChildren(
         widgets: [
           Text('some text', key: GlobalKey('widget-key')),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       expect(
-        app!.services.walker
-            .getWidgetObjectUsingKey('widget-key')!
-            .context
-            .key
-            .value,
+        app!.renderElementByGlobalKey('widget-key')!.key?.value,
         equals('widget-key'),
       );
     });
@@ -111,20 +107,16 @@ void main() {
           Text('some text 1', key: GlobalKey('find-using-me-1')),
           Text('some text 2', key: GlobalKey('find-using-me-2')),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       expect(
-        app!.services.walker
-            .getWidgetObjectUsingKey('find-using-me-1')!
-            .isMounted,
+        app!.renderElementByGlobalKey('find-using-me-1')!.isMounted,
         equals(true),
       );
 
       expect(
-        app!.services.walker
-            .getWidgetObjectUsingKey('find-using-me-2')!
-            .isMounted,
+        app!.renderElementByGlobalKey('find-using-me-2')!.isMounted,
         equals(true),
       );
     });
@@ -134,17 +126,15 @@ void main() {
         widgets: [
           RT_TestWidget(
             key: GlobalKey('test-widget'),
-            roEventHookAfterMount: () {
+            roEventAfterMount: () {
               expect(
-                app!.services.walker
-                    .getWidgetObjectUsingKey('test-widget')!
-                    .isMounted,
+                app!.renderElementByGlobalKey('test-widget')!.isMounted,
                 equals(true),
               );
             },
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
     });
 
@@ -153,17 +143,15 @@ void main() {
         widgets: [
           RT_TestWidget(
             key: GlobalKey('test-widget'),
-            roEventHookRender: () {
+            roEventRender: () {
               expect(
-                app!.services.walker
-                    .getWidgetObjectUsingKey('test-widget')!
-                    .isMounted,
+                app!.renderElementByGlobalKey('test-widget')!.isMounted,
                 equals(false),
               );
             },
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
     });
 
@@ -172,17 +160,15 @@ void main() {
         widgets: [
           RT_TestWidget(
             key: GlobalKey('test-widget'),
-            roEventHookAfterMount: () {
+            roEventAfterMount: () {
               expect(
-                app!.services.walker
-                    .getWidgetObjectUsingKey('test-widget')!
-                    .isMounted,
+                app!.renderElementByGlobalKey('test-widget')!.isMounted,
                 equals(true),
               );
             },
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
     });
 
@@ -203,11 +189,11 @@ void main() {
             ),
             Text('widget 4'),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         expect(
-          RT_TestBed.rootElement,
+          RT_TestBed.rootDomNode,
           RT_hasContents('widget 1|widget 2|widget 3|widget 4'),
         );
       },
@@ -228,11 +214,11 @@ void main() {
             ),
             Text('widget 4'),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         expect(
-          RT_TestBed.rootElement,
+          RT_TestBed.rootDomNode,
           RT_hasContents('widget 1|widget 2|widget 3|widget 4'),
         );
       },
@@ -243,11 +229,11 @@ void main() {
 
       await app!.buildChildren(
         widgets: [
-          RT_TestWidget(roEventHookRender: () => testStack.push('build-1a')),
-          RT_TestWidget(roEventHookRender: () => testStack.push('build-1b')),
-          RT_TestWidget(roEventHookRender: () => testStack.push('build-1c')),
+          RT_TestWidget(roEventRender: () => testStack.push('build-1a')),
+          RT_TestWidget(roEventRender: () => testStack.push('build-1b')),
+          RT_TestWidget(roEventRender: () => testStack.push('build-1c')),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await Future.delayed(Duration.zero, () {
@@ -270,17 +256,17 @@ void main() {
             // render object hooks
 
             // should call this
-            roEventHookAfterMount: () => testStack.push('afterMount'),
+            roEventAfterMount: () => testStack.push('afterMount'),
             // should call this
-            roEventHookRender: () => testStack.push('render'),
+            roEventRender: () => testStack.push('render'),
 
             // should not call this
-            wEventShouldUpdateWidget: () => testStack.push(
+            wEventshouldWidgetUpdate: () => testStack.push(
               'shouldWidgetUpdate',
             ),
 
             // should not call this
-            wEventShouldUpdateWidgetChildren: () => testStack.push(
+            wEventshouldWidgetChildrenUpdate: () => testStack.push(
               'shouldWidgetChildrenUpdate',
             ),
 
@@ -290,7 +276,7 @@ void main() {
             ),
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       expect(testStack.popFromStart(), equals('createRenderObject'));
@@ -312,37 +298,37 @@ void main() {
         widgets: [
           RT_TestWidget(
             key: GlobalKey('widget'),
-            roEventHookRender: () {
+            roEventRender: () {
               testStack.push('render-app-widget');
             },
             children: [
               RT_TestWidget(
                 key: GlobalKey('app-child-0'),
-                roEventHookRender: () {
+                roEventRender: () {
                   testStack.push('render-0');
                 },
                 children: [
                   RT_TestWidget(
                     key: GlobalKey('app-child-0-0'),
-                    roEventHookRender: () {
+                    roEventRender: () {
                       testStack.push('render-0-0');
                     },
                   ),
                   RT_TestWidget(
                     key: GlobalKey('app-child-0-1'),
-                    roEventHookRender: () {
+                    roEventRender: () {
                       testStack.push('render-0-1');
                     },
                     children: [
                       RT_TestWidget(
                         key: GlobalKey('app-child-0-1-0'),
-                        roEventHookRender: () {
+                        roEventRender: () {
                           testStack.push('render-0-1-0');
                         },
                       ),
                       RT_TestWidget(
                         key: GlobalKey('app-child-0-1-1'),
-                        roEventHookRender: () {
+                        roEventRender: () {
                           testStack.push('render-0-1-1');
                         },
                       ),
@@ -352,20 +338,20 @@ void main() {
               ),
               RT_TestWidget(
                 key: GlobalKey('app-child-1'),
-                roEventHookRender: () {
+                roEventRender: () {
                   testStack.push('render-1');
                 },
                 children: [
                   // nested child widgets
                   RT_TestWidget(
                     key: GlobalKey('app-child-1-0'),
-                    roEventHookRender: () {
+                    roEventRender: () {
                       testStack.push('render-1-0');
                     },
                   ),
                   RT_TestWidget(
                     key: GlobalKey('app-child-1-1'),
-                    roEventHookRender: () {
+                    roEventRender: () {
                       testStack.push('render-1-1');
                     },
                   ),
@@ -374,7 +360,7 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       expect(testStack.popFromStart(), equals('render-app-widget'));
@@ -396,17 +382,17 @@ void main() {
         widgets: [
           Text('this should presist'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       // try building, and provide no widgets to build
 
       await app!.buildChildren(
         widgets: [],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('this should presist'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('this should presist'));
     });
 
     test('should dispose existing widgets when provided non-empty widgets list',
@@ -454,45 +440,45 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       // ensure all are built
 
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('widget'),
+        null == app!.renderElementByGlobalKey('widget'),
         equals(false),
       );
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('child-0'),
+        null == app!.renderElementByGlobalKey('child-0'),
         equals(false),
       );
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('child-0-0'),
+        null == app!.renderElementByGlobalKey('child-0-0'),
         equals(false),
       );
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('child-0-1'),
+        null == app!.renderElementByGlobalKey('child-0-1'),
         equals(false),
       );
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('child-0-1-0'),
+        null == app!.renderElementByGlobalKey('child-0-1-0'),
         equals(false),
       );
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('child-0-1-1'),
+        null == app!.renderElementByGlobalKey('child-0-1-1'),
         equals(false),
       );
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('child-1'),
+        null == app!.renderElementByGlobalKey('child-1'),
         equals(false),
       );
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('child-1-0'),
+        null == app!.renderElementByGlobalKey('child-1-0'),
         equals(false),
       );
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('child-1-1'),
+        null == app!.renderElementByGlobalKey('child-1-1'),
         equals(false),
       );
 
@@ -503,65 +489,58 @@ void main() {
         widgets: [
           RT_TestWidget(
             key: GlobalKey('new-child'),
-            roEventHookRender: () {
+            roEventRender: () {
               // existing widgets should already got disposed by this point
 
               expect(
-                null == app!.services.walker.getWidgetObjectUsingKey('child-0'),
+                null == app!.renderElementByGlobalKey('child-0'),
                 equals(true),
               );
               expect(
-                null ==
-                    app!.services.walker.getWidgetObjectUsingKey('child-0-0'),
+                null == app!.renderElementByGlobalKey('child-0-0'),
                 equals(true),
               );
               expect(
-                null ==
-                    app!.services.walker.getWidgetObjectUsingKey('child-0-1'),
+                null == app!.renderElementByGlobalKey('child-0-1'),
                 equals(true),
               );
               expect(
-                null ==
-                    app!.services.walker.getWidgetObjectUsingKey('child-0-1-0'),
+                null == app!.renderElementByGlobalKey('child-0-1-0'),
                 equals(true),
               );
               expect(
-                null ==
-                    app!.services.walker.getWidgetObjectUsingKey('child-0-1-1'),
+                null == app!.renderElementByGlobalKey('child-0-1-1'),
                 equals(true),
               );
               expect(
-                null == app!.services.walker.getWidgetObjectUsingKey('child-1'),
+                null == app!.renderElementByGlobalKey('child-1'),
                 equals(true),
               );
               expect(
-                null ==
-                    app!.services.walker.getWidgetObjectUsingKey('child-1-0'),
+                null == app!.renderElementByGlobalKey('child-1-0'),
                 equals(true),
               );
               expect(
-                null ==
-                    app!.services.walker.getWidgetObjectUsingKey('child-1-1'),
+                null == app!.renderElementByGlobalKey('child-1-1'),
                 equals(true),
               );
             },
           ),
         ],
-        parentContext:
-            app!.services.walker.getWidgetObjectUsingKey('widget')!.context,
+        parentRenderElement: app!.renderElementByGlobalKey('widget')!,
       );
 
       // app widget should not have any impact
 
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('widget'),
+        null == app!.renderElementByGlobalKey('widget'),
         equals(false),
       );
 
       // newer child should be built
 
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('new-child'),
+        null == app!.renderElementByGlobalKey('new-child'),
         equals(false),
       );
     });
@@ -574,23 +553,23 @@ void main() {
           Text('2'),
           Text('3'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.buildChildren(
         widgets: [Text('4')],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
         flagCleanParentContents: false,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('1|2|3|4'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('1|2|3|4'));
     });
 
     test('should continue to append new widgets when clean flag is off',
         () async {
       await app!.buildChildren(
         widgets: [Text('1')],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
         flagCleanParentContents: true,
       );
 
@@ -599,17 +578,17 @@ void main() {
           Text('2'),
           Text('3'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
         flagCleanParentContents: false,
       );
 
       await app!.buildChildren(
         widgets: [Text('4')],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
         flagCleanParentContents: false,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('1|2|3|4'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('1|2|3|4'));
     });
 
     test('should mount at given index when clean flag is off', () async {
@@ -619,17 +598,17 @@ void main() {
           Text('3'),
           Text('4'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.buildChildren(
         widgets: [Text('2')],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
         mountAtIndex: 1,
         flagCleanParentContents: false,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('1|2|3|4'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('1|2|3|4'));
     });
 
     test('should mount at start', () async {
@@ -637,17 +616,17 @@ void main() {
         widgets: [
           Text('0'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.buildChildren(
         widgets: [Text('insert at start')],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
         mountAtIndex: 0,
         flagCleanParentContents: false,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('insert at start|0'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('insert at start|0'));
     });
 
     test('should mount at end', () async {
@@ -655,54 +634,54 @@ void main() {
         widgets: [
           Text('0'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.buildChildren(
         widgets: [Text('insert at end')],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
         mountAtIndex: 1,
         flagCleanParentContents: false,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('0|insert at end'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('0|insert at end'));
     });
 
     test('should mount at start if there are no exisiting widgets', () async {
       await app!.buildChildren(
         widgets: [],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents(''));
+      expect(RT_TestBed.rootDomNode, RT_hasContents(''));
 
       await app!.buildChildren(
         widgets: [Text('insert at start')],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
         mountAtIndex: 0,
         flagCleanParentContents: false,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('insert at start'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('insert at start'));
     });
 
     test('should mount at start if no exisiting widgets and index is OOBs',
         () async {
       await app!.buildChildren(
         widgets: [],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents(''));
+      expect(RT_TestBed.rootDomNode, RT_hasContents(''));
 
       await app!.buildChildren(
         widgets: [Text('insert at start')],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
         mountAtIndex: 10,
         flagCleanParentContents: false,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('insert at start'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('insert at start'));
     });
 
     test('should append if mount index is out of bounds', () async {
@@ -712,24 +691,24 @@ void main() {
           Text('3'),
           Text('4'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.buildChildren(
         widgets: [Text('2')],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
         mountAtIndex: 5,
         flagCleanParentContents: false,
       );
 
       await app!.buildChildren(
         widgets: [Text('-1')],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
         mountAtIndex: -5,
         flagCleanParentContents: false,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('1|3|4|2|-1'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('1|3|4|2|-1'));
     });
 
     test('should append if mount index is provided and clean flag is not set',
@@ -740,16 +719,16 @@ void main() {
           Text('3'),
           Text('4'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.buildChildren(
         widgets: [Text('2')],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
         mountAtIndex: 5,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('2'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('2'));
     });
 
     test('should clean & build if mount index is provided but clean flag is on',
@@ -760,17 +739,17 @@ void main() {
           Text('3'),
           Text('4'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.buildChildren(
         widgets: [Text('2')],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
         mountAtIndex: 5,
         flagCleanParentContents: true,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('2'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('2'));
     });
   });
 }

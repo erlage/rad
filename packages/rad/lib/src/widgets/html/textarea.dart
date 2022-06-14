@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
@@ -128,17 +127,19 @@ class TextArea extends HTMLWidgetBase {
   }
 
   @override
-  createRenderObject(context) => _TextAreaRenderObject(context);
+  createRenderElement(parent) => TextAreaRenderElement(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class _TextAreaRenderObject extends MarkUpGlobalRenderObject {
-  const _TextAreaRenderObject(BuildContext context) : super(context);
+/// Text area render element.
+///
+class TextAreaRenderElement extends HTMLBaseElement {
+  TextAreaRenderElement(super.widget, super.parent);
 
   @override
   render({

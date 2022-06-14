@@ -1,11 +1,12 @@
+import 'dart:collection';
+
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
-import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Base class for widgets that efficiently propagate information down the tree.
@@ -47,9 +48,6 @@ abstract class InheritedWidget extends Widget {
   |--------------------------------------------------------------------------
   */
 
-  @override
-  List<Widget> get widgetChildren => [child];
-
   @nonVirtual
   @override
   String get widgetType => 'InheritedWidget';
@@ -58,32 +56,36 @@ abstract class InheritedWidget extends Widget {
   @override
   DomTagType? get correspondingTag => null;
 
-  @nonVirtual
   @override
-  bool shouldWidgetUpdate(oldWidget) => true;
+  shouldWidgetUpdate(oldWidget) => true;
 
   @nonVirtual
   @override
-  createRenderObject(context) => InheritedWidgetRenderObject(context);
+  createRenderElement(parent) => InheritedRenderElement(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class InheritedWidgetRenderObject extends RenderObject {
-  final dependents = <String, BuildContext>{};
+/// Inherited widget's render element.
+///
+class InheritedRenderElement extends RenderElement {
+  /// List of dependents.
+  ///
+  final dependents = HashSet<RenderElement>();
 
-  InheritedWidgetRenderObject(BuildContext context) : super(context);
+  InheritedRenderElement(super.widget, super.parent);
+
+  @override
+  List<Widget> get childWidgets => [(widget as InheritedWidget).child];
 
   void addDependent(BuildContext dependentContext) {
-    var dependentKeyValue = dependentContext.key.value;
+    dependentContext as RenderElement;
 
-    if (!dependents.containsKey(dependentKeyValue)) {
-      dependents[dependentKeyValue] = dependentContext;
-    }
+    dependents.add(dependentContext);
   }
 
   @override
@@ -95,18 +97,15 @@ class InheritedWidgetRenderObject extends RenderObject {
     var updateShouldNotify = newWidget.updateShouldNotify(oldWidget);
 
     if (updateShouldNotify) {
-      var schedulerService = ServicesRegistry.instance.getScheduler(context);
+      var schedulerService = services.scheduler;
 
-      dependents.forEach((widgetKey, widgetContext) {
+      for (final dependent in dependents) {
         schedulerService.addTask(
-          WidgetsUpdateDependentTask(
-            widgetContext: widgetContext,
-          ),
+          WidgetsUpdateDependentTask(dependentRenderElement: dependent),
         );
-      });
+      }
     }
 
-    // inherited widget's dom node's description never changes.
     return null;
   }
 }

@@ -24,9 +24,9 @@ void main() {
 
         await tester.visitChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: tester.app.appContext,
-          widgetActionCallback: (widgetObject) {
-            var widget = widgetObject.widget;
+          parentRenderElement: tester.app.appRenderElement,
+          widgetActionCallback: (renderElement) {
+            var widget = renderElement.widget;
 
             if (widget is RT_TestWidget) {
               tester.push(widget.hash);
@@ -60,10 +60,10 @@ void main() {
 
         await tester.visitChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: tester.app.appContext,
+          parentRenderElement: tester.app.appRenderElement,
           flagIterateInReverseOrder: false,
-          widgetActionCallback: (widgetObject) {
-            var widget = widgetObject.widget;
+          widgetActionCallback: (renderElement) {
+            var widget = renderElement.widget;
 
             if (widget is RT_TestWidget) {
               tester.push(widget.hash);
@@ -97,10 +97,10 @@ void main() {
 
         await tester.visitChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: tester.app.appContext,
+          parentRenderElement: tester.app.appRenderElement,
           flagIterateInReverseOrder: true,
-          widgetActionCallback: (widgetObject) {
-            var widget = widgetObject.widget;
+          widgetActionCallback: (renderElement) {
+            var widget = renderElement.widget;
 
             if (widget is RT_TestWidget) {
               tester.push(widget.hash);
@@ -136,9 +136,9 @@ void main() {
 
         await tester.visitChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: tester.app.appContext,
-          widgetActionCallback: (widgetObject) {
-            var widget = widgetObject.widget;
+          parentRenderElement: tester.app.appRenderElement,
+          widgetActionCallback: (renderElement) {
+            var widget = renderElement.widget;
 
             if (widget is RT_TestWidget) {
               tester.push(widget.hash);
@@ -171,9 +171,9 @@ void main() {
 
         await tester.visitChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: tester.app.appContext,
-          widgetActionCallback: (widgetObject) {
-            var widget = widgetObject.widget;
+          parentRenderElement: tester.app.appRenderElement,
+          widgetActionCallback: (renderElement) {
+            var widget = renderElement.widget;
 
             if (widget is RT_TestWidget) {
               tester.push(widget.hash);
@@ -201,27 +201,27 @@ void main() {
         await tester.pumpMultipleWidgets([
           RT_TestWidget(
             customHash: 'widget-1',
-            roEventHookBeforeUnMount: () => tester.push('dispose 1'),
+            roEventBeforeUnMount: () => tester.push('dispose 1'),
           ),
           RT_TestWidget(
             customHash: 'widget-2',
-            roEventHookBeforeUnMount: () => tester.push('dispose 2'),
+            roEventBeforeUnMount: () => tester.push('dispose 2'),
           ),
           RT_TestWidget(
             customHash: 'widget-3',
-            roEventHookBeforeUnMount: () => tester.push('dispose 3'),
+            roEventBeforeUnMount: () => tester.push('dispose 3'),
           ),
           RT_TestWidget(
             customHash: 'widget-4',
-            roEventHookBeforeUnMount: () => tester.push('dispose 3'),
+            roEventBeforeUnMount: () => tester.push('dispose 3'),
           ),
         ]);
 
         await tester.visitChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: tester.app.appContext,
-          widgetActionCallback: (widgetObject) {
-            var widget = widgetObject.widget;
+          parentRenderElement: tester.app.appRenderElement,
+          widgetActionCallback: (renderElement) {
+            var widget = renderElement.widget;
 
             if (widget is RT_TestWidget) {
               tester.push(widget.hash);
@@ -253,11 +253,11 @@ void main() {
         await tester.pumpMultipleWidgets([
           RT_TestWidget(
             customHash: 'widget-1',
-            roEventHookUpdate: () => tester.push('update-1'),
+            roEventUpdate: () => tester.push('update-1'),
           ),
           RT_TestWidget(
             customHash: 'widget-2',
-            roEventHookUpdate: () => tester.push('update-2'),
+            roEventUpdate: () => tester.push('update-2'),
             children: [
               RT_TestWidget(
                 customHash: 'widget-2-1',
@@ -265,24 +265,24 @@ void main() {
                   RT_TestWidget(
                     customHash: 'widget-2-1-1',
                     children: [],
-                    roEventHookUpdate: () => tester.push('update-2-1-1'),
+                    roEventUpdate: () => tester.push('update-2-1-1'),
                   ),
                 ],
-                roEventHookUpdate: () => tester.push('update-2-1'),
+                roEventUpdate: () => tester.push('update-2-1'),
               ),
             ],
           ),
           RT_TestWidget(
             customHash: 'widget-3',
-            roEventHookUpdate: () => tester.push('update-3'),
+            roEventUpdate: () => tester.push('update-3'),
           ),
         ]);
 
         await tester.visitChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: tester.app.appContext,
-          widgetActionCallback: (widgetObject) {
-            var widget = widgetObject.widget;
+          parentRenderElement: tester.app.appRenderElement,
+          widgetActionCallback: (renderElement) {
+            var widget = renderElement.widget;
 
             if (widget is RT_TestWidget) {
               tester.push(widget.hash);
@@ -315,32 +315,29 @@ void main() {
 
         await tester.visitChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: tester.app.appContext,
-          widgetActionCallback: (widgetObject) {
+          parentRenderElement: tester.app.appRenderElement,
+          widgetActionCallback: (renderElement) {
             return [WidgetAction.hideWidget];
           },
         );
 
         var node1 = tester
-            .getWidgetObjectByGlobalKey(GlobalKey(
+            .getRenderElementByGlobalKey(GlobalKey(
               '1',
             ))!
-            .context
-            .findDomNode();
+            .findClosestDomNode();
 
         var node2 = tester
-            .getWidgetObjectByGlobalKey(GlobalKey(
+            .getRenderElementByGlobalKey(GlobalKey(
               '2',
             ))!
-            .context
-            .findDomNode();
+            .findClosestDomNode();
 
         var node3 = tester
-            .getWidgetObjectByGlobalKey(GlobalKey(
+            .getRenderElementByGlobalKey(GlobalKey(
               '3',
             ))!
-            .context
-            .findDomNode();
+            .findClosestDomNode();
 
         expect(node1.classes.contains(Constants.classHidden), equals(true));
         expect(node2.classes.contains(Constants.classHidden), equals(true));
@@ -360,8 +357,8 @@ void main() {
         // first hide widgets
         await tester.visitChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: tester.app.appContext,
-          widgetActionCallback: (widgetObject) {
+          parentRenderElement: tester.app.appRenderElement,
+          widgetActionCallback: (renderElement) {
             return [WidgetAction.hideWidget];
           },
         );
@@ -369,32 +366,29 @@ void main() {
         // then show widgets
         await tester.visitChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: tester.app.appContext,
-          widgetActionCallback: (widgetObject) {
+          parentRenderElement: tester.app.appRenderElement,
+          widgetActionCallback: (renderElement) {
             return [WidgetAction.showWidget];
           },
         );
 
         var node1 = tester
-            .getWidgetObjectByGlobalKey(GlobalKey(
+            .getRenderElementByGlobalKey(GlobalKey(
               '1',
             ))!
-            .context
-            .findDomNode();
+            .findClosestDomNode();
 
         var node2 = tester
-            .getWidgetObjectByGlobalKey(GlobalKey(
+            .getRenderElementByGlobalKey(GlobalKey(
               '2',
             ))!
-            .context
-            .findDomNode();
+            .findClosestDomNode();
 
         var node3 = tester
-            .getWidgetObjectByGlobalKey(GlobalKey(
+            .getRenderElementByGlobalKey(GlobalKey(
               '3',
             ))!
-            .context
-            .findDomNode();
+            .findClosestDomNode();
 
         expect(node1.classes.contains(Constants.classHidden), equals(false));
         expect(node2.classes.contains(Constants.classHidden), equals(false));
@@ -409,8 +403,8 @@ void main() {
           RT_TestWidget(
             key: GlobalKey('1'),
             customHash: 'widget-1',
-            roEventHookUpdate: () => tester.push('update-1'),
-            roEventHookBeforeUnMount: () => tester.push('dispose-1'),
+            roEventUpdate: () => tester.push('update-1'),
+            roEventBeforeUnMount: () => tester.push('dispose-1'),
           ),
           RT_TestWidget(
             customHash: 'widget-2',
@@ -422,30 +416,30 @@ void main() {
                     customHash: 'widget-2-1-1',
                     children: [],
                     // should never cascade update to this level
-                    roEventHookUpdate: () => tester.push('update-2-1-1'),
+                    roEventUpdate: () => tester.push('update-2-1-1'),
                   ),
                 ],
-                roEventHookUpdate: () => tester.push('update-2-1'),
-                roEventHookBeforeUnMount: () => tester.push('dispose-2-1'),
+                roEventUpdate: () => tester.push('update-2-1'),
+                roEventBeforeUnMount: () => tester.push('dispose-2-1'),
               ),
             ],
-            roEventHookUpdate: () => tester.push('update-2'),
-            roEventHookBeforeUnMount: () => tester.push('dispose-2'),
+            roEventUpdate: () => tester.push('update-2'),
+            roEventBeforeUnMount: () => tester.push('dispose-2'),
           ),
           RT_TestWidget(
             key: GlobalKey('3'),
             customHash: 'widget-3',
-            roEventHookUpdate: () => tester.push('update-3'),
-            roEventHookBeforeUnMount: () => tester.push('dispose-3'),
+            roEventUpdate: () => tester.push('update-3'),
+            roEventBeforeUnMount: () => tester.push('dispose-3'),
           ),
           RT_TestWidget(customHash: 'widget-4'),
         ]);
 
         await tester.visitChildren(
           updateType: UpdateType.visitorUpdate,
-          parentContext: tester.app.appContext,
-          widgetActionCallback: (widgetObject) {
-            var widget = widgetObject.widget;
+          parentRenderElement: tester.app.appRenderElement,
+          widgetActionCallback: (renderElement) {
+            var widget = renderElement.widget;
 
             if (widget is RT_TestWidget) {
               var hash = widget.hash;
@@ -480,18 +474,16 @@ void main() {
         );
 
         var node1 = tester
-            .getWidgetObjectByGlobalKey(GlobalKey(
+            .getRenderElementByGlobalKey(GlobalKey(
               '1',
             ))!
-            .context
-            .findDomNode();
+            .findClosestDomNode();
 
         var node3 = tester
-            .getWidgetObjectByGlobalKey(GlobalKey(
+            .getRenderElementByGlobalKey(GlobalKey(
               '3',
             ))!
-            .context
-            .findDomNode();
+            .findClosestDomNode();
 
         expect(node1.classes.contains(Constants.classHidden), equals(false));
         expect(node3.classes.contains(Constants.classHidden), equals(true));

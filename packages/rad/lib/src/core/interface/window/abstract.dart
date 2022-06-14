@@ -16,7 +16,7 @@ abstract class WindowDelegate {
   /// context.
   ///
   void addPopStateListener({
-    required BuildContext context,
+    required BuildContext rootElement,
     required PopStateEventCallback callback,
   });
 

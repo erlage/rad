@@ -3,13 +3,13 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/cache.dart';
 import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/scheduler/tasks/stimulate_listener_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
-import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/include/foundation/change_notifier.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
@@ -132,70 +132,55 @@ abstract class StatefulWidget extends Widget {
   @override
   bool shouldWidgetChildrenUpdate(oldWidget, shouldWidgetUpdate) => false;
 
-  @nonVirtual
   @override
-  createRenderObject(context) => StatefulWidgetRenderObject(
-        context: context,
-        state: createState(),
-      );
+  createRenderElement(parent) => StatefulRenderElement(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class StatefulWidgetRenderObject extends RenderObject {
+/// StatefulWidget's render element.
+///
+class StatefulRenderElement extends RenderElement {
+  /// Associated state of stateful widget.
+  ///
   final State state;
 
-  const StatefulWidgetRenderObject({
-    required this.state,
-    required BuildContext context,
-  }) : super(context);
+  StatefulRenderElement(
+    StatefulWidget widget,
+    RenderElement parent,
+  )   : state = widget.createState(),
+        super(widget, parent);
 
   @override
-  afterMount() {
-    var services = ServicesRegistry.instance.getServices(context);
-    var widget = services.walker.getWidgetObject(context)!.widget;
+  List<Widget> get childWidgets => ccImmutableEmptyListOfWidgets;
 
+  @override
+  init() {
     state
       ..frameworkBindWidget(widget)
-      ..frameworkBindContext(context)
+      ..frameworkBindRenderElement(this);
+  }
+
+  @override
+  void afterMount() {
+    state
       ..initState()
       ..didChangeDependencies();
 
     services.scheduler.addTask(
       WidgetsBuildTask(
-        parentContext: context,
-        widgets: [state.build(context)],
+        parentRenderElement: this,
+        widgets: [state.build(this)],
       ),
     );
   }
 
-  @override
-  update({
-    required updateType,
-    required oldWidget,
-    required newWidget,
-  }) {
-    if (UpdateType.dependencyChanged == updateType) {
-      state.didChangeDependencies();
-    }
-
-    var schedulerService = ServicesRegistry.instance.getScheduler(context);
-
-    schedulerService.addTask(
-      WidgetsUpdateTask(
-        parentContext: context,
-        updateType: updateType,
-        widgets: [state.build(context)],
-      ),
-    );
-
-    // state's dom node's description never changes
-    return null;
-  }
+  // we build child of stateful widget after mount so that users can call
+  // any method from context.* inside build method
 
   @override
   afterWidgetRebind({
@@ -209,7 +194,28 @@ class StatefulWidgetRenderObject extends RenderObject {
   }
 
   @override
-  beforeUnMount() => state.frameworkDispose();
+  update({
+    required updateType,
+    required oldWidget,
+    required newWidget,
+  }) {
+    if (UpdateType.dependencyChanged == updateType) {
+      state.didChangeDependencies();
+    }
+
+    services.scheduler.addTask(
+      WidgetsUpdateTask(
+        parentRenderElement: this,
+        widgets: [state.build(this)],
+        updateType: updateType,
+      ),
+    );
+
+    return null;
+  }
+
+  @override
+  beforeUnMount() => state.dispose();
 }
 
 /*
@@ -292,7 +298,9 @@ abstract class State<T extends StatefulWidget> {
     return _widget!;
   }
 
-  BuildContext? _context;
+  /// Render element.
+  ///
+  StatefulRenderElement? _element;
 
   /// The location in the tree where this widget builds.
   ///
@@ -307,16 +315,16 @@ abstract class State<T extends StatefulWidget> {
   /// connection with the [BuildContext].
   ///
   BuildContext get context {
-    if (null == _widget) {
+    if (null == _element) {
       throw Exception(
-        'State.context instance cannot be accessed in state constructor. '
+        'State.context instance cannot be accessed in a state constructor. '
         'Please use initState hook to initialize the state that depends on '
-        'context or consider canceling any active work during "dispose" or '
-        'using the "mounted" getter to determine if the State is still active.',
+        'context or consider canceling any active work during "dispose". You '
+        'can also use "mounted" getter to determine if context is available.',
       );
     }
 
-    return _context!;
+    return _element!;
   }
 
   /// Whether this [State] object is currently in a tree.
@@ -329,7 +337,7 @@ abstract class State<T extends StatefulWidget> {
   ///
   /// It is an error to call [setState] unless [mounted] is true.
   ///
-  bool get mounted => _context != null;
+  bool get mounted => null != _element;
 
   /*
   |--------------------------------------------------------------------------
@@ -411,9 +419,10 @@ abstract class State<T extends StatefulWidget> {
   @nonVirtual
   @protected
   void setState(Callback? callable) {
-    var schedulerService = ServicesRegistry.instance.getScheduler(context);
+    var element = _element!;
+    var scheduler = element.services.scheduler;
 
-    schedulerService.addTask(
+    scheduler.addTask(
       StimulateListenerTask(
         beforeTaskCallback: () {
           if (null != callable) {
@@ -422,11 +431,11 @@ abstract class State<T extends StatefulWidget> {
         },
         afterTaskCallback: () {
           // this is wrapped in a another task to defer the call to build().
-          schedulerService.addTask(
+          scheduler.addTask(
             WidgetsUpdateTask(
-              parentContext: context,
+              parentRenderElement: element,
               updateType: UpdateType.setState,
-              widgets: [build(context)],
+              widgets: [build(element)],
             ),
           );
         },
@@ -442,12 +451,12 @@ abstract class State<T extends StatefulWidget> {
 
   @nonVirtual
   @protected
-  void frameworkBindContext(BuildContext context) {
-    if (null != _context) {
+  void frameworkBindRenderElement(StatefulRenderElement element) {
+    if (null != _element) {
       throw Exception(Constants.coreError);
     }
 
-    _context = context;
+    _element = element;
   }
 
   @nonVirtual

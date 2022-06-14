@@ -1,10 +1,12 @@
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/cache.dart';
 import 'package:rad/src/core/common/objects/dom_node_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
@@ -109,11 +111,6 @@ abstract class HTMLWidgetBase extends Widget {
         super(key: key);
 
   @override
-  List<Widget> get widgetChildren {
-    return children ?? (null != child ? [child!] : const []);
-  }
-
-  @override
   Map<DomEventType, EventCallback?> get widgetEventListeners => {
         DomEventType.click: onClick,
       };
@@ -127,33 +124,53 @@ abstract class HTMLWidgetBase extends Widget {
         tabIndex != oldWidget.tabIndex ||
         style != oldWidget.style ||
         classAttribute != oldWidget.classAttribute ||
-        !fnIsKeyValueMapEqual(dataAttributes, oldWidget.dataAttributes) ||
         hidden != oldWidget.hidden ||
         draggable != oldWidget.draggable ||
         contenteditable != oldWidget.contenteditable ||
         onClickAttribute != oldWidget.onClickAttribute ||
-        innerText != oldWidget.innerText;
+        innerText != oldWidget.innerText ||
+        !fnIsKeyValueMapEqual(dataAttributes, oldWidget.dataAttributes);
   }
 
   @override
-  createRenderObject(context) => MarkUpGlobalRenderObject(context);
+  createRenderElement(parent) => HTMLBaseElement(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class MarkUpGlobalRenderObject extends RenderObject {
-  const MarkUpGlobalRenderObject(BuildContext context) : super(context);
+/// Base element for HTML widgets.-
+///
+class HTMLBaseElement extends RenderElement {
+  HTMLBaseElement(
+    HTMLWidgetBase widget,
+    RenderElement parent,
+  )   :
+        // prepare child widgets
+
+        _childWidgets = widget.children ??
+            (null != widget.child
+                ? [widget.child!]
+                : ccImmutableEmptyListOfWidgets),
+
+        // base
+
+        super(widget, parent);
+
+  @override
+  List<Widget> get childWidgets => _childWidgets;
+  List<Widget> _childWidgets;
 
   /*
   |--------------------------------------------------------------------------
   | lifecycle hooks
-  |--------------------------------------------------------------------------
+  |-------------------------------------------------------------------------
   */
 
+  @mustCallSuper
   @override
   render({
     required widget,
@@ -177,6 +194,20 @@ class MarkUpGlobalRenderObject extends RenderObject {
     );
   }
 
+  @mustCallSuper
+  @override
+  afterWidgetRebind({
+    required oldWidget,
+    required covariant HTMLWidgetBase newWidget,
+    required updateType,
+  }) {
+    _childWidgets = newWidget.children ??
+        (null != newWidget.child
+            ? [newWidget.child!]
+            : ccImmutableEmptyListOfWidgets);
+  }
+
+  @mustCallSuper
   @override
   update({
     required updateType,

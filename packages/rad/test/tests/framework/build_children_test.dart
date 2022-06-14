@@ -77,14 +77,14 @@ void main() {
         Text('some text 2'),
       ]);
 
-      expect(tester.find.byType(Text), widgetObjectsAreMounted);
+      expect(tester.find.byType(Text), renderElementsAreMounted);
     });
 
     testWidgets('should trigger afterMount hook after mount', (tester) async {
       await tester.pumpWidget(
         RT_TestWidget(
-          roEventHookAfterMount: () {
-            expect(tester.find.byType(RT_TestWidget), widgetObjectIsMounted);
+          roEventAfterMount: () {
+            expect(tester.find.byType(RT_TestWidget), renderElementIsMounted);
           },
         ),
       );
@@ -95,7 +95,7 @@ void main() {
     testWidgets('should call render before mount', (tester) async {
       await tester.pumpWidget(
         RT_TestWidget(
-          roEventHookRender: () {
+          roEventRender: () {
             // if widget is not mounted, then test framework will not be able
             // to collect it. that's also the reason why we can't use the matcher
             // widgetObjectIsNotMounted here
@@ -157,9 +157,9 @@ void main() {
 
     testWidgets('should build widgets in order', (tester) async {
       await tester.pumpMultipleWidgets([
-        RT_TestWidget(roEventHookRender: () => tester.push('build-1a')),
-        RT_TestWidget(roEventHookRender: () => tester.push('build-1b')),
-        RT_TestWidget(roEventHookRender: () => tester.push('build-1c')),
+        RT_TestWidget(roEventRender: () => tester.push('build-1a')),
+        RT_TestWidget(roEventRender: () => tester.push('build-1b')),
+        RT_TestWidget(roEventRender: () => tester.push('build-1c')),
       ]);
 
       tester.assertMatchStack([
@@ -180,8 +180,8 @@ void main() {
 
           // render object hooks
 
-          roEventHookRender: () => tester.push('render'),
-          roEventHookAfterMount: () => tester.push('afterMount'),
+          roEventRender: () => tester.push('render'),
+          roEventAfterMount: () => tester.push('afterMount'),
         ),
       );
 
@@ -195,36 +195,36 @@ void main() {
     testWidgets('should build widgets, in order, from top', (tester) async {
       await tester.pumpWidget(
         RT_TestWidget(
-          roEventHookRender: () => tester.push('render-root'),
+          roEventRender: () => tester.push('render-root'),
           children: [
             RT_TestWidget(
-              roEventHookRender: () => tester.push('render-0'),
+              roEventRender: () => tester.push('render-0'),
               children: [
                 RT_TestWidget(
-                  roEventHookRender: () => tester.push('render-0-0'),
+                  roEventRender: () => tester.push('render-0-0'),
                 ),
                 RT_TestWidget(
-                  roEventHookRender: () => tester.push('render-0-1'),
+                  roEventRender: () => tester.push('render-0-1'),
                   children: [
                     RT_TestWidget(
-                      roEventHookRender: () => tester.push('render-0-1-0'),
+                      roEventRender: () => tester.push('render-0-1-0'),
                     ),
                     RT_TestWidget(
-                      roEventHookRender: () => tester.push('render-0-1-1'),
+                      roEventRender: () => tester.push('render-0-1-1'),
                     ),
                   ],
                 ),
               ],
             ),
             RT_TestWidget(
-              roEventHookRender: () => tester.push('render-1'),
+              roEventRender: () => tester.push('render-1'),
               children: [
                 // nested child widgets
                 RT_TestWidget(
-                  roEventHookRender: () => tester.push('render-1-0'),
+                  roEventRender: () => tester.push('render-1-0'),
                 ),
                 RT_TestWidget(
-                  roEventHookRender: () => tester.push('render-1-1'),
+                  roEventRender: () => tester.push('render-1-1'),
                 ),
               ],
             ),

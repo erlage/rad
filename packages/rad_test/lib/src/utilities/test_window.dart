@@ -5,9 +5,9 @@ import 'package:rad_test/src/imports.dart';
 /// Browser's window mock.
 ///
 class TestWindow extends WindowDelegate {
-  final BuildContext rootContext;
+  final RootElement rootElement;
 
-  TestWindow(this.rootContext);
+  TestWindow(this.rootElement);
 
   final _psListeners = <String, PopStateEventCallback>{};
 
@@ -61,11 +61,11 @@ class TestWindow extends WindowDelegate {
 
   @override
   addPopStateListener({
-    required context,
+    required rootElement,
     required callback,
   }) {
-    if (!_psListeners.containsKey(context.appTargetId)) {
-      _psListeners[context.appTargetId] = callback;
+    if (!_psListeners.containsKey(rootElement.appTargetId)) {
+      _psListeners[rootElement.appTargetId] = callback;
     }
   }
 
@@ -142,7 +142,7 @@ class TestWindow extends WindowDelegate {
   }
 
   void dispatchBackAction() {
-    historyBack(context: rootContext);
+    historyBack(context: rootElement);
   }
 
   void dispatchForwardAction() {

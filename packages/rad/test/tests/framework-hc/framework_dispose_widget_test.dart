@@ -31,16 +31,16 @@ void main() {
           RT_TestWidget(key: GlobalKey('el-2'), children: [Text('widget-2')]),
           RT_TestWidget(key: GlobalKey('el-3'), children: [Text('widget-3')]),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObjectUsingKey('el-2'),
+        renderElement: app!.renderElementByGlobalKey('el-2'),
         flagPreserveTarget: false,
       );
 
       expect(
-        RT_TestBed.rootElement,
+        RT_TestBed.rootDomNode,
         RT_hasContents('widget-1|widget-3'),
       );
     });
@@ -53,9 +53,9 @@ void main() {
             children: [],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
-      expect(RT_TestBed.rootElement, RT_hasContents(''));
+      expect(RT_TestBed.rootDomNode, RT_hasContents(''));
 
       await app!.updateChildren(
         widgets: [
@@ -69,20 +69,20 @@ void main() {
           ),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('1|2|3'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('1|2|3'));
 
       await app!.updateChildren(
         widgets: [
           RT_TestWidget(key: GlobalKey('el-1')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents(''));
+      expect(RT_TestBed.rootDomNode, RT_hasContents(''));
     });
 
     test('should dispose single widget', () async {
@@ -111,21 +111,21 @@ void main() {
             ],
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
       await app!.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObjectUsingKey('child-0-0'),
+        renderElement: app!.renderElementByGlobalKey('child-0-0'),
         flagPreserveTarget: false,
       );
 
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('child-0-0'),
+        null == app!.renderElementByGlobalKey('child-0-0'),
         equals(true),
       );
 
       expect(
-        RT_TestBed.rootElement,
+        RT_TestBed.rootDomNode,
         RT_hasContents('0|0-1|1'),
       );
     });
@@ -156,30 +156,30 @@ void main() {
             ],
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
       await app!.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObjectUsingKey('child-0-0'),
+        renderElement: app!.renderElementByGlobalKey('child-0-0'),
         flagPreserveTarget: false,
       );
 
       await app!.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObjectUsingKey('child-0-1'),
+        renderElement: app!.renderElementByGlobalKey('child-0-1'),
         flagPreserveTarget: false,
       );
 
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('child-0-0'),
+        null == app!.renderElementByGlobalKey('child-0-0'),
         equals(true),
       );
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('child-0-1'),
+        null == app!.renderElementByGlobalKey('child-0-1'),
         equals(true),
       );
 
       expect(
-        RT_TestBed.rootElement,
+        RT_TestBed.rootDomNode,
         RT_hasContents('0|1'),
       );
     });
@@ -208,29 +208,29 @@ void main() {
             ],
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
       await app!.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObjectUsingKey('child-0'),
+        renderElement: app!.renderElementByGlobalKey('child-0'),
         flagPreserveTarget: false,
       );
 
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('child-0-0'),
+        null == app!.renderElementByGlobalKey('child-0-0'),
         equals(true),
       );
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('child-0-1'),
+        null == app!.renderElementByGlobalKey('child-0-1'),
         equals(true),
       );
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('child-0'),
+        null == app!.renderElementByGlobalKey('child-0'),
         equals(true),
       );
 
       expect(
-        RT_TestBed.rootElement,
+        RT_TestBed.rootDomNode,
         RT_hasContents('1'),
       );
     });
@@ -240,33 +240,33 @@ void main() {
         widgets: [
           RT_TestWidget(key: GlobalKey('widget')),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
       // widget should be ready for dispose by now
 
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('widget'),
+        null == app!.renderElementByGlobalKey('widget'),
         equals(false),
       );
 
       await app!.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObjectUsingKey('widget'),
+        renderElement: app!.renderElementByGlobalKey('widget'),
         flagPreserveTarget: false,
       );
 
       await app!.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObjectUsingKey('widget'),
+        renderElement: app!.renderElementByGlobalKey('widget'),
         flagPreserveTarget: false,
       );
 
       await app!.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObjectUsingKey('widget'),
+        renderElement: app!.renderElementByGlobalKey('widget'),
         flagPreserveTarget: false,
       );
 
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('widget'),
+        null == app!.renderElementByGlobalKey('widget'),
         equals(true),
       );
     });
@@ -295,29 +295,29 @@ void main() {
             ],
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
       await app!.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObjectUsingKey('child-0'),
+        renderElement: app!.renderElementByGlobalKey('child-0'),
         flagPreserveTarget: true,
       );
 
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('child-0-0'),
+        null == app!.renderElementByGlobalKey('child-0-0'),
         equals(true),
       );
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('child-0-1'),
+        null == app!.renderElementByGlobalKey('child-0-1'),
         equals(true),
       );
       expect(
-        null == app!.services.walker.getWidgetObjectUsingKey('child-0'),
+        null == app!.renderElementByGlobalKey('child-0'),
         equals(false),
       );
 
       expect(
-        RT_TestBed.rootElement,
+        RT_TestBed.rootDomNode,
         RT_hasContents('|1'),
       );
     });
@@ -332,37 +332,37 @@ void main() {
         widgets: [
           RT_TestWidget(
             key: GlobalKey('widget'),
-            roEventHookBeforeUnMount: () {
+            roEventBeforeUnMount: () {
               testStack.push('this should not get unmount');
             },
             children: [
               RT_TestWidget(
                 key: GlobalKey('app-child-0'),
-                roEventHookBeforeUnMount: () {
+                roEventBeforeUnMount: () {
                   testStack.push('dispose-0');
                 },
                 children: [
                   RT_TestWidget(
                     key: GlobalKey('app-child-0-0'),
-                    roEventHookBeforeUnMount: () {
+                    roEventBeforeUnMount: () {
                       testStack.push('dispose-0-0');
                     },
                   ),
                   RT_TestWidget(
                     key: GlobalKey('app-child-0-1'),
-                    roEventHookBeforeUnMount: () {
+                    roEventBeforeUnMount: () {
                       testStack.push('dispose-0-1');
                     },
                     children: [
                       RT_TestWidget(
                         key: GlobalKey('app-child-0-1-0'),
-                        roEventHookBeforeUnMount: () {
+                        roEventBeforeUnMount: () {
                           testStack.push('dispose-0-1-0');
                         },
                       ),
                       RT_TestWidget(
                         key: GlobalKey('app-child-0-1-1'),
-                        roEventHookBeforeUnMount: () {
+                        roEventBeforeUnMount: () {
                           testStack.push('dispose-0-1-1');
                         },
                       ),
@@ -372,20 +372,20 @@ void main() {
               ),
               RT_TestWidget(
                 key: GlobalKey('app-child-1'),
-                roEventHookBeforeUnMount: () {
+                roEventBeforeUnMount: () {
                   testStack.push('dispose-1');
                 },
                 children: [
                   // nested child widgets
                   RT_TestWidget(
                     key: GlobalKey('app-child-1-0'),
-                    roEventHookBeforeUnMount: () {
+                    roEventBeforeUnMount: () {
                       testStack.push('dispose-1-0');
                     },
                   ),
                   RT_TestWidget(
                     key: GlobalKey('app-child-1-1'),
-                    roEventHookBeforeUnMount: () {
+                    roEventBeforeUnMount: () {
                       testStack.push('dispose-1-1');
                     },
                   ),
@@ -394,7 +394,7 @@ void main() {
             ],
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
       // expected tree and dispose order:
@@ -410,7 +410,7 @@ void main() {
       //
 
       await app!.disposeWidget(
-        widgetObject: app!.services.walker.getWidgetObjectUsingKey('widget'),
+        renderElement: app!.renderElementByGlobalKey('widget'),
         flagPreserveTarget: true,
       );
 

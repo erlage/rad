@@ -1,4 +1,3 @@
-import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/types.dart';
 
 /// A simple job queue that stack jobs and callbacks.
@@ -12,18 +11,12 @@ class JobQueue {
   var _isLocked = false;
 
   void addJob(Callback job) {
-    if (_isLocked) {
-      throw Exception(Constants.coreError);
-    }
+    assert(!_isLocked, 'JobQueue is already locked');
 
     _jobs.add(job);
   }
 
   void addPostDispatchCallback(Callback callback) {
-    if (_isLocked) {
-      throw Exception(Constants.coreError);
-    }
-
     _postJobCallbacks.add(callback);
   }
 

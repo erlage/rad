@@ -5,7 +5,9 @@ import '../../test_imports.dart';
 void main() {
   group('State hooks :', () {
     setUp(() {
-      ServicesRegistry.instance.unRegisterServices(RT_TestBed.rootContext);
+      ServicesRegistry.instance.unRegisterServices(
+        RT_TestBed.rootRenderElement,
+      );
     });
 
     test('should bind widget before initState, type test', () async {
@@ -16,7 +18,7 @@ void main() {
             expect(state.widget.runtimeType, equals(RT_StatefulTestWidget));
           },
         ),
-        targetId: RT_TestBed.rootKey.value,
+        targetId: RT_TestBed.rootTargetId,
       );
 
       await Future.delayed(Duration.zero);
@@ -27,10 +29,10 @@ void main() {
         app: RT_StatefulTestWidget(
           key: GlobalKey('widget'),
           stateHookInitState: (state) {
-            expect(state.context.key.value, equals('widget'));
+            expect(state.context.key?.value, endsWith('widget'));
           },
         ),
-        targetId: RT_TestBed.rootKey.value,
+        targetId: RT_TestBed.rootTargetId,
       );
 
       await Future.delayed(Duration.zero);
@@ -48,7 +50,7 @@ void main() {
                 stateHookCreateState: (state) => state.widget,
               ),
             ],
-            parentContext: app.appContext,
+            parentRenderElement: app.appRenderElement,
           ),
           throwsA(
             predicate(
@@ -75,12 +77,12 @@ void main() {
                 stateHookCreateState: (state) => state.context,
               ),
             ],
-            parentContext: app.appContext,
+            parentRenderElement: app.appRenderElement,
           ),
           throwsA(
             predicate(
               (e) => '$e'.startsWith(
-                'Exception: State.context instance cannot be accessed in state',
+                'Exception: State.context instance cannot be accessed in a state',
               ),
             ),
           ),
@@ -100,7 +102,7 @@ void main() {
             'did change dependencies',
           ),
         ),
-        targetId: RT_TestBed.rootKey.value,
+        targetId: RT_TestBed.rootTargetId,
       );
 
       await Future.delayed(Duration.zero, () {
@@ -121,7 +123,7 @@ void main() {
             'did change dependencies',
           ),
         ),
-        targetId: RT_TestBed.rootKey.value,
+        targetId: RT_TestBed.rootTargetId,
       );
 
       await Future.delayed(Duration.zero, () {
@@ -152,7 +154,7 @@ void main() {
             'did change dependencies',
           ),
         ),
-        targetId: RT_TestBed.rootKey.value,
+        targetId: RT_TestBed.rootTargetId,
       );
 
       await Future.delayed(Duration.zero, () {
@@ -177,7 +179,7 @@ void main() {
             'did change dependencies',
           ),
         ),
-        targetId: RT_TestBed.rootKey.value,
+        targetId: RT_TestBed.rootTargetId,
       );
 
       await Future.delayed(Duration.zero, () {
@@ -217,7 +219,7 @@ void main() {
               ),
             ),
           ],
-          parentContext: app.appContext,
+          parentRenderElement: app.appRenderElement,
         );
 
         await app.updateChildren(
@@ -239,7 +241,7 @@ void main() {
             ),
           ],
           updateType: UpdateType.undefined,
-          parentContext: app.appContext,
+          parentRenderElement: app.appRenderElement,
         );
 
         expect(testStack.popFromStart(), equals('create state 1a'));
@@ -273,7 +275,7 @@ void main() {
             stateEventDispose: () => testStack.push('dispose 1a'),
           ),
         ],
-        parentContext: app.appContext,
+        parentRenderElement: app.appRenderElement,
       );
 
       await app.updateChildren(
@@ -293,7 +295,7 @@ void main() {
           ),
         ],
         updateType: UpdateType.undefined,
-        parentContext: app.appContext,
+        parentRenderElement: app.appRenderElement,
       );
 
       expect(testStack.popFromStart(), equals('create state 1a'));
@@ -338,7 +340,7 @@ void main() {
             stateEventBuild: () => testStack.push('build-1c'),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       expect(testStack.popFromStart(), equals('build-1a'));
@@ -363,7 +365,7 @@ void main() {
             stateEventBuild: () => testStack.push('build-c'),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -373,7 +375,7 @@ void main() {
           RT_StatefulTestWidget(),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       expect(testStack.popFromStart(), equals('build-a'));
@@ -388,5 +390,111 @@ void main() {
 
       expect(testStack.canPop(), equals(false));
     });
+
+    test('should call hooks in order', () async {
+      var testStack = RT_TestStack();
+
+      await app!.buildChildren(
+        widgets: [
+          RT_StatefulTestWidget(
+              stateEventInitState: () => testStack.push('init'),
+              stateEventBuild: () => testStack.push('build'),
+              stateEventDispose: () => testStack.push('dispose'),
+              children: [
+                RT_TestWidget(
+                  roEventRender: () => testStack.push('render child'),
+                )
+              ]),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          RT_AnotherStatefulWidget(
+            stateEventInitState: () => testStack.push('init new'),
+            stateEventBuild: () => testStack.push('build new'),
+            stateEventDispose: () => testStack.push('dispose new'),
+            children: [
+              RT_TestWidget(
+                roEventRender: () => testStack.push('render child new'),
+              )
+            ],
+          ),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      expect(testStack.popFromStart(), equals('init'));
+      expect(testStack.popFromStart(), equals('build'));
+      expect(testStack.popFromStart(), equals('render child'));
+
+      expect(testStack.popFromStart(), equals('dispose'));
+      expect(testStack.popFromStart(), equals('init new'));
+      expect(testStack.popFromStart(), equals('build new'));
+      expect(testStack.popFromStart(), equals('render child new'));
+
+      expect(testStack.canPop(), equals(false));
+    });
+
+    test('should build alternating childs', () async {
+      await app!.updateChildren(
+        widgets: [
+          _AlternatingChildsWidget(),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      expect(RT_TestBed.rootDomNode, RT_hasContents('child 1'));
+
+      await app!.updateChildren(
+        widgets: [
+          _AlternatingChildsWidget(),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      expect(RT_TestBed.rootDomNode, RT_hasContents('child 2'));
+
+      await app!.updateChildren(
+        widgets: [
+          _AlternatingChildsWidget(),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      expect(RT_TestBed.rootDomNode, RT_hasContents('child 1'));
+    });
   });
+}
+
+class _AlternatingChildsWidget extends StatefulWidget {
+  _AlternatingChildsWidget({Key? key}) : super(key: key);
+
+  @override
+  _AlternatingChildsWidgetState createState() =>
+      _AlternatingChildsWidgetState();
+}
+
+class _AlternatingChildsWidgetState extends State<_AlternatingChildsWidget> {
+  final Widget _child1 = Span(innerText: 'child 1');
+  final Widget _child2 = Division(innerText: 'child 2');
+
+  Widget? _activeChild;
+
+  @override
+  void initState() {
+    _activeChild = _child2;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _activeChild = _activeChild == _child1 ? _child2 : _child1;
+
+    return _activeChild!;
+  }
 }

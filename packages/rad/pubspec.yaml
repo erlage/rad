@@ -46,6 +46,12 @@ dev_dependencies:
   import_sorter: ^4.6.0
   build_web_compilers: ^3.2.3
 
+dependency_overrides:
+  # we're developing core alongside test package
+  # until stable release
+  rad_test:
+    path: ../rad_test
+
 import_sorter:
   emojis: false
   comments: false

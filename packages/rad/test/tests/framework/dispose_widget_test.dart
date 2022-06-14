@@ -20,7 +20,7 @@ void main() {
       ]);
 
       await tester.disposeWidget(
-        widgetObject: tester.getWidgetObjectByGlobalKey(gkey),
+        renderElement: tester.getRenderElementByGlobalKey(gkey),
         flagPreserveTarget: false,
       );
 
@@ -68,7 +68,7 @@ void main() {
       );
 
       await tester.disposeWidget(
-        widgetObject: tester.getWidgetObjectByGlobalKey(gkey),
+        renderElement: tester.getRenderElementByGlobalKey(gkey),
         flagPreserveTarget: false,
       );
 
@@ -102,12 +102,12 @@ void main() {
       );
 
       await tester.disposeWidget(
-        widgetObject: tester.getWidgetObjectByGlobalKey(gkey1),
+        renderElement: tester.getRenderElementByGlobalKey(gkey1),
         flagPreserveTarget: false,
       );
 
       await tester.disposeWidget(
-        widgetObject: tester.getWidgetObjectByGlobalKey(gkey2),
+        renderElement: tester.getRenderElementByGlobalKey(gkey2),
         flagPreserveTarget: false,
       );
 
@@ -140,7 +140,7 @@ void main() {
       );
 
       await tester.disposeWidget(
-        widgetObject: tester.getWidgetObjectByGlobalKey(gkey),
+        renderElement: tester.getRenderElementByGlobalKey(gkey),
         flagPreserveTarget: false,
       );
 
@@ -158,19 +158,19 @@ void main() {
       expect(tester.find.byType(RT_TestWidget), findsOneWidget);
 
       await tester.disposeWidget(
-        widgetObject: tester.getWidgetObjectByGlobalKey(gkey),
+        renderElement: tester.getRenderElementByGlobalKey(gkey),
         flagPreserveTarget: false,
       );
 
       expect(tester.find.byType(RT_TestWidget), findsNothing);
 
       await tester.disposeWidget(
-        widgetObject: tester.getWidgetObjectByGlobalKey(gkey),
+        renderElement: tester.getRenderElementByGlobalKey(gkey),
         flagPreserveTarget: false,
       );
 
       await tester.disposeWidget(
-        widgetObject: tester.getWidgetObjectByGlobalKey(gkey),
+        renderElement: tester.getRenderElementByGlobalKey(gkey),
         flagPreserveTarget: false,
       );
 
@@ -201,7 +201,7 @@ void main() {
       );
 
       await tester.disposeWidget(
-        widgetObject: tester.getWidgetObjectByGlobalKey(gkey),
+        renderElement: tester.getRenderElementByGlobalKey(gkey),
         flagPreserveTarget: true,
       );
 
@@ -219,24 +219,24 @@ void main() {
         await tester.pumpWidget(
           RT_TestWidget(
             key: gkey,
-            roEventHookBeforeUnMount: () => tester.push('root-dispose'),
+            roEventBeforeUnMount: () => tester.push('root-dispose'),
             children: [
               RT_TestWidget(
-                roEventHookBeforeUnMount: () => tester.push('dispose-0'),
+                roEventBeforeUnMount: () => tester.push('dispose-0'),
                 children: [
                   RT_TestWidget(
-                    roEventHookBeforeUnMount: () => tester.push('dispose-0-0'),
+                    roEventBeforeUnMount: () => tester.push('dispose-0-0'),
                   ),
                   RT_TestWidget(
-                    roEventHookBeforeUnMount: () => tester.push('dispose-0-1'),
+                    roEventBeforeUnMount: () => tester.push('dispose-0-1'),
                     children: [
                       RT_TestWidget(
-                        roEventHookBeforeUnMount: () => tester.push(
+                        roEventBeforeUnMount: () => tester.push(
                           'dispose-0-1-0',
                         ),
                       ),
                       RT_TestWidget(
-                        roEventHookBeforeUnMount: () => tester.push(
+                        roEventBeforeUnMount: () => tester.push(
                           'dispose-0-1-1',
                         ),
                       ),
@@ -245,14 +245,14 @@ void main() {
                 ],
               ),
               RT_TestWidget(
-                roEventHookBeforeUnMount: () => tester.push('dispose-1'),
+                roEventBeforeUnMount: () => tester.push('dispose-1'),
                 children: [
                   // nested child widgets
                   RT_TestWidget(
-                    roEventHookBeforeUnMount: () => tester.push('dispose-1-0'),
+                    roEventBeforeUnMount: () => tester.push('dispose-1-0'),
                   ),
                   RT_TestWidget(
-                    roEventHookBeforeUnMount: () => tester.push('dispose-1-1'),
+                    roEventBeforeUnMount: () => tester.push('dispose-1-1'),
                   ),
                 ],
               ),
@@ -273,7 +273,7 @@ void main() {
         //
 
         await tester.disposeWidget(
-          widgetObject: tester.getWidgetObjectByGlobalKey(gkey),
+          renderElement: tester.getRenderElementByGlobalKey(gkey),
           flagPreserveTarget: true,
         );
 

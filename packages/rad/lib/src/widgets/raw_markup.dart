@@ -1,11 +1,10 @@
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/dom_node_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/widgets/abstract/no_child_widget.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/widgets_internals.dart';
 
 /// A widget that helps pushing raw contents to the DOM.
 ///
@@ -33,22 +32,25 @@ class RawMarkUp extends Widget {
   DomTagType get correspondingTag => DomTagType.division;
 
   @override
-  bool shouldWidgetUpdate(covariant RawMarkUp oldWidget) {
-    return html != oldWidget.html;
-  }
+  shouldWidgetUpdate(covariant RawMarkUp oldWidget) => html != oldWidget.html;
 
   @override
-  createRenderObject(context) => _RawMarkupRenderObject(context);
+  shouldWidgetChildrenUpdate(oldWidget, shouldWidgetUpdate) => false;
+
+  @override
+  createRenderElement(parent) => RawMarkupRenderElement(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class _RawMarkupRenderObject extends RenderObject {
-  const _RawMarkupRenderObject(BuildContext context) : super(context);
+/// Raw markup render element.
+///
+class RawMarkupRenderElement extends NoChildRenderElement {
+  RawMarkupRenderElement(super.widget, super.parent);
 
   @override
   render({

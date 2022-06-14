@@ -7,6 +7,14 @@ import 'package:rad_test/src/imports.dart';
 /// A widget that allows hooking its internals.
 ///
 class TestWidget extends Widget {
+  // widget events
+
+  final Callback? wEventCreateRenderObject;
+  final Callback? wEventshouldWidgetUpdate;
+  final Callback? wEventshouldWidgetChildrenUpdate;
+
+  // render element events
+
   final Callback? roEventRender;
   final Callback? roEventUpdate;
   final Callback? roEventBeforeMount;
@@ -14,84 +22,104 @@ class TestWidget extends Widget {
   final Callback? roEventAfterWidgetRebind;
   final Callback? roEventBeforeUnMount;
 
-  final Callback? wEventCreateRenderObject;
-  final Callback? wEventCreateWidgetConfiguration;
-  final Callback? wEventIsConfigurationChanged;
+  // data hooks
 
+  final Function(Widget)? wHookShouldWidgetUpdate;
+  final Function(Widget, bool)? wHookShouldWidgetChildrenUpdate;
   final Function(UpdateType)? roHookUpdate;
-
-  final String hash;
 
   // overrides
 
-  final WidgetConfiguration Function()? wOverrideCreateConfiguration;
-  final bool Function()? wOverrideIsConfigurationChanged;
+  final bool Function()? wOverrideShouldWidgetUpdate;
+  final bool Function()? wOverrideShouldWidgetChildrenUpdate;
 
   final List<Widget>? children;
+
+  final String hash;
 
   const TestWidget({
     Key? key,
     this.children,
+
+    // render object events
+
     this.roEventRender,
     this.roEventUpdate,
     this.roEventBeforeMount,
     this.roEventAfterMount,
     this.roEventAfterWidgetRebind,
     this.roEventBeforeUnMount,
-    this.wEventCreateWidgetConfiguration,
-    this.wEventIsConfigurationChanged,
+
+    // widget events
+
     this.wEventCreateRenderObject,
-    this.wOverrideCreateConfiguration,
-    this.wOverrideIsConfigurationChanged,
+    this.wEventshouldWidgetUpdate,
+    this.wEventshouldWidgetChildrenUpdate,
+
+    // overrides
+
+    this.wOverrideShouldWidgetUpdate,
+    this.wOverrideShouldWidgetChildrenUpdate,
+
+    // data hokks
+
     this.roHookUpdate,
+    this.wHookShouldWidgetUpdate,
+    this.wHookShouldWidgetChildrenUpdate,
     String? customHash,
   })  : hash = customHash ?? 'none',
         super(key: key);
 
   @nonVirtual
   @override
-  String get widgetType => '$TestWidget';
+  String get widgetType => 'TestWidget';
 
   @override
   DomTagType get correspondingTag => DomTagType.division;
 
   @override
-  get widgetChildren => children ?? [];
-
-  @override
-  createConfiguration() {
-    if (null != wEventCreateWidgetConfiguration) {
-      wEventCreateWidgetConfiguration!();
+  bool shouldWidgetUpdate(oldWidget) {
+    if (null != wEventshouldWidgetUpdate) {
+      wEventshouldWidgetUpdate!();
     }
 
-    if (null != wOverrideCreateConfiguration) {
-      return wOverrideCreateConfiguration!();
+    if (null != wHookShouldWidgetUpdate) {
+      wHookShouldWidgetUpdate!(oldWidget);
     }
 
-    return const WidgetConfiguration();
-  }
-
-  @override
-  isConfigurationChanged(oldConfiguration) {
-    if (null != wEventIsConfigurationChanged) {
-      wEventIsConfigurationChanged!();
-    }
-
-    if (null != wOverrideIsConfigurationChanged) {
-      return wOverrideIsConfigurationChanged!();
+    if (null != wOverrideShouldWidgetUpdate) {
+      return wOverrideShouldWidgetUpdate!();
     }
 
     return true;
   }
 
   @override
-  createRenderObject(context) {
+  bool shouldWidgetChildrenUpdate(oldWidget, shouldWidgetUpdate) {
+    if (null != wEventshouldWidgetChildrenUpdate) {
+      wEventshouldWidgetChildrenUpdate!();
+    }
+
+    if (null != wHookShouldWidgetChildrenUpdate) {
+      wHookShouldWidgetChildrenUpdate!(oldWidget, shouldWidgetUpdate);
+    }
+
+    if (null != wOverrideShouldWidgetChildrenUpdate) {
+      return wOverrideShouldWidgetChildrenUpdate!();
+    }
+
+    return true;
+  }
+
+  @override
+  createRenderElement(parent) {
     if (null != wEventCreateRenderObject) {
       wEventCreateRenderObject!();
     }
 
-    return TestWidgetRenderObject(
-      context,
+    return TestRenderElement(
+      this,
+      parent,
       roEventRender: roEventRender,
       roEventUpdate: roEventUpdate,
       roEventAfterMount: roEventAfterMount,
@@ -102,7 +130,9 @@ class TestWidget extends Widget {
   }
 }
 
-class TestWidgetRenderObject extends RenderObject {
+/// Render object of test widget.
+///
+class TestRenderElement extends RenderElement {
   final Callback? roEventRender;
   final Callback? roEventUpdate;
   final Callback? roEventAfterMount;
@@ -111,18 +141,22 @@ class TestWidgetRenderObject extends RenderObject {
 
   final Function(UpdateType)? roHookUpdate;
 
-  const TestWidgetRenderObject(
-    BuildContext context, {
+  TestRenderElement(
+    TestWidget widget,
+    RenderElement parent, {
     this.roEventRender,
     this.roEventUpdate,
     this.roEventAfterMount,
     this.roEventAfterWidgetRebind,
     this.roEventBeforeUnMount,
     this.roHookUpdate,
-  }) : super(context);
+  }) : super(widget, parent);
 
   @override
-  render({required configuration}) {
+  List<Widget> get childWidgets => (widget as TestWidget).children ?? [];
+
+  @override
+  render({required widget}) {
     if (null != roEventRender) {
       roEventRender!();
     }
@@ -133,8 +167,8 @@ class TestWidgetRenderObject extends RenderObject {
   @override
   update({
     required updateType,
-    required oldConfiguration,
-    required newConfiguration,
+    required oldWidget,
+    required newWidget,
   }) {
     if (null != roEventUpdate) {
       roEventUpdate!();

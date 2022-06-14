@@ -3,7 +3,7 @@ import 'dart:html';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/functions.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/common_render_elements.dart';
 import 'package:rad/src/core/common/objects/options/router_options.dart';
 import 'package:rad/src/core/interface/window/window.dart';
 import 'package:rad/src/core/services/abstract.dart';
@@ -11,9 +11,7 @@ import 'package:rad/src/core/services/router/navigator_route_object.dart';
 import 'package:rad/src/core/services/router/router_request.dart';
 import 'package:rad/src/core/services/router/router_stack.dart';
 import 'package:rad/src/core/services/router/router_stack_entry.dart';
-import 'package:rad/src/core/services/services_registry.dart';
 import 'package:rad/src/widgets/navigator.dart';
-import 'package:rad/src/widgets/route.dart';
 
 /// Router service.
 ///
@@ -22,26 +20,20 @@ class RouterService extends Service {
 
   /// Registered navigators.
   ///
-  /// navigator key: navigator route object
+  /// navigator render element: navigator route object
   ///
-  final _routeObjects = <String, NavigatorRouteObject>{};
-
-  /// Registered state objects.
-  ///
-  /// navigator key: navigator state
-  ///
-  final _stateObjects = <String, NavigatorState>{};
+  final _routeObjects = <NavigatorRenderElement, NavigatorRouteObject>{};
 
   final _routerStack = RouterStack();
 
   StreamController<RouterRequest>? _routerRequestsStream;
 
-  RouterService(BuildContext context, this.options) : super(context);
+  RouterService(RootElement rootElement, this.options) : super(rootElement);
 
   @override
   startService() {
     Window.delegate.addPopStateListener(
-      context: rootContext,
+      rootElement: rootElement,
       callback: _onPopState,
     );
 
@@ -54,36 +46,25 @@ class RouterService extends Service {
     _routerRequestsStream?.close();
 
     _routeObjects.clear();
-    _stateObjects.clear();
     _routerStack.clear();
 
-    Window.delegate.removePopStateListener(rootContext);
+    Window.delegate.removePopStateListener(rootElement);
   }
 
   /// Register navigator's state.
   ///
-  void register(BuildContext context, NavigatorState state) {
-    var navigatorKeyValue = context.key.value;
-
-    if (_routeObjects.containsKey(navigatorKeyValue)) {
+  void register(NavigatorRenderElement navigator) {
+    if (_routeObjects.containsKey(navigator)) {
       return services.debug.exception(Constants.coreError);
     }
 
-    if (_stateObjects.containsKey(navigatorKeyValue)) {
-      return services.debug.exception(Constants.coreError);
-    }
-
-    _register(context, state.routes);
-
-    _stateObjects[navigatorKeyValue] = state;
+    _register(navigator);
   }
 
-  void unRegister(BuildContext context) {
-    _routeObjects.remove(context.key.value);
+  void unRegister(NavigatorRenderElement navigator) {
+    _routeObjects.remove(navigator);
 
-    _routerStack.remove(context.key.value);
-
-    _stateObjects.remove(context.key.value);
+    _routerStack.remove(navigator);
   }
 
   /// Push page entry.
@@ -91,14 +72,14 @@ class RouterService extends Service {
   void pushEntry({
     required String name,
     required Map<String, String> values,
-    required String navigatorKey,
+    required NavigatorRenderElement navigator,
     required bool updateHistory,
   }) {
     _routerRequestsStream?.sink.add(
       RouterRequest(
         name: name,
         values: values,
-        navigatorKey: navigatorKey,
+        navigator: navigator,
         updateHistory: updateHistory,
         isReplacement: false,
       ),
@@ -112,13 +93,13 @@ class RouterService extends Service {
   void pushReplacement({
     required String name,
     required Map<String, String> values,
-    required String navigatorKey,
+    required NavigatorRenderElement navigator,
   }) {
     _routerRequestsStream?.sink.add(
       RouterRequest(
         name: name,
         values: values,
-        navigatorKey: navigatorKey,
+        navigator: navigator,
         isReplacement: true,
         updateHistory: true, // irrelevant if is replacement
       ),
@@ -128,7 +109,7 @@ class RouterService extends Service {
   /// Mannually dispatch a back action.
   ///
   void dispatchBackAction() {
-    Window.delegate.historyBack(context: rootContext);
+    Window.delegate.historyBack(context: rootElement);
   }
 
   /// Get current path based on Navigator's access.
@@ -136,16 +117,10 @@ class RouterService extends Service {
   /// Returns empty string, if matches nothing. Navigators should display
   /// default page when [getPath] returns empty string.
   ///
-  String getPath(String navigatorKey) {
-    var stateObject = _stateObjects[navigatorKey];
+  String getPath(NavigatorRenderElement navigator) {
+    var stateObject = navigator.state;
 
-    if (null == stateObject) {
-      services.debug.exception(Constants.coreError);
-
-      return '';
-    }
-
-    var segments = accessibleSegments(navigatorKey);
+    var segments = accessibleSegments(navigator);
 
     var matchedPathSegment = '';
 
@@ -159,7 +134,7 @@ class RouterService extends Service {
 
     if (services.debug.routerLogs) {
       print(
-        'Navigator(#$navigatorKey) matched: '
+        'Navigator(#$navigator) matched: '
         "'$matchedPathSegment' from '${segments.join("/")} < "
         " (${_getCurrentSegments()})'",
       );
@@ -170,10 +145,10 @@ class RouterService extends Service {
 
   /// Get value following the provided segment in URL.
   ///
-  String getValue(String navigatorKey, String segment) {
+  String getValue(NavigatorRenderElement navigator, String segment) {
     var encodedSegment = fnEncodeValue(segment);
 
-    var path = accessibleSegments(navigatorKey).join('/');
+    var path = accessibleSegments(navigator).join('/');
 
     // try to find a value that's following the provided segment in path
 
@@ -188,21 +163,18 @@ class RouterService extends Service {
     if (null != parent) {
       ensureNavigatorIsVisible(parent);
 
-      var parentState = _stateObjects[parent.context.key.value];
+      var parentState = parent.navigator.state;
+      var parentRouteNameToOpen = routeObject.segments.last;
 
-      if (null != parentState) {
-        var parentRouteNameToOpen = routeObject.segments.last;
-
-        parentState.open(name: parentRouteNameToOpen, updateHistory: false);
-      }
+      parentState.open(name: parentRouteNameToOpen, updateHistory: false);
     }
   }
 
   /// Part of path(Window.delegate.locationPathName) that navigator with
-  /// [navigatorKey] can access.
+  /// [navigator] can access.
   ///
-  List<String> accessibleSegments(String navigatorKey) {
-    var routeObject = _routeObjects[navigatorKey];
+  List<String> accessibleSegments(NavigatorRenderElement navigator) {
+    var routeObject = _routeObjects[navigator];
     var currentSegments = _getCurrentSegments();
 
     if (null == routeObject) {
@@ -245,22 +217,16 @@ class RouterService extends Service {
   }
 
   /// Part of path(Window.delegate.locationPathName) that navigator with
-  /// [navigatorKey] can't change.
+  /// [navigator] can't change.
   ///
   /// Note that, navigator still can access **some parts** of protected
   /// segements using [accessibleSegments]
   ///
-  List<String> protectedSegments(String navigatorKey) {
-    var routeObject = _routeObjects[navigatorKey];
-    var stateObject = _stateObjects[navigatorKey];
+  List<String> protectedSegments(NavigatorRenderElement navigator) {
+    var stateObject = navigator.state;
+    var routeObject = _routeObjects[navigator];
 
     if (null == routeObject) {
-      services.debug.exception(Constants.coreError);
-
-      return [];
-    }
-
-    if (null == stateObject) {
       services.debug.exception(Constants.coreError);
 
       return [];
@@ -346,8 +312,8 @@ class RouterService extends Service {
         // for active history, our implementation is ready, see below.
 
       } else {
-        var routeObject = _routeObjects[entry.navigatorKey]!;
-        var navigatorState = _stateObjects[entry.navigatorKey]!;
+        var navigatorState = entry.navigator.state;
+        var routeObject = _routeObjects[entry.navigator]!;
 
         ensureNavigatorIsVisible(routeObject);
 
@@ -417,7 +383,7 @@ class RouterService extends Service {
   void _proccessRouterRequest(RouterRequest request) {
     var name = request.name;
     var values = request.values;
-    var navigatorKey = request.navigatorKey;
+    var navigator = request.navigator;
     var updateHistory = request.updateHistory;
 
     if (request.isReplacement) {
@@ -425,7 +391,7 @@ class RouterService extends Service {
 
       _routerStack.entries.remove(currentLocation);
 
-      var preparedSegs = _prepareSegments(protectedSegments(navigatorKey));
+      var preparedSegs = _prepareSegments(protectedSegments(navigator));
 
       var encodedValues = fnEncodeKeyValueMap(values);
       if (encodedValues.isNotEmpty) {
@@ -445,20 +411,20 @@ class RouterService extends Service {
       Window.delegate.historyReplaceState(
         title: '',
         url: historyEntry,
-        context: rootContext,
+        context: rootElement,
       );
 
       var entry = RouterStackEntry(
         name: name,
         values: values,
-        navigatorKey: navigatorKey,
+        navigator: navigator,
         location: Window.delegate.locationHref,
       );
 
       _routerStack.push(entry);
     } else {
       if (updateHistory) {
-        var preparedSegs = _prepareSegments(protectedSegments(navigatorKey));
+        var preparedSegs = _prepareSegments(protectedSegments(navigator));
 
         var encodedValues = fnEncodeKeyValueMap(values);
         if (encodedValues.isNotEmpty) {
@@ -478,18 +444,18 @@ class RouterService extends Service {
         Window.delegate.historyPushState(
           title: '',
           url: historyEntry,
-          context: rootContext,
+          context: rootElement,
         );
 
-        var routeObject = _routeObjects[navigatorKey];
-        var state = _stateObjects[navigatorKey];
+        var state = navigator.state;
+        var routeObject = _routeObjects[navigator];
         var childRouteObject = routeObject?.child;
 
-        if (null != childRouteObject && null != state) {
+        if (null != childRouteObject) {
           if (state.currentRouteName == childRouteObject.segments.last) {
-            var childState = _stateObjects[childRouteObject.context.key.value];
+            var childState = childRouteObject.navigator.state;
 
-            childState?.frameworkOnParentRouteChange(name);
+            childState.frameworkOnParentRouteChange(name);
           }
         }
       }
@@ -497,7 +463,7 @@ class RouterService extends Service {
       var entry = RouterStackEntry(
         name: name,
         values: values,
-        navigatorKey: navigatorKey,
+        navigator: navigator,
         location: Window.delegate.locationHref,
       );
 
@@ -507,27 +473,24 @@ class RouterService extends Service {
 
   /// Register logic, actual.
   ///
-  void _register(BuildContext context, List<Route> routes) {
-    var walkerService = ServicesRegistry.instance.getWalker(context);
+  void _register(NavigatorRenderElement navigator) {
+    var routes = (navigator.widget as Navigator).routes;
 
-    var parentWidgetObject = walkerService.findAncestorWidgetObject<Navigator>(
-      context.parent,
-    );
+    var parentNavigator = navigator
+        .findAncestorRenderElementOfExactType<NavigatorRenderElement>();
 
     // if no Navigator in ancestors i.e we're dealing with a root navigator
 
-    var navigatorKeyValue = context.key.value;
-
-    if (null == parentWidgetObject) {
-      _routeObjects[navigatorKeyValue] = NavigatorRouteObject(
-        context: context,
+    if (null == parentNavigator) {
+      _routeObjects[navigator] = NavigatorRouteObject(
+        navigator: navigator,
         routes: routes,
         segments: [_getRoutingPath()],
       );
 
       if (services.debug.routerLogs) {
         print(
-          'Navigator Registered: #$navigatorKeyValue at ${[_getRoutingPath()]}',
+          'Navigator Registered: #$navigator at ${[_getRoutingPath()]}',
         );
       }
 
@@ -536,10 +499,10 @@ class RouterService extends Service {
 
     // else it's nested navigator
 
-    var parentRenderObject = parentWidgetObject.renderObject;
+    var parentRenderObject = parentNavigator;
 
-    var parentState = (parentRenderObject as NavigatorRenderObject).state;
-    var parentNavigatorKeyValue = parentWidgetObject.context.key.value;
+    var parentState = parentRenderObject.state;
+    var parentNavigatorKeyValue = parentNavigator;
     var parentObject = _routeObjects[parentNavigatorKeyValue];
 
     if (null == parentObject) {
@@ -550,8 +513,8 @@ class RouterService extends Service {
 
     // add route object for current navigator
 
-    _routeObjects[navigatorKeyValue] = NavigatorRouteObject(
-      context: context,
+    _routeObjects[navigator] = NavigatorRouteObject(
+      navigator: navigator,
       routes: routes,
       segments: segments,
       parent: parentObject,
@@ -560,15 +523,15 @@ class RouterService extends Service {
     // recreate parent object with child reference
 
     _routeObjects[parentNavigatorKeyValue] = NavigatorRouteObject(
-      context: parentObject.context,
+      navigator: parentObject.navigator,
       routes: parentObject.routes,
       segments: parentObject.segments,
       parent: parentObject.parent,
-      child: _routeObjects[navigatorKeyValue],
+      child: _routeObjects[navigator],
     );
 
     if (services.debug.routerLogs) {
-      print('Navigator Registered: #$navigatorKeyValue at $segments');
+      print('Navigator Registered: #$navigator at $segments');
     }
   }
 }

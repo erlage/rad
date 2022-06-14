@@ -182,7 +182,7 @@ void main() {
 
       try {
         expect(
-          tester.find.byWidgetObjectPredicate(
+          tester.find.byRenderElementPredicate(
             (_) => false,
             description: customDescription,
           ),

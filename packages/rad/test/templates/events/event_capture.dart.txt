@@ -24,7 +24,7 @@ test('should capture event', () async {
         ],
       ),
     ],
-    parentContext: pap.appContext,
+    parentRenderElement: pap.appRenderElement,
   );
 
   var gparent = pap.domNodeByGlobalKey('el-g-parent');
@@ -77,7 +77,7 @@ test('should capture event(with multiple capture listeners)', () async {
         ],
       ),
     ],
-    parentContext: pap.appContext,
+    parentRenderElement: pap.appRenderElement,
   );
 
   var gparent = pap.domNodeByGlobalKey('el-g-parent');

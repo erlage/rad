@@ -23,10 +23,10 @@ void main() {
             AsyncRoute(name: 'some', page: () => Text('contents')),
           ]),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('contents'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('contents'));
     });
 
     test('should set route name', () async {
@@ -40,10 +40,10 @@ void main() {
             ),
           ]),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var widget = app!.widgetObjectByGlobalKey('a').widget as AsyncRoute;
+      var widget = app!.renderElementByGlobalKey('a')!.widget as AsyncRoute;
 
       expect(widget.name, equals('some'));
     });
@@ -60,10 +60,10 @@ void main() {
             ),
           ]),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var widget = app!.widgetObjectByGlobalKey('a').widget as AsyncRoute;
+      var widget = app!.renderElementByGlobalKey('a')!.widget as AsyncRoute;
 
       expect(widget.path, equals('path'));
     });
@@ -82,14 +82,14 @@ void main() {
             ),
           ]),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('waiting widget contents'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('waiting widget contents'));
 
       await Future.delayed(Duration(milliseconds: 200));
 
-      expect(RT_TestBed.rootElement, RT_hasContents('loaded contents'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('loaded contents'));
     });
 
     test('should show a error widget when failed', () async {
@@ -105,10 +105,10 @@ void main() {
             ),
           ]),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('error widget contents'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('error widget contents'));
     });
 
     test('should open waiting route when waiting', () async {
@@ -132,11 +132,10 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var wo = app!.widgetObjectByGlobalKey('navigator');
-      var state = (wo.renderObject as NavigatorRenderObject).state;
+      var state = app!.navigatorState('navigator');
 
       expect(state.currentRouteName, equals('waiting-route'));
 
@@ -160,11 +159,10 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var wo = app!.widgetObjectByGlobalKey('navigator');
-      var state = (wo.renderObject as NavigatorRenderObject).state;
+      var state = app!.navigatorState('navigator');
 
       expect(state.currentRouteName, equals('error-route'));
     });
@@ -185,11 +183,10 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var wo = app!.widgetObjectByGlobalKey('navigator');
-      var state = (wo.renderObject as NavigatorRenderObject).state;
+      var state = app!.navigatorState('navigator');
 
       expect(state.currentRouteName, equals('error-route'));
     });
@@ -218,11 +215,10 @@ void main() {
               ],
             ),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
-        var wo = app!.widgetObjectByGlobalKey('navigator');
-        var state = (wo.renderObject as NavigatorRenderObject).state;
+        var state = app!.navigatorState('navigator');
 
         expect(state.currentRouteName, equals('waiting-route'));
 
@@ -248,11 +244,10 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var wo = app!.widgetObjectByGlobalKey('navigator');
-      var state = (wo.renderObject as NavigatorRenderObject).state;
+      var state = app!.navigatorState('navigator');
 
       expect(state.getValue('error-route'), equals(''));
     });
@@ -273,11 +268,10 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var wo = app!.widgetObjectByGlobalKey('navigator');
-      var state = (wo.renderObject as NavigatorRenderObject).state;
+      var state = app!.navigatorState('navigator');
 
       // this value tells on which route failure occured so that app can
       // rreopen that route if it want
@@ -306,11 +300,10 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var wo = app!.widgetObjectByGlobalKey('navigator');
-      var state = (wo.renderObject as NavigatorRenderObject).state;
+      var state = app!.navigatorState('navigator');
 
       expect(state.getValue('waiting-route'), equals(''));
     });
@@ -337,11 +330,10 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var wo = app!.widgetObjectByGlobalKey('navigator');
-      var state = (wo.renderObject as NavigatorRenderObject).state;
+      var state = app!.navigatorState('navigator');
 
       expect(state.getValue('waiting-route'), equals('async-route'));
     });
@@ -381,11 +373,10 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var wo = app!.widgetObjectByGlobalKey('navigator');
-      var state = (wo.renderObject as NavigatorRenderObject).state;
+      var state = app!.navigatorState('navigator');
 
       // try open
       state.open(name: 'async-route');

@@ -5,7 +5,7 @@ test('should set attribute "allowPaymentRequest" only if its true', () async {
             __WidgetClass__(key: GlobalKey('el-2'), allowPaymentRequest: null),
             __WidgetClass__(key: GlobalKey('el-3'), allowPaymentRequest: true),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -25,7 +25,7 @@ test('should clear attribute "allowPaymentRequest" if updated value is not true'
             __WidgetClass__(key: GlobalKey('el-3'), allowPaymentRequest: true),
             __WidgetClass__(key: GlobalKey('el-4'), allowPaymentRequest: true),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
@@ -36,7 +36,7 @@ test('should clear attribute "allowPaymentRequest" if updated value is not true'
             __WidgetClass__(key: GlobalKey('el-4')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     var domNode1 = app!.domNodeByGlobalKey('el-1');

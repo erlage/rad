@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
@@ -173,17 +172,19 @@ class Input extends HTMLWidgetBase {
   }
 
   @override
-  createRenderObject(context) => InputRenderObject(context);
+  createRenderElement(parent) => InputRenderElement(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class InputRenderObject extends MarkUpGlobalRenderObject {
-  const InputRenderObject(BuildContext context) : super(context);
+/// Input render element.
+///
+class InputRenderElement extends HTMLBaseElement {
+  InputRenderElement(super.widget, super.parent);
 
   @override
   render({

@@ -28,11 +28,11 @@ void main() {
             Text('widget 1'),
             Text('widget 2'),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
           updateType: UpdateType.undefined,
         );
 
-        expect(RT_TestBed.rootElement, RT_hasContents('widget 1|widget 2'));
+        expect(RT_TestBed.rootDomNode, RT_hasContents('widget 1|widget 2'));
       });
 
       test(
@@ -43,7 +43,7 @@ void main() {
               Text('widget 1'),
               Text('widget 2'),
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
@@ -52,12 +52,12 @@ void main() {
               Text('widget 1 updated'),
               Text('widget 2'),
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
           expect(
-            RT_TestBed.rootElement,
+            RT_TestBed.rootDomNode,
             RT_hasContents('widget 1 updated|widget 2'),
           );
 
@@ -66,12 +66,12 @@ void main() {
               Text('widget 1'),
               Text('widget 2 updated'),
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
           expect(
-            RT_TestBed.rootElement,
+            RT_TestBed.rootDomNode,
             RT_hasContents('widget 1|widget 2 updated'),
           );
 
@@ -80,12 +80,12 @@ void main() {
               Text('widget 1 updated'),
               Text('widget 2 updated'),
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
           expect(
-            RT_TestBed.rootElement,
+            RT_TestBed.rootDomNode,
             RT_hasContents('widget 1 updated|widget 2 updated'),
           );
         },
@@ -99,7 +99,7 @@ void main() {
               Text('widget 1'),
               Text('widget 2'),
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
@@ -109,12 +109,12 @@ void main() {
               Text('widget 2'),
               Division(innerText: 'widget 3'),
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
           expect(
-            RT_TestBed.rootElement,
+            RT_TestBed.rootDomNode,
             RT_hasContents('widget 1|widget 2|widget 3'),
           );
         },
@@ -128,7 +128,7 @@ void main() {
               Text('widget 1'),
               Text('widget 2'),
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
@@ -138,12 +138,12 @@ void main() {
               Division(innerText: 'widget 3'),
               Text('widget 2'),
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
           expect(
-            RT_TestBed.rootElement,
+            RT_TestBed.rootDomNode,
             RT_hasContents('widget 1|widget 3|widget 2'),
           );
         },
@@ -157,7 +157,7 @@ void main() {
               Text('widget 1'),
               Text('widget 2'),
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
@@ -166,11 +166,11 @@ void main() {
               Text('widget 2'),
               Text('widget 1'),
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
-          expect(RT_TestBed.rootElement, RT_hasContents('widget 2|widget 1'));
+          expect(RT_TestBed.rootDomNode, RT_hasContents('widget 2|widget 1'));
         },
       );
 
@@ -181,7 +181,7 @@ void main() {
             Text('widget 1'),
             Text('widget 2', key: Key('widget 2')),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
           updateType: UpdateType.undefined,
         );
 
@@ -190,11 +190,11 @@ void main() {
             Text('widget 2', key: Key('widget 2')),
             Text('widget 1'),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
           updateType: UpdateType.undefined,
         );
 
-        expect(RT_TestBed.rootElement, RT_hasContents('widget 2|widget 1'));
+        expect(RT_TestBed.rootDomNode, RT_hasContents('widget 2|widget 1'));
       });
 
       test(
@@ -210,12 +210,12 @@ void main() {
                 ],
               )
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
           expect(
-            RT_TestBed.rootElement,
+            RT_TestBed.rootDomNode,
             RT_hasContents('widget 1|widget 2'),
           );
 
@@ -228,12 +228,12 @@ void main() {
                 ],
               ),
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
           expect(
-            RT_TestBed.rootElement,
+            RT_TestBed.rootDomNode,
             RT_hasContents('widget 2|widget 1'),
           );
         },
@@ -252,12 +252,12 @@ void main() {
                 ],
               )
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
           expect(
-            RT_TestBed.rootElement,
+            RT_TestBed.rootDomNode,
             RT_hasContents('widget 1|widget 2'),
           );
 
@@ -270,12 +270,12 @@ void main() {
                 ],
               ),
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
           expect(
-            RT_TestBed.rootElement,
+            RT_TestBed.rootDomNode,
             RT_hasContents('widget 2|widget 1'),
           );
         },
@@ -295,12 +295,12 @@ void main() {
                 ],
               )
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
           expect(
-            RT_TestBed.rootElement,
+            RT_TestBed.rootDomNode,
             RT_hasContents('widget 1|widget 2|widget 3'),
           );
 
@@ -314,12 +314,12 @@ void main() {
               ),
               Text('widget 2'),
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
           expect(
-            RT_TestBed.rootElement,
+            RT_TestBed.rootDomNode,
             RT_hasContents('widget 1|widget 3|widget 2'),
           );
         },
@@ -339,12 +339,12 @@ void main() {
                 ],
               )
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
           expect(
-            RT_TestBed.rootElement,
+            RT_TestBed.rootDomNode,
             RT_hasContents('widget 1|widget 2|widget 3'),
           );
 
@@ -358,12 +358,12 @@ void main() {
               ),
               Text('widget 2', key: GlobalKey('widget 2')),
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
           expect(
-            RT_TestBed.rootElement,
+            RT_TestBed.rootDomNode,
             RT_hasContents('widget 1|widget 3|widget 2'),
           );
         },
@@ -384,12 +384,12 @@ void main() {
                 ],
               ),
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
           expect(
-            RT_TestBed.rootElement,
+            RT_TestBed.rootDomNode,
             RT_hasContents('widget 1|widget 2|widget 3|widget 4'),
           );
 
@@ -404,12 +404,12 @@ void main() {
               ),
               Text('widget 1'),
             ],
-            parentContext: app!.appContext,
+            parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
           );
 
           expect(
-            RT_TestBed.rootElement,
+            RT_TestBed.rootDomNode,
             RT_hasContents('widget 2|widget 4|widget 3|widget 1'),
           );
         },

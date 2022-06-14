@@ -5,13 +5,12 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/dom_node_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/events/emitted_event.dart';
-import 'package:rad/src/core/services/services_registry.dart';
+import 'package:rad/src/widgets/abstract/single_child_widget.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// A widget that detects gestures.
@@ -22,9 +21,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 ///
 ///  * [HitTestBehavior], behaviour of a [GestureDetector]
 ///
-class GestureDetector extends Widget {
-  final Widget child;
-
+class GestureDetector extends SingleChildWidget {
   final Callback? onTap;
   final Callback? onDoubleTap;
   final EventCallback? onTapEvent;
@@ -41,7 +38,6 @@ class GestureDetector extends Widget {
 
   const GestureDetector({
     Key? key,
-    required this.child,
     this.onTap,
     this.onDoubleTap,
     this.onTapEvent,
@@ -49,7 +45,8 @@ class GestureDetector extends Widget {
     this.onMouseEnterEvent,
     this.onMouseLeaveEvent,
     this.behaviour = HitTestBehavior.deferToChild,
-  }) : super(key: key);
+    required Widget child,
+  }) : super(key: key, child: child);
 
   @override
   Map<DomEventType, EventCallback?> get widgetEventListeners => {
@@ -63,9 +60,6 @@ class GestureDetector extends Widget {
   |--------------------------------------------------------------------------
   */
 
-  @override
-  List<Widget> get widgetChildren => [child];
-
   @nonVirtual
   @override
   String get widgetType => 'GestureDetector';
@@ -77,16 +71,12 @@ class GestureDetector extends Widget {
   @override
   DomTagType get correspondingTag => DomTagType.division;
 
-  @nonVirtual
   @override
-  bool shouldWidgetUpdate(oldWidget) => true;
+  shouldWidgetUpdate(Widget oldWidget) => true;
 
   @nonVirtual
   @override
-  createRenderObject(context) => _GestureDetectorRenderObject(
-        context: context,
-        state: _GestureDetectorState(),
-      );
+  createRenderElement(parent) => GestureDetectorRenderElement(this, parent);
 }
 
 /*
@@ -103,32 +93,34 @@ const _description = DomNodeDescription(
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class _GestureDetectorRenderObject extends RenderObject {
+/// Gesture detector's render element.
+///
+class GestureDetectorRenderElement extends SingleChildRenderElement {
+  /// Associated state.
+  ///
   final _GestureDetectorState state;
 
-  const _GestureDetectorRenderObject({
-    required BuildContext context,
-    required this.state,
-  }) : super(context);
+  GestureDetectorRenderElement(
+    GestureDetector widget,
+    RenderElement parent,
+  )   : state = _GestureDetectorState(),
+        super(widget, parent);
 
+  @mustCallSuper
   @override
-  render({
-    required covariant GestureDetector widget,
-  }) {
-    var services = ServicesRegistry.instance.getServices(context);
-    var widget = services.walker.getWidgetObject(context)!.widget;
-
+  init() {
     state
-      ..frameworkBindDomNode(context.findDomNode())
+      ..frameworkBindDomNode(domNode!)
       ..frameworkBindWidget(widget)
       ..initState();
-
-    return _description;
   }
+
+  @override
+  render({required widget}) => _description;
 
   @override
   afterWidgetRebind({
@@ -136,6 +128,12 @@ class _GestureDetectorRenderObject extends RenderObject {
     required newWidget,
     required updateType,
   }) {
+    super.afterWidgetRebind(
+      oldWidget: oldWidget,
+      newWidget: newWidget,
+      updateType: updateType,
+    );
+
     state.frameworkRebindWidget(
       oldWidget: oldWidget,
       newWidget: newWidget,
@@ -146,6 +144,8 @@ class _GestureDetectorRenderObject extends RenderObject {
   beforeUnMount() => state.frameworkDispose();
 }
 
+/// Gesture detector's state.
+///
 class _GestureDetectorState {
   Element? _domNode;
   Element get domNode => _domNode!;

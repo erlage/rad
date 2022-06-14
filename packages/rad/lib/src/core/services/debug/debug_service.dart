@@ -1,4 +1,4 @@
-import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/common_render_elements.dart';
 import 'package:rad/src/core/common/objects/options/debug_options.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/abstract.dart';
@@ -16,12 +16,12 @@ class DebugService extends Service {
   ExceptionCallback? _onException;
   ExceptionCallback get onException => _onException!;
 
-  DebugService(BuildContext context, this.options)
+  DebugService(RootElement rootElement, this.options)
       : routerLogs = options.routerLogs,
         widgetLogs = options.widgetLogs,
         frameworkLogs = options.frameworkLogs,
         additionalChecks = options.additionalChecks,
-        super(context);
+        super(rootElement);
 
   @override
   startService() {

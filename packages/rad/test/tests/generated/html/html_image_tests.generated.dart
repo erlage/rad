@@ -19,57 +19,57 @@ void html_image_test() {
     test('should set id', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: Key('some-key'), id: 'some-id'),
-          Image(key: LocalKey('some-local-key'), id: 'some-local-id'),
-          Image(key: GlobalKey('some-global-key'), id: 'some-global-id'),
+          Image(key: GlobalKey('some-key-1'), id: 'some-id-1'),
+          Image(key: GlobalKey('some-key-2'), id: 'some-id-2'),
+          Image(key: GlobalKey('some-key-3'), id: 'some-id-3'),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var domNode1 = app!.domNodeByKey('some-key', RT_TestBed.rootContext);
-      var domNode2 = app!.domNodeByLocalKey('some-local-key');
-      var domNode3 = app!.domNodeByGlobalKey('some-global-key');
+      var domNode1 = app!.domNodeByGlobalKey('some-key-1');
+      var domNode2 = app!.domNodeByGlobalKey('some-key-2');
+      var domNode3 = app!.domNodeByGlobalKey('some-key-3');
 
-      expect(domNode1.id, equals('some-id'));
-      expect(domNode2.id, equals('some-local-id'));
-      expect(domNode3.id, equals('some-global-id'));
+      expect(domNode1.id, equals('some-id-1'));
+      expect(domNode2.id, equals('some-id-2'));
+      expect(domNode3.id, equals('some-id-3'));
     });
 
     test('should reset and update id', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: Key('some-key'), id: 'some-id'),
-          Image(key: LocalKey('some-local-key'), id: 'some-local-id'),
-          Image(key: GlobalKey('some-global-key'), id: 'some-global-id'),
+          Image(key: GlobalKey('some-key-1'), id: 'some-id-1'),
+          Image(key: GlobalKey('some-key-2'), id: 'some-id-2'),
+          Image(key: GlobalKey('some-key-3'), id: 'some-id-3'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByKey('some-key', app!.appContext);
-      var domNode2 = app!.domNodeByLocalKey('some-local-key');
-      var domNode3 = app!.domNodeByGlobalKey('some-global-key');
+      var domNode1 = app!.domNodeByGlobalKey('some-key-1');
+      var domNode2 = app!.domNodeByGlobalKey('some-key-2');
+      var domNode3 = app!.domNodeByGlobalKey('some-key-3');
 
-      expect(domNode1.id, equals('some-id'));
-      expect(domNode2.id, equals('some-local-id'));
-      expect(domNode3.id, equals('some-global-id'));
+      expect(domNode1.id, equals('some-id-1'));
+      expect(domNode2.id, equals('some-id-2'));
+      expect(domNode3.id, equals('some-id-3'));
 
       await app!.updateChildren(
         widgets: [
           Image(
-            key: Key('some-key'),
+            key: GlobalKey('some-key-1'),
             id: 'some-updated-id',
           ),
           Image(
-            key: LocalKey('some-local-key'),
+            key: GlobalKey('some-key-2'),
             id: 'some-local-updated-id',
           ),
           Image(
-            key: GlobalKey('some-global-key'),
+            key: GlobalKey('some-key-3'),
             id: 'some-global-updated-id',
           ),
         ],
         updateType: UpdateType.undefined,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       expect(domNode1.id, equals('some-updated-id'));
@@ -93,12 +93,12 @@ void html_image_test() {
             id: "some 'messy' id",
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
 
       expect(
         domNode1.getAttribute('id'),
@@ -126,10 +126,10 @@ void html_image_test() {
             ),
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
       var domNode2 = domNode1.childNodes[0] as HtmlElement;
 
       expect(domNode1.id, equals('widget-1'));
@@ -151,10 +151,10 @@ void html_image_test() {
             ],
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
       var domNode2 = domNode1.childNodes[0] as HtmlElement;
       var domNode3 = domNode1.childNodes[1] as HtmlElement;
 
@@ -175,7 +175,7 @@ void html_image_test() {
             classAttribute: 'another-classes',
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -197,7 +197,7 @@ void html_image_test() {
             classAttribute: 'another-classes',
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -212,7 +212,7 @@ void html_image_test() {
           ),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -231,7 +231,7 @@ void html_image_test() {
             classAttribute: 'another-classes',
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -240,7 +240,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-2')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -258,7 +258,7 @@ void html_image_test() {
             classAttribute: 'some-classes',
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -266,7 +266,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1'), classAttribute: null),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -280,7 +280,7 @@ void html_image_test() {
         widgets: [
           Image(key: GlobalKey('el-1'), classAttribute: null),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -304,12 +304,12 @@ void html_image_test() {
             classAttribute: "some 'messy' classes",
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
 
       expect(
         domNode1.getAttribute('class'),
@@ -339,11 +339,11 @@ void html_image_test() {
             contenteditable: true,
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
 
       expect(domNode1.getAttribute('contenteditable'), equals('false'));
       expect(domNode2.getAttribute('contenteditable'), equals('true'));
@@ -361,11 +361,11 @@ void html_image_test() {
             draggable: true,
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
 
       expect(domNode1.getAttribute('draggable'), equals('false'));
       expect(domNode2.getAttribute('draggable'), equals('true'));
@@ -378,7 +378,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-2'), hidden: null),
           Image(key: GlobalKey('el-3'), hidden: true),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -399,7 +399,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-3'), hidden: true),
           Image(key: GlobalKey('el-4'), hidden: true),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -410,7 +410,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-4')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -432,10 +432,10 @@ void html_image_test() {
             innerText: 'hello world',
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
 
       // we are using innerHtml as inner text is not accessible
       // or returns empty string for some node(e.g progress)
@@ -451,7 +451,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
           Image(key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -467,7 +467,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
           Image(key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -476,7 +476,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -492,7 +492,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1')),
           Image(key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -501,7 +501,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-2')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -517,7 +517,7 @@ void html_image_test() {
         widgets: [
           Image(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -525,7 +525,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1'), onClickAttribute: null),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -540,7 +540,7 @@ void html_image_test() {
         widgets: [
           Image(key: GlobalKey('el-1'), onClickAttribute: null),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -564,12 +564,12 @@ void html_image_test() {
             onClickAttribute: "some 'messy' onClick",
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
 
       expect(
         domNode1.getAttribute('onclick'),
@@ -601,7 +601,7 @@ void html_image_test() {
             onClick: (event) => testStack.push('click-2'),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('click'));
@@ -623,12 +623,12 @@ void html_image_test() {
           Image(key: GlobalKey('el-2'), onClick: null),
           Image(key: GlobalKey('el-3'), onClick: listener),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widget('el-1').widgetEventListeners;
-      var listeners2 = app!.widget('el-2').widgetEventListeners;
-      var listeners3 = app!.widget('el-3').widgetEventListeners;
+      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      var listeners3 = app!.widgetByGlobalKey('el-3').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(null));
@@ -643,11 +643,11 @@ void html_image_test() {
           Image(key: GlobalKey('el-1')),
           Image(key: GlobalKey('el-2'), onClick: listener),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widget('el-1').widgetEventListeners;
-      var listeners2 = app!.widget('el-2').widgetEventListeners;
+      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(listener));
@@ -660,11 +660,11 @@ void html_image_test() {
           Image(key: GlobalKey('el-2')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      listeners1 = app!.widget('el-1').widgetEventListeners;
-      listeners2 = app!.widget('el-2').widgetEventListeners;
+      listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
+      listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(null));
@@ -677,12 +677,12 @@ void html_image_test() {
           Image(key: Key('widget-2'), style: 'some "messy" style'),
           Image(key: Key('widget-3'), style: "some 'messy' style"),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
 
       expect(domNode1.getAttribute('style'), equals('some style'));
       expect(domNode2.getAttribute('style'), equals('some "messy" style'));
@@ -705,12 +705,12 @@ void html_image_test() {
             tabIndex: 3,
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
 
       expect(domNode1.getAttribute('tabindex'), equals('1'));
       expect(domNode2.getAttribute('tabindex'), equals('2'));
@@ -724,12 +724,12 @@ void html_image_test() {
           Image(key: Key('widget-2'), title: 'some "messy" title'),
           Image(key: Key('widget-3'), title: "some 'messy' title"),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
 
       expect(domNode1.getAttribute('title'), equals('some title'));
       expect(domNode2.getAttribute('title'), equals('some "messy" title'));
@@ -739,13 +739,13 @@ void html_image_test() {
     test('should set correct types and markup', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('some-global-key')),
+          Image(key: GlobalKey('some-key-3')),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
       expect(
-        RT_TestBed.rootElement.innerHtml,
+        RT_TestBed.rootDomNode.innerHtml,
         startsWith(
           //
           // img/col tags might don't have a closing tag
@@ -773,17 +773,17 @@ void html_image_test() {
       await app!.buildChildren(
         widgets: [
           Image(
-            key: GlobalKey('some-global-key'),
+            key: GlobalKey('some-key-3'),
             dataAttributes: {
               'something': 'something okay',
               'another': 'another okay',
             },
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
 
       expect(domNode1.dataset['something'], equals('something okay'));
       expect(domNode1.dataset['another'], equals('another okay'));
@@ -794,29 +794,29 @@ void html_image_test() {
       await app!.buildChildren(
         widgets: [
           Image(
-            key: GlobalKey('some-global-key'),
+            key: GlobalKey('some-key-3'),
             dataAttributes: {
               'something': 'something okay',
             },
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
           Image(
-            key: GlobalKey('some-global-key'),
+            key: GlobalKey('some-key-3'),
             dataAttributes: {
               'something-new': 'something new',
             },
           ),
         ],
         updateType: UpdateType.undefined,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0].childNodes[0];
 
       domNode1 as HtmlElement;
 
@@ -831,17 +831,17 @@ void html_image_test() {
         await app!.buildChildren(
           widgets: [
             Image(
-              key: GlobalKey('some-global-key'),
+              key: GlobalKey('some-key-3'),
               dataAttributes: {
                 'something': 'something okay',
                 reservedAttribute: 'must ignore',
               },
             ),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
-        var domNode1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
+        var domNode1 = RT_TestBed.rootDomNode.childNodes[0].childNodes[0];
 
         domNode1 as HtmlElement;
 
@@ -856,20 +856,20 @@ void html_image_test() {
         await app!.buildChildren(
           widgets: [
             Image(
-              key: GlobalKey('some-global-key'),
+              key: GlobalKey('some-key-3'),
               dataAttributes: {
                 'something': 'something okay',
                 reservedAttribute: 'must ignore',
               },
             ),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         await app!.updateChildren(
           widgets: [
             Image(
-              key: GlobalKey('some-global-key'),
+              key: GlobalKey('some-key-3'),
               dataAttributes: {
                 'something': 'something new',
                 'something-diff': 'something diff',
@@ -878,10 +878,10 @@ void html_image_test() {
             ),
           ],
           updateType: UpdateType.undefined,
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
-        var domNode1 = RT_TestBed.rootElement.childNodes[0].childNodes[0];
+        var domNode1 = RT_TestBed.rootDomNode.childNodes[0].childNodes[0];
 
         domNode1 as HtmlElement;
 
@@ -904,20 +904,20 @@ void html_image_test() {
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: Key('some-key')),
-          Image(key: LocalKey('some-local-key')),
-          Image(key: GlobalKey('some-global-key')),
+          Image(key: GlobalKey('some-key-1')),
+          Image(key: GlobalKey('some-key-2')),
+          Image(key: GlobalKey('some-key-3')),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var wO1 = app!.widgetObjectByKey('some-key', RT_TestBed.rootContext);
-      var wO2 = app!.widgetObjectByLocalKey('some-local-key');
-      var wO3 = app!.widgetObjectByGlobalKey('some-global-key');
+      var wO1 = app!.renderElementByGlobalKey('some-key-1')!;
+      var wO2 = app!.renderElementByGlobalKey('some-key-2')!;
+      var wO3 = app!.renderElementByGlobalKey('some-key-3')!;
 
-      expect(wO1.context.key.value, endsWith('some-key'));
-      expect(wO2.context.key.value, endsWith('some-local-key'));
-      expect(wO3.context.key.value, equals('some-global-key'));
+      expect(wO1.key?.value, endsWith('some-key-1'));
+      expect(wO2.key?.value, endsWith('some-key-2'));
+      expect(wO3.key?.value, equals('some-key-3'));
     });
 
     test('should set attribute "src"', () async {
@@ -926,7 +926,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1'), src: 'some-src'),
           Image(key: GlobalKey('el-2'), src: 'another-src'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -942,7 +942,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1'), src: 'some-src'),
           Image(key: GlobalKey('el-2'), src: 'another-src'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -951,7 +951,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-2'), src: 'another-src'),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -967,7 +967,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1')),
           Image(key: GlobalKey('el-2'), src: 'another-src'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -976,7 +976,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-2')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -991,7 +991,7 @@ void html_image_test() {
         widgets: [
           Image(key: GlobalKey('el-1'), src: 'some-src'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -999,7 +999,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1'), src: null),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -1012,7 +1012,7 @@ void html_image_test() {
         widgets: [
           Image(key: GlobalKey('el-1'), src: null),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -1026,7 +1026,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1'), alt: 'some-alt'),
           Image(key: GlobalKey('el-2'), alt: 'another-alt'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -1042,7 +1042,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1'), alt: 'some-alt'),
           Image(key: GlobalKey('el-2'), alt: 'another-alt'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -1051,7 +1051,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-2'), alt: 'another-alt'),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -1067,7 +1067,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1')),
           Image(key: GlobalKey('el-2'), alt: 'another-alt'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -1076,7 +1076,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-2')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -1091,7 +1091,7 @@ void html_image_test() {
         widgets: [
           Image(key: GlobalKey('el-1'), alt: 'some-alt'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -1099,7 +1099,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1'), alt: null),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -1112,7 +1112,7 @@ void html_image_test() {
         widgets: [
           Image(key: GlobalKey('el-1'), alt: null),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -1136,12 +1136,12 @@ void html_image_test() {
             alt: "some 'messy' alt",
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
 
       expect(
         domNode1.getAttribute('alt'),
@@ -1165,7 +1165,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1'), width: 'some-width'),
           Image(key: GlobalKey('el-2'), width: 'another-width'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -1181,7 +1181,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1'), width: 'some-width'),
           Image(key: GlobalKey('el-2'), width: 'another-width'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -1190,7 +1190,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-2'), width: 'another-width'),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -1206,7 +1206,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1')),
           Image(key: GlobalKey('el-2'), width: 'another-width'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -1215,7 +1215,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-2')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -1230,7 +1230,7 @@ void html_image_test() {
         widgets: [
           Image(key: GlobalKey('el-1'), width: 'some-width'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -1238,7 +1238,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1'), width: null),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -1252,7 +1252,7 @@ void html_image_test() {
         widgets: [
           Image(key: GlobalKey('el-1'), width: null),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -1266,7 +1266,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1'), height: 'some-height'),
           Image(key: GlobalKey('el-2'), height: 'another-height'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -1282,7 +1282,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1'), height: 'some-height'),
           Image(key: GlobalKey('el-2'), height: 'another-height'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -1291,7 +1291,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-2'), height: 'another-height'),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -1307,7 +1307,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1')),
           Image(key: GlobalKey('el-2'), height: 'another-height'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -1316,7 +1316,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-2')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -1331,7 +1331,7 @@ void html_image_test() {
         widgets: [
           Image(key: GlobalKey('el-1'), height: 'some-height'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -1339,7 +1339,7 @@ void html_image_test() {
           Image(key: GlobalKey('el-1'), height: null),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -1353,7 +1353,7 @@ void html_image_test() {
         widgets: [
           Image(key: GlobalKey('el-1'), height: null),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');

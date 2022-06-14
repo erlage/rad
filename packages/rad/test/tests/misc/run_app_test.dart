@@ -11,17 +11,19 @@ void main() {
     setUp(() {
       // we are testing real runApp and it throws if called twice with same
       // targetId(as expected)
-      ServicesRegistry.instance.unRegisterServices(RT_TestBed.rootContext);
+      ServicesRegistry.instance.unRegisterServices(
+        RT_TestBed.rootRenderElement,
+      );
     });
 
     test('should run app', () async {
       runApp(
         app: Text('hello world'),
-        targetId: RT_TestBed.rootKey.value,
+        targetId: RT_TestBed.rootTargetId,
       );
 
       await Future.delayed(Duration.zero, () {
-        expect(RT_TestBed.rootElement, RT_hasContents('hello world'));
+        expect(RT_TestBed.rootDomNode, RT_hasContents('hello world'));
       });
     });
 
@@ -42,7 +44,7 @@ void main() {
     test('should start app in non-test mode', () async {
       var app = runApp(
         app: Text('hello world'),
-        targetId: RT_TestBed.rootContext.key.value,
+        targetId: RT_TestBed.rootTargetId,
       );
 
       await Future.delayed(Duration(milliseconds: 100));

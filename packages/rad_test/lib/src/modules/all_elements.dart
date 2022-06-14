@@ -14,12 +14,12 @@ import 'package:rad_test/src/modules/cached_interable.dart';
 /// one, for example the results of calling `where` on this iterable
 /// are also cached.
 ///
-Iterable<WidgetObject> collectAllWidgetObjectsFrom(
-  WidgetObject rootWidgetObject, {
+Iterable<RenderElement> collectAllWidgetObjectsFrom(
+  RenderElement rootElement, {
   required bool skipOffstage,
 }) {
-  return CachingIterable<WidgetObject>(
-    _DepthFirstChildIterator(rootWidgetObject, skipOffstage),
+  return CachingIterable<RenderElement>(
+    _DepthFirstChildIterator(rootElement, skipOffstage),
   );
 }
 
@@ -35,25 +35,19 @@ Iterable<WidgetObject> collectAllWidgetObjectsFrom(
 ///
 class _DepthFirstChildIterator
     with ServicesResolver
-    implements Iterator<WidgetObject> {
-  BuildContext? rootContext;
-
-  Services get services => resolveServices(rootContext!);
-
-  _DepthFirstChildIterator(WidgetObject rootWidgetObject, this.skipOffstage) {
-    rootContext = rootWidgetObject.context;
-
-    _fillChildren(rootWidgetObject);
+    implements Iterator<RenderElement> {
+  _DepthFirstChildIterator(RenderElement rootElement, this.skipOffstage) {
+    _fillChildren(rootElement);
   }
 
   final bool skipOffstage;
 
-  late WidgetObject _current;
+  late RenderElement _current;
 
-  final _stack = <WidgetObject>[];
+  final _stack = <RenderElement>[];
 
   @override
-  WidgetObject get current => _current;
+  RenderElement get current => _current;
 
   @override
   bool moveNext() {
@@ -65,27 +59,22 @@ class _DepthFirstChildIterator
     return true;
   }
 
-  void _fillChildren(WidgetObject widgetObject) {
-    final List<WidgetObject> reversed = <WidgetObject>[];
+  void _fillChildren(RenderElement element) {
+    final List<RenderElement> reversed = <RenderElement>[];
 
-    var walker = services.walker;
+    element.traverseChildElements((child) {
+      var childDomNode = child.domNode;
 
-    for (final node in widgetObject.renderNode.children) {
-      var childWidgetObject = walker.getWidgetObject(node.context);
-      var childDomNode = childWidgetObject?.domNode;
+      if (skipOffstage) {
+        childDomNode ??= child.findClosestDomNode();
 
-      if (null != childWidgetObject) {
-        if (skipOffstage) {
-          childDomNode ??= childWidgetObject.context.findDomNode();
-
-          if (fnIsDomNodeVisible(childDomNode)) {
-            reversed.add(childWidgetObject);
-          }
-        } else {
-          reversed.add(childWidgetObject);
+        if (fnIsDomNodeVisible(childDomNode)) {
+          reversed.add(child);
         }
+      } else {
+        reversed.add(child);
       }
-    }
+    });
 
     while (reversed.isNotEmpty) {
       _stack.add(reversed.removeLast());

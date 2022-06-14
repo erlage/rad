@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
@@ -105,17 +104,19 @@ class Form extends HTMLWidgetBase {
   }
 
   @override
-  createRenderObject(context) => _FormRenderObject(context);
+  createRenderElement(parent) => FormRenderElement(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class _FormRenderObject extends MarkUpGlobalRenderObject {
-  const _FormRenderObject(BuildContext context) : super(context);
+/// Form render element.
+///
+class FormRenderElement extends HTMLBaseElement {
+  FormRenderElement(super.widget, super.parent);
 
   @override
   render({

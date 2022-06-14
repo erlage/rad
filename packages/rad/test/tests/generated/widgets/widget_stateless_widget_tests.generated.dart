@@ -22,7 +22,7 @@ void widget_stateless_widget_test() {
       expect(widget.widgetType, equals('$StatelessWidget'));
     });
 
-    test('should return true from shouldWidgetChildrenUpdate', () {
+    test('should return false from shouldWidgetChildrenUpdate', () {
       var shouldWidgetChildrenUpdate = true;
 
       var oldWidget = RT_StatelessWidget();

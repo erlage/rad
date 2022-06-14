@@ -8,7 +8,7 @@ test('should set form attribute "enctype"', () async {
                 enctype: FormEncType.applicationXwwwFormUrlEncoded,
             ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -39,7 +39,7 @@ test('should update form attribute "enctype"', () async {
                 enctype: FormEncType.applicationXwwwFormUrlEncoded,
             ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
@@ -49,7 +49,7 @@ test('should update form attribute "enctype"', () async {
             __WidgetClass__(key: GlobalKey('el-3'), enctype: FormEncType.multipartFormData),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     var domNode1 = app!.domNodeByGlobalKey('el-1');

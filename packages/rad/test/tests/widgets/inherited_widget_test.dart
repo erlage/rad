@@ -22,7 +22,7 @@ void main() {
             child: Text('contents'),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       expect(testStack.canPop(), equals(false));
@@ -40,7 +40,7 @@ void main() {
             child: Text('contents'),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       expect(testStack.canPop(), equals(false));
@@ -67,7 +67,7 @@ void main() {
             child: RT_TestWidget(),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -87,7 +87,7 @@ void main() {
           ),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -107,7 +107,7 @@ void main() {
           ),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       // check stack
@@ -147,13 +147,12 @@ void main() {
             RT_InheritedWidget(
               eventUpdateShouldNotify: () => testStack.push('notify-1a'),
               child: RT_TestWidget(
-                roEventHookAfterMount: () =>
-                    testStack.push('mount-container-1a'),
+                roEventAfterMount: () => testStack.push('mount-container-1a'),
                 children: [shortCircuitableSubTree],
               ),
             ),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         await app!.updateChildren(
@@ -162,14 +161,13 @@ void main() {
               overrideUpdateShouldNotify: () => true,
               eventUpdateShouldNotify: () => testStack.push('notify-2a'),
               child: RT_TestWidget(
-                roEventHookAfterMount: () =>
-                    testStack.push('mount-container-2a'),
+                roEventAfterMount: () => testStack.push('mount-container-2a'),
                 children: [shortCircuitableSubTree],
               ),
             ),
           ],
           updateType: UpdateType.setState,
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         await app!.updateChildren(
@@ -178,14 +176,13 @@ void main() {
               overrideUpdateShouldNotify: () => false,
               eventUpdateShouldNotify: () => testStack.push('notify-2a'),
               child: RT_TestWidget(
-                roEventHookAfterMount: () =>
-                    testStack.push('mount-container-2a'),
+                roEventAfterMount: () => testStack.push('mount-container-2a'),
                 children: [shortCircuitableSubTree],
               ),
             ),
           ],
           updateType: UpdateType.setState,
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         await app!.updateChildren(
@@ -194,14 +191,13 @@ void main() {
               overrideUpdateShouldNotify: () => true,
               eventUpdateShouldNotify: () => testStack.push('notify-3a'),
               child: RT_TestWidget(
-                roEventHookAfterMount: () =>
-                    testStack.push('mount-container-3a'),
+                roEventAfterMount: () => testStack.push('mount-container-3a'),
                 children: [shortCircuitableSubTree],
               ),
             ),
           ],
           updateType: UpdateType.setState,
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         // build phase
@@ -256,13 +252,12 @@ void main() {
             RT_InheritedWidget(
               eventUpdateShouldNotify: () => testStack.push('notify-1a'),
               child: RT_TestWidget(
-                roEventHookAfterMount: () =>
-                    testStack.push('mount-container-1a'),
+                roEventAfterMount: () => testStack.push('mount-container-1a'),
                 children: [shortCircuitableSubTree],
               ),
             ),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         await app!.updateChildren(
@@ -271,14 +266,13 @@ void main() {
               overrideUpdateShouldNotify: () => true,
               eventUpdateShouldNotify: () => testStack.push('notify-2a'),
               child: RT_TestWidget(
-                roEventHookAfterMount: () =>
-                    testStack.push('mount-container-2a'),
+                roEventAfterMount: () => testStack.push('mount-container-2a'),
                 children: [shortCircuitableSubTree],
               ),
             ),
           ],
           updateType: UpdateType.setState,
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         await app!.updateChildren(
@@ -287,14 +281,13 @@ void main() {
               overrideUpdateShouldNotify: () => false,
               eventUpdateShouldNotify: () => testStack.push('notify-3a'),
               child: RT_TestWidget(
-                roEventHookAfterMount: () =>
-                    testStack.push('mount-container-2a'),
+                roEventAfterMount: () => testStack.push('mount-container-2a'),
                 children: [shortCircuitableSubTree],
               ),
             ),
           ],
           updateType: UpdateType.setState,
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         await app!.updateChildren(
@@ -303,14 +296,13 @@ void main() {
               overrideUpdateShouldNotify: () => true,
               eventUpdateShouldNotify: () => testStack.push('notify-4a'),
               child: RT_TestWidget(
-                roEventHookAfterMount: () =>
-                    testStack.push('mount-container-4a'),
+                roEventAfterMount: () => testStack.push('mount-container-4a'),
                 children: [shortCircuitableSubTree],
               ),
             ),
           ],
           updateType: UpdateType.setState,
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         // build phase
@@ -343,21 +335,21 @@ void main() {
         widgets: [
           RT_InheritedWidget(
             child: RT_TestWidget(
-              roEventHookAfterMount: () => testStack.push('mount-a'),
+              roEventAfterMount: () => testStack.push('mount-a'),
             ),
           ),
           RT_InheritedWidget(
             child: RT_TestWidget(
-              roEventHookAfterMount: () => testStack.push('mount-b'),
+              roEventAfterMount: () => testStack.push('mount-b'),
             ),
           ),
           RT_InheritedWidget(
             child: RT_TestWidget(
-              roEventHookAfterMount: () => testStack.push('mount-c'),
+              roEventAfterMount: () => testStack.push('mount-c'),
             ),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
       await Future.delayed(Duration.zero);
 
@@ -375,24 +367,24 @@ void main() {
         widgets: [
           RT_InheritedWidget(
             child: RT_TestWidget(
-              roEventHookAfterMount: () => testStack.push('mount-a'),
-              roEventHookUpdate: () => testStack.push('update-a'),
+              roEventAfterMount: () => testStack.push('mount-a'),
+              roEventUpdate: () => testStack.push('update-a'),
             ),
           ),
           RT_InheritedWidget(
             child: RT_TestWidget(
-              roEventHookAfterMount: () => testStack.push('mount-b'),
-              roEventHookUpdate: () => testStack.push('update-b'),
+              roEventAfterMount: () => testStack.push('mount-b'),
+              roEventUpdate: () => testStack.push('update-b'),
             ),
           ),
           RT_InheritedWidget(
             child: RT_TestWidget(
-              roEventHookAfterMount: () => testStack.push('mount-c'),
-              roEventHookUpdate: () => testStack.push('update-c'),
+              roEventAfterMount: () => testStack.push('mount-c'),
+              roEventUpdate: () => testStack.push('update-c'),
             ),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -402,7 +394,7 @@ void main() {
           RT_InheritedWidget(child: RT_TestWidget()),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       expect(testStack.popFromStart(), equals('mount-a'));

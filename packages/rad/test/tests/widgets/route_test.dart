@@ -24,10 +24,10 @@ void main() {
         widgets: [
           Route(name: 'some-name', page: Text('page contents')),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('page contents'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('page contents'));
     });
 
     test('should update page', () async {
@@ -35,10 +35,10 @@ void main() {
         widgets: [
           Route(name: 'some-name', page: Text('contents')),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('contents'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('contents'));
 
       await app!.updateChildren(
         widgets: [
@@ -46,10 +46,10 @@ void main() {
           Route(name: 'another-name', page: Text('appended')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('updated|appended'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('updated|appended'));
     });
 
     test('should render duplicate routes', () async {
@@ -59,10 +59,10 @@ void main() {
           Route(name: 'duplicate-name', page: Text('2')),
           Route(name: 'duplicate-name', page: Text('3')),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('1|2|3'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('1|2|3'));
     });
 
     test('should update duplicate routes', () async {
@@ -72,7 +72,7 @@ void main() {
           Route(name: 'duplicate-name', page: Text('2')),
           Route(name: 'duplicate-name', page: Text('3')),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -82,10 +82,10 @@ void main() {
           Route(name: 'duplicate-name', page: Text('2')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('1|3|2'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('1|3|2'));
     });
 
     test('should set route name', () async {
@@ -97,10 +97,10 @@ void main() {
             page: Text('contents'),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var widget = app!.widgetObjectByGlobalKey('a').widget as Route;
+      var widget = app!.renderElementByGlobalKey('a')!.widget as Route;
 
       expect(widget.name, equals('some-name'));
     });
@@ -115,10 +115,10 @@ void main() {
             page: Text('contents'),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var widget = app!.widgetObjectByGlobalKey('a').widget as Route;
+      var widget = app!.renderElementByGlobalKey('a')!.widget as Route;
 
       expect(widget.path, equals('path'));
     });
@@ -132,10 +132,10 @@ void main() {
             page: Text('contents'),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var widget = app!.widgetObjectByGlobalKey('a').widget as Route;
+      var widget = app!.renderElementByGlobalKey('a')!.widget as Route;
 
       expect(widget.name, equals('some-name'));
 
@@ -148,10 +148,10 @@ void main() {
           ),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      widget = app!.widgetObjectByGlobalKey('a').widget as Route;
+      widget = app!.renderElementByGlobalKey('a')!.widget as Route;
 
       expect(widget.name, equals('another-name'));
     });
@@ -166,10 +166,10 @@ void main() {
             page: Text('contents'),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var widget = app!.widgetObjectByGlobalKey('a').widget as Route;
+      var widget = app!.renderElementByGlobalKey('a')!.widget as Route;
 
       expect(widget.path, equals('path'));
 
@@ -183,10 +183,10 @@ void main() {
           ),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      widget = app!.widgetObjectByGlobalKey('a').widget as Route;
+      widget = app!.renderElementByGlobalKey('a')!.widget as Route;
 
       expect(widget.path, equals('updated-path'));
     });
@@ -218,10 +218,10 @@ void main() {
               ),
             ),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
-        expect(RT_TestBed.rootElement, RT_hasContents('1|2|3|4|5|6|7'));
+        expect(RT_TestBed.rootDomNode, RT_hasContents('1|2|3|4|5|6|7'));
 
         await app!.updateChildren(
           widgets: [
@@ -248,10 +248,10 @@ void main() {
             ),
           ],
           updateType: UpdateType.setState,
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
-        expect(RT_TestBed.rootElement, RT_hasContents('1|2|4|3|5|7|6'));
+        expect(RT_TestBed.rootDomNode, RT_hasContents('1|2|4|3|5|7|6'));
       },
     );
   });

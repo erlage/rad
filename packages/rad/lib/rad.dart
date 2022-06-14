@@ -15,10 +15,12 @@ library rad;
 export 'src/core/common/types.dart';
 export 'src/core/common/enums.dart';
 export 'src/core/run_app.dart' show runApp, AppRunner;
+export 'src/core/common/objects/key.dart' show Key, GlobalKey;
 export 'src/widgets/abstract/widget.dart' show Widget;
-export 'src/core/common/objects/key.dart' show Key, LocalKey, GlobalKey;
 export 'src/core/services/events/emitted_event.dart' show EmittedEvent;
 export 'src/core/common/objects/build_context.dart' show BuildContext;
+export 'src/core/common/objects/render_element.dart' show RenderElement;
+export 'src/core/common/objects/common_render_elements.dart' show RootElement;
 export 'src/core/common/objects/options/debug_options.dart' show DebugOptions;
 export 'src/core/common/objects/options/router_options.dart' show RouterOptions;
 

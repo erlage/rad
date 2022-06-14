@@ -30,7 +30,7 @@ void main() {
             child: Text('some', key: GlobalKey('text')),
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
@@ -54,7 +54,7 @@ void main() {
             ),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
@@ -78,7 +78,7 @@ void main() {
             ),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
@@ -101,7 +101,7 @@ void main() {
             ),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
@@ -128,7 +128,7 @@ void main() {
             child: Text('some', key: GlobalKey('text')),
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
@@ -152,7 +152,7 @@ void main() {
             ),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
@@ -176,7 +176,7 @@ void main() {
             ),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
@@ -199,7 +199,7 @@ void main() {
             ),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
@@ -226,7 +226,7 @@ void main() {
             child: Text('some', key: GlobalKey('text')),
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
@@ -250,7 +250,7 @@ void main() {
             ),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
@@ -274,7 +274,7 @@ void main() {
             ),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
@@ -297,7 +297,7 @@ void main() {
             ),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
@@ -328,7 +328,7 @@ void main() {
             ),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
@@ -362,7 +362,7 @@ void main() {
             ),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
@@ -390,7 +390,7 @@ void main() {
             child: Text('some', key: GlobalKey('text')),
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
@@ -414,7 +414,7 @@ void main() {
             ),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
@@ -438,7 +438,7 @@ void main() {
             ),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
@@ -461,7 +461,7 @@ void main() {
             ),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
@@ -492,7 +492,7 @@ void main() {
             ),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
@@ -526,7 +526,7 @@ void main() {
             ),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));

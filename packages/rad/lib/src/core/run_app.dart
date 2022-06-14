@@ -1,8 +1,7 @@
 import 'dart:html';
 
 import 'package:rad/src/core/common/objects/app_options.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/common_render_elements.dart';
 import 'package:rad/src/core/common/objects/options/debug_options.dart';
 import 'package:rad/src/core/common/objects/options/router_options.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -46,7 +45,9 @@ AppRunner runApp({
     beforeMount: beforeMount,
     routerOptions: routerOptions,
     debugOptions: debugOptions,
-  )..start();
+  )
+    ..start()
+    ..scheduleInitialBuild();
 }
 
 /// App Runner.
@@ -62,8 +63,8 @@ class AppRunner {
   final DebugOptions? _debugOptions;
   final RouterOptions? _routerOptions;
 
-  BuildContext? _rootContext;
-  BuildContext get rootContext => _rootContext!;
+  RootElement? _rootElement;
+  RootElement get rootElement => _rootElement!;
 
   AppOptions? _appOptions;
   AppOptions get appOptions => _appOptions!;
@@ -105,13 +106,12 @@ class AppRunner {
   void start() {
     this
       ..prepareTargetDomNode()
-      ..setupRootContext()
+      ..setupRootElement()
       ..setupOptions()
       ..setupDelegates()
       ..startServices()
       ..setupFrameworkInstance()
-      ..runPreMountTasks()
-      .._scheduleInitialBuild();
+      ..runPreMountTasks();
   }
 
   /// Stop app and services associated.
@@ -122,19 +122,19 @@ class AppRunner {
       ..stopServices();
   }
 
-  /// Setuo root context.
+  /// Setuo root render element.
   ///
-  void setupRootContext() {
-    var globalKey = GlobalKey(targetId);
-
-    _rootContext = BuildContext.bigBang(globalKey);
+  void setupRootElement() {
+    _rootElement = RootElement(
+      appTargetId: targetId,
+      appTargetDomNode: document.getElementById(targetId)!,
+    );
   }
 
   /// Prepare options for app instance.
   ///
   void setupOptions() {
     _appOptions = AppOptions(
-      rootContext: rootContext,
       routerOptions: _routerOptions ?? RouterOptions.defaultMode,
       debugOptions: _debugOptions ?? DebugOptions.defaultMode,
     );
@@ -149,7 +149,14 @@ class AppRunner {
   /// Start app instance associated services.
   ///
   void startServices() {
-    _services = Services(appOptions)..startServices();
+    _services = Services(
+      appOptions: appOptions,
+      rootElement: rootElement,
+    );
+
+    rootElement.frameworkAttachServices(services: services);
+
+    services.startServices();
   }
 
   /// Stop app instance associated services.
@@ -162,9 +169,9 @@ class AppRunner {
   ///
   void setupFrameworkInstance() {
     if (_isInTestMode) {
-      _framework = Framework.inTestMode(rootContext)..initState();
+      _framework = Framework.inTestMode(rootElement)..initState();
     } else {
-      _framework = Framework(rootContext)..initState();
+      _framework = Framework(rootElement)..initState();
     }
   }
 
@@ -174,11 +181,13 @@ class AppRunner {
     _framework?.dispose();
   }
 
-  void _scheduleInitialBuild() {
+  /// Schedule initial build.
+  ///
+  void scheduleInitialBuild() {
     services.scheduler.addTask(
       WidgetsBuildTask(
         widgets: [app],
-        parentContext: rootContext,
+        parentRenderElement: rootElement,
       ),
     );
   }

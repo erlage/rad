@@ -36,7 +36,7 @@ void main() {
             ],
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var parent = app!.navigatorState('parent');
@@ -73,7 +73,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var parent = app!.navigatorState('parent');
@@ -113,7 +113,7 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var gparent = app!.navigatorState('g-parent');
@@ -161,7 +161,7 @@ void main() {
               ],
             ),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var gparent = app!.navigatorState('g-parent');
@@ -197,7 +197,7 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var parent = app!.navigatorState('parent');
@@ -233,7 +233,7 @@ void main() {
               ],
             ),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var parent = app!.navigatorState('parent');
@@ -278,7 +278,7 @@ void main() {
               ],
             ),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var gparent = app!.navigatorState('g-parent');
@@ -327,7 +327,7 @@ void main() {
               ],
             ),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var gparent = app!.navigatorState('g-parent');
@@ -380,7 +380,7 @@ void main() {
             ],
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var parent = app!.navigatorState('parent');
@@ -413,7 +413,7 @@ void main() {
             ],
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var parent = app!.navigatorState('parent');
@@ -448,7 +448,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var parent = app!.navigatorState('parent');
@@ -484,7 +484,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var parent = app!.navigatorState('parent');
@@ -527,7 +527,7 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var gparent = app!.navigatorState('g-parent');
@@ -574,7 +574,7 @@ void main() {
               ],
             ),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var gparent = app!.navigatorState('g-parent');

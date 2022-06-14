@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
@@ -63,17 +62,17 @@ class ListItem extends HTMLWidgetBase {
   }
 
   @override
-  createRenderObject(context) => _ListItemRenderObject(context);
+  createRenderElement(parent) => ListItemRenderElement(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class _ListItemRenderObject extends MarkUpGlobalRenderObject {
-  const _ListItemRenderObject(BuildContext context) : super(context);
+class ListItemRenderElement extends HTMLBaseElement {
+  ListItemRenderElement(super.widget, super.parent);
 
   @override
   render({

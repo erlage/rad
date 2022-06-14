@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
@@ -79,17 +78,19 @@ class Image extends HTMLWidgetBase {
   }
 
   @override
-  createRenderObject(context) => _ImageRenderObject(context);
+  createRenderElement(parent) => ImageRenderElement(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class _ImageRenderObject extends MarkUpGlobalRenderObject {
-  const _ImageRenderObject(BuildContext context) : super(context);
+/// Image render element.
+///
+class ImageRenderElement extends HTMLBaseElement {
+  ImageRenderElement(super.widget, super.parent);
 
   @override
   render({

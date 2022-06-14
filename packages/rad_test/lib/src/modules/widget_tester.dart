@@ -96,7 +96,7 @@ class WidgetTester {
   }) async {
     await _buildChildren(
       widgets: [widget],
-      parentContext: app.appContext,
+      parentRenderElement: app.appRenderElement,
       mountAtIndex: mountAtIndex,
       flagCleanParentContents: flagCleanParentContents,
     );
@@ -128,7 +128,7 @@ class WidgetTester {
   }) async {
     await _updateChildren(
       widgets: [widget],
-      parentContext: app.appContext,
+      parentRenderElement: app.appRenderElement,
       updateType: updateType ?? UpdateType.setState,
       flagAddIfNotFound: flagAddIfNotFound,
     );
@@ -162,7 +162,7 @@ class WidgetTester {
   }) async {
     await _buildChildren(
       widgets: widgets,
-      parentContext: app.appContext,
+      parentRenderElement: app.appRenderElement,
       mountAtIndex: mountAtIndex,
       flagCleanParentContents: flagCleanParentContents,
     );
@@ -196,7 +196,7 @@ class WidgetTester {
   }) async {
     await _updateChildren(
       widgets: widgets,
-      parentContext: app.appContext,
+      parentRenderElement: app.appRenderElement,
       updateType: updateType ?? UpdateType.setState,
       flagAddIfNotFound: flagAddIfNotFound,
     );
@@ -239,9 +239,9 @@ class WidgetTester {
     required Finder finder,
     bool dispatchToMultipleNodes = false,
   }) async {
-    var widgetObjects = finder.evaluate();
+    var renderElements = finder.evaluate();
 
-    if (widgetObjects.isEmpty) {
+    if (renderElements.isEmpty) {
       app.services.debug.exception(
         'Unable find any matching widgets with the finder: "$finder".',
       );
@@ -249,7 +249,7 @@ class WidgetTester {
       return;
     }
 
-    if (!dispatchToMultipleNodes && widgetObjects.length > 1) {
+    if (!dispatchToMultipleNodes && renderElements.length > 1) {
       app.services.debug.exception(
         'Found multiple matching widgets with the finder: "$finder". '
         'Consider enabling dispatchToMultipleNodes if you want to dispatch '
@@ -259,8 +259,8 @@ class WidgetTester {
       return;
     }
 
-    for (final widgetObject in widgetObjects) {
-      var element = widgetObject.context.findDomNode();
+    for (final renderElement in renderElements) {
+      var element = renderElement.findClosestDomNode();
 
       element.dispatchEvent(event);
 
@@ -274,9 +274,9 @@ class WidgetTester {
   /// Note that widget must of subtype of [Input] or [TextArea].
   ///
   Future<void> enterText(Finder finder, String text) async {
-    var widgetObjects = finder.evaluate();
+    var renderElements = finder.evaluate();
 
-    if (widgetObjects.isEmpty) {
+    if (renderElements.isEmpty) {
       app.services.debug.exception(
         'Unable find any matching widgets with the finder: "$finder".',
       );
@@ -284,8 +284,8 @@ class WidgetTester {
       return;
     }
 
-    var targetWidgetObject = widgetObjects.first;
-    var widget = targetWidgetObject.widget;
+    var targetRenderElement = renderElements.first;
+    var widget = targetRenderElement.widget;
 
     if (!fnIsWidgetTextEditable(widget)) {
       app.services.debug.exception(
@@ -298,7 +298,7 @@ class WidgetTester {
 
     fnEnterTextOnWidgetObject(
       textToEnter: text,
-      widgetObject: targetWidgetObject,
+      renderElement: targetRenderElement,
     );
   }
 
@@ -306,9 +306,9 @@ class WidgetTester {
   /// onscreen keyboard had appeared.
   ///
   Future<void> focus(Finder finder) async {
-    var widgetObjects = finder.evaluate();
+    var renderElements = finder.evaluate();
 
-    if (widgetObjects.isEmpty) {
+    if (renderElements.isEmpty) {
       app.services.debug.exception(
         'Unable find any matching widgets with the finder: "$finder".',
       );
@@ -316,8 +316,8 @@ class WidgetTester {
       return;
     }
 
-    var targetWidgetObject = widgetObjects.first;
-    var widget = targetWidgetObject.widget;
+    var targetRenderElement = renderElements.first;
+    var widget = targetRenderElement.widget;
 
     if (!fnIsWidgetTextEditable(widget)) {
       app.services.debug.exception(
@@ -328,7 +328,7 @@ class WidgetTester {
       return;
     }
 
-    var domNode = targetWidgetObject.domNode;
+    var domNode = targetRenderElement.domNode;
 
     if (null == domNode) return;
 
@@ -337,84 +337,38 @@ class WidgetTester {
 
   /// Find app's dom node.
   ///
-  Element? get getAppDomNode => getDomNodeByGlobalKey(app.appContext.key);
+  Element? get getAppDomNode => app.appRenderElement.domNode;
 
   /// Find dom node by id.
   ///
   Element? getDomNodeById(String id) => document.getElementById(id);
 
-  /// Find widget by key provided parent context.
-  ///
-  Widget? getWidgetByKey(Key key, BuildContext parentContext) {
-    return getWidgetObjectByKey(key, parentContext)?.widget;
-  }
-
-  /// Find widget by local key under app context.
-  ///
-  Widget? getWidgetByLocalKey(LocalKey key) =>
-      getWidgetObjectByLocalKey(key)?.widget;
-
   /// Find widget by global key under app context.
   ///
-  Widget? getWidgetByGlobalKey(GlobalKey key) => getWidgetObjectByGlobalKey(
+  Widget? getWidgetByGlobalKey(GlobalKey key) => getRenderElementByGlobalKey(
         key,
       )?.widget;
 
-  /// Find widget object by key under app context.
+  /// Find render element by global key under app context.
   ///
-  WidgetObject? getWidgetObjectByKey(Key key, BuildContext parentContext) {
-    return app.services.walker.getWidgetObjectUsingKey(
-      app.services.keyGen.getGlobalKeyUsingKey(key, parentContext).value,
-    );
+  RenderElement? getRenderElementByGlobalKey(GlobalKey key) {
+    return app.services.walker.getRenderElementAssociatedWithGlobalKey(key);
   }
-
-  /// Find widget object by local key under app context.
-  ///
-  WidgetObject? getWidgetObjectByLocalKey(LocalKey key) {
-    return app.services.walker.getWidgetObjectUsingKey(
-      app.services.keyGen.getGlobalKeyUsingKey(key, app.appContext).value,
-    );
-  }
-
-  /// Find widget object by global key under app context.
-  ///
-  WidgetObject? getWidgetObjectByGlobalKey(GlobalKey key) {
-    return app.services.walker.getWidgetObjectUsingKey(
-      app.services.keyGen.getGlobalKeyUsingKey(key, app.appContext).value,
-    );
-  }
-
-  /// Find dom node by key under app context.
-  ///
-  Element? getDomNodeByKey(Key key, BuildContext parentContext) =>
-      app.services.walker
-          .getWidgetObjectUsingKey(
-            app.services.keyGen.getGlobalKeyUsingKey(key, parentContext).value,
-          )
-          ?.domNode;
-
-  /// Find dom node by local key under app context.
-  ///
-  Element? getDomNodeByLocalKey(LocalKey key) => app.services.walker
-      .getWidgetObjectUsingKey(
-        app.services.keyGen.getGlobalKeyUsingKey(key, app.rootContext).value,
-      )
-      ?.domNode;
 
   /// Find dom node by global key under app context.
   ///
   Element? getDomNodeByGlobalKey(GlobalKey key) {
-    return getWidgetObjectByGlobalKey(key)?.domNode;
+    return getRenderElementByGlobalKey(key)?.domNode;
   }
 
   /// Update a dependent build context.
   ///
-  Future<void> updateContextAsIfDependant(
-    BuildContext widgetContext,
+  Future<void> updateRenderElementAsIfDependant(
+    RenderElement renderElement,
   ) async {
     app.services.scheduler.addTask(
       WidgetsUpdateDependentTask(
-        widgetContext: widgetContext,
+        dependentRenderElement: renderElement,
       ),
     );
 
@@ -424,7 +378,7 @@ class WidgetTester {
   /// Manage(visit) widgets under a build context.
   ///
   Future<void> visitChildren({
-    required BuildContext parentContext,
+    required RenderElement parentRenderElement,
     required WidgetActionsBuilder widgetActionCallback,
     required UpdateType updateType,
     bool flagIterateInReverseOrder = false,
@@ -432,7 +386,7 @@ class WidgetTester {
     app.services.scheduler.addTask(
       WidgetsManageTask(
         updateType: updateType,
-        parentContext: parentContext,
+        parentRenderElement: parentRenderElement,
         widgetActionCallback: widgetActionCallback,
         flagIterateInReverseOrder: flagIterateInReverseOrder,
       ),
@@ -441,16 +395,16 @@ class WidgetTester {
     await Future<void>.delayed(Duration.zero);
   }
 
-  /// Dispose a widget object.
+  /// Dispose a render element.
   ///
   Future<void> disposeWidget({
-    required WidgetObject? widgetObject,
+    required RenderElement? renderElement,
     required bool flagPreserveTarget,
   }) async {
-    if (null != widgetObject) {
+    if (null != renderElement) {
       app.services.scheduler.addTask(
         WidgetsDisposeTask(
-          widgetObject: widgetObject,
+          renderElement: renderElement,
           flagPreserveTarget: flagPreserveTarget,
         ),
       );
@@ -573,14 +527,14 @@ class WidgetTester {
   ///
   Future<void> _buildChildren({
     required List<Widget> widgets,
-    required BuildContext parentContext,
+    required RenderElement parentRenderElement,
     int? mountAtIndex,
     bool? flagCleanParentContents,
   }) async {
     app.services.scheduler.addTask(
       WidgetsBuildTask(
         widgets: widgets,
-        parentContext: parentContext,
+        parentRenderElement: parentRenderElement,
         mountAtIndex: mountAtIndex,
         flagCleanParentContents: flagCleanParentContents ?? true,
       ),
@@ -593,14 +547,14 @@ class WidgetTester {
   ///
   Future<void> _updateChildren({
     required List<Widget> widgets,
-    required BuildContext parentContext,
+    required RenderElement parentRenderElement,
     required UpdateType updateType,
     bool? flagAddIfNotFound,
   }) async {
     app.services.scheduler.addTask(
       WidgetsUpdateTask(
         widgets: widgets,
-        parentContext: parentContext,
+        parentRenderElement: parentRenderElement,
         updateType: updateType,
         flagAddIfNotFound: flagAddIfNotFound ?? true,
       ),

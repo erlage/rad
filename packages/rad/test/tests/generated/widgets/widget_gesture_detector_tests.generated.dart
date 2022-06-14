@@ -29,7 +29,7 @@ void widget_gesture_detector_test() {
         widgets: [
           GestureDetector(key: GlobalKey('widget'), child: Text('hw')),
         ],
-        parentContext: pap.appContext,
+        parentRenderElement: pap.appRenderElement,
       );
 
       var domNode = pap.domNodeByGlobalKey('widget');

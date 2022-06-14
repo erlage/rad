@@ -17,10 +17,10 @@ void main() {
         widgets: [
           Text('some text', key: GlobalKey('widget')),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('some text'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('some text'));
     });
 
     test('should update text', () async {
@@ -28,20 +28,20 @@ void main() {
         widgets: [
           Text('some text', key: GlobalKey('widget')),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('some text'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('some text'));
 
       await app!.updateChildren(
         widgets: [
           Text('updated text', key: GlobalKey('widget')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('updated text'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('updated text'));
     });
 
     test('should add/remove text', () async {
@@ -49,30 +49,30 @@ void main() {
         widgets: [
           Text('', key: GlobalKey('widget')),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents(''));
+      expect(RT_TestBed.rootDomNode, RT_hasContents(''));
 
       await app!.updateChildren(
         widgets: [
           Text('added text', key: GlobalKey('widget')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents('added text'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('added text'));
 
       await app!.updateChildren(
         widgets: [
           Text('', key: GlobalKey('widget')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootElement, RT_hasContents(''));
+      expect(RT_TestBed.rootDomNode, RT_hasContents(''));
     });
 
     // from templates
@@ -80,20 +80,20 @@ void main() {
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [
-          Text('', key: Key('some-key')),
-          Text('', key: LocalKey('some-local-key')),
-          Text('', key: GlobalKey('some-global-key')),
+          Text('', key: GlobalKey('some-key-1')),
+          Text('', key: GlobalKey('some-key-2')),
+          Text('', key: GlobalKey('some-key-3')),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var wO1 = app!.widgetObjectByKey('some-key', RT_TestBed.rootContext);
-      var wO2 = app!.widgetObjectByLocalKey('some-local-key');
-      var wO3 = app!.widgetObjectByGlobalKey('some-global-key');
+      var wO1 = app!.renderElementByGlobalKey('some-key-1')!;
+      var wO2 = app!.renderElementByGlobalKey('some-key-2')!;
+      var wO3 = app!.renderElementByGlobalKey('some-key-3')!;
 
-      expect(wO1.context.key.value, endsWith('some-key'));
-      expect(wO2.context.key.value, endsWith('some-local-key'));
-      expect(wO3.context.key.value, equals('some-global-key'));
+      expect(wO1.key?.value, endsWith('some-key-1'));
+      expect(wO2.key?.value, endsWith('some-key-2'));
+      expect(wO3.key?.value, endsWith('some-key-3'));
     });
 
     test('should set title', () async {
@@ -103,12 +103,12 @@ void main() {
           Text('', key: Key('widget-2'), title: 'some "messy" title'),
           Text('', key: Key('widget-3'), title: "some 'messy' title"),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
 
       expect(domNode1.getAttribute('title'), equals('some title'));
       expect(domNode2.getAttribute('title'), equals('some "messy" title'));
@@ -122,12 +122,12 @@ void main() {
           Text('', key: Key('widget-2'), style: 'some "messy" style'),
           Text('', key: Key('widget-3'), style: "some 'messy' style"),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
 
       expect(domNode1.getAttribute('style'), equals('some style'));
       expect(domNode2.getAttribute('style'), equals('some "messy" style'));
@@ -141,12 +141,12 @@ void main() {
           Text('', classAttribute: 'some "messy" class'),
           Text('', classAttribute: "some 'messy' class"),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
 
       expect(domNode1.getAttribute('class'), equals('some class'));
       expect(domNode2.getAttribute('class'), equals('some "messy" class'));
@@ -160,7 +160,7 @@ void main() {
           Text('', key: GlobalKey('el-2'), hidden: null),
           Text('', key: GlobalKey('el-3'), hidden: true),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -181,7 +181,7 @@ void main() {
           Text('', key: GlobalKey('el-3'), hidden: true),
           Text('', key: GlobalKey('el-4'), hidden: true),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -192,7 +192,7 @@ void main() {
           Text('', key: GlobalKey('el-4')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -225,12 +225,12 @@ void main() {
             onClickAttribute: "some 'messy' onClick",
           ),
         ],
-        parentContext: RT_TestBed.rootContext,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
 
       expect(
         domNode1.getAttribute('onclick'),
@@ -264,7 +264,7 @@ void main() {
             onClick: (event) => testStack.push('click-2'),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('click'));
@@ -286,12 +286,12 @@ void main() {
           Text('', key: GlobalKey('el-2'), onClick: null),
           Text('', key: GlobalKey('el-3'), onClick: listener),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widget('el-1').widgetEventListeners;
-      var listeners2 = app!.widget('el-2').widgetEventListeners;
-      var listeners3 = app!.widget('el-3').widgetEventListeners;
+      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      var listeners3 = app!.widgetByGlobalKey('el-3').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(null));
@@ -306,11 +306,11 @@ void main() {
           Text('', key: GlobalKey('el-1')),
           Text('', key: GlobalKey('el-2'), onClick: listener),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widget('el-1').widgetEventListeners;
-      var listeners2 = app!.widget('el-2').widgetEventListeners;
+      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(listener));
@@ -323,11 +323,11 @@ void main() {
           Text('', key: GlobalKey('el-2')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      listeners1 = app!.widget('el-1').widgetEventListeners;
-      listeners2 = app!.widget('el-2').widgetEventListeners;
+      listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
+      listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(null));

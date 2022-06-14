@@ -333,9 +333,9 @@ packages:
   rad_test:
     dependency: "direct dev"
     description:
-      name: rad_test
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../rad_test"
+      relative: true
+    source: path
     version: "0.3.0"
   scratch_space:
     dependency: transitive

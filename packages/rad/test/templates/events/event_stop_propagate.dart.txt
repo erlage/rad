@@ -24,7 +24,7 @@ test('should stop propagation after stopPropagation() is called', () async {
         ],
       )
     ],
-    parentContext: pap.appContext,
+    parentRenderElement: pap.appRenderElement,
   );
 
   var gparent = pap.domNodeByGlobalKey('el-g-parent');
@@ -78,7 +78,7 @@ test('should stop after stopImmediatePropagation() is called', () async {
         ],
       )
     ],
-    parentContext: pap.appContext,
+    parentRenderElement: pap.appRenderElement,
   );
 
   var gparent = pap.domNodeByGlobalKey('el-g-parent');

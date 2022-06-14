@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
@@ -64,17 +63,19 @@ class Blockquote extends HTMLWidgetBase {
   }
 
   @override
-  createRenderObject(context) => _BlockquoteRenderObject(context);
+  createRenderElement(parent) => BlockquoteRenderElement(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class _BlockquoteRenderObject extends MarkUpGlobalRenderObject {
-  const _BlockquoteRenderObject(BuildContext context) : super(context);
+/// Blockquote render element.
+///
+class BlockquoteRenderElement extends HTMLBaseElement {
+  BlockquoteRenderElement(super.widget, super.parent);
 
   @override
   render({

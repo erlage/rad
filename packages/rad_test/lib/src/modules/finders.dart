@@ -32,7 +32,7 @@ class CommonFinders {
   }) {
     return _TextFinder(
       text: text,
-      appContext: _app.appContext,
+      rootElement: _app.appRenderElement,
       skipOffstage: skipOffstage,
     );
   }
@@ -55,7 +55,7 @@ class CommonFinders {
   }) {
     return _TextContainingFinder(
       pattern: pattern,
-      appContext: _app.appContext,
+      rootElement: _app.appRenderElement,
       skipOffstage: skipOffstage,
     );
   }
@@ -106,7 +106,7 @@ class CommonFinders {
   }) =>
       _KeyFinder(
         key: key,
-        appContext: _app.appContext,
+        rootElement: _app.appRenderElement,
         skipOffstage: skipOffstage,
       );
 
@@ -131,7 +131,7 @@ class CommonFinders {
     bool skipOffstage = false,
   }) =>
       _WidgetSubtypeFinder<T>(
-        appContext: _app.appContext,
+        rootElement: _app.appRenderElement,
         skipOffstage: skipOffstage,
       );
 
@@ -161,7 +161,7 @@ class CommonFinders {
   }) =>
       _WidgetTypeFinder(
         widgetType: type,
-        appContext: _app.appContext,
+        rootElement: _app.appRenderElement,
         skipOffstage: skipOffstage,
       );
 
@@ -189,7 +189,7 @@ class CommonFinders {
   }) =>
       _WidgetFinder(
         widget: widget,
-        appContext: _app.appContext,
+        rootElement: _app.appRenderElement,
         skipOffstage: skipOffstage,
       );
 
@@ -214,25 +214,25 @@ class CommonFinders {
   }) {
     return _WidgetPredicateFinder(
       predicate: predicate,
-      appContext: _app.appContext,
+      rootElement: _app.appRenderElement,
       description: description,
       skipOffstage: skipOffstage,
     );
   }
 
-  /// Finds widgets using an widget object [predicate].
+  /// Finds widgets using an render element [predicate].
   ///
   /// If the `skipOffstage` argument is false (the default), then this skips
   /// nodes that are Offstage or that are from inactive [Route]s.
   ///
-  Finder byWidgetObjectPredicate(
-    WidgetObjectPredicate predicate, {
+  Finder byRenderElementPredicate(
+    RenderElementPredicate predicate, {
     String? description,
     bool skipOffstage = false,
   }) {
     return _WidgetObjectPredicateFinder(
       predicate: predicate,
-      appContext: _app.appContext,
+      rootElement: _app.appRenderElement,
       description: description,
       skipOffstage: skipOffstage,
     );
@@ -264,7 +264,7 @@ class CommonFinders {
     return _DescendantFinder(
       ancestor: of,
       descendant: matching,
-      appContext: _app.appContext,
+      rootElement: _app.appRenderElement,
       matchRoot: matchRoot,
       skipOffstage: skipOffstage,
     );
@@ -284,7 +284,7 @@ class CommonFinders {
     return _AncestorFinder(
       descendant: of,
       ancestor: matching,
-      appContext: _app.appContext,
+      rootElement: _app.appRenderElement,
       matchRoot: matchRoot,
     );
   }
@@ -296,17 +296,17 @@ class CommonFinders {
 abstract class Finder with ServicesResolver {
   /// Current's app build context.
   ///
-  final BuildContext appContext;
+  final RenderElement rootElement;
 
   /// Services instance associated with current app.
   ///
-  Services get services => resolveServices(appContext);
+  Services get services => resolveServices(rootElement);
 
   /// Initializes a Finder. Used by subclasses to initialize the [skipOffstage]
   /// property.
   ///
   Finder({
-    required this.appContext,
+    required this.rootElement,
     this.skipOffstage = true,
   });
 
@@ -323,7 +323,7 @@ abstract class Finder with ServicesResolver {
   /// can efficiently be described just in terms of a predicate
   /// function, consider extending [MatchFinder] instead.
   ///
-  Iterable<WidgetObject> apply(Iterable<WidgetObject> candidates);
+  Iterable<RenderElement> apply(Iterable<RenderElement> candidates);
 
   /// Whether this finder skips nodes that are offstage.
   ///
@@ -333,19 +333,19 @@ abstract class Finder with ServicesResolver {
   ///
   final bool skipOffstage;
 
-  /// Returns all the [WidgetObject]s that will be considered by this finder.
+  /// Returns all the [RenderElement]s that will be considered by this finder.
   ///
   /// See [collectAllWidgetObjectsFrom].
   ///
   @protected
-  Iterable<WidgetObject> get allCandidates {
+  Iterable<RenderElement> get allCandidates {
     return collectAllWidgetObjectsFrom(
-      services.walker.getWidgetObject(appContext)!,
+      rootElement,
       skipOffstage: skipOffstage,
     );
   }
 
-  Iterable<WidgetObject>? _cachedResult;
+  Iterable<RenderElement>? _cachedResult;
 
   /// Returns the current result. If [precache] was called and returned true,
   /// this will cheaply return the result that was computed then. Otherwise, it
@@ -353,8 +353,9 @@ abstract class Finder with ServicesResolver {
   ///
   /// Calling this clears the cache from [precache].
   ///
-  Iterable<WidgetObject> evaluate() {
-    final Iterable<WidgetObject> result = _cachedResult ?? apply(allCandidates);
+  Iterable<RenderElement> evaluate() {
+    final Iterable<RenderElement> result =
+        _cachedResult ?? apply(allCandidates);
     _cachedResult = null;
     return result;
   }
@@ -369,7 +370,7 @@ abstract class Finder with ServicesResolver {
   bool precache() {
     // ignore: prefer_asserts_with_message
     assert(_cachedResult == null);
-    final Iterable<WidgetObject> result = apply(allCandidates);
+    final Iterable<RenderElement> result = apply(allCandidates);
     if (result.isNotEmpty) {
       _cachedResult = result;
       return true;
@@ -381,12 +382,12 @@ abstract class Finder with ServicesResolver {
   /// Returns a variant of this finder that only matches the first element
   /// matched by this finder.
   ///
-  Finder get first => _FirstFinder(parent: this, appContext: appContext);
+  Finder get first => _FirstFinder(parent: this, rootElement: rootElement);
 
   /// Returns a variant of this finder that only matches the last element
   /// matched by this finder.
   ///
-  Finder get last => _LastFinder(parent: this, appContext: appContext);
+  Finder get last => _LastFinder(parent: this, rootElement: rootElement);
 
   /// Returns a variant of this finder that only matches the element at the
   /// given index matched by this finder.
@@ -394,14 +395,14 @@ abstract class Finder with ServicesResolver {
   Finder at(int index) => _IndexFinder(
         parent: this,
         index: index,
-        appContext: appContext,
+        rootElement: rootElement,
       );
 
   @override
   String toString() {
     final String additional = skipOffstage ? ' (ignoring offstage)' : '';
 
-    final List<WidgetObject> widgets = evaluate().toList();
+    final List<RenderElement> widgets = evaluate().toList();
 
     final int count = widgets.length;
 
@@ -426,7 +427,7 @@ abstract class Finder with ServicesResolver {
 abstract class ChainedFinder extends Finder {
   /// Create a Finder chained against the candidates of another [Finder].
   ///
-  ChainedFinder({required this.parent, required super.appContext});
+  ChainedFinder({required this.parent, required super.rootElement});
 
   /// Another [Finder] that will run first.
   ///
@@ -437,37 +438,41 @@ abstract class ChainedFinder extends Finder {
   ///
   /// This is the method to implement when subclassing [ChainedFinder].
   ///
-  Iterable<WidgetObject> filter(Iterable<WidgetObject> parentCandidates);
+  Iterable<RenderElement> filter(Iterable<RenderElement> parentCandidates);
 
   @override
-  Iterable<WidgetObject> apply(Iterable<WidgetObject> candidates) {
+  Iterable<RenderElement> apply(Iterable<RenderElement> candidates) {
     return filter(parent.apply(candidates));
   }
 
   @override
-  Iterable<WidgetObject> get allCandidates => parent.allCandidates;
+  Iterable<RenderElement> get allCandidates => parent.allCandidates;
 }
 
 class _FirstFinder extends ChainedFinder {
-  _FirstFinder({required super.parent, required super.appContext});
+  _FirstFinder({required super.parent, required super.rootElement});
 
   @override
   String get description => '${parent.description} (ignoring all but first)';
 
   @override
-  Iterable<WidgetObject> filter(Iterable<WidgetObject> parentCandidates) sync* {
+  Iterable<RenderElement> filter(
+    Iterable<RenderElement> parentCandidates,
+  ) sync* {
     yield parentCandidates.first;
   }
 }
 
 class _LastFinder extends ChainedFinder {
-  _LastFinder({required super.parent, required super.appContext});
+  _LastFinder({required super.parent, required super.rootElement});
 
   @override
   String get description => '${parent.description} (ignoring all but last)';
 
   @override
-  Iterable<WidgetObject> filter(Iterable<WidgetObject> parentCandidates) sync* {
+  Iterable<RenderElement> filter(
+    Iterable<RenderElement> parentCandidates,
+  ) sync* {
     yield parentCandidates.last;
   }
 }
@@ -476,7 +481,7 @@ class _IndexFinder extends ChainedFinder {
   _IndexFinder({
     required this.index,
     required super.parent,
-    required super.appContext,
+    required super.rootElement,
   });
 
   final int index;
@@ -486,7 +491,9 @@ class _IndexFinder extends ChainedFinder {
       '${parent.description} (ignoring all but index $index)';
 
   @override
-  Iterable<WidgetObject> filter(Iterable<WidgetObject> parentCandidates) sync* {
+  Iterable<RenderElement> filter(
+    Iterable<RenderElement> parentCandidates,
+  ) sync* {
     yield parentCandidates.elementAt(index);
   }
 }
@@ -498,32 +505,32 @@ abstract class MatchFinder extends Finder {
   /// Initializes a predicate-based Finder. Used by subclasses to initialize the
   /// [skipOffstage] property.
   ///
-  MatchFinder({required super.appContext, super.skipOffstage});
+  MatchFinder({required super.rootElement, super.skipOffstage});
 
   /// Returns true if the given element matches the pattern.
   ///
   /// When implementing your own MatchFinder, this is the main method to
   /// override.
   ///
-  bool matches(WidgetObject candidate);
+  bool matches(RenderElement candidate);
 
   @override
-  Iterable<WidgetObject> apply(Iterable<WidgetObject> candidates) {
+  Iterable<RenderElement> apply(Iterable<RenderElement> candidates) {
     return candidates.where(matches);
   }
 }
 
 abstract class _MatchTextFinder extends MatchFinder {
   _MatchTextFinder({
-    required super.appContext,
+    required super.rootElement,
     super.skipOffstage,
   });
 
   bool matchesText(String textToMatch);
 
   @override
-  bool matches(WidgetObject candidate) {
-    final Widget widget = candidate.widget;
+  bool matches(RenderElement candidate) {
+    final widget = candidate.widget;
 
     return _matchesText(widget);
   }
@@ -540,7 +547,7 @@ abstract class _MatchTextFinder extends MatchFinder {
 class _TextFinder extends _MatchTextFinder {
   _TextFinder({
     required this.text,
-    required super.appContext,
+    required super.rootElement,
     super.skipOffstage,
   });
 
@@ -558,7 +565,7 @@ class _TextFinder extends _MatchTextFinder {
 class _TextContainingFinder extends _MatchTextFinder {
   _TextContainingFinder({
     required this.pattern,
-    required super.appContext,
+    required super.rootElement,
     super.skipOffstage,
   });
 
@@ -576,7 +583,7 @@ class _TextContainingFinder extends _MatchTextFinder {
 class _KeyFinder extends MatchFinder {
   _KeyFinder({
     required this.key,
-    required super.appContext,
+    required super.rootElement,
     super.skipOffstage,
   });
 
@@ -586,19 +593,19 @@ class _KeyFinder extends MatchFinder {
   String get description => 'key $key';
 
   @override
-  bool matches(WidgetObject candidate) {
-    return candidate.context.key == key;
+  bool matches(RenderElement candidate) {
+    return candidate.key == key;
   }
 }
 
 class _WidgetSubtypeFinder<T extends Widget> extends MatchFinder {
-  _WidgetSubtypeFinder({required super.appContext, super.skipOffstage});
+  _WidgetSubtypeFinder({required super.rootElement, super.skipOffstage});
 
   @override
   String get description => 'is "$T"';
 
   @override
-  bool matches(WidgetObject candidate) {
+  bool matches(RenderElement candidate) {
     return candidate.widget is T;
   }
 }
@@ -606,7 +613,7 @@ class _WidgetSubtypeFinder<T extends Widget> extends MatchFinder {
 class _WidgetTypeFinder extends MatchFinder {
   _WidgetTypeFinder({
     required this.widgetType,
-    required super.appContext,
+    required super.rootElement,
     super.skipOffstage,
   });
 
@@ -616,7 +623,7 @@ class _WidgetTypeFinder extends MatchFinder {
   String get description => 'type "$widgetType"';
 
   @override
-  bool matches(WidgetObject candidate) {
+  bool matches(RenderElement candidate) {
     return candidate.widget.runtimeType == widgetType;
   }
 }
@@ -624,7 +631,7 @@ class _WidgetTypeFinder extends MatchFinder {
 class _WidgetFinder extends MatchFinder {
   _WidgetFinder({
     required this.widget,
-    required super.appContext,
+    required super.rootElement,
     super.skipOffstage,
   });
 
@@ -634,7 +641,7 @@ class _WidgetFinder extends MatchFinder {
   String get description => 'the given widget ($widget)';
 
   @override
-  bool matches(WidgetObject candidate) {
+  bool matches(RenderElement candidate) {
     return candidate.widget == widget;
   }
 }
@@ -643,7 +650,7 @@ class _WidgetPredicateFinder extends MatchFinder {
   _WidgetPredicateFinder({
     required this.predicate,
     String? description,
-    required super.appContext,
+    required super.rootElement,
     super.skipOffstage,
   }) : _description = description;
 
@@ -655,7 +662,7 @@ class _WidgetPredicateFinder extends MatchFinder {
       _description ?? 'widget matching predicate ($predicate)';
 
   @override
-  bool matches(WidgetObject candidate) {
+  bool matches(RenderElement candidate) {
     return predicate(candidate.widget);
   }
 }
@@ -664,11 +671,11 @@ class _WidgetObjectPredicateFinder extends MatchFinder {
   _WidgetObjectPredicateFinder({
     required this.predicate,
     String? description,
-    required super.appContext,
+    required super.rootElement,
     super.skipOffstage,
   }) : _description = description;
 
-  final WidgetObjectPredicate predicate;
+  final RenderElementPredicate predicate;
   final String? _description;
 
   @override
@@ -676,7 +683,7 @@ class _WidgetObjectPredicateFinder extends MatchFinder {
       _description ?? 'element matching predicate ($predicate)';
 
   @override
-  bool matches(WidgetObject candidate) {
+  bool matches(RenderElement candidate) {
     return predicate(candidate);
   }
 }
@@ -687,7 +694,7 @@ class _DescendantFinder extends Finder {
     required this.descendant,
     this.matchRoot = false,
     super.skipOffstage,
-    required super.appContext,
+    required super.rootElement,
   });
 
   final Finder ancestor;
@@ -706,22 +713,22 @@ class _DescendantFinder extends Finder {
   }
 
   @override
-  Iterable<WidgetObject> apply(Iterable<WidgetObject> candidates) {
+  Iterable<RenderElement> apply(Iterable<RenderElement> candidates) {
     return candidates.where(
-      (widgetObject) => descendant.evaluate().contains(
-            widgetObject,
+      (renderElement) => descendant.evaluate().contains(
+            renderElement,
           ),
     );
   }
 
   @override
-  Iterable<WidgetObject> get allCandidates {
-    final Iterable<WidgetObject> ancestorElements = ancestor.evaluate();
+  Iterable<RenderElement> get allCandidates {
+    final Iterable<RenderElement> ancestorElements = ancestor.evaluate();
 
-    final List<WidgetObject> candidates = ancestorElements
-        .expand<WidgetObject>(
-          (widgetObject) => collectAllWidgetObjectsFrom(
-            widgetObject,
+    final List<RenderElement> candidates = ancestorElements
+        .expand<RenderElement>(
+          (renderElement) => collectAllWidgetObjectsFrom(
+            renderElement,
             skipOffstage: skipOffstage,
           ),
         )
@@ -741,7 +748,7 @@ class _AncestorFinder extends Finder {
     required this.ancestor,
     required this.descendant,
     this.matchRoot = false,
-    required super.appContext,
+    required super.rootElement,
   }) : super(skipOffstage: false);
 
   final Finder ancestor;
@@ -760,35 +767,30 @@ class _AncestorFinder extends Finder {
   }
 
   @override
-  Iterable<WidgetObject> apply(Iterable<WidgetObject> candidates) {
+  Iterable<RenderElement> apply(Iterable<RenderElement> candidates) {
     return candidates.where((element) => ancestor.evaluate().contains(element));
   }
 
   @override
-  Iterable<WidgetObject> get allCandidates {
-    final List<WidgetObject> candidates = <WidgetObject>[];
-    for (final WidgetObject root in descendant.evaluate()) {
-      final List<WidgetObject> ancestors = <WidgetObject>[];
+  Iterable<RenderElement> get allCandidates {
+    final List<RenderElement> candidates = <RenderElement>[];
 
-      if (matchRoot) {
-        ancestors.add(root);
-      }
+    for (final RenderElement root in descendant.evaluate()) {
+      final List<RenderElement> ancestors = <RenderElement>[];
 
-      BuildContext parent = root.context.parent;
+      if (matchRoot) ancestors.add(root);
 
-      while (!parent.isRoot) {
-        var parentObject = services.walker.getWidgetObject(parent);
-
-        if (null == parentObject || parentObject.widget is TestAppRootWidget) {
-          break;
+      root.traverseAncestorElements((element) {
+        if (element.widget is TestAppRootWidget) {
+          // custom root, skip
+        } else {
+          ancestors.add(element);
         }
-
-        ancestors.add(parentObject);
-        parent = parentObject.context.parent;
-      }
+      });
 
       candidates.addAll(ancestors);
     }
+
     return candidates;
   }
 }

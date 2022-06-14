@@ -12,7 +12,7 @@ void main() {
       var testStack = RT_TestStack();
 
       var schedulerService = SchedulerService(
-        RT_TestBed.rootContext,
+        RT_TestBed.rootRenderElement,
         SchedulerOptions.defaultMode,
       )..startService();
 
@@ -24,7 +24,7 @@ void main() {
       schedulerService.addTask(
         WidgetsBuildTask(
           widgets: [],
-          parentContext: RT_TestBed.rootContext,
+          parentRenderElement: RT_TestBed.rootRenderElement,
         ),
       );
 
@@ -32,19 +32,21 @@ void main() {
         WidgetsUpdateTask(
           widgets: [],
           updateType: UpdateType.undefined,
-          parentContext: RT_TestBed.rootContext,
+          parentRenderElement: RT_TestBed.rootRenderElement,
         ),
       );
 
       schedulerService.addTask(
         WidgetsManageTask(
-          parentContext: RT_TestBed.rootContext,
-          widgetActionCallback: (widgetObject) => [],
+          parentRenderElement: RT_TestBed.rootRenderElement,
+          widgetActionCallback: (renderElement) => [],
         ),
       );
 
       schedulerService.addTask(
-        WidgetsUpdateDependentTask(widgetContext: RT_TestBed.rootContext),
+        WidgetsUpdateDependentTask(
+          dependentRenderElement: RT_TestBed.rootRenderElement,
+        ),
       );
 
       schedulerService.addTask(StimulateListenerTask());
@@ -71,7 +73,7 @@ void main() {
       () async {
         var testStack = RT_TestStack();
         var schedulerService = SchedulerService(
-          RT_TestBed.rootContext,
+          RT_TestBed.rootRenderElement,
           SchedulerOptions.defaultMode,
         )..startService();
 
@@ -82,7 +84,7 @@ void main() {
         schedulerService.addTask(
           WidgetsBuildTask(
             widgets: [],
-            parentContext: RT_TestBed.rootContext,
+            parentRenderElement: RT_TestBed.rootRenderElement,
           ),
         );
 
@@ -90,7 +92,7 @@ void main() {
           WidgetsUpdateTask(
             widgets: [],
             updateType: UpdateType.undefined,
-            parentContext: RT_TestBed.rootContext,
+            parentRenderElement: RT_TestBed.rootRenderElement,
           ),
         );
 

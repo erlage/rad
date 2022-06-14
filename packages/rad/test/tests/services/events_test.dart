@@ -41,7 +41,7 @@ void main() {
             ],
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var gparent = app!.domNodeByGlobalKey('el-g-parent');
@@ -96,7 +96,7 @@ void main() {
             ],
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var gparent = app!.domNodeByGlobalKey('el-g-parent');
@@ -151,7 +151,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var gparent = app!.domNodeByGlobalKey('el-g-parent');
@@ -204,7 +204,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var child = app!.domNodeByGlobalKey('el-child');
@@ -250,7 +250,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var child = app!.domNodeByGlobalKey('el-child');
@@ -291,7 +291,7 @@ void main() {
             ],
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var gparent = app!.domNodeByGlobalKey('el-g-parent');
@@ -342,7 +342,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var child = app!.domNodeByGlobalKey('el-child');
@@ -388,7 +388,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var child = app!.domNodeByGlobalKey('el-child');
@@ -429,7 +429,7 @@ void main() {
             ],
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var gparent = app!.domNodeByGlobalKey('el-g-parent');
@@ -480,7 +480,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var child = app!.domNodeByGlobalKey('el-child');
@@ -526,7 +526,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var child = app!.domNodeByGlobalKey('el-child');
@@ -567,7 +567,7 @@ void main() {
             ],
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var gparent = app!.domNodeByGlobalKey('el-g-parent');
@@ -618,7 +618,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var child = app!.domNodeByGlobalKey('el-child');
@@ -664,7 +664,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var child = app!.domNodeByGlobalKey('el-child');
@@ -705,7 +705,7 @@ void main() {
             ],
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var gparent = app!.domNodeByGlobalKey('el-g-parent');
@@ -756,7 +756,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var child = app!.domNodeByGlobalKey('el-child');
@@ -802,7 +802,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var child = app!.domNodeByGlobalKey('el-child');
@@ -843,7 +843,7 @@ void main() {
             ],
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var gparent = app!.domNodeByGlobalKey('el-g-parent');
@@ -894,7 +894,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var child = app!.domNodeByGlobalKey('el-child');
@@ -940,7 +940,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var child = app!.domNodeByGlobalKey('el-child');
@@ -981,7 +981,7 @@ void main() {
             ],
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var gparent = app!.domNodeByGlobalKey('el-g-parent');
@@ -1032,7 +1032,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var child = app!.domNodeByGlobalKey('el-child');
@@ -1078,7 +1078,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var child = app!.domNodeByGlobalKey('el-child');

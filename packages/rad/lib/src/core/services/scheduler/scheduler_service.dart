@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:rad/src/core/common/objects/app_options.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/common_render_elements.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/abstract.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
@@ -15,7 +15,7 @@ class SchedulerService extends Service {
 
   StreamController<SchedulerTask>? _tasksStream;
 
-  SchedulerService(BuildContext context, this.options) : super(context);
+  SchedulerService(RootElement rootElement, this.options) : super(rootElement);
 
   @override
   startService() {

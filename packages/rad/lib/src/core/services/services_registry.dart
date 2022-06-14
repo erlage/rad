@@ -28,6 +28,9 @@ class ServicesRegistry {
     _services.remove(context.appTargetId);
   }
 
+  /// Get services object assocaited with app instance to which [context]
+  /// belongs.
+  ///
   Services getServices(BuildContext context) {
     var services = _services[context.appTargetId];
 
@@ -38,28 +41,44 @@ class ServicesRegistry {
     return services;
   }
 
-  // helpers
-
+  /// Get debug service associated with app instance to which [context]
+  /// belongs.
+  ///
   DebugService getDebug(BuildContext context) {
     return getServices(context).debug;
   }
 
+  /// Get keygen service associated with app instance to which [context]
+  /// belongs.
+  ///
   KeyGenService getKeyGen(BuildContext context) {
     return getServices(context).keyGen;
   }
 
+  /// Get router service associated with app instance to which [context]
+  /// belongs.
+  ///
   RouterService getRouter(BuildContext context) {
     return getServices(context).router;
   }
 
+  /// Get walker service associated with app instance to which [context]
+  /// belongs.
+  ///
   WalkerService getWalker(BuildContext context) {
     return getServices(context).walker;
   }
 
+  /// Get events service associated with app instance to which [context]
+  /// belongs.
+  ///
   EventsService getEvents(BuildContext context) {
     return getServices(context).events;
   }
 
+  /// Get scheduler service associated with app instance to which [context]
+  /// belongs.
+  ///
   SchedulerService getScheduler(BuildContext context) {
     return getServices(context).scheduler;
   }

@@ -22,7 +22,7 @@ void main() {
             children: [Text('contents')],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       expect(testStack.popFromStart(), equals('build-1'));
@@ -38,7 +38,7 @@ void main() {
         widgets: [
           RT_StatelessWidget(eventBuild: () => testStack.push('build-1a')),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -46,7 +46,7 @@ void main() {
           RT_StatelessWidget(eventBuild: () => testStack.push('build-2a')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -54,7 +54,7 @@ void main() {
           RT_StatelessWidget(eventBuild: () => testStack.push('build-3a')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       expect(testStack.popFromStart(), equals('build-1a'));
@@ -73,7 +73,7 @@ void main() {
           RT_StatelessWidget(eventBuild: () => testStack.push('build-1b')),
           RT_StatelessWidget(eventBuild: () => testStack.push('build-1c')),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       expect(testStack.popFromStart(), equals('build-1a'));
@@ -92,7 +92,7 @@ void main() {
           RT_StatelessWidget(eventBuild: () => testStack.push('build-b')),
           RT_StatelessWidget(eventBuild: () => testStack.push('build-c')),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
@@ -102,8 +102,10 @@ void main() {
           RT_StatelessWidget(eventBuild: () => testStack.push('update-c')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
+
+      print(testStack.entries);
 
       expect(testStack.popFromStart(), equals('build-a'));
       expect(testStack.popFromStart(), equals('build-b'));

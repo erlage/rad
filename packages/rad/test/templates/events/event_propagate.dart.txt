@@ -20,7 +20,7 @@ test('should propagate event', () async {
         ],
       ),
     ],
-    parentContext: pap.appContext,
+    parentRenderElement: pap.appRenderElement,
   );
 
   var gparent = pap.domNodeByGlobalKey('el-g-parent');

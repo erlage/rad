@@ -25,11 +25,11 @@ class BrowserWindow extends WindowDelegate {
 
   @override
   addPopStateListener({
-    required context,
+    required rootElement,
     required callback,
   }) {
-    if (!_psListeners.containsKey(context.appTargetId)) {
-      _psListeners[context.appTargetId] = callback;
+    if (!_psListeners.containsKey(rootElement.appTargetId)) {
+      _psListeners[rootElement.appTargetId] = callback;
     }
 
     _psEnsureListening();

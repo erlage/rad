@@ -50,21 +50,23 @@ class AppRunner extends rad.AppRunner {
 
   /// App widget(root widget)'s build context.
   ///
-  BuildContext get appContext {
-    var appWidget = services.walker.getWidgetObjectUsingKey(appId);
+  rad.RenderElement get appRenderElement {
+    var renderElement = services.walker.getRenderElementAssociatedWithGlobalKey(
+      GlobalKey(appId),
+    );
 
-    if (null == appWidget) {
+    if (null == renderElement) {
       throw Exception('App widget (#$appId) not found');
     }
 
-    return appWidget.context;
+    return renderElement;
   }
 
   @override
   void start() {
     this
       ..prepareTargetDomNode()
-      ..setupRootContext()
+      ..setupRootElement()
       .._clearState()
       ..setupOptions()
       ..setupDelegates()
@@ -85,7 +87,7 @@ class AppRunner extends rad.AppRunner {
   @override
   void setupDelegates() {
     if (useWindowMock) {
-      window = TestWindow(rootContext);
+      window = TestWindow(rootElement);
 
       Window.instance.bindDelegate(window!);
     } else {
@@ -96,7 +98,7 @@ class AppRunner extends rad.AppRunner {
   /// Clear app runner state.
   ///
   void _clearState() {
-    ServicesRegistry.instance.unRegisterServices(rootContext);
+    ServicesRegistry.instance.unRegisterServices(rootElement);
   }
 
   /// Build app wiget(in sync)
@@ -107,7 +109,7 @@ class AppRunner extends rad.AppRunner {
         TestAppRootWidget(key: GlobalKey(appId)),
       ],
       mountAtIndex: null,
-      parentContext: rootContext,
+      parentRenderElement: rootElement,
       flagCleanParentContents: false,
     );
   }

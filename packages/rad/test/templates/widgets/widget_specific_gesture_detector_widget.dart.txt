@@ -14,7 +14,7 @@ test('GestureDetector widget - description test', () async {
         child: Text('hw')
       ),
     ],
-    parentContext: pap.appContext,
+    parentRenderElement: pap.appRenderElement,
   );
 
   var domNode = pap.domNodeByGlobalKey('widget');

@@ -4,7 +4,7 @@ test('should set attribute "accept"', () async {
             __WidgetClass__(key: GlobalKey('el-1'), accept: 'some-accept'),
             __WidgetClass__(key: GlobalKey('el-2'), accept: 'another-accept'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -20,7 +20,7 @@ test('should update attribute "accept"', () async {
             __WidgetClass__(key: GlobalKey('el-1'), accept: 'some-accept'),
             __WidgetClass__(key: GlobalKey('el-2'), accept: 'another-accept'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
@@ -29,7 +29,7 @@ test('should update attribute "accept"', () async {
             __WidgetClass__(key: GlobalKey('el-2'), accept: 'another-accept'),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -45,7 +45,7 @@ test('should clear attribute "accept"', () async {
             __WidgetClass__(key: GlobalKey('el-1')),
             __WidgetClass__(key: GlobalKey('el-2'), accept: 'another-accept'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
@@ -54,7 +54,7 @@ test('should clear attribute "accept"', () async {
             __WidgetClass__(key: GlobalKey('el-2')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -69,7 +69,7 @@ test('should clear attribute "accept" if updated value is null', () async {
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1'), accept: 'some-accept'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
@@ -77,7 +77,7 @@ test('should clear attribute "accept" if updated value is null', () async {
             __WidgetClass__(key: GlobalKey('el-1'), accept: null),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -90,7 +90,7 @@ test('should not set attribute "accept" if provided value is null', () async {
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1'), accept: null),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -114,12 +114,13 @@ test('should set messy "accept"', () async {
         accept: "some 'messy' accept",
       ),
     ],
-    parentContext: RT_TestBed.rootContext,
+            parentRenderElement: RT_TestBed.rootRenderElement,
+
   );
 
-  var domNode1 = RT_TestBed.rootElement.childNodes[0] as HtmlElement;
-  var domNode2 = RT_TestBed.rootElement.childNodes[1] as HtmlElement;
-  var domNode3 = RT_TestBed.rootElement.childNodes[2] as HtmlElement;
+  var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+  var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+  var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
 
   expect(
     domNode1.getAttribute('accept'),

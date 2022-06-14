@@ -69,7 +69,7 @@ class WidgetTester {
   ]) async {
     await app.updateChildren(
       widgets: [widget],
-      parentContext: app.appContext,
+      parentRenderElement: app.appRenderElement,
       updateType: UpdateType.setState,
     );
 
@@ -138,7 +138,7 @@ abstract class _MatchTextFinder extends MatchFinder {
   bool matchesText(String textToMatch);
 
   @override
-  bool matches(WidgetObject candidate) {
+  bool matches(RenderElement candidate) {
     var domNode = candidate.domNode;
 
     if (null == domNode) {
@@ -152,10 +152,10 @@ abstract class _MatchTextFinder extends MatchFinder {
 abstract class MatchFinder extends Finder {
   MatchFinder({super.skipOffstage});
 
-  bool matches(WidgetObject candidate);
+  bool matches(RenderElement candidate);
 
   @override
-  Iterable<WidgetObject> apply(Iterable<WidgetObject> candidates) {
+  Iterable<RenderElement> apply(Iterable<RenderElement> candidates) {
     return candidates.where(matches);
   }
 }
@@ -165,29 +165,42 @@ abstract class Finder {
 
   String get description;
 
-  Iterable<WidgetObject> apply(Iterable<WidgetObject> candidates);
+  Iterable<RenderElement> apply(Iterable<RenderElement> candidates);
 
   final bool skipOffstage;
 
-  Iterable<WidgetObject> get allCandidates {
-    var walker = ServicesRegistry.instance.getWalker(RT_TestBed.rootContext);
+  Iterable<RenderElement> get allCandidates {
+    var rootElement = ServicesRegistry.instance
+        .getWalker(
+          RT_TestBed.rootRenderElement,
+        )
+        .rootElement;
 
-    var widgets = walker.dumpWidgetObjects();
+    final elements = <RenderElement>[];
 
-    return widgets;
+    void traverser(RenderElement element) {
+      elements.add(element);
+
+      element.traverseChildElements(traverser);
+    }
+
+    rootElement.traverseChildElements(traverser);
+
+    return elements;
   }
 
-  Iterable<WidgetObject>? _cachedResult;
+  Iterable<RenderElement>? _cachedResult;
 
-  Iterable<WidgetObject> evaluate() {
-    final Iterable<WidgetObject> result = _cachedResult ?? apply(allCandidates);
+  Iterable<RenderElement> evaluate() {
+    final Iterable<RenderElement> result =
+        _cachedResult ?? apply(allCandidates);
     _cachedResult = null;
     return result;
   }
 
   bool precache() {
     assert(_cachedResult == null);
-    final Iterable<WidgetObject> result = apply(allCandidates);
+    final Iterable<RenderElement> result = apply(allCandidates);
     if (result.isNotEmpty) {
       _cachedResult = result;
       return true;
@@ -200,7 +213,7 @@ abstract class Finder {
   String toString() {
     final String additional =
         skipOffstage ? ' (ignoring offstage widgets)' : '';
-    final List<WidgetObject> widgets = evaluate().toList();
+    final List<RenderElement> widgets = evaluate().toList();
     final int count = widgets.length;
     if (count == 0) return 'zero widgets with $description$additional';
     if (count == 1) {
@@ -266,7 +279,7 @@ class _WidgetTypeFinder extends MatchFinder {
   String get description => 'type "$widgetType"';
 
   @override
-  bool matches(WidgetObject candidate) {
+  bool matches(RenderElement candidate) {
     return candidate.widget.runtimeType == widgetType;
   }
 }
@@ -283,7 +296,7 @@ class _FindsWidgetMatcher extends Matcher {
     assert(min == null || max == null || min! <= max!);
     matchState[Finder] = finder;
     int count = 0;
-    final Iterator<WidgetObject> iterator = finder.evaluate().iterator;
+    final Iterator<RenderElement> iterator = finder.evaluate().iterator;
     if (min != null) {
       while (count < min! && iterator.moveNext()) {
         count += 1;

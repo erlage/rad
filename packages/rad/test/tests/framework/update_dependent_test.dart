@@ -10,14 +10,14 @@ void main() {
       await tester.pumpWidget(
         RT_TestWidget(
           key: gkey,
-          roEventHookUpdate: () => tester.push('update'),
+          roEventUpdate: () => tester.push('update'),
         ),
       );
 
-      var wo = tester.getWidgetObjectByGlobalKey(gkey)!;
+      var wo = tester.getRenderElementByGlobalKey(gkey)!;
 
-      await tester.updateContextAsIfDependant(wo.context);
-      await tester.updateContextAsIfDependant(wo.context);
+      await tester.updateRenderElementAsIfDependant(wo);
+      await tester.updateRenderElementAsIfDependant(wo);
 
       tester.assertMatchStack([
         'update',
@@ -35,10 +35,10 @@ void main() {
         ),
       );
 
-      var wo = tester.getWidgetObjectByGlobalKey(gkey)!;
+      var wo = tester.getRenderElementByGlobalKey(gkey)!;
 
-      await tester.updateContextAsIfDependant(wo.context);
-      await tester.updateContextAsIfDependant(wo.context);
+      await tester.updateRenderElementAsIfDependant(wo);
+      await tester.updateRenderElementAsIfDependant(wo);
 
       tester.assertMatchStack([
         UpdateType.dependencyChanged.name,

@@ -1,5 +1,5 @@
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/renderer/render_node.dart';
+import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Framework's action.
@@ -55,7 +55,7 @@ class WidgetUpdateObjectActionUpdate extends WidgetUpdateObject {
 
   /// Existing widget node that should be updated.
   ///
-  final RenderNode existingRenderNode;
+  final RenderElement existingRenderElement;
 
   /// New mount index.
   ///
@@ -64,7 +64,7 @@ class WidgetUpdateObjectActionUpdate extends WidgetUpdateObject {
   WidgetUpdateObjectActionUpdate({
     required this.widget,
     required this.widgetPositionIndex,
-    required this.existingRenderNode,
+    required this.existingRenderElement,
     required this.newMountAtIndex,
   }) : super(WidgetUpdateType.update);
 }
@@ -72,10 +72,10 @@ class WidgetUpdateObjectActionUpdate extends WidgetUpdateObject {
 class WidgetUpdateObjectActionDispose extends WidgetUpdateObject {
   /// Existing widget node that should be disposed.
   ///
-  final RenderNode existingRenderNode;
+  final RenderElement existingElement;
 
   WidgetUpdateObjectActionDispose(
-    this.existingRenderNode,
+    this.existingElement,
   ) : super(WidgetUpdateType.dispose);
 }
 
@@ -88,4 +88,15 @@ class WidgetUpdateObjectActionCleanParent extends WidgetUpdateObject {
       : super(
           WidgetUpdateType.cleanParent,
         );
+}
+
+enum ListenerType { one, two }
+
+class ListenerOne {
+  final type = ListenerType.one;
+}
+
+class ListenerTwo extends ListenerOne {
+  @override
+  ListenerType get type => ListenerType.one;
 }

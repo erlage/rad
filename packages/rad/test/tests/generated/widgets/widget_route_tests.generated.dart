@@ -36,7 +36,7 @@ void widget_route_test() {
             page: Text('hw'),
           ),
         ],
-        parentContext: pap.appContext,
+        parentRenderElement: pap.appRenderElement,
       );
 
       var domNode = pap.domNodeByGlobalKey('widget');

@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
@@ -86,17 +85,19 @@ class Option extends HTMLWidgetBase {
   }
 
   @override
-  createRenderObject(context) => _OptionRenderObject(context);
+  createRenderElement(parent) => OptionRenderElement(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class _OptionRenderObject extends MarkUpGlobalRenderObject {
-  const _OptionRenderObject(BuildContext context) : super(context);
+/// Option render element.
+///
+class OptionRenderElement extends HTMLBaseElement {
+  OptionRenderElement(super.widget, super.parent);
 
   @override
   render({

@@ -23,7 +23,7 @@ void main() {
             key: GlobalKey('widget'),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var rawElement = app!.domNodeByGlobalKey('widget');
@@ -44,7 +44,7 @@ void main() {
             ''',
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       expect(app!.domNodeById('raw').innerHtml, equals('hw'));
@@ -55,7 +55,7 @@ void main() {
         widgets: [
           RawMarkUp('<div id="raw">nuffin</div>'),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       expect(app!.domNodeById('raw').innerHtml, equals('nuffin'));
@@ -65,7 +65,7 @@ void main() {
           RawMarkUp('<div id="raw">updated</div>'),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       expect(app!.domNodeById('raw').innerHtml, equals('updated'));

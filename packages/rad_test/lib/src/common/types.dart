@@ -15,6 +15,6 @@ typedef WidgetTesterCallback = FutureOr<void> Function(
 ///
 typedef WidgetPredicate = bool Function(Widget widget);
 
-/// Signature for [CommonFinders.byWidgetObjectPredicate].
+/// Signature for [CommonFinders.byRenderElementPredicate].
 ///
-typedef WidgetObjectPredicate = bool Function(WidgetObject element);
+typedef RenderElementPredicate = bool Function(RenderElement element);

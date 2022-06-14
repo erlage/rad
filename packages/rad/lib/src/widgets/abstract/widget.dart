@@ -1,28 +1,32 @@
 import 'package:meta/meta.dart';
 
-import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/common/types.dart';
 
-/// Describes the configuration for an [RenderObject].
+/// Describes the configuration for an [RenderElement].
+///
+/// Widgets are the central class hierarchy in the Rad framework. A widget
+/// is an immutable description of part of a user interface. Widgets can be
+/// inflated into elements, which manage the underlying element tree.
 ///
 @immutable
 abstract class Widget {
-  final Key initialKey;
-
-  /*
-  |--------------------------------------------------------------------------
-  | widget specific getters
-  |--------------------------------------------------------------------------
-  */
+  /// Keys help Rad identify which widgets have changed, are added, or are
+  /// removed when a widget has multiple sibling widgets.
+  ///
+  /// Keys must be unique amongst the [RenderElement]s with the same parent.
+  ///
+  /// Unlike flutter, keys only make sense in the context of the sorrounding
+  /// array of widgets. Keys should be given to the widgets inside the array to
+  /// give the widgets a stable identity.
+  ///
+  final Key? key;
 
   /// Type of widget.
   ///
-  /// A widget implementation should override it, only when it's not overridden
-  /// by superclass.
+  /// Note that a widget must not override this getter if already implemented.
   ///
   String get widgetType;
 
@@ -30,11 +34,7 @@ abstract class Widget {
   ///
   DomTagType? get correspondingTag;
 
-  /// Child widgets if any.
-  ///
-  List<Widget> get widgetChildren => const [];
-
-  /// Events that this widget is listening to.
+  /// Events that this widget is listening to in bubbling phase.
   ///
   Map<DomEventType, EventCallback?> get widgetEventListeners => const {};
 
@@ -48,7 +48,7 @@ abstract class Widget {
   |--------------------------------------------------------------------------
   */
 
-  const Widget({Key? key}) : initialKey = key ?? Constants.contextKeyNotSet;
+  const Widget({this.key});
 
   /*
   |--------------------------------------------------------------------------
@@ -88,13 +88,16 @@ abstract class Widget {
 
   /*
   |--------------------------------------------------------------------------
-  | render object
+  | concrete instance
   |--------------------------------------------------------------------------
   */
 
-  /// Called when framework needs a [RenderObject] for current widget.
+  /// Create element for current widget.
   ///
-  RenderObject createRenderObject(BuildContext context) {
-    return RenderObject(context);
-  }
+  /// Framework will call this method when it inflates current widget for the
+  /// first time at specific position in widget tree. Each [RenderElement]
+  /// inherits from its parent, therefore framewok will call this method and
+  /// pass it a reference to [parent] element of this widget.
+  ///
+  RenderElement createRenderElement(RenderElement parent);
 }

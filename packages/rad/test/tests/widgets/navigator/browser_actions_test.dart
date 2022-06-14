@@ -30,7 +30,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var state = app!.navigatorState('navigator');
@@ -58,7 +58,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var state = app!.navigatorState('navigator');
@@ -103,7 +103,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var state = app!.navigatorState('navigator');
@@ -134,7 +134,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var state = app!.navigatorState('navigator');
@@ -196,7 +196,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var parent = app!.navigatorState('parent');
@@ -244,7 +244,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var parent = app!.navigatorState('parent');
@@ -271,6 +271,7 @@ void main() {
         await Future.delayed(Duration(milliseconds: 100));
 
         app!.window.dispatchBackAction(); // should go to p-route-3, c-route-2
+
         expect(child.currentRouteName, 'c-route-2');
         expect(parent.currentRouteName, 'p-route-3');
 
@@ -294,7 +295,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var state = app!.navigatorState('navigator');
@@ -372,7 +373,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var parent = app!.navigatorState('parent');
@@ -412,7 +413,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var parent = app!.navigatorState('parent');
@@ -461,7 +462,7 @@ void main() {
               ],
             )
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var parent = app!.navigatorState('parent');

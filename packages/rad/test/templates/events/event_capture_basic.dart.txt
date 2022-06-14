@@ -8,7 +8,7 @@ test('should add a capture event listener', () async {
         __EventAttributeName__Capture: (_) => pap.stack.push('__EventNativeName__-domNode'),
       ),
     ],
-    parentContext: pap.appContext,
+    parentRenderElement: pap.appRenderElement,
   );
 
   var domNode = pap.domNodeByGlobalKey('domNode');

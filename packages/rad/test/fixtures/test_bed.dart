@@ -1,8 +1,6 @@
 // ignore_for_file: camel_case_types, avoid_classes_with_only_static_members
 
-import 'dart:html';
-
-import 'package:rad/rad.dart';
+import '../test_imports.dart';
 
 /// Test Bed.
 ///
@@ -10,11 +8,16 @@ import 'package:rad/rad.dart';
 /// for setting up tests.
 ///
 class RT_TestBed {
-  static const rootKey = GlobalKey('root-div');
+  static const rootTargetId = 'root-div';
 
-  static final rootContext = BuildContext.bigBang(rootKey);
+  static const rootKey = GlobalKey(rootTargetId);
 
-  static Element get rootElement => document.getElementById(rootKey.value)!;
+  static final rootRenderElement = RootElement(
+    appTargetId: rootTargetId,
+    appTargetDomNode: rootDomNode,
+  );
+
+  static Element get rootDomNode => document.getElementById(rootTargetId)!;
 
   static DebugOptions developmentModeWithoutLogs = DebugOptions(
     routerLogs: false,

@@ -26,7 +26,7 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var state = app!.navigatorState('navigator');
@@ -54,7 +54,7 @@ void main() {
             ],
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var state = app!.navigatorState('navigator');
@@ -77,7 +77,7 @@ void main() {
             ],
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var state = app!.navigatorState('navigator');
@@ -109,18 +109,18 @@ void main() {
             ],
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await Future.delayed(Duration(milliseconds: 100));
-      expect(RT_TestBed.rootElement, RT_hasContents('route-1'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('route-1'));
 
       var state = app!.navigatorState('navigator');
 
       state.open(name: 'route-2');
       await Future.delayed(Duration(milliseconds: 100));
 
-      expect(RT_TestBed.rootElement, RT_hasContents('route-1|route-2'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('route-1|route-2'));
     });
 
     test('should open a route and update navigator current name', () async {
@@ -134,7 +134,7 @@ void main() {
             ],
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
       await Future.delayed(Duration(milliseconds: 100));
 
@@ -159,8 +159,8 @@ void main() {
               Route(
                 name: 'route-1',
                 page: RT_TestWidget(
-                  roEventHookRender: () => testStack.push('render-1'),
-                  roEventHookUpdate: () => testStack.push('update-1'),
+                  roEventRender: () => testStack.push('render-1'),
+                  roEventUpdate: () => testStack.push('update-1'),
                   children: [Text('route-1')],
                 ),
               ),
@@ -174,8 +174,8 @@ void main() {
               Route(
                 name: 'route-3',
                 page: RT_TestWidget(
-                  roEventHookRender: () => testStack.push('render-3'),
-                  roEventHookUpdate: () => testStack.push('update-3'),
+                  roEventRender: () => testStack.push('render-3'),
+                  roEventUpdate: () => testStack.push('update-3'),
                   children: [Text('route-1')],
                 ),
               ),
@@ -189,7 +189,7 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var state = app!.navigatorState('navigator');
@@ -227,7 +227,7 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var state = app!.navigatorState('navigator');
@@ -256,7 +256,7 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var state = app!.navigatorState('navigator');
@@ -303,11 +303,10 @@ void main() {
               ],
             ),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
-        var wo = app!.widgetObjectByGlobalKey('navigator');
-        var state = (wo.renderObject as NavigatorRenderObject).state;
+        var state = app!.navigatorState('navigator');
 
         expect(state.canGoBack(), equals(false));
       },
@@ -324,7 +323,7 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var state = app!.navigatorState('navigator');
@@ -362,7 +361,7 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await Future.delayed(Duration(milliseconds: 100));
@@ -393,7 +392,7 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await Future.delayed(Duration(milliseconds: 100));
@@ -439,7 +438,7 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await Future.delayed(Duration(milliseconds: 100));
@@ -485,7 +484,7 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       expect(app!.navigatorState('navigator').getValue('something'), '');
@@ -501,7 +500,7 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var state = app!.navigatorState('navigator');
@@ -525,7 +524,7 @@ void main() {
               ],
             ),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var state = app!.navigatorState('navigator');
@@ -550,7 +549,7 @@ void main() {
               ],
             ),
           ],
-          parentContext: app!.appContext,
+          parentRenderElement: app!.appRenderElement,
         );
 
         var state = app!.navigatorState('navigator');
@@ -572,7 +571,7 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var state = app!.navigatorState('navigator');
@@ -597,7 +596,7 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var state = app!.navigatorState('navigator');
@@ -624,7 +623,7 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var state = app!.navigatorState('navigator');

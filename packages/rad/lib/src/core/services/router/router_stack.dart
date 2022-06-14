@@ -1,4 +1,5 @@
 import 'package:rad/src/core/services/router/router_stack_entry.dart';
+import 'package:rad/src/widgets/navigator.dart';
 
 /// Router stack.
 ///
@@ -17,8 +18,8 @@ class RouterStack {
 
   /// Clean all entries of a specific Navigator.
   ///
-  void remove(String navigatorKey) {
-    entries.removeWhere((pageId, entry) => entry.navigatorKey == navigatorKey);
+  void remove(NavigatorRenderElement navigator) {
+    entries.removeWhere((pageId, entry) => entry.navigator == navigator);
   }
 
   void clear() => entries.clear();

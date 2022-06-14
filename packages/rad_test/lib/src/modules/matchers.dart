@@ -107,30 +107,30 @@ const Matcher nodeHasFocus = _DomNodeHasFocus(negate: false);
 ///
 const Matcher nodeHasNotFocus = _DomNodeHasFocus(negate: true);
 
-/// Asserts that a widget object is mounted.
+/// Asserts that a render element is mounted.
 ///
-const Matcher widgetObjectIsMounted = _WidgetObjectsAreMounted(
+const Matcher renderElementIsMounted = _RenderElementsAreMounted(
   negate: false,
   isMultiple: false,
 );
 
-/// Asserts that a widget object is not mounted.
+/// Asserts that a render element is not mounted.
 ///
-const Matcher widgetObjectIsNotMounted = _WidgetObjectsAreMounted(
+const Matcher renderElementIsNotMounted = _RenderElementsAreMounted(
   negate: true,
   isMultiple: false,
 );
 
-/// Asserts that list of widget objects are mounted.
+/// Asserts that list of widgets are mounted.
 ///
-const Matcher widgetObjectsAreMounted = _WidgetObjectsAreMounted(
+const Matcher renderElementsAreMounted = _RenderElementsAreMounted(
   negate: false,
   isMultiple: true,
 );
 
-/// Asserts that list of widget objects are not mounted.
+/// Asserts that list of widgets are not mounted.
 ///
-const Matcher widgetObjectsAreNotMounted = _WidgetObjectsAreMounted(
+const Matcher renderElementsAreNotMounted = _RenderElementsAreMounted(
   negate: true,
   isMultiple: true,
 );
@@ -169,7 +169,7 @@ class _FindsWidgetMatcher extends Matcher {
     matchState[Finder] = finder;
 
     int count = 0;
-    final Iterator<WidgetObject> iterator = finder.evaluate().iterator;
+    final Iterator<RenderElement> iterator = finder.evaluate().iterator;
 
     if (min != null) {
       while (count < min! && iterator.moveNext()) {
@@ -428,24 +428,24 @@ class _HasGoodToStringDeep extends Matcher {
   }
 }
 
-class _WidgetObjectsAreMounted extends Matcher {
+class _RenderElementsAreMounted extends Matcher {
   final bool negate;
   final bool isMultiple;
 
-  const _WidgetObjectsAreMounted({
+  const _RenderElementsAreMounted({
     required this.negate,
     required this.isMultiple,
   });
 
   @override
   matches(Object? items, void _) {
-    var results = <WidgetObject>[];
+    var results = <RenderElement>[];
 
     if (items is Finder) {
       results.addAll(items.evaluate());
     }
 
-    if (items is WidgetObject) {
+    if (items is RenderElement) {
       results.add(items);
     }
 
@@ -468,13 +468,13 @@ class _WidgetObjectsAreMounted extends Matcher {
     return true;
   }
 
-  bool _isMatched(Object widgetObject) {
-    if (widgetObject is WidgetObject) {
+  bool _isMatched(Object renderElement) {
+    if (renderElement is RenderElement) {
       if (negate) {
-        return !widgetObject.isMounted;
+        return !renderElement.isMounted;
       }
 
-      return widgetObject.isMounted;
+      return renderElement.isMounted;
     }
 
     return false;
@@ -506,13 +506,13 @@ class _WidgetObjectsAreMounted extends Matcher {
     void _,
     void __,
   ) {
-    var results = <WidgetObject>[];
+    var results = <RenderElement>[];
 
     if (items is Finder) {
       results.addAll(items.evaluate());
     }
 
-    if (items is WidgetObject) {
+    if (items is RenderElement) {
       results.add(items);
     }
 

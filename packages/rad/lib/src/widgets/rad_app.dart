@@ -1,23 +1,18 @@
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/dom_node_description.dart';
 import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/render_object.dart';
+import 'package:rad/src/core/common/objects/render_element.dart';
+import 'package:rad/src/widgets/abstract/single_child_widget.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// A Simple App Widget that takes as much space as its parents allowed it to.
 ///
-class RadApp extends Widget {
-  final Widget child;
-
+class RadApp extends SingleChildWidget {
   const RadApp({
     Key? key,
-    required this.child,
-  }) : super(key: key);
-
-  @override
-  List<Widget> get widgetChildren => [child];
+    required Widget child,
+  }) : super(key: key, child: child);
 
   @override
   String get widgetType => 'RadApp';
@@ -29,7 +24,7 @@ class RadApp extends Widget {
   bool shouldWidgetUpdate(Widget oldWidget) => false;
 
   @override
-  createRenderObject(context) => AppWidgetRenderObject(context);
+  createRenderElement(parent) => RadAppRenderElement(this, parent);
 }
 
 /*
@@ -46,12 +41,17 @@ const _description = DomNodeDescription(
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class AppWidgetRenderObject extends RenderObject {
-  const AppWidgetRenderObject(BuildContext context) : super(context);
+/// Rad app render element.
+///
+class RadAppRenderElement extends SingleChildRenderElement {
+  RadAppRenderElement(
+    RadApp widget,
+    RenderElement parent,
+  ) : super(widget, parent);
 
   @override
   render({required widget}) => _description;

@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
@@ -72,17 +71,19 @@ class Progress extends HTMLWidgetBase {
   }
 
   @override
-  createRenderObject(context) => _ProgressRenderObject(context);
+  createRenderElement(parent) => ProgressRenderElement(this, parent);
 }
 
 /*
 |--------------------------------------------------------------------------
-| render object
+| render element
 |--------------------------------------------------------------------------
 */
 
-class _ProgressRenderObject extends MarkUpGlobalRenderObject {
-  const _ProgressRenderObject(BuildContext context) : super(context);
+/// Progress render element.
+///
+class ProgressRenderElement extends HTMLBaseElement {
+  ProgressRenderElement(super.widget, super.parent);
 
   @override
   render({

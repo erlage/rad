@@ -31,22 +31,22 @@ void main() {
     test('should replace state', () async {
       browserWindow!.addPopStateListener(
         callback: testListener!.listener,
-        context: RT_TestBed.rootContext,
+        rootElement: RT_TestBed.rootRenderElement,
       );
 
       browserWindow!.historyReplaceState(
         title: '/',
         url: '/',
-        context: RT_TestBed.rootContext,
+        context: RT_TestBed.rootRenderElement,
       );
 
       browserWindow!.historyReplaceState(
         title: '/',
         url: '/',
-        context: RT_TestBed.rootContext,
+        context: RT_TestBed.rootRenderElement,
       );
 
-      browserWindow!.historyBack(context: RT_TestBed.rootContext);
+      browserWindow!.historyBack(context: RT_TestBed.rootRenderElement);
       await Future.delayed(Duration(milliseconds: 100));
 
       expect(testListener!.events.isEmpty, equals(true));
@@ -55,22 +55,22 @@ void main() {
     test('should add a listener', () async {
       browserWindow!.addPopStateListener(
         callback: testListener!.listener,
-        context: RT_TestBed.rootContext,
+        rootElement: RT_TestBed.rootRenderElement,
       );
 
       browserWindow!.historyPushState(
         title: '/',
         url: '/',
-        context: RT_TestBed.rootContext,
+        context: RT_TestBed.rootRenderElement,
       );
 
       browserWindow!.historyPushState(
         title: '/',
         url: '/',
-        context: RT_TestBed.rootContext,
+        context: RT_TestBed.rootRenderElement,
       );
 
-      browserWindow!.historyBack(context: RT_TestBed.rootContext);
+      browserWindow!.historyBack(context: RT_TestBed.rootRenderElement);
       await Future.delayed(Duration(milliseconds: 100));
 
       expect(testListener!.events.isNotEmpty, equals(true));
@@ -79,27 +79,27 @@ void main() {
     test('should add only one listener per app instance', () async {
       browserWindow!.addPopStateListener(
         callback: testListener!.listener,
-        context: RT_TestBed.rootContext,
+        rootElement: RT_TestBed.rootRenderElement,
       );
 
       browserWindow!.addPopStateListener(
         callback: testListener!.listener,
-        context: RT_TestBed.rootContext,
+        rootElement: RT_TestBed.rootRenderElement,
       );
 
       browserWindow!.historyPushState(
         title: '/',
         url: '/',
-        context: RT_TestBed.rootContext,
+        context: RT_TestBed.rootRenderElement,
       );
 
       browserWindow!.historyPushState(
         title: '/',
         url: '/',
-        context: RT_TestBed.rootContext,
+        context: RT_TestBed.rootRenderElement,
       );
 
-      browserWindow!.historyBack(context: RT_TestBed.rootContext);
+      browserWindow!.historyBack(context: RT_TestBed.rootRenderElement);
       await Future.delayed(Duration(milliseconds: 100));
 
       expect(testListener!.events.length, equals(1));
@@ -108,24 +108,24 @@ void main() {
     test('should remove listener requests', () async {
       browserWindow!.addPopStateListener(
         callback: testListener!.listener,
-        context: RT_TestBed.rootContext,
+        rootElement: RT_TestBed.rootRenderElement,
       );
 
-      browserWindow!.removePopStateListener(RT_TestBed.rootContext);
+      browserWindow!.removePopStateListener(RT_TestBed.rootRenderElement);
 
       browserWindow!.historyPushState(
         title: '',
         url: '/',
-        context: RT_TestBed.rootContext,
+        context: RT_TestBed.rootRenderElement,
       );
 
       browserWindow!.historyPushState(
         title: '',
         url: '/',
-        context: RT_TestBed.rootContext,
+        context: RT_TestBed.rootRenderElement,
       );
 
-      browserWindow!.historyBack(context: RT_TestBed.rootContext);
+      browserWindow!.historyBack(context: RT_TestBed.rootRenderElement);
       await Future.delayed(Duration(milliseconds: 100));
 
       expect(testListener!.events.isEmpty, equals(true));

@@ -4,8 +4,8 @@ import 'dart:html';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/app_options.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/widget_object.dart';
+import 'package:rad/src/core/common/objects/common_render_elements.dart';
+import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/abstract.dart';
 import 'package:rad/src/core/services/events/emitted_event.dart';
@@ -15,20 +15,14 @@ import 'package:rad/src/core/services/events/emitted_event.dart';
 class EventsService extends Service {
   final EventsOptions options;
 
-  /// App's target dom node.
-  ///
-  final Element target;
-
   /// Event subscriptions attached to target dom node.
   ///
   final _eventSubscriptions = <DomEventType, StreamSubscription<Event>>{};
 
-  EventsService(BuildContext context, this.options)
-      : target = document.getElementById(context.appTargetId)!,
-        super(context);
+  EventsService(RootElement rootElement, this.options) : super(rootElement);
 
   @override
-  stopService() {
+  void stopService() {
     for (final subscription in _eventSubscriptions.values) {
       subscription.cancel();
     }
@@ -58,7 +52,7 @@ class EventsService extends Service {
     var emittedEvent = EmittedEvent.fromNativeEvent(event);
 
     if (null != target && target is Element) {
-      var closestWidgetObject = _getClosestTargetWidgetObject(target);
+      var closestWidgetObject = _getClosestTargetElement(target);
 
       if (null != closestWidgetObject) {
         _dispatch(emittedEvent, closestWidgetObject);
@@ -66,23 +60,24 @@ class EventsService extends Service {
     }
   }
 
-  WidgetObject? _getClosestTargetWidgetObject(Element domNode) {
-    var widgetObject = services.walker.getWidgetObjectUsingElement(domNode);
+  RenderElement? _getClosestTargetElement(Node domNode) {
+    var element =
+        services.walker.getRenderElementAssociatedWithDomNode(domNode);
 
-    if (null != widgetObject) {
-      return widgetObject;
+    if (null != element) {
+      return element;
     }
 
     var parent = domNode.parent;
 
     if (null != parent) {
-      return _getClosestTargetWidgetObject(parent);
+      return _getClosestTargetElement(parent);
     }
 
     return null;
   }
 
-  void _dispatch(EmittedEvent event, WidgetObject widgetObject) {
+  void _dispatch(EmittedEvent event, RenderElement element) {
     var eventType = fnMapEventTypeToDomEventType(event.type);
 
     if (null == eventType) {
@@ -90,7 +85,7 @@ class EventsService extends Service {
     }
 
     var listeners = _collectListeners(
-      widgetObject: widgetObject,
+      element: element,
       eventType: eventType,
     );
 
@@ -102,40 +97,31 @@ class EventsService extends Service {
   }
 
   List<EventCallback> _collectListeners({
-    required WidgetObject widgetObject,
+    required RenderElement element,
     required DomEventType eventType,
   }) {
     var capturingCallbacks = <EventCallback>[];
     var bubblingCallbacks = <EventCallback>[];
 
-    var current = widgetObject;
-    while (true) {
-      var curCapListeners = current.widget.widgetCaptureEventListeners;
-      var curBubListeners = current.widget.widgetEventListeners;
+    void collectEventListeners(RenderElement fromElement) {
+      var capturingListeners = fromElement.widget.widgetCaptureEventListeners;
+      var bubblingListeners = fromElement.widget.widgetEventListeners;
 
-      var curCapListener = curCapListeners[eventType];
-      var curBubListener = curBubListeners[eventType];
+      var matchedCapturingListener = capturingListeners[eventType];
+      var matchedBubblingListener = bubblingListeners[eventType];
 
-      if (null != curCapListener) {
-        capturingCallbacks.add(curCapListener);
+      if (null != matchedCapturingListener) {
+        capturingCallbacks.add(matchedCapturingListener);
       }
 
-      if (null != curBubListener) {
-        bubblingCallbacks.add(curBubListener);
+      if (null != matchedBubblingListener) {
+        bubblingCallbacks.add(matchedBubblingListener);
       }
-
-      var parentNode = current.renderNode.parent;
-      if (null == parentNode || current.context.isRoot) {
-        break;
-      }
-
-      var parentObject = services.walker.getWidgetObject(parentNode.context);
-      if (null == parentObject) {
-        break;
-      }
-
-      current = parentObject;
     }
+
+    collectEventListeners(element);
+
+    element.traverseAncestorElements(collectEventListeners);
 
     var callbacks = capturingCallbacks.reversed.toList();
 
@@ -219,6 +205,8 @@ class EventsService extends Service {
   }
 
   void _startListeningForEventType(DomEventType eventType) {
+    var target = rootElement.domNode!;
+
     switch (eventType) {
       case DomEventType.click:
         var sub = Element.clickEvent.forElement(target).capture(_handle);

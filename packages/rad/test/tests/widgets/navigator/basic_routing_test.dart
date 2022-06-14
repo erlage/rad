@@ -27,7 +27,7 @@ void main() {
             ],
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var state = app!.navigatorState('navigator');
@@ -46,7 +46,7 @@ void main() {
             ],
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var state = app!.navigatorState('navigator');
@@ -65,7 +65,7 @@ void main() {
             ],
           )
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var state = app!.navigatorState('navigator');
@@ -103,13 +103,13 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var state = app!.navigatorState('navigator');
 
       expect(state.currentRouteName, 'route-1');
-      expect(RT_TestBed.rootElement, RT_hasContents('route-1'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('route-1'));
     });
 
     test('should open matched child route without trailers', () async {
@@ -126,13 +126,13 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var state = app!.navigatorState('navigator');
 
       expect(state.currentRouteName, 'route-1');
-      expect(RT_TestBed.rootElement, RT_hasContents('route-1'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('route-1'));
     });
 
     test('should open matched child route with intre.values', () async {
@@ -149,13 +149,13 @@ void main() {
             ],
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
       var state = app!.navigatorState('navigator');
 
       expect(state.currentRouteName, 'route-1');
-      expect(RT_TestBed.rootElement, RT_hasContents('route-1'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('route-1'));
     });
   });
 }

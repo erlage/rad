@@ -3,7 +3,7 @@ import 'dart:html';
 
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/widget_object.dart';
+import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/services/events/emitted_event.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
@@ -31,6 +31,10 @@ typedef ContextualWidgetBuilder = Widget Function(BuildContext context);
 
 typedef AsyncOrSyncWidgetBuilder = FutureOr<Widget> Function();
 
+typedef RenderElementVisitor = bool Function(RenderElement renderElement);
+
+typedef RenderElementCallback = void Function(RenderElement renderElement);
+
 typedef WidgetActionsBuilder = List<WidgetAction> Function(
-  WidgetObject widgetObject,
+  RenderElement renderElement,
 );

@@ -2,6 +2,7 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/widgets/abstract/no_child_widget.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/navigator.dart';
 import 'package:rad/src/widgets/route.dart';
@@ -286,7 +287,7 @@ class __AsyncRouteBuilderState extends State<_AsyncRouteBuilder> {
 
 /// A placeholder widget specific for async route.
 ///
-class _AsyncRoutePlaceholder extends Widget {
+class _AsyncRoutePlaceholder extends NoChildWidget {
   const _AsyncRoutePlaceholder() : super(key: null);
 
   // !WARN: careful. hardcoded & not covered by the tests for this widget

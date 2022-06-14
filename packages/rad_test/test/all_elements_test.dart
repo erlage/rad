@@ -21,22 +21,22 @@ void main() {
         ),
       );
 
-      var widgetObject = tester.getWidgetObjectByGlobalKey(key)!;
+      var renderElement = tester.getRenderElementByGlobalKey(key)!;
 
-      final wObjects = collectAllWidgetObjectsFrom(
-        widgetObject,
+      final rElements = collectAllWidgetObjectsFrom(
+        renderElement,
         skipOffstage: false,
       ).toList();
 
-      expect(wObjects.length, 3);
+      expect(rElements.length, 3);
 
-      expect(wObjects[0].widget, isA<Paragraph>());
+      expect(rElements[0].widget, isA<Paragraph>());
 
-      expect(wObjects[1].widget, isA<Text>());
-      expect((wObjects[1].widget as Text).text, 'a');
+      expect(rElements[1].widget, isA<Text>());
+      expect((rElements[1].widget as Text).text, 'a');
 
-      expect(wObjects[2].widget, isA<Text>());
-      expect((wObjects[2].widget as Text).text, 'b');
+      expect(rElements[2].widget, isA<Text>());
+      expect((rElements[2].widget as Text).text, 'b');
     },
   );
 }

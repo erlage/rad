@@ -4,7 +4,7 @@ test('should set attribute "cols"', () async {
             __WidgetClass__(key: GlobalKey('el-1'), cols: 10),
             __WidgetClass__(key: GlobalKey('el-2'), cols: 0),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -20,7 +20,7 @@ test('should update attribute "cols"', () async {
             __WidgetClass__(key: GlobalKey('el-1'), cols: 10),
             __WidgetClass__(key: GlobalKey('el-2'), cols: 10),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
@@ -29,7 +29,7 @@ test('should update attribute "cols"', () async {
             __WidgetClass__(key: GlobalKey('el-2'), cols: 20),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -45,7 +45,7 @@ test('should clear attribute "cols"', () async {
             __WidgetClass__(key: GlobalKey('el-1')),
             __WidgetClass__(key: GlobalKey('el-2'), cols: 10),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
@@ -54,7 +54,7 @@ test('should clear attribute "cols"', () async {
             __WidgetClass__(key: GlobalKey('el-2')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -69,7 +69,7 @@ test('should clear attribute "cols" if updated value is null', () async {
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1'), cols: 10),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
@@ -77,7 +77,7 @@ test('should clear attribute "cols" if updated value is null', () async {
             __WidgetClass__(key: GlobalKey('el-1'), cols: null),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -90,7 +90,7 @@ test('should not set attribute "cols" if provided value is null', () async {
         widgets: [
             __WidgetClass__(key: GlobalKey('el-1'), cols: null),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     var domNode1 = app!.domNodeByGlobalKey('el-1');

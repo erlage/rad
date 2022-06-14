@@ -5,7 +5,7 @@ test('should set attribute "hidden" only if its true', () async {
             __WidgetClass__(key: GlobalKey('el-2'), hidden: null),
             __WidgetClass__(key: GlobalKey('el-3'), hidden: true),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     var domNode1 = app!.domNodeByGlobalKey('el-1');
@@ -25,7 +25,7 @@ test('should clear attribute "hidden" if updated value is not true', () async {
             __WidgetClass__(key: GlobalKey('el-3'), hidden: true),
             __WidgetClass__(key: GlobalKey('el-4'), hidden: true),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
@@ -36,7 +36,7 @@ test('should clear attribute "hidden" if updated value is not true', () async {
             __WidgetClass__(key: GlobalKey('el-4')),
         ],
         updateType: UpdateType.setState,
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
     );
 
     var domNode1 = app!.domNodeByGlobalKey('el-1');

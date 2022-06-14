@@ -19,16 +19,16 @@ void main() {
         widgets: [
           RT_TestWidget(
             key: GlobalKey('widget'),
-            roEventHookUpdate: () => pap.stack.push('update'),
+            roEventUpdate: () => pap.stack.push('update'),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var widget = pap.widgetObjectByGlobalKey('widget');
+      var element = pap.renderElementByGlobalKey('widget')!;
 
-      await pap.updateDependent(widget.context);
-      await pap.updateDependent(widget.context);
+      await pap.updateDependent(element);
+      await pap.updateDependent(element);
 
       expect(pap.stack.popFromStart(), equals('update'));
       expect(pap.stack.popFromStart(), equals('update'));
@@ -45,13 +45,13 @@ void main() {
             roHookUpdate: (type) => pap.stack.push(type.name),
           ),
         ],
-        parentContext: app!.appContext,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var widget = pap.widgetObjectByGlobalKey('widget');
+      var element = pap.renderElementByGlobalKey('widget')!;
 
-      await pap.updateDependent(widget.context);
-      await pap.updateDependent(widget.context);
+      await pap.updateDependent(element);
+      await pap.updateDependent(element);
 
       var expectedName = UpdateType.dependencyChanged.name;
 

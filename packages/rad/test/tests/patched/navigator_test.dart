@@ -9,12 +9,12 @@ void main() {
     test('should render correct markup', () async {
       runApp(
         app: _NavigatorTest4(),
-        targetId: RT_TestBed.rootKey.value,
+        targetId: RT_TestBed.rootTargetId,
       );
 
       await Future.delayed(Duration.zero, () {
         expect(
-          RT_TestBed.rootElement,
+          RT_TestBed.rootDomNode,
           RT_hasContents('|some text on route||more text'),
         );
       });

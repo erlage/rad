@@ -76,7 +76,7 @@ class RT_EventfulWidget extends EventDetector {
     this.children = const [],
   }) : super(
           key: key,
-          child: Text('hw'),
+          child: Division(children: children),
           onClick: onClick,
           onDoubleClick: onDoubleClick,
           onInput: onInput,
@@ -122,9 +122,6 @@ class RT_EventfulWidget extends EventDetector {
           onMouseOutCapture: onMouseOutCapture,
           onMouseUpCapture: onMouseUpCapture,
         );
-
-  @override
-  get widgetChildren => children;
 
   @override
   Map<DomEventType, EventCallback?> get widgetEventListeners => {

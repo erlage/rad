@@ -17,7 +17,7 @@ test('should propagate event only upto matching target', () async {
         ],
       )
     ],
-    parentContext: pap.appContext,
+    parentRenderElement: pap.appRenderElement,
   );
 
   var gparent = pap.domNodeByGlobalKey('el-g-parent');

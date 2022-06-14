@@ -20,7 +20,7 @@ test('Navigator widget - description test', () async {
         ],
       ),
     ],
-    parentContext: pap.appContext,
+    parentRenderElement: pap.appRenderElement,
   );
 
   var domNode = pap.domNodeByGlobalKey('widget');
