@@ -303,9 +303,16 @@ class Renderer with ServicesResolver {
 
     // 5. Register event listeners
 
-    services.events
-      ..setupEventListeners(widget.widgetEventListeners)
-      ..setupEventListeners(widget.widgetCaptureEventListeners);
+    var bubbleEventListeners = widget.widgetEventListeners;
+    var captureEventListeners = widget.widgetCaptureEventListeners;
+
+    if (captureEventListeners.isNotEmpty) {
+      services.events.setupEventListeners(captureEventListeners);
+    }
+
+    if (bubbleEventListeners.isNotEmpty) {
+      services.events.setupEventListeners(bubbleEventListeners);
+    }
 
     jobQueue.addPostDispatchCallback(renderElement.frameworkAfterMount);
 
