@@ -109,7 +109,7 @@ class RouterService extends Service {
   /// Mannually dispatch a back action.
   ///
   void dispatchBackAction() {
-    Window.delegate.historyBack(context: rootElement);
+    Window.delegate.historyBack(rootElement: rootElement);
   }
 
   /// Get current path based on Navigator's access.
@@ -411,7 +411,7 @@ class RouterService extends Service {
       Window.delegate.historyReplaceState(
         title: '',
         url: historyEntry,
-        context: rootElement,
+        rootElement: rootElement,
       );
 
       var entry = RouterStackEntry(
@@ -444,7 +444,7 @@ class RouterService extends Service {
         Window.delegate.historyPushState(
           title: '',
           url: historyEntry,
-          context: rootElement,
+          rootElement: rootElement,
         );
 
         var state = navigator.state;

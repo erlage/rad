@@ -36,9 +36,9 @@ class BrowserWindow extends WindowDelegate {
   }
 
   @override
-  removePopStateListener(context) {
-    if (_psListeners.containsKey(context.appTargetId)) {
-      _psListeners.remove(context.appTargetId);
+  removePopStateListener(rootElement) {
+    if (_psListeners.containsKey(rootElement.appTargetId)) {
+      _psListeners.remove(rootElement.appTargetId);
     }
   }
 
@@ -46,23 +46,23 @@ class BrowserWindow extends WindowDelegate {
   historyPushState({
     required title,
     required url,
-    required context,
+    required rootElement,
   }) {
-    window.history.pushState(context.appTargetId, title, url);
+    window.history.pushState(rootElement.appTargetId, title, url);
   }
 
   @override
   historyReplaceState({
     required title,
     required url,
-    required context,
+    required rootElement,
   }) {
-    window.history.replaceState(context.appTargetId, title, url);
+    window.history.replaceState(rootElement.appTargetId, title, url);
   }
 
   @override
   historyBack({
-    required context,
+    required rootElement,
   }) {
     window.history.back();
   }

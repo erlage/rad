@@ -70,9 +70,9 @@ class TestWindow extends WindowDelegate {
   }
 
   @override
-  removePopStateListener(context) {
-    if (_psListeners.containsKey(context.appTargetId)) {
-      _psListeners.remove(context.appTargetId);
+  removePopStateListener(rootElement) {
+    if (_psListeners.containsKey(rootElement.appTargetId)) {
+      _psListeners.remove(rootElement.appTargetId);
     }
   }
 
@@ -80,14 +80,14 @@ class TestWindow extends WindowDelegate {
   historyPushState({
     required title,
     required url,
-    required context,
+    required rootElement,
   }) {
     _forwardableHistory.clear();
 
     var entry = _HistoryEntry(
       url: url,
       title: title,
-      data: context.appTargetId,
+      data: rootElement.appTargetId,
     );
 
     _setHistoryEntry(entry);
@@ -99,7 +99,7 @@ class TestWindow extends WindowDelegate {
   historyReplaceState({
     required title,
     required url,
-    required context,
+    required rootElement,
   }) {
     _forwardableHistory.clear();
 
@@ -114,7 +114,7 @@ class TestWindow extends WindowDelegate {
     var entry = _HistoryEntry(
       url: url,
       title: title,
-      data: context.appTargetId,
+      data: rootElement.appTargetId,
     );
 
     _setHistoryEntry(entry);
@@ -124,7 +124,7 @@ class TestWindow extends WindowDelegate {
 
   @override
   historyBack({
-    required context,
+    required rootElement,
   }) {
     if (_history.length < 2) {
       throw Exception('History is empty');
@@ -142,7 +142,7 @@ class TestWindow extends WindowDelegate {
   }
 
   void dispatchBackAction() {
-    historyBack(context: rootElement);
+    historyBack(rootElement: rootElement);
   }
 
   void dispatchForwardAction() {

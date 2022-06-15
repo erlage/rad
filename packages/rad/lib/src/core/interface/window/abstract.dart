@@ -1,4 +1,4 @@
-import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/objects/common_render_elements.dart';
 import 'package:rad/src/core/common/types.dart';
 
 /// Window delegate.
@@ -16,20 +16,20 @@ abstract class WindowDelegate {
   /// context.
   ///
   void addPopStateListener({
-    required BuildContext rootElement,
+    required RootElement rootElement,
     required PopStateEventCallback callback,
   });
 
   /// Remove pop state listener that's associated with the context.
   ///
-  void removePopStateListener(BuildContext context);
+  void removePopStateListener(RootElement rootElement);
 
   /// Adds an entry to the session history stack.
   ///
   void historyPushState({
     required String title,
     required String url,
-    required BuildContext context,
+    required RootElement rootElement,
   });
 
   /// Replace last entry on the session history stack.
@@ -37,12 +37,12 @@ abstract class WindowDelegate {
   void historyReplaceState({
     required String title,
     required String url,
-    required BuildContext context,
+    required RootElement rootElement,
   });
 
   /// Issue a back action, dynamically.
   ///
   void historyBack({
-    required BuildContext context,
+    required RootElement rootElement,
   });
 }

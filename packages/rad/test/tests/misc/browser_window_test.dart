@@ -37,16 +37,16 @@ void main() {
       browserWindow!.historyReplaceState(
         title: '/',
         url: '/',
-        context: RT_TestBed.rootRenderElement,
+        rootElement: RT_TestBed.rootRenderElement,
       );
 
       browserWindow!.historyReplaceState(
         title: '/',
         url: '/',
-        context: RT_TestBed.rootRenderElement,
+        rootElement: RT_TestBed.rootRenderElement,
       );
 
-      browserWindow!.historyBack(context: RT_TestBed.rootRenderElement);
+      browserWindow!.historyBack(rootElement: RT_TestBed.rootRenderElement);
       await Future.delayed(Duration(milliseconds: 100));
 
       expect(testListener!.events.isEmpty, equals(true));
@@ -61,16 +61,16 @@ void main() {
       browserWindow!.historyPushState(
         title: '/',
         url: '/',
-        context: RT_TestBed.rootRenderElement,
+        rootElement: RT_TestBed.rootRenderElement,
       );
 
       browserWindow!.historyPushState(
         title: '/',
         url: '/',
-        context: RT_TestBed.rootRenderElement,
+        rootElement: RT_TestBed.rootRenderElement,
       );
 
-      browserWindow!.historyBack(context: RT_TestBed.rootRenderElement);
+      browserWindow!.historyBack(rootElement: RT_TestBed.rootRenderElement);
       await Future.delayed(Duration(milliseconds: 100));
 
       expect(testListener!.events.isNotEmpty, equals(true));
@@ -90,16 +90,16 @@ void main() {
       browserWindow!.historyPushState(
         title: '/',
         url: '/',
-        context: RT_TestBed.rootRenderElement,
+        rootElement: RT_TestBed.rootRenderElement,
       );
 
       browserWindow!.historyPushState(
         title: '/',
         url: '/',
-        context: RT_TestBed.rootRenderElement,
+        rootElement: RT_TestBed.rootRenderElement,
       );
 
-      browserWindow!.historyBack(context: RT_TestBed.rootRenderElement);
+      browserWindow!.historyBack(rootElement: RT_TestBed.rootRenderElement);
       await Future.delayed(Duration(milliseconds: 100));
 
       expect(testListener!.events.length, equals(1));
@@ -116,16 +116,16 @@ void main() {
       browserWindow!.historyPushState(
         title: '',
         url: '/',
-        context: RT_TestBed.rootRenderElement,
+        rootElement: RT_TestBed.rootRenderElement,
       );
 
       browserWindow!.historyPushState(
         title: '',
         url: '/',
-        context: RT_TestBed.rootRenderElement,
+        rootElement: RT_TestBed.rootRenderElement,
       );
 
-      browserWindow!.historyBack(context: RT_TestBed.rootRenderElement);
+      browserWindow!.historyBack(rootElement: RT_TestBed.rootRenderElement);
       await Future.delayed(Duration(milliseconds: 100));
 
       expect(testListener!.events.isEmpty, equals(true));
