@@ -532,22 +532,10 @@ class Renderer with ServicesResolver {
 
           var parentDomNode = domNode.parent;
 
-          // insertBefore is a must here.
-          // todo: remove these unneccesary checks.
-          if (null != parentDomNode && newMountAtIndex >= 0) {
-            //
-            // if index is available
-            //
-            if (parentDomNode.children.length > newMountAtIndex) {
-              //
-              // mount at specific index
-              //
-              parentDomNode.insertBefore(
-                domNode,
-                parentDomNode.children[newMountAtIndex],
-              );
-            }
-          }
+          parentDomNode?.insertBefore(
+            domNode,
+            parentDomNode.children[newMountAtIndex],
+          );
         });
       }
     }
