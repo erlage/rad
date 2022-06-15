@@ -76,14 +76,14 @@ class RT_TestWindow extends WindowDelegate {
   historyPushState({
     required title,
     required url,
-    required context,
+    required rootElement,
   }) {
     _forwardableHistory.clear();
 
     var entry = _HistoryEntry(
       url: url,
       title: title,
-      data: context.appTargetId,
+      data: rootElement.appTargetId,
     );
 
     _setHistoryEntry(entry);
@@ -95,7 +95,7 @@ class RT_TestWindow extends WindowDelegate {
   historyReplaceState({
     required title,
     required url,
-    required context,
+    required rootElement,
   }) {
     _forwardableHistory.clear();
 
@@ -110,7 +110,7 @@ class RT_TestWindow extends WindowDelegate {
     var entry = _HistoryEntry(
       url: url,
       title: title,
-      data: context.appTargetId,
+      data: rootElement.appTargetId,
     );
 
     _setHistoryEntry(entry);
@@ -120,7 +120,7 @@ class RT_TestWindow extends WindowDelegate {
 
   @override
   historyBack({
-    required context,
+    required rootElement,
   }) {
     if (_history.length < 2) {
       throw Exception('History is empty');
@@ -138,7 +138,7 @@ class RT_TestWindow extends WindowDelegate {
   }
 
   void dispatchBackAction() {
-    historyBack(context: RT_TestBed.rootRenderElement);
+    historyBack(rootElement: RT_TestBed.rootRenderElement);
   }
 
   void dispatchForwardAction() {

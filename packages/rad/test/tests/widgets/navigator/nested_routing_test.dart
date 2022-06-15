@@ -588,4 +588,159 @@ void main() {
       },
     );
   });
+
+  /*
+  |--------------------------------------------------------------------------
+  | Navigator routing tests | Multiple navigators at same level
+  |--------------------------------------------------------------------------
+  */
+
+  group('Navigator, routing to multiple navigators at same level:', () {
+    RT_AppRunner? app;
+
+    setUp(() {
+      app = createTestApp()..start();
+    });
+
+    tearDown(() => app!.stop());
+
+    NavigatorState state(String key) => app!.navigatorState(key);
+
+    Future<void> build(String setPath) async {
+      await app!.setPath(setPath);
+
+      await app!.buildChildren(
+        widgets: [
+          Navigator(
+            key: GlobalKey('parent'),
+            routes: [
+              Route(
+                name: 'p-route-1',
+                page: Navigator(
+                  key: GlobalKey('child-p1'),
+                  routes: [
+                    Route(name: 'c-p1-route-1', page: Text('c-p1-route-1')),
+                    Route(name: 'c-p1-route-2', page: Text('c-p1-route-2')),
+                  ],
+                ),
+              ),
+              Route(
+                name: 'p-route-2',
+                page: Navigator(
+                  key: GlobalKey('child-p2'),
+                  routes: [
+                    Route(name: 'c-p2-route-1', page: Text('c-p2-route-1')),
+                    Route(name: 'c-p2-route-2', page: Text('c-p2-route-2')),
+                  ],
+                ),
+              ),
+            ],
+          )
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+    }
+
+    test('should open default in parent', () async {
+      for (final path in [
+        '/',
+        '/p-afdkjf',
+        'p-afdkjf/',
+        '///',
+        '//p-route-1/',
+      ]) {
+        await build(path);
+        expect(state('parent').currentRouteName, 'p-route-1');
+      }
+    });
+
+    test('should open matched parent', () async {
+      for (final path in [
+        'p-route-1',
+        '/p-route-1',
+        'p-route-1/',
+        '/p-route-1/',
+        '/p-route-1/asdasd',
+        'p-route-1/asdas',
+        '/p-route-1/c-p1-route-1',
+        '/p-route-1/c-p1-route-2',
+        '/p-route-1/c-p2-route-2',
+        '/p-route-1/c-p2-route-1',
+      ]) {
+        await build(path);
+        expect(state('parent').currentRouteName, 'p-route-1');
+      }
+
+      for (final path in [
+        'p-route-2',
+        '/p-route-2',
+        'p-route-2/',
+        '/p-route-2/',
+        '/p-route-2/asdasd',
+        'p-route-2/asdas',
+        '/p-route-2/c-p2-route-1',
+        '/p-route-2/c-p2-route-2',
+        '/p-route-2/c-p1-route-2',
+        '/p-route-2/c-p1-route-1',
+      ]) {
+        await build(path);
+        expect(state('parent').currentRouteName, 'p-route-2');
+      }
+    });
+
+    test('should open default child', () async {
+      for (final path in [
+        '/p-route-1/',
+        '/p-route-1/p-afdkjf',
+        '/p-route-1/p-afdkjf/',
+        '/p-route-1///',
+        '/p-route-1//asd/',
+        '/p-route-1//c-p1-route-1/',
+      ]) {
+        await build(path);
+        expect(state('child-p1').currentRouteName, 'c-p1-route-1');
+      }
+
+      for (final path in [
+        '/p-route-2/',
+        '/p-route-2/p-afdkjf',
+        '/p-route-2/p-afdkjf/',
+        '/p-route-2///',
+        '/p-route-2//asd/',
+        '/p-route-2//c-p1-route-1/',
+        '/p-route-2//c-p2-route-1/',
+      ]) {
+        await build(path);
+        expect(state('child-p2').currentRouteName, 'c-p2-route-1');
+      }
+    });
+
+    test('should open matched child', () async {
+      for (final path in [
+        '/p-route-1/c-p1-route-2',
+        '/p-route-1/c-p1-route-2/',
+        '/p-route-1///c-p1-route-2/',
+        '/p-route-1/asdas/c-p1-route-2/',
+        '/p-route-1/c-p1-route-2/asdasd/',
+        '/p-route-1///c-p1-route-2/asdasd',
+        '/p-route-1///c-p1-route-2/asdasd/',
+      ]) {
+        await build(path);
+        expect(state('child-p1').currentRouteName, 'c-p1-route-2');
+      }
+
+      for (final path in [
+        '/p-route-2/c-p2-route-2',
+        '/p-route-2/c-p2-route-2/',
+        '/p-route-2///c-p2-route-2/',
+        '/p-route-2/asdas//c-p2-route-2/',
+        '/p-route-2/c-p2-route-2/asdasd/',
+        '/p-route-2///c-p2-route-2/asdasd',
+        '/p-route-2///c-p2-route-2/asdasd/',
+      ]) {
+        await build(path);
+        expect(state('child-p2').currentRouteName, 'c-p2-route-2');
+      }
+    });
+  });
 }
