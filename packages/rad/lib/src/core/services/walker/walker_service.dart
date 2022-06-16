@@ -81,10 +81,4 @@ class WalkerService extends Service {
   RenderElement? getRenderElementAssociatedWithDomNode(Node domNode) {
     return _domNodeToElementMap[domNode];
   }
-
-  /// Return all registered elements.
-  ///
-  List<RenderElement> dumpElements() {
-    return _domNodeToElementMap.values.toList();
-  }
 }

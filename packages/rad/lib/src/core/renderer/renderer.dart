@@ -29,14 +29,10 @@ class Renderer with ServicesResolver {
   }
 
   void dispose() {
-    var renderElements = services.walker.dumpElements();
-
-    for (final renderElement in renderElements) {
-      disposeWidget(
-        renderElement: renderElement,
-        flagPreserveTarget: false,
-      );
-    }
+    disposeWidget(
+      renderElement: services.rootElement,
+      flagPreserveTarget: true,
+    );
 
     services.rootElement.domNode?.innerHtml = '';
   }
