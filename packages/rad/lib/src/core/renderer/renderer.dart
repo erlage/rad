@@ -1151,10 +1151,10 @@ class Renderer with ServicesResolver {
     // -------------------------
 
     // System action to take on a widget
-    var widgetSystemActions = <WidgetUpdateObject>[];
+    var preparedUpdates = <WidgetUpdateObject>[];
 
-    var oldRenderElementsHashMap = <String, RenderElement>{};
-    var oldRenderElementsPositions = <String, int>{};
+    var oldNodeHashToElementMap = <String, RenderElement>{};
+    var oldNodeHashToPositionMap = <String, int>{};
 
     // --------------------------------------------------
     // Phase-1 | Collect data from old nodes
@@ -1173,8 +1173,8 @@ class Renderer with ServicesResolver {
         widgetRuntimeType: renderElement.widgetRuntimeType,
       );
 
-      oldRenderElementsPositions[oldNodeHash] = oldPositionIndex;
-      oldRenderElementsHashMap[oldNodeHash] = renderElement;
+      oldNodeHashToPositionMap[oldNodeHash] = oldPositionIndex;
+      oldNodeHashToElementMap[oldNodeHash] = renderElement;
     }
 
     // --------------------------------------------------
@@ -1197,7 +1197,7 @@ class Renderer with ServicesResolver {
         widgetRuntimeType: '${widget.runtimeType}',
       );
 
-      var existingRenderNode = oldRenderElementsHashMap.remove(newNodeHash);
+      var existingRenderNode = oldNodeHashToElementMap.remove(newNodeHash);
 
       // if matching node not found
       if (null == existingRenderNode) {
@@ -1232,7 +1232,7 @@ class Renderer with ServicesResolver {
           widgetPositionIndex: newPositionIndex,
         );
 
-        widgetSystemActions.add(lastAddedWidgetAction);
+        preparedUpdates.add(lastAddedWidgetAction);
 
         continue;
       }
@@ -1243,7 +1243,7 @@ class Renderer with ServicesResolver {
       int? mountAtIndex = null;
 
       var newPositionY = newPositionIndex;
-      var oldPositionY = oldRenderElementsPositions[newNodeHash];
+      var oldPositionY = oldNodeHashToPositionMap[newNodeHash];
 
       if (null != oldPositionY) {
         var expectedOldPosition = oldPositionY + slippedInNodesCount;
@@ -1251,11 +1251,12 @@ class Renderer with ServicesResolver {
         if (expectedOldPosition != newPositionY) {
           mountAtIndex = newPositionY;
 
+          // cuplrit 2)
           slippedInNodesCount++;
         }
       }
 
-      widgetSystemActions.add(
+      preparedUpdates.add(
         WidgetUpdateObjectActionUpdate(
           widget: widget,
           newMountAtIndex: mountAtIndex,
@@ -1269,11 +1270,11 @@ class Renderer with ServicesResolver {
     // Phase-3 | Deal with obsolute nodes
     // --------------------------------------------------
 
-    if (oldRenderElementsHashMap.isNotEmpty) {
-      widgetSystemActions.insert(
+    if (oldNodeHashToElementMap.isNotEmpty) {
+      preparedUpdates.insert(
         0,
         WidgetUpdateObjectActionDisposeMultiple(
-          oldRenderElementsHashMap.values,
+          oldNodeHashToElementMap.values,
         ),
       );
     }
@@ -1285,6 +1286,6 @@ class Renderer with ServicesResolver {
 
     // -------------------------
 
-    return widgetSystemActions;
+    return preparedUpdates;
   }
 }
