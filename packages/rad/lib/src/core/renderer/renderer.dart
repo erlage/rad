@@ -692,9 +692,10 @@ class Renderer with ServicesResolver {
       // if mount at specific index
       //
 
-      var index = mountAtIndex - 1;
-
-      parentRenderElement.frameworkInsertAllFreshAt(renderElements, index);
+      parentRenderElement.frameworkInsertAllFreshAt(
+        renderElements,
+        mountAtIndex,
+      );
     } else {
       //
       // else append
