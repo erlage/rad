@@ -516,6 +516,138 @@ void main() {
         expect(RT_TestBed.rootDomNode, RT_hasContents('1|4|3|5'));
       });
 
+      test('should respect widgets order(non-keyed appends)', () async {
+        await app!.updateChildren(
+          widgets: [
+            Text('1'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        await app!.updateChildren(
+          widgets: [
+            Text('1'),
+            Text('2'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('1|2'));
+
+        await app!.updateChildren(
+          widgets: [
+            Text('1'),
+            Text('2'),
+            Text('3'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('1|2|3'));
+      });
+
+      test('should respect widgets order(non-keyed removals)', () async {
+        await app!.updateChildren(
+          widgets: [
+            Text('1'),
+            Text('2'),
+            Text('3'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        await app!.updateChildren(
+          widgets: [
+            Text('1'),
+            Text('2'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('1|2'));
+
+        await app!.updateChildren(
+          widgets: [
+            Text('1'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('1'));
+      });
+
+      test('should respect widgets order(keyed appends)', () async {
+        await app!.updateChildren(
+          widgets: [
+            Text('1', key: Key('1')),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        await app!.updateChildren(
+          widgets: [
+            Text('1', key: Key('1')),
+            Text('2', key: Key('2')),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('1|2'));
+
+        await app!.updateChildren(
+          widgets: [
+            Text('1', key: Key('1')),
+            Text('2', key: Key('2')),
+            Text('3', key: Key('3')),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('1|2|3'));
+      });
+
+      test('should respect widgets order(keyed removals)', () async {
+        await app!.updateChildren(
+          widgets: [
+            Text('1', key: Key('1')),
+            Text('2', key: Key('2')),
+            Text('3', key: Key('3')),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        await app!.updateChildren(
+          widgets: [
+            Text('1', key: Key('1')),
+            Text('2', key: Key('2')),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('1|2'));
+
+        await app!.updateChildren(
+          widgets: [
+            Text('1', key: Key('1')),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('1'));
+      });
+
       //
     },
   );
