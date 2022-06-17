@@ -1132,9 +1132,35 @@ class Renderer with ServicesResolver {
 
   /// Prepare list of widget updates using Rad's algorithm.
   ///
-  /// Previous algorithm was of complexity O(n^2) but very lightweight compares
-  /// to this one. It might be better to use previous algorithm when sum of
-  /// number of childs(under both nodes that we're comparing) is small.
+  /// This is a two-part algorithm.
+  ///
+  ///
+  /// We refer to these parts as:
+  ///
+  ///
+  /// - Direct mode(first algorithm)
+  ///
+  /// - Hash mode(second algorithm)
+  ///
+  ///
+  /// In direct mode, we tries to reconcile widgets the easiest way possible,
+  /// by traversing old nodes from the bottom and doing one-one comparisons
+  /// with the new list. But we fail fast in direct mode upon encountering a
+  /// mis-match after which we shifts to the second algorithm(hash mode).
+  ///
+  ///
+  /// Hash mode is capable of reconciling any type nodes, including all
+  /// types of mis-matches. It also tries to ignore nodes that are already
+  /// synced in the direct mode.
+  ///
+  ///
+  /// Direct mode basically act as a compliment to the hash mode in number of
+  /// cases. Hash mode contains number of heavy weight elements so it's not
+  /// quite suited to reconcile lists that are small or doesn't really contain
+  /// moving parts. We've added first algorithm which act is a performance
+  /// hatch in those cases. In order to get high success rate(at syncing childs
+  /// with just direct mode), we run direct mode only when number of nodes are
+  /// same, both in old and new lists.
   ///
   Iterable<WidgetUpdateObject> _prepareUpdatesUsingRadAlgo({
     required List<Widget> widgets,
@@ -1142,33 +1168,93 @@ class Renderer with ServicesResolver {
     required BuildContext parentContext,
     required bool flagAddIfNotFound,
   }) {
-    // -------------------------
+    // =======================================================================
+    //  Setup | Common to both modes
+    // =======================================================================
+
+    var oldNodes = parentRenderElement.frameworkChildElements;
+
+    var newNodesCount = widgets.length;
+    var oldNodesCount = oldNodes.length;
+
+    var newNodePointer = newNodesCount - 1;
+    var oldNodePointer = oldNodesCount - 1;
+
+    // List of updates prepared by direct traversal of nodes(1st algo)
+
+    var preparedUpdatesInDirectMode = <WidgetUpdateObject>[];
+
+    // =======================================================================
+    //  Direct Mode
+    // =======================================================================
+
+    // we try direct mode only when number of nodes are same in both lists
+
+    var shouldTryDirectMode = newNodesCount == oldNodesCount;
+
+    if (shouldTryDirectMode) {
+      for (final oldNode in oldNodes.reversed) {
+        var newNode = widgets[newNodePointer];
+
+        var oldKey = oldNode.key;
+        var oldRuntimeType = oldNode.widgetRuntimeType;
+
+        var newKey = newNode.key;
+        var newRuntimeType = '${newNode.runtimeType}';
+
+        if (newRuntimeType != oldRuntimeType || newKey != oldKey) {
+          break;
+        }
+
+        preparedUpdatesInDirectMode.add(
+          WidgetUpdateObjectActionUpdate(
+            widget: newNode,
+            widgetPositionIndex: newNodePointer,
+            existingRenderElement: oldNode,
+            newMountAtIndex: null,
+          ),
+        );
+
+        newNodePointer--;
+        oldNodePointer--;
+      }
+
+      // if we've iterated over all new and old nodes,
+      // we don't have to run hash mode as all nodes are in sync
+
+      if (-1 == newNodePointer && -1 == oldNodePointer) {
+        return preparedUpdatesInDirectMode.reversed;
+      }
+    }
+
+    // =======================================================================
+    //  Hash mode
+    // =======================================================================
+
+    // Comment out the direct mode part to test changes made to hash mode.
 
     var keyGenService = services.keyGen;
+
+    var preparedUpdates = <WidgetUpdateObject>[];
 
     var hasherForOldNodes = keyGenService.createCompatibilityHashGenerator();
     var hasherForNewNodes = keyGenService.createCompatibilityHashGenerator();
 
-    // -------------------------
-
-    // System action to take on a widget
-    var preparedUpdates = <WidgetUpdateObject>[];
-
     var oldNodeHashToElementMap = <String, RenderElement>{};
     var oldNodeHashToPositionMap = <String, int>{};
 
-    // --------------------------------------------------
-    // Phase-1 | Collect data from old nodes
-    // --------------------------------------------------
+    // ______________________________________________________________________
+    //  Phase-1 | Collect data from old nodes
+    // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
-    // prepare hash map from existing render elements
     var oldPositionIndex = -1;
-    for (final renderElement in parentRenderElement.frameworkChildElements) {
+    for (final renderElement in oldNodes) {
       oldPositionIndex++;
 
-      // Unique hash. Can be used to find a matching widget at the same level of
-      // tree.
-      //
+      if (oldPositionIndex > oldNodePointer) {
+        break;
+      }
+
       var oldNodeHash = hasherForOldNodes.createCompatibilityHash(
         widgetKey: renderElement.key,
         widgetRuntimeType: renderElement.widgetRuntimeType,
@@ -1178,9 +1264,9 @@ class Renderer with ServicesResolver {
       oldNodeHashToElementMap[oldNodeHash] = renderElement;
     }
 
-    // --------------------------------------------------
-    // Phase-2 | Traverse new widgets and prepare updates
-    // --------------------------------------------------
+    // ______________________________________________________________________
+    //  Phase-2 | Traverse new widgets and prepare updates
+    // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
     // for keeping track of nodes that were missing and added or moved to top
     var slippedInNodesCount = 0;
@@ -1192,6 +1278,10 @@ class Renderer with ServicesResolver {
     var newPositionIndex = -1;
     for (final widget in widgets) {
       newPositionIndex++;
+
+      if (newPositionIndex > newNodePointer) {
+        break;
+      }
 
       var newNodeHash = hasherForNewNodes.createCompatibilityHash(
         widgetKey: widget.key,
@@ -1267,9 +1357,9 @@ class Renderer with ServicesResolver {
       );
     }
 
-    // --------------------------------------------------
-    // Phase-3 | Deal with obsolute nodes
-    // --------------------------------------------------
+    // ______________________________________________________________________
+    //  Phase-3 | Deal with obsolute nodes
+    // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
     if (oldNodeHashToElementMap.isNotEmpty) {
       preparedUpdates.insert(
@@ -1278,6 +1368,14 @@ class Renderer with ServicesResolver {
           oldNodeHashToElementMap.values,
         ),
       );
+    }
+
+    // =======================================================================
+    //  Merge collected updates from both direct and hash modes
+    // =======================================================================
+
+    while (preparedUpdatesInDirectMode.isNotEmpty) {
+      preparedUpdates.add(preparedUpdatesInDirectMode.removeLast());
     }
 
     // -------------------------

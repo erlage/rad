@@ -600,6 +600,7 @@ void main() {
 
           expect(testStack.canPop(), equals(false));
         },
+        skip: 'Now renderer sync lists from both ends(more effective)',
       );
 
       test(
