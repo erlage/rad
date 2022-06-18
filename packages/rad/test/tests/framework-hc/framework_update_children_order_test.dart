@@ -648,6 +648,42 @@ void main() {
         expect(RT_TestBed.rootDomNode, RT_hasContents('1'));
       });
 
+      test(
+        'should differentiate keyed and non-keyed widgets of same runtime type',
+        () async {
+          await app!.buildChildren(
+            widgets: [
+              Text(
+                'keyed-1',
+                key: GlobalKey('0'),
+              ),
+              Text(
+                'non-keyed-1',
+              ),
+            ],
+            parentRenderElement: app!.appRenderElement,
+          );
+
+          expect(RT_TestBed.rootDomNode, RT_hasContents('keyed-1|non-keyed-1'));
+
+          await app!.updateChildren(
+            widgets: [
+              Text(
+                'non-keyed-1',
+              ),
+              Text(
+                'keyed-1',
+                key: GlobalKey('0'),
+              ),
+            ],
+            updateType: UpdateType.setState,
+            parentRenderElement: app!.appRenderElement,
+          );
+
+          expect(RT_TestBed.rootDomNode, RT_hasContents('non-keyed-1|keyed-1'));
+        },
+      );
+
       //
     },
   );

@@ -79,10 +79,10 @@ class _CompatibilityHashGenerator {
     required String widgetRuntimeType,
   }) {
     if (null != widgetKey) {
-      return '$widgetRuntimeType:${widgetKey.value}';
+      return '$widgetRuntimeType:k:${widgetKey.value}';
     }
 
-    return '$widgetRuntimeType:${_generateCountForType(widgetRuntimeType)}';
+    return '$widgetRuntimeType:nk:${_generateCountForType(widgetRuntimeType)}';
   }
 
   int _generateCountForType(String type) {
