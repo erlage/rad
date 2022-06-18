@@ -1144,9 +1144,9 @@ class Renderer with ServicesResolver {
   ///
   ///
   /// In direct mode, we tries to reconcile widgets the easiest way possible,
-  /// by traversing old nodes from the bottom and doing one-one comparisons
-  /// with the new list. But we fail fast in direct mode upon encountering a
-  /// mis-match after which we shifts to the second algorithm(hash mode).
+  /// i.e by traversing both lists from both ends to the point where nodes
+  /// starts to differ. If we fails to reconcile all nodes in direct mode we
+  /// then switch to hash mode.
   ///
   ///
   /// Hash mode is capable of reconciling any type nodes, including all
@@ -1155,12 +1155,11 @@ class Renderer with ServicesResolver {
   ///
   ///
   /// Direct mode basically act as a compliment to the hash mode in number of
-  /// cases. Hash mode contains number of heavy weight elements so it's not
+  /// cases. Algorithn used in hash mode is quite heavy weight and it's not
   /// quite suited to reconcile lists that are small or doesn't really contain
-  /// moving parts. We've added first algorithm which act is a performance
-  /// hatch in those cases. In order to get high success rate(at syncing childs
-  /// with just direct mode), we run direct mode only when number of nodes are
-  /// same, both in old and new lists.
+  /// moving parts. Direct mode is helpful even if it fails to reconcile all
+  /// nodes as it narrows down the size of lists that hash mode has to
+  /// reconcile.
   ///
   Iterable<WidgetUpdateObject> _prepareUpdatesUsingRadAlgo({
     required List<Widget> widgets,
@@ -1172,70 +1171,153 @@ class Renderer with ServicesResolver {
     //  Setup | Common to both modes
     // =======================================================================
 
+    var newNodes = widgets;
     var oldNodes = parentRenderElement.frameworkChildElements;
 
-    var newNodesCount = widgets.length;
+    var newNodesCount = newNodes.length;
     var oldNodesCount = oldNodes.length;
 
-    var newNodePointer = newNodesCount - 1;
-    var oldNodePointer = oldNodesCount - 1;
+    var newTopPoint = 0;
+    var oldTopPoint = 0;
 
-    // List of updates prepared by direct traversal of nodes(1st algo)
+    var newBottomPoint = newNodesCount - 1;
+    var oldBottomPoint = oldNodesCount - 1;
 
-    var preparedUpdatesInDirectMode = <WidgetUpdateObject>[];
+    var preparedUpdates = <WidgetUpdateObject>[];
+    var preparedUpdatesInReverse = <WidgetUpdateObject>[];
 
     // =======================================================================
     //  Direct Mode
     // =======================================================================
 
-    // we try direct mode only when number of nodes are same in both lists
+    // ----------------------------------------------------------------------
+    //  Phase-1 | Match nodes from the top
+    // ----------------------------------------------------------------------
 
-    var shouldTryDirectMode = newNodesCount == oldNodesCount;
 
-    if (shouldTryDirectMode) {
-      for (final oldNode in oldNodes.reversed) {
-        var newNode = widgets[newNodePointer];
+    while (newTopPoint <= newBottomPoint && oldTopPoint <= oldBottomPoint) {
+      //
+      var newNode = newNodes[newTopPoint];
+      var oldNode = oldNodes[oldTopPoint];
 
-        var oldKey = oldNode.key;
-        var oldRuntimeType = oldNode.widgetRuntimeType;
+      var oldKey = oldNode.key;
+      var oldRuntimeType = oldNode.widgetRuntimeType;
 
-        var newKey = newNode.key;
-        var newRuntimeType = '${newNode.runtimeType}';
+      var newKey = newNode.key;
+      var newRuntimeType = '${newNode.runtimeType}';
 
-        if (newRuntimeType != oldRuntimeType || newKey != oldKey) {
-          break;
-        }
-
-        preparedUpdatesInDirectMode.add(
-          WidgetUpdateObjectActionUpdate(
-            widget: newNode,
-            widgetPositionIndex: newNodePointer,
-            existingRenderElement: oldNode,
-            newMountAtIndex: null,
-          ),
-        );
-
-        newNodePointer--;
-        oldNodePointer--;
+      if (newRuntimeType != oldRuntimeType || newKey != oldKey) {
+        break;
       }
 
-      // if we've iterated over all new and old nodes,
-      // we don't have to run hash mode as all nodes are in sync
+      preparedUpdates.add(
+        WidgetUpdateObjectActionUpdate(
+          widget: newNode,
+          widgetPositionIndex: newTopPoint,
+          existingRenderElement: oldNode,
+          newMountAtIndex: null,
+        ),
+      );
 
-      if (-1 == newNodePointer && -1 == oldNodePointer) {
-        return preparedUpdatesInDirectMode.reversed;
+      newTopPoint++;
+      oldTopPoint++;
+    }
+
+
+    // ----------------------------------------------------------------------
+    //  Phase-Minor-1 | See if we can return early
+    // ----------------------------------------------------------------------
+
+    var hasUnSyncedOldNodes = oldTopPoint <= oldBottomPoint;
+    var hasUnSyncedNewNodes = newTopPoint <= newBottomPoint;
+
+    // check if we can append new nodes and return
+
+    if (hasUnSyncedNewNodes && !hasUnSyncedOldNodes) {
+      preparedUpdates.add(
+        WidgetUpdateObjectActionAdd(
+          widgets: newNodes.sublist(newTopPoint),
+          mountAtIndex: null,
+          widgetPositionIndex: newTopPoint,
+        ),
+      );
+
+      return preparedUpdates;
+    }
+
+    // check if we can dispose old nodes and return
+
+    if (hasUnSyncedOldNodes && !hasUnSyncedNewNodes) {
+      preparedUpdates.insert(
+        0,
+        WidgetUpdateObjectActionDisposeMultiple(
+          oldNodes.sublist(oldTopPoint),
+        ),
+      );
+
+      return preparedUpdates;
+    }
+
+    // ----------------------------------------------------------------------
+    //  Phase-2 | Match nodes from the bottom
+    // ----------------------------------------------------------------------
+
+    while (oldTopPoint <= oldBottomPoint && newTopPoint <= newBottomPoint) {
+      //
+      var newNode = newNodes[newBottomPoint];
+      var oldNode = oldNodes[oldBottomPoint];
+
+      var oldKey = oldNode.key;
+      var oldRuntimeType = oldNode.widgetRuntimeType;
+
+      var newKey = newNode.key;
+      var newRuntimeType = '${newNode.runtimeType}';
+
+      if (newRuntimeType != oldRuntimeType || newKey != oldKey) {
+        break;
       }
+
+      preparedUpdatesInReverse.add(
+        WidgetUpdateObjectActionUpdate(
+          widget: newNode,
+          widgetPositionIndex: newTopPoint,
+          existingRenderElement: oldNode,
+          newMountAtIndex: null,
+        ),
+      );
+
+      newBottomPoint--;
+      oldBottomPoint--;
+    }
+
+
+    // ----------------------------------------------------------------------
+    //  Phase-Minor-2 | Check if all nodes are synced and whether we can return
+    // ----------------------------------------------------------------------
+
+    hasUnSyncedOldNodes = oldTopPoint <= oldBottomPoint;
+    hasUnSyncedNewNodes = newTopPoint <= newBottomPoint;
+
+    // if we've iterated over all new and old nodes,
+    // we don't have to run hash mode as all nodes are in sync
+
+    if (!hasUnSyncedNewNodes && !hasUnSyncedOldNodes) {
+      if (preparedUpdates.isEmpty) {
+        return preparedUpdatesInReverse.reversed;
+      }
+
+      while (preparedUpdatesInReverse.isNotEmpty) {
+        preparedUpdates.add(preparedUpdatesInReverse.removeLast());
+      }
+
+      return preparedUpdates;
     }
 
     // =======================================================================
     //  Hash mode
     // =======================================================================
 
-    // Comment out the direct mode part to test changes made to hash mode.
-
     var keyGenService = services.keyGen;
-
-    var preparedUpdates = <WidgetUpdateObject>[];
 
     var hasherForOldNodes = keyGenService.createCompatibilityHashGenerator();
     var hasherForNewNodes = keyGenService.createCompatibilityHashGenerator();
@@ -1243,30 +1325,27 @@ class Renderer with ServicesResolver {
     var oldNodeHashToElementMap = <String, RenderElement>{};
     var oldNodeHashToPositionMap = <String, int>{};
 
-    // ______________________________________________________________________
+    // ----------------------------------------------------------------------
     //  Phase-1 | Collect data from old nodes
-    // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    // ----------------------------------------------------------------------
 
-    var oldPositionIndex = -1;
-    for (final renderElement in oldNodes) {
-      oldPositionIndex++;
+    while (oldTopPoint <= oldBottomPoint) {
+      var oldPositionIndex = oldTopPoint++;
 
-      if (oldPositionIndex > oldNodePointer) {
-        break;
-      }
+      var oldNode = oldNodes[oldPositionIndex];
 
       var oldNodeHash = hasherForOldNodes.createCompatibilityHash(
-        widgetKey: renderElement.key,
-        widgetRuntimeType: renderElement.widgetRuntimeType,
+        widgetKey: oldNode.key,
+        widgetRuntimeType: oldNode.widgetRuntimeType,
       );
 
       oldNodeHashToPositionMap[oldNodeHash] = oldPositionIndex;
-      oldNodeHashToElementMap[oldNodeHash] = renderElement;
+      oldNodeHashToElementMap[oldNodeHash] = oldNode;
     }
 
-    // ______________________________________________________________________
+    // ----------------------------------------------------------------------
     //  Phase-2 | Traverse new widgets and prepare updates
-    // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    // ----------------------------------------------------------------------
 
     // for keeping track of nodes that were missing and added or moved to top
     var slippedInNodesCount = 0;
@@ -1275,17 +1354,14 @@ class Renderer with ServicesResolver {
     WidgetUpdateObjectActionAdd? lastAddedWidgetAction;
 
     // for keeping track of new widget's position
-    var newPositionIndex = -1;
-    for (final widget in widgets) {
-      newPositionIndex++;
+    while (newTopPoint <= newBottomPoint) {
+      var newPositionIndex = newTopPoint++;
 
-      if (newPositionIndex > newNodePointer) {
-        break;
-      }
+      var newNode = newNodes[newPositionIndex];
 
       var newNodeHash = hasherForNewNodes.createCompatibilityHash(
-        widgetKey: widget.key,
-        widgetRuntimeType: '${widget.runtimeType}',
+        widgetKey: newNode.key,
+        widgetRuntimeType: '${newNode.runtimeType}',
       );
 
       var existingRenderNode = oldNodeHashToElementMap.remove(newNodeHash);
@@ -1311,14 +1387,14 @@ class Renderer with ServicesResolver {
           var expectedPosIndex = lastWidgetPosIndex + lastWidgetAppendCount;
 
           if (expectedPosIndex == newPositionIndex) {
-            lastAddedWidgetAction.appendAnotherWidget(widget);
+            lastAddedWidgetAction.appendAnotherWidget(newNode);
 
             continue;
           }
         }
 
         lastAddedWidgetAction = WidgetUpdateObjectActionAdd(
-          widgets: [widget],
+          widgets: [newNode],
           mountAtIndex: newPositionIndex,
           widgetPositionIndex: newPositionIndex,
         );
@@ -1349,7 +1425,7 @@ class Renderer with ServicesResolver {
 
       preparedUpdates.add(
         WidgetUpdateObjectActionUpdate(
-          widget: widget,
+          widget: newNode,
           newMountAtIndex: mountAtIndex,
           widgetPositionIndex: newPositionIndex,
           existingRenderElement: existingRenderNode,
@@ -1357,9 +1433,9 @@ class Renderer with ServicesResolver {
       );
     }
 
-    // ______________________________________________________________________
+    // ----------------------------------------------------------------------
     //  Phase-3 | Deal with obsolute nodes
-    // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    // ----------------------------------------------------------------------
 
     if (oldNodeHashToElementMap.isNotEmpty) {
       preparedUpdates.insert(
@@ -1371,11 +1447,11 @@ class Renderer with ServicesResolver {
     }
 
     // =======================================================================
-    //  Merge collected updates from both direct and hash modes
+    //  Merge collected updates during direct mode
     // =======================================================================
 
-    while (preparedUpdatesInDirectMode.isNotEmpty) {
-      preparedUpdates.add(preparedUpdatesInDirectMode.removeLast());
+    while (preparedUpdatesInReverse.isNotEmpty) {
+      preparedUpdates.add(preparedUpdatesInReverse.removeLast());
     }
 
     // -------------------------
