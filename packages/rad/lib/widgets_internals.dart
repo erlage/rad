@@ -30,7 +30,6 @@ export 'src/core/framework.dart' show Framework;
 export 'src/core/services/debug/debug_service.dart' show DebugService;
 export 'src/core/services/router/router_service.dart' show RouterService;
 export 'src/core/services/events/events_service.dart' show EventsService;
-export 'src/core/services/keygen/key_gen_service.dart' show KeyGenService;
 export 'src/core/services/scheduler/scheduler_service.dart';
 export 'src/core/services/abstract.dart' show Service;
 export 'src/core/services/services.dart' show Services;
