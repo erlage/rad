@@ -266,32 +266,6 @@ class Reconciler {
 
     //// TEST__COMMENTABLE_MUTATION_END
 
-    // ----------------------------------------------------------------------
-    //  Phase-Minor-2 | Check if all nodes are synced and whether we can return
-    // ----------------------------------------------------------------------
-
-    hasUnSyncedOldNodes = oldTopPoint <= oldBottomPoint;
-    hasUnSyncedNewNodes = newTopPoint <= newBottomPoint;
-
-    //// TEST__COMMENTABLE_MUTATION_START
-
-    // if we've iterated over all new and old nodes,
-    // we don't have to run hash mode as all nodes are in sync
-
-    if (!hasUnSyncedNewNodes && !hasUnSyncedOldNodes) {
-      if (preparedUpdates.isEmpty) {
-        return preparedUpdatesInReverse.reversed;
-      }
-
-      while (preparedUpdatesInReverse.isNotEmpty) {
-        preparedUpdates.add(preparedUpdatesInReverse.removeLast());
-      }
-
-      return preparedUpdates;
-    }
-
-    //// TEST__COMMENTABLE_MUTATION_END
-
     // =======================================================================
     //  Hash mode
     // =======================================================================
