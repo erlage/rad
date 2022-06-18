@@ -1,4 +1,4 @@
-name: Renderer
+name: Reconciler
 
 on:
   workflow_dispatch:
@@ -6,12 +6,12 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'packages/rad/lib/src/core/renderer/renderer.dart'
+      - 'packages/rad/lib/src/core/renderer/reconciler.dart'
   
   pull_request:
     branches: [ main ]
     paths:
-      - 'packages/rad/lib/src/core/renderer/renderer.dart'
+      - 'packages/rad/lib/src/core/renderer/reconciler.dart'
   
 jobs:
   tests_w_wo_optimizations:
@@ -27,6 +27,6 @@ jobs:
           cd packages/rad
           dart pub get
           cd tool
-          dart run setup_renderer_optmizations_test.dart
+          dart run setup_reconciler_test.dart
           cd ..
-          sh renderer_optimizations_test.sh
+          sh reconciler_tests.sh

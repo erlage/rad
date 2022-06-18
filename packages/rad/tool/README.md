@@ -10,4 +10,4 @@ After adding css(file or edit), run `dart run build_runner build` to build files
 
 ### Renderer Optimizations test:
 
-This utility performs tests after making hinted mutations such as adding/removing specific optimizations on source to ensure that our renderer implementation is correct with and without optimizations. See workflows/renderer_optimizations_test.yml for more.
+This utility performs tests after making hinted mutations such as adding/removing specific optimizations on source to ensure that our renderer implementation is correct with and without optimizations. See reconciler.yml workflow for more.
