@@ -1167,6 +1167,23 @@ class Renderer with ServicesResolver {
     required BuildContext parentContext,
     required bool flagAddIfNotFound,
   }) {
+    // Note on testing:
+    //
+    // Since we're not writing unit tests for renderer, testing this part is bit
+    // tricky. It's kind of accepted as this part is on hot-path and every
+    // change in this method also had to go through benchmarks.
+    //
+    // Testing on CI: Automated
+    //
+    // Testing locally:
+    //
+    //  - To test direct mode:
+    //    Just run all tests, direct mode always gets executed.
+    //
+    //  - To test hash mode & it's 'takeover procedure' from direct mode:
+    //    See .github/workflows/renderer_optmizations_test.yml
+    //
+
     // =======================================================================
     //  Setup | Common to both modes
     // =======================================================================
@@ -1193,6 +1210,8 @@ class Renderer with ServicesResolver {
     // ----------------------------------------------------------------------
     //  Phase-1 | Match nodes from the top
     // ----------------------------------------------------------------------
+
+    //// TEST__COMMENTABLE_MUTATATION_START
 
     while (newTopPoint <= newBottomPoint && oldTopPoint <= oldBottomPoint) {
       //
@@ -1222,12 +1241,16 @@ class Renderer with ServicesResolver {
       oldTopPoint++;
     }
 
+    //// TEST__COMMENTABLE_MUTATATION_END
+
     // ----------------------------------------------------------------------
     //  Phase-Minor-1 | See if we can return early
     // ----------------------------------------------------------------------
 
     var hasUnSyncedOldNodes = oldTopPoint <= oldBottomPoint;
     var hasUnSyncedNewNodes = newTopPoint <= newBottomPoint;
+
+    //// TEST__COMMENTABLE_MUTATATION_START
 
     // check if we can append new nodes and return
 
@@ -1256,9 +1279,13 @@ class Renderer with ServicesResolver {
       return preparedUpdates;
     }
 
+    //// TEST__COMMENTABLE_MUTATATION_END
+
     // ----------------------------------------------------------------------
     //  Phase-2 | Match nodes from the bottom
     // ----------------------------------------------------------------------
+
+    //// TEST__COMMENTABLE_MUTATATION_START
 
     while (oldTopPoint <= oldBottomPoint && newTopPoint <= newBottomPoint) {
       //
@@ -1288,12 +1315,16 @@ class Renderer with ServicesResolver {
       oldBottomPoint--;
     }
 
+    //// TEST__COMMENTABLE_MUTATATION_END
+
     // ----------------------------------------------------------------------
     //  Phase-Minor-2 | Check if all nodes are synced and whether we can return
     // ----------------------------------------------------------------------
 
     hasUnSyncedOldNodes = oldTopPoint <= oldBottomPoint;
     hasUnSyncedNewNodes = newTopPoint <= newBottomPoint;
+
+    //// TEST__COMMENTABLE_MUTATATION_START
 
     // if we've iterated over all new and old nodes,
     // we don't have to run hash mode as all nodes are in sync
@@ -1309,6 +1340,8 @@ class Renderer with ServicesResolver {
 
       return preparedUpdates;
     }
+
+    //// TEST__COMMENTABLE_MUTATATION_END
 
     // =======================================================================
     //  Hash mode

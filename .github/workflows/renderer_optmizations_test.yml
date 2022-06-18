@@ -1,0 +1,31 @@
+name: renderer(optmizations)
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches: [ main ]
+    paths:
+      - 'packages/rad/lib/src/core/renderer/renderer.dart'
+  
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'packages/rad/lib/src/core/renderer/renderer.dart'
+  
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
+      
+      - name: Run tests
+        run: |
+          cd packages/rad
+          dart pub get
+          cd tool
+          dart run setup_renderer_optmizations_test.dart
+          cd ..
+          sh renderer_optimizations_test.sh
