@@ -1,4 +1,4 @@
-name: rad(pkg)
+name: Rad(test-pkg)
 
 on:
   workflow_dispatch:
@@ -6,16 +6,17 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'packages/rad/**'
+      - 'packages/rad_test/**'
   
   pull_request:
     branches: [ main ]
     paths:
-      - 'packages/rad/**'
+      - 'packages/rad_test/**'
   
 jobs:
   analyze: 
     runs-on: ubuntu-latest
+    name: Analyze
 
     steps:
       - uses: actions/checkout@v3
@@ -23,13 +24,14 @@ jobs:
 
       - name: Run analyze
         run: |
-          cd packages/rad
+          cd packages/rad_test
           dart pub get
           dart format --output=none --set-exit-if-changed .
           dart analyze --fatal-infos
 
   tests:
     runs-on: ubuntu-latest
+    name: Run tests
 
     steps:
       - uses: actions/checkout@v3
@@ -37,6 +39,6 @@ jobs:
       
       - name: Run tests
         run: |
-          cd packages/rad
+          cd packages/rad_test
           dart pub get
           dart test

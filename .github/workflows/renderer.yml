@@ -1,4 +1,4 @@
-name: renderer(optmizations)
+name: Renderer
 
 on:
   workflow_dispatch:
@@ -14,8 +14,9 @@ on:
       - 'packages/rad/lib/src/core/renderer/renderer.dart'
   
 jobs:
-  tests:
+  tests_w_wo_optimizations:
     runs-on: ubuntu-latest
+    name: Run tests both w/ & w/o optimizations
 
     steps:
       - uses: actions/checkout@v3

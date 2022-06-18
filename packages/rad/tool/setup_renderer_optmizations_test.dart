@@ -2,8 +2,8 @@ import 'dart:collection';
 import 'dart:io' as io;
 import 'package:path/path.dart' as path;
 
-final rExpStart = RegExp(r'\/\/\/\/ TEST__COMMENTABLE_MUTATATION_START');
-final rExpEnd = RegExp(r'\/\/\/\/ TEST__COMMENTABLE_MUTATATION_END');
+final rExpStart = RegExp(r'\/\/\/\/ TEST__COMMENTABLE_MUTATION_START');
+final rExpEnd = RegExp(r'\/\/\/\/ TEST__COMMENTABLE_MUTATION_END');
 
 const inFilePath = '../lib/src/core/renderer/renderer.dart';
 const outFilePath = '../renderer_optimizations_test.sh';

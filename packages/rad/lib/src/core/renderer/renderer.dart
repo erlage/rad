@@ -1211,7 +1211,7 @@ class Renderer with ServicesResolver {
     //  Phase-1 | Match nodes from the top
     // ----------------------------------------------------------------------
 
-    //// TEST__COMMENTABLE_MUTATATION_START
+    //// TEST__COMMENTABLE_MUTATION_START
 
     while (newTopPoint <= newBottomPoint && oldTopPoint <= oldBottomPoint) {
       //
@@ -1241,7 +1241,7 @@ class Renderer with ServicesResolver {
       oldTopPoint++;
     }
 
-    //// TEST__COMMENTABLE_MUTATATION_END
+    //// TEST__COMMENTABLE_MUTATION_END
 
     // ----------------------------------------------------------------------
     //  Phase-Minor-1 | See if we can return early
@@ -1250,7 +1250,7 @@ class Renderer with ServicesResolver {
     var hasUnSyncedOldNodes = oldTopPoint <= oldBottomPoint;
     var hasUnSyncedNewNodes = newTopPoint <= newBottomPoint;
 
-    //// TEST__COMMENTABLE_MUTATATION_START
+    //// TEST__COMMENTABLE_MUTATION_START
 
     // check if we can append new nodes and return
 
@@ -1279,13 +1279,13 @@ class Renderer with ServicesResolver {
       return preparedUpdates;
     }
 
-    //// TEST__COMMENTABLE_MUTATATION_END
+    //// TEST__COMMENTABLE_MUTATION_END
 
     // ----------------------------------------------------------------------
     //  Phase-2 | Match nodes from the bottom
     // ----------------------------------------------------------------------
 
-    //// TEST__COMMENTABLE_MUTATATION_START
+    //// TEST__COMMENTABLE_MUTATION_START
 
     while (oldTopPoint <= oldBottomPoint && newTopPoint <= newBottomPoint) {
       //
@@ -1315,7 +1315,7 @@ class Renderer with ServicesResolver {
       oldBottomPoint--;
     }
 
-    //// TEST__COMMENTABLE_MUTATATION_END
+    //// TEST__COMMENTABLE_MUTATION_END
 
     // ----------------------------------------------------------------------
     //  Phase-Minor-2 | Check if all nodes are synced and whether we can return
@@ -1324,7 +1324,7 @@ class Renderer with ServicesResolver {
     hasUnSyncedOldNodes = oldTopPoint <= oldBottomPoint;
     hasUnSyncedNewNodes = newTopPoint <= newBottomPoint;
 
-    //// TEST__COMMENTABLE_MUTATATION_START
+    //// TEST__COMMENTABLE_MUTATION_START
 
     // if we've iterated over all new and old nodes,
     // we don't have to run hash mode as all nodes are in sync
@@ -1341,7 +1341,7 @@ class Renderer with ServicesResolver {
       return preparedUpdates;
     }
 
-    //// TEST__COMMENTABLE_MUTATATION_END
+    //// TEST__COMMENTABLE_MUTATION_END
 
     // =======================================================================
     //  Hash mode
