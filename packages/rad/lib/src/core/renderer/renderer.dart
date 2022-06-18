@@ -1194,7 +1194,6 @@ class Renderer with ServicesResolver {
     //  Phase-1 | Match nodes from the top
     // ----------------------------------------------------------------------
 
-
     while (newTopPoint <= newBottomPoint && oldTopPoint <= oldBottomPoint) {
       //
       var newNode = newNodes[newTopPoint];
@@ -1222,7 +1221,6 @@ class Renderer with ServicesResolver {
       newTopPoint++;
       oldTopPoint++;
     }
-
 
     // ----------------------------------------------------------------------
     //  Phase-Minor-1 | See if we can return early
@@ -1289,7 +1287,6 @@ class Renderer with ServicesResolver {
       newBottomPoint--;
       oldBottomPoint--;
     }
-
 
     // ----------------------------------------------------------------------
     //  Phase-Minor-2 | Check if all nodes are synced and whether we can return
