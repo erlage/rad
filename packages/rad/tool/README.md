@@ -8,6 +8,6 @@ If you want to add CSS into the framework for your widget then do that in .css f
 
 After adding css(file or edit), run `dart run build_runner build` to build files.
 
-### Renderer Optimizations test:
+### Reconciler tests:
 
-This utility performs tests after making hinted mutations such as adding/removing specific optimizations on source to ensure that our renderer implementation is correct with and without optimizations. See reconciler.yml workflow for more.
+This utility performs tests after making hinted mutations such as adding/removing specific optimizations on source to ensure that our reconciler works correct, both with and without optimizations. See reconciler.yml workflow for more.
