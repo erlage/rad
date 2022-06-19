@@ -273,52 +273,94 @@ class Reconciler {
     var hasherForOldNodes = createCompatibilityHashGenerator();
     var hasherForNewNodes = createCompatibilityHashGenerator();
 
-    var oldNodeHashToElementMap = <String, RenderElement>{};
-    var oldNodeHashToPositionMap = <String, int>{};
-
     // ----------------------------------------------------------------------
-    //  Phase-1 | Collect data from old nodes
+    //  Phase-1 | Collect data from new nodes
     // ----------------------------------------------------------------------
 
-    while (oldTopPoint <= oldBottomPoint) {
-      var oldPositionIndex = oldTopPoint++;
+    var newNodeHashToNodeMap = <String, Widget>{};
+    var newPositionToNodeHashMap = <int, String>{};
 
-      var oldNode = oldNodes[oldPositionIndex];
+    // copy of original top pointer
+    var copyOfNewTopPoint = newTopPoint;
 
-      var oldNodeHash = hasherForOldNodes.createCompatibilityHash(
-        widgetKey: oldNode.key,
-        widgetRuntimeType: oldNode.widgetRuntimeType,
-      );
-
-      oldNodeHashToPositionMap[oldNodeHash] = oldPositionIndex;
-      oldNodeHashToElementMap[oldNodeHash] = oldNode;
-    }
-
-    // ----------------------------------------------------------------------
-    //  Phase-2 | Traverse new widgets and prepare updates
-    // ----------------------------------------------------------------------
-
-    // for keeping track of nodes that were missing and added or moved to top
-    var slippedInNodesCount = 0;
-
-    // for keeping tack of last widget that's inserted
-    WidgetUpdateObjectActionAdd? lastAddedWidgetAction;
-
-    // for keeping track of new widget's position
-    while (newTopPoint <= newBottomPoint) {
-      var newPositionIndex = newTopPoint++;
-
-      var newNode = newNodes[newPositionIndex];
+    while (copyOfNewTopPoint <= newBottomPoint) {
+      var newNode = newNodes[copyOfNewTopPoint];
 
       var newNodeHash = hasherForNewNodes.createCompatibilityHash(
         widgetKey: newNode.key,
         widgetRuntimeType: '${newNode.runtimeType}',
       );
 
-      var existingRenderNode = oldNodeHashToElementMap.remove(newNodeHash);
+      newNodeHashToNodeMap[newNodeHash] = newNode;
+      newPositionToNodeHashMap[copyOfNewTopPoint] = newNodeHash;
+
+      copyOfNewTopPoint++;
+    }
+
+    // ----------------------------------------------------------------------
+    //  Phase-2 | Collect data from old nodes and remove obsolute nodes
+    // ----------------------------------------------------------------------
+
+    var oldNodeHashToNodeMap = <String, RenderElement>{};
+    var oldNodeHashToPositionMap = <String, int>{};
+
+    // expected position of old node
+
+    var obsoluteNodesCount = 0;
+
+    while (oldTopPoint <= oldBottomPoint) {
+      var oldNode = oldNodes[oldTopPoint];
+
+      var oldNodeHash = hasherForOldNodes.createCompatibilityHash(
+        widgetKey: oldNode.key,
+        widgetRuntimeType: oldNode.widgetRuntimeType,
+      );
+
+      oldNodeHashToPositionMap[oldNodeHash] = oldTopPoint - obsoluteNodesCount;
+      oldNodeHashToNodeMap[oldNodeHash] = oldNode;
+
+      //// TEST__COMMENTABLE_MUTATION_START
+
+      // Optimization: Loose positions of obsolute nodes
+
+      // this optimization creats a illusion that there are no obsolute nodes
+      // in the old list. this will prevents unneccessary re-mounts of nodes
+      // that are not obsolute.
+
+      // a node is considered obsolute if it's not present in the new node list.
+      // note that we still hash obsolute nodes and they'll point to a position
+      // which will be occupied by a non-obsolute node. this will helps us find
+      // these obsolutes nodes either for easy dispose or maybe re-use.
+
+      if (null == newNodeHashToNodeMap[oldNodeHash]) {
+        obsoluteNodesCount++;
+      }
+
+      //// TEST__COMMENTABLE_MUTATION_END
+
+      oldTopPoint++;
+    }
+
+    // ----------------------------------------------------------------------
+    //  Phase-3 | Traverse new widgets and prepare updates
+    // ----------------------------------------------------------------------
+
+    // for keeping track of nodes that were missing and added or moved to top
+    var slippedInNodesCount = 0;
+
+    // for keeping tack of last inserted node
+    WidgetUpdateObjectActionAdd? lastAddedWidgetAction;
+
+    while (newTopPoint <= newBottomPoint) {
+      var newPositionIndex = newTopPoint++;
+
+      var newNode = newNodes[newPositionIndex];
+      var newNodeHash = newPositionToNodeHashMap[newPositionIndex];
+
+      var matchedOldNode = oldNodeHashToNodeMap.remove(newNodeHash);
 
       // if matching node not found
-      if (null == existingRenderNode) {
+      if (null == matchedOldNode) {
         if (!flagAddIfNotFound) {
           continue;
         }
@@ -379,7 +421,7 @@ class Reconciler {
           widget: newNode,
           newMountAtIndex: mountAtIndex,
           widgetPositionIndex: newPositionIndex,
-          existingRenderElement: existingRenderNode,
+          existingRenderElement: matchedOldNode,
         ),
       );
     }
@@ -388,11 +430,11 @@ class Reconciler {
     //  Phase-3 | Deal with obsolute nodes
     // ----------------------------------------------------------------------
 
-    if (oldNodeHashToElementMap.isNotEmpty) {
+    if (oldNodeHashToNodeMap.isNotEmpty) {
       preparedUpdates.insert(
         0,
         WidgetUpdateObjectActionDisposeMultiple(
-          oldNodeHashToElementMap.values,
+          oldNodeHashToNodeMap.values,
         ),
       );
     }
