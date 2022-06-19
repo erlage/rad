@@ -418,7 +418,7 @@ abstract class State<T extends StatefulWidget> {
   ///
   @nonVirtual
   @protected
-  void setState(VoidCallback? callable) {
+  void setState([VoidCallback? callable]) {
     var element = _element!;
     var scheduler = element.services.scheduler;
 
