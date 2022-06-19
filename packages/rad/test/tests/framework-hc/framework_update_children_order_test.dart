@@ -549,6 +549,39 @@ void main() {
         expect(RT_TestBed.rootDomNode, RT_hasContents('1|2|3'));
       });
 
+      test('should respect widgets order(non-keyed prepends)', () async {
+        await app!.updateChildren(
+          widgets: [
+            Text('1'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        await app!.updateChildren(
+          widgets: [
+            Text('2'),
+            Text('1'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('2|1'));
+
+        await app!.updateChildren(
+          widgets: [
+            Text('3'),
+            Text('2'),
+            Text('1'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('3|2|1'));
+      });
+
       test('should respect widgets order(non-keyed removals)', () async {
         await app!.updateChildren(
           widgets: [
@@ -570,6 +603,39 @@ void main() {
         );
 
         expect(RT_TestBed.rootDomNode, RT_hasContents('1|2'));
+
+        await app!.updateChildren(
+          widgets: [
+            Text('1'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('1'));
+      });
+
+      test('should respect widgets order(non-keyed revrse removals)', () async {
+        await app!.updateChildren(
+          widgets: [
+            Text('3'),
+            Text('2'),
+            Text('1'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        await app!.updateChildren(
+          widgets: [
+            Text('2'),
+            Text('1'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('2|1'));
 
         await app!.updateChildren(
           widgets: [
@@ -615,6 +681,39 @@ void main() {
         expect(RT_TestBed.rootDomNode, RT_hasContents('1|2|3'));
       });
 
+      test('should respect widgets order(keyed prepends)', () async {
+        await app!.updateChildren(
+          widgets: [
+            Text('1', key: Key('1')),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        await app!.updateChildren(
+          widgets: [
+            Text('2', key: Key('2')),
+            Text('1', key: Key('1')),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('2|1'));
+
+        await app!.updateChildren(
+          widgets: [
+            Text('3', key: Key('3')),
+            Text('2', key: Key('2')),
+            Text('1', key: Key('1')),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('3|2|1'));
+      });
+
       test('should respect widgets order(keyed removals)', () async {
         await app!.updateChildren(
           widgets: [
@@ -636,6 +735,39 @@ void main() {
         );
 
         expect(RT_TestBed.rootDomNode, RT_hasContents('1|2'));
+
+        await app!.updateChildren(
+          widgets: [
+            Text('1', key: Key('1')),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('1'));
+      });
+
+      test('should respect widgets order(keyed revrse removals)', () async {
+        await app!.updateChildren(
+          widgets: [
+            Text('3', key: Key('3')),
+            Text('2', key: Key('2')),
+            Text('1', key: Key('1')),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        await app!.updateChildren(
+          widgets: [
+            Text('2', key: Key('2')),
+            Text('1', key: Key('1')),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('2|1'));
 
         await app!.updateChildren(
           widgets: [
@@ -683,6 +815,80 @@ void main() {
           expect(RT_TestBed.rootDomNode, RT_hasContents('non-keyed-1|keyed-1'));
         },
       );
+
+      test('should respect order(insertions in the middle)', () async {
+        await app!.updateChildren(
+          widgets: [
+            Text('1'),
+            Text('2'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        await app!.updateChildren(
+          widgets: [
+            Text('1'),
+            Division(innerText: 'n1'),
+            Division(innerText: 'n2'),
+            Division(innerText: 'n3'),
+            Text('2'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('1|n1|n2|n3|2'));
+      });
+
+      test('should respect order(disposals from the middle)', () async {
+        await app!.updateChildren(
+          widgets: [
+            Text('1'),
+            Division(innerText: 'n1'),
+            Division(innerText: 'n2'),
+            Division(innerText: 'n2'),
+            Text('2'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        await app!.updateChildren(
+          widgets: [
+            Text('1'),
+            Division(innerText: 'n1'),
+            Division(innerText: 'n2'),
+            Text('2'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('1|n1|n2|2'));
+
+        await app!.updateChildren(
+          widgets: [
+            Text('1'),
+            Division(innerText: 'n2'),
+            Text('2'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('1|n2|2'));
+
+        await app!.updateChildren(
+          widgets: [
+            Text('1'),
+            Text('2'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+        expect(RT_TestBed.rootDomNode, RT_hasContents('1|2'));
+      });
 
       //
     },

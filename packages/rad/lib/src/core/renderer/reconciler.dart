@@ -266,6 +266,59 @@ class Reconciler {
 
     //// TEST__COMMENTABLE_MUTATION_END
 
+    // ----------------------------------------------------------------------
+    //  Phase-Minor-2 | Check if we can take a fast path
+    // ----------------------------------------------------------------------
+
+    //// TEST__COMMENTABLE_MUTATION_START
+
+    hasUnSyncedOldNodes = oldTopPoint <= oldBottomPoint;
+    hasUnSyncedNewNodes = newTopPoint <= newBottomPoint;
+
+    // fast path for:
+    //  - inserting any number of nodes in the middle
+    //  - prepending any number of keyed nodes
+
+    if (hasUnSyncedNewNodes && !hasUnSyncedOldNodes) {
+      while (preparedUpdatesInReverse.isNotEmpty) {
+        preparedUpdates.add(preparedUpdatesInReverse.removeLast());
+      }
+
+      preparedUpdates.insert(
+        newTopPoint,
+        WidgetUpdateObjectActionAdd(
+          widgets: newNodes.sublist(newTopPoint, newBottomPoint + 1),
+          mountAtIndex: newTopPoint,
+          widgetPositionIndex: newTopPoint,
+        ),
+      );
+
+      return preparedUpdates;
+    }
+
+    // fast path for:
+    //   - disposing any number of keyed nodes from top
+    //   - disposing any number from the middle
+    //   - disposing any number from the start/end
+    //       (if there's a mismatch in phase-1/phase-2)
+
+    if (hasUnSyncedOldNodes && !hasUnSyncedNewNodes) {
+      while (preparedUpdatesInReverse.isNotEmpty) {
+        preparedUpdates.add(preparedUpdatesInReverse.removeLast());
+      }
+
+      preparedUpdates.insert(
+        0,
+        WidgetUpdateObjectActionDisposeMultiple(
+          oldNodes.sublist(oldTopPoint, oldBottomPoint + 1),
+        ),
+      );
+
+      return preparedUpdates;
+    }
+
+    //// TEST__COMMENTABLE_MUTATION_END
+
     // =======================================================================
     //  Hash mode
     // =======================================================================
