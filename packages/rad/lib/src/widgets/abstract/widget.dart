@@ -101,8 +101,9 @@ abstract class Widget {
   ///
   /// Framework will call this method when it inflates current widget for the
   /// first time at specific position in widget tree. Each [RenderElement]
-  /// inherits from its parent, therefore framewok will call this method and
-  /// pass it a reference to [parent] element of this widget.
+  /// inherits number of properties from its parent, therefore framewok will
+  /// call this method and pass it a reference to [parent] element of this
+  /// widget.
   ///
   RenderElement createRenderElement(RenderElement parent);
 }
