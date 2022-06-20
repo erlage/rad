@@ -418,16 +418,14 @@ abstract class State<T extends StatefulWidget> {
   ///
   @nonVirtual
   @protected
-  void setState(VoidCallback? callable) {
+  void setState(VoidCallback callable) {
     var element = _element!;
     var scheduler = element.services.scheduler;
 
     scheduler.addTask(
       StimulateListenerTask(
         beforeTaskCallback: () {
-          if (null != callable) {
-            callable();
-          }
+          callable();
         },
         afterTaskCallback: () {
           // this is wrapped in a another task to defer the call to build().
