@@ -391,7 +391,6 @@ class Renderer with ServicesResolver {
     var updates = reconciler.prepareUpdates(
       widgets: widgets,
       parentRenderElement: parentRenderElement,
-      parentContext: parentRenderElement,
       flagAddIfNotFound: flagAddIfNotFound,
     );
 

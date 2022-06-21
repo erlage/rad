@@ -1,4 +1,3 @@
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/renderer/widget_update_object.dart';
@@ -27,7 +26,6 @@ class Reconciler {
   Iterable<WidgetUpdateObject> prepareUpdates({
     required List<Widget> widgets,
     required RenderElement parentRenderElement,
-    required BuildContext parentContext,
     required bool flagAddIfNotFound,
   }) {
     // If there are no new widgets, dispose all the old ones
@@ -51,7 +49,6 @@ class Reconciler {
     return _prepareUpdatesUsingRadAlgo(
       widgets: widgets,
       parentRenderElement: parentRenderElement,
-      parentContext: parentContext,
       flagAddIfNotFound: flagAddIfNotFound,
     );
   }
@@ -117,7 +114,6 @@ class Reconciler {
   Iterable<WidgetUpdateObject> _prepareUpdatesUsingRadAlgo({
     required List<Widget> widgets,
     required RenderElement parentRenderElement,
-    required BuildContext parentContext,
     required bool flagAddIfNotFound,
   }) {
     // Note on testing:
@@ -298,8 +294,8 @@ class Reconciler {
 
     // fast path for:
     //   - disposing any number of keyed nodes from top
-    //   - disposing any number from the middle
-    //   - disposing any number from the start/end
+    //   - disposing any number of new nodes from the middle
+    //   - disposing any number of new nodes from the start/end
     //       (if there's a mismatch in phase-1/phase-2)
 
     if (hasUnSyncedOldNodes && !hasUnSyncedNewNodes) {
