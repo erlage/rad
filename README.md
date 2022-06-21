@@ -197,7 +197,7 @@ Similarity tags:
 [Abbreviation](https://pub.dev/documentation/rad/latest/widgets_html/Abbreviation-class.html)
 , [Anchor](https://pub.dev/documentation/rad/latest/widgets_html/Anchor-class.html)
 , [Article](https://pub.dev/documentation/rad/latest/widgets_html/Article-class.html)
-, [Blockquote](https://pub.dev/documentation/rad/latest/widgets_html/Blockquote-class.html)
+, [BlockQuote](https://pub.dev/documentation/rad/latest/widgets_html/BlockQuote-class.html)
 , [BreakLine](https://pub.dev/documentation/rad/latest/widgets_html/BreakLine-class.html)
 , [Button](https://pub.dev/documentation/rad/latest/widgets_html/Button-class.html)
 , [Canvas](https://pub.dev/documentation/rad/latest/widgets_html/Canvas-class.html)
