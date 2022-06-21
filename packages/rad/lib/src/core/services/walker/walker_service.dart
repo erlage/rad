@@ -15,7 +15,7 @@ class WalkerService extends Service {
   ///
   /// Dom node to widget-key-value mappings.
   ///
-  final _domNodeToElementMap = <Node, RenderElement>{};
+  final _domNodeToElementMap = <int, RenderElement>{};
 
   /// Registered global elements.
   ///
@@ -56,7 +56,7 @@ class WalkerService extends Service {
     }
 
     if (renderElement.hasDomNode) {
-      _domNodeToElementMap[renderElement.domNode!] = renderElement;
+      _domNodeToElementMap[renderElement.domNode!.hashCode] = renderElement;
     }
   }
 
@@ -66,7 +66,7 @@ class WalkerService extends Service {
     }
 
     if (element.hasDomNode) {
-      _domNodeToElementMap.remove(element.domNode);
+      _domNodeToElementMap.remove(element.domNode.hashCode);
     }
   }
 
@@ -79,6 +79,6 @@ class WalkerService extends Service {
   /// Returns associated render element of dom node.
   ///
   RenderElement? getRenderElementAssociatedWithDomNode(Node domNode) {
-    return _domNodeToElementMap[domNode];
+    return _domNodeToElementMap[domNode.hashCode];
   }
 }
