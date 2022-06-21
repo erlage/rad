@@ -228,15 +228,15 @@ void main() {
           widgets: [
             RT_TestWidget(
               key: GlobalKey('widget-1'),
-              roEventBeforeUnMount: () => testStack.push('dispose-1'),
+              roEventAfterUnMount: () => testStack.push('dispose-1'),
             ),
             RT_TestWidget(
               key: GlobalKey('widget-2'),
-              roEventBeforeUnMount: () => testStack.push('dispose-2'),
+              roEventAfterUnMount: () => testStack.push('dispose-2'),
             ),
             RT_TestWidget(
               key: GlobalKey('widget-3'),
-              roEventBeforeUnMount: () => testStack.push('dispose-3'),
+              roEventAfterUnMount: () => testStack.push('dispose-3'),
             ),
           ],
           parentRenderElement: app!.appRenderElement,
@@ -463,7 +463,7 @@ void main() {
             RT_TestWidget(
               key: GlobalKey('widget-1'),
               roEventUpdate: () => testStack.push('update-1'),
-              roEventBeforeUnMount: () => testStack.push('dispose-1'),
+              roEventAfterUnMount: () => testStack.push('dispose-1'),
             ),
             RT_TestWidget(
               key: GlobalKey('widget-2'),
@@ -479,16 +479,16 @@ void main() {
                     ),
                   ],
                   roEventUpdate: () => testStack.push('update-2-1'),
-                  roEventBeforeUnMount: () => testStack.push('dispose-2-1'),
+                  roEventAfterUnMount: () => testStack.push('dispose-2-1'),
                 ),
               ],
               roEventUpdate: () => testStack.push('update-2'),
-              roEventBeforeUnMount: () => testStack.push('dispose-2'),
+              roEventAfterUnMount: () => testStack.push('dispose-2'),
             ),
             RT_TestWidget(
               key: GlobalKey('widget-3'),
               roEventUpdate: () => testStack.push('update-3'),
-              roEventBeforeUnMount: () => testStack.push('dispose-3'),
+              roEventAfterUnMount: () => testStack.push('dispose-3'),
             ),
             RT_TestWidget(key: GlobalKey('widget-4')),
           ],

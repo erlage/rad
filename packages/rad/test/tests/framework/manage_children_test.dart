@@ -201,19 +201,19 @@ void main() {
         await tester.pumpMultipleWidgets([
           RT_TestWidget(
             customHash: 'widget-1',
-            roEventBeforeUnMount: () => tester.push('dispose 1'),
+            roEventAfterUnMount: () => tester.push('dispose 1'),
           ),
           RT_TestWidget(
             customHash: 'widget-2',
-            roEventBeforeUnMount: () => tester.push('dispose 2'),
+            roEventAfterUnMount: () => tester.push('dispose 2'),
           ),
           RT_TestWidget(
             customHash: 'widget-3',
-            roEventBeforeUnMount: () => tester.push('dispose 3'),
+            roEventAfterUnMount: () => tester.push('dispose 3'),
           ),
           RT_TestWidget(
             customHash: 'widget-4',
-            roEventBeforeUnMount: () => tester.push('dispose 3'),
+            roEventAfterUnMount: () => tester.push('dispose 3'),
           ),
         ]);
 
@@ -404,7 +404,7 @@ void main() {
             key: GlobalKey('1'),
             customHash: 'widget-1',
             roEventUpdate: () => tester.push('update-1'),
-            roEventBeforeUnMount: () => tester.push('dispose-1'),
+            roEventAfterUnMount: () => tester.push('dispose-1'),
           ),
           RT_TestWidget(
             customHash: 'widget-2',
@@ -420,17 +420,17 @@ void main() {
                   ),
                 ],
                 roEventUpdate: () => tester.push('update-2-1'),
-                roEventBeforeUnMount: () => tester.push('dispose-2-1'),
+                roEventAfterUnMount: () => tester.push('dispose-2-1'),
               ),
             ],
             roEventUpdate: () => tester.push('update-2'),
-            roEventBeforeUnMount: () => tester.push('dispose-2'),
+            roEventAfterUnMount: () => tester.push('dispose-2'),
           ),
           RT_TestWidget(
             key: GlobalKey('3'),
             customHash: 'widget-3',
             roEventUpdate: () => tester.push('update-3'),
-            roEventBeforeUnMount: () => tester.push('dispose-3'),
+            roEventAfterUnMount: () => tester.push('dispose-3'),
           ),
           RT_TestWidget(customHash: 'widget-4'),
         ]);

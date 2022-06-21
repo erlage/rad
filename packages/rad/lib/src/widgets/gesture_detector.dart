@@ -148,7 +148,7 @@ class GestureDetectorRenderElement extends SingleChildRenderElement {
   }
 
   @override
-  beforeUnMount() => state.frameworkDispose();
+  afterUnMount() => state.frameworkDispose();
 }
 
 /// Gesture detector's state.

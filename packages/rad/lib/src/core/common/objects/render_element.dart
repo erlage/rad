@@ -197,11 +197,11 @@ abstract class RenderElement implements BuildContext {
     required UpdateType updateType,
   }) {}
 
-  /// Before unMount hook.
+  /// After unMount hook.
   ///
   /// This hook gets called exactly once during lifetime of an element.
   ///
-  void beforeUnMount() {}
+  void afterUnMount() {}
 
   /*
   |--------------------------------------------------------------------------
@@ -452,10 +452,10 @@ abstract class RenderElement implements BuildContext {
   }
 
   @nonVirtual
-  void frameworkBeforeUnMount() {
+  void frameworkAfterUnMount() {
     _isMounted = false;
 
-    beforeUnMount();
+    afterUnMount();
   }
 
   /*
@@ -533,6 +533,21 @@ abstract class RenderElement implements BuildContext {
     } else {
       _childElements.addAll(elements);
     }
+  }
+
+  /// Eject all child elements of current element.
+  ///
+  /// This process moves all child elements to a iterable and return.
+  ///
+  @nonVirtual
+  Iterable<RenderElement> frameworkDetachAndReturnChildElements() {
+    var ejectedRenderElements = <RenderElement>[];
+
+    while (_childElements.isNotEmpty) {
+      ejectedRenderElements.add(_childElements.removeLast().._parent = null);
+    }
+
+    return ejectedRenderElements.reversed;
   }
 
   @override

@@ -430,7 +430,7 @@ class NavigatorRenderElement extends RenderElement {
   }
 
   @override
-  beforeUnMount() => state.frameworkDispose();
+  afterUnMount() => state.frameworkDispose();
 
   void addDependent(BuildContext dependentContext) {
     dependentContext as RenderElement;

@@ -219,24 +219,24 @@ void main() {
         await tester.pumpWidget(
           RT_TestWidget(
             key: gkey,
-            roEventBeforeUnMount: () => tester.push('root-dispose'),
+            roEventAfterUnMount: () => tester.push('root-dispose'),
             children: [
               RT_TestWidget(
-                roEventBeforeUnMount: () => tester.push('dispose-0'),
+                roEventAfterUnMount: () => tester.push('dispose-0'),
                 children: [
                   RT_TestWidget(
-                    roEventBeforeUnMount: () => tester.push('dispose-0-0'),
+                    roEventAfterUnMount: () => tester.push('dispose-0-0'),
                   ),
                   RT_TestWidget(
-                    roEventBeforeUnMount: () => tester.push('dispose-0-1'),
+                    roEventAfterUnMount: () => tester.push('dispose-0-1'),
                     children: [
                       RT_TestWidget(
-                        roEventBeforeUnMount: () => tester.push(
+                        roEventAfterUnMount: () => tester.push(
                           'dispose-0-1-0',
                         ),
                       ),
                       RT_TestWidget(
-                        roEventBeforeUnMount: () => tester.push(
+                        roEventAfterUnMount: () => tester.push(
                           'dispose-0-1-1',
                         ),
                       ),
@@ -245,14 +245,14 @@ void main() {
                 ],
               ),
               RT_TestWidget(
-                roEventBeforeUnMount: () => tester.push('dispose-1'),
+                roEventAfterUnMount: () => tester.push('dispose-1'),
                 children: [
                   // nested child widgets
                   RT_TestWidget(
-                    roEventBeforeUnMount: () => tester.push('dispose-1-0'),
+                    roEventAfterUnMount: () => tester.push('dispose-1-0'),
                   ),
                   RT_TestWidget(
-                    roEventBeforeUnMount: () => tester.push('dispose-1-1'),
+                    roEventAfterUnMount: () => tester.push('dispose-1-1'),
                   ),
                 ],
               ),

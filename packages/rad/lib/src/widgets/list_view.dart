@@ -229,7 +229,7 @@ class ListViewBuilderRenderElement extends RenderElement {
   }
 
   @override
-  beforeUnMount() => state.frameworkDispose();
+  afterUnMount() => state.frameworkDispose();
 }
 
 /*

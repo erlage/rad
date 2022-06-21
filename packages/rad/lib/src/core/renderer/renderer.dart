@@ -71,8 +71,8 @@ class Renderer with ServicesResolver {
     // ------------------------------------ //
 
     if (flagCleanParentContents) {
-      cleanParentContents(
-        parentRenderElement: parentRenderElement,
+      cleanRenderElement(
+        renderElement: parentRenderElement,
         jobQueue: queue,
       );
     }
@@ -237,6 +237,9 @@ class Renderer with ServicesResolver {
     // -- widgets to dispose under context --
     //
     required RenderElement renderElement,
+    //
+    // whether to preserve the widget itself
+    //
     required bool flagPreserveTarget,
     //
     // -- optional --
@@ -247,11 +250,17 @@ class Renderer with ServicesResolver {
 
     // ------------------------------------ //
 
-    disposeRenderElement(
-      renderElement: renderElement,
-      flagPreserveTarget: flagPreserveTarget,
-      jobQueue: queue,
-    );
+    if (flagPreserveTarget) {
+      cleanRenderElement(
+        renderElement: renderElement,
+        jobQueue: queue,
+      );
+    } else {
+      disposeRenderElement(
+        renderElement: renderElement,
+        jobQueue: queue,
+      );
+    }
 
     // ------------------------------------ //
 
@@ -435,8 +444,8 @@ class Renderer with ServicesResolver {
         case WidgetUpdateType.cleanParent:
           updateObject as WidgetUpdateObjectActionCleanParent;
 
-          cleanParentContents(
-            parentRenderElement: parentRenderElement,
+          cleanRenderElement(
+            renderElement: parentRenderElement,
             jobQueue: jobQueue,
           );
 
@@ -914,101 +923,87 @@ class Renderer with ServicesResolver {
     }
   }
 
-  /// Clean existing widgets/dom nodes
+  /// Clean a render element.
   ///
-  void cleanParentContents({
-    required RenderElement parentRenderElement,
+  void cleanRenderElement({
+    required RenderElement renderElement,
     required JobQueue jobQueue,
   }) {
-    disposeRenderElement(
-      renderElement: parentRenderElement,
-      flagPreserveTarget: true,
-      flagEnqeueChildElementRemoval: false,
-      jobQueue: jobQueue,
-    );
+    // Detach and dispose child elements
+
+    if (renderElement.frameworkChildElements.isNotEmpty) {
+      var childElements = renderElement.frameworkDetachAndReturnChildElements();
+
+      for (final childElement in childElements) {
+        disposeDetachedRenderElement(childElement);
+      }
+    }
+
+    // Clean associated dom node
 
     jobQueue.addJob(() {
-      parentRenderElement.domNode?.innerHtml = '';
+      renderElement.domNode?.innerHtml = '';
     });
   }
 
-  /// Dispose render element and descendants.
-  ///
-  /// [flagPreserveTarget] - Whether to remove descendants but preserve the
-  /// widget itself.
-  ///
-  /// [flagEnqeueTargetElementRemoval] - Whether to remove [renderElement]'s
-  /// dom node from DOM by making a explict call to domNode.remove
-  ///
-  /// [flagEnqeueChildElementRemoval] - Whether to remove ecah children of
-  /// [renderElement] from DOM by making a explict call to domNode.remove
+  /// Dispose a render element.
   ///
   void disposeRenderElement({
-    //
-    // -- render element to dispose --
-    //
-    RenderElement? renderElement,
-    //
-    // -- flags --
-    //
-    bool flagPreserveTarget = false,
-    bool flagEnqeueTargetElementRemoval = true,
-    bool flagEnqeueChildElementRemoval = true,
-    //
-    // -- job queue --
-    //
+    required RenderElement renderElement,
     required JobQueue jobQueue,
   }) {
-    if (null == renderElement) {
-      return;
-    }
+    // Detach child elements and add a job to clean child elements
 
-    // cascade dispose to its childs first
+    if (renderElement.frameworkChildElements.isNotEmpty) {
+      var childElements = renderElement.frameworkDetachAndReturnChildElements();
 
-    var children = [...renderElement.frameworkChildElements];
-
-    if (children.isNotEmpty) {
-      for (final childRenderElement in children) {
-        disposeRenderElement(
-          renderElement: childRenderElement,
-          //
-          // child should be removed
-          //
-          flagPreserveTarget: false,
-          //
-          // whether to enqeue child's dom node removal depends on flag
-          // if parent is cleaning all objects, then it should be false
-          //
-          flagEnqeueTargetElementRemoval: flagEnqeueChildElementRemoval,
-          //
-          // since child will be removed, there's no need to enqeue removals
-          // of childs of child's dom node.
-          //
-          flagEnqeueChildElementRemoval: false,
-          //
-          jobQueue: jobQueue,
-        );
+      for (final renderElement in childElements) {
+        disposeDetachedRenderElement(renderElement);
       }
     }
 
-    if (!flagPreserveTarget) {
-      if (flagEnqeueTargetElementRemoval) {
-        var domNode = renderElement.domNode;
+    // Add a job to remove associated dom node
 
-        if (null != domNode) {
-          jobQueue.addJob(domNode.remove);
-        }
-      }
+    jobQueue.addJob(() {
+      renderElement.domNode?.remove();
+    });
 
-      renderElement
-        ..frameworkBeforeUnMount()
-        ..frameworkDetach();
+    // Detach itself
 
-      services.walker.unRegisterElement(renderElement);
+    renderElement.frameworkDetach();
 
-      if (services.debug.widgetLogs) {
-        print('Dispose: $renderElement');
-      }
+    // Unregister element
+
+    services.walker.unRegisterElement(renderElement);
+
+    // Call lifecycle hooks
+
+    renderElement.frameworkAfterUnMount();
+
+    if (services.debug.widgetLogs) {
+      print('Dispose: $renderElement');
+    }
+  }
+
+  /// Dispose a detached render element.
+  ///
+  void disposeDetachedRenderElement(RenderElement renderElement) {
+    // Dispose child elements
+
+    for (final childElement in renderElement.frameworkChildElements) {
+      disposeDetachedRenderElement(childElement);
+    }
+
+    // Unregister element
+
+    services.walker.unRegisterElement(renderElement);
+
+    // Call lifecycle hooks
+
+    renderElement.frameworkAfterUnMount();
+
+    if (services.debug.widgetLogs) {
+      print('Dispose: $renderElement');
     }
   }
 

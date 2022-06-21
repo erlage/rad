@@ -20,7 +20,7 @@ class RT_TestWidget extends Widget {
   final VoidCallback? roEventBeforeMount;
   final VoidCallback? roEventAfterMount;
   final VoidCallback? roEventAfterWidgetRebind;
-  final VoidCallback? roEventBeforeUnMount;
+  final VoidCallback? roEventAfterUnMount;
 
   // data hooks
 
@@ -48,7 +48,7 @@ class RT_TestWidget extends Widget {
     this.roEventBeforeMount,
     this.roEventAfterMount,
     this.roEventAfterWidgetRebind,
-    this.roEventBeforeUnMount,
+    this.roEventAfterUnMount,
 
     // widget events
 
@@ -124,7 +124,7 @@ class RT_TestWidget extends Widget {
       roEventUpdate: roEventUpdate,
       roEventAfterMount: roEventAfterMount,
       roEventAfterWidgetRebind: roEventAfterWidgetRebind,
-      roEventBeforeUnMount: roEventBeforeUnMount,
+      roEventAfterUnMount: roEventAfterUnMount,
       roHookUpdate: roHookUpdate,
     );
   }
@@ -137,7 +137,7 @@ class RT_TestRenderElement extends RenderElement {
   final VoidCallback? roEventUpdate;
   final VoidCallback? roEventAfterMount;
   final VoidCallback? roEventAfterWidgetRebind;
-  final VoidCallback? roEventBeforeUnMount;
+  final VoidCallback? roEventAfterUnMount;
 
   final Function(UpdateType)? roHookUpdate;
 
@@ -148,7 +148,7 @@ class RT_TestRenderElement extends RenderElement {
     this.roEventUpdate,
     this.roEventAfterMount,
     this.roEventAfterWidgetRebind,
-    this.roEventBeforeUnMount,
+    this.roEventAfterUnMount,
     this.roHookUpdate,
   }) : super(widget, parent);
 
@@ -200,9 +200,9 @@ class RT_TestRenderElement extends RenderElement {
   }
 
   @override
-  beforeUnMount() {
-    if (null != roEventBeforeUnMount) {
-      roEventBeforeUnMount!();
+  afterUnMount() {
+    if (null != roEventAfterUnMount) {
+      roEventAfterUnMount!();
     }
   }
 }
@@ -217,7 +217,7 @@ class RT_AnotherTestWidget extends RT_TestWidget {
     VoidCallback? roEventUpdate,
     VoidCallback? roEventAfterMount,
     VoidCallback? roEventAfterWidgetRebind,
-    VoidCallback? roEventBeforeUnMount,
+    VoidCallback? roEventAfterUnMount,
     VoidCallback? wEventCreateRenderObject,
 
     // should update
@@ -234,7 +234,7 @@ class RT_AnotherTestWidget extends RT_TestWidget {
           roEventUpdate: roEventUpdate,
           roEventAfterMount: roEventAfterMount,
           roEventAfterWidgetRebind: roEventAfterWidgetRebind,
-          roEventBeforeUnMount: roEventBeforeUnMount,
+          roEventAfterUnMount: roEventAfterUnMount,
           wEventCreateRenderObject: wEventCreateRenderObject,
 
           // should update

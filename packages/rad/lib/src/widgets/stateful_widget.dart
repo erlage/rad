@@ -215,7 +215,7 @@ class StatefulRenderElement extends RenderElement {
   }
 
   @override
-  beforeUnMount() => state.dispose();
+  afterUnMount() => state.dispose();
 }
 
 /*

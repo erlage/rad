@@ -332,37 +332,37 @@ void main() {
         widgets: [
           RT_TestWidget(
             key: GlobalKey('widget'),
-            roEventBeforeUnMount: () {
+            roEventAfterUnMount: () {
               testStack.push('this should not get unmount');
             },
             children: [
               RT_TestWidget(
                 key: GlobalKey('app-child-0'),
-                roEventBeforeUnMount: () {
+                roEventAfterUnMount: () {
                   testStack.push('dispose-0');
                 },
                 children: [
                   RT_TestWidget(
                     key: GlobalKey('app-child-0-0'),
-                    roEventBeforeUnMount: () {
+                    roEventAfterUnMount: () {
                       testStack.push('dispose-0-0');
                     },
                   ),
                   RT_TestWidget(
                     key: GlobalKey('app-child-0-1'),
-                    roEventBeforeUnMount: () {
+                    roEventAfterUnMount: () {
                       testStack.push('dispose-0-1');
                     },
                     children: [
                       RT_TestWidget(
                         key: GlobalKey('app-child-0-1-0'),
-                        roEventBeforeUnMount: () {
+                        roEventAfterUnMount: () {
                           testStack.push('dispose-0-1-0');
                         },
                       ),
                       RT_TestWidget(
                         key: GlobalKey('app-child-0-1-1'),
-                        roEventBeforeUnMount: () {
+                        roEventAfterUnMount: () {
                           testStack.push('dispose-0-1-1');
                         },
                       ),
@@ -372,20 +372,20 @@ void main() {
               ),
               RT_TestWidget(
                 key: GlobalKey('app-child-1'),
-                roEventBeforeUnMount: () {
+                roEventAfterUnMount: () {
                   testStack.push('dispose-1');
                 },
                 children: [
                   // nested child widgets
                   RT_TestWidget(
                     key: GlobalKey('app-child-1-0'),
-                    roEventBeforeUnMount: () {
+                    roEventAfterUnMount: () {
                       testStack.push('dispose-1-0');
                     },
                   ),
                   RT_TestWidget(
                     key: GlobalKey('app-child-1-1'),
-                    roEventBeforeUnMount: () {
+                    roEventAfterUnMount: () {
                       testStack.push('dispose-1-1');
                     },
                   ),

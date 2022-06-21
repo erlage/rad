@@ -21,7 +21,7 @@ void main() {
         RT_TestWidget(
           roEventRender: () => tester.push('render 1a'),
           roEventUpdate: () => tester.push('update 1a'),
-          roEventBeforeUnMount: () => tester.push('dispose 1a'),
+          roEventAfterUnMount: () => tester.push('dispose 1a'),
         ),
       );
 
@@ -29,7 +29,7 @@ void main() {
         RT_AnotherTestWidget(
           roEventRender: () => tester.push('render 1b'),
           roEventUpdate: () => tester.push('update 1b'),
-          roEventBeforeUnMount: () => tester.push('dispose 1b'),
+          roEventAfterUnMount: () => tester.push('dispose 1b'),
         ),
       );
 
@@ -39,7 +39,7 @@ void main() {
         RT_TestWidget(
           roEventRender: () => tester.push('render 1c'),
           roEventUpdate: () => tester.push('update 1c'),
-          roEventBeforeUnMount: () => tester.push('dispose 1c'),
+          roEventAfterUnMount: () => tester.push('dispose 1c'),
         ),
       );
 
@@ -59,7 +59,7 @@ void main() {
           RT_TestWidget(
             roEventRender: () => tester.push('render 1a'),
             roEventUpdate: () => tester.push('update 1a'),
-            roEventBeforeUnMount: () => tester.push('dispose 1a'),
+            roEventAfterUnMount: () => tester.push('dispose 1a'),
           ),
         );
 
@@ -67,7 +67,7 @@ void main() {
           RT_AnotherTestWidget(
             roEventRender: () => tester.push('render 1b'),
             roEventUpdate: () => tester.push('update 1b'),
-            roEventBeforeUnMount: () => tester.push('dispose 1b'),
+            roEventAfterUnMount: () => tester.push('dispose 1b'),
           ),
         );
 
@@ -77,7 +77,7 @@ void main() {
           RT_TestWidget(
             roEventRender: () => tester.push('render 1c'),
             roEventUpdate: () => tester.push('update 1c'),
-            roEventBeforeUnMount: () => tester.push('dispose 1c'),
+            roEventAfterUnMount: () => tester.push('dispose 1c'),
           ),
         );
 
@@ -100,7 +100,7 @@ void main() {
             key: Key('key-original'),
             roEventRender: () => tester.push('render 1a'),
             roEventUpdate: () => tester.push('update 1a'),
-            roEventBeforeUnMount: () => tester.push('dispose 1a'),
+            roEventAfterUnMount: () => tester.push('dispose 1a'),
           ),
         );
 
@@ -109,7 +109,7 @@ void main() {
             key: Key('key-original'),
             roEventRender: () => tester.push('render 1b'),
             roEventUpdate: () => tester.push('update 1b'),
-            roEventBeforeUnMount: () => tester.push('dispose 1b'),
+            roEventAfterUnMount: () => tester.push('dispose 1b'),
           ),
         );
 
@@ -120,7 +120,7 @@ void main() {
             key: Key('key-original'),
             roEventRender: () => tester.push('render 1c'),
             roEventUpdate: () => tester.push('update 1c'),
-            roEventBeforeUnMount: () => tester.push('dispose 1c'),
+            roEventAfterUnMount: () => tester.push('dispose 1c'),
           ),
         );
 
@@ -143,7 +143,7 @@ void main() {
             key: GlobalKey('key-original'),
             roEventRender: () => tester.push('render 1a'),
             roEventUpdate: () => tester.push('update 1a'),
-            roEventBeforeUnMount: () => tester.push('dispose 1a'),
+            roEventAfterUnMount: () => tester.push('dispose 1a'),
           ),
         );
 
@@ -152,7 +152,7 @@ void main() {
             key: GlobalKey('key-original'),
             roEventRender: () => tester.push('render 1b'),
             roEventUpdate: () => tester.push('update 1b'),
-            roEventBeforeUnMount: () => tester.push('dispose 1b'),
+            roEventAfterUnMount: () => tester.push('dispose 1b'),
           ),
         );
 
@@ -163,7 +163,7 @@ void main() {
             key: GlobalKey('key-original'),
             roEventRender: () => tester.push('render 1c'),
             roEventUpdate: () => tester.push('update 1c'),
-            roEventBeforeUnMount: () => tester.push('dispose 1c'),
+            roEventAfterUnMount: () => tester.push('dispose 1c'),
           ),
         );
 
@@ -186,7 +186,7 @@ void main() {
             key: GlobalKey('key-original'),
             roEventRender: () => tester.push('render 1a'),
             roEventUpdate: () => tester.push('update 1a'),
-            roEventBeforeUnMount: () => tester.push('dispose 1a'),
+            roEventAfterUnMount: () => tester.push('dispose 1a'),
           ),
         );
 
@@ -195,7 +195,7 @@ void main() {
             key: GlobalKey('key-original'),
             roEventRender: () => tester.push('render 1b'),
             roEventUpdate: () => tester.push('update 1b'),
-            roEventBeforeUnMount: () => tester.push('dispose 1b'),
+            roEventAfterUnMount: () => tester.push('dispose 1b'),
           ),
         );
 
@@ -206,7 +206,7 @@ void main() {
             key: GlobalKey('key-original'),
             roEventRender: () => tester.push('render 1c'),
             roEventUpdate: () => tester.push('update 1c'),
-            roEventBeforeUnMount: () => tester.push('dispose 1c'),
+            roEventAfterUnMount: () => tester.push('dispose 1c'),
           ),
         );
 
@@ -229,7 +229,7 @@ void main() {
             key: Key('key-original'),
             roEventRender: () => tester.push('render 1a'),
             roEventUpdate: () => tester.push('update 1a'),
-            roEventBeforeUnMount: () => tester.push('dispose 1a'),
+            roEventAfterUnMount: () => tester.push('dispose 1a'),
           ),
         );
 
@@ -238,7 +238,7 @@ void main() {
             key: Key('key-changed'),
             roEventRender: () => tester.push('render 1b'),
             roEventUpdate: () => tester.push('update 1b'),
-            roEventBeforeUnMount: () => tester.push('dispose 1b'),
+            roEventAfterUnMount: () => tester.push('dispose 1b'),
           ),
         );
 
@@ -249,7 +249,7 @@ void main() {
             key: Key('key-orginal'),
             roEventRender: () => tester.push('render 1c'),
             roEventUpdate: () => tester.push('update 1c'),
-            roEventBeforeUnMount: () => tester.push('dispose 1c'),
+            roEventAfterUnMount: () => tester.push('dispose 1c'),
           ),
         );
 
@@ -272,7 +272,7 @@ void main() {
           key: Key('key-original'),
           roEventRender: () => tester.push('render 1a'),
           roEventUpdate: () => tester.push('update 1a'),
-          roEventBeforeUnMount: () => tester.push('dispose 1a'),
+          roEventAfterUnMount: () => tester.push('dispose 1a'),
         ),
       );
 
@@ -281,7 +281,7 @@ void main() {
           key: GlobalKey('key-original'),
           roEventRender: () => tester.push('render 1b'),
           roEventUpdate: () => tester.push('update 1b'),
-          roEventBeforeUnMount: () => tester.push('dispose 1b'),
+          roEventAfterUnMount: () => tester.push('dispose 1b'),
         ),
       );
 
@@ -290,7 +290,7 @@ void main() {
           key: GlobalKey('key-original'),
           roEventRender: () => tester.push('render 1c'),
           roEventUpdate: () => tester.push('update 1c'),
-          roEventBeforeUnMount: () => tester.push('dispose 1c'),
+          roEventAfterUnMount: () => tester.push('dispose 1c'),
         ),
       );
 
@@ -319,7 +319,7 @@ void main() {
           RT_TestWidget(
             roEventRender: () => tester.push('render 1a'),
             roEventUpdate: () => tester.push('update 1a'),
-            roEventBeforeUnMount: () => tester.push('dispose 1a'),
+            roEventAfterUnMount: () => tester.push('dispose 1a'),
           ),
         );
 
@@ -327,7 +327,7 @@ void main() {
           RT_TestWidget(
             roEventRender: () => tester.push('render 2a'),
             roEventUpdate: () => tester.push('update 2a'),
-            roEventBeforeUnMount: () => tester.push('dispose 2a'),
+            roEventAfterUnMount: () => tester.push('dispose 2a'),
           ),
         );
 
@@ -337,7 +337,7 @@ void main() {
           RT_TestWidget(
             roEventRender: () => tester.push('render 3a'),
             roEventUpdate: () => tester.push('update 3a'),
-            roEventBeforeUnMount: () => tester.push('dispose 3a'),
+            roEventAfterUnMount: () => tester.push('dispose 3a'),
           ),
         );
 
@@ -357,7 +357,7 @@ void main() {
             key: Key('key-original'),
             roEventRender: () => tester.push('render 1a'),
             roEventUpdate: () => tester.push('update 1a'),
-            roEventBeforeUnMount: () => tester.push('dispose 1a'),
+            roEventAfterUnMount: () => tester.push('dispose 1a'),
           ),
         );
 
@@ -366,7 +366,7 @@ void main() {
             key: Key('key-original'),
             roEventRender: () => tester.push('render 2a'),
             roEventUpdate: () => tester.push('update 2a'),
-            roEventBeforeUnMount: () => tester.push('dispose 2a'),
+            roEventAfterUnMount: () => tester.push('dispose 2a'),
           ),
         );
 
@@ -377,7 +377,7 @@ void main() {
             key: Key('key-original'),
             roEventRender: () => tester.push('render 3a'),
             roEventUpdate: () => tester.push('update 3a'),
-            roEventBeforeUnMount: () => tester.push('dispose 3a'),
+            roEventAfterUnMount: () => tester.push('dispose 3a'),
           ),
         );
 
@@ -397,7 +397,7 @@ void main() {
             key: GlobalKey('key-original'),
             roEventRender: () => tester.push('render 1a'),
             roEventUpdate: () => tester.push('update 1a'),
-            roEventBeforeUnMount: () => tester.push('dispose 1a'),
+            roEventAfterUnMount: () => tester.push('dispose 1a'),
           ),
         );
 
@@ -406,7 +406,7 @@ void main() {
             key: GlobalKey('key-original'),
             roEventRender: () => tester.push('render 2a'),
             roEventUpdate: () => tester.push('update 2a'),
-            roEventBeforeUnMount: () => tester.push('dispose 2a'),
+            roEventAfterUnMount: () => tester.push('dispose 2a'),
           ),
         );
 
@@ -417,7 +417,7 @@ void main() {
             key: GlobalKey('key-original'),
             roEventRender: () => tester.push('render 3a'),
             roEventUpdate: () => tester.push('update 3a'),
-            roEventBeforeUnMount: () => tester.push('dispose 3a'),
+            roEventAfterUnMount: () => tester.push('dispose 3a'),
           ),
         );
 
@@ -437,7 +437,7 @@ void main() {
             key: GlobalKey('key-original'),
             roEventRender: () => tester.push('render 1a'),
             roEventUpdate: () => tester.push('update 1a'),
-            roEventBeforeUnMount: () => tester.push('dispose 1a'),
+            roEventAfterUnMount: () => tester.push('dispose 1a'),
           ),
         );
 
@@ -446,7 +446,7 @@ void main() {
             key: GlobalKey('key-original'),
             roEventRender: () => tester.push('render 2a'),
             roEventUpdate: () => tester.push('update 2a'),
-            roEventBeforeUnMount: () => tester.push('dispose 2a'),
+            roEventAfterUnMount: () => tester.push('dispose 2a'),
           ),
         );
 
@@ -457,7 +457,7 @@ void main() {
             key: GlobalKey('key-original'),
             roEventRender: () => tester.push('render 3a'),
             roEventUpdate: () => tester.push('update 3a'),
-            roEventBeforeUnMount: () => tester.push('dispose 3a'),
+            roEventAfterUnMount: () => tester.push('dispose 3a'),
           ),
         );
 
@@ -478,12 +478,12 @@ void main() {
           RT_TestWidget(
             roEventRender: () => tester.push('render 1a-1'),
             roEventUpdate: () => tester.push('update 1a-1'),
-            roEventBeforeUnMount: () => tester.push('dispose 1a-1'),
+            roEventAfterUnMount: () => tester.push('dispose 1a-1'),
           ),
           RT_TestWidget(
             roEventRender: () => tester.push('render 1a-2'),
             roEventUpdate: () => tester.push('update 1a-2'),
-            roEventBeforeUnMount: () => tester.push('dispose 1a-2'),
+            roEventAfterUnMount: () => tester.push('dispose 1a-2'),
           ),
         ]);
 
@@ -491,12 +491,12 @@ void main() {
           RT_AnotherTestWidget(
             roEventRender: () => tester.push('render 1b-1'),
             roEventUpdate: () => tester.push('update 1b-1'),
-            roEventBeforeUnMount: () => tester.push('dispose 1b-1'),
+            roEventAfterUnMount: () => tester.push('dispose 1b-1'),
           ),
           RT_AnotherTestWidget(
             roEventRender: () => tester.push('render 1b-2'),
             roEventUpdate: () => tester.push('update 1b-2'),
-            roEventBeforeUnMount: () => tester.push('dispose 1b-2'),
+            roEventAfterUnMount: () => tester.push('dispose 1b-2'),
           ),
         ], flagAddIfNotFound: false);
 
@@ -504,12 +504,12 @@ void main() {
           RT_TestWidget(
             roEventRender: () => tester.push('render 1c-1'),
             roEventUpdate: () => tester.push('update 1c-1'),
-            roEventBeforeUnMount: () => tester.push('dispose 1c-1'),
+            roEventAfterUnMount: () => tester.push('dispose 1c-1'),
           ),
           RT_TestWidget(
             roEventRender: () => tester.push('render 1c-2'),
             roEventUpdate: () => tester.push('update 1c-2'),
-            roEventBeforeUnMount: () => tester.push('dispose 1c-2'),
+            roEventAfterUnMount: () => tester.push('dispose 1c-2'),
           ),
         ], flagAddIfNotFound: false);
 
@@ -529,12 +529,12 @@ void main() {
           RT_TestWidget(
             roEventRender: () => tester.push('render 1a-1'),
             roEventUpdate: () => tester.push('update 1a-1'),
-            roEventBeforeUnMount: () => tester.push('dispose 1a-1'),
+            roEventAfterUnMount: () => tester.push('dispose 1a-1'),
           ),
           RT_TestWidget(
             roEventRender: () => tester.push('render 1a-2'),
             roEventUpdate: () => tester.push('update 1a-2'),
-            roEventBeforeUnMount: () => tester.push('dispose 1a-2'),
+            roEventAfterUnMount: () => tester.push('dispose 1a-2'),
           ),
         ]);
 
@@ -542,12 +542,12 @@ void main() {
           RT_AnotherTestWidget(
             roEventRender: () => tester.push('render 1b-1'),
             roEventUpdate: () => tester.push('update 1b-1'),
-            roEventBeforeUnMount: () => tester.push('dispose 1b-1'),
+            roEventAfterUnMount: () => tester.push('dispose 1b-1'),
           ),
           RT_AnotherTestWidget(
             roEventRender: () => tester.push('render 1b-2'),
             roEventUpdate: () => tester.push('update 1b-2'),
-            roEventBeforeUnMount: () => tester.push('dispose 1b-2'),
+            roEventAfterUnMount: () => tester.push('dispose 1b-2'),
           ),
         ], flagAddIfNotFound: true);
 
@@ -555,12 +555,12 @@ void main() {
           RT_TestWidget(
             roEventRender: () => tester.push('render 1c-1'),
             roEventUpdate: () => tester.push('update 1c-1'),
-            roEventBeforeUnMount: () => tester.push('dispose 1c-1'),
+            roEventAfterUnMount: () => tester.push('dispose 1c-1'),
           ),
           RT_TestWidget(
             roEventRender: () => tester.push('render 1c-2'),
             roEventUpdate: () => tester.push('update 1c-2'),
-            roEventBeforeUnMount: () => tester.push('dispose 1c-2'),
+            roEventAfterUnMount: () => tester.push('dispose 1c-2'),
           ),
         ], flagAddIfNotFound: true);
 

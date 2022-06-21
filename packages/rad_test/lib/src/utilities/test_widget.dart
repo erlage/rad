@@ -20,7 +20,7 @@ class TestWidget extends Widget {
   final VoidCallback? roEventBeforeMount;
   final VoidCallback? roEventAfterMount;
   final VoidCallback? roEventAfterWidgetRebind;
-  final VoidCallback? roEventBeforeUnMount;
+  final VoidCallback? roEventAfterUnMount;
 
   // data hooks
 
@@ -48,7 +48,7 @@ class TestWidget extends Widget {
     this.roEventBeforeMount,
     this.roEventAfterMount,
     this.roEventAfterWidgetRebind,
-    this.roEventBeforeUnMount,
+    this.roEventAfterUnMount,
 
     // widget events
 
@@ -124,7 +124,7 @@ class TestWidget extends Widget {
       roEventUpdate: roEventUpdate,
       roEventAfterMount: roEventAfterMount,
       roEventAfterWidgetRebind: roEventAfterWidgetRebind,
-      roEventBeforeUnMount: roEventBeforeUnMount,
+      roEventAfterUnMount: roEventAfterUnMount,
       roHookUpdate: roHookUpdate,
     );
   }
@@ -137,7 +137,7 @@ class TestRenderElement extends RenderElement {
   final VoidCallback? roEventUpdate;
   final VoidCallback? roEventAfterMount;
   final VoidCallback? roEventAfterWidgetRebind;
-  final VoidCallback? roEventBeforeUnMount;
+  final VoidCallback? roEventAfterUnMount;
 
   final Function(UpdateType)? roHookUpdate;
 
@@ -148,7 +148,7 @@ class TestRenderElement extends RenderElement {
     this.roEventUpdate,
     this.roEventAfterMount,
     this.roEventAfterWidgetRebind,
-    this.roEventBeforeUnMount,
+    this.roEventAfterUnMount,
     this.roHookUpdate,
   }) : super(widget, parent);
 
@@ -200,9 +200,9 @@ class TestRenderElement extends RenderElement {
   }
 
   @override
-  beforeUnMount() {
-    if (null != roEventBeforeUnMount) {
-      roEventBeforeUnMount!();
+  afterUnMount() {
+    if (null != roEventAfterUnMount) {
+      roEventAfterUnMount!();
     }
   }
 }
