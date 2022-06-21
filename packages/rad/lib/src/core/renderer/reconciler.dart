@@ -82,10 +82,7 @@ class Reconciler {
 
   /// Prepare list of widget updates using Rad's algorithm.
   ///
-  /// This is a two-part algorithm.
-  ///
-  ///
-  /// We refer to these parts as:
+  /// This is a two-part algorithm. We refer to these parts as:
   ///
   ///
   /// - Direct mode(first algorithm)
@@ -388,6 +385,27 @@ class Reconciler {
       //// TEST__COMMENTABLE_MUTATION_END
 
       oldTopPoint++;
+    }
+
+    // ----------------------------------------------------------------------
+    //  Phase-Minor-1 | Check if we can directly add new nodes
+    // ----------------------------------------------------------------------
+
+    // If all old nodes are obsolute, then directly add new nodes
+
+    if (obsoluteNodesCount == oldNodeHashToNodeMap.length) {
+      if (preparedUpdates.isEmpty && preparedUpdatesInReverse.isEmpty) {
+        if (flagAddIfNotFound) {
+          return [
+            WidgetUpdateObjectActionCleanParent(),
+            WidgetUpdateObjectActionAdd(
+              widgets: newNodes,
+              mountAtIndex: null,
+              widgetPositionIndex: 0,
+            ),
+          ];
+        }
+      }
     }
 
     // ----------------------------------------------------------------------
