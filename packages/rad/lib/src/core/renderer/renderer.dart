@@ -928,6 +928,25 @@ class Renderer with ServicesResolver {
     required RenderElement renderElement,
     required JobQueue jobQueue,
   }) {
+    // Clean associated dom node
+
+    if (renderElement.hasDomNode) {
+      jobQueue.addJob(() {
+        renderElement.domNode?.innerHtml = '';
+      });
+    } else {
+      // If render element doesn't have a dom node then it's a single child
+      // widget and we've to find and remove the nearest dom node in descendants
+
+      var domNode = renderElement.findClosestDomNodeInDescendants();
+
+      if (null != domNode) {
+        jobQueue.addJob(() {
+          domNode.remove();
+        });
+      }
+    }
+
     // Detach and dispose child elements
 
     if (renderElement.frameworkChildElements.isNotEmpty) {
@@ -937,12 +956,6 @@ class Renderer with ServicesResolver {
         disposeDetachedRenderElement(childElement);
       }
     }
-
-    // Clean associated dom node
-
-    jobQueue.addJob(() {
-      renderElement.domNode?.innerHtml = '';
-    });
   }
 
   /// Dispose a render element.
@@ -951,6 +964,19 @@ class Renderer with ServicesResolver {
     required RenderElement renderElement,
     required JobQueue jobQueue,
   }) {
+    // Add a job to remove associated dom node
+
+    var domNode = renderElement.domNode;
+
+    // If render element doesn't have a dom node then it's a single child
+    // widget and we've to find and remove the nearest dom node in descendants
+
+    domNode ??= renderElement.findClosestDomNodeInDescendants();
+
+    jobQueue.addJob(() {
+      domNode?.remove();
+    });
+
     // Detach child elements and add a job to clean child elements
 
     if (renderElement.frameworkChildElements.isNotEmpty) {
@@ -960,12 +986,6 @@ class Renderer with ServicesResolver {
         disposeDetachedRenderElement(renderElement);
       }
     }
-
-    // Add a job to remove associated dom node
-
-    jobQueue.addJob(() {
-      renderElement.domNode?.remove();
-    });
 
     // Detach itself
 
