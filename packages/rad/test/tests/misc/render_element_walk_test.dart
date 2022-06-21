@@ -219,4 +219,180 @@ void main() {
       expect(state, equals(null));
     });
   });
+
+  group('findClosestDomNodeInAncestors():', () {
+    testWidgets(
+      'should return ancestor element with dom node',
+      (tester) async {
+        await tester.pumpWidget(
+          Paragraph(
+            children: [
+              RT_StatefulTestWidget(
+                stateHookBuild: (state) {
+                  expect(
+                    state.context.findClosestDomNodeInAncestors()?.tagName,
+                    equals('P'),
+                  );
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+
+    testWidgets(
+      'should return root if there are no ancestor elements with dom node',
+      (tester) async {
+        await tester.pumpWidget(
+          RT_StatefulTestWidget(
+            stateHookBuild: (state) {
+              expect(
+                state.context.findClosestDomNodeInAncestors(),
+                equals(tester.getAppDomNode),
+              );
+            },
+          ),
+        );
+      },
+    );
+  });
+
+  group('findClosestDomNodeInDescendants():', () {
+    testWidgets(
+      'should return null if no dom node in descendants',
+      (tester) async {
+        await tester.pumpWidget(
+          RT_StatefulTestWidget(
+            stateHookBuild: (state) {
+              expect(
+                state.context.findClosestDomNodeInDescendants(),
+                equals(null),
+              );
+            },
+          ),
+        );
+      },
+    );
+
+    testWidgets(
+      'should return nearest dom node in descendants',
+      (tester) async {
+        var isFirstBuild = true;
+
+        await tester.pumpWidget(
+          RT_StatefulTestWidget(
+            stateHookBuild: (state) {
+              // because childs widgets will be built after first build
+              if (isFirstBuild) {
+                isFirstBuild = false;
+
+                return;
+              }
+
+              // because test stateful widget wraps child list in a test widget
+              // we've to unwrap context of that wrapper test widget to test
+
+              var currentContext = state.context as RenderElement;
+              var actualContext = currentContext.frameworkChildElements.first;
+
+              var node = actualContext.findClosestDomNodeInDescendants();
+
+              expect(node?.tagName, equals('SPAN'));
+            },
+            children: [
+              // should match span not div
+              Span(
+                children: [
+                  Division(),
+                ],
+              ),
+            ],
+          ),
+        );
+
+        await tester.rePumpWidget(
+          RT_StatefulTestWidget(
+            children: [
+              Span(
+                children: [
+                  Division(),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  });
+
+  group('findClosestDomNode():', () {
+    testWidgets(
+      'should try ancestors if cant find in descendants',
+      (tester) async {
+        await tester.pumpWidget(
+          Paragraph(
+            children: [
+              RT_StatefulTestWidget(
+                stateHookBuild: (state) {
+                  expect(
+                    state.context.findClosestDomNode(),
+                    state.context.findClosestDomNodeInAncestors(),
+                  );
+                },
+                children: [
+                  Division(),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+
+    testWidgets(
+      'should try descendants first',
+      (tester) async {
+        var isFirstBuild = true;
+
+        await tester.pumpWidget(
+          RT_StatefulTestWidget(
+            stateHookBuild: (state) {
+              // because childs widgets will be built after first build
+              if (isFirstBuild) {
+                isFirstBuild = false;
+
+                return;
+              }
+
+              expect(
+                state.context.findClosestDomNode(),
+                state.context.findClosestDomNodeInDescendants(),
+              );
+            },
+            children: [
+              // should match span not div
+              Span(
+                children: [
+                  Division(),
+                ],
+              ),
+            ],
+          ),
+        );
+
+        await tester.rePumpWidget(
+          RT_StatefulTestWidget(
+            children: [
+              Span(
+                children: [
+                  Division(),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  });
 }
