@@ -141,6 +141,7 @@ abstract class RenderElement implements BuildContext {
         _widget = null,
         _parent = null,
         _isRoot = true,
+        _hasDomNode = true,
         _domNode = appTargetDomNode,
         _widgetType = Constants.contextTypeBigBang,
         _widgetRuntimeType = Constants.contextTypeBigBang;
