@@ -318,7 +318,7 @@ abstract class RenderElement implements BuildContext {
   Element? findClosestDomNodeInDescendants() {
     var childs = _childElements;
 
-    while (childs.isEmpty && !childs.first.hasDomNode) {
+    while (childs.isNotEmpty && !childs.first.hasDomNode) {
       childs = childs.first._childElements;
     }
 
