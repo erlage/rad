@@ -932,7 +932,7 @@ class Renderer with ServicesResolver {
     // Detach and dispose child elements
 
     if (renderElement.frameworkChildElements.isNotEmpty) {
-      var childElements = renderElement.frameworkDetachAndReturnChildElements();
+      var childElements = renderElement.frameworkEjectChildRenderElements();
 
       for (final childElement in childElements) {
         disposeDetachedRenderElement(childElement);
@@ -955,7 +955,7 @@ class Renderer with ServicesResolver {
     // Detach child elements and add a job to clean child elements
 
     if (renderElement.frameworkChildElements.isNotEmpty) {
-      var childElements = renderElement.frameworkDetachAndReturnChildElements();
+      var childElements = renderElement.frameworkEjectChildRenderElements();
 
       for (final renderElement in childElements) {
         disposeDetachedRenderElement(renderElement);

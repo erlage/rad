@@ -540,7 +540,7 @@ abstract class RenderElement implements BuildContext {
   /// This process moves all child elements to a iterable and return.
   ///
   @nonVirtual
-  Iterable<RenderElement> frameworkDetachAndReturnChildElements() {
+  Iterable<RenderElement> frameworkEjectChildRenderElements() {
     var ejectedRenderElements = <RenderElement>[];
 
     while (_childElements.isNotEmpty) {
