@@ -1,5 +1,3 @@
-import 'dart:html' show Node;
-
 import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/common/objects/common_render_elements.dart';
@@ -11,12 +9,6 @@ import 'package:rad/src/core/services/abstract.dart';
 class WalkerService extends Service {
   final WalkerOptions options;
 
-  /// Registered elements.
-  ///
-  /// Dom node to widget-key-value mappings.
-  ///
-  final _domNodeToElementMap = <int, RenderElement>{};
-
   /// Registered global elements.
   ///
   final _globalElements = <String, RenderElement>{};
@@ -26,13 +18,11 @@ class WalkerService extends Service {
   @override
   startService() {
     _globalElements.clear();
-    _domNodeToElementMap.clear();
   }
 
   @override
   stopService() {
     _globalElements.clear();
-    _domNodeToElementMap.clear();
   }
 
   void registerElement(RenderElement renderElement) {
@@ -54,19 +44,11 @@ class WalkerService extends Service {
 
       _globalElements[widgetKey.value] = renderElement;
     }
-
-    if (renderElement.hasDomNode) {
-      _domNodeToElementMap[renderElement.domNode!.hashCode] = renderElement;
-    }
   }
 
   void unRegisterElement(RenderElement element) {
     if (element.key is GlobalKey) {
       _globalElements.remove(element.key!.value);
-    }
-
-    if (element.hasDomNode) {
-      _domNodeToElementMap.remove(element.domNode.hashCode);
     }
   }
 
@@ -74,11 +56,5 @@ class WalkerService extends Service {
   ///
   RenderElement? getRenderElementAssociatedWithGlobalKey(GlobalKey key) {
     return _globalElements[key.value];
-  }
-
-  /// Returns associated render element of dom node.
-  ///
-  RenderElement? getRenderElementAssociatedWithDomNode(Node domNode) {
-    return _domNodeToElementMap[domNode.hashCode];
   }
 }
