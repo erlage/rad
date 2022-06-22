@@ -286,17 +286,11 @@ class Renderer with ServicesResolver {
     required RenderElement parentRenderElement,
     required JobQueue jobQueue,
   }) {
-    // 1. Create render element
+    // Create render element
 
     var renderElement = widget.createRenderElement(parentRenderElement);
 
-    if (renderElement is AliveRenderElement) {
-      renderElement.frameworkInit();
-
-      jobQueue.addPostDispatchCallback(renderElement.frameworkAfterMount);
-    }
-
-    // 2. Create dom node(if widget.correspondingTag is non-null)
+    // Create dom node(if set in widget.correspondingTag)
 
     Element? domNode;
 
@@ -308,22 +302,32 @@ class Renderer with ServicesResolver {
       renderElement.frameworkBindDomNode(domNode: domNode);
     }
 
-    // 3. Register element
+    // Register element
 
     services.walker.registerElement(renderElement);
 
-    // 3. Create description
+    // Call lifecycle hooks if it's a alive render element
+
+    if (renderElement is AliveRenderElement) {
+      renderElement.frameworkInit();
+
+      // Add a job for calling afterMount hook
+
+      jobQueue.addPostDispatchCallback(renderElement.frameworkAfterMount);
+    }
+
+    // Create description
 
     var domNodeDescription = renderElement.frameworkRender(widget: widget);
 
-    // 4. Apply description(if widget has a associated dom dom node)
+    // Apply description(if widget has a associated dom dom node)
 
     if (null != domNode && null != domNodeDescription) {
       // without queue as dom node is in mem
       applyDescription(domNode: domNode, description: domNodeDescription);
     }
 
-    // 5. Register event listeners
+    // Register event listeners
 
     var bubbleEventListeners = widget.widgetEventListeners;
     var captureEventListeners = widget.widgetCaptureEventListeners;
