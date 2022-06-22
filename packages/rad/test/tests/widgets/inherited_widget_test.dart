@@ -202,10 +202,10 @@ void main() {
 
         // build phase
 
-        expect(testStack.popFromStart(), equals('mount-container-1a'));
-
         expect(testStack.popFromStart(), equals('build-stateful-1a'));
         expect(testStack.popFromStart(), equals('call-dependOnInhe..-1a'));
+
+        expect(testStack.popFromStart(), equals('mount-container-1a'));
 
         // update phase when updateShouldNotify return true
 
@@ -307,10 +307,10 @@ void main() {
 
         // build phase
 
-        expect(testStack.popFromStart(), equals('mount-container-1a'));
-
         expect(testStack.popFromStart(), equals('build-stateful-1a'));
         expect(testStack.popFromStart(), equals('call-findAnces..-1a'));
+
+        expect(testStack.popFromStart(), equals('mount-container-1a'));
 
         // update phase when updateShouldNotify return true
 

@@ -129,6 +129,36 @@ abstract class RenderElement implements BuildContext {
         _services = parent.services,
         appTargetId = parent.appTargetId;
 
+  /// Create a temporary render element.
+  ///
+  RenderElement.temporary({
+    required Services services,
+    required Widget tempWidget,
+    required Element tempDomNode,
+    required RenderElement possibleParent,
+  })  :
+        // widget properties
+
+        _key = null,
+        _widget = tempWidget,
+        _widgetType = tempWidget.widgetType,
+        _widgetRuntimeType = '${tempWidget.runtimeType}',
+
+        // bools
+
+        _isRoot = false,
+        _hasDomNode = true,
+
+        // bind instances
+
+        _services = services,
+        _domNode = tempDomNode,
+        _parent = possibleParent,
+
+        // from parent
+
+        appTargetId = possibleParent.appTargetId;
+
   /// Create root's element.
   ///
   /// Root elements are different from regular element in that they don't have a

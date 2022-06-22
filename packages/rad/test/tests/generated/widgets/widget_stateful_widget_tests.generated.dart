@@ -39,6 +39,6 @@ void widget_stateful_widget_test() {
         true,
       );
       expect(shouldUpdateWidgetChildren, equals(false));
-    });
+    }, skip: 'Core is now responsible for building/updating childs');
   });
 }

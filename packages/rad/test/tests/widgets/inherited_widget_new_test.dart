@@ -170,10 +170,10 @@ void main() {
         tester.assertMatchStack([
           // build phase
 
-          'mount-container-1a',
-
           'build-stateful-1a',
           'call-dependOnInhe..-1a',
+
+          'mount-container-1a',
 
           // update phase when updateShouldNotify return true
 
@@ -261,10 +261,10 @@ void main() {
         tester.assertMatchStack([
           // build phase
 
-          'mount-container-1a',
-
           'build-stateful-1a',
           'call-findAnces..-1a',
+
+          'mount-container-1a',
 
           // update phase when updateShouldNotify return true
 

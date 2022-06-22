@@ -3,12 +3,10 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/build_context.dart';
-import 'package:rad/src/core/common/objects/cache.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/scheduler/tasks/stimulate_listener_task.dart';
-import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_task.dart';
 import 'package:rad/src/include/foundation/change_notifier.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
@@ -123,15 +121,6 @@ abstract class StatefulWidget extends Widget {
   @override
   bool shouldUpdateWidget(oldWidget) => true;
 
-  /// Overriding this method on [StatefulWidget] can result in unexpected
-  /// behavior as [StatefulWidget] build its childs from its state. If you don't
-  /// want the [StatefulWidget] to update its child widgets, override
-  /// [shouldUpdateWidget] instead.
-  ///
-  @nonVirtual
-  @override
-  bool shouldUpdateWidgetChildren(oldWidget, shouldUpdateWidget) => false;
-
   @override
   createRenderElement(parent) => StatefulRenderElement(this, parent);
 }
@@ -156,27 +145,15 @@ class StatefulRenderElement extends RenderElement {
         super(widget, parent);
 
   @override
-  List<Widget> get childWidgets => ccImmutableEmptyListOfWidgets;
+  List<Widget> get childWidgets => [state.build(this)];
 
   @override
   init() {
     state
       ..frameworkBindWidget(widget)
-      ..frameworkBindRenderElement(this);
-  }
-
-  @override
-  void afterMount() {
-    state
+      ..frameworkBindRenderElement(this)
       ..initState()
       ..didChangeDependencies();
-
-    services.scheduler.addTask(
-      WidgetsBuildTask(
-        parentRenderElement: this,
-        widgets: [state.build(this)],
-      ),
-    );
   }
 
   // we build child of stateful widget after mount so that users can call
@@ -202,14 +179,6 @@ class StatefulRenderElement extends RenderElement {
     if (UpdateType.dependencyChanged == updateType) {
       state.didChangeDependencies();
     }
-
-    services.scheduler.addTask(
-      WidgetsUpdateTask(
-        parentRenderElement: this,
-        widgets: [state.build(this)],
-        updateType: updateType,
-      ),
-    );
 
     return null;
   }

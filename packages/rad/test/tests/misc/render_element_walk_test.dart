@@ -247,8 +247,11 @@ void main() {
         await tester.pumpWidget(
           RT_StatefulTestWidget(
             stateHookBuild: (state) {
+              var element = state.context as RenderElement;
+
               expect(
-                state.context.findClosestDomNodeInAncestors(),
+                // because test widget wraps widgets in a app widget
+                element.frameworkParent?.findClosestDomNodeInAncestors(),
                 equals(tester.getAppDomNode),
               );
             },

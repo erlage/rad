@@ -79,7 +79,10 @@ class Renderer with ServicesResolver {
 
     // create temp space for holding new widgets
 
-    var remnantRenderElement = RemnantElement.create(services);
+    var remnantRenderElement = RemnantElement.create(
+      services: services,
+      possibleParent: parentRenderElement,
+    );
 
     // build widgets under temp space
 
