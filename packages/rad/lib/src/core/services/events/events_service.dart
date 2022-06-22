@@ -47,87 +47,32 @@ class EventsService extends Service {
   }
 
   void _handle(Event event) {
-    var target = event.target;
-
     var emittedEvent = EmittedEvent.fromNativeEvent(event);
 
-    if (null != target && target is Element) {
-      var closestWidgetObject = _getClosestTargetElement(target);
-
-      if (null != closestWidgetObject) {
-        _dispatch(emittedEvent, closestWidgetObject);
-      }
-    }
+    _dispatch(emittedEvent);
   }
 
-  RenderElement? _getClosestTargetElement(Node domNode) {
-    var element =
-        services.walker.getRenderElementAssociatedWithDomNode(domNode);
+  void _dispatch(EmittedEvent event) {
+    var targetDomNode = event.target;
 
-    if (null != element) {
-      return element;
-    }
+    if (null != targetDomNode && targetDomNode is Element) {
+      var eventType = fnMapEventTypeToDomEventType(event.type);
 
-    var parent = domNode.parent;
-
-    if (null != parent) {
-      return _getClosestTargetElement(parent);
-    }
-
-    return null;
-  }
-
-  void _dispatch(EmittedEvent event, RenderElement element) {
-    var eventType = fnMapEventTypeToDomEventType(event.type);
-
-    if (null == eventType) {
-      return;
-    }
-
-    var listeners = _collectListeners(
-      element: element,
-      eventType: eventType,
-    );
-
-    _dispatchEventToListeners(
-      listeners: listeners,
-      eventType: eventType,
-      event: event,
-    );
-  }
-
-  List<EventCallback> _collectListeners({
-    required RenderElement element,
-    required DomEventType eventType,
-  }) {
-    var capturingCallbacks = <EventCallback>[];
-    var bubblingCallbacks = <EventCallback>[];
-
-    void collectEventListeners(RenderElement fromElement) {
-      var capturingListeners = fromElement.widget.widgetCaptureEventListeners;
-      var bubblingListeners = fromElement.widget.widgetEventListeners;
-
-      var matchedCapturingListener = capturingListeners[eventType];
-      var matchedBubblingListener = bubblingListeners[eventType];
-
-      if (null != matchedCapturingListener) {
-        capturingCallbacks.add(matchedCapturingListener);
+      if (null == eventType) {
+        return;
       }
 
-      if (null != matchedBubblingListener) {
-        bubblingCallbacks.add(matchedBubblingListener);
-      }
+      var listeners = _collectListeners(
+        targetDomNodePath: _getDomNodePath(targetDomNode),
+        eventType: eventType,
+      );
+
+      _dispatchEventToListeners(
+        listeners: listeners,
+        eventType: eventType,
+        event: event,
+      );
     }
-
-    collectEventListeners(element);
-
-    element.traverseAncestorElements(collectEventListeners);
-
-    var callbacks = capturingCallbacks.reversed.toList();
-
-    callbacks.addAll(bubblingCallbacks);
-
-    return callbacks;
   }
 
   void _dispatchEventToListeners({
@@ -318,5 +263,95 @@ class EventsService extends Service {
         _eventSubscriptions[eventType] = sub;
         break;
     }
+  }
+
+  // ----------------------------------------------------------------------
+  //  methods that walk both dom and render trees to collect event listeners
+  // ----------------------------------------------------------------------
+
+  List<EventCallback> _collectListeners({
+    required List<int> targetDomNodePath,
+    required DomEventType eventType,
+  }) {
+    var capturingCallbacks = <EventCallback>[];
+    var bubblingCallbacks = <EventCallback>[];
+
+    void collectEventListeners(RenderElement fromElement) {
+      var capturingListeners = fromElement.widget.widgetCaptureEventListeners;
+      var bubblingListeners = fromElement.widget.widgetEventListeners;
+
+      var matchedCapturingListener = capturingListeners[eventType];
+      var matchedBubblingListener = bubblingListeners[eventType];
+
+      if (null != matchedCapturingListener) {
+        capturingCallbacks.add(matchedCapturingListener);
+      }
+
+      if (null != matchedBubblingListener) {
+        bubblingCallbacks.add(matchedBubblingListener);
+      }
+    }
+
+    RenderElement currentElement = rootElement;
+
+    while (targetDomNodePath.isNotEmpty) {
+      var index = targetDomNodePath.removeLast();
+
+      // we've reached to the point where user might have rendered
+      // custom HTML using RawMarkUp widget or something
+
+      if (index >= currentElement.frameworkChildElements.length) {
+        break;
+      }
+
+      // else get the corresponding render element
+      // and collect event listeners from that
+
+      currentElement = currentElement.frameworkChildElements[index];
+      collectEventListeners(currentElement);
+
+      // element, from where we've just collected event listeners,
+      // might don't have a dom node of its own. since our traversal is based on
+      // dom-tree, we've to jump over elements that don't have corresponding
+      // dom nodes.
+
+      while (!currentElement.hasDomNode) {
+        // make sure we're not running in the wild
+
+        if (currentElement.frameworkChildElements.isEmpty) {
+          break;
+        }
+
+        // render elements that don't have corresponding dom node can have
+        // only one child widget.
+
+        currentElement = currentElement.frameworkChildElements.first;
+        collectEventListeners(currentElement);
+      }
+    }
+
+    // place callbacks in order
+
+    var callbacks = capturingCallbacks;
+
+    callbacks.addAll(bubblingCallbacks.reversed);
+
+    return callbacks;
+  }
+
+  List<int> _getDomNodePath(Element domNode) {
+    var path = <int>[];
+
+    var previousAncestor = domNode;
+    var ancestor = domNode.parent;
+
+    while (null != ancestor && previousAncestor.id != rootElement.appTargetId) {
+      path.add(ancestor.childNodes.indexOf(previousAncestor));
+
+      previousAncestor = ancestor;
+      ancestor = ancestor.parent;
+    }
+
+    return path;
   }
 }
