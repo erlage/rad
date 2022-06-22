@@ -290,6 +290,12 @@ class Renderer with ServicesResolver {
 
     var renderElement = widget.createRenderElement(parentRenderElement);
 
+    if (renderElement is AliveRenderElement) {
+      renderElement.frameworkInit();
+
+      jobQueue.addPostDispatchCallback(renderElement.frameworkAfterMount);
+    }
+
     // 2. Create dom node(if widget.correspondingTag is non-null)
 
     Element? domNode;
@@ -328,14 +334,6 @@ class Renderer with ServicesResolver {
 
     if (bubbleEventListeners.isNotEmpty) {
       services.events.setupEventListeners(bubbleEventListeners);
-    }
-
-    // 6. Check and process hooks if element has a lifecycle
-
-    if (renderElement is AliveRenderElement) {
-      renderElement.frameworkInit();
-
-      jobQueue.addPostDispatchCallback(renderElement.frameworkAfterMount);
     }
 
     if (services.debug.widgetLogs) {

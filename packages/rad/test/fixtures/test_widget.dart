@@ -15,6 +15,7 @@ class RT_TestWidget extends Widget {
 
   // render element events
 
+  final VoidCallback? roEventInit;
   final VoidCallback? roEventRender;
   final VoidCallback? roEventUpdate;
   final VoidCallback? roEventBeforeMount;
@@ -43,6 +44,7 @@ class RT_TestWidget extends Widget {
 
     // render object events
 
+    this.roEventInit,
     this.roEventRender,
     this.roEventUpdate,
     this.roEventBeforeMount,
@@ -120,6 +122,7 @@ class RT_TestWidget extends Widget {
     return RT_TestRenderElement(
       this,
       parent,
+      roEventInit: roEventInit,
       roEventRender: roEventRender,
       roEventUpdate: roEventUpdate,
       roEventAfterMount: roEventAfterMount,
@@ -133,6 +136,7 @@ class RT_TestWidget extends Widget {
 /// Render object of test widget.
 ///
 class RT_TestRenderElement extends AliveRenderElement {
+  final VoidCallback? roEventInit;
   final VoidCallback? roEventRender;
   final VoidCallback? roEventUpdate;
   final VoidCallback? roEventAfterMount;
@@ -144,6 +148,7 @@ class RT_TestRenderElement extends AliveRenderElement {
   RT_TestRenderElement(
     RT_TestWidget widget,
     RenderElement parent, {
+    this.roEventInit,
     this.roEventRender,
     this.roEventUpdate,
     this.roEventAfterMount,
@@ -154,6 +159,13 @@ class RT_TestRenderElement extends AliveRenderElement {
 
   @override
   List<Widget> get childWidgets => (widget as RT_TestWidget).children ?? [];
+
+  @override
+  init() {
+    if (null != roEventInit) {
+      roEventInit!();
+    }
+  }
 
   @override
   render({required widget}) {

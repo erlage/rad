@@ -192,6 +192,31 @@ void main() {
       ]);
     });
 
+    testWidgets('should call init on alive render elements', (tester) async {
+      await tester.pumpWidget(
+        RT_TestWidget(
+          // widget hooks
+
+          wEventCreateRenderObject: () => tester.push(
+            'createRenderElement',
+          ),
+
+          // render object hooks
+
+          roEventInit: () => tester.push('init'),
+          roEventRender: () => tester.push('render'),
+          roEventAfterMount: () => tester.push('afterMount'),
+        ),
+      );
+
+      tester.assertMatchStack([
+        'createRenderElement',
+        'init',
+        'render',
+        'afterMount',
+      ]);
+    });
+
     testWidgets('should build widgets, in order, from top', (tester) async {
       await tester.pumpWidget(
         RT_TestWidget(
