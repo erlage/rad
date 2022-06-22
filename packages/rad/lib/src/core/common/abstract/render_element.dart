@@ -76,17 +76,6 @@ abstract class RenderElement implements BuildContext {
 
   /*
   |--------------------------------------------------------------------------
-  | mount status of current element
-  |--------------------------------------------------------------------------
-  */
-
-  @nonVirtual
-  @override
-  bool get isMounted => _isMounted;
-  bool _isMounted = false;
-
-  /*
-  |--------------------------------------------------------------------------
   | render element's child widgets
   |--------------------------------------------------------------------------
   */
@@ -182,12 +171,6 @@ abstract class RenderElement implements BuildContext {
   |--------------------------------------------------------------------------
   */
 
-  /// Init hook.
-  ///
-  /// This hook gets called exactly once during lifetime of an element.
-  ///
-  void init() {}
-
   /// Render hook.
   ///
   /// This hook gets called exactly once during lifetime of an element. This
@@ -195,13 +178,6 @@ abstract class RenderElement implements BuildContext {
   /// associated with the current element(if there's any).
   ///
   DomNodePatch? render({required Widget widget}) => null;
-
-  /// After mount hook.
-  ///
-  /// This hook gets called exactly once during lifetime of an element after
-  /// widget is mounted on screen.
-  ///
-  void afterMount() {}
 
   /// Update hook.
   ///
@@ -227,12 +203,6 @@ abstract class RenderElement implements BuildContext {
     required Widget newWidget,
     required UpdateType updateType,
   }) {}
-
-  /// After unMount hook.
-  ///
-  /// This hook gets called exactly once during lifetime of an element.
-  ///
-  void afterUnMount() {}
 
   /*
   |--------------------------------------------------------------------------
@@ -442,16 +412,7 @@ abstract class RenderElement implements BuildContext {
 
   @nonVirtual
   DomNodePatch? frameworkRender({required Widget widget}) {
-    init();
-
     return render(widget: widget);
-  }
-
-  @nonVirtual
-  void frameworkAfterMount() {
-    _isMounted = true;
-
-    afterMount();
   }
 
   @nonVirtual
@@ -480,13 +441,6 @@ abstract class RenderElement implements BuildContext {
       oldWidget: oldWidget,
       newWidget: newWidget,
     );
-  }
-
-  @nonVirtual
-  void frameworkAfterUnMount() {
-    _isMounted = false;
-
-    afterUnMount();
   }
 
   /*

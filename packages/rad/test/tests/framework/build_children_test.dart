@@ -73,18 +73,18 @@ void main() {
 
     testWidgets('should mount', (tester) async {
       await tester.pumpMultipleWidgets([
-        Text('some text 1'),
-        Text('some text 2'),
+        RT_TestWidget(),
+        RT_TestWidget(),
       ]);
 
-      expect(tester.find.byType(Text), renderElementsAreMounted);
+      expect(tester.find.byType(RT_TestWidget), areMounted);
     });
 
     testWidgets('should trigger afterMount hook after mount', (tester) async {
       await tester.pumpWidget(
         RT_TestWidget(
           roEventAfterMount: () {
-            expect(tester.find.byType(RT_TestWidget), renderElementIsMounted);
+            expect(tester.find.byType(RT_TestWidget), isMounted);
           },
         ),
       );

@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:meta/meta.dart';
 
+import 'package:rad/src/core/common/abstract/alive_render_element.dart';
 import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
@@ -106,7 +107,7 @@ const _description = DomNodePatch(
 
 /// Gesture detector's render element.
 ///
-class GestureDetectorRenderElement extends SingleChildRenderElement {
+class GestureDetectorRenderElement extends AliveRenderElement {
   /// Associated state.
   ///
   final _GestureDetectorState state;
@@ -115,7 +116,12 @@ class GestureDetectorRenderElement extends SingleChildRenderElement {
     GestureDetector widget,
     RenderElement parent,
   )   : state = _GestureDetectorState(),
+        _childWidgets = [widget.child],
         super(widget, parent);
+
+  @override
+  List<Widget> get childWidgets => _childWidgets;
+  List<Widget> _childWidgets;
 
   @mustCallSuper
   @override
@@ -130,16 +136,12 @@ class GestureDetectorRenderElement extends SingleChildRenderElement {
   render({required widget}) => _description;
 
   @override
-  afterWidgetRebind({
+  void afterWidgetRebind({
     required oldWidget,
-    required newWidget,
+    required covariant SingleChildWidget newWidget,
     required updateType,
   }) {
-    super.afterWidgetRebind(
-      oldWidget: oldWidget,
-      newWidget: newWidget,
-      updateType: updateType,
-    );
+    _childWidgets = [newWidget.child];
 
     state.frameworkRebindWidget(
       oldWidget: oldWidget,

@@ -107,30 +107,32 @@ const Matcher nodeHasFocus = _DomNodeHasFocus(negate: false);
 ///
 const Matcher nodeHasNotFocus = _DomNodeHasFocus(negate: true);
 
-/// Asserts that a render element is mounted.
+/// Asserts that a alive render element is mounted.
 ///
-const Matcher renderElementIsMounted = _RenderElementsAreMounted(
+const Matcher isMounted = _AliveRenderElementsAreMounted(
   negate: false,
   isMultiple: false,
 );
 
-/// Asserts that a render element is not mounted.
+/// Asserts that a alive render element is not mounted.
 ///
-const Matcher renderElementIsNotMounted = _RenderElementsAreMounted(
+const Matcher isNotMounted = _AliveRenderElementsAreMounted(
   negate: true,
   isMultiple: false,
 );
 
-/// Asserts that list of widgets are mounted.
+/// Asserts that list of widgets(only that has alive render elements) are
+/// mounted.
 ///
-const Matcher renderElementsAreMounted = _RenderElementsAreMounted(
+const Matcher areMounted = _AliveRenderElementsAreMounted(
   negate: false,
   isMultiple: true,
 );
 
-/// Asserts that list of widgets are not mounted.
+/// Asserts that list of widgets(only that has alive render elements) are not
+/// mounted.
 ///
-const Matcher renderElementsAreNotMounted = _RenderElementsAreMounted(
+const Matcher areNotMounted = _AliveRenderElementsAreMounted(
   negate: true,
   isMultiple: true,
 );
@@ -428,24 +430,28 @@ class _HasGoodToStringDeep extends Matcher {
   }
 }
 
-class _RenderElementsAreMounted extends Matcher {
+class _AliveRenderElementsAreMounted extends Matcher {
   final bool negate;
   final bool isMultiple;
 
-  const _RenderElementsAreMounted({
+  const _AliveRenderElementsAreMounted({
     required this.negate,
     required this.isMultiple,
   });
 
   @override
   matches(Object? items, void _) {
-    var results = <RenderElement>[];
+    var results = <AliveRenderElement>[];
 
     if (items is Finder) {
-      results.addAll(items.evaluate());
+      for (final renderElement in items.evaluate()) {
+        if (renderElement is AliveRenderElement) {
+          results.add(renderElement);
+        }
+      }
     }
 
-    if (items is RenderElement) {
+    if (items is AliveRenderElement) {
       results.add(items);
     }
 
@@ -469,7 +475,7 @@ class _RenderElementsAreMounted extends Matcher {
   }
 
   bool _isMatched(Object renderElement) {
-    if (renderElement is RenderElement) {
+    if (renderElement is AliveRenderElement) {
       if (negate) {
         return !renderElement.isMounted;
       }
@@ -506,13 +512,17 @@ class _RenderElementsAreMounted extends Matcher {
     void _,
     void __,
   ) {
-    var results = <RenderElement>[];
+    var results = <AliveRenderElement>[];
 
     if (items is Finder) {
-      results.addAll(items.evaluate());
+      for (final renderElement in items.evaluate()) {
+        if (renderElement is AliveRenderElement) {
+          results.add(renderElement);
+        }
+      }
     }
 
-    if (items is RenderElement) {
+    if (items is AliveRenderElement) {
       results.add(items);
     }
 

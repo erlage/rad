@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:rad/src/core/common/abstract/alive_render_element.dart';
 import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/constants.dart';
@@ -329,7 +330,13 @@ class Renderer with ServicesResolver {
       services.events.setupEventListeners(bubbleEventListeners);
     }
 
-    jobQueue.addPostDispatchCallback(renderElement.frameworkAfterMount);
+    // 6. Check and process hooks if element has a lifecycle
+
+    if (renderElement is AliveRenderElement) {
+      renderElement.frameworkInit();
+
+      jobQueue.addPostDispatchCallback(renderElement.frameworkAfterMount);
+    }
 
     if (services.debug.widgetLogs) {
       print('Build widget: $renderElement');
@@ -1000,7 +1007,9 @@ class Renderer with ServicesResolver {
 
     // Call lifecycle hooks
 
-    renderElement.frameworkAfterUnMount();
+    if (renderElement is AliveRenderElement) {
+      renderElement.frameworkAfterUnMount();
+    }
 
     if (services.debug.widgetLogs) {
       print('Dispose: $renderElement');
@@ -1022,7 +1031,9 @@ class Renderer with ServicesResolver {
 
     // Call lifecycle hooks
 
-    renderElement.frameworkAfterUnMount();
+    if (renderElement is AliveRenderElement) {
+      renderElement.frameworkAfterUnMount();
+    }
 
     if (services.debug.widgetLogs) {
       print('Dispose: $renderElement');

@@ -34,10 +34,6 @@ abstract class BuildContext {
   ///
   bool get isRoot;
 
-  /// Whether current widget is mounted on screen.
-  ///
-  bool get isMounted;
-
   /// App's target id.
   ///
   String get appTargetId;

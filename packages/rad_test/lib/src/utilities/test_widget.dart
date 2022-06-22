@@ -132,7 +132,7 @@ class TestWidget extends Widget {
 
 /// Render object of test widget.
 ///
-class TestRenderElement extends RenderElement {
+class TestRenderElement extends AliveRenderElement {
   final VoidCallback? roEventRender;
   final VoidCallback? roEventUpdate;
   final VoidCallback? roEventAfterMount;

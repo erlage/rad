@@ -104,31 +104,36 @@ void main() {
     test('should mount', () async {
       await app!.buildChildren(
         widgets: [
-          Text('some text 1', key: GlobalKey('find-using-me-1')),
-          Text('some text 2', key: GlobalKey('find-using-me-2')),
+          RT_TestWidget(key: GlobalKey('find-using-me-1')),
+          RT_TestWidget(key: GlobalKey('find-using-me-2')),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
+      var e1 = app!.renderElementByGlobalKey('find-using-me-1')!;
+      var e2 = app!.renderElementByGlobalKey('find-using-me-2')!;
+
       expect(
-        app!.renderElementByGlobalKey('find-using-me-1')!.isMounted,
+        (e1 as AliveRenderElement).isMounted,
         equals(true),
       );
 
       expect(
-        app!.renderElementByGlobalKey('find-using-me-2')!.isMounted,
+        (e2 as AliveRenderElement).isMounted,
         equals(true),
       );
     });
 
-    test('should trigger RO.afterMount hook after mount', () async {
+    test('should call afterMount hook after mount', () async {
       await app!.buildChildren(
         widgets: [
           RT_TestWidget(
             key: GlobalKey('test-widget'),
             roEventAfterMount: () {
+              var e1 = app!.renderElementByGlobalKey('test-widget')!;
+
               expect(
-                app!.renderElementByGlobalKey('test-widget')!.isMounted,
+                (e1 as AliveRenderElement).isMounted,
                 equals(true),
               );
             },
@@ -144,26 +149,11 @@ void main() {
           RT_TestWidget(
             key: GlobalKey('test-widget'),
             roEventRender: () {
-              expect(
-                app!.renderElementByGlobalKey('test-widget')!.isMounted,
-                equals(false),
-              );
-            },
-          )
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-    });
+              var e1 = app!.renderElementByGlobalKey('test-widget')!;
 
-    test('should call afterMount after mount', () async {
-      await app!.buildChildren(
-        widgets: [
-          RT_TestWidget(
-            key: GlobalKey('test-widget'),
-            roEventAfterMount: () {
               expect(
-                app!.renderElementByGlobalKey('test-widget')!.isMounted,
-                equals(true),
+                (e1 as AliveRenderElement).isMounted,
+                equals(false),
               );
             },
           )

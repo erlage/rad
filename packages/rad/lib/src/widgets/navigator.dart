@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:meta/meta.dart';
 
+import 'package:rad/src/core/common/abstract/alive_render_element.dart';
 import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/constants.dart';
@@ -388,7 +389,7 @@ const _description = DomNodePatch(
 |--------------------------------------------------------------------------
 */
 
-class NavigatorRenderElement extends RenderElement {
+class NavigatorRenderElement extends AliveRenderElement {
   final NavigatorState state;
 
   /// currentPage => {widgetKey => widgetContext}
