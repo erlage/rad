@@ -2,14 +2,14 @@ import 'dart:collection';
 
 import 'package:meta/meta.dart';
 
+import 'package:rad/src/core/common/abstract/build_context.dart';
+import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/cache.dart';
 import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/router/open_history_entry.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';

@@ -1,5 +1,5 @@
+import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/objects/cache.dart';
-import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Base class for widgets that has no child widgets.

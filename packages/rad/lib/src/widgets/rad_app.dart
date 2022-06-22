@@ -1,8 +1,8 @@
+import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/widgets/abstract/single_child_widget.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 

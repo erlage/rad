@@ -2,10 +2,10 @@ import 'dart:collection';
 
 import 'package:meta/meta.dart';
 
+import 'package:rad/src/core/common/abstract/build_context.dart';
+import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 

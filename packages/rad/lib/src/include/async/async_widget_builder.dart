@@ -1,4 +1,4 @@
-import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/include/async/async_snapshot.dart';
 import 'package:rad/src/include/widgets/future_builder.dart';
 import 'package:rad/src/include/widgets/stream_builder.dart';

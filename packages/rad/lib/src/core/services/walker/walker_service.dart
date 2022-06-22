@@ -1,9 +1,9 @@
 import 'dart:html' show Node;
 
+import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/common/objects/common_render_elements.dart';
 import 'package:rad/src/core/common/objects/key.dart';
-import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/core/services/abstract.dart';
 
 /// Tree Walker/Registry for Dom/render elements.

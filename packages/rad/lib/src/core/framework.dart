@@ -1,5 +1,5 @@
+import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/build_context.dart';
 import 'package:rad/src/core/renderer/renderer.dart';
 import 'package:rad/src/core/run_app.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';

@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import 'package:rad/src/core/common/objects/render_element.dart';
+import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/services/walker/walker_service.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 

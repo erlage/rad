@@ -1,5 +1,5 @@
+import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/render_element.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Framework's action.

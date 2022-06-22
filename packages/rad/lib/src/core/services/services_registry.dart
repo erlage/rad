@@ -1,4 +1,4 @@
-import 'package:rad/src/core/common/objects/build_context.dart';
+import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/services/debug/debug_service.dart';
 import 'package:rad/src/core/services/events/events_service.dart';
 import 'package:rad/src/core/services/router/router_service.dart';
