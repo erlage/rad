@@ -79,7 +79,7 @@ class Renderer with ServicesResolver {
 
     // create temp space for holding new widgets
 
-    var remnantRenderElement = RemnantElement.create(
+    var temporaryRenderElement = TemporaryElement.create(
       services: services,
       possibleParent: parentRenderElement,
     );
@@ -88,8 +88,8 @@ class Renderer with ServicesResolver {
 
     buildWidgetsUnderContext(
       widgets: widgets,
-      parentDomNode: remnantRenderElement.domNode!,
-      parentRenderElement: remnantRenderElement,
+      parentDomNode: temporaryRenderElement.domNode!,
+      parentRenderElement: temporaryRenderElement,
       jobQueue: queue,
     );
 
@@ -98,7 +98,7 @@ class Renderer with ServicesResolver {
     mountWidgets(
       parentRenderElement: parentRenderElement,
       mountAtIndex: mountAtIndex,
-      remnantRenderElement: remnantRenderElement,
+      temporaryRenderElement: temporaryRenderElement,
       jobQueue: queue,
     );
 
@@ -673,7 +673,7 @@ class Renderer with ServicesResolver {
     //
     // -- element that's holding new widgets --
     //
-    required RemnantElement remnantRenderElement,
+    required TemporaryElement temporaryRenderElement,
     //
     // -- element which is expecting new widgets --
     //
@@ -693,7 +693,7 @@ class Renderer with ServicesResolver {
 
     // create copy of new elements list for iterator
 
-    var renderElements = remnantRenderElement.frameworkChildElements;
+    var renderElements = temporaryRenderElement.frameworkChildElements;
 
     // store reference of first render element from new widgets
 
@@ -781,7 +781,7 @@ class Renderer with ServicesResolver {
 
     var documentFragment = DocumentFragment();
 
-    for (final node in remnantRenderElement.domNode!.children) {
+    for (final node in temporaryRenderElement.domNode!.children) {
       documentFragment.append(node);
     }
 

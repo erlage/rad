@@ -32,7 +32,7 @@ class RootElement extends RenderElement {
 /// elements until they are mounted. This allow framework to build new widgets
 /// in memory and mount them all in single operation.
 ///
-class RemnantElement extends RenderElement {
+class TemporaryElement extends RenderElement {
   /// Create a temporary render element.
   ///
   /// Temporary elements are render elements that can hold new render elements
@@ -42,25 +42,25 @@ class RemnantElement extends RenderElement {
   /// We setup parent pointers on temporary render element to point to future
   /// parent(actual parent) of childs being built in order to allow new widgets
   /// use methods that requires traversing ancestors during build. for example,
-  /// this enables users to call dependeOnInher* inside build or even initState
-  /// method of a stateful widget.
+  /// this enables users to call dependeOnInher* inside build or even inside
+  /// initState method of a stateful widget.
   ///
-  factory RemnantElement.create({
+  factory TemporaryElement.create({
     required Services services,
     required RenderElement possibleParent,
   }) {
-    return RemnantElement._(services, possibleParent);
+    return TemporaryElement._(services, possibleParent);
   }
 
   /// Temporary render element constructor.
   ///
-  RemnantElement._(
+  TemporaryElement._(
     Services services,
     RenderElement possibleParent,
   ) : super.temporary(
           services: services,
           possibleParent: possibleParent,
-          tempWidget: const _DummyWidget(),
+          tempWidget: const _TemporaryWidget(),
           tempDomNode: document.createElement('div'),
         );
 
@@ -72,10 +72,10 @@ class RemnantElement extends RenderElement {
 //  Private
 // ----------------------------------------------------------------------
 
-/// A dummy widget.
+/// A temporary widget.
 ///
-class _DummyWidget extends NoChildWidget {
-  const _DummyWidget();
+class _TemporaryWidget extends NoChildWidget {
+  const _TemporaryWidget();
 
   @override
   String get widgetType => '_DummyWidget';
