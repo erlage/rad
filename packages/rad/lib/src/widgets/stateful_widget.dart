@@ -156,9 +156,6 @@ class StatefulRenderElement extends RenderElement {
       ..didChangeDependencies();
   }
 
-  // we build child of stateful widget after mount so that users can call
-  // any method from context.* inside build method
-
   @override
   afterWidgetRebind({
     required updateType,
