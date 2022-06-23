@@ -1,6 +1,7 @@
 import 'package:rad/rad.dart';
 import 'package:rad/widgets_html.dart';
 import 'package:rad_test/rad_test.dart';
+import 'package:rad_test/src/modules/all_elements.dart';
 import 'package:test/expect.dart';
 
 void main() {

@@ -15,7 +15,10 @@ void main() {
 
       await tester.enterText(tester.find.byType(Input), 'hello world');
 
-      expect(tester.getDomNodeByGlobalKey(gkey), hasValue('hello world'));
+      expect(
+        tester.getDomNodeByGlobalKey(gkey),
+        domNodeHasValue('hello world'),
+      );
     });
 
     testWidgets('should clear old text', (tester) async {
@@ -25,10 +28,13 @@ void main() {
         const Input(key: gkey, value: 'some text'),
       );
 
-      expect(tester.getDomNodeByGlobalKey(gkey), hasValue('some text'));
+      expect(
+        tester.getDomNodeByGlobalKey(gkey),
+        domNodeHasValue('some text'),
+      );
 
       await tester.enterText(tester.find.byType(Input), '');
-      expect(tester.getDomNodeByGlobalKey(gkey), hasValue(''));
+      expect(tester.getDomNodeByGlobalKey(gkey), domNodeHasValue(''));
     });
   });
 
@@ -40,7 +46,7 @@ void main() {
         const Input(key: gkey),
       );
 
-      expect(tester.getDomNodeByGlobalKey(gkey), nodeHasNotFocus);
+      expect(tester.getDomNodeByGlobalKey(gkey), domNodeHasNotFocus);
     });
 
     testWidgets('should focus', (tester) async {
@@ -52,7 +58,7 @@ void main() {
 
       await tester.focus(tester.find.byType(Input));
 
-      expect(tester.getDomNodeByGlobalKey(gkey), nodeHasFocus);
+      expect(tester.getDomNodeByGlobalKey(gkey), domNodeHasFocus);
     });
   });
 }
