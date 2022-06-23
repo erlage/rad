@@ -10,10 +10,6 @@ void main() {
   */
 
   group('findAncestorWidgetOfExactType():', () {
-    RT_AppRunner? app;
-    setUp(() => app = createTestApp()..start());
-    tearDown(() => app!.stop());
-
     testWidgets('should return null if widget not found', (tester) {
       var element = tester.app.appRenderElement;
 
