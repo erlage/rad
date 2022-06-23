@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_asserts_with_message
 
+import 'package:meta/meta.dart';
 import 'package:test/expect.dart';
 
 import 'package:rad_test/src/imports.dart';
@@ -101,14 +102,15 @@ const Matcher hasAGoodToStringDeep = _HasGoodToStringDeep();
 
 /// Asserts that node has focus.
 ///
-const Matcher nodeHasFocus = _DomNodeHasFocus(negate: false);
+const Matcher domNodeHasFocus = _DomNodeHasFocus(negate: false);
 
 /// Asserts that node doesn't have focus.
 ///
-const Matcher nodeHasNotFocus = _DomNodeHasFocus(negate: true);
+const Matcher domNodeHasNotFocus = _DomNodeHasFocus(negate: true);
 
 /// Asserts that a alive render element is mounted.
 ///
+@experimental
 const Matcher isMounted = _AliveRenderElementsAreMounted(
   negate: false,
   isMultiple: false,
@@ -116,6 +118,7 @@ const Matcher isMounted = _AliveRenderElementsAreMounted(
 
 /// Asserts that a alive render element is not mounted.
 ///
+@experimental
 const Matcher isNotMounted = _AliveRenderElementsAreMounted(
   negate: true,
   isMultiple: false,
@@ -124,6 +127,7 @@ const Matcher isNotMounted = _AliveRenderElementsAreMounted(
 /// Asserts that list of widgets(only that has alive render elements) are
 /// mounted.
 ///
+@experimental
 const Matcher areMounted = _AliveRenderElementsAreMounted(
   negate: false,
   isMultiple: true,
@@ -132,6 +136,7 @@ const Matcher areMounted = _AliveRenderElementsAreMounted(
 /// Asserts that list of widgets(only that has alive render elements) are not
 /// mounted.
 ///
+@experimental
 const Matcher areNotMounted = _AliveRenderElementsAreMounted(
   negate: true,
   isMultiple: true,
@@ -139,11 +144,11 @@ const Matcher areNotMounted = _AliveRenderElementsAreMounted(
 
 /// Asserts that node.value of a input/textarea node is equals to [value].
 ///
-Matcher hasValue(String value) => _DomNodeHasValue(value);
+Matcher domNodeHasValue(String value) => _DomNodeHasValue(value);
 
 /// Asserts that textual contents of a dom's node are equals to [contents].
 ///
-Matcher nodeHasContents(String contents) => _DomNodeHasContents(contents);
+Matcher domNodeHasContents(String contents) => _DomNodeHasContents(contents);
 
 /// A matcher for [AssertionError].
 ///

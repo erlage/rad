@@ -2,10 +2,52 @@
 ///
 library rad_test;
 
-export 'package:rad_test/src/common/types.dart';
-export 'package:rad_test/src/modules/all_elements.dart';
-export 'package:rad_test/src/modules/finders.dart';
-export 'package:rad_test/src/modules/matchers.dart';
-export 'package:rad_test/src/modules/testers.dart';
-export 'package:rad_test/src/modules/testers.dart';
-export 'package:rad_test/src/modules/widget_tester.dart';
+/*
+|--------------------------------------------------------------------------
+| types
+|--------------------------------------------------------------------------
+*/
+
+export 'src/common/types.dart' show WidgetPredicate;
+export 'src/common/types.dart' show WidgetTesterCallback;
+export 'src/common/types.dart' show RenderElementPredicate;
+
+/*
+|--------------------------------------------------------------------------
+| testers
+|--------------------------------------------------------------------------
+*/
+
+export 'src/modules/testers.dart' show testWidgets;
+export 'src/modules/widget_tester.dart' show WidgetTester;
+
+/*
+|--------------------------------------------------------------------------
+| utilities
+|--------------------------------------------------------------------------
+*/
+
+export 'src/utilities/test_stack.dart' show TestStack;
+export 'src/utilities/test_window.dart' show TestWindow;
+
+/*
+|--------------------------------------------------------------------------
+| matchers
+|--------------------------------------------------------------------------
+*/
+
+export 'src/modules/matchers.dart' show findsNothing;
+export 'src/modules/matchers.dart' show findsWidgets;
+export 'src/modules/matchers.dart' show findsOneWidget;
+export 'src/modules/matchers.dart' show findsNWidgets;
+
+export 'src/modules/matchers.dart' show domNodeHasFocus;
+export 'src/modules/matchers.dart' show domNodeHasNotFocus;
+export 'src/modules/matchers.dart' show domNodeHasValue;
+export 'src/modules/matchers.dart' show domNodeHasContents;
+
+export 'src/modules/matchers.dart' show hasOneLineDescription;
+export 'src/modules/matchers.dart' show hasAGoodToStringDeep;
+
+export 'src/modules/matchers.dart' show isMounted, isNotMounted;
+export 'src/modules/matchers.dart' show areMounted, areNotMounted;

@@ -25,7 +25,7 @@ void main() {
       );
 
       expect(tester.find.byType(Text), findsNWidgets(2));
-      expect(tester.getAppDomNode, nodeHasContents('widget-1|widget-3'));
+      expect(tester.getAppDomNode, domNodeHasContents('widget-1|widget-3'));
     });
 
     testWidgets(
@@ -40,7 +40,7 @@ void main() {
         await tester.rePumpMultipleWidgets([]);
 
         expect(tester.find.byType(Text), findsNothing);
-        expect(tester.getAppDomNode, nodeHasContents(''));
+        expect(tester.getAppDomNode, domNodeHasContents(''));
       },
     );
 
@@ -73,7 +73,7 @@ void main() {
       );
 
       expect(tester.find.byType(Text), findsNWidgets(3));
-      expect(tester.getAppDomNode, nodeHasContents('0|0-1|1'));
+      expect(tester.getAppDomNode, domNodeHasContents('0|0-1|1'));
     });
 
     testWidgets('should dispose multiple widgets', (tester) async {
@@ -112,7 +112,7 @@ void main() {
       );
 
       expect(tester.find.byType(Text), findsNWidgets(2));
-      expect(tester.getAppDomNode, nodeHasContents('0|1'));
+      expect(tester.getAppDomNode, domNodeHasContents('0|1'));
     });
 
     testWidgets('should dispose widgets recursively', (tester) async {
@@ -145,7 +145,7 @@ void main() {
       );
 
       expect(tester.find.byType(Text), findsOneWidget);
-      expect(tester.getAppDomNode, nodeHasContents('1'));
+      expect(tester.getAppDomNode, domNodeHasContents('1'));
     });
 
     testWidgets('method call should be idempotent', (tester) async {

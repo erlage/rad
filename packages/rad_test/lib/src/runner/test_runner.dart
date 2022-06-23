@@ -46,7 +46,6 @@ class TestRunner {
 
         var widgetTester = WidgetTester(
           app,
-          this,
           stack: TestStack(),
           window: useWindowMock && app.window is TestWindow
               ? app.window as TestWindow

@@ -18,7 +18,7 @@ void main() {
 
       tester.assertMatchStack([]);
 
-      expect(tester.getAppDomNode, nodeHasContents('contents'));
+      expect(tester.getAppDomNode, domNodeHasContents('contents'));
     });
 
     testWidgets(
@@ -33,7 +33,7 @@ void main() {
 
         tester.assertMatchStack([]);
 
-        expect(tester.getAppDomNode, nodeHasContents('contents'));
+        expect(tester.getAppDomNode, domNodeHasContents('contents'));
       },
     );
 

@@ -16,7 +16,7 @@ void main() {
       );
 
       expect(tester.find.byType(Text), findsOneWidget);
-      expect(tester.getAppDomNode, nodeHasContents('hello world'));
+      expect(tester.getAppDomNode, domNodeHasContents('hello world'));
     });
 
     testWidgets('should build multiple childs', (tester) async {
@@ -26,7 +26,7 @@ void main() {
       ]);
 
       expect(tester.find.byType(Text), findsNWidgets(2));
-      expect(tester.getAppDomNode, nodeHasContents('child1|child2'));
+      expect(tester.getAppDomNode, domNodeHasContents('child1|child2'));
     });
 
     testWidgets('should build nested childs', (tester) async {
@@ -43,7 +43,7 @@ void main() {
       expect(tester.find.byType(Text), findsNWidgets(3));
       expect(tester.find.byType(Division), findsNWidgets(2));
 
-      expect(tester.getAppDomNode, nodeHasContents('child1|child2|child3'));
+      expect(tester.getAppDomNode, domNodeHasContents('child1|child2|child3'));
     });
 
     testWidgets('should build mixed and nested childs', (tester) async {
@@ -68,7 +68,7 @@ void main() {
       expect(tester.find.byType(Text), findsNWidgets(4));
       expect(tester.find.byType(Division), findsNWidgets(3));
 
-      expect(tester.getAppDomNode, nodeHasContents('c1|c2|c3|c4|c5|c6'));
+      expect(tester.getAppDomNode, domNodeHasContents('c1|c2|c3|c4|c5|c6'));
     });
 
     testWidgets('should mount', (tester) async {
@@ -128,7 +128,7 @@ void main() {
 
         expect(
           tester.getAppDomNode,
-          nodeHasContents('widget 1|widget 2|widget 3|widget 4'),
+          domNodeHasContents('widget 1|widget 2|widget 3|widget 4'),
         );
       },
     );
@@ -150,7 +150,7 @@ void main() {
 
         expect(
           tester.getAppDomNode,
-          nodeHasContents('widget 1|widget 2|widget 3|widget 4'),
+          domNodeHasContents('widget 1|widget 2|widget 3|widget 4'),
         );
       },
     );
@@ -281,7 +281,7 @@ void main() {
 
         await tester.pumpMultipleWidgets([]);
 
-        expect(tester.getAppDomNode, nodeHasContents('this should presist'));
+        expect(tester.getAppDomNode, domNodeHasContents('this should presist'));
       },
     );
 
@@ -342,7 +342,7 @@ void main() {
           Text('4'),
         ], flagCleanParentContents: true);
 
-        expect(tester.getAppDomNode, nodeHasContents('4'));
+        expect(tester.getAppDomNode, domNodeHasContents('4'));
       },
     );
 
@@ -359,7 +359,7 @@ void main() {
           Text('4'),
         ], flagCleanParentContents: false);
 
-        expect(tester.getAppDomNode, nodeHasContents('1|2|3|4'));
+        expect(tester.getAppDomNode, domNodeHasContents('1|2|3|4'));
       },
     );
 
@@ -384,7 +384,7 @@ void main() {
         flagCleanParentContents: false,
       );
 
-      expect(tester.getAppDomNode, nodeHasContents('1|2|3|4|5'));
+      expect(tester.getAppDomNode, domNodeHasContents('1|2|3|4|5'));
     });
 
     testWidgets('should mount at given index', (tester) async {
@@ -400,7 +400,7 @@ void main() {
         flagCleanParentContents: false,
       );
 
-      expect(tester.getAppDomNode, nodeHasContents('1|2|3|4'));
+      expect(tester.getAppDomNode, domNodeHasContents('1|2|3|4'));
     });
 
     testWidgets('should mount multiple widgets at given index', (tester) async {
@@ -414,7 +414,7 @@ void main() {
         Text('3'),
       ], mountAtIndex: 1, flagCleanParentContents: false);
 
-      expect(tester.getAppDomNode, nodeHasContents('1|2|3|4'));
+      expect(tester.getAppDomNode, domNodeHasContents('1|2|3|4'));
     });
 
     testWidgets('should mount at start', (tester) async {
@@ -426,7 +426,7 @@ void main() {
         flagCleanParentContents: false,
       );
 
-      expect(tester.getAppDomNode, nodeHasContents('1|2'));
+      expect(tester.getAppDomNode, domNodeHasContents('1|2'));
     });
 
     testWidgets('should mount at end', (tester) async {
@@ -440,7 +440,7 @@ void main() {
         flagCleanParentContents: false,
       );
 
-      expect(tester.getAppDomNode, nodeHasContents('1|2'));
+      expect(tester.getAppDomNode, domNodeHasContents('1|2'));
     });
 
     testWidgets(
@@ -454,7 +454,7 @@ void main() {
           flagCleanParentContents: false,
         );
 
-        expect(tester.getAppDomNode, nodeHasContents('1'));
+        expect(tester.getAppDomNode, domNodeHasContents('1'));
       },
     );
 
@@ -469,7 +469,7 @@ void main() {
           flagCleanParentContents: false,
         );
 
-        expect(tester.getAppDomNode, nodeHasContents('1'));
+        expect(tester.getAppDomNode, domNodeHasContents('1'));
       },
     );
 
@@ -507,7 +507,7 @@ void main() {
           flagCleanParentContents: false,
         );
 
-        expect(tester.getAppDomNode, nodeHasContents('1|2|3|4|5|6'));
+        expect(tester.getAppDomNode, domNodeHasContents('1|2|3|4|5|6'));
       },
     );
 
@@ -525,7 +525,7 @@ void main() {
           mountAtIndex: 1,
         );
 
-        expect(tester.getAppDomNode, nodeHasContents('2'));
+        expect(tester.getAppDomNode, domNodeHasContents('2'));
       },
     );
   });

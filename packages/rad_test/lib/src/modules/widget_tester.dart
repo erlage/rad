@@ -6,7 +6,6 @@ import 'package:rad_test/src/imports.dart';
 import 'package:rad_test/src/modules/finders.dart';
 import 'package:rad_test/src/modules/testers.dart';
 import 'package:rad_test/src/runner/app_runner.dart';
-import 'package:rad_test/src/runner/test_runner.dart';
 import 'package:rad_test/src/utilities/test_stack.dart';
 import 'package:rad_test/src/utilities/test_window.dart';
 
@@ -16,10 +15,6 @@ class WidgetTester {
   /// App runner instance.
   ///
   final AppRunner app;
-
-  /// Parent test runner under which this widget tester is running.
-  ///
-  final TestRunner testRunner;
 
   /// A simple stack utility.
   ///
@@ -42,8 +37,7 @@ class WidgetTester {
   var _isDebugInformationDisabled = true;
 
   WidgetTester(
-    this.app,
-    this.testRunner, {
+    this.app, {
     required this.stack,
     this.window,
     required this.exceptionsContainer,
