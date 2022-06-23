@@ -334,7 +334,9 @@ class EventsService extends Service {
 
     var callbacks = capturingCallbacks;
 
-    callbacks.addAll(bubblingCallbacks.reversed);
+    while (bubblingCallbacks.isNotEmpty) {
+      callbacks.add(bubblingCallbacks.removeLast());
+    }
 
     return callbacks;
   }
