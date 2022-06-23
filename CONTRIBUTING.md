@@ -28,7 +28,7 @@ Nobody is perfect, and sometimes we mess things up. That said, here are some goo
 
     # or
 
-    dart format $(find . -name "*.dart" -not -path "*/templates/*")
+    dart format $(find . -name "*.dart" -not -path "*/templates/*" -not -path '*/.*')
     ```
 
 **Avoid**:
