@@ -22,3 +22,7 @@ linter:
     directives_ordering: false
     lines_longer_than_80_chars: false
     require_trailing_commas: false
+
+analyzer:
+  exclude:
+    - templates/**

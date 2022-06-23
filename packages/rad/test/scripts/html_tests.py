@@ -345,7 +345,7 @@ def generate():
             ]
 
             test_tmpl = os.path.abspath(os.path.join(
-                templates_folder, test + '.dart.txt'))
+                templates_folder, test + '.dart'))
 
             skip_context = ''
             if test in skipped_tests and widget_tag in skipped_tests[test]:
@@ -369,7 +369,7 @@ def generate():
                 generated += '\n\n'
 
                 test_tmpl = os.path.abspath(os.path.join(
-                    templates_folder, test + '.dart.txt'))
+                    templates_folder, test + '.dart'))
 
                 generated += utils.parse_test_from_template(
                     test_tmpl, replacements)
