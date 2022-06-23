@@ -26,7 +26,13 @@ jobs:
         run: |
           cd packages/rad
           dart pub get
-          dart format --output=none --set-exit-if-changed .
+
+          dart format --output=none --set-exit-if-changed example lib
+
+          cd test
+          dart format --output=none --set-exit-if-changed constants fixtures matchers mocks scripts tests
+          cd ..
+
           dart analyze --fatal-infos
 
   tests:
