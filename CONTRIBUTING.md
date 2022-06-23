@@ -15,10 +15,21 @@ Nobody is perfect, and sometimes we mess things up. That said, here are some goo
 **Do**:
 
 - Add description on what has been fixed/improved/added.
-- Before commit,
-    1. Format your code(`dart format .`) with default settings.
-    2. Run build runner(`dart run build_runner build`) with default settings.
-    3. Order imports(`dart pub run import_sorter:main`) with default settings.
+- Before commit:
+    ```sh
+    # Run build runner with default settings
+    dart run build_runner build
+    
+    # Order imports with default settings
+    dart pub run import_sorter:main
+
+    # Format updated files with default settings
+    dart format updated_file_1 updated_file_2
+
+    # or
+
+    dart format $(find . -name "*.dart" -not -path "*/templates/*")
+    ```
 
 **Avoid**:
 
