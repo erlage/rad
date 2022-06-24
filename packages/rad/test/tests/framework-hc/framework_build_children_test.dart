@@ -114,12 +114,12 @@ void main() {
       var e2 = app!.renderElementByGlobalKey('find-using-me-2')!;
 
       expect(
-        (e1 as AliveRenderElement).isMounted,
+        (e1 as WatchfulRenderElement).isMounted,
         equals(true),
       );
 
       expect(
-        (e2 as AliveRenderElement).isMounted,
+        (e2 as WatchfulRenderElement).isMounted,
         equals(true),
       );
     });
@@ -133,7 +133,7 @@ void main() {
               var e1 = app!.renderElementByGlobalKey('test-widget')!;
 
               expect(
-                (e1 as AliveRenderElement).isMounted,
+                (e1 as WatchfulRenderElement).isMounted,
                 equals(true),
               );
             },
@@ -152,7 +152,7 @@ void main() {
               var e1 = app!.renderElementByGlobalKey('test-widget')!;
 
               expect(
-                (e1 as AliveRenderElement).isMounted,
+                (e1 as WatchfulRenderElement).isMounted,
                 equals(false),
               );
             },

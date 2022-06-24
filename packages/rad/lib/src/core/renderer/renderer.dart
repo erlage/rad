@@ -1,8 +1,8 @@
 import 'dart:html';
 
-import 'package:rad/src/core/common/abstract/alive_render_element.dart';
 import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/common/abstract/render_element.dart';
+import 'package:rad/src/core/common/abstract/watchful_render_element.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/common_render_elements.dart';
@@ -306,9 +306,9 @@ class Renderer with ServicesResolver {
 
     services.walker.registerElement(renderElement);
 
-    // Call lifecycle hooks if it's a alive render element
+    // Call lifecycle hooks if it's a watchful render element
 
-    if (renderElement is AliveRenderElement) {
+    if (renderElement is WatchfulRenderElement) {
       renderElement.frameworkInit();
 
       // Add a job for calling afterMount hook
@@ -1009,7 +1009,7 @@ class Renderer with ServicesResolver {
 
     // Call lifecycle hooks
 
-    if (renderElement is AliveRenderElement) {
+    if (renderElement is WatchfulRenderElement) {
       renderElement.frameworkAfterUnMount();
     }
 
@@ -1033,7 +1033,7 @@ class Renderer with ServicesResolver {
 
     // Call lifecycle hooks
 
-    if (renderElement is AliveRenderElement) {
+    if (renderElement is WatchfulRenderElement) {
       renderElement.frameworkAfterUnMount();
     }
 

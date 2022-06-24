@@ -2,9 +2,9 @@ import 'dart:collection';
 
 import 'package:meta/meta.dart';
 
-import 'package:rad/src/core/common/abstract/alive_render_element.dart';
 import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/common/abstract/render_element.dart';
+import 'package:rad/src/core/common/abstract/watchful_render_element.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
@@ -402,7 +402,7 @@ const _description = DomNodePatch(
 |--------------------------------------------------------------------------
 */
 
-class NavigatorRenderElement extends AliveRenderElement {
+class NavigatorRenderElement extends WatchfulRenderElement {
   final NavigatorState state;
 
   /// currentPage => {widgetKey => widgetContext}

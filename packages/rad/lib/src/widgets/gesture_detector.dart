@@ -2,8 +2,8 @@ import 'dart:html';
 
 import 'package:meta/meta.dart';
 
-import 'package:rad/src/core/common/abstract/alive_render_element.dart';
 import 'package:rad/src/core/common/abstract/render_element.dart';
+import 'package:rad/src/core/common/abstract/watchful_render_element.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
@@ -107,7 +107,7 @@ const _description = DomNodePatch(
 
 /// Gesture detector's render element.
 ///
-class GestureDetectorRenderElement extends AliveRenderElement {
+class GestureDetectorRenderElement extends WatchfulRenderElement {
   /// Associated state.
   ///
   final _GestureDetectorState state;

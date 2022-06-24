@@ -49,5 +49,6 @@ export 'src/modules/matchers.dart' show domNodeHasContents;
 export 'src/modules/matchers.dart' show hasOneLineDescription;
 export 'src/modules/matchers.dart' show hasAGoodToStringDeep;
 
-export 'src/modules/matchers.dart' show isMounted, isNotMounted;
-export 'src/modules/matchers.dart' show areMounted, areNotMounted;
+export 'src/modules/matchers.dart' show isWatchfulMounted, isWatchfulNotMounted;
+export 'src/modules/matchers.dart'
+    show areWatchfulMounted, areWatchfulNotMounted;

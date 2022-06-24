@@ -2,9 +2,9 @@ import 'dart:html';
 
 import 'package:meta/meta.dart';
 
-import 'package:rad/src/core/common/abstract/alive_render_element.dart';
 import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/common/abstract/render_element.dart';
+import 'package:rad/src/core/common/abstract/watchful_render_element.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/functions.dart';
@@ -164,7 +164,7 @@ class ListViewRenderElement extends RenderElement {
 
 /// List view render element for builder version.
 ///
-class ListViewBuilderRenderElement extends AliveRenderElement {
+class ListViewBuilderRenderElement extends WatchfulRenderElement {
   /// List view builder state.
   ///
   final _ListViewBuilderState state;

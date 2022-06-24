@@ -77,14 +77,14 @@ void main() {
         RT_TestWidget(),
       ]);
 
-      expect(tester.find.byType(RT_TestWidget), areMounted);
+      expect(tester.find.byType(RT_TestWidget), areWatchfulMounted);
     });
 
     testWidgets('should trigger afterMount hook after mount', (tester) async {
       await tester.pumpWidget(
         RT_TestWidget(
           roEventAfterMount: () {
-            expect(tester.find.byType(RT_TestWidget), isMounted);
+            expect(tester.find.byType(RT_TestWidget), isWatchfulMounted);
           },
         ),
       );
@@ -192,7 +192,7 @@ void main() {
       ]);
     });
 
-    testWidgets('should call init on alive render elements', (tester) async {
+    testWidgets('should call init on watchful render elements', (tester) async {
       await tester.pumpWidget(
         RT_TestWidget(
           // widget hooks

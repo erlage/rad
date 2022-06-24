@@ -2,14 +2,15 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/abstract/render_element.dart';
 
-/// A base class for render elements that are alive in the tree.
+/// Base class for render elements that are watching their position in the tree.
 ///
-/// Alive render elements differs from other render elements in that framework
+/// Watchful elements differs from other render elements in that framework
 /// consider them alive in tree and framework will let them know when it
-/// mounts or un-mounts them so these elements can take appropriate actions.
+/// mounts or un-mounts them from tree so that these elements can take
+/// appropriate actions.
 ///
-abstract class AliveRenderElement extends RenderElement {
-  AliveRenderElement(super.widget, super.parent);
+abstract class WatchfulRenderElement extends RenderElement {
+  WatchfulRenderElement(super.widget, super.parent);
 
   /*
   |--------------------------------------------------------------------------

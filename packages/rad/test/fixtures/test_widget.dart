@@ -135,7 +135,7 @@ class RT_TestWidget extends Widget {
 
 /// Render object of test widget.
 ///
-class RT_TestRenderElement extends AliveRenderElement {
+class RT_TestRenderElement extends WatchfulRenderElement {
   final VoidCallback? roEventInit;
   final VoidCallback? roEventRender;
   final VoidCallback? roEventUpdate;

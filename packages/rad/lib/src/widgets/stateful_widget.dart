@@ -1,8 +1,8 @@
 import 'package:meta/meta.dart';
 
-import 'package:rad/src/core/common/abstract/alive_render_element.dart';
 import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/common/abstract/render_element.dart';
+import 'package:rad/src/core/common/abstract/watchful_render_element.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
@@ -138,7 +138,7 @@ abstract class StatefulWidget extends Widget {
 
 /// StatefulWidget's render element.
 ///
-class StatefulRenderElement extends AliveRenderElement {
+class StatefulRenderElement extends WatchfulRenderElement {
   /// Associated state of stateful widget.
   ///
   final State state;
