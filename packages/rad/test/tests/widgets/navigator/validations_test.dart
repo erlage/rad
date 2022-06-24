@@ -22,14 +22,11 @@ void main() {
 
     test('should throw if routes list is empty', () {
       expect(
-        () => app!.buildChildrenSync(
-          widgets: [
-            Navigator(
-              routes: [],
-            ),
-          ],
-          parentRenderElement: app!.appRenderElement,
-        ),
+        () => createTestApp(
+          app: Navigator(
+            routes: [],
+          ),
+        )..start(),
         throwsA(
           predicate(
             (e) => '$e'.startsWith(
@@ -42,16 +39,13 @@ void main() {
 
     test('should throw if name is empty', () {
       expect(
-        () => app!.buildChildrenSync(
-          widgets: [
-            Navigator(
-              routes: [
-                Route(name: '', page: Text('route')),
-              ],
-            ),
-          ],
-          parentRenderElement: app!.appRenderElement,
-        ),
+        () => createTestApp(
+          app: Navigator(
+            routes: [
+              Route(name: '', page: Text('route')),
+            ],
+          ),
+        )..start(),
         throwsA(
           predicate(
             (e) => '$e'.startsWith(
@@ -64,16 +58,13 @@ void main() {
 
     test('should throw if name is empty(space test)', () {
       expect(
-        () => app!.buildChildrenSync(
-          widgets: [
-            Navigator(
-              routes: [
-                Route(name: ' ', path: 'asd', page: Text('route')),
-              ],
-            ),
-          ],
-          parentRenderElement: app!.appRenderElement,
-        ),
+        () => createTestApp(
+          app: Navigator(
+            routes: [
+              Route(name: ' ', path: 'asd', page: Text('route')),
+            ],
+          ),
+        )..start(),
         throwsA(
           predicate(
             (e) => '$e'.startsWith(
@@ -86,16 +77,13 @@ void main() {
 
     test('should throw if path is empty', () {
       expect(
-        () => app!.buildChildrenSync(
-          widgets: [
-            Navigator(
-              routes: [
-                Route(name: 'asd', path: '', page: Text('route')),
-              ],
-            ),
-          ],
-          parentRenderElement: app!.appRenderElement,
-        ),
+        () => createTestApp(
+          app: Navigator(
+            routes: [
+              Route(name: 'asd', path: '', page: Text('route')),
+            ],
+          ),
+        )..start(),
         throwsA(
           predicate(
             (e) => '$e'.startsWith(
@@ -108,16 +96,13 @@ void main() {
 
     test('should throw if path is empty(space test)', () {
       expect(
-        () => app!.buildChildrenSync(
-          widgets: [
-            Navigator(
-              routes: [
-                Route(name: 'asd', path: ' ', page: Text('route')),
-              ],
-            ),
-          ],
-          parentRenderElement: app!.appRenderElement,
-        ),
+        () => createTestApp(
+          app: Navigator(
+            routes: [
+              Route(name: 'asd', path: ' ', page: Text('route')),
+            ],
+          ),
+        )..start(),
         throwsA(
           predicate(
             (e) => '$e'.startsWith(
@@ -130,16 +115,13 @@ void main() {
 
     test('should throw if found illegal characters in route path(space)', () {
       expect(
-        () => app!.buildChildrenSync(
-          widgets: [
-            Navigator(
-              routes: [
-                Route(name: 'route 1', path: 's s', page: Text('route')),
-              ],
-            ),
-          ],
-          parentRenderElement: app!.appRenderElement,
-        ),
+        () => createTestApp(
+          app: Navigator(
+            routes: [
+              Route(name: 'route 1', path: 's s', page: Text('route')),
+            ],
+          ),
+        )..start(),
         throwsA(
           predicate(
             (e) => '$e'.startsWith(
@@ -152,16 +134,13 @@ void main() {
 
     test('should throw if found illegal characters in route path(special)', () {
       expect(
-        () => app!.buildChildrenSync(
-          widgets: [
-            Navigator(
-              routes: [
-                Route(name: 'route .', path: 's.s', page: Text('route')),
-              ],
-            ),
-          ],
-          parentRenderElement: app!.appRenderElement,
-        ),
+        () => createTestApp(
+          app: Navigator(
+            routes: [
+              Route(name: 'route .', path: 's.s', page: Text('route')),
+            ],
+          ),
+        )..start(),
         throwsA(
           predicate(
             (e) => '$e'.startsWith(
@@ -174,17 +153,14 @@ void main() {
 
     test('should throw if found a duplicate route', () {
       expect(
-        () => app!.buildChildrenSync(
-          widgets: [
-            Navigator(
-              routes: [
-                Route(name: 'route-1', page: Text('route-1')),
-                Route(name: 'route-1', page: Text('route-2')),
-              ],
-            ),
-          ],
-          parentRenderElement: app!.appRenderElement,
-        ),
+        () => createTestApp(
+          app: Navigator(
+            routes: [
+              Route(name: 'route-1', page: Text('route-1')),
+              Route(name: 'route-1', page: Text('route-2')),
+            ],
+          ),
+        )..start(),
         throwsA(
           predicate(
             (e) => '$e'.startsWith('Exception: Please remove Duplicate'),
@@ -195,17 +171,14 @@ void main() {
 
     test('should throw if found a duplicate route (mixed test)', () {
       expect(
-        () => app!.buildChildrenSync(
-          widgets: [
-            Navigator(
-              routes: [
-                Route(name: 'route-1', page: Text('route-1')),
-                AsyncRoute(name: 'route-1', page: () => Text('route-2')),
-              ],
-            ),
-          ],
-          parentRenderElement: app!.appRenderElement,
-        ),
+        () => createTestApp(
+          app: Navigator(
+            routes: [
+              Route(name: 'route-1', page: Text('route-1')),
+              AsyncRoute(name: 'route-1', page: () => Text('route-2')),
+            ],
+          ),
+        )..start(),
         throwsA(
           predicate(
             (e) => '$e'.startsWith('Exception: Please remove Duplicate'),
@@ -216,21 +189,18 @@ void main() {
 
     test('should throw if found a duplicate route(path test)', () {
       expect(
-        () => app!.buildChildrenSync(
-          widgets: [
-            Navigator(
-              routes: [
-                Route(name: 'route-1', page: Text('route-1')),
-                Route(
-                  name: 'route-2',
-                  path: 'route-1',
-                  page: Text('route-2'),
-                ),
-              ],
-            ),
-          ],
-          parentRenderElement: app!.appRenderElement,
-        ),
+        () => createTestApp(
+          app: Navigator(
+            routes: [
+              Route(name: 'route-1', page: Text('route-1')),
+              Route(
+                name: 'route-2',
+                path: 'route-1',
+                page: Text('route-2'),
+              ),
+            ],
+          ),
+        )..start(),
         throwsA(
           predicate(
             (e) => '$e'.startsWith('Exception: Please remove Duplicate'),

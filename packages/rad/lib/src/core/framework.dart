@@ -1,7 +1,6 @@
 import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/renderer/renderer.dart';
-import 'package:rad/src/core/run_app.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_dispose_task.dart';
@@ -21,35 +20,9 @@ class Framework {
   ///
   final BuildContext rootContext;
 
-  /// Whether framework is in test mode.
-  ///
-  /// Framework internally uses a renderer to build and manage widgets. Instance
-  /// of renderer is exposed only if framework is in test mode. Framework can
-  /// be bootstraped in test-mode using [AppRunner.inTestMode]. This
-  /// constructor is mostly dedicated to external packages that need
-  /// access to renderer instance e.g a test package for testing apps.
-  ///
-  final bool _isInTestMode;
-
   /// Create framework instance.
   ///
-  Framework(this.rootContext)
-      : _isInTestMode = false,
-        _renderer = Renderer(rootContext);
-
-  /// Create framework instance with isTestMode flag on.
-  ///
-  Framework.inTestMode(this.rootContext)
-      : _isInTestMode = true,
-        _renderer = Renderer(rootContext);
-
-  /// Renderer is accessible only if framework instance is created in test mode.
-  ///
-  Renderer get renderer {
-    if (_isInTestMode) return _renderer;
-
-    throw Exception('Start app in test-mode for accessing renderer');
-  }
+  Framework(this.rootContext) : _renderer = Renderer(rootContext);
 
   /// Initialize framework state.
   ///
@@ -62,7 +35,7 @@ class Framework {
         )
         .addTaskListener(
           rootContext.appTargetId,
-          _processTask,
+          processTask,
         );
   }
 
@@ -80,15 +53,9 @@ class Framework {
     _renderer.dispose();
   }
 
-  /*
-  |--------------------------------------------------------------------------
-  | Internals
-  |--------------------------------------------------------------------------
-  */
-
   /// Process a scheduled task.
   ///
-  void _processTask(SchedulerTask task) {
+  void processTask(SchedulerTask task) {
     if (null != task.beforeTaskCallback) {
       task.beforeTaskCallback!();
     }

@@ -41,17 +41,12 @@ void main() {
     test(
       'should always throw if State.widget is accessed from state constructor',
       () async {
-        var app = createTestApp()..start();
-
         expect(
-          () => app.buildChildrenSync(
-            widgets: [
-              RT_StatefulTestWidget(
-                stateHookCreateState: (state) => state.widget,
-              ),
-            ],
-            parentRenderElement: app.appRenderElement,
-          ),
+          () => createTestApp(
+            app: RT_StatefulTestWidget(
+              stateHookCreateState: (state) => state.widget,
+            ),
+          )..start(),
           throwsA(
             predicate(
               (e) => '$e'.startsWith(
@@ -68,17 +63,12 @@ void main() {
     test(
       'should always throw if State.context is accessed from state constructor',
       () async {
-        var app = createTestApp()..start();
-
         expect(
-          () => app.buildChildrenSync(
-            widgets: [
-              RT_StatefulTestWidget(
-                stateHookCreateState: (state) => state.context,
-              ),
-            ],
-            parentRenderElement: app.appRenderElement,
-          ),
+          () => createTestApp(
+            app: RT_StatefulTestWidget(
+              stateHookCreateState: (state) => state.context,
+            ),
+          )..start(),
           throwsA(
             predicate(
               (e) => '$e'.startsWith(

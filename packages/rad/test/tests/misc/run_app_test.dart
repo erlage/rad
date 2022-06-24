@@ -40,23 +40,5 @@ void main() {
         ),
       );
     });
-
-    test('should start app in non-test mode', () async {
-      var app = runApp(
-        app: Text('hello world'),
-        targetId: RT_TestBed.rootTargetId,
-      );
-
-      await Future.delayed(Duration(milliseconds: 100));
-
-      expect(
-        () => app.framework.renderer,
-        throwsA(
-          predicate(
-            (e) => '$e'.startsWith('Exception: Start app in test-mode'),
-          ),
-        ),
-      );
-    });
   });
 }

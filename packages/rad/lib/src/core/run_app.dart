@@ -17,9 +17,6 @@ import 'package:rad/src/widgets/rad_app.dart';
 
 /// Convenience function that spin a [AppRunner].
 ///
-/// Note that, [AppRunner] can be used directly to inflate the given widget and
-/// attach it to the screen.
-///
 /// ### Arguments
 ///
 /// - [targetId] - id of dom node where you want the app to mount.
@@ -57,7 +54,6 @@ AppRunner runApp({
 class AppRunner {
   final Widget app;
   final String targetId;
-  final bool _isInTestMode;
 
   final VoidCallback? _beforeMount;
   final DebugOptions? _debugOptions;
@@ -73,7 +69,6 @@ class AppRunner {
   Services get services => _services!;
 
   Framework? _framework;
-  Framework get framework => _framework!;
 
   /// Create a app runner.
   ///
@@ -83,21 +78,7 @@ class AppRunner {
     VoidCallback? beforeMount,
     RouterOptions? routerOptions,
     DebugOptions? debugOptions,
-  })  : _isInTestMode = false,
-        _beforeMount = beforeMount,
-        _routerOptions = routerOptions,
-        _debugOptions = debugOptions;
-
-  /// Create a app runner in test mode.
-  ///
-  AppRunner.inTestMode({
-    required this.app,
-    required this.targetId,
-    VoidCallback? beforeMount,
-    RouterOptions? routerOptions,
-    DebugOptions? debugOptions,
-  })  : _isInTestMode = true,
-        _beforeMount = beforeMount,
+  })  : _beforeMount = beforeMount,
         _routerOptions = routerOptions,
         _debugOptions = debugOptions;
 
@@ -168,11 +149,7 @@ class AppRunner {
   /// Setup instance of framework.
   ///
   void setupFrameworkInstance() {
-    if (_isInTestMode) {
-      _framework = Framework.inTestMode(rootElement)..initState();
-    } else {
-      _framework = Framework(rootElement)..initState();
-    }
+    _framework = Framework(rootElement)..initState();
   }
 
   /// Dispose framework instance.
@@ -185,6 +162,17 @@ class AppRunner {
   ///
   void scheduleInitialBuild() {
     services.scheduler.addTask(
+      WidgetsBuildTask(
+        widgets: [app],
+        parentRenderElement: rootElement,
+      ),
+    );
+  }
+
+  /// Schedulr initial build in sync.
+  ///
+  void schedulerInitialBuildSync() {
+    _framework?.processTask(
       WidgetsBuildTask(
         widgets: [app],
         parentRenderElement: rootElement,

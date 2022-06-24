@@ -3,10 +3,12 @@
 import '../test_imports.dart';
 
 RT_AppRunner createTestApp({
+  Widget? app,
   DebugOptions? debugOptions,
   RouterOptions? routerOptions,
 }) {
   return RT_AppRunner(
+    app: app,
     debugOptions: debugOptions,
     routerOptions: routerOptions,
   );
@@ -26,10 +28,11 @@ class RT_AppRunner extends AppRunner {
       )!;
 
   RT_AppRunner({
+    Widget? app,
     required DebugOptions? debugOptions,
     required RouterOptions? routerOptions,
-  }) : super.inTestMode(
-          app: Text('dont build this one'),
+  }) : super(
+          app: app ?? RT_TestWidget(key: GlobalKey('app-widget')),
           targetId: RT_TestBed.rootTargetId,
           debugOptions: debugOptions,
           routerOptions: routerOptions,
@@ -46,7 +49,7 @@ class RT_AppRunner extends AppRunner {
       ..startServices()
       ..setupFrameworkInstance()
       ..runPreMountTasks()
-      .._buildAppWidget();
+      ..schedulerInitialBuildSync();
   }
 
   @override
@@ -70,15 +73,6 @@ class RT_AppRunner extends AppRunner {
   @override
   void setupDelegates() {
     Window.instance.bindDelegate(window);
-  }
-
-  void _buildAppWidget() {
-    buildChildrenSync(
-      widgets: [RT_TestWidget(key: GlobalKey('app-widget'))],
-      parentRenderElement: rootElement,
-      mountAtIndex: null,
-      flagCleanParentContents: false,
-    );
   }
 
   /// Get render element by global key under app context.
@@ -130,20 +124,6 @@ class RT_AppRunner extends AppRunner {
     );
 
     await Future.delayed(Duration.zero);
-  }
-
-  void buildChildrenSync({
-    required List<Widget> widgets,
-    required RenderElement parentRenderElement,
-    int? mountAtIndex,
-    bool flagCleanParentContents = true,
-  }) {
-    framework.renderer.render(
-      widgets: widgets,
-      parentRenderElement: parentRenderElement,
-      mountAtIndex: mountAtIndex,
-      flagCleanParentContents: flagCleanParentContents,
-    );
   }
 
   Future<void> updateChildren({

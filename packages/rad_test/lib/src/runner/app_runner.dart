@@ -41,8 +41,8 @@ class AppRunner extends rad.AppRunner {
     required this.useWindowMock,
     rad.DebugOptions? debugOptions,
     rad.RouterOptions? routerOptions,
-  }) : super.inTestMode(
-          app: const Text(''),
+  }) : super(
+          app: TestAppRootWidget(key: GlobalKey(appId)),
           targetId: appTargetId,
           debugOptions: debugOptions,
           routerOptions: routerOptions,
@@ -73,7 +73,7 @@ class AppRunner extends rad.AppRunner {
       ..startServices()
       ..setupFrameworkInstance()
       ..runPreMountTasks()
-      .._buildAppWidget();
+      ..schedulerInitialBuildSync();
   }
 
   @override
@@ -99,18 +99,5 @@ class AppRunner extends rad.AppRunner {
   ///
   void _clearState() {
     ServicesRegistry.instance.unRegisterServices(rootElement);
-  }
-
-  /// Build app wiget(in sync)
-  ///
-  void _buildAppWidget() {
-    framework.renderer.render(
-      widgets: [
-        TestAppRootWidget(key: GlobalKey(appId)),
-      ],
-      mountAtIndex: null,
-      parentRenderElement: rootElement,
-      flagCleanParentContents: false,
-    );
   }
 }
