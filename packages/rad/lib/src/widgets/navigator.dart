@@ -112,24 +112,34 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///
 /// 2. For accessing state in parent widget of Navigator, use `onInit` hook of
 /// Navigator:
-///     ```dart
-///     class SomeWidget extends StatelessWidget
-///     {
-///         @override
-///         build(context)
-///         {
-///             return Navigator(
-///                 onInit: _onInit,
-///                 ...
-///             )
-///         }
+/// ```dart
+/// class SomeWidget extends StatelessWidget
+/// {
+///   @override
+///   build(context) {
+///     return Navigator(
+///     onInit: _onInit,
+///       ...
+///     )
+///   }
 ///
-///         _onInit(NavigatorState state)
-///         {
-///             // do something with state
-///         }
-///     }
+///   _onInit(NavigatorState state) {
+///       // do something with state
+///   }
+/// }
 ///     ```
+/// For accessing state of a specific navigator in ancestors:
+/// ```dart
+/// // 1. Give Navigator instance a key while creating it
+///
+/// Navigator(key: Key('my-navigator'), routes: [...])
+///
+/// // 2. Use of(context, byKey: key) anywhere in the subtree of Navigator,
+///
+/// Navigator.of(context, byKey: Key('my-navigator');
+///
+/// ```
+///
 ///
 /// ### onRouteChange hook:
 ///
@@ -300,14 +310,18 @@ class Navigator extends Widget {
   /// Navigator's state from the closest instance of this class
   /// that encloses the given context.
   ///
-  static NavigatorState of(BuildContext context) {
+  static NavigatorState of(BuildContext context, {Key? byKey}) {
     NavigatorRenderElement? parent;
 
     context.visitAncestorElements((element) {
+      // match type
       if (element is NavigatorRenderElement) {
-        parent = element;
+        // match key
+        if (null == byKey || element.key == byKey) {
+          parent = element;
 
-        return false;
+          return false;
+        }
       }
 
       return true;

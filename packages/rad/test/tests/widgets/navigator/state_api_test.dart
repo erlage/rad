@@ -459,6 +459,151 @@ void main() {
     });
   });
 
+/*
+  |--------------------------------------------------------------------------
+  | State API | Look up tests
+  |--------------------------------------------------------------------------
+  */
+
+  group('Navigator, state look up tests:', () {
+    RT_AppRunner? app;
+
+    setUp(() {
+      app = createTestApp()..start();
+    });
+
+    tearDown(() => app!.stop());
+
+    test('should throw if no navigator in ancestors', () async {
+      await app!.buildChildren(
+        widgets: [
+          Route(
+            name: 'route',
+            page: RT_StatefulTestWidget(
+              stateHookBuild: (state) {
+                expect(
+                  () => Navigator.of(state.context),
+                  throwsA(
+                    predicate(
+                      (e) => '$e'.startsWith(
+                        'Exception: Navigator operation requested with a',
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+    });
+
+    test('should match the ancestor navigator', () async {
+      await app!.buildChildren(
+        widgets: [
+          Navigator(
+            key: GlobalKey('nav'),
+            routes: [
+              Route(
+                name: 'route',
+                page: RT_StatefulTestWidget(
+                  stateHookBuild: (state) {
+                    var navigatorState = Navigator.of(state.context);
+
+                    expect(navigatorState.widget.key?.value, equals('nav'));
+                  },
+                ),
+              ),
+            ],
+          )
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+    });
+
+    test('should match the closest ancestor navigator by default', () async {
+      await app!.buildChildren(
+        widgets: [
+          Navigator(
+            key: GlobalKey('parent'),
+            routes: [
+              Route(
+                name: 'route',
+                page: Navigator(
+                  key: GlobalKey('child'),
+                  routes: [
+                    Route(
+                      name: 'route',
+                      page: RT_StatefulTestWidget(
+                        stateHookBuild: (state) {
+                          var navigatorState = Navigator.of(state.context);
+
+                          expect(
+                            navigatorState.widget.key?.value,
+                            equals('child'),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+    });
+
+    test('should match the keyed ancestor navigator if requested', () async {
+      await app!.buildChildren(
+        widgets: [
+          Navigator(
+            key: GlobalKey('parent'),
+            routes: [
+              Route(
+                name: 'route',
+                page: Navigator(
+                  key: GlobalKey('child'),
+                  routes: [
+                    Route(
+                      name: 'route',
+                      page: RT_StatefulTestWidget(
+                        stateHookBuild: (state) {
+                          var navigatorState1 = Navigator.of(
+                            state.context,
+                            byKey: GlobalKey('child'),
+                          );
+
+                          var navigatorState2 = Navigator.of(
+                            state.context,
+                            byKey: GlobalKey('parent'),
+                          );
+
+                          expect(
+                            navigatorState1.widget.key?.value,
+                            equals('child'),
+                          );
+
+                          expect(
+                            navigatorState2.widget.key?.value,
+                            equals('parent'),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+    });
+  });
+
   /*
   |--------------------------------------------------------------------------
   | State API | Getting value tests
