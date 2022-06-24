@@ -51,11 +51,15 @@ import 'package:rad/src/widgets/stateless_widget.dart';
 ///   parent widget will bring back everything back in DOM.
 ///
 ///
-/// * And for mission critical situations, you have [shouldUpdateWidget] at
-///   your disposal on every widget. If you know that in some situations your
-///   widget doesn’t need to update, you can return false from
-///   [shouldUpdateWidget] instead, to skip the whole rendering process.
-///   But remember maintaining [shouldUpdateWidget] is hard so it's not
+/// * And for mission critical situations you can override framework's diffing
+///   process using [shouldUpdateWidget] & [shouldUpdateWidgetChildren], both
+///   of which are present on every widget in the framework.
+///
+///   If you know that in some situations your widget doesn’t need to update,
+///   you can return false from [shouldUpdateWidget]. And by returning false
+///   from [shouldUpdateWidgetChildren] you can prevent framework from going
+///   down the widget and updating its child widgets. Remember! maintaining
+///   [shouldUpdateWidget] & [shouldUpdateWidgetChildren] is hard so it's not
 ///   something you should be using everywhere.
 ///
 ///

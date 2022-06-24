@@ -127,7 +127,7 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///       // do something with state
 ///   }
 /// }
-///     ```
+/// ```
 /// For accessing state of a specific navigator in ancestors:
 /// ```dart
 /// // 1. Give Navigator instance a key while creating it
@@ -139,7 +139,6 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 /// Navigator.of(context, byKey: Key('my-navigator');
 ///
 /// ```
-///
 ///
 /// ### onRouteChange hook:
 ///
