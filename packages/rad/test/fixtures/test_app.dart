@@ -4,8 +4,12 @@ import '../test_imports.dart';
 
 RT_AppRunner createTestApp({
   DebugOptions? debugOptions,
+  RouterOptions? routerOptions,
 }) {
-  return RT_AppRunner(debugOptions: debugOptions);
+  return RT_AppRunner(
+    debugOptions: debugOptions,
+    routerOptions: routerOptions,
+  );
 }
 
 /// Test app runner.
@@ -23,10 +27,12 @@ class RT_AppRunner extends AppRunner {
 
   RT_AppRunner({
     required DebugOptions? debugOptions,
+    required RouterOptions? routerOptions,
   }) : super.inTestMode(
           app: Text('dont build this one'),
           targetId: RT_TestBed.rootTargetId,
           debugOptions: debugOptions,
+          routerOptions: routerOptions,
         );
 
   @override
@@ -220,6 +226,10 @@ class RT_AppRunner extends AppRunner {
     } else {
       expect(window.locationPathName, toMatch);
     }
+  }
+
+  void assertMatchFullPath(String toMatch) {
+    expect('${window.locationPathName}${window.locationHash}', toMatch);
   }
 
   void assertMatchPathStack(List<String> toMatch) {

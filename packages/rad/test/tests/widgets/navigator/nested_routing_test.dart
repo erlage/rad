@@ -344,6 +344,61 @@ void main() {
 
   /*
   |--------------------------------------------------------------------------
+  | Navigator routing tests | Routing path tests
+  |--------------------------------------------------------------------------
+  */
+
+  group('Navigator, routing path tests:', () {
+    test('should set routing path', () async {
+      var app = createTestApp(
+        routerOptions: RouterOptions(
+          path: '/somepath',
+          enableHashBasedRouting: false,
+        ),
+      )..start();
+
+      await app.buildChildren(
+        widgets: [
+          Navigator(
+            routes: [
+              Route(name: 'test', page: Text('hw')),
+            ],
+          ),
+        ],
+        parentRenderElement: app.appRenderElement,
+      );
+
+      app.assertMatchPath('somepath/test');
+    });
+
+    test(
+      'should add hash after routing path when routing is hash based',
+      () async {
+        var app = createTestApp(
+          routerOptions: RouterOptions(
+            path: '/somepath',
+            enableHashBasedRouting: true,
+          ),
+        )..start();
+
+        await app.buildChildren(
+          widgets: [
+            Navigator(
+              routes: [
+                Route(name: 'test', page: Text('hw')),
+              ],
+            ),
+          ],
+          parentRenderElement: app.appRenderElement,
+        );
+
+        app.assertMatchFullPath('somepath/#/test');
+      },
+    );
+  });
+
+  /*
+  |--------------------------------------------------------------------------
   | Navigator routing tests | Matched routes
   |--------------------------------------------------------------------------
   */

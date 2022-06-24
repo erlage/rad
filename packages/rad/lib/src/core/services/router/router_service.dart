@@ -372,8 +372,19 @@ class RouterService extends Service {
   List<String> _prepareSegments(List<String> segments) {
     var preparedSegs = <String>[];
 
+    // Insert hash if hash based routing is enabled
+
     if (options.enableHashBasedRouting) {
-      preparedSegs.add('#');
+      var routingPath = _getRoutingPath();
+
+      if (routingPath.isEmpty) {
+        segments.insert(0, '#');
+      } else {
+        segments = segments
+            .join('/')
+            .replaceRange(0, routingPath.length, '$routingPath/#/')
+            .split('/');
+      }
     }
 
     for (final segment in segments) {
