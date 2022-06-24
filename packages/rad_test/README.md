@@ -10,12 +10,10 @@ import 'package:rad_test/rad_test.dart';
 import 'app.dart';
 
 void main() {
-  group('basic widget test', () {
-    testWidgets('should build text widget', (WidgetTester tester) async {
-      await tester.pumpWidget(Text('hello world'));
+  testWidgets('should build text widget', (WidgetTester tester) async {
+    await tester.pumpWidget(Text('hello world'));
 
-      expect(tester.find.text('hello world'), findsOneWidget);
-    });
+    expect(tester.find.text('hello world'), findsOneWidget);
   });
 }
 ```
@@ -24,5 +22,5 @@ For more please checkout [examples here](https://github.com/erlage/rad/tree/main
 
 ### License
 
-Source is governed by a BSD-style license that can be found in LICENSE file. Parts of source code in this library are borrowed from flutter testing library which is also governed by a BSD-style license that can be found [here](https://github.com/flutter/flutter/blob/master/LICENSE).
+Source is governed by a BSD-style license that can be found in LICENSE file. Parts of source code in this library are borrowed from flutter testing library which are also governed by a BSD-style license that can be found [here](https://github.com/flutter/flutter/blob/master/LICENSE).
 

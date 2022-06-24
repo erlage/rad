@@ -1,7 +1,7 @@
 /// Test Stack.
 ///
-/// Can be used for logging 'order in which particular event occurs',
-/// procedure, or any detail that requires some sort of state so it
+/// Can be used for logging order in which particular events occured, or a
+/// procedure order, or any detail that requires some sort of state so that
 /// can be verified later.
 ///
 class TestStack {
