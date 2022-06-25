@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/html/span.dart';
@@ -24,12 +26,17 @@ class Text extends Span {
   const Text(
     this.text, {
     Key? key,
-    String? title,
-    String? style,
-    String? classAttribute,
-    bool? hidden,
-    String? onClickAttribute,
-    EventCallback? onClick,
+
+    // all these properties are marked experimental because we might
+    // implement text nodes in future and text nodes cannot have these
+    // properties
+
+    @experimental String? title,
+    @experimental String? style,
+    @experimental String? classAttribute,
+    @experimental bool? hidden,
+    @experimental String? onClickAttribute,
+    @experimental EventCallback? onClick,
   }) : super(
           key: key,
           title: title,
