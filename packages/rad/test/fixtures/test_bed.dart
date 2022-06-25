@@ -16,7 +16,7 @@ class RT_TestBed {
 
   static const rootKey = GlobalKey(rootTargetId);
 
-  static final rootRenderElement = RootElement(
+  static final rootRenderElement = RootRenderElement(
     appTargetId: rootTargetId,
     appTargetDomNode: rootDomNode,
   );

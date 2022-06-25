@@ -40,7 +40,8 @@ class RouterService extends Service {
   ///
   StreamController<RouterRequest>? _routerRequestsStream;
 
-  RouterService(RootElement rootElement, this.options) : super(rootElement);
+  RouterService(RootRenderElement rootElement, this.options)
+      : super(rootElement);
 
   @override
   startService() {

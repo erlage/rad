@@ -20,20 +20,20 @@ abstract class WindowDelegate {
   /// context.
   ///
   void addPopStateListener({
-    required RootElement rootElement,
+    required RootRenderElement rootElement,
     required PopStateEventCallback callback,
   });
 
   /// Remove pop state listener that's associated with the context.
   ///
-  void removePopStateListener(RootElement rootElement);
+  void removePopStateListener(RootRenderElement rootElement);
 
   /// Adds an entry to the session history stack.
   ///
   void historyPushState({
     required String title,
     required String url,
-    required RootElement rootElement,
+    required RootRenderElement rootElement,
   });
 
   /// Replace last entry on the session history stack.
@@ -41,12 +41,12 @@ abstract class WindowDelegate {
   void historyReplaceState({
     required String title,
     required String url,
-    required RootElement rootElement,
+    required RootRenderElement rootElement,
   });
 
   /// Issue a back action, dynamically.
   ///
   void historyBack({
-    required RootElement rootElement,
+    required RootRenderElement rootElement,
   });
 }

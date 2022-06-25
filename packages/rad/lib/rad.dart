@@ -70,7 +70,8 @@ export 'src/core/common/objects/key.dart' show Key, GlobalKey;
 export 'src/core/services/events/emitted_event.dart' show EmittedEvent;
 export 'src/core/common/abstract/build_context.dart' show BuildContext;
 export 'src/core/common/abstract/render_element.dart' show RenderElement;
-export 'src/core/common/objects/common_render_elements.dart' show RootElement;
+export 'src/core/common/objects/common_render_elements.dart'
+    show RootRenderElement;
 export 'src/core/common/abstract/watchful_render_element.dart';
 export 'src/core/common/objects/options/debug_options.dart' show DebugOptions;
 export 'src/core/common/objects/options/router_options.dart' show RouterOptions;

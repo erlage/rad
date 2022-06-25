@@ -24,7 +24,7 @@ class Services {
 
   /// Root element.
   ///
-  final RootElement rootElement;
+  final RootRenderElement rootElement;
 
   final Service _debug;
   final Service _walker;

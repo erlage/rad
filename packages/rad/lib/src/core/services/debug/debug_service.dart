@@ -23,7 +23,7 @@ class DebugService extends Service {
   ExceptionCallback? _onException;
   ExceptionCallback get onException => _onException!;
 
-  DebugService(RootElement rootElement, this.options)
+  DebugService(RootRenderElement rootElement, this.options)
       : routerLogs = options.routerLogs,
         widgetLogs = options.widgetLogs,
         frameworkLogs = options.frameworkLogs,

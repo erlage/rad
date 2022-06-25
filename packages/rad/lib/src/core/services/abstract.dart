@@ -12,7 +12,7 @@ import 'package:rad/src/core/services/services_resolver.dart';
 ///
 @internal
 abstract class Service with ServicesResolver {
-  final RootElement rootElement;
+  final RootRenderElement rootElement;
 
   Service(this.rootElement);
 

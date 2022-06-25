@@ -22,7 +22,8 @@ class SchedulerService extends Service {
 
   StreamController<SchedulerTask>? _tasksStream;
 
-  SchedulerService(RootElement rootElement, this.options) : super(rootElement);
+  SchedulerService(RootRenderElement rootElement, this.options)
+      : super(rootElement);
 
   @override
   startService() {

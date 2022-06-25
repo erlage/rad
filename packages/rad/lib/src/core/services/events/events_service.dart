@@ -26,7 +26,8 @@ class EventsService extends Service {
   ///
   final _eventSubscriptions = <DomEventType, StreamSubscription<Event>>{};
 
-  EventsService(RootElement rootElement, this.options) : super(rootElement);
+  EventsService(RootRenderElement rootElement, this.options)
+      : super(rootElement);
 
   @override
   void stopService() {

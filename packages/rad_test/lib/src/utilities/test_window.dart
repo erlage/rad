@@ -9,7 +9,7 @@ import 'package:rad_test/src/imports.dart';
 /// Browser's window mock.
 ///
 class TestWindow extends WindowDelegate {
-  final RootElement rootElement;
+  final RootRenderElement rootElement;
 
   TestWindow(this.rootElement);
 

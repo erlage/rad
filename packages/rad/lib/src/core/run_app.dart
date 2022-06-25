@@ -65,8 +65,8 @@ class AppRunner {
   final DebugOptions? _debugOptions;
   final RouterOptions? _routerOptions;
 
-  RootElement? _rootElement;
-  RootElement get rootElement => _rootElement!;
+  RootRenderElement? _rootElement;
+  RootRenderElement get rootElement => _rootElement!;
 
   Framework? _framework;
 
@@ -116,7 +116,7 @@ class AppRunner {
   /// Setuo root render element.
   ///
   void setupRootElement() {
-    _rootElement = RootElement(
+    _rootElement = RootRenderElement(
       appTargetId: targetId,
       appTargetDomNode: document.getElementById(targetId)!,
     );

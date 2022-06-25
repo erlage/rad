@@ -19,8 +19,8 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// there can be only one root render element in a single app instance and
 /// second they don't have a corresponding widget associated with them.
 ///
-class RootElement extends RenderElement {
-  RootElement({
+class RootRenderElement extends RenderElement {
+  RootRenderElement({
     required String appTargetId,
     required Element appTargetDomNode,
   }) : super.bigBang(

@@ -20,7 +20,8 @@ class WalkerService extends Service {
   ///
   final _globalElements = <String, RenderElement>{};
 
-  WalkerService(RootElement rootElement, this.options) : super(rootElement);
+  WalkerService(RootRenderElement rootElement, this.options)
+      : super(rootElement);
 
   @override
   startService() {
