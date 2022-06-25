@@ -1,7 +1,12 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 import 'package:meta/meta.dart';
 
 /// Interface for external components.
 ///
+@internal
 @immutable
 abstract class AppComponent {
   /// Name of the component.
@@ -22,6 +27,7 @@ abstract class AppComponent {
 
 /// Interface for style injection.
 ///
+@internal
 @immutable
 abstract class StyleComponent extends AppComponent {
   /// CSS contents to inject in DOM

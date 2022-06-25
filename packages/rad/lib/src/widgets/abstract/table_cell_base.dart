@@ -1,3 +1,7 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
@@ -11,6 +15,7 @@ import 'package:rad/src/widgets/html/table_head.dart';
 
 /// Abstract class for TableCell and TableHeaderCell.
 ///
+@internal
 abstract class TableCellBase extends HTMLWidgetBase {
   /// This attribute contains a non-negative integer value that indicates for
   /// how many rows the cell extends. Its default value is 1; if its value is
@@ -94,6 +99,7 @@ abstract class TableCellBase extends HTMLWidgetBase {
 
 /// Table's cell base render element.
 ///
+@internal
 class TableCellBaseRenderElement extends HTMLBaseElement {
   TableCellBaseRenderElement(super.wudget, super.parent);
 

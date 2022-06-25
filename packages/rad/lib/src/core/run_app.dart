@@ -1,4 +1,10 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 import 'dart:html';
+
+import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/common/objects/common_render_elements.dart';
@@ -62,13 +68,17 @@ class AppRunner {
   RootElement? _rootElement;
   RootElement get rootElement => _rootElement!;
 
-  AppOptions? _appOptions;
-  AppOptions get appOptions => _appOptions!;
-
-  Services? _services;
-  Services get services => _services!;
-
   Framework? _framework;
+
+  /// @nodoc
+  @internal
+  Services get services => _services!;
+  Services? _services;
+
+  /// @nodoc
+  @internal
+  AppOptions get appOptions => _appOptions!;
+  AppOptions? _appOptions;
 
   /// Create a app runner.
   ///
@@ -165,6 +175,7 @@ class AppRunner {
       WidgetsBuildTask(
         widgets: [app],
         parentRenderElement: rootElement,
+        beforeTaskCallback: _beforeMount,
       ),
     );
   }
@@ -176,6 +187,7 @@ class AppRunner {
       WidgetsBuildTask(
         widgets: [app],
         parentRenderElement: rootElement,
+        beforeTaskCallback: _beforeMount,
       ),
     );
   }
@@ -194,7 +206,5 @@ class AppRunner {
   ///
   void runPreMountTasks() {
     Components.instance.injectStyleComponent(RadStylesComponent());
-
-    _beforeMount?.call();
   }
 }

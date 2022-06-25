@@ -1,3 +1,7 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 import 'package:rad_test/src/imports.dart';
 import 'package:rad_test/src/runner/app_runner.dart';
 

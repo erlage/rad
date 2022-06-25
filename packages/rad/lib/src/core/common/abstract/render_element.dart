@@ -1,3 +1,7 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 import 'dart:html';
 
 import 'package:meta/meta.dart';
@@ -377,12 +381,16 @@ abstract class RenderElement implements BuildContext {
 
   /// Parent's element.
   ///
+  /// @nodoc
+  @internal
   @nonVirtual
   RenderElement? get frameworkParent => _parent;
   RenderElement? _parent;
 
   /// Child elements.
   ///
+  /// @nodoc
+  @internal
   @nonVirtual
   List<RenderElement> get frameworkChildElements => _childElements;
   final _childElements = <RenderElement>[];
@@ -393,12 +401,17 @@ abstract class RenderElement implements BuildContext {
   |--------------------------------------------------------------------------
   */
 
+  /// @nodoc
+  @internal
+  @nonVirtual
   void frameworkAttachServices({
     required Services services,
   }) {
     _services = services;
   }
 
+  /// @nodoc
+  @internal
   @nonVirtual
   void frameworkBindDomNode({
     required Element? domNode,
@@ -410,11 +423,15 @@ abstract class RenderElement implements BuildContext {
     }
   }
 
+  /// @nodoc
+  @internal
   @nonVirtual
   DomNodePatch? frameworkRender({required Widget widget}) {
     return render(widget: widget);
   }
 
+  /// @nodoc
+  @internal
   @nonVirtual
   void frameworkRebindWidget({
     required Widget oldWidget,
@@ -430,6 +447,8 @@ abstract class RenderElement implements BuildContext {
     );
   }
 
+  /// @nodoc
+  @internal
   @nonVirtual
   DomNodePatch? frameworkUpdate({
     required UpdateType updateType,
@@ -449,6 +468,8 @@ abstract class RenderElement implements BuildContext {
   |--------------------------------------------------------------------------
   */
 
+  /// @nodoc
+  @internal
   @nonVirtual
   void frameworkInsertAt(RenderElement element, int? index) {
     element.frameworkDetach();
@@ -464,6 +485,8 @@ abstract class RenderElement implements BuildContext {
 
   /// Detach render element from its parent(if any).
   ///
+  /// @nodoc
+  @internal
   @nonVirtual
   void frameworkDetach() {
     if (null != _parent) {
@@ -475,6 +498,8 @@ abstract class RenderElement implements BuildContext {
 
   /// Remove a child element.
   ///
+  /// @nodoc
+  @internal
   @nonVirtual
   void frameworkRemoveChild(RenderElement element) {
     _childElements.remove(element);
@@ -485,6 +510,8 @@ abstract class RenderElement implements BuildContext {
   /// Fast path for appending a render element given that element is freshly
   /// created(doesn't have a dependent parent element).
   ///
+  /// @nodoc
+  @internal
   @nonVirtual
   void frameworkAppendFresh(RenderElement element) {
     element._parent = this;
@@ -495,6 +522,8 @@ abstract class RenderElement implements BuildContext {
   /// Fast path for appending multiple render elements given that elements are
   /// freshly created(doesn't have a dependent parent element).
   ///
+  /// @nodoc
+  @internal
   @nonVirtual
   void frameworkAppendAllFresh(Iterable<RenderElement> elements) {
     for (final element in elements) {
@@ -507,6 +536,8 @@ abstract class RenderElement implements BuildContext {
   /// Fast path for inserting multiple render elements given that elements are
   /// freshly created(doesn't have a dependent parent element).
   ///
+  /// @nodoc
+  @internal
   @nonVirtual
   void frameworkInsertAllFreshAt(Iterable<RenderElement> elements, int? index) {
     for (final element in elements) {
@@ -524,6 +555,8 @@ abstract class RenderElement implements BuildContext {
   ///
   /// This process moves all child elements to a iterable and return.
   ///
+  /// @nodoc
+  @internal
   @nonVirtual
   Iterable<RenderElement> frameworkEjectChildRenderElements() {
     var ejectedRenderElements = <RenderElement>[];

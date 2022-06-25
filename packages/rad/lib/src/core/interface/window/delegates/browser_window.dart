@@ -1,12 +1,19 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 // !WARN: manually run browser_window_test.dart after updating this file.
 
 import 'dart:html';
+
+import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/interface/window/abstract.dart';
 
 /// A window delegate that uses browser's window object.
 ///
+@internal
 class BrowserWindow extends WindowDelegate {
   var _psIsListening = false;
   final _psListeners = <String, PopStateEventCallback>{};

@@ -1,4 +1,10 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 import 'dart:async';
+
+import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/common/objects/common_render_elements.dart';
@@ -8,6 +14,7 @@ import 'package:rad/src/core/services/scheduler/abstract.dart';
 
 /// A Task scheduler.
 ///
+@internal
 class SchedulerService extends Service {
   final SchedulerOptions options;
 

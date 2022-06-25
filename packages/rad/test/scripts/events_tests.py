@@ -1,3 +1,6 @@
+# Copyright (c) 2022, the Rad developers. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
 
 #!/usr/bin/env python3
 
@@ -194,6 +197,10 @@ def generate():
             event_attr_name_camel_case + "_tests.generated.dart';"
 
         generated = ''' 
+            // Copyright (c) 2022, the Rad developers. All rights reserved.
+            // Use of this source code is governed by a BSD-style license that can be 
+            // found in the LICENSE file.
+
             // Auto-generated file
             //
             // Sources of these tests can be found in /test/templates/events folder
@@ -262,6 +269,10 @@ def generate():
         fh.close()
 
     runner_code = ''' 
+        // Copyright (c) 2022, the Rad developers. All rights reserved.
+        // Use of this source code is governed by a BSD-style license that can be 
+        // found in the LICENSE file.
+
         // Auto-generated file
         //
         // Sources of these tests can be found in /test/templates folder

@@ -1,3 +1,9 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -6,6 +12,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// A task that updates task under given context.
 ///
+@internal
 class WidgetsUpdateTask extends SchedulerTask {
   /// Target context.
   ///

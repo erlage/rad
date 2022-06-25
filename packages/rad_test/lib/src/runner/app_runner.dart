@@ -1,4 +1,8 @@
-// ignore_for_file: camel_case_types
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// ignore_for_file: camel_case_types, invalid_use_of_internal_member
 
 import 'package:rad/rad.dart' as rad;
 

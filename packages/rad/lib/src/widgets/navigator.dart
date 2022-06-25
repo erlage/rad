@@ -1,3 +1,7 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 import 'dart:collection';
 
 import 'package:meta/meta.dart';
@@ -484,6 +488,8 @@ class NavigatorRenderElement extends WatchfulRenderElement {
 class NavigatorState with ServicesResolver {
   /// Resolve services reference.
   ///
+  /// @nodoc
+  @internal
   Services get services => resolveServices(context);
 
   /// Routes that this Navigator instance handles.
@@ -492,10 +498,14 @@ class NavigatorState with ServicesResolver {
 
   /// Route name to route path map.
   ///
+  /// @nodoc
+  @internal
   final nameToPathMap = <String, String>{};
 
   /// Route path to Route instance map.
   ///
+  /// @nodoc
+  @internal
   final pathToRouteMap = <String, Route>{};
 
   /// Name of the active route. Route, that's currently on top of
@@ -520,6 +530,8 @@ class NavigatorState with ServicesResolver {
 
   /// Navigator's render element
   ///
+  /// @nodoc
+  @internal
   NavigatorRenderElement get renderElement => _renderElement!;
   NavigatorRenderElement? _renderElement;
 
@@ -690,13 +702,15 @@ class NavigatorState with ServicesResolver {
         segment,
       );
 
-  /// Whether current active stack contains a route with matching [name].
-  ///
-  bool isPageStacked({required String name}) => _pageStack.contains(name);
-
   /// Whether navigator can go back to a page.
   ///
   bool canGoBack() => _historyStack.length > 1;
+
+  /// Whether current active stack contains a route with matching [name].
+  ///
+  /// @nodoc
+  @internal
+  bool isPageStacked({required String name}) => _pageStack.contains(name);
 
   /*
   |--------------------------------------------------------------------------
@@ -706,21 +720,29 @@ class NavigatorState with ServicesResolver {
 
   VoidCallback? _updateProcedure;
 
+  /// @nodoc
+  @internal
   @protected
   void frameworkBindContext(BuildContext context) {
     _context = context;
   }
 
+  /// @nodoc
+  @internal
   @protected
   void frameworkBindRenderElement(NavigatorRenderElement element) {
     _renderElement = element;
   }
 
+  /// @nodoc
+  @internal
   @protected
   void frameworkBindUpdateProcedure(VoidCallback updateProcedure) {
     _updateProcedure = updateProcedure;
   }
 
+  /// @nodoc
+  @internal
   @protected
   void frameworkInitState() {
     if (widget.routes.isEmpty) {
@@ -786,6 +808,8 @@ class NavigatorState with ServicesResolver {
     services.router.register(renderElement);
   }
 
+  /// @nodoc
+  @internal
   @protected
   void frameworkRender() {
     if (widget.routes.isEmpty) {
@@ -820,6 +844,8 @@ class NavigatorState with ServicesResolver {
     open(name: name, updateHistory: false);
   }
 
+  /// @nodoc
+  @internal
   @protected
   void frameworkUpdate(UpdateType updateType) {
     if (widget.routes.isEmpty) {
@@ -847,11 +873,15 @@ class NavigatorState with ServicesResolver {
     );
   }
 
+  /// @nodoc
+  @internal
   @protected
   void frameworkDispose() => services.router.unRegister(renderElement);
 
   /// Framework fires this when parent route changes.
   ///
+  /// @nodoc
+  @internal
   void frameworkOnParentRouteChange(String name) {
     var routeName = services.router.getPath(renderElement);
 
@@ -868,6 +898,8 @@ class NavigatorState with ServicesResolver {
     }
   }
 
+  /// @nodoc
+  @internal
   @protected
   void frameworkUpdateCurrentName(String name) {
     _currentName = name;

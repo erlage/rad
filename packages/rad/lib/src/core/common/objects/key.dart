@@ -1,3 +1,7 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/abstract/render_element.dart';
@@ -13,6 +17,8 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 class Key {
   /// Value that was used while creating the key.
   ///
+  /// @nodoc
+  @internal
   final String value;
 
   /// Create key.

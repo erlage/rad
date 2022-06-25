@@ -1,3 +1,7 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/abstract/build_context.dart';
@@ -418,6 +422,8 @@ abstract class State<T extends StatefulWidget> {
   |--------------------------------------------------------------------------
   */
 
+  /// @nodoc
+  @internal
   @nonVirtual
   @protected
   void frameworkBindRenderElement(StatefulRenderElement element) {
@@ -428,6 +434,8 @@ abstract class State<T extends StatefulWidget> {
     _element = element;
   }
 
+  /// @nodoc
+  @internal
   @nonVirtual
   @protected
   void frameworkBindWidget(Widget widget) {
@@ -438,12 +446,16 @@ abstract class State<T extends StatefulWidget> {
     _widget = widget as T;
   }
 
+  /// @nodoc
+  @internal
   @nonVirtual
   @protected
   void frameworkRebindWidget(Widget newWidget) {
     _widget = newWidget as T;
   }
 
+  /// @nodoc
+  @internal
   @nonVirtual
   @protected
   void frameworkDispose() {

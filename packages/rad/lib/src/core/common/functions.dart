@@ -1,6 +1,13 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 
+@internal
 DomEventType? fnMapEventTypeToDomEventType(String eventType) {
   // could cache this map or maybe we can hardcode it.
   var typeMap = <String, DomEventType>{};
@@ -12,10 +19,13 @@ DomEventType? fnMapEventTypeToDomEventType(String eventType) {
   return typeMap[eventType];
 }
 
+@internal
 String fnEncodeValue(String value) => Uri.encodeComponent(value);
 
+@internal
 String fnDecodeValue(String value) => Uri.decodeComponent(value);
 
+@internal
 bool fnIsKeyValueMapEqual(
   Map<String, String>? mapOne,
   Map<String, String>? mapTwo,
@@ -39,6 +49,7 @@ bool fnIsKeyValueMapEqual(
 
 /// Return slash joined encoded key value map.
 ///
+@internal
 String fnEncodeKeyValueMap(Map<String, String> valueMap) {
   var encodedMapValues = <String>[];
 
@@ -57,6 +68,7 @@ String fnEncodeKeyValueMap(Map<String, String> valueMap) {
   return encodedMapValues.join('/');
 }
 
+@internal
 String? fnCommonPrepareClassAttribute({
   required String? classAttribute,
   required String? oldClassAttribute,
@@ -73,6 +85,7 @@ String? fnCommonPrepareClassAttribute({
   return null;
 }
 
+@internal
 Map<String, String?> fnCommonPrepareDataset({
   required Map<String, String>? dataAttributes,
   required Map<String, String>? oldDataAttributes,

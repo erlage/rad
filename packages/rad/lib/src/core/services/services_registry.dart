@@ -1,3 +1,9 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/services/debug/debug_service.dart';
 import 'package:rad/src/core/services/events/events_service.dart';
@@ -8,6 +14,7 @@ import 'package:rad/src/core/services/walker/walker_service.dart';
 
 /// Services Registry.
 ///
+@internal
 class ServicesRegistry {
   ServicesRegistry._();
   static ServicesRegistry? _instance;

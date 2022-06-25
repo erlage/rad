@@ -1,9 +1,17 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 import 'dart:html';
+
+import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/interface/components/abstract.dart';
 
 /// App components.
 ///
+/// @nodoc
+@internal
 class Components {
   Components._();
   static Components? _instance;

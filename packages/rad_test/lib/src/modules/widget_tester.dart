@@ -1,3 +1,9 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// ignore_for_file: invalid_use_of_internal_member
+
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
 
@@ -111,19 +117,17 @@ class WidgetTester {
   ///
   /// Available system controls:
   ///
-  /// - [updateType]
   /// - [flagAddIfNotFound]
   ///
   Future<void> rePumpWidget(
     Widget widget, {
     Duration? duration,
-    UpdateType? updateType,
     bool? flagAddIfNotFound,
   }) async {
     await _updateChildren(
       widgets: [widget],
       parentRenderElement: app.appRenderElement,
-      updateType: updateType ?? UpdateType.setState,
+      updateType: UpdateType.setState,
       flagAddIfNotFound: flagAddIfNotFound,
     );
 

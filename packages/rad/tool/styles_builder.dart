@@ -1,3 +1,7 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 import 'dart:async';
 import 'dart:io';
 
@@ -34,7 +38,6 @@ class StylesBuilder implements Builder {
       'lib/rad.dart',
       'lib/widgets_async.dart',
       'lib/widgets_html.dart',
-      'lib/widgets_internals.dart',
     ]) {
       File(file).readAsStringSync().split('\n').forEach(addToAvailableImports);
     }
@@ -142,7 +145,11 @@ class StylesBuilder implements Builder {
       importStatements = "${importsForCurrentAsset.join("\n")}\n\n";
     }
 
-    genContents = '// ignore_for_file: non_constant_identifier_names\n'
+    genContents = '// Copyright (c) 2022, the Rad developers. '
+        'All rights reserved.\n'
+        '// Use of this source code is governed by a BSD-style license that '
+        'can be\n// found in the LICENSE file.\n\n'
+        '// ignore_for_file: non_constant_identifier_names\n'
         '// ignore_for_file: directives_ordering\n'
         '// ignore_for_file: prefer_single_quotes\n'
         '// ignore_for_file: constant_identifier_names\n'

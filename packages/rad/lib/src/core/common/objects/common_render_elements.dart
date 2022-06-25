@@ -1,4 +1,10 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 import 'dart:html';
+
+import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/enums.dart';
@@ -32,6 +38,7 @@ class RootElement extends RenderElement {
 /// elements until they are mounted. This allow framework to build new widgets
 /// in memory and mount them all in single operation.
 ///
+@internal
 class TemporaryElement extends RenderElement {
   /// Create a temporary render element.
   ///

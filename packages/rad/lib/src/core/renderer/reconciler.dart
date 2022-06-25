@@ -1,3 +1,9 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/renderer/widget_update_object.dart';
@@ -14,6 +20,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// correct, we run number of mutations which involves removing specific, few,
 /// and all optimizations, and running tests after each such mutation.
 ///
+@internal
 class Reconciler {
   /// Compatibility hasher instances that are available for reuse.
   ///

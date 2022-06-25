@@ -1,8 +1,15 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/types.dart';
 
 /// A task that can be scheduled.
 ///
+@internal
 abstract class SchedulerTask {
   /// This callback is supposed to get called just before running task.
   ///
@@ -22,6 +29,7 @@ abstract class SchedulerTask {
 
 /// A scheduler event.
 ///
+@internal
 abstract class SchedulerEvent {
   /// Listener key from where event has propagated.
   ///

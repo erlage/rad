@@ -1,3 +1,9 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/objects/common_render_elements.dart';
 import 'package:rad/src/core/common/objects/options/debug_options.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -5,6 +11,7 @@ import 'package:rad/src/core/services/abstract.dart';
 
 /// Debug service.
 ///
+@internal
 class DebugService extends Service {
   final DebugOptions options;
 

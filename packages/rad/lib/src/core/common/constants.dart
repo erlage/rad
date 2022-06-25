@@ -1,5 +1,12 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+import 'package:meta/meta.dart';
+
 /// Class containing framework specific attributes and constants.
 ///
+@internal
 class Constants {
   /// List of data attributes that are reserved and can't be set on HTML
   /// widgets.
@@ -40,6 +47,7 @@ class Constants {
 
 /// Element attributes.
 ///
+@internal
 class Attributes {
   // global
 

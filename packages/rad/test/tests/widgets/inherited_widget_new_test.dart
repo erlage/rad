@@ -1,3 +1,7 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 // ignore_for_file: camel_case_types
 
 import 'package:rad_test/rad_test.dart';
@@ -70,7 +74,6 @@ void main() {
             },
             child: RT_TestWidget(),
           ),
-          updateType: UpdateType.setState,
         );
 
         await tester.rePumpWidget(
@@ -87,7 +90,6 @@ void main() {
             },
             child: RT_TestWidget(),
           ),
-          updateType: UpdateType.setState,
         );
 
         // check stack
@@ -140,7 +142,6 @@ void main() {
               children: [shortCircuitableSubTree],
             ),
           ),
-          updateType: UpdateType.setState,
         );
 
         await tester.rePumpWidget(
@@ -152,7 +153,6 @@ void main() {
               children: [shortCircuitableSubTree],
             ),
           ),
-          updateType: UpdateType.setState,
         );
 
         await tester.rePumpWidget(
@@ -164,7 +164,6 @@ void main() {
               children: [shortCircuitableSubTree],
             ),
           ),
-          updateType: UpdateType.setState,
         );
 
         tester.assertMatchStack([
@@ -231,7 +230,6 @@ void main() {
               children: [shortCircuitableSubTree],
             ),
           ),
-          updateType: UpdateType.setState,
         );
 
         await tester.rePumpWidget(
@@ -243,7 +241,6 @@ void main() {
               children: [shortCircuitableSubTree],
             ),
           ),
-          updateType: UpdateType.setState,
         );
 
         await tester.rePumpWidget(
@@ -255,7 +252,6 @@ void main() {
               children: [shortCircuitableSubTree],
             ),
           ),
-          updateType: UpdateType.setState,
         );
 
         tester.assertMatchStack([

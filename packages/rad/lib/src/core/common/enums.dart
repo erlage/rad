@@ -1,23 +1,10 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/widgets/gesture_detector.dart';
-
-/// Defines [GestureDetector] behaviour.
-///
-/// Applies to only tap/doubleTap events.
-///
-enum HitTestBehavior {
-  /// Child gesture detectors will receive events and won't let them propagate
-  /// to parents
-  ///
-  deferToChild,
-
-  /// Receive events and prevent child gesture detectors from receiving events.
-  ///
-  opaque,
-
-  /// All detectors that are hit will receive events.
-  ///
-  translucent,
-}
 
 /// The two cardinal directions in two dimensions.
 ///
@@ -47,73 +34,23 @@ enum LayoutType {
   expand,
 }
 
-/// Type of update event that's happend in parent tree.
+/// Defines [GestureDetector] behaviour.
 ///
-/// Widgets can act according to type of update events.
+/// Applies to only tap/doubleTap events.
 ///
-enum UpdateType {
-  /// A setState is called in parent tree.
+enum HitTestBehavior {
+  /// Child gesture detectors will receive events and won't let them propagate
+  /// to parents
   ///
-  setState,
+  deferToChild,
 
-  /// When a inherited dependency changes.
+  /// Receive events and prevent child gesture detectors from receiving events.
   ///
-  dependencyChanged,
+  opaque,
 
-  /// Some logic has visited and want the widget to update.
+  /// All detectors that are hit will receive events.
   ///
-  visitorUpdate,
-
-  /// Undefined.
-  ///
-  undefined,
-}
-
-enum WidgetUpdateType {
-  /// Add a new widget.
-  ///
-  add,
-
-  /// Update a existing widget.
-  ///
-  update,
-
-  /// Dispose widget.
-  ///
-  dispose,
-
-  /// Dispose multiple widgets.
-  ///
-  disposeMultiple,
-
-  /// Add new widgets without cleaning parent contents.
-  ///
-  addAllWithoutClean,
-
-  /// Dispose all widgets under context.
-  ///
-  cleanParent,
-}
-
-enum WidgetAction {
-  dispose,
-  hideWidget,
-  showWidget,
-  updateWidget,
-  skipRest,
-}
-
-enum SchedulerTaskType {
-  build,
-  update,
-  manage,
-  dispose,
-  updateDependent,
-  stimulateListener,
-}
-
-enum SchedulerEventType {
-  sendNextTask,
+  translucent,
 }
 
 enum DomEventType {
@@ -264,4 +201,78 @@ enum DomTagType {
   final String nativeName;
 
   const DomTagType(this.nativeName);
+}
+
+/// Type of update event that's happend in parent tree.
+///
+/// Widgets can act according to type of update events.
+///
+@internal
+enum UpdateType {
+  /// A setState is called in parent tree.
+  ///
+  setState,
+
+  /// When a inherited dependency changes.
+  ///
+  dependencyChanged,
+
+  /// Some logic has visited and want the widget to update.
+  ///
+  visitorUpdate,
+
+  /// Undefined.
+  ///
+  undefined,
+}
+
+@internal
+enum WidgetUpdateType {
+  /// Add a new widget.
+  ///
+  add,
+
+  /// Update a existing widget.
+  ///
+  update,
+
+  /// Dispose widget.
+  ///
+  dispose,
+
+  /// Dispose multiple widgets.
+  ///
+  disposeMultiple,
+
+  /// Add new widgets without cleaning parent contents.
+  ///
+  addAllWithoutClean,
+
+  /// Dispose all widgets under context.
+  ///
+  cleanParent,
+}
+
+@internal
+enum WidgetAction {
+  dispose,
+  hideWidget,
+  showWidget,
+  updateWidget,
+  skipRest,
+}
+
+@internal
+enum SchedulerTaskType {
+  build,
+  update,
+  manage,
+  dispose,
+  updateDependent,
+  stimulateListener,
+}
+
+@internal
+enum SchedulerEventType {
+  sendNextTask,
 }

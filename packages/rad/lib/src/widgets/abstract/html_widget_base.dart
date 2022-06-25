@@ -1,3 +1,7 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/abstract/render_element.dart';
@@ -12,6 +16,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Base class for HTML widgets that support global attributes.
 ///
+@internal
 abstract class HTMLWidgetBase extends Widget {
   /// ID of dom node.
   ///
@@ -150,6 +155,7 @@ abstract class HTMLWidgetBase extends Widget {
 
 /// Base element for HTML widgets.-
 ///
+@internal
 class HTMLBaseElement extends RenderElement {
   HTMLBaseElement(
     HTMLWidgetBase widget,

@@ -1,15 +1,23 @@
+// Copyright (c) 2022, the Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+import 'package:meta/meta.dart';
+
 import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Framework's action.
 ///
+@internal
 abstract class WidgetUpdateObject {
   final WidgetUpdateType widgetUpdateType;
 
   const WidgetUpdateObject(this.widgetUpdateType);
 }
 
+@internal
 class WidgetUpdateObjectActionAdd extends WidgetUpdateObject {
   /// New widget.
   ///
@@ -34,6 +42,7 @@ class WidgetUpdateObjectActionAdd extends WidgetUpdateObject {
   }) : super(WidgetUpdateType.add);
 }
 
+@internal
 class WidgetUpdateObjectActionAddAllWithoutClean extends WidgetUpdateObject {
   /// New widgets.
   ///
@@ -44,6 +53,7 @@ class WidgetUpdateObjectActionAddAllWithoutClean extends WidgetUpdateObject {
   }) : super(WidgetUpdateType.addAllWithoutClean);
 }
 
+@internal
 class WidgetUpdateObjectActionUpdate extends WidgetUpdateObject {
   /// New widget.
   ///
@@ -69,6 +79,7 @@ class WidgetUpdateObjectActionUpdate extends WidgetUpdateObject {
   }) : super(WidgetUpdateType.update);
 }
 
+@internal
 class WidgetUpdateObjectActionDispose extends WidgetUpdateObject {
   /// Existing widget node that should be disposed.
   ///
@@ -79,6 +90,7 @@ class WidgetUpdateObjectActionDispose extends WidgetUpdateObject {
   ) : super(WidgetUpdateType.dispose);
 }
 
+@internal
 class WidgetUpdateObjectActionDisposeMultiple extends WidgetUpdateObject {
   /// Existing nodes to dispose
   ///
@@ -89,6 +101,7 @@ class WidgetUpdateObjectActionDisposeMultiple extends WidgetUpdateObject {
   ) : super(WidgetUpdateType.disposeMultiple);
 }
 
+@internal
 class WidgetUpdateObjectActionCleanParent extends WidgetUpdateObject {
   static const _cached = WidgetUpdateObjectActionCleanParent._();
 
@@ -98,15 +111,4 @@ class WidgetUpdateObjectActionCleanParent extends WidgetUpdateObject {
       : super(
           WidgetUpdateType.cleanParent,
         );
-}
-
-enum ListenerType { one, two }
-
-class ListenerOne {
-  final type = ListenerType.one;
-}
-
-class ListenerTwo extends ListenerOne {
-  @override
-  ListenerType get type => ListenerType.one;
 }
