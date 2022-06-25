@@ -41,6 +41,17 @@ import 'package:rad/src/widgets/stateless_widget.dart';
 ///   dispatched and processed faster.
 ///
 ///
+/// * In mission critical situations you can override framework's diffing
+///   process using [shouldUpdateWidget] & [shouldUpdateWidgetChildren], both
+///   of which are present on every widget.
+///   If you know that in some situations your widget doesn’t need to update,
+///   you can return false from [shouldUpdateWidget]. And by returning false
+///   from [shouldUpdateWidgetChildren] you can prevent framework from going
+///   down the widget and updating its child widgets. Remember! maintaining
+///   [shouldUpdateWidget] & [shouldUpdateWidgetChildren] is hard so it's not
+///   something you should be using everywhere.
+///
+///
 /// * In worst case, framework rebuild widgets from scratch. Complete rebuild
 ///   involves disposing off current childs and rebuilding new ones with new
 ///   state. Usually happens when child that framework is looking for is not
@@ -53,18 +64,6 @@ import 'package:rad/src/widgets/stateless_widget.dart';
 ///   that's required to build a widget. This means even if you remove child
 ///   nodes/or part of DOM tree using browser inspector, calling setState() in a
 ///   parent widget will bring back everything back in DOM.
-///
-///
-/// * And for mission critical situations you can override framework's diffing
-///   process using [shouldUpdateWidget] & [shouldUpdateWidgetChildren], both
-///   of which are present on every widget in the framework.
-///
-///   If you know that in some situations your widget doesn’t need to update,
-///   you can return false from [shouldUpdateWidget]. And by returning false
-///   from [shouldUpdateWidgetChildren] you can prevent framework from going
-///   down the widget and updating its child widgets. Remember! maintaining
-///   [shouldUpdateWidget] & [shouldUpdateWidgetChildren] is hard so it's not
-///   something you should be using everywhere.
 ///
 ///
 /// ## A Stateful widget example: 'click to toggle'

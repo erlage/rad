@@ -10,7 +10,7 @@
 ///
 /// - [DebugOptions.defaultMode] - Enables exceptions and additional checks.
 ///
-/// - [DebugOptions.developmentMode] - Enables exceptions, logs and additional
+/// - [DebugOptions.developmentMode] Enables exceptions, logs and additional
 /// checks.
 ///
 /// - [DebugOptions.productionMode] - Suppress exceptions, logs and additional
