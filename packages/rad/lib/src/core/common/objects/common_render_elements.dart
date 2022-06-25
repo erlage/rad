@@ -23,7 +23,7 @@ class RootRenderElement extends RenderElement {
   RootRenderElement({
     required String appTargetId,
     required Element appTargetDomNode,
-  }) : super.bigBang(
+  }) : super.frameworkBigBang(
           appTargetId: appTargetId,
           appTargetDomNode: appTargetDomNode,
         );
@@ -64,7 +64,7 @@ class TemporaryElement extends RenderElement {
   TemporaryElement._(
     Services services,
     RenderElement possibleParent,
-  ) : super.temporary(
+  ) : super.frameworkTemporary(
           services: services,
           possibleParent: possibleParent,
           tempWidget: const _TemporaryWidget(),

@@ -240,7 +240,7 @@ class WidgetTester {
     var renderElements = finder.evaluate();
 
     if (renderElements.isEmpty) {
-      app.services.debug.exception(
+      app.frameworkServices.debug.exception(
         'Unable find any matching widgets with the finder: "$finder".',
       );
 
@@ -248,7 +248,7 @@ class WidgetTester {
     }
 
     if (!dispatchToMultipleNodes && renderElements.length > 1) {
-      app.services.debug.exception(
+      app.frameworkServices.debug.exception(
         'Found multiple matching widgets with the finder: "$finder". '
         'Consider enabling dispatchToMultipleNodes if you want to dispatch '
         'event to multiple dom nodes',
@@ -275,7 +275,7 @@ class WidgetTester {
     var renderElements = finder.evaluate();
 
     if (renderElements.isEmpty) {
-      app.services.debug.exception(
+      app.frameworkServices.debug.exception(
         'Unable find any matching widgets with the finder: "$finder".',
       );
 
@@ -286,7 +286,7 @@ class WidgetTester {
     var widget = targetRenderElement.widget;
 
     if (!fnIsWidgetTextEditable(widget)) {
-      app.services.debug.exception(
+      app.frameworkServices.debug.exception(
         'Matched widget is of type "${widget.runtimeType}" which is not a '
         'text editable widget.',
       );
@@ -307,7 +307,7 @@ class WidgetTester {
     var renderElements = finder.evaluate();
 
     if (renderElements.isEmpty) {
-      app.services.debug.exception(
+      app.frameworkServices.debug.exception(
         'Unable find any matching widgets with the finder: "$finder".',
       );
 
@@ -318,7 +318,7 @@ class WidgetTester {
     var widget = targetRenderElement.widget;
 
     if (!fnIsWidgetTextEditable(widget)) {
-      app.services.debug.exception(
+      app.frameworkServices.debug.exception(
         'Matched widget is of type "${widget.runtimeType}" which is not a '
         'text editable widget.',
       );
@@ -350,7 +350,8 @@ class WidgetTester {
   /// Find render element by global key under app context.
   ///
   RenderElement? getRenderElementByGlobalKey(GlobalKey key) {
-    return app.services.walker.getRenderElementAssociatedWithGlobalKey(key);
+    return app.frameworkServices.walker
+        .getRenderElementAssociatedWithGlobalKey(key);
   }
 
   /// Find dom node by global key under app context.
@@ -364,7 +365,7 @@ class WidgetTester {
   Future<void> updateRenderElementAsIfDependant(
     RenderElement renderElement,
   ) async {
-    app.services.scheduler.addTask(
+    app.frameworkServices.scheduler.addTask(
       WidgetsUpdateDependentTask(
         dependentRenderElement: renderElement,
       ),
@@ -381,7 +382,7 @@ class WidgetTester {
     required UpdateType updateType,
     bool flagIterateInReverseOrder = false,
   }) async {
-    app.services.scheduler.addTask(
+    app.frameworkServices.scheduler.addTask(
       WidgetsManageTask(
         updateType: updateType,
         parentRenderElement: parentRenderElement,
@@ -400,7 +401,7 @@ class WidgetTester {
     required bool flagPreserveTarget,
   }) async {
     if (null != renderElement) {
-      app.services.scheduler.addTask(
+      app.frameworkServices.scheduler.addTask(
         WidgetsDisposeTask(
           renderElement: renderElement,
           flagPreserveTarget: flagPreserveTarget,
@@ -414,7 +415,7 @@ class WidgetTester {
   /// Set window path(is using window mock)
   ///
   Future<void> setPath(String toSet) async {
-    if (app.services.router.options.enableHashBasedRouting) {
+    if (app.frameworkServices.router.options.enableHashBasedRouting) {
       window?.setHash(toSet);
     } else {
       window?.setPath(toSet);
@@ -426,7 +427,7 @@ class WidgetTester {
   /// Assert current path(if using window mock)
   ///
   void assertMatchPath(String toMatch, {bool addHashIfMising = true}) {
-    if (app.services.router.options.enableHashBasedRouting) {
+    if (app.frameworkServices.router.options.enableHashBasedRouting) {
       if (addHashIfMising) {
         toMatch = '#$toMatch';
       }
@@ -442,14 +443,14 @@ class WidgetTester {
   void assertMatchPathStack(List<String> toMatch) {
     var stack = <String>[];
 
-    if (app.services.router.options.enableHashBasedRouting) {
+    if (app.frameworkServices.router.options.enableHashBasedRouting) {
       stack.addAll(window?.hashStack.reversed ?? []);
     } else {
       stack.addAll(window?.pathStack.reversed ?? []);
     }
 
     for (final entry in toMatch) {
-      if (app.services.router.options.enableHashBasedRouting) {
+      if (app.frameworkServices.router.options.enableHashBasedRouting) {
         expect(stack.removeLast(), '#$entry');
       } else {
         expect(stack.removeLast(), entry);
@@ -529,7 +530,7 @@ class WidgetTester {
     int? mountAtIndex,
     bool? flagCleanParentContents,
   }) async {
-    app.services.scheduler.addTask(
+    app.frameworkServices.scheduler.addTask(
       WidgetsBuildTask(
         widgets: widgets,
         parentRenderElement: parentRenderElement,
@@ -549,7 +550,7 @@ class WidgetTester {
     required UpdateType updateType,
     bool? flagAddIfNotFound,
   }) async {
-    app.services.scheduler.addTask(
+    app.frameworkServices.scheduler.addTask(
       WidgetsUpdateTask(
         widgets: widgets,
         parentRenderElement: parentRenderElement,

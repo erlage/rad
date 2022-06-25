@@ -126,7 +126,7 @@ abstract class RenderElement implements BuildContext {
   ///
   /// @nodoc
   @internal
-  RenderElement.temporary({
+  RenderElement.frameworkTemporary({
     required Services services,
     required Widget tempWidget,
     required Element tempDomNode,
@@ -161,7 +161,7 @@ abstract class RenderElement implements BuildContext {
   ///
   /// @nodoc
   @internal
-  RenderElement.bigBang({
+  RenderElement.frameworkBigBang({
     required this.appTargetId,
     required Element appTargetDomNode,
   })  : _key = null,

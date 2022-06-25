@@ -488,9 +488,7 @@ class NavigatorRenderElement extends WatchfulRenderElement {
 class NavigatorState with ServicesResolver {
   /// Resolve services reference.
   ///
-  /// @nodoc
-  @internal
-  Services get services => resolveServices(context);
+  Services get _services => resolveServices(context);
 
   /// Routes that this Navigator instance handles.
   ///
@@ -500,13 +498,13 @@ class NavigatorState with ServicesResolver {
   ///
   /// @nodoc
   @internal
-  final nameToPathMap = <String, String>{};
+  final framworkNameToPathMap = <String, String>{};
 
   /// Route path to Route instance map.
   ///
   /// @nodoc
   @internal
-  final pathToRouteMap = <String, Route>{};
+  final frameworkPathToRouteMap = <String, Route>{};
 
   /// Name of the active route. Route, that's currently on top of
   /// Navigator stack.
@@ -530,9 +528,6 @@ class NavigatorState with ServicesResolver {
 
   /// Navigator's render element
   ///
-  /// @nodoc
-  @internal
-  NavigatorRenderElement get renderElement => _renderElement!;
   NavigatorRenderElement? _renderElement;
 
   NavigatorState(this.widget);
@@ -569,8 +564,8 @@ class NavigatorState with ServicesResolver {
 
     // if current navigator doesn't have a matching '$name' route
 
-    if (!nameToPathMap.containsKey(name)) {
-      return services.debug.exception(
+    if (!framworkNameToPathMap.containsKey(name)) {
+      return _services.debug.exception(
         "Navigator: Route '$name' is not declared.",
       );
     }
@@ -582,14 +577,14 @@ class NavigatorState with ServicesResolver {
     // update global state
 
     if (updateHistory) {
-      if (services.debug.routerLogs) {
+      if (_services.debug.routerLogs) {
         print('$context: Push entry: $name');
       }
 
-      services.router.pushEntry(
+      _services.router.pushEntry(
         name: name,
         values: values,
-        navigator: renderElement,
+        navigator: _renderElement!,
         updateHistory: updateHistory,
       );
     }
@@ -598,10 +593,10 @@ class NavigatorState with ServicesResolver {
 
     // if route is already in stack, bring it to the top of stack
 
-    if (isPageStacked(name: name)) {
-      services.scheduler.addTask(
+    if (_isPageStacked(name: name)) {
+      _services.scheduler.addTask(
         WidgetsManageTask(
-          parentRenderElement: renderElement,
+          parentRenderElement: _renderElement!,
           flagIterateInReverseOrder: true,
           widgetActionCallback: (widgetObject) {
             var widget = widgetObject.widget;
@@ -623,28 +618,28 @@ class NavigatorState with ServicesResolver {
       //
       // else build the route
 
-      var page = pathToRouteMap[nameToPathMap[name]];
+      var page = frameworkPathToRouteMap[framworkNameToPathMap[name]];
 
       if (null == page) {
-        return services.debug.exception(Constants.coreError);
+        return _services.debug.exception(Constants.coreError);
       }
 
       _pageStack.add(name);
 
       // hide all existing widgets
 
-      services.scheduler.addTask(
+      _services.scheduler.addTask(
         WidgetsManageTask(
-          parentRenderElement: renderElement,
+          parentRenderElement: _renderElement!,
           flagIterateInReverseOrder: true,
           widgetActionCallback: (widgetObject) {
             return [WidgetAction.hideWidget];
           },
           afterTaskCallback: () {
-            services.scheduler.addTask(
+            _services.scheduler.addTask(
               WidgetsBuildTask(
                 widgets: [page],
-                parentRenderElement: renderElement,
+                parentRenderElement: _renderElement!,
                 flagCleanParentContents: 1 == _historyStack.length,
               ),
             );
@@ -662,9 +657,9 @@ class NavigatorState with ServicesResolver {
 
       frameworkUpdateCurrentName(_historyStack.last.name);
 
-      services.router.dispatchBackAction();
+      _services.router.dispatchBackAction();
     } else {
-      services.debug.exception('Navigator: No previous route to go back.');
+      _services.debug.exception('Navigator: No previous route to go back.');
     }
   }
 
@@ -697,8 +692,8 @@ class NavigatorState with ServicesResolver {
   /// // because current navigator is registered on posts page
   /// ```
   ///
-  String getValue(String segment) => services.router.getValue(
-        renderElement,
+  String getValue(String segment) => _services.router.getValue(
+        _renderElement!,
         segment,
       );
 
@@ -708,9 +703,7 @@ class NavigatorState with ServicesResolver {
 
   /// Whether current active stack contains a route with matching [name].
   ///
-  /// @nodoc
-  @internal
-  bool isPageStacked({required String name}) => _pageStack.contains(name);
+  bool _isPageStacked({required String name}) => _pageStack.contains(name);
 
   /*
   |--------------------------------------------------------------------------
@@ -746,8 +739,8 @@ class NavigatorState with ServicesResolver {
   @protected
   void frameworkInitState() {
     if (widget.routes.isEmpty) {
-      if (services.debug.additionalChecks) {
-        services.debug.exception(
+      if (_services.debug.additionalChecks) {
+        _services.debug.exception(
           'Navigator instance must have at least one route.',
         );
       }
@@ -758,16 +751,16 @@ class NavigatorState with ServicesResolver {
     routes.addAll(widget.routes);
 
     for (final route in routes) {
-      if (services.debug.additionalChecks) {
+      if (_services.debug.additionalChecks) {
         if (RegExp(r'^ *$').hasMatch(route.name)) {
           if (route.name.isEmpty) {
-            return services.debug.exception(
+            return _services.debug.exception(
               "Navigator's Route's name can't be empty."
               '\n Route: ${route.name} -> ${route.name} is not allowed',
             );
           }
 
-          return services.debug.exception(
+          return _services.debug.exception(
             "Navigator's Route's name cannot contain empty spaces."
             '\n Route: ${route.name} -> ${route.path} is not allowed',
           );
@@ -775,24 +768,24 @@ class NavigatorState with ServicesResolver {
 
         if (!RegExp(r'^[a-zA-Z0-9_\-]+$').hasMatch(route.path)) {
           if (route.path.isEmpty) {
-            return services.debug.exception(
+            return _services.debug.exception(
               "Navigator's Route's path can't be empty."
               '\n Route: ${route.name} -> ${route.path} is not allowed',
             );
           }
 
-          return services.debug.exception(
+          return _services.debug.exception(
             "Navigator's Route can contains only alphanumeric characters "
             ', underscores(_) and hyphens(-)'
             '\n Route: ${route.name} -> ${route.path} is not allowed',
           );
         }
 
-        var isDuplicate = nameToPathMap.containsKey(route.name) ||
-            pathToRouteMap.containsKey(route.path);
+        var isDuplicate = framworkNameToPathMap.containsKey(route.name) ||
+            frameworkPathToRouteMap.containsKey(route.path);
 
         if (isDuplicate) {
-          return services.debug.exception(
+          return _services.debug.exception(
             'Please remove Duplicate routes from your Navigator. '
             "Part of your route, name: '${route.name}' => path: "
             "'${route.path}', already exists",
@@ -800,12 +793,12 @@ class NavigatorState with ServicesResolver {
         }
       }
 
-      nameToPathMap[route.name] = route.path;
+      framworkNameToPathMap[route.name] = route.path;
 
-      pathToRouteMap[route.path] = route;
+      frameworkPathToRouteMap[route.path] = route;
     }
 
-    services.router.register(renderElement);
+    _services.router.register(_renderElement!);
   }
 
   /// @nodoc
@@ -816,7 +809,7 @@ class NavigatorState with ServicesResolver {
       return;
     }
 
-    var name = services.router.getPath(renderElement);
+    var name = _services.router.getPath(_renderElement!);
 
     var needsReplacement = name.isEmpty;
 
@@ -830,14 +823,14 @@ class NavigatorState with ServicesResolver {
     }
 
     if (needsReplacement && name.isNotEmpty) {
-      if (services.debug.routerLogs) {
+      if (_services.debug.routerLogs) {
         print('$context: Push replacement: $name');
       }
 
-      services.router.pushReplacement(
+      _services.router.pushReplacement(
         name: name,
         values: {},
-        navigator: renderElement,
+        navigator: _renderElement!,
       );
     }
 
@@ -852,9 +845,9 @@ class NavigatorState with ServicesResolver {
       return;
     }
 
-    services.scheduler.addTask(
+    _services.scheduler.addTask(
       WidgetsManageTask(
-        parentRenderElement: renderElement,
+        parentRenderElement: _renderElement!,
         flagIterateInReverseOrder: true,
         widgetActionCallback: (widgetObject) {
           var widget = widgetObject.widget;
@@ -876,24 +869,24 @@ class NavigatorState with ServicesResolver {
   /// @nodoc
   @internal
   @protected
-  void frameworkDispose() => services.router.unRegister(renderElement);
+  void frameworkDispose() => _services.router.unRegister(_renderElement!);
 
   /// Framework fires this when parent route changes.
   ///
   /// @nodoc
   @internal
   void frameworkOnParentRouteChange(String name) {
-    var routeName = services.router.getPath(renderElement);
+    var routeName = _services.router.getPath(_renderElement!);
 
     if (routeName != currentRouteName) {
-      if (services.debug.routerLogs) {
+      if (_services.debug.routerLogs) {
         print('$context: Push replacement: $routeName');
       }
 
-      services.router.pushReplacement(
+      _services.router.pushReplacement(
         name: currentRouteName,
         values: {},
-        navigator: renderElement,
+        navigator: _renderElement!,
       );
     }
   }

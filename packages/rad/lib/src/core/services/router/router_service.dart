@@ -138,7 +138,7 @@ class RouterService extends Service {
     var matchedPathSegment = '';
 
     for (final segment in segments) {
-      if (stateObject.pathToRouteMap.containsKey(segment)) {
+      if (stateObject.frameworkPathToRouteMap.containsKey(segment)) {
         matchedPathSegment = segment;
 
         break;
@@ -255,7 +255,7 @@ class RouterService extends Service {
 
     var matcher = '';
 
-    var matchRoutes = stateObject.nameToPathMap.values.join(r'|\/');
+    var matchRoutes = stateObject.framworkNameToPathMap.values.join(r'|\/');
 
     if (linkObject.segments.length < 3) {
       matcher = r'(^\/*.*' +

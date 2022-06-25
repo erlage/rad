@@ -50,19 +50,19 @@ class WalkerService extends Service {
         }
       }
 
-      _globalElements[widgetKey.value] = renderElement;
+      _globalElements[widgetKey.frameworkValue] = renderElement;
     }
   }
 
   void unRegisterElement(RenderElement element) {
     if (element.key is GlobalKey) {
-      _globalElements.remove(element.key!.value);
+      _globalElements.remove(element.key!.frameworkValue);
     }
   }
 
   /// Returns associated render element of global key.
   ///
   RenderElement? getRenderElementAssociatedWithGlobalKey(GlobalKey key) {
-    return _globalElements[key.value];
+    return _globalElements[key.frameworkValue];
   }
 }

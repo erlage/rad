@@ -55,7 +55,8 @@ class AppRunner extends rad.AppRunner {
   /// App widget(root widget)'s build context.
   ///
   rad.RenderElement get appRenderElement {
-    var renderElement = services.walker.getRenderElementAssociatedWithGlobalKey(
+    var renderElement =
+        frameworkServices.walker.getRenderElementAssociatedWithGlobalKey(
       GlobalKey(appId),
     );
 

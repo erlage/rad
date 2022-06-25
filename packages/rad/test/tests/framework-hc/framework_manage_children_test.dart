@@ -45,7 +45,7 @@ void main() {
           updateType: UpdateType.visitorUpdate,
           parentRenderElement: app!.appRenderElement,
           widgetActionCallback: (renderElement) {
-            testStack.push(renderElement.key?.value ?? '');
+            testStack.push(renderElement.key?.frameworkValue ?? '');
 
             return [];
           },
@@ -83,7 +83,7 @@ void main() {
           parentRenderElement: app!.appRenderElement,
           flagIterateInReverseOrder: false,
           widgetActionCallback: (renderElement) {
-            testStack.push(renderElement.key?.value ?? '');
+            testStack.push(renderElement.key?.frameworkValue ?? '');
 
             return [];
           },
@@ -121,7 +121,7 @@ void main() {
           parentRenderElement: app!.appRenderElement,
           flagIterateInReverseOrder: true,
           widgetActionCallback: (renderElement) {
-            testStack.push(renderElement.key?.value ?? '');
+            testStack.push(renderElement.key?.frameworkValue ?? '');
 
             return [];
           },
@@ -163,7 +163,7 @@ void main() {
           updateType: UpdateType.visitorUpdate,
           parentRenderElement: app!.appRenderElement,
           widgetActionCallback: (renderElement) {
-            testStack.push(renderElement.key?.value ?? '');
+            testStack.push(renderElement.key?.frameworkValue ?? '');
 
             return [];
           },
@@ -205,9 +205,9 @@ void main() {
           updateType: UpdateType.visitorUpdate,
           parentRenderElement: app!.appRenderElement,
           widgetActionCallback: (renderElement) {
-            testStack.push(renderElement.key?.value ?? '');
+            testStack.push(renderElement.key?.frameworkValue ?? '');
 
-            if ('widget-3' == (renderElement.key?.value ?? '')) {
+            if ('widget-3' == (renderElement.key?.frameworkValue ?? '')) {
               return [WidgetAction.skipRest];
             }
 
@@ -250,9 +250,9 @@ void main() {
           updateType: UpdateType.visitorUpdate,
           parentRenderElement: app!.appRenderElement,
           widgetActionCallback: (renderElement) {
-            testStack.push(renderElement.key?.value ?? '');
+            testStack.push(renderElement.key?.frameworkValue ?? '');
 
-            if ('widget-3' == (renderElement.key?.value ?? '')) {
+            if ('widget-3' == (renderElement.key?.frameworkValue ?? '')) {
               return [WidgetAction.skipRest];
             }
 
@@ -310,7 +310,7 @@ void main() {
           updateType: UpdateType.visitorUpdate,
           parentRenderElement: app!.appRenderElement,
           widgetActionCallback: (renderElement) {
-            testStack.push(renderElement.key?.value ?? '');
+            testStack.push(renderElement.key?.frameworkValue ?? '');
 
             return [WidgetAction.updateWidget];
           },
@@ -503,9 +503,9 @@ void main() {
           updateType: UpdateType.visitorUpdate,
           parentRenderElement: app!.appRenderElement,
           widgetActionCallback: (renderElement) {
-            testStack.push(renderElement.key?.value ?? '');
+            testStack.push(renderElement.key?.frameworkValue ?? '');
 
-            switch (renderElement.key?.value ?? '') {
+            switch (renderElement.key?.frameworkValue ?? '') {
               case 'widget-1':
                 return [
                   WidgetAction.hideWidget,

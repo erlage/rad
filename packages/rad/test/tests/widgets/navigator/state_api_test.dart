@@ -515,7 +515,8 @@ void main() {
                   stateHookBuild: (state) {
                     var navigatorState = Navigator.of(state.context);
 
-                    expect(navigatorState.widget.key?.value, equals('nav'));
+                    expect(navigatorState.widget.key?.frameworkValue,
+                        equals('nav'));
                   },
                 ),
               ),
@@ -544,7 +545,7 @@ void main() {
                           var navigatorState = Navigator.of(state.context);
 
                           expect(
-                            navigatorState.widget.key?.value,
+                            navigatorState.widget.key?.frameworkValue,
                             equals('child'),
                           );
                         },
@@ -586,12 +587,12 @@ void main() {
                           );
 
                           expect(
-                            navigatorState1.widget.key?.value,
+                            navigatorState1.widget.key?.frameworkValue,
                             equals('child'),
                           );
 
                           expect(
-                            navigatorState2.widget.key?.value,
+                            navigatorState2.widget.key?.frameworkValue,
                             equals('parent'),
                           );
                         },

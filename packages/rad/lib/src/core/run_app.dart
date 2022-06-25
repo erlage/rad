@@ -72,12 +72,12 @@ class AppRunner {
 
   /// @nodoc
   @internal
-  Services get services => _services!;
+  Services get frameworkServices => _services!;
   Services? _services;
 
   /// @nodoc
   @internal
-  AppOptions get appOptions => _appOptions!;
+  AppOptions get frameworkAppOptions => _appOptions!;
   AppOptions? _appOptions;
 
   /// Create a app runner.
@@ -141,13 +141,13 @@ class AppRunner {
   ///
   void startServices() {
     _services = Services(
-      appOptions: appOptions,
+      appOptions: frameworkAppOptions,
       rootElement: rootElement,
     );
 
-    rootElement.frameworkAttachServices(services: services);
+    rootElement.frameworkAttachServices(services: frameworkServices);
 
-    services.startServices();
+    frameworkServices.startServices();
   }
 
   /// Stop app instance associated services.
@@ -171,7 +171,7 @@ class AppRunner {
   /// Schedule initial build.
   ///
   void scheduleInitialBuild() {
-    services.scheduler.addTask(
+    frameworkServices.scheduler.addTask(
       WidgetsBuildTask(
         widgets: [app],
         parentRenderElement: rootElement,

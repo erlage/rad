@@ -19,22 +19,23 @@ class Key {
   ///
   /// @nodoc
   @internal
-  final String value;
+  String get frameworkValue => _value;
+  final String _value;
 
   /// Create key.
   ///
-  const Key(this.value);
+  const Key(this._value);
 
   @override
   operator ==(Object other) {
-    return other is Key && other.value == value;
+    return other is Key && other._value == _value;
   }
 
   @override
-  int get hashCode => value.hashCode;
+  int get hashCode => _value.hashCode;
 
   @override
-  String toString() => 'key($value)';
+  String toString() => 'key($_value)';
 }
 
 /// A key that is unique within a single app instance.

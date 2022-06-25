@@ -924,9 +924,9 @@ void html_break_line_test() {
       var wO2 = app!.renderElementByGlobalKey('some-key-2')!;
       var wO3 = app!.renderElementByGlobalKey('some-key-3')!;
 
-      expect(wO1.key?.value, endsWith('some-key-1'));
-      expect(wO2.key?.value, endsWith('some-key-2'));
-      expect(wO3.key?.value, equals('some-key-3'));
+      expect(wO1.key?.frameworkValue, endsWith('some-key-1'));
+      expect(wO2.key?.frameworkValue, endsWith('some-key-2'));
+      expect(wO3.key?.frameworkValue, equals('some-key-3'));
     });
   });
 }

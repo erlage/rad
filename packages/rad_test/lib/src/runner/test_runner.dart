@@ -46,7 +46,7 @@ class TestRunner {
 
         // 2. Setup exception handler
 
-        app.services.debug.setExceptionHandler(unCaughtExceptions.add);
+        app.frameworkServices.debug.setExceptionHandler(unCaughtExceptions.add);
 
         // 3. Create widget tester
 

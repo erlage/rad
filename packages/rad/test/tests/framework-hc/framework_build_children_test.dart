@@ -100,7 +100,7 @@ void main() {
       );
 
       expect(
-        app!.renderElementByGlobalKey('widget-key')!.key?.value,
+        app!.renderElementByGlobalKey('widget-key')!.key?.frameworkValue,
         equals('widget-key'),
       );
     });

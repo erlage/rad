@@ -563,7 +563,7 @@ class _CompatibilityHashGenerator {
     required String widgetRuntimeType,
   }) {
     if (null != widgetKey) {
-      return '$widgetRuntimeType:k:${widgetKey.value}';
+      return '$widgetRuntimeType:k:${widgetKey.frameworkValue}';
     }
 
     return '$widgetRuntimeType:nk:${_generateCountForType(widgetRuntimeType)}';

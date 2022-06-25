@@ -33,7 +33,7 @@ void main() {
         app: RT_StatefulTestWidget(
           key: GlobalKey('widget'),
           stateHookInitState: (state) {
-            expect(state.context.key?.value, endsWith('widget'));
+            expect(state.context.key?.frameworkValue, endsWith('widget'));
           },
         ),
         targetId: RT_TestBed.rootTargetId,

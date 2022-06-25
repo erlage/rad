@@ -27,7 +27,7 @@ class RT_AppRunner extends AppRunner {
   var _isDebugInformationEnabled = false;
 
   RenderElement get appRenderElement =>
-      services.walker.getRenderElementAssociatedWithGlobalKey(
+      frameworkServices.walker.getRenderElementAssociatedWithGlobalKey(
         GlobalKey('app-widget'),
       )!;
 
@@ -82,7 +82,7 @@ class RT_AppRunner extends AppRunner {
   /// Get render element by global key under app context.
   ///
   RenderElement? renderElementByGlobalKey(String key) {
-    return services.walker.getRenderElementAssociatedWithGlobalKey(
+    return frameworkServices.walker.getRenderElementAssociatedWithGlobalKey(
       GlobalKey(key),
     );
   }
@@ -118,7 +118,7 @@ class RT_AppRunner extends AppRunner {
     int? mountAtIndex,
     bool flagCleanParentContents = true,
   }) async {
-    services.scheduler.addTask(
+    frameworkServices.scheduler.addTask(
       WidgetsBuildTask(
         widgets: widgets,
         parentRenderElement: parentRenderElement,
@@ -136,7 +136,7 @@ class RT_AppRunner extends AppRunner {
     required UpdateType updateType,
     bool flagAddIfNotFound = true,
   }) async {
-    services.scheduler.addTask(
+    frameworkServices.scheduler.addTask(
       WidgetsUpdateTask(
         widgets: widgets,
         parentRenderElement: parentRenderElement,
@@ -151,7 +151,7 @@ class RT_AppRunner extends AppRunner {
   Future<void> updateDependent(
     RenderElement dependentRenderElement,
   ) async {
-    services.scheduler.addTask(
+    frameworkServices.scheduler.addTask(
       WidgetsUpdateDependentTask(
         dependentRenderElement: dependentRenderElement,
       ),
@@ -166,7 +166,7 @@ class RT_AppRunner extends AppRunner {
     required UpdateType updateType,
     bool flagIterateInReverseOrder = false,
   }) async {
-    services.scheduler.addTask(
+    frameworkServices.scheduler.addTask(
       WidgetsManageTask(
         updateType: updateType,
         parentRenderElement: parentRenderElement,
@@ -183,7 +183,7 @@ class RT_AppRunner extends AppRunner {
     required bool flagPreserveTarget,
   }) async {
     if (null != renderElement) {
-      services.scheduler.addTask(
+      frameworkServices.scheduler.addTask(
         WidgetsDisposeTask(
           renderElement: renderElement,
           flagPreserveTarget: flagPreserveTarget,
@@ -195,7 +195,7 @@ class RT_AppRunner extends AppRunner {
   }
 
   Future<void> setPath(String toSet) async {
-    if (services.router.options.enableHashBasedRouting) {
+    if (frameworkServices.router.options.enableHashBasedRouting) {
       window.setHash(toSet);
     } else {
       window.setPath(toSet);
@@ -205,7 +205,7 @@ class RT_AppRunner extends AppRunner {
   }
 
   void assertMatchPath(String toMatch) {
-    if (services.router.options.enableHashBasedRouting) {
+    if (frameworkServices.router.options.enableHashBasedRouting) {
       expect(window.locationHash, '#$toMatch');
     } else {
       expect(window.locationPathName, toMatch);
@@ -219,14 +219,14 @@ class RT_AppRunner extends AppRunner {
   void assertMatchPathStack(List<String> toMatch) {
     var stack = <String>[];
 
-    if (services.router.options.enableHashBasedRouting) {
+    if (frameworkServices.router.options.enableHashBasedRouting) {
       stack.addAll(window.hashStack.reversed);
     } else {
       stack.addAll(window.pathStack.reversed);
     }
 
     for (final entry in toMatch) {
-      if (services.router.options.enableHashBasedRouting) {
+      if (frameworkServices.router.options.enableHashBasedRouting) {
         expect(stack.removeLast(), '#$entry');
       } else {
         expect(stack.removeLast(), entry);
