@@ -124,6 +124,8 @@ abstract class RenderElement implements BuildContext {
 
   /// Create a temporary render element.
   ///
+  /// @nodoc
+  @internal
   RenderElement.temporary({
     required Services services,
     required Widget tempWidget,
@@ -157,6 +159,8 @@ abstract class RenderElement implements BuildContext {
   /// Root elements are different from regular element in that they don't have a
   /// widget associated with them.
   ///
+  /// @nodoc
+  @internal
   RenderElement.bigBang({
     required this.appTargetId,
     required Element appTargetDomNode,

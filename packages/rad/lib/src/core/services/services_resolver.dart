@@ -10,10 +10,13 @@ import 'package:rad/src/core/services/services_registry.dart';
 
 /// A mixin with a services resolver getter.
 ///
+/// @nodoc
 @internal
 mixin ServicesResolver {
   Services? _services;
 
+  /// @nodoc
+  @internal
   Services resolveServices(BuildContext context) {
     return _services ??= ServicesRegistry.instance.getServices(context);
   }
