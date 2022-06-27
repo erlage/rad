@@ -134,11 +134,11 @@ Map<String, String?> _prepareAttributes({
 }) {
   var attributes = <String, String?>{};
 
-  if (null != widget.span) {
-    attributes[Attributes.span] = '${widget.span}';
-  } else {
-    if (null != oldWidget?.span) {
+  if (widget.span != oldWidget?.span) {
+    if (null == widget.span) {
       attributes[Attributes.span] = null;
+    } else {
+      attributes[Attributes.span] = '${widget.span}';
     }
   }
 

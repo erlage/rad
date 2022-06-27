@@ -171,61 +171,41 @@ Map<String, String?> _prepareAttributes({
 }) {
   var attributes = <String, String?>{};
 
-  if (null != widget.src) {
+  if (widget.src != oldWidget?.src) {
     attributes[Attributes.src] = widget.src;
-  } else {
-    if (null != oldWidget?.src) {
-      attributes[Attributes.src] = null;
-    }
   }
 
-  if (null != widget.name) {
+  if (widget.name != oldWidget?.name) {
     attributes[Attributes.name] = widget.name;
-  } else {
-    if (null != oldWidget?.name) {
-      attributes[Attributes.name] = null;
-    }
   }
 
-  if (null != widget.width) {
+  if (widget.width != oldWidget?.width) {
     attributes[Attributes.width] = widget.width;
-  } else {
-    if (null != oldWidget?.width) {
-      attributes[Attributes.width] = null;
-    }
   }
 
-  if (null != widget.height) {
+  if (widget.height != oldWidget?.height) {
     attributes[Attributes.height] = widget.height;
-  } else {
-    if (null != oldWidget?.height) {
-      attributes[Attributes.height] = null;
-    }
   }
 
-  if (null != widget.allow) {
+  if (widget.allow != oldWidget?.allow) {
     attributes[Attributes.allow] = widget.allow;
-  } else {
-    if (null != oldWidget?.allow) {
-      attributes[Attributes.allow] = null;
-    }
   }
 
-  if (null != widget.allowFullscreen && widget.allowFullscreen!) {
-    attributes[Attributes.allowFullscreen] = '${widget.allowFullscreen}';
-  } else {
-    if (null != oldWidget?.allowFullscreen) {
+  if (widget.allowFullscreen != oldWidget?.allowFullscreen) {
+    if (null == widget.allowFullscreen || false == widget.allowFullscreen) {
       attributes[Attributes.allowFullscreen] = null;
+    } else {
+      attributes[Attributes.allowFullscreen] = 'true';
     }
   }
 
-  if (null != widget.allowPaymentRequest && widget.allowPaymentRequest!) {
-    var value = '${widget.allowPaymentRequest}';
+  if (widget.allowPaymentRequest != oldWidget?.allowPaymentRequest) {
+    var allowPaymentRequest = widget.allowPaymentRequest;
 
-    attributes[Attributes.allowPaymentRequest] = value;
-  } else {
-    if (null != oldWidget?.allowPaymentRequest) {
+    if (null == allowPaymentRequest || false == allowPaymentRequest) {
       attributes[Attributes.allowPaymentRequest] = null;
+    } else {
+      attributes[Attributes.allowPaymentRequest] = 'true';
     }
   }
 

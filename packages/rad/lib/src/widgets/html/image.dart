@@ -149,36 +149,20 @@ Map<String, String?> _prepareAttributes({
 }) {
   var attributes = <String, String?>{};
 
-  if (null != widget.src) {
+  if (widget.src != oldWidget?.src) {
     attributes[Attributes.src] = widget.src;
-  } else {
-    if (null != oldWidget?.src) {
-      attributes[Attributes.src] = null;
-    }
   }
 
-  if (null != widget.alt) {
+  if (widget.alt != oldWidget?.alt) {
     attributes[Attributes.alt] = widget.alt;
-  } else {
-    if (null != oldWidget?.alt) {
-      attributes[Attributes.alt] = null;
-    }
   }
 
-  if (null != widget.height) {
-    attributes[Attributes.height] = widget.height;
-  } else {
-    if (null != oldWidget?.height) {
-      attributes[Attributes.height] = null;
-    }
-  }
-
-  if (null != widget.width) {
+  if (widget.width != oldWidget?.width) {
     attributes[Attributes.width] = widget.width;
-  } else {
-    if (null != oldWidget?.width) {
-      attributes[Attributes.width] = null;
-    }
+  }
+
+  if (widget.height != oldWidget?.height) {
+    attributes[Attributes.height] = widget.height;
   }
 
   return attributes;

@@ -136,12 +136,8 @@ Map<String, String?> _prepareAttributes({
 }) {
   var attributes = <String, String?>{};
 
-  if (null != widget.forAttribute) {
+  if (widget.forAttribute != oldWidget?.forAttribute) {
     attributes[Attributes.forAttribute] = widget.forAttribute;
-  } else {
-    if (null != oldWidget?.forAttribute) {
-      attributes[Attributes.forAttribute] = null;
-    }
   }
 
   return attributes;

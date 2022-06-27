@@ -259,76 +259,64 @@ Map<String, String?> _prepareAttributes({
 }) {
   var attributes = <String, String?>{};
 
-  if (null != widget.id) {
+  if (widget.id != oldWidget?.id) {
     attributes[Attributes.id] = widget.id;
-  } else {
-    if (null != oldWidget?.id) {
-      attributes[Attributes.id] = null;
-    }
   }
 
-  if (null != widget.title) {
+  if (widget.title != oldWidget?.title) {
     attributes[Attributes.title] = widget.title;
-  } else {
-    if (null != oldWidget?.title) {
-      attributes[Attributes.title] = null;
-    }
   }
 
-  if (null != widget.style) {
+  if (widget.style != oldWidget?.style) {
     attributes[Attributes.style] = widget.style;
-  } else {
-    if (null != oldWidget?.style) {
-      attributes[Attributes.style] = null;
-    }
   }
 
-  if (null != widget.classAttribute) {
+  if (widget.classAttribute != oldWidget?.classAttribute) {
     attributes[Attributes.classAttribute] = widget.classAttribute;
-  } else {
-    if (null != oldWidget?.classAttribute) {
-      attributes[Attributes.classAttribute] = null;
-    }
   }
 
-  if (null != widget.tabIndex) {
-    attributes[Attributes.tabIndex] = '${widget.tabIndex}';
-  } else {
-    if (null != oldWidget?.tabIndex) {
+  if (widget.tabIndex != oldWidget?.tabIndex) {
+    if (null == widget.tabIndex) {
       attributes[Attributes.tabIndex] = null;
+    } else {
+      attributes[Attributes.tabIndex] = '${widget.tabIndex}';
     }
   }
 
-  if (null != widget.hidden && widget.hidden!) {
-    attributes[Attributes.hidden] = '${widget.hidden}';
-  } else {
-    if (null != oldWidget?.hidden) {
+  if (widget.hidden != oldWidget?.hidden) {
+    if (null == widget.hidden || false == widget.hidden) {
       attributes[Attributes.hidden] = null;
+    } else {
+      attributes[Attributes.hidden] = 'true';
     }
   }
 
-  if (null != widget.draggable) {
-    attributes[Attributes.draggable] = '${widget.draggable}';
-  } else {
-    if (null != oldWidget?.draggable) {
+  if (widget.draggable != oldWidget?.draggable) {
+    if (null == widget.draggable) {
       attributes[Attributes.draggable] = null;
+    } else {
+      if (true == widget.draggable) {
+        attributes[Attributes.draggable] = 'true';
+      } else {
+        attributes[Attributes.draggable] = 'false';
+      }
     }
   }
 
-  if (null != widget.contentEditable) {
-    attributes[Attributes.contentEditable] = '${widget.contentEditable}';
-  } else {
-    if (null != oldWidget?.contentEditable) {
+  if (widget.contentEditable != oldWidget?.contentEditable) {
+    if (null == widget.contentEditable) {
       attributes[Attributes.contentEditable] = null;
+    } else {
+      if (true == widget.contentEditable) {
+        attributes[Attributes.contentEditable] = 'true';
+      } else {
+        attributes[Attributes.contentEditable] = 'false';
+      }
     }
   }
 
-  if (null != widget.onClickAttribute) {
+  if (widget.onClickAttribute != oldWidget?.onClickAttribute) {
     attributes[Attributes.onClickAttribute] = widget.onClickAttribute;
-  } else {
-    if (null != oldWidget?.onClickAttribute) {
-      attributes[Attributes.onClickAttribute] = null;
-    }
   }
 
   return attributes;

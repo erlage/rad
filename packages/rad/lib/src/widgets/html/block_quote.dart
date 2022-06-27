@@ -134,12 +134,8 @@ Map<String, String?> _prepareAttributes({
 }) {
   var attributes = <String, String?>{};
 
-  if (null != widget.cite) {
+  if (widget.cite != oldWidget?.cite) {
     attributes[Attributes.cite] = widget.cite;
-  } else {
-    if (null != oldWidget?.cite) {
-      attributes[Attributes.cite] = null;
-    }
   }
 
   return attributes;

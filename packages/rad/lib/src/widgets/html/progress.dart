@@ -142,19 +142,19 @@ Map<String, String?> _prepareAttributes({
 }) {
   var attributes = <String, String?>{};
 
-  if (null != widget.max) {
-    attributes[Attributes.max] = '${widget.max}';
-  } else {
-    if (null != oldWidget?.max) {
+  if (widget.max != oldWidget?.max) {
+    if (null == widget.max) {
       attributes[Attributes.max] = null;
+    } else {
+      attributes[Attributes.max] = '${widget.max}';
     }
   }
 
-  if (null != widget.value) {
-    attributes[Attributes.value] = '${widget.value}';
-  } else {
-    if (null != oldWidget?.value) {
+  if (widget.value != oldWidget?.value) {
+    if (null == widget.value) {
       attributes[Attributes.value] = null;
+    } else {
+      attributes[Attributes.value] = '${widget.value}';
     }
   }
 

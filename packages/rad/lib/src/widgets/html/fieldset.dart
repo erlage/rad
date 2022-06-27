@@ -136,11 +136,11 @@ Map<String, String?> _prepareAttributes({
 }) {
   var attributes = <String, String?>{};
 
-  if (null != widget.disabled && widget.disabled!) {
-    attributes[Attributes.disabled] = '${widget.disabled}';
-  } else {
-    if (null != oldWidget?.disabled) {
+  if (widget.disabled != oldWidget?.disabled) {
+    if (null == widget.disabled || false == widget.disabled) {
       attributes[Attributes.disabled] = null;
+    } else {
+      attributes[Attributes.disabled] = 'true';
     }
   }
 

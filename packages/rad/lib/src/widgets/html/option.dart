@@ -156,35 +156,27 @@ Map<String, String?> _prepareAttributes({
 }) {
   var attributes = <String, String?>{};
 
-  if (null != widget.value) {
+  if (widget.value != oldWidget?.value) {
     attributes[Attributes.value] = widget.value;
-  } else {
-    if (null != oldWidget?.value) {
-      attributes[Attributes.value] = null;
-    }
   }
 
-  if (null != widget.label) {
+  if (widget.label != oldWidget?.label) {
     attributes[Attributes.label] = widget.label;
-  } else {
-    if (null != oldWidget?.label) {
-      attributes[Attributes.label] = null;
-    }
   }
 
-  if (null != widget.selected && widget.selected!) {
-    attributes[Attributes.selected] = '${widget.selected}';
-  } else {
-    if (null != oldWidget?.selected) {
+  if (widget.selected != oldWidget?.selected) {
+    if (null == widget.selected || false == widget.selected) {
       attributes[Attributes.selected] = null;
+    } else {
+      attributes[Attributes.selected] = 'true';
     }
   }
 
-  if (null != widget.disabled && widget.disabled!) {
-    attributes[Attributes.disabled] = '${widget.disabled}';
-  } else {
-    if (null != oldWidget?.disabled) {
+  if (widget.disabled != oldWidget?.disabled) {
+    if (null == widget.disabled || false == widget.disabled) {
       attributes[Attributes.disabled] = null;
+    } else {
+      attributes[Attributes.disabled] = 'true';
     }
   }
 

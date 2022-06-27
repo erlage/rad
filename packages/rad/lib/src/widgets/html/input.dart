@@ -243,107 +243,83 @@ Map<String, String?> _prepareAttributes({
 }) {
   var attributes = <String, String?>{};
 
-  if (null != widget.type) {
-    attributes[Attributes.type] = widget.type!.nativeName;
-  } else {
-    if (null != oldWidget?.type) {
-      attributes[Attributes.type] = null;
-    }
+  if (widget.type != oldWidget?.type) {
+    attributes[Attributes.type] = widget.type?.nativeName;
   }
 
-  if (null != widget.name) {
+  if (widget.name != oldWidget?.name) {
     attributes[Attributes.name] = widget.name;
-  } else {
-    if (null != oldWidget?.name) {
-      attributes[Attributes.name] = null;
-    }
   }
 
-  if (null != widget.value) {
+  if (widget.value != oldWidget?.value) {
     attributes[Attributes.value] = widget.value;
-  } else {
-    if (null != oldWidget?.value) {
-      attributes[Attributes.value] = null;
-    }
   }
 
-  if (null != widget.accept) {
+  if (widget.accept != oldWidget?.accept) {
     attributes[Attributes.accept] = widget.accept;
-  } else {
-    if (null != oldWidget?.accept) {
-      attributes[Attributes.accept] = null;
-    }
   }
 
-  if (null != widget.placeholder) {
+  if (widget.placeholder != oldWidget?.placeholder) {
     attributes[Attributes.placeholder] = widget.placeholder;
-  } else {
-    if (null != oldWidget?.placeholder) {
-      attributes[Attributes.placeholder] = null;
-    }
   }
 
-  if (null != widget.pattern) {
+  if (widget.pattern != oldWidget?.pattern) {
     attributes[Attributes.pattern] = widget.pattern;
-  } else {
-    if (null != oldWidget?.pattern) {
-      attributes[Attributes.pattern] = null;
-    }
   }
 
-  if (null != widget.minLength) {
-    attributes[Attributes.minLength] = '${widget.minLength}';
-  } else {
-    if (null != oldWidget?.minLength) {
+  if (widget.minLength != oldWidget?.minLength) {
+    if (null == widget.minLength) {
       attributes[Attributes.minLength] = null;
+    } else {
+      attributes[Attributes.minLength] = '${widget.minLength}';
     }
   }
 
-  if (null != widget.maxLength) {
-    attributes[Attributes.maxLength] = '${widget.maxLength}';
-  } else {
-    if (null != oldWidget?.maxLength) {
+  if (widget.maxLength != oldWidget?.maxLength) {
+    if (null == widget.maxLength) {
       attributes[Attributes.maxLength] = null;
+    } else {
+      attributes[Attributes.maxLength] = '${widget.maxLength}';
     }
   }
 
-  if (null != widget.multiple && widget.multiple!) {
-    attributes[Attributes.multiple] = '${widget.multiple}';
-  } else {
-    if (null != oldWidget?.multiple) {
+  if (widget.multiple != oldWidget?.multiple) {
+    if (null == widget.multiple || false == widget.multiple) {
       attributes[Attributes.multiple] = null;
+    } else {
+      attributes[Attributes.multiple] = 'true';
     }
   }
 
-  if (null != widget.checked && widget.checked!) {
-    attributes[Attributes.checked] = '${widget.checked}';
-  } else {
-    if (null != oldWidget?.checked) {
+  if (widget.checked != oldWidget?.checked) {
+    if (null == widget.checked || false == widget.checked) {
       attributes[Attributes.checked] = null;
+    } else {
+      attributes[Attributes.checked] = 'true';
     }
   }
 
-  if (null != widget.required && widget.required!) {
-    attributes[Attributes.required] = '${widget.required}';
-  } else {
-    if (null != oldWidget?.required) {
+  if (widget.required != oldWidget?.required) {
+    if (null == widget.required || false == widget.required) {
       attributes[Attributes.required] = null;
+    } else {
+      attributes[Attributes.required] = 'true';
     }
   }
 
-  if (null != widget.readOnly && widget.readOnly!) {
-    attributes[Attributes.readOnly] = '${widget.readOnly}';
-  } else {
-    if (null != oldWidget?.readOnly) {
+  if (widget.readOnly != oldWidget?.readOnly) {
+    if (null == widget.readOnly || false == widget.readOnly) {
       attributes[Attributes.readOnly] = null;
+    } else {
+      attributes[Attributes.readOnly] = 'true';
     }
   }
 
-  if (null != widget.disabled && widget.disabled!) {
-    attributes[Attributes.disabled] = '${widget.disabled}';
-  } else {
-    if (null != oldWidget?.disabled) {
+  if (widget.disabled != oldWidget?.disabled) {
+    if (null == widget.disabled || false == widget.disabled) {
       attributes[Attributes.disabled] = null;
+    } else {
+      attributes[Attributes.disabled] = 'true';
     }
   }
 

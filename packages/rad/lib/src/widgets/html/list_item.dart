@@ -131,11 +131,11 @@ Map<String, String?> _prepareAttributes({
 }) {
   var attributes = <String, String?>{};
 
-  if (null != widget.value) {
-    attributes[Attributes.value] = '${widget.value}';
-  } else {
-    if (null != oldWidget?.value) {
+  if (widget.value != oldWidget?.value) {
+    if (null == widget.value) {
       attributes[Attributes.value] = null;
+    } else {
+      attributes[Attributes.value] = '${widget.value}';
     }
   }
 

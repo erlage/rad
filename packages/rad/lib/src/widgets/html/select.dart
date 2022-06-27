@@ -168,27 +168,23 @@ Map<String, String?> _prepareAttributes({
 }) {
   var attributes = <String, String?>{};
 
-  if (null != widget.name) {
+  if (widget.name != oldWidget?.name) {
     attributes[Attributes.name] = widget.name;
-  } else {
-    if (null != oldWidget?.name) {
-      attributes[Attributes.name] = null;
-    }
   }
 
-  if (null != widget.multiple && widget.multiple!) {
-    attributes[Attributes.multiple] = '${widget.multiple}';
-  } else {
-    if (null != oldWidget?.multiple) {
+  if (widget.multiple != oldWidget?.multiple) {
+    if (null == widget.multiple || false == widget.multiple) {
       attributes[Attributes.multiple] = null;
+    } else {
+      attributes[Attributes.multiple] = 'true';
     }
   }
 
-  if (null != widget.disabled && widget.disabled!) {
-    attributes[Attributes.disabled] = '${widget.disabled}';
-  } else {
-    if (null != oldWidget?.disabled) {
+  if (widget.disabled != oldWidget?.disabled) {
+    if (null == widget.disabled || false == widget.disabled) {
       attributes[Attributes.disabled] = null;
+    } else {
+      attributes[Attributes.disabled] = 'true';
     }
   }
 

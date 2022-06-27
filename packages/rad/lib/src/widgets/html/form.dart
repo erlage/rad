@@ -182,52 +182,28 @@ Map<String, String?> _prepareAttributes({
 }) {
   var attributes = <String, String?>{};
 
-  if (null != widget.name) {
+  if (widget.name != oldWidget?.name) {
     attributes[Attributes.name] = widget.name;
-  } else {
-    if (null != oldWidget?.name) {
-      attributes[Attributes.name] = null;
-    }
   }
 
-  if (null != widget.action) {
+  if (widget.action != oldWidget?.action) {
     attributes[Attributes.action] = widget.action;
-  } else {
-    if (null != oldWidget?.action) {
-      attributes[Attributes.action] = null;
-    }
   }
 
-  if (null != widget.accept) {
+  if (widget.accept != oldWidget?.accept) {
     attributes[Attributes.accept] = widget.accept;
-  } else {
-    if (null != oldWidget?.accept) {
-      attributes[Attributes.accept] = null;
-    }
   }
 
-  if (null != widget.target) {
+  if (widget.target != oldWidget?.target) {
     attributes[Attributes.target] = widget.target;
-  } else {
-    if (null != oldWidget?.target) {
-      attributes[Attributes.target] = null;
-    }
   }
 
-  if (null != widget.method) {
-    attributes[Attributes.method] = widget.method!.nativeName;
-  } else {
-    if (null != oldWidget?.method) {
-      attributes[Attributes.method] = null;
-    }
+  if (widget.method != oldWidget?.method) {
+    attributes[Attributes.method] = widget.method?.nativeName;
   }
 
-  if (null != widget.enctype) {
-    attributes[Attributes.enctype] = widget.enctype!.nativeName;
-  } else {
-    if (null != oldWidget?.enctype) {
-      attributes[Attributes.enctype] = null;
-    }
+  if (widget.enctype != oldWidget?.enctype) {
+    attributes[Attributes.enctype] = widget.enctype?.nativeName;
   }
 
   return attributes;

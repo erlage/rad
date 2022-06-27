@@ -198,75 +198,67 @@ Map<String, String?> _prepareAttributes({
 }) {
   var attributes = <String, String?>{};
 
-  if (null != widget.name) {
+  if (widget.name != oldWidget?.name) {
     attributes[Attributes.name] = widget.name;
-  } else {
-    if (null != oldWidget?.name) {
-      attributes[Attributes.name] = null;
-    }
   }
 
-  if (null != widget.placeholder) {
+  if (widget.placeholder != oldWidget?.placeholder) {
     attributes[Attributes.placeholder] = widget.placeholder;
-  } else {
-    if (null != oldWidget?.placeholder) {
-      attributes[Attributes.placeholder] = null;
-    }
   }
 
-  if (null != widget.rows) {
-    attributes[Attributes.rows] = '${widget.rows}';
-  } else {
-    if (null != oldWidget?.rows) {
+  if (widget.rows != oldWidget?.rows) {
+    if (null == widget.rows) {
       attributes[Attributes.rows] = null;
+    } else {
+      attributes[Attributes.rows] = '${widget.rows}';
     }
   }
 
-  if (null != widget.cols) {
-    attributes[Attributes.cols] = '${widget.cols}';
-  } else {
-    if (null != oldWidget?.cols) {
+  if (widget.cols != oldWidget?.cols) {
+    if (null == widget.cols) {
       attributes[Attributes.cols] = null;
+    } else {
+      attributes[Attributes.cols] = '${widget.cols}';
     }
   }
 
-  if (null != widget.minLength) {
-    attributes[Attributes.minLength] = '${widget.minLength}';
-  } else {
-    if (null != oldWidget?.minLength) {
+  if (widget.minLength != oldWidget?.minLength) {
+    if (null == widget.minLength) {
       attributes[Attributes.minLength] = null;
+    } else {
+      attributes[Attributes.minLength] = '${widget.minLength}';
     }
   }
 
-  if (null != widget.maxLength) {
-    attributes[Attributes.maxLength] = '${widget.maxLength}';
-  } else {
-    if (null != oldWidget?.maxLength) {
+  if (widget.maxLength != oldWidget?.maxLength) {
+    if (null == widget.maxLength) {
       attributes[Attributes.maxLength] = null;
+    } else {
+      attributes[Attributes.maxLength] = '${widget.maxLength}';
     }
   }
 
-  if (null != widget.required && widget.required!) {
-    attributes[Attributes.required] = '${widget.required}';
-  } else {
-    if (null != oldWidget?.required) {
+  if (widget.required != oldWidget?.required) {
+    if (null == widget.required || false == widget.required) {
       attributes[Attributes.required] = null;
+    } else {
+      attributes[Attributes.required] = 'true';
     }
   }
 
-  if (null != widget.readOnly && widget.readOnly!) {
-    attributes[Attributes.readOnly] = '${widget.readOnly}';
-  } else {
-    if (null != oldWidget?.readOnly) {
+  if (widget.readOnly != oldWidget?.readOnly) {
+    if (null == widget.readOnly || false == widget.readOnly) {
       attributes[Attributes.readOnly] = null;
+    } else {
+      attributes[Attributes.readOnly] = 'true';
     }
   }
 
-  if (null != widget.disabled && widget.disabled!) {
-    attributes[Attributes.disabled] = '${widget.disabled}';
-  } else {
-    if (null != oldWidget?.disabled) {
+  if (widget.disabled != oldWidget?.disabled) {
+    if (null == widget.disabled || false == widget.disabled) {
       attributes[Attributes.disabled] = null;
+    } else {
+      attributes[Attributes.disabled] = 'true';
     }
   }
 

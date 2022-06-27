@@ -158,27 +158,23 @@ Map<String, String?> _prepareAttributes({
 }) {
   var attributes = <String, String?>{};
 
-  if (null != widget.headers) {
+  if (widget.headers != oldWidget?.headers) {
     attributes[Attributes.headers] = widget.headers;
-  } else {
-    if (null != oldWidget?.headers) {
-      attributes[Attributes.headers] = null;
-    }
   }
 
-  if (null != widget.rowSpan) {
-    attributes[Attributes.rowSpan] = '${widget.rowSpan}';
-  } else {
-    if (null != oldWidget?.rowSpan) {
+  if (widget.rowSpan != oldWidget?.rowSpan) {
+    if (null == widget.rowSpan) {
       attributes[Attributes.rowSpan] = null;
+    } else {
+      attributes[Attributes.rowSpan] = '${widget.rowSpan}';
     }
   }
 
-  if (null != widget.colSpan) {
-    attributes[Attributes.colSpan] = '${widget.colSpan}';
-  } else {
-    if (null != oldWidget?.colSpan) {
+  if (widget.colSpan != oldWidget?.colSpan) {
+    if (null == widget.colSpan) {
       attributes[Attributes.colSpan] = null;
+    } else {
+      attributes[Attributes.colSpan] = '${widget.colSpan}';
     }
   }
 
