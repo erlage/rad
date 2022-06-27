@@ -1,3 +1,5 @@
+# Rad
+
 Rad is a frontend framework for creating fast and interactive web apps using Dart. It's inspired from Flutter and shares same programming paradigm. It has all the best bits of Flutter(StatefulWidgets, Builders) and allows you to use web technologies(HTML and CSS) in your app.
 
 ## Quick links
@@ -45,7 +47,7 @@ If you're familiar with Flutter it don't even need an explanation. Internally, R
 
 2. Second, you can use use CSS for adding animations without ever thinking about how browsers carries them out.
 
-3. Lastly, for layouts, you've to use HTML. And guess what? there are widgets for that.
+3. And lastly, for layouts, you've to use HTML. And guess what? there are widgets for that.
   
     Let's take this HTML snippet:
     ```html
@@ -90,7 +92,7 @@ Division(
   ]
 )
 ```
-Although it's very descriptive but some people might find it bit more verbose so there's also an alternative syntax for HTML widgets:
+There's also an alternative syntax for HTML widgets:
 ```dart
 div(
   children: [
@@ -99,11 +101,7 @@ div(
 )
 ```
 
-Apart from syntax/names, there are two very important characteristics of HTML widgets that we'd like to talk about:
-
-### 1. HTML widgets are composable
-
-Just like other widgets, HTML widgets are composable and has same semantics in the sense that they can be composed and mixed together with other widgets. For example,
+Apart from syntax/names, HTML widgets are composable and has same semantics in the sense that they can be composed and mixed together with other widgets. For example,
 
 ```dart
 Span(
@@ -116,43 +114,7 @@ Span(
   ),
 );
 ```
-In above example, a Span widget is containing a ListView widget. Further, that ListView is containing a StatefulWidget and a Span widget. The point we're trying to make is that HTML widgets won't restrict you to 'just HTML'. You can mix HTML widgets with other widgets.
-
-### 2. HTML widgets are extendable
-
-Designing and re-using UIs is a common requirement of every project. HTML widgets are flexible enough that you can use them to create your own widgets and re-usable UIs. To give you an example, let's say you want a stack widget. First, create a StackEntry widget:
-
-```dart
-class StackEntry extends Division
-{
-  const StackEntry(Widget widget): super( 
-    style: 'position: absolute; top: 0; left: 0;',
-    children: [widget],
-  );
-}
-```
-
-Then create a Stack widget:
-
-```dart
-class Stack extends Division
-{
-  const Stack({required List<StackEntry> children}): super( 
-    style: 'position: relative;',
-    children: children,
-  );
-}
-```
-and that's pretty much it. Here's how you can use our newly created Stack widget:
-```dart
-  Stack(
-    children: [
-      StackEntry(Text('hellow 1')),
-      StackEntry(Text('hellow 2')),
-    ]
-  )
-``` 
-This might not look like a big improvement at first but we've actually created a brand new widget that has its own identity and semantics using existing widget. Unlike other frameworks where you'd create a component by implementing bunch of methods, in Rad you can extend widgets to create new widgets.
+In above example, a Span widget is containing a ListView widget. Further, that ListView is containing a StatefulWidget and a Span widget. The point we're trying to make is that HTML widgets won't restrict you to 'just HTML'.
 
 ## Widgets Index
 
@@ -245,28 +207,6 @@ Similarity tags:
 , [TableRow](https://pub.dev/documentation/rad/latest/widgets_html/TableRow-class.html)
 , [TextArea](https://pub.dev/documentation/rad/latest/widgets_html/TextArea-class.html)
 , [UnOrderedList](https://pub.dev/documentation/rad/latest/widgets_html/UnOrderedList-class.html)
-
-
-## FAQ
-
-**Q. Can we use Rad for creating a dynamic website?**
-
-Yes, that's something this framework is good at.
-
-**Q. Can we use Rad for creating a single page application/or a web app?**
-
-Yes, that'll be perfect. Rad has widgets with powerful mechanics for dealing with nested routing, deep linking, history and state management.
-
-**Q. Is it SEO friendly?**
-
-Rad is a frontend framework and server side rendering is a must for better SEOs. Some frontend frameworks provides SSR but unfortunately we don't have that at the moment. However you can use a backend technology(PHP, Node, Erlang etc.) to stuff meta information in your root page, based on location that a client requested, before serving the page to client. We assure you that this is a sane, simple, and effective approach.
-
-**Q. Why Dart?**
-
-In-short: Peace of mind.
-
-I actually tried writing [this in TypeScript before](https://github.com/erlage/proton-framework). While we can do awesome things with types in TS, it also inherits craziness from JS (has to bind 'this', use arrow fun, and more things like that). Later I decided to give Dart a try and I quickly realized that Dart is a very underrated language. You don't have to trust me on that. I had wrote a lot of Dart code with Flutter, but the fact that I choosed TS at first place really shows how underrated Dart actually is. I deeply believe Dart is a amazing language, and I am thankful to all the people who helped create Dart and/or contributing to it, one way or the other.
-
 
 ## Contributing
 For reporting bugs/queries, feel free to open issue. Read [contributing guide](https://github.com/erlage/rad/blob/main/CONTRIBUTING.md) for more.

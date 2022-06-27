@@ -1,11 +1,5 @@
 // ignore_for_file: directives_ordering
 
-/*
-|--------------------------------------------------------------------------
-| main
-|--------------------------------------------------------------------------
-*/
-
 /// Rad's Main library.
 ///
 /// This library contain general widgets and functions.

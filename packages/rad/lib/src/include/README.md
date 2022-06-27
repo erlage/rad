@@ -1,8 +1,6 @@
 Source in this directory is borrowed from  [Flutter SDK](https://github.com/flutter/flutter). Some of the bits are modified/tailored to needs of this project.
 
-### License - Flutter
-> // - start
-> 
+### License - Flutter 
 > Copyright 2014 The Flutter Authors. All rights reserved.
 > 
 > Redistribution and use in source and binary forms, with or without modification,
@@ -28,5 +26,3 @@ Source in this directory is borrowed from  [Flutter SDK](https://github.com/flut
 > ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 > (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 > SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-> 
-> // - end

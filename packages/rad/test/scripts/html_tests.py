@@ -1,4 +1,4 @@
-# Copyright (c) 2022, the Rad developers. All rights reserved.
+# Copyright (c) 2022, Rad developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
@@ -312,7 +312,7 @@ def generate():
             widget_class_name_camel_case + "_tests.generated.dart';"
 
         generated = ''' 
-            // Copyright (c) 2022, the Rad developers. All rights reserved.
+            // Copyright (c) 2022, Rad developers. All rights reserved.
             // Use of this source code is governed by a BSD-style license that can be 
             // found in the LICENSE file.
 
@@ -390,7 +390,7 @@ def generate():
         fh.close()
 
     runner_code = ''' 
-        // Copyright (c) 2022, the Rad developers. All rights reserved.
+        // Copyright (c) 2022, Rad developers. All rights reserved.
         // Use of this source code is governed by a BSD-style license that can be 
         // found in the LICENSE file.
 
