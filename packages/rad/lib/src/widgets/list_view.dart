@@ -131,7 +131,7 @@ class ListViewRenderElement extends RenderElement {
   ListViewRenderElement(super.widget, super.parent);
 
   @override
-  List<Widget> get childWidgets => (widget as ListView).children;
+  List<Widget> get widgetChildren => (widget as ListView).children;
 
   @override
   render({
@@ -180,7 +180,7 @@ class ListViewBuilderRenderElement extends WatchfulRenderElement {
         super(widget, parent);
 
   @override
-  List<Widget> get childWidgets => ccImmutableEmptyListOfWidgets;
+  List<Widget> get widgetChildren => ccImmutableEmptyListOfWidgets;
 
   @override
   init() {

@@ -29,7 +29,7 @@ class RootRenderElement extends RenderElement {
         );
 
   @override
-  List<Widget> get childWidgets => ccImmutableEmptyListOfWidgets;
+  List<Widget> get widgetChildren => ccImmutableEmptyListOfWidgets;
 }
 
 /// A temporary element.
@@ -72,7 +72,8 @@ class TemporaryElement extends RenderElement {
         );
 
   @override
-  List<Widget> get childWidgets => throw Exception('Temporary render element');
+  List<Widget> get widgetChildren =>
+      throw Exception('Temporary render element');
 }
 
 // ----------------------------------------------------------------------

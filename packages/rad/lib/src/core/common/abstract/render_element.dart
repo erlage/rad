@@ -97,7 +97,7 @@ abstract class RenderElement implements BuildContext {
   /// them if so. Note that framework will not check children if widget returns
   /// false from [Widget.shouldUpdateWidgetChildren].
   ///
-  List<Widget> get childWidgets;
+  List<Widget> get widgetChildren;
 
   /*
   |--------------------------------------------------------------------------

@@ -153,7 +153,7 @@ class StatefulRenderElement extends WatchfulRenderElement {
         super(widget, parent);
 
   @override
-  List<Widget> get childWidgets => [state.build(this)];
+  List<Widget> get widgetChildren => [state.build(this)];
 
   @override
   init() {

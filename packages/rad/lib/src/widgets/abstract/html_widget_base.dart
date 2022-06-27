@@ -163,7 +163,7 @@ class HTMLBaseElement extends RenderElement {
   )   :
         // prepare child widgets
 
-        _childWidgets = widget.children ??
+        _widgetChildren = widget.children ??
             (null != widget.child
                 ? [widget.child!]
                 : ccImmutableEmptyListOfWidgets),
@@ -173,8 +173,8 @@ class HTMLBaseElement extends RenderElement {
         super(widget, parent);
 
   @override
-  List<Widget> get childWidgets => _childWidgets;
-  List<Widget> _childWidgets;
+  List<Widget> get widgetChildren => _widgetChildren;
+  List<Widget> _widgetChildren;
 
   /*
   |--------------------------------------------------------------------------
@@ -213,7 +213,7 @@ class HTMLBaseElement extends RenderElement {
     required covariant HTMLWidgetBase newWidget,
     required updateType,
   }) {
-    _childWidgets = newWidget.children ??
+    _widgetChildren = newWidget.children ??
         (null != newWidget.child
             ? [newWidget.child!]
             : ccImmutableEmptyListOfWidgets);

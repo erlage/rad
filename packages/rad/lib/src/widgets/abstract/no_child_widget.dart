@@ -28,5 +28,5 @@ class NoChildRenderElement extends RenderElement {
   NoChildRenderElement(super.widget, super.parent);
 
   @override
-  List<Widget> get childWidgets => ccImmutableEmptyListOfWidgets;
+  List<Widget> get widgetChildren => ccImmutableEmptyListOfWidgets;
 }

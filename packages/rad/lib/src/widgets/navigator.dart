@@ -420,7 +420,7 @@ class NavigatorRenderElement extends WatchfulRenderElement {
         super(widget, parent);
 
   @override
-  List<Widget> get childWidgets => ccImmutableEmptyListOfWidgets;
+  List<Widget> get widgetChildren => ccImmutableEmptyListOfWidgets;
 
   @override
   render({required widget}) => _description;

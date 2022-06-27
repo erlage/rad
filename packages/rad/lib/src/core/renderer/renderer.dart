@@ -385,11 +385,11 @@ class Renderer with ServicesResolver {
 
       // 4. Build child widgets
 
-      var childWidgets = renderElement.childWidgets;
+      var widgetChildren = renderElement.widgetChildren;
 
-      if (childWidgets.isNotEmpty) {
+      if (widgetChildren.isNotEmpty) {
         buildWidgetsUnderContext(
-          widgets: childWidgets,
+          widgets: widgetChildren,
           parentDomNode: currentDomNode ?? parentDomNode,
           parentRenderElement: renderElement,
           jobQueue: jobQueue,
@@ -674,7 +674,7 @@ class Renderer with ServicesResolver {
         updateType: updateTypeForChildWidgets,
         parentRenderElement: matchedRenderElement,
         flagAddIfNotFound: flagAddIfNotFound,
-        widgets: matchedRenderElement.childWidgets,
+        widgets: matchedRenderElement.widgetChildren,
       );
     }
   }
@@ -932,7 +932,7 @@ class Renderer with ServicesResolver {
               updateType: updateType,
               parentRenderElement: renderElement,
               flagAddIfNotFound: true,
-              widgets: renderElement.childWidgets,
+              widgets: renderElement.widgetChildren,
             );
 
             break;

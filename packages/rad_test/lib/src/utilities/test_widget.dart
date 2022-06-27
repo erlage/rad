@@ -163,7 +163,7 @@ class TestRenderElement extends WatchfulRenderElement {
   }) : super(widget, parent);
 
   @override
-  List<Widget> get childWidgets => (widget as TestWidget).children ?? [];
+  List<Widget> get widgetChildren => (widget as TestWidget).children ?? [];
 
   @override
   init() {

@@ -86,7 +86,7 @@ class InheritedRenderElement extends RenderElement {
   InheritedRenderElement(super.widget, super.parent);
 
   @override
-  List<Widget> get childWidgets => [(widget as InheritedWidget).child];
+  List<Widget> get widgetChildren => [(widget as InheritedWidget).child];
 
   void addDependent(BuildContext dependentContext) {
     dependentContext as RenderElement;

@@ -120,12 +120,12 @@ class GestureDetectorRenderElement extends WatchfulRenderElement {
     GestureDetector widget,
     RenderElement parent,
   )   : state = _GestureDetectorState(),
-        _childWidgets = [widget.child],
+        _widgetChildren = [widget.child],
         super(widget, parent);
 
   @override
-  List<Widget> get childWidgets => _childWidgets;
-  List<Widget> _childWidgets;
+  List<Widget> get widgetChildren => _widgetChildren;
+  List<Widget> _widgetChildren;
 
   @mustCallSuper
   @override
@@ -145,7 +145,7 @@ class GestureDetectorRenderElement extends WatchfulRenderElement {
     required covariant SingleChildWidget newWidget,
     required updateType,
   }) {
-    _childWidgets = [newWidget.child];
+    _widgetChildren = [newWidget.child];
 
     state.frameworkRebindWidget(
       oldWidget: oldWidget,

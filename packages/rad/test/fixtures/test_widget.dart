@@ -162,7 +162,7 @@ class RT_TestRenderElement extends WatchfulRenderElement {
   }) : super(widget, parent);
 
   @override
-  List<Widget> get childWidgets => (widget as RT_TestWidget).children ?? [];
+  List<Widget> get widgetChildren => (widget as RT_TestWidget).children ?? [];
 
   @override
   init() {

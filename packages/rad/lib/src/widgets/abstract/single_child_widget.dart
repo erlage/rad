@@ -32,12 +32,12 @@ class SingleChildRenderElement extends RenderElement {
   SingleChildRenderElement(
     SingleChildWidget widget,
     RenderElement parent,
-  )   : _childWidgets = [widget.child],
+  )   : _widgetChildren = [widget.child],
         super(widget, parent);
 
   @override
-  List<Widget> get childWidgets => _childWidgets;
-  List<Widget> _childWidgets;
+  List<Widget> get widgetChildren => _widgetChildren;
+  List<Widget> _widgetChildren;
 
   @mustCallSuper
   @override
@@ -46,6 +46,6 @@ class SingleChildRenderElement extends RenderElement {
     required covariant SingleChildWidget newWidget,
     required updateType,
   }) {
-    _childWidgets = [newWidget.child];
+    _widgetChildren = [newWidget.child];
   }
 }

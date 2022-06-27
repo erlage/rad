@@ -54,5 +54,5 @@ class StatelessRenderElement extends RenderElement {
   StatelessRenderElement(super.widget, super.parent);
 
   @override
-  List<Widget> get childWidgets => [(widget as StatelessWidget).build(this)];
+  List<Widget> get widgetChildren => [(widget as StatelessWidget).build(this)];
 }
