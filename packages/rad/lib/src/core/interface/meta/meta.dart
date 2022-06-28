@@ -27,9 +27,13 @@ class Meta {
   ///
   void setMetaInformation({
     required BuildContext context,
+    required String informationId,
     required MetaInformation information,
   }) {
-    _getStore(context).setMetaInformation(information);
+    _getStore(context).setMetaInformation(
+      informationId: informationId,
+      information: information,
+    );
   }
 
   /// Remove meta information from page.

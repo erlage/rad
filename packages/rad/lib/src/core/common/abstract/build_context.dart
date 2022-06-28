@@ -112,7 +112,10 @@ abstract class BuildContext {
 
   /// Add or update document meta information.
   ///
-  void setMetaInformation(MetaInformation information);
+  void setMetaInformation({
+    required String informationId,
+    required MetaInformation information,
+  });
 
   /// Clear meta information associated with meta information id.
   ///

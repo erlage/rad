@@ -5,10 +5,6 @@
 /// Meta information.
 ///
 class MetaInformation {
-  /// A unique id(within single app instance).
-  ///
-  final String informationId;
-
   /// The name and content attributes can be used together to provide document
   /// metadata in terms of name-value pairs, with the name attribute giving the
   /// metadata name, and the content attribute giving the value.
@@ -37,7 +33,6 @@ class MetaInformation {
   final Map<String, String>? additionalAttributes;
 
   MetaInformation({
-    required this.informationId,
     this.name,
     this.content,
     this.charset,

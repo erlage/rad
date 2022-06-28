@@ -22,9 +22,12 @@ class MetaStore {
   /// If meta information is already present with same meta id, then it'll
   /// update the existing meta information tag.
   ///
-  void setMetaInformation(MetaInformation information) {
+  void setMetaInformation({
+    required String informationId,
+    required MetaInformation information,
+  }) {
     _applyInformation(
-      domNode: _getMetaElement(information),
+      domNode: _getMetaElement(informationId),
       information: information,
     );
   }
@@ -45,13 +48,13 @@ class MetaStore {
     }
   }
 
-  MetaElement _getMetaElement(MetaInformation information) {
-    var domNode = _metaDomNodes[information.informationId];
+  MetaElement _getMetaElement(String informationId) {
+    var domNode = _metaDomNodes[informationId];
 
     if (null == domNode) {
       domNode = document.createElement('meta');
 
-      _metaDomNodes[information.informationId] = domNode;
+      _metaDomNodes[informationId] = domNode;
     } else {
       // clean information from existing tag
 

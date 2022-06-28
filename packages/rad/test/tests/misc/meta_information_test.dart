@@ -18,8 +18,8 @@ void main() {
       var context = app!.rootElement;
 
       context.setMetaInformation(
-        MetaInformation(
-          informationId: 'a',
+        informationId: 'a',
+        information: MetaInformation(
           name: 'some name',
           content: 'some content',
           charset: 'some charset',
@@ -39,8 +39,8 @@ void main() {
       var context = app!.rootElement;
 
       context.setMetaInformation(
-        MetaInformation(
-          informationId: 'a',
+        informationId: 'a',
+        information: MetaInformation(
           name: 'some name',
           content: null,
           charset: 'some charset',
@@ -59,8 +59,8 @@ void main() {
       var context = app!.rootElement;
 
       context.setMetaInformation(
-        MetaInformation(
-          informationId: 'a',
+        informationId: 'a',
+        information: MetaInformation(
           name: 'some name',
           content: 'some content',
           charset: 'some charset',
@@ -69,8 +69,8 @@ void main() {
       );
 
       context.setMetaInformation(
-        MetaInformation(
-          informationId: 'a',
+        informationId: 'a',
+        information: MetaInformation(
           name: 'some updated name',
           content: 'some updated content',
           charset: 'some updated charset',
@@ -93,8 +93,8 @@ void main() {
       var context = app!.rootElement;
 
       context.setMetaInformation(
-        MetaInformation(
-          informationId: 'a',
+        informationId: 'a',
+        information: MetaInformation(
           name: 'some name',
           additionalAttributes: {
             'property': 'og:title',
@@ -112,8 +112,8 @@ void main() {
       var context = app!.rootElement;
 
       context.setMetaInformation(
-        MetaInformation(
-          informationId: 'a',
+        informationId: 'a',
+        information: MetaInformation(
           name: 'some name',
           additionalAttributes: {
             'property': 'updated og:title',
@@ -131,8 +131,8 @@ void main() {
       var context = app!.rootElement;
 
       context.setMetaInformation(
-        MetaInformation(
-          informationId: 'a',
+        informationId: 'a',
+        information: MetaInformation(
           name: 'some name',
           additionalAttributes: {},
         ),
@@ -150,8 +150,8 @@ void main() {
         var context = app!.rootElement;
 
         context.setMetaInformation(
-          MetaInformation(
-            informationId: 'a',
+          informationId: 'a',
+          information: MetaInformation(
             name: 'some name',
             content: 'some content',
             charset: 'some charset',
@@ -160,8 +160,8 @@ void main() {
         );
 
         context.setMetaInformation(
-          MetaInformation(
-            informationId: 'a',
+          informationId: 'a',
+          information: MetaInformation(
             content: 'some updated content',
             httpEquiv: 'some updated httpequiv',
           ),
@@ -183,7 +183,10 @@ void main() {
       var context = app!.rootElement;
 
       context.setMetaInformation(
-        MetaInformation(informationId: 'a', name: 'tag one'),
+        informationId: 'a',
+        information: MetaInformation(
+          name: 'tag one',
+        ),
       );
 
       context.unsetMetaInformation(informationId: 'a');
@@ -195,11 +198,17 @@ void main() {
       var context = app!.rootElement;
 
       context.setMetaInformation(
-        MetaInformation(informationId: 'a', name: 'tag one'),
+        informationId: 'a',
+        information: MetaInformation(
+          name: 'tag one',
+        ),
       );
 
       context.setMetaInformation(
-        MetaInformation(informationId: 'b', name: 'tag two'),
+        informationId: 'b',
+        information: MetaInformation(
+          name: 'tag two',
+        ),
       );
 
       var domNode1 = document.querySelectorAll('meta')[0] as MetaElement;
@@ -214,11 +223,17 @@ void main() {
     var app = createTestApp()..start();
 
     app.rootElement.setMetaInformation(
-      MetaInformation(informationId: 'a', name: 'tag one'),
+      informationId: 'a',
+      information: MetaInformation(
+        name: 'tag one',
+      ),
     );
 
     app.rootElement.setMetaInformation(
-      MetaInformation(informationId: 'b', name: 'tag two'),
+      informationId: 'b',
+      information: MetaInformation(
+        name: 'tag two',
+      ),
     );
 
     expect(document.querySelectorAll('meta').length, equals(2));

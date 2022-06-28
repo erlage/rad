@@ -377,9 +377,13 @@ abstract class RenderElement implements BuildContext {
   }
 
   @override
-  void setMetaInformation(MetaInformation information) {
+  void setMetaInformation({
+    required String informationId,
+    required MetaInformation information,
+  }) {
     Meta.instance.setMetaInformation(
       context: this,
+      informationId: informationId,
       information: information,
     );
   }
