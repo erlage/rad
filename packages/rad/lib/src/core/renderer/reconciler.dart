@@ -5,6 +5,7 @@
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/abstract/render_element.dart';
+import 'package:rad/src/core/common/objects/cache.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/renderer/widget_update_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
@@ -65,7 +66,7 @@ class Reconciler {
     required bool flagAddIfNotFound,
   }) {
     if (widgets.isEmpty || !flagAddIfNotFound) {
-      return const [];
+      return ccImmutableEmptyListOfWidgetUpdates;
     }
 
     return [
@@ -81,7 +82,7 @@ class Reconciler {
   }) {
     // if there are no old childs to dispose
     if (parentRenderElement.frameworkChildElements.isEmpty) {
-      return const [];
+      return ccImmutableEmptyListOfWidgetUpdates;
     }
 
     return [WidgetUpdateObjectActionCleanParent()];

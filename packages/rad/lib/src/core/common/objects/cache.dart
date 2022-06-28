@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/core/renderer/widget_update_object.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 // objects with cc prefix are cached objects, available globally. caching
@@ -22,3 +23,8 @@ const ccImmutableEmptyListOfWidgets = <Widget>[];
 ///
 @internal
 const ccImmutableEmptyMapOfEventListeners = <DomEventType, EventCallback>{};
+
+/// Immutable empty list of widget updates.
+///
+@internal
+const ccImmutableEmptyListOfWidgetUpdates = <WidgetUpdateObject>[];
