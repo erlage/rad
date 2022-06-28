@@ -59,6 +59,7 @@ class RT_AppRunner extends AppRunner {
   @override
   void stop() {
     this
+      ..cleanUpTasks()
       ..disposeFrameworkInstance()
       ..stopServices()
       .._printDebugInformation()

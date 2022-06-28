@@ -84,6 +84,7 @@ class AppRunner extends rad.AppRunner {
   @override
   void stop() {
     this
+      ..cleanUpTasks()
       ..disposeFrameworkInstance()
       ..stopServices()
       .._clearState();

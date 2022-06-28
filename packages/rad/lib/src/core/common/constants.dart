@@ -122,4 +122,10 @@ class Attributes {
   static const alt = 'alt';
   static const height = 'height';
   static const width = 'width';
+
+  // meta
+
+  static const content = 'content';
+  static const charset = 'charset';
+  static const httpEquiv = 'http-equiv';
 }

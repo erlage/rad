@@ -6,6 +6,7 @@ import 'dart:html';
 
 import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/meta_information.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
@@ -108,4 +109,12 @@ abstract class BuildContext {
   /// Traverse the child elements of this render element.
   ///
   void traverseChildElements(RenderElementCallback callback);
+
+  /// Add or update document meta information.
+  ///
+  void setMetaInformation(MetaInformation information);
+
+  /// Clear meta information associated with meta information id.
+  ///
+  void unsetMetaInformation({required String informationId});
 }

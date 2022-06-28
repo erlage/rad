@@ -13,6 +13,7 @@ import 'package:rad/src/core/common/objects/options/router_options.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/interface/components/components.dart';
+import 'package:rad/src/core/interface/meta/meta.dart';
 import 'package:rad/src/core/interface/window/delegates/browser_window.dart';
 import 'package:rad/src/core/interface/window/window.dart';
 import 'package:rad/src/core/rad_styles.dart';
@@ -109,6 +110,7 @@ class AppRunner {
   ///
   void stop() {
     this
+      ..cleanUpTasks()
       ..disposeFrameworkInstance()
       ..stopServices();
   }
@@ -206,5 +208,11 @@ class AppRunner {
   ///
   void runPreMountTasks() {
     Components.instance.injectStyleComponent(RadStylesComponent());
+  }
+
+  /// Additional clean up tasks.
+  ///
+  void cleanUpTasks() {
+    Meta.instance.cleanAppAssociatedMetaInformation(context: rootElement);
   }
 }

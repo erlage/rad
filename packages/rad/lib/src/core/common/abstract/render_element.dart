@@ -11,6 +11,8 @@ import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/objects/meta_information.dart';
+import 'package:rad/src/core/interface/meta/meta.dart';
 import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
@@ -372,6 +374,22 @@ abstract class RenderElement implements BuildContext {
     for (final child in _childElements) {
       callback(child);
     }
+  }
+
+  @override
+  void setMetaInformation(MetaInformation information) {
+    Meta.instance.setMetaInformation(
+      context: this,
+      information: information,
+    );
+  }
+
+  @override
+  void unsetMetaInformation({required String informationId}) {
+    Meta.instance.unsetMetaInformation(
+      context: this,
+      informationId: informationId,
+    );
   }
 
   /*
