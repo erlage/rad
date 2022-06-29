@@ -70,6 +70,8 @@ abstract class WatchfulRenderElement extends RenderElement {
   @internal
   @nonVirtual
   void frameworkAfterMount() {
+    assert(!isMounted, 'Widget is already mounted');
+
     _isMounted = true;
 
     afterMount();
@@ -79,6 +81,8 @@ abstract class WatchfulRenderElement extends RenderElement {
   @internal
   @nonVirtual
   void frameworkAfterUnMount() {
+    assert(isMounted, 'Widget is not mounted yet');
+
     _isMounted = false;
 
     afterUnMount();

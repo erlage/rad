@@ -23,9 +23,10 @@ class ServicesRegistry {
   final _services = <String, Services>{};
 
   void registerServices(BuildContext context, Services services) {
-    if (_services.containsKey(context.appTargetId)) {
-      throw Exception('Services are already registered with the context.');
-    }
+    assert(
+      !_services.containsKey(context.appTargetId),
+      'Services are already registered with the context.',
+    );
 
     _services[context.appTargetId] = services;
   }
@@ -38,13 +39,12 @@ class ServicesRegistry {
   /// belongs.
   ///
   Services getServices(BuildContext context) {
-    var services = _services[context.appTargetId];
+    assert(
+      _services.containsKey(context.appTargetId),
+      'Services not registered with the context yet.',
+    );
 
-    if (null == services) {
-      throw Exception('Services are not registered yet.');
-    }
-
-    return services;
+    return _services[context.appTargetId]!;
   }
 
   /// Get debug service associated with app instance to which [context]

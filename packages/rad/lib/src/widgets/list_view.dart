@@ -185,7 +185,7 @@ class ListViewBuilderRenderElement extends WatchfulRenderElement {
   @override
   init() {
     state
-      ..frameworkBindLayoutType((widget as ListView).layoutType)
+      ..frameworkUpdateLayoutTypeBinding((widget as ListView).layoutType)
       ..frameworkBindWidget(widget);
   }
 
@@ -380,7 +380,7 @@ class _ListViewBuilderState with ServicesResolver {
   |--------------------------------------------------------------------------
   */
 
-  void frameworkBindLayoutType(LayoutType layoutType) {
+  void frameworkUpdateLayoutTypeBinding(LayoutType layoutType) {
     _layoutType = layoutType;
   }
 
@@ -422,28 +422,26 @@ class _ListViewBuilderState with ServicesResolver {
   }
 
   void frameworkBindWidget(Widget widget) {
-    if (null != _widget) {
-      throw Exception(Constants.coreError);
-    }
+    assert(null == _widget, 'Widget is already bound');
 
-    widget as ListView;
-
-    _widget = widget;
+    _widget = widget as ListView;
   }
 
   void frameworkBindRenderElement(RenderElement element) {
-    if (null != _element) {
-      throw Exception(Constants.coreError);
-    }
+    assert(null == _element, 'RenderElement is already bound');
 
     _element = element;
   }
 
   void frameworkRebindWidget(ListView widget) {
+    assert(null != _element, 'RenderElement is not bound yet');
+
     _widget = widget;
   }
 
   void frameworkBindDomNode(Element domNode) {
+    assert(null == _domNode, 'DomNode is already bound');
+
     _domNode = domNode;
   }
 

@@ -29,7 +29,7 @@ class RouterService extends Service {
   ///
   /// navigator render element: navigator link information
   ///
-  final _links = <NavigatorRenderElement, NavigatorLink>{};
+  final _navigatorLinks = <NavigatorRenderElement, NavigatorLink>{};
 
   final _routerStack = RouterStack();
 
@@ -58,7 +58,7 @@ class RouterService extends Service {
   stopService() {
     _routerRequestsStream?.close();
 
-    _links.clear();
+    _navigatorLinks.clear();
     _routerStack.clear();
 
     Window.delegate.removePopStateListener(rootElement);
@@ -67,15 +67,16 @@ class RouterService extends Service {
   /// Register navigator's state.
   ///
   void register(NavigatorRenderElement navigator) {
-    if (_links.containsKey(navigator)) {
-      return services.debug.exception(Constants.coreError);
-    }
+    assert(
+      !_navigatorLinks.containsKey(navigator),
+      'Navigator is already registered',
+    );
 
     _register(navigator);
   }
 
   void unRegister(NavigatorRenderElement navigator) {
-    _links.remove(navigator)?.disband();
+    _navigatorLinks.remove(navigator)?.disband();
 
     _routerStack.remove(navigator);
   }
@@ -123,6 +124,15 @@ class RouterService extends Service {
   ///
   void dispatchBackAction() {
     Window.delegate.historyBack(rootElement: rootElement);
+  }
+
+  /// Get navigator link object.
+  ///
+  NavigatorLink getNavigatorLink(NavigatorRenderElement navigator) {
+    var linkObject = _navigatorLinks[navigator];
+
+    assert(null != linkObject, 'Router has gone wild');
+    return linkObject as NavigatorLink;
   }
 
   /// Get current path based on Navigator's access.
@@ -189,18 +199,12 @@ class RouterService extends Service {
   /// [navigator] can access.
   ///
   List<String> accessibleSegments(NavigatorRenderElement navigator) {
-    var linkObject = _links[navigator];
+    var navigatorLink = getNavigatorLink(navigator);
     var currentSegments = _getCurrentSegments();
-
-    if (null == linkObject) {
-      services.debug.exception(Constants.coreError);
-
-      return [];
-    }
 
     // if root navigator, all segments are available
 
-    if (null == linkObject.parentLink) {
+    if (null == navigatorLink.parentLink) {
       return currentSegments;
     }
 
@@ -208,13 +212,13 @@ class RouterService extends Service {
 
     var matcher = '';
 
-    if (linkObject.segments.length < 3) {
-      matcher = r'^\/*.*(' + linkObject.segments.last + r'.*)';
+    if (navigatorLink.segments.length < 3) {
+      matcher = r'^\/*.*(' + navigatorLink.segments.last + r'.*)';
     } else {
       matcher = r'^\/*' +
-          linkObject.segments[1] +
+          navigatorLink.segments[1] +
           r'.*(' +
-          linkObject.segments.last +
+          navigatorLink.segments.last +
           r'.*)';
     }
 
@@ -239,17 +243,11 @@ class RouterService extends Service {
   ///
   List<String> protectedSegments(NavigatorRenderElement navigator) {
     var stateObject = navigator.state;
-    var linkObject = _links[navigator];
-
-    if (null == linkObject) {
-      services.debug.exception(Constants.coreError);
-
-      return [];
-    }
+    var navigatorLink = getNavigatorLink(navigator);
 
     // if root navigator, no segments are protected
 
-    if (null == linkObject.parentLink) {
+    if (null == navigatorLink.parentLink) {
       return _getRoutingPath().split('/');
     }
 
@@ -259,17 +257,17 @@ class RouterService extends Service {
 
     var matchRoutes = stateObject.framworkNameToPathMap.values.join(r'|\/');
 
-    if (linkObject.segments.length < 3) {
+    if (navigatorLink.segments.length < 3) {
       matcher = r'(^\/*.*' +
-          linkObject.segments.last +
+          navigatorLink.segments.last +
           r'.*(?=\/' +
           matchRoutes +
           r'))';
     } else {
       matcher = r'(^\/*' +
-          linkObject.segments[1] +
+          navigatorLink.segments[1] +
           r'.*' +
-          linkObject.segments.last +
+          navigatorLink.segments.last +
           r'.*(?=\/' +
           matchRoutes +
           r'))';
@@ -332,9 +330,9 @@ class RouterService extends Service {
 
       } else {
         var navigatorState = entry.navigator.state;
-        var linkObject = _links[entry.navigator]!;
+        var navigatorLink = getNavigatorLink(entry.navigator);
 
-        ensureNavigatorIsVisible(linkObject);
+        ensureNavigatorIsVisible(navigatorLink);
 
         if (DEBUG_BUILD) {
           if (services.debug.routerLogs) {
@@ -353,6 +351,15 @@ class RouterService extends Service {
 
       Window.delegate.locationReload();
     }
+  }
+
+  /// Associated navigator with a navigator link object.
+  ///
+  void _setNavigatorLink({
+    required NavigatorRenderElement navigator,
+    required NavigatorLink navigatorLink,
+  }) {
+    _navigatorLinks[navigator] = navigatorLink;
   }
 
   /// Get routing path.
@@ -480,8 +487,8 @@ class RouterService extends Service {
         );
 
         var state = navigator.state;
-        var linkObject = _links[navigator];
-        var childRouteObject = linkObject?.childLinkedOnCurrentRoute;
+        var navigatorLink = getNavigatorLink(navigator);
+        var childRouteObject = navigatorLink.childLinkedOnCurrentRoute;
 
         if (null != childRouteObject) {
           if (state.currentRouteName == childRouteObject.segments.last) {
@@ -514,10 +521,13 @@ class RouterService extends Service {
     // if no Navigator in ancestors i.e we're dealing with a root navigator
 
     if (null == parentNavigator) {
-      _links[navigator] = NavigatorLink(
+      _setNavigatorLink(
         navigator: navigator,
-        routes: routes,
-        segments: [_getRoutingPath()],
+        navigatorLink: NavigatorLink(
+          navigator: navigator,
+          routes: routes,
+          segments: [_getRoutingPath()],
+        ),
       );
 
       if (DEBUG_BUILD) {
@@ -534,17 +544,13 @@ class RouterService extends Service {
     // else it's nested navigator
 
     var parentState = parentNavigator.state;
-    var parentLinkObject = _links[parentNavigator];
-
-    if (null == parentLinkObject) {
-      return services.debug.exception(Constants.coreError);
-    }
+    var parentLinkObject = getNavigatorLink(parentNavigator);
 
     var segments = [...parentLinkObject.segments, parentState.currentRouteName];
 
     // create a link object
 
-    var linkObject = NavigatorLink(
+    var navigatorLink = NavigatorLink(
       navigator: navigator,
       routes: routes,
       segments: segments,
@@ -553,11 +559,11 @@ class RouterService extends Service {
 
     // register link object
 
-    _links[navigator] = linkObject;
+    _setNavigatorLink(navigator: navigator, navigatorLink: navigatorLink);
 
     // establish link with parent
 
-    parentLinkObject.establishChildLink(linkObject);
+    parentLinkObject.establishChildLink(navigatorLink);
 
     if (DEBUG_BUILD) {
       if (services.debug.routerLogs) {

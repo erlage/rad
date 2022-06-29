@@ -36,13 +36,7 @@ class SchedulerService extends Service {
   }
 
   void addTaskListener(String listenerKey, SchedulerTaskCallback listener) {
-    if (null != _listeners[listenerKey]) {
-      services.debug.exception(
-        'A task listener is already associated with the key: $listenerKey',
-      );
-
-      return;
-    }
+    assert(!_listeners.containsKey(listenerKey), 'Duplicate listener key');
 
     _listeners[listenerKey] = _tasksStream?.stream.listen(listener);
   }

@@ -433,6 +433,8 @@ abstract class RenderElement implements BuildContext {
   void frameworkAttachServices({
     required Services services,
   }) {
+    assert(null == _services, 'Services are already bound');
+
     _services = services;
   }
 
@@ -440,8 +442,10 @@ abstract class RenderElement implements BuildContext {
   @internal
   @nonVirtual
   void frameworkBindDomNode({
-    required Element? domNode,
+    required Element domNode,
   }) {
+    assert(null == _domNode, 'DomNode is already bound');
+
     _domNode = domNode;
 
     if (null != _domNode) {

@@ -21,10 +21,6 @@ class Constants {
   ///
   static const reservedAttributes = <String>[];
 
-  // errors
-
-  static const coreError = 'Framework has gone wild.';
-
   /// Widget's type for root element.
   ///
   static const contextTypeBigBang = 'BigBang';

@@ -298,12 +298,16 @@ class _GestureDetectorState {
   @nonVirtual
   @protected
   void frameworkBindDomNode(Element domNode) {
+    assert(null == _domNode, 'DomNode is already bound');
+
     _domNode = domNode;
   }
 
   @nonVirtual
   @protected
   void frameworkBindWidget(Widget widget) {
+    assert(null == _widget, 'Widget is already bound');
+
     _widget = widget as GestureDetector;
   }
 
@@ -313,8 +317,9 @@ class _GestureDetectorState {
     required Widget oldWidget,
     required Widget newWidget,
   }) {
-    _widget = newWidget as GestureDetector;
+    assert(null != _widget, 'Widget is not bound yet');
 
+    _widget = newWidget as GestureDetector;
     didUpdateWidget(oldWidget as GestureDetector);
   }
 

@@ -7,7 +7,6 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/abstract/watchful_render_element.dart';
-import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -260,14 +259,13 @@ abstract class State<T extends StatefulWidget> {
   /// an argument.
   ///
   T get widget {
-    if (null == _widget) {
-      throw Exception(
-        'State.widget instance cannot be accessed in state constructor. Please '
-        'use initState hook to initialize the state that depends on widget or '
-        'consider canceling any active work during "dispose" or using the '
-        '"mounted" getter to determine if the State is still active.',
-      );
-    }
+    assert(
+      null != _widget,
+      'State.widget instance cannot be accessed in state constructor. Please '
+      'use initState hook to initialize the state that depends on widget or '
+      'consider canceling any active work during "dispose" or using the '
+      '"mounted" getter to determine if the State is still active.',
+    );
 
     return _widget!;
   }
@@ -289,14 +287,13 @@ abstract class State<T extends StatefulWidget> {
   /// connection with the [BuildContext].
   ///
   BuildContext get context {
-    if (null == _element) {
-      throw Exception(
-        'State.context instance cannot be accessed in a state constructor. '
-        'Please use initState hook to initialize the state that depends on '
-        'context or consider canceling any active work during "dispose". You '
-        'can also use "mounted" getter to determine if context is available.',
-      );
-    }
+    assert(
+      null != _element,
+      'State.context instance cannot be accessed in a state constructor. '
+      'Please use initState hook to initialize the state that depends on '
+      'context or consider canceling any active work during "dispose". You '
+      'can also use "mounted" getter to determine if context is available.',
+    );
 
     return _element!;
   }
@@ -426,9 +423,7 @@ abstract class State<T extends StatefulWidget> {
   @nonVirtual
   @protected
   void frameworkBindRenderElement(StatefulRenderElement element) {
-    if (null != _element) {
-      throw Exception(Constants.coreError);
-    }
+    assert(null == _element, 'RenderElement is already bound');
 
     _element = element;
   }
@@ -438,9 +433,7 @@ abstract class State<T extends StatefulWidget> {
   @nonVirtual
   @protected
   void frameworkBindWidget(Widget widget) {
-    if (null != _widget) {
-      throw Exception(Constants.coreError);
-    }
+    assert(null == _widget, 'Widget is already bound');
 
     _widget = widget as T;
   }

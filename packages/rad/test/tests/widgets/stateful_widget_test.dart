@@ -51,10 +51,11 @@ void main() {
               stateHookCreateState: (state) => state.widget,
             ),
           )..start(),
+          // or just AssertionError
           throwsA(
             predicate(
-              (e) => '$e'.startsWith(
-                'Exception: State.widget instance cannot be accessed in state',
+              (e) => '$e'.contains(
+                'State.widget instance cannot be accessed in state',
               ),
             ),
           ),
@@ -75,8 +76,8 @@ void main() {
           )..start(),
           throwsA(
             predicate(
-              (e) => '$e'.startsWith(
-                'Exception: State.context instance cannot be accessed in a state',
+              (e) => '$e'.contains(
+                'State.context instance cannot be accessed in a state',
               ),
             ),
           ),

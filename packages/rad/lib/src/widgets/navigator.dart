@@ -628,9 +628,8 @@ class NavigatorState with ServicesResolver {
 
       var page = frameworkPathToRouteMap[framworkNameToPathMap[name]];
 
-      if (null == page) {
-        return _services.debug.exception(Constants.coreError);
-      }
+      assert(null != page, 'Navigator has gone wild');
+      page as Route;
 
       _pageStack.add(name);
 
