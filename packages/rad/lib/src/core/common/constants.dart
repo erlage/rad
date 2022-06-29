@@ -16,7 +16,6 @@ class Constants {
   // errors
 
   static const coreError = 'Framework has gone wild.';
-  static const routerError = 'Router has gone wild.';
 
   /// Widget's type for root element.
   ///
