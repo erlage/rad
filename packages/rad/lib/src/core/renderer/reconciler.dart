@@ -567,7 +567,7 @@ class _CompatibilityHashGenerator {
       return '$widgetRuntimeType:k:${widgetKey.frameworkValue}';
     }
 
-    return '$widgetRuntimeType:nk:${_generateCountForType(widgetRuntimeType)}';
+    return '$widgetRuntimeType:n:${_generateCountForType(widgetRuntimeType)}';
   }
 
   int _generateCountForType(String type) {

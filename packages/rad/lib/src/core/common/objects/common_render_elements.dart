@@ -72,8 +72,9 @@ class TemporaryElement extends RenderElement {
         );
 
   @override
-  List<Widget> get widgetChildren =>
-      throw Exception('Temporary render element');
+  List<Widget> get widgetChildren => throw Exception(
+        'Temporary render element',
+      );
 }
 
 // ----------------------------------------------------------------------

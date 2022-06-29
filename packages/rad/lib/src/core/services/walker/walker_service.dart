@@ -5,6 +5,7 @@
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/abstract/render_element.dart';
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/common/objects/common_render_elements.dart';
 import 'package:rad/src/core/common/objects/key.dart';
@@ -37,16 +38,18 @@ class WalkerService extends Service {
     var widgetKey = renderElement.key;
 
     if (widgetKey is GlobalKey) {
-      if (services.debug.additionalChecks) {
-        if (_globalElements.containsKey(widgetKey)) {
-          return services.debug.exception(
-            'Key $widgetKey already exists.'
-            '\n\nThis usually happens in two scenarios,'
-            '\n\n1. When you have duplicate keys in your code.'
-            "\n\nor\n\n2. When you've two adjacent widgets of same type and one"
-            ' of them is optional.\n\nCorrect way to fix (2): Use explicit keys'
-            ' on one of the widgets that are of same type.',
-          );
+      if (DEBUG_BUILD) {
+        if (services.debug.additionalChecks) {
+          if (_globalElements.containsKey(widgetKey)) {
+            return services.debug.exception(
+              'Key $widgetKey already exists.'
+              '\n\nThis usually happens in two scenarios,'
+              '\n\n1. When you have duplicate keys in your code.'
+              "\n\nor\n\n2. When you've two adjacent widgets of same type and "
+              'one of them is optional.\n\nCorrect way to fix (2): Use '
+              'explicit keys on one of the widgets that are of same type.',
+            );
+          }
         }
       }
 

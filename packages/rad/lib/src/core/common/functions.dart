@@ -94,9 +94,11 @@ Map<String, String?> fnCommonPrepareDataset({
 
   if (null != dataAttributes) {
     for (final attributeName in dataAttributes.keys) {
-      if (Constants.reservedAttributes.isNotEmpty) {
-        if (Constants.reservedAttributes.contains(attributeName)) {
-          continue;
+      if (DEBUG_BUILD) {
+        if (Constants.reservedAttributes.isNotEmpty) {
+          if (Constants.reservedAttributes.contains(attributeName)) {
+            continue;
+          }
         }
       }
 

@@ -596,12 +596,16 @@ abstract class RenderElement implements BuildContext {
 
   @override
   String toString() {
-    var wType = widgetType;
-    var rType = widgetRuntimeType;
+    if (DEBUG_BUILD) {
+      var wType = widgetType;
+      var rType = widgetRuntimeType;
 
-    var pType = wType != rType ? '$rType ($wType)' : rType;
+      var pType = wType != rType ? '$rType ($wType)' : rType;
 
-    return '$key type:$pType | parent:${_parent?.widgetRuntimeType} : '
-        '${_parent?.key}';
+      return '$key type:$pType | parent:${_parent?.widgetRuntimeType} : '
+          '${_parent?.key}';
+    }
+
+    return 'RenderElement (instance)';
   }
 }

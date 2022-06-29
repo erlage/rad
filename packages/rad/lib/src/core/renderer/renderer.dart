@@ -347,8 +347,10 @@ class Renderer with ServicesResolver {
       services.events.setupEventListeners(bubbleEventListeners);
     }
 
-    if (services.debug.widgetLogs) {
-      print('Build widget: $renderElement');
+    if (DEBUG_BUILD) {
+      if (services.debug.widgetLogs) {
+        print('Build widget: $renderElement');
+      }
     }
 
     return renderElement;
@@ -472,11 +474,13 @@ class Renderer with ServicesResolver {
         case WidgetUpdateType.add:
           updateObject as WidgetUpdateObjectActionAdd;
 
-          if (services.debug.widgetLogs) {
-            print(
-              'Add ${updateObject.widgets.length} missing widgets: '
-              ' under: $parentRenderElement',
-            );
+          if (DEBUG_BUILD) {
+            if (services.debug.widgetLogs) {
+              print(
+                'Add ${updateObject.widgets.length} missing widgets: '
+                ' under: $parentRenderElement',
+              );
+            }
           }
 
           render(
@@ -596,8 +600,10 @@ class Renderer with ServicesResolver {
       updateTypeForChildWidgets = UpdateType.undefined;
     } else {
       if (oldWidget == newWidget) {
-        if (services.debug.frameworkLogs) {
-          print('Short-circuit: $matchedRenderElement');
+        if (DEBUG_BUILD) {
+          if (services.debug.frameworkLogs) {
+            print('Short-circuit: $matchedRenderElement');
+          }
         }
 
         return;
@@ -625,8 +631,10 @@ class Renderer with ServicesResolver {
     var shouldUpdateWidget = newWidget.shouldUpdateWidget(oldWidget);
 
     if (shouldUpdateWidget) {
-      if (services.debug.frameworkLogs) {
-        print('Update widget: $matchedRenderElement');
+      if (DEBUG_BUILD) {
+        if (services.debug.frameworkLogs) {
+          print('Update widget: $matchedRenderElement');
+        }
       }
 
       // update element, store results in a var as this
@@ -648,8 +656,10 @@ class Renderer with ServicesResolver {
         );
       }
     } else {
-      if (services.debug.widgetLogs) {
-        print('Skipped: $matchedRenderElement');
+      if (DEBUG_BUILD) {
+        if (services.debug.widgetLogs) {
+          print('Skipped: $matchedRenderElement');
+        }
       }
     }
 
@@ -785,10 +795,12 @@ class Renderer with ServicesResolver {
     var mountTargetDomNode = currentParentRenderElement.domNode;
 
     if (null == mountTargetDomNode) {
-      services.debug.exception(
-        'Unable to locate target dom node #$currentParentRenderElement in HTML'
-        ' document',
-      );
+      if (DEBUG_BUILD) {
+        services.debug.exception(
+          'Unable to locate target dom node #$currentParentRenderElement in '
+          'HTML document',
+        );
+      }
 
       return;
     }
@@ -1020,8 +1032,10 @@ class Renderer with ServicesResolver {
       renderElement.frameworkAfterUnMount();
     }
 
-    if (services.debug.widgetLogs) {
-      print('Dispose: $renderElement');
+    if (DEBUG_BUILD) {
+      if (services.debug.widgetLogs) {
+        print('Dispose: $renderElement');
+      }
     }
   }
 
@@ -1044,8 +1058,10 @@ class Renderer with ServicesResolver {
       renderElement.frameworkAfterUnMount();
     }
 
-    if (services.debug.widgetLogs) {
-      print('Dispose: $renderElement');
+    if (DEBUG_BUILD) {
+      if (services.debug.widgetLogs) {
+        print('Dispose: $renderElement');
+      }
     }
   }
 

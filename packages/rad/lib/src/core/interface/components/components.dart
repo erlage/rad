@@ -6,6 +6,7 @@ import 'dart:html';
 
 import 'package:meta/meta.dart';
 
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/interface/components/abstract.dart';
 
 /// App components.
@@ -24,8 +25,10 @@ class Components {
   /// Link a Stylesheet.
   ///
   void linkStylesheet(String href) {
-    if (_stylesheets.contains(href)) {
-      return;
+    if (DEBUG_BUILD) {
+      if (_stylesheets.contains(href)) {
+        return;
+      }
     }
 
     _stylesheets.add(href);
@@ -41,8 +44,10 @@ class Components {
   /// Link a Javascript.
   ///
   void linkJavascript(String href) {
-    if (_scripts.contains(href)) {
-      return;
+    if (DEBUG_BUILD) {
+      if (_scripts.contains(href)) {
+        return;
+      }
     }
 
     _scripts.add(href);
@@ -60,8 +65,10 @@ class Components {
   void injectStyleComponent(StyleComponent component) {
     var componentKey = '$component';
 
-    if (_styleComponents.containsKey(componentKey)) {
-      return;
+    if (DEBUG_BUILD) {
+      if (_styleComponents.containsKey(componentKey)) {
+        return;
+      }
     }
 
     _styleComponents[componentKey] = component;
@@ -81,10 +88,12 @@ class Components {
     } else if (null != document.body) {
       document.head!.append(domNode);
     } else {
-      throw Exception(
-        'For Rad to work, your page must have either a head tag or a body. '
-        'Creating a body(or head) in your page will fix this problem.',
-      );
+      if (DEBUG_BUILD) {
+        throw Exception(
+          'For Rad to work, your page must have either a head tag or a body. '
+          'Creating a body(or head) in your page will fix this problem.',
+        );
+      }
     }
   }
 }

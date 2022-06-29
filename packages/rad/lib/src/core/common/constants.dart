@@ -4,6 +4,14 @@
 
 import 'package:meta/meta.dart';
 
+/// Whether to include development utilities inside build.
+///
+// ignore: constant_identifier_names
+const DEBUG_BUILD = bool.fromEnvironment(
+  'include.debug.utils',
+  defaultValue: true,
+);
+
 /// Class containing framework specific attributes and constants.
 ///
 @internal

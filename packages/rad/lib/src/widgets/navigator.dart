@@ -333,14 +333,16 @@ class Navigator extends Widget {
     var parentNavigator = parent;
 
     if (null == parentNavigator) {
-      var debugService = ServicesRegistry.instance.getDebug(context);
+      if (DEBUG_BUILD) {
+        var debugService = ServicesRegistry.instance.getDebug(context);
 
-      debugService.exception(
-        'Navigator operation requested with a context that does not include '
-        'a Navigator.\n'
-        'The context used to push or pop routes from the Navigator must be '
-        'that of a widget that is a descendant of a Navigator widget.',
-      );
+        debugService.exception(
+          'Navigator operation requested with a context that does not include '
+          'a Navigator.\n'
+          'The context used to push or pop routes from the Navigator must be '
+          'that of a widget that is a descendant of a Navigator widget.',
+        );
+      }
 
       /// Return dummy state if user has registered their own error handler
       /// in debug service, which may not throw exception on error above.
@@ -565,9 +567,13 @@ class NavigatorState with ServicesResolver {
     // if current navigator doesn't have a matching '$name' route
 
     if (!framworkNameToPathMap.containsKey(name)) {
-      return _services.debug.exception(
-        "Navigator: Route '$name' is not declared.",
-      );
+      if (DEBUG_BUILD) {
+        _services.debug.exception(
+          "Navigator: Route '$name' is not declared.",
+        );
+      }
+
+      return;
     }
 
     // callbacks
@@ -577,8 +583,10 @@ class NavigatorState with ServicesResolver {
     // update global state
 
     if (updateHistory) {
-      if (_services.debug.routerLogs) {
-        print('$context: Push entry: $name');
+      if (DEBUG_BUILD) {
+        if (_services.debug.routerLogs) {
+          print('$context: Push entry: $name');
+        }
       }
 
       _services.router.pushEntry(
@@ -659,7 +667,9 @@ class NavigatorState with ServicesResolver {
 
       _services.router.dispatchBackAction();
     } else {
-      _services.debug.exception('Navigator: No previous route to go back.');
+      if (DEBUG_BUILD) {
+        _services.debug.exception('Navigator: No previous route to go back.');
+      }
     }
   }
 
@@ -739,10 +749,12 @@ class NavigatorState with ServicesResolver {
   @protected
   void frameworkInitState() {
     if (widget.routes.isEmpty) {
-      if (_services.debug.additionalChecks) {
-        _services.debug.exception(
-          'Navigator instance must have at least one route.',
-        );
+      if (DEBUG_BUILD) {
+        if (_services.debug.additionalChecks) {
+          _services.debug.exception(
+            'Navigator instance must have at least one route.',
+          );
+        }
       }
 
       return;
@@ -751,45 +763,47 @@ class NavigatorState with ServicesResolver {
     routes.addAll(widget.routes);
 
     for (final route in routes) {
-      if (_services.debug.additionalChecks) {
-        if (RegExp(r'^ *$').hasMatch(route.name)) {
-          if (route.name.isEmpty) {
-            return _services.debug.exception(
-              "Navigator's Route's name can't be empty."
-              '\n Route: ${route.name} -> ${route.name} is not allowed',
-            );
-          }
+      if (DEBUG_BUILD) {
+        if (_services.debug.additionalChecks) {
+          if (RegExp(r'^ *$').hasMatch(route.name)) {
+            if (route.name.isEmpty) {
+              return _services.debug.exception(
+                "Navigator's Route's name can't be empty."
+                '\n Route: ${route.name} -> ${route.name} is not allowed',
+              );
+            }
 
-          return _services.debug.exception(
-            "Navigator's Route's name cannot contain empty spaces."
-            '\n Route: ${route.name} -> ${route.path} is not allowed',
-          );
-        }
-
-        if (!RegExp(r'^[a-zA-Z0-9_\-]+$').hasMatch(route.path)) {
-          if (route.path.isEmpty) {
             return _services.debug.exception(
-              "Navigator's Route's path can't be empty."
+              "Navigator's Route's name cannot contain empty spaces."
               '\n Route: ${route.name} -> ${route.path} is not allowed',
             );
           }
 
-          return _services.debug.exception(
-            "Navigator's Route can contains only alphanumeric characters "
-            ', underscores(_) and hyphens(-)'
-            '\n Route: ${route.name} -> ${route.path} is not allowed',
-          );
-        }
+          if (!RegExp(r'^[a-zA-Z0-9_\-]+$').hasMatch(route.path)) {
+            if (route.path.isEmpty) {
+              return _services.debug.exception(
+                "Navigator's Route's path can't be empty."
+                '\n Route: ${route.name} -> ${route.path} is not allowed',
+              );
+            }
 
-        var isDuplicate = framworkNameToPathMap.containsKey(route.name) ||
-            frameworkPathToRouteMap.containsKey(route.path);
+            return _services.debug.exception(
+              "Navigator's Route can contains only alphanumeric characters "
+              ', underscores(_) and hyphens(-)'
+              '\n Route: ${route.name} -> ${route.path} is not allowed',
+            );
+          }
 
-        if (isDuplicate) {
-          return _services.debug.exception(
-            'Please remove Duplicate routes from your Navigator. '
-            "Part of your route, name: '${route.name}' => path: "
-            "'${route.path}', already exists",
-          );
+          var isDuplicate = framworkNameToPathMap.containsKey(route.name) ||
+              frameworkPathToRouteMap.containsKey(route.path);
+
+          if (isDuplicate) {
+            return _services.debug.exception(
+              'Please remove Duplicate routes from your Navigator. '
+              "Part of your route, name: '${route.name}' => path: "
+              "'${route.path}', already exists",
+            );
+          }
         }
       }
 
@@ -823,8 +837,10 @@ class NavigatorState with ServicesResolver {
     }
 
     if (needsReplacement && name.isNotEmpty) {
-      if (_services.debug.routerLogs) {
-        print('$context: Push replacement: $name');
+      if (DEBUG_BUILD) {
+        if (_services.debug.routerLogs) {
+          print('$context: Push replacement: $name');
+        }
       }
 
       _services.router.pushReplacement(
@@ -879,8 +895,10 @@ class NavigatorState with ServicesResolver {
     var routeName = _services.router.getPath(_renderElement!);
 
     if (routeName != currentRouteName) {
-      if (_services.debug.routerLogs) {
-        print('$context: Push replacement: $routeName');
+      if (DEBUG_BUILD) {
+        if (_services.debug.routerLogs) {
+          print('$context: Push replacement: $routeName');
+        }
       }
 
       _services.router.pushReplacement(

@@ -145,12 +145,14 @@ class RouterService extends Service {
       }
     }
 
-    if (services.debug.routerLogs) {
-      print(
-        'Navigator(#$navigator) matched: '
-        "'$matchedPathSegment' from '${segments.join("/")} < "
-        " (${_getCurrentSegments()})'",
-      );
+    if (DEBUG_BUILD) {
+      if (services.debug.routerLogs) {
+        print(
+          'Navigator(#$navigator) matched: '
+          "'$matchedPathSegment' from '${segments.join("/")} < "
+          " (${_getCurrentSegments()})'",
+        );
+      }
     }
 
     return matchedPathSegment;
@@ -298,8 +300,10 @@ class RouterService extends Service {
     try {
       var location = Window.delegate.locationHref;
 
-      if (services.debug.routerLogs) {
-        print('Router: onPopState: location: $location');
+      if (DEBUG_BUILD) {
+        if (services.debug.routerLogs) {
+          print('Router: onPopState: location: $location');
+        }
       }
 
       // find or manage user history entry
@@ -316,8 +320,10 @@ class RouterService extends Service {
         // since at this point, our state is lost, our entries are lost too.
         // and reloading window will build the correct interface.
 
-        if (services.debug.routerLogs) {
-          print('Router: onPopState: entry doesnt exists: $entry');
+        if (DEBUG_BUILD) {
+          if (services.debug.routerLogs) {
+            print('Router: onPopState: entry doesnt exists: $entry');
+          }
         }
 
         Window.delegate.locationReload();
@@ -330,8 +336,10 @@ class RouterService extends Service {
 
         ensureNavigatorIsVisible(linkObject);
 
-        if (services.debug.routerLogs) {
-          print('Router: onPopState: open: ${entry.name}');
+        if (DEBUG_BUILD) {
+          if (services.debug.routerLogs) {
+            print('Router: onPopState: open: ${entry.name}');
+          }
         }
 
         navigatorState.open(
@@ -512,10 +520,12 @@ class RouterService extends Service {
         segments: [_getRoutingPath()],
       );
 
-      if (services.debug.routerLogs) {
-        print(
-          'Navigator Registered: #$navigator at ${[_getRoutingPath()]}',
-        );
+      if (DEBUG_BUILD) {
+        if (services.debug.routerLogs) {
+          print(
+            'Navigator Registered: #$navigator at ${[_getRoutingPath()]}',
+          );
+        }
       }
 
       return;
@@ -549,8 +559,10 @@ class RouterService extends Service {
 
     parentLinkObject.establishChildLink(linkObject);
 
-    if (services.debug.routerLogs) {
-      print('Navigator Registered: #$navigator at $segments');
+    if (DEBUG_BUILD) {
+      if (services.debug.routerLogs) {
+        print('Navigator Registered: #$navigator at $segments');
+      }
     }
   }
 }
