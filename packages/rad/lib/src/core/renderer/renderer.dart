@@ -1071,7 +1071,6 @@ class Renderer with ServicesResolver {
     JobQueue? jobQueue,
   }) {
     void job() {
-      var dataset = description.dataset;
       var attributes = description.attributes;
       var rawContents = description.rawContents;
       var textContents = description.textContents;
@@ -1083,18 +1082,6 @@ class Renderer with ServicesResolver {
               domNode.setAttribute(key, value);
             } else {
               domNode.removeAttribute(key);
-            }
-          });
-        }
-      }
-
-      if (null != dataset) {
-        if (dataset.isNotEmpty) {
-          dataset.forEach((key, value) {
-            if (null != value) {
-              domNode.dataset[key] = value;
-            } else {
-              domNode.dataset.remove(key);
             }
           });
         }

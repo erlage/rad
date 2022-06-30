@@ -49,11 +49,6 @@ abstract class HTMLWidgetBase extends Widget {
   ///
   final bool? contentEditable;
 
-  /// The data-* attributes is used to store custom data
-  /// private to the page or application.
-  ///
-  final Map<String, String>? dataAttributes;
-
   /// The hidden attribute is a boolean attribute.
   /// When present, it specifies that an dom node is not yet, or
   /// is no longer, relevant.
@@ -91,6 +86,10 @@ abstract class HTMLWidgetBase extends Widget {
   ///
   final EventCallback? onClick;
 
+  /// Any additional attributes.
+  ///
+  final Map<String, String>? additionalAttributes;
+
   const HTMLWidgetBase({
     Key? key,
     this.id,
@@ -98,7 +97,6 @@ abstract class HTMLWidgetBase extends Widget {
     this.tabIndex,
     this.style,
     this.classAttribute,
-    this.dataAttributes,
     this.hidden,
     this.draggable,
     this.contentEditable,
@@ -107,6 +105,7 @@ abstract class HTMLWidgetBase extends Widget {
     this.child,
     this.children,
     this.onClick,
+    this.additionalAttributes,
   })  : assert(
           (null == children && null == child) ||
               (null == child && null == innerText) ||
@@ -140,7 +139,10 @@ abstract class HTMLWidgetBase extends Widget {
         contentEditable != oldWidget.contentEditable ||
         onClickAttribute != oldWidget.onClickAttribute ||
         innerText != oldWidget.innerText ||
-        !fnIsKeyValueMapEqual(dataAttributes, oldWidget.dataAttributes);
+        !fnIsKeyValueMapEqual(
+          additionalAttributes,
+          oldWidget.additionalAttributes,
+        );
   }
 
   @override
@@ -194,13 +196,7 @@ class HTMLBaseElement extends RenderElement {
       oldWidget: null,
     );
 
-    var dataset = fnCommonPrepareDataset(
-      dataAttributes: widget.dataAttributes,
-      oldDataAttributes: null,
-    );
-
     return DomNodePatch(
-      dataset: dataset,
       attributes: attributes,
       textContents: widget.innerText,
     );
@@ -234,13 +230,7 @@ class HTMLBaseElement extends RenderElement {
       oldWidget: oldWidget,
     );
 
-    var dataset = fnCommonPrepareDataset(
-      dataAttributes: newWidget.dataAttributes,
-      oldDataAttributes: oldWidget.dataAttributes,
-    );
-
     return DomNodePatch(
-      dataset: dataset,
       attributes: attributes,
       textContents: newWidget.innerText,
     );
@@ -258,6 +248,19 @@ Map<String, String?> _prepareAttributes({
   required HTMLWidgetBase? oldWidget,
 }) {
   var attributes = <String, String?>{};
+
+  // prepare additional attributes
+
+  var additionalAttributes = fnCommonPrepareAdditionalAttributes(
+    additionalAttributes: widget.additionalAttributes,
+    oldAdditionalAttributes: oldWidget?.additionalAttributes,
+  );
+
+  if (additionalAttributes.isNotEmpty) {
+    attributes.addAll(additionalAttributes);
+  }
+
+  // prepare main attributes
 
   if (widget.id != oldWidget?.id) {
     attributes[Attributes.id] = widget.id;

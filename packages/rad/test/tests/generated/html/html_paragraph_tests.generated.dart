@@ -776,14 +776,98 @@ void html_paragraph_test() {
       );
     });
 
+    test(
+        'should allow widget attributes to be set through additional attributes',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          Paragraph(
+            key: GlobalKey('some-key-3'),
+            additionalAttributes: {
+              'id': 'some-id',
+            },
+          ),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0].childNodes[0];
+
+      domNode1 as HtmlElement;
+
+      expect(domNode1.id, equals('some-id'));
+    });
+
+    test(
+        'should ignore additional attribute if already set in widget constructor',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          Paragraph(
+            key: GlobalKey('some-key-3'),
+            id: 'some-id',
+            additionalAttributes: {
+              'id': 'ignored-id',
+              'custom': 'applied',
+            },
+          ),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0].childNodes[0];
+
+      domNode1 as HtmlElement;
+
+      expect(domNode1.id, equals('some-id'));
+      expect(domNode1.getAttribute('custom'), equals('applied'));
+    });
+
+    test(
+        'should ignore additional attribute if already set in widget constructor, during updates',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          Paragraph(
+            key: GlobalKey('some-key-3'),
+            id: 'some-id',
+            additionalAttributes: {
+              'id': 'ignored-id',
+            },
+          ),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Paragraph(
+            key: GlobalKey('some-key-3'),
+            id: 'updated-id',
+            additionalAttributes: {
+              'id': 'ignored-id',
+            },
+          ),
+        ],
+        updateType: UpdateType.undefined,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0].childNodes[0];
+
+      domNode1 as HtmlElement;
+
+      expect(domNode1.id, equals('updated-id'));
+    });
+
     test('should set data attributes', () async {
       await app!.buildChildren(
         widgets: [
           Paragraph(
             key: GlobalKey('some-key-3'),
-            dataAttributes: {
-              'something': 'something okay',
-              'another': 'another okay',
+            additionalAttributes: {
+              'data-something': 'something okay',
+              'data-another': 'another okay',
             },
           ),
         ],
@@ -796,14 +880,34 @@ void html_paragraph_test() {
       expect(domNode1.dataset['another'], equals('another okay'));
     });
 
+    test('should set aria/any attributes', () async {
+      await app!.buildChildren(
+        widgets: [
+          Paragraph(
+            key: GlobalKey('some-key-3'),
+            additionalAttributes: {
+              'aria-something': 'something okay',
+              'any-another': 'another okay',
+            },
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+
+      expect(domNode1.getAttribute('aria-something'), equals('something okay'));
+      expect(domNode1.getAttribute('any-another'), equals('another okay'));
+    });
+
     test('should remove obsolute and add new data attributes on update',
         () async {
       await app!.buildChildren(
         widgets: [
           Paragraph(
             key: GlobalKey('some-key-3'),
-            dataAttributes: {
-              'something': 'something okay',
+            additionalAttributes: {
+              'data-something': 'something okay',
             },
           ),
         ],
@@ -814,8 +918,8 @@ void html_paragraph_test() {
         widgets: [
           Paragraph(
             key: GlobalKey('some-key-3'),
-            dataAttributes: {
-              'something-new': 'something new',
+            additionalAttributes: {
+              'data-something-new': 'something new',
             },
           ),
         ],

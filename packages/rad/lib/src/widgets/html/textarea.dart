@@ -75,12 +75,12 @@ class TextArea extends HTMLWidgetBase {
     String? title,
     String? style,
     String? classAttribute,
-    Map<String, String>? dataAttributes,
     String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
     EventCallback? onClick,
+    Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
           id: id,
@@ -91,12 +91,12 @@ class TextArea extends HTMLWidgetBase {
           hidden: hidden,
           style: style,
           classAttribute: classAttribute,
-          dataAttributes: dataAttributes,
           onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
           onClick: onClick,
+          additionalAttributes: additionalAttributes,
         );
 
   @nonVirtual

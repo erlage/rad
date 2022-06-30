@@ -26,13 +26,13 @@ class SubScript extends HTMLWidgetBase {
     int? tabIndex,
     bool? draggable,
     bool? contentEditable,
-    Map<String, String>? dataAttributes,
     bool? hidden,
     String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
     EventCallback? onClick,
+    Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
           id: id,
@@ -42,13 +42,13 @@ class SubScript extends HTMLWidgetBase {
           tabIndex: tabIndex,
           draggable: draggable,
           contentEditable: contentEditable,
-          dataAttributes: dataAttributes,
           hidden: hidden,
           onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
           onClick: onClick,
+          additionalAttributes: additionalAttributes,
         );
 
   @nonVirtual

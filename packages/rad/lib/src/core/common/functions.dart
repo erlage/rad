@@ -85,25 +85,25 @@ String? fnCommonPrepareClassAttribute({
 }
 
 @internal
-Map<String, String?> fnCommonPrepareDataset({
-  required Map<String, String>? dataAttributes,
-  required Map<String, String>? oldDataAttributes,
+Map<String, String?> fnCommonPrepareAdditionalAttributes({
+  required Map<String, String>? additionalAttributes,
+  required Map<String, String>? oldAdditionalAttributes,
 }) {
-  if (null == oldDataAttributes || oldDataAttributes.isEmpty) {
-    return dataAttributes ?? const {};
+  if (null == oldAdditionalAttributes || oldAdditionalAttributes.isEmpty) {
+    return additionalAttributes ?? const {};
   }
 
-  if (null == dataAttributes || dataAttributes.isEmpty) {
-    return oldDataAttributes.map((key, _) => MapEntry(key, null));
+  if (null == additionalAttributes || additionalAttributes.isEmpty) {
+    return oldAdditionalAttributes.map((key, _) => MapEntry(key, null));
   }
 
   var prepared = <String, String?>{};
 
-  for (final attributeName in dataAttributes.keys) {
-    prepared[attributeName] = dataAttributes[attributeName];
+  for (final attributeName in additionalAttributes.keys) {
+    prepared[attributeName] = additionalAttributes[attributeName];
   }
 
-  for (final attributeName in oldDataAttributes.keys) {
+  for (final attributeName in oldAdditionalAttributes.keys) {
     if (!prepared.containsKey(attributeName)) {
       prepared[attributeName] = null;
     }

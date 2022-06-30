@@ -30,7 +30,6 @@ class InputText extends Input {
     int? tabIndex,
     bool? draggable,
     bool? contentEditable,
-    Map<String, String>? dataAttributes,
     bool? hidden,
     String? onClickAttribute,
     String? innerText,
@@ -42,6 +41,7 @@ class InputText extends Input {
     EventCallback? onKeyUp,
     EventCallback? onKeyDown,
     EventCallback? onKeyPress,
+    Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
           id: id,
@@ -61,7 +61,6 @@ class InputText extends Input {
           tabIndex: tabIndex,
           draggable: draggable,
           contentEditable: contentEditable,
-          dataAttributes: dataAttributes,
           hidden: hidden,
           onClickAttribute: onClickAttribute,
           innerText: innerText,
@@ -73,5 +72,6 @@ class InputText extends Input {
           onKeyUp: onKeyUp,
           onKeyDown: onKeyDown,
           onKeyPress: onKeyPress,
+          additionalAttributes: additionalAttributes,
         );
 }

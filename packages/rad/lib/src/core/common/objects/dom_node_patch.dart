@@ -8,15 +8,6 @@ import 'package:meta/meta.dart';
 ///
 @immutable
 class DomNodePatch {
-  /// Dataset patch.
-  ///
-  /// {data key: null/non-null value}
-  ///
-  /// If value for an data entry is null, framework will remove that data entry
-  /// from dom else it'll add/update it.
-  ///
-  final Map<String, String?>? dataset;
-
   /// Attributes patch.
   ///
   /// {attribute name: null/non-null value}
@@ -35,7 +26,6 @@ class DomNodePatch {
   final String? rawContents;
 
   const DomNodePatch({
-    this.dataset,
     this.attributes,
     this.textContents,
     this.rawContents,

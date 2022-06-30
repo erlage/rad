@@ -22,13 +22,13 @@ class Heading1 extends HTMLWidgetBase {
     int? tabIndex,
     bool? draggable,
     bool? contentEditable,
-    Map<String, String>? dataAttributes,
     bool? hidden,
     String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
     EventCallback? onClick,
+    Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
           id: id,
@@ -38,13 +38,13 @@ class Heading1 extends HTMLWidgetBase {
           tabIndex: tabIndex,
           draggable: draggable,
           contentEditable: contentEditable,
-          dataAttributes: dataAttributes,
           hidden: hidden,
           onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
           onClick: onClick,
+          additionalAttributes: additionalAttributes,
         );
 
   @nonVirtual
@@ -67,13 +67,13 @@ class Heading2 extends HTMLWidgetBase {
     int? tabIndex,
     bool? draggable,
     bool? contentEditable,
-    Map<String, String>? dataAttributes,
     bool? hidden,
     String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
     EventCallback? onClick,
+    Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
           id: id,
@@ -83,13 +83,13 @@ class Heading2 extends HTMLWidgetBase {
           tabIndex: tabIndex,
           draggable: draggable,
           contentEditable: contentEditable,
-          dataAttributes: dataAttributes,
           hidden: hidden,
           onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
           onClick: onClick,
+          additionalAttributes: additionalAttributes,
         );
 
   @nonVirtual
@@ -112,13 +112,13 @@ class Heading3 extends HTMLWidgetBase {
     int? tabIndex,
     bool? draggable,
     bool? contentEditable,
-    Map<String, String>? dataAttributes,
     bool? hidden,
     String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
     EventCallback? onClick,
+    Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
           id: id,
@@ -128,13 +128,13 @@ class Heading3 extends HTMLWidgetBase {
           tabIndex: tabIndex,
           draggable: draggable,
           contentEditable: contentEditable,
-          dataAttributes: dataAttributes,
           hidden: hidden,
           onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
           onClick: onClick,
+          additionalAttributes: additionalAttributes,
         );
 
   @nonVirtual
@@ -157,13 +157,13 @@ class Heading4 extends HTMLWidgetBase {
     int? tabIndex,
     bool? draggable,
     bool? contentEditable,
-    Map<String, String>? dataAttributes,
     bool? hidden,
     String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
     EventCallback? onClick,
+    Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
           id: id,
@@ -173,13 +173,13 @@ class Heading4 extends HTMLWidgetBase {
           tabIndex: tabIndex,
           draggable: draggable,
           contentEditable: contentEditable,
-          dataAttributes: dataAttributes,
           hidden: hidden,
           onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
           onClick: onClick,
+          additionalAttributes: additionalAttributes,
         );
 
   @nonVirtual
@@ -202,13 +202,13 @@ class Heading5 extends HTMLWidgetBase {
     int? tabIndex,
     bool? draggable,
     bool? contentEditable,
-    Map<String, String>? dataAttributes,
     bool? hidden,
     String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
     EventCallback? onClick,
+    Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
           id: id,
@@ -218,13 +218,13 @@ class Heading5 extends HTMLWidgetBase {
           tabIndex: tabIndex,
           draggable: draggable,
           contentEditable: contentEditable,
-          dataAttributes: dataAttributes,
           hidden: hidden,
           onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
           onClick: onClick,
+          additionalAttributes: additionalAttributes,
         );
 
   @nonVirtual
@@ -247,13 +247,13 @@ class Heading6 extends HTMLWidgetBase {
     int? tabIndex,
     bool? draggable,
     bool? contentEditable,
-    Map<String, String>? dataAttributes,
     bool? hidden,
     String? onClickAttribute,
     String? innerText,
     Widget? child,
     List<Widget>? children,
     EventCallback? onClick,
+    Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
           id: id,
@@ -263,13 +263,13 @@ class Heading6 extends HTMLWidgetBase {
           tabIndex: tabIndex,
           draggable: draggable,
           contentEditable: contentEditable,
-          dataAttributes: dataAttributes,
           hidden: hidden,
           onClickAttribute: onClickAttribute,
           innerText: innerText,
           child: child,
           children: children,
           onClick: onClick,
+          additionalAttributes: additionalAttributes,
         );
 
   @nonVirtual

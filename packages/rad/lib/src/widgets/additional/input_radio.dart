@@ -25,7 +25,6 @@ class InputRadio extends Input {
     int? tabIndex,
     bool? draggable,
     bool? contentEditable,
-    Map<String, String>? dataAttributes,
     bool? hidden,
     String? onClickAttribute,
     String? innerText,
@@ -33,6 +32,7 @@ class InputRadio extends Input {
     List<Widget>? children,
     EventCallback? onChange,
     EventCallback? onClick,
+    Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
           id: id,
@@ -48,7 +48,6 @@ class InputRadio extends Input {
           tabIndex: tabIndex,
           draggable: draggable,
           contentEditable: contentEditable,
-          dataAttributes: dataAttributes,
           hidden: hidden,
           onClickAttribute: onClickAttribute,
           innerText: innerText,
@@ -56,5 +55,6 @@ class InputRadio extends Input {
           children: children,
           onChange: onChange,
           onClick: onClick,
+          additionalAttributes: additionalAttributes,
         );
 }
