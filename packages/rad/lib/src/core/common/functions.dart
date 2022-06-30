@@ -4,7 +4,6 @@
 
 import 'package:meta/meta.dart';
 
-import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 
 @internal
@@ -101,26 +100,10 @@ Map<String, String?> fnCommonPrepareDataset({
   var prepared = <String, String?>{};
 
   for (final attributeName in dataAttributes.keys) {
-    if (DEBUG_BUILD) {
-      if (Constants.reservedAttributes.isNotEmpty) {
-        if (Constants.reservedAttributes.contains(attributeName)) {
-          continue;
-        }
-      }
-    }
-
     prepared[attributeName] = dataAttributes[attributeName];
   }
 
   for (final attributeName in oldDataAttributes.keys) {
-    if (DEBUG_BUILD) {
-      if (Constants.reservedAttributes.isNotEmpty) {
-        if (Constants.reservedAttributes.contains(attributeName)) {
-          continue;
-        }
-      }
-    }
-
     if (!prepared.containsKey(attributeName)) {
       prepared[attributeName] = null;
     }

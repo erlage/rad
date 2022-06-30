@@ -16,11 +16,6 @@ const DEBUG_BUILD = bool.fromEnvironment(
 ///
 @internal
 class Constants {
-  /// List of data attributes that are reserved and can't be set on HTML
-  /// widgets.
-  ///
-  static const reservedAttributes = <String>[];
-
   /// Widget's type for root element.
   ///
   static const contextTypeBigBang = 'BigBang';
