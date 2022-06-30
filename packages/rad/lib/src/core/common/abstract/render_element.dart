@@ -29,11 +29,6 @@ abstract class RenderElement implements BuildContext {
 
   @nonVirtual
   @override
-  bool get isRoot => _isRoot;
-  final bool _isRoot;
-
-  @nonVirtual
-  @override
   Key? get key => _key;
   final Key? _key;
 
@@ -63,6 +58,12 @@ abstract class RenderElement implements BuildContext {
   @nonVirtual
   bool get hasDomNode => _hasDomNode;
   bool _hasDomNode = false;
+
+  /// @nodoc
+  @nonVirtual
+  @internal
+  bool get frameworkIsRoot => _isRoot;
+  final bool _isRoot;
 
   /*
   |--------------------------------------------------------------------------
@@ -348,7 +349,7 @@ abstract class RenderElement implements BuildContext {
   void visitAncestorElements(visitor) {
     RenderElement? ancestor = _parent;
 
-    while (null != ancestor && !ancestor.isRoot && visitor(ancestor)) {
+    while (null != ancestor && !ancestor.frameworkIsRoot && visitor(ancestor)) {
       ancestor = ancestor._parent;
     }
   }
@@ -366,7 +367,7 @@ abstract class RenderElement implements BuildContext {
   void traverseAncestorElements(callback) {
     RenderElement? ancestor = _parent;
 
-    while (null != ancestor && !ancestor.isRoot) {
+    while (null != ancestor && !ancestor.frameworkIsRoot) {
       callback(ancestor);
 
       ancestor = ancestor._parent;

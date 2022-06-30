@@ -17,13 +17,13 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 abstract class BuildContext {
   /// Associated widget's key.
   ///
-  /// Accessing it is not valid on root context(see: [BuildContext.isRoot]).
+  /// Accessing it is not valid on root context.
   ///
   Key? get key;
 
   /// The configuration for this render element.
   ///
-  /// Accessing it is not valid on root context(see: [BuildContext.isRoot]).
+  /// Accessing it is not valid on root context.
   ///
   Widget get widget;
 
@@ -34,10 +34,6 @@ abstract class BuildContext {
   /// Widget's runtime type.
   ///
   String get widgetRuntimeType;
-
-  /// Whether current context is root.
-  ///
-  bool get isRoot;
 
   /// App's target id.
   ///
