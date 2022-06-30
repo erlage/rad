@@ -98,7 +98,7 @@ class AppRunner {
   void start() {
     this
       ..prepareTargetDomNode()
-      ..setupRootElement()
+      ..setupRootRenderElement()
       ..setupOptions()
       ..setupDelegates()
       ..startServices()
@@ -117,7 +117,7 @@ class AppRunner {
 
   /// Setuo root render element.
   ///
-  void setupRootElement() {
+  void setupRootRenderElement() {
     _rootElement = RootRenderElement(
       appTargetId: appTargetId,
       appTargetDomNode: document.getElementById(appTargetId)!,

@@ -67,7 +67,7 @@ class AppRunner extends rad.AppRunner {
   void start() {
     this
       ..prepareTargetDomNode()
-      ..setupRootElement()
+      ..setupRootRenderElement()
       .._clearState()
       ..setupOptions()
       ..setupDelegates()

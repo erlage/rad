@@ -47,7 +47,7 @@ class RT_AppRunner extends AppRunner {
     this
       .._clearState()
       ..prepareTargetDomNode()
-      ..setupRootElement()
+      ..setupRootRenderElement()
       ..setupOptions()
       ..setupDelegates()
       ..startServices()
