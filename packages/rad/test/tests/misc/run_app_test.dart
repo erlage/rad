@@ -23,7 +23,7 @@ void main() {
     test('should run app', () async {
       runApp(
         app: Text('hello world'),
-        targetId: RT_TestBed.rootTargetId,
+        appTargetId: RT_TestBed.rootTargetId,
       );
 
       await Future.delayed(Duration.zero, () {
@@ -35,7 +35,7 @@ void main() {
       expect(
         () => runApp(
           app: Text('hello world'),
-          targetId: 'some-non-existent-target',
+          appTargetId: 'some-non-existent-target',
         ),
         throwsA(
           predicate(
@@ -48,7 +48,7 @@ void main() {
     test('should run before mount task before actual mount', () async {
       runApp(
           app: Text('hello world'),
-          targetId: RT_TestBed.rootTargetId,
+          appTargetId: RT_TestBed.rootTargetId,
           beforeMount: () {
             expect(RT_TestBed.rootDomNode, RT_hasContents(''));
           });

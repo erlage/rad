@@ -6,7 +6,7 @@ import 'settings_page.dart';
 void main() {
   runApp(
     app: RadApp(child: RootPage()),
-    targetId: 'output',
+    appTargetId: 'output',
     debugOptions: DebugOptions.developmentMode,
   );
 }

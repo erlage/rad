@@ -13,7 +13,7 @@ void main() {
     test('should render correct markup', () async {
       runApp(
         app: _NavigatorTest4(),
-        targetId: RT_TestBed.rootTargetId,
+        appTargetId: RT_TestBed.rootTargetId,
       );
 
       await Future.delayed(Duration.zero, () {

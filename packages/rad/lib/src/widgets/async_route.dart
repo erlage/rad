@@ -72,9 +72,9 @@ class AsyncRoute extends Route {
   ///
   final bool keepInitialBuilder;
 
-  /// Whether to retry a failed page if user re-opens.
+  /// Whether to retry a failed page if user re-opens it.
   ///
-  final bool retryFailedBuilder;
+  final bool shouldRetryFailedBuilder;
 
   /// Whether to log error route in history.
   ///
@@ -109,7 +109,7 @@ class AsyncRoute extends Route {
     this.errorRoute,
     this.waitingRoute,
     this.keepInitialBuilder = true,
-    this.retryFailedBuilder = false,
+    this.shouldRetryFailedBuilder = false,
     this.enableErrorHistory = false,
     this.enableWaitingHistory = false,
     this.errorPlaceholderWidget = const _AsyncRoutePlaceholder(),
@@ -128,7 +128,7 @@ class AsyncRoute extends Route {
             errorRoute: errorRoute,
             waitingRoute: waitingRoute,
             keepInitialBuilder: keepInitialBuilder,
-            retryFailedBuilder: retryFailedBuilder,
+            shouldRetryFailedBuilder: shouldRetryFailedBuilder,
             enableErrorHistory: enableErrorHistory,
             enableWaitingHistory: enableWaitingHistory,
             errorPlaceholderWidget: errorPlaceholderWidget,
@@ -145,7 +145,7 @@ class _AsyncRouteBuilder extends StatefulWidget {
   final String? waitingRoute;
 
   final bool keepInitialBuilder;
-  final bool retryFailedBuilder;
+  final bool shouldRetryFailedBuilder;
   final bool enableErrorHistory;
   final bool enableWaitingHistory;
 
@@ -161,7 +161,7 @@ class _AsyncRouteBuilder extends StatefulWidget {
     required this.errorRoute,
     required this.waitingRoute,
     required this.keepInitialBuilder,
-    required this.retryFailedBuilder,
+    required this.shouldRetryFailedBuilder,
     required this.enableErrorHistory,
     required this.enableWaitingHistory,
     required this.errorPlaceholderWidget,
@@ -199,7 +199,7 @@ class __AsyncRouteBuilderState extends State<_AsyncRouteBuilder> {
     }
 
     if (!_isBuilderDisposed && _isBuilderFailed) {
-      if (widget.retryFailedBuilder) {
+      if (widget.shouldRetryFailedBuilder) {
         _runBuilder();
       }
 

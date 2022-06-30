@@ -26,9 +26,9 @@ import 'package:rad/src/widgets/rad_app.dart';
 ///
 /// ### Arguments
 ///
-/// - [targetId] - id of dom node where you want the app to mount.
-///
 /// - [app] - A widget(any widget). For convenience we've a [RadApp] widget.
+///
+/// - [appTargetId] - id of dom node where you want the app to mount.
 ///
 /// - [beforeMount] - Callback that'll be fired before app mount.
 ///
@@ -38,14 +38,14 @@ import 'package:rad/src/widgets/rad_app.dart';
 ///
 AppRunner runApp({
   required Widget app,
-  required String targetId,
+  required String appTargetId,
   VoidCallback? beforeMount,
   RouterOptions? routerOptions,
   DebugOptions? debugOptions,
 }) {
   return AppRunner(
     app: app,
-    targetId: targetId,
+    appTargetId: appTargetId,
     beforeMount: beforeMount,
     routerOptions: routerOptions,
     debugOptions: debugOptions,
@@ -60,7 +60,7 @@ AppRunner runApp({
 ///
 class AppRunner {
   final Widget app;
-  final String targetId;
+  final String appTargetId;
 
   final VoidCallback? _beforeMount;
   final DebugOptions? _debugOptions;
@@ -85,7 +85,7 @@ class AppRunner {
   ///
   AppRunner({
     required this.app,
-    required this.targetId,
+    required this.appTargetId,
     VoidCallback? beforeMount,
     RouterOptions? routerOptions,
     DebugOptions? debugOptions,
@@ -110,7 +110,7 @@ class AppRunner {
   ///
   void stop() {
     this
-      ..cleanUpTasks()
+      ..runCleanUpTasks()
       ..disposeFrameworkInstance()
       ..stopServices();
   }
@@ -119,8 +119,8 @@ class AppRunner {
   ///
   void setupRootElement() {
     _rootElement = RootRenderElement(
-      appTargetId: targetId,
-      appTargetDomNode: document.getElementById(targetId)!,
+      appTargetId: appTargetId,
+      appTargetDomNode: document.getElementById(appTargetId)!,
     );
   }
 
@@ -197,7 +197,7 @@ class AppRunner {
   /// Prepare target dom node.
   ///
   void prepareTargetDomNode() {
-    var targetElement = document.getElementById(targetId);
+    var targetElement = document.getElementById(appTargetId);
 
     if (null == targetElement) {
       throw Exception('Unable to locate target dom node in HTML document');
@@ -212,7 +212,7 @@ class AppRunner {
 
   /// Additional clean up tasks.
   ///
-  void cleanUpTasks() {
+  void runCleanUpTasks() {
     Meta.instance.cleanAppAssociatedMetaInformation(context: rootElement);
   }
 }

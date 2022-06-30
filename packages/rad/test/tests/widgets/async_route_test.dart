@@ -356,7 +356,7 @@ void main() {
               AsyncRoute(
                 name: 'async-route',
                 errorRoute: 'error-route',
-                retryFailedBuilder: true,
+                shouldRetryFailedBuilder: true,
                 page: () async {
                   testStack.push('trying');
 

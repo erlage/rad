@@ -26,10 +26,6 @@ class AppRunner extends rad.AppRunner {
   ///
   final String appId;
 
-  /// Target element's id.
-  ///
-  final String appTargetId;
-
   /// Whether to mock browser's window object.
   ///
   final bool useWindowMock;
@@ -41,13 +37,13 @@ class AppRunner extends rad.AppRunner {
   ///
   AppRunner({
     required this.appId,
-    required this.appTargetId,
+    required String appTargetId,
     required this.useWindowMock,
     rad.DebugOptions? debugOptions,
     rad.RouterOptions? routerOptions,
   }) : super(
           app: TestAppRootWidget(key: GlobalKey(appId)),
-          targetId: appTargetId,
+          appTargetId: appTargetId,
           debugOptions: debugOptions,
           routerOptions: routerOptions,
         );
@@ -84,7 +80,7 @@ class AppRunner extends rad.AppRunner {
   @override
   void stop() {
     this
-      ..cleanUpTasks()
+      ..runCleanUpTasks()
       ..disposeFrameworkInstance()
       ..stopServices()
       .._clearState();

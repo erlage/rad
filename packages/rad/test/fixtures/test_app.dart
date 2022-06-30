@@ -37,7 +37,7 @@ class RT_AppRunner extends AppRunner {
     required RouterOptions? routerOptions,
   }) : super(
           app: app ?? RT_TestWidget(key: GlobalKey('app-widget')),
-          targetId: RT_TestBed.rootTargetId,
+          appTargetId: RT_TestBed.rootTargetId,
           debugOptions: debugOptions,
           routerOptions: routerOptions,
         );
@@ -59,7 +59,7 @@ class RT_AppRunner extends AppRunner {
   @override
   void stop() {
     this
-      ..cleanUpTasks()
+      ..runCleanUpTasks()
       ..disposeFrameworkInstance()
       ..stopServices()
       .._printDebugInformation()

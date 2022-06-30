@@ -22,7 +22,7 @@ void main() {
             expect(state.widget.runtimeType, equals(RT_StatefulTestWidget));
           },
         ),
-        targetId: RT_TestBed.rootTargetId,
+        appTargetId: RT_TestBed.rootTargetId,
       );
 
       await Future.delayed(Duration.zero);
@@ -36,7 +36,7 @@ void main() {
             expect(state.context.key?.frameworkValue, endsWith('widget'));
           },
         ),
-        targetId: RT_TestBed.rootTargetId,
+        appTargetId: RT_TestBed.rootTargetId,
       );
 
       await Future.delayed(Duration.zero);
@@ -97,7 +97,7 @@ void main() {
             'did change dependencies',
           ),
         ),
-        targetId: RT_TestBed.rootTargetId,
+        appTargetId: RT_TestBed.rootTargetId,
       );
 
       await Future.delayed(Duration.zero, () {
@@ -118,7 +118,7 @@ void main() {
             'did change dependencies',
           ),
         ),
-        targetId: RT_TestBed.rootTargetId,
+        appTargetId: RT_TestBed.rootTargetId,
       );
 
       await Future.delayed(Duration.zero, () {
@@ -149,7 +149,7 @@ void main() {
             'did change dependencies',
           ),
         ),
-        targetId: RT_TestBed.rootTargetId,
+        appTargetId: RT_TestBed.rootTargetId,
       );
 
       await Future.delayed(Duration.zero, () {
@@ -174,7 +174,7 @@ void main() {
             'did change dependencies',
           ),
         ),
-        targetId: RT_TestBed.rootTargetId,
+        appTargetId: RT_TestBed.rootTargetId,
       );
 
       await Future.delayed(Duration.zero, () {
