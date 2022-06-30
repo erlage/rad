@@ -90,33 +90,39 @@ Map<String, String?> fnCommonPrepareDataset({
   required Map<String, String>? dataAttributes,
   required Map<String, String>? oldDataAttributes,
 }) {
-  var prepared = <String, String?>{};
-
-  if (null != dataAttributes) {
-    for (final attributeName in dataAttributes.keys) {
-      if (DEBUG_BUILD) {
-        if (Constants.reservedAttributes.isNotEmpty) {
-          if (Constants.reservedAttributes.contains(attributeName)) {
-            continue;
-          }
-        }
-      }
-
-      prepared[attributeName] = dataAttributes[attributeName];
-    }
+  if (null == oldDataAttributes || oldDataAttributes.isEmpty) {
+    return dataAttributes ?? const {};
   }
 
-  if (null != oldDataAttributes) {
-    for (final attributeName in oldDataAttributes.keys) {
+  if (null == dataAttributes || dataAttributes.isEmpty) {
+    return oldDataAttributes.map((key, _) => MapEntry(key, null));
+  }
+
+  var prepared = <String, String?>{};
+
+  for (final attributeName in dataAttributes.keys) {
+    if (DEBUG_BUILD) {
       if (Constants.reservedAttributes.isNotEmpty) {
         if (Constants.reservedAttributes.contains(attributeName)) {
           continue;
         }
       }
+    }
 
-      if (!prepared.containsKey(attributeName)) {
-        prepared[attributeName] = null;
+    prepared[attributeName] = dataAttributes[attributeName];
+  }
+
+  for (final attributeName in oldDataAttributes.keys) {
+    if (DEBUG_BUILD) {
+      if (Constants.reservedAttributes.isNotEmpty) {
+        if (Constants.reservedAttributes.contains(attributeName)) {
+          continue;
+        }
       }
+    }
+
+    if (!prepared.containsKey(attributeName)) {
+      prepared[attributeName] = null;
     }
   }
 
