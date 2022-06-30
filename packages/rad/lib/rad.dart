@@ -29,6 +29,7 @@ export 'src/core/common/enums.dart' show FormEncType;
 export 'src/core/common/enums.dart' show FormMethodType;
 export 'src/core/common/enums.dart' show ButtonType;
 export 'src/core/common/enums.dart' show DomTagType;
+export 'src/core/common/enums.dart' show UpdateType;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,7 @@ export 'src/core/common/abstract/render_element.dart' show RenderElement;
 export 'src/core/common/objects/common_render_elements.dart'
     show RootRenderElement;
 export 'src/core/common/abstract/watchful_render_element.dart';
+export 'src/core/common/objects/dom_node_patch.dart' show DomNodePatch;
 export 'src/core/common/objects/options/debug_options.dart' show DebugOptions;
 export 'src/core/common/objects/options/router_options.dart' show RouterOptions;
 export 'src/core/common/objects/meta_information.dart' show MetaInformation;

@@ -207,7 +207,6 @@ enum DomTagType {
 ///
 /// Widgets can act according to type of update events.
 ///
-@internal
 enum UpdateType {
   /// A setState is called in parent tree.
   ///
