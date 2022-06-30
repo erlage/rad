@@ -14,7 +14,7 @@ import 'package:rad/src/core/common/types.dart';
 ///
 /// Widgets are the central class hierarchy in the Rad framework. A widget
 /// is an immutable description of part of a user interface. Widgets can be
-/// inflated into elements, which manage the underlying element tree.
+/// inflated into render elements.
 ///
 @immutable
 abstract class Widget {

@@ -23,9 +23,9 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 ///
 @internal
 class Reconciler {
-  /// Compatibility hasher instances that are available for reuse.
-  ///
   /// Re-useable hasher instances for Rad's algorithm.
+  ///
+  /// Compatibility hasher instances that are available for reuse.
   ///
   final _availableHashers = <_CompatibilityHashGenerator>[];
 

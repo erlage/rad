@@ -52,6 +52,8 @@ abstract class RenderElement implements BuildContext {
   String get widgetRuntimeType => _widgetRuntimeType;
   final String _widgetRuntimeType;
 
+  /// Associated DOM node.
+  ///
   @nonVirtual
   Element? get domNode => _domNode;
   Element? _domNode;

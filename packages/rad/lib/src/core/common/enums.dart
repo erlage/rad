@@ -53,6 +53,8 @@ enum HitTestBehavior {
   translucent,
 }
 
+/// Type of DOM event.
+///
 enum DomEventType {
   click('click'),
   doubleClick('dblclick'),
@@ -89,6 +91,8 @@ enum DomEventType {
   const DomEventType(this.nativeName);
 }
 
+/// HTML Input type.
+///
 enum InputType {
   text('text'),
   password('password'),
@@ -103,6 +107,8 @@ enum InputType {
   const InputType(this.nativeName);
 }
 
+/// HTML form's encoding type.
+///
 enum FormEncType {
   applicationXwwwFormUrlEncoded('application/x-www-form-urlencoded'),
   multipartFormData('multipart/form-data'),
@@ -114,6 +120,8 @@ enum FormEncType {
   const FormEncType(this.nativeName);
 }
 
+/// HTML form's method type.
+///
 enum FormMethodType {
   post('post'),
   get('get'),

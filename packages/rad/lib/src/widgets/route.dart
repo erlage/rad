@@ -24,7 +24,9 @@ import 'package:rad/src/widgets/navigator.dart';
 ///  * [AsyncRoute], for asynchronous routes.
 ///
 class Route extends SingleChildWidget {
-  /// Name of the Route path.
+  /// Actual Route's path.
+  ///
+  /// By default, route uses [name] as path.
   ///
   final String path;
 

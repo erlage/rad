@@ -22,6 +22,8 @@ abstract class WatchfulRenderElement extends RenderElement {
   |--------------------------------------------------------------------------
   */
 
+  /// Whether current render element is mounted on screen.
+  ///
   @nonVirtual
   bool get isMounted => _isMounted;
   bool _isMounted = false;
