@@ -1,3 +1,45 @@
+## 1.0.0-rc.1
+
+### New
+
+- Support for multiple Navigators at the same depth.
+- Added `Widget.shouldUpdateWidget` & `Widget.shouldUpdateWidgetChildren` hooks. Both `shouldUpdateWidget` & `shouldUpdateWidgetChildren` hooks, combined together, produces semantics similar to React's `shouldUpdateComponent`. (see API docs for more).
+
+### Changes
+
+- Removed `LocalKey`.
+- Removed `Widget.createConfiguration` & `Widget.isConfigurationChanged`.
+- Removed internal imports library(`package:rad/widgets_internals`). 
+- Changed `Navigator.of` signature(see API docs)
+- Renamed:
+    - DomNodeDescription to DomNodePatch.
+    - HTML's property contenteditable to contentEditable.
+    - HTML's Blockquote to BlockQuote.
+
+### Core - Benchmarks
+
+For the past couple of weeks, core has been subjected to extensive benchmark tests. These tests helped us a lot in discovering bottlenecks in the core. Both the benchmark results and the benchmarking tools are available in public:
+- [See latest benchmark results](https://erlage.github.io/)
+- [Or Run benchmarks on your machine](https://github.com/erlage/rad-benchmarks#running-benchmarks)
+
+### Core - Architecture
+
+Previously every `Widget` was creating a `BuildContext` and a `RenderObject`. Then internally to prevent direct DOM manipulation, Renderer was also creating a `RenderNode` for every widget(kind of Virtual DOM). Most of these pieces were mutable and to manage them framework was also creating a wrapper object called `WidgetObject` to wrap these objects into single object. With this re-write, we've removed all these messy objects from the core and what we're left with is two trees, widget-tree and a render-tree, and there are only two types of objects a widget must have:
+
+- Widget (immutable node in widget tree that contains configuration for render elements)
+
+- RenderElement (mutable node in render tree that contains lifecycle methods)
+
+Unlike Elements in Flutter, RenderElements are not responsible for mounting or rendering actual DOM nodes. Instead RenderElements can tell the framework about the desired description of dom node that they want. How framework renders DOM and apply those descriptions is totally out of scope for render elements. A RenderElement can know its parent child relationships but how those child/parents are populated and linked to it are controlled by the framework. This way framework can optimise rendering behind the scenes without breaking APIs.
+
+Second change is to Widget's Key property. I've decided to diverge from Flutter's Key model a bit. Unlike flutter, keys now only make sense in the context of the sorrounding array of widgets and there are only two types of keys.
+
+- Normal key: `Key('requires string value to create key')`
+
+- Global key: `GlobalKey('requires unique string value to create key')`
+
+Widgets with global key are registered in walker service and a global key can be used to find `RenderElement` associated with a widget using `WalkerService.getRenderElementAssociatedWithGlobalKey`. This is the **only difference** between a normal and GlobalKey.
+
 ## 0.9.0
 
 ### Core
