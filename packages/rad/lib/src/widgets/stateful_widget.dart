@@ -391,7 +391,7 @@ abstract class State<T extends StatefulWidget> {
   @protected
   void setState(VoidCallback callable) {
     var element = _element!;
-    var scheduler = element.services.scheduler;
+    var scheduler = element.frameworkServices.scheduler;
 
     scheduler.addTask(
       StimulateListenerTask(

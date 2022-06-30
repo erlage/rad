@@ -78,8 +78,10 @@ abstract class RenderElement implements BuildContext {
 
   /// Services instance.
   ///
+  /// @nodoc
+  @internal
   @nonVirtual
-  Services get services => _services!;
+  Services get frameworkServices => _services!;
   Services? _services;
 
   /*
@@ -123,7 +125,7 @@ abstract class RenderElement implements BuildContext {
 
         _isRoot = false,
         _parent = parent,
-        _services = parent.services,
+        _services = parent.frameworkServices,
         appTargetId = parent.appTargetId;
 
   /// Create a temporary render element.
@@ -311,7 +313,7 @@ abstract class RenderElement implements BuildContext {
 
     node ??= findClosestDomNodeInDescendants();
     node ??= findClosestDomNodeInAncestors();
-    node ??= services.rootElement.domNode!;
+    node ??= frameworkServices.rootElement.domNode!;
 
     return node;
   }

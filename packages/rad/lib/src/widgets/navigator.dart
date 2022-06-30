@@ -471,7 +471,7 @@ class NavigatorRenderElement extends WatchfulRenderElement {
 
     if (null != dependentsOnCurrentPage) {
       for (final dependant in dependentsOnCurrentPage) {
-        services.scheduler.addTask(
+        frameworkServices.scheduler.addTask(
           WidgetsUpdateDependentTask(dependentRenderElement: dependant),
         );
       }

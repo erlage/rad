@@ -103,7 +103,7 @@ class InheritedRenderElement extends RenderElement {
     var updateShouldNotify = newWidget.updateShouldNotify(oldWidget);
 
     if (updateShouldNotify) {
-      var schedulerService = services.scheduler;
+      var schedulerService = frameworkServices.scheduler;
 
       for (final dependent in dependents) {
         schedulerService.addTask(
