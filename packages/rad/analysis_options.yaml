@@ -20,4 +20,5 @@ analyzer:
 
   exclude:
     - example/**
+    - /**disabled.dart
     # - test/**

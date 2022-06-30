@@ -26,3 +26,4 @@ linter:
 analyzer:
   exclude:
     - templates/**
+    - /**disabled.dart
