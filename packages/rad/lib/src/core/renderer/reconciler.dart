@@ -202,6 +202,12 @@ class Reconciler {
 
     //// TEST__COMMENTABLE_MUTATION_START
 
+    // check if all nodes are matched
+
+    if (!hasUnSyncedNewNodes && !hasUnSyncedOldNodes) {
+      return preparedUpdates;
+    }
+
     // check if we can append new nodes and return
 
     if (hasUnSyncedNewNodes && !hasUnSyncedOldNodes) {
