@@ -247,17 +247,25 @@ Map<String, String?> _prepareAttributes({
   required HTMLWidgetBase widget,
   required HTMLWidgetBase? oldWidget,
 }) {
-  var attributes = <String, String?>{};
-
   // prepare additional attributes
 
-  var additionalAttributes = fnCommonPrepareAdditionalAttributes(
-    additionalAttributes: widget.additionalAttributes,
-    oldAdditionalAttributes: oldWidget?.additionalAttributes,
-  );
+  var attributes = <String, String?>{};
 
-  if (additionalAttributes.isNotEmpty) {
-    attributes.addAll(additionalAttributes);
+  var additionalAttributes = widget.additionalAttributes;
+  var oldAdditionalAttributes = oldWidget?.additionalAttributes;
+
+  if (null != additionalAttributes) {
+    for (final attributeName in additionalAttributes.keys) {
+      attributes[attributeName] = additionalAttributes[attributeName];
+    }
+  }
+
+  if (null != oldAdditionalAttributes) {
+    for (final attributeName in oldAdditionalAttributes.keys) {
+      if (!attributes.containsKey(attributeName)) {
+        attributes[attributeName] = null;
+      }
+    }
   }
 
   // prepare main attributes

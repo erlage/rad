@@ -83,31 +83,3 @@ String? fnCommonPrepareClassAttribute({
 
   return null;
 }
-
-@internal
-Map<String, String?> fnCommonPrepareAdditionalAttributes({
-  required Map<String, String>? additionalAttributes,
-  required Map<String, String>? oldAdditionalAttributes,
-}) {
-  if (null == oldAdditionalAttributes || oldAdditionalAttributes.isEmpty) {
-    return additionalAttributes ?? const {};
-  }
-
-  if (null == additionalAttributes || additionalAttributes.isEmpty) {
-    return oldAdditionalAttributes.map((key, _) => MapEntry(key, null));
-  }
-
-  var prepared = <String, String?>{};
-
-  for (final attributeName in additionalAttributes.keys) {
-    prepared[attributeName] = additionalAttributes[attributeName];
-  }
-
-  for (final attributeName in oldAdditionalAttributes.keys) {
-    if (!prepared.containsKey(attributeName)) {
-      prepared[attributeName] = null;
-    }
-  }
-
-  return prepared;
-}
