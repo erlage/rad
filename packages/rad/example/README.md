@@ -5,7 +5,7 @@ import 'package:rad/rad.dart';
 void main() {
   runApp(
     app: const ClickToggle(),
-    targetId: 'output',
+    appTargetId: 'output',
   );
 }
 

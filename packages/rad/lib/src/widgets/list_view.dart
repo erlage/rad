@@ -434,7 +434,7 @@ class _ListViewBuilderState with ServicesResolver {
   }
 
   void frameworkRebindWidget(ListView widget) {
-    assert(null != _element, 'RenderElement is not bound yet');
+    assert(null != _widget, 'Widget is not bound yet');
 
     _widget = widget;
   }

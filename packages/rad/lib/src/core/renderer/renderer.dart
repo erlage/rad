@@ -717,11 +717,7 @@ class Renderer with ServicesResolver {
     |--------------------------------------------------------------------------
     */
 
-    // create copy of new elements list for iterator
-
     var renderElements = temporaryRenderElement.frameworkChildElements;
-
-    // store reference of first render element from new widgets
 
     var firstRenderElementInNewWidgets = renderElements.first;
 
@@ -731,20 +727,13 @@ class Renderer with ServicesResolver {
     |--------------------------------------------------------------------------
     */
 
-    if (null != mountAtIndex) {
-      //
-      // if mount at specific index
-      //
-
+    if (null == mountAtIndex) {
+      parentRenderElement.frameworkAppendAllFresh(renderElements);
+    } else {
       parentRenderElement.frameworkInsertAllFreshAt(
         renderElements,
         mountAtIndex,
       );
-    } else {
-      //
-      // else append
-      //
-      parentRenderElement.frameworkAppendAllFresh(renderElements);
     }
 
     // 2. Find closest widget that has an dom node in dom and get mount location

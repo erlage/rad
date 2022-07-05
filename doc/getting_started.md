@@ -24,7 +24,7 @@
                             // 'output' is the id of div in your web/index.html
                             // framework will mount your app inside that div
                             // if you don't have a div with id 'output' in web/index.html, 
-        targetId: "output", // you've to create it
+        appTargetId: "output", // you've to create it
                             // e.g
                             //    <body>
                             //      <div id="output"></div> 

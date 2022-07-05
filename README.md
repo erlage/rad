@@ -17,7 +17,7 @@ Below is a hello world in Rad:
 ```dart
 void main() {
   runApp(
-    targetId: 'output',
+    appTargetId: 'output',
     app: Text('hello world'),
   );
 }
@@ -34,8 +34,8 @@ class HomePage extends StatelessWidget
 
 void main() {
   runApp(
-    targetId: 'output',
     app: HomePage(),
+    appTargetId: 'output',
   );
 }
 ```
