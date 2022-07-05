@@ -66,20 +66,3 @@ String fnEncodeKeyValueMap(Map<String, String> valueMap) {
 
   return encodedMapValues.join('/');
 }
-
-@internal
-String? fnCommonPrepareClassAttribute({
-  required String? classAttribute,
-  required String? oldClassAttribute,
-}) {
-  if (null != classAttribute) {
-    return classAttribute;
-  } else {
-    // clean old classes(if were set)
-    if (null != oldClassAttribute && oldClassAttribute.isNotEmpty) {
-      return '';
-    }
-  }
-
-  return null;
-}
