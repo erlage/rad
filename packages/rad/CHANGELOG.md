@@ -1,3 +1,15 @@
+## 1.0.0-rc.2
+
+### New
+
+- Added `additionalAttributes` property to all HTML widgets.
+- Ability to add/update/remove meta information(meta tags) from within app's context.
+
+### Changes
+
+- Removed `GlobalKey`.
+- Removed `dataAttributes` property from HTML widgets. Use `additionalAttributes` instead.
+
 ## 1.0.0-rc.1
 
 ### New
@@ -12,9 +24,9 @@
 - Removed internal imports library(`package:rad/widgets_internals`). 
 - Changed `Navigator.of` signature(see API docs)
 - Renamed:
-    - DomNodeDescription to DomNodePatch.
-    - HTML's property contenteditable to contentEditable.
-    - HTML's Blockquote to BlockQuote.
+    - `DomNodeDescription` to `DomNodePatch`.
+    - HTML's property `contenteditable` to `contentEditable`.
+    - HTML's `Blockquote` to `BlockQuote`.
 
 ### Core - Benchmarks
 
@@ -58,7 +70,7 @@ Widgets with global key are registered in walker service and a global key can be
 ### New
 
 - Support for running multiple apps on the same page.
-- Widget keys(`Key`, `LocalKey` and `GlobalKey`). (previously key was just a string)
+- Widget keys(`Key`, ~~`LocalKey`~~ and ~~`GlobalKey`~~). (previously key was just a string)
 - `AsyncRoute` and `EventDetector` widgets along with number of new HTML widgets.
 
 ### Changes
