@@ -32,11 +32,11 @@ void main() {
 
         await app!.buildChildren(
           widgets: [
-            RT_TestWidget(key: GlobalKey('widget-1')),
-            RT_TestWidget(key: GlobalKey('widget-2')),
-            RT_TestWidget(key: GlobalKey('widget-3')),
-            RT_TestWidget(key: GlobalKey('widget-4')),
-            RT_TestWidget(key: GlobalKey('widget-5')),
+            RT_TestWidget(key: Key('widget-1')),
+            RT_TestWidget(key: Key('widget-2')),
+            RT_TestWidget(key: Key('widget-3')),
+            RT_TestWidget(key: Key('widget-4')),
+            RT_TestWidget(key: Key('widget-5')),
           ],
           parentRenderElement: app!.appRenderElement,
         );
@@ -69,11 +69,11 @@ void main() {
 
         await app!.buildChildren(
           widgets: [
-            RT_TestWidget(key: GlobalKey('widget-1')),
-            RT_TestWidget(key: GlobalKey('widget-2')),
-            RT_TestWidget(key: GlobalKey('widget-3')),
-            RT_TestWidget(key: GlobalKey('widget-4')),
-            RT_TestWidget(key: GlobalKey('widget-5')),
+            RT_TestWidget(key: Key('widget-1')),
+            RT_TestWidget(key: Key('widget-2')),
+            RT_TestWidget(key: Key('widget-3')),
+            RT_TestWidget(key: Key('widget-4')),
+            RT_TestWidget(key: Key('widget-5')),
           ],
           parentRenderElement: app!.appRenderElement,
         );
@@ -107,11 +107,11 @@ void main() {
 
         await app!.buildChildren(
           widgets: [
-            RT_TestWidget(key: GlobalKey('widget-1')),
-            RT_TestWidget(key: GlobalKey('widget-2')),
-            RT_TestWidget(key: GlobalKey('widget-3')),
-            RT_TestWidget(key: GlobalKey('widget-4')),
-            RT_TestWidget(key: GlobalKey('widget-5')),
+            RT_TestWidget(key: Key('widget-1')),
+            RT_TestWidget(key: Key('widget-2')),
+            RT_TestWidget(key: Key('widget-3')),
+            RT_TestWidget(key: Key('widget-4')),
+            RT_TestWidget(key: Key('widget-5')),
           ],
           parentRenderElement: app!.appRenderElement,
         );
@@ -144,17 +144,17 @@ void main() {
 
         await app!.buildChildren(
           widgets: [
-            RT_TestWidget(key: GlobalKey('widget-1')),
+            RT_TestWidget(key: Key('widget-1')),
             RT_TestWidget(
-              key: GlobalKey('widget-2'),
+              key: Key('widget-2'),
               children: [
-                RT_TestWidget(key: GlobalKey('widget-2-1')),
-                RT_TestWidget(key: GlobalKey('widget-2-2')),
+                RT_TestWidget(key: Key('widget-2-1')),
+                RT_TestWidget(key: Key('widget-2-2')),
               ],
             ),
-            RT_TestWidget(key: GlobalKey('widget-3')),
-            RT_TestWidget(key: GlobalKey('widget-4')),
-            RT_TestWidget(key: GlobalKey('widget-5')),
+            RT_TestWidget(key: Key('widget-3')),
+            RT_TestWidget(key: Key('widget-4')),
+            RT_TestWidget(key: Key('widget-5')),
           ],
           parentRenderElement: app!.appRenderElement,
         );
@@ -186,17 +186,17 @@ void main() {
 
         await app!.buildChildren(
           widgets: [
-            RT_TestWidget(key: GlobalKey('widget-1')),
+            RT_TestWidget(key: Key('widget-1')),
             RT_TestWidget(
-              key: GlobalKey('widget-2'),
+              key: Key('widget-2'),
               children: [
-                RT_TestWidget(key: GlobalKey('widget-2-1')),
-                RT_TestWidget(key: GlobalKey('widget-2-2')),
+                RT_TestWidget(key: Key('widget-2-1')),
+                RT_TestWidget(key: Key('widget-2-2')),
               ],
             ),
-            RT_TestWidget(key: GlobalKey('widget-3')),
-            RT_TestWidget(key: GlobalKey('widget-4')),
-            RT_TestWidget(key: GlobalKey('widget-5')),
+            RT_TestWidget(key: Key('widget-3')),
+            RT_TestWidget(key: Key('widget-4')),
+            RT_TestWidget(key: Key('widget-5')),
           ],
           parentRenderElement: app!.appRenderElement,
         );
@@ -231,15 +231,15 @@ void main() {
         await app!.buildChildren(
           widgets: [
             RT_TestWidget(
-              key: GlobalKey('widget-1'),
+              key: Key('widget-1'),
               roEventAfterUnMount: () => testStack.push('dispose-1'),
             ),
             RT_TestWidget(
-              key: GlobalKey('widget-2'),
+              key: Key('widget-2'),
               roEventAfterUnMount: () => testStack.push('dispose-2'),
             ),
             RT_TestWidget(
-              key: GlobalKey('widget-3'),
+              key: Key('widget-3'),
               roEventAfterUnMount: () => testStack.push('dispose-3'),
             ),
           ],
@@ -278,18 +278,18 @@ void main() {
         await app!.buildChildren(
           widgets: [
             RT_TestWidget(
-              key: GlobalKey('widget-1'),
+              key: Key('widget-1'),
               roEventUpdate: () => testStack.push('update-1'),
             ),
             RT_TestWidget(
-              key: GlobalKey('widget-2'),
+              key: Key('widget-2'),
               roEventUpdate: () => testStack.push('update-2'),
               children: [
                 RT_TestWidget(
-                  key: GlobalKey('widget-2-1'),
+                  key: Key('widget-2-1'),
                   children: [
                     RT_TestWidget(
-                      key: GlobalKey('widget-2-1-1'),
+                      key: Key('widget-2-1-1'),
                       children: [],
                       roEventUpdate: () => testStack.push('update-2-1-1'),
                     ),
@@ -299,7 +299,7 @@ void main() {
               ],
             ),
             RT_TestWidget(
-              key: GlobalKey('widget-3'),
+              key: Key('widget-3'),
               roEventUpdate: () => testStack.push('update-3'),
             ),
           ],
@@ -333,9 +333,9 @@ void main() {
       () async {
         await app!.buildChildren(
           widgets: [
-            RT_TestWidget(key: GlobalKey('widget-1')),
-            RT_TestWidget(key: GlobalKey('widget-2')),
-            RT_TestWidget(key: GlobalKey('widget-3')),
+            RT_TestWidget(key: Key('widget-1')),
+            RT_TestWidget(key: Key('widget-2')),
+            RT_TestWidget(key: Key('widget-3')),
           ],
           parentRenderElement: app!.appRenderElement,
         );
@@ -348,9 +348,9 @@ void main() {
           },
         );
 
-        var element1 = app!.renderElementByGlobalKey('widget-1')!;
-        var element2 = app!.renderElementByGlobalKey('widget-2')!;
-        var element3 = app!.renderElementByGlobalKey('widget-3')!;
+        var element1 = app!.renderElementByKeyValue('widget-1')!;
+        var element2 = app!.renderElementByKeyValue('widget-2')!;
+        var element3 = app!.renderElementByKeyValue('widget-3')!;
 
         expect(
           element1.domNode?.classes.contains(Constants.classHidden),
@@ -374,9 +374,9 @@ void main() {
       () async {
         await app!.buildChildren(
           widgets: [
-            RT_TestWidget(key: GlobalKey('widget-1')),
-            RT_TestWidget(key: GlobalKey('widget-2')),
-            RT_TestWidget(key: GlobalKey('widget-3')),
+            RT_TestWidget(key: Key('widget-1')),
+            RT_TestWidget(key: Key('widget-2')),
+            RT_TestWidget(key: Key('widget-3')),
           ],
           parentRenderElement: app!.appRenderElement,
         );
@@ -399,9 +399,9 @@ void main() {
           },
         );
 
-        var element1 = app!.renderElementByGlobalKey('widget-1')!;
-        var element2 = app!.renderElementByGlobalKey('widget-2')!;
-        var element3 = app!.renderElementByGlobalKey('widget-3')!;
+        var element1 = app!.renderElementByKeyValue('widget-1')!;
+        var element2 = app!.renderElementByKeyValue('widget-2')!;
+        var element3 = app!.renderElementByKeyValue('widget-3')!;
 
         expect(
           element1.domNode?.classes.contains(Constants.classHidden),
@@ -432,7 +432,7 @@ void main() {
             Navigator(
               routes: [
                 Route(
-                  key: GlobalKey('route'),
+                  key: Key('route'),
                   name: 'some-name',
                   page: Text(''),
                 ),
@@ -451,7 +451,7 @@ void main() {
           },
         );
 
-        var route = pap.widgetByGlobalKey('route');
+        var route = pap.widgetByKey('route');
 
         expect((route as Route).name, equals('some-name'));
       },
@@ -465,18 +465,18 @@ void main() {
         await app!.buildChildren(
           widgets: [
             RT_TestWidget(
-              key: GlobalKey('widget-1'),
+              key: Key('widget-1'),
               roEventUpdate: () => testStack.push('update-1'),
               roEventAfterUnMount: () => testStack.push('dispose-1'),
             ),
             RT_TestWidget(
-              key: GlobalKey('widget-2'),
+              key: Key('widget-2'),
               children: [
                 RT_TestWidget(
-                  key: GlobalKey('widget-2-1'),
+                  key: Key('widget-2-1'),
                   children: [
                     RT_TestWidget(
-                      key: GlobalKey('widget-2-1-1'),
+                      key: Key('widget-2-1-1'),
                       children: [],
                       // should never cascade update to this level
                       roEventUpdate: () => testStack.push('update-2-1-1'),
@@ -490,11 +490,11 @@ void main() {
               roEventAfterUnMount: () => testStack.push('dispose-2'),
             ),
             RT_TestWidget(
-              key: GlobalKey('widget-3'),
+              key: Key('widget-3'),
               roEventUpdate: () => testStack.push('update-3'),
               roEventAfterUnMount: () => testStack.push('dispose-3'),
             ),
-            RT_TestWidget(key: GlobalKey('widget-4')),
+            RT_TestWidget(key: Key('widget-4')),
           ],
           parentRenderElement: app!.appRenderElement,
         );
@@ -530,8 +530,8 @@ void main() {
           },
         );
 
-        var element1 = app!.renderElementByGlobalKey('widget-1')!;
-        var element3 = app!.renderElementByGlobalKey('widget-3')!;
+        var element1 = app!.renderElementByKeyValue('widget-1')!;
+        var element3 = app!.renderElementByKeyValue('widget-3')!;
 
         expect(
           element1.domNode?.classes.contains(Constants.classHidden),

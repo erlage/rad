@@ -2,7 +2,7 @@ test('should set inner text', () async {
   await app!.buildChildren(
     widgets: [
       __WidgetClass__(
-        key: GlobalKey('widget-1'),
+        key: Key('widget-1'),
         innerText: 'hello world',
       ),
     ],

@@ -9,7 +9,7 @@ import '../../test_imports.dart';
 void main() {
   group('update dependent tests:', () {
     testWidgets('should call update on dependent', (tester) async {
-      var gkey = GlobalKey('gkey');
+      var gkey = Key('gkey');
 
       await tester.pumpWidget(
         RT_TestWidget(
@@ -18,7 +18,7 @@ void main() {
         ),
       );
 
-      var wo = tester.getRenderElementByGlobalKey(gkey)!;
+      var wo = tester.getrenderElementByKeyValue(gkey)!;
 
       await tester.updateRenderElementAsIfDependant(wo);
       await tester.updateRenderElementAsIfDependant(wo);
@@ -30,7 +30,7 @@ void main() {
     });
 
     testWidgets('should set update type to dependencyChanged', (tester) async {
-      var gkey = GlobalKey('gkey');
+      var gkey = Key('gkey');
 
       await tester.pumpWidget(
         RT_TestWidget(
@@ -39,7 +39,7 @@ void main() {
         ),
       );
 
-      var wo = tester.getRenderElementByGlobalKey(gkey)!;
+      var wo = tester.getrenderElementByKeyValue(gkey)!;
 
       await tester.updateRenderElementAsIfDependant(wo);
       await tester.updateRenderElementAsIfDependant(wo);

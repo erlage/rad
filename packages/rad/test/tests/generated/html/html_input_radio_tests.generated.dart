@@ -23,16 +23,16 @@ void html_input_radio_test() {
     test('should set id', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('some-key-1'), id: 'some-id-1'),
-          InputRadio(key: GlobalKey('some-key-2'), id: 'some-id-2'),
-          InputRadio(key: GlobalKey('some-key-3'), id: 'some-id-3'),
+          InputRadio(key: Key('some-key-1'), id: 'some-id-1'),
+          InputRadio(key: Key('some-key-2'), id: 'some-id-2'),
+          InputRadio(key: Key('some-key-3'), id: 'some-id-3'),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('some-key-1');
-      var domNode2 = app!.domNodeByGlobalKey('some-key-2');
-      var domNode3 = app!.domNodeByGlobalKey('some-key-3');
+      var domNode1 = app!.domNodeByKeyValue('some-key-1');
+      var domNode2 = app!.domNodeByKeyValue('some-key-2');
+      var domNode3 = app!.domNodeByKeyValue('some-key-3');
 
       expect(domNode1.id, equals('some-id-1'));
       expect(domNode2.id, equals('some-id-2'));
@@ -42,16 +42,16 @@ void html_input_radio_test() {
     test('should reset and update id', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('some-key-1'), id: 'some-id-1'),
-          InputRadio(key: GlobalKey('some-key-2'), id: 'some-id-2'),
-          InputRadio(key: GlobalKey('some-key-3'), id: 'some-id-3'),
+          InputRadio(key: Key('some-key-1'), id: 'some-id-1'),
+          InputRadio(key: Key('some-key-2'), id: 'some-id-2'),
+          InputRadio(key: Key('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('some-key-1');
-      var domNode2 = app!.domNodeByGlobalKey('some-key-2');
-      var domNode3 = app!.domNodeByGlobalKey('some-key-3');
+      var domNode1 = app!.domNodeByKeyValue('some-key-1');
+      var domNode2 = app!.domNodeByKeyValue('some-key-2');
+      var domNode3 = app!.domNodeByKeyValue('some-key-3');
 
       expect(domNode1.id, equals('some-id-1'));
       expect(domNode2.id, equals('some-id-2'));
@@ -60,15 +60,15 @@ void html_input_radio_test() {
       await app!.updateChildren(
         widgets: [
           InputRadio(
-            key: GlobalKey('some-key-1'),
+            key: Key('some-key-1'),
             id: 'some-updated-id',
           ),
           InputRadio(
-            key: GlobalKey('some-key-2'),
+            key: Key('some-key-2'),
             id: 'some-local-updated-id',
           ),
           InputRadio(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'some-global-updated-id',
           ),
         ],
@@ -171,19 +171,19 @@ void html_input_radio_test() {
       await app!.buildChildren(
         widgets: [
           InputRadio(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'some-classes',
           ),
           InputRadio(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('class'), equals('some-classes'));
       expect(domNode2.getAttribute('class'), equals('another-classes'));
@@ -193,11 +193,11 @@ void html_input_radio_test() {
       await app!.buildChildren(
         widgets: [
           InputRadio(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'some-classes',
           ),
           InputRadio(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
@@ -207,11 +207,11 @@ void html_input_radio_test() {
       await app!.updateChildren(
         widgets: [
           InputRadio(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'updated-classes',
           ),
           InputRadio(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
@@ -219,8 +219,8 @@ void html_input_radio_test() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('class'), equals('updated-classes'));
       expect(domNode2.getAttribute('class'), equals('another-classes'));
@@ -229,9 +229,9 @@ void html_input_radio_test() {
     test('should clear attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1')),
+          InputRadio(key: Key('el-1')),
           InputRadio(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
@@ -240,15 +240,15 @@ void html_input_radio_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1')),
-          InputRadio(key: GlobalKey('el-2')),
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('class'), equals(null));
       expect(domNode2.getAttribute('class'), equals(null));
@@ -258,7 +258,7 @@ void html_input_radio_test() {
       await app!.buildChildren(
         widgets: [
           InputRadio(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'some-classes',
           ),
         ],
@@ -267,13 +267,13 @@ void html_input_radio_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), classAttribute: null),
+          InputRadio(key: Key('el-1'), classAttribute: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('class'), equals(null));
     });
@@ -282,12 +282,12 @@ void html_input_radio_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), classAttribute: null),
+          InputRadio(key: Key('el-1'), classAttribute: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('class'), equals(null));
     });
@@ -378,16 +378,16 @@ void html_input_radio_test() {
     test('should set attribute "hidden" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), hidden: false),
-          InputRadio(key: GlobalKey('el-2'), hidden: null),
-          InputRadio(key: GlobalKey('el-3'), hidden: true),
+          InputRadio(key: Key('el-1'), hidden: false),
+          InputRadio(key: Key('el-2'), hidden: null),
+          InputRadio(key: Key('el-3'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
 
       expect(domNode1.getAttribute('hidden'), equals(null));
       expect(domNode2.getAttribute('hidden'), equals(null));
@@ -398,29 +398,29 @@ void html_input_radio_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), hidden: true),
-          InputRadio(key: GlobalKey('el-2'), hidden: true),
-          InputRadio(key: GlobalKey('el-3'), hidden: true),
-          InputRadio(key: GlobalKey('el-4'), hidden: true),
+          InputRadio(key: Key('el-1'), hidden: true),
+          InputRadio(key: Key('el-2'), hidden: true),
+          InputRadio(key: Key('el-3'), hidden: true),
+          InputRadio(key: Key('el-4'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), hidden: true),
-          InputRadio(key: GlobalKey('el-2'), hidden: false),
-          InputRadio(key: GlobalKey('el-3'), hidden: null),
-          InputRadio(key: GlobalKey('el-4')),
+          InputRadio(key: Key('el-1'), hidden: true),
+          InputRadio(key: Key('el-2'), hidden: false),
+          InputRadio(key: Key('el-3'), hidden: null),
+          InputRadio(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
-      var domNode4 = app!.domNodeByGlobalKey('el-4');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
 
       expect(domNode1.getAttribute('hidden'), equals('true'));
       expect(domNode2.getAttribute('hidden'), equals(null));
@@ -432,7 +432,7 @@ void html_input_radio_test() {
       await app!.buildChildren(
         widgets: [
           InputRadio(
-            key: GlobalKey('widget-1'),
+            key: Key('widget-1'),
             innerText: 'hello world',
           ),
         ],
@@ -452,15 +452,14 @@ void html_input_radio_test() {
     test('should set attribute "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
-          InputRadio(
-              key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          InputRadio(key: Key('el-1'), onClickAttribute: 'some-on-click'),
+          InputRadio(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('onClick'), equals('some-on-click'));
       expect(domNode2.getAttribute('onClick'), equals('another-on-click'));
@@ -469,26 +468,23 @@ void html_input_radio_test() {
     test('should update attribute "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
-          InputRadio(
-              key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          InputRadio(key: Key('el-1'), onClickAttribute: 'some-on-click'),
+          InputRadio(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputRadio(
-              key: GlobalKey('el-1'), onClickAttribute: 'updated-on-click'),
-          InputRadio(
-              key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          InputRadio(key: Key('el-1'), onClickAttribute: 'updated-on-click'),
+          InputRadio(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('onClick'), equals('updated-on-click'));
       expect(domNode2.getAttribute('onClick'), equals('another-on-click'));
@@ -497,24 +493,23 @@ void html_input_radio_test() {
     test('should clear attribute "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1')),
-          InputRadio(
-              key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1')),
-          InputRadio(key: GlobalKey('el-2')),
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('onClick'), equals(null));
       expect(domNode2.getAttribute('onClick'), equals(null));
@@ -524,20 +519,20 @@ void html_input_radio_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
+          InputRadio(key: Key('el-1'), onClickAttribute: 'some-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), onClickAttribute: null),
+          InputRadio(key: Key('el-1'), onClickAttribute: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('onClick'), equals(null));
     });
@@ -547,12 +542,12 @@ void html_input_radio_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), onClickAttribute: null),
+          InputRadio(key: Key('el-1'), onClickAttribute: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('onClick'), equals(null));
     });
@@ -602,19 +597,19 @@ void html_input_radio_test() {
       await app!.buildChildren(
         widgets: [
           InputRadio(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             onClick: (event) => testStack.push('click-1'),
           ),
           InputRadio(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             onClick: (event) => testStack.push('click-2'),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('click'));
-      app!.domNodeByGlobalKey('el-2').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('click'));
 
       await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('click-1'));
@@ -628,16 +623,16 @@ void html_input_radio_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1')),
-          InputRadio(key: GlobalKey('el-2'), onClick: null),
-          InputRadio(key: GlobalKey('el-3'), onClick: listener),
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2'), onClick: null),
+          InputRadio(key: Key('el-3'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByGlobalKey('el-3').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
+      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(null));
@@ -649,14 +644,14 @@ void html_input_radio_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1')),
-          InputRadio(key: GlobalKey('el-2'), onClick: listener),
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(listener));
@@ -665,15 +660,15 @@ void html_input_radio_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1')),
-          InputRadio(key: GlobalKey('el-2')),
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(null));
@@ -748,7 +743,7 @@ void html_input_radio_test() {
     test('should set correct types and markup', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('some-key-3')),
+          InputRadio(key: Key('some-key-3')),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -784,7 +779,7 @@ void html_input_radio_test() {
       await app!.buildChildren(
         widgets: [
           InputRadio(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'id': 'some-id',
             },
@@ -806,7 +801,7 @@ void html_input_radio_test() {
       await app!.buildChildren(
         widgets: [
           InputRadio(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
               'id': 'ignored-id',
@@ -831,7 +826,7 @@ void html_input_radio_test() {
       await app!.buildChildren(
         widgets: [
           InputRadio(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
               'id': 'ignored-id',
@@ -844,7 +839,7 @@ void html_input_radio_test() {
       await app!.updateChildren(
         widgets: [
           InputRadio(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'updated-id',
             additionalAttributes: {
               'id': 'ignored-id',
@@ -866,7 +861,7 @@ void html_input_radio_test() {
       await app!.buildChildren(
         widgets: [
           InputRadio(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
               'data-another': 'another okay',
@@ -886,7 +881,7 @@ void html_input_radio_test() {
       await app!.buildChildren(
         widgets: [
           InputRadio(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'aria-something': 'something okay',
               'any-another': 'another okay',
@@ -907,7 +902,7 @@ void html_input_radio_test() {
       await app!.buildChildren(
         widgets: [
           InputRadio(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
             },
@@ -919,7 +914,7 @@ void html_input_radio_test() {
       await app!.updateChildren(
         widgets: [
           InputRadio(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'data-something-new': 'something new',
             },
@@ -940,16 +935,16 @@ void html_input_radio_test() {
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('some-key-1')),
-          InputRadio(key: GlobalKey('some-key-2')),
-          InputRadio(key: GlobalKey('some-key-3')),
+          InputRadio(key: Key('some-key-1')),
+          InputRadio(key: Key('some-key-2')),
+          InputRadio(key: Key('some-key-3')),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var wO1 = app!.renderElementByGlobalKey('some-key-1')!;
-      var wO2 = app!.renderElementByGlobalKey('some-key-2')!;
-      var wO3 = app!.renderElementByGlobalKey('some-key-3')!;
+      var wO1 = app!.renderElementByKeyValue('some-key-1')!;
+      var wO2 = app!.renderElementByKeyValue('some-key-2')!;
+      var wO3 = app!.renderElementByKeyValue('some-key-3')!;
 
       expect(wO1.key?.frameworkValue, endsWith('some-key-1'));
       expect(wO2.key?.frameworkValue, endsWith('some-key-2'));
@@ -959,14 +954,14 @@ void html_input_radio_test() {
     test('should set attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), name: 'some-name'),
-          InputRadio(key: GlobalKey('el-2'), name: 'another-name'),
+          InputRadio(key: Key('el-1'), name: 'some-name'),
+          InputRadio(key: Key('el-2'), name: 'another-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('name'), equals('some-name'));
       expect(domNode2.getAttribute('name'), equals('another-name'));
@@ -975,23 +970,23 @@ void html_input_radio_test() {
     test('should update attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), name: 'some-name'),
-          InputRadio(key: GlobalKey('el-2'), name: 'another-name'),
+          InputRadio(key: Key('el-1'), name: 'some-name'),
+          InputRadio(key: Key('el-2'), name: 'another-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), name: 'updated-name'),
-          InputRadio(key: GlobalKey('el-2'), name: 'another-name'),
+          InputRadio(key: Key('el-1'), name: 'updated-name'),
+          InputRadio(key: Key('el-2'), name: 'another-name'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('name'), equals('updated-name'));
       expect(domNode2.getAttribute('name'), equals('another-name'));
@@ -1000,23 +995,23 @@ void html_input_radio_test() {
     test('should clear attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1')),
-          InputRadio(key: GlobalKey('el-2'), name: 'another-name'),
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2'), name: 'another-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1')),
-          InputRadio(key: GlobalKey('el-2')),
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('name'), equals(null));
       expect(domNode2.getAttribute('name'), equals(null));
@@ -1025,20 +1020,20 @@ void html_input_radio_test() {
     test('should clear attribute "name" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), name: 'some-name'),
+          InputRadio(key: Key('el-1'), name: 'some-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), name: null),
+          InputRadio(key: Key('el-1'), name: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('name'), equals(null));
     });
@@ -1046,12 +1041,12 @@ void html_input_radio_test() {
     test('should not set attribute "name" if provided value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), name: null),
+          InputRadio(key: Key('el-1'), name: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('name'), equals(null));
     });
@@ -1098,14 +1093,14 @@ void html_input_radio_test() {
     test('should set attribute "value"', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), value: 'some-value'),
-          InputRadio(key: GlobalKey('el-2'), value: 'another-value'),
+          InputRadio(key: Key('el-1'), value: 'some-value'),
+          InputRadio(key: Key('el-2'), value: 'another-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('value'), equals('some-value'));
       expect(domNode2.getAttribute('value'), equals('another-value'));
@@ -1114,23 +1109,23 @@ void html_input_radio_test() {
     test('should update attribute "value"', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), value: 'some-value'),
-          InputRadio(key: GlobalKey('el-2'), value: 'another-value'),
+          InputRadio(key: Key('el-1'), value: 'some-value'),
+          InputRadio(key: Key('el-2'), value: 'another-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), value: 'updated-value'),
-          InputRadio(key: GlobalKey('el-2'), value: 'another-value'),
+          InputRadio(key: Key('el-1'), value: 'updated-value'),
+          InputRadio(key: Key('el-2'), value: 'another-value'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('value'), equals('updated-value'));
       expect(domNode2.getAttribute('value'), equals('another-value'));
@@ -1139,23 +1134,23 @@ void html_input_radio_test() {
     test('should clear attribute "value"', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1')),
-          InputRadio(key: GlobalKey('el-2'), value: 'another-value'),
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2'), value: 'another-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1')),
-          InputRadio(key: GlobalKey('el-2')),
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('value'), equals(null));
       expect(domNode2.getAttribute('value'), equals(null));
@@ -1164,20 +1159,20 @@ void html_input_radio_test() {
     test('should clear attribute "value" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), value: 'some-value'),
+          InputRadio(key: Key('el-1'), value: 'some-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), value: null),
+          InputRadio(key: Key('el-1'), value: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('value'), equals(null));
     });
@@ -1186,12 +1181,12 @@ void html_input_radio_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), value: null),
+          InputRadio(key: Key('el-1'), value: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('value'), equals(null));
     });
@@ -1199,16 +1194,16 @@ void html_input_radio_test() {
     test('should set attribute "required" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), required: false),
-          InputRadio(key: GlobalKey('el-2'), required: null),
-          InputRadio(key: GlobalKey('el-3'), required: true),
+          InputRadio(key: Key('el-1'), required: false),
+          InputRadio(key: Key('el-2'), required: null),
+          InputRadio(key: Key('el-3'), required: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
 
       expect(domNode1.getAttribute('required'), equals(null));
       expect(domNode2.getAttribute('required'), equals(null));
@@ -1219,29 +1214,29 @@ void html_input_radio_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), required: true),
-          InputRadio(key: GlobalKey('el-2'), required: true),
-          InputRadio(key: GlobalKey('el-3'), required: true),
-          InputRadio(key: GlobalKey('el-4'), required: true),
+          InputRadio(key: Key('el-1'), required: true),
+          InputRadio(key: Key('el-2'), required: true),
+          InputRadio(key: Key('el-3'), required: true),
+          InputRadio(key: Key('el-4'), required: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), required: true),
-          InputRadio(key: GlobalKey('el-2'), required: false),
-          InputRadio(key: GlobalKey('el-3'), required: null),
-          InputRadio(key: GlobalKey('el-4')),
+          InputRadio(key: Key('el-1'), required: true),
+          InputRadio(key: Key('el-2'), required: false),
+          InputRadio(key: Key('el-3'), required: null),
+          InputRadio(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
-      var domNode4 = app!.domNodeByGlobalKey('el-4');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
 
       expect(domNode1.getAttribute('required'), equals('true'));
       expect(domNode2.getAttribute('required'), equals(null));
@@ -1252,16 +1247,16 @@ void html_input_radio_test() {
     test('should set attribute "disabled" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), disabled: false),
-          InputRadio(key: GlobalKey('el-2'), disabled: null),
-          InputRadio(key: GlobalKey('el-3'), disabled: true),
+          InputRadio(key: Key('el-1'), disabled: false),
+          InputRadio(key: Key('el-2'), disabled: null),
+          InputRadio(key: Key('el-3'), disabled: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
 
       expect(domNode1.getAttribute('disabled'), equals(null));
       expect(domNode2.getAttribute('disabled'), equals(null));
@@ -1272,29 +1267,29 @@ void html_input_radio_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), disabled: true),
-          InputRadio(key: GlobalKey('el-2'), disabled: true),
-          InputRadio(key: GlobalKey('el-3'), disabled: true),
-          InputRadio(key: GlobalKey('el-4'), disabled: true),
+          InputRadio(key: Key('el-1'), disabled: true),
+          InputRadio(key: Key('el-2'), disabled: true),
+          InputRadio(key: Key('el-3'), disabled: true),
+          InputRadio(key: Key('el-4'), disabled: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), disabled: true),
-          InputRadio(key: GlobalKey('el-2'), disabled: false),
-          InputRadio(key: GlobalKey('el-3'), disabled: null),
-          InputRadio(key: GlobalKey('el-4')),
+          InputRadio(key: Key('el-1'), disabled: true),
+          InputRadio(key: Key('el-2'), disabled: false),
+          InputRadio(key: Key('el-3'), disabled: null),
+          InputRadio(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
-      var domNode4 = app!.domNodeByGlobalKey('el-4');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
 
       expect(domNode1.getAttribute('disabled'), equals('true'));
       expect(domNode2.getAttribute('disabled'), equals(null));
@@ -1305,16 +1300,16 @@ void html_input_radio_test() {
     test('should set attribute "checked" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), checked: false),
-          InputRadio(key: GlobalKey('el-2'), checked: null),
-          InputRadio(key: GlobalKey('el-3'), checked: true),
+          InputRadio(key: Key('el-1'), checked: false),
+          InputRadio(key: Key('el-2'), checked: null),
+          InputRadio(key: Key('el-3'), checked: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
 
       expect(domNode1.getAttribute('checked'), equals(null));
       expect(domNode2.getAttribute('checked'), equals(null));
@@ -1325,29 +1320,29 @@ void html_input_radio_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), checked: true),
-          InputRadio(key: GlobalKey('el-2'), checked: true),
-          InputRadio(key: GlobalKey('el-3'), checked: true),
-          InputRadio(key: GlobalKey('el-4'), checked: true),
+          InputRadio(key: Key('el-1'), checked: true),
+          InputRadio(key: Key('el-2'), checked: true),
+          InputRadio(key: Key('el-3'), checked: true),
+          InputRadio(key: Key('el-4'), checked: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1'), checked: true),
-          InputRadio(key: GlobalKey('el-2'), checked: false),
-          InputRadio(key: GlobalKey('el-3'), checked: null),
-          InputRadio(key: GlobalKey('el-4')),
+          InputRadio(key: Key('el-1'), checked: true),
+          InputRadio(key: Key('el-2'), checked: false),
+          InputRadio(key: Key('el-3'), checked: null),
+          InputRadio(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
-      var domNode4 = app!.domNodeByGlobalKey('el-4');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
 
       expect(domNode1.getAttribute('checked'), equals('true'));
       expect(domNode2.getAttribute('checked'), equals(null));
@@ -1361,19 +1356,19 @@ void html_input_radio_test() {
       await app!.buildChildren(
         widgets: [
           InputRadio(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             onChange: (event) => testStack.push('change-1'),
           ),
           InputRadio(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             onChange: (event) => testStack.push('change-2'),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('change'));
-      app!.domNodeByGlobalKey('el-2').dispatchEvent(Event('change'));
+      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('change'));
+      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('change'));
 
       await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('change-1'));
@@ -1387,16 +1382,16 @@ void html_input_radio_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1')),
-          InputRadio(key: GlobalKey('el-2'), onChange: null),
-          InputRadio(key: GlobalKey('el-3'), onChange: listener),
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2'), onChange: null),
+          InputRadio(key: Key('el-3'), onChange: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByGlobalKey('el-3').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
+      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
 
       expect(listeners1[DomEventType.change], equals(null));
       expect(listeners2[DomEventType.change], equals(null));
@@ -1408,14 +1403,14 @@ void html_input_radio_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1')),
-          InputRadio(key: GlobalKey('el-2'), onChange: listener),
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2'), onChange: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.change], equals(null));
       expect(listeners2[DomEventType.change], equals(listener));
@@ -1424,15 +1419,15 @@ void html_input_radio_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputRadio(key: GlobalKey('el-1')),
-          InputRadio(key: GlobalKey('el-2')),
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.change], equals(null));
       expect(listeners2[DomEventType.change], equals(null));

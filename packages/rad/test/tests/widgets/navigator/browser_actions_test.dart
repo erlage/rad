@@ -26,7 +26,7 @@ void main() {
         await app!.buildChildren(
           widgets: [
             Navigator(
-              key: GlobalKey('navigator'),
+              key: Key('navigator'),
               routes: [
                 Route(name: 'route-1', page: Text('route-1')),
                 Route(name: 'route-2', page: Text('route-2')),
@@ -54,7 +54,7 @@ void main() {
         await app!.buildChildren(
           widgets: [
             Navigator(
-              key: GlobalKey('navigator'),
+              key: Key('navigator'),
               routes: [
                 Route(name: 'route-1', page: Text('route-1')),
                 Route(name: 'route-2', page: Text('route-2')),
@@ -99,7 +99,7 @@ void main() {
         await app!.buildChildren(
           widgets: [
             Navigator(
-              key: GlobalKey('navigator'),
+              key: Key('navigator'),
               routes: [
                 Route(name: 'route-1', page: Text('route-1')),
                 Route(name: 'route-2', page: Text('route-2')),
@@ -130,7 +130,7 @@ void main() {
         await app!.buildChildren(
           widgets: [
             Navigator(
-              key: GlobalKey('navigator'),
+              key: Key('navigator'),
               routes: [
                 Route(name: 'route-1', page: Text('route-1')),
                 Route(name: 'route-2', page: Text('route-2')),
@@ -182,14 +182,14 @@ void main() {
         await app!.buildChildren(
           widgets: [
             Navigator(
-              key: GlobalKey('parent'),
+              key: Key('parent'),
               routes: [
                 Route(name: 'p-route-1', page: Text('route-1')),
                 Route(name: 'p-route-2', page: Text('route-2')),
                 Route(
                   name: 'p-route-3',
                   page: Navigator(
-                    key: GlobalKey('child'),
+                    key: Key('child'),
                     routes: [
                       Route(name: 'c-route-1', page: Text('route-1')),
                       Route(name: 'c-route-2', page: Text('route-2')),
@@ -231,14 +231,14 @@ void main() {
         await app!.buildChildren(
           widgets: [
             Navigator(
-              key: GlobalKey('parent'),
+              key: Key('parent'),
               routes: [
                 Route(name: 'p-route-1', page: Text('route-1')),
                 Route(name: 'p-route-2', page: Text('route-2')),
                 Route(
                   name: 'p-route-3',
                   page: Navigator(
-                    key: GlobalKey('child'),
+                    key: Key('child'),
                     routes: [
                       Route(name: 'c-route-1', page: Text('route-1')),
                       Route(name: 'c-route-2', page: Text('route-2')),
@@ -291,7 +291,7 @@ void main() {
         await app!.buildChildren(
           widgets: [
             Navigator(
-              key: GlobalKey('navigator'),
+              key: Key('navigator'),
               routes: [
                 Route(name: 'route-1', page: Text('route-1')),
                 Route(name: 'route-2', page: Text('route-2')),
@@ -360,14 +360,14 @@ void main() {
         await app!.buildChildren(
           widgets: [
             Navigator(
-              key: GlobalKey('parent'),
+              key: Key('parent'),
               routes: [
                 Route(name: 'p-route-1', page: Text('route-1')),
                 Route(name: 'p-route-2', page: Text('route-2')),
                 Route(
                   name: 'p-route-3',
                   page: Navigator(
-                    key: GlobalKey('child'),
+                    key: Key('child'),
                     routes: [
                       Route(name: 'c-route-1', page: Text('route-1')),
                       Route(name: 'c-route-2', page: Text('route-2')),
@@ -400,14 +400,14 @@ void main() {
         await app!.buildChildren(
           widgets: [
             Navigator(
-              key: GlobalKey('parent'),
+              key: Key('parent'),
               routes: [
                 Route(name: 'p-route-1', page: Text('route-1')),
                 Route(name: 'p-route-2', page: Text('route-2')),
                 Route(
                   name: 'p-route-3',
                   page: Navigator(
-                    key: GlobalKey('child'),
+                    key: Key('child'),
                     routes: [
                       Route(name: 'c-route-1', page: Text('route-1')),
                       Route(name: 'c-route-2', page: Text('route-2')),
@@ -449,14 +449,14 @@ void main() {
         await app!.buildChildren(
           widgets: [
             Navigator(
-              key: GlobalKey('parent'),
+              key: Key('parent'),
               routes: [
                 Route(name: 'p-route-1', page: Text('route-1')),
                 Route(name: 'p-route-2', page: Text('route-2')),
                 Route(
                   name: 'p-route-3',
                   page: Navigator(
-                    key: GlobalKey('child'),
+                    key: Key('child'),
                     routes: [
                       Route(name: 'c-route-1', page: Text('route-1')),
                       Route(name: 'c-route-2', page: Text('route-2')),

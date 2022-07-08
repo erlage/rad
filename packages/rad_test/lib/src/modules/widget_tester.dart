@@ -9,6 +9,7 @@ import 'package:test/scaffolding.dart';
 
 import 'package:rad_test/src/common/functions.dart';
 import 'package:rad_test/src/imports.dart';
+import 'package:rad_test/src/modules/all_elements.dart';
 import 'package:rad_test/src/modules/finders.dart';
 import 'package:rad_test/src/modules/testers.dart';
 import 'package:rad_test/src/runner/app_runner.dart';
@@ -343,21 +344,31 @@ class WidgetTester {
 
   /// Find widget by global key under app context.
   ///
-  Widget? getWidgetByGlobalKey(GlobalKey key) => getRenderElementByGlobalKey(
+  Widget? getWidgetByKey(Key key) => getrenderElementByKeyValue(
         key,
       )?.widget;
 
   /// Find render element by global key under app context.
   ///
-  RenderElement? getRenderElementByGlobalKey(GlobalKey key) {
-    return app.frameworkServices.walker
-        .getRenderElementAssociatedWithGlobalKey(key);
+  RenderElement? getrenderElementByKeyValue(Key key) {
+    var elements = collectAllWidgetObjectsFrom(
+      app.rootElement,
+      skipOffstage: false,
+    );
+
+    for (final element in elements) {
+      if (element.key == key) {
+        return element;
+      }
+    }
+
+    return null;
   }
 
   /// Find dom node by global key under app context.
   ///
-  Element? getDomNodeByGlobalKey(GlobalKey key) {
-    return getRenderElementByGlobalKey(key)?.domNode;
+  Element? getdomNodeByKey(Key key) {
+    return getrenderElementByKeyValue(key)?.domNode;
   }
 
   /// Update a dependent build context.

@@ -193,7 +193,7 @@ void main() {
           await app!.buildChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('widget'),
+                key: Key('widget'),
                 customHash: 'original-instance',
                 roEventRender: () => testStack.push('render 1a'),
                 roEventUpdate: () => testStack.push('update 1a'),
@@ -209,7 +209,7 @@ void main() {
                     'rebind widget 1a',
                   );
 
-                  var element = app!.renderElementByGlobalKey('widget');
+                  var element = app!.renderElementByKeyValue('widget');
 
                   var hash = (element!.widget as RT_TestWidget).hash;
 
@@ -221,7 +221,7 @@ void main() {
             parentRenderElement: app!.appRenderElement,
           );
 
-          var renderElement = app!.renderElementByGlobalKey('widget');
+          var renderElement = app!.renderElementByKeyValue('widget');
 
           var hash = (renderElement!.widget as RT_TestWidget).hash;
 
@@ -230,7 +230,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('widget'),
+                key: Key('widget'),
                 customHash: 'new-instance',
                 roEventRender: () => testStack.push('render 2a'),
                 roEventUpdate: () => testStack.push('update 2a'),
@@ -395,7 +395,7 @@ void main() {
           await app!.buildChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('widget'),
+                key: Key('widget'),
                 wOverrideShouldUpdateWidget: () => false,
                 children: [],
               ),
@@ -408,7 +408,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('widget'),
+                key: Key('widget'),
                 wOverrideShouldUpdateWidget: () => false,
                 children: [
                   Text('a'),
@@ -426,7 +426,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('widget'),
+                key: Key('widget'),
                 wOverrideShouldUpdateWidget: () => false,
                 children: [],
               ),
@@ -446,21 +446,21 @@ void main() {
             widgets: [
               RT_TestWidget(
                 customHash: '1a',
-                key: GlobalKey('widget'),
+                key: Key('widget'),
                 wOverrideShouldUpdateWidget: () => true,
               ),
             ],
             parentRenderElement: app!.appRenderElement,
           );
 
-          var renderElement = app!.renderElementByGlobalKey('widget');
+          var renderElement = app!.renderElementByKeyValue('widget');
           expect((renderElement!.widget as RT_TestWidget).hash, equals('1a'));
 
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 customHash: '2a',
-                key: GlobalKey('widget'),
+                key: Key('widget'),
                 wOverrideShouldUpdateWidget: () => true,
               ),
             ],
@@ -474,7 +474,7 @@ void main() {
             widgets: [
               RT_TestWidget(
                 customHash: '3a',
-                key: GlobalKey('widget'),
+                key: Key('widget'),
                 wOverrideShouldUpdateWidget: () => true,
               ),
             ],
@@ -502,21 +502,21 @@ void main() {
             widgets: [
               RT_TestWidget(
                 customHash: '1a',
-                key: GlobalKey('widget'),
+                key: Key('widget'),
                 wOverrideShouldUpdateWidget: () => false,
               ),
             ],
             parentRenderElement: app!.appRenderElement,
           );
 
-          var renderElement = app!.renderElementByGlobalKey('widget');
+          var renderElement = app!.renderElementByKeyValue('widget');
           expect((renderElement!.widget as RT_TestWidget).hash, equals('1a'));
 
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
                 customHash: '2a',
-                key: GlobalKey('widget'),
+                key: Key('widget'),
                 wOverrideShouldUpdateWidget: () => false,
               ),
             ],
@@ -530,7 +530,7 @@ void main() {
             widgets: [
               RT_TestWidget(
                 customHash: '3a',
-                key: GlobalKey('widget'),
+                key: Key('widget'),
                 wOverrideShouldUpdateWidget: () => false,
               ),
             ],
@@ -615,19 +615,19 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('widget-1'),
+                key: Key('widget-1'),
                 roEventRender: () => testStack.push('render 1a-1'),
                 roEventUpdate: () => testStack.push('update 1a-1'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a-1'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-2'),
+                key: Key('widget-2'),
                 roEventRender: () => testStack.push('render 1a-2'),
                 roEventUpdate: () => testStack.push('update 1a-2'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a-2'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-3'),
+                key: Key('widget-3'),
                 roEventRender: () => testStack.push('render 1a-3'),
                 roEventUpdate: () => testStack.push('update 1a-3'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a-3'),
@@ -640,19 +640,19 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
-                key: GlobalKey('widget-1'),
+                key: Key('widget-1'),
                 roEventRender: () => testStack.push('render 1b-1'),
                 roEventUpdate: () => testStack.push('update 1b-1'),
                 roEventAfterUnMount: () => testStack.push('dispose 1b-1'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-2'),
+                key: Key('widget-2'),
                 roEventRender: () => testStack.push('render 2a-2'),
                 roEventUpdate: () => testStack.push('update 2a-2'),
                 roEventAfterUnMount: () => testStack.push('dispose 2a-2'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-3'),
+                key: Key('widget-3'),
                 roEventRender: () => testStack.push('render 2a-3'),
                 roEventUpdate: () => testStack.push('update 2a-3'),
                 roEventAfterUnMount: () => testStack.push('dispose 2a-3'),
@@ -683,19 +683,19 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('widget-1'),
+                key: Key('widget-1'),
                 roEventRender: () => testStack.push('render 1a-1'),
                 roEventUpdate: () => testStack.push('update 1a-1'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a-1'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-2'),
+                key: Key('widget-2'),
                 roEventRender: () => testStack.push('render 1a-2'),
                 roEventUpdate: () => testStack.push('update 1a-2'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a-2'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-3'),
+                key: Key('widget-3'),
                 roEventRender: () => testStack.push('render 1a-3'),
                 roEventUpdate: () => testStack.push('update 1a-3'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a-3'),
@@ -708,19 +708,19 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('widget-1'),
+                key: Key('widget-1'),
                 roEventRender: () => testStack.push('render 2a-1'),
                 roEventUpdate: () => testStack.push('update 2a-1'),
                 roEventAfterUnMount: () => testStack.push('dispose 2a-1'),
               ),
               RT_AnotherTestWidget(
-                key: GlobalKey('widget-2'),
+                key: Key('widget-2'),
                 roEventRender: () => testStack.push('render 1b-2'),
                 roEventUpdate: () => testStack.push('update 1b-2'),
                 roEventAfterUnMount: () => testStack.push('dispose 1b-2'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-3'),
+                key: Key('widget-3'),
                 roEventRender: () => testStack.push('render 2a-3'),
                 roEventUpdate: () => testStack.push('update 2a-3'),
                 roEventAfterUnMount: () => testStack.push('dispose 2a-3'),
@@ -751,19 +751,19 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('widget-1'),
+                key: Key('widget-1'),
                 roEventRender: () => testStack.push('render 1a-1'),
                 roEventUpdate: () => testStack.push('update 1a-1'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a-1'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-2'),
+                key: Key('widget-2'),
                 roEventRender: () => testStack.push('render 1a-2'),
                 roEventUpdate: () => testStack.push('update 1a-2'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a-2'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-3'),
+                key: Key('widget-3'),
                 roEventRender: () => testStack.push('render 1a-3'),
                 roEventUpdate: () => testStack.push('update 1a-3'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a-3'),
@@ -776,19 +776,19 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('widget-1'),
+                key: Key('widget-1'),
                 roEventRender: () => testStack.push('render 2a-1'),
                 roEventUpdate: () => testStack.push('update 2a-1'),
                 roEventAfterUnMount: () => testStack.push('dispose 2a-1'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-2'),
+                key: Key('widget-2'),
                 roEventRender: () => testStack.push('render 2a-2'),
                 roEventUpdate: () => testStack.push('update 2a-2'),
                 roEventAfterUnMount: () => testStack.push('dispose 2a-2'),
               ),
               RT_AnotherTestWidget(
-                key: GlobalKey('widget-3'),
+                key: Key('widget-3'),
                 roEventRender: () => testStack.push('render 1b-3'),
                 roEventUpdate: () => testStack.push('update 1b-3'),
                 roEventAfterUnMount: () => testStack.push('dispose 1b-3'),
@@ -819,19 +819,19 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('widget-1'),
+                key: Key('widget-1'),
                 roEventRender: () => testStack.push('render 1a-1'),
                 roEventUpdate: () => testStack.push('update 1a-1'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a-1'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-2'),
+                key: Key('widget-2'),
                 roEventRender: () => testStack.push('render 1a-2'),
                 roEventUpdate: () => testStack.push('update 1a-2'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a-2'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-3'),
+                key: Key('widget-3'),
                 roEventRender: () => testStack.push('render 1a-3'),
                 roEventUpdate: () => testStack.push('update 1a-3'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a-3'),
@@ -844,25 +844,25 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('widget-1'),
+                key: Key('widget-1'),
                 roEventRender: () => testStack.push('render 2a-1'),
                 roEventUpdate: () => testStack.push('update 2a-1'),
                 roEventAfterUnMount: () => testStack.push('dispose 2a-1'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-2'),
+                key: Key('widget-2'),
                 roEventRender: () => testStack.push('render 2a-2'),
                 roEventUpdate: () => testStack.push('update 2a-2'),
                 roEventAfterUnMount: () => testStack.push('dispose 2a-2'),
               ),
               RT_AnotherTestWidget(
-                key: GlobalKey('widget-3'),
+                key: Key('widget-3'),
                 roEventRender: () => testStack.push('render 1b-3'),
                 roEventUpdate: () => testStack.push('update 1b-3'),
                 roEventAfterUnMount: () => testStack.push('dispose 1b-3'),
               ),
               RT_AnotherTestWidget(
-                key: GlobalKey('widget-4'),
+                key: Key('widget-4'),
                 roEventRender: () => testStack.push('render 1b-4'),
                 roEventUpdate: () => testStack.push('update 1b-4'),
                 roEventAfterUnMount: () => testStack.push('dispose 1b-4'),
@@ -898,7 +898,7 @@ void main() {
               Navigator(
                 routes: [
                   Route(
-                    key: GlobalKey('route'),
+                    key: Key('route'),
                     name: 'some-name',
                     page: Text(''),
                   ),
@@ -914,7 +914,7 @@ void main() {
               Navigator(
                 routes: [
                   Route(
-                    key: GlobalKey('route'),
+                    key: Key('route'),
                     name: 'some-name',
                     page: Text(''),
                   ),
@@ -925,7 +925,7 @@ void main() {
             updateType: UpdateType.setState,
           );
 
-          var route = pap.widgetByGlobalKey('route');
+          var route = pap.widgetByKey('route');
 
           expect((route as Route).name, equals('some-name'));
         },
@@ -1119,19 +1119,19 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('widget-1'),
+                key: Key('widget-1'),
                 roEventRender: () => testStack.push('render 1a-1'),
                 roEventUpdate: () => testStack.push('update 1a-1'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a-1'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-2'),
+                key: Key('widget-2'),
                 roEventRender: () => testStack.push('render 1a-2'),
                 roEventUpdate: () => testStack.push('update 1a-2'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a-2'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-3'),
+                key: Key('widget-3'),
                 roEventRender: () => testStack.push('render 1a-3'),
                 roEventUpdate: () => testStack.push('update 1a-3'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a-3'),
@@ -1144,13 +1144,13 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('widget-1'),
+                key: Key('widget-1'),
                 roEventRender: () => testStack.push('render 2a-1'),
                 roEventUpdate: () => testStack.push('update 2a-1'),
                 roEventAfterUnMount: () => testStack.push('dispose 2a-1'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-2'),
+                key: Key('widget-2'),
                 roEventRender: () => testStack.push('render 2a-2'),
                 roEventUpdate: () => testStack.push('update 2a-2'),
                 roEventAfterUnMount: () => testStack.push('dispose 2a-2'),
@@ -1161,7 +1161,7 @@ void main() {
                 roEventAfterUnMount: () => testStack.push('dispose 1b-3'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-3'),
+                key: Key('widget-3'),
                 roEventRender: () => testStack.push('render 2a-4'),
                 roEventUpdate: () => testStack.push('update 2a-4'),
                 roEventAfterUnMount: () => testStack.push('dispose 2a-4'),
@@ -1201,25 +1201,25 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('widget-1'),
+                key: Key('widget-1'),
                 roEventRender: () => testStack.push('render 1a-1'),
                 roEventUpdate: () => testStack.push('update 1a-1'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a-1'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-2'),
+                key: Key('widget-2'),
                 roEventRender: () => testStack.push('render 1a-2'),
                 roEventUpdate: () => testStack.push('update 1a-2'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a-2'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-3'),
+                key: Key('widget-3'),
                 roEventRender: () => testStack.push('render 1a-3'),
                 roEventUpdate: () => testStack.push('update 1a-3'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a-3'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-4'),
+                key: Key('widget-4'),
                 roEventRender: () => testStack.push('render 1a-4'),
                 roEventUpdate: () => testStack.push('update 1a-4'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a-4'),
@@ -1238,25 +1238,25 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('widget-1'),
+                key: Key('widget-1'),
                 roEventRender: () => testStack.push('render 2a-1'),
                 roEventUpdate: () => testStack.push('update 2a-1'),
                 roEventAfterUnMount: () => testStack.push('dispose 1b-1'),
               ),
               RT_AnotherTestWidget(
-                key: GlobalKey('widget-2'),
+                key: Key('widget-2'),
                 roEventRender: () => testStack.push('render 1b-2'),
                 roEventUpdate: () => testStack.push('update 1b-2'),
                 roEventAfterUnMount: () => testStack.push('dispose 1b-2'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-3'),
+                key: Key('widget-3'),
                 roEventRender: () => testStack.push('render 2a-3'),
                 roEventUpdate: () => testStack.push('update 2a-3'),
                 roEventAfterUnMount: () => testStack.push('dispose 2a-3'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-4'),
+                key: Key('widget-4'),
                 roEventRender: () => testStack.push('render 2a-4'),
                 roEventUpdate: () => testStack.push('update 2a-4'),
                 roEventAfterUnMount: () => testStack.push('dispose 2a-4'),
@@ -1275,25 +1275,25 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
-                key: GlobalKey('widget-1'),
+                key: Key('widget-1'),
                 roEventRender: () => testStack.push('render 1b-1'),
                 roEventUpdate: () => testStack.push('update 1b-1'),
                 roEventAfterUnMount: () => testStack.push('dispose 1b-1'),
               ),
               RT_AnotherTestWidget(
-                key: GlobalKey('widget-2'),
+                key: Key('widget-2'),
                 roEventRender: () => testStack.push('render 2b-2'),
                 roEventUpdate: () => testStack.push('update 2b-2'),
                 roEventAfterUnMount: () => testStack.push('dispose 2b-2'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-3'),
+                key: Key('widget-3'),
                 roEventRender: () => testStack.push('render 3a-3'),
                 roEventUpdate: () => testStack.push('update 3a-3'),
                 roEventAfterUnMount: () => testStack.push('dispose 3a-3'),
               ),
               RT_TestWidget(
-                key: GlobalKey('widget-4'),
+                key: Key('widget-4'),
                 roEventRender: () => testStack.push('render 3a-4'),
                 roEventUpdate: () => testStack.push('update 3a-4'),
                 roEventAfterUnMount: () => testStack.push('dispose 3a-4'),
@@ -1311,25 +1311,25 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
-                key: GlobalKey('widget-1'),
+                key: Key('widget-1'),
                 roEventRender: () => testStack.push('render 2b-1'),
                 roEventUpdate: () => testStack.push('update 2b-1'),
                 roEventAfterUnMount: () => testStack.push('dispose 2b-1'),
               ),
               RT_AnotherTestWidget(
-                key: GlobalKey('widget-2'),
+                key: Key('widget-2'),
                 roEventRender: () => testStack.push('render 2b-2'),
                 roEventUpdate: () => testStack.push('update 2b-2'),
                 roEventAfterUnMount: () => testStack.push('dispose 2b-2'),
               ),
               RT_AnotherTestWidget(
-                key: GlobalKey('widget-3'),
+                key: Key('widget-3'),
                 roEventRender: () => testStack.push('render 1b-3'),
                 roEventUpdate: () => testStack.push('update 1b-3'),
                 roEventAfterUnMount: () => testStack.push('dispose 1b-3'),
               ),
               RT_AnotherTestWidget(
-                key: GlobalKey('widget-4'),
+                key: Key('widget-4'),
                 roEventRender: () => testStack.push('render 1b-4'),
                 roEventUpdate: () => testStack.push('update 1b-4'),
                 roEventAfterUnMount: () => testStack.push('dispose 1b-4'),

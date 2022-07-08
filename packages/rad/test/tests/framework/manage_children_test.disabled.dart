@@ -312,9 +312,9 @@ void main() {
       'should hide widget when encounter hide action',
       (tester) async {
         await tester.pumpMultipleWidgets([
-          RT_TestWidget(key: GlobalKey('1')),
-          RT_TestWidget(key: GlobalKey('2')),
-          RT_TestWidget(key: GlobalKey('3')),
+          RT_TestWidget(key: Key('1')),
+          RT_TestWidget(key: Key('2')),
+          RT_TestWidget(key: Key('3')),
         ]);
 
         await tester.visitChildren(
@@ -326,19 +326,19 @@ void main() {
         );
 
         var node1 = tester
-            .getRenderElementByGlobalKey(GlobalKey(
+            .getrenderElementByKeyValue(Key(
               '1',
             ))!
             .findClosestDomNode();
 
         var node2 = tester
-            .getRenderElementByGlobalKey(GlobalKey(
+            .getrenderElementByKeyValue(Key(
               '2',
             ))!
             .findClosestDomNode();
 
         var node3 = tester
-            .getRenderElementByGlobalKey(GlobalKey(
+            .getrenderElementByKeyValue(Key(
               '3',
             ))!
             .findClosestDomNode();
@@ -353,9 +353,9 @@ void main() {
       'should show widget when encounter show action',
       (tester) async {
         await tester.pumpMultipleWidgets([
-          RT_TestWidget(key: GlobalKey('1')),
-          RT_TestWidget(key: GlobalKey('2')),
-          RT_TestWidget(key: GlobalKey('3')),
+          RT_TestWidget(key: Key('1')),
+          RT_TestWidget(key: Key('2')),
+          RT_TestWidget(key: Key('3')),
         ]);
 
         // first hide widgets
@@ -377,19 +377,19 @@ void main() {
         );
 
         var node1 = tester
-            .getRenderElementByGlobalKey(GlobalKey(
+            .getrenderElementByKeyValue(Key(
               '1',
             ))!
             .findClosestDomNode();
 
         var node2 = tester
-            .getRenderElementByGlobalKey(GlobalKey(
+            .getrenderElementByKeyValue(Key(
               '2',
             ))!
             .findClosestDomNode();
 
         var node3 = tester
-            .getRenderElementByGlobalKey(GlobalKey(
+            .getrenderElementByKeyValue(Key(
               '3',
             ))!
             .findClosestDomNode();
@@ -405,7 +405,7 @@ void main() {
       (tester) async {
         await tester.pumpMultipleWidgets([
           RT_TestWidget(
-            key: GlobalKey('1'),
+            key: Key('1'),
             customHash: 'widget-1',
             roEventUpdate: () => tester.push('update-1'),
             roEventAfterUnMount: () => tester.push('dispose-1'),
@@ -431,7 +431,7 @@ void main() {
             roEventAfterUnMount: () => tester.push('dispose-2'),
           ),
           RT_TestWidget(
-            key: GlobalKey('3'),
+            key: Key('3'),
             customHash: 'widget-3',
             roEventUpdate: () => tester.push('update-3'),
             roEventAfterUnMount: () => tester.push('dispose-3'),
@@ -478,13 +478,13 @@ void main() {
         );
 
         var node1 = tester
-            .getRenderElementByGlobalKey(GlobalKey(
+            .getrenderElementByKeyValue(Key(
               '1',
             ))!
             .findClosestDomNode();
 
         var node3 = tester
-            .getRenderElementByGlobalKey(GlobalKey(
+            .getrenderElementByKeyValue(Key(
               '3',
             ))!
             .findClosestDomNode();

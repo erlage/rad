@@ -10,7 +10,6 @@ import 'package:rad/src/core/services/events/events_service.dart';
 import 'package:rad/src/core/services/router/router_service.dart';
 import 'package:rad/src/core/services/scheduler/scheduler_service.dart';
 import 'package:rad/src/core/services/services.dart';
-import 'package:rad/src/core/services/walker/walker_service.dart';
 
 /// Services Registry.
 ///
@@ -59,13 +58,6 @@ class ServicesRegistry {
   ///
   RouterService getRouter(BuildContext context) {
     return getServices(context).router;
-  }
-
-  /// Get walker service associated with app instance to which [context]
-  /// belongs.
-  ///
-  WalkerService getWalker(BuildContext context) {
-    return getServices(context).walker;
   }
 
   /// Get events service associated with app instance to which [context]

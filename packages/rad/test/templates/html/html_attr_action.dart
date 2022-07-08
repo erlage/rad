@@ -1,14 +1,14 @@
 test('should set attribute "action"', () async {
     await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), action: 'some-action'),
-            __WidgetClass__(key: GlobalKey('el-2'), action: 'another-action'),
+            __WidgetClass__(key: Key('el-1'), action: 'some-action'),
+            __WidgetClass__(key: Key('el-2'), action: 'another-action'),
         ],
         parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
-    var domNode2 = app!.domNodeByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
+    var domNode2 = app!.domNodeByKeyValue('el-2');
 
     expect(domNode1.getAttribute('action'), equals('some-action'));
     expect(domNode2.getAttribute('action'), equals('another-action'));
@@ -17,23 +17,23 @@ test('should set attribute "action"', () async {
 test('should update attribute "action"', () async {
     await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), action: 'some-action'),
-            __WidgetClass__(key: GlobalKey('el-2'), action: 'another-action'),
+            __WidgetClass__(key: Key('el-1'), action: 'some-action'),
+            __WidgetClass__(key: Key('el-2'), action: 'another-action'),
         ],
         parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), action: 'updated-action'),
-            __WidgetClass__(key: GlobalKey('el-2'), action: 'another-action'),
+            __WidgetClass__(key: Key('el-1'), action: 'updated-action'),
+            __WidgetClass__(key: Key('el-2'), action: 'another-action'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
-    var domNode2 = app!.domNodeByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
+    var domNode2 = app!.domNodeByKeyValue('el-2');
 
     expect(domNode1.getAttribute('action'), equals('updated-action'));
     expect(domNode2.getAttribute('action'), equals('another-action'));
@@ -42,23 +42,23 @@ test('should update attribute "action"', () async {
 test('should clear attribute "action"', () async {
     await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1')),
-            __WidgetClass__(key: GlobalKey('el-2'), action: 'another-action'),
+            __WidgetClass__(key: Key('el-1')),
+            __WidgetClass__(key: Key('el-2'), action: 'another-action'),
         ],
         parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1')),
-            __WidgetClass__(key: GlobalKey('el-2')),
+            __WidgetClass__(key: Key('el-1')),
+            __WidgetClass__(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
-    var domNode2 = app!.domNodeByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
+    var domNode2 = app!.domNodeByKeyValue('el-2');
 
     expect(domNode1.getAttribute('action'), equals(null));
     expect(domNode2.getAttribute('action'), equals(null));
@@ -67,20 +67,20 @@ test('should clear attribute "action"', () async {
 test('should clear attribute "action" if updated value is null', () async {
    await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), action: 'some-action'),
+            __WidgetClass__(key: Key('el-1'), action: 'some-action'),
         ],
         parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), action: null),
+            __WidgetClass__(key: Key('el-1'), action: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
 
     expect(domNode1.getAttribute('action'), equals(null));
 });
@@ -88,12 +88,12 @@ test('should clear attribute "action" if updated value is null', () async {
 test('should not set attribute "action" if provided value is null', () async {
     await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), action: null),
+            __WidgetClass__(key: Key('el-1'), action: null),
         ],
         parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
 
     expect(domNode1.getAttribute('action'), equals(null));
 });

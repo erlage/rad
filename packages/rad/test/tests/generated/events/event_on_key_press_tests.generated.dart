@@ -26,14 +26,14 @@ void event_on_key_press_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('domNode'),
+            key: Key('domNode'),
             onKeyPress: (_) => pap.stack.push('keypress-domNode'),
           ),
         ],
         parentRenderElement: pap.appRenderElement,
       );
 
-      var domNode = pap.domNodeByGlobalKey('domNode');
+      var domNode = pap.domNodeByKeyValue('domNode');
 
       domNode.dispatchEvent(Event('keypress'));
       await Future.delayed(Duration(milliseconds: 50));
@@ -49,14 +49,14 @@ void event_on_key_press_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('domNode'),
+            key: Key('domNode'),
             onKeyPressCapture: (_) => pap.stack.push('keypress-domNode'),
           ),
         ],
         parentRenderElement: pap.appRenderElement,
       );
 
-      var domNode = pap.domNodeByGlobalKey('domNode');
+      var domNode = pap.domNodeByKeyValue('domNode');
 
       domNode.dispatchEvent(Event('keypress'));
       await Future.delayed(Duration(milliseconds: 50));
@@ -72,14 +72,14 @@ void event_on_key_press_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onKeyPress: (_) => pap.stack.push('keypress-g-parent'),
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onKeyPress: (_) => pap.stack.push('keypress-parent'),
                 children: [
-                  RT_EventfulWidget(key: GlobalKey('el-child')),
+                  RT_EventfulWidget(key: Key('el-child')),
                 ],
               ),
             ],
@@ -88,9 +88,9 @@ void event_on_key_press_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByGlobalKey('el-g-parent');
-      var parent = pap.domNodeByGlobalKey('el-parent');
-      var child = pap.domNodeByGlobalKey('el-child');
+      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var parent = pap.domNodeByKeyValue('el-parent');
+      var child = pap.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('keypress')); // first
       parent.dispatchEvent(Event('keypress')); // second
@@ -120,18 +120,18 @@ void event_on_key_press_test() {
         await pap.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onKeyPress: (_) => pap.stack.push('keypress-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onKeyPress: (event) {
                     pap.stack.push('keypress-parent');
 
                     event.restartPropagationIfStopped();
                   },
                   children: [
-                    RT_EventfulWidget(key: GlobalKey('el-child')),
+                    RT_EventfulWidget(key: Key('el-child')),
                   ],
                 ),
               ],
@@ -140,7 +140,7 @@ void event_on_key_press_test() {
           parentRenderElement: pap.appRenderElement,
         );
 
-        var child = pap.domNodeByGlobalKey('el-child');
+        var child = pap.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('keypress')); // third
         await Future.delayed(Duration(milliseconds: 50));
@@ -160,11 +160,11 @@ void event_on_key_press_test() {
         await pap.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onKeyPress: (_) => pap.stack.push('keypress-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onKeyPress: (event) {
                     pap.stack.push('keypress-parent');
 
@@ -177,7 +177,7 @@ void event_on_key_press_test() {
 
                         event.restartPropagationIfStopped();
                       },
-                      key: GlobalKey('el-child'),
+                      key: Key('el-child'),
                     ),
                   ],
                 ),
@@ -187,7 +187,7 @@ void event_on_key_press_test() {
           parentRenderElement: pap.appRenderElement,
         );
 
-        var child = pap.domNodeByGlobalKey('el-child');
+        var child = pap.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('keypress'));
         await Future.delayed(Duration(milliseconds: 50));
@@ -210,7 +210,7 @@ void event_on_key_press_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onKeyPress: (event) {
               pap.stack.push('keypress-g-parent');
 
@@ -218,7 +218,7 @@ void event_on_key_press_test() {
             },
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onKeyPressCapture: (event) {
                   pap.stack.push('keypress-parent');
 
@@ -226,7 +226,7 @@ void event_on_key_press_test() {
                 },
                 children: [
                   RT_EventfulWidget(
-                    key: GlobalKey('el-child'),
+                    key: Key('el-child'),
                     onKeyPress: (event) {
                       pap.stack.push('keypress-child');
 
@@ -241,9 +241,9 @@ void event_on_key_press_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByGlobalKey('el-g-parent');
-      var parent = pap.domNodeByGlobalKey('el-parent');
-      var child = pap.domNodeByGlobalKey('el-child');
+      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var parent = pap.domNodeByKeyValue('el-parent');
+      var child = pap.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('keypress')); // first
       parent.dispatchEvent(Event('keypress')); // second
@@ -271,7 +271,7 @@ void event_on_key_press_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onKeyPressCapture: (event) {
               pap.stack.push('keypress-g-parent');
 
@@ -279,7 +279,7 @@ void event_on_key_press_test() {
             },
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onKeyPressCapture: (event) {
                   pap.stack.push('keypress-parent');
 
@@ -287,7 +287,7 @@ void event_on_key_press_test() {
                 },
                 children: [
                   RT_EventfulWidget(
-                    key: GlobalKey('el-child'),
+                    key: Key('el-child'),
                     onKeyPress: (event) {
                       pap.stack.push('keypress-child');
 
@@ -302,9 +302,9 @@ void event_on_key_press_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByGlobalKey('el-g-parent');
-      var parent = pap.domNodeByGlobalKey('el-parent');
-      var child = pap.domNodeByGlobalKey('el-child');
+      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var parent = pap.domNodeByKeyValue('el-parent');
+      var child = pap.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('keypress')); // first
       parent.dispatchEvent(Event('keypress')); // second

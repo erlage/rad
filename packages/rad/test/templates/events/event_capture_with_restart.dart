@@ -9,7 +9,7 @@ test('should capture event', () async {
   await pap.buildChildren(
     widgets: [
       RT_EventfulWidget(
-          key: GlobalKey('el-g-parent'),
+          key: Key('el-g-parent'),
           __EventAttributeName__: (event) {
             pap.stack.push('__EventNativeName__-g-parent');
 
@@ -17,7 +17,7 @@ test('should capture event', () async {
           },
           children: [
           RT_EventfulWidget(
-            key: GlobalKey('el-parent'),
+            key: Key('el-parent'),
             __EventAttributeName__Capture: (event) {
               pap.stack.push('__EventNativeName__-parent');
 
@@ -25,7 +25,7 @@ test('should capture event', () async {
             },
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-child'),
+                key: Key('el-child'),
                 __EventAttributeName__: (event) {
                   pap.stack.push('__EventNativeName__-child');
 
@@ -40,9 +40,9 @@ test('should capture event', () async {
     parentRenderElement: pap.appRenderElement,
   );
 
-  var gparent = pap.domNodeByGlobalKey('el-g-parent');
-  var parent = pap.domNodeByGlobalKey('el-parent');
-  var child = pap.domNodeByGlobalKey('el-child');
+  var gparent = pap.domNodeByKeyValue('el-g-parent');
+  var parent = pap.domNodeByKeyValue('el-parent');
+  var child = pap.domNodeByKeyValue('el-child');
 
   gparent.dispatchEvent(Event('__EventNativeName__')); // first
   parent.dispatchEvent(Event('__EventNativeName__'));  // second
@@ -70,7 +70,7 @@ test('should capture event(with multiple capture listeners)', () async {
   await pap.buildChildren(
     widgets: [
       RT_EventfulWidget(
-          key: GlobalKey('el-g-parent'),
+          key: Key('el-g-parent'),
           __EventAttributeName__Capture: (event) {
             pap.stack.push('__EventNativeName__-g-parent');
 
@@ -78,7 +78,7 @@ test('should capture event(with multiple capture listeners)', () async {
           },
           children: [
           RT_EventfulWidget(
-            key: GlobalKey('el-parent'),
+            key: Key('el-parent'),
             __EventAttributeName__Capture: (event) {
               pap.stack.push('__EventNativeName__-parent');
 
@@ -86,7 +86,7 @@ test('should capture event(with multiple capture listeners)', () async {
             },
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-child'),
+                key: Key('el-child'),
                 __EventAttributeName__: (event) {
                   pap.stack.push('__EventNativeName__-child');
 
@@ -101,9 +101,9 @@ test('should capture event(with multiple capture listeners)', () async {
     parentRenderElement: pap.appRenderElement,
   );
 
-  var gparent = pap.domNodeByGlobalKey('el-g-parent');
-  var parent = pap.domNodeByGlobalKey('el-parent');
-  var child = pap.domNodeByGlobalKey('el-child');
+  var gparent = pap.domNodeByKeyValue('el-g-parent');
+  var parent = pap.domNodeByKeyValue('el-parent');
+  var child = pap.domNodeByKeyValue('el-child');
 
   gparent.dispatchEvent(Event('__EventNativeName__')); // first
   parent.dispatchEvent(Event('__EventNativeName__'));  // second

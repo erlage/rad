@@ -5,6 +5,7 @@
 // ignore_for_file: camel_case_types
 
 import '../test_imports.dart';
+import '../utils.dart';
 
 RT_AppRunner createTestApp({
   Widget? app,
@@ -26,17 +27,14 @@ class RT_AppRunner extends AppRunner {
 
   var _isDebugInformationEnabled = false;
 
-  RenderElement get appRenderElement =>
-      frameworkServices.walker.getRenderElementAssociatedWithGlobalKey(
-        GlobalKey('app-widget'),
-      )!;
+  RenderElement get appRenderElement => renderElementByKeyValue('app-widget')!;
 
   RT_AppRunner({
     Widget? app,
     required DebugOptions? debugOptions,
     required RouterOptions? routerOptions,
   }) : super(
-          app: app ?? RT_TestWidget(key: GlobalKey('app-widget')),
+          app: app ?? RT_TestWidget(key: Key('app-widget')),
           appTargetId: RT_TestBed.rootTargetId,
           debugOptions: debugOptions,
           routerOptions: routerOptions,
@@ -82,24 +80,29 @@ class RT_AppRunner extends AppRunner {
 
   /// Get render element by global key under app context.
   ///
-  RenderElement? renderElementByGlobalKey(String key) {
-    return frameworkServices.walker.getRenderElementAssociatedWithGlobalKey(
-      GlobalKey(key),
-    );
+  RenderElement? renderElementByKeyValue(String key) {
+    for (final renderElement in collectRenderElements(rootElement)) {
+      if (renderElement.key?.frameworkValue == key) {
+        return renderElement;
+      }
+    }
+
+    return null;
   }
 
   /// Get widget by global key under app context.
   ///
-  Widget widgetByGlobalKey(String key) => renderElementByGlobalKey(key)!.widget;
+  Widget widgetByKey(String key) => renderElementByKeyValue(key)!.widget;
 
   /// Get dom node by global key under app context.
   ///
-  Element domNodeByGlobalKey(String key) =>
-      renderElementByGlobalKey(key)!.domNode!;
+  Element domNodeByKeyValue(String keyValue) {
+    return renderElementByKeyValue(keyValue)!.domNode!;
+  }
 
   /// Get app's dom node.
   ///
-  Element get appDomNode => domNodeByGlobalKey('app-widget');
+  Element get appDomNode => domNodeByKeyValue('app-widget');
 
   /// Get dom node by id.
   ///
@@ -108,7 +111,7 @@ class RT_AppRunner extends AppRunner {
   /// Get state of navigator with global key.
   ///
   NavigatorState navigatorState(String key) {
-    var wo = renderElementByGlobalKey(key);
+    var wo = renderElementByKeyValue(key);
 
     return (wo as NavigatorRenderElement).state;
   }

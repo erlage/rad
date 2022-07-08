@@ -4,14 +4,14 @@ test('should add a capture event listener', () async {
   await pap.buildChildren(
     widgets: [
       RT_EventfulWidget(
-        key: GlobalKey('domNode'),
+        key: Key('domNode'),
         __EventAttributeName__Capture: (_) => pap.stack.push('__EventNativeName__-domNode'),
       ),
     ],
     parentRenderElement: pap.appRenderElement,
   );
 
-  var domNode = pap.domNodeByGlobalKey('domNode');
+  var domNode = pap.domNodeByKeyValue('domNode');
 
   domNode.dispatchEvent(Event('__EventNativeName__'));
   await Future.delayed(Duration(milliseconds: 50));

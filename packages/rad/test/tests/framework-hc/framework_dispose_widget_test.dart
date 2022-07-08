@@ -31,15 +31,15 @@ void main() {
     test('should dispose widget', () async {
       await app!.buildChildren(
         widgets: [
-          RT_TestWidget(key: GlobalKey('el-1'), children: [Text('widget-1')]),
-          RT_TestWidget(key: GlobalKey('el-2'), children: [Text('widget-2')]),
-          RT_TestWidget(key: GlobalKey('el-3'), children: [Text('widget-3')]),
+          RT_TestWidget(key: Key('el-1'), children: [Text('widget-1')]),
+          RT_TestWidget(key: Key('el-2'), children: [Text('widget-2')]),
+          RT_TestWidget(key: Key('el-3'), children: [Text('widget-3')]),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.disposeWidget(
-        renderElement: app!.renderElementByGlobalKey('el-2'),
+        renderElement: app!.renderElementByKeyValue('el-2'),
         flagPreserveTarget: false,
       );
 
@@ -53,7 +53,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             children: [],
           ),
         ],
@@ -64,11 +64,11 @@ void main() {
       await app!.updateChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             children: [
-              RT_TestWidget(key: GlobalKey('child-1'), children: [Text('1')]),
-              RT_TestWidget(key: GlobalKey('child-2'), children: [Text('2')]),
-              RT_TestWidget(key: GlobalKey('child-3'), children: [Text('3')]),
+              RT_TestWidget(key: Key('child-1'), children: [Text('1')]),
+              RT_TestWidget(key: Key('child-2'), children: [Text('2')]),
+              RT_TestWidget(key: Key('child-3'), children: [Text('3')]),
             ],
           ),
         ],
@@ -80,7 +80,7 @@ void main() {
 
       await app!.updateChildren(
         widgets: [
-          RT_TestWidget(key: GlobalKey('el-1')),
+          RT_TestWidget(key: Key('el-1')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -95,36 +95,36 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('widget'),
+            key: Key('widget'),
             children: [
               RT_TestWidget(
-                key: GlobalKey('child-0'),
+                key: Key('child-0'),
                 children: [
                   Text('0'),
                   RT_TestWidget(
-                    key: GlobalKey('child-0-0'),
+                    key: Key('child-0-0'),
                     children: [Text('0-0')],
                   ),
                   RT_TestWidget(
-                    key: GlobalKey('child-0-1'),
+                    key: Key('child-0-1'),
                     children: [Text('0-1')],
                   ),
                 ],
               ),
-              RT_TestWidget(key: GlobalKey('child-1'), children: [Text('1')]),
+              RT_TestWidget(key: Key('child-1'), children: [Text('1')]),
             ],
           ),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.disposeWidget(
-        renderElement: app!.renderElementByGlobalKey('child-0-0'),
+        renderElement: app!.renderElementByKeyValue('child-0-0'),
         flagPreserveTarget: false,
       );
 
       expect(
-        null == app!.renderElementByGlobalKey('child-0-0'),
+        null == app!.renderElementByKeyValue('child-0-0'),
         equals(true),
       );
 
@@ -140,45 +140,45 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('widget'),
+            key: Key('widget'),
             children: [
               RT_TestWidget(
-                key: GlobalKey('child-0'),
+                key: Key('child-0'),
                 children: [
                   Text('0'),
                   RT_TestWidget(
-                    key: GlobalKey('child-0-0'),
+                    key: Key('child-0-0'),
                     children: [Text('0-0')],
                   ),
                   RT_TestWidget(
-                    key: GlobalKey('child-0-1'),
+                    key: Key('child-0-1'),
                     children: [Text('0-1')],
                   ),
                 ],
               ),
-              RT_TestWidget(key: GlobalKey('child-1'), children: [Text('1')]),
+              RT_TestWidget(key: Key('child-1'), children: [Text('1')]),
             ],
           ),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.disposeWidget(
-        renderElement: app!.renderElementByGlobalKey('child-0-0'),
+        renderElement: app!.renderElementByKeyValue('child-0-0'),
         flagPreserveTarget: false,
       );
 
       await app!.disposeWidget(
-        renderElement: app!.renderElementByGlobalKey('child-0-1'),
+        renderElement: app!.renderElementByKeyValue('child-0-1'),
         flagPreserveTarget: false,
       );
 
       expect(
-        null == app!.renderElementByGlobalKey('child-0-0'),
+        null == app!.renderElementByKeyValue('child-0-0'),
         equals(true),
       );
       expect(
-        null == app!.renderElementByGlobalKey('child-0-1'),
+        null == app!.renderElementByKeyValue('child-0-1'),
         equals(true),
       );
 
@@ -192,44 +192,44 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('widget'),
+            key: Key('widget'),
             children: [
               RT_TestWidget(
-                key: GlobalKey('child-0'),
+                key: Key('child-0'),
                 children: [
                   Text('0'),
                   RT_TestWidget(
-                    key: GlobalKey('child-0-0'),
+                    key: Key('child-0-0'),
                     children: [Text('0-0')],
                   ),
                   RT_TestWidget(
-                    key: GlobalKey('child-0-1'),
+                    key: Key('child-0-1'),
                     children: [Text('0-1')],
                   ),
                 ],
               ),
-              RT_TestWidget(key: GlobalKey('child-1'), children: [Text('1')]),
+              RT_TestWidget(key: Key('child-1'), children: [Text('1')]),
             ],
           ),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.disposeWidget(
-        renderElement: app!.renderElementByGlobalKey('child-0'),
+        renderElement: app!.renderElementByKeyValue('child-0'),
         flagPreserveTarget: false,
       );
 
       expect(
-        null == app!.renderElementByGlobalKey('child-0-0'),
+        null == app!.renderElementByKeyValue('child-0-0'),
         equals(true),
       );
       expect(
-        null == app!.renderElementByGlobalKey('child-0-1'),
+        null == app!.renderElementByKeyValue('child-0-1'),
         equals(true),
       );
       expect(
-        null == app!.renderElementByGlobalKey('child-0'),
+        null == app!.renderElementByKeyValue('child-0'),
         equals(true),
       );
 
@@ -242,35 +242,35 @@ void main() {
     test('method call should be idempotent', () async {
       await app!.buildChildren(
         widgets: [
-          RT_TestWidget(key: GlobalKey('widget')),
+          RT_TestWidget(key: Key('widget')),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
       // widget should be ready for dispose by now
 
       expect(
-        null == app!.renderElementByGlobalKey('widget'),
+        null == app!.renderElementByKeyValue('widget'),
         equals(false),
       );
 
       await app!.disposeWidget(
-        renderElement: app!.renderElementByGlobalKey('widget'),
+        renderElement: app!.renderElementByKeyValue('widget'),
         flagPreserveTarget: false,
       );
 
       await app!.disposeWidget(
-        renderElement: app!.renderElementByGlobalKey('widget'),
+        renderElement: app!.renderElementByKeyValue('widget'),
         flagPreserveTarget: false,
       );
 
       await app!.disposeWidget(
-        renderElement: app!.renderElementByGlobalKey('widget'),
+        renderElement: app!.renderElementByKeyValue('widget'),
         flagPreserveTarget: false,
       );
 
       expect(
-        null == app!.renderElementByGlobalKey('widget'),
+        null == app!.renderElementByKeyValue('widget'),
         equals(true),
       );
     });
@@ -279,44 +279,44 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('widget'),
+            key: Key('widget'),
             children: [
               RT_TestWidget(
-                key: GlobalKey('child-0'),
+                key: Key('child-0'),
                 children: [
                   Text('0'),
                   RT_TestWidget(
-                    key: GlobalKey('child-0-0'),
+                    key: Key('child-0-0'),
                     children: [Text('0-0')],
                   ),
                   RT_TestWidget(
-                    key: GlobalKey('child-0-1'),
+                    key: Key('child-0-1'),
                     children: [Text('0-1')],
                   ),
                 ],
               ),
-              RT_TestWidget(key: GlobalKey('child-1'), children: [Text('1')]),
+              RT_TestWidget(key: Key('child-1'), children: [Text('1')]),
             ],
           ),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
       await app!.disposeWidget(
-        renderElement: app!.renderElementByGlobalKey('child-0'),
+        renderElement: app!.renderElementByKeyValue('child-0'),
         flagPreserveTarget: true,
       );
 
       expect(
-        null == app!.renderElementByGlobalKey('child-0-0'),
+        null == app!.renderElementByKeyValue('child-0-0'),
         equals(true),
       );
       expect(
-        null == app!.renderElementByGlobalKey('child-0-1'),
+        null == app!.renderElementByKeyValue('child-0-1'),
         equals(true),
       );
       expect(
-        null == app!.renderElementByGlobalKey('child-0'),
+        null == app!.renderElementByKeyValue('child-0'),
         equals(false),
       );
 
@@ -335,37 +335,37 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('widget'),
+            key: Key('widget'),
             roEventAfterUnMount: () {
               testStack.push('this should not get unmount');
             },
             children: [
               RT_TestWidget(
-                key: GlobalKey('app-child-0'),
+                key: Key('app-child-0'),
                 roEventAfterUnMount: () {
                   testStack.push('dispose-0');
                 },
                 children: [
                   RT_TestWidget(
-                    key: GlobalKey('app-child-0-0'),
+                    key: Key('app-child-0-0'),
                     roEventAfterUnMount: () {
                       testStack.push('dispose-0-0');
                     },
                   ),
                   RT_TestWidget(
-                    key: GlobalKey('app-child-0-1'),
+                    key: Key('app-child-0-1'),
                     roEventAfterUnMount: () {
                       testStack.push('dispose-0-1');
                     },
                     children: [
                       RT_TestWidget(
-                        key: GlobalKey('app-child-0-1-0'),
+                        key: Key('app-child-0-1-0'),
                         roEventAfterUnMount: () {
                           testStack.push('dispose-0-1-0');
                         },
                       ),
                       RT_TestWidget(
-                        key: GlobalKey('app-child-0-1-1'),
+                        key: Key('app-child-0-1-1'),
                         roEventAfterUnMount: () {
                           testStack.push('dispose-0-1-1');
                         },
@@ -375,20 +375,20 @@ void main() {
                 ],
               ),
               RT_TestWidget(
-                key: GlobalKey('app-child-1'),
+                key: Key('app-child-1'),
                 roEventAfterUnMount: () {
                   testStack.push('dispose-1');
                 },
                 children: [
                   // nested child widgets
                   RT_TestWidget(
-                    key: GlobalKey('app-child-1-0'),
+                    key: Key('app-child-1-0'),
                     roEventAfterUnMount: () {
                       testStack.push('dispose-1-0');
                     },
                   ),
                   RT_TestWidget(
-                    key: GlobalKey('app-child-1-1'),
+                    key: Key('app-child-1-1'),
                     roEventAfterUnMount: () {
                       testStack.push('dispose-1-1');
                     },
@@ -398,7 +398,7 @@ void main() {
             ],
           ),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
       // expected tree and dispose order:
@@ -414,7 +414,7 @@ void main() {
       //
 
       await app!.disposeWidget(
-        renderElement: app!.renderElementByGlobalKey('widget'),
+        renderElement: app!.renderElementByKeyValue('widget'),
         flagPreserveTarget: true,
       );
 

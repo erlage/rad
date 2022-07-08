@@ -1,14 +1,14 @@
 test('should set attribute "accept"', () async {
     await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), accept: 'some-accept'),
-            __WidgetClass__(key: GlobalKey('el-2'), accept: 'another-accept'),
+            __WidgetClass__(key: Key('el-1'), accept: 'some-accept'),
+            __WidgetClass__(key: Key('el-2'), accept: 'another-accept'),
         ],
         parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
-    var domNode2 = app!.domNodeByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
+    var domNode2 = app!.domNodeByKeyValue('el-2');
 
     expect(domNode1.getAttribute('accept'), equals('some-accept'));
     expect(domNode2.getAttribute('accept'), equals('another-accept'));
@@ -17,23 +17,23 @@ test('should set attribute "accept"', () async {
 test('should update attribute "accept"', () async {
     await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), accept: 'some-accept'),
-            __WidgetClass__(key: GlobalKey('el-2'), accept: 'another-accept'),
+            __WidgetClass__(key: Key('el-1'), accept: 'some-accept'),
+            __WidgetClass__(key: Key('el-2'), accept: 'another-accept'),
         ],
         parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), accept: 'updated-accept'),
-            __WidgetClass__(key: GlobalKey('el-2'), accept: 'another-accept'),
+            __WidgetClass__(key: Key('el-1'), accept: 'updated-accept'),
+            __WidgetClass__(key: Key('el-2'), accept: 'another-accept'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
-    var domNode2 = app!.domNodeByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
+    var domNode2 = app!.domNodeByKeyValue('el-2');
 
     expect(domNode1.getAttribute('accept'), equals('updated-accept'));
     expect(domNode2.getAttribute('accept'), equals('another-accept'));
@@ -42,23 +42,23 @@ test('should update attribute "accept"', () async {
 test('should clear attribute "accept"', () async {
     await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1')),
-            __WidgetClass__(key: GlobalKey('el-2'), accept: 'another-accept'),
+            __WidgetClass__(key: Key('el-1')),
+            __WidgetClass__(key: Key('el-2'), accept: 'another-accept'),
         ],
         parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1')),
-            __WidgetClass__(key: GlobalKey('el-2')),
+            __WidgetClass__(key: Key('el-1')),
+            __WidgetClass__(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
-    var domNode2 = app!.domNodeByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
+    var domNode2 = app!.domNodeByKeyValue('el-2');
 
     expect(domNode1.getAttribute('accept'), equals(null));
     expect(domNode2.getAttribute('accept'), equals(null));
@@ -67,20 +67,20 @@ test('should clear attribute "accept"', () async {
 test('should clear attribute "accept" if updated value is null', () async {
    await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), accept: 'some-accept'),
+            __WidgetClass__(key: Key('el-1'), accept: 'some-accept'),
         ],
         parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), accept: null),
+            __WidgetClass__(key: Key('el-1'), accept: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
 
     expect(domNode1.getAttribute('accept'), equals(null));
 }__Skip__);
@@ -88,12 +88,12 @@ test('should clear attribute "accept" if updated value is null', () async {
 test('should not set attribute "accept" if provided value is null', () async {
     await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), accept: null),
+            __WidgetClass__(key: Key('el-1'), accept: null),
         ],
         parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
 
     expect(domNode1.getAttribute('accept'), equals(null));
 }__Skip__);

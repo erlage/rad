@@ -34,13 +34,13 @@ void main() {
             RT_TestWidget(),
             RT_TestWidget(
               children: [
-                RT_AnotherTestWidget(key: GlobalKey('widget')),
+                RT_AnotherTestWidget(key: Key('widget')),
               ],
             ),
           ],
         );
 
-        var element = tester.getRenderElementByGlobalKey(GlobalKey('widget'))!;
+        var element = tester.getrenderElementByKeyValue(Key('widget'))!;
 
         var widget = element.findAncestorWidgetOfExactType<RT_TestWidget>();
 
@@ -60,7 +60,7 @@ void main() {
                 RT_TestWidget(
                   customHash: '2',
                   children: [
-                    RT_AnotherTestWidget(key: GlobalKey('widget')),
+                    RT_AnotherTestWidget(key: Key('widget')),
                   ],
                 ),
               ],
@@ -68,7 +68,7 @@ void main() {
           ],
         );
 
-        var element = tester.getRenderElementByGlobalKey(GlobalKey('widget'))!;
+        var element = tester.getrenderElementByKeyValue(Key('widget'))!;
 
         var widget = element.findAncestorWidgetOfExactType<RT_TestWidget>();
 
@@ -89,7 +89,7 @@ void main() {
                 RT_TestWidget(
                   customHash: '2',
                   children: [
-                    RT_AnotherTestWidget(key: GlobalKey('widget')),
+                    RT_AnotherTestWidget(key: Key('widget')),
                   ],
                 ),
               ],
@@ -97,7 +97,7 @@ void main() {
           ],
         );
 
-        var el = tester.getRenderElementByGlobalKey(GlobalKey('widget'))!;
+        var el = tester.getrenderElementByKeyValue(Key('widget'))!;
 
         var widget = el.findAncestorWidgetOfExactType<RT_AnotherTestWidget>();
 
@@ -116,7 +116,7 @@ void main() {
               children: [
                 RT_TestWidget(
                   children: [
-                    RT_AnotherTestWidget(key: GlobalKey('widget')),
+                    RT_AnotherTestWidget(key: Key('widget')),
                   ],
                 ),
               ],
@@ -124,7 +124,7 @@ void main() {
           ],
         );
 
-        var el = tester.getRenderElementByGlobalKey(GlobalKey('widget'))!;
+        var el = tester.getrenderElementByKeyValue(Key('widget'))!;
 
         var widget = el.findAncestorWidgetOfExactType<RT_AnotherTestWidget>();
 
@@ -155,13 +155,13 @@ void main() {
           RT_StatefulTestWidget(),
           RT_StatefulTestWidget(
             children: [
-              RT_AnotherStatefulWidget(key: GlobalKey('widget')),
+              RT_AnotherStatefulWidget(key: Key('widget')),
             ],
           ),
         ],
       );
 
-      var el = tester.getRenderElementByGlobalKey(GlobalKey('widget'))!;
+      var el = tester.getrenderElementByKeyValue(Key('widget'))!;
 
       var state = el.findAncestorStateOfType<RT_StatefulTestWidget_State>()!;
 
@@ -179,7 +179,7 @@ void main() {
               RT_StatefulTestWidget(
                 customHash: '2',
                 children: [
-                  RT_AnotherStatefulWidget(key: GlobalKey('widget')),
+                  RT_AnotherStatefulWidget(key: Key('widget')),
                 ],
               ),
             ],
@@ -187,7 +187,7 @@ void main() {
         ],
       );
 
-      var el = tester.getRenderElementByGlobalKey(GlobalKey('widget'))!;
+      var el = tester.getrenderElementByKeyValue(Key('widget'))!;
 
       var state = el.findAncestorStateOfType<RT_StatefulTestWidget_State>()!;
 
@@ -204,7 +204,7 @@ void main() {
             children: [
               RT_StatefulTestWidget(
                 children: [
-                  RT_AnotherStatefulWidget(key: GlobalKey('widget')),
+                  RT_AnotherStatefulWidget(key: Key('widget')),
                 ],
               ),
             ],
@@ -212,7 +212,7 @@ void main() {
         ],
       );
 
-      var el = tester.getRenderElementByGlobalKey(GlobalKey('widget'))!;
+      var el = tester.getrenderElementByKeyValue(Key('widget'))!;
 
       var state = el.findAncestorStateOfType<RT_AnotherStatefulWidget_State>();
 

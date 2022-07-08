@@ -23,16 +23,16 @@ void html_image_test() {
     test('should set id', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('some-key-1'), id: 'some-id-1'),
-          Image(key: GlobalKey('some-key-2'), id: 'some-id-2'),
-          Image(key: GlobalKey('some-key-3'), id: 'some-id-3'),
+          Image(key: Key('some-key-1'), id: 'some-id-1'),
+          Image(key: Key('some-key-2'), id: 'some-id-2'),
+          Image(key: Key('some-key-3'), id: 'some-id-3'),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('some-key-1');
-      var domNode2 = app!.domNodeByGlobalKey('some-key-2');
-      var domNode3 = app!.domNodeByGlobalKey('some-key-3');
+      var domNode1 = app!.domNodeByKeyValue('some-key-1');
+      var domNode2 = app!.domNodeByKeyValue('some-key-2');
+      var domNode3 = app!.domNodeByKeyValue('some-key-3');
 
       expect(domNode1.id, equals('some-id-1'));
       expect(domNode2.id, equals('some-id-2'));
@@ -42,16 +42,16 @@ void html_image_test() {
     test('should reset and update id', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('some-key-1'), id: 'some-id-1'),
-          Image(key: GlobalKey('some-key-2'), id: 'some-id-2'),
-          Image(key: GlobalKey('some-key-3'), id: 'some-id-3'),
+          Image(key: Key('some-key-1'), id: 'some-id-1'),
+          Image(key: Key('some-key-2'), id: 'some-id-2'),
+          Image(key: Key('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('some-key-1');
-      var domNode2 = app!.domNodeByGlobalKey('some-key-2');
-      var domNode3 = app!.domNodeByGlobalKey('some-key-3');
+      var domNode1 = app!.domNodeByKeyValue('some-key-1');
+      var domNode2 = app!.domNodeByKeyValue('some-key-2');
+      var domNode3 = app!.domNodeByKeyValue('some-key-3');
 
       expect(domNode1.id, equals('some-id-1'));
       expect(domNode2.id, equals('some-id-2'));
@@ -60,15 +60,15 @@ void html_image_test() {
       await app!.updateChildren(
         widgets: [
           Image(
-            key: GlobalKey('some-key-1'),
+            key: Key('some-key-1'),
             id: 'some-updated-id',
           ),
           Image(
-            key: GlobalKey('some-key-2'),
+            key: Key('some-key-2'),
             id: 'some-local-updated-id',
           ),
           Image(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'some-global-updated-id',
           ),
         ],
@@ -171,19 +171,19 @@ void html_image_test() {
       await app!.buildChildren(
         widgets: [
           Image(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'some-classes',
           ),
           Image(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('class'), equals('some-classes'));
       expect(domNode2.getAttribute('class'), equals('another-classes'));
@@ -193,11 +193,11 @@ void html_image_test() {
       await app!.buildChildren(
         widgets: [
           Image(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'some-classes',
           ),
           Image(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
@@ -207,11 +207,11 @@ void html_image_test() {
       await app!.updateChildren(
         widgets: [
           Image(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'updated-classes',
           ),
           Image(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
@@ -219,8 +219,8 @@ void html_image_test() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('class'), equals('updated-classes'));
       expect(domNode2.getAttribute('class'), equals('another-classes'));
@@ -229,9 +229,9 @@ void html_image_test() {
     test('should clear attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1')),
+          Image(key: Key('el-1')),
           Image(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
@@ -240,15 +240,15 @@ void html_image_test() {
 
       await app!.updateChildren(
         widgets: [
-          Image(key: GlobalKey('el-1')),
-          Image(key: GlobalKey('el-2')),
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('class'), equals(null));
       expect(domNode2.getAttribute('class'), equals(null));
@@ -258,7 +258,7 @@ void html_image_test() {
       await app!.buildChildren(
         widgets: [
           Image(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'some-classes',
           ),
         ],
@@ -267,13 +267,13 @@ void html_image_test() {
 
       await app!.updateChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), classAttribute: null),
+          Image(key: Key('el-1'), classAttribute: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('class'), equals(null));
     });
@@ -282,12 +282,12 @@ void html_image_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), classAttribute: null),
+          Image(key: Key('el-1'), classAttribute: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('class'), equals(null));
     });
@@ -378,16 +378,16 @@ void html_image_test() {
     test('should set attribute "hidden" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), hidden: false),
-          Image(key: GlobalKey('el-2'), hidden: null),
-          Image(key: GlobalKey('el-3'), hidden: true),
+          Image(key: Key('el-1'), hidden: false),
+          Image(key: Key('el-2'), hidden: null),
+          Image(key: Key('el-3'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
 
       expect(domNode1.getAttribute('hidden'), equals(null));
       expect(domNode2.getAttribute('hidden'), equals(null));
@@ -398,29 +398,29 @@ void html_image_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), hidden: true),
-          Image(key: GlobalKey('el-2'), hidden: true),
-          Image(key: GlobalKey('el-3'), hidden: true),
-          Image(key: GlobalKey('el-4'), hidden: true),
+          Image(key: Key('el-1'), hidden: true),
+          Image(key: Key('el-2'), hidden: true),
+          Image(key: Key('el-3'), hidden: true),
+          Image(key: Key('el-4'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), hidden: true),
-          Image(key: GlobalKey('el-2'), hidden: false),
-          Image(key: GlobalKey('el-3'), hidden: null),
-          Image(key: GlobalKey('el-4')),
+          Image(key: Key('el-1'), hidden: true),
+          Image(key: Key('el-2'), hidden: false),
+          Image(key: Key('el-3'), hidden: null),
+          Image(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
-      var domNode4 = app!.domNodeByGlobalKey('el-4');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
 
       expect(domNode1.getAttribute('hidden'), equals('true'));
       expect(domNode2.getAttribute('hidden'), equals(null));
@@ -432,7 +432,7 @@ void html_image_test() {
       await app!.buildChildren(
         widgets: [
           Image(
-            key: GlobalKey('widget-1'),
+            key: Key('widget-1'),
             innerText: 'hello world',
           ),
         ],
@@ -452,14 +452,14 @@ void html_image_test() {
     test('should set attribute "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
-          Image(key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          Image(key: Key('el-1'), onClickAttribute: 'some-on-click'),
+          Image(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('onClick'), equals('some-on-click'));
       expect(domNode2.getAttribute('onClick'), equals('another-on-click'));
@@ -468,23 +468,23 @@ void html_image_test() {
     test('should update attribute "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
-          Image(key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          Image(key: Key('el-1'), onClickAttribute: 'some-on-click'),
+          Image(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), onClickAttribute: 'updated-on-click'),
-          Image(key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          Image(key: Key('el-1'), onClickAttribute: 'updated-on-click'),
+          Image(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('onClick'), equals('updated-on-click'));
       expect(domNode2.getAttribute('onClick'), equals('another-on-click'));
@@ -493,23 +493,23 @@ void html_image_test() {
     test('should clear attribute "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1')),
-          Image(key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Image(key: GlobalKey('el-1')),
-          Image(key: GlobalKey('el-2')),
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('onClick'), equals(null));
       expect(domNode2.getAttribute('onClick'), equals(null));
@@ -519,20 +519,20 @@ void html_image_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
+          Image(key: Key('el-1'), onClickAttribute: 'some-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), onClickAttribute: null),
+          Image(key: Key('el-1'), onClickAttribute: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('onClick'), equals(null));
     });
@@ -542,12 +542,12 @@ void html_image_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), onClickAttribute: null),
+          Image(key: Key('el-1'), onClickAttribute: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('onClick'), equals(null));
     });
@@ -597,19 +597,19 @@ void html_image_test() {
       await app!.buildChildren(
         widgets: [
           Image(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             onClick: (event) => testStack.push('click-1'),
           ),
           Image(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             onClick: (event) => testStack.push('click-2'),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('click'));
-      app!.domNodeByGlobalKey('el-2').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('click'));
 
       await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('click-1'));
@@ -623,16 +623,16 @@ void html_image_test() {
 
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1')),
-          Image(key: GlobalKey('el-2'), onClick: null),
-          Image(key: GlobalKey('el-3'), onClick: listener),
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2'), onClick: null),
+          Image(key: Key('el-3'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByGlobalKey('el-3').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
+      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(null));
@@ -644,14 +644,14 @@ void html_image_test() {
 
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1')),
-          Image(key: GlobalKey('el-2'), onClick: listener),
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(listener));
@@ -660,15 +660,15 @@ void html_image_test() {
 
       await app!.updateChildren(
         widgets: [
-          Image(key: GlobalKey('el-1')),
-          Image(key: GlobalKey('el-2')),
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(null));
@@ -743,7 +743,7 @@ void html_image_test() {
     test('should set correct types and markup', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('some-key-3')),
+          Image(key: Key('some-key-3')),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -779,7 +779,7 @@ void html_image_test() {
       await app!.buildChildren(
         widgets: [
           Image(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'id': 'some-id',
             },
@@ -801,7 +801,7 @@ void html_image_test() {
       await app!.buildChildren(
         widgets: [
           Image(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
               'id': 'ignored-id',
@@ -826,7 +826,7 @@ void html_image_test() {
       await app!.buildChildren(
         widgets: [
           Image(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
               'id': 'ignored-id',
@@ -839,7 +839,7 @@ void html_image_test() {
       await app!.updateChildren(
         widgets: [
           Image(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'updated-id',
             additionalAttributes: {
               'id': 'ignored-id',
@@ -861,7 +861,7 @@ void html_image_test() {
       await app!.buildChildren(
         widgets: [
           Image(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
               'data-another': 'another okay',
@@ -881,7 +881,7 @@ void html_image_test() {
       await app!.buildChildren(
         widgets: [
           Image(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'aria-something': 'something okay',
               'any-another': 'another okay',
@@ -902,7 +902,7 @@ void html_image_test() {
       await app!.buildChildren(
         widgets: [
           Image(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
             },
@@ -914,7 +914,7 @@ void html_image_test() {
       await app!.updateChildren(
         widgets: [
           Image(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'data-something-new': 'something new',
             },
@@ -945,16 +945,16 @@ void html_image_test() {
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('some-key-1')),
-          Image(key: GlobalKey('some-key-2')),
-          Image(key: GlobalKey('some-key-3')),
+          Image(key: Key('some-key-1')),
+          Image(key: Key('some-key-2')),
+          Image(key: Key('some-key-3')),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var wO1 = app!.renderElementByGlobalKey('some-key-1')!;
-      var wO2 = app!.renderElementByGlobalKey('some-key-2')!;
-      var wO3 = app!.renderElementByGlobalKey('some-key-3')!;
+      var wO1 = app!.renderElementByKeyValue('some-key-1')!;
+      var wO2 = app!.renderElementByKeyValue('some-key-2')!;
+      var wO3 = app!.renderElementByKeyValue('some-key-3')!;
 
       expect(wO1.key?.frameworkValue, endsWith('some-key-1'));
       expect(wO2.key?.frameworkValue, endsWith('some-key-2'));
@@ -964,14 +964,14 @@ void html_image_test() {
     test('should set attribute "src"', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), src: 'some-src'),
-          Image(key: GlobalKey('el-2'), src: 'another-src'),
+          Image(key: Key('el-1'), src: 'some-src'),
+          Image(key: Key('el-2'), src: 'another-src'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('src'), equals('some-src'));
       expect(domNode2.getAttribute('src'), equals('another-src'));
@@ -980,23 +980,23 @@ void html_image_test() {
     test('should update attribute "src"', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), src: 'some-src'),
-          Image(key: GlobalKey('el-2'), src: 'another-src'),
+          Image(key: Key('el-1'), src: 'some-src'),
+          Image(key: Key('el-2'), src: 'another-src'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), src: 'updated-src'),
-          Image(key: GlobalKey('el-2'), src: 'another-src'),
+          Image(key: Key('el-1'), src: 'updated-src'),
+          Image(key: Key('el-2'), src: 'another-src'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('src'), equals('updated-src'));
       expect(domNode2.getAttribute('src'), equals('another-src'));
@@ -1005,23 +1005,23 @@ void html_image_test() {
     test('should clear attribute "src"', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1')),
-          Image(key: GlobalKey('el-2'), src: 'another-src'),
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2'), src: 'another-src'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Image(key: GlobalKey('el-1')),
-          Image(key: GlobalKey('el-2')),
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('src'), equals(null));
       expect(domNode2.getAttribute('src'), equals(null));
@@ -1030,20 +1030,20 @@ void html_image_test() {
     test('should clear attribute "src" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), src: 'some-src'),
+          Image(key: Key('el-1'), src: 'some-src'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), src: null),
+          Image(key: Key('el-1'), src: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('src'), equals(null));
     });
@@ -1051,12 +1051,12 @@ void html_image_test() {
     test('should not set attribute "src" if provided value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), src: null),
+          Image(key: Key('el-1'), src: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('src'), equals(null));
     });
@@ -1064,14 +1064,14 @@ void html_image_test() {
     test('should set attribute "alt"', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), alt: 'some-alt'),
-          Image(key: GlobalKey('el-2'), alt: 'another-alt'),
+          Image(key: Key('el-1'), alt: 'some-alt'),
+          Image(key: Key('el-2'), alt: 'another-alt'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('alt'), equals('some-alt'));
       expect(domNode2.getAttribute('alt'), equals('another-alt'));
@@ -1080,23 +1080,23 @@ void html_image_test() {
     test('should update attribute "alt"', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), alt: 'some-alt'),
-          Image(key: GlobalKey('el-2'), alt: 'another-alt'),
+          Image(key: Key('el-1'), alt: 'some-alt'),
+          Image(key: Key('el-2'), alt: 'another-alt'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), alt: 'updated-alt'),
-          Image(key: GlobalKey('el-2'), alt: 'another-alt'),
+          Image(key: Key('el-1'), alt: 'updated-alt'),
+          Image(key: Key('el-2'), alt: 'another-alt'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('alt'), equals('updated-alt'));
       expect(domNode2.getAttribute('alt'), equals('another-alt'));
@@ -1105,23 +1105,23 @@ void html_image_test() {
     test('should clear attribute "alt"', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1')),
-          Image(key: GlobalKey('el-2'), alt: 'another-alt'),
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2'), alt: 'another-alt'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Image(key: GlobalKey('el-1')),
-          Image(key: GlobalKey('el-2')),
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('alt'), equals(null));
       expect(domNode2.getAttribute('alt'), equals(null));
@@ -1130,20 +1130,20 @@ void html_image_test() {
     test('should clear attribute "alt" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), alt: 'some-alt'),
+          Image(key: Key('el-1'), alt: 'some-alt'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), alt: null),
+          Image(key: Key('el-1'), alt: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('alt'), equals(null));
     });
@@ -1151,12 +1151,12 @@ void html_image_test() {
     test('should not set attribute "alt" if provided value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), alt: null),
+          Image(key: Key('el-1'), alt: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('alt'), equals(null));
     });
@@ -1203,14 +1203,14 @@ void html_image_test() {
     test('should set attribute "width"', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), width: 'some-width'),
-          Image(key: GlobalKey('el-2'), width: 'another-width'),
+          Image(key: Key('el-1'), width: 'some-width'),
+          Image(key: Key('el-2'), width: 'another-width'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('width'), equals('some-width'));
       expect(domNode2.getAttribute('width'), equals('another-width'));
@@ -1219,23 +1219,23 @@ void html_image_test() {
     test('should update attribute "width"', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), width: 'some-width'),
-          Image(key: GlobalKey('el-2'), width: 'another-width'),
+          Image(key: Key('el-1'), width: 'some-width'),
+          Image(key: Key('el-2'), width: 'another-width'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), width: 'updated-width'),
-          Image(key: GlobalKey('el-2'), width: 'another-width'),
+          Image(key: Key('el-1'), width: 'updated-width'),
+          Image(key: Key('el-2'), width: 'another-width'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('width'), equals('updated-width'));
       expect(domNode2.getAttribute('width'), equals('another-width'));
@@ -1244,23 +1244,23 @@ void html_image_test() {
     test('should clear attribute "width"', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1')),
-          Image(key: GlobalKey('el-2'), width: 'another-width'),
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2'), width: 'another-width'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Image(key: GlobalKey('el-1')),
-          Image(key: GlobalKey('el-2')),
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('width'), equals(null));
       expect(domNode2.getAttribute('width'), equals(null));
@@ -1269,20 +1269,20 @@ void html_image_test() {
     test('should clear attribute "width" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), width: 'some-width'),
+          Image(key: Key('el-1'), width: 'some-width'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), width: null),
+          Image(key: Key('el-1'), width: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('width'), equals(null));
     });
@@ -1291,12 +1291,12 @@ void html_image_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), width: null),
+          Image(key: Key('el-1'), width: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('width'), equals(null));
     });
@@ -1304,14 +1304,14 @@ void html_image_test() {
     test('should set attribute "height"', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), height: 'some-height'),
-          Image(key: GlobalKey('el-2'), height: 'another-height'),
+          Image(key: Key('el-1'), height: 'some-height'),
+          Image(key: Key('el-2'), height: 'another-height'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('height'), equals('some-height'));
       expect(domNode2.getAttribute('height'), equals('another-height'));
@@ -1320,23 +1320,23 @@ void html_image_test() {
     test('should update attribute "height"', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), height: 'some-height'),
-          Image(key: GlobalKey('el-2'), height: 'another-height'),
+          Image(key: Key('el-1'), height: 'some-height'),
+          Image(key: Key('el-2'), height: 'another-height'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), height: 'updated-height'),
-          Image(key: GlobalKey('el-2'), height: 'another-height'),
+          Image(key: Key('el-1'), height: 'updated-height'),
+          Image(key: Key('el-2'), height: 'another-height'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('height'), equals('updated-height'));
       expect(domNode2.getAttribute('height'), equals('another-height'));
@@ -1345,23 +1345,23 @@ void html_image_test() {
     test('should clear attribute "height"', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1')),
-          Image(key: GlobalKey('el-2'), height: 'another-height'),
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2'), height: 'another-height'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Image(key: GlobalKey('el-1')),
-          Image(key: GlobalKey('el-2')),
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('height'), equals(null));
       expect(domNode2.getAttribute('height'), equals(null));
@@ -1370,20 +1370,20 @@ void html_image_test() {
     test('should clear attribute "height" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), height: 'some-height'),
+          Image(key: Key('el-1'), height: 'some-height'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), height: null),
+          Image(key: Key('el-1'), height: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('height'), equals(null));
     });
@@ -1392,12 +1392,12 @@ void html_image_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Image(key: GlobalKey('el-1'), height: null),
+          Image(key: Key('el-1'), height: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('height'), equals(null));
     });

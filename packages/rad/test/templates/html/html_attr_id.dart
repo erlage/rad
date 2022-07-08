@@ -1,17 +1,16 @@
 test('should set id', () async {
   await app!.buildChildren(
     widgets: [
-      __WidgetClass__(key: GlobalKey('some-key-1'), id: 'some-id-1'),
-      __WidgetClass__(key: GlobalKey('some-key-2'), id: 'some-id-2'),
-      __WidgetClass__(key: GlobalKey('some-key-3'), id: 'some-id-3'),
+      __WidgetClass__(key: Key('some-key-1'), id: 'some-id-1'),
+      __WidgetClass__(key: Key('some-key-2'), id: 'some-id-2'),
+      __WidgetClass__(key: Key('some-key-3'), id: 'some-id-3'),
     ],
-            parentRenderElement: RT_TestBed.rootRenderElement,
-
+    parentRenderElement: app!.appRenderElement,
   );
 
-  var domNode1 = app!.domNodeByGlobalKey('some-key-1');
-  var domNode2 = app!.domNodeByGlobalKey('some-key-2');
-  var domNode3 = app!.domNodeByGlobalKey('some-key-3');
+  var domNode1 = app!.domNodeByKeyValue('some-key-1');
+  var domNode2 = app!.domNodeByKeyValue('some-key-2');
+  var domNode3 = app!.domNodeByKeyValue('some-key-3');
 
   expect(domNode1.id, equals('some-id-1'));
   expect(domNode2.id, equals('some-id-2'));
@@ -21,16 +20,16 @@ test('should set id', () async {
 test('should reset and update id', () async {
   await app!.buildChildren(
     widgets: [
-      __WidgetClass__(key: GlobalKey('some-key-1'), id: 'some-id-1'),
-      __WidgetClass__(key: GlobalKey('some-key-2'), id: 'some-id-2'),
-      __WidgetClass__(key: GlobalKey('some-key-3'), id: 'some-id-3'),
+      __WidgetClass__(key: Key('some-key-1'), id: 'some-id-1'),
+      __WidgetClass__(key: Key('some-key-2'), id: 'some-id-2'),
+      __WidgetClass__(key: Key('some-key-3'), id: 'some-id-3'),
     ],
     parentRenderElement: app!.appRenderElement,
   );
 
-  var domNode1 = app!.domNodeByGlobalKey('some-key-1');
-  var domNode2 = app!.domNodeByGlobalKey('some-key-2');
-  var domNode3 = app!.domNodeByGlobalKey('some-key-3');
+  var domNode1 = app!.domNodeByKeyValue('some-key-1');
+  var domNode2 = app!.domNodeByKeyValue('some-key-2');
+  var domNode3 = app!.domNodeByKeyValue('some-key-3');
 
   expect(domNode1.id, equals('some-id-1'));
   expect(domNode2.id, equals('some-id-2'));
@@ -39,15 +38,15 @@ test('should reset and update id', () async {
   await app!.updateChildren(
     widgets: [
       __WidgetClass__(
-        key: GlobalKey('some-key-1'),
+        key: Key('some-key-1'),
         id: 'some-updated-id',
       ),
       __WidgetClass__(
-        key: GlobalKey('some-key-2'),
+        key: Key('some-key-2'),
         id: 'some-local-updated-id',
       ),
       __WidgetClass__(
-        key: GlobalKey('some-key-3'),
+        key: Key('some-key-3'),
         id: 'some-global-updated-id',
       ),
     ],
@@ -76,8 +75,7 @@ test('should set messy "id"', () async {
         id: "some 'messy' id",
       ),
     ],
-            parentRenderElement: RT_TestBed.rootRenderElement,
-
+    parentRenderElement: RT_TestBed.rootRenderElement,
   );
 
   var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;

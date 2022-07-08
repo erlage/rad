@@ -10,14 +10,14 @@ test('GestureDetector widget - description test', () async {
   await pap.buildChildren(
     widgets: [
       GestureDetector(
-        key: GlobalKey('widget'),
+        key: Key('widget'),
         child: Text('hw')
       ),
     ],
     parentRenderElement: pap.appRenderElement,
   );
 
-  var domNode = pap.domNodeByGlobalKey('widget');
+  var domNode = pap.domNodeByKeyValue('widget');
 
   expect(domNode.getComputedStyle().display, equals('contents'));
 });

@@ -17,7 +17,7 @@ void main() {
     test('should bind widget before initState, type test', () async {
       runApp(
         app: RT_StatefulTestWidget(
-          key: GlobalKey('widget'),
+          key: Key('widget'),
           stateHookInitState: (state) {
             expect(state.widget.runtimeType, equals(RT_StatefulTestWidget));
           },
@@ -31,7 +31,7 @@ void main() {
     test('should bind widget before initState, key test', () async {
       runApp(
         app: RT_StatefulTestWidget(
-          key: GlobalKey('widget'),
+          key: Key('widget'),
           stateHookInitState: (state) {
             expect(state.context.key?.frameworkValue, endsWith('widget'));
           },
@@ -257,7 +257,7 @@ void main() {
       await app.buildChildren(
         widgets: [
           RT_StatefulTestWidget(
-            key: GlobalKey('old'),
+            key: Key('old'),
             stateEventCreateState: () => testStack.push('create state 1a'),
             stateEventInitState: () => testStack.push('init state 1a'),
             stateEventBuild: () => testStack.push('build 1a'),
@@ -276,7 +276,7 @@ void main() {
       await app.updateChildren(
         widgets: [
           RT_StatefulTestWidget(
-            key: GlobalKey('new'),
+            key: Key('new'),
             stateEventCreateState: () => testStack.push('create state 1b'),
             stateEventInitState: () => testStack.push('init state 1b'),
             stateEventBuild: () => testStack.push('build 1b'),

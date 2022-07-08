@@ -14,8 +14,6 @@ import '../test_imports.dart';
 class RT_TestBed {
   static const rootTargetId = 'root-div';
 
-  static const rootKey = GlobalKey(rootTargetId);
-
   static final rootRenderElement = RootRenderElement(
     appTargetId: rootTargetId,
     appTargetDomNode: rootDomNode,

@@ -38,7 +38,7 @@ void main() {
         widgets: [
           Navigator(routes: [
             AsyncRoute(
-              key: GlobalKey('a'),
+              key: Key('a'),
               name: 'some',
               page: () => Text('a'),
             ),
@@ -47,7 +47,7 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var widget = app!.renderElementByGlobalKey('a')!.widget as AsyncRoute;
+      var widget = app!.renderElementByKeyValue('a')!.widget as AsyncRoute;
 
       expect(widget.name, equals('some'));
     });
@@ -57,7 +57,7 @@ void main() {
         widgets: [
           Navigator(routes: [
             AsyncRoute(
-              key: GlobalKey('a'),
+              key: Key('a'),
               name: 'some',
               path: 'path',
               page: () => Text('a'),
@@ -67,7 +67,7 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var widget = app!.renderElementByGlobalKey('a')!.widget as AsyncRoute;
+      var widget = app!.renderElementByKeyValue('a')!.widget as AsyncRoute;
 
       expect(widget.path, equals('path'));
     });
@@ -119,7 +119,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           Navigator(
-            key: GlobalKey('navigator'),
+            key: Key('navigator'),
             routes: [
               AsyncRoute(
                 name: 'async-route',
@@ -152,7 +152,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           Navigator(
-            key: GlobalKey('navigator'),
+            key: Key('navigator'),
             routes: [
               AsyncRoute(
                 name: 'async-route',
@@ -175,7 +175,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           Navigator(
-            key: GlobalKey('navigator'),
+            key: Key('navigator'),
             routes: [
               AsyncRoute(
                 name: 'async-route',
@@ -201,7 +201,7 @@ void main() {
         await app!.buildChildren(
           widgets: [
             Navigator(
-              key: GlobalKey('navigator'),
+              key: Key('navigator'),
               routes: [
                 AsyncRoute(
                   name: 'async-route',
@@ -236,7 +236,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           Navigator(
-            key: GlobalKey('navigator'),
+            key: Key('navigator'),
             routes: [
               AsyncRoute(
                 name: 'async-route',
@@ -260,7 +260,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           Navigator(
-            key: GlobalKey('navigator'),
+            key: Key('navigator'),
             routes: [
               AsyncRoute(
                 name: 'async-route',
@@ -286,7 +286,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           Navigator(
-            key: GlobalKey('navigator'),
+            key: Key('navigator'),
             routes: [
               AsyncRoute(
                 name: 'async-route',
@@ -316,7 +316,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           Navigator(
-            key: GlobalKey('navigator'),
+            key: Key('navigator'),
             routes: [
               AsyncRoute(
                 name: 'async-route',
@@ -350,7 +350,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           Navigator(
-            key: GlobalKey('navigator'),
+            key: Key('navigator'),
             routes: [
               Route(name: 'default-route', page: Text('default contents')),
               AsyncRoute(

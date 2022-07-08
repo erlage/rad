@@ -26,14 +26,14 @@ void event_on_mouse_move_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('domNode'),
+            key: Key('domNode'),
             onMouseMove: (_) => pap.stack.push('mousemove-domNode'),
           ),
         ],
         parentRenderElement: pap.appRenderElement,
       );
 
-      var domNode = pap.domNodeByGlobalKey('domNode');
+      var domNode = pap.domNodeByKeyValue('domNode');
 
       domNode.dispatchEvent(Event('mousemove'));
       await Future.delayed(Duration(milliseconds: 50));
@@ -49,14 +49,14 @@ void event_on_mouse_move_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('domNode'),
+            key: Key('domNode'),
             onMouseMoveCapture: (_) => pap.stack.push('mousemove-domNode'),
           ),
         ],
         parentRenderElement: pap.appRenderElement,
       );
 
-      var domNode = pap.domNodeByGlobalKey('domNode');
+      var domNode = pap.domNodeByKeyValue('domNode');
 
       domNode.dispatchEvent(Event('mousemove'));
       await Future.delayed(Duration(milliseconds: 50));
@@ -72,14 +72,14 @@ void event_on_mouse_move_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onMouseMove: (_) => pap.stack.push('mousemove-g-parent'),
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onMouseMove: (_) => pap.stack.push('mousemove-parent'),
                 children: [
-                  RT_EventfulWidget(key: GlobalKey('el-child')),
+                  RT_EventfulWidget(key: Key('el-child')),
                 ],
               ),
             ],
@@ -88,9 +88,9 @@ void event_on_mouse_move_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByGlobalKey('el-g-parent');
-      var parent = pap.domNodeByGlobalKey('el-parent');
-      var child = pap.domNodeByGlobalKey('el-child');
+      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var parent = pap.domNodeByKeyValue('el-parent');
+      var child = pap.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('mousemove')); // first
       parent.dispatchEvent(Event('mousemove')); // second
@@ -120,18 +120,18 @@ void event_on_mouse_move_test() {
         await pap.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onMouseMove: (_) => pap.stack.push('mousemove-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onMouseMove: (event) {
                     pap.stack.push('mousemove-parent');
 
                     event.restartPropagationIfStopped();
                   },
                   children: [
-                    RT_EventfulWidget(key: GlobalKey('el-child')),
+                    RT_EventfulWidget(key: Key('el-child')),
                   ],
                 ),
               ],
@@ -140,7 +140,7 @@ void event_on_mouse_move_test() {
           parentRenderElement: pap.appRenderElement,
         );
 
-        var child = pap.domNodeByGlobalKey('el-child');
+        var child = pap.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('mousemove')); // third
         await Future.delayed(Duration(milliseconds: 50));
@@ -160,11 +160,11 @@ void event_on_mouse_move_test() {
         await pap.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onMouseMove: (_) => pap.stack.push('mousemove-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onMouseMove: (event) {
                     pap.stack.push('mousemove-parent');
 
@@ -177,7 +177,7 @@ void event_on_mouse_move_test() {
 
                         event.restartPropagationIfStopped();
                       },
-                      key: GlobalKey('el-child'),
+                      key: Key('el-child'),
                     ),
                   ],
                 ),
@@ -187,7 +187,7 @@ void event_on_mouse_move_test() {
           parentRenderElement: pap.appRenderElement,
         );
 
-        var child = pap.domNodeByGlobalKey('el-child');
+        var child = pap.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('mousemove'));
         await Future.delayed(Duration(milliseconds: 50));
@@ -210,7 +210,7 @@ void event_on_mouse_move_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onMouseMove: (event) {
               pap.stack.push('mousemove-g-parent');
 
@@ -218,7 +218,7 @@ void event_on_mouse_move_test() {
             },
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onMouseMoveCapture: (event) {
                   pap.stack.push('mousemove-parent');
 
@@ -226,7 +226,7 @@ void event_on_mouse_move_test() {
                 },
                 children: [
                   RT_EventfulWidget(
-                    key: GlobalKey('el-child'),
+                    key: Key('el-child'),
                     onMouseMove: (event) {
                       pap.stack.push('mousemove-child');
 
@@ -241,9 +241,9 @@ void event_on_mouse_move_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByGlobalKey('el-g-parent');
-      var parent = pap.domNodeByGlobalKey('el-parent');
-      var child = pap.domNodeByGlobalKey('el-child');
+      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var parent = pap.domNodeByKeyValue('el-parent');
+      var child = pap.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('mousemove')); // first
       parent.dispatchEvent(Event('mousemove')); // second
@@ -271,7 +271,7 @@ void event_on_mouse_move_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onMouseMoveCapture: (event) {
               pap.stack.push('mousemove-g-parent');
 
@@ -279,7 +279,7 @@ void event_on_mouse_move_test() {
             },
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onMouseMoveCapture: (event) {
                   pap.stack.push('mousemove-parent');
 
@@ -287,7 +287,7 @@ void event_on_mouse_move_test() {
                 },
                 children: [
                   RT_EventfulWidget(
-                    key: GlobalKey('el-child'),
+                    key: Key('el-child'),
                     onMouseMove: (event) {
                       pap.stack.push('mousemove-child');
 
@@ -302,9 +302,9 @@ void event_on_mouse_move_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByGlobalKey('el-g-parent');
-      var parent = pap.domNodeByGlobalKey('el-parent');
-      var child = pap.domNodeByGlobalKey('el-child');
+      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var parent = pap.domNodeByKeyValue('el-parent');
+      var child = pap.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('mousemove')); // first
       parent.dispatchEvent(Event('mousemove')); // second

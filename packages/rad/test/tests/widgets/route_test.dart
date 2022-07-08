@@ -96,7 +96,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           Route(
-            key: GlobalKey('a'),
+            key: Key('a'),
             name: 'some-name',
             page: Text('contents'),
           ),
@@ -104,7 +104,7 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var widget = app!.renderElementByGlobalKey('a')!.widget as Route;
+      var widget = app!.renderElementByKeyValue('a')!.widget as Route;
 
       expect(widget.name, equals('some-name'));
     });
@@ -113,7 +113,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           Route(
-            key: GlobalKey('a'),
+            key: Key('a'),
             name: 'some-name',
             path: 'path',
             page: Text('contents'),
@@ -122,7 +122,7 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var widget = app!.renderElementByGlobalKey('a')!.widget as Route;
+      var widget = app!.renderElementByKeyValue('a')!.widget as Route;
 
       expect(widget.path, equals('path'));
     });
@@ -131,7 +131,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           Route(
-            key: GlobalKey('a'),
+            key: Key('a'),
             name: 'some-name',
             page: Text('contents'),
           ),
@@ -139,14 +139,14 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var widget = app!.renderElementByGlobalKey('a')!.widget as Route;
+      var widget = app!.renderElementByKeyValue('a')!.widget as Route;
 
       expect(widget.name, equals('some-name'));
 
       await app!.updateChildren(
         widgets: [
           Route(
-            key: GlobalKey('a'),
+            key: Key('a'),
             name: 'another-name',
             page: Text('contents'),
           ),
@@ -155,7 +155,7 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      widget = app!.renderElementByGlobalKey('a')!.widget as Route;
+      widget = app!.renderElementByKeyValue('a')!.widget as Route;
 
       expect(widget.name, equals('another-name'));
     });
@@ -164,7 +164,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           Route(
-            key: GlobalKey('a'),
+            key: Key('a'),
             name: 'some-name',
             path: 'path',
             page: Text('contents'),
@@ -173,14 +173,14 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var widget = app!.renderElementByGlobalKey('a')!.widget as Route;
+      var widget = app!.renderElementByKeyValue('a')!.widget as Route;
 
       expect(widget.path, equals('path'));
 
       await app!.updateChildren(
         widgets: [
           Route(
-            key: GlobalKey('a'),
+            key: Key('a'),
             name: 'another-name',
             path: 'updated-path',
             page: Text('contents'),
@@ -190,7 +190,7 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      widget = app!.renderElementByGlobalKey('a')!.widget as Route;
+      widget = app!.renderElementByKeyValue('a')!.widget as Route;
 
       expect(widget.path, equals('updated-path'));
     });

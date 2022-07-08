@@ -11,7 +11,7 @@ import 'package:test/scaffolding.dart';
 void main() {
   group('enter text test', () {
     testWidgets('should enter text', (tester) async {
-      const gkey = GlobalKey('input');
+      const gkey = Key('input');
 
       await tester.pumpWidget(
         const Input(key: gkey),
@@ -20,41 +20,41 @@ void main() {
       await tester.enterText(tester.find.byType(Input), 'hello world');
 
       expect(
-        tester.getDomNodeByGlobalKey(gkey),
+        tester.getdomNodeByKey(gkey),
         domNodeHasValue('hello world'),
       );
     });
 
     testWidgets('should clear old text', (tester) async {
-      const gkey = GlobalKey('input');
+      const gkey = Key('input');
 
       await tester.pumpWidget(
         const Input(key: gkey, value: 'some text'),
       );
 
       expect(
-        tester.getDomNodeByGlobalKey(gkey),
+        tester.getdomNodeByKey(gkey),
         domNodeHasValue('some text'),
       );
 
       await tester.enterText(tester.find.byType(Input), '');
-      expect(tester.getDomNodeByGlobalKey(gkey), domNodeHasValue(''));
+      expect(tester.getdomNodeByKey(gkey), domNodeHasValue(''));
     });
   });
 
   group('focus test', () {
     testWidgets('should not focus by default', (tester) async {
-      const gkey = GlobalKey('input');
+      const gkey = Key('input');
 
       await tester.pumpWidget(
         const Input(key: gkey),
       );
 
-      expect(tester.getDomNodeByGlobalKey(gkey), domNodeHasNotFocus);
+      expect(tester.getdomNodeByKey(gkey), domNodeHasNotFocus);
     });
 
     testWidgets('should focus', (tester) async {
-      const gkey = GlobalKey('input');
+      const gkey = Key('input');
 
       await tester.pumpWidget(
         const Input(key: gkey),
@@ -62,7 +62,7 @@ void main() {
 
       await tester.focus(tester.find.byType(Input));
 
-      expect(tester.getDomNodeByGlobalKey(gkey), domNodeHasFocus);
+      expect(tester.getdomNodeByKey(gkey), domNodeHasFocus);
     });
   });
 }

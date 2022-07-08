@@ -26,14 +26,14 @@ void event_on_click_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('domNode'),
+            key: Key('domNode'),
             onClick: (_) => pap.stack.push('click-domNode'),
           ),
         ],
         parentRenderElement: pap.appRenderElement,
       );
 
-      var domNode = pap.domNodeByGlobalKey('domNode');
+      var domNode = pap.domNodeByKeyValue('domNode');
 
       domNode.dispatchEvent(Event('click'));
       await Future.delayed(Duration(milliseconds: 50));
@@ -49,14 +49,14 @@ void event_on_click_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('domNode'),
+            key: Key('domNode'),
             onClickCapture: (_) => pap.stack.push('click-domNode'),
           ),
         ],
         parentRenderElement: pap.appRenderElement,
       );
 
-      var domNode = pap.domNodeByGlobalKey('domNode');
+      var domNode = pap.domNodeByKeyValue('domNode');
 
       domNode.dispatchEvent(Event('click'));
       await Future.delayed(Duration(milliseconds: 50));
@@ -72,15 +72,15 @@ void event_on_click_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onClick: (_) => pap.stack.push('click-g-parent'),
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onClick: (_) => pap.stack.push('click-parent'),
                 children: [
                   RT_EventfulWidget(
-                    key: GlobalKey('el-child'),
+                    key: Key('el-child'),
                     onClick: (_) => pap.stack.push('click-child'),
                   ),
                 ],
@@ -91,9 +91,9 @@ void event_on_click_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByGlobalKey('el-g-parent');
-      var parent = pap.domNodeByGlobalKey('el-parent');
-      var child = pap.domNodeByGlobalKey('el-child');
+      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var parent = pap.domNodeByKeyValue('el-parent');
+      var child = pap.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second
@@ -124,11 +124,11 @@ void event_on_click_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onClick: (_) => pap.stack.push('click-g-parent'),
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onClick: (event) {
                   event.stopPropagation();
 
@@ -136,7 +136,7 @@ void event_on_click_test() {
                 },
                 children: [
                   RT_EventfulWidget(
-                    key: GlobalKey('el-child'),
+                    key: Key('el-child'),
                     onClick: (_) => pap.stack.push('click-child'),
                   ),
                 ],
@@ -147,9 +147,9 @@ void event_on_click_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByGlobalKey('el-g-parent');
-      var parent = pap.domNodeByGlobalKey('el-parent');
-      var child = pap.domNodeByGlobalKey('el-child');
+      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var parent = pap.domNodeByKeyValue('el-parent');
+      var child = pap.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second
@@ -178,11 +178,11 @@ void event_on_click_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onClick: (_) => pap.stack.push('click-g-parent'),
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onClick: (event) {
                   event.stopImmediatePropagation();
 
@@ -190,7 +190,7 @@ void event_on_click_test() {
                 },
                 children: [
                   RT_EventfulWidget(
-                    key: GlobalKey('el-child'),
+                    key: Key('el-child'),
                     onClick: (_) => pap.stack.push('click-child'),
                   ),
                 ],
@@ -201,9 +201,9 @@ void event_on_click_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByGlobalKey('el-g-parent');
-      var parent = pap.domNodeByGlobalKey('el-parent');
-      var child = pap.domNodeByGlobalKey('el-child');
+      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var parent = pap.domNodeByKeyValue('el-parent');
+      var child = pap.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second
@@ -232,11 +232,11 @@ void event_on_click_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onClick: (_) => pap.stack.push('click-g-parent'),
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onClickCapture: (event) {
                   pap.stack.push('click-parent');
 
@@ -244,7 +244,7 @@ void event_on_click_test() {
                 },
                 children: [
                   RT_EventfulWidget(
-                    key: GlobalKey('el-child'),
+                    key: Key('el-child'),
                     onClick: (_) => pap.stack.push('click-child'),
                   ),
                 ],
@@ -255,9 +255,9 @@ void event_on_click_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByGlobalKey('el-g-parent');
-      var parent = pap.domNodeByGlobalKey('el-parent');
-      var child = pap.domNodeByGlobalKey('el-child');
+      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var parent = pap.domNodeByKeyValue('el-parent');
+      var child = pap.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second
@@ -285,11 +285,11 @@ void event_on_click_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onClickCapture: (_) => pap.stack.push('click-g-parent'),
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onClickCapture: (event) {
                   pap.stack.push('click-parent');
 
@@ -297,7 +297,7 @@ void event_on_click_test() {
                 },
                 children: [
                   RT_EventfulWidget(
-                    key: GlobalKey('el-child'),
+                    key: Key('el-child'),
                     onClick: (_) => pap.stack.push('click-child'),
                   ),
                 ],
@@ -308,9 +308,9 @@ void event_on_click_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByGlobalKey('el-g-parent');
-      var parent = pap.domNodeByGlobalKey('el-parent');
-      var child = pap.domNodeByGlobalKey('el-child');
+      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var parent = pap.domNodeByKeyValue('el-parent');
+      var child = pap.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second

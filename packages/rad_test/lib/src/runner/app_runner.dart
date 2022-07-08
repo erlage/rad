@@ -7,6 +7,7 @@
 import 'package:rad/rad.dart' as rad;
 
 import 'package:rad_test/src/imports.dart';
+import 'package:rad_test/src/modules/all_elements.dart';
 import 'package:rad_test/src/utilities/test_window.dart';
 
 /// Test app root widget.
@@ -42,7 +43,7 @@ class AppRunner extends rad.AppRunner {
     rad.DebugOptions? debugOptions,
     rad.RouterOptions? routerOptions,
   }) : super(
-          app: TestAppRootWidget(key: GlobalKey(appId)),
+          app: TestAppRootWidget(key: Key(appId)),
           appTargetId: appTargetId,
           debugOptions: debugOptions,
           routerOptions: routerOptions,
@@ -51,16 +52,18 @@ class AppRunner extends rad.AppRunner {
   /// App widget(root widget)'s build context.
   ///
   rad.RenderElement get appRenderElement {
-    var renderElement =
-        frameworkServices.walker.getRenderElementAssociatedWithGlobalKey(
-      GlobalKey(appId),
+    var elements = collectAllWidgetObjectsFrom(
+      rootElement,
+      skipOffstage: false,
     );
 
-    if (null == renderElement) {
-      throw Exception('App widget (#$appId) not found');
+    for (final element in elements) {
+      if (element.key == Key(appId)) {
+        return element;
+      }
     }
 
-    return renderElement;
+    throw Exception('App widget (#$appId) not found');
   }
 
   @override

@@ -4,19 +4,19 @@ test('should set "input" event listener', () async {
     await app!.buildChildren(
         widgets: [
             __WidgetClass__(
-                key: GlobalKey('el-1'),
+                key: Key('el-1'),
                 onInput: (event) => testStack.push('input-1'),
             ),
             __WidgetClass__(
-                key: GlobalKey('el-2'),
+                key: Key('el-2'),
                 onInput: (event) => testStack.push('input-2'),
             ),
         ],
         parentRenderElement: app!.appRenderElement,
     );
 
-    app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('input'));
-    app!.domNodeByGlobalKey('el-2').dispatchEvent(Event('input'));
+    app!.domNodeByKeyValue('el-1').dispatchEvent(Event('input'));
+    app!.domNodeByKeyValue('el-2').dispatchEvent(Event('input'));
 
     await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('input-1'));
@@ -30,16 +30,16 @@ test('should set "input" event listener only if provided', () async {
 
     await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1')),
-            __WidgetClass__(key: GlobalKey('el-2'), onInput: null),
-            __WidgetClass__(key: GlobalKey('el-3'), onInput: listener),
+            __WidgetClass__(key: Key('el-1')),
+            __WidgetClass__(key: Key('el-2'), onInput: null),
+            __WidgetClass__(key: Key('el-3'), onInput: listener),
         ],
         parentRenderElement: app!.appRenderElement,
     );
 
-    var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-    var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
-    var listeners3 = app!.widgetByGlobalKey('el-3').widgetEventListeners;
+    var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+    var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
+    var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
 
     expect(listeners1[DomEventType.input], equals(null));
     expect(listeners2[DomEventType.input], equals(null));
@@ -51,14 +51,14 @@ test('should clear "input" event listner', () async {
 
     await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1')),
-            __WidgetClass__(key: GlobalKey('el-2'), onInput: listener),
+            __WidgetClass__(key: Key('el-1')),
+            __WidgetClass__(key: Key('el-2'), onInput: listener),
         ],
         parentRenderElement: app!.appRenderElement,
     );
 
-    var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-    var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+    var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+    var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
     expect(listeners1[DomEventType.input], equals(null));
     expect(listeners2[DomEventType.input], equals(listener));
@@ -67,15 +67,15 @@ test('should clear "input" event listner', () async {
 
     await app!.updateChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1')),
-            __WidgetClass__(key: GlobalKey('el-2')),
+            __WidgetClass__(key: Key('el-1')),
+            __WidgetClass__(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
     );
 
-    listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-    listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+    listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+    listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
     expect(listeners1[DomEventType.input], equals(null));
     expect(listeners2[DomEventType.input], equals(null));

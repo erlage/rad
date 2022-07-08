@@ -1,7 +1,7 @@
 test('should set correct types and markup', () async {
   await app!.buildChildren(
     widgets: [
-      __WidgetClass__(key: GlobalKey('some-key-3')),
+      __WidgetClass__(key: Key('some-key-3')),
     ],
             parentRenderElement: RT_TestBed.rootRenderElement,
 

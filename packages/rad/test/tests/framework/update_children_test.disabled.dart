@@ -144,7 +144,7 @@ void main() {
       (tester) async {
         await tester.pumpWidget(
           RT_TestWidget(
-            key: GlobalKey('key-original'),
+            key: Key('key-original'),
             roEventRender: () => tester.push('render 1a'),
             roEventUpdate: () => tester.push('update 1a'),
             roEventAfterUnMount: () => tester.push('dispose 1a'),
@@ -153,7 +153,7 @@ void main() {
 
         await tester.rePumpWidget(
           RT_AnotherTestWidget(
-            key: GlobalKey('key-original'),
+            key: Key('key-original'),
             roEventRender: () => tester.push('render 1b'),
             roEventUpdate: () => tester.push('update 1b'),
             roEventAfterUnMount: () => tester.push('dispose 1b'),
@@ -164,7 +164,7 @@ void main() {
 
         await tester.rePumpWidget(
           RT_TestWidget(
-            key: GlobalKey('key-original'),
+            key: Key('key-original'),
             roEventRender: () => tester.push('render 1c'),
             roEventUpdate: () => tester.push('update 1c'),
             roEventAfterUnMount: () => tester.push('dispose 1c'),
@@ -187,7 +187,7 @@ void main() {
       (tester) async {
         await tester.pumpWidget(
           RT_TestWidget(
-            key: GlobalKey('key-original'),
+            key: Key('key-original'),
             roEventRender: () => tester.push('render 1a'),
             roEventUpdate: () => tester.push('update 1a'),
             roEventAfterUnMount: () => tester.push('dispose 1a'),
@@ -196,7 +196,7 @@ void main() {
 
         await tester.rePumpWidget(
           RT_AnotherTestWidget(
-            key: GlobalKey('key-original'),
+            key: Key('key-original'),
             roEventRender: () => tester.push('render 1b'),
             roEventUpdate: () => tester.push('update 1b'),
             roEventAfterUnMount: () => tester.push('dispose 1b'),
@@ -207,7 +207,7 @@ void main() {
 
         await tester.rePumpWidget(
           RT_TestWidget(
-            key: GlobalKey('key-original'),
+            key: Key('key-original'),
             roEventRender: () => tester.push('render 1c'),
             roEventUpdate: () => tester.push('update 1c'),
             roEventAfterUnMount: () => tester.push('dispose 1c'),
@@ -282,7 +282,7 @@ void main() {
 
       await tester.rePumpWidget(
         RT_TestWidget(
-          key: GlobalKey('key-original'),
+          key: Key('key-original'),
           roEventRender: () => tester.push('render 1b'),
           roEventUpdate: () => tester.push('update 1b'),
           roEventAfterUnMount: () => tester.push('dispose 1b'),
@@ -291,7 +291,7 @@ void main() {
 
       await tester.rePumpWidget(
         RT_TestWidget(
-          key: GlobalKey('key-original'),
+          key: Key('key-original'),
           roEventRender: () => tester.push('render 1c'),
           roEventUpdate: () => tester.push('update 1c'),
           roEventAfterUnMount: () => tester.push('dispose 1c'),
@@ -398,7 +398,7 @@ void main() {
       (tester) async {
         await tester.pumpWidget(
           RT_TestWidget(
-            key: GlobalKey('key-original'),
+            key: Key('key-original'),
             roEventRender: () => tester.push('render 1a'),
             roEventUpdate: () => tester.push('update 1a'),
             roEventAfterUnMount: () => tester.push('dispose 1a'),
@@ -407,7 +407,7 @@ void main() {
 
         await tester.rePumpWidget(
           RT_TestWidget(
-            key: GlobalKey('key-original'),
+            key: Key('key-original'),
             roEventRender: () => tester.push('render 2a'),
             roEventUpdate: () => tester.push('update 2a'),
             roEventAfterUnMount: () => tester.push('dispose 2a'),
@@ -418,7 +418,7 @@ void main() {
 
         await tester.rePumpWidget(
           RT_TestWidget(
-            key: GlobalKey('key-original'),
+            key: Key('key-original'),
             roEventRender: () => tester.push('render 3a'),
             roEventUpdate: () => tester.push('update 3a'),
             roEventAfterUnMount: () => tester.push('dispose 3a'),
@@ -438,7 +438,7 @@ void main() {
       (tester) async {
         await tester.pumpWidget(
           RT_TestWidget(
-            key: GlobalKey('key-original'),
+            key: Key('key-original'),
             roEventRender: () => tester.push('render 1a'),
             roEventUpdate: () => tester.push('update 1a'),
             roEventAfterUnMount: () => tester.push('dispose 1a'),
@@ -447,7 +447,7 @@ void main() {
 
         await tester.rePumpWidget(
           RT_TestWidget(
-            key: GlobalKey('key-original'),
+            key: Key('key-original'),
             roEventRender: () => tester.push('render 2a'),
             roEventUpdate: () => tester.push('update 2a'),
             roEventAfterUnMount: () => tester.push('dispose 2a'),
@@ -458,7 +458,7 @@ void main() {
 
         await tester.rePumpWidget(
           RT_TestWidget(
-            key: GlobalKey('key-original'),
+            key: Key('key-original'),
             roEventRender: () => tester.push('render 3a'),
             roEventUpdate: () => tester.push('update 3a'),
             roEventAfterUnMount: () => tester.push('dispose 3a'),

@@ -23,16 +23,16 @@ void html_button_test() {
     test('should set id', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('some-key-1'), id: 'some-id-1'),
-          Button(key: GlobalKey('some-key-2'), id: 'some-id-2'),
-          Button(key: GlobalKey('some-key-3'), id: 'some-id-3'),
+          Button(key: Key('some-key-1'), id: 'some-id-1'),
+          Button(key: Key('some-key-2'), id: 'some-id-2'),
+          Button(key: Key('some-key-3'), id: 'some-id-3'),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('some-key-1');
-      var domNode2 = app!.domNodeByGlobalKey('some-key-2');
-      var domNode3 = app!.domNodeByGlobalKey('some-key-3');
+      var domNode1 = app!.domNodeByKeyValue('some-key-1');
+      var domNode2 = app!.domNodeByKeyValue('some-key-2');
+      var domNode3 = app!.domNodeByKeyValue('some-key-3');
 
       expect(domNode1.id, equals('some-id-1'));
       expect(domNode2.id, equals('some-id-2'));
@@ -42,16 +42,16 @@ void html_button_test() {
     test('should reset and update id', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('some-key-1'), id: 'some-id-1'),
-          Button(key: GlobalKey('some-key-2'), id: 'some-id-2'),
-          Button(key: GlobalKey('some-key-3'), id: 'some-id-3'),
+          Button(key: Key('some-key-1'), id: 'some-id-1'),
+          Button(key: Key('some-key-2'), id: 'some-id-2'),
+          Button(key: Key('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('some-key-1');
-      var domNode2 = app!.domNodeByGlobalKey('some-key-2');
-      var domNode3 = app!.domNodeByGlobalKey('some-key-3');
+      var domNode1 = app!.domNodeByKeyValue('some-key-1');
+      var domNode2 = app!.domNodeByKeyValue('some-key-2');
+      var domNode3 = app!.domNodeByKeyValue('some-key-3');
 
       expect(domNode1.id, equals('some-id-1'));
       expect(domNode2.id, equals('some-id-2'));
@@ -60,15 +60,15 @@ void html_button_test() {
       await app!.updateChildren(
         widgets: [
           Button(
-            key: GlobalKey('some-key-1'),
+            key: Key('some-key-1'),
             id: 'some-updated-id',
           ),
           Button(
-            key: GlobalKey('some-key-2'),
+            key: Key('some-key-2'),
             id: 'some-local-updated-id',
           ),
           Button(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'some-global-updated-id',
           ),
         ],
@@ -171,19 +171,19 @@ void html_button_test() {
       await app!.buildChildren(
         widgets: [
           Button(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'some-classes',
           ),
           Button(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('class'), equals('some-classes'));
       expect(domNode2.getAttribute('class'), equals('another-classes'));
@@ -193,11 +193,11 @@ void html_button_test() {
       await app!.buildChildren(
         widgets: [
           Button(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'some-classes',
           ),
           Button(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
@@ -207,11 +207,11 @@ void html_button_test() {
       await app!.updateChildren(
         widgets: [
           Button(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'updated-classes',
           ),
           Button(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
@@ -219,8 +219,8 @@ void html_button_test() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('class'), equals('updated-classes'));
       expect(domNode2.getAttribute('class'), equals('another-classes'));
@@ -229,9 +229,9 @@ void html_button_test() {
     test('should clear attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1')),
+          Button(key: Key('el-1')),
           Button(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
@@ -240,15 +240,15 @@ void html_button_test() {
 
       await app!.updateChildren(
         widgets: [
-          Button(key: GlobalKey('el-1')),
-          Button(key: GlobalKey('el-2')),
+          Button(key: Key('el-1')),
+          Button(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('class'), equals(null));
       expect(domNode2.getAttribute('class'), equals(null));
@@ -258,7 +258,7 @@ void html_button_test() {
       await app!.buildChildren(
         widgets: [
           Button(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'some-classes',
           ),
         ],
@@ -267,13 +267,13 @@ void html_button_test() {
 
       await app!.updateChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), classAttribute: null),
+          Button(key: Key('el-1'), classAttribute: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('class'), equals(null));
     });
@@ -282,12 +282,12 @@ void html_button_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), classAttribute: null),
+          Button(key: Key('el-1'), classAttribute: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('class'), equals(null));
     });
@@ -378,16 +378,16 @@ void html_button_test() {
     test('should set attribute "hidden" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), hidden: false),
-          Button(key: GlobalKey('el-2'), hidden: null),
-          Button(key: GlobalKey('el-3'), hidden: true),
+          Button(key: Key('el-1'), hidden: false),
+          Button(key: Key('el-2'), hidden: null),
+          Button(key: Key('el-3'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
 
       expect(domNode1.getAttribute('hidden'), equals(null));
       expect(domNode2.getAttribute('hidden'), equals(null));
@@ -398,29 +398,29 @@ void html_button_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), hidden: true),
-          Button(key: GlobalKey('el-2'), hidden: true),
-          Button(key: GlobalKey('el-3'), hidden: true),
-          Button(key: GlobalKey('el-4'), hidden: true),
+          Button(key: Key('el-1'), hidden: true),
+          Button(key: Key('el-2'), hidden: true),
+          Button(key: Key('el-3'), hidden: true),
+          Button(key: Key('el-4'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), hidden: true),
-          Button(key: GlobalKey('el-2'), hidden: false),
-          Button(key: GlobalKey('el-3'), hidden: null),
-          Button(key: GlobalKey('el-4')),
+          Button(key: Key('el-1'), hidden: true),
+          Button(key: Key('el-2'), hidden: false),
+          Button(key: Key('el-3'), hidden: null),
+          Button(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
-      var domNode4 = app!.domNodeByGlobalKey('el-4');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
 
       expect(domNode1.getAttribute('hidden'), equals('true'));
       expect(domNode2.getAttribute('hidden'), equals(null));
@@ -432,7 +432,7 @@ void html_button_test() {
       await app!.buildChildren(
         widgets: [
           Button(
-            key: GlobalKey('widget-1'),
+            key: Key('widget-1'),
             innerText: 'hello world',
           ),
         ],
@@ -450,14 +450,14 @@ void html_button_test() {
     test('should set attribute "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
-          Button(key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          Button(key: Key('el-1'), onClickAttribute: 'some-on-click'),
+          Button(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('onClick'), equals('some-on-click'));
       expect(domNode2.getAttribute('onClick'), equals('another-on-click'));
@@ -466,23 +466,23 @@ void html_button_test() {
     test('should update attribute "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
-          Button(key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          Button(key: Key('el-1'), onClickAttribute: 'some-on-click'),
+          Button(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), onClickAttribute: 'updated-on-click'),
-          Button(key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          Button(key: Key('el-1'), onClickAttribute: 'updated-on-click'),
+          Button(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('onClick'), equals('updated-on-click'));
       expect(domNode2.getAttribute('onClick'), equals('another-on-click'));
@@ -491,23 +491,23 @@ void html_button_test() {
     test('should clear attribute "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1')),
-          Button(key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          Button(key: Key('el-1')),
+          Button(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Button(key: GlobalKey('el-1')),
-          Button(key: GlobalKey('el-2')),
+          Button(key: Key('el-1')),
+          Button(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('onClick'), equals(null));
       expect(domNode2.getAttribute('onClick'), equals(null));
@@ -517,20 +517,20 @@ void html_button_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
+          Button(key: Key('el-1'), onClickAttribute: 'some-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), onClickAttribute: null),
+          Button(key: Key('el-1'), onClickAttribute: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('onClick'), equals(null));
     });
@@ -540,12 +540,12 @@ void html_button_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), onClickAttribute: null),
+          Button(key: Key('el-1'), onClickAttribute: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('onClick'), equals(null));
     });
@@ -595,19 +595,19 @@ void html_button_test() {
       await app!.buildChildren(
         widgets: [
           Button(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             onClick: (event) => testStack.push('click-1'),
           ),
           Button(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             onClick: (event) => testStack.push('click-2'),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('click'));
-      app!.domNodeByGlobalKey('el-2').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('click'));
 
       await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('click-1'));
@@ -621,16 +621,16 @@ void html_button_test() {
 
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1')),
-          Button(key: GlobalKey('el-2'), onClick: null),
-          Button(key: GlobalKey('el-3'), onClick: listener),
+          Button(key: Key('el-1')),
+          Button(key: Key('el-2'), onClick: null),
+          Button(key: Key('el-3'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByGlobalKey('el-3').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
+      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(null));
@@ -642,14 +642,14 @@ void html_button_test() {
 
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1')),
-          Button(key: GlobalKey('el-2'), onClick: listener),
+          Button(key: Key('el-1')),
+          Button(key: Key('el-2'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(listener));
@@ -658,15 +658,15 @@ void html_button_test() {
 
       await app!.updateChildren(
         widgets: [
-          Button(key: GlobalKey('el-1')),
-          Button(key: GlobalKey('el-2')),
+          Button(key: Key('el-1')),
+          Button(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(null));
@@ -741,7 +741,7 @@ void html_button_test() {
     test('should set correct types and markup', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('some-key-3')),
+          Button(key: Key('some-key-3')),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -777,7 +777,7 @@ void html_button_test() {
       await app!.buildChildren(
         widgets: [
           Button(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'id': 'some-id',
             },
@@ -799,7 +799,7 @@ void html_button_test() {
       await app!.buildChildren(
         widgets: [
           Button(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
               'id': 'ignored-id',
@@ -824,7 +824,7 @@ void html_button_test() {
       await app!.buildChildren(
         widgets: [
           Button(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
               'id': 'ignored-id',
@@ -837,7 +837,7 @@ void html_button_test() {
       await app!.updateChildren(
         widgets: [
           Button(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'updated-id',
             additionalAttributes: {
               'id': 'ignored-id',
@@ -859,7 +859,7 @@ void html_button_test() {
       await app!.buildChildren(
         widgets: [
           Button(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
               'data-another': 'another okay',
@@ -879,7 +879,7 @@ void html_button_test() {
       await app!.buildChildren(
         widgets: [
           Button(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'aria-something': 'something okay',
               'any-another': 'another okay',
@@ -900,7 +900,7 @@ void html_button_test() {
       await app!.buildChildren(
         widgets: [
           Button(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
             },
@@ -912,7 +912,7 @@ void html_button_test() {
       await app!.updateChildren(
         widgets: [
           Button(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'data-something-new': 'something new',
             },
@@ -943,16 +943,16 @@ void html_button_test() {
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('some-key-1')),
-          Button(key: GlobalKey('some-key-2')),
-          Button(key: GlobalKey('some-key-3')),
+          Button(key: Key('some-key-1')),
+          Button(key: Key('some-key-2')),
+          Button(key: Key('some-key-3')),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var wO1 = app!.renderElementByGlobalKey('some-key-1')!;
-      var wO2 = app!.renderElementByGlobalKey('some-key-2')!;
-      var wO3 = app!.renderElementByGlobalKey('some-key-3')!;
+      var wO1 = app!.renderElementByKeyValue('some-key-1')!;
+      var wO2 = app!.renderElementByKeyValue('some-key-2')!;
+      var wO3 = app!.renderElementByKeyValue('some-key-3')!;
 
       expect(wO1.key?.frameworkValue, endsWith('some-key-1'));
       expect(wO2.key?.frameworkValue, endsWith('some-key-2'));
@@ -962,14 +962,14 @@ void html_button_test() {
     test('should set attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), name: 'some-name'),
-          Button(key: GlobalKey('el-2'), name: 'another-name'),
+          Button(key: Key('el-1'), name: 'some-name'),
+          Button(key: Key('el-2'), name: 'another-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('name'), equals('some-name'));
       expect(domNode2.getAttribute('name'), equals('another-name'));
@@ -978,23 +978,23 @@ void html_button_test() {
     test('should update attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), name: 'some-name'),
-          Button(key: GlobalKey('el-2'), name: 'another-name'),
+          Button(key: Key('el-1'), name: 'some-name'),
+          Button(key: Key('el-2'), name: 'another-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), name: 'updated-name'),
-          Button(key: GlobalKey('el-2'), name: 'another-name'),
+          Button(key: Key('el-1'), name: 'updated-name'),
+          Button(key: Key('el-2'), name: 'another-name'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('name'), equals('updated-name'));
       expect(domNode2.getAttribute('name'), equals('another-name'));
@@ -1003,23 +1003,23 @@ void html_button_test() {
     test('should clear attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1')),
-          Button(key: GlobalKey('el-2'), name: 'another-name'),
+          Button(key: Key('el-1')),
+          Button(key: Key('el-2'), name: 'another-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Button(key: GlobalKey('el-1')),
-          Button(key: GlobalKey('el-2')),
+          Button(key: Key('el-1')),
+          Button(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('name'), equals(null));
       expect(domNode2.getAttribute('name'), equals(null));
@@ -1028,20 +1028,20 @@ void html_button_test() {
     test('should clear attribute "name" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), name: 'some-name'),
+          Button(key: Key('el-1'), name: 'some-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), name: null),
+          Button(key: Key('el-1'), name: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('name'), equals(null));
     });
@@ -1049,12 +1049,12 @@ void html_button_test() {
     test('should not set attribute "name" if provided value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), name: null),
+          Button(key: Key('el-1'), name: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('name'), equals(null));
     });
@@ -1101,14 +1101,14 @@ void html_button_test() {
     test('should set attribute "value"', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), value: 'some-value'),
-          Button(key: GlobalKey('el-2'), value: 'another-value'),
+          Button(key: Key('el-1'), value: 'some-value'),
+          Button(key: Key('el-2'), value: 'another-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('value'), equals('some-value'));
       expect(domNode2.getAttribute('value'), equals('another-value'));
@@ -1117,23 +1117,23 @@ void html_button_test() {
     test('should update attribute "value"', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), value: 'some-value'),
-          Button(key: GlobalKey('el-2'), value: 'another-value'),
+          Button(key: Key('el-1'), value: 'some-value'),
+          Button(key: Key('el-2'), value: 'another-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), value: 'updated-value'),
-          Button(key: GlobalKey('el-2'), value: 'another-value'),
+          Button(key: Key('el-1'), value: 'updated-value'),
+          Button(key: Key('el-2'), value: 'another-value'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('value'), equals('updated-value'));
       expect(domNode2.getAttribute('value'), equals('another-value'));
@@ -1142,23 +1142,23 @@ void html_button_test() {
     test('should clear attribute "value"', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1')),
-          Button(key: GlobalKey('el-2'), value: 'another-value'),
+          Button(key: Key('el-1')),
+          Button(key: Key('el-2'), value: 'another-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Button(key: GlobalKey('el-1')),
-          Button(key: GlobalKey('el-2')),
+          Button(key: Key('el-1')),
+          Button(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('value'), equals(null));
       expect(domNode2.getAttribute('value'), equals(null));
@@ -1167,20 +1167,20 @@ void html_button_test() {
     test('should clear attribute "value" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), value: 'some-value'),
+          Button(key: Key('el-1'), value: 'some-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), value: null),
+          Button(key: Key('el-1'), value: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('value'), equals(null));
     });
@@ -1189,12 +1189,12 @@ void html_button_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), value: null),
+          Button(key: Key('el-1'), value: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('value'), equals(null));
     });
@@ -1202,16 +1202,16 @@ void html_button_test() {
     test('should set attribute "disabled" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), disabled: false),
-          Button(key: GlobalKey('el-2'), disabled: null),
-          Button(key: GlobalKey('el-3'), disabled: true),
+          Button(key: Key('el-1'), disabled: false),
+          Button(key: Key('el-2'), disabled: null),
+          Button(key: Key('el-3'), disabled: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
 
       expect(domNode1.getAttribute('disabled'), equals(null));
       expect(domNode2.getAttribute('disabled'), equals(null));
@@ -1222,29 +1222,29 @@ void html_button_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), disabled: true),
-          Button(key: GlobalKey('el-2'), disabled: true),
-          Button(key: GlobalKey('el-3'), disabled: true),
-          Button(key: GlobalKey('el-4'), disabled: true),
+          Button(key: Key('el-1'), disabled: true),
+          Button(key: Key('el-2'), disabled: true),
+          Button(key: Key('el-3'), disabled: true),
+          Button(key: Key('el-4'), disabled: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), disabled: true),
-          Button(key: GlobalKey('el-2'), disabled: false),
-          Button(key: GlobalKey('el-3'), disabled: null),
-          Button(key: GlobalKey('el-4')),
+          Button(key: Key('el-1'), disabled: true),
+          Button(key: Key('el-2'), disabled: false),
+          Button(key: Key('el-3'), disabled: null),
+          Button(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
-      var domNode4 = app!.domNodeByGlobalKey('el-4');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
 
       expect(domNode1.getAttribute('disabled'), equals('true'));
       expect(domNode2.getAttribute('disabled'), equals(null));
@@ -1255,16 +1255,16 @@ void html_button_test() {
     test('should set button attribute "type"', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), type: ButtonType.button),
-          Button(key: GlobalKey('el-2'), type: ButtonType.reset),
-          Button(key: GlobalKey('el-3'), type: ButtonType.submit),
+          Button(key: Key('el-1'), type: ButtonType.button),
+          Button(key: Key('el-2'), type: ButtonType.reset),
+          Button(key: Key('el-3'), type: ButtonType.submit),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
 
       expect(domNode1.getAttribute('type'), equals('button'));
       expect(domNode2.getAttribute('type'), equals('reset'));
@@ -1274,26 +1274,26 @@ void html_button_test() {
     test('should update button attribute "type"', () async {
       await app!.buildChildren(
         widgets: [
-          Button(key: GlobalKey('el-1'), type: ButtonType.button),
-          Button(key: GlobalKey('el-2'), type: ButtonType.reset),
-          Button(key: GlobalKey('el-3'), type: ButtonType.submit),
+          Button(key: Key('el-1'), type: ButtonType.button),
+          Button(key: Key('el-2'), type: ButtonType.reset),
+          Button(key: Key('el-3'), type: ButtonType.submit),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Button(key: GlobalKey('el-1')),
-          Button(key: GlobalKey('el-2'), type: null),
-          Button(key: GlobalKey('el-3'), type: ButtonType.button),
+          Button(key: Key('el-1')),
+          Button(key: Key('el-2'), type: null),
+          Button(key: Key('el-3'), type: ButtonType.button),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
 
       expect(domNode1.getAttribute('type'), equals(null));
       expect(domNode2.getAttribute('type'), equals(null));

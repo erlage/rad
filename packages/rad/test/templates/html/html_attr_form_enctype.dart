@@ -1,19 +1,19 @@
 test('should set form attribute "enctype"', () async {
     await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), enctype: FormEncType.textPlain),
-            __WidgetClass__(key: GlobalKey('el-2'), enctype: FormEncType.multipartFormData),
+            __WidgetClass__(key: Key('el-1'), enctype: FormEncType.textPlain),
+            __WidgetClass__(key: Key('el-2'), enctype: FormEncType.multipartFormData),
             __WidgetClass__(
-                key: GlobalKey('el-3'),
+                key: Key('el-3'),
                 enctype: FormEncType.applicationXwwwFormUrlEncoded,
             ),
         ],
         parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
-    var domNode2 = app!.domNodeByGlobalKey('el-2');
-    var domNode3 = app!.domNodeByGlobalKey('el-3');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
+    var domNode2 = app!.domNodeByKeyValue('el-2');
+    var domNode3 = app!.domNodeByKeyValue('el-3');
 
     expect(
         domNode1.getAttribute('enctype'),
@@ -32,10 +32,10 @@ test('should set form attribute "enctype"', () async {
 test('should update form attribute "enctype"', () async {
     await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), enctype: FormEncType.textPlain),
-            __WidgetClass__(key: GlobalKey('el-2'), enctype: FormEncType.multipartFormData),
+            __WidgetClass__(key: Key('el-1'), enctype: FormEncType.textPlain),
+            __WidgetClass__(key: Key('el-2'), enctype: FormEncType.multipartFormData),
             __WidgetClass__(
-                key: GlobalKey('el-3'),
+                key: Key('el-3'),
                 enctype: FormEncType.applicationXwwwFormUrlEncoded,
             ),
         ],
@@ -44,17 +44,17 @@ test('should update form attribute "enctype"', () async {
 
     await app!.updateChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1')),
-            __WidgetClass__(key: GlobalKey('el-2'), enctype: null),
-            __WidgetClass__(key: GlobalKey('el-3'), enctype: FormEncType.multipartFormData),
+            __WidgetClass__(key: Key('el-1')),
+            __WidgetClass__(key: Key('el-2'), enctype: null),
+            __WidgetClass__(key: Key('el-3'), enctype: FormEncType.multipartFormData),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
-    var domNode2 = app!.domNodeByGlobalKey('el-2');
-    var domNode3 = app!.domNodeByGlobalKey('el-3');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
+    var domNode2 = app!.domNodeByKeyValue('el-2');
+    var domNode3 = app!.domNodeByKeyValue('el-3');
 
     expect(domNode1.getAttribute('enctype'), equals(null));
     expect(domNode2.getAttribute('enctype'), equals(null));

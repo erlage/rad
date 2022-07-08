@@ -36,7 +36,7 @@ void widget_navigator_test() {
       await pap.buildChildren(
         widgets: [
           Navigator(
-            key: GlobalKey('widget'),
+            key: Key('widget'),
             routes: [
               Route(name: 'name', page: Text('hw')),
             ],
@@ -45,7 +45,7 @@ void widget_navigator_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var domNode = pap.domNodeByGlobalKey('widget');
+      var domNode = pap.domNodeByKeyValue('widget');
 
       expect(domNode.getComputedStyle().display, equals('contents'));
     });

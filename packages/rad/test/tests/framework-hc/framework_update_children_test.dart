@@ -157,7 +157,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 1'),
                 roEventUpdate: () => testStack.push('update 1'),
                 roEventAfterUnMount: () => testStack.push('dispose 1'),
@@ -170,7 +170,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 2'),
                 roEventUpdate: () => testStack.push('update 2'),
                 roEventAfterUnMount: () => testStack.push('dispose 2'),
@@ -183,7 +183,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 2'),
                 roEventUpdate: () => testStack.push('update 2'),
                 roEventAfterUnMount: () => testStack.push('dispose 2'),
@@ -211,7 +211,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 1'),
                 roEventUpdate: () => testStack.push('update 1'),
                 roEventAfterUnMount: () => testStack.push('dispose 1'),
@@ -224,7 +224,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 2'),
                 roEventUpdate: () => testStack.push('update 2'),
                 roEventAfterUnMount: () => testStack.push('dispose 2'),
@@ -237,7 +237,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 2'),
                 roEventUpdate: () => testStack.push('update 2'),
                 roEventAfterUnMount: () => testStack.push('dispose 2'),
@@ -332,7 +332,7 @@ void main() {
         await app!.updateChildren(
           widgets: [
             RT_TestWidget(
-              key: GlobalKey('key-original'),
+              key: Key('key-original'),
               roEventRender: () => testStack.push('render 2'),
               roEventUpdate: () => testStack.push('update 2'),
               roEventAfterUnMount: () => testStack.push('dispose 2'),
@@ -345,7 +345,7 @@ void main() {
         await app!.updateChildren(
           widgets: [
             RT_TestWidget(
-              key: GlobalKey('key-original'),
+              key: Key('key-original'),
               roEventRender: () => testStack.push('render 3'),
               roEventUpdate: () => testStack.push('update 3'),
               roEventAfterUnMount: () => testStack.push('dispose 3'),
@@ -488,7 +488,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 1'),
                 roEventUpdate: () => testStack.push('update 1'),
               ),
@@ -500,7 +500,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 2'),
                 roEventUpdate: () => testStack.push('update 2'),
               ),
@@ -512,7 +512,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 2'),
                 roEventUpdate: () => testStack.push('update 2'),
               ),
@@ -537,7 +537,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 1'),
                 roEventUpdate: () => testStack.push('update 1'),
               ),
@@ -549,7 +549,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 2'),
                 roEventUpdate: () => testStack.push('update 2'),
               ),
@@ -561,7 +561,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 2'),
                 roEventUpdate: () => testStack.push('update 2'),
               ),
@@ -877,7 +877,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 1'),
                 roEventUpdate: () => testStack.push('update 1'),
                 roEventAfterUnMount: () => testStack.push('dispose 1'),
@@ -890,7 +890,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 2'),
                 roEventUpdate: () => testStack.push('update 2'),
                 roEventAfterUnMount: () => testStack.push('dispose 2'),
@@ -903,7 +903,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 2'),
                 roEventUpdate: () => testStack.push('update 2'),
                 roEventAfterUnMount: () => testStack.push('dispose 2'),
@@ -931,7 +931,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 1'),
                 roEventUpdate: () => testStack.push('update 1'),
                 roEventAfterUnMount: () => testStack.push('dispose 1'),
@@ -944,7 +944,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 2'),
                 roEventUpdate: () => testStack.push('update 2'),
                 roEventAfterUnMount: () => testStack.push('dispose 2'),
@@ -957,7 +957,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_AnotherTestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 2'),
                 roEventUpdate: () => testStack.push('update 2'),
                 roEventAfterUnMount: () => testStack.push('dispose 2'),
@@ -1052,7 +1052,7 @@ void main() {
         await app!.updateChildren(
           widgets: [
             RT_TestWidget(
-              key: GlobalKey('key-original'),
+              key: Key('key-original'),
               roEventRender: () => testStack.push('render 2'),
               roEventUpdate: () => testStack.push('update 2'),
               roEventAfterUnMount: () => testStack.push('dispose 2'),
@@ -1065,7 +1065,7 @@ void main() {
         await app!.updateChildren(
           widgets: [
             RT_TestWidget(
-              key: GlobalKey('key-original'),
+              key: Key('key-original'),
               roEventRender: () => testStack.push('render 3'),
               roEventUpdate: () => testStack.push('update 3'),
               roEventAfterUnMount: () => testStack.push('dispose 3'),
@@ -1208,7 +1208,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 1'),
                 roEventUpdate: () => testStack.push('update 1'),
               ),
@@ -1220,7 +1220,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 2'),
                 roEventUpdate: () => testStack.push('update 2'),
               ),
@@ -1232,7 +1232,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 2'),
                 roEventUpdate: () => testStack.push('update 2'),
               ),
@@ -1257,7 +1257,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 1'),
                 roEventUpdate: () => testStack.push('update 1'),
               ),
@@ -1269,7 +1269,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 2'),
                 roEventUpdate: () => testStack.push('update 2'),
               ),
@@ -1281,7 +1281,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               RT_TestWidget(
-                key: GlobalKey('key-original'),
+                key: Key('key-original'),
                 roEventRender: () => testStack.push('render 2'),
                 roEventUpdate: () => testStack.push('update 2'),
               ),

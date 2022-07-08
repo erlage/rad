@@ -24,7 +24,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           Navigator(
-            key: GlobalKey('navigator'),
+            key: Key('navigator'),
             routes: [
               Route(name: 'route-1', page: Text('route-1')),
               Route(name: 'route-2', page: Text('route-2')),
@@ -43,7 +43,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           Navigator(
-            key: GlobalKey('navigator'),
+            key: Key('navigator'),
             routes: [
               Route(name: 'route-1', page: Text('route-1')),
               AsyncRoute(name: 'route-2', page: () => Text('route-2')),
@@ -62,7 +62,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           Navigator(
-            key: GlobalKey('navigator'),
+            key: Key('navigator'),
             routes: [
               AsyncRoute(name: 'route-2', page: () => Text('route-2')),
               Route(name: 'route-1', page: Text('route-1')),
@@ -100,7 +100,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           Navigator(
-            key: GlobalKey('navigator'),
+            key: Key('navigator'),
             routes: [
               Route(name: 'route-1', page: Text('route-1')),
               Route(name: 'route-2', page: Text('route-2')),
@@ -123,7 +123,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           Navigator(
-            key: GlobalKey('navigator'),
+            key: Key('navigator'),
             routes: [
               Route(name: 'route-1', page: Text('route-1')),
               Route(name: 'route-2', page: Text('route-2')),
@@ -146,7 +146,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           Navigator(
-            key: GlobalKey('navigator'),
+            key: Key('navigator'),
             routes: [
               Route(name: 'route-1', page: Text('route-1')),
               Route(name: 'route-2', page: Text('route-2')),

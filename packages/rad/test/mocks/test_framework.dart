@@ -7,7 +7,7 @@
 // parts of flutter test framework that we've to mock in order to run tests
 // that we had copied from flutter sdk.
 
-import '../test_imports.dart' hide GlobalKey;
+import '../test_imports.dart';
 
 typedef WidgetTesterCallback = Future<void> Function(WidgetTester widgetTester);
 
@@ -175,7 +175,7 @@ abstract class Finder {
 
   Iterable<RenderElement> get allCandidates {
     var rootElement = ServicesRegistry.instance
-        .getWalker(
+        .getServices(
           RT_TestBed.rootRenderElement,
         )
         .rootElement;

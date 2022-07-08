@@ -24,13 +24,13 @@ void main() {
             //
             // so we can get domNode associated with raw markup
             //
-            key: GlobalKey('widget'),
+            key: Key('widget'),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var rawElement = app!.domNodeByGlobalKey('widget');
+      var rawElement = app!.domNodeByKeyValue('widget');
 
       expect(rawElement.innerHtml, equals('<div id="raw">s</div>'));
     });

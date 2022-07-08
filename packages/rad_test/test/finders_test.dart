@@ -63,7 +63,7 @@ void main() {
     testWidgets('finds widget', (tester) async {
       await tester.pumpWidget(
         const Button(
-          key: GlobalKey('btn'),
+          key: Key('btn'),
           child: Text('Update'),
         ),
       );
@@ -76,7 +76,7 @@ void main() {
   });
 
   testWidgets('ChainedFinders chain properly', (tester) async {
-    const GlobalKey key1 = GlobalKey('key1');
+    const key1 = Key('key1');
 
     await tester.pumpWidget(
       const Division(

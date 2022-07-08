@@ -1,14 +1,14 @@
 test('should set attribute "label"', () async {
     await app!.buildChildren(
     widgets: [
-        __WidgetClass__(key: GlobalKey('el-1'), label: 'some-label'),
-        __WidgetClass__(key: GlobalKey('el-2'), label: 'another-label'),
+        __WidgetClass__(key: Key('el-1'), label: 'some-label'),
+        __WidgetClass__(key: Key('el-2'), label: 'another-label'),
     ],
     parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
-    var domNode2 = app!.domNodeByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
+    var domNode2 = app!.domNodeByKeyValue('el-2');
 
     expect(domNode1.getAttribute('label'), equals('some-label'));
     expect(domNode2.getAttribute('label'), equals('another-label'));
@@ -17,23 +17,23 @@ test('should set attribute "label"', () async {
 test('should update attribute "label"', () async {
     await app!.buildChildren(
     widgets: [
-        __WidgetClass__(key: GlobalKey('el-1'), label: 'some-label'),
-        __WidgetClass__(key: GlobalKey('el-2'), label: 'another-label'),
+        __WidgetClass__(key: Key('el-1'), label: 'some-label'),
+        __WidgetClass__(key: Key('el-2'), label: 'another-label'),
     ],
     parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
     widgets: [
-        __WidgetClass__(key: GlobalKey('el-1'), label: 'updated-label'),
-        __WidgetClass__(key: GlobalKey('el-2'), label: 'another-label'),
+        __WidgetClass__(key: Key('el-1'), label: 'updated-label'),
+        __WidgetClass__(key: Key('el-2'), label: 'another-label'),
     ],
     updateType: UpdateType.setState,
     parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
-    var domNode2 = app!.domNodeByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
+    var domNode2 = app!.domNodeByKeyValue('el-2');
 
     expect(domNode1.getAttribute('label'), equals('updated-label'));
     expect(domNode2.getAttribute('label'), equals('another-label'));
@@ -42,23 +42,23 @@ test('should update attribute "label"', () async {
 test('should clear attribute "label"', () async {
     await app!.buildChildren(
     widgets: [
-        __WidgetClass__(key: GlobalKey('el-1')),
-        __WidgetClass__(key: GlobalKey('el-2'), label: 'another-label'),
+        __WidgetClass__(key: Key('el-1')),
+        __WidgetClass__(key: Key('el-2'), label: 'another-label'),
     ],
     parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
     widgets: [
-        __WidgetClass__(key: GlobalKey('el-1')),
-        __WidgetClass__(key: GlobalKey('el-2')),
+        __WidgetClass__(key: Key('el-1')),
+        __WidgetClass__(key: Key('el-2')),
     ],
     updateType: UpdateType.setState,
     parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
-    var domNode2 = app!.domNodeByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
+    var domNode2 = app!.domNodeByKeyValue('el-2');
 
     expect(domNode1.getAttribute('label'), equals(null));
     expect(domNode2.getAttribute('label'), equals(null));
@@ -67,20 +67,20 @@ test('should clear attribute "label"', () async {
 test('should clear attribute "label" if updated value is null', () async {
    await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), label: 'some-label'),
+            __WidgetClass__(key: Key('el-1'), label: 'some-label'),
         ],
         parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), label: null),
+            __WidgetClass__(key: Key('el-1'), label: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
 
     expect(domNode1.getAttribute('label'), equals(null));
 });
@@ -88,12 +88,12 @@ test('should clear attribute "label" if updated value is null', () async {
 test('should not set attribute "label" if provided value is null', () async {
     await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), label: null),
+            __WidgetClass__(key: Key('el-1'), label: null),
         ],
         parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
 
     expect(domNode1.getAttribute('label'), equals(null));
 });

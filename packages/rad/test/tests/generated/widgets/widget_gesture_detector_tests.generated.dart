@@ -31,12 +31,12 @@ void widget_gesture_detector_test() {
 
       await pap.buildChildren(
         widgets: [
-          GestureDetector(key: GlobalKey('widget'), child: Text('hw')),
+          GestureDetector(key: Key('widget'), child: Text('hw')),
         ],
         parentRenderElement: pap.appRenderElement,
       );
 
-      var domNode = pap.domNodeByGlobalKey('widget');
+      var domNode = pap.domNodeByKeyValue('widget');
 
       expect(domNode.getComputedStyle().display, equals('contents'));
     });

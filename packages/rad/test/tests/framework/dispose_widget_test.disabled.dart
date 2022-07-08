@@ -15,7 +15,7 @@ import '../../test_imports.dart';
 void main() {
   group('dispose widget tests:', () {
     testWidgets('should dispose widget', (tester) async {
-      var gkey = GlobalKey('gkey');
+      var gkey = Key('gkey');
 
       await tester.pumpMultipleWidgets([
         Text('widget-1'),
@@ -24,7 +24,7 @@ void main() {
       ]);
 
       await tester.disposeWidget(
-        renderElement: tester.getRenderElementByGlobalKey(gkey),
+        renderElement: tester.getrenderElementByKeyValue(gkey),
         flagPreserveTarget: false,
       );
 
@@ -49,7 +49,7 @@ void main() {
     );
 
     testWidgets('should dispose single nested widget', (tester) async {
-      var gkey = GlobalKey('child-0-0');
+      var gkey = Key('child-0-0');
 
       await tester.pumpWidget(
         RT_TestWidget(
@@ -72,7 +72,7 @@ void main() {
       );
 
       await tester.disposeWidget(
-        renderElement: tester.getRenderElementByGlobalKey(gkey),
+        renderElement: tester.getrenderElementByKeyValue(gkey),
         flagPreserveTarget: false,
       );
 
@@ -81,8 +81,8 @@ void main() {
     });
 
     testWidgets('should dispose multiple widgets', (tester) async {
-      var gkey1 = GlobalKey('child-0-0');
-      var gkey2 = GlobalKey('child-0-1');
+      var gkey1 = Key('child-0-0');
+      var gkey2 = Key('child-0-1');
 
       await tester.pumpWidget(
         RT_TestWidget(
@@ -106,12 +106,12 @@ void main() {
       );
 
       await tester.disposeWidget(
-        renderElement: tester.getRenderElementByGlobalKey(gkey1),
+        renderElement: tester.getrenderElementByKeyValue(gkey1),
         flagPreserveTarget: false,
       );
 
       await tester.disposeWidget(
-        renderElement: tester.getRenderElementByGlobalKey(gkey2),
+        renderElement: tester.getrenderElementByKeyValue(gkey2),
         flagPreserveTarget: false,
       );
 
@@ -120,11 +120,11 @@ void main() {
     });
 
     testWidgets('should dispose widgets recursively', (tester) async {
-      var gkey = GlobalKey('child-0');
+      var gkey = Key('child-0');
 
       await tester.pumpWidget(
         RT_TestWidget(
-          key: GlobalKey('widget'),
+          key: Key('widget'),
           children: [
             RT_TestWidget(
               key: gkey,
@@ -144,7 +144,7 @@ void main() {
       );
 
       await tester.disposeWidget(
-        renderElement: tester.getRenderElementByGlobalKey(gkey),
+        renderElement: tester.getrenderElementByKeyValue(gkey),
         flagPreserveTarget: false,
       );
 
@@ -153,7 +153,7 @@ void main() {
     });
 
     testWidgets('method call should be idempotent', (tester) async {
-      var gkey = GlobalKey('widget');
+      var gkey = Key('widget');
 
       await tester.pumpWidget(
         RT_TestWidget(key: gkey),
@@ -162,19 +162,19 @@ void main() {
       expect(tester.find.byType(RT_TestWidget), findsOneWidget);
 
       await tester.disposeWidget(
-        renderElement: tester.getRenderElementByGlobalKey(gkey),
+        renderElement: tester.getrenderElementByKeyValue(gkey),
         flagPreserveTarget: false,
       );
 
       expect(tester.find.byType(RT_TestWidget), findsNothing);
 
       await tester.disposeWidget(
-        renderElement: tester.getRenderElementByGlobalKey(gkey),
+        renderElement: tester.getrenderElementByKeyValue(gkey),
         flagPreserveTarget: false,
       );
 
       await tester.disposeWidget(
-        renderElement: tester.getRenderElementByGlobalKey(gkey),
+        renderElement: tester.getrenderElementByKeyValue(gkey),
         flagPreserveTarget: false,
       );
 
@@ -182,7 +182,7 @@ void main() {
     });
 
     testWidgets('should preserve target(parent) when asked to', (tester) async {
-      var gkey = GlobalKey('child-0');
+      var gkey = Key('child-0');
 
       await tester.pumpWidget(
         RT_TestWidget(
@@ -205,7 +205,7 @@ void main() {
       );
 
       await tester.disposeWidget(
-        renderElement: tester.getRenderElementByGlobalKey(gkey),
+        renderElement: tester.getrenderElementByKeyValue(gkey),
         flagPreserveTarget: true,
       );
 
@@ -216,7 +216,7 @@ void main() {
     testWidgets(
       'should dispose existing widgets, in order, starting from bottom',
       (tester) async {
-        var gkey = GlobalKey('widget');
+        var gkey = Key('widget');
 
         // create app widget containing some child widgets to test
 
@@ -277,7 +277,7 @@ void main() {
         //
 
         await tester.disposeWidget(
-          renderElement: tester.getRenderElementByGlobalKey(gkey),
+          renderElement: tester.getrenderElementByKeyValue(gkey),
           flagPreserveTarget: true,
         );
 

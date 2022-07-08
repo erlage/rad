@@ -251,7 +251,7 @@ void main() {
             widgets: [
               RT_StatefulTestWidget(
                 children: [
-                  Text('widget 1', key: GlobalKey('widget')),
+                  Text('widget 1', key: Key('widget')),
                   Division(innerText: 'widget 2'),
                 ],
               )
@@ -270,7 +270,7 @@ void main() {
               RT_StatefulTestWidget(
                 children: [
                   Division(innerText: 'widget 2'),
-                  Text('widget 1', key: GlobalKey('widget')),
+                  Text('widget 1', key: Key('widget')),
                 ],
               ),
             ],
@@ -336,7 +336,7 @@ void main() {
           await app!.updateChildren(
             widgets: [
               Text('widget 1'),
-              Text('widget 2', key: GlobalKey('widget 2')),
+              Text('widget 2', key: Key('widget 2')),
               RT_StatefulTestWidget(
                 children: [
                   Text('widget 3'),
@@ -360,7 +360,7 @@ void main() {
                   Text('widget 3'),
                 ],
               ),
-              Text('widget 2', key: GlobalKey('widget 2')),
+              Text('widget 2', key: Key('widget 2')),
             ],
             parentRenderElement: app!.appRenderElement,
             updateType: UpdateType.undefined,
@@ -791,7 +791,7 @@ void main() {
             widgets: [
               Text(
                 'keyed-1',
-                key: GlobalKey('0'),
+                key: Key('0'),
               ),
               Text(
                 'non-keyed-1',
@@ -809,7 +809,7 @@ void main() {
               ),
               Text(
                 'keyed-1',
-                key: GlobalKey('0'),
+                key: Key('0'),
               ),
             ],
             updateType: UpdateType.setState,

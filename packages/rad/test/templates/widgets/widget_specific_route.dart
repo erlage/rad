@@ -13,7 +13,7 @@ test('Route widget - description test', () async {
   await pap.buildChildren(
     widgets: [
       Route(
-        key: GlobalKey('widget'),
+        key: Key('widget'),
         name: 'some-name',
         page: Text('hw'),
       ),
@@ -21,7 +21,7 @@ test('Route widget - description test', () async {
     parentRenderElement: pap.appRenderElement,
   );
 
-  var domNode = pap.domNodeByGlobalKey('widget');
+  var domNode = pap.domNodeByKeyValue('widget');
 
   expect(domNode.getComputedStyle().display, equals('contents'));
 });

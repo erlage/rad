@@ -26,14 +26,14 @@ void event_on_drag_over_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('domNode'),
+            key: Key('domNode'),
             onDragOver: (_) => pap.stack.push('dragover-domNode'),
           ),
         ],
         parentRenderElement: pap.appRenderElement,
       );
 
-      var domNode = pap.domNodeByGlobalKey('domNode');
+      var domNode = pap.domNodeByKeyValue('domNode');
 
       domNode.dispatchEvent(Event('dragover'));
       await Future.delayed(Duration(milliseconds: 50));
@@ -49,14 +49,14 @@ void event_on_drag_over_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('domNode'),
+            key: Key('domNode'),
             onDragOverCapture: (_) => pap.stack.push('dragover-domNode'),
           ),
         ],
         parentRenderElement: pap.appRenderElement,
       );
 
-      var domNode = pap.domNodeByGlobalKey('domNode');
+      var domNode = pap.domNodeByKeyValue('domNode');
 
       domNode.dispatchEvent(Event('dragover'));
       await Future.delayed(Duration(milliseconds: 50));
@@ -72,14 +72,14 @@ void event_on_drag_over_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onDragOver: (_) => pap.stack.push('dragover-g-parent'),
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onDragOver: (_) => pap.stack.push('dragover-parent'),
                 children: [
-                  RT_EventfulWidget(key: GlobalKey('el-child')),
+                  RT_EventfulWidget(key: Key('el-child')),
                 ],
               ),
             ],
@@ -88,9 +88,9 @@ void event_on_drag_over_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByGlobalKey('el-g-parent');
-      var parent = pap.domNodeByGlobalKey('el-parent');
-      var child = pap.domNodeByGlobalKey('el-child');
+      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var parent = pap.domNodeByKeyValue('el-parent');
+      var child = pap.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('dragover')); // first
       parent.dispatchEvent(Event('dragover')); // second
@@ -120,18 +120,18 @@ void event_on_drag_over_test() {
         await pap.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onDragOver: (_) => pap.stack.push('dragover-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onDragOver: (event) {
                     pap.stack.push('dragover-parent');
 
                     event.restartPropagationIfStopped();
                   },
                   children: [
-                    RT_EventfulWidget(key: GlobalKey('el-child')),
+                    RT_EventfulWidget(key: Key('el-child')),
                   ],
                 ),
               ],
@@ -140,7 +140,7 @@ void event_on_drag_over_test() {
           parentRenderElement: pap.appRenderElement,
         );
 
-        var child = pap.domNodeByGlobalKey('el-child');
+        var child = pap.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('dragover')); // third
         await Future.delayed(Duration(milliseconds: 50));
@@ -160,11 +160,11 @@ void event_on_drag_over_test() {
         await pap.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onDragOver: (_) => pap.stack.push('dragover-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onDragOver: (event) {
                     pap.stack.push('dragover-parent');
 
@@ -177,7 +177,7 @@ void event_on_drag_over_test() {
 
                         event.restartPropagationIfStopped();
                       },
-                      key: GlobalKey('el-child'),
+                      key: Key('el-child'),
                     ),
                   ],
                 ),
@@ -187,7 +187,7 @@ void event_on_drag_over_test() {
           parentRenderElement: pap.appRenderElement,
         );
 
-        var child = pap.domNodeByGlobalKey('el-child');
+        var child = pap.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('dragover'));
         await Future.delayed(Duration(milliseconds: 50));
@@ -210,7 +210,7 @@ void event_on_drag_over_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onDragOver: (event) {
               pap.stack.push('dragover-g-parent');
 
@@ -218,7 +218,7 @@ void event_on_drag_over_test() {
             },
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onDragOverCapture: (event) {
                   pap.stack.push('dragover-parent');
 
@@ -226,7 +226,7 @@ void event_on_drag_over_test() {
                 },
                 children: [
                   RT_EventfulWidget(
-                    key: GlobalKey('el-child'),
+                    key: Key('el-child'),
                     onDragOver: (event) {
                       pap.stack.push('dragover-child');
 
@@ -241,9 +241,9 @@ void event_on_drag_over_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByGlobalKey('el-g-parent');
-      var parent = pap.domNodeByGlobalKey('el-parent');
-      var child = pap.domNodeByGlobalKey('el-child');
+      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var parent = pap.domNodeByKeyValue('el-parent');
+      var child = pap.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('dragover')); // first
       parent.dispatchEvent(Event('dragover')); // second
@@ -271,7 +271,7 @@ void event_on_drag_over_test() {
       await pap.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onDragOverCapture: (event) {
               pap.stack.push('dragover-g-parent');
 
@@ -279,7 +279,7 @@ void event_on_drag_over_test() {
             },
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onDragOverCapture: (event) {
                   pap.stack.push('dragover-parent');
 
@@ -287,7 +287,7 @@ void event_on_drag_over_test() {
                 },
                 children: [
                   RT_EventfulWidget(
-                    key: GlobalKey('el-child'),
+                    key: Key('el-child'),
                     onDragOver: (event) {
                       pap.stack.push('dragover-child');
 
@@ -302,9 +302,9 @@ void event_on_drag_over_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByGlobalKey('el-g-parent');
-      var parent = pap.domNodeByGlobalKey('el-parent');
-      var child = pap.domNodeByGlobalKey('el-child');
+      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var parent = pap.domNodeByKeyValue('el-parent');
+      var child = pap.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('dragover')); // first
       parent.dispatchEvent(Event('dragover')); // second

@@ -17,6 +17,8 @@ class RT_TestWidget extends Widget {
   final VoidCallback? wEventshouldUpdateWidget;
   final VoidCallback? wEventshouldUpdateWidgetChildren;
 
+  final Function(RenderElement)? wHookCreateRenderElement;
+
   // render element events
 
   final VoidCallback? roEventInit;
@@ -45,6 +47,7 @@ class RT_TestWidget extends Widget {
   const RT_TestWidget({
     Key? key,
     this.children,
+    this.wHookCreateRenderElement,
 
     // render object events
 
@@ -123,7 +126,7 @@ class RT_TestWidget extends Widget {
       wEventCreateRenderObject!();
     }
 
-    return RT_TestRenderElement(
+    var renderElement = RT_TestRenderElement(
       this,
       parent,
       roEventInit: roEventInit,
@@ -134,6 +137,12 @@ class RT_TestWidget extends Widget {
       roEventAfterUnMount: roEventAfterUnMount,
       roHookUpdate: roHookUpdate,
     );
+
+    if (null != wHookCreateRenderElement) {
+      wHookCreateRenderElement!(renderElement);
+    }
+
+    return renderElement;
   }
 }
 

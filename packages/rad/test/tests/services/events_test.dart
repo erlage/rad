@@ -29,15 +29,15 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onClick: (_) => testStack.push('click-g-parent'),
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onClick: (_) => testStack.push('click-parent'),
                 children: [
                   RT_EventfulWidget(
-                    key: GlobalKey('el-child'),
+                    key: Key('el-child'),
                     onClick: (_) => testStack.push('click-child'),
                   ),
                 ],
@@ -48,9 +48,9 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var gparent = app!.domNodeByGlobalKey('el-g-parent');
-      var parent = app!.domNodeByGlobalKey('el-parent');
-      var child = app!.domNodeByGlobalKey('el-child');
+      var gparent = app!.domNodeByKeyValue('el-g-parent');
+      var parent = app!.domNodeByKeyValue('el-parent');
+      var child = app!.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second
@@ -80,11 +80,11 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onClick: (_) => testStack.push('click-g-parent'),
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onClick: (event) {
                   event.stopPropagation();
 
@@ -92,7 +92,7 @@ void main() {
                 },
                 children: [
                   RT_EventfulWidget(
-                    key: GlobalKey('el-child'),
+                    key: Key('el-child'),
                     onClick: (_) => testStack.push('click-child'),
                   ),
                 ],
@@ -103,9 +103,9 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var gparent = app!.domNodeByGlobalKey('el-g-parent');
-      var parent = app!.domNodeByGlobalKey('el-parent');
-      var child = app!.domNodeByGlobalKey('el-child');
+      var gparent = app!.domNodeByKeyValue('el-g-parent');
+      var parent = app!.domNodeByKeyValue('el-parent');
+      var child = app!.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second
@@ -135,11 +135,11 @@ void main() {
         await app!.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onClick: (_) => testStack.push('click-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onClick: (event) {
                     event.stopImmediatePropagation();
 
@@ -147,7 +147,7 @@ void main() {
                   },
                   children: [
                     RT_EventfulWidget(
-                      key: GlobalKey('el-child'),
+                      key: Key('el-child'),
                       onClick: (_) => testStack.push('click-child'),
                     ),
                   ],
@@ -158,9 +158,9 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var gparent = app!.domNodeByGlobalKey('el-g-parent');
-        var parent = app!.domNodeByGlobalKey('el-parent');
-        var child = app!.domNodeByGlobalKey('el-child');
+        var gparent = app!.domNodeByKeyValue('el-g-parent');
+        var parent = app!.domNodeByKeyValue('el-parent');
+        var child = app!.domNodeByKeyValue('el-child');
 
         gparent.dispatchEvent(Event('click')); // first
         parent.dispatchEvent(Event('click')); // second
@@ -191,18 +191,18 @@ void main() {
         await app!.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onClick: (_) => testStack.push('click-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onClick: (event) {
                     testStack.push('click-parent');
 
                     event.restartPropagationIfStopped();
                   },
                   children: [
-                    RT_EventfulWidget(key: GlobalKey('el-child')),
+                    RT_EventfulWidget(key: Key('el-child')),
                   ],
                 ),
               ],
@@ -211,7 +211,7 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var child = app!.domNodeByGlobalKey('el-child');
+        var child = app!.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('click')); // third
 
@@ -230,11 +230,11 @@ void main() {
         await app!.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onClick: (_) => testStack.push('click-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onClick: (event) {
                     testStack.push('click-parent');
 
@@ -247,7 +247,7 @@ void main() {
 
                         event.restartPropagationIfStopped();
                       },
-                      key: GlobalKey('el-child'),
+                      key: Key('el-child'),
                     ),
                   ],
                 ),
@@ -257,7 +257,7 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var child = app!.domNodeByGlobalKey('el-child');
+        var child = app!.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('click')); // third
 
@@ -282,14 +282,14 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onInput: (_) => testStack.push('input-g-parent'),
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onInput: (_) => testStack.push('input-parent'),
                 children: [
-                  RT_EventfulWidget(key: GlobalKey('el-child')),
+                  RT_EventfulWidget(key: Key('el-child')),
                 ],
               ),
             ],
@@ -298,9 +298,9 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var gparent = app!.domNodeByGlobalKey('el-g-parent');
-      var parent = app!.domNodeByGlobalKey('el-parent');
-      var child = app!.domNodeByGlobalKey('el-child');
+      var gparent = app!.domNodeByKeyValue('el-g-parent');
+      var parent = app!.domNodeByKeyValue('el-parent');
+      var child = app!.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('input')); // first
       parent.dispatchEvent(Event('input')); // second
@@ -329,18 +329,18 @@ void main() {
         await app!.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onInput: (_) => testStack.push('input-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onInput: (event) {
                     testStack.push('input-parent');
 
                     event.restartPropagationIfStopped();
                   },
                   children: [
-                    RT_EventfulWidget(key: GlobalKey('el-child')),
+                    RT_EventfulWidget(key: Key('el-child')),
                   ],
                 ),
               ],
@@ -349,7 +349,7 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var child = app!.domNodeByGlobalKey('el-child');
+        var child = app!.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('input')); // third
 
@@ -368,11 +368,11 @@ void main() {
         await app!.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onInput: (_) => testStack.push('input-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onInput: (event) {
                     testStack.push('input-parent');
 
@@ -385,7 +385,7 @@ void main() {
 
                         event.restartPropagationIfStopped();
                       },
-                      key: GlobalKey('el-child'),
+                      key: Key('el-child'),
                     ),
                   ],
                 ),
@@ -395,7 +395,7 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var child = app!.domNodeByGlobalKey('el-child');
+        var child = app!.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('input')); // third
 
@@ -420,14 +420,14 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onChange: (_) => testStack.push('change-g-parent'),
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onChange: (_) => testStack.push('change-parent'),
                 children: [
-                  RT_EventfulWidget(key: GlobalKey('el-child')),
+                  RT_EventfulWidget(key: Key('el-child')),
                 ],
               ),
             ],
@@ -436,9 +436,9 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var gparent = app!.domNodeByGlobalKey('el-g-parent');
-      var parent = app!.domNodeByGlobalKey('el-parent');
-      var child = app!.domNodeByGlobalKey('el-child');
+      var gparent = app!.domNodeByKeyValue('el-g-parent');
+      var parent = app!.domNodeByKeyValue('el-parent');
+      var child = app!.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('change')); // first
       parent.dispatchEvent(Event('change')); // second
@@ -467,18 +467,18 @@ void main() {
         await app!.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onChange: (_) => testStack.push('change-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onChange: (event) {
                     testStack.push('change-parent');
 
                     event.restartPropagationIfStopped();
                   },
                   children: [
-                    RT_EventfulWidget(key: GlobalKey('el-child')),
+                    RT_EventfulWidget(key: Key('el-child')),
                   ],
                 ),
               ],
@@ -487,7 +487,7 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var child = app!.domNodeByGlobalKey('el-child');
+        var child = app!.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('change')); // third
 
@@ -506,11 +506,11 @@ void main() {
         await app!.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onChange: (_) => testStack.push('change-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onChange: (event) {
                     testStack.push('change-parent');
 
@@ -523,7 +523,7 @@ void main() {
 
                         event.restartPropagationIfStopped();
                       },
-                      key: GlobalKey('el-child'),
+                      key: Key('el-child'),
                     ),
                   ],
                 ),
@@ -533,7 +533,7 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var child = app!.domNodeByGlobalKey('el-child');
+        var child = app!.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('change')); // third
 
@@ -558,14 +558,14 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onSubmit: (_) => testStack.push('submit-g-parent'),
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onSubmit: (_) => testStack.push('submit-parent'),
                 children: [
-                  RT_EventfulWidget(key: GlobalKey('el-child')),
+                  RT_EventfulWidget(key: Key('el-child')),
                 ],
               ),
             ],
@@ -574,9 +574,9 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var gparent = app!.domNodeByGlobalKey('el-g-parent');
-      var parent = app!.domNodeByGlobalKey('el-parent');
-      var child = app!.domNodeByGlobalKey('el-child');
+      var gparent = app!.domNodeByKeyValue('el-g-parent');
+      var parent = app!.domNodeByKeyValue('el-parent');
+      var child = app!.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('submit')); // first
       parent.dispatchEvent(Event('submit')); // second
@@ -605,18 +605,18 @@ void main() {
         await app!.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onSubmit: (_) => testStack.push('submit-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onSubmit: (event) {
                     testStack.push('submit-parent');
 
                     event.restartPropagationIfStopped();
                   },
                   children: [
-                    RT_EventfulWidget(key: GlobalKey('el-child')),
+                    RT_EventfulWidget(key: Key('el-child')),
                   ],
                 ),
               ],
@@ -625,7 +625,7 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var child = app!.domNodeByGlobalKey('el-child');
+        var child = app!.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('submit')); // third
 
@@ -644,11 +644,11 @@ void main() {
         await app!.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onSubmit: (_) => testStack.push('submit-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onSubmit: (event) {
                     testStack.push('submit-parent');
 
@@ -661,7 +661,7 @@ void main() {
 
                         event.restartPropagationIfStopped();
                       },
-                      key: GlobalKey('el-child'),
+                      key: Key('el-child'),
                     ),
                   ],
                 ),
@@ -671,7 +671,7 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var child = app!.domNodeByGlobalKey('el-child');
+        var child = app!.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('submit')); // third
 
@@ -696,14 +696,14 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onKeyUp: (_) => testStack.push('keyup-g-parent'),
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onKeyUp: (_) => testStack.push('keyup-parent'),
                 children: [
-                  RT_EventfulWidget(key: GlobalKey('el-child')),
+                  RT_EventfulWidget(key: Key('el-child')),
                 ],
               ),
             ],
@@ -712,9 +712,9 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var gparent = app!.domNodeByGlobalKey('el-g-parent');
-      var parent = app!.domNodeByGlobalKey('el-parent');
-      var child = app!.domNodeByGlobalKey('el-child');
+      var gparent = app!.domNodeByKeyValue('el-g-parent');
+      var parent = app!.domNodeByKeyValue('el-parent');
+      var child = app!.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('keyup')); // first
       parent.dispatchEvent(Event('keyup')); // second
@@ -743,18 +743,18 @@ void main() {
         await app!.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onKeyUp: (_) => testStack.push('keyup-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onKeyUp: (event) {
                     testStack.push('keyup-parent');
 
                     event.restartPropagationIfStopped();
                   },
                   children: [
-                    RT_EventfulWidget(key: GlobalKey('el-child')),
+                    RT_EventfulWidget(key: Key('el-child')),
                   ],
                 ),
               ],
@@ -763,7 +763,7 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var child = app!.domNodeByGlobalKey('el-child');
+        var child = app!.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('keyup')); // third
 
@@ -782,11 +782,11 @@ void main() {
         await app!.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onKeyUp: (_) => testStack.push('keyup-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onKeyUp: (event) {
                     testStack.push('keyup-parent');
 
@@ -799,7 +799,7 @@ void main() {
 
                         event.restartPropagationIfStopped();
                       },
-                      key: GlobalKey('el-child'),
+                      key: Key('el-child'),
                     ),
                   ],
                 ),
@@ -809,7 +809,7 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var child = app!.domNodeByGlobalKey('el-child');
+        var child = app!.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('keyup')); // third
 
@@ -834,14 +834,14 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onKeyDown: (_) => testStack.push('keydown-g-parent'),
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onKeyDown: (_) => testStack.push('keydown-parent'),
                 children: [
-                  RT_EventfulWidget(key: GlobalKey('el-child')),
+                  RT_EventfulWidget(key: Key('el-child')),
                 ],
               ),
             ],
@@ -850,9 +850,9 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var gparent = app!.domNodeByGlobalKey('el-g-parent');
-      var parent = app!.domNodeByGlobalKey('el-parent');
-      var child = app!.domNodeByGlobalKey('el-child');
+      var gparent = app!.domNodeByKeyValue('el-g-parent');
+      var parent = app!.domNodeByKeyValue('el-parent');
+      var child = app!.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('keydown')); // first
       parent.dispatchEvent(Event('keydown')); // second
@@ -881,18 +881,18 @@ void main() {
         await app!.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onKeyDown: (_) => testStack.push('keydown-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onKeyDown: (event) {
                     testStack.push('keydown-parent');
 
                     event.restartPropagationIfStopped();
                   },
                   children: [
-                    RT_EventfulWidget(key: GlobalKey('el-child')),
+                    RT_EventfulWidget(key: Key('el-child')),
                   ],
                 ),
               ],
@@ -901,7 +901,7 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var child = app!.domNodeByGlobalKey('el-child');
+        var child = app!.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('keydown')); // third
 
@@ -920,11 +920,11 @@ void main() {
         await app!.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onKeyDown: (_) => testStack.push('keydown-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onKeyDown: (event) {
                     testStack.push('keydown-parent');
 
@@ -937,7 +937,7 @@ void main() {
 
                         event.restartPropagationIfStopped();
                       },
-                      key: GlobalKey('el-child'),
+                      key: Key('el-child'),
                     ),
                   ],
                 ),
@@ -947,7 +947,7 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var child = app!.domNodeByGlobalKey('el-child');
+        var child = app!.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('keydown')); // third
 
@@ -972,14 +972,14 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_EventfulWidget(
-            key: GlobalKey('el-g-parent'),
+            key: Key('el-g-parent'),
             onKeyPress: (_) => testStack.push('keypress-g-parent'),
             children: [
               RT_EventfulWidget(
-                key: GlobalKey('el-parent'),
+                key: Key('el-parent'),
                 onKeyPress: (_) => testStack.push('keypress-parent'),
                 children: [
-                  RT_EventfulWidget(key: GlobalKey('el-child')),
+                  RT_EventfulWidget(key: Key('el-child')),
                 ],
               ),
             ],
@@ -988,9 +988,9 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var gparent = app!.domNodeByGlobalKey('el-g-parent');
-      var parent = app!.domNodeByGlobalKey('el-parent');
-      var child = app!.domNodeByGlobalKey('el-child');
+      var gparent = app!.domNodeByKeyValue('el-g-parent');
+      var parent = app!.domNodeByKeyValue('el-parent');
+      var child = app!.domNodeByKeyValue('el-child');
 
       gparent.dispatchEvent(Event('keypress')); // first
       parent.dispatchEvent(Event('keypress')); // second
@@ -1019,18 +1019,18 @@ void main() {
         await app!.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onKeyPress: (_) => testStack.push('keypress-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onKeyPress: (event) {
                     testStack.push('keypress-parent');
 
                     event.restartPropagationIfStopped();
                   },
                   children: [
-                    RT_EventfulWidget(key: GlobalKey('el-child')),
+                    RT_EventfulWidget(key: Key('el-child')),
                   ],
                 ),
               ],
@@ -1039,7 +1039,7 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var child = app!.domNodeByGlobalKey('el-child');
+        var child = app!.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('keypress')); // third
 
@@ -1058,11 +1058,11 @@ void main() {
         await app!.buildChildren(
           widgets: [
             RT_EventfulWidget(
-              key: GlobalKey('el-g-parent'),
+              key: Key('el-g-parent'),
               onKeyPress: (_) => testStack.push('keypress-g-parent'),
               children: [
                 RT_EventfulWidget(
-                  key: GlobalKey('el-parent'),
+                  key: Key('el-parent'),
                   onKeyPress: (event) {
                     testStack.push('keypress-parent');
 
@@ -1075,7 +1075,7 @@ void main() {
 
                         event.restartPropagationIfStopped();
                       },
-                      key: GlobalKey('el-child'),
+                      key: Key('el-child'),
                     ),
                   ],
                 ),
@@ -1085,7 +1085,7 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var child = app!.domNodeByGlobalKey('el-child');
+        var child = app!.domNodeByKeyValue('el-child');
 
         child.dispatchEvent(Event('keypress')); // third
 

@@ -31,13 +31,13 @@ void main() {
         widgets: [
           GestureDetector(
             onTap: () => testStack.push('clicked'),
-            child: Text('some', key: GlobalKey('text')),
+            child: Text('some', key: Key('text')),
           )
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('clicked'));
       expect(testStack.canPop(), equals(false));
@@ -54,14 +54,14 @@ void main() {
             child: GestureDetector(
               behaviour: HitTestBehavior.translucent,
               onTap: () => testStack.push('child-clicked'),
-              child: Text('some', key: GlobalKey('text')),
+              child: Text('some', key: Key('text')),
             ),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.popFromStart(), equals('parent-clicked'));
@@ -78,14 +78,14 @@ void main() {
             behaviour: HitTestBehavior.opaque,
             child: GestureDetector(
               onTap: () => testStack.push('child-clicked'),
-              child: Text('some', key: GlobalKey('text')),
+              child: Text('some', key: Key('text')),
             ),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('parent-clicked'));
       expect(testStack.canPop(), equals(false));
@@ -101,14 +101,14 @@ void main() {
             behaviour: HitTestBehavior.deferToChild,
             child: GestureDetector(
               onTap: () => testStack.push('child-clicked'),
-              child: Text('some', key: GlobalKey('text')),
+              child: Text('some', key: Key('text')),
             ),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.canPop(), equals(false));
@@ -129,13 +129,13 @@ void main() {
         widgets: [
           GestureDetector(
             onDoubleTap: () => testStack.push('clicked'),
-            child: Text('some', key: GlobalKey('text')),
+            child: Text('some', key: Key('text')),
           )
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('clicked'));
       expect(testStack.canPop(), equals(false));
@@ -152,14 +152,14 @@ void main() {
             child: GestureDetector(
               behaviour: HitTestBehavior.translucent,
               onDoubleTap: () => testStack.push('child-clicked'),
-              child: Text('some', key: GlobalKey('text')),
+              child: Text('some', key: Key('text')),
             ),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.popFromStart(), equals('parent-clicked'));
@@ -176,14 +176,14 @@ void main() {
             behaviour: HitTestBehavior.opaque,
             child: GestureDetector(
               onDoubleTap: () => testStack.push('child-clicked'),
-              child: Text('some', key: GlobalKey('text')),
+              child: Text('some', key: Key('text')),
             ),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('parent-clicked'));
       expect(testStack.canPop(), equals(false));
@@ -199,14 +199,14 @@ void main() {
             behaviour: HitTestBehavior.deferToChild,
             child: GestureDetector(
               onDoubleTap: () => testStack.push('child-clicked'),
-              child: Text('some', key: GlobalKey('text')),
+              child: Text('some', key: Key('text')),
             ),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.canPop(), equals(false));
@@ -227,13 +227,13 @@ void main() {
         widgets: [
           GestureDetector(
             onTapEvent: (e) => testStack.push('clicked'),
-            child: Text('some', key: GlobalKey('text')),
+            child: Text('some', key: Key('text')),
           )
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('clicked'));
       expect(testStack.canPop(), equals(false));
@@ -250,14 +250,14 @@ void main() {
             child: GestureDetector(
               behaviour: HitTestBehavior.translucent,
               onTapEvent: (e) => testStack.push('child-clicked'),
-              child: Text('some', key: GlobalKey('text')),
+              child: Text('some', key: Key('text')),
             ),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.popFromStart(), equals('parent-clicked'));
@@ -274,14 +274,14 @@ void main() {
             behaviour: HitTestBehavior.opaque,
             child: GestureDetector(
               onTapEvent: (e) => testStack.push('child-clicked'),
-              child: Text('some', key: GlobalKey('text')),
+              child: Text('some', key: Key('text')),
             ),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('parent-clicked'));
       expect(testStack.canPop(), equals(false));
@@ -297,14 +297,14 @@ void main() {
             behaviour: HitTestBehavior.deferToChild,
             child: GestureDetector(
               onTapEvent: (e) => testStack.push('child-clicked'),
-              child: Text('some', key: GlobalKey('text')),
+              child: Text('some', key: Key('text')),
             ),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.canPop(), equals(false));
@@ -327,7 +327,7 @@ void main() {
               child: GestureDetector(
                 behaviour: HitTestBehavior.translucent,
                 onTapEvent: (event) => testStack.push('child-clicked'),
-                child: Text('some', key: GlobalKey('text')),
+                child: Text('some', key: Key('text')),
               ),
             ),
           ),
@@ -335,7 +335,7 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.popFromStart(), equals('parent-clicked'));
@@ -361,7 +361,7 @@ void main() {
                 onTapEvent: (event) {
                   testStack.push('child-clicked');
                 },
-                child: Text('some', key: GlobalKey('text')),
+                child: Text('some', key: Key('text')),
               ),
             ),
           ),
@@ -369,7 +369,7 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('click'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.popFromStart(), equals('parent-clicked'));
@@ -391,13 +391,13 @@ void main() {
         widgets: [
           GestureDetector(
             onDoubleTapEvent: (e) => testStack.push('clicked'),
-            child: Text('some', key: GlobalKey('text')),
+            child: Text('some', key: Key('text')),
           )
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('clicked'));
       expect(testStack.canPop(), equals(false));
@@ -414,14 +414,14 @@ void main() {
             child: GestureDetector(
               behaviour: HitTestBehavior.translucent,
               onDoubleTapEvent: (e) => testStack.push('child-clicked'),
-              child: Text('some', key: GlobalKey('text')),
+              child: Text('some', key: Key('text')),
             ),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.popFromStart(), equals('parent-clicked'));
@@ -438,14 +438,14 @@ void main() {
             behaviour: HitTestBehavior.opaque,
             child: GestureDetector(
               onDoubleTapEvent: (e) => testStack.push('child-clicked'),
-              child: Text('some', key: GlobalKey('text')),
+              child: Text('some', key: Key('text')),
             ),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('parent-clicked'));
       expect(testStack.canPop(), equals(false));
@@ -461,14 +461,14 @@ void main() {
             behaviour: HitTestBehavior.deferToChild,
             child: GestureDetector(
               onDoubleTapEvent: (e) => testStack.push('child-clicked'),
-              child: Text('some', key: GlobalKey('text')),
+              child: Text('some', key: Key('text')),
             ),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.canPop(), equals(false));
@@ -491,7 +491,7 @@ void main() {
               child: GestureDetector(
                 behaviour: HitTestBehavior.translucent,
                 onDoubleTapEvent: (event) => testStack.push('child-clicked'),
-                child: Text('some', key: GlobalKey('text')),
+                child: Text('some', key: Key('text')),
               ),
             ),
           ),
@@ -499,7 +499,7 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.popFromStart(), equals('parent-clicked'));
@@ -525,7 +525,7 @@ void main() {
                 onDoubleTapEvent: (event) {
                   testStack.push('child-clicked');
                 },
-                child: Text('some', key: GlobalKey('text')),
+                child: Text('some', key: Key('text')),
               ),
             ),
           ),
@@ -533,7 +533,7 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('text').dispatchEvent(Event('dblclick'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('dblclick'));
 
       expect(testStack.popFromStart(), equals('child-clicked'));
       expect(testStack.popFromStart(), equals('parent-clicked'));

@@ -23,16 +23,16 @@ void html_table_data_cell_test() {
     test('should set id', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('some-key-1'), id: 'some-id-1'),
-          TableDataCell(key: GlobalKey('some-key-2'), id: 'some-id-2'),
-          TableDataCell(key: GlobalKey('some-key-3'), id: 'some-id-3'),
+          TableDataCell(key: Key('some-key-1'), id: 'some-id-1'),
+          TableDataCell(key: Key('some-key-2'), id: 'some-id-2'),
+          TableDataCell(key: Key('some-key-3'), id: 'some-id-3'),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('some-key-1');
-      var domNode2 = app!.domNodeByGlobalKey('some-key-2');
-      var domNode3 = app!.domNodeByGlobalKey('some-key-3');
+      var domNode1 = app!.domNodeByKeyValue('some-key-1');
+      var domNode2 = app!.domNodeByKeyValue('some-key-2');
+      var domNode3 = app!.domNodeByKeyValue('some-key-3');
 
       expect(domNode1.id, equals('some-id-1'));
       expect(domNode2.id, equals('some-id-2'));
@@ -42,16 +42,16 @@ void html_table_data_cell_test() {
     test('should reset and update id', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('some-key-1'), id: 'some-id-1'),
-          TableDataCell(key: GlobalKey('some-key-2'), id: 'some-id-2'),
-          TableDataCell(key: GlobalKey('some-key-3'), id: 'some-id-3'),
+          TableDataCell(key: Key('some-key-1'), id: 'some-id-1'),
+          TableDataCell(key: Key('some-key-2'), id: 'some-id-2'),
+          TableDataCell(key: Key('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('some-key-1');
-      var domNode2 = app!.domNodeByGlobalKey('some-key-2');
-      var domNode3 = app!.domNodeByGlobalKey('some-key-3');
+      var domNode1 = app!.domNodeByKeyValue('some-key-1');
+      var domNode2 = app!.domNodeByKeyValue('some-key-2');
+      var domNode3 = app!.domNodeByKeyValue('some-key-3');
 
       expect(domNode1.id, equals('some-id-1'));
       expect(domNode2.id, equals('some-id-2'));
@@ -60,15 +60,15 @@ void html_table_data_cell_test() {
       await app!.updateChildren(
         widgets: [
           TableDataCell(
-            key: GlobalKey('some-key-1'),
+            key: Key('some-key-1'),
             id: 'some-updated-id',
           ),
           TableDataCell(
-            key: GlobalKey('some-key-2'),
+            key: Key('some-key-2'),
             id: 'some-local-updated-id',
           ),
           TableDataCell(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'some-global-updated-id',
           ),
         ],
@@ -171,19 +171,19 @@ void html_table_data_cell_test() {
       await app!.buildChildren(
         widgets: [
           TableDataCell(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'some-classes',
           ),
           TableDataCell(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('class'), equals('some-classes'));
       expect(domNode2.getAttribute('class'), equals('another-classes'));
@@ -193,11 +193,11 @@ void html_table_data_cell_test() {
       await app!.buildChildren(
         widgets: [
           TableDataCell(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'some-classes',
           ),
           TableDataCell(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
@@ -207,11 +207,11 @@ void html_table_data_cell_test() {
       await app!.updateChildren(
         widgets: [
           TableDataCell(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'updated-classes',
           ),
           TableDataCell(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
@@ -219,8 +219,8 @@ void html_table_data_cell_test() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('class'), equals('updated-classes'));
       expect(domNode2.getAttribute('class'), equals('another-classes'));
@@ -229,9 +229,9 @@ void html_table_data_cell_test() {
     test('should clear attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1')),
+          TableDataCell(key: Key('el-1')),
           TableDataCell(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
@@ -240,15 +240,15 @@ void html_table_data_cell_test() {
 
       await app!.updateChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1')),
-          TableDataCell(key: GlobalKey('el-2')),
+          TableDataCell(key: Key('el-1')),
+          TableDataCell(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('class'), equals(null));
       expect(domNode2.getAttribute('class'), equals(null));
@@ -258,7 +258,7 @@ void html_table_data_cell_test() {
       await app!.buildChildren(
         widgets: [
           TableDataCell(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'some-classes',
           ),
         ],
@@ -267,13 +267,13 @@ void html_table_data_cell_test() {
 
       await app!.updateChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), classAttribute: null),
+          TableDataCell(key: Key('el-1'), classAttribute: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('class'), equals(null));
     });
@@ -282,12 +282,12 @@ void html_table_data_cell_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), classAttribute: null),
+          TableDataCell(key: Key('el-1'), classAttribute: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('class'), equals(null));
     });
@@ -378,16 +378,16 @@ void html_table_data_cell_test() {
     test('should set attribute "hidden" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), hidden: false),
-          TableDataCell(key: GlobalKey('el-2'), hidden: null),
-          TableDataCell(key: GlobalKey('el-3'), hidden: true),
+          TableDataCell(key: Key('el-1'), hidden: false),
+          TableDataCell(key: Key('el-2'), hidden: null),
+          TableDataCell(key: Key('el-3'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
 
       expect(domNode1.getAttribute('hidden'), equals(null));
       expect(domNode2.getAttribute('hidden'), equals(null));
@@ -398,29 +398,29 @@ void html_table_data_cell_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), hidden: true),
-          TableDataCell(key: GlobalKey('el-2'), hidden: true),
-          TableDataCell(key: GlobalKey('el-3'), hidden: true),
-          TableDataCell(key: GlobalKey('el-4'), hidden: true),
+          TableDataCell(key: Key('el-1'), hidden: true),
+          TableDataCell(key: Key('el-2'), hidden: true),
+          TableDataCell(key: Key('el-3'), hidden: true),
+          TableDataCell(key: Key('el-4'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), hidden: true),
-          TableDataCell(key: GlobalKey('el-2'), hidden: false),
-          TableDataCell(key: GlobalKey('el-3'), hidden: null),
-          TableDataCell(key: GlobalKey('el-4')),
+          TableDataCell(key: Key('el-1'), hidden: true),
+          TableDataCell(key: Key('el-2'), hidden: false),
+          TableDataCell(key: Key('el-3'), hidden: null),
+          TableDataCell(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
-      var domNode4 = app!.domNodeByGlobalKey('el-4');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
 
       expect(domNode1.getAttribute('hidden'), equals('true'));
       expect(domNode2.getAttribute('hidden'), equals(null));
@@ -432,7 +432,7 @@ void html_table_data_cell_test() {
       await app!.buildChildren(
         widgets: [
           TableDataCell(
-            key: GlobalKey('widget-1'),
+            key: Key('widget-1'),
             innerText: 'hello world',
           ),
         ],
@@ -450,16 +450,14 @@ void html_table_data_cell_test() {
     test('should set attribute "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(
-              key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
-          TableDataCell(
-              key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          TableDataCell(key: Key('el-1'), onClickAttribute: 'some-on-click'),
+          TableDataCell(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('onClick'), equals('some-on-click'));
       expect(domNode2.getAttribute('onClick'), equals('another-on-click'));
@@ -468,27 +466,23 @@ void html_table_data_cell_test() {
     test('should update attribute "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(
-              key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
-          TableDataCell(
-              key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          TableDataCell(key: Key('el-1'), onClickAttribute: 'some-on-click'),
+          TableDataCell(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TableDataCell(
-              key: GlobalKey('el-1'), onClickAttribute: 'updated-on-click'),
-          TableDataCell(
-              key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          TableDataCell(key: Key('el-1'), onClickAttribute: 'updated-on-click'),
+          TableDataCell(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('onClick'), equals('updated-on-click'));
       expect(domNode2.getAttribute('onClick'), equals('another-on-click'));
@@ -497,24 +491,23 @@ void html_table_data_cell_test() {
     test('should clear attribute "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1')),
-          TableDataCell(
-              key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          TableDataCell(key: Key('el-1')),
+          TableDataCell(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1')),
-          TableDataCell(key: GlobalKey('el-2')),
+          TableDataCell(key: Key('el-1')),
+          TableDataCell(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('onClick'), equals(null));
       expect(domNode2.getAttribute('onClick'), equals(null));
@@ -524,21 +517,20 @@ void html_table_data_cell_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(
-              key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
+          TableDataCell(key: Key('el-1'), onClickAttribute: 'some-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), onClickAttribute: null),
+          TableDataCell(key: Key('el-1'), onClickAttribute: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('onClick'), equals(null));
     });
@@ -548,12 +540,12 @@ void html_table_data_cell_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), onClickAttribute: null),
+          TableDataCell(key: Key('el-1'), onClickAttribute: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('onClick'), equals(null));
     });
@@ -603,19 +595,19 @@ void html_table_data_cell_test() {
       await app!.buildChildren(
         widgets: [
           TableDataCell(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             onClick: (event) => testStack.push('click-1'),
           ),
           TableDataCell(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             onClick: (event) => testStack.push('click-2'),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('click'));
-      app!.domNodeByGlobalKey('el-2').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('click'));
 
       await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('click-1'));
@@ -629,16 +621,16 @@ void html_table_data_cell_test() {
 
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1')),
-          TableDataCell(key: GlobalKey('el-2'), onClick: null),
-          TableDataCell(key: GlobalKey('el-3'), onClick: listener),
+          TableDataCell(key: Key('el-1')),
+          TableDataCell(key: Key('el-2'), onClick: null),
+          TableDataCell(key: Key('el-3'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByGlobalKey('el-3').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
+      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(null));
@@ -650,14 +642,14 @@ void html_table_data_cell_test() {
 
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1')),
-          TableDataCell(key: GlobalKey('el-2'), onClick: listener),
+          TableDataCell(key: Key('el-1')),
+          TableDataCell(key: Key('el-2'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(listener));
@@ -666,15 +658,15 @@ void html_table_data_cell_test() {
 
       await app!.updateChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1')),
-          TableDataCell(key: GlobalKey('el-2')),
+          TableDataCell(key: Key('el-1')),
+          TableDataCell(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(null));
@@ -749,7 +741,7 @@ void html_table_data_cell_test() {
     test('should set correct types and markup', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('some-key-3')),
+          TableDataCell(key: Key('some-key-3')),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -785,7 +777,7 @@ void html_table_data_cell_test() {
       await app!.buildChildren(
         widgets: [
           TableDataCell(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'id': 'some-id',
             },
@@ -807,7 +799,7 @@ void html_table_data_cell_test() {
       await app!.buildChildren(
         widgets: [
           TableDataCell(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
               'id': 'ignored-id',
@@ -832,7 +824,7 @@ void html_table_data_cell_test() {
       await app!.buildChildren(
         widgets: [
           TableDataCell(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
               'id': 'ignored-id',
@@ -845,7 +837,7 @@ void html_table_data_cell_test() {
       await app!.updateChildren(
         widgets: [
           TableDataCell(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'updated-id',
             additionalAttributes: {
               'id': 'ignored-id',
@@ -867,7 +859,7 @@ void html_table_data_cell_test() {
       await app!.buildChildren(
         widgets: [
           TableDataCell(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
               'data-another': 'another okay',
@@ -887,7 +879,7 @@ void html_table_data_cell_test() {
       await app!.buildChildren(
         widgets: [
           TableDataCell(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'aria-something': 'something okay',
               'any-another': 'another okay',
@@ -908,7 +900,7 @@ void html_table_data_cell_test() {
       await app!.buildChildren(
         widgets: [
           TableDataCell(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
             },
@@ -920,7 +912,7 @@ void html_table_data_cell_test() {
       await app!.updateChildren(
         widgets: [
           TableDataCell(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'data-something-new': 'something new',
             },
@@ -951,16 +943,16 @@ void html_table_data_cell_test() {
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('some-key-1')),
-          TableDataCell(key: GlobalKey('some-key-2')),
-          TableDataCell(key: GlobalKey('some-key-3')),
+          TableDataCell(key: Key('some-key-1')),
+          TableDataCell(key: Key('some-key-2')),
+          TableDataCell(key: Key('some-key-3')),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var wO1 = app!.renderElementByGlobalKey('some-key-1')!;
-      var wO2 = app!.renderElementByGlobalKey('some-key-2')!;
-      var wO3 = app!.renderElementByGlobalKey('some-key-3')!;
+      var wO1 = app!.renderElementByKeyValue('some-key-1')!;
+      var wO2 = app!.renderElementByKeyValue('some-key-2')!;
+      var wO3 = app!.renderElementByKeyValue('some-key-3')!;
 
       expect(wO1.key?.frameworkValue, endsWith('some-key-1'));
       expect(wO2.key?.frameworkValue, endsWith('some-key-2'));
@@ -970,14 +962,14 @@ void html_table_data_cell_test() {
     test('should set attribute "rowSpan"', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), rowSpan: 10),
-          TableDataCell(key: GlobalKey('el-2'), rowSpan: 0),
+          TableDataCell(key: Key('el-1'), rowSpan: 10),
+          TableDataCell(key: Key('el-2'), rowSpan: 0),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('rowspan'), equals('10'));
       expect(domNode2.getAttribute('rowspan'), equals('0'));
@@ -986,23 +978,23 @@ void html_table_data_cell_test() {
     test('should update attribute "rowSpan"', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), rowSpan: 10),
-          TableDataCell(key: GlobalKey('el-2'), rowSpan: 10),
+          TableDataCell(key: Key('el-1'), rowSpan: 10),
+          TableDataCell(key: Key('el-2'), rowSpan: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), rowSpan: 20),
-          TableDataCell(key: GlobalKey('el-2'), rowSpan: 20),
+          TableDataCell(key: Key('el-1'), rowSpan: 20),
+          TableDataCell(key: Key('el-2'), rowSpan: 20),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('rowspan'), equals('20'));
       expect(domNode2.getAttribute('rowspan'), equals('20'));
@@ -1011,23 +1003,23 @@ void html_table_data_cell_test() {
     test('should clear attribute "rowSpan"', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1')),
-          TableDataCell(key: GlobalKey('el-2'), rowSpan: 10),
+          TableDataCell(key: Key('el-1')),
+          TableDataCell(key: Key('el-2'), rowSpan: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1')),
-          TableDataCell(key: GlobalKey('el-2')),
+          TableDataCell(key: Key('el-1')),
+          TableDataCell(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('rowspan'), equals(null));
       expect(domNode2.getAttribute('rowspan'), equals(null));
@@ -1036,20 +1028,20 @@ void html_table_data_cell_test() {
     test('should clear attribute "rowSpan" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), rowSpan: 10),
+          TableDataCell(key: Key('el-1'), rowSpan: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), rowSpan: null),
+          TableDataCell(key: Key('el-1'), rowSpan: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('rowspan'), equals(null));
     });
@@ -1058,12 +1050,12 @@ void html_table_data_cell_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), rowSpan: null),
+          TableDataCell(key: Key('el-1'), rowSpan: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('rowspan'), equals(null));
     });
@@ -1071,14 +1063,14 @@ void html_table_data_cell_test() {
     test('should set attribute "colSpan"', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), colSpan: 10),
-          TableDataCell(key: GlobalKey('el-2'), colSpan: 0),
+          TableDataCell(key: Key('el-1'), colSpan: 10),
+          TableDataCell(key: Key('el-2'), colSpan: 0),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('colspan'), equals('10'));
       expect(domNode2.getAttribute('colspan'), equals('0'));
@@ -1087,23 +1079,23 @@ void html_table_data_cell_test() {
     test('should update attribute "colSpan"', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), colSpan: 10),
-          TableDataCell(key: GlobalKey('el-2'), colSpan: 10),
+          TableDataCell(key: Key('el-1'), colSpan: 10),
+          TableDataCell(key: Key('el-2'), colSpan: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), colSpan: 20),
-          TableDataCell(key: GlobalKey('el-2'), colSpan: 20),
+          TableDataCell(key: Key('el-1'), colSpan: 20),
+          TableDataCell(key: Key('el-2'), colSpan: 20),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('colspan'), equals('20'));
       expect(domNode2.getAttribute('colspan'), equals('20'));
@@ -1112,23 +1104,23 @@ void html_table_data_cell_test() {
     test('should clear attribute "colSpan"', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1')),
-          TableDataCell(key: GlobalKey('el-2'), colSpan: 10),
+          TableDataCell(key: Key('el-1')),
+          TableDataCell(key: Key('el-2'), colSpan: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1')),
-          TableDataCell(key: GlobalKey('el-2')),
+          TableDataCell(key: Key('el-1')),
+          TableDataCell(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('colspan'), equals(null));
       expect(domNode2.getAttribute('colspan'), equals(null));
@@ -1137,20 +1129,20 @@ void html_table_data_cell_test() {
     test('should clear attribute "colSpan" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), colSpan: 10),
+          TableDataCell(key: Key('el-1'), colSpan: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), colSpan: null),
+          TableDataCell(key: Key('el-1'), colSpan: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('colspan'), equals(null));
     });
@@ -1159,12 +1151,12 @@ void html_table_data_cell_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), colSpan: null),
+          TableDataCell(key: Key('el-1'), colSpan: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('colspan'), equals(null));
     });
@@ -1172,14 +1164,14 @@ void html_table_data_cell_test() {
     test('should set attribute "headers"', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), headers: 'some-headers'),
-          TableDataCell(key: GlobalKey('el-2'), headers: 'another-headers'),
+          TableDataCell(key: Key('el-1'), headers: 'some-headers'),
+          TableDataCell(key: Key('el-2'), headers: 'another-headers'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('headers'), equals('some-headers'));
       expect(domNode2.getAttribute('headers'), equals('another-headers'));
@@ -1188,23 +1180,23 @@ void html_table_data_cell_test() {
     test('should update attribute "headers"', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), headers: 'some-headers'),
-          TableDataCell(key: GlobalKey('el-2'), headers: 'another-headers'),
+          TableDataCell(key: Key('el-1'), headers: 'some-headers'),
+          TableDataCell(key: Key('el-2'), headers: 'another-headers'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), headers: 'updated-headers'),
-          TableDataCell(key: GlobalKey('el-2'), headers: 'another-headers'),
+          TableDataCell(key: Key('el-1'), headers: 'updated-headers'),
+          TableDataCell(key: Key('el-2'), headers: 'another-headers'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('headers'), equals('updated-headers'));
       expect(domNode2.getAttribute('headers'), equals('another-headers'));
@@ -1213,23 +1205,23 @@ void html_table_data_cell_test() {
     test('should clear attribute "headers"', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1')),
-          TableDataCell(key: GlobalKey('el-2'), headers: 'another-headers'),
+          TableDataCell(key: Key('el-1')),
+          TableDataCell(key: Key('el-2'), headers: 'another-headers'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1')),
-          TableDataCell(key: GlobalKey('el-2')),
+          TableDataCell(key: Key('el-1')),
+          TableDataCell(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('headers'), equals(null));
       expect(domNode2.getAttribute('headers'), equals(null));
@@ -1238,20 +1230,20 @@ void html_table_data_cell_test() {
     test('should clear attribute "headers" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), headers: 'some-headers'),
+          TableDataCell(key: Key('el-1'), headers: 'some-headers'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), headers: null),
+          TableDataCell(key: Key('el-1'), headers: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('headers'), equals(null));
     });
@@ -1260,12 +1252,12 @@ void html_table_data_cell_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TableDataCell(key: GlobalKey('el-1'), headers: null),
+          TableDataCell(key: Key('el-1'), headers: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('headers'), equals(null));
     });

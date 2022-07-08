@@ -28,12 +28,12 @@ void main() {
     await app!.buildChildren(
       widgets: [
         Navigator(
-          key: GlobalKey('parent'),
+          key: Key('parent'),
           routes: [
             Route(
               name: 'p-route-1',
               page: Navigator(
-                key: GlobalKey('child-p1'),
+                key: Key('child-p1'),
                 routes: [
                   Route(name: 'c-p1-route-1', page: Text('c-p1-route-1')),
                   Route(name: 'c-p1-route-2', page: Text('c-p1-route-2')),
@@ -43,7 +43,7 @@ void main() {
             Route(
               name: 'p-route-2',
               page: Navigator(
-                key: GlobalKey('child-p2'),
+                key: Key('child-p2'),
                 routes: [
                   Route(name: 'c-p2-route-1', page: Text('c-p2-route-1')),
                   Route(name: 'c-p2-route-2', page: Text('c-p2-route-2')),
@@ -53,7 +53,7 @@ void main() {
             Route(
               name: 'p-route-3',
               page: Navigator(
-                key: GlobalKey('child-p3'),
+                key: Key('child-p3'),
                 routes: [
                   Route(name: 'c-p3-route-1', page: Text('c-p3-route-1')),
                   Route(name: 'c-p3-route-2', page: Text('c-p3-route-2')),

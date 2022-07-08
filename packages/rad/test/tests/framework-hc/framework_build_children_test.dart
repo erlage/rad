@@ -94,13 +94,13 @@ void main() {
     test('should register render element', () async {
       await app!.buildChildren(
         widgets: [
-          Text('some text', key: GlobalKey('widget-key')),
+          Text('some text', key: Key('widget-key')),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       expect(
-        app!.renderElementByGlobalKey('widget-key')!.key?.frameworkValue,
+        app!.renderElementByKeyValue('widget-key')!.key?.frameworkValue,
         equals('widget-key'),
       );
     });
@@ -108,14 +108,14 @@ void main() {
     test('should mount', () async {
       await app!.buildChildren(
         widgets: [
-          RT_TestWidget(key: GlobalKey('find-using-me-1')),
-          RT_TestWidget(key: GlobalKey('find-using-me-2')),
+          RT_TestWidget(key: Key('find-using-me-1')),
+          RT_TestWidget(key: Key('find-using-me-2')),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var e1 = app!.renderElementByGlobalKey('find-using-me-1')!;
-      var e2 = app!.renderElementByGlobalKey('find-using-me-2')!;
+      var e1 = app!.renderElementByKeyValue('find-using-me-1')!;
+      var e2 = app!.renderElementByKeyValue('find-using-me-2')!;
 
       expect(
         (e1 as WatchfulRenderElement).isMounted,
@@ -132,9 +132,9 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('test-widget'),
+            key: Key('test-widget'),
             roEventAfterMount: () {
-              var e1 = app!.renderElementByGlobalKey('test-widget')!;
+              var e1 = app!.renderElementByKeyValue('test-widget')!;
 
               expect(
                 (e1 as WatchfulRenderElement).isMounted,
@@ -148,12 +148,15 @@ void main() {
     });
 
     test('should call render before mount', () async {
+      RenderElement? renderElement;
+
       await app!.buildChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('test-widget'),
+            key: Key('test-widget'),
+            wHookCreateRenderElement: (element) => renderElement = element,
             roEventRender: () {
-              var e1 = app!.renderElementByGlobalKey('test-widget')!;
+              var e1 = renderElement!;
 
               expect(
                 (e1 as WatchfulRenderElement).isMounted,
@@ -245,7 +248,7 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('test-widget'),
+            key: Key('test-widget'),
 
             // render object hooks
 
@@ -291,37 +294,37 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('widget'),
+            key: Key('widget'),
             roEventRender: () {
               testStack.push('render-app-widget');
             },
             children: [
               RT_TestWidget(
-                key: GlobalKey('app-child-0'),
+                key: Key('app-child-0'),
                 roEventRender: () {
                   testStack.push('render-0');
                 },
                 children: [
                   RT_TestWidget(
-                    key: GlobalKey('app-child-0-0'),
+                    key: Key('app-child-0-0'),
                     roEventRender: () {
                       testStack.push('render-0-0');
                     },
                   ),
                   RT_TestWidget(
-                    key: GlobalKey('app-child-0-1'),
+                    key: Key('app-child-0-1'),
                     roEventRender: () {
                       testStack.push('render-0-1');
                     },
                     children: [
                       RT_TestWidget(
-                        key: GlobalKey('app-child-0-1-0'),
+                        key: Key('app-child-0-1-0'),
                         roEventRender: () {
                           testStack.push('render-0-1-0');
                         },
                       ),
                       RT_TestWidget(
-                        key: GlobalKey('app-child-0-1-1'),
+                        key: Key('app-child-0-1-1'),
                         roEventRender: () {
                           testStack.push('render-0-1-1');
                         },
@@ -331,20 +334,20 @@ void main() {
                 ],
               ),
               RT_TestWidget(
-                key: GlobalKey('app-child-1'),
+                key: Key('app-child-1'),
                 roEventRender: () {
                   testStack.push('render-1');
                 },
                 children: [
                   // nested child widgets
                   RT_TestWidget(
-                    key: GlobalKey('app-child-1-0'),
+                    key: Key('app-child-1-0'),
                     roEventRender: () {
                       testStack.push('render-1-0');
                     },
                   ),
                   RT_TestWidget(
-                    key: GlobalKey('app-child-1-1'),
+                    key: Key('app-child-1-1'),
                     roEventRender: () {
                       testStack.push('render-1-1');
                     },
@@ -403,7 +406,7 @@ void main() {
           // a app widget and therefore user can have only one root widget in entire app.
           //
           RT_TestWidget(
-            key: GlobalKey('widget'),
+            key: Key('widget'),
             children: [
               //
               // these are child widgets and we expect all widgets below this point in tree
@@ -411,24 +414,24 @@ void main() {
               // child widgets are changed.
               //
               RT_TestWidget(
-                key: GlobalKey('child-0'),
+                key: Key('child-0'),
                 children: [
-                  RT_TestWidget(key: GlobalKey('child-0-0')),
+                  RT_TestWidget(key: Key('child-0-0')),
                   RT_TestWidget(
-                    key: GlobalKey('child-0-1'),
+                    key: Key('child-0-1'),
                     children: [
-                      RT_TestWidget(key: GlobalKey('child-0-1-0')),
-                      RT_TestWidget(key: GlobalKey('child-0-1-1')),
+                      RT_TestWidget(key: Key('child-0-1-0')),
+                      RT_TestWidget(key: Key('child-0-1-1')),
                     ],
                   ),
                 ],
               ),
               RT_TestWidget(
-                key: GlobalKey('child-1'),
+                key: Key('child-1'),
                 children: [
                   // nested child widgets
-                  RT_TestWidget(key: GlobalKey('child-1-0')),
-                  RT_TestWidget(key: GlobalKey('child-1-1')),
+                  RT_TestWidget(key: Key('child-1-0')),
+                  RT_TestWidget(key: Key('child-1-1')),
                 ],
               ),
             ],
@@ -440,39 +443,39 @@ void main() {
       // ensure all are built
 
       expect(
-        null == app!.renderElementByGlobalKey('widget'),
+        null == app!.renderElementByKeyValue('widget'),
         equals(false),
       );
       expect(
-        null == app!.renderElementByGlobalKey('child-0'),
+        null == app!.renderElementByKeyValue('child-0'),
         equals(false),
       );
       expect(
-        null == app!.renderElementByGlobalKey('child-0-0'),
+        null == app!.renderElementByKeyValue('child-0-0'),
         equals(false),
       );
       expect(
-        null == app!.renderElementByGlobalKey('child-0-1'),
+        null == app!.renderElementByKeyValue('child-0-1'),
         equals(false),
       );
       expect(
-        null == app!.renderElementByGlobalKey('child-0-1-0'),
+        null == app!.renderElementByKeyValue('child-0-1-0'),
         equals(false),
       );
       expect(
-        null == app!.renderElementByGlobalKey('child-0-1-1'),
+        null == app!.renderElementByKeyValue('child-0-1-1'),
         equals(false),
       );
       expect(
-        null == app!.renderElementByGlobalKey('child-1'),
+        null == app!.renderElementByKeyValue('child-1'),
         equals(false),
       );
       expect(
-        null == app!.renderElementByGlobalKey('child-1-0'),
+        null == app!.renderElementByKeyValue('child-1-0'),
         equals(false),
       );
       expect(
-        null == app!.renderElementByGlobalKey('child-1-1'),
+        null == app!.renderElementByKeyValue('child-1-1'),
         equals(false),
       );
 
@@ -482,59 +485,59 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('new-child'),
+            key: Key('new-child'),
             roEventRender: () {
               // existing widgets should already got disposed by this point
 
               expect(
-                null == app!.renderElementByGlobalKey('child-0'),
+                null == app!.renderElementByKeyValue('child-0'),
                 equals(true),
               );
               expect(
-                null == app!.renderElementByGlobalKey('child-0-0'),
+                null == app!.renderElementByKeyValue('child-0-0'),
                 equals(true),
               );
               expect(
-                null == app!.renderElementByGlobalKey('child-0-1'),
+                null == app!.renderElementByKeyValue('child-0-1'),
                 equals(true),
               );
               expect(
-                null == app!.renderElementByGlobalKey('child-0-1-0'),
+                null == app!.renderElementByKeyValue('child-0-1-0'),
                 equals(true),
               );
               expect(
-                null == app!.renderElementByGlobalKey('child-0-1-1'),
+                null == app!.renderElementByKeyValue('child-0-1-1'),
                 equals(true),
               );
               expect(
-                null == app!.renderElementByGlobalKey('child-1'),
+                null == app!.renderElementByKeyValue('child-1'),
                 equals(true),
               );
               expect(
-                null == app!.renderElementByGlobalKey('child-1-0'),
+                null == app!.renderElementByKeyValue('child-1-0'),
                 equals(true),
               );
               expect(
-                null == app!.renderElementByGlobalKey('child-1-1'),
+                null == app!.renderElementByKeyValue('child-1-1'),
                 equals(true),
               );
             },
           ),
         ],
-        parentRenderElement: app!.renderElementByGlobalKey('widget')!,
+        parentRenderElement: app!.renderElementByKeyValue('widget')!,
       );
 
       // app widget should not have any impact
 
       expect(
-        null == app!.renderElementByGlobalKey('widget'),
+        null == app!.renderElementByKeyValue('widget'),
         equals(false),
       );
 
       // newer child should be built
 
       expect(
-        null == app!.renderElementByGlobalKey('new-child'),
+        null == app!.renderElementByKeyValue('new-child'),
         equals(false),
       );
     });

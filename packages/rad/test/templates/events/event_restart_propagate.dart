@@ -6,18 +6,18 @@ test(
     await pap.buildChildren(
       widgets: [
         RT_EventfulWidget(
-          key: GlobalKey('el-g-parent'),
+          key: Key('el-g-parent'),
           __EventAttributeName__: (_) => pap.stack.push('__EventNativeName__-g-parent'),
           children: [
             RT_EventfulWidget(
-              key: GlobalKey('el-parent'),
+              key: Key('el-parent'),
               __EventAttributeName__: (event) {
                 pap.stack.push('__EventNativeName__-parent');
 
                 event.restartPropagationIfStopped();
               },
               children: [
-                RT_EventfulWidget(key: GlobalKey('el-child')),
+                RT_EventfulWidget(key: Key('el-child')),
               ],
             ),
           ],
@@ -26,7 +26,7 @@ test(
       parentRenderElement: pap.appRenderElement,
     );
 
-    var child = pap.domNodeByGlobalKey('el-child');
+    var child = pap.domNodeByKeyValue('el-child');
 
     child.dispatchEvent(Event('__EventNativeName__')); // third
     await Future.delayed(Duration(milliseconds: 50));
@@ -46,11 +46,11 @@ test(
     await pap.buildChildren(
       widgets: [
         RT_EventfulWidget(
-          key: GlobalKey('el-g-parent'),
+          key: Key('el-g-parent'),
           __EventAttributeName__: (_) => pap.stack.push('__EventNativeName__-g-parent'),
           children: [
             RT_EventfulWidget(
-              key: GlobalKey('el-parent'),
+              key: Key('el-parent'),
               __EventAttributeName__: (event) {
                 pap.stack.push('__EventNativeName__-parent');
 
@@ -63,7 +63,7 @@ test(
 
                     event.restartPropagationIfStopped();
                   },
-                  key: GlobalKey('el-child'),
+                  key: Key('el-child'),
                 ),
               ],
             ),
@@ -73,7 +73,7 @@ test(
       parentRenderElement: pap.appRenderElement,
     );
 
-    var child = pap.domNodeByGlobalKey('el-child');
+    var child = pap.domNodeByKeyValue('el-child');
 
     child.dispatchEvent(Event('__EventNativeName__'));
     await Future.delayed(Duration(milliseconds: 50));

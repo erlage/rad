@@ -1,14 +1,14 @@
 test('should set attribute "href"', () async {
     await app!.buildChildren(
     widgets: [
-        __WidgetClass__(key: GlobalKey('el-1'), href: 'some-href'),
-        __WidgetClass__(key: GlobalKey('el-2'), href: 'another-href'),
+        __WidgetClass__(key: Key('el-1'), href: 'some-href'),
+        __WidgetClass__(key: Key('el-2'), href: 'another-href'),
     ],
     parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
-    var domNode2 = app!.domNodeByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
+    var domNode2 = app!.domNodeByKeyValue('el-2');
 
     expect(domNode1.getAttribute('href'), equals('some-href'));
     expect(domNode2.getAttribute('href'), equals('another-href'));
@@ -17,23 +17,23 @@ test('should set attribute "href"', () async {
 test('should update attribute "href"', () async {
     await app!.buildChildren(
     widgets: [
-        __WidgetClass__(key: GlobalKey('el-1'), href: 'some-href'),
-        __WidgetClass__(key: GlobalKey('el-2'), href: 'another-href'),
+        __WidgetClass__(key: Key('el-1'), href: 'some-href'),
+        __WidgetClass__(key: Key('el-2'), href: 'another-href'),
     ],
     parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
     widgets: [
-        __WidgetClass__(key: GlobalKey('el-1'), href: 'updated-href'),
-        __WidgetClass__(key: GlobalKey('el-2'), href: 'another-href'),
+        __WidgetClass__(key: Key('el-1'), href: 'updated-href'),
+        __WidgetClass__(key: Key('el-2'), href: 'another-href'),
     ],
     updateType: UpdateType.setState,
     parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
-    var domNode2 = app!.domNodeByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
+    var domNode2 = app!.domNodeByKeyValue('el-2');
 
     expect(domNode1.getAttribute('href'), equals('updated-href'));
     expect(domNode2.getAttribute('href'), equals('another-href'));
@@ -42,23 +42,23 @@ test('should update attribute "href"', () async {
 test('should clear attribute "href"', () async {
     await app!.buildChildren(
     widgets: [
-        __WidgetClass__(key: GlobalKey('el-1')),
-        __WidgetClass__(key: GlobalKey('el-2'), href: 'another-href'),
+        __WidgetClass__(key: Key('el-1')),
+        __WidgetClass__(key: Key('el-2'), href: 'another-href'),
     ],
     parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
     widgets: [
-        __WidgetClass__(key: GlobalKey('el-1')),
-        __WidgetClass__(key: GlobalKey('el-2')),
+        __WidgetClass__(key: Key('el-1')),
+        __WidgetClass__(key: Key('el-2')),
     ],
     updateType: UpdateType.setState,
     parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
-    var domNode2 = app!.domNodeByGlobalKey('el-2');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
+    var domNode2 = app!.domNodeByKeyValue('el-2');
 
     expect(domNode1.getAttribute('href'), equals(null));
     expect(domNode2.getAttribute('href'), equals(null));
@@ -67,20 +67,20 @@ test('should clear attribute "href"', () async {
 test('should clear attribute "href" if updated value is null', () async {
    await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), href: 'some-href'),
+            __WidgetClass__(key: Key('el-1'), href: 'some-href'),
         ],
         parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), href: null),
+            __WidgetClass__(key: Key('el-1'), href: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
 
     expect(domNode1.getAttribute('href'), equals(null));
 });
@@ -88,12 +88,12 @@ test('should clear attribute "href" if updated value is null', () async {
 test('should not set attribute "href" if provided value is null', () async {
     await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: GlobalKey('el-1'), href: null),
+            __WidgetClass__(key: Key('el-1'), href: null),
         ],
         parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = app!.domNodeByGlobalKey('el-1');
+    var domNode1 = app!.domNodeByKeyValue('el-1');
 
     expect(domNode1.getAttribute('href'), equals(null));
 });

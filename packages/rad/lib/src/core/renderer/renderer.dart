@@ -309,10 +309,6 @@ class Renderer with ServicesResolver {
       renderElement.frameworkBindDomNode(domNode: domNode);
     }
 
-    // Register element
-
-    services.walker.registerElement(renderElement);
-
     // Call lifecycle hooks if it's a watchful render element
 
     if (renderElement is WatchfulRenderElement) {
@@ -1011,10 +1007,6 @@ class Renderer with ServicesResolver {
 
     renderElement.frameworkDetach();
 
-    // Unregister element
-
-    services.walker.unRegisterElement(renderElement);
-
     // Call lifecycle hooks
 
     if (renderElement is WatchfulRenderElement) {
@@ -1036,10 +1028,6 @@ class Renderer with ServicesResolver {
     for (final childElement in renderElement.frameworkChildElements) {
       disposeDetachedRenderElement(childElement);
     }
-
-    // Unregister element
-
-    services.walker.unRegisterElement(renderElement);
 
     // Call lifecycle hooks
 

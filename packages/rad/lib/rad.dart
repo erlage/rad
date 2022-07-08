@@ -60,8 +60,8 @@ export 'src/core/common/types.dart' show RenderElementCallback;
 export 'src/core/interface/window/window.dart' show Window;
 export 'src/core/interface/window/abstract.dart' show WindowDelegate;
 
+export 'src/core/common/objects/key.dart' show Key;
 export 'src/widgets/abstract/widget.dart' show Widget;
-export 'src/core/common/objects/key.dart' show Key, GlobalKey;
 export 'src/core/services/events/emitted_event.dart' show EmittedEvent;
 export 'src/core/common/abstract/build_context.dart' show BuildContext;
 export 'src/core/common/abstract/render_element.dart' show RenderElement;

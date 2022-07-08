@@ -22,14 +22,14 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('widget'),
+            key: Key('widget'),
             roEventUpdate: () => pap.stack.push('update'),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var element = pap.renderElementByGlobalKey('widget')!;
+      var element = pap.renderElementByKeyValue('widget')!;
 
       await pap.updateDependent(element);
       await pap.updateDependent(element);
@@ -45,14 +45,14 @@ void main() {
       await app!.buildChildren(
         widgets: [
           RT_TestWidget(
-            key: GlobalKey('widget'),
+            key: Key('widget'),
             roHookUpdate: (type) => pap.stack.push(type.name),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var element = pap.renderElementByGlobalKey('widget')!;
+      var element = pap.renderElementByKeyValue('widget')!;
 
       await pap.updateDependent(element);
       await pap.updateDependent(element);

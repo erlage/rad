@@ -23,16 +23,16 @@ void html_text_area_test() {
     test('should set id', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('some-key-1'), id: 'some-id-1'),
-          TextArea(key: GlobalKey('some-key-2'), id: 'some-id-2'),
-          TextArea(key: GlobalKey('some-key-3'), id: 'some-id-3'),
+          TextArea(key: Key('some-key-1'), id: 'some-id-1'),
+          TextArea(key: Key('some-key-2'), id: 'some-id-2'),
+          TextArea(key: Key('some-key-3'), id: 'some-id-3'),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('some-key-1');
-      var domNode2 = app!.domNodeByGlobalKey('some-key-2');
-      var domNode3 = app!.domNodeByGlobalKey('some-key-3');
+      var domNode1 = app!.domNodeByKeyValue('some-key-1');
+      var domNode2 = app!.domNodeByKeyValue('some-key-2');
+      var domNode3 = app!.domNodeByKeyValue('some-key-3');
 
       expect(domNode1.id, equals('some-id-1'));
       expect(domNode2.id, equals('some-id-2'));
@@ -42,16 +42,16 @@ void html_text_area_test() {
     test('should reset and update id', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('some-key-1'), id: 'some-id-1'),
-          TextArea(key: GlobalKey('some-key-2'), id: 'some-id-2'),
-          TextArea(key: GlobalKey('some-key-3'), id: 'some-id-3'),
+          TextArea(key: Key('some-key-1'), id: 'some-id-1'),
+          TextArea(key: Key('some-key-2'), id: 'some-id-2'),
+          TextArea(key: Key('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('some-key-1');
-      var domNode2 = app!.domNodeByGlobalKey('some-key-2');
-      var domNode3 = app!.domNodeByGlobalKey('some-key-3');
+      var domNode1 = app!.domNodeByKeyValue('some-key-1');
+      var domNode2 = app!.domNodeByKeyValue('some-key-2');
+      var domNode3 = app!.domNodeByKeyValue('some-key-3');
 
       expect(domNode1.id, equals('some-id-1'));
       expect(domNode2.id, equals('some-id-2'));
@@ -60,15 +60,15 @@ void html_text_area_test() {
       await app!.updateChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('some-key-1'),
+            key: Key('some-key-1'),
             id: 'some-updated-id',
           ),
           TextArea(
-            key: GlobalKey('some-key-2'),
+            key: Key('some-key-2'),
             id: 'some-local-updated-id',
           ),
           TextArea(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'some-global-updated-id',
           ),
         ],
@@ -171,19 +171,19 @@ void html_text_area_test() {
       await app!.buildChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'some-classes',
           ),
           TextArea(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('class'), equals('some-classes'));
       expect(domNode2.getAttribute('class'), equals('another-classes'));
@@ -193,11 +193,11 @@ void html_text_area_test() {
       await app!.buildChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'some-classes',
           ),
           TextArea(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
@@ -207,11 +207,11 @@ void html_text_area_test() {
       await app!.updateChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'updated-classes',
           ),
           TextArea(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
@@ -219,8 +219,8 @@ void html_text_area_test() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('class'), equals('updated-classes'));
       expect(domNode2.getAttribute('class'), equals('another-classes'));
@@ -229,9 +229,9 @@ void html_text_area_test() {
     test('should clear attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
+          TextArea(key: Key('el-1')),
           TextArea(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             classAttribute: 'another-classes',
           ),
         ],
@@ -240,15 +240,15 @@ void html_text_area_test() {
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2')),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('class'), equals(null));
       expect(domNode2.getAttribute('class'), equals(null));
@@ -258,7 +258,7 @@ void html_text_area_test() {
       await app!.buildChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             classAttribute: 'some-classes',
           ),
         ],
@@ -267,13 +267,13 @@ void html_text_area_test() {
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), classAttribute: null),
+          TextArea(key: Key('el-1'), classAttribute: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('class'), equals(null));
     });
@@ -282,12 +282,12 @@ void html_text_area_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), classAttribute: null),
+          TextArea(key: Key('el-1'), classAttribute: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('class'), equals(null));
     });
@@ -378,16 +378,16 @@ void html_text_area_test() {
     test('should set attribute "hidden" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), hidden: false),
-          TextArea(key: GlobalKey('el-2'), hidden: null),
-          TextArea(key: GlobalKey('el-3'), hidden: true),
+          TextArea(key: Key('el-1'), hidden: false),
+          TextArea(key: Key('el-2'), hidden: null),
+          TextArea(key: Key('el-3'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
 
       expect(domNode1.getAttribute('hidden'), equals(null));
       expect(domNode2.getAttribute('hidden'), equals(null));
@@ -398,29 +398,29 @@ void html_text_area_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), hidden: true),
-          TextArea(key: GlobalKey('el-2'), hidden: true),
-          TextArea(key: GlobalKey('el-3'), hidden: true),
-          TextArea(key: GlobalKey('el-4'), hidden: true),
+          TextArea(key: Key('el-1'), hidden: true),
+          TextArea(key: Key('el-2'), hidden: true),
+          TextArea(key: Key('el-3'), hidden: true),
+          TextArea(key: Key('el-4'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), hidden: true),
-          TextArea(key: GlobalKey('el-2'), hidden: false),
-          TextArea(key: GlobalKey('el-3'), hidden: null),
-          TextArea(key: GlobalKey('el-4')),
+          TextArea(key: Key('el-1'), hidden: true),
+          TextArea(key: Key('el-2'), hidden: false),
+          TextArea(key: Key('el-3'), hidden: null),
+          TextArea(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
-      var domNode4 = app!.domNodeByGlobalKey('el-4');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
 
       expect(domNode1.getAttribute('hidden'), equals('true'));
       expect(domNode2.getAttribute('hidden'), equals(null));
@@ -432,7 +432,7 @@ void html_text_area_test() {
       await app!.buildChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('widget-1'),
+            key: Key('widget-1'),
             innerText: 'hello world',
           ),
         ],
@@ -450,15 +450,14 @@ void html_text_area_test() {
     test('should set attribute "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
-          TextArea(
-              key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          TextArea(key: Key('el-1'), onClickAttribute: 'some-on-click'),
+          TextArea(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('onClick'), equals('some-on-click'));
       expect(domNode2.getAttribute('onClick'), equals('another-on-click'));
@@ -467,26 +466,23 @@ void html_text_area_test() {
     test('should update attribute "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
-          TextArea(
-              key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          TextArea(key: Key('el-1'), onClickAttribute: 'some-on-click'),
+          TextArea(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(
-              key: GlobalKey('el-1'), onClickAttribute: 'updated-on-click'),
-          TextArea(
-              key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          TextArea(key: Key('el-1'), onClickAttribute: 'updated-on-click'),
+          TextArea(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('onClick'), equals('updated-on-click'));
       expect(domNode2.getAttribute('onClick'), equals('another-on-click'));
@@ -495,24 +491,23 @@ void html_text_area_test() {
     test('should clear attribute "onClickAttribute"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(
-              key: GlobalKey('el-2'), onClickAttribute: 'another-on-click'),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2'), onClickAttribute: 'another-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2')),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('onClick'), equals(null));
       expect(domNode2.getAttribute('onClick'), equals(null));
@@ -522,20 +517,20 @@ void html_text_area_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), onClickAttribute: 'some-on-click'),
+          TextArea(key: Key('el-1'), onClickAttribute: 'some-on-click'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), onClickAttribute: null),
+          TextArea(key: Key('el-1'), onClickAttribute: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('onClick'), equals(null));
     });
@@ -545,12 +540,12 @@ void html_text_area_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), onClickAttribute: null),
+          TextArea(key: Key('el-1'), onClickAttribute: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('onClick'), equals(null));
     });
@@ -600,19 +595,19 @@ void html_text_area_test() {
       await app!.buildChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             onClick: (event) => testStack.push('click-1'),
           ),
           TextArea(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             onClick: (event) => testStack.push('click-2'),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('click'));
-      app!.domNodeByGlobalKey('el-2').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('click'));
 
       await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('click-1'));
@@ -626,16 +621,16 @@ void html_text_area_test() {
 
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2'), onClick: null),
-          TextArea(key: GlobalKey('el-3'), onClick: listener),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2'), onClick: null),
+          TextArea(key: Key('el-3'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByGlobalKey('el-3').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
+      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(null));
@@ -647,14 +642,14 @@ void html_text_area_test() {
 
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2'), onClick: listener),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(listener));
@@ -663,15 +658,15 @@ void html_text_area_test() {
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2')),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.click], equals(null));
       expect(listeners2[DomEventType.click], equals(null));
@@ -746,7 +741,7 @@ void html_text_area_test() {
     test('should set correct types and markup', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('some-key-3')),
+          TextArea(key: Key('some-key-3')),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -782,7 +777,7 @@ void html_text_area_test() {
       await app!.buildChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'id': 'some-id',
             },
@@ -804,7 +799,7 @@ void html_text_area_test() {
       await app!.buildChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
               'id': 'ignored-id',
@@ -829,7 +824,7 @@ void html_text_area_test() {
       await app!.buildChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
               'id': 'ignored-id',
@@ -842,7 +837,7 @@ void html_text_area_test() {
       await app!.updateChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             id: 'updated-id',
             additionalAttributes: {
               'id': 'ignored-id',
@@ -864,7 +859,7 @@ void html_text_area_test() {
       await app!.buildChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
               'data-another': 'another okay',
@@ -884,7 +879,7 @@ void html_text_area_test() {
       await app!.buildChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'aria-something': 'something okay',
               'any-another': 'another okay',
@@ -905,7 +900,7 @@ void html_text_area_test() {
       await app!.buildChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
             },
@@ -917,7 +912,7 @@ void html_text_area_test() {
       await app!.updateChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
             additionalAttributes: {
               'data-something-new': 'something new',
             },
@@ -948,16 +943,16 @@ void html_text_area_test() {
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('some-key-1')),
-          TextArea(key: GlobalKey('some-key-2')),
-          TextArea(key: GlobalKey('some-key-3')),
+          TextArea(key: Key('some-key-1')),
+          TextArea(key: Key('some-key-2')),
+          TextArea(key: Key('some-key-3')),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var wO1 = app!.renderElementByGlobalKey('some-key-1')!;
-      var wO2 = app!.renderElementByGlobalKey('some-key-2')!;
-      var wO3 = app!.renderElementByGlobalKey('some-key-3')!;
+      var wO1 = app!.renderElementByKeyValue('some-key-1')!;
+      var wO2 = app!.renderElementByKeyValue('some-key-2')!;
+      var wO3 = app!.renderElementByKeyValue('some-key-3')!;
 
       expect(wO1.key?.frameworkValue, endsWith('some-key-1'));
       expect(wO2.key?.frameworkValue, endsWith('some-key-2'));
@@ -967,14 +962,14 @@ void html_text_area_test() {
     test('should set attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), name: 'some-name'),
-          TextArea(key: GlobalKey('el-2'), name: 'another-name'),
+          TextArea(key: Key('el-1'), name: 'some-name'),
+          TextArea(key: Key('el-2'), name: 'another-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('name'), equals('some-name'));
       expect(domNode2.getAttribute('name'), equals('another-name'));
@@ -983,23 +978,23 @@ void html_text_area_test() {
     test('should update attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), name: 'some-name'),
-          TextArea(key: GlobalKey('el-2'), name: 'another-name'),
+          TextArea(key: Key('el-1'), name: 'some-name'),
+          TextArea(key: Key('el-2'), name: 'another-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), name: 'updated-name'),
-          TextArea(key: GlobalKey('el-2'), name: 'another-name'),
+          TextArea(key: Key('el-1'), name: 'updated-name'),
+          TextArea(key: Key('el-2'), name: 'another-name'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('name'), equals('updated-name'));
       expect(domNode2.getAttribute('name'), equals('another-name'));
@@ -1008,23 +1003,23 @@ void html_text_area_test() {
     test('should clear attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2'), name: 'another-name'),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2'), name: 'another-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2')),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('name'), equals(null));
       expect(domNode2.getAttribute('name'), equals(null));
@@ -1033,20 +1028,20 @@ void html_text_area_test() {
     test('should clear attribute "name" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), name: 'some-name'),
+          TextArea(key: Key('el-1'), name: 'some-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), name: null),
+          TextArea(key: Key('el-1'), name: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('name'), equals(null));
     });
@@ -1054,12 +1049,12 @@ void html_text_area_test() {
     test('should not set attribute "name" if provided value is null', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), name: null),
+          TextArea(key: Key('el-1'), name: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('name'), equals(null));
     });
@@ -1106,14 +1101,14 @@ void html_text_area_test() {
     test('should set attribute "placeholder"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), placeholder: 'some-placeholder'),
-          TextArea(key: GlobalKey('el-2'), placeholder: 'another-placeholder'),
+          TextArea(key: Key('el-1'), placeholder: 'some-placeholder'),
+          TextArea(key: Key('el-2'), placeholder: 'another-placeholder'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('placeholder'), equals('some-placeholder'));
       expect(
@@ -1123,23 +1118,23 @@ void html_text_area_test() {
     test('should update attribute "placeholder"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), placeholder: 'some-placeholder'),
-          TextArea(key: GlobalKey('el-2'), placeholder: 'another-placeholder'),
+          TextArea(key: Key('el-1'), placeholder: 'some-placeholder'),
+          TextArea(key: Key('el-2'), placeholder: 'another-placeholder'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), placeholder: 'updated-placeholder'),
-          TextArea(key: GlobalKey('el-2'), placeholder: 'another-placeholder'),
+          TextArea(key: Key('el-1'), placeholder: 'updated-placeholder'),
+          TextArea(key: Key('el-2'), placeholder: 'another-placeholder'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(
           domNode1.getAttribute('placeholder'), equals('updated-placeholder'));
@@ -1150,23 +1145,23 @@ void html_text_area_test() {
     test('should clear attribute "placeholder"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2'), placeholder: 'another-placeholder'),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2'), placeholder: 'another-placeholder'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2')),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('placeholder'), equals(null));
       expect(domNode2.getAttribute('placeholder'), equals(null));
@@ -1176,20 +1171,20 @@ void html_text_area_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), placeholder: 'some-placeholder'),
+          TextArea(key: Key('el-1'), placeholder: 'some-placeholder'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), placeholder: null),
+          TextArea(key: Key('el-1'), placeholder: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('placeholder'), equals(null));
     });
@@ -1198,12 +1193,12 @@ void html_text_area_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), placeholder: null),
+          TextArea(key: Key('el-1'), placeholder: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('placeholder'), equals(null));
     });
@@ -1211,14 +1206,14 @@ void html_text_area_test() {
     test('should set attribute "rows"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), rows: 10),
-          TextArea(key: GlobalKey('el-2'), rows: 0),
+          TextArea(key: Key('el-1'), rows: 10),
+          TextArea(key: Key('el-2'), rows: 0),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('rows'), equals('10'));
       expect(domNode2.getAttribute('rows'), equals('0'));
@@ -1227,23 +1222,23 @@ void html_text_area_test() {
     test('should update attribute "rows"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), rows: 10),
-          TextArea(key: GlobalKey('el-2'), rows: 10),
+          TextArea(key: Key('el-1'), rows: 10),
+          TextArea(key: Key('el-2'), rows: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), rows: 20),
-          TextArea(key: GlobalKey('el-2'), rows: 20),
+          TextArea(key: Key('el-1'), rows: 20),
+          TextArea(key: Key('el-2'), rows: 20),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('rows'), equals('20'));
       expect(domNode2.getAttribute('rows'), equals('20'));
@@ -1252,23 +1247,23 @@ void html_text_area_test() {
     test('should clear attribute "rows"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2'), rows: 10),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2'), rows: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2')),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('rows'), equals(null));
       expect(domNode2.getAttribute('rows'), equals(null));
@@ -1277,20 +1272,20 @@ void html_text_area_test() {
     test('should clear attribute "rows" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), rows: 10),
+          TextArea(key: Key('el-1'), rows: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), rows: null),
+          TextArea(key: Key('el-1'), rows: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('rows'), equals(null));
     });
@@ -1298,12 +1293,12 @@ void html_text_area_test() {
     test('should not set attribute "rows" if provided value is null', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), rows: null),
+          TextArea(key: Key('el-1'), rows: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('rows'), equals(null));
     });
@@ -1311,14 +1306,14 @@ void html_text_area_test() {
     test('should set attribute "cols"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), cols: 10),
-          TextArea(key: GlobalKey('el-2'), cols: 0),
+          TextArea(key: Key('el-1'), cols: 10),
+          TextArea(key: Key('el-2'), cols: 0),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('cols'), equals('10'));
       expect(domNode2.getAttribute('cols'), equals('0'));
@@ -1327,23 +1322,23 @@ void html_text_area_test() {
     test('should update attribute "cols"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), cols: 10),
-          TextArea(key: GlobalKey('el-2'), cols: 10),
+          TextArea(key: Key('el-1'), cols: 10),
+          TextArea(key: Key('el-2'), cols: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), cols: 20),
-          TextArea(key: GlobalKey('el-2'), cols: 20),
+          TextArea(key: Key('el-1'), cols: 20),
+          TextArea(key: Key('el-2'), cols: 20),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('cols'), equals('20'));
       expect(domNode2.getAttribute('cols'), equals('20'));
@@ -1352,23 +1347,23 @@ void html_text_area_test() {
     test('should clear attribute "cols"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2'), cols: 10),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2'), cols: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2')),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('cols'), equals(null));
       expect(domNode2.getAttribute('cols'), equals(null));
@@ -1377,20 +1372,20 @@ void html_text_area_test() {
     test('should clear attribute "cols" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), cols: 10),
+          TextArea(key: Key('el-1'), cols: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), cols: null),
+          TextArea(key: Key('el-1'), cols: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('cols'), equals(null));
     });
@@ -1398,12 +1393,12 @@ void html_text_area_test() {
     test('should not set attribute "cols" if provided value is null', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), cols: null),
+          TextArea(key: Key('el-1'), cols: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('cols'), equals(null));
     });
@@ -1411,14 +1406,14 @@ void html_text_area_test() {
     test('should set attribute "minLength"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), minLength: 10),
-          TextArea(key: GlobalKey('el-2'), minLength: 0),
+          TextArea(key: Key('el-1'), minLength: 10),
+          TextArea(key: Key('el-2'), minLength: 0),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('minlength'), equals('10'));
       expect(domNode2.getAttribute('minlength'), equals('0'));
@@ -1427,23 +1422,23 @@ void html_text_area_test() {
     test('should update attribute "minLength"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), minLength: 10),
-          TextArea(key: GlobalKey('el-2'), minLength: 10),
+          TextArea(key: Key('el-1'), minLength: 10),
+          TextArea(key: Key('el-2'), minLength: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), minLength: 20),
-          TextArea(key: GlobalKey('el-2'), minLength: 20),
+          TextArea(key: Key('el-1'), minLength: 20),
+          TextArea(key: Key('el-2'), minLength: 20),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('minlength'), equals('20'));
       expect(domNode2.getAttribute('minlength'), equals('20'));
@@ -1452,23 +1447,23 @@ void html_text_area_test() {
     test('should clear attribute "minLength"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2'), minLength: 10),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2'), minLength: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2')),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('minlength'), equals(null));
       expect(domNode2.getAttribute('minlength'), equals(null));
@@ -1478,20 +1473,20 @@ void html_text_area_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), minLength: 10),
+          TextArea(key: Key('el-1'), minLength: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), minLength: null),
+          TextArea(key: Key('el-1'), minLength: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('minlength'), equals(null));
     });
@@ -1500,12 +1495,12 @@ void html_text_area_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), minLength: null),
+          TextArea(key: Key('el-1'), minLength: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('minlength'), equals(null));
     });
@@ -1513,14 +1508,14 @@ void html_text_area_test() {
     test('should set attribute "maxLength"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), maxLength: 10),
-          TextArea(key: GlobalKey('el-2'), maxLength: 0),
+          TextArea(key: Key('el-1'), maxLength: 10),
+          TextArea(key: Key('el-2'), maxLength: 0),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('maxlength'), equals('10'));
       expect(domNode2.getAttribute('maxlength'), equals('0'));
@@ -1529,23 +1524,23 @@ void html_text_area_test() {
     test('should update attribute "maxLength"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), maxLength: 10),
-          TextArea(key: GlobalKey('el-2'), maxLength: 10),
+          TextArea(key: Key('el-1'), maxLength: 10),
+          TextArea(key: Key('el-2'), maxLength: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), maxLength: 20),
-          TextArea(key: GlobalKey('el-2'), maxLength: 20),
+          TextArea(key: Key('el-1'), maxLength: 20),
+          TextArea(key: Key('el-2'), maxLength: 20),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('maxlength'), equals('20'));
       expect(domNode2.getAttribute('maxlength'), equals('20'));
@@ -1554,23 +1549,23 @@ void html_text_area_test() {
     test('should clear attribute "maxLength"', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2'), maxLength: 10),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2'), maxLength: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2')),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
       expect(domNode1.getAttribute('maxlength'), equals(null));
       expect(domNode2.getAttribute('maxlength'), equals(null));
@@ -1580,20 +1575,20 @@ void html_text_area_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), maxLength: 10),
+          TextArea(key: Key('el-1'), maxLength: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), maxLength: null),
+          TextArea(key: Key('el-1'), maxLength: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('maxlength'), equals(null));
     });
@@ -1602,12 +1597,12 @@ void html_text_area_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), maxLength: null),
+          TextArea(key: Key('el-1'), maxLength: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('maxlength'), equals(null));
     });
@@ -1615,16 +1610,16 @@ void html_text_area_test() {
     test('should set attribute "required" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), required: false),
-          TextArea(key: GlobalKey('el-2'), required: null),
-          TextArea(key: GlobalKey('el-3'), required: true),
+          TextArea(key: Key('el-1'), required: false),
+          TextArea(key: Key('el-2'), required: null),
+          TextArea(key: Key('el-3'), required: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
 
       expect(domNode1.getAttribute('required'), equals(null));
       expect(domNode2.getAttribute('required'), equals(null));
@@ -1635,29 +1630,29 @@ void html_text_area_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), required: true),
-          TextArea(key: GlobalKey('el-2'), required: true),
-          TextArea(key: GlobalKey('el-3'), required: true),
-          TextArea(key: GlobalKey('el-4'), required: true),
+          TextArea(key: Key('el-1'), required: true),
+          TextArea(key: Key('el-2'), required: true),
+          TextArea(key: Key('el-3'), required: true),
+          TextArea(key: Key('el-4'), required: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), required: true),
-          TextArea(key: GlobalKey('el-2'), required: false),
-          TextArea(key: GlobalKey('el-3'), required: null),
-          TextArea(key: GlobalKey('el-4')),
+          TextArea(key: Key('el-1'), required: true),
+          TextArea(key: Key('el-2'), required: false),
+          TextArea(key: Key('el-3'), required: null),
+          TextArea(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
-      var domNode4 = app!.domNodeByGlobalKey('el-4');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
 
       expect(domNode1.getAttribute('required'), equals('true'));
       expect(domNode2.getAttribute('required'), equals(null));
@@ -1668,16 +1663,16 @@ void html_text_area_test() {
     test('should set attribute "readonly" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), readOnly: false),
-          TextArea(key: GlobalKey('el-2'), readOnly: null),
-          TextArea(key: GlobalKey('el-3'), readOnly: true),
+          TextArea(key: Key('el-1'), readOnly: false),
+          TextArea(key: Key('el-2'), readOnly: null),
+          TextArea(key: Key('el-3'), readOnly: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
 
       expect(domNode1.getAttribute('readonly'), equals(null));
       expect(domNode2.getAttribute('readonly'), equals(null));
@@ -1688,29 +1683,29 @@ void html_text_area_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), readOnly: true),
-          TextArea(key: GlobalKey('el-2'), readOnly: true),
-          TextArea(key: GlobalKey('el-3'), readOnly: true),
-          TextArea(key: GlobalKey('el-4'), readOnly: true),
+          TextArea(key: Key('el-1'), readOnly: true),
+          TextArea(key: Key('el-2'), readOnly: true),
+          TextArea(key: Key('el-3'), readOnly: true),
+          TextArea(key: Key('el-4'), readOnly: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), readOnly: true),
-          TextArea(key: GlobalKey('el-2'), readOnly: false),
-          TextArea(key: GlobalKey('el-3'), readOnly: null),
-          TextArea(key: GlobalKey('el-4')),
+          TextArea(key: Key('el-1'), readOnly: true),
+          TextArea(key: Key('el-2'), readOnly: false),
+          TextArea(key: Key('el-3'), readOnly: null),
+          TextArea(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
-      var domNode4 = app!.domNodeByGlobalKey('el-4');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
 
       expect(domNode1.getAttribute('readonly'), equals('true'));
       expect(domNode2.getAttribute('readonly'), equals(null));
@@ -1721,16 +1716,16 @@ void html_text_area_test() {
     test('should set attribute "disabled" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), disabled: false),
-          TextArea(key: GlobalKey('el-2'), disabled: null),
-          TextArea(key: GlobalKey('el-3'), disabled: true),
+          TextArea(key: Key('el-1'), disabled: false),
+          TextArea(key: Key('el-2'), disabled: null),
+          TextArea(key: Key('el-3'), disabled: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
 
       expect(domNode1.getAttribute('disabled'), equals(null));
       expect(domNode2.getAttribute('disabled'), equals(null));
@@ -1741,29 +1736,29 @@ void html_text_area_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), disabled: true),
-          TextArea(key: GlobalKey('el-2'), disabled: true),
-          TextArea(key: GlobalKey('el-3'), disabled: true),
-          TextArea(key: GlobalKey('el-4'), disabled: true),
+          TextArea(key: Key('el-1'), disabled: true),
+          TextArea(key: Key('el-2'), disabled: true),
+          TextArea(key: Key('el-3'), disabled: true),
+          TextArea(key: Key('el-4'), disabled: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1'), disabled: true),
-          TextArea(key: GlobalKey('el-2'), disabled: false),
-          TextArea(key: GlobalKey('el-3'), disabled: null),
-          TextArea(key: GlobalKey('el-4')),
+          TextArea(key: Key('el-1'), disabled: true),
+          TextArea(key: Key('el-2'), disabled: false),
+          TextArea(key: Key('el-3'), disabled: null),
+          TextArea(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = app!.domNodeByGlobalKey('el-1');
-      var domNode2 = app!.domNodeByGlobalKey('el-2');
-      var domNode3 = app!.domNodeByGlobalKey('el-3');
-      var domNode4 = app!.domNodeByGlobalKey('el-4');
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
 
       expect(domNode1.getAttribute('disabled'), equals('true'));
       expect(domNode2.getAttribute('disabled'), equals(null));
@@ -1777,19 +1772,19 @@ void html_text_area_test() {
       await app!.buildChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             onChange: (event) => testStack.push('change-1'),
           ),
           TextArea(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             onChange: (event) => testStack.push('change-2'),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('change'));
-      app!.domNodeByGlobalKey('el-2').dispatchEvent(Event('change'));
+      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('change'));
+      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('change'));
 
       await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('change-1'));
@@ -1803,16 +1798,16 @@ void html_text_area_test() {
 
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2'), onChange: null),
-          TextArea(key: GlobalKey('el-3'), onChange: listener),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2'), onChange: null),
+          TextArea(key: Key('el-3'), onChange: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByGlobalKey('el-3').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
+      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
 
       expect(listeners1[DomEventType.change], equals(null));
       expect(listeners2[DomEventType.change], equals(null));
@@ -1824,14 +1819,14 @@ void html_text_area_test() {
 
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2'), onChange: listener),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2'), onChange: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.change], equals(null));
       expect(listeners2[DomEventType.change], equals(listener));
@@ -1840,15 +1835,15 @@ void html_text_area_test() {
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2')),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.change], equals(null));
       expect(listeners2[DomEventType.change], equals(null));
@@ -1860,19 +1855,19 @@ void html_text_area_test() {
       await app!.buildChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             onInput: (event) => testStack.push('input-1'),
           ),
           TextArea(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             onInput: (event) => testStack.push('input-2'),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('input'));
-      app!.domNodeByGlobalKey('el-2').dispatchEvent(Event('input'));
+      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('input'));
+      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('input'));
 
       await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('input-1'));
@@ -1886,16 +1881,16 @@ void html_text_area_test() {
 
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2'), onInput: null),
-          TextArea(key: GlobalKey('el-3'), onInput: listener),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2'), onInput: null),
+          TextArea(key: Key('el-3'), onInput: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByGlobalKey('el-3').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
+      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
 
       expect(listeners1[DomEventType.input], equals(null));
       expect(listeners2[DomEventType.input], equals(null));
@@ -1907,14 +1902,14 @@ void html_text_area_test() {
 
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2'), onInput: listener),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2'), onInput: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.input], equals(null));
       expect(listeners2[DomEventType.input], equals(listener));
@@ -1923,15 +1918,15 @@ void html_text_area_test() {
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2')),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.input], equals(null));
       expect(listeners2[DomEventType.input], equals(null));
@@ -1943,19 +1938,19 @@ void html_text_area_test() {
       await app!.buildChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             onKeyPress: (event) => testStack.push('keypress-1'),
           ),
           TextArea(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             onKeyPress: (event) => testStack.push('keypress-2'),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('keypress'));
-      app!.domNodeByGlobalKey('el-2').dispatchEvent(Event('keypress'));
+      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('keypress'));
+      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('keypress'));
 
       await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('keypress-1'));
@@ -1969,16 +1964,16 @@ void html_text_area_test() {
 
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2'), onKeyPress: null),
-          TextArea(key: GlobalKey('el-3'), onKeyPress: listener),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2'), onKeyPress: null),
+          TextArea(key: Key('el-3'), onKeyPress: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByGlobalKey('el-3').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
+      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
 
       expect(listeners1[DomEventType.keyPress], equals(null));
       expect(listeners2[DomEventType.keyPress], equals(null));
@@ -1990,14 +1985,14 @@ void html_text_area_test() {
 
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2'), onKeyPress: listener),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2'), onKeyPress: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.keyPress], equals(null));
       expect(listeners2[DomEventType.keyPress], equals(listener));
@@ -2006,15 +2001,15 @@ void html_text_area_test() {
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2')),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.keyPress], equals(null));
       expect(listeners2[DomEventType.keyPress], equals(null));
@@ -2026,19 +2021,19 @@ void html_text_area_test() {
       await app!.buildChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             onKeyUp: (event) => testStack.push('keyup-1'),
           ),
           TextArea(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             onKeyUp: (event) => testStack.push('keyup-2'),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('keyup'));
-      app!.domNodeByGlobalKey('el-2').dispatchEvent(Event('keyup'));
+      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('keyup'));
+      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('keyup'));
 
       await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('keyup-1'));
@@ -2052,16 +2047,16 @@ void html_text_area_test() {
 
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2'), onKeyUp: null),
-          TextArea(key: GlobalKey('el-3'), onKeyUp: listener),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2'), onKeyUp: null),
+          TextArea(key: Key('el-3'), onKeyUp: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByGlobalKey('el-3').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
+      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
 
       expect(listeners1[DomEventType.keyUp], equals(null));
       expect(listeners2[DomEventType.keyUp], equals(null));
@@ -2073,14 +2068,14 @@ void html_text_area_test() {
 
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2'), onKeyUp: listener),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2'), onKeyUp: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.keyUp], equals(null));
       expect(listeners2[DomEventType.keyUp], equals(listener));
@@ -2089,15 +2084,15 @@ void html_text_area_test() {
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2')),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.keyUp], equals(null));
       expect(listeners2[DomEventType.keyUp], equals(null));
@@ -2109,19 +2104,19 @@ void html_text_area_test() {
       await app!.buildChildren(
         widgets: [
           TextArea(
-            key: GlobalKey('el-1'),
+            key: Key('el-1'),
             onKeyDown: (event) => testStack.push('keydown-1'),
           ),
           TextArea(
-            key: GlobalKey('el-2'),
+            key: Key('el-2'),
             onKeyDown: (event) => testStack.push('keydown-2'),
           ),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByGlobalKey('el-1').dispatchEvent(Event('keydown'));
-      app!.domNodeByGlobalKey('el-2').dispatchEvent(Event('keydown'));
+      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('keydown'));
+      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('keydown'));
 
       await Future.delayed(Duration.zero, () {
         expect(testStack.popFromStart(), equals('keydown-1'));
@@ -2135,16 +2130,16 @@ void html_text_area_test() {
 
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2'), onKeyDown: null),
-          TextArea(key: GlobalKey('el-3'), onKeyDown: listener),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2'), onKeyDown: null),
+          TextArea(key: Key('el-3'), onKeyDown: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByGlobalKey('el-3').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
+      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
 
       expect(listeners1[DomEventType.keyDown], equals(null));
       expect(listeners2[DomEventType.keyDown], equals(null));
@@ -2156,14 +2151,14 @@ void html_text_area_test() {
 
       await app!.buildChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2'), onKeyDown: listener),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2'), onKeyDown: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      var listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.keyDown], equals(null));
       expect(listeners2[DomEventType.keyDown], equals(listener));
@@ -2172,15 +2167,15 @@ void html_text_area_test() {
 
       await app!.updateChildren(
         widgets: [
-          TextArea(key: GlobalKey('el-1')),
-          TextArea(key: GlobalKey('el-2')),
+          TextArea(key: Key('el-1')),
+          TextArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      listeners1 = app!.widgetByGlobalKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByGlobalKey('el-2').widgetEventListeners;
+      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
 
       expect(listeners1[DomEventType.keyDown], equals(null));
       expect(listeners2[DomEventType.keyDown], equals(null));

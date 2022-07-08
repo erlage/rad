@@ -3,7 +3,7 @@ test('should allow widget attributes to be set through additional attributes', (
     await app!.buildChildren(
         widgets: [
             __WidgetClass__(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
               additionalAttributes: {
                 'id': 'some-id',
               },
@@ -24,7 +24,7 @@ test('should ignore additional attribute if already set in widget constructor', 
     await app!.buildChildren(
         widgets: [
             __WidgetClass__(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
               id: 'some-id',
               additionalAttributes: {
                 'id': 'ignored-id',
@@ -48,7 +48,7 @@ test('should ignore additional attribute if already set in widget constructor, d
     await app!.buildChildren(
         widgets: [
             __WidgetClass__(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
               id: 'some-id',
               additionalAttributes: {
                 'id': 'ignored-id',
@@ -61,7 +61,7 @@ test('should ignore additional attribute if already set in widget constructor, d
     await app!.updateChildren(
         widgets: [
             __WidgetClass__(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
               id: 'updated-id',
               additionalAttributes: {
                 'id': 'ignored-id',
@@ -84,7 +84,7 @@ test('should set data attributes', () async {
     await app!.buildChildren(
         widgets: [
             __WidgetClass__(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
                 additionalAttributes: {
                     'data-something': 'something okay',
                     'data-another': 'another okay',
@@ -105,7 +105,7 @@ test('should set aria/any attributes', () async {
     await app!.buildChildren(
         widgets: [
             __WidgetClass__(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
                 additionalAttributes: {
                     'aria-something': 'something okay',
                     'any-another': 'another okay',
@@ -126,7 +126,7 @@ test('should remove obsolute and add new data attributes on update', () async {
     await app!.buildChildren(
         widgets: [
             __WidgetClass__(
-            key: GlobalKey('some-key-3'),
+            key: Key('some-key-3'),
                 additionalAttributes: {
                     'data-something': 'something okay',
                 },
@@ -138,7 +138,7 @@ test('should remove obsolute and add new data attributes on update', () async {
     await app!.updateChildren(
         widgets: [
             __WidgetClass__(
-                key: GlobalKey('some-key-3'),
+                key: Key('some-key-3'),
                 additionalAttributes: {
                     'data-something-new': 'something new',
                 },

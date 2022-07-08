@@ -39,7 +39,7 @@ void main() {
   testWidgets(
     'collectAllWidgetObjectsFrom goes in LTR DFS',
     (tester) async {
-      var key = const GlobalKey('widget');
+      var key = const Key('widget');
 
       await tester.pumpWidget(
         Division(
@@ -53,7 +53,7 @@ void main() {
         ),
       );
 
-      var renderElement = tester.getRenderElementByGlobalKey(key)!;
+      var renderElement = tester.getrenderElementByKeyValue(key)!;
 
       final rElements = collectAllWidgetObjectsFrom(
         renderElement,
