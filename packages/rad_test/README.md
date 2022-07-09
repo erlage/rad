@@ -2,6 +2,8 @@
 
 A testing library for Rad applications, heavly inspired from [flutter_test](https://api.flutter.dev/flutter/flutter_test/flutter_test-library.html).
 
+[![Rad(test-pkg)](https://github.com/erlage/rad/actions/workflows/rad_test_pkg.yml/badge.svg)](https://github.com/erlage/rad/actions/workflows/rad_test_pkg.yml)
+
 ### Example usage
 
 ```dart

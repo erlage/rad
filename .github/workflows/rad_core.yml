@@ -45,4 +45,12 @@ jobs:
         run: |
           cd packages/rad
           dart pub get
-          dart test
+          dart pub run test --coverage="coverage"
+          dart pub global activate coverage
+          $HOME/.pub-cache/bin/format_coverage --lcov --in=coverage --out=coverage.lcov --report-on=lib
+          mv coverage.lcov ../../coverage.lcov
+
+      - uses: codecov/codecov-action@v2
+        with:
+          files: coverage.lcov
+          verbose: true
