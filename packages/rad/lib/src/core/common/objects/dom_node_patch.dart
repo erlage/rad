@@ -4,7 +4,7 @@
 
 import 'package:meta/meta.dart';
 
-/// Description patch for a dom node in DOM.
+/// Description patch for a dom node.
 ///
 @immutable
 class DomNodePatch {

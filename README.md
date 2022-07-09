@@ -17,8 +17,8 @@ Below is a hello world in Rad:
 ```dart
 void main() {
   runApp(
-    appTargetId: 'output',
     app: Text('hello world'),
+    appTargetId: 'output',
   );
 }
 ```
