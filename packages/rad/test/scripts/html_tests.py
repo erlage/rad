@@ -151,6 +151,7 @@ widget_specific_tests = {
         'html_attr_on_key_press',
         'html_attr_on_key_up',
         'html_attr_on_key_down',
+        'html_prop_value',
     ],
 
     # additional

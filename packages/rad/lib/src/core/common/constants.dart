@@ -132,6 +132,8 @@ class Attributes {
 ///
 @internal
 class Properties {
+  static const value = 'value';
+
   static const innerText = 'innerText';
   static const innerHtml = 'innerHtml';
 }

@@ -1066,6 +1066,19 @@ class Renderer with ServicesResolver {
       if (null != properties && properties.isNotEmpty) {
         properties.forEach((key, value) {
           switch (key) {
+            case Properties.value:
+              if (domNode is TextAreaElement) {
+                domNode.value = value ?? '';
+
+                break;
+              }
+
+              if (domNode is InputElement) {
+                domNode.value = value ?? '';
+              }
+
+              break;
+
             case Properties.innerText:
               domNode.innerText = value ?? '';
 

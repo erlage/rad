@@ -20,6 +20,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 class TextArea extends HTMLWidgetBase {
   final String? name;
 
+  final String? value;
   final String? placeholder;
 
   final int? rows;
@@ -53,6 +54,7 @@ class TextArea extends HTMLWidgetBase {
 
   const TextArea({
     this.name,
+    this.value,
     this.placeholder,
     this.rows,
     this.cols,
@@ -119,6 +121,7 @@ class TextArea extends HTMLWidgetBase {
   @override
   bool shouldUpdateWidget(covariant TextArea oldWidget) {
     return name != oldWidget.name ||
+        value != oldWidget.value ||
         placeholder != oldWidget.placeholder ||
         rows != oldWidget.rows ||
         cols != oldWidget.cols ||
@@ -160,6 +163,13 @@ class TextAreaRenderElement extends HTMLBaseElement {
       ),
     );
 
+    domNodeDescription?.attributes?.addAll(
+      _prepareProperties(
+        widget: widget,
+        oldWidget: null,
+      ),
+    );
+
     return domNodeDescription;
   }
 
@@ -177,6 +187,13 @@ class TextAreaRenderElement extends HTMLBaseElement {
 
     domNodeDescription?.attributes?.addAll(
       _prepareAttributes(
+        widget: newWidget,
+        oldWidget: oldWidget,
+      ),
+    );
+
+    domNodeDescription?.attributes?.addAll(
+      _prepareProperties(
         widget: newWidget,
         oldWidget: oldWidget,
       ),
@@ -263,4 +280,17 @@ Map<String, String?> _prepareAttributes({
   }
 
   return attributes;
+}
+
+Map<String, String?> _prepareProperties({
+  required TextArea widget,
+  required TextArea? oldWidget,
+}) {
+  var properties = <String, String?>{};
+
+  if (widget.value != oldWidget?.value) {
+    properties[Properties.value] = widget.value;
+  }
+
+  return properties;
 }
