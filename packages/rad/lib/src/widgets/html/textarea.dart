@@ -163,7 +163,7 @@ class TextAreaRenderElement extends HTMLBaseElement {
       ),
     );
 
-    domNodeDescription?.attributes?.addAll(
+    domNodeDescription?.properties?.addAll(
       _prepareProperties(
         widget: widget,
         oldWidget: null,
@@ -192,7 +192,7 @@ class TextAreaRenderElement extends HTMLBaseElement {
       ),
     );
 
-    domNodeDescription?.attributes?.addAll(
+    domNodeDescription?.properties?.addAll(
       _prepareProperties(
         widget: newWidget,
         oldWidget: oldWidget,
