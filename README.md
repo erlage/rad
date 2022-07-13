@@ -149,13 +149,16 @@ Similarity tags:
 - [ValueListenableBuilder](https://pub.dev/documentation/rad/latest/widgets_async/ValueListenableBuilder-class.html) \[*exact*\]
 - [ListView.builder](https://pub.dev/documentation/rad/latest/rad/ListView/ListView.builder.html) \[*same*\]
 
-### Misc
+### Functional
 
 - [RadApp](https://pub.dev/documentation/rad/latest/rad/RadApp-class.html)
-- [RawMarkUp](https://pub.dev/documentation/rad/latest/rad/RawMarkUp-class.html)
 - [Text](https://pub.dev/documentation/rad/latest/rad/Text-class.html) \[*different*\]
 - [ListView](https://pub.dev/documentation/rad/latest/rad/ListView-class.html) \[*same*\]
 - [EventDetector](https://pub.dev/documentation/rad/latest/rad/EventDetector-class.html)
+
+### Misc
+
+- [RawMarkUp](https://pub.dev/documentation/rad/latest/rad/RawMarkUp-class.html)
 - [GestureDetector](https://pub.dev/documentation/rad/latest/rad/GestureDetector-class.html) \[*experimental*\]
 
 ### HTML Widgets

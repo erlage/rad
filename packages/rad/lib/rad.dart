@@ -79,21 +79,28 @@ export 'src/core/common/objects/meta_information.dart' show MetaInformation;
 |--------------------------------------------------------------------------
 */
 
-export 'src/widgets/rad_app.dart' show RadApp;
+// abstract
+
 export 'src/widgets/inherited_widget.dart' show InheritedWidget;
 export 'src/widgets/stateful_widget.dart' show StatefulWidget, State;
 export 'src/widgets/stateless_widget.dart' show StatelessWidget;
-
-export 'src/widgets/list_view.dart' show ListView;
-export 'src/widgets/raw_markup.dart' show RawMarkUp;
-export 'src/widgets/event_detector.dart' show EventDetector;
-export 'src/widgets/gesture_detector.dart' show GestureDetector;
 
 // navigator
 
 export 'src/widgets/route.dart' show Route;
 export 'src/widgets/async_route.dart' show AsyncRoute;
 export 'src/widgets/navigator.dart' show Navigator, NavigatorState;
+
+// functional
+
+export 'src/widgets/rad_app.dart' show RadApp;
+export 'src/widgets/list_view.dart' show ListView;
+export 'src/widgets/event_detector.dart' show EventDetector;
+
+// misc
+
+export 'src/widgets/raw_markup.dart' show RawMarkUp;
+export 'src/widgets/gesture_detector.dart' show GestureDetector;
 
 // Additional widgets.
 

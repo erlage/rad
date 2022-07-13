@@ -41,7 +41,7 @@ Nobody is perfect, and sometimes we mess things up. That said, here are some goo
 - Include commented-out code.
 - Add any dependency to framework.
 - Attempt large architectural changes.
-- Submit code that's incompatible with the framwork licence.
+- Submit code that's incompatible with the framework licence.
 - Touch anything outside the stated scope of the pull request.
 
 ### What are some things you can work on?

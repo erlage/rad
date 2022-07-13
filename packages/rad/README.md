@@ -122,7 +122,7 @@ In above example, a Span widget is containing a ListView widget. Further, that L
 
 ## Widgets Index
 
-Below is the list of available widgets in this framework. Some widgets are named after Flutter widgets because they either works exactly same or can be used to acheive same things but in a differnet way(more or less). All those widgets are tagged according to their similarity level. Please note that these taggings are based solely on my understanding of Flutter widgets/src. If you happen to find any big differences, do let me know.
+Below is the list of available widgets in this framework. Some widgets are named after Flutter widgets because they either works exactly same or can be used to acheive same things but in a different way(more or less). All those widgets are tagged according to their similarity level.
 
 Similarity tags:
   - *exact*: Exact syntax, similar semantics.
@@ -149,13 +149,16 @@ Similarity tags:
 - [ValueListenableBuilder](https://pub.dev/documentation/rad/latest/widgets_async/ValueListenableBuilder-class.html) \[*exact*\]
 - [ListView.builder](https://pub.dev/documentation/rad/latest/rad/ListView/ListView.builder.html) \[*same*\]
 
-### Misc
+### Functional
 
 - [RadApp](https://pub.dev/documentation/rad/latest/rad/RadApp-class.html)
-- [RawMarkUp](https://pub.dev/documentation/rad/latest/rad/RawMarkUp-class.html)
 - [Text](https://pub.dev/documentation/rad/latest/rad/Text-class.html) \[*different*\]
 - [ListView](https://pub.dev/documentation/rad/latest/rad/ListView-class.html) \[*same*\]
 - [EventDetector](https://pub.dev/documentation/rad/latest/rad/EventDetector-class.html)
+
+### Misc
+
+- [RawMarkUp](https://pub.dev/documentation/rad/latest/rad/RawMarkUp-class.html)
 - [GestureDetector](https://pub.dev/documentation/rad/latest/rad/GestureDetector-class.html) \[*experimental*\]
 
 ### HTML Widgets
