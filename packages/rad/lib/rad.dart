@@ -39,6 +39,7 @@ export 'src/core/common/enums.dart' show UpdateType;
 
 export 'src/core/common/types.dart' show VoidCallback;
 export 'src/core/common/types.dart' show EventCallback;
+export 'src/core/common/types.dart' show NativeEventCallback;
 export 'src/core/common/types.dart' show ExceptionCallback;
 export 'src/core/common/types.dart' show PopStateEventCallback;
 export 'src/core/common/types.dart' show NavigatorStateCallback;
@@ -100,6 +101,7 @@ export 'src/widgets/event_detector.dart' show EventDetector;
 // misc
 
 export 'src/widgets/raw_markup.dart' show RawMarkUp;
+export 'src/widgets/raw_event_detector.dart' show RawEventDetector;
 export 'src/widgets/gesture_detector.dart' show GestureDetector;
 
 // Additional widgets.

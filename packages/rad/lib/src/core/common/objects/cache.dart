@@ -28,3 +28,8 @@ const ccImmutableEmptyMapOfEventListeners = <DomEventType, EventCallback>{};
 ///
 @internal
 const ccImmutableEmptyListOfWidgetUpdates = <WidgetUpdateObject>[];
+
+/// Immutable empty map of raw event listeners.
+///
+@internal
+const ccImmutableEmptyMapOfRawEventListeners = <String, NativeEventCallback>{};

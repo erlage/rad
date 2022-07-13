@@ -159,6 +159,7 @@ Similarity tags:
 ### Misc
 
 - [RawMarkUp](https://pub.dev/documentation/rad/latest/rad/RawMarkUp-class.html)
+- [RawEventDetector](https://pub.dev/documentation/rad/latest/rad/RawEventDetector-class.html)
 - [GestureDetector](https://pub.dev/documentation/rad/latest/rad/GestureDetector-class.html) \[*experimental*\]
 
 ### HTML Widgets

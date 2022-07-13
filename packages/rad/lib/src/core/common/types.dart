@@ -19,6 +19,8 @@ typedef VoidCallback = void Function();
 
 typedef EventCallback = void Function(EmittedEvent event);
 
+typedef NativeEventCallback = void Function(Event event);
+
 typedef ExceptionCallback = void Function(Exception event);
 
 typedef PopStateEventCallback = void Function(PopStateEvent event);
