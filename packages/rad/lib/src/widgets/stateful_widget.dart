@@ -188,7 +188,10 @@ class StatefulRenderElement extends WatchfulRenderElement {
   }
 
   @override
-  afterUnMount() => state.dispose();
+  void afterMount() => state.frameworkAfterMount();
+
+  @override
+  void afterUnMount() => state.frameworkAfterUnMount();
 }
 
 /*
@@ -450,7 +453,15 @@ abstract class State<T extends StatefulWidget> {
   @internal
   @nonVirtual
   @protected
-  void frameworkDispose() {
+  void frameworkAfterMount() {
+    // do nothing
+  }
+
+  /// @nodoc
+  @internal
+  @nonVirtual
+  @protected
+  void frameworkAfterUnMount() {
     dispose();
   }
 }
