@@ -1064,8 +1064,13 @@ class Renderer with ServicesResolver {
         }
       }
 
+      // we return after each successfull null check as only one thing can be
+      // set between text and raw contents
+
       if (null != textContents) {
         domNode.innerText = textContents;
+
+        return;
       }
 
       if (null != rawContents) {
@@ -1073,6 +1078,8 @@ class Renderer with ServicesResolver {
           rawContents,
           validator: const DumbNodeValidator(),
         );
+
+        return;
       }
     }
 
