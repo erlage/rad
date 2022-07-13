@@ -17,17 +17,12 @@ class DomNodePatch {
   ///
   final Map<String, String?>? attributes;
 
-  /// Text contents to apply on DOM node.
+  /// Properties patch.
   ///
-  final String? textContents;
-
-  /// Raw HTML contents(unsafe) to apply on DOM node.
+  /// If value for an property is null, framework will clear that property else
+  /// it'll add/update it.
   ///
-  final String? rawContents;
+  final Map<String, String?>? properties;
 
-  const DomNodePatch({
-    this.attributes,
-    this.textContents,
-    this.rawContents,
-  });
+  const DomNodePatch({this.attributes, this.properties});
 }

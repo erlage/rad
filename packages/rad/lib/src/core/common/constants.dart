@@ -127,3 +127,11 @@ class Attributes {
   static const charset = 'charset';
   static const httpEquiv = 'http-equiv';
 }
+
+/// Element properties.
+///
+@internal
+class Properties {
+  static const innerText = 'innerText';
+  static const innerHtml = 'innerHtml';
+}

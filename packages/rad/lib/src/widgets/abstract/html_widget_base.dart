@@ -196,10 +196,12 @@ class HTMLBaseElement extends RenderElement {
       oldWidget: null,
     );
 
-    return DomNodePatch(
-      attributes: attributes,
-      textContents: widget.innerText,
+    var properties = _prepareProperties(
+      widget: widget,
+      oldWidget: null,
     );
+
+    return DomNodePatch(attributes: attributes, properties: properties);
   }
 
   @mustCallSuper
@@ -230,10 +232,12 @@ class HTMLBaseElement extends RenderElement {
       oldWidget: oldWidget,
     );
 
-    return DomNodePatch(
-      attributes: attributes,
-      textContents: newWidget.innerText,
+    var properties = _prepareProperties(
+      widget: newWidget,
+      oldWidget: oldWidget,
     );
+
+    return DomNodePatch(attributes: attributes, properties: properties);
   }
 }
 
@@ -331,4 +335,17 @@ Map<String, String?> _prepareAttributes({
   }
 
   return attributes;
+}
+
+Map<String, String?> _prepareProperties({
+  required HTMLWidgetBase widget,
+  required HTMLWidgetBase? oldWidget,
+}) {
+  var properties = <String, String?>{};
+
+  if (widget.innerText != oldWidget?.innerText) {
+    properties[Properties.innerText] = widget.innerText;
+  }
+
+  return properties;
 }

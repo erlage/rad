@@ -1049,8 +1049,7 @@ class Renderer with ServicesResolver {
   }) {
     void job() {
       var attributes = description.attributes;
-      var rawContents = description.rawContents;
-      var textContents = description.textContents;
+      var properties = description.properties;
 
       if (null != attributes) {
         if (attributes.isNotEmpty) {
@@ -1064,22 +1063,20 @@ class Renderer with ServicesResolver {
         }
       }
 
-      // we return after each successfull null check as only one thing can be
-      // set between text and raw contents
+      if (null != properties && properties.isNotEmpty) {
+        properties.forEach((key, value) {
+          switch (key) {
+            case Properties.innerText:
+              domNode.innerText = value ?? '';
 
-      if (null != textContents) {
-        domNode.innerText = textContents;
+              break;
 
-        return;
-      }
+            case Properties.innerHtml:
+              domNode.setInnerHtml(value, validator: const DumbNodeValidator());
 
-      if (null != rawContents) {
-        domNode.setInnerHtml(
-          rawContents,
-          validator: const DumbNodeValidator(),
-        );
-
-        return;
+              break;
+          }
+        });
       }
     }
 

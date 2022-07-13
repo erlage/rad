@@ -4,6 +4,7 @@
 
 import 'package:meta/meta.dart';
 
+import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/key.dart';
@@ -60,7 +61,11 @@ class RawMarkupRenderElement extends NoChildRenderElement {
   render({
     required covariant RawMarkUp widget,
   }) {
-    return DomNodePatch(rawContents: widget.html);
+    return DomNodePatch(
+      properties: {
+        Properties.innerHtml: widget.html,
+      },
+    );
   }
 
   @override
@@ -69,6 +74,10 @@ class RawMarkupRenderElement extends NoChildRenderElement {
     required oldWidget,
     required covariant RawMarkUp newWidget,
   }) {
-    return DomNodePatch(rawContents: newWidget.html);
+    return DomNodePatch(
+      properties: {
+        Properties.innerHtml: newWidget.html,
+      },
+    );
   }
 }
