@@ -61,24 +61,13 @@ abstract class HTMLWidgetBase extends Widget {
 
   /// Element's inner text.
   ///
-  /// Only one thing can be set at a time between [innerText]
-  /// , [children] and [child]
+  /// A widget can either have [innerText] or [children] list.
   ///
   final String? innerText;
 
-  /// Single child tag.
-  ///
-  /// If you want to add multiple child widgets, then use [children]
-  ///
-  /// Only one thing can be set at a time between [innerText]
-  /// , [children] and [child]
-  ///
-  final Widget? child;
-
   /// Children tags.
   ///
-  /// Only one thing can be set at a time between [innerText]
-  /// , [children] and [child]
+  /// A widget can either have [innerText] or [children] list.
   ///
   final List<Widget>? children;
 
@@ -102,15 +91,12 @@ abstract class HTMLWidgetBase extends Widget {
     this.contentEditable,
     this.onClickAttribute,
     this.innerText,
-    this.child,
     this.children,
     this.onClick,
     this.additionalAttributes,
   })  : assert(
-          (null == children && null == child) ||
-              (null == child && null == innerText) ||
-              (null == children && null == innerText),
-          'At least two thing from child, children & innerText has to be null.',
+          null == children || null == innerText,
+          'A widget can have either innerText or children list.',
         ),
         super(key: key);
 
@@ -165,10 +151,7 @@ class HTMLBaseElement extends RenderElement {
   )   :
         // prepare child widgets
 
-        _widgetChildren = widget.children ??
-            (null != widget.child
-                ? [widget.child!]
-                : ccImmutableEmptyListOfWidgets),
+        _widgetChildren = widget.children ?? ccImmutableEmptyListOfWidgets,
 
         // base
 
@@ -211,10 +194,7 @@ class HTMLBaseElement extends RenderElement {
     required covariant HTMLWidgetBase newWidget,
     required updateType,
   }) {
-    _widgetChildren = newWidget.children ??
-        (null != newWidget.child
-            ? [newWidget.child!]
-            : ccImmutableEmptyListOfWidgets);
+    _widgetChildren = newWidget.children ?? ccImmutableEmptyListOfWidgets;
   }
 
   @mustCallSuper

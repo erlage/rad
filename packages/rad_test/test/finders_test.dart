@@ -64,7 +64,9 @@ void main() {
       await tester.pumpWidget(
         const Button(
           key: Key('btn'),
-          child: Text('Update'),
+          children: [
+            Text('Update'),
+          ],
         ),
       );
 
@@ -83,7 +85,9 @@ void main() {
         children: <Widget>[
           Division(
             key: key1,
-            child: Text('1'),
+            children: [
+              Text('1'),
+            ],
           ),
           Text('2'),
         ],

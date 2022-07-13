@@ -330,7 +330,9 @@ class _ListViewBuilderState with ServicesResolver {
                 (i) => Division(
                   key: Key('lv_item_${i + currentIndex}_${context.key}'),
                   classAttribute: Constants.classListViewItemContainer,
-                  child: widget.itemBuilder!(context, i + currentIndex),
+                  children: [
+                    widget.itemBuilder!(context, i + currentIndex),
+                  ],
                 ),
               ),
               afterTaskCallback: _updateObserverTarget,
@@ -394,7 +396,9 @@ class _ListViewBuilderState with ServicesResolver {
           (i) => Division(
             key: Key('lv_item_${i}_${context.key}'),
             classAttribute: Constants.classListViewItemContainer,
-            child: widget.itemBuilder!(context, i),
+            children: [
+              widget.itemBuilder!(context, i),
+            ],
           ),
         ),
         afterTaskCallback: _updateObserverTarget,
@@ -412,7 +416,9 @@ class _ListViewBuilderState with ServicesResolver {
           (i) => Division(
             key: Key('lv_item_${i}_${context.key}'),
             classAttribute: Constants.classListViewItemContainer,
-            child: widget.itemBuilder!(context, i),
+            children: [
+              widget.itemBuilder!(context, i),
+            ],
           ),
         ),
         afterTaskCallback: _updateObserverTarget,

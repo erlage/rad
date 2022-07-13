@@ -47,15 +47,17 @@ class _RootPageState extends State<RootPage> {
     return Division(
       classAttribute: 'header',
       style: 'width:100%; height:50px;',
-      child: Division(
-        style: 'display: flex; flex-direction: row; '
-            'gap: 20px; justify-content: center;',
-        children: [
-          _headerItem(text: 'Home', routeName: 'home'),
-          _headerItem(text: 'Posts', routeName: 'posts'),
-          _headerItem(text: 'Settings', routeName: 'settings'),
-        ],
-      ),
+      children: [
+        Division(
+          style: 'display: flex; flex-direction: row; '
+              'gap: 20px; justify-content: center;',
+          children: [
+            _headerItem(text: 'Home', routeName: 'home'),
+            _headerItem(text: 'Posts', routeName: 'posts'),
+            _headerItem(text: 'Settings', routeName: 'settings'),
+          ],
+        ),
+      ],
     );
   }
 
@@ -65,10 +67,14 @@ class _RootPageState extends State<RootPage> {
       child: Division(
         style: 'width: 100px; padding: 15px;',
         classAttribute: _activeRoute == routeName ? 'active' : '',
-        child: Division(
-          style: 'margin: 0 auto;',
-          child: Text(text),
-        ),
+        children: [
+          Division(
+            style: 'margin: 0 auto;',
+            children: [
+              Text(text),
+            ],
+          ),
+        ],
       ),
     );
   }

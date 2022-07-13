@@ -44,12 +44,14 @@ void main() {
       await tester.pumpWidget(
         Division(
           key: key,
-          child: const Paragraph(
-            children: [
-              Text('a'),
-              Text('b'),
-            ],
-          ),
+          children: const [
+            Paragraph(
+              children: [
+                Text('a'),
+                Text('b'),
+              ],
+            ),
+          ],
         ),
       );
 

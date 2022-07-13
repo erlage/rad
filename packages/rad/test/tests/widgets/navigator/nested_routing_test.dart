@@ -141,24 +141,34 @@ void main() {
                 Route(
                   name: 'g-p-route-1',
                   page: Division(
-                    child: Navigator(
-                      key: Key('parent'),
-                      routes: [
-                        Route(
-                          name: 'p-route-1',
-                          page: Division(
-                            child: Navigator(
-                              key: Key('child'),
-                              routes: [
-                                Route(name: 'c-route-1', page: Text('c-rt-1')),
-                                Route(name: 'c-route-2', page: Text('c-rt-2')),
+                    children: [
+                      Navigator(
+                        key: Key('parent'),
+                        routes: [
+                          Route(
+                            name: 'p-route-1',
+                            page: Division(
+                              children: [
+                                Navigator(
+                                  key: Key('child'),
+                                  routes: [
+                                    Route(
+                                      name: 'c-route-1',
+                                      page: Text('c-rt-1'),
+                                    ),
+                                    Route(
+                                      name: 'c-route-2',
+                                      page: Text('c-rt-2'),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
                           ),
-                        ),
-                        Route(name: 'p-route-2', page: Text('p-route-2')),
-                      ],
-                    ),
+                          Route(name: 'p-route-2', page: Text('p-route-2')),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
                 Route(name: 'g-p-route-2', page: Text('g-p-route-2')),

@@ -40,7 +40,7 @@ void main() {
       await tester.pumpWidget(
         Division(
           onClick: (_) => tester.stack.push('fired'),
-          child: const Text('foo'),
+          children: const [Text('foo')],
         ),
       );
 
@@ -56,11 +56,17 @@ void main() {
     testWidgets('should throw if matched n-widgets by default', (tester) async {
       await tester.pumpWidget(
         const Span(
-          child: Span(
-            child: Division(
-              child: Text('foo'),
+          children: [
+            Span(
+              children: [
+                Division(
+                  children: [
+                    Text('foo'),
+                  ],
+                ),
+              ],
             ),
-          ),
+          ],
         ),
       );
 
@@ -82,17 +88,23 @@ void main() {
       await tester.pumpWidget(
         Span(
           onClick: (_) => tester.stack.push('fired-parent'),
-          child: Span(
-            onClick: (e) {
-              tester.stack.push('fired-child');
+          children: [
+            Span(
+              onClick: (e) {
+                tester.stack.push('fired-child');
 
-              // if event bubbles, it's corrupt our test stack
-              e.stopImmediatePropagation();
-            },
-            child: const Division(
-              child: Text('foo'),
+                // if event bubbles, it's corrupt our test stack
+                e.stopImmediatePropagation();
+              },
+              children: const [
+                Division(
+                  children: [
+                    Text('foo'),
+                  ],
+                ),
+              ],
             ),
-          ),
+          ],
         ),
       );
 
@@ -117,7 +129,7 @@ void main() {
       await tester.pumpWidget(
         Span(
           onClick: (_) => tester.stack.push('fired'),
-          child: const Text('foo'),
+          children: const [Text('foo')],
         ),
       );
 
@@ -131,17 +143,21 @@ void main() {
       await tester.pumpWidget(
         Span(
           onClick: (_) => tester.stack.push('fired-parent'),
-          child: Span(
-            onClick: (e) {
-              tester.stack.push('fired-child');
+          children: [
+            Span(
+              onClick: (e) {
+                tester.stack.push('fired-child');
 
-              // if event bubbles, it's corrupt our test stack
-              e.stopImmediatePropagation();
-            },
-            child: const Division(
-              child: Text('foo'),
+                // if event bubbles, it's corrupt our test stack
+                e.stopImmediatePropagation();
+              },
+              children: const [
+                Division(
+                  children: [Text('foo')],
+                ),
+              ],
             ),
-          ),
+          ],
         ),
       );
 

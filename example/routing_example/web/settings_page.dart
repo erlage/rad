@@ -20,7 +20,9 @@ class _SettingsPageState extends State<SettingsPage> {
         _settingsPageVeritcalNav(),
         Division(
           style: 'flex: 1',
-          child: _settingsPageNavigator(),
+          children: [
+            _settingsPageNavigator(),
+          ],
         ),
       ],
     );
@@ -42,16 +44,18 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget _settingsPageVeritcalNav() {
     return Division(
       classAttribute: 'vertical-header',
-      child: Division(
-        classAttribute: 'vertical-header-content',
-        children: [
-          const Spacer(),
-          _headerItem(text: 'Account settings', routeName: 'account'),
-          _headerItem(text: 'Photos settings', routeName: 'photos'),
-          _headerItem(text: 'Videos settings', routeName: 'videos'),
-          _headerItem(text: 'Personal information', routeName: 'personal'),
-        ],
-      ),
+      children: [
+        Division(
+          classAttribute: 'vertical-header-content',
+          children: [
+            const Spacer(),
+            _headerItem(text: 'Account settings', routeName: 'account'),
+            _headerItem(text: 'Photos settings', routeName: 'photos'),
+            _headerItem(text: 'Videos settings', routeName: 'videos'),
+            _headerItem(text: 'Personal information', routeName: 'personal'),
+          ],
+        ),
+      ],
     );
   }
 

@@ -346,7 +346,7 @@ void main() {
       await tester.pumpWidget(
         const Row(
           children: <Widget>[
-            Division(child: Text('hey there')),
+            Division(children: [Text('hey there')]),
             Column(children: fooBarTexts),
           ],
         ),

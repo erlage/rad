@@ -38,8 +38,16 @@ class CounterState extends State<Counter> {
   Widget build(BuildContext context) {
     return Division(
       children: [
-        const Strong(child: Text('Current tick: ')),
-        Division(child: Text('$number')),
+        const Strong(
+          children: [
+            Text('Current tick: '),
+          ],
+        ),
+        Division(
+          children: [
+            Text('$number'),
+          ],
+        ),
       ],
     );
   }

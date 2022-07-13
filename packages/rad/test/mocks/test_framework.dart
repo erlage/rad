@@ -33,11 +33,11 @@ class Placeholder extends Division {
 }
 
 class Directionality extends Division {
-  const Directionality({
+  Directionality({
     TextDirection? textDirection,
     required Widget child,
   }) : super(
-          child: child,
+          children: [child],
         );
 }
 
