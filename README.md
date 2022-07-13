@@ -122,7 +122,7 @@ In above example, a Span widget is containing a ListView widget. Further, that L
 
 ## Widgets Index
 
-Below is the list of available widgets in this framework. Some widgets are named after Flutter widgets because they either works exactly same or can be used to acheive same things but in a differnet way(more or less). All those widgets are tagged according to their similarity level. Please note that these taggings are based solely on my understanding of Flutter widgets/src. If you happen to find any big differences, do let me know.
+Below is the list of available widgets in this framework. Some widgets are named after Flutter widgets because they either works exactly same or can be used to acheive same things but in a different way(more or less). All those widgets are tagged according to their similarity level.
 
 Similarity tags:
   - *exact*: Exact syntax, similar semantics.

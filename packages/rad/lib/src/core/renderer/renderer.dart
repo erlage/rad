@@ -1068,10 +1068,6 @@ class Renderer with ServicesResolver {
           switch (key) {
             case Properties.value:
 
-              // we tend to stay close to HTML static attributes as much as
-              // possible and use properties when there's no easy way to do
-              // something with attributes.
-
               // implemented only for textarea
 
               if (domNode is TextAreaElement) {
