@@ -1067,13 +1067,14 @@ class Renderer with ServicesResolver {
         properties.forEach((key, value) {
           switch (key) {
             case Properties.value:
+
+              // we tend to stay close to HTML static attributes as much as
+              // possible and use properties when there's no easy way to do
+              // something with attributes.
+
+              // implemented only for textarea
+
               if (domNode is TextAreaElement) {
-                domNode.value = value ?? '';
-
-                break;
-              }
-
-              if (domNode is InputElement) {
                 domNode.value = value ?? '';
               }
 
