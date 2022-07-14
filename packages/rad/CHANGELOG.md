@@ -1,3 +1,7 @@
+## 1.0.1-rc.1
+
+- Stable release candidate
+
 ## 0.10.0
 
 ## New
