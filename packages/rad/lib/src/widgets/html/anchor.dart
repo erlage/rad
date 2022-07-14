@@ -95,7 +95,7 @@ class Anchor extends HTMLWidgetBase {
 
 /// Anchor render element.
 ///
-class AnchorRenderElement extends HTMLBaseElement {
+class AnchorRenderElement extends HTMLRenderElementBase {
   AnchorRenderElement(super.widget, super.parent);
 
   @override

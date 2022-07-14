@@ -76,7 +76,7 @@ class BlockQuote extends HTMLWidgetBase {
 
 /// Blockquote render element.
 ///
-class BlockquoteRenderElement extends HTMLBaseElement {
+class BlockquoteRenderElement extends HTMLRenderElementBase {
   BlockquoteRenderElement(super.widget, super.parent);
 
   @override

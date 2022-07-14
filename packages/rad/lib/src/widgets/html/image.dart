@@ -91,7 +91,7 @@ class Image extends HTMLWidgetBase {
 
 /// Image render element.
 ///
-class ImageRenderElement extends HTMLBaseElement {
+class ImageRenderElement extends HTMLRenderElementBase {
   ImageRenderElement(super.widget, super.parent);
 
   @override

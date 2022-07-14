@@ -132,7 +132,7 @@ abstract class HTMLWidgetBase extends Widget {
   }
 
   @override
-  createRenderElement(parent) => HTMLBaseElement(this, parent);
+  createRenderElement(parent) => HTMLRenderElementBase(this, parent);
 }
 
 /*
@@ -144,8 +144,8 @@ abstract class HTMLWidgetBase extends Widget {
 /// Base element for HTML widgets.-
 ///
 @internal
-class HTMLBaseElement extends RenderElement {
-  HTMLBaseElement(
+class HTMLRenderElementBase extends RenderElement {
+  HTMLRenderElementBase(
     HTMLWidgetBase widget,
     RenderElement parent,
   )   :

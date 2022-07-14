@@ -78,7 +78,7 @@ class FieldSet extends HTMLWidgetBase {
 
 /// Field set render element.
 ///
-class FieldSetRenderElement extends HTMLBaseElement {
+class FieldSetRenderElement extends HTMLRenderElementBase {
   FieldSetRenderElement(super.widget, super.parent);
 
   @override

@@ -110,7 +110,7 @@ class Select extends HTMLWidgetBase {
 
 /// Select render element.
 ///
-class SelectRenderElement extends HTMLBaseElement {
+class SelectRenderElement extends HTMLRenderElementBase {
   SelectRenderElement(super.widget, super.parent);
 
   @override

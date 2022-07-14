@@ -98,7 +98,7 @@ class Option extends HTMLWidgetBase {
 
 /// Option render element.
 ///
-class OptionRenderElement extends HTMLBaseElement {
+class OptionRenderElement extends HTMLRenderElementBase {
   OptionRenderElement(super.widget, super.parent);
 
   @override

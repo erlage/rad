@@ -78,7 +78,7 @@ class Label extends HTMLWidgetBase {
 
 /// Label render element.
 ///
-class LabelRenderElement extends HTMLBaseElement {
+class LabelRenderElement extends HTMLRenderElementBase {
   LabelRenderElement(super.widget, super.parent);
 
   @override

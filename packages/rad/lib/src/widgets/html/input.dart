@@ -185,7 +185,7 @@ class Input extends HTMLWidgetBase {
 
 /// Input render element.
 ///
-class InputRenderElement extends HTMLBaseElement {
+class InputRenderElement extends HTMLRenderElementBase {
   InputRenderElement(super.widget, super.parent);
 
   @override

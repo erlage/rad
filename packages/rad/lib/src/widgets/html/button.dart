@@ -95,7 +95,7 @@ class Button extends HTMLWidgetBase {
 
 /// Button render element.
 ///
-class ButtonRenderElement extends HTMLBaseElement {
+class ButtonRenderElement extends HTMLRenderElementBase {
   ButtonRenderElement(super.widget, super.parent);
 
   @override

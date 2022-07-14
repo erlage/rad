@@ -113,7 +113,7 @@ class IFrame extends HTMLWidgetBase {
 
 /// IFrame render element.
 ///
-class IFrameRenderObject extends HTMLBaseElement {
+class IFrameRenderObject extends HTMLRenderElementBase {
   IFrameRenderObject(super.widget, super.parent);
 
   @override

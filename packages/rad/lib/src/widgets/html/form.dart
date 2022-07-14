@@ -124,7 +124,7 @@ class Form extends HTMLWidgetBase {
 
 /// Form render element.
 ///
-class FormRenderElement extends HTMLBaseElement {
+class FormRenderElement extends HTMLRenderElementBase {
   FormRenderElement(super.widget, super.parent);
 
   @override

@@ -84,7 +84,7 @@ class Progress extends HTMLWidgetBase {
 
 /// Progress render element.
 ///
-class ProgressRenderElement extends HTMLBaseElement {
+class ProgressRenderElement extends HTMLRenderElementBase {
   ProgressRenderElement(super.widget, super.parent);
 
   @override

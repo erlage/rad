@@ -73,7 +73,7 @@ class ListItem extends HTMLWidgetBase {
 |--------------------------------------------------------------------------
 */
 
-class ListItemRenderElement extends HTMLBaseElement {
+class ListItemRenderElement extends HTMLRenderElementBase {
   ListItemRenderElement(super.widget, super.parent);
 
   @override

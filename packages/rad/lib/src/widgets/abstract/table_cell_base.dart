@@ -98,7 +98,7 @@ abstract class TableCellBase extends HTMLWidgetBase {
 /// Table's cell base render element.
 ///
 @internal
-class TableCellBaseRenderElement extends HTMLBaseElement {
+class TableCellBaseRenderElement extends HTMLRenderElementBase {
   TableCellBaseRenderElement(super.wudget, super.parent);
 
   @mustCallSuper

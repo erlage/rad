@@ -74,7 +74,7 @@ abstract class TableColumnBase extends HTMLWidgetBase {
 /// Table column base render element.
 ///
 @internal
-class TableColumnBaseRenderElement extends HTMLBaseElement {
+class TableColumnBaseRenderElement extends HTMLRenderElementBase {
   TableColumnBaseRenderElement(super.widget, super.parent);
 
   @mustCallSuper

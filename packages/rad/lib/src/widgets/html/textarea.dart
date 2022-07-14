@@ -143,7 +143,7 @@ class TextArea extends HTMLWidgetBase {
 
 /// Text area render element.
 ///
-class TextAreaRenderElement extends HTMLBaseElement {
+class TextAreaRenderElement extends HTMLRenderElementBase {
   TextAreaRenderElement(super.widget, super.parent);
 
   @override
