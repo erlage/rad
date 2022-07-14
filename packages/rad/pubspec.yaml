@@ -1,7 +1,7 @@
 name: rad
-version: 1.0.0-rc.2
+version: 0.10.0
 description: >
-  A zero-dependency frontend framework for creating web apps using Dart. Inspired from Flutter.
+  A zero-dependency frontend framework for creating web apps using Dart. Inspired from Flutter & React.
 
 homepage: https://github.com/erlage/rad
 documentation: https://github.com/erlage/rad#readme
@@ -54,3 +54,4 @@ import_sorter:
   ignored_files:
     - \/test\/*
     - \/*.generated.dart
+  

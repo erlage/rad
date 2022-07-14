@@ -1,3 +1,16 @@
+## 0.10.0
+
+## New
+
+- Added RawEventDetector widget.
+- Added `value` property to TextArea widget.
+
+## Changes
+
+- Removed child property from all HTML widgets.
+- Removed textContents, rawContents from DomNodePatch.
+- **Important***: Changes made in rc(s) `1.0.0-rc.1` & `1.0.0-rc.1` are available in `0.10.0`.
+
 ## 1.0.0-rc.2
 
 ### New
