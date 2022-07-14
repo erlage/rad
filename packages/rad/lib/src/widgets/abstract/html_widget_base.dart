@@ -238,16 +238,18 @@ Map<String, String?> _prepareAttributes({
   var additionalAttributes = widget.additionalAttributes;
   var oldAdditionalAttributes = oldWidget?.additionalAttributes;
 
-  if (null != additionalAttributes) {
-    for (final attributeName in additionalAttributes.keys) {
-      attributes[attributeName] = additionalAttributes[attributeName];
+  if (additionalAttributes != oldAdditionalAttributes) {
+    if (null != additionalAttributes) {
+      for (final attributeName in additionalAttributes.keys) {
+        attributes[attributeName] = additionalAttributes[attributeName];
+      }
     }
-  }
 
-  if (null != oldAdditionalAttributes) {
-    for (final attributeName in oldAdditionalAttributes.keys) {
-      if (!attributes.containsKey(attributeName)) {
-        attributes[attributeName] = null;
+    if (null != oldAdditionalAttributes) {
+      for (final attributeName in oldAdditionalAttributes.keys) {
+        if (!attributes.containsKey(attributeName)) {
+          attributes[attributeName] = null;
+        }
       }
     }
   }
