@@ -1,3 +1,9 @@
+## 0.4.0
+
+### Changes
+
+- All APIs using GlobalKey now accepts only Key.
+
 ## 0.3.0
 
 - Segregated unstable APIs.

@@ -1,5 +1,5 @@
 name: rad_test
-version: 0.3.0
+version: 0.4.0
 description: A testing library for testing applications that are written using Rad.
 
 homepage: https://github.com/erlage/rad
@@ -12,18 +12,12 @@ platforms:
   web:
 
 dependencies:
-  rad: ^0.9.0
+  rad: ^0.10.0
   meta: ^1.8.0
   test: ^1.21.1
 
 dev_dependencies:
   import_sorter: ^4.6.0
-
-dependency_overrides:
-  # we're developing this package alongside core
-  # until stable release
-  rad:
-    path: ../rad
 
 import_sorter:
   emojis: false
