@@ -53,25 +53,10 @@ class Renderer with ServicesResolver {
   }
 
   void render({
-    //
-    // -- widgets to render --
-    //
     required List<Widget> widgets,
-    //
-    // -- render element of parent widget --
-    //
     required RenderElement parentRenderElement,
-    //
-    // -- options --
-    //
     required int? mountAtIndex,
-    //
-    // -- flags --
-    //
     required bool flagCleanParentContents,
-    //
-    // -- optional --
-    //
     JobQueue? jobQueue,
   }) {
     var queue = jobQueue ?? JobQueue();
@@ -120,30 +105,13 @@ class Renderer with ServicesResolver {
   /// Update already rendered widgets.
   ///
   void reRender({
-    //
-    // -- widget to re-render --
-    //
     required List<Widget> widgets,
-    //
-    // -- render element of parent widget --
-    //
     required RenderElement parentRenderElement,
-    //
-    // -- options --
-    //
     required UpdateType updateType,
-    //
-    // -- flags --
-    //
     required bool flagAddIfNotFound,
-    //
-    // -- optional --
-    //
     JobQueue? jobQueue,
   }) {
     var queue = jobQueue ?? JobQueue();
-
-    // ------------------------------------ //
 
     updateWidgetsUnderContext(
       jobQueue: queue,
@@ -153,8 +121,6 @@ class Renderer with ServicesResolver {
       flagAddIfNotFound: flagAddIfNotFound,
     );
 
-    // ------------------------------------ //
-
     if (null == jobQueue) {
       queue.dispatchJobs();
     }
@@ -163,18 +129,10 @@ class Renderer with ServicesResolver {
   /// Re-render a specific widget
   ///
   void reRenderContext({
-    //
-    // -- element(context) of widget to re-render --
-    //
     required RenderElement renderElement,
-    //
-    // -- optional --
-    //
     JobQueue? jobQueue,
   }) {
     var queue = jobQueue ?? JobQueue();
-
-    // ------------------------------------ //
 
     updateWidgetsUnderContext(
       jobQueue: queue,
@@ -183,8 +141,6 @@ class Renderer with ServicesResolver {
       parentRenderElement: renderElement.frameworkParent!,
       flagAddIfNotFound: true,
     );
-
-    // ------------------------------------ //
 
     if (null == jobQueue) {
       queue.dispatchJobs();
@@ -198,30 +154,13 @@ class Renderer with ServicesResolver {
   /// will execute it.
   ///
   void visitWidgets({
-    //
-    // -- render element of parent of child widgets to visit --
-    //
     required RenderElement parentRenderElement,
-    //
-    // -- callback --
-    //
     required WidgetActionsBuilder widgetActionCallback,
-    //
-    // -- options --
-    //
     required UpdateType updateType,
-    //
-    // -- flags --
-    //
     bool flagIterateInReverseOrder = false,
-    //
-    // -- optiona --
-    //
     JobQueue? jobQueue,
   }) {
     var queue = jobQueue ?? JobQueue();
-
-    // ------------------------------------ //
 
     var widgetActions = prepareWidgetActions(
       parentRenderElement: parentRenderElement,
@@ -236,30 +175,17 @@ class Renderer with ServicesResolver {
       widgetActions: widgetActions,
     );
 
-    // ------------------------------------ //
-
     if (null == jobQueue) {
       queue.dispatchJobs();
     }
   }
 
   void disposeWidget({
-    //
-    // -- widgets to dispose under context --
-    //
     required RenderElement renderElement,
-    //
-    // whether to preserve the widget itself
-    //
     required bool flagPreserveTarget,
-    //
-    // -- optional --
-    //
     JobQueue? jobQueue,
   }) {
     var queue = jobQueue ?? JobQueue();
-
-    // ------------------------------------ //
 
     if (flagPreserveTarget) {
       cleanRenderElement(
@@ -272,8 +198,6 @@ class Renderer with ServicesResolver {
         jobQueue: queue,
       );
     }
-
-    // ------------------------------------ //
 
     if (null == jobQueue) {
       queue.dispatchJobs();
@@ -293,40 +217,25 @@ class Renderer with ServicesResolver {
     required RenderElement parentRenderElement,
     required JobQueue jobQueue,
   }) {
-    // Create render element
-
     var renderElement = widget.createRenderElement(parentRenderElement);
-
-    // Create dom node(if set in widget.correspondingTag)
 
     Element? domNode;
 
     var tagName = widget.correspondingTag?.nativeName;
-
     if (null != tagName) {
       domNode = document.createElement(tagName);
 
       renderElement.frameworkBindDomNode(domNode: domNode);
     }
 
-    // Call lifecycle hooks if it's a watchful render element
-
     if (renderElement is WatchfulRenderElement) {
       renderElement.frameworkInit();
-
-      // Add a job for calling afterMount hook
 
       jobQueue.addPostDispatchCallback(renderElement.frameworkAfterMount);
     }
 
-    // Create description
-
     var domNodeDescription = renderElement.frameworkRender(widget: widget);
-
-    // Apply description(if widget has a associated dom dom node)
-
     if (null != domNode && null != domNodeDescription) {
-      // without queue as dom node is in mem
       applyDescription(domNode: domNode, description: domNodeDescription);
     }
 
@@ -633,16 +542,11 @@ class Renderer with ServicesResolver {
         }
       }
 
-      // update element, store results in a var as this
-      // hook can return a dom node description patch
-
       var domNodePatch = matchedRenderElement.frameworkUpdate(
         updateType: updateType,
         oldWidget: oldWidget,
         newWidget: newWidget,
       );
-
-      // apply patch (if previous call to update returned non-null patch)
 
       if (null != domNodePatch && matchedRenderElement.hasDomNode) {
         applyDescription(
@@ -692,19 +596,9 @@ class Renderer with ServicesResolver {
   /// updates are queued and dispatched in a batch.
   ///
   void mountWidgets({
-    //
-    // -- element that's holding new widgets --
-    //
     required TemporaryElement temporaryRenderElement,
-    //
-    // -- element which is expecting new widgets --
-    //
     required RenderElement parentRenderElement,
-    //
-    // -- mount at index --
-    //
     required int? mountAtIndex,
-    //
     required JobQueue jobQueue,
   }) {
     /*
@@ -980,8 +874,6 @@ class Renderer with ServicesResolver {
     required RenderElement renderElement,
     required JobQueue jobQueue,
   }) {
-    // Add a job to remove associated dom node
-
     var domNode = renderElement.domNode;
 
     // If render element doesn't have a dom node then it's a single child
@@ -1023,13 +915,9 @@ class Renderer with ServicesResolver {
   /// Dispose a detached render element.
   ///
   void disposeDetachedRenderElement(RenderElement renderElement) {
-    // Dispose child elements
-
     for (final childElement in renderElement.frameworkChildElements) {
       disposeDetachedRenderElement(childElement);
     }
-
-    // Call lifecycle hooks
 
     if (renderElement is WatchfulRenderElement) {
       renderElement.frameworkAfterUnMount();
