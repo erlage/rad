@@ -99,7 +99,7 @@ class GestureDetector extends SingleChildWidget {
 
 const _description = DomNodePatch(
   attributes: {
-    Attributes.classAttribute: Constants.classGestureDetector,
+    Attributes.className: Constants.classGestureDetector,
   },
 );
 

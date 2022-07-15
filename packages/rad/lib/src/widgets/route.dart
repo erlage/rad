@@ -71,7 +71,7 @@ class Route extends SingleChildWidget {
 
 const _description = DomNodePatch(
   attributes: {
-    Attributes.classAttribute: Constants.classRoute,
+    Attributes.className: Constants.classRoute,
   },
 );
 

@@ -152,11 +152,11 @@ void html_i_frame_test() {
         widgets: [
           IFrame(
             key: Key('el-1'),
-            classAttribute: 'some-classes',
+            className: 'some-classes',
           ),
           IFrame(
             key: Key('el-2'),
-            classAttribute: 'another-classes',
+            className: 'another-classes',
           ),
         ],
         parentRenderElement: app!.appRenderElement,
@@ -174,11 +174,11 @@ void html_i_frame_test() {
         widgets: [
           IFrame(
             key: Key('el-1'),
-            classAttribute: 'some-classes',
+            className: 'some-classes',
           ),
           IFrame(
             key: Key('el-2'),
-            classAttribute: 'another-classes',
+            className: 'another-classes',
           ),
         ],
         parentRenderElement: app!.appRenderElement,
@@ -188,11 +188,11 @@ void html_i_frame_test() {
         widgets: [
           IFrame(
             key: Key('el-1'),
-            classAttribute: 'updated-classes',
+            className: 'updated-classes',
           ),
           IFrame(
             key: Key('el-2'),
-            classAttribute: 'another-classes',
+            className: 'another-classes',
           ),
         ],
         updateType: UpdateType.setState,
@@ -212,7 +212,7 @@ void html_i_frame_test() {
           IFrame(key: Key('el-1')),
           IFrame(
             key: Key('el-2'),
-            classAttribute: 'another-classes',
+            className: 'another-classes',
           ),
         ],
         parentRenderElement: app!.appRenderElement,
@@ -239,7 +239,7 @@ void html_i_frame_test() {
         widgets: [
           IFrame(
             key: Key('el-1'),
-            classAttribute: 'some-classes',
+            className: 'some-classes',
           ),
         ],
         parentRenderElement: app!.appRenderElement,
@@ -247,7 +247,7 @@ void html_i_frame_test() {
 
       await app!.updateChildren(
         widgets: [
-          IFrame(key: Key('el-1'), classAttribute: null),
+          IFrame(key: Key('el-1'), className: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -262,7 +262,7 @@ void html_i_frame_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          IFrame(key: Key('el-1'), classAttribute: null),
+          IFrame(key: Key('el-1'), className: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -277,15 +277,15 @@ void html_i_frame_test() {
         widgets: [
           IFrame(
             key: Key('widget-1'),
-            classAttribute: 'some classes',
+            className: 'some classes',
           ),
           IFrame(
             key: Key('widget-2'),
-            classAttribute: 'some "messy" classes',
+            className: 'some "messy" classes',
           ),
           IFrame(
             key: Key('widget-3'),
-            classAttribute: "some 'messy' classes",
+            className: "some 'messy' classes",
           ),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,

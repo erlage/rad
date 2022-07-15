@@ -152,11 +152,11 @@ void html_footer_test() {
         widgets: [
           Footer(
             key: Key('el-1'),
-            classAttribute: 'some-classes',
+            className: 'some-classes',
           ),
           Footer(
             key: Key('el-2'),
-            classAttribute: 'another-classes',
+            className: 'another-classes',
           ),
         ],
         parentRenderElement: app!.appRenderElement,
@@ -174,11 +174,11 @@ void html_footer_test() {
         widgets: [
           Footer(
             key: Key('el-1'),
-            classAttribute: 'some-classes',
+            className: 'some-classes',
           ),
           Footer(
             key: Key('el-2'),
-            classAttribute: 'another-classes',
+            className: 'another-classes',
           ),
         ],
         parentRenderElement: app!.appRenderElement,
@@ -188,11 +188,11 @@ void html_footer_test() {
         widgets: [
           Footer(
             key: Key('el-1'),
-            classAttribute: 'updated-classes',
+            className: 'updated-classes',
           ),
           Footer(
             key: Key('el-2'),
-            classAttribute: 'another-classes',
+            className: 'another-classes',
           ),
         ],
         updateType: UpdateType.setState,
@@ -212,7 +212,7 @@ void html_footer_test() {
           Footer(key: Key('el-1')),
           Footer(
             key: Key('el-2'),
-            classAttribute: 'another-classes',
+            className: 'another-classes',
           ),
         ],
         parentRenderElement: app!.appRenderElement,
@@ -239,7 +239,7 @@ void html_footer_test() {
         widgets: [
           Footer(
             key: Key('el-1'),
-            classAttribute: 'some-classes',
+            className: 'some-classes',
           ),
         ],
         parentRenderElement: app!.appRenderElement,
@@ -247,7 +247,7 @@ void html_footer_test() {
 
       await app!.updateChildren(
         widgets: [
-          Footer(key: Key('el-1'), classAttribute: null),
+          Footer(key: Key('el-1'), className: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -262,7 +262,7 @@ void html_footer_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Footer(key: Key('el-1'), classAttribute: null),
+          Footer(key: Key('el-1'), className: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -277,15 +277,15 @@ void html_footer_test() {
         widgets: [
           Footer(
             key: Key('widget-1'),
-            classAttribute: 'some classes',
+            className: 'some classes',
           ),
           Footer(
             key: Key('widget-2'),
-            classAttribute: 'some "messy" classes',
+            className: 'some "messy" classes',
           ),
           Footer(
             key: Key('widget-3'),
-            classAttribute: "some 'messy' classes",
+            className: "some 'messy' classes",
           ),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,

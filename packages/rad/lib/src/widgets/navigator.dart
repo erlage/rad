@@ -398,7 +398,7 @@ class Navigator extends Widget {
 
 const _description = DomNodePatch(
   attributes: {
-    Attributes.classAttribute: Constants.classNavigator,
+    Attributes.className: Constants.classNavigator,
   },
 );
 

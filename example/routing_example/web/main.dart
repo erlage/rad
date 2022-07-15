@@ -45,7 +45,7 @@ class _RootPageState extends State<RootPage> {
 
   Widget _rootPageTopNav() {
     return Division(
-      classAttribute: 'header',
+      className: 'header',
       style: 'width:100%; height:50px;',
       children: [
         Division(
@@ -66,7 +66,7 @@ class _RootPageState extends State<RootPage> {
       onTap: () => _navigatorState?.open(name: routeName),
       child: Division(
         style: 'width: 100px; padding: 15px;',
-        classAttribute: _activeRoute == routeName ? 'active' : '',
+        className: _activeRoute == routeName ? 'active' : '',
         children: [
           Division(
             style: 'margin: 0 auto;',

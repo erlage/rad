@@ -208,7 +208,7 @@ widget_specific_tests = {
 global_tests = [
     'html_attr_id',
     'html_attr_children',
-    'html_attr_class_attribute',
+    'html_attr_class_name',
     'html_attr_contenteditable',
     'html_attr_draggable',
     'html_attr_hidden',

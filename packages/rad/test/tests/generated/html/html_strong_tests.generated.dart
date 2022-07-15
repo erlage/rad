@@ -152,11 +152,11 @@ void html_strong_test() {
         widgets: [
           Strong(
             key: Key('el-1'),
-            classAttribute: 'some-classes',
+            className: 'some-classes',
           ),
           Strong(
             key: Key('el-2'),
-            classAttribute: 'another-classes',
+            className: 'another-classes',
           ),
         ],
         parentRenderElement: app!.appRenderElement,
@@ -174,11 +174,11 @@ void html_strong_test() {
         widgets: [
           Strong(
             key: Key('el-1'),
-            classAttribute: 'some-classes',
+            className: 'some-classes',
           ),
           Strong(
             key: Key('el-2'),
-            classAttribute: 'another-classes',
+            className: 'another-classes',
           ),
         ],
         parentRenderElement: app!.appRenderElement,
@@ -188,11 +188,11 @@ void html_strong_test() {
         widgets: [
           Strong(
             key: Key('el-1'),
-            classAttribute: 'updated-classes',
+            className: 'updated-classes',
           ),
           Strong(
             key: Key('el-2'),
-            classAttribute: 'another-classes',
+            className: 'another-classes',
           ),
         ],
         updateType: UpdateType.setState,
@@ -212,7 +212,7 @@ void html_strong_test() {
           Strong(key: Key('el-1')),
           Strong(
             key: Key('el-2'),
-            classAttribute: 'another-classes',
+            className: 'another-classes',
           ),
         ],
         parentRenderElement: app!.appRenderElement,
@@ -239,7 +239,7 @@ void html_strong_test() {
         widgets: [
           Strong(
             key: Key('el-1'),
-            classAttribute: 'some-classes',
+            className: 'some-classes',
           ),
         ],
         parentRenderElement: app!.appRenderElement,
@@ -247,7 +247,7 @@ void html_strong_test() {
 
       await app!.updateChildren(
         widgets: [
-          Strong(key: Key('el-1'), classAttribute: null),
+          Strong(key: Key('el-1'), className: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -262,7 +262,7 @@ void html_strong_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Strong(key: Key('el-1'), classAttribute: null),
+          Strong(key: Key('el-1'), className: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -277,15 +277,15 @@ void html_strong_test() {
         widgets: [
           Strong(
             key: Key('widget-1'),
-            classAttribute: 'some classes',
+            className: 'some classes',
           ),
           Strong(
             key: Key('widget-2'),
-            classAttribute: 'some "messy" classes',
+            className: 'some "messy" classes',
           ),
           Strong(
             key: Key('widget-3'),
-            classAttribute: "some 'messy' classes",
+            className: "some 'messy' classes",
           ),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,

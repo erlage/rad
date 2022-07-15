@@ -1,8 +1,8 @@
 test('should set attribute "classes"', () async {
     await app!.buildChildren(
     widgets: [
-        __WidgetClass__(key: Key('el-1'), classAttribute: 'some-classes',),
-        __WidgetClass__(key: Key('el-2'), classAttribute: 'another-classes',),
+        __WidgetClass__(key: Key('el-1'), className: 'some-classes',),
+        __WidgetClass__(key: Key('el-2'), className: 'another-classes',),
     ],
     parentRenderElement: app!.appRenderElement,
     );
@@ -17,16 +17,16 @@ test('should set attribute "classes"', () async {
 test('should update attribute "classes"', () async {
     await app!.buildChildren(
       widgets: [
-          __WidgetClass__(key: Key('el-1'), classAttribute: 'some-classes',),
-          __WidgetClass__(key: Key('el-2'), classAttribute: 'another-classes',),
+          __WidgetClass__(key: Key('el-1'), className: 'some-classes',),
+          __WidgetClass__(key: Key('el-2'), className: 'another-classes',),
       ],
       parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
       widgets: [
-          __WidgetClass__(key: Key('el-1'), classAttribute: 'updated-classes',),
-          __WidgetClass__(key: Key('el-2'), classAttribute: 'another-classes',),
+          __WidgetClass__(key: Key('el-1'), className: 'updated-classes',),
+          __WidgetClass__(key: Key('el-2'), className: 'another-classes',),
       ],
       updateType: UpdateType.setState,
       parentRenderElement: app!.appRenderElement,
@@ -43,7 +43,7 @@ test('should clear attribute "classes"', () async {
     await app!.buildChildren(
       widgets: [
           __WidgetClass__(key: Key('el-1')),
-          __WidgetClass__(key: Key('el-2'), classAttribute: 'another-classes',),
+          __WidgetClass__(key: Key('el-2'), className: 'another-classes',),
       ],
       parentRenderElement: app!.appRenderElement,
     );
@@ -67,14 +67,14 @@ test('should clear attribute "classes"', () async {
 test('should clear attribute "classes" if updated value is null', () async {
    await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: Key('el-1'), classAttribute: 'some-classes',),
+            __WidgetClass__(key: Key('el-1'), className: 'some-classes',),
         ],
         parentRenderElement: app!.appRenderElement,
     );
 
     await app!.updateChildren(
         widgets: [
-            __WidgetClass__(key: Key('el-1'), classAttribute: null),
+            __WidgetClass__(key: Key('el-1'), className: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -88,7 +88,7 @@ test('should clear attribute "classes" if updated value is null', () async {
 test('should not set attribute "classes" if provided value is null', () async {
     await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: Key('el-1'), classAttribute: null),
+            __WidgetClass__(key: Key('el-1'), className: null),
         ],
         parentRenderElement: app!.appRenderElement,
     );
@@ -103,15 +103,15 @@ test('should set messy "classes"', () async {
     widgets: [
       __WidgetClass__(
         key: Key('widget-1'),
-        classAttribute: 'some classes',
+        className: 'some classes',
       ),
       __WidgetClass__(
         key: Key('widget-2'),
-        classAttribute: 'some "messy" classes',
+        className: 'some "messy" classes',
       ),
       __WidgetClass__(
         key: Key('widget-3'),
-        classAttribute: "some 'messy' classes",
+        className: "some 'messy' classes",
       ),
     ],
             parentRenderElement: RT_TestBed.rootRenderElement,

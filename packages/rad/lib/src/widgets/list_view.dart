@@ -329,7 +329,7 @@ class _ListViewBuilderState with ServicesResolver {
                 itemsToGenerate,
                 (i) => Division(
                   key: Key('lv_item_${i + currentIndex}_${context.key}'),
-                  classAttribute: Constants.classListViewItemContainer,
+                  className: Constants.classListViewItemContainer,
                   children: [
                     widget.itemBuilder!(context, i + currentIndex),
                   ],
@@ -395,7 +395,7 @@ class _ListViewBuilderState with ServicesResolver {
           renderUptoIndex,
           (i) => Division(
             key: Key('lv_item_${i}_${context.key}'),
-            classAttribute: Constants.classListViewItemContainer,
+            className: Constants.classListViewItemContainer,
             children: [
               widget.itemBuilder!(context, i),
             ],
@@ -415,7 +415,7 @@ class _ListViewBuilderState with ServicesResolver {
           renderUptoIndex,
           (i) => Division(
             key: Key('lv_item_${i}_${context.key}'),
-            classAttribute: Constants.classListViewItemContainer,
+            className: Constants.classListViewItemContainer,
             children: [
               widget.itemBuilder!(context, i),
             ],
@@ -490,7 +490,7 @@ Map<String, String?> _prepareAttributes({
     classAttribute += ' ${Constants.classListViewVeritcal}';
   }
 
-  attributes[Attributes.classAttribute] = classAttribute;
+  attributes[Attributes.className] = classAttribute;
 
   return attributes;
 }

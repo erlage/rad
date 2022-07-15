@@ -15,7 +15,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   build(context) {
     return Division(
-      classAttribute: 'horizontal-header-content',
+      className: 'horizontal-header-content',
       children: [
         _settingsPageVeritcalNav(),
         Division(
@@ -43,10 +43,10 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Widget _settingsPageVeritcalNav() {
     return Division(
-      classAttribute: 'vertical-header',
+      className: 'vertical-header',
       children: [
         Division(
-          classAttribute: 'vertical-header-content',
+          className: 'vertical-header-content',
           children: [
             const Spacer(),
             _headerItem(text: 'Account settings', routeName: 'account'),
@@ -66,7 +66,7 @@ class _SettingsPageState extends State<SettingsPage> {
       },
       child: Division(
         style: 'widht: 100%;',
-        classAttribute: _activeRoute == routeName ? 'active' : '',
+        className: _activeRoute == routeName ? 'active' : '',
         children: [
           Division(
             style: 'padding: 15px;',

@@ -33,14 +33,14 @@ class Text extends Span {
 
     @experimental String? title,
     @experimental String? style,
-    @experimental String? classAttribute,
+    @experimental String? className,
     @experimental bool? hidden,
     @experimental EventCallback? onClick,
   }) : super(
           key: key,
           title: title,
           style: style,
-          classAttribute: classAttribute,
+          className: className,
           hidden: hidden,
           onClick: onClick,
           innerText: text,

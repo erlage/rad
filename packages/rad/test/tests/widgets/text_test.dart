@@ -141,9 +141,9 @@ void main() {
     test('should set classes', () async {
       await app!.buildChildren(
         widgets: [
-          Text('', classAttribute: 'some class'),
-          Text('', classAttribute: 'some "messy" class'),
-          Text('', classAttribute: "some 'messy' class"),
+          Text('', className: 'some class'),
+          Text('', className: 'some "messy" class'),
+          Text('', className: "some 'messy' class"),
         ],
         parentRenderElement: app!.appRenderElement,
       );

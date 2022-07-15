@@ -28,7 +28,7 @@ abstract class HTMLWidgetBase extends Widget {
 
   /// The classes attribute specifies one or more class names for an dom node.
   ///
-  final String? classAttribute;
+  final String? className;
 
   /// The style attribute for inline CSS.
   ///
@@ -81,7 +81,7 @@ abstract class HTMLWidgetBase extends Widget {
     this.title,
     this.tabIndex,
     this.style,
-    this.classAttribute,
+    this.className,
     this.hidden,
     this.draggable,
     this.contentEditable,
@@ -114,7 +114,7 @@ abstract class HTMLWidgetBase extends Widget {
         title != oldWidget.title ||
         tabIndex != oldWidget.tabIndex ||
         style != oldWidget.style ||
-        classAttribute != oldWidget.classAttribute ||
+        className != oldWidget.className ||
         hidden != oldWidget.hidden ||
         draggable != oldWidget.draggable ||
         contentEditable != oldWidget.contentEditable ||
@@ -262,8 +262,8 @@ Map<String, String?> _prepareAttributes({
     attributes[Attributes.style] = widget.style;
   }
 
-  if (widget.classAttribute != oldWidget?.classAttribute) {
-    attributes[Attributes.classAttribute] = widget.classAttribute;
+  if (widget.className != oldWidget?.className) {
+    attributes[Attributes.className] = widget.className;
   }
 
   if (widget.tabIndex != oldWidget?.tabIndex) {

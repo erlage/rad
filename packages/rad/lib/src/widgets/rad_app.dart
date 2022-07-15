@@ -39,7 +39,7 @@ class RadApp extends SingleChildWidget {
 
 const _description = DomNodePatch(
   attributes: {
-    Attributes.classAttribute: Constants.classRadApp,
+    Attributes.className: Constants.classRadApp,
   },
 );
 
