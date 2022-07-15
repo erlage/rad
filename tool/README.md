@@ -1,6 +1,6 @@
-# pg-generator-html
+# Tool: pkg-gen-html-widgets
 
-This script allows generating a custom version of HTML widgets.
+This script allows generating a custom version of HTML widgets in a separate package.
 
 ## Basic usage
 
