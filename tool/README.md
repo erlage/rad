@@ -1,10 +1,10 @@
 # Tool: pkg-gen-html-widgets
 
-This script allows generating a custom version of HTML widgets in a separate package.
+This script allows generating a custom version of HTML widgets.
 
 ## Basic usage
 
-Run `py gen.py` to generate a package with custom HTML widgets.
+Run `py gen.py` to generate a package.
 
 ## Options available:
 
@@ -23,8 +23,8 @@ Run `py gen.py` to generate a package with custom HTML widgets.
 
 ```sh
 py gen.py \
-    --name=my_new_package
-    --className:retype=set # will change type signature of className from String to Set<String>
+    --name=my_new_package \
+    --className:retype=set  \ # will change type signature of className from String to Set<String>
     --className:rename=classes # will rename className to classes
 
 cd my_new_package
