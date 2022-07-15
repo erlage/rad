@@ -37,26 +37,19 @@ commands = {
 
 
 def main():
-    success = True
     argv.pop(0)
 
     if not argv:
         help()
-        success = False
 
     while (argv):
         command = argv.pop(0)
 
         if not command in commands:
             help()
-            success = False
             break
 
-        returncode = commands[command][0]()
-        success = success and not bool(returncode)
-
-    sys.exit(not success)
-
+        commands[command][0]()
 
 if __name__ == '__main__':
     main()
