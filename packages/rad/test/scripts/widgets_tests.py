@@ -49,9 +49,11 @@ widget_specific_tests = {
 
     # html,
 
+    'Address': ['widget_specific_html_widgets'],
     'Abbreviation': ['widget_specific_html_widgets'],
     'Anchor': ['widget_specific_html_widgets'],
     'Article': ['widget_specific_html_widgets'],
+    'Aside': ['widget_specific_html_widgets'],
     'BlockQuote': ['widget_specific_html_widgets'],
     'BreakLine': ['widget_specific_html_widgets'],
     'Button': ['widget_specific_html_widgets'],

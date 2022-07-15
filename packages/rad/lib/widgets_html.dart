@@ -5,8 +5,10 @@
 library widgets_html;
 
 export 'src/widgets/html/abbreviation.dart' show Abbreviation;
+export 'src/widgets/html/address.dart' show Address;
 export 'src/widgets/html/anchor.dart' show Anchor;
 export 'src/widgets/html/article.dart' show Article;
+export 'src/widgets/html/aside.dart' show Aside;
 export 'src/widgets/html/block_quote.dart' show BlockQuote;
 export 'src/widgets/html/break_line.dart' show BreakLine;
 export 'src/widgets/html/button.dart' show Button;

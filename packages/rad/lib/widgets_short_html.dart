@@ -6,8 +6,10 @@
 library widgets_short_tags;
 
 import 'package:rad/src/widgets/html/abbreviation.dart';
+import 'package:rad/src/widgets/html/address.dart';
 import 'package:rad/src/widgets/html/anchor.dart';
 import 'package:rad/src/widgets/html/article.dart';
+import 'package:rad/src/widgets/html/aside.dart';
 import 'package:rad/src/widgets/html/block_quote.dart';
 import 'package:rad/src/widgets/html/break_line.dart';
 import 'package:rad/src/widgets/html/button.dart';
@@ -52,9 +54,11 @@ import 'package:rad/src/widgets/html/table_row.dart';
 import 'package:rad/src/widgets/html/textarea.dart';
 import 'package:rad/src/widgets/html/unordered_list.dart';
 
+typedef address = Address;
 typedef abbr = Abbreviation;
 typedef a = Anchor;
 typedef article = Article;
+typedef aside = Aside;
 typedef blockquote = BlockQuote;
 typedef br = BreakLine;
 typedef button = Button;

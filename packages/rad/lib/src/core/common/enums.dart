@@ -151,7 +151,9 @@ enum ButtonType {
 ///
 enum DomTagType {
   abbreviation('abbr'),
+  address('address'),
   article('article'),
+  aside('aside'),
   code('code'),
   header('header'),
   footer('footer'),

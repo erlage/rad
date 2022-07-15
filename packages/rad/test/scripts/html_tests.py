@@ -226,8 +226,10 @@ global_tests = [
 
 widgets_map = {
     'Abbreviation': 'abbr',
+    'Address': 'address',
     'Anchor': 'a',
     'Article': 'article',
+    'Aside': 'aside',
     'BlockQuote': 'blockquote',
     'BreakLine': 'br',
     'Button': 'button',

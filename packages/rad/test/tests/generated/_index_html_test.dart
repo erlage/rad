@@ -11,8 +11,10 @@ import '../../test_imports.dart';
 // fragments
 
 part 'html/html_abbreviation_tests.generated.dart';
+part 'html/html_address_tests.generated.dart';
 part 'html/html_anchor_tests.generated.dart';
 part 'html/html_article_tests.generated.dart';
+part 'html/html_aside_tests.generated.dart';
 part 'html/html_block_quote_tests.generated.dart';
 part 'html/html_break_line_tests.generated.dart';
 part 'html/html_button_tests.generated.dart';
@@ -69,8 +71,10 @@ part 'html/html_input_text_tests.generated.dart';
 
 void main() {
   html_abbreviation_test();
+  html_address_test();
   html_anchor_test();
   html_article_test();
+  html_aside_test();
   html_block_quote_test();
   html_break_line_test();
   html_button_test();

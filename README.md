@@ -165,8 +165,10 @@ Similarity tags:
 ### HTML Widgets
 
 [Abbreviation](https://pub.dev/documentation/rad/latest/widgets_html/Abbreviation-class.html)
+, [Address](https://pub.dev/documentation/rad/latest/widgets_html/Address-class.html)
 , [Anchor](https://pub.dev/documentation/rad/latest/widgets_html/Anchor-class.html)
 , [Article](https://pub.dev/documentation/rad/latest/widgets_html/Article-class.html)
+, [Aside](https://pub.dev/documentation/rad/latest/widgets_html/Aside-class.html)
 , [BlockQuote](https://pub.dev/documentation/rad/latest/widgets_html/BlockQuote-class.html)
 , [BreakLine](https://pub.dev/documentation/rad/latest/widgets_html/BreakLine-class.html)
 , [Button](https://pub.dev/documentation/rad/latest/widgets_html/Button-class.html)
