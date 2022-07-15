@@ -1,0 +1,23 @@
+name: __package_name__
+version: __package_version__
+description: __package_description__
+
+homepage: __package_repo__
+documentation: __package_repo__#readme
+repository: __package_repo__
+issue_tracker: __package_repo__/issues
+
+environment:
+  sdk: '>=2.17.0 <3.0.0'
+
+platforms:
+  web:
+
+dependencies:
+  meta: ^1.8.0
+  rad: ^0.10.0
+  
+dev_dependencies:
+  build: ^2.3.0
+  build_runner: ^2.1.11
+  build_web_compilers: ^3.2.3
