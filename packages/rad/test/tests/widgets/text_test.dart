@@ -210,48 +210,6 @@ void main() {
       expect(domNode4.getAttribute('hidden'), equals(null));
     });
 
-    test('should set onClick', () async {
-      await app!.buildChildren(
-        widgets: [
-          Text(
-            '',
-            key: Key('widget-1'),
-            onClickAttribute: 'some onClick',
-          ),
-          Text(
-            '',
-            key: Key('widget-2'),
-            onClickAttribute: 'some "messy" onClick',
-          ),
-          Text(
-            '',
-            key: Key('widget-3'),
-            onClickAttribute: "some 'messy' onClick",
-          ),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.appDomNode.childNodes[0] as HtmlElement;
-      var domNode2 = app!.appDomNode.childNodes[1] as HtmlElement;
-      var domNode3 = app!.appDomNode.childNodes[2] as HtmlElement;
-
-      expect(
-        domNode1.getAttribute('onclick'),
-        equals('some onClick'),
-      );
-
-      expect(
-        domNode2.getAttribute('onclick'),
-        equals('some "messy" onClick'),
-      );
-
-      expect(
-        domNode3.getAttribute('onclick'),
-        equals("some 'messy' onClick"),
-      );
-    });
-
     test('should set "click" event listener', () async {
       var testStack = RT_TestStack();
 

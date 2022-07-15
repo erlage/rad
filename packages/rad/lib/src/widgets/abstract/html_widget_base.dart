@@ -55,10 +55,6 @@ abstract class HTMLWidgetBase extends Widget {
   ///
   final bool? hidden;
 
-  /// onClick raw attribute. for inlined JS callback: onclick="<someJS>"
-  ///
-  final String? onClickAttribute;
-
   /// Element's inner text.
   ///
   /// A widget can either have [innerText] or [children] list.
@@ -89,7 +85,6 @@ abstract class HTMLWidgetBase extends Widget {
     this.hidden,
     this.draggable,
     this.contentEditable,
-    this.onClickAttribute,
     this.innerText,
     this.children,
     this.onClick,
@@ -123,7 +118,6 @@ abstract class HTMLWidgetBase extends Widget {
         hidden != oldWidget.hidden ||
         draggable != oldWidget.draggable ||
         contentEditable != oldWidget.contentEditable ||
-        onClickAttribute != oldWidget.onClickAttribute ||
         innerText != oldWidget.innerText ||
         !fnIsKeyValueMapEqual(
           additionalAttributes,
@@ -310,10 +304,6 @@ Map<String, String?> _prepareAttributes({
         attributes[Attributes.contentEditable] = 'false';
       }
     }
-  }
-
-  if (widget.onClickAttribute != oldWidget?.onClickAttribute) {
-    attributes[Attributes.onClickAttribute] = widget.onClickAttribute;
   }
 
   return attributes;

@@ -213,7 +213,6 @@ global_tests = [
     'html_attr_draggable',
     'html_attr_hidden',
     'html_attr_innertext',
-    'html_attr_on_click_attribute',
     'html_attr_on_click',
     'html_attr_style',
     'html_attr_tabindex',
