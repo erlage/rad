@@ -1,0 +1,152 @@
+// Copyright (c) 2022, Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+import 'package:meta/meta.dart';
+
+import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
+
+/// Abstract class for Inserted/Deleted text widgets.
+///
+@internal
+abstract class HTMLAlteredTextBase extends HTMLWidgetBase {
+  /// This attribute defines the URI of a resource that explains the change,
+  /// such as a link to meeting minutes or a ticket in a troubleshooting system.
+  ///
+  final String? cite;
+
+  /// This attribute indicates the time and date of the change and must be a
+  /// valid date with an optional time string. If the value cannot be parsed as
+  /// a date with an optional time string, the element does not have an
+  /// associated time stamp.
+  ///
+  final String? dateTime;
+
+  const HTMLAlteredTextBase({
+    this.cite,
+    this.dateTime,
+    Key? key,
+    String? id,
+    bool? hidden,
+    bool? draggable,
+    bool? contentEditable,
+    int? tabIndex,
+    String? title,
+    String? style,
+    String? className,
+    String? innerText,
+    List<Widget>? children,
+    EventCallback? onClick,
+    Map<String, String>? additionalAttributes,
+  }) : super(
+          key: key,
+          id: id,
+          title: title,
+          tabIndex: tabIndex,
+          draggable: draggable,
+          contentEditable: contentEditable,
+          hidden: hidden,
+          style: style,
+          className: className,
+          innerText: innerText,
+          children: children,
+          onClick: onClick,
+          additionalAttributes: additionalAttributes,
+        );
+
+  @override
+  bool shouldUpdateWidget(
+    covariant oldWidget,
+  ) {
+    oldWidget as HTMLAlteredTextBase;
+
+    return cite != oldWidget.cite ||
+        dateTime != oldWidget.dateTime ||
+        super.shouldUpdateWidget(oldWidget);
+  }
+
+  @override
+  createRenderElement(parent) => HTMLAlteredTextBaseRenderElement(this, parent);
+}
+
+/*
+|--------------------------------------------------------------------------
+| render element
+|--------------------------------------------------------------------------
+*/
+
+/// Table's cell base render element.
+///
+@internal
+class HTMLAlteredTextBaseRenderElement extends HTMLRenderElementBase {
+  HTMLAlteredTextBaseRenderElement(super.wudget, super.parent);
+
+  @mustCallSuper
+  @override
+  render({
+    required covariant HTMLAlteredTextBase widget,
+  }) {
+    var domNodeDescription = super.render(
+      widget: widget,
+    );
+
+    domNodeDescription?.attributes?.addAll(
+      _prepareAttributes(
+        widget: widget,
+        oldWidget: null,
+      ),
+    );
+
+    return domNodeDescription;
+  }
+
+  @mustCallSuper
+  @override
+  update({
+    required updateType,
+    required covariant HTMLAlteredTextBase oldWidget,
+    required covariant HTMLAlteredTextBase newWidget,
+  }) {
+    var domNodeDescription = super.update(
+      updateType: updateType,
+      oldWidget: oldWidget,
+      newWidget: newWidget,
+    );
+
+    domNodeDescription?.attributes?.addAll(
+      _prepareAttributes(
+        widget: newWidget,
+        oldWidget: oldWidget,
+      ),
+    );
+
+    return domNodeDescription;
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| props
+|--------------------------------------------------------------------------
+*/
+
+Map<String, String?> _prepareAttributes({
+  required HTMLAlteredTextBase widget,
+  required HTMLAlteredTextBase? oldWidget,
+}) {
+  var attributes = <String, String?>{};
+
+  if (widget.cite != oldWidget?.cite) {
+    attributes[Attributes.cite] = widget.cite;
+  }
+
+  if (widget.dateTime != oldWidget?.dateTime) {
+    attributes[Attributes.dateTime] = widget.dateTime;
+  }
+
+  return attributes;
+}

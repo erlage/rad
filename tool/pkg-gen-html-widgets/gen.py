@@ -34,6 +34,7 @@ rad_pkg_html_widgets_dir = os.path.abspath(os.path.join(rad_pkg_widgets_dir, 'ht
 
 abstract_files = [
     'html_widget_base.dart',
+    'html_altered_text_base.dart',
     'html_bidirectional_base.dart',
     'html_table_cell_base.dart',
     'html_table_column_base.dart',

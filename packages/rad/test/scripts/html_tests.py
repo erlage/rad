@@ -75,6 +75,10 @@ widget_specific_tests = {
     'Data': [
         'html_attr_value',
     ],
+    'DeletedText': [
+        'html_attr_cite',
+        'html_attr_datetime',
+    ],    
     'EmbedExternal': [
         'html_attr_width',
         'html_attr_src',
@@ -152,6 +156,10 @@ widget_specific_tests = {
         'html_attr_on_key_press',
         'html_attr_on_key_up',
         'html_attr_on_key_down',
+    ],
+    'InsertedText': [
+        'html_attr_cite',
+        'html_attr_datetime',
     ],
     'Label': [
         'html_attr_for_attribute',
@@ -331,6 +339,7 @@ widgets_map = {
     'Code': 'code',
     'Data': 'data',
     'Definition': 'dfn',
+    'DeletedText': 'del',
     'DescriptionDetails': 'dd',
     'DescriptionList': 'dl',
     'DescriptionTerm': 'dt',
@@ -358,6 +367,7 @@ widgets_map = {
     'ImageMapArea': 'area',
     'InlineQuotation': 'q',
     'Input': 'input',
+    'InsertedText': 'ins',
     'KeyboardInput': 'kbd',
     'Label': 'label',
     'Legend': 'legend',
