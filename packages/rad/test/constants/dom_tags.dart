@@ -52,6 +52,7 @@ class RT_DomTags {
     'label',
     'legend',
     'li',
+    'map',
     'mark',
     'menu',
     'nav',

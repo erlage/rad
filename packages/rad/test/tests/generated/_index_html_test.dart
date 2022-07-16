@@ -48,6 +48,7 @@ part 'html/html_horizontal_rule_tests.generated.dart';
 part 'html/html_i_frame_tests.generated.dart';
 part 'html/html_idiomatic_tests.generated.dart';
 part 'html/html_image_tests.generated.dart';
+part 'html/html_image_map_tests.generated.dart';
 part 'html/html_image_map_area_tests.generated.dart';
 part 'html/html_inline_quotation_tests.generated.dart';
 part 'html/html_input_tests.generated.dart';
@@ -133,6 +134,7 @@ void main() {
   html_i_frame_test();
   html_idiomatic_test();
   html_image_test();
+  html_image_map_test();
   html_image_map_area_test();
   html_inline_quotation_test();
   html_input_test();

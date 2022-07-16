@@ -58,6 +58,7 @@ part 'widgets/widget_horizontal_rule_tests.generated.dart';
 part 'widgets/widget_i_frame_tests.generated.dart';
 part 'widgets/widget_idiomatic_tests.generated.dart';
 part 'widgets/widget_image_tests.generated.dart';
+part 'widgets/widget_image_map_tests.generated.dart';
 part 'widgets/widget_image_map_area_tests.generated.dart';
 part 'widgets/widget_inline_quotation_tests.generated.dart';
 part 'widgets/widget_input_tests.generated.dart';
@@ -148,6 +149,7 @@ void main() {
   widget_i_frame_test();
   widget_idiomatic_test();
   widget_image_test();
+  widget_image_map_test();
   widget_image_map_area_test();
   widget_inline_quotation_test();
   widget_input_test();

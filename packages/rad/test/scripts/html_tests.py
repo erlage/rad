@@ -99,6 +99,9 @@ widget_specific_tests = {
         'html_attr_width',
         'html_attr_height',
     ],
+    'ImageMap': [
+        'html_attr_name',
+    ],
     'ImageMapArea': [
         'html_attr_alt',
         'html_attr_coords',
@@ -307,6 +310,7 @@ widgets_map = {
     'IFrame': 'iframe',
     'Idiomatic': 'i',
     'Image': 'img',
+    'ImageMap': 'map',
     'ImageMapArea': 'area',
     'InlineQuotation': 'q',
     'Input': 'input',

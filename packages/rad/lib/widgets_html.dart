@@ -38,6 +38,7 @@ export 'src/widgets/html/horizontal_rule.dart' show HorizontalRule;
 export 'src/widgets/html/idiomatic.dart' show Idiomatic;
 export 'src/widgets/html/iframe.dart' show IFrame;
 export 'src/widgets/html/image.dart' show Image;
+export 'src/widgets/html/image_map.dart' show ImageMap;
 export 'src/widgets/html/image_map_area.dart' show ImageMapArea;
 export 'src/widgets/html/inline_quotation.dart' show InlineQuotation;
 export 'src/widgets/html/input.dart' show Input;
