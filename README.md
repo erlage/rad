@@ -244,6 +244,7 @@ Similarity tags:
 , [Time](https://pub.dev/documentation/rad/latest/widgets_html/Time-class.html)
 , [UnOrderedList](https://pub.dev/documentation/rad/latest/widgets_html/UnOrderedList-class.html)
 , [Variable](https://pub.dev/documentation/rad/latest/widgets_html/Variable-class.html)
+, [Video](https://pub.dev/documentation/rad/latest/widgets_html/Video-class.html)
 
 ## Contributing
 For reporting bugs/queries, feel free to open issue. Read [contributing guide](https://github.com/erlage/rad/blob/main/CONTRIBUTING.md) for more.

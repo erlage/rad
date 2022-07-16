@@ -79,6 +79,7 @@ import 'package:rad/src/widgets/html/table_row.dart';
 import 'package:rad/src/widgets/html/textarea.dart';
 import 'package:rad/src/widgets/html/time.dart';
 import 'package:rad/src/widgets/html/unordered_list.dart';
+import 'package:rad/src/widgets/html/video.dart';
 
 typedef abbr = Abbreviation;
 typedef address = Address;
@@ -159,3 +160,4 @@ typedef textarea = TextArea;
 typedef time = Time;
 typedef ul = UnOrderedList;
 typedef wbr = LineBreakOpportunity;
+typedef video = Video;

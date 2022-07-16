@@ -207,6 +207,19 @@ widget_specific_tests = {
     'Time': [
         'html_attr_datetime',
     ],
+    'Video': [
+        'html_attr_autoplay',
+        'html_attr_controls',
+        'html_attr_cross_origin_type',
+        'html_attr_height',
+        'html_attr_loop',
+        'html_attr_muted',
+        'html_attr_playsinline',
+        'html_attr_poster',
+        'html_attr_preload_type',
+        'html_attr_src',
+        'html_attr_width',
+    ],
 
     # additional
 
@@ -359,6 +372,7 @@ widgets_map = {
     'Time': 'time',
     'UnOrderedList': 'ul',
     'Variable': 'var',
+    'Video': 'video',
 
     # additionals,
 

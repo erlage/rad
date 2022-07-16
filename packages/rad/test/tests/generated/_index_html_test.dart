@@ -90,6 +90,7 @@ part 'html/html_text_area_tests.generated.dart';
 part 'html/html_time_tests.generated.dart';
 part 'html/html_un_ordered_list_tests.generated.dart';
 part 'html/html_variable_tests.generated.dart';
+part 'html/html_video_tests.generated.dart';
 part 'html/html_input_check_box_tests.generated.dart';
 part 'html/html_input_file_tests.generated.dart';
 part 'html/html_input_radio_tests.generated.dart';
@@ -177,6 +178,7 @@ void main() {
   html_time_test();
   html_un_ordered_list_test();
   html_variable_test();
+  html_video_test();
   html_input_check_box_test();
   html_input_file_test();
   html_input_radio_test();

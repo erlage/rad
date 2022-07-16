@@ -81,6 +81,7 @@ export 'src/widgets/html/textarea.dart' show TextArea;
 export 'src/widgets/html/time.dart' show Time;
 export 'src/widgets/html/unordered_list.dart' show UnOrderedList;
 export 'src/widgets/html/variable.dart' show Variable;
+export 'src/widgets/html/video.dart' show Video;
 
 // Additional widgets.
 

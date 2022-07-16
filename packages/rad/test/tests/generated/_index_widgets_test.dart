@@ -82,6 +82,7 @@ part 'widgets/widget_ruby_text_tests.generated.dart';
 part 'widgets/widget_sample_output_tests.generated.dart';
 part 'widgets/widget_time_tests.generated.dart';
 part 'widgets/widget_variable_tests.generated.dart';
+part 'widgets/widget_video_tests.generated.dart';
 part 'widgets/widget_select_tests.generated.dart';
 part 'widgets/widget_small_tests.generated.dart';
 part 'widgets/widget_span_tests.generated.dart';
@@ -174,6 +175,7 @@ void main() {
   widget_sample_output_test();
   widget_time_test();
   widget_variable_test();
+  widget_video_test();
   widget_select_test();
   widget_small_test();
   widget_span_test();

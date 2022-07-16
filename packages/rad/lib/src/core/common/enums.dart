@@ -336,6 +336,7 @@ enum DomTagType {
   time('time'),
   unOrderedList('ul'),
   variable('var'),
+  video('video'),
   ;
 
   final String nativeName;

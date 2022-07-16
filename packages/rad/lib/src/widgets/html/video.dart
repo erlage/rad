@@ -1,0 +1,273 @@
+// Copyright (c) 2022, Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+import 'package:meta/meta.dart';
+
+import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
+
+/// The Video widget (HTML's `video` tag).
+///
+class Video extends HTMLWidgetBase {
+  /// A Boolean attribute: if specified, the Video will automatically begin
+  /// playback as soon as it can do so, without waiting for the entire Video
+  /// file to finish downloading.
+  ///
+  final bool? autoPlay;
+
+  /// f this attribute is present, the browser will offer controls to allow the
+  /// user to control Video playback, including volume, seeking, and
+  /// pause/resume playback.
+  ///
+  final bool? controls;
+
+  /// This enumerated attribute indicates whether to use CORS to fetch the
+  /// related Video file.
+  ///
+  final CrossOriginType? crossOrigin;
+
+  /// The height of the video's display area.
+  ///
+  final String? height;
+
+  /// A Boolean attribute: if specified, the Video player will automatically
+  /// seek back to the start upon reaching the end of the Video.
+  ///
+  final bool? loop;
+
+  /// A Boolean attribute that indicates whether the Video will be initially
+  /// silenced. Its default value is false.
+  ///
+  final bool? muted;
+
+  /// A Boolean attribute indicating that the video is to be played "inline",
+  /// that is within the element's playback area. Note that the absence of this
+  /// attribute does not imply that the video will always be played in
+  /// fullscreen.
+  ///
+  final bool? playsInline;
+
+  /// A URL for an image to be shown while the video is downloading. If this
+  /// attribute isn't specified, nothing is displayed until the first frame is
+  /// available, then the first frame is shown as the poster frame.
+  ///
+  final String? poster;
+
+  /// This enumerated attribute is intended to provide a hint to the browser
+  /// about what the author thinks will lead to the best user experience.
+  ///
+  final PreloadType? preload;
+
+  /// The URL of the Video to embed. This is subject to HTTP access controls.
+  /// This is optional; you may instead use the source element within the Video
+  /// block to specify the Video to embed.
+  ///
+  final String? src;
+
+  /// The width of the video's display area.
+  ///
+  final String? width;
+
+  const Video({
+    Key? key,
+    this.autoPlay,
+    this.controls,
+    this.crossOrigin,
+    this.height,
+    this.loop,
+    this.muted,
+    this.playsInline,
+    this.poster,
+    this.preload,
+    this.src,
+    this.width,
+    bool? hidden,
+    bool? draggable,
+    bool? contentEditable,
+    int? tabIndex,
+    String? id,
+    String? title,
+    String? style,
+    String? className,
+    String? innerText,
+    List<Widget>? children,
+    EventCallback? onClick,
+    Map<String, String>? additionalAttributes,
+  }) : super(
+          key: key,
+          id: id,
+          title: title,
+          tabIndex: tabIndex,
+          draggable: draggable,
+          contentEditable: contentEditable,
+          hidden: hidden,
+          style: style,
+          className: className,
+          innerText: innerText,
+          children: children,
+          onClick: onClick,
+          additionalAttributes: additionalAttributes,
+        );
+
+  @nonVirtual
+  @override
+  String get widgetType => 'Video';
+
+  @override
+  DomTagType get correspondingTag => DomTagType.video;
+
+  @override
+  bool shouldUpdateWidget(covariant Video oldWidget) {
+    return autoPlay != oldWidget.autoPlay ||
+        controls != oldWidget.controls ||
+        crossOrigin != oldWidget.crossOrigin ||
+        height != oldWidget.height ||
+        loop != oldWidget.loop ||
+        muted != oldWidget.muted ||
+        playsInline != oldWidget.playsInline ||
+        poster != oldWidget.poster ||
+        preload != oldWidget.preload ||
+        src != oldWidget.src ||
+        width != oldWidget.width ||
+        super.shouldUpdateWidget(oldWidget);
+  }
+
+  @override
+  createRenderElement(parent) => VideoRenderElement(this, parent);
+}
+
+/*
+|--------------------------------------------------------------------------
+| render element
+|--------------------------------------------------------------------------
+*/
+
+/// Video render element.
+///
+class VideoRenderElement extends HTMLRenderElementBase {
+  VideoRenderElement(super.widget, super.parent);
+
+  @override
+  render({
+    required covariant Video widget,
+  }) {
+    var domNodeDescription = super.render(
+      widget: widget,
+    );
+
+    domNodeDescription?.attributes?.addAll(
+      _prepareAttributes(
+        widget: widget,
+        oldWidget: null,
+      ),
+    );
+
+    return domNodeDescription;
+  }
+
+  @override
+  update({
+    required updateType,
+    required covariant Video oldWidget,
+    required covariant Video newWidget,
+  }) {
+    var domNodeDescription = super.update(
+      updateType: updateType,
+      oldWidget: oldWidget,
+      newWidget: newWidget,
+    );
+
+    domNodeDescription?.attributes?.addAll(
+      _prepareAttributes(
+        widget: newWidget,
+        oldWidget: oldWidget,
+      ),
+    );
+
+    return domNodeDescription;
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| props
+|--------------------------------------------------------------------------
+*/
+
+Map<String, String?> _prepareAttributes({
+  required Video widget,
+  required Video? oldWidget,
+}) {
+  var attributes = <String, String?>{};
+
+  if (widget.autoPlay != oldWidget?.autoPlay) {
+    if (null == widget.autoPlay || false == widget.autoPlay) {
+      attributes[Attributes.autoPlay] = null;
+    } else {
+      attributes[Attributes.autoPlay] = 'true';
+    }
+  }
+
+  if (widget.controls != oldWidget?.controls) {
+    if (null == widget.controls || false == widget.controls) {
+      attributes[Attributes.controls] = null;
+    } else {
+      attributes[Attributes.controls] = 'true';
+    }
+  }
+
+  if (widget.crossOrigin != oldWidget?.crossOrigin) {
+    attributes[Attributes.crossOrigin] = widget.crossOrigin?.nativeName;
+  }
+
+  if (widget.height != oldWidget?.height) {
+    attributes[Attributes.height] = widget.height;
+  }
+
+  if (widget.loop != oldWidget?.loop) {
+    if (null == widget.loop || false == widget.loop) {
+      attributes[Attributes.loop] = null;
+    } else {
+      attributes[Attributes.loop] = 'true';
+    }
+  }
+
+  if (widget.muted != oldWidget?.muted) {
+    if (null == widget.muted || false == widget.muted) {
+      attributes[Attributes.muted] = null;
+    } else {
+      attributes[Attributes.muted] = 'true';
+    }
+  }
+
+  if (widget.playsInline != oldWidget?.playsInline) {
+    if (null == widget.playsInline || false == widget.playsInline) {
+      attributes[Attributes.playsInline] = null;
+    } else {
+      attributes[Attributes.playsInline] = 'true';
+    }
+  }
+
+  if (widget.poster != oldWidget?.poster) {
+    attributes[Attributes.poster] = widget.poster;
+  }
+
+  if (widget.preload != oldWidget?.preload) {
+    attributes[Attributes.preload] = widget.preload?.nativeName;
+  }
+
+  if (widget.src != oldWidget?.src) {
+    attributes[Attributes.src] = widget.src;
+  }
+
+  if (widget.width != oldWidget?.width) {
+    attributes[Attributes.width] = widget.width;
+  }
+
+  return attributes;
+}

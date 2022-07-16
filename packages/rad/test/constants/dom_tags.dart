@@ -85,6 +85,7 @@ class RT_DomTags {
     'track',
     'ul',
     'var',
+    'video',
     'wbr',
   ];
 

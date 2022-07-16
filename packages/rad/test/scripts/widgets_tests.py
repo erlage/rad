@@ -113,6 +113,7 @@ widget_specific_tests = {
     'SampleOutput': ['widget_specific_html_widgets'],
     'Time': ['widget_specific_html_widgets'],
     'Variable': ['widget_specific_html_widgets'],
+    'Video': ['widget_specific_html_widgets'],
     'Select': ['widget_specific_html_widgets'],
     'Small': ['widget_specific_html_widgets'],
     'Span': ['widget_specific_html_widgets'],

@@ -137,6 +137,8 @@ class Attributes {
   static const defaultAttribute = 'default';
   static const kind = 'kind';
   static const srcLang = 'srclang';
+  static const playsInline = 'playsinline';
+  static const poster = 'poster';
 
   // meta
 
