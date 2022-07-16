@@ -35,8 +35,8 @@ rad_pkg_html_widgets_dir = os.path.abspath(os.path.join(rad_pkg_widgets_dir, 'ht
 abstract_files = [
     'html_widget_base.dart',
     'html_bidirectional_base.dart',
-    'table_cell_base.dart',
-    'table_column_base.dart',
+    'html_table_cell_base.dart',
+    'html_table_column_base.dart',
 ]
 
 rexp_core_import = re.compile("(import 'package:rad\/src\/)([^;]*);")

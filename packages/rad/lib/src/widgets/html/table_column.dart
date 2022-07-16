@@ -7,12 +7,12 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/table_column_base.dart';
+import 'package:rad/src/widgets/abstract/html_table_column_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Table Column widget (HTML's `col` tag).
 ///
-class TableColumn extends TableColumnBase {
+class TableColumn extends HTMLTableColumnBase {
   const TableColumn({
     Key? key,
     String? id,

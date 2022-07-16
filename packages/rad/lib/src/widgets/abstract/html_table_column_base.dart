@@ -13,14 +13,14 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// Abstract class for TableColumn and TableColumnGroup.
 ///
 @internal
-abstract class TableColumnBase extends HTMLWidgetBase {
+abstract class HTMLTableColumnBase extends HTMLWidgetBase {
   /// This attribute contains a positive integer indicating the number of
   /// consecutive columns the TableColumn spans. If not present, its default
   /// value is 1.
   ///
   final int? span;
 
-  const TableColumnBase({
+  const HTMLTableColumnBase({
     this.span,
     Key? key,
     String? id,
@@ -54,13 +54,13 @@ abstract class TableColumnBase extends HTMLWidgetBase {
   @override
   @override
   bool shouldUpdateWidget(
-    covariant TableColumnBase oldWidget,
+    covariant HTMLTableColumnBase oldWidget,
   ) {
     return span != oldWidget.span || super.shouldUpdateWidget(oldWidget);
   }
 
   @override
-  createRenderElement(parent) => TableColumnBaseRenderElement(this, parent);
+  createRenderElement(parent) => HTMLTableColumnBaseRenderElement(this, parent);
 }
 
 /*
@@ -72,13 +72,13 @@ abstract class TableColumnBase extends HTMLWidgetBase {
 /// Table column base render element.
 ///
 @internal
-class TableColumnBaseRenderElement extends HTMLRenderElementBase {
-  TableColumnBaseRenderElement(super.widget, super.parent);
+class HTMLTableColumnBaseRenderElement extends HTMLRenderElementBase {
+  HTMLTableColumnBaseRenderElement(super.widget, super.parent);
 
   @mustCallSuper
   @override
   render({
-    required covariant TableColumnBase widget,
+    required covariant HTMLTableColumnBase widget,
   }) {
     var domNodeDescription = super.render(
       widget: widget,
@@ -98,8 +98,8 @@ class TableColumnBaseRenderElement extends HTMLRenderElementBase {
   @override
   update({
     required updateType,
-    required covariant TableColumnBase oldWidget,
-    required covariant TableColumnBase newWidget,
+    required covariant HTMLTableColumnBase oldWidget,
+    required covariant HTMLTableColumnBase newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
@@ -125,8 +125,8 @@ class TableColumnBaseRenderElement extends HTMLRenderElementBase {
 */
 
 Map<String, String?> _prepareAttributes({
-  required TableColumnBase widget,
-  required TableColumnBase? oldWidget,
+  required HTMLTableColumnBase widget,
+  required HTMLTableColumnBase? oldWidget,
 }) {
   var attributes = <String, String?>{};
 

@@ -7,12 +7,12 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/table_cell_base.dart';
+import 'package:rad/src/widgets/abstract/html_table_cell_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Table Header Cell widget (HTML's `th` tag).
 ///
-class TableHeaderCell extends TableCellBase {
+class TableHeaderCell extends HTMLTableCellBase {
   const TableHeaderCell({
     int? rowSpan,
     int? colSpan,

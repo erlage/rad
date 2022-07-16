@@ -16,7 +16,7 @@ import 'package:rad/src/widgets/html/table_head.dart';
 /// Abstract class for TableCell and TableHeaderCell.
 ///
 @internal
-abstract class TableCellBase extends HTMLWidgetBase {
+abstract class HTMLTableCellBase extends HTMLWidgetBase {
   /// This attribute contains a non-negative integer value that indicates for
   /// how many rows the cell extends. Its default value is 1; if its value is
   /// set to 0, it extends until the end of the table section ([TableHead],
@@ -38,7 +38,7 @@ abstract class TableCellBase extends HTMLWidgetBase {
   ///
   final String? headers;
 
-  const TableCellBase({
+  const HTMLTableCellBase({
     this.rowSpan,
     this.colSpan,
     this.headers,
@@ -75,7 +75,7 @@ abstract class TableCellBase extends HTMLWidgetBase {
   bool shouldUpdateWidget(
     covariant oldWidget,
   ) {
-    oldWidget as TableCellBase;
+    oldWidget as HTMLTableCellBase;
 
     return rowSpan != oldWidget.colSpan ||
         colSpan != oldWidget.rowSpan ||
@@ -84,7 +84,7 @@ abstract class TableCellBase extends HTMLWidgetBase {
   }
 
   @override
-  createRenderElement(parent) => TableCellBaseRenderElement(this, parent);
+  createRenderElement(parent) => HTMLTableCellBaseRenderElement(this, parent);
 }
 
 /*
@@ -96,13 +96,13 @@ abstract class TableCellBase extends HTMLWidgetBase {
 /// Table's cell base render element.
 ///
 @internal
-class TableCellBaseRenderElement extends HTMLRenderElementBase {
-  TableCellBaseRenderElement(super.wudget, super.parent);
+class HTMLTableCellBaseRenderElement extends HTMLRenderElementBase {
+  HTMLTableCellBaseRenderElement(super.wudget, super.parent);
 
   @mustCallSuper
   @override
   render({
-    required covariant TableCellBase widget,
+    required covariant HTMLTableCellBase widget,
   }) {
     var domNodeDescription = super.render(
       widget: widget,
@@ -122,8 +122,8 @@ class TableCellBaseRenderElement extends HTMLRenderElementBase {
   @override
   update({
     required updateType,
-    required covariant TableCellBase oldWidget,
-    required covariant TableCellBase newWidget,
+    required covariant HTMLTableCellBase oldWidget,
+    required covariant HTMLTableCellBase newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
@@ -149,8 +149,8 @@ class TableCellBaseRenderElement extends HTMLRenderElementBase {
 */
 
 Map<String, String?> _prepareAttributes({
-  required TableCellBase widget,
-  required TableCellBase? oldWidget,
+  required HTMLTableCellBase widget,
+  required HTMLTableCellBase? oldWidget,
 }) {
   var attributes = <String, String?>{};
 

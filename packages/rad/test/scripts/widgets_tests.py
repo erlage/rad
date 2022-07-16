@@ -23,9 +23,11 @@ templates_folder = os.path.abspath(os.path.join(main.test_dir, 'templates', 'wid
 no_tests_for = [
     'AsyncRoute',
     '_AsyncRoutePlaceholder',
+    '_AsyncRouteBuilder',
     'FutureBuilder',
     'StreamBuilder',
     'ValueListenableBuilder',
+    'RawEventDetector',
     'Text',
     'InputText',
     'InputFile',
@@ -113,7 +115,7 @@ widget_specific_tests = {
     'UnOrderedList': ['widget_specific_html_widgets'],
 }
 
-widgets_pattern = re.compile(r'^class ([\w]*) extends (Widget|MarkUpTagWithGlobalProps|Input|Span|Division|TableCellBase|TableColumnBase) {', re.M)
+widgets_pattern = re.compile(r'^class ([\w]*) extends (Widget|Input|Span|Division|HTMLWidgetBase|HTMLTableCellBase|HTMLTableColumnBase|HTMLBidirectionalBase|StatefulWidget|StatelessWidget) {', re.M)
 
 def checkWidgets():
     files = glob.glob(widgets_folder + '/**/*.dart', recursive=True)

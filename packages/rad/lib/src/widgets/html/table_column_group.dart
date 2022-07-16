@@ -7,12 +7,12 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/abstract/table_column_base.dart';
+import 'package:rad/src/widgets/abstract/html_table_column_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The Table Column Group widget (HTML's `colgroup` tag).
 ///
-class TableColumnGroup extends TableColumnBase {
+class TableColumnGroup extends HTMLTableColumnBase {
   const TableColumnGroup({
     Key? key,
     String? id,
