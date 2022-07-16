@@ -598,6 +598,7 @@ void html_navigation_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('nav')
               ? [
                   'input',

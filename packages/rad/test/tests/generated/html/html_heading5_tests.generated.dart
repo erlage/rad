@@ -598,6 +598,7 @@ void html_heading5_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('h5')
               ? [
                   'input',

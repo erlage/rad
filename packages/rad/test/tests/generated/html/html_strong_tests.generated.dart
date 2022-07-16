@@ -598,6 +598,7 @@ void html_strong_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('strong')
               ? [
                   'input',

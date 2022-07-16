@@ -598,6 +598,7 @@ void html_citation_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('cite')
               ? [
                   'input',

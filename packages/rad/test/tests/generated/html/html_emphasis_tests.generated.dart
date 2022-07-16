@@ -598,6 +598,7 @@ void html_emphasis_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('em')
               ? [
                   'input',

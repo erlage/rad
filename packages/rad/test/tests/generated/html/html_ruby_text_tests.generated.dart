@@ -598,6 +598,7 @@ void html_ruby_text_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('rt')
               ? [
                   'input',

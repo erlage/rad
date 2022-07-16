@@ -598,6 +598,7 @@ void html_i_frame_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('iframe')
               ? [
                   'input',

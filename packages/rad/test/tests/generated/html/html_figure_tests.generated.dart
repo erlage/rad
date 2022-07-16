@@ -598,6 +598,7 @@ void html_figure_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('figure')
               ? [
                   'input',

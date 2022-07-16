@@ -598,6 +598,7 @@ void html_super_script_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('sup')
               ? [
                   'input',

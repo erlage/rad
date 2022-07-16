@@ -598,6 +598,7 @@ void html_caption_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('caption')
               ? [
                   'input',

@@ -598,6 +598,7 @@ void html_preformatted_text_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('pre')
               ? [
                   'input',

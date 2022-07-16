@@ -598,6 +598,7 @@ void html_time_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('time')
               ? [
                   'input',

@@ -598,6 +598,7 @@ void html_block_quote_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('blockquote')
               ? [
                   'input',

@@ -598,6 +598,7 @@ void html_header_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('header')
               ? [
                   'input',

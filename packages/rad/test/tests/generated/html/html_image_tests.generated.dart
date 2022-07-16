@@ -600,6 +600,7 @@ void html_image_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('img')
               ? [
                   'input',

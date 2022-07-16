@@ -598,6 +598,7 @@ void html_table_head_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('thead')
               ? [
                   'input',

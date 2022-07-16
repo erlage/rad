@@ -598,6 +598,7 @@ void html_option_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('option')
               ? [
                   'input',

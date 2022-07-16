@@ -598,6 +598,7 @@ void html_description_list_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('dl')
               ? [
                   'input',

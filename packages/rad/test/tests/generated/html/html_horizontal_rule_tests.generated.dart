@@ -600,6 +600,7 @@ void html_horizontal_rule_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('hr')
               ? [
                   'input',

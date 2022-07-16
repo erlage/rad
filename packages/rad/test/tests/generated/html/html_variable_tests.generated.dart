@@ -598,6 +598,7 @@ void html_variable_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('var')
               ? [
                   'input',

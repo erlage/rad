@@ -598,6 +598,7 @@ void html_form_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('form')
               ? [
                   'input',

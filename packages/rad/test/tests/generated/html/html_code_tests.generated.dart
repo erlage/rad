@@ -598,6 +598,7 @@ void html_code_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('code')
               ? [
                   'input',

@@ -598,6 +598,7 @@ void html_division_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('div')
               ? [
                   'input',

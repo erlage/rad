@@ -598,6 +598,7 @@ void html_small_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('small')
               ? [
                   'input',

@@ -600,6 +600,7 @@ void html_break_line_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('br')
               ? [
                   'input',

@@ -598,6 +598,7 @@ void html_progress_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('progress')
               ? [
                   'input',

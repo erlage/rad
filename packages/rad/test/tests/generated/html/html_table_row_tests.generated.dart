@@ -598,6 +598,7 @@ void html_table_row_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('tr')
               ? [
                   'input',

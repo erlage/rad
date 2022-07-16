@@ -598,6 +598,7 @@ void html_image_map_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('map')
               ? [
                   'input',

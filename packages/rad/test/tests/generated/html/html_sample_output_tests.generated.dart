@@ -598,6 +598,7 @@ void html_sample_output_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('samp')
               ? [
                   'input',

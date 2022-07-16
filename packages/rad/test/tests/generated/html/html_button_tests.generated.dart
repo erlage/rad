@@ -598,6 +598,7 @@ void html_button_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('button')
               ? [
                   'input',

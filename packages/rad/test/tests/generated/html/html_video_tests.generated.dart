@@ -598,6 +598,7 @@ void html_video_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('video')
               ? [
                   'input',

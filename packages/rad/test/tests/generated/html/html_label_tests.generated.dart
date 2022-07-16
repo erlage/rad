@@ -598,6 +598,7 @@ void html_label_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('label')
               ? [
                   'input',

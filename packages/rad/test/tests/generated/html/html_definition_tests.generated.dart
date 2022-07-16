@@ -598,6 +598,7 @@ void html_definition_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('dfn')
               ? [
                   'input',

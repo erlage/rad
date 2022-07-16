@@ -600,6 +600,7 @@ void html_image_map_area_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('area')
               ? [
                   'input',

@@ -604,6 +604,7 @@ void html_line_break_opportunity_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('wbr')
               ? [
                   'input',

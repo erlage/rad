@@ -600,6 +600,7 @@ void html_table_column_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('col')
               ? [
                   'input',

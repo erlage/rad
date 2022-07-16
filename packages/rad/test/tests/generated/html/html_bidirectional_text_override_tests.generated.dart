@@ -602,6 +602,7 @@ void html_bidirectional_text_override_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('bdo')
               ? [
                   'input',

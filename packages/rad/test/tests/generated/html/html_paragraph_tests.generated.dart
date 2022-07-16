@@ -598,6 +598,7 @@ void html_paragraph_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('p')
               ? [
                   'input',

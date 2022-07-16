@@ -598,6 +598,7 @@ void html_menu_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('menu')
               ? [
                   'input',

@@ -598,6 +598,7 @@ void html_ordered_list_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('ol')
               ? [
                   'input',

@@ -598,6 +598,7 @@ void html_figure_caption_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('figcaption')
               ? [
                   'input',

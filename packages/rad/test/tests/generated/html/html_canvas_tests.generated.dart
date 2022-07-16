@@ -598,6 +598,7 @@ void html_canvas_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('canvas')
               ? [
                   'input',

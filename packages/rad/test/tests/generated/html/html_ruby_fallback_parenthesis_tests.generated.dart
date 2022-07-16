@@ -602,6 +602,7 @@ void html_ruby_fallback_parenthesis_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('rp')
               ? [
                   'input',

@@ -598,6 +598,7 @@ void html_mark_text_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('mark')
               ? [
                   'input',

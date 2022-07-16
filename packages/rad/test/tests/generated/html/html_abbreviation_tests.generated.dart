@@ -598,6 +598,7 @@ void html_abbreviation_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('abbr')
               ? [
                   'input',

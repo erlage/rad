@@ -598,6 +598,7 @@ void html_inline_quotation_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('q')
               ? [
                   'input',

@@ -598,6 +598,7 @@ void html_text_area_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('textarea')
               ? [
                   'input',

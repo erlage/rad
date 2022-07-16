@@ -598,6 +598,7 @@ void html_span_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('span')
               ? [
                   'input',

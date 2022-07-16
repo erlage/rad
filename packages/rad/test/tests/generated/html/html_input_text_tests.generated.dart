@@ -600,6 +600,7 @@ void html_input_text_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('input')
               ? [
                   'input',

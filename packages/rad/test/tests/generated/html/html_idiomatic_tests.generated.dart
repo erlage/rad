@@ -598,6 +598,7 @@ void html_idiomatic_test() {
             'hr',
             'input',
             'wbr',
+            'track',
           ].contains('i')
               ? [
                   'input',
