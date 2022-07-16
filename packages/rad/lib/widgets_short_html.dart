@@ -92,6 +92,7 @@ import 'package:rad/src/widgets/html/table.dart';
 import 'package:rad/src/widgets/html/textarea.dart';
 import 'package:rad/src/widgets/html/time.dart';
 import 'package:rad/src/widgets/html/unordered_list.dart';
+import 'package:rad/src/widgets/html/variable.dart';
 import 'package:rad/src/widgets/html/video.dart';
 
 typedef a = Anchor;
@@ -185,5 +186,6 @@ typedef time = Time;
 typedef tr = TableRow;
 typedef track = EmbedTextTrack;
 typedef ul = UnOrderedList;
+typedef vartag = Variable;
 typedef video = Video;
 typedef wbr = LineBreakOpportunity;

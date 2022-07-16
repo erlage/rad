@@ -255,7 +255,7 @@ Similarity tags:
 , [tr](https://pub.dev/documentation/rad/latest/widgets_short_tags/tr.html)
 , [track](https://pub.dev/documentation/rad/latest/widgets_short_tags/track.html)
 , [ul](https://pub.dev/documentation/rad/latest/widgets_short_tags/ul.html)
-, [var](https://pub.dev/documentation/rad/latest/widgets_short_tags/var.html)
+, [vartag](https://pub.dev/documentation/rad/latest/widgets_short_tags/vartag.html)
 , [video](https://pub.dev/documentation/rad/latest/widgets_short_tags/video.html)
 , [wbr](https://pub.dev/documentation/rad/latest/widgets_short_tags/wbr.html)
 
