@@ -111,6 +111,7 @@ widget_specific_tests = {
     'Navigation': ['widget_specific_html_widgets'],
     'OrderedList': ['widget_specific_html_widgets'],
     'Option': ['widget_specific_html_widgets'],
+    'Output': ['widget_specific_html_widgets'],
     'Paragraph': ['widget_specific_html_widgets'],
     'Picture': ['widget_specific_html_widgets'],
     'Portal': ['widget_specific_html_widgets'],

@@ -224,6 +224,7 @@ Similarity tags:
 , [Navigation](https://pub.dev/documentation/rad/latest/widgets_html/Navigation-class.html)
 , [OrderedList](https://pub.dev/documentation/rad/latest/widgets_html/OrderedList-class.html)
 , [Option](https://pub.dev/documentation/rad/latest/widgets_html/Option-class.html)
+, [Output](https://pub.dev/documentation/rad/latest/widgets_html/Output-class.html)
 , [Paragraph](https://pub.dev/documentation/rad/latest/widgets_html/Paragraph-class.html)
 , [Picture](https://pub.dev/documentation/rad/latest/widgets_html/Picture-class.html)
 , [Portal](https://pub.dev/documentation/rad/latest/widgets_html/Portal-class.html)

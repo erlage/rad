@@ -193,6 +193,11 @@ widget_specific_tests = {
         'html_attr_selected',
         'html_attr_disabled',
     ],
+    'Output': [
+        'html_attr_name',
+        'html_attr_form',
+        'html_attr_for_attribute',
+    ],
     'Portal': [
         'html_attr_referrerpolicy',
         'html_attr_src',
@@ -388,6 +393,7 @@ widgets_map = {
     'Navigation': 'nav',
     'OrderedList': 'ol',
     'Option': 'option',
+    'Output': 'output',
     'Paragraph': 'p',
     'Picture': 'picture',
     'Portal': 'portal',
