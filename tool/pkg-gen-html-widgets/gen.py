@@ -298,6 +298,7 @@ def apply_commons(file_name, contents):
     contents = contents.replace('Attributes.crossOrigin', "'crossorigin'")
     contents = contents.replace('Attributes.loop', "'loop'")
     contents = contents.replace('Attributes.muted', "'muted'")
+    contents = contents.replace('Attributes.preload', "'preload'")
 
     contents = contents.replace('Properties.value', "'value'")
     contents = contents.replace('Properties.innerHtml', "'innerHtml'")

@@ -212,6 +212,10 @@ Map<String, String?> _prepareAttributes({
     }
   }
 
+  if (widget.preload != oldWidget?.preload) {
+    attributes[Attributes.preload] = widget.preload?.nativeName;
+  }
+
   if (widget.src != oldWidget?.src) {
     attributes[Attributes.src] = widget.src;
   }

@@ -133,6 +133,7 @@ class Attributes {
   static const crossOrigin = 'crossorigin';
   static const loop = 'loop';
   static const muted = 'muted';
+  static const preload = 'preload';
 
   // meta
 
