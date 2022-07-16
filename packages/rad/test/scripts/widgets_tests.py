@@ -62,6 +62,7 @@ widget_specific_tests = {
     'Code': ['widget_specific_html_widgets'],
     'DescriptionDetails': ['widget_specific_html_widgets'],
     'DescriptionList': ['widget_specific_html_widgets'],
+    'DescriptionTerm': ['widget_specific_html_widgets'],
     'Division': ['widget_specific_html_widgets'],
     'FieldSet': ['widget_specific_html_widgets'],
     'Footer': ['widget_specific_html_widgets'],

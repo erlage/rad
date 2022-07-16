@@ -163,6 +163,7 @@ enum DomTagType {
   code('code'),
   descriptionDetails('dd'),
   descriptionList('dl'),
+  descriptionTerm('dt'),
   division('div'),
   fieldSet('fieldset'),
   footer('footer'),

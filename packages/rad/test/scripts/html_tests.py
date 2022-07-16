@@ -238,6 +238,7 @@ widgets_map = {
     'Code': 'code',
     'DescriptionDetails': 'dd',
     'DescriptionList': 'dl',
+    'DescriptionTerm': 'dt',
     'Division': 'div',
     'FieldSet': 'fieldset',
     'Footer': 'footer',

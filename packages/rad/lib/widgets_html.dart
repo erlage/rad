@@ -17,6 +17,7 @@ export 'src/widgets/html/caption.dart' show Caption;
 export 'src/widgets/html/code.dart' show Code;
 export 'src/widgets/html/description_details.dart' show DescriptionDetails;
 export 'src/widgets/html/description_list.dart' show DescriptionList;
+export 'src/widgets/html/description_term.dart' show DescriptionTerm;
 export 'src/widgets/html/division.dart' show Division;
 export 'src/widgets/html/fieldset.dart' show FieldSet;
 export 'src/widgets/html/footer.dart' show Footer;
