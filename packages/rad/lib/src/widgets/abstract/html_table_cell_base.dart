@@ -77,8 +77,8 @@ abstract class HTMLTableCellBase extends HTMLWidgetBase {
   ) {
     oldWidget as HTMLTableCellBase;
 
-    return rowSpan != oldWidget.colSpan ||
-        colSpan != oldWidget.rowSpan ||
+    return rowSpan != oldWidget.rowSpan ||
+        colSpan != oldWidget.colSpan ||
         headers != oldWidget.headers ||
         super.shouldUpdateWidget(oldWidget);
   }
