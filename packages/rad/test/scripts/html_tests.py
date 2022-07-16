@@ -17,13 +17,14 @@ templates_folder = os.path.abspath(
 
 skipped_tests = {
     'html_attr_innertext': {
-        'area': ['chrome'], 
-        'img': ['chrome'],  
-        'col': ['chrome'],  
-        'br': ['chrome'],   
-        'wbr': ['chrome'],  
-        'hr': ['chrome'],   
-        'input': ['chrome'],
+        'area':     ['chrome'], 
+        'img':      ['chrome'],  
+        'col':      ['chrome'],  
+        'br':       ['chrome'],   
+        'wbr':      ['chrome'],  
+        'hr':       ['chrome'],   
+        'input':    ['chrome'],
+        'track':    ['chrome'],
     }
 }
 
