@@ -42,6 +42,12 @@ widget_specific_tests = {
         'html_attr_target',
         'html_attr_download',
     ],
+    'BidirectionalIsolate': [
+        'html_attr_dir',
+    ],
+    'BidirectionalTextOverride': [
+        'html_attr_dir',
+    ],    
     'BlockQuote': [
         'html_attr_cite',
     ],
@@ -235,6 +241,8 @@ widgets_map = {
     'Anchor': 'a',
     'Article': 'article',
     'Aside': 'aside',
+    'BidirectionalIsolate': 'bdi',
+    'BidirectionalTextOverride': 'bdo',
     'BlockQuote': 'blockquote',
     'BreakLine': 'br',
     'Button': 'button',
@@ -270,6 +278,7 @@ widgets_map = {
     'OrderedList': 'ol',
     'Option': 'option',
     'Paragraph': 'p',
+    'PreformattedText': 'pre',
     'Progress': 'progress',
     'Select': 'select',
     'Small': 'small',

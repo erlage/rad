@@ -5,7 +5,7 @@
 
 import 'dart:async';
 
-import '../../test_imports.dart' hide Text;
+import '../../test_imports.dart' hide Text, TextDirection;
 import '../../mocks/test_framework.dart';
 
 // -----------------------------------------------------------------------

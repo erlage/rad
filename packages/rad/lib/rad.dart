@@ -22,6 +22,7 @@ export 'src/core/run_app.dart' show runApp, AppRunner;
 
 export 'src/core/common/enums.dart' show Axis;
 export 'src/core/common/enums.dart' show LayoutType;
+export 'src/core/common/enums.dart' show TextDirection;
 export 'src/core/common/enums.dart' show HitTestBehavior;
 export 'src/core/common/enums.dart' show DomEventType;
 export 'src/core/common/enums.dart' show InputType;

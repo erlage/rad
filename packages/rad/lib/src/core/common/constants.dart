@@ -53,6 +53,7 @@ class Attributes {
   static const title = 'title';
   static const style = 'style';
   static const className = 'class';
+  static const dir = 'dir';
   static const hidden = 'hidden';
   static const tabIndex = 'tabindex';
   static const draggable = 'draggable';

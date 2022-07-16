@@ -32,7 +32,12 @@ rad_pkg_dir = os.path.abspath(os.path.join(root_dir, 'packages', 'rad'))
 rad_pkg_widgets_dir = os.path.abspath(os.path.join(rad_pkg_dir, 'lib', 'src', 'widgets'))
 rad_pkg_html_widgets_dir = os.path.abspath(os.path.join(rad_pkg_widgets_dir, 'html'))
 
-abstract_files = ['html_widget_base.dart', 'table_cell_base.dart', 'table_column_base.dart']
+abstract_files = [
+    'html_widget_base.dart',
+    'html_bidirectional_base.dart',
+    'table_cell_base.dart',
+    'table_column_base.dart',
+]
 
 rexp_core_import = re.compile("(import 'package:rad\/src\/)([^;]*);")
 
@@ -234,6 +239,7 @@ def apply_commons(file_name, contents):
     contents = contents.replace('Attributes.title', "'title'")
     contents = contents.replace('Attributes.style', "'style'")
     contents = contents.replace('Attributes.className', "'class'")
+    contents = contents.replace('Attributes.dir', "'dir'")
     contents = contents.replace('Attributes.hidden', "'hidden'")
     contents = contents.replace('Attributes.tabIndex', "'tabindex'")
     contents = contents.replace('Attributes.draggable', "'draggable'")

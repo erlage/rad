@@ -9,6 +9,9 @@ export 'src/widgets/html/address.dart' show Address;
 export 'src/widgets/html/anchor.dart' show Anchor;
 export 'src/widgets/html/article.dart' show Article;
 export 'src/widgets/html/aside.dart' show Aside;
+export 'src/widgets/html/bidirectional_isolate.dart' show BidirectionalIsolate;
+export 'src/widgets/html/bidirectional_text_override.dart'
+    show BidirectionalTextOverride;
 export 'src/widgets/html/block_quote.dart' show BlockQuote;
 export 'src/widgets/html/break_line.dart' show BreakLine;
 export 'src/widgets/html/button.dart' show Button;
@@ -39,6 +42,7 @@ export 'src/widgets/html/navigation.dart' show Navigation;
 export 'src/widgets/html/ordered_list.dart' show OrderedList;
 export 'src/widgets/html/option.dart' show Option;
 export 'src/widgets/html/paragraph.dart' show Paragraph;
+export 'src/widgets/html/preformatted_text.dart' show PreformattedText;
 export 'src/widgets/html/progress.dart' show Progress;
 export 'src/widgets/html/select.dart' show Select;
 export 'src/widgets/html/small.dart' show Small;

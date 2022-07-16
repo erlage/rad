@@ -91,6 +91,19 @@ enum DomEventType {
   const DomEventType(this.nativeName);
 }
 
+/// Text render direction.
+///
+enum TextDirection {
+  leftToRight('ltr'),
+  rightToLeft('rtl'),
+  auto('auto'),
+  ;
+
+  final String nativeName;
+
+  const TextDirection(this.nativeName);
+}
+
 /// HTML Input type.
 ///
 enum InputType {
@@ -171,6 +184,8 @@ enum DomTagType {
   anchor('a'),
   article('article'),
   aside('aside'),
+  bidirectionalTextOverride('bdo'),
+  bidirectionalIsolate('bdi'),
   blockQuote('blockquote'),
   breakLine('br'),
   button('button'),
@@ -206,6 +221,7 @@ enum DomTagType {
   orderedList('ol'),
   option('option'),
   paragraph('p'),
+  preformattedText('pre'),
   progress('progress'),
   select('select'),
   small('small'),
