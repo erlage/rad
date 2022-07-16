@@ -142,7 +142,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (widget.src != oldWidget?.src) {
-    attributes[Attributes.download] = widget.src;
+    attributes[Attributes.src] = widget.src;
   }
 
   return attributes;
