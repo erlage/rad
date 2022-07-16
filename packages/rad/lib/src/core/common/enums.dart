@@ -313,6 +313,7 @@ enum DomTagType {
   markText('mark'),
   mediaSource('source'),
   menu('menu'),
+  meter('meter'),
   navigation('nav'),
   option('option'),
   optionGroup('optgroup'),

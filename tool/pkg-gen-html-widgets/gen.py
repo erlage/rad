@@ -308,6 +308,10 @@ def apply_commons(file_name, contents):
     contents = contents.replace('Attributes.srcSet', "'srcset'")
     contents = contents.replace('Attributes.open', "'open'")
     contents = contents.replace('Attributes.form', "'form'")
+    contents = contents.replace('Attributes.min', "'min'")
+    contents = contents.replace('Attributes.low', "'low'")
+    contents = contents.replace('Attributes.high', "'high'")
+    contents = contents.replace('Attributes.optimum', "'optimum'")
 
     contents = contents.replace('Properties.value', "'value'")
     contents = contents.replace('Properties.innerHtml', "'innerHtml'")

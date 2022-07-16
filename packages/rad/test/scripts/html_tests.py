@@ -182,6 +182,14 @@ widget_specific_tests = {
         'html_attr_height',
         'html_attr_width',
     ],
+    'Meter': [
+        'html_attr_value_int',
+        'html_attr_max',
+        'html_attr_min',
+        'html_attr_high',
+        'html_attr_low',
+        'html_attr_optimum',
+    ],
     'OrderedList': [
         'html_attr_start',
         'html_attr_reversed',
@@ -394,6 +402,7 @@ widgets_map = {
     'MarkText': 'mark',
     'MediaSource': 'source',
     'Menu': 'menu',
+    'Meter': 'meter',
     'Navigation': 'nav',
     'OrderedList': 'ol',
     'Option': 'option',

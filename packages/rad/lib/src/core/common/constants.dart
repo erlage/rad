@@ -111,7 +111,6 @@ class Attributes {
 
   // mixed
 
-  static const max = 'max';
   static const label = 'label';
   static const selected = 'selected';
   static const forAttribute = 'for';
@@ -144,6 +143,12 @@ class Attributes {
   static const media = 'media';
   static const open = 'open';
   static const form = 'form';
+
+  static const max = 'max';
+  static const min = 'min';
+  static const high = 'high';
+  static const low = 'low';
+  static const optimum = 'optimum';
 
   // meta
 

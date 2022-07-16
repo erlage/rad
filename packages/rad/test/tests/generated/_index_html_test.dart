@@ -67,6 +67,7 @@ part 'html/html_list_item_tests.generated.dart';
 part 'html/html_mark_text_tests.generated.dart';
 part 'html/html_media_source_tests.generated.dart';
 part 'html/html_menu_tests.generated.dart';
+part 'html/html_meter_tests.generated.dart';
 part 'html/html_navigation_tests.generated.dart';
 part 'html/html_ordered_list_tests.generated.dart';
 part 'html/html_option_tests.generated.dart';
@@ -167,6 +168,7 @@ void main() {
   html_mark_text_test();
   html_media_source_test();
   html_menu_test();
+  html_meter_test();
   html_navigation_test();
   html_ordered_list_test();
   html_option_test();

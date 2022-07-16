@@ -58,6 +58,7 @@ class RT_DomTags {
     'map',
     'mark',
     'menu',
+    'meter',
     'nav',
     'ol',
     'optgroup',

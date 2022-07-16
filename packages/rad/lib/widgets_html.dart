@@ -57,6 +57,7 @@ export 'src/widgets/html/list_item.dart' show ListItem;
 export 'src/widgets/html/mark_text.dart' show MarkText;
 export 'src/widgets/html/media_source.dart' show MediaSource;
 export 'src/widgets/html/menu.dart' show Menu;
+export 'src/widgets/html/meter.dart' show Meter;
 export 'src/widgets/html/navigation.dart' show Navigation;
 export 'src/widgets/html/option_group.dart' show OptionGroup;
 export 'src/widgets/html/option.dart' show Option;

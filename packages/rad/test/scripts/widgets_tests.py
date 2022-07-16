@@ -111,6 +111,7 @@ widget_specific_tests = {
     'MarkText': ['widget_specific_html_widgets'],
     'MediaSource': ['widget_specific_html_widgets'],
     'Menu': ['widget_specific_html_widgets'],
+    'Meter': ['widget_specific_html_widgets'],
     'Navigation': ['widget_specific_html_widgets'],
     'Option': ['widget_specific_html_widgets'],
     'OptionGroup': ['widget_specific_html_widgets'],
