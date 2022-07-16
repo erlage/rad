@@ -152,7 +152,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (widget.forAttribute != oldWidget?.forAttribute) {
-    attributes[Attributes.value] = widget.forAttribute;
+    attributes[Attributes.forAttribute] = widget.forAttribute;
   }
 
   return attributes;
