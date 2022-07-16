@@ -51,6 +51,10 @@ export 'src/widgets/html/option.dart' show Option;
 export 'src/widgets/html/paragraph.dart' show Paragraph;
 export 'src/widgets/html/preformatted_text.dart' show PreformattedText;
 export 'src/widgets/html/progress.dart' show Progress;
+export 'src/widgets/html/ruby_annotation.dart' show RubyAnnotation;
+export 'src/widgets/html/ruby_fallback_parenthesis.dart'
+    show RubyFallbackParenthesis;
+export 'src/widgets/html/ruby_text.dart' show RubyText;
 export 'src/widgets/html/select.dart' show Select;
 export 'src/widgets/html/small.dart' show Small;
 export 'src/widgets/html/span.dart' show Span;
