@@ -354,7 +354,7 @@ widgets_map = {
     'OrderedList': 'ol',
     'Option': 'option',
     'Paragraph': 'p',
-    'Picture': 'pre',
+    'Picture': 'picture',
     'PreformattedText': 'pre',
     'Progress': 'progress',
     'RubyAnnotation': 'ruby',
