@@ -599,6 +599,7 @@ void html_anchor_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('a')
               ? [
                   'input',

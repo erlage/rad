@@ -599,6 +599,7 @@ void html_list_item_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('li')
               ? [
                   'input',

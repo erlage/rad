@@ -599,6 +599,7 @@ void html_legend_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('legend')
               ? [
                   'input',

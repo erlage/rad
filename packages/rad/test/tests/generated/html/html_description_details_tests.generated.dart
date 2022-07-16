@@ -599,6 +599,7 @@ void html_description_details_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('dd')
               ? [
                   'input',

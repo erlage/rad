@@ -599,6 +599,7 @@ void html_definition_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('dfn')
               ? [
                   'input',

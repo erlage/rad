@@ -599,6 +599,7 @@ void html_table_head_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('thead')
               ? [
                   'input',

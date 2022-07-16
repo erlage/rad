@@ -599,6 +599,7 @@ void html_table_data_cell_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('td')
               ? [
                   'input',

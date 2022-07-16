@@ -599,6 +599,7 @@ void html_audio_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('audio')
               ? [
                   'input',

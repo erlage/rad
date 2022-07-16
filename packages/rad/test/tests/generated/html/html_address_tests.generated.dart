@@ -599,6 +599,7 @@ void html_address_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('address')
               ? [
                   'input',

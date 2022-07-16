@@ -599,6 +599,7 @@ void html_table_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('table')
               ? [
                   'input',

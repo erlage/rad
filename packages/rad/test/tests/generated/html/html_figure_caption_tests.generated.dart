@@ -599,6 +599,7 @@ void html_figure_caption_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('figcaption')
               ? [
                   'input',

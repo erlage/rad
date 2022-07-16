@@ -599,6 +599,7 @@ void html_field_set_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('fieldset')
               ? [
                   'input',

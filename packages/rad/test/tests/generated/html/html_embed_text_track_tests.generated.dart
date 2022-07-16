@@ -601,6 +601,7 @@ void html_embed_text_track_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('track')
               ? [
                   'input',

@@ -599,6 +599,7 @@ void html_strike_through_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('s')
               ? [
                   'input',

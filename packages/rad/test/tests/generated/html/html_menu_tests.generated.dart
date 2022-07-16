@@ -599,6 +599,7 @@ void html_menu_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('menu')
               ? [
                   'input',

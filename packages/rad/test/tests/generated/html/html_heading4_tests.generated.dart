@@ -599,6 +599,7 @@ void html_heading4_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('h4')
               ? [
                   'input',

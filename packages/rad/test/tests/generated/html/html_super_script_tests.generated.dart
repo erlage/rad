@@ -599,6 +599,7 @@ void html_super_script_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('sup')
               ? [
                   'input',

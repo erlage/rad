@@ -599,6 +599,7 @@ void html_small_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('small')
               ? [
                   'input',

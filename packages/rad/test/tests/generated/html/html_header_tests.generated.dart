@@ -599,6 +599,7 @@ void html_header_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('header')
               ? [
                   'input',

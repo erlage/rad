@@ -599,6 +599,7 @@ void html_picture_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('picture')
               ? [
                   'input',

@@ -599,6 +599,7 @@ void html_button_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('button')
               ? [
                   'input',

@@ -599,6 +599,7 @@ void html_ruby_text_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('rt')
               ? [
                   'input',

@@ -599,6 +599,7 @@ void html_keyboard_input_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('kbd')
               ? [
                   'input',

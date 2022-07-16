@@ -599,6 +599,7 @@ void html_label_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('label')
               ? [
                   'input',

@@ -599,6 +599,7 @@ void html_paragraph_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('p')
               ? [
                   'input',

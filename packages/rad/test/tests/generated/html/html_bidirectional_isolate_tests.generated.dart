@@ -603,6 +603,7 @@ void html_bidirectional_isolate_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('bdi')
               ? [
                   'input',

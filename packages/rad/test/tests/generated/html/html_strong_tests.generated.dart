@@ -599,6 +599,7 @@ void html_strong_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('strong')
               ? [
                   'input',

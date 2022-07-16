@@ -599,6 +599,7 @@ void html_heading3_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('h3')
               ? [
                   'input',

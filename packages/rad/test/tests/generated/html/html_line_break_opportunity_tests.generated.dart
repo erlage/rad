@@ -605,6 +605,7 @@ void html_line_break_opportunity_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('wbr')
               ? [
                   'input',

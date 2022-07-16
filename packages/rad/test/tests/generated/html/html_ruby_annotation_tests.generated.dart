@@ -599,6 +599,7 @@ void html_ruby_annotation_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('ruby')
               ? [
                   'input',

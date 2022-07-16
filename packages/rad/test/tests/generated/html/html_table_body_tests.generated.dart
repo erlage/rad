@@ -599,6 +599,7 @@ void html_table_body_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('tbody')
               ? [
                   'input',

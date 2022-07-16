@@ -599,6 +599,7 @@ void html_navigation_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('nav')
               ? [
                   'input',

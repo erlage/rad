@@ -599,6 +599,7 @@ void html_option_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('option')
               ? [
                   'input',

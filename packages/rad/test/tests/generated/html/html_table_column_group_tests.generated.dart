@@ -599,6 +599,7 @@ void html_table_column_group_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('colgroup')
               ? [
                   'input',

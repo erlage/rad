@@ -599,6 +599,7 @@ void html_citation_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('cite')
               ? [
                   'input',

@@ -599,6 +599,7 @@ void html_select_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('select')
               ? [
                   'input',

@@ -599,6 +599,7 @@ void html_form_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('form')
               ? [
                   'input',

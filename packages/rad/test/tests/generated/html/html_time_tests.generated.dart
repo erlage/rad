@@ -599,6 +599,7 @@ void html_time_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('time')
               ? [
                   'input',

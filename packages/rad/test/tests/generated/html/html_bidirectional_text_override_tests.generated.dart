@@ -603,6 +603,7 @@ void html_bidirectional_text_override_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('bdo')
               ? [
                   'input',

@@ -599,6 +599,7 @@ void html_preformatted_text_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('pre')
               ? [
                   'input',

@@ -599,6 +599,7 @@ void html_table_header_cell_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('th')
               ? [
                   'input',

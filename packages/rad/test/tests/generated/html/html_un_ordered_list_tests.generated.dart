@@ -599,6 +599,7 @@ void html_un_ordered_list_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('ul')
               ? [
                   'input',

@@ -599,6 +599,7 @@ void html_data_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('data')
               ? [
                   'input',

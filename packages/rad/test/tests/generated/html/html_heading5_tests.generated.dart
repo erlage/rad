@@ -599,6 +599,7 @@ void html_heading5_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('h5')
               ? [
                   'input',

@@ -599,6 +599,7 @@ void html_code_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('code')
               ? [
                   'input',

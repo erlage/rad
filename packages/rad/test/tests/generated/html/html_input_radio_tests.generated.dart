@@ -601,6 +601,7 @@ void html_input_radio_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('input')
               ? [
                   'input',

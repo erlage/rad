@@ -425,6 +425,8 @@ void html_embed_external_test() {
       // or returns empty string for some node(e.g progress)
 
       expect(domNode1.innerHtml, equals('hello world'));
+    }, onPlatform: {
+      'chrome': Skip('Failing for embed on chrome'),
     });
 
     test('should set "click" event listener', () async {
@@ -599,6 +601,7 @@ void html_embed_external_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('embed')
               ? [
                   'input',

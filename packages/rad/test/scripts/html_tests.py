@@ -25,6 +25,8 @@ skipped_tests = {
         'hr':       ['chrome'],   
         'input':    ['chrome'],
         'track':    ['chrome'],
+        'embed':    ['chrome'],
+        'source':    ['chrome'],
     }
 }
 

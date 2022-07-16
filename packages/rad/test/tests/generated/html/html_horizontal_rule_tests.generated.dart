@@ -601,6 +601,7 @@ void html_horizontal_rule_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('hr')
               ? [
                   'input',

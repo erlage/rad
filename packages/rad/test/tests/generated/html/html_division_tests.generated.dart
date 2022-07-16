@@ -599,6 +599,7 @@ void html_division_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('div')
               ? [
                   'input',

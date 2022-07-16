@@ -599,6 +599,7 @@ void html_table_foot_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('tfoot')
               ? [
                   'input',

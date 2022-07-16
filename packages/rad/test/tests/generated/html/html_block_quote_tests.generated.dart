@@ -599,6 +599,7 @@ void html_block_quote_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('blockquote')
               ? [
                   'input',

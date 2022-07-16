@@ -599,6 +599,7 @@ void html_ordered_list_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('ol')
               ? [
                   'input',

@@ -599,6 +599,7 @@ void html_mark_text_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('mark')
               ? [
                   'input',

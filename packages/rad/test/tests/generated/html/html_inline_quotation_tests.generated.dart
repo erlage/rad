@@ -599,6 +599,7 @@ void html_inline_quotation_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('q')
               ? [
                   'input',

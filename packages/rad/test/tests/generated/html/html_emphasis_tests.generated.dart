@@ -599,6 +599,7 @@ void html_emphasis_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('em')
               ? [
                   'input',

@@ -603,6 +603,7 @@ void html_ruby_fallback_parenthesis_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('rp')
               ? [
                   'input',

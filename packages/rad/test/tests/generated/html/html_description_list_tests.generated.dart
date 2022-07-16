@@ -599,6 +599,7 @@ void html_description_list_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('dl')
               ? [
                   'input',

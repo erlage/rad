@@ -22,6 +22,7 @@ test('should set correct types and markup', () async {
         'input',
         'wbr',
         'track',
+        'embed',
       ].contains('__WidgetTag__')
             ? [
                 'input',

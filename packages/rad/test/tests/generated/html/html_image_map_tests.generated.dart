@@ -599,6 +599,7 @@ void html_image_map_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('map')
               ? [
                   'input',

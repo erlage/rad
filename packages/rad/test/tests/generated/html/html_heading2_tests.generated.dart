@@ -599,6 +599,7 @@ void html_heading2_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('h2')
               ? [
                   'input',

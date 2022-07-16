@@ -599,6 +599,7 @@ void html_figure_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('figure')
               ? [
                   'input',

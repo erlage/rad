@@ -599,6 +599,7 @@ void html_article_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('article')
               ? [
                   'input',

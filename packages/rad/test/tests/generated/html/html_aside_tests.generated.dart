@@ -599,6 +599,7 @@ void html_aside_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('aside')
               ? [
                   'input',

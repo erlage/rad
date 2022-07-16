@@ -599,6 +599,7 @@ void html_sample_output_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('samp')
               ? [
                   'input',

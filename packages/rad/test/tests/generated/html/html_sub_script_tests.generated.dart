@@ -599,6 +599,7 @@ void html_sub_script_test() {
             'input',
             'wbr',
             'track',
+            'embed',
           ].contains('sub')
               ? [
                   'input',
