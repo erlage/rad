@@ -87,6 +87,9 @@ widget_specific_tests = {
         'html_attr_width',
         'html_attr_height',
     ],
+    'InlineQuotation': [
+        'html_attr_cite',
+    ],
     'Input': [
         'html_attr_name',
         'html_attr_value',
@@ -276,10 +279,13 @@ widgets_map = {
     'IFrame': 'iframe',
     'Idiomatic': 'i',
     'Image': 'img',
+    'InlineQuotation': 'q',
     'Input': 'input',
+    'KeyboardInput': 'kbd',
     'Label': 'label',
     'Legend': 'legend',
     'ListItem': 'li',
+    'MarkText': 'mark',
     'Menu': 'menu',
     'Navigation': 'nav',
     'OrderedList': 'ol',

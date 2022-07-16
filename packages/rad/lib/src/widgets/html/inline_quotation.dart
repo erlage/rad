@@ -3,33 +3,33 @@
 // found in the LICENSE file.
 
 import 'package:meta/meta.dart';
-
 import 'package:rad/src/core/common/constants.dart';
+
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-/// The Data widget (HTML's `data` tag).
+/// The InlineQuotation widget (HTML's `q` tag).
 ///
-class Data extends HTMLWidgetBase {
-  /// This attribute specifies the machine-readable translation of the content
-  /// of the element.
+class InlineQuotation extends HTMLWidgetBase {
+  /// The value of this attribute is a URL that designates a source document or
+  /// message for the information quoted.
   ///
-  final String? value;
+  final String? cite;
 
-  const Data({
-    this.value,
+  const InlineQuotation({
+    this.cite,
     Key? key,
+    bool? hidden,
+    bool? draggable,
+    bool? contentEditable,
+    int? tabIndex,
     String? id,
     String? title,
     String? style,
     String? className,
-    int? tabIndex,
-    bool? draggable,
-    bool? contentEditable,
-    bool? hidden,
     String? innerText,
     List<Widget>? children,
     EventCallback? onClick,
@@ -38,12 +38,12 @@ class Data extends HTMLWidgetBase {
           key: key,
           id: id,
           title: title,
-          style: style,
-          className: className,
           tabIndex: tabIndex,
           draggable: draggable,
           contentEditable: contentEditable,
           hidden: hidden,
+          style: style,
+          className: className,
           innerText: innerText,
           children: children,
           onClick: onClick,
@@ -52,14 +52,14 @@ class Data extends HTMLWidgetBase {
 
   @nonVirtual
   @override
-  String get widgetType => 'Data';
+  String get widgetType => 'InlineQuotation';
 
   @override
-  DomTagType get correspondingTag => DomTagType.data;
+  DomTagType get correspondingTag => DomTagType.inlineQuotation;
 
   @override
-  bool shouldUpdateWidget(covariant Data oldWidget) {
-    return value != oldWidget.value || super.shouldUpdateWidget(oldWidget);
+  bool shouldUpdateWidget(covariant InlineQuotation oldWidget) {
+    return cite != oldWidget.cite || super.shouldUpdateWidget(oldWidget);
   }
 
   @override
@@ -79,7 +79,7 @@ class DataRenderElement extends HTMLRenderElementBase {
 
   @override
   render({
-    required covariant Data widget,
+    required covariant InlineQuotation widget,
   }) {
     var domNodeDescription = super.render(
       widget: widget,
@@ -98,8 +98,8 @@ class DataRenderElement extends HTMLRenderElementBase {
   @override
   update({
     required updateType,
-    required covariant Data oldWidget,
-    required covariant Data newWidget,
+    required covariant InlineQuotation oldWidget,
+    required covariant InlineQuotation newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
@@ -125,13 +125,13 @@ class DataRenderElement extends HTMLRenderElementBase {
 */
 
 Map<String, String?> _prepareAttributes({
-  required Data widget,
-  required Data? oldWidget,
+  required InlineQuotation widget,
+  required InlineQuotation? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
-  if (widget.value != oldWidget?.value) {
-    attributes[Attributes.value] = widget.value;
+  if (widget.cite != oldWidget?.cite) {
+    attributes[Attributes.cite] = widget.cite;
   }
 
   return attributes;
