@@ -600,6 +600,7 @@ void html_list_item_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('li')
               ? [
                   'input',

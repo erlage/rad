@@ -600,6 +600,7 @@ void html_division_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('div')
               ? [
                   'input',

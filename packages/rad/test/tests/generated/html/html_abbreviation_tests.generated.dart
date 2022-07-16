@@ -600,6 +600,7 @@ void html_abbreviation_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('abbr')
               ? [
                   'input',

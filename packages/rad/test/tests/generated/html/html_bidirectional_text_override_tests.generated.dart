@@ -604,6 +604,7 @@ void html_bidirectional_text_override_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('bdo')
               ? [
                   'input',

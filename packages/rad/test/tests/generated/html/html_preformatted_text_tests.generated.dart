@@ -600,6 +600,7 @@ void html_preformatted_text_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('pre')
               ? [
                   'input',

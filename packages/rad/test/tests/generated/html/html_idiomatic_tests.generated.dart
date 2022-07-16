@@ -600,6 +600,7 @@ void html_idiomatic_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('i')
               ? [
                   'input',

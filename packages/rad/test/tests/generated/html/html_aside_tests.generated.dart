@@ -600,6 +600,7 @@ void html_aside_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('aside')
               ? [
                   'input',

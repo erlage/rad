@@ -602,6 +602,7 @@ void html_image_map_area_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('area')
               ? [
                   'input',

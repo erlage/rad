@@ -600,6 +600,7 @@ void html_code_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('code')
               ? [
                   'input',

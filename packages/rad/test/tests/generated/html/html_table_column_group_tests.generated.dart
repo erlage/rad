@@ -600,6 +600,7 @@ void html_table_column_group_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('colgroup')
               ? [
                   'input',

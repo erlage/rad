@@ -600,6 +600,7 @@ void html_portal_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('portal')
               ? [
                   'input',

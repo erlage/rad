@@ -600,6 +600,7 @@ void html_keyboard_input_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('kbd')
               ? [
                   'input',

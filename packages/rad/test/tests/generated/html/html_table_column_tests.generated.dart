@@ -602,6 +602,7 @@ void html_table_column_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('col')
               ? [
                   'input',

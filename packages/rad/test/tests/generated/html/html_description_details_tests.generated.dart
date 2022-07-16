@@ -600,6 +600,7 @@ void html_description_details_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('dd')
               ? [
                   'input',

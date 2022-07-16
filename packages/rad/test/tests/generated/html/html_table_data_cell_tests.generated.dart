@@ -600,6 +600,7 @@ void html_table_data_cell_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('td')
               ? [
                   'input',

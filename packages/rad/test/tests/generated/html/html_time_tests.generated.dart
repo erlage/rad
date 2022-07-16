@@ -600,6 +600,7 @@ void html_time_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('time')
               ? [
                   'input',

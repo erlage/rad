@@ -600,6 +600,7 @@ void html_table_foot_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('tfoot')
               ? [
                   'input',

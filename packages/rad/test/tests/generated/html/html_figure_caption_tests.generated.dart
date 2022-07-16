@@ -600,6 +600,7 @@ void html_figure_caption_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('figcaption')
               ? [
                   'input',

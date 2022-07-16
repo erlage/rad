@@ -600,6 +600,7 @@ void html_strong_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('strong')
               ? [
                   'input',

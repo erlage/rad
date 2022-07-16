@@ -600,6 +600,7 @@ void html_strike_through_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('s')
               ? [
                   'input',

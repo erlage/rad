@@ -600,6 +600,7 @@ void html_i_frame_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('iframe')
               ? [
                   'input',

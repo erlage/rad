@@ -600,6 +600,7 @@ void html_header_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('header')
               ? [
                   'input',

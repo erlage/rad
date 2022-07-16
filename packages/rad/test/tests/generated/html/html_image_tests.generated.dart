@@ -602,6 +602,7 @@ void html_image_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('img')
               ? [
                   'input',

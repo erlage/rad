@@ -600,6 +600,7 @@ void html_citation_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('cite')
               ? [
                   'input',

@@ -600,6 +600,7 @@ void html_emphasis_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('em')
               ? [
                   'input',

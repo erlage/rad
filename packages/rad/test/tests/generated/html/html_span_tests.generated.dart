@@ -600,6 +600,7 @@ void html_span_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('span')
               ? [
                   'input',

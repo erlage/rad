@@ -600,6 +600,7 @@ void html_table_header_cell_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('th')
               ? [
                   'input',

@@ -600,6 +600,7 @@ void html_label_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('label')
               ? [
                   'input',

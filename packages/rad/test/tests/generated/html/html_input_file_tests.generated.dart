@@ -602,6 +602,7 @@ void html_input_file_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('input')
               ? [
                   'input',

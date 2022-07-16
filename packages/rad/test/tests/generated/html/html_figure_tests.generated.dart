@@ -600,6 +600,7 @@ void html_figure_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('figure')
               ? [
                   'input',

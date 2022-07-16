@@ -600,6 +600,7 @@ void html_caption_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('caption')
               ? [
                   'input',

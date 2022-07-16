@@ -602,6 +602,7 @@ void html_media_source_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('source')
               ? [
                   'input',

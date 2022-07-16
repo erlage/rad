@@ -600,6 +600,7 @@ void html_paragraph_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('p')
               ? [
                   'input',

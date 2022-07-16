@@ -600,6 +600,7 @@ void html_button_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('button')
               ? [
                   'input',

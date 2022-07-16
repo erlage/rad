@@ -600,6 +600,7 @@ void html_heading1_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('h1')
               ? [
                   'input',

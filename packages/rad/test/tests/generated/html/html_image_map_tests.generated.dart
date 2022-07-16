@@ -600,6 +600,7 @@ void html_image_map_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('map')
               ? [
                   'input',

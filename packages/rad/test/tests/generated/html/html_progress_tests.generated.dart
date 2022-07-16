@@ -600,6 +600,7 @@ void html_progress_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('progress')
               ? [
                   'input',

@@ -600,6 +600,7 @@ void html_table_head_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('thead')
               ? [
                   'input',

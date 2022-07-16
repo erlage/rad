@@ -600,6 +600,7 @@ void html_form_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('form')
               ? [
                   'input',

@@ -600,6 +600,7 @@ void html_table_body_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('tbody')
               ? [
                   'input',

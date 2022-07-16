@@ -600,6 +600,7 @@ void html_variable_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('var')
               ? [
                   'input',

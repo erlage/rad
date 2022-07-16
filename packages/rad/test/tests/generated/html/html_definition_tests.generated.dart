@@ -600,6 +600,7 @@ void html_definition_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('dfn')
               ? [
                   'input',

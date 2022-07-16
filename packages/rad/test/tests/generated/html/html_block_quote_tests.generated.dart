@@ -600,6 +600,7 @@ void html_block_quote_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('blockquote')
               ? [
                   'input',

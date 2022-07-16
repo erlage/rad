@@ -600,6 +600,7 @@ void html_picture_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('picture')
               ? [
                   'input',

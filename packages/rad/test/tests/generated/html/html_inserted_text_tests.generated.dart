@@ -600,6 +600,7 @@ void html_inserted_text_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('ins')
               ? [
                   'input',

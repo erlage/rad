@@ -600,6 +600,7 @@ void html_footer_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('footer')
               ? [
                   'input',

@@ -600,6 +600,7 @@ void html_super_script_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('sup')
               ? [
                   'input',

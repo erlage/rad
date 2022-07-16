@@ -600,6 +600,7 @@ void html_ruby_text_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('rt')
               ? [
                   'input',

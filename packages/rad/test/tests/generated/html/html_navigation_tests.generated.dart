@@ -600,6 +600,7 @@ void html_navigation_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('nav')
               ? [
                   'input',

@@ -602,6 +602,7 @@ void html_embed_external_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('embed')
               ? [
                   'input',

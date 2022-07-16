@@ -600,6 +600,7 @@ void html_legend_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('legend')
               ? [
                   'input',

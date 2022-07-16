@@ -600,6 +600,7 @@ void html_text_area_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('textarea')
               ? [
                   'input',

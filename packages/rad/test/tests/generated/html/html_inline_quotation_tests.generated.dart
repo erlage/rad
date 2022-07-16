@@ -600,6 +600,7 @@ void html_inline_quotation_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('q')
               ? [
                   'input',

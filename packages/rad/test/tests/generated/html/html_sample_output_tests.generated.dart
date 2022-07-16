@@ -600,6 +600,7 @@ void html_sample_output_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('samp')
               ? [
                   'input',

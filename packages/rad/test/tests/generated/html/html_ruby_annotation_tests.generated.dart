@@ -600,6 +600,7 @@ void html_ruby_annotation_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('ruby')
               ? [
                   'input',

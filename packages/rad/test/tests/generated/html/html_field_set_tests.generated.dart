@@ -600,6 +600,7 @@ void html_field_set_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('fieldset')
               ? [
                   'input',

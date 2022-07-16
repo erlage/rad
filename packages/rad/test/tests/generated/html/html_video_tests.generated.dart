@@ -600,6 +600,7 @@ void html_video_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('video')
               ? [
                   'input',

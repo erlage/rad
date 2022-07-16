@@ -600,6 +600,7 @@ void html_canvas_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('canvas')
               ? [
                   'input',

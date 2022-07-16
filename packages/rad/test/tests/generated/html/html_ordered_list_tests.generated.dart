@@ -600,6 +600,7 @@ void html_ordered_list_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('ol')
               ? [
                   'input',

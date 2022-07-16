@@ -600,6 +600,7 @@ void html_description_list_test() {
             'wbr',
             'track',
             'embed',
+            'source',
           ].contains('dl')
               ? [
                   'input',
