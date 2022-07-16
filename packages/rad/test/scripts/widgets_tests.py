@@ -29,11 +29,14 @@ no_tests_for = [
     'ValueListenableBuilder',
     'RawEventDetector',
     'Text',
-    'InputText',
+    
+    # html
+    
+    'InputCheckBox',
     'InputFile',
     'InputRadio',
     'InputSubmit',
-    'InputCheckBox',
+    'InputText',
 ]
 
 widget_specific_tests = {
@@ -51,8 +54,8 @@ widget_specific_tests = {
 
     # html,
 
-    'Address': ['widget_specific_html_widgets'],
     'Abbreviation': ['widget_specific_html_widgets'],
+    'Address': ['widget_specific_html_widgets'],
     'Anchor': ['widget_specific_html_widgets'],
     'Article': ['widget_specific_html_widgets'],
     'Aside': ['widget_specific_html_widgets'],
@@ -75,25 +78,25 @@ widget_specific_tests = {
     'DescriptionTerm': ['widget_specific_html_widgets'],
     'Details': ['widget_specific_html_widgets'],
     'Dialog': ['widget_specific_html_widgets'],
+    'Division': ['widget_specific_html_widgets'],
     'EmbedExternal': ['widget_specific_html_widgets'],
     'EmbedTextTrack': ['widget_specific_html_widgets'],
     'Emphasis': ['widget_specific_html_widgets'],
-    'Division': ['widget_specific_html_widgets'],
     'FieldSet': ['widget_specific_html_widgets'],
     'Figure': ['widget_specific_html_widgets'],
     'FigureCaption': ['widget_specific_html_widgets'],
     'Footer': ['widget_specific_html_widgets'],
     'Form': ['widget_specific_html_widgets'],
+    'Header': ['widget_specific_html_widgets'],
     'Heading1': ['widget_specific_html_widgets'],
     'Heading2': ['widget_specific_html_widgets'],
     'Heading3': ['widget_specific_html_widgets'],
     'Heading4': ['widget_specific_html_widgets'],
     'Heading5': ['widget_specific_html_widgets'],
     'Heading6': ['widget_specific_html_widgets'],
-    'Header': ['widget_specific_html_widgets'],
     'HorizontalRule': ['widget_specific_html_widgets'],
-    'IFrame': ['widget_specific_html_widgets'],
     'Idiomatic': ['widget_specific_html_widgets'],
+    'IFrame': ['widget_specific_html_widgets'],
     'Image': ['widget_specific_html_widgets'],
     'ImageMap': ['widget_specific_html_widgets'],
     'ImageMapArea': ['widget_specific_html_widgets'],
@@ -109,9 +112,9 @@ widget_specific_tests = {
     'MediaSource': ['widget_specific_html_widgets'],
     'Menu': ['widget_specific_html_widgets'],
     'Navigation': ['widget_specific_html_widgets'],
-    'OrderedList': ['widget_specific_html_widgets'],
     'Option': ['widget_specific_html_widgets'],
     'OptionGroup': ['widget_specific_html_widgets'],
+    'OrderedList': ['widget_specific_html_widgets'],
     'Output': ['widget_specific_html_widgets'],
     'Paragraph': ['widget_specific_html_widgets'],
     'Picture': ['widget_specific_html_widgets'],
@@ -122,9 +125,6 @@ widget_specific_tests = {
     'RubyFallbackParenthesis': ['widget_specific_html_widgets'],
     'RubyText': ['widget_specific_html_widgets'],
     'SampleOutput': ['widget_specific_html_widgets'],
-    'Time': ['widget_specific_html_widgets'],
-    'Variable': ['widget_specific_html_widgets'],
-    'Video': ['widget_specific_html_widgets'],
     'Select': ['widget_specific_html_widgets'],
     'Small': ['widget_specific_html_widgets'],
     'Span': ['widget_specific_html_widgets'],
@@ -143,7 +143,10 @@ widget_specific_tests = {
     'TableHeaderCell': ['widget_specific_html_widgets'],
     'TableRow': ['widget_specific_html_widgets'],
     'TextArea': ['widget_specific_html_widgets'],
+    'Time': ['widget_specific_html_widgets'],
     'UnOrderedList': ['widget_specific_html_widgets'],
+    'Variable': ['widget_specific_html_widgets'],
+    'Video': ['widget_specific_html_widgets'],
 }
 
 widgets_pattern = re.compile(r'^class ([\w]*) extends (Widget|Input|Span|Division|HTMLWidgetBase|HTMLTableCellBase|HTMLTableColumnBase|HTMLBidirectionalBase|StatefulWidget|StatelessWidget) {', re.M)
