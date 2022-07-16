@@ -193,6 +193,10 @@ widget_specific_tests = {
         'html_attr_selected',
         'html_attr_disabled',
     ],
+    'OptionGroup': [
+        'html_attr_label',
+        'html_attr_disabled',
+    ],
     'Output': [
         'html_attr_name',
         'html_attr_form',
@@ -393,6 +397,7 @@ widgets_map = {
     'Navigation': 'nav',
     'OrderedList': 'ol',
     'Option': 'option',
+    'OptionGroup': 'optgroup',
     'Output': 'output',
     'Paragraph': 'p',
     'Picture': 'picture',

@@ -60,6 +60,7 @@ export 'src/widgets/html/menu.dart' show Menu;
 export 'src/widgets/html/navigation.dart' show Navigation;
 export 'src/widgets/html/ordered_list.dart' show OrderedList;
 export 'src/widgets/html/option.dart' show Option;
+export 'src/widgets/html/option_group.dart' show OptionGroup;
 export 'src/widgets/html/output.dart' show Output;
 export 'src/widgets/html/paragraph.dart' show Paragraph;
 export 'src/widgets/html/picture.dart' show Picture;

@@ -64,6 +64,7 @@ class RT_DomTags {
     'nav',
     'ol',
     'option',
+    'optgroup',
     'output',
     'p',
     'picture',

@@ -70,6 +70,7 @@ part 'html/html_menu_tests.generated.dart';
 part 'html/html_navigation_tests.generated.dart';
 part 'html/html_ordered_list_tests.generated.dart';
 part 'html/html_option_tests.generated.dart';
+part 'html/html_option_group_tests.generated.dart';
 part 'html/html_output_tests.generated.dart';
 part 'html/html_paragraph_tests.generated.dart';
 part 'html/html_picture_tests.generated.dart';
@@ -169,6 +170,7 @@ void main() {
   html_navigation_test();
   html_ordered_list_test();
   html_option_test();
+  html_option_group_test();
   html_output_test();
   html_paragraph_test();
   html_picture_test();

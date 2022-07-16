@@ -316,6 +316,7 @@ enum DomTagType {
   navigation('nav'),
   orderedList('ol'),
   option('option'),
+  optionGroup('optgroup'),
   output('output'),
   paragraph('p'),
   picture('picture'),
