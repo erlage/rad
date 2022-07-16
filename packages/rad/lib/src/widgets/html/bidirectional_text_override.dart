@@ -12,7 +12,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The BidirectionalTextOverride widget (HTML's `bdi` tag).
 ///
-class BidirectionalTextOverride extends HTMLBidirectionalWidgetBase {
+class BidirectionalTextOverride extends HTMLBidirectionalBase {
   const BidirectionalTextOverride({
     Key? key,
     String? id,

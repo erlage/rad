@@ -12,7 +12,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The BidirectionalIsolate widget (HTML's `bdi` tag).
 ///
-class BidirectionalIsolate extends HTMLBidirectionalWidgetBase {
+class BidirectionalIsolate extends HTMLBidirectionalBase {
   const BidirectionalIsolate({
     Key? key,
     String? id,

@@ -3,20 +3,23 @@
 // found in the LICENSE file.
 
 import 'package:meta/meta.dart';
-import 'package:rad/rad.dart';
 
 import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
+import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Abstract class for Bidirectional HTML widgets.
 ///
 @internal
-abstract class HTMLBidirectionalWidgetBase extends HTMLWidgetBase {
+abstract class HTMLBidirectionalBase extends HTMLWidgetBase {
   /// The direction in which text should be rendered.
   ///
   final TextDirection? dir;
 
-  const HTMLBidirectionalWidgetBase({
+  const HTMLBidirectionalBase({
     this.dir,
     Key? key,
     String? id,
@@ -51,7 +54,7 @@ abstract class HTMLBidirectionalWidgetBase extends HTMLWidgetBase {
   bool shouldUpdateWidget(
     covariant oldWidget,
   ) {
-    oldWidget as HTMLBidirectionalWidgetBase;
+    oldWidget as HTMLBidirectionalBase;
 
     return dir != oldWidget.dir || super.shouldUpdateWidget(oldWidget);
   }
@@ -77,7 +80,7 @@ class HTMLBidirectionalBaseRenderElement extends HTMLRenderElementBase {
   @mustCallSuper
   @override
   render({
-    required covariant HTMLBidirectionalWidgetBase widget,
+    required covariant HTMLBidirectionalBase widget,
   }) {
     var domNodeDescription = super.render(
       widget: widget,
@@ -97,8 +100,8 @@ class HTMLBidirectionalBaseRenderElement extends HTMLRenderElementBase {
   @override
   update({
     required updateType,
-    required covariant HTMLBidirectionalWidgetBase oldWidget,
-    required covariant HTMLBidirectionalWidgetBase newWidget,
+    required covariant HTMLBidirectionalBase oldWidget,
+    required covariant HTMLBidirectionalBase newWidget,
   }) {
     var domNodeDescription = super.update(
       updateType: updateType,
@@ -124,8 +127,8 @@ class HTMLBidirectionalBaseRenderElement extends HTMLRenderElementBase {
 */
 
 Map<String, String?> _prepareAttributes({
-  required HTMLBidirectionalWidgetBase widget,
-  required HTMLBidirectionalWidgetBase? oldWidget,
+  required HTMLBidirectionalBase widget,
+  required HTMLBidirectionalBase? oldWidget,
 }) {
   var attributes = <String, String?>{};
 
