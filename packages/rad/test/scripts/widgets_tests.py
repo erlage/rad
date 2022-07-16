@@ -60,6 +60,8 @@ widget_specific_tests = {
     'Canvas': ['widget_specific_html_widgets'],
     'Caption': ['widget_specific_html_widgets'],
     'Code': ['widget_specific_html_widgets'],
+    'DescriptionDetails': ['widget_specific_html_widgets'],
+    'DescriptionList': ['widget_specific_html_widgets'],
     'Division': ['widget_specific_html_widgets'],
     'FieldSet': ['widget_specific_html_widgets'],
     'Footer': ['widget_specific_html_widgets'],

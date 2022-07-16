@@ -31,6 +31,8 @@ part 'widgets/widget_button_tests.generated.dart';
 part 'widgets/widget_canvas_tests.generated.dart';
 part 'widgets/widget_caption_tests.generated.dart';
 part 'widgets/widget_code_tests.generated.dart';
+part 'widgets/widget_description_details_tests.generated.dart';
+part 'widgets/widget_description_list_tests.generated.dart';
 part 'widgets/widget_division_tests.generated.dart';
 part 'widgets/widget_field_set_tests.generated.dart';
 part 'widgets/widget_footer_tests.generated.dart';
@@ -96,6 +98,8 @@ void main() {
   widget_canvas_test();
   widget_caption_test();
   widget_code_test();
+  widget_description_details_test();
+  widget_description_list_test();
   widget_division_test();
   widget_field_set_test();
   widget_footer_test();

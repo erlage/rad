@@ -161,6 +161,8 @@ enum DomTagType {
   canvas('canvas'),
   caption('caption'),
   code('code'),
+  descriptionDetails('dd'),
+  descriptionList('dl'),
   division('div'),
   fieldSet('fieldset'),
   footer('footer'),

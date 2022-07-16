@@ -236,6 +236,8 @@ widgets_map = {
     'Canvas': 'canvas',
     'Caption': 'caption',
     'Code': 'code',
+    'DescriptionDetails': 'dd',
+    'DescriptionList': 'dl',
     'Division': 'div',
     'FieldSet': 'fieldset',
     'Footer': 'footer',
