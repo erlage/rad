@@ -180,6 +180,7 @@ Similarity tags:
 , [Citation](https://pub.dev/documentation/rad/latest/widgets_html/Citation-class.html)
 , [Code](https://pub.dev/documentation/rad/latest/widgets_html/Code-class.html)
 , [Data](https://pub.dev/documentation/rad/latest/widgets_html/Data-class.html)
+, [DataList](https://pub.dev/documentation/rad/latest/widgets_html/DataList-class.html)
 , [Definition](https://pub.dev/documentation/rad/latest/widgets_html/Definition-class.html)
 , [DeletedText](https://pub.dev/documentation/rad/latest/widgets_html/DeletedText-class.html)
 , [DescriptionDetails](https://pub.dev/documentation/rad/latest/widgets_html/DescriptionDetails-class.html)

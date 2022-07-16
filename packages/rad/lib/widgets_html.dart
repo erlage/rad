@@ -21,6 +21,7 @@ export 'src/widgets/html/caption.dart' show Caption;
 export 'src/widgets/html/citation.dart' show Citation;
 export 'src/widgets/html/code.dart' show Code;
 export 'src/widgets/html/data.dart' show Data;
+export 'src/widgets/html/data_list.dart' show DataList;
 export 'src/widgets/html/definition.dart' show Definition;
 export 'src/widgets/html/deleted_text.dart' show DeletedText;
 export 'src/widgets/html/description_details.dart' show DescriptionDetails;

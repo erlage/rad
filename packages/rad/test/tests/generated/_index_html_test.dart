@@ -26,6 +26,7 @@ part 'html/html_caption_tests.generated.dart';
 part 'html/html_citation_tests.generated.dart';
 part 'html/html_code_tests.generated.dart';
 part 'html/html_data_tests.generated.dart';
+part 'html/html_data_list_tests.generated.dart';
 part 'html/html_definition_tests.generated.dart';
 part 'html/html_deleted_text_tests.generated.dart';
 part 'html/html_description_details_tests.generated.dart';
@@ -120,6 +121,7 @@ void main() {
   html_citation_test();
   html_code_test();
   html_data_test();
+  html_data_list_test();
   html_definition_test();
   html_deleted_text_test();
   html_description_details_test();

@@ -67,6 +67,7 @@ widget_specific_tests = {
     'Citation': ['widget_specific_html_widgets'],
     'Code': ['widget_specific_html_widgets'],
     'Data': ['widget_specific_html_widgets'],
+    'DataList': ['widget_specific_html_widgets'],
     'Definition': ['widget_specific_html_widgets'],
     'DeletedText': ['widget_specific_html_widgets'],
     'DescriptionDetails': ['widget_specific_html_widgets'],

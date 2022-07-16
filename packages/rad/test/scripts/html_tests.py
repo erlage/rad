@@ -338,6 +338,7 @@ widgets_map = {
     'Citation': 'cite',
     'Code': 'code',
     'Data': 'data',
+    'DataList': 'datalist',
     'Definition': 'dfn',
     'DeletedText': 'del',
     'DescriptionDetails': 'dd',

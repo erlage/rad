@@ -272,6 +272,7 @@ enum DomTagType {
   citation('cite'),
   code('code'),
   data('data'),
+  dataList('datalist'),
   definition('dfn'),
   deletedText('del'),
   descriptionDetails('dd'),

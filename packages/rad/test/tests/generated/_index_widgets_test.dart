@@ -36,6 +36,7 @@ part 'widgets/widget_caption_tests.generated.dart';
 part 'widgets/widget_citation_tests.generated.dart';
 part 'widgets/widget_code_tests.generated.dart';
 part 'widgets/widget_data_tests.generated.dart';
+part 'widgets/widget_data_list_tests.generated.dart';
 part 'widgets/widget_definition_tests.generated.dart';
 part 'widgets/widget_deleted_text_tests.generated.dart';
 part 'widgets/widget_description_details_tests.generated.dart';
@@ -135,6 +136,7 @@ void main() {
   widget_citation_test();
   widget_code_test();
   widget_data_test();
+  widget_data_list_test();
   widget_definition_test();
   widget_deleted_text_test();
   widget_description_details_test();

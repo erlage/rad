@@ -25,6 +25,7 @@ class RT_DomTags {
     'col',
     'colgroup',
     'data',
+    'datalist',
     'dd',
     'del',
     'dfn',
