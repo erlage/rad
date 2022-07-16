@@ -73,6 +73,12 @@ widget_specific_tests = {
     'Data': [
         'html_attr_value',
     ],
+    'EmbedExternal': [
+        'html_attr_width',
+        'html_attr_src',
+        'html_attr_type_string',
+        'html_attr_height',
+    ],
     'EmbedTextTrack': [
         'html_attr_default_attribute',
         'html_attr_embed_text_track_kind_type',
@@ -314,6 +320,7 @@ widgets_map = {
     'DescriptionList': 'dl',
     'DescriptionTerm': 'dt',
     'Division': 'div',
+    'EmbedExternal': 'embed',
     'EmbedTextTrack': 'track',
     'Emphasis': 'em',
     'FieldSet': 'fieldset',
@@ -347,6 +354,7 @@ widgets_map = {
     'OrderedList': 'ol',
     'Option': 'option',
     'Paragraph': 'p',
+    'Picture': 'pre',
     'PreformattedText': 'pre',
     'Progress': 'progress',
     'RubyAnnotation': 'ruby',
