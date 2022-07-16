@@ -142,6 +142,7 @@ class Attributes {
   static const srcSet = 'srcset';
   static const sizes = 'sizes';
   static const media = 'media';
+  static const open = 'open';
 
   // meta
 

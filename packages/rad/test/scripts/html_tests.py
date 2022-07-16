@@ -78,7 +78,13 @@ widget_specific_tests = {
     'DeletedText': [
         'html_attr_cite',
         'html_attr_datetime',
-    ],    
+    ],
+    'Details': [
+        'html_attr_open'
+    ],
+    'Dialog': [
+        'html_attr_open'
+    ],
     'EmbedExternal': [
         'html_attr_width',
         'html_attr_src',
@@ -344,6 +350,8 @@ widgets_map = {
     'DescriptionDetails': 'dd',
     'DescriptionList': 'dl',
     'DescriptionTerm': 'dt',
+    'Details': 'details',
+    'Dialog': 'dialog',
     'Division': 'div',
     'EmbedExternal': 'embed',
     'EmbedTextTrack': 'track',
@@ -395,6 +403,7 @@ widgets_map = {
     'StrikeThrough': 's',
     'Strong': 'strong',
     'SubScript': 'sub',
+    'Summary': 'summary',
     'SuperScript': 'sup',
     'Table': 'table',
     'TableBody': 'tbody',
