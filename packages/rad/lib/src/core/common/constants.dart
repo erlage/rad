@@ -128,6 +128,11 @@ class Attributes {
   static const ping = 'ping';
   static const referrerPolicy = 'referrerpolicy';
   static const shape = 'shape';
+  static const autoPlay = 'autoplay';
+  static const controls = 'controls';
+  static const crossOrigin = 'crossorigin';
+  static const loop = 'loop';
+  static const muted = 'muted';
 
   // meta
 

@@ -45,6 +45,15 @@ widget_specific_tests = {
         'html_attr_target',
         'html_attr_download',
     ],
+    'Audio': [
+        'html_attr_autoplay',
+        'html_attr_controls',
+        'html_attr_audio_cross_origin_type',
+        'html_attr_loop',
+        'html_attr_muted',
+        'html_attr_audio_preload_type',
+        'html_attr_src',
+    ],
     'BidirectionalIsolate': [
         'html_attr_dir',
     ],
@@ -265,6 +274,7 @@ widgets_map = {
     'Anchor': 'a',
     'Article': 'article',
     'Aside': 'aside',
+    'Audio': 'audio',
     'BidirectionalIsolate': 'bdi',
     'BidirectionalTextOverride': 'bdo',
     'BlockQuote': 'blockquote',

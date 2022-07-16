@@ -26,6 +26,8 @@ export 'src/core/common/enums.dart' show TextDirection;
 export 'src/core/common/enums.dart' show HitTestBehavior;
 export 'src/core/common/enums.dart' show DomEventType;
 export 'src/core/common/enums.dart' show InputType;
+export 'src/core/common/enums.dart' show AudioCrossOriginType;
+export 'src/core/common/enums.dart' show AudioPreloadType;
 export 'src/core/common/enums.dart' show FormEncType;
 export 'src/core/common/enums.dart' show FormMethodType;
 export 'src/core/common/enums.dart' show OrderedListType;

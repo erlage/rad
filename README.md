@@ -169,6 +169,7 @@ Similarity tags:
 , [Anchor](https://pub.dev/documentation/rad/latest/widgets_html/Anchor-class.html)
 , [Article](https://pub.dev/documentation/rad/latest/widgets_html/Article-class.html)
 , [Aside](https://pub.dev/documentation/rad/latest/widgets_html/Aside-class.html)
+, [Audio](https://pub.dev/documentation/rad/latest/widgets_html/Audio-class.html)
 , [BidirectionalIsolate](https://pub.dev/documentation/rad/latest/widgets_html/BidirectionalIsolate-class.html)
 , [BidirectionalTextOverride](https://pub.dev/documentation/rad/latest/widgets_html/BidirectionalTextOverride-class.html)
 , [BlockQuote](https://pub.dev/documentation/rad/latest/widgets_html/BlockQuote-class.html)

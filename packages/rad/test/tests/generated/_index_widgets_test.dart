@@ -25,6 +25,7 @@ part 'widgets/widget_abbreviation_tests.generated.dart';
 part 'widgets/widget_anchor_tests.generated.dart';
 part 'widgets/widget_article_tests.generated.dart';
 part 'widgets/widget_aside_tests.generated.dart';
+part 'widgets/widget_audio_tests.generated.dart';
 part 'widgets/widget_bidirectional_isolate_tests.generated.dart';
 part 'widgets/widget_bidirectional_text_override_tests.generated.dart';
 part 'widgets/widget_block_quote_tests.generated.dart';
@@ -114,6 +115,7 @@ void main() {
   widget_anchor_test();
   widget_article_test();
   widget_aside_test();
+  widget_audio_test();
   widget_bidirectional_isolate_test();
   widget_bidirectional_text_override_test();
   widget_block_quote_test();

@@ -15,6 +15,7 @@ part 'html/html_address_tests.generated.dart';
 part 'html/html_anchor_tests.generated.dart';
 part 'html/html_article_tests.generated.dart';
 part 'html/html_aside_tests.generated.dart';
+part 'html/html_audio_tests.generated.dart';
 part 'html/html_bidirectional_isolate_tests.generated.dart';
 part 'html/html_bidirectional_text_override_tests.generated.dart';
 part 'html/html_block_quote_tests.generated.dart';
@@ -99,6 +100,7 @@ void main() {
   html_anchor_test();
   html_article_test();
   html_aside_test();
+  html_audio_test();
   html_bidirectional_isolate_test();
   html_bidirectional_text_override_test();
   html_block_quote_test();

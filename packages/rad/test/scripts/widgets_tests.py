@@ -56,6 +56,7 @@ widget_specific_tests = {
     'Anchor': ['widget_specific_html_widgets'],
     'Article': ['widget_specific_html_widgets'],
     'Aside': ['widget_specific_html_widgets'],
+    'Audio': ['widget_specific_html_widgets'],
     'BidirectionalIsolate': ['widget_specific_html_widgets'],
     'BidirectionalTextOverride': ['widget_specific_html_widgets'],
     'BlockQuote': ['widget_specific_html_widgets'],

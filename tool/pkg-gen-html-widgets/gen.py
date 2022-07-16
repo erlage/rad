@@ -293,6 +293,11 @@ def apply_commons(file_name, contents):
     contents = contents.replace('Attributes.ping', "'ping'")
     contents = contents.replace('Attributes.referrerPolicy', "'referrerpolicy'")
     contents = contents.replace('Attributes.shape', "'shape'")
+    contents = contents.replace('Attributes.autoPlay', "'autoplay'")
+    contents = contents.replace('Attributes.controls', "'controls'")
+    contents = contents.replace('Attributes.crossOrigin', "'crossorigin'")
+    contents = contents.replace('Attributes.loop', "'loop'")
+    contents = contents.replace('Attributes.muted', "'muted'")
 
     contents = contents.replace('Properties.value', "'value'")
     contents = contents.replace('Properties.innerHtml', "'innerHtml'")
