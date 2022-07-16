@@ -139,6 +139,9 @@ class Attributes {
   static const srcLang = 'srclang';
   static const playsInline = 'playsinline';
   static const poster = 'poster';
+  static const srcSet = 'srcset';
+  static const sizes = 'sizes';
+  static const media = 'media';
 
   // meta
 

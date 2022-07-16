@@ -157,6 +157,15 @@ widget_specific_tests = {
     'ListItem': [
         'html_attr_value_int',
     ],
+    'MediaSource': [
+        'html_attr_type_string',
+        'html_attr_src',
+        'html_attr_src_set',
+        'html_attr_sizes',
+        'html_attr_media',
+        'html_attr_height',
+        'html_attr_width',
+    ],
     'OrderedList': [
         'html_attr_start',
         'html_attr_reversed',
@@ -167,6 +176,10 @@ widget_specific_tests = {
         'html_attr_value',
         'html_attr_selected',
         'html_attr_disabled',
+    ],
+    'Portal': [
+        'html_attr_referrerpolicy',
+        'html_attr_src',
     ],
     'Progress': [
         'html_attr_value_num',
@@ -349,12 +362,14 @@ widgets_map = {
     'LineBreakOpportunity': 'wbr',
     'ListItem': 'li',
     'MarkText': 'mark',
+    'MediaSource': 'source',
     'Menu': 'menu',
     'Navigation': 'nav',
     'OrderedList': 'ol',
     'Option': 'option',
     'Paragraph': 'p',
     'Picture': 'picture',
+    'Portal': 'portal',
     'PreformattedText': 'pre',
     'Progress': 'progress',
     'RubyAnnotation': 'ruby',

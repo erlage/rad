@@ -10,8 +10,8 @@
 
 part of '../_index_html_test.dart';
 
-void html_picture_test() {
-  group('HTML Picture tests:', () {
+void html_portal_test() {
+  group('HTML Portal tests:', () {
     RT_AppRunner? app;
 
     setUp(() {
@@ -23,9 +23,9 @@ void html_picture_test() {
     test('should set id', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(key: Key('some-key-1'), id: 'some-id-1'),
-          Picture(key: Key('some-key-2'), id: 'some-id-2'),
-          Picture(key: Key('some-key-3'), id: 'some-id-3'),
+          Portal(key: Key('some-key-1'), id: 'some-id-1'),
+          Portal(key: Key('some-key-2'), id: 'some-id-2'),
+          Portal(key: Key('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -42,9 +42,9 @@ void html_picture_test() {
     test('should reset and update id', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(key: Key('some-key-1'), id: 'some-id-1'),
-          Picture(key: Key('some-key-2'), id: 'some-id-2'),
-          Picture(key: Key('some-key-3'), id: 'some-id-3'),
+          Portal(key: Key('some-key-1'), id: 'some-id-1'),
+          Portal(key: Key('some-key-2'), id: 'some-id-2'),
+          Portal(key: Key('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -59,15 +59,15 @@ void html_picture_test() {
 
       await app!.updateChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('some-key-1'),
             id: 'some-updated-id',
           ),
-          Picture(
+          Portal(
             key: Key('some-key-2'),
             id: 'some-local-updated-id',
           ),
-          Picture(
+          Portal(
             key: Key('some-key-3'),
             id: 'some-global-updated-id',
           ),
@@ -84,15 +84,15 @@ void html_picture_test() {
     test('should set messy "id"', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('widget-1'),
             id: 'some id',
           ),
-          Picture(
+          Portal(
             key: Key('widget-2'),
             id: 'some "messy" id',
           ),
-          Picture(
+          Portal(
             key: Key('widget-3'),
             id: "some 'messy' id",
           ),
@@ -123,13 +123,13 @@ void html_picture_test() {
     test('should set children widgets', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(
+          Portal(
             id: 'widget-1',
             children: [
-              Picture(
+              Portal(
                 id: 'widget-2',
               ),
-              Picture(
+              Portal(
                 id: 'widget-3',
               ),
             ],
@@ -150,11 +150,11 @@ void html_picture_test() {
     test('should set attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('el-1'),
             className: 'some-classes',
           ),
-          Picture(
+          Portal(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -172,11 +172,11 @@ void html_picture_test() {
     test('should update attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('el-1'),
             className: 'some-classes',
           ),
-          Picture(
+          Portal(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -186,11 +186,11 @@ void html_picture_test() {
 
       await app!.updateChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('el-1'),
             className: 'updated-classes',
           ),
-          Picture(
+          Portal(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -209,8 +209,8 @@ void html_picture_test() {
     test('should clear attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(key: Key('el-1')),
-          Picture(
+          Portal(key: Key('el-1')),
+          Portal(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -220,8 +220,8 @@ void html_picture_test() {
 
       await app!.updateChildren(
         widgets: [
-          Picture(key: Key('el-1')),
-          Picture(key: Key('el-2')),
+          Portal(key: Key('el-1')),
+          Portal(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -237,7 +237,7 @@ void html_picture_test() {
     test('should clear attribute "classes" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('el-1'),
             className: 'some-classes',
           ),
@@ -247,7 +247,7 @@ void html_picture_test() {
 
       await app!.updateChildren(
         widgets: [
-          Picture(key: Key('el-1'), className: null),
+          Portal(key: Key('el-1'), className: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -262,7 +262,7 @@ void html_picture_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Picture(key: Key('el-1'), className: null),
+          Portal(key: Key('el-1'), className: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -275,15 +275,15 @@ void html_picture_test() {
     test('should set messy "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('widget-1'),
             className: 'some classes',
           ),
-          Picture(
+          Portal(
             key: Key('widget-2'),
             className: 'some "messy" classes',
           ),
-          Picture(
+          Portal(
             key: Key('widget-3'),
             className: "some 'messy' classes",
           ),
@@ -314,11 +314,11 @@ void html_picture_test() {
     test('should set contentEditable', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('widget-1'),
             contentEditable: false,
           ),
-          Picture(
+          Portal(
             key: Key('widget-2'),
             contentEditable: true,
           ),
@@ -336,11 +336,11 @@ void html_picture_test() {
     test('should set draggable', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('widget-1'),
             draggable: false,
           ),
-          Picture(
+          Portal(
             key: Key('widget-2'),
             draggable: true,
           ),
@@ -358,9 +358,9 @@ void html_picture_test() {
     test('should set attribute "hidden" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(key: Key('el-1'), hidden: false),
-          Picture(key: Key('el-2'), hidden: null),
-          Picture(key: Key('el-3'), hidden: true),
+          Portal(key: Key('el-1'), hidden: false),
+          Portal(key: Key('el-2'), hidden: null),
+          Portal(key: Key('el-3'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -378,20 +378,20 @@ void html_picture_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Picture(key: Key('el-1'), hidden: true),
-          Picture(key: Key('el-2'), hidden: true),
-          Picture(key: Key('el-3'), hidden: true),
-          Picture(key: Key('el-4'), hidden: true),
+          Portal(key: Key('el-1'), hidden: true),
+          Portal(key: Key('el-2'), hidden: true),
+          Portal(key: Key('el-3'), hidden: true),
+          Portal(key: Key('el-4'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Picture(key: Key('el-1'), hidden: true),
-          Picture(key: Key('el-2'), hidden: false),
-          Picture(key: Key('el-3'), hidden: null),
-          Picture(key: Key('el-4')),
+          Portal(key: Key('el-1'), hidden: true),
+          Portal(key: Key('el-2'), hidden: false),
+          Portal(key: Key('el-3'), hidden: null),
+          Portal(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -411,7 +411,7 @@ void html_picture_test() {
     test('should set inner text', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('widget-1'),
             innerText: 'hello world',
           ),
@@ -432,11 +432,11 @@ void html_picture_test() {
 
       await app!.buildChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('el-1'),
             onClick: (event) => testStack.push('click-1'),
           ),
-          Picture(
+          Portal(
             key: Key('el-2'),
             onClick: (event) => testStack.push('click-2'),
           ),
@@ -459,9 +459,9 @@ void html_picture_test() {
 
       await app!.buildChildren(
         widgets: [
-          Picture(key: Key('el-1')),
-          Picture(key: Key('el-2'), onClick: null),
-          Picture(key: Key('el-3'), onClick: listener),
+          Portal(key: Key('el-1')),
+          Portal(key: Key('el-2'), onClick: null),
+          Portal(key: Key('el-3'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -480,8 +480,8 @@ void html_picture_test() {
 
       await app!.buildChildren(
         widgets: [
-          Picture(key: Key('el-1')),
-          Picture(key: Key('el-2'), onClick: listener),
+          Portal(key: Key('el-1')),
+          Portal(key: Key('el-2'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -496,8 +496,8 @@ void html_picture_test() {
 
       await app!.updateChildren(
         widgets: [
-          Picture(key: Key('el-1')),
-          Picture(key: Key('el-2')),
+          Portal(key: Key('el-1')),
+          Portal(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -513,9 +513,9 @@ void html_picture_test() {
     test('should set style', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(key: Key('widget-1'), style: 'some style'),
-          Picture(key: Key('widget-2'), style: 'some "messy" style'),
-          Picture(key: Key('widget-3'), style: "some 'messy' style"),
+          Portal(key: Key('widget-1'), style: 'some style'),
+          Portal(key: Key('widget-2'), style: 'some "messy" style'),
+          Portal(key: Key('widget-3'), style: "some 'messy' style"),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -532,15 +532,15 @@ void html_picture_test() {
     test('should set tab index', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('widget-1'),
             tabIndex: 1,
           ),
-          Picture(
+          Portal(
             key: Key('widget-2'),
             tabIndex: 2,
           ),
-          Picture(
+          Portal(
             key: Key('widget-3'),
             tabIndex: 3,
           ),
@@ -560,9 +560,9 @@ void html_picture_test() {
     test('should set title', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(key: Key('widget-1'), title: 'some title'),
-          Picture(key: Key('widget-2'), title: 'some "messy" title'),
-          Picture(key: Key('widget-3'), title: "some 'messy' title"),
+          Portal(key: Key('widget-1'), title: 'some title'),
+          Portal(key: Key('widget-2'), title: 'some "messy" title'),
+          Portal(key: Key('widget-3'), title: "some 'messy' title"),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -579,7 +579,7 @@ void html_picture_test() {
     test('should set correct types and markup', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(key: Key('some-key-3')),
+          Portal(key: Key('some-key-3')),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -599,15 +599,15 @@ void html_picture_test() {
             'input',
             'wbr',
             'track',
-          ].contains('picture')
+          ].contains('portal')
               ? [
                   'input',
-                ].contains('picture')
+                ].contains('portal')
                   // becuase system set attributes for some tags
                   // e.g type="something" for input tag
-                  ? '<picture'
-                  : '<picture>'
-              : '<picture></picture>',
+                  ? '<portal'
+                  : '<portal>'
+              : '<portal></portal>',
         ),
       );
     });
@@ -617,7 +617,7 @@ void html_picture_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('some-key-3'),
             additionalAttributes: {
               'id': 'some-id',
@@ -639,7 +639,7 @@ void html_picture_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
@@ -664,7 +664,7 @@ void html_picture_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
@@ -677,7 +677,7 @@ void html_picture_test() {
 
       await app!.updateChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('some-key-3'),
             id: 'updated-id',
             additionalAttributes: {
@@ -699,7 +699,7 @@ void html_picture_test() {
     test('should set data attributes', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
@@ -719,7 +719,7 @@ void html_picture_test() {
     test('should set aria/any attributes', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('some-key-3'),
             additionalAttributes: {
               'aria-something': 'something okay',
@@ -740,7 +740,7 @@ void html_picture_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
@@ -752,7 +752,7 @@ void html_picture_test() {
 
       await app!.updateChildren(
         widgets: [
-          Picture(
+          Portal(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something-new': 'something new',
@@ -772,8 +772,8 @@ void html_picture_test() {
     });
 
     test('should have a short-tag alias', () async {
-      var widget = Picture();
-      var widgetShort = picture();
+      var widget = Portal();
+      var widgetShort = portal();
 
       expect(
         widget.runtimeType,
@@ -784,9 +784,9 @@ void html_picture_test() {
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [
-          Picture(key: Key('some-key-1')),
-          Picture(key: Key('some-key-2')),
-          Picture(key: Key('some-key-3')),
+          Portal(key: Key('some-key-1')),
+          Portal(key: Key('some-key-2')),
+          Portal(key: Key('some-key-3')),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -798,6 +798,251 @@ void html_picture_test() {
       expect(wO1.key?.frameworkValue, endsWith('some-key-1'));
       expect(wO2.key?.frameworkValue, endsWith('some-key-2'));
       expect(wO3.key?.frameworkValue, equals('some-key-3'));
+    });
+
+    test('should set attribute "referrerpolicy"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Portal(key: Key('el-1'), referrerPolicy: 'some-referrerpolicy'),
+          Portal(key: Key('el-2'), referrerPolicy: 'another-referrerpolicy'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('referrerpolicy'),
+          equals('some-referrerpolicy'));
+      expect(domNode2.getAttribute('referrerpolicy'),
+          equals('another-referrerpolicy'));
+    });
+
+    test('should update attribute "referrerpolicy"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Portal(key: Key('el-1'), referrerPolicy: 'some-referrerpolicy'),
+          Portal(key: Key('el-2'), referrerPolicy: 'another-referrerpolicy'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Portal(key: Key('el-1'), referrerPolicy: 'updated-referrerpolicy'),
+          Portal(key: Key('el-2'), referrerPolicy: 'another-referrerpolicy'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('referrerpolicy'),
+          equals('updated-referrerpolicy'));
+      expect(domNode2.getAttribute('referrerpolicy'),
+          equals('another-referrerpolicy'));
+    });
+
+    test('should clear attribute "referrerpolicy"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Portal(key: Key('el-1')),
+          Portal(key: Key('el-2'), referrerPolicy: 'another-referrerpolicy'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Portal(key: Key('el-1')),
+          Portal(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('referrerpolicy'), equals(null));
+      expect(domNode2.getAttribute('referrerpolicy'), equals(null));
+    });
+
+    test('should clear attribute "referrerpolicy" if updated value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          Portal(key: Key('el-1'), referrerPolicy: 'some-referrerpolicy'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Portal(key: Key('el-1'), referrerPolicy: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('referrerpolicy'), equals(null));
+    });
+
+    test('should not set attribute "referrerpolicy" if provided value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          Portal(key: Key('el-1'), referrerPolicy: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('referrerpolicy'), equals(null));
+    });
+
+    test('should set messy "referrerpolicy"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Portal(
+            key: Key('widget-1'),
+            referrerPolicy: 'some referrerpolicy',
+          ),
+          Portal(
+            key: Key('widget-2'),
+            referrerPolicy: 'some "messy" referrerpolicy',
+          ),
+          Portal(
+            key: Key('widget-3'),
+            referrerPolicy: "some 'messy' referrerpolicy",
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(
+        domNode1.getAttribute('referrerpolicy'),
+        equals('some referrerpolicy'),
+      );
+
+      expect(
+        domNode2.getAttribute('referrerpolicy'),
+        equals('some "messy" referrerpolicy'),
+      );
+
+      expect(
+        domNode3.getAttribute('referrerpolicy'),
+        equals("some 'messy' referrerpolicy"),
+      );
+    });
+
+    test('should set attribute "src"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Portal(key: Key('el-1'), src: 'some-src'),
+          Portal(key: Key('el-2'), src: 'another-src'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('src'), equals('some-src'));
+      expect(domNode2.getAttribute('src'), equals('another-src'));
+    });
+
+    test('should update attribute "src"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Portal(key: Key('el-1'), src: 'some-src'),
+          Portal(key: Key('el-2'), src: 'another-src'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Portal(key: Key('el-1'), src: 'updated-src'),
+          Portal(key: Key('el-2'), src: 'another-src'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('src'), equals('updated-src'));
+      expect(domNode2.getAttribute('src'), equals('another-src'));
+    });
+
+    test('should clear attribute "src"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Portal(key: Key('el-1')),
+          Portal(key: Key('el-2'), src: 'another-src'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Portal(key: Key('el-1')),
+          Portal(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('src'), equals(null));
+      expect(domNode2.getAttribute('src'), equals(null));
+    });
+
+    test('should clear attribute "src" if updated value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          Portal(key: Key('el-1'), src: 'some-src'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Portal(key: Key('el-1'), src: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('src'), equals(null));
+    });
+
+    test('should not set attribute "src" if provided value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          Portal(key: Key('el-1'), src: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('src'), equals(null));
     });
   });
 }

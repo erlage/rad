@@ -304,6 +304,7 @@ def apply_commons(file_name, contents):
     contents = contents.replace('Attributes.srcLang', "'srclang'")
     contents = contents.replace('Attributes.playsInline', "'playsinline'")
     contents = contents.replace('Attributes.poster', "'poster'")
+    contents = contents.replace('Attributes.srcSet', "'srcset'")
 
     contents = contents.replace('Properties.value', "'value'")
     contents = contents.replace('Properties.innerHtml', "'innerHtml'")

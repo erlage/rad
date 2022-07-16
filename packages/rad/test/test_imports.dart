@@ -1,4 +1,4 @@
-export 'dart:html' hide Navigator, Text, Window, VoidCallback;
+export 'dart:html' hide Navigator, Text, Window, VoidCallback, MediaSource;
 
 export 'package:rad/rad.dart';
 export 'package:rad/widgets_html.dart';
