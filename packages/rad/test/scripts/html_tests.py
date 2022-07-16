@@ -104,6 +104,11 @@ widget_specific_tests = {
     'ListItem': [
         'html_attr_value_int',
     ],
+    'OrderedList': [
+        'html_attr_start',
+        'html_attr_reversed',
+        'html_attr_ordered_list_type',
+    ],
     'Option': [
         'html_attr_label',
         'html_attr_value',
@@ -262,6 +267,7 @@ widgets_map = {
     'ListItem': 'li',
     'Menu': 'menu',
     'Navigation': 'nav',
+    'OrderedList': 'ol',
     'Option': 'option',
     'Paragraph': 'p',
     'Progress': 'progress',

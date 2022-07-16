@@ -60,6 +60,7 @@ export 'constants/button_types.dart';
 export 'constants/dom_events.dart';
 export 'constants/dom_tags.dart';
 export 'constants/form_methods.dart';
+export 'constants/ordered_list_types.dart';
 export 'constants/form_types.dart';
 export 'constants/input_types.dart';
 

@@ -271,6 +271,8 @@ def apply_commons(file_name, contents):
     contents = contents.replace('Attributes.content', "'content'")
     contents = contents.replace('Attributes.charset', "'charset'")
     contents = contents.replace('Attributes.httpEquiv', "'http-equiv'")
+    contents = contents.replace('Attributes.start', "'start'")
+    contents = contents.replace('Attributes.reversed', "'reversed'")
 
     contents = contents.replace('Properties.value', "'value'")
     contents = contents.replace('Properties.innerHtml', "'innerHtml'")

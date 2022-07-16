@@ -86,6 +86,7 @@ widget_specific_tests = {
     'ListItem': ['widget_specific_html_widgets'],
     'Menu': ['widget_specific_html_widgets'],
     'Navigation': ['widget_specific_html_widgets'],
+    'OrderedList': ['widget_specific_html_widgets'],
     'Option': ['widget_specific_html_widgets'],
     'Paragraph': ['widget_specific_html_widgets'],
     'Progress': ['widget_specific_html_widgets'],

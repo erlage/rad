@@ -120,6 +120,22 @@ enum FormEncType {
   const FormEncType(this.nativeName);
 }
 
+/// Type of ordered list.
+///
+enum OrderedListType {
+  lowerCaseLetters('a'),
+  upperCaseLetters('A'),
+  lowerCaseRomanNumerals('i'),
+  upperCaseRomanNumerals('I'),
+  numbers('1'),
+  get('get'),
+  ;
+
+  final String nativeName;
+
+  const OrderedListType(this.nativeName);
+}
+
 /// HTML form's method type.
 ///
 enum FormMethodType {
@@ -187,6 +203,7 @@ enum DomTagType {
   listItem('li'),
   menu('menu'),
   navigation('nav'),
+  orderedList('ol'),
   option('option'),
   paragraph('p'),
   progress('progress'),

@@ -45,6 +45,7 @@ class RT_DomTags {
     'li',
     'menu',
     'nav',
+    'ol',
     'option',
     'p',
     'progress',

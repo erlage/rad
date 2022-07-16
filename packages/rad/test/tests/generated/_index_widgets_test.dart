@@ -57,6 +57,7 @@ part 'widgets/widget_legend_tests.generated.dart';
 part 'widgets/widget_list_item_tests.generated.dart';
 part 'widgets/widget_menu_tests.generated.dart';
 part 'widgets/widget_navigation_tests.generated.dart';
+part 'widgets/widget_ordered_list_tests.generated.dart';
 part 'widgets/widget_option_tests.generated.dart';
 part 'widgets/widget_paragraph_tests.generated.dart';
 part 'widgets/widget_progress_tests.generated.dart';
@@ -127,6 +128,7 @@ void main() {
   widget_list_item_test();
   widget_menu_test();
   widget_navigation_test();
+  widget_ordered_list_test();
   widget_option_test();
   widget_paragraph_test();
   widget_progress_test();

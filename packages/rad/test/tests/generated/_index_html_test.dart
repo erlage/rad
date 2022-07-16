@@ -47,6 +47,7 @@ part 'html/html_legend_tests.generated.dart';
 part 'html/html_list_item_tests.generated.dart';
 part 'html/html_menu_tests.generated.dart';
 part 'html/html_navigation_tests.generated.dart';
+part 'html/html_ordered_list_tests.generated.dart';
 part 'html/html_option_tests.generated.dart';
 part 'html/html_paragraph_tests.generated.dart';
 part 'html/html_progress_tests.generated.dart';
@@ -112,6 +113,7 @@ void main() {
   html_list_item_test();
   html_menu_test();
   html_navigation_test();
+  html_ordered_list_test();
   html_option_test();
   html_paragraph_test();
   html_progress_test();

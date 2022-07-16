@@ -108,7 +108,7 @@ class Attributes {
   static const allowFullscreen = 'allowfullscreen';
   static const allowPaymentRequest = 'allowpaymentrequest';
 
-  // misc
+  // mixed
 
   static const max = 'max';
   static const label = 'label';
@@ -119,6 +119,8 @@ class Attributes {
   static const alt = 'alt';
   static const height = 'height';
   static const width = 'width';
+  static const start = 'start';
+  static const reversed = 'reversed';
 
   // meta
 
