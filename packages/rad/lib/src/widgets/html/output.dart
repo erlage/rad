@@ -148,7 +148,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (widget.form != oldWidget?.form) {
-    attributes[Attributes.type] = widget.form;
+    attributes[Attributes.form] = widget.form;
   }
 
   if (widget.forAttribute != oldWidget?.forAttribute) {

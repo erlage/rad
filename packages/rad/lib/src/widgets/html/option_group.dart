@@ -140,7 +140,7 @@ Map<String, String?> _prepareAttributes({
   var attributes = <String, String?>{};
 
   if (widget.label != oldWidget?.label) {
-    attributes[Attributes.name] = widget.label;
+    attributes[Attributes.label] = widget.label;
   }
 
   if (widget.disabled != oldWidget?.disabled) {
