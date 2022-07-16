@@ -596,6 +596,7 @@ void html_idiomatic_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('i')
               ? [
                   'input',

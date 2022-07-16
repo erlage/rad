@@ -122,6 +122,7 @@ class Attributes {
   static const width = 'width';
   static const start = 'start';
   static const reversed = 'reversed';
+  static const dateTime = 'datetime';
 
   // meta
 

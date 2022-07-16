@@ -598,6 +598,7 @@ void html_horizontal_rule_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('hr')
               ? [
                   'input',

@@ -596,6 +596,7 @@ void html_definition_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('dfn')
               ? [
                   'input',

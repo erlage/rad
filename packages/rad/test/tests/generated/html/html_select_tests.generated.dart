@@ -596,6 +596,7 @@ void html_select_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('select')
               ? [
                   'input',

@@ -596,6 +596,7 @@ void html_data_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('data')
               ? [
                   'input',

@@ -596,6 +596,7 @@ void html_heading4_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('h4')
               ? [
                   'input',

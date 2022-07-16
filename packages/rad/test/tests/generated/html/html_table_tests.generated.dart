@@ -596,6 +596,7 @@ void html_table_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('table')
               ? [
                   'input',

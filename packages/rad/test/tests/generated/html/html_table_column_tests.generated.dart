@@ -598,6 +598,7 @@ void html_table_column_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('col')
               ? [
                   'input',

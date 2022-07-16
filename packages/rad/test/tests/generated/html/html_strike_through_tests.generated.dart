@@ -596,6 +596,7 @@ void html_strike_through_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('s')
               ? [
                   'input',

@@ -596,6 +596,7 @@ void html_table_column_group_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('colgroup')
               ? [
                   'input',

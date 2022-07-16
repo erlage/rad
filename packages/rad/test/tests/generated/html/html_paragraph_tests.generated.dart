@@ -596,6 +596,7 @@ void html_paragraph_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('p')
               ? [
                   'input',

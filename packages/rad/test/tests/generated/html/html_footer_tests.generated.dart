@@ -596,6 +596,7 @@ void html_footer_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('footer')
               ? [
                   'input',

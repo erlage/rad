@@ -596,6 +596,7 @@ void html_legend_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('legend')
               ? [
                   'input',

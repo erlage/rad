@@ -596,6 +596,7 @@ void html_emphasis_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('em')
               ? [
                   'input',

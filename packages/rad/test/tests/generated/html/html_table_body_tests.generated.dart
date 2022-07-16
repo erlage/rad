@@ -596,6 +596,7 @@ void html_table_body_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('tbody')
               ? [
                   'input',

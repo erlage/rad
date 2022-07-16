@@ -596,6 +596,7 @@ void html_table_data_cell_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('td')
               ? [
                   'input',

@@ -600,6 +600,7 @@ void html_bidirectional_text_override_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('bdo')
               ? [
                   'input',

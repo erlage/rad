@@ -596,6 +596,7 @@ void html_strong_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('strong')
               ? [
                   'input',

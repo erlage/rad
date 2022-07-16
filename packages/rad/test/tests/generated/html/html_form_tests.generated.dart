@@ -596,6 +596,7 @@ void html_form_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('form')
               ? [
                   'input',

@@ -596,6 +596,7 @@ void html_code_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('code')
               ? [
                   'input',

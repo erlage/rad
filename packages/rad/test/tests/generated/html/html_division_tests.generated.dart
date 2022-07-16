@@ -596,6 +596,7 @@ void html_division_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('div')
               ? [
                   'input',

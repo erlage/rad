@@ -596,6 +596,7 @@ void html_header_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('header')
               ? [
                   'input',

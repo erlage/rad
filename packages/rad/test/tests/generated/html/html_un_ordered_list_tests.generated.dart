@@ -596,6 +596,7 @@ void html_un_ordered_list_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('ul')
               ? [
                   'input',

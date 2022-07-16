@@ -596,6 +596,7 @@ void html_keyboard_input_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('kbd')
               ? [
                   'input',

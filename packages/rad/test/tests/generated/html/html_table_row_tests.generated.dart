@@ -596,6 +596,7 @@ void html_table_row_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('tr')
               ? [
                   'input',

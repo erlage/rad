@@ -596,6 +596,7 @@ void html_i_frame_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('iframe')
               ? [
                   'input',

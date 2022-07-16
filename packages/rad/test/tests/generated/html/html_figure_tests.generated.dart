@@ -596,6 +596,7 @@ void html_figure_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('figure')
               ? [
                   'input',

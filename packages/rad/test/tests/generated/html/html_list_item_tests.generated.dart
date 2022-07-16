@@ -596,6 +596,7 @@ void html_list_item_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('li')
               ? [
                   'input',

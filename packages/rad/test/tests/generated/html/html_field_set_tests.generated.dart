@@ -596,6 +596,7 @@ void html_field_set_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('fieldset')
               ? [
                   'input',

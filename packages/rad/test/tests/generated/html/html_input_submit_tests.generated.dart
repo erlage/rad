@@ -598,6 +598,7 @@ void html_input_submit_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('input')
               ? [
                   'input',

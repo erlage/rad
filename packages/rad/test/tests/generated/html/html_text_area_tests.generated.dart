@@ -596,6 +596,7 @@ void html_text_area_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('textarea')
               ? [
                   'input',

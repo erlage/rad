@@ -20,6 +20,7 @@ skipped_tests = {
         'img': ['chrome'],    # works on firefox
         'col': ['chrome'],    # works on firefox
         'br': ['chrome'],     # works on firefox
+        'wbr': ['chrome'],    # works on firefox
         'hr': ['chrome'],     # works on firefox
         'input': ['chrome'],  # works on firefox
     }
@@ -27,6 +28,7 @@ skipped_tests = {
 
 skipped_generation_for_class = {
     'html_short_tag': [
+        'Variable',           # var is a reserved keyword in dart
         'InputCheckBox',
         'InputFile',
         'InputRadio',
@@ -170,6 +172,9 @@ widget_specific_tests = {
         'html_attr_on_key_down',
         'html_prop_value',
     ],
+    'Time': [
+        'html_attr_datetime',
+    ],
 
     # additional
 
@@ -284,6 +289,7 @@ widgets_map = {
     'KeyboardInput': 'kbd',
     'Label': 'label',
     'Legend': 'legend',
+    'LineBreakOpportunity': 'wbr',
     'ListItem': 'li',
     'MarkText': 'mark',
     'Menu': 'menu',
@@ -296,6 +302,7 @@ widgets_map = {
     'RubyAnnotation': 'ruby',
     'RubyFallbackParenthesis': 'rp',
     'RubyText': 'rt',
+    'SampleOutput': 'samp',
     'Select': 'select',
     'Small': 'small',
     'Span': 'span',
@@ -313,7 +320,9 @@ widgets_map = {
     'TableHeaderCell': 'th',
     'TableRow': 'tr',
     'TextArea': 'textarea',
+    'Time': 'time',
     'UnOrderedList': 'ul',
+    'Variable': 'var',
 
     # additionals,
 

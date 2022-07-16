@@ -596,6 +596,7 @@ void html_description_list_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('dl')
               ? [
                   'input',

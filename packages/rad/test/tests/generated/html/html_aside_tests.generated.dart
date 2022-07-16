@@ -596,6 +596,7 @@ void html_aside_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('aside')
               ? [
                   'input',

@@ -596,6 +596,7 @@ void html_option_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('option')
               ? [
                   'input',

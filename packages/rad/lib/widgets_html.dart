@@ -42,6 +42,7 @@ export 'src/widgets/html/input.dart' show Input;
 export 'src/widgets/html/keyboard_input.dart' show KeyboardInput;
 export 'src/widgets/html/label.dart' show Label;
 export 'src/widgets/html/legend.dart' show Legend;
+export 'src/widgets/html/line_break_opportunity.dart' show LineBreakOpportunity;
 export 'src/widgets/html/list_item.dart' show ListItem;
 export 'src/widgets/html/mark_text.dart' show MarkText;
 export 'src/widgets/html/menu.dart' show Menu;
@@ -55,6 +56,7 @@ export 'src/widgets/html/ruby_annotation.dart' show RubyAnnotation;
 export 'src/widgets/html/ruby_fallback_parenthesis.dart'
     show RubyFallbackParenthesis;
 export 'src/widgets/html/ruby_text.dart' show RubyText;
+export 'src/widgets/html/sample_output.dart' show SampleOutput;
 export 'src/widgets/html/select.dart' show Select;
 export 'src/widgets/html/small.dart' show Small;
 export 'src/widgets/html/span.dart' show Span;
@@ -72,7 +74,9 @@ export 'src/widgets/html/table_head.dart' show TableHead;
 export 'src/widgets/html/table_header_cell.dart' show TableHeaderCell;
 export 'src/widgets/html/table_row.dart' show TableRow;
 export 'src/widgets/html/textarea.dart' show TextArea;
+export 'src/widgets/html/time.dart' show Time;
 export 'src/widgets/html/unordered_list.dart' show UnOrderedList;
+export 'src/widgets/html/variable.dart' show Variable;
 
 // Additional widgets.
 

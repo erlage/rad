@@ -596,6 +596,7 @@ void html_table_foot_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('tfoot')
               ? [
                   'input',

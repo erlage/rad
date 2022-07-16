@@ -596,6 +596,7 @@ void html_description_details_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('dd')
               ? [
                   'input',

@@ -596,6 +596,7 @@ void html_anchor_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('a')
               ? [
                   'input',

@@ -221,6 +221,7 @@ enum DomTagType {
   keyboardInput('kbd'),
   label('label'),
   legend('legend'),
+  lineBreakOpportunity('wbr'),
   listItem('li'),
   markText('mark'),
   menu('menu'),
@@ -233,6 +234,7 @@ enum DomTagType {
   rubyAnnotation('ruby'),
   rubyFallbackParenthesis('rp'),
   rubyText('rt'),
+  sampleOutput('samp'),
   select('select'),
   small('small'),
   span('span'),
@@ -250,7 +252,9 @@ enum DomTagType {
   tableHeaderCell('th'),
   tableRow('tr'),
   textArea('textarea'),
+  time('time'),
   unOrderedList('ul'),
+  variable('var'),
   ;
 
   final String nativeName;

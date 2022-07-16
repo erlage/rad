@@ -596,6 +596,7 @@ void html_menu_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('menu')
               ? [
                   'input',

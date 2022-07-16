@@ -600,6 +600,7 @@ void html_bidirectional_isolate_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('bdi')
               ? [
                   'input',

@@ -596,6 +596,7 @@ void html_address_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('address')
               ? [
                   'input',

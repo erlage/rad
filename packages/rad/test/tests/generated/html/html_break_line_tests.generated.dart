@@ -598,6 +598,7 @@ void html_break_line_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('br')
               ? [
                   'input',

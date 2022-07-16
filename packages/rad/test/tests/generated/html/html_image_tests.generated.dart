@@ -598,6 +598,7 @@ void html_image_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('img')
               ? [
                   'input',

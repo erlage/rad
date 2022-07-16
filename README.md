@@ -206,6 +206,7 @@ Similarity tags:
 , [KeyboardInput](https://pub.dev/documentation/rad/latest/widgets_html/KeyboardInput-class.html)
 , [Label](https://pub.dev/documentation/rad/latest/widgets_html/Label-class.html)
 , [Legend](https://pub.dev/documentation/rad/latest/widgets_html/Legend-class.html)
+, [LineBreakOpportunity](https://pub.dev/documentation/rad/latest/widgets_html/LineBreakOpportunity-class.html)
 , [ListItem](https://pub.dev/documentation/rad/latest/widgets_html/ListItem-class.html)
 , [MarkText](https://pub.dev/documentation/rad/latest/widgets_html/MarkText-class.html)
 , [Menu](https://pub.dev/documentation/rad/latest/widgets_html/Menu-class.html)
@@ -218,6 +219,7 @@ Similarity tags:
 , [RubyAnnotation](https://pub.dev/documentation/rad/latest/widgets_html/RubyAnnotation-class.html)
 , [RubyFallbackParenthesis](https://pub.dev/documentation/rad/latest/widgets_html/RubyFallbackParenthesis-class.html)
 , [RubyText](https://pub.dev/documentation/rad/latest/widgets_html/RubyText-class.html)
+, [SampleOutput](https://pub.dev/documentation/rad/latest/widgets_html/SampleOutput-class.html)
 , [Select](https://pub.dev/documentation/rad/latest/widgets_html/Select-class.html)
 , [Small](https://pub.dev/documentation/rad/latest/widgets_html/Small-class.html)
 , [Span](https://pub.dev/documentation/rad/latest/widgets_html/Span-class.html)
@@ -235,7 +237,9 @@ Similarity tags:
 , [TableHeaderCell](https://pub.dev/documentation/rad/latest/widgets_html/TableHeaderCell-class.html)
 , [TableRow](https://pub.dev/documentation/rad/latest/widgets_html/TableRow-class.html)
 , [TextArea](https://pub.dev/documentation/rad/latest/widgets_html/TextArea-class.html)
+, [Time](https://pub.dev/documentation/rad/latest/widgets_html/Time-class.html)
 , [UnOrderedList](https://pub.dev/documentation/rad/latest/widgets_html/UnOrderedList-class.html)
+, [Variable](https://pub.dev/documentation/rad/latest/widgets_html/Variable-class.html)
 
 ## Contributing
 For reporting bugs/queries, feel free to open issue. Read [contributing guide](https://github.com/erlage/rad/blob/main/CONTRIBUTING.md) for more.

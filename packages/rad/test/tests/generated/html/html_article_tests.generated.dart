@@ -596,6 +596,7 @@ void html_article_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('article')
               ? [
                   'input',

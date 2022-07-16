@@ -596,6 +596,7 @@ void html_table_header_cell_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('th')
               ? [
                   'input',

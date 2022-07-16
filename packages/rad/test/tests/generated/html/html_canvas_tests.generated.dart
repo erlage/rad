@@ -596,6 +596,7 @@ void html_canvas_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('canvas')
               ? [
                   'input',

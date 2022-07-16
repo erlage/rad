@@ -596,6 +596,7 @@ void html_sub_script_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('sub')
               ? [
                   'input',

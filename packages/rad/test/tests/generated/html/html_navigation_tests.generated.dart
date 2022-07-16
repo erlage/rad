@@ -596,6 +596,7 @@ void html_navigation_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('nav')
               ? [
                   'input',

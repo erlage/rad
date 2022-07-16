@@ -596,6 +596,7 @@ void html_ruby_text_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('rt')
               ? [
                   'input',

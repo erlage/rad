@@ -596,6 +596,7 @@ void html_small_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('small')
               ? [
                   'input',

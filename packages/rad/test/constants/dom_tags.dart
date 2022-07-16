@@ -63,6 +63,7 @@ class RT_DomTags {
     'rt',
     'ruby',
     's',
+    'samp',
     'select',
     'small',
     'span',
@@ -76,8 +77,11 @@ class RT_DomTags {
     'tfoot',
     'th',
     'thead',
+    'time',
     'tr',
     'ul',
+    'var',
+    'wbr',
   ];
 
   static const available = [

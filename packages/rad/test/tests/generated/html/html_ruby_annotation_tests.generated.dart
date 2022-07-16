@@ -596,6 +596,7 @@ void html_ruby_annotation_test() {
             'br',
             'hr',
             'input',
+            'wbr',
           ].contains('ruby')
               ? [
                   'input',
