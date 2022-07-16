@@ -143,6 +143,7 @@ class Attributes {
   static const sizes = 'sizes';
   static const media = 'media';
   static const open = 'open';
+  static const form = 'from';
 
   // meta
 
