@@ -82,6 +82,7 @@ class RT_DomTags {
     'thead',
     'time',
     'tr',
+    'track',
     'ul',
     'var',
     'wbr',

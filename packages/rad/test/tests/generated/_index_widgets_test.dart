@@ -40,6 +40,7 @@ part 'widgets/widget_definition_tests.generated.dart';
 part 'widgets/widget_description_details_tests.generated.dart';
 part 'widgets/widget_description_list_tests.generated.dart';
 part 'widgets/widget_description_term_tests.generated.dart';
+part 'widgets/widget_embed_text_track_tests.generated.dart';
 part 'widgets/widget_emphasis_tests.generated.dart';
 part 'widgets/widget_division_tests.generated.dart';
 part 'widgets/widget_field_set_tests.generated.dart';
@@ -131,6 +132,7 @@ void main() {
   widget_description_details_test();
   widget_description_list_test();
   widget_description_term_test();
+  widget_embed_text_track_test();
   widget_emphasis_test();
   widget_division_test();
   widget_field_set_test();

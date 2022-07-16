@@ -299,6 +299,9 @@ def apply_commons(file_name, contents):
     contents = contents.replace('Attributes.loop', "'loop'")
     contents = contents.replace('Attributes.muted', "'muted'")
     contents = contents.replace('Attributes.preload', "'preload'")
+    contents = contents.replace('Attributes.defaultAttribute', "'default'")
+    contents = contents.replace('Attributes.kind', "'kind'")
+    contents = contents.replace('Attributes.srcLang', "'srclang'")
 
     contents = contents.replace('Properties.value', "'value'")
     contents = contents.replace('Properties.innerHtml', "'innerHtml'")

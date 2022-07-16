@@ -26,6 +26,7 @@ export 'src/widgets/html/description_details.dart' show DescriptionDetails;
 export 'src/widgets/html/description_list.dart' show DescriptionList;
 export 'src/widgets/html/description_term.dart' show DescriptionTerm;
 export 'src/widgets/html/division.dart' show Division;
+export 'src/widgets/html/embed_text_track.dart' show EmbedTextTrack;
 export 'src/widgets/html/emphasis.dart' show Emphasis;
 export 'src/widgets/html/fieldset.dart' show FieldSet;
 export 'src/widgets/html/figure.dart' show Figure;

@@ -134,6 +134,9 @@ class Attributes {
   static const loop = 'loop';
   static const muted = 'muted';
   static const preload = 'preload';
+  static const defaultAttribute = 'default';
+  static const kind = 'kind';
+  static const srcLang = 'srclang';
 
   // meta
 

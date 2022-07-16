@@ -71,6 +71,7 @@ widget_specific_tests = {
     'DescriptionDetails': ['widget_specific_html_widgets'],
     'DescriptionList': ['widget_specific_html_widgets'],
     'DescriptionTerm': ['widget_specific_html_widgets'],
+    'EmbedTextTrack': ['widget_specific_html_widgets'],
     'Emphasis': ['widget_specific_html_widgets'],
     'Division': ['widget_specific_html_widgets'],
     'FieldSet': ['widget_specific_html_widgets'],

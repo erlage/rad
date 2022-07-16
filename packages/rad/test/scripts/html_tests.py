@@ -72,6 +72,13 @@ widget_specific_tests = {
     'Data': [
         'html_attr_value',
     ],
+    'EmbedTextTrack': [
+        'html_attr_default_attribute',
+        'html_attr_embed_text_track_kind_type',
+        'html_attr_label',
+        'html_attr_src',
+        'html_attr_srclang',
+    ],
     'FieldSet': [
         'html_attr_disabled',
     ],
@@ -293,6 +300,7 @@ widgets_map = {
     'DescriptionList': 'dl',
     'DescriptionTerm': 'dt',
     'Division': 'div',
+    'EmbedTextTrack': 'track',
     'Emphasis': 'em',
     'FieldSet': 'fieldset',
     'Figure': 'figure',

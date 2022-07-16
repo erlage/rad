@@ -220,6 +220,39 @@ enum PreloadType {
   const PreloadType(this.nativeName);
 }
 
+enum EmbedTextTrackKindType {
+  /// Subtitles provide translation of content that cannot be understood by the
+  /// viewer. For example speech or text that is not English in an English
+  /// language film.
+  ///
+  subtitles('subtitles'),
+
+  /// Closed captions provide a transcription and possibly a translation of
+  /// audio. It may include important non-verbal information such as music cues
+  /// or sound effects. It may indicate the cue's source (e.g. music, text,
+  /// character). Suitable for users who are deaf or when the sound is muted.
+  ///
+  captions('captions'),
+
+  /// Textual description of the video content.
+  /// Suitable for users who are blind or where the video cannot be seen.
+  ///
+  descriptions('descriptions'),
+
+  /// Chapter titles are intended to be used when the user is navigating
+  /// the media resource.
+  ///
+  chapters('chapters'),
+
+  /// Tracks used by scripts. Not visible to the user.
+  ///
+  metadata('metadata'),
+  ;
+
+  final String nativeName;
+  const EmbedTextTrackKindType(this.nativeName);
+}
+
 /// Widget's corresponding DOM tag.
 ///
 enum DomTagType {
@@ -244,6 +277,7 @@ enum DomTagType {
   descriptionList('dl'),
   descriptionTerm('dt'),
   division('div'),
+  embedTextTrack('track'),
   emphasis('em'),
   fieldSet('fieldset'),
   figure('figure'),

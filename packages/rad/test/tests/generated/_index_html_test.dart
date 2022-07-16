@@ -31,6 +31,7 @@ part 'html/html_description_details_tests.generated.dart';
 part 'html/html_description_list_tests.generated.dart';
 part 'html/html_description_term_tests.generated.dart';
 part 'html/html_division_tests.generated.dart';
+part 'html/html_embed_text_track_tests.generated.dart';
 part 'html/html_emphasis_tests.generated.dart';
 part 'html/html_field_set_tests.generated.dart';
 part 'html/html_figure_tests.generated.dart';
@@ -117,6 +118,7 @@ void main() {
   html_description_list_test();
   html_description_term_test();
   html_division_test();
+  html_embed_text_track_test();
   html_emphasis_test();
   html_field_set_test();
   html_figure_test();

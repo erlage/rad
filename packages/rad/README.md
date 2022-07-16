@@ -185,6 +185,7 @@ Similarity tags:
 , [DescriptionList](https://pub.dev/documentation/rad/latest/widgets_html/DescriptionList-class.html)
 , [DescriptionTerm](https://pub.dev/documentation/rad/latest/widgets_html/DescriptionTerm-class.html)
 , [Division](https://pub.dev/documentation/rad/latest/widgets_html/Division-class.html)
+, [EmbedTextTrack](https://pub.dev/documentation/rad/latest/widgets_html/EmbedTextTrack-class.html)
 , [Emphasis](https://pub.dev/documentation/rad/latest/widgets_html/Emphasis-class.html)
 , [Figure](https://pub.dev/documentation/rad/latest/widgets_html/Figure-class.html)
 , [FigureCaption](https://pub.dev/documentation/rad/latest/widgets_html/FigureCaption-class.html)
