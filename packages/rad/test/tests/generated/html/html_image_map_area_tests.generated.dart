@@ -10,8 +10,8 @@
 
 part of '../_index_html_test.dart';
 
-void html_input_test() {
-  group('HTML Input tests:', () {
+void html_image_map_area_test() {
+  group('HTML ImageMapArea tests:', () {
     RT_AppRunner? app;
 
     setUp(() {
@@ -23,9 +23,9 @@ void html_input_test() {
     test('should set id', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('some-key-1'), id: 'some-id-1'),
-          Input(key: Key('some-key-2'), id: 'some-id-2'),
-          Input(key: Key('some-key-3'), id: 'some-id-3'),
+          ImageMapArea(key: Key('some-key-1'), id: 'some-id-1'),
+          ImageMapArea(key: Key('some-key-2'), id: 'some-id-2'),
+          ImageMapArea(key: Key('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -42,9 +42,9 @@ void html_input_test() {
     test('should reset and update id', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('some-key-1'), id: 'some-id-1'),
-          Input(key: Key('some-key-2'), id: 'some-id-2'),
-          Input(key: Key('some-key-3'), id: 'some-id-3'),
+          ImageMapArea(key: Key('some-key-1'), id: 'some-id-1'),
+          ImageMapArea(key: Key('some-key-2'), id: 'some-id-2'),
+          ImageMapArea(key: Key('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -59,15 +59,15 @@ void html_input_test() {
 
       await app!.updateChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('some-key-1'),
             id: 'some-updated-id',
           ),
-          Input(
+          ImageMapArea(
             key: Key('some-key-2'),
             id: 'some-local-updated-id',
           ),
-          Input(
+          ImageMapArea(
             key: Key('some-key-3'),
             id: 'some-global-updated-id',
           ),
@@ -84,15 +84,15 @@ void html_input_test() {
     test('should set messy "id"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('widget-1'),
             id: 'some id',
           ),
-          Input(
+          ImageMapArea(
             key: Key('widget-2'),
             id: 'some "messy" id',
           ),
-          Input(
+          ImageMapArea(
             key: Key('widget-3'),
             id: "some 'messy' id",
           ),
@@ -123,13 +123,13 @@ void html_input_test() {
     test('should set children widgets', () async {
       await app!.buildChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             id: 'widget-1',
             children: [
-              Input(
+              ImageMapArea(
                 id: 'widget-2',
               ),
-              Input(
+              ImageMapArea(
                 id: 'widget-3',
               ),
             ],
@@ -150,11 +150,11 @@ void html_input_test() {
     test('should set attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('el-1'),
             className: 'some-classes',
           ),
-          Input(
+          ImageMapArea(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -172,11 +172,11 @@ void html_input_test() {
     test('should update attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('el-1'),
             className: 'some-classes',
           ),
-          Input(
+          ImageMapArea(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -186,11 +186,11 @@ void html_input_test() {
 
       await app!.updateChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('el-1'),
             className: 'updated-classes',
           ),
-          Input(
+          ImageMapArea(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -209,8 +209,8 @@ void html_input_test() {
     test('should clear attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1')),
-          Input(
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -220,8 +220,8 @@ void html_input_test() {
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2')),
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -237,7 +237,7 @@ void html_input_test() {
     test('should clear attribute "classes" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('el-1'),
             className: 'some-classes',
           ),
@@ -247,7 +247,7 @@ void html_input_test() {
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1'), className: null),
+          ImageMapArea(key: Key('el-1'), className: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -262,7 +262,7 @@ void html_input_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), className: null),
+          ImageMapArea(key: Key('el-1'), className: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -275,15 +275,15 @@ void html_input_test() {
     test('should set messy "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('widget-1'),
             className: 'some classes',
           ),
-          Input(
+          ImageMapArea(
             key: Key('widget-2'),
             className: 'some "messy" classes',
           ),
-          Input(
+          ImageMapArea(
             key: Key('widget-3'),
             className: "some 'messy' classes",
           ),
@@ -314,11 +314,11 @@ void html_input_test() {
     test('should set contentEditable', () async {
       await app!.buildChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('widget-1'),
             contentEditable: false,
           ),
-          Input(
+          ImageMapArea(
             key: Key('widget-2'),
             contentEditable: true,
           ),
@@ -336,11 +336,11 @@ void html_input_test() {
     test('should set draggable', () async {
       await app!.buildChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('widget-1'),
             draggable: false,
           ),
-          Input(
+          ImageMapArea(
             key: Key('widget-2'),
             draggable: true,
           ),
@@ -358,9 +358,9 @@ void html_input_test() {
     test('should set attribute "hidden" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), hidden: false),
-          Input(key: Key('el-2'), hidden: null),
-          Input(key: Key('el-3'), hidden: true),
+          ImageMapArea(key: Key('el-1'), hidden: false),
+          ImageMapArea(key: Key('el-2'), hidden: null),
+          ImageMapArea(key: Key('el-3'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -378,20 +378,20 @@ void html_input_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), hidden: true),
-          Input(key: Key('el-2'), hidden: true),
-          Input(key: Key('el-3'), hidden: true),
-          Input(key: Key('el-4'), hidden: true),
+          ImageMapArea(key: Key('el-1'), hidden: true),
+          ImageMapArea(key: Key('el-2'), hidden: true),
+          ImageMapArea(key: Key('el-3'), hidden: true),
+          ImageMapArea(key: Key('el-4'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1'), hidden: true),
-          Input(key: Key('el-2'), hidden: false),
-          Input(key: Key('el-3'), hidden: null),
-          Input(key: Key('el-4')),
+          ImageMapArea(key: Key('el-1'), hidden: true),
+          ImageMapArea(key: Key('el-2'), hidden: false),
+          ImageMapArea(key: Key('el-3'), hidden: null),
+          ImageMapArea(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -411,7 +411,7 @@ void html_input_test() {
     test('should set inner text', () async {
       await app!.buildChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('widget-1'),
             innerText: 'hello world',
           ),
@@ -426,7 +426,7 @@ void html_input_test() {
 
       expect(domNode1.innerHtml, equals('hello world'));
     }, onPlatform: {
-      'chrome': Skip('Failing for input on chrome'),
+      'chrome': Skip('Failing for area on chrome'),
     });
 
     test('should set "click" event listener', () async {
@@ -434,11 +434,11 @@ void html_input_test() {
 
       await app!.buildChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('el-1'),
             onClick: (event) => testStack.push('click-1'),
           ),
-          Input(
+          ImageMapArea(
             key: Key('el-2'),
             onClick: (event) => testStack.push('click-2'),
           ),
@@ -461,9 +461,9 @@ void html_input_test() {
 
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), onClick: null),
-          Input(key: Key('el-3'), onClick: listener),
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2'), onClick: null),
+          ImageMapArea(key: Key('el-3'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -482,8 +482,8 @@ void html_input_test() {
 
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), onClick: listener),
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -498,8 +498,8 @@ void html_input_test() {
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2')),
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -515,9 +515,9 @@ void html_input_test() {
     test('should set style', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('widget-1'), style: 'some style'),
-          Input(key: Key('widget-2'), style: 'some "messy" style'),
-          Input(key: Key('widget-3'), style: "some 'messy' style"),
+          ImageMapArea(key: Key('widget-1'), style: 'some style'),
+          ImageMapArea(key: Key('widget-2'), style: 'some "messy" style'),
+          ImageMapArea(key: Key('widget-3'), style: "some 'messy' style"),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -534,15 +534,15 @@ void html_input_test() {
     test('should set tab index', () async {
       await app!.buildChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('widget-1'),
             tabIndex: 1,
           ),
-          Input(
+          ImageMapArea(
             key: Key('widget-2'),
             tabIndex: 2,
           ),
-          Input(
+          ImageMapArea(
             key: Key('widget-3'),
             tabIndex: 3,
           ),
@@ -562,9 +562,9 @@ void html_input_test() {
     test('should set title', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('widget-1'), title: 'some title'),
-          Input(key: Key('widget-2'), title: 'some "messy" title'),
-          Input(key: Key('widget-3'), title: "some 'messy' title"),
+          ImageMapArea(key: Key('widget-1'), title: 'some title'),
+          ImageMapArea(key: Key('widget-2'), title: 'some "messy" title'),
+          ImageMapArea(key: Key('widget-3'), title: "some 'messy' title"),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -581,7 +581,7 @@ void html_input_test() {
     test('should set correct types and markup', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('some-key-3')),
+          ImageMapArea(key: Key('some-key-3')),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -600,15 +600,15 @@ void html_input_test() {
             'hr',
             'input',
             'wbr',
-          ].contains('input')
+          ].contains('area')
               ? [
                   'input',
-                ].contains('input')
+                ].contains('area')
                   // becuase system set attributes for some tags
                   // e.g type="something" for input tag
-                  ? '<input'
-                  : '<input>'
-              : '<input></input>',
+                  ? '<area'
+                  : '<area>'
+              : '<area></area>',
         ),
       );
     });
@@ -618,7 +618,7 @@ void html_input_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('some-key-3'),
             additionalAttributes: {
               'id': 'some-id',
@@ -640,7 +640,7 @@ void html_input_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
@@ -665,7 +665,7 @@ void html_input_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
@@ -678,7 +678,7 @@ void html_input_test() {
 
       await app!.updateChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('some-key-3'),
             id: 'updated-id',
             additionalAttributes: {
@@ -700,7 +700,7 @@ void html_input_test() {
     test('should set data attributes', () async {
       await app!.buildChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
@@ -720,7 +720,7 @@ void html_input_test() {
     test('should set aria/any attributes', () async {
       await app!.buildChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('some-key-3'),
             additionalAttributes: {
               'aria-something': 'something okay',
@@ -741,7 +741,7 @@ void html_input_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
@@ -753,7 +753,7 @@ void html_input_test() {
 
       await app!.updateChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something-new': 'something new',
@@ -773,8 +773,8 @@ void html_input_test() {
     });
 
     test('should have a short-tag alias', () async {
-      var widget = Input();
-      var widgetShort = input();
+      var widget = ImageMapArea();
+      var widgetShort = area();
 
       expect(
         widget.runtimeType,
@@ -785,9 +785,9 @@ void html_input_test() {
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('some-key-1')),
-          Input(key: Key('some-key-2')),
-          Input(key: Key('some-key-3')),
+          ImageMapArea(key: Key('some-key-1')),
+          ImageMapArea(key: Key('some-key-2')),
+          ImageMapArea(key: Key('some-key-3')),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -801,11 +801,11 @@ void html_input_test() {
       expect(wO3.key?.frameworkValue, equals('some-key-3'));
     });
 
-    test('should set attribute "name"', () async {
+    test('should set attribute "alt"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), name: 'some-name'),
-          Input(key: Key('el-2'), name: 'another-name'),
+          ImageMapArea(key: Key('el-1'), alt: 'some-alt'),
+          ImageMapArea(key: Key('el-2'), alt: 'another-alt'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -813,23 +813,23 @@ void html_input_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('name'), equals('some-name'));
-      expect(domNode2.getAttribute('name'), equals('another-name'));
+      expect(domNode1.getAttribute('alt'), equals('some-alt'));
+      expect(domNode2.getAttribute('alt'), equals('another-alt'));
     });
 
-    test('should update attribute "name"', () async {
+    test('should update attribute "alt"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), name: 'some-name'),
-          Input(key: Key('el-2'), name: 'another-name'),
+          ImageMapArea(key: Key('el-1'), alt: 'some-alt'),
+          ImageMapArea(key: Key('el-2'), alt: 'another-alt'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1'), name: 'updated-name'),
-          Input(key: Key('el-2'), name: 'another-name'),
+          ImageMapArea(key: Key('el-1'), alt: 'updated-alt'),
+          ImageMapArea(key: Key('el-2'), alt: 'another-alt'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -838,23 +838,23 @@ void html_input_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('name'), equals('updated-name'));
-      expect(domNode2.getAttribute('name'), equals('another-name'));
+      expect(domNode1.getAttribute('alt'), equals('updated-alt'));
+      expect(domNode2.getAttribute('alt'), equals('another-alt'));
     });
 
-    test('should clear attribute "name"', () async {
+    test('should clear attribute "alt"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), name: 'another-name'),
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2'), alt: 'another-alt'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2')),
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -863,21 +863,21 @@ void html_input_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('name'), equals(null));
-      expect(domNode2.getAttribute('name'), equals(null));
+      expect(domNode1.getAttribute('alt'), equals(null));
+      expect(domNode2.getAttribute('alt'), equals(null));
     });
 
-    test('should clear attribute "name" if updated value is null', () async {
+    test('should clear attribute "alt" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), name: 'some-name'),
+          ImageMapArea(key: Key('el-1'), alt: 'some-alt'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1'), name: null),
+          ImageMapArea(key: Key('el-1'), alt: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -885,36 +885,36 @@ void html_input_test() {
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
-      expect(domNode1.getAttribute('name'), equals(null));
+      expect(domNode1.getAttribute('alt'), equals(null));
     });
 
-    test('should not set attribute "name" if provided value is null', () async {
+    test('should not set attribute "alt" if provided value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), name: null),
+          ImageMapArea(key: Key('el-1'), alt: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
-      expect(domNode1.getAttribute('name'), equals(null));
+      expect(domNode1.getAttribute('alt'), equals(null));
     });
 
-    test('should set messy "name"', () async {
+    test('should set messy "alt"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('widget-1'),
-            name: 'some name',
+            alt: 'some alt',
           ),
-          Input(
+          ImageMapArea(
             key: Key('widget-2'),
-            name: 'some "messy" name',
+            alt: 'some "messy" alt',
           ),
-          Input(
+          ImageMapArea(
             key: Key('widget-3'),
-            name: "some 'messy' name",
+            alt: "some 'messy' alt",
           ),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
@@ -925,26 +925,26 @@ void html_input_test() {
       var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
 
       expect(
-        domNode1.getAttribute('name'),
-        equals('some name'),
+        domNode1.getAttribute('alt'),
+        equals('some alt'),
       );
 
       expect(
-        domNode2.getAttribute('name'),
-        equals('some "messy" name'),
+        domNode2.getAttribute('alt'),
+        equals('some "messy" alt'),
       );
 
       expect(
-        domNode3.getAttribute('name'),
-        equals("some 'messy' name"),
+        domNode3.getAttribute('alt'),
+        equals("some 'messy' alt"),
       );
     });
 
-    test('should set attribute "value"', () async {
+    test('should set attribute "coords"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), value: 'some-value'),
-          Input(key: Key('el-2'), value: 'another-value'),
+          ImageMapArea(key: Key('el-1'), coords: 'some-value'),
+          ImageMapArea(key: Key('el-2'), coords: 'another-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -952,23 +952,23 @@ void html_input_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('value'), equals('some-value'));
-      expect(domNode2.getAttribute('value'), equals('another-value'));
+      expect(domNode1.getAttribute('coords'), equals('some-value'));
+      expect(domNode2.getAttribute('coords'), equals('another-value'));
     });
 
-    test('should update attribute "value"', () async {
+    test('should update attribute "coords"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), value: 'some-value'),
-          Input(key: Key('el-2'), value: 'another-value'),
+          ImageMapArea(key: Key('el-1'), coords: 'some-value'),
+          ImageMapArea(key: Key('el-2'), coords: 'another-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1'), value: 'updated-value'),
-          Input(key: Key('el-2'), value: 'another-value'),
+          ImageMapArea(key: Key('el-1'), coords: 'updated-value'),
+          ImageMapArea(key: Key('el-2'), coords: 'another-value'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -977,23 +977,23 @@ void html_input_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('value'), equals('updated-value'));
-      expect(domNode2.getAttribute('value'), equals('another-value'));
+      expect(domNode1.getAttribute('coords'), equals('updated-value'));
+      expect(domNode2.getAttribute('coords'), equals('another-value'));
     });
 
-    test('should clear attribute "value"', () async {
+    test('should clear attribute "coords"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), value: 'another-value'),
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2'), coords: 'another-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2')),
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1002,21 +1002,21 @@ void html_input_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('value'), equals(null));
-      expect(domNode2.getAttribute('value'), equals(null));
+      expect(domNode1.getAttribute('coords'), equals(null));
+      expect(domNode2.getAttribute('coords'), equals(null));
     });
 
-    test('should clear attribute "value" if updated value is null', () async {
+    test('should clear attribute "coords" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), value: 'some-value'),
+          ImageMapArea(key: Key('el-1'), coords: 'some-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1'), value: null),
+          ImageMapArea(key: Key('el-1'), coords: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1024,28 +1024,28 @@ void html_input_test() {
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
-      expect(domNode1.getAttribute('value'), equals(null));
+      expect(domNode1.getAttribute('coords'), equals(null));
     });
 
-    test('should not set attribute "value" if provided value is null',
+    test('should not set attribute "coords" if provided value is null',
         () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), value: null),
+          ImageMapArea(key: Key('el-1'), coords: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
-      expect(domNode1.getAttribute('value'), equals(null));
+      expect(domNode1.getAttribute('coords'), equals(null));
     });
 
-    test('should set attribute "accept"', () async {
+    test('should set attribute "href"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), accept: 'some-accept'),
-          Input(key: Key('el-2'), accept: 'another-accept'),
+          ImageMapArea(key: Key('el-1'), href: 'some-href'),
+          ImageMapArea(key: Key('el-2'), href: 'another-href'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1053,23 +1053,23 @@ void html_input_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('accept'), equals('some-accept'));
-      expect(domNode2.getAttribute('accept'), equals('another-accept'));
+      expect(domNode1.getAttribute('href'), equals('some-href'));
+      expect(domNode2.getAttribute('href'), equals('another-href'));
     });
 
-    test('should update attribute "accept"', () async {
+    test('should update attribute "href"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), accept: 'some-accept'),
-          Input(key: Key('el-2'), accept: 'another-accept'),
+          ImageMapArea(key: Key('el-1'), href: 'some-href'),
+          ImageMapArea(key: Key('el-2'), href: 'another-href'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1'), accept: 'updated-accept'),
-          Input(key: Key('el-2'), accept: 'another-accept'),
+          ImageMapArea(key: Key('el-1'), href: 'updated-href'),
+          ImageMapArea(key: Key('el-2'), href: 'another-href'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1078,23 +1078,23 @@ void html_input_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('accept'), equals('updated-accept'));
-      expect(domNode2.getAttribute('accept'), equals('another-accept'));
+      expect(domNode1.getAttribute('href'), equals('updated-href'));
+      expect(domNode2.getAttribute('href'), equals('another-href'));
     });
 
-    test('should clear attribute "accept"', () async {
+    test('should clear attribute "href"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), accept: 'another-accept'),
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2'), href: 'another-href'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2')),
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1103,21 +1103,21 @@ void html_input_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('accept'), equals(null));
-      expect(domNode2.getAttribute('accept'), equals(null));
+      expect(domNode1.getAttribute('href'), equals(null));
+      expect(domNode2.getAttribute('href'), equals(null));
     });
 
-    test('should clear attribute "accept" if updated value is null', () async {
+    test('should clear attribute "href" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), accept: 'some-accept'),
+          ImageMapArea(key: Key('el-1'), href: 'some-href'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1'), accept: null),
+          ImageMapArea(key: Key('el-1'), href: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1125,37 +1125,36 @@ void html_input_test() {
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
-      expect(domNode1.getAttribute('accept'), equals(null));
+      expect(domNode1.getAttribute('href'), equals(null));
     });
 
-    test('should not set attribute "accept" if provided value is null',
-        () async {
+    test('should not set attribute "href" if provided value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), accept: null),
+          ImageMapArea(key: Key('el-1'), href: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
-      expect(domNode1.getAttribute('accept'), equals(null));
+      expect(domNode1.getAttribute('href'), equals(null));
     });
 
-    test('should set messy "accept"', () async {
+    test('should set messy "href"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(
+          ImageMapArea(
             key: Key('widget-1'),
-            accept: 'some accept',
+            href: 'some href',
           ),
-          Input(
+          ImageMapArea(
             key: Key('widget-2'),
-            accept: 'some "messy" accept',
+            href: 'some "messy" href',
           ),
-          Input(
+          ImageMapArea(
             key: Key('widget-3'),
-            accept: "some 'messy' accept",
+            href: "some 'messy' href",
           ),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
@@ -1166,26 +1165,26 @@ void html_input_test() {
       var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
 
       expect(
-        domNode1.getAttribute('accept'),
-        equals('some accept'),
+        domNode1.getAttribute('href'),
+        equals('some href'),
       );
 
       expect(
-        domNode2.getAttribute('accept'),
-        equals('some "messy" accept'),
+        domNode2.getAttribute('href'),
+        equals('some "messy" href'),
       );
 
       expect(
-        domNode3.getAttribute('accept'),
-        equals("some 'messy' accept"),
+        domNode3.getAttribute('href'),
+        equals("some 'messy' href"),
       );
     });
 
-    test('should set attribute "minLength"', () async {
+    test('should set attribute "hreflang"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), minLength: 10),
-          Input(key: Key('el-2'), minLength: 0),
+          ImageMapArea(key: Key('el-1'), hrefLang: 'some-hreflang'),
+          ImageMapArea(key: Key('el-2'), hrefLang: 'another-hreflang'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1193,23 +1192,23 @@ void html_input_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('minlength'), equals('10'));
-      expect(domNode2.getAttribute('minlength'), equals('0'));
+      expect(domNode1.getAttribute('hreflang'), equals('some-hreflang'));
+      expect(domNode2.getAttribute('hreflang'), equals('another-hreflang'));
     });
 
-    test('should update attribute "minLength"', () async {
+    test('should update attribute "hreflang"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), minLength: 10),
-          Input(key: Key('el-2'), minLength: 10),
+          ImageMapArea(key: Key('el-1'), hrefLang: 'some-hreflang'),
+          ImageMapArea(key: Key('el-2'), hrefLang: 'another-hreflang'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1'), minLength: 20),
-          Input(key: Key('el-2'), minLength: 20),
+          ImageMapArea(key: Key('el-1'), hrefLang: 'updated-hreflang'),
+          ImageMapArea(key: Key('el-2'), hrefLang: 'another-hreflang'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1218,23 +1217,23 @@ void html_input_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('minlength'), equals('20'));
-      expect(domNode2.getAttribute('minlength'), equals('20'));
+      expect(domNode1.getAttribute('hreflang'), equals('updated-hreflang'));
+      expect(domNode2.getAttribute('hreflang'), equals('another-hreflang'));
     });
 
-    test('should clear attribute "minLength"', () async {
+    test('should clear attribute "hreflang"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), minLength: 10),
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2'), hrefLang: 'another-hreflang'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2')),
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1243,22 +1242,22 @@ void html_input_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('minlength'), equals(null));
-      expect(domNode2.getAttribute('minlength'), equals(null));
+      expect(domNode1.getAttribute('hreflang'), equals(null));
+      expect(domNode2.getAttribute('hreflang'), equals(null));
     });
 
-    test('should clear attribute "minLength" if updated value is null',
+    test('should clear attribute "hreflang" if updated value is null',
         () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), minLength: 10),
+          ImageMapArea(key: Key('el-1'), hrefLang: 'some-hreflang'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1'), minLength: null),
+          ImageMapArea(key: Key('el-1'), hrefLang: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1266,283 +1265,91 @@ void html_input_test() {
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
-      expect(domNode1.getAttribute('minlength'), equals(null));
+      expect(domNode1.getAttribute('hreflang'), equals(null));
     });
 
-    test('should not set attribute "minLength" if provided value is null',
+    test('should not set attribute "hreflang" if provided value is null',
         () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), minLength: null),
+          ImageMapArea(key: Key('el-1'), hrefLang: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
-      expect(domNode1.getAttribute('minlength'), equals(null));
+      expect(domNode1.getAttribute('hreflang'), equals(null));
     });
 
-    test('should set attribute "maxLength"', () async {
+    test('should set messy "hreflang"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), maxLength: 10),
-          Input(key: Key('el-2'), maxLength: 0),
+          ImageMapArea(
+            key: Key('widget-1'),
+            hrefLang: 'some hreflang',
+          ),
+          ImageMapArea(
+            key: Key('widget-2'),
+            hrefLang: 'some "messy" hreflang',
+          ),
+          ImageMapArea(
+            key: Key('widget-3'),
+            hrefLang: "some 'messy' hreflang",
+          ),
         ],
-        parentRenderElement: app!.appRenderElement,
+        parentRenderElement: RT_TestBed.rootRenderElement,
       );
 
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('maxlength'), equals('10'));
-      expect(domNode2.getAttribute('maxlength'), equals('0'));
-    });
-
-    test('should update attribute "maxLength"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), maxLength: 10),
-          Input(key: Key('el-2'), maxLength: 10),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), maxLength: 20),
-          Input(key: Key('el-2'), maxLength: 20),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('maxlength'), equals('20'));
-      expect(domNode2.getAttribute('maxlength'), equals('20'));
-    });
-
-    test('should clear attribute "maxLength"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), maxLength: 10),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('maxlength'), equals(null));
-      expect(domNode2.getAttribute('maxlength'), equals(null));
-    });
-
-    test('should clear attribute "maxLength" if updated value is null',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), maxLength: 10),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), maxLength: null),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('maxlength'), equals(null));
-    });
-
-    test('should not set attribute "maxLength" if provided value is null',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), maxLength: null),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('maxlength'), equals(null));
-    });
-
-    test('should set attribute "pattern"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), pattern: 'some-pattern'),
-          Input(key: Key('el-2'), pattern: 'another-pattern'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('pattern'), equals('some-pattern'));
-      expect(domNode2.getAttribute('pattern'), equals('another-pattern'));
-    });
-
-    test('should update attribute "pattern"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), pattern: 'some-pattern'),
-          Input(key: Key('el-2'), pattern: 'another-pattern'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), pattern: 'updated-pattern'),
-          Input(key: Key('el-2'), pattern: 'another-pattern'),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('pattern'), equals('updated-pattern'));
-      expect(domNode2.getAttribute('pattern'), equals('another-pattern'));
-    });
-
-    test('should clear attribute "pattern"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), pattern: 'another-pattern'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('pattern'), equals(null));
-      expect(domNode2.getAttribute('pattern'), equals(null));
-    });
-
-    test('should clear attribute "pattern" if updated value is null', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), pattern: 'some-pattern'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), pattern: null),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('pattern'), equals(null));
-    });
-
-    test('should not set attribute "pattern" if provided value is null',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), pattern: null),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('pattern'), equals(null));
-    });
-
-    test('should set attribute "placeholder"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), placeholder: 'some-placeholder'),
-          Input(key: Key('el-2'), placeholder: 'another-placeholder'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('placeholder'), equals('some-placeholder'));
-      expect(
-          domNode2.getAttribute('placeholder'), equals('another-placeholder'));
-    });
-
-    test('should update attribute "placeholder"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), placeholder: 'some-placeholder'),
-          Input(key: Key('el-2'), placeholder: 'another-placeholder'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), placeholder: 'updated-placeholder'),
-          Input(key: Key('el-2'), placeholder: 'another-placeholder'),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
 
       expect(
-          domNode1.getAttribute('placeholder'), equals('updated-placeholder'));
+        domNode1.getAttribute('hreflang'),
+        equals('some hreflang'),
+      );
+
       expect(
-          domNode2.getAttribute('placeholder'), equals('another-placeholder'));
+        domNode2.getAttribute('hreflang'),
+        equals('some "messy" hreflang'),
+      );
+
+      expect(
+        domNode3.getAttribute('hreflang'),
+        equals("some 'messy' hreflang"),
+      );
     });
 
-    test('should clear attribute "placeholder"', () async {
+    test('should set attribute "download"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), placeholder: 'another-placeholder'),
+          ImageMapArea(key: Key('el-1'), download: 'some-download'),
+          ImageMapArea(key: Key('el-2'), download: 'another-download'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('download'), equals('some-download'));
+      expect(domNode2.getAttribute('download'), equals('another-download'));
+    });
+
+    test('should update attribute "download"', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), download: 'some-download'),
+          ImageMapArea(key: Key('el-2'), download: 'another-download'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2')),
+          ImageMapArea(key: Key('el-1'), download: 'updated-download'),
+          ImageMapArea(key: Key('el-2'), download: 'another-download'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1551,22 +1358,47 @@ void html_input_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('placeholder'), equals(null));
-      expect(domNode2.getAttribute('placeholder'), equals(null));
+      expect(domNode1.getAttribute('download'), equals('updated-download'));
+      expect(domNode2.getAttribute('download'), equals('another-download'));
     });
 
-    test('should clear attribute "placeholder" if updated value is null',
+    test('should clear attribute "download"', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2'), download: 'another-download'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('download'), equals(null));
+      expect(domNode2.getAttribute('download'), equals(null));
+    });
+
+    test('should clear attribute "download" if updated value is null',
         () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), placeholder: 'some-placeholder'),
+          ImageMapArea(key: Key('el-1'), download: 'some-download'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1'), placeholder: null),
+          ImageMapArea(key: Key('el-1'), download: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1574,113 +1406,380 @@ void html_input_test() {
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
-      expect(domNode1.getAttribute('placeholder'), equals(null));
+      expect(domNode1.getAttribute('download'), equals(null));
     });
 
-    test('should not set attribute "placeholder" if provided value is null',
+    test('should not set attribute "download" if provided value is null',
         () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), placeholder: null),
+          ImageMapArea(key: Key('el-1'), download: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
-      expect(domNode1.getAttribute('placeholder'), equals(null));
+      expect(domNode1.getAttribute('download'), equals(null));
     });
 
-    test('should set attribute "multiple" only if its true', () async {
+    test('should set messy "download"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), multiple: false),
-          Input(key: Key('el-2'), multiple: null),
-          Input(key: Key('el-3'), multiple: true),
+          ImageMapArea(
+            key: Key('widget-1'),
+            download: 'some download',
+          ),
+          ImageMapArea(
+            key: Key('widget-2'),
+            download: 'some "messy" download',
+          ),
+          ImageMapArea(
+            key: Key('widget-3'),
+            download: "some 'messy' download",
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(
+        domNode1.getAttribute('download'),
+        equals('some download'),
+      );
+
+      expect(
+        domNode2.getAttribute('download'),
+        equals('some "messy" download'),
+      );
+
+      expect(
+        domNode3.getAttribute('download'),
+        equals("some 'messy' download"),
+      );
+    });
+
+    test('should set attribute "ping"', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), ping: 'some-ping'),
+          ImageMapArea(key: Key('el-2'), ping: 'another-ping'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
 
-      expect(domNode1.getAttribute('multiple'), equals(null));
-      expect(domNode2.getAttribute('multiple'), equals(null));
-      expect(domNode3.getAttribute('multiple'), equals('true'));
+      expect(domNode1.getAttribute('ping'), equals('some-ping'));
+      expect(domNode2.getAttribute('ping'), equals('another-ping'));
     });
 
-    test('should clear attribute "multiple" if updated value is not true',
+    test('should update attribute "ping"', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), ping: 'some-ping'),
+          ImageMapArea(key: Key('el-2'), ping: 'another-ping'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), ping: 'updated-ping'),
+          ImageMapArea(key: Key('el-2'), ping: 'another-ping'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('ping'), equals('updated-ping'));
+      expect(domNode2.getAttribute('ping'), equals('another-ping'));
+    });
+
+    test('should clear attribute "ping"', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2'), ping: 'another-ping'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('ping'), equals(null));
+      expect(domNode2.getAttribute('ping'), equals(null));
+    });
+
+    test('should clear attribute "ping" if updated value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), ping: 'some-ping'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), ping: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('ping'), equals(null));
+    });
+
+    test('should not set attribute "ping" if provided value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), ping: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('ping'), equals(null));
+    });
+
+    test('should set messy "ping"', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(
+            key: Key('widget-1'),
+            ping: 'some ping',
+          ),
+          ImageMapArea(
+            key: Key('widget-2'),
+            ping: 'some "messy" ping',
+          ),
+          ImageMapArea(
+            key: Key('widget-3'),
+            ping: "some 'messy' ping",
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(
+        domNode1.getAttribute('ping'),
+        equals('some ping'),
+      );
+
+      expect(
+        domNode2.getAttribute('ping'),
+        equals('some "messy" ping'),
+      );
+
+      expect(
+        domNode3.getAttribute('ping'),
+        equals("some 'messy' ping"),
+      );
+    });
+
+    test('should set attribute "referrerpolicy"', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), referrerPolicy: 'some-referrerpolicy'),
+          ImageMapArea(
+              key: Key('el-2'), referrerPolicy: 'another-referrerpolicy'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('referrerpolicy'),
+          equals('some-referrerpolicy'));
+      expect(domNode2.getAttribute('referrerpolicy'),
+          equals('another-referrerpolicy'));
+    });
+
+    test('should update attribute "referrerpolicy"', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), referrerPolicy: 'some-referrerpolicy'),
+          ImageMapArea(
+              key: Key('el-2'), referrerPolicy: 'another-referrerpolicy'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          ImageMapArea(
+              key: Key('el-1'), referrerPolicy: 'updated-referrerpolicy'),
+          ImageMapArea(
+              key: Key('el-2'), referrerPolicy: 'another-referrerpolicy'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('referrerpolicy'),
+          equals('updated-referrerpolicy'));
+      expect(domNode2.getAttribute('referrerpolicy'),
+          equals('another-referrerpolicy'));
+    });
+
+    test('should clear attribute "referrerpolicy"', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(
+              key: Key('el-2'), referrerPolicy: 'another-referrerpolicy'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('referrerpolicy'), equals(null));
+      expect(domNode2.getAttribute('referrerpolicy'), equals(null));
+    });
+
+    test('should clear attribute "referrerpolicy" if updated value is null',
         () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), multiple: true),
-          Input(key: Key('el-2'), multiple: true),
-          Input(key: Key('el-3'), multiple: true),
-          Input(key: Key('el-4'), multiple: true),
+          ImageMapArea(key: Key('el-1'), referrerPolicy: 'some-referrerpolicy'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1'), multiple: true),
-          Input(key: Key('el-2'), multiple: false),
-          Input(key: Key('el-3'), multiple: null),
-          Input(key: Key('el-4')),
+          ImageMapArea(key: Key('el-1'), referrerPolicy: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-      var domNode4 = app!.domNodeByKeyValue('el-4');
 
-      expect(domNode1.getAttribute('multiple'), equals('true'));
-      expect(domNode2.getAttribute('multiple'), equals(null));
-      expect(domNode3.getAttribute('multiple'), equals(null));
-      expect(domNode4.getAttribute('multiple'), equals(null));
+      expect(domNode1.getAttribute('referrerpolicy'), equals(null));
     });
 
-    test('should set attribute "required" only if its true', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), required: false),
-          Input(key: Key('el-2'), required: null),
-          Input(key: Key('el-3'), required: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-
-      expect(domNode1.getAttribute('required'), equals(null));
-      expect(domNode2.getAttribute('required'), equals(null));
-      expect(domNode3.getAttribute('required'), equals('true'));
-    });
-
-    test('should clear attribute "required" if updated value is not true',
+    test('should not set attribute "referrerpolicy" if provided value is null',
         () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), required: true),
-          Input(key: Key('el-2'), required: true),
-          Input(key: Key('el-3'), required: true),
-          Input(key: Key('el-4'), required: true),
+          ImageMapArea(key: Key('el-1'), referrerPolicy: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('referrerpolicy'), equals(null));
+    });
+
+    test('should set messy "referrerpolicy"', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(
+            key: Key('widget-1'),
+            referrerPolicy: 'some referrerpolicy',
+          ),
+          ImageMapArea(
+            key: Key('widget-2'),
+            referrerPolicy: 'some "messy" referrerpolicy',
+          ),
+          ImageMapArea(
+            key: Key('widget-3'),
+            referrerPolicy: "some 'messy' referrerpolicy",
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(
+        domNode1.getAttribute('referrerpolicy'),
+        equals('some referrerpolicy'),
+      );
+
+      expect(
+        domNode2.getAttribute('referrerpolicy'),
+        equals('some "messy" referrerpolicy'),
+      );
+
+      expect(
+        domNode3.getAttribute('referrerpolicy'),
+        equals("some 'messy' referrerpolicy"),
+      );
+    });
+
+    test('should set attribute "rel"', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), rel: 'some-rel'),
+          ImageMapArea(key: Key('el-2'), rel: 'another-rel'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('rel'), equals('some-rel'));
+      expect(domNode2.getAttribute('rel'), equals('another-rel'));
+    });
+
+    test('should update attribute "rel"', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), rel: 'some-rel'),
+          ImageMapArea(key: Key('el-2'), rel: 'another-rel'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1'), required: true),
-          Input(key: Key('el-2'), required: false),
-          Input(key: Key('el-3'), required: null),
-          Input(key: Key('el-4')),
+          ImageMapArea(key: Key('el-1'), rel: 'updated-rel'),
+          ImageMapArea(key: Key('el-2'), rel: 'another-rel'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1688,52 +1787,239 @@ void html_input_test() {
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-      var domNode4 = app!.domNodeByKeyValue('el-4');
 
-      expect(domNode1.getAttribute('required'), equals('true'));
-      expect(domNode2.getAttribute('required'), equals(null));
-      expect(domNode3.getAttribute('required'), equals(null));
-      expect(domNode4.getAttribute('required'), equals(null));
+      expect(domNode1.getAttribute('rel'), equals('updated-rel'));
+      expect(domNode2.getAttribute('rel'), equals('another-rel'));
     });
 
-    test('should set attribute "readonly" only if its true', () async {
+    test('should clear attribute "rel"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), readOnly: false),
-          Input(key: Key('el-2'), readOnly: null),
-          Input(key: Key('el-3'), readOnly: true),
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2'), rel: 'another-rel'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('rel'), equals(null));
+      expect(domNode2.getAttribute('rel'), equals(null));
+    });
+
+    test('should clear attribute "rel" if updated value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), rel: 'some-rel'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), rel: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('rel'), equals(null));
+    });
+
+    test('should not set attribute "rel" if provided value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), rel: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('rel'), equals(null));
+    });
+
+    test('should set attribute "shape"', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), shape: 'some-shape'),
+          ImageMapArea(key: Key('el-2'), shape: 'another-shape'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
 
-      expect(domNode1.getAttribute('readonly'), equals(null));
-      expect(domNode2.getAttribute('readonly'), equals(null));
-      expect(domNode3.getAttribute('readonly'), equals('true'));
+      expect(domNode1.getAttribute('shape'), equals('some-shape'));
+      expect(domNode2.getAttribute('shape'), equals('another-shape'));
     });
 
-    test('should clear attribute "readonly" if updated value is not true',
+    test('should update attribute "shape"', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), shape: 'some-shape'),
+          ImageMapArea(key: Key('el-2'), shape: 'another-shape'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), shape: 'updated-shape'),
+          ImageMapArea(key: Key('el-2'), shape: 'another-shape'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('shape'), equals('updated-shape'));
+      expect(domNode2.getAttribute('shape'), equals('another-shape'));
+    });
+
+    test('should clear attribute "shape"', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2'), shape: 'another-shape'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('shape'), equals(null));
+      expect(domNode2.getAttribute('shape'), equals(null));
+    });
+
+    test('should clear attribute "shape" if updated value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), shape: 'some-shape'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), shape: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('shape'), equals(null));
+    });
+
+    test('should not set attribute "shape" if provided value is null',
         () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), readOnly: true),
-          Input(key: Key('el-2'), readOnly: true),
-          Input(key: Key('el-3'), readOnly: true),
-          Input(key: Key('el-4'), readOnly: true),
+          ImageMapArea(key: Key('el-1'), shape: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('shape'), equals(null));
+    });
+
+    test('should set messy "shape"', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(
+            key: Key('widget-1'),
+            shape: 'some shape',
+          ),
+          ImageMapArea(
+            key: Key('widget-2'),
+            shape: 'some "messy" shape',
+          ),
+          ImageMapArea(
+            key: Key('widget-3'),
+            shape: "some 'messy' shape",
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(
+        domNode1.getAttribute('shape'),
+        equals('some shape'),
+      );
+
+      expect(
+        domNode2.getAttribute('shape'),
+        equals('some "messy" shape'),
+      );
+
+      expect(
+        domNode3.getAttribute('shape'),
+        equals("some 'messy' shape"),
+      );
+    });
+
+    test('should set attribute "target"', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), target: 'some-target'),
+          ImageMapArea(key: Key('el-2'), target: 'another-target'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('target'), equals('some-target'));
+      expect(domNode2.getAttribute('target'), equals('another-target'));
+    });
+
+    test('should update attribute "target"', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), target: 'some-target'),
+          ImageMapArea(key: Key('el-2'), target: 'another-target'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Input(key: Key('el-1'), readOnly: true),
-          Input(key: Key('el-2'), readOnly: false),
-          Input(key: Key('el-3'), readOnly: null),
-          Input(key: Key('el-4')),
+          ImageMapArea(key: Key('el-1'), target: 'updated-target'),
+          ImageMapArea(key: Key('el-2'), target: 'another-target'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1741,597 +2027,69 @@ void html_input_test() {
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-      var domNode4 = app!.domNodeByKeyValue('el-4');
 
-      expect(domNode1.getAttribute('readonly'), equals('true'));
-      expect(domNode2.getAttribute('readonly'), equals(null));
-      expect(domNode3.getAttribute('readonly'), equals(null));
-      expect(domNode4.getAttribute('readonly'), equals(null));
+      expect(domNode1.getAttribute('target'), equals('updated-target'));
+      expect(domNode2.getAttribute('target'), equals('another-target'));
     });
 
-    test('should set attribute "disabled" only if its true', () async {
+    test('should clear attribute "target"', () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), disabled: false),
-          Input(key: Key('el-2'), disabled: null),
-          Input(key: Key('el-3'), disabled: true),
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2'), target: 'another-target'),
         ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1')),
+          ImageMapArea(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
 
-      expect(domNode1.getAttribute('disabled'), equals(null));
-      expect(domNode2.getAttribute('disabled'), equals(null));
-      expect(domNode3.getAttribute('disabled'), equals('true'));
+      expect(domNode1.getAttribute('target'), equals(null));
+      expect(domNode2.getAttribute('target'), equals(null));
     });
 
-    test('should clear attribute "disabled" if updated value is not true',
+    test('should clear attribute "target" if updated value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), target: 'some-target'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          ImageMapArea(key: Key('el-1'), target: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('target'), equals(null));
+    });
+
+    test('should not set attribute "target" if provided value is null',
         () async {
       await app!.buildChildren(
         widgets: [
-          Input(key: Key('el-1'), disabled: true),
-          Input(key: Key('el-2'), disabled: true),
-          Input(key: Key('el-3'), disabled: true),
-          Input(key: Key('el-4'), disabled: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), disabled: true),
-          Input(key: Key('el-2'), disabled: false),
-          Input(key: Key('el-3'), disabled: null),
-          Input(key: Key('el-4')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-      var domNode4 = app!.domNodeByKeyValue('el-4');
-
-      expect(domNode1.getAttribute('disabled'), equals('true'));
-      expect(domNode2.getAttribute('disabled'), equals(null));
-      expect(domNode3.getAttribute('disabled'), equals(null));
-      expect(domNode4.getAttribute('disabled'), equals(null));
-    });
-
-    test('should set attribute "checked" only if its true', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), checked: false),
-          Input(key: Key('el-2'), checked: null),
-          Input(key: Key('el-3'), checked: true),
+          ImageMapArea(key: Key('el-1'), target: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
 
-      expect(domNode1.getAttribute('checked'), equals(null));
-      expect(domNode2.getAttribute('checked'), equals(null));
-      expect(domNode3.getAttribute('checked'), equals('true'));
-    });
-
-    test('should clear attribute "checked" if updated value is not true',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), checked: true),
-          Input(key: Key('el-2'), checked: true),
-          Input(key: Key('el-3'), checked: true),
-          Input(key: Key('el-4'), checked: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), checked: true),
-          Input(key: Key('el-2'), checked: false),
-          Input(key: Key('el-3'), checked: null),
-          Input(key: Key('el-4')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-      var domNode4 = app!.domNodeByKeyValue('el-4');
-
-      expect(domNode1.getAttribute('checked'), equals('true'));
-      expect(domNode2.getAttribute('checked'), equals(null));
-      expect(domNode3.getAttribute('checked'), equals(null));
-      expect(domNode4.getAttribute('checked'), equals(null));
-    });
-
-    test('should set input attribute "type"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), type: null),
-          Input(key: Key('el-3'), type: InputType.text),
-          Input(key: Key('el-4'), type: InputType.password),
-          Input(key: Key('el-5'), type: InputType.radio),
-          Input(key: Key('el-6'), type: InputType.checkbox),
-          Input(key: Key('el-7'), type: InputType.submit),
-          Input(key: Key('el-8'), type: InputType.file),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-      var domNode4 = app!.domNodeByKeyValue('el-4');
-      var domNode5 = app!.domNodeByKeyValue('el-5');
-      var domNode6 = app!.domNodeByKeyValue('el-6');
-      var domNode7 = app!.domNodeByKeyValue('el-7');
-      var domNode8 = app!.domNodeByKeyValue('el-8');
-
-      expect(domNode1.getAttribute('type'), equals(null));
-      expect(domNode2.getAttribute('type'), equals(null));
-      expect(domNode3.getAttribute('type'), equals('text'));
-      expect(domNode4.getAttribute('type'), equals('password'));
-      expect(domNode5.getAttribute('type'), equals('radio'));
-      expect(domNode6.getAttribute('type'), equals('checkbox'));
-      expect(domNode7.getAttribute('type'), equals('submit'));
-      expect(domNode8.getAttribute('type'), equals('file'));
-    });
-
-    test('should update form attribute "type"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), type: null),
-          Input(key: Key('el-3'), type: InputType.text),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), type: InputType.text),
-          Input(key: Key('el-2'), type: null),
-          Input(key: Key('el-3')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-
-      expect(domNode1.getAttribute('type'), equals('text'));
-      expect(domNode2.getAttribute('type'), equals(null));
-      expect(domNode3.getAttribute('type'), equals(null));
-    });
-
-    test('should set "change" event listener', () async {
-      var testStack = RT_TestStack();
-
-      await app!.buildChildren(
-        widgets: [
-          Input(
-            key: Key('el-1'),
-            onChange: (event) => testStack.push('change-1'),
-          ),
-          Input(
-            key: Key('el-2'),
-            onChange: (event) => testStack.push('change-2'),
-          ),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('change'));
-      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('change'));
-
-      await Future.delayed(Duration.zero, () {
-        expect(testStack.popFromStart(), equals('change-1'));
-        expect(testStack.popFromStart(), equals('change-2'));
-        expect(testStack.canPop(), equals(false));
-      });
-    });
-
-    test('should set "change" event listener only if provided', () async {
-      void listener(event) => {};
-
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), onChange: null),
-          Input(key: Key('el-3'), onChange: listener),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
-
-      expect(listeners1[DomEventType.change], equals(null));
-      expect(listeners2[DomEventType.change], equals(null));
-      expect(listeners3[DomEventType.change], equals(listener));
-    });
-
-    test('should clear "change" event listner', () async {
-      void listener(event) => {};
-
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), onChange: listener),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-
-      expect(listeners1[DomEventType.change], equals(null));
-      expect(listeners2[DomEventType.change], equals(listener));
-
-      // update
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-
-      expect(listeners1[DomEventType.change], equals(null));
-      expect(listeners2[DomEventType.change], equals(null));
-    });
-
-    test('should set "input" event listener', () async {
-      var testStack = RT_TestStack();
-
-      await app!.buildChildren(
-        widgets: [
-          Input(
-            key: Key('el-1'),
-            onInput: (event) => testStack.push('input-1'),
-          ),
-          Input(
-            key: Key('el-2'),
-            onInput: (event) => testStack.push('input-2'),
-          ),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('input'));
-      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('input'));
-
-      await Future.delayed(Duration.zero, () {
-        expect(testStack.popFromStart(), equals('input-1'));
-        expect(testStack.popFromStart(), equals('input-2'));
-        expect(testStack.canPop(), equals(false));
-      });
-    });
-
-    test('should set "input" event listener only if provided', () async {
-      void listener(event) => {};
-
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), onInput: null),
-          Input(key: Key('el-3'), onInput: listener),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
-
-      expect(listeners1[DomEventType.input], equals(null));
-      expect(listeners2[DomEventType.input], equals(null));
-      expect(listeners3[DomEventType.input], equals(listener));
-    });
-
-    test('should clear "input" event listner', () async {
-      void listener(event) => {};
-
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), onInput: listener),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-
-      expect(listeners1[DomEventType.input], equals(null));
-      expect(listeners2[DomEventType.input], equals(listener));
-
-      // update
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-
-      expect(listeners1[DomEventType.input], equals(null));
-      expect(listeners2[DomEventType.input], equals(null));
-    });
-
-    test('should set "KeyPress" event listener', () async {
-      var testStack = RT_TestStack();
-
-      await app!.buildChildren(
-        widgets: [
-          Input(
-            key: Key('el-1'),
-            onKeyPress: (event) => testStack.push('keypress-1'),
-          ),
-          Input(
-            key: Key('el-2'),
-            onKeyPress: (event) => testStack.push('keypress-2'),
-          ),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('keypress'));
-      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('keypress'));
-
-      await Future.delayed(Duration.zero, () {
-        expect(testStack.popFromStart(), equals('keypress-1'));
-        expect(testStack.popFromStart(), equals('keypress-2'));
-        expect(testStack.canPop(), equals(false));
-      });
-    });
-
-    test('should set "KeyPress" event listener only if provided', () async {
-      void listener(event) => {};
-
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), onKeyPress: null),
-          Input(key: Key('el-3'), onKeyPress: listener),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
-
-      expect(listeners1[DomEventType.keyPress], equals(null));
-      expect(listeners2[DomEventType.keyPress], equals(null));
-      expect(listeners3[DomEventType.keyPress], equals(listener));
-    });
-
-    test('should clear "KeyPress" event listner', () async {
-      void listener(event) => {};
-
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), onKeyPress: listener),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-
-      expect(listeners1[DomEventType.keyPress], equals(null));
-      expect(listeners2[DomEventType.keyPress], equals(listener));
-
-      // update
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-
-      expect(listeners1[DomEventType.keyPress], equals(null));
-      expect(listeners2[DomEventType.keyPress], equals(null));
-    });
-
-    test('should set "KeyUp" event listener', () async {
-      var testStack = RT_TestStack();
-
-      await app!.buildChildren(
-        widgets: [
-          Input(
-            key: Key('el-1'),
-            onKeyUp: (event) => testStack.push('keyup-1'),
-          ),
-          Input(
-            key: Key('el-2'),
-            onKeyUp: (event) => testStack.push('keyup-2'),
-          ),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('keyup'));
-      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('keyup'));
-
-      await Future.delayed(Duration.zero, () {
-        expect(testStack.popFromStart(), equals('keyup-1'));
-        expect(testStack.popFromStart(), equals('keyup-2'));
-        expect(testStack.canPop(), equals(false));
-      });
-    });
-
-    test('should set "KeyUp" event listener only if provided', () async {
-      void listener(event) => {};
-
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), onKeyUp: null),
-          Input(key: Key('el-3'), onKeyUp: listener),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
-
-      expect(listeners1[DomEventType.keyUp], equals(null));
-      expect(listeners2[DomEventType.keyUp], equals(null));
-      expect(listeners3[DomEventType.keyUp], equals(listener));
-    });
-
-    test('should clear "KeyUp" event listner', () async {
-      void listener(event) => {};
-
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), onKeyUp: listener),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-
-      expect(listeners1[DomEventType.keyUp], equals(null));
-      expect(listeners2[DomEventType.keyUp], equals(listener));
-
-      // update
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-
-      expect(listeners1[DomEventType.keyUp], equals(null));
-      expect(listeners2[DomEventType.keyUp], equals(null));
-    });
-
-    test('should set "KeyDown" event listener', () async {
-      var testStack = RT_TestStack();
-
-      await app!.buildChildren(
-        widgets: [
-          Input(
-            key: Key('el-1'),
-            onKeyDown: (event) => testStack.push('keydown-1'),
-          ),
-          Input(
-            key: Key('el-2'),
-            onKeyDown: (event) => testStack.push('keydown-2'),
-          ),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('keydown'));
-      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('keydown'));
-
-      await Future.delayed(Duration.zero, () {
-        expect(testStack.popFromStart(), equals('keydown-1'));
-        expect(testStack.popFromStart(), equals('keydown-2'));
-        expect(testStack.canPop(), equals(false));
-      });
-    });
-
-    test('should set "KeyDown" event listener only if provided', () async {
-      void listener(event) => {};
-
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), onKeyDown: null),
-          Input(key: Key('el-3'), onKeyDown: listener),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
-
-      expect(listeners1[DomEventType.keyDown], equals(null));
-      expect(listeners2[DomEventType.keyDown], equals(null));
-      expect(listeners3[DomEventType.keyDown], equals(listener));
-    });
-
-    test('should clear "KeyDown" event listner', () async {
-      void listener(event) => {};
-
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), onKeyDown: listener),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-
-      expect(listeners1[DomEventType.keyDown], equals(null));
-      expect(listeners2[DomEventType.keyDown], equals(listener));
-
-      // update
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-
-      expect(listeners1[DomEventType.keyDown], equals(null));
-      expect(listeners2[DomEventType.keyDown], equals(null));
+      expect(domNode1.getAttribute('target'), equals(null));
     });
   });
 }

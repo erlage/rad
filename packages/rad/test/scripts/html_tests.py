@@ -17,12 +17,13 @@ templates_folder = os.path.abspath(
 
 skipped_tests = {
     'html_attr_innertext': {
-        'img': ['chrome'],    # works on firefox
-        'col': ['chrome'],    # works on firefox
-        'br': ['chrome'],     # works on firefox
-        'wbr': ['chrome'],    # works on firefox
-        'hr': ['chrome'],     # works on firefox
-        'input': ['chrome'],  # works on firefox
+        'area': ['chrome'], 
+        'img': ['chrome'],  
+        'col': ['chrome'],  
+        'br': ['chrome'],   
+        'wbr': ['chrome'],  
+        'hr': ['chrome'],   
+        'input': ['chrome'],
     }
 }
 
@@ -88,6 +89,18 @@ widget_specific_tests = {
         'html_attr_alt',
         'html_attr_width',
         'html_attr_height',
+    ],
+    'ImageMapArea': [
+        'html_attr_alt',
+        'html_attr_coords',
+        'html_attr_href',
+        'html_attr_hreflang',
+        'html_attr_download',
+        'html_attr_ping',
+        'html_attr_referrerpolicy',
+        'html_attr_rel',
+        'html_attr_shape',
+        'html_attr_target',
     ],
     'InlineQuotation': [
         'html_attr_cite',
@@ -284,6 +297,7 @@ widgets_map = {
     'IFrame': 'iframe',
     'Idiomatic': 'i',
     'Image': 'img',
+    'ImageMapArea': 'area',
     'InlineQuotation': 'q',
     'Input': 'input',
     'KeyboardInput': 'kbd',

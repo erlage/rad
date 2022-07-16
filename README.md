@@ -196,6 +196,7 @@ Similarity tags:
 , [IFrame](https://pub.dev/documentation/rad/latest/widgets_html/IFrame-class.html)
 , [Idiomatic](https://pub.dev/documentation/rad/latest/widgets_html/Idiomatic-class.html)
 , [Image](https://pub.dev/documentation/rad/latest/widgets_html/Image-class.html)
+, [ImageMapArea](https://pub.dev/documentation/rad/latest/widgets_html/ImageMapArea-class.html)
 , [InlineQuotation](https://pub.dev/documentation/rad/latest/widgets_html/InlineQuotation-class.html)
 , [Input](https://pub.dev/documentation/rad/latest/widgets_html/Input-class.html)
 , [InputCheckBox](https://pub.dev/documentation/rad/latest/widgets_html/InputCheckBox-class.html)

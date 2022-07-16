@@ -123,6 +123,11 @@ class Attributes {
   static const start = 'start';
   static const reversed = 'reversed';
   static const dateTime = 'datetime';
+  static const coords = 'coords';
+  static const hrefLang = 'hreflang';
+  static const ping = 'ping';
+  static const referrerPolicy = 'referrerpolicy';
+  static const shape = 'shape';
 
   // meta
 

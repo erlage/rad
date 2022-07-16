@@ -288,6 +288,11 @@ def apply_commons(file_name, contents):
     contents = contents.replace('Attributes.start', "'start'")
     contents = contents.replace('Attributes.reversed', "'reversed'")
     contents = contents.replace('Attributes.dateTime', "'datetime'")
+    contents = contents.replace('Attributes.coords', "'coords'")
+    contents = contents.replace('Attributes.hrefLang', "'hreflang'")
+    contents = contents.replace('Attributes.ping', "'ping'")
+    contents = contents.replace('Attributes.referrerPolicy', "'referrerpolicy'")
+    contents = contents.replace('Attributes.shape', "'shape'")
 
     contents = contents.replace('Properties.value', "'value'")
     contents = contents.replace('Properties.innerHtml', "'innerHtml'")

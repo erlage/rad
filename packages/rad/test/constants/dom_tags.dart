@@ -10,6 +10,7 @@ class RT_DomTags {
     'abbr',
     'address',
     'article',
+    'area',
     'aside',
     'bdo',
     'bdi',

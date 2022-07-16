@@ -592,9 +592,10 @@ void html_bidirectional_text_override_test() {
         RT_TestBed.rootDomNode.innerHtml,
         startsWith(
           //
-          // img/col tags might don't have a closing tag
+          // some tags might don't have a closing tag
           //
           [
+            'area',
             'img',
             'col',
             'br',

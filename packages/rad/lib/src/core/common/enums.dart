@@ -216,6 +216,7 @@ enum DomTagType {
   idiomatic('i'),
   iFrame('iframe'),
   image('img'),
+  imageMapArea('area'),
   inlineQuotation('q'),
   input('input'),
   keyboardInput('kbd'),

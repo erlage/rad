@@ -88,6 +88,7 @@ widget_specific_tests = {
     'IFrame': ['widget_specific_html_widgets'],
     'Idiomatic': ['widget_specific_html_widgets'],
     'Image': ['widget_specific_html_widgets'],
+    'ImageMapArea': ['widget_specific_html_widgets'],
     'InlineQuotation': ['widget_specific_html_widgets'],
     'Input': ['widget_specific_html_widgets'],
     'KeyboardInput': ['widget_specific_html_widgets'],
