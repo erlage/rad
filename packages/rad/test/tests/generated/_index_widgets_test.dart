@@ -36,6 +36,8 @@ part 'widgets/widget_description_list_tests.generated.dart';
 part 'widgets/widget_description_term_tests.generated.dart';
 part 'widgets/widget_division_tests.generated.dart';
 part 'widgets/widget_field_set_tests.generated.dart';
+part 'widgets/widget_figure_tests.generated.dart';
+part 'widgets/widget_figure_caption_tests.generated.dart';
 part 'widgets/widget_footer_tests.generated.dart';
 part 'widgets/widget_form_tests.generated.dart';
 part 'widgets/widget_heading1_tests.generated.dart';
@@ -104,6 +106,8 @@ void main() {
   widget_description_term_test();
   widget_division_test();
   widget_field_set_test();
+  widget_figure_test();
+  widget_figure_caption_test();
   widget_footer_test();
   widget_form_test();
   widget_heading1_test();

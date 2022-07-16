@@ -65,6 +65,8 @@ widget_specific_tests = {
     'DescriptionTerm': ['widget_specific_html_widgets'],
     'Division': ['widget_specific_html_widgets'],
     'FieldSet': ['widget_specific_html_widgets'],
+    'Figure': ['widget_specific_html_widgets'],
+    'FigureCaption': ['widget_specific_html_widgets'],
     'Footer': ['widget_specific_html_widgets'],
     'Form': ['widget_specific_html_widgets'],
     'Heading1': ['widget_specific_html_widgets'],

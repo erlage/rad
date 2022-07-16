@@ -241,6 +241,8 @@ widgets_map = {
     'DescriptionTerm': 'dt',
     'Division': 'div',
     'FieldSet': 'fieldset',
+    'Figure': 'figure',
+    'FigureCaption': 'figcaption',
     'Footer': 'footer',
     'Form': 'form',
     'Heading1': 'h1',

@@ -20,6 +20,8 @@ export 'src/widgets/html/description_list.dart' show DescriptionList;
 export 'src/widgets/html/description_term.dart' show DescriptionTerm;
 export 'src/widgets/html/division.dart' show Division;
 export 'src/widgets/html/fieldset.dart' show FieldSet;
+export 'src/widgets/html/figure.dart' show Figure;
+export 'src/widgets/html/figure_caption.dart' show FigureCaption;
 export 'src/widgets/html/footer.dart' show Footer;
 export 'src/widgets/html/form.dart' show Form;
 export 'src/widgets/html/header.dart' show Header;

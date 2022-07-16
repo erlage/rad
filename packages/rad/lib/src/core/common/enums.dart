@@ -166,6 +166,8 @@ enum DomTagType {
   descriptionTerm('dt'),
   division('div'),
   fieldSet('fieldset'),
+  figure('figure'),
+  figureCaption('figcaption'),
   footer('footer'),
   form('form'),
   header('header'),
