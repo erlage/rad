@@ -16,6 +16,14 @@ __package_version__ = '0.1.0'
 __package_name__ = 'rad_custom_html_widgets'
 __package_description__ = 'Custom HTML widgets for using with Rad'
 
+# This file is kept in sync with main repo so it may not be compaitable with
+# published version of rad.
+#
+# For generating HTML widgets compaitable with Rad v.0.10.0
+# 
+# - git checkout 35958c12f1abac32f299df85f1294d61abdd553e
+# 
+
 generator_dir = os.path.abspath(os.path.dirname(__file__))
 tool_dir = os.path.abspath(os.path.join(generator_dir, os.path.pardir))
 root_dir = os.path.abspath(os.path.join(tool_dir, os.path.pardir))
