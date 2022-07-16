@@ -54,8 +54,8 @@ import 'package:rad/src/widgets/html/table_row.dart';
 import 'package:rad/src/widgets/html/textarea.dart';
 import 'package:rad/src/widgets/html/unordered_list.dart';
 
-typedef address = Address;
 typedef abbr = Abbreviation;
+typedef address = Address;
 typedef a = Anchor;
 typedef article = Article;
 typedef aside = Aside;
