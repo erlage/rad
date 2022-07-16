@@ -48,10 +48,10 @@ widget_specific_tests = {
     'Audio': [
         'html_attr_autoplay',
         'html_attr_controls',
-        'html_attr_audio_cross_origin_type',
+        'html_attr_cross_origin_type',
         'html_attr_loop',
         'html_attr_muted',
-        'html_attr_audio_preload_type',
+        'html_attr_preload_type',
         'html_attr_src',
     ],
     'BidirectionalIsolate': [

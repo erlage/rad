@@ -1,10 +1,10 @@
 test('should set ordered list attribute "preload"', () async {
     await app!.buildChildren(
         widgets: [
-          __WidgetClass__(key: Key('el-1'), preload: AudioPreloadType.none),
-          __WidgetClass__(key: Key('el-2'), preload: AudioPreloadType.metaData),
-          __WidgetClass__(key: Key('el-3'), preload: AudioPreloadType.auto),
-          __WidgetClass__(key: Key('el-4'), preload: AudioPreloadType.empty),
+          __WidgetClass__(key: Key('el-1'), preload: PreloadType.none),
+          __WidgetClass__(key: Key('el-2'), preload: PreloadType.metaData),
+          __WidgetClass__(key: Key('el-3'), preload: PreloadType.auto),
+          __WidgetClass__(key: Key('el-4'), preload: PreloadType.empty),
         ],
         parentRenderElement: app!.appRenderElement,
     );
@@ -16,28 +16,28 @@ test('should set ordered list attribute "preload"', () async {
 
     expect(
       domNode1.getAttribute('preload'),
-      equals(AudioPreloadType.none.nativeName),
+      equals(PreloadType.none.nativeName),
     );
     expect(
       domNode2.getAttribute('preload'),
-      equals(AudioPreloadType.metaData.nativeName),
+      equals(PreloadType.metaData.nativeName),
     );
     expect(
       domNode3.getAttribute('preload'),
-      equals(AudioPreloadType.auto.nativeName),
+      equals(PreloadType.auto.nativeName),
     );
     expect(
       domNode4.getAttribute('preload'),
-      equals(AudioPreloadType.empty.nativeName),
+      equals(PreloadType.empty.nativeName),
     );
 });
 
 test('should update ordered list attribute "preload"', () async {
     await app!.buildChildren(
         widgets: [
-          __WidgetClass__(key: Key('el-1'), preload: AudioPreloadType.none),
-          __WidgetClass__(key: Key('el-2'), preload: AudioPreloadType.metaData),
-          __WidgetClass__(key: Key('el-3'), preload: AudioPreloadType.auto),
+          __WidgetClass__(key: Key('el-1'), preload: PreloadType.none),
+          __WidgetClass__(key: Key('el-2'), preload: PreloadType.metaData),
+          __WidgetClass__(key: Key('el-3'), preload: PreloadType.auto),
         ],
         parentRenderElement: app!.appRenderElement,
     );
@@ -46,7 +46,7 @@ test('should update ordered list attribute "preload"', () async {
         widgets: [
           __WidgetClass__(key: Key('el-1')),
           __WidgetClass__(key: Key('el-2'), preload: null),
-          __WidgetClass__(key: Key('el-3'), preload: AudioPreloadType.empty),
+          __WidgetClass__(key: Key('el-3'), preload: PreloadType.empty),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -66,6 +66,6 @@ test('should update ordered list attribute "preload"', () async {
     );
     expect(
         domNode3.getAttribute('preload'),
-        equals(AudioPreloadType.empty.nativeName),
+        equals(PreloadType.empty.nativeName),
     );
 });

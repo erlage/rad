@@ -908,10 +908,8 @@ void html_audio_test() {
     test('should set form attribute "crossorigin"', () async {
       await app!.buildChildren(
         widgets: [
-          Audio(key: Key('el-1'), crossOrigin: AudioCrossOriginType.anonymous),
-          Audio(
-              key: Key('el-2'),
-              crossOrigin: AudioCrossOriginType.useCredentials),
+          Audio(key: Key('el-1'), crossOrigin: CrossOriginType.anonymous),
+          Audio(key: Key('el-2'), crossOrigin: CrossOriginType.useCredentials),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -921,22 +919,20 @@ void html_audio_test() {
 
       expect(
         domNode1.getAttribute('crossorigin'),
-        equals(AudioCrossOriginType.anonymous.nativeName),
+        equals(CrossOriginType.anonymous.nativeName),
       );
       expect(
         domNode2.getAttribute('crossorigin'),
-        equals(AudioCrossOriginType.useCredentials.nativeName),
+        equals(CrossOriginType.useCredentials.nativeName),
       );
     });
 
     test('should update form attribute "crossorigin"', () async {
       await app!.buildChildren(
         widgets: [
-          Audio(key: Key('el-1'), crossOrigin: AudioCrossOriginType.anonymous),
-          Audio(
-              key: Key('el-2'),
-              crossOrigin: AudioCrossOriginType.useCredentials),
-          Audio(key: Key('el-3'), crossOrigin: AudioCrossOriginType.anonymous),
+          Audio(key: Key('el-1'), crossOrigin: CrossOriginType.anonymous),
+          Audio(key: Key('el-2'), crossOrigin: CrossOriginType.useCredentials),
+          Audio(key: Key('el-3'), crossOrigin: CrossOriginType.anonymous),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -945,9 +941,7 @@ void html_audio_test() {
         widgets: [
           Audio(key: Key('el-1')),
           Audio(key: Key('el-2'), crossOrigin: null),
-          Audio(
-              key: Key('el-3'),
-              crossOrigin: AudioCrossOriginType.useCredentials),
+          Audio(key: Key('el-3'), crossOrigin: CrossOriginType.useCredentials),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -967,7 +961,7 @@ void html_audio_test() {
       );
       expect(
         domNode3.getAttribute('crossorigin'),
-        equals(AudioCrossOriginType.useCredentials.nativeName),
+        equals(CrossOriginType.useCredentials.nativeName),
       );
     });
 
@@ -1080,10 +1074,10 @@ void html_audio_test() {
     test('should set ordered list attribute "preload"', () async {
       await app!.buildChildren(
         widgets: [
-          Audio(key: Key('el-1'), preload: AudioPreloadType.none),
-          Audio(key: Key('el-2'), preload: AudioPreloadType.metaData),
-          Audio(key: Key('el-3'), preload: AudioPreloadType.auto),
-          Audio(key: Key('el-4'), preload: AudioPreloadType.empty),
+          Audio(key: Key('el-1'), preload: PreloadType.none),
+          Audio(key: Key('el-2'), preload: PreloadType.metaData),
+          Audio(key: Key('el-3'), preload: PreloadType.auto),
+          Audio(key: Key('el-4'), preload: PreloadType.empty),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1095,28 +1089,28 @@ void html_audio_test() {
 
       expect(
         domNode1.getAttribute('preload'),
-        equals(AudioPreloadType.none.nativeName),
+        equals(PreloadType.none.nativeName),
       );
       expect(
         domNode2.getAttribute('preload'),
-        equals(AudioPreloadType.metaData.nativeName),
+        equals(PreloadType.metaData.nativeName),
       );
       expect(
         domNode3.getAttribute('preload'),
-        equals(AudioPreloadType.auto.nativeName),
+        equals(PreloadType.auto.nativeName),
       );
       expect(
         domNode4.getAttribute('preload'),
-        equals(AudioPreloadType.empty.nativeName),
+        equals(PreloadType.empty.nativeName),
       );
     });
 
     test('should update ordered list attribute "preload"', () async {
       await app!.buildChildren(
         widgets: [
-          Audio(key: Key('el-1'), preload: AudioPreloadType.none),
-          Audio(key: Key('el-2'), preload: AudioPreloadType.metaData),
-          Audio(key: Key('el-3'), preload: AudioPreloadType.auto),
+          Audio(key: Key('el-1'), preload: PreloadType.none),
+          Audio(key: Key('el-2'), preload: PreloadType.metaData),
+          Audio(key: Key('el-3'), preload: PreloadType.auto),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1125,7 +1119,7 @@ void html_audio_test() {
         widgets: [
           Audio(key: Key('el-1')),
           Audio(key: Key('el-2'), preload: null),
-          Audio(key: Key('el-3'), preload: AudioPreloadType.empty),
+          Audio(key: Key('el-3'), preload: PreloadType.empty),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1145,7 +1139,7 @@ void html_audio_test() {
       );
       expect(
         domNode3.getAttribute('preload'),
-        equals(AudioPreloadType.empty.nativeName),
+        equals(PreloadType.empty.nativeName),
       );
     });
 

@@ -29,7 +29,7 @@ class Audio extends HTMLWidgetBase {
   /// This enumerated attribute indicates whether to use CORS to fetch the
   /// related audio file.
   ///
-  final AudioCrossOriginType? crossOrigin;
+  final CrossOriginType? crossOrigin;
 
   /// A Boolean attribute: if specified, the audio player will automatically
   /// seek back to the start upon reaching the end of the audio.
@@ -44,7 +44,7 @@ class Audio extends HTMLWidgetBase {
   /// This enumerated attribute is intended to provide a hint to the browser
   /// about what the author thinks will lead to the best user experience.
   ///
-  final AudioPreloadType? preload;
+  final PreloadType? preload;
 
   /// The URL of the audio to embed. This is subject to HTTP access controls.
   /// This is optional; you may instead use the source element within the audio

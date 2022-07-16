@@ -176,9 +176,9 @@ enum ButtonType {
   const ButtonType(this.nativeName);
 }
 
-/// Audio cross origin request type.
+/// Cross origin request type.
 ///
-enum AudioCrossOriginType {
+enum CrossOriginType {
   /// Sends a cross-origin request without a credential. In other words, it
   /// sends the Origin: HTTP header without a cookie, X.509 certificate, or
   /// performing HTTP Basic authentication.
@@ -192,12 +192,12 @@ enum AudioCrossOriginType {
   useCredentials('use-credentials');
 
   final String nativeName;
-  const AudioCrossOriginType(this.nativeName);
+  const CrossOriginType(this.nativeName);
 }
 
-/// Audio preload type.
+/// Preload type.
 ///
-enum AudioPreloadType {
+enum PreloadType {
   /// Indicates that the audio should not be preloaded.
   ///
   none('none'),
@@ -217,7 +217,7 @@ enum AudioPreloadType {
   ;
 
   final String nativeName;
-  const AudioPreloadType(this.nativeName);
+  const PreloadType(this.nativeName);
 }
 
 /// Widget's corresponding DOM tag.

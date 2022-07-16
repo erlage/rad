@@ -1,8 +1,8 @@
 test('should set form attribute "crossorigin"', () async {
     await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: Key('el-1'), crossOrigin: AudioCrossOriginType.anonymous),
-            __WidgetClass__(key: Key('el-2'), crossOrigin: AudioCrossOriginType.useCredentials),
+            __WidgetClass__(key: Key('el-1'), crossOrigin: CrossOriginType.anonymous),
+            __WidgetClass__(key: Key('el-2'), crossOrigin: CrossOriginType.useCredentials),
         ],
         parentRenderElement: app!.appRenderElement,
     );
@@ -12,20 +12,20 @@ test('should set form attribute "crossorigin"', () async {
 
     expect(
         domNode1.getAttribute('crossorigin'),
-        equals(AudioCrossOriginType.anonymous.nativeName),
+        equals(CrossOriginType.anonymous.nativeName),
     );
     expect(
         domNode2.getAttribute('crossorigin'),
-        equals(AudioCrossOriginType.useCredentials.nativeName),
+        equals(CrossOriginType.useCredentials.nativeName),
     );
 });
 
 test('should update form attribute "crossorigin"', () async {
     await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: Key('el-1'), crossOrigin: AudioCrossOriginType.anonymous),
-            __WidgetClass__(key: Key('el-2'), crossOrigin: AudioCrossOriginType.useCredentials),
-            __WidgetClass__(key: Key('el-3'), crossOrigin: AudioCrossOriginType.anonymous),
+            __WidgetClass__(key: Key('el-1'), crossOrigin: CrossOriginType.anonymous),
+            __WidgetClass__(key: Key('el-2'), crossOrigin: CrossOriginType.useCredentials),
+            __WidgetClass__(key: Key('el-3'), crossOrigin: CrossOriginType.anonymous),
         ],
         parentRenderElement: app!.appRenderElement,
     );
@@ -34,7 +34,7 @@ test('should update form attribute "crossorigin"', () async {
         widgets: [
             __WidgetClass__(key: Key('el-1')),
             __WidgetClass__(key: Key('el-2'), crossOrigin: null),
-            __WidgetClass__(key: Key('el-3'), crossOrigin: AudioCrossOriginType.useCredentials),
+            __WidgetClass__(key: Key('el-3'), crossOrigin: CrossOriginType.useCredentials),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -54,6 +54,6 @@ test('should update form attribute "crossorigin"', () async {
     );
     expect(
         domNode3.getAttribute('crossorigin'),
-        equals(AudioCrossOriginType.useCredentials.nativeName),
+        equals(CrossOriginType.useCredentials.nativeName),
     );
 });
