@@ -34,6 +34,7 @@ skipped_generation_for_class = {
     'html_short_tag': [
         'Variable',           # var is a reserved keyword in dart
         'InputButton',
+        'InputImage',
         'InputCheckBox',
         'InputFile',
         'InputRadio',
@@ -509,6 +510,7 @@ widgets_map = {
 
     'InputButton': 'input',
     'InputCheckBox': 'input',
+    'InputImage': 'input',
     'InputFile': 'input',
     'InputRadio': 'input',
     'InputSubmit': 'input',
