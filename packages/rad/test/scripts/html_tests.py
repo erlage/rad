@@ -246,7 +246,11 @@ widget_specific_tests = {
         'html_attr_max',
     ],
     'Select': [
+        'html_attr_auto_complete',
         'html_attr_name',
+        'html_attr_form',
+        'html_attr_size',
+        'html_attr_required',
         'html_attr_multiple',
         'html_attr_disabled',
         'html_attr_on_change',

@@ -15,15 +15,34 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// This HTML dom node represents a control that provides a menu of options.
 ///
 class Select extends HTMLWidgetBase {
+  /// A string providing a hint for a user agent's autocomplete feature.
+  ///
+  final String? autoComplete;
+
   /// Associated Name.
   /// Used if Select is part of a form.
   ///
   final String? name;
 
+  /// The form element to associate the select with (its form owner).
+  ///
+  final String? form;
+
+  /// If the control is presented as a scrolling list box (e.g. when multiple
+  /// is specified), this attribute represents the number of rows in the list
+  /// that should be visible at one time.
+  ///
+  final String? size;
+
   /// This Boolean attribute indicates that multiple options
   /// can be selected in the list.
   ///
   final bool? multiple;
+
+  /// A Boolean attribute indicating that an option with a non-empty string
+  /// value must be selected.
+  ///
+  final bool? required;
 
   /// Whether Select is disabled.
   ///
@@ -34,8 +53,12 @@ class Select extends HTMLWidgetBase {
   final EventCallback? onChange;
 
   const Select({
+    this.autoComplete,
     this.name,
+    this.form,
+    this.size,
     this.multiple,
+    this.required,
     this.disabled,
     this.onChange,
     Key? key,
@@ -80,7 +103,11 @@ class Select extends HTMLWidgetBase {
 
   @override
   bool shouldUpdateWidget(covariant Select oldWidget) {
-    return name != oldWidget.name ||
+    return autoComplete != oldWidget.autoComplete ||
+        name != oldWidget.name ||
+        form != oldWidget.form ||
+        size != oldWidget.size ||
+        required != oldWidget.required ||
         multiple != oldWidget.multiple ||
         disabled != oldWidget.disabled ||
         super.shouldUpdateWidget(oldWidget);
@@ -151,8 +178,28 @@ void _extendAttributes({
   required Select? oldWidget,
   required Map<String, String?> attributes,
 }) {
+  if (widget.autoComplete != oldWidget?.autoComplete) {
+    attributes[Attributes.autoComplete] = widget.autoComplete;
+  }
+
   if (widget.name != oldWidget?.name) {
     attributes[Attributes.name] = widget.name;
+  }
+
+  if (widget.form != oldWidget?.form) {
+    attributes[Attributes.form] = widget.form;
+  }
+
+  if (widget.size != oldWidget?.size) {
+    attributes[Attributes.size] = widget.size;
+  }
+
+  if (widget.required != oldWidget?.required) {
+    if (null == widget.required || false == widget.required) {
+      attributes[Attributes.required] = null;
+    } else {
+      attributes[Attributes.required] = 'true';
+    }
   }
 
   if (widget.multiple != oldWidget?.multiple) {
