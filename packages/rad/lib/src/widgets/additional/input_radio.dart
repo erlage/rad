@@ -5,20 +5,23 @@
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/widgets/abstract/html_input_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/html/input.dart';
 
 /// The InputRadio widget (HTML's `input` tag with `type = 'radio'`).
 ///
-class InputRadio extends Input {
+class InputRadio extends HTMLInputBase {
   const InputRadio({
-    Key? key,
-    String? id,
-    String? name,
-    String? value,
     bool? checked,
     bool? required,
+    String? name,
     bool? disabled,
+    String? form,
+    String? inputMode,
+    int? tabIndex,
+    String? value,
+    Key? key,
+    String? id,
     String? title,
     String? style,
     String? className,
@@ -26,18 +29,21 @@ class InputRadio extends Input {
     String? innerText,
     Widget? child,
     List<Widget>? children,
-    EventCallback? onChange,
     EventCallback? onClick,
+    EventCallback? onChange,
     Map<String, String>? additionalAttributes,
   }) : super(
+          checked: checked,
+          required: required,
+          name: name,
+          form: form,
+          value: value,
+          tabIndex: tabIndex,
+          disabled: disabled,
+          inputMode: inputMode,
+          type: InputType.radio,
           key: key,
           id: id,
-          type: InputType.radio,
-          name: name,
-          value: value,
-          checked: checked,
-          disabled: disabled,
-          required: required,
           title: title,
           style: style,
           className: className,
@@ -45,8 +51,8 @@ class InputRadio extends Input {
           innerText: innerText,
           child: child,
           children: children,
-          onChange: onChange,
           onClick: onClick,
+          onChange: onChange,
           additionalAttributes: additionalAttributes,
         );
 }

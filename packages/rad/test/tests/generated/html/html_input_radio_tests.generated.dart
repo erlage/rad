@@ -742,6 +742,195 @@ void html_input_radio_test() {
       expect(wO3.key?.frameworkValue, equals('some-key-3'));
     });
 
+    test('should set attribute "checked" only if its true', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), checked: false),
+          InputRadio(key: Key('el-2'), checked: null),
+          InputRadio(key: Key('el-3'), checked: true),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(domNode1.getAttribute('checked'), equals(null));
+      expect(domNode2.getAttribute('checked'), equals(null));
+      expect(domNode3.getAttribute('checked'), equals('true'));
+    });
+
+    test('should clear attribute "checked" if updated value is not true',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), checked: true),
+          InputRadio(key: Key('el-2'), checked: true),
+          InputRadio(key: Key('el-3'), checked: true),
+          InputRadio(key: Key('el-4'), checked: true),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), checked: true),
+          InputRadio(key: Key('el-2'), checked: false),
+          InputRadio(key: Key('el-3'), checked: null),
+          InputRadio(key: Key('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
+
+      expect(domNode1.getAttribute('checked'), equals('true'));
+      expect(domNode2.getAttribute('checked'), equals(null));
+      expect(domNode3.getAttribute('checked'), equals(null));
+      expect(domNode4.getAttribute('checked'), equals(null));
+    });
+
+    test('should set attribute "required" only if its true', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), required: false),
+          InputRadio(key: Key('el-2'), required: null),
+          InputRadio(key: Key('el-3'), required: true),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(domNode1.getAttribute('required'), equals(null));
+      expect(domNode2.getAttribute('required'), equals(null));
+      expect(domNode3.getAttribute('required'), equals('true'));
+    });
+
+    test('should clear attribute "required" if updated value is not true',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), required: true),
+          InputRadio(key: Key('el-2'), required: true),
+          InputRadio(key: Key('el-3'), required: true),
+          InputRadio(key: Key('el-4'), required: true),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), required: true),
+          InputRadio(key: Key('el-2'), required: false),
+          InputRadio(key: Key('el-3'), required: null),
+          InputRadio(key: Key('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
+
+      expect(domNode1.getAttribute('required'), equals('true'));
+      expect(domNode2.getAttribute('required'), equals(null));
+      expect(domNode3.getAttribute('required'), equals(null));
+      expect(domNode4.getAttribute('required'), equals(null));
+    });
+
+    test('should set "change" event listener', () async {
+      var testStack = RT_TestStack();
+
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(
+            key: Key('el-1'),
+            onChange: (event) => testStack.push('change-1'),
+          ),
+          InputRadio(
+            key: Key('el-2'),
+            onChange: (event) => testStack.push('change-2'),
+          ),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('change'));
+      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('change'));
+
+      await Future.delayed(Duration.zero, () {
+        expect(testStack.popFromStart(), equals('change-1'));
+        expect(testStack.popFromStart(), equals('change-2'));
+        expect(testStack.canPop(), equals(false));
+      });
+    });
+
+    test('should set "change" event listener only if provided', () async {
+      void listener(event) => {};
+
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2'), onChange: null),
+          InputRadio(key: Key('el-3'), onChange: listener),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
+      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
+
+      expect(listeners1[DomEventType.change], equals(null));
+      expect(listeners2[DomEventType.change], equals(null));
+      expect(listeners3[DomEventType.change], equals(listener));
+    });
+
+    test('should clear "change" event listner', () async {
+      void listener(event) => {};
+
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2'), onChange: listener),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
+
+      expect(listeners1[DomEventType.change], equals(null));
+      expect(listeners2[DomEventType.change], equals(listener));
+
+      // update
+
+      await app!.updateChildren(
+        widgets: [
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
+
+      expect(listeners1[DomEventType.change], equals(null));
+      expect(listeners2[DomEventType.change], equals(null));
+    });
+
     test('should set attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
@@ -881,6 +1070,367 @@ void html_input_radio_test() {
       );
     });
 
+    test('should set attribute "disabled" only if its true', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), disabled: false),
+          InputRadio(key: Key('el-2'), disabled: null),
+          InputRadio(key: Key('el-3'), disabled: true),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(domNode1.getAttribute('disabled'), equals(null));
+      expect(domNode2.getAttribute('disabled'), equals(null));
+      expect(domNode3.getAttribute('disabled'), equals('true'));
+    });
+
+    test('should clear attribute "disabled" if updated value is not true',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), disabled: true),
+          InputRadio(key: Key('el-2'), disabled: true),
+          InputRadio(key: Key('el-3'), disabled: true),
+          InputRadio(key: Key('el-4'), disabled: true),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), disabled: true),
+          InputRadio(key: Key('el-2'), disabled: false),
+          InputRadio(key: Key('el-3'), disabled: null),
+          InputRadio(key: Key('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
+
+      expect(domNode1.getAttribute('disabled'), equals('true'));
+      expect(domNode2.getAttribute('disabled'), equals(null));
+      expect(domNode3.getAttribute('disabled'), equals(null));
+      expect(domNode4.getAttribute('disabled'), equals(null));
+    });
+
+    test('should set attribute "form"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), form: 'some-form'),
+          InputRadio(key: Key('el-2'), form: 'another-form'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('form'), equals('some-form'));
+      expect(domNode2.getAttribute('form'), equals('another-form'));
+    });
+
+    test('should update attribute "form"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), form: 'some-form'),
+          InputRadio(key: Key('el-2'), form: 'another-form'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), form: 'updated-form'),
+          InputRadio(key: Key('el-2'), form: 'another-form'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('form'), equals('updated-form'));
+      expect(domNode2.getAttribute('form'), equals('another-form'));
+    });
+
+    test('should clear attribute "form"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2'), form: 'another-form'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('form'), equals(null));
+      expect(domNode2.getAttribute('form'), equals(null));
+    });
+
+    test('should clear attribute "form" if updated value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), form: 'some-form'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), form: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('form'), equals(null));
+    });
+
+    test('should not set attribute "form" if provided value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), form: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('form'), equals(null));
+    });
+
+    test('should set messy "form"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(
+            key: Key('widget-1'),
+            form: 'some form',
+          ),
+          InputRadio(
+            key: Key('widget-2'),
+            form: 'some "messy" form',
+          ),
+          InputRadio(
+            key: Key('widget-3'),
+            form: "some 'messy' form",
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(
+        domNode1.getAttribute('form'),
+        equals('some form'),
+      );
+
+      expect(
+        domNode2.getAttribute('form'),
+        equals('some "messy" form'),
+      );
+
+      expect(
+        domNode3.getAttribute('form'),
+        equals("some 'messy' form"),
+      );
+    });
+
+    test('should set attribute "inputmode"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), inputMode: 'some-inputmode'),
+          InputRadio(key: Key('el-2'), inputMode: 'another-inputmode'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('inputmode'), equals('some-inputmode'));
+      expect(domNode2.getAttribute('inputmode'), equals('another-inputmode'));
+    });
+
+    test('should update attribute "inputmode"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), inputMode: 'some-inputmode'),
+          InputRadio(key: Key('el-2'), inputMode: 'another-inputmode'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), inputMode: 'updated-inputmode'),
+          InputRadio(key: Key('el-2'), inputMode: 'another-inputmode'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('inputmode'), equals('updated-inputmode'));
+      expect(domNode2.getAttribute('inputmode'), equals('another-inputmode'));
+    });
+
+    test('should clear attribute "inputmode"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2'), inputMode: 'another-inputmode'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputRadio(key: Key('el-1')),
+          InputRadio(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('inputmode'), equals(null));
+      expect(domNode2.getAttribute('inputmode'), equals(null));
+    });
+
+    test('should clear attribute "inputmode" if updated value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), inputMode: 'some-inputmode'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), inputMode: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('inputmode'), equals(null));
+    });
+
+    test('should not set attribute "inputmode" if provided value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(key: Key('el-1'), inputMode: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('inputmode'), equals(null));
+    });
+
+    test('should set messy "inputmode"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(
+            key: Key('widget-1'),
+            inputMode: 'some inputmode',
+          ),
+          InputRadio(
+            key: Key('widget-2'),
+            inputMode: 'some "messy" inputmode',
+          ),
+          InputRadio(
+            key: Key('widget-3'),
+            inputMode: "some 'messy' inputmode",
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(
+        domNode1.getAttribute('inputmode'),
+        equals('some inputmode'),
+      );
+
+      expect(
+        domNode2.getAttribute('inputmode'),
+        equals('some "messy" inputmode'),
+      );
+
+      expect(
+        domNode3.getAttribute('inputmode'),
+        equals("some 'messy' inputmode"),
+      );
+    });
+
+    test('should set tab index', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputRadio(
+            key: Key('widget-1'),
+            tabIndex: 1,
+          ),
+          InputRadio(
+            key: Key('widget-2'),
+            tabIndex: 2,
+          ),
+          InputRadio(
+            key: Key('widget-3'),
+            tabIndex: 3,
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(domNode1.getAttribute('tabindex'), equals('1'));
+      expect(domNode2.getAttribute('tabindex'), equals('2'));
+      expect(domNode3.getAttribute('tabindex'), equals('3'));
+    });
+
     test('should set attribute "value"', () async {
       await app!.buildChildren(
         widgets: [
@@ -980,248 +1530,6 @@ void html_input_radio_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('value'), equals(null));
-    });
-
-    test('should set attribute "required" only if its true', () async {
-      await app!.buildChildren(
-        widgets: [
-          InputRadio(key: Key('el-1'), required: false),
-          InputRadio(key: Key('el-2'), required: null),
-          InputRadio(key: Key('el-3'), required: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-
-      expect(domNode1.getAttribute('required'), equals(null));
-      expect(domNode2.getAttribute('required'), equals(null));
-      expect(domNode3.getAttribute('required'), equals('true'));
-    });
-
-    test('should clear attribute "required" if updated value is not true',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          InputRadio(key: Key('el-1'), required: true),
-          InputRadio(key: Key('el-2'), required: true),
-          InputRadio(key: Key('el-3'), required: true),
-          InputRadio(key: Key('el-4'), required: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          InputRadio(key: Key('el-1'), required: true),
-          InputRadio(key: Key('el-2'), required: false),
-          InputRadio(key: Key('el-3'), required: null),
-          InputRadio(key: Key('el-4')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-      var domNode4 = app!.domNodeByKeyValue('el-4');
-
-      expect(domNode1.getAttribute('required'), equals('true'));
-      expect(domNode2.getAttribute('required'), equals(null));
-      expect(domNode3.getAttribute('required'), equals(null));
-      expect(domNode4.getAttribute('required'), equals(null));
-    });
-
-    test('should set attribute "disabled" only if its true', () async {
-      await app!.buildChildren(
-        widgets: [
-          InputRadio(key: Key('el-1'), disabled: false),
-          InputRadio(key: Key('el-2'), disabled: null),
-          InputRadio(key: Key('el-3'), disabled: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-
-      expect(domNode1.getAttribute('disabled'), equals(null));
-      expect(domNode2.getAttribute('disabled'), equals(null));
-      expect(domNode3.getAttribute('disabled'), equals('true'));
-    });
-
-    test('should clear attribute "disabled" if updated value is not true',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          InputRadio(key: Key('el-1'), disabled: true),
-          InputRadio(key: Key('el-2'), disabled: true),
-          InputRadio(key: Key('el-3'), disabled: true),
-          InputRadio(key: Key('el-4'), disabled: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          InputRadio(key: Key('el-1'), disabled: true),
-          InputRadio(key: Key('el-2'), disabled: false),
-          InputRadio(key: Key('el-3'), disabled: null),
-          InputRadio(key: Key('el-4')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-      var domNode4 = app!.domNodeByKeyValue('el-4');
-
-      expect(domNode1.getAttribute('disabled'), equals('true'));
-      expect(domNode2.getAttribute('disabled'), equals(null));
-      expect(domNode3.getAttribute('disabled'), equals(null));
-      expect(domNode4.getAttribute('disabled'), equals(null));
-    });
-
-    test('should set attribute "checked" only if its true', () async {
-      await app!.buildChildren(
-        widgets: [
-          InputRadio(key: Key('el-1'), checked: false),
-          InputRadio(key: Key('el-2'), checked: null),
-          InputRadio(key: Key('el-3'), checked: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-
-      expect(domNode1.getAttribute('checked'), equals(null));
-      expect(domNode2.getAttribute('checked'), equals(null));
-      expect(domNode3.getAttribute('checked'), equals('true'));
-    });
-
-    test('should clear attribute "checked" if updated value is not true',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          InputRadio(key: Key('el-1'), checked: true),
-          InputRadio(key: Key('el-2'), checked: true),
-          InputRadio(key: Key('el-3'), checked: true),
-          InputRadio(key: Key('el-4'), checked: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          InputRadio(key: Key('el-1'), checked: true),
-          InputRadio(key: Key('el-2'), checked: false),
-          InputRadio(key: Key('el-3'), checked: null),
-          InputRadio(key: Key('el-4')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-      var domNode4 = app!.domNodeByKeyValue('el-4');
-
-      expect(domNode1.getAttribute('checked'), equals('true'));
-      expect(domNode2.getAttribute('checked'), equals(null));
-      expect(domNode3.getAttribute('checked'), equals(null));
-      expect(domNode4.getAttribute('checked'), equals(null));
-    });
-
-    test('should set "change" event listener', () async {
-      var testStack = RT_TestStack();
-
-      await app!.buildChildren(
-        widgets: [
-          InputRadio(
-            key: Key('el-1'),
-            onChange: (event) => testStack.push('change-1'),
-          ),
-          InputRadio(
-            key: Key('el-2'),
-            onChange: (event) => testStack.push('change-2'),
-          ),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('change'));
-      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('change'));
-
-      await Future.delayed(Duration.zero, () {
-        expect(testStack.popFromStart(), equals('change-1'));
-        expect(testStack.popFromStart(), equals('change-2'));
-        expect(testStack.canPop(), equals(false));
-      });
-    });
-
-    test('should set "change" event listener only if provided', () async {
-      void listener(event) => {};
-
-      await app!.buildChildren(
-        widgets: [
-          InputRadio(key: Key('el-1')),
-          InputRadio(key: Key('el-2'), onChange: null),
-          InputRadio(key: Key('el-3'), onChange: listener),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
-
-      expect(listeners1[DomEventType.change], equals(null));
-      expect(listeners2[DomEventType.change], equals(null));
-      expect(listeners3[DomEventType.change], equals(listener));
-    });
-
-    test('should clear "change" event listner', () async {
-      void listener(event) => {};
-
-      await app!.buildChildren(
-        widgets: [
-          InputRadio(key: Key('el-1')),
-          InputRadio(key: Key('el-2'), onChange: listener),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-
-      expect(listeners1[DomEventType.change], equals(null));
-      expect(listeners2[DomEventType.change], equals(listener));
-
-      // update
-
-      await app!.updateChildren(
-        widgets: [
-          InputRadio(key: Key('el-1')),
-          InputRadio(key: Key('el-2')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-
-      expect(listeners1[DomEventType.change], equals(null));
-      expect(listeners2[DomEventType.change], equals(null));
     });
   });
 }
