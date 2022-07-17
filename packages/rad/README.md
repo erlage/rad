@@ -271,7 +271,7 @@ Similarity tags:
 , [BidirectionalIsolate](https://pub.dev/documentation/rad/latest/widgets_html/BidirectionalIsolate-class.html)
 , [BidirectionalTextOverride](https://pub.dev/documentation/rad/latest/widgets_html/BidirectionalTextOverride-class.html)
 , [BlockQuote](https://pub.dev/documentation/rad/latest/widgets_html/BlockQuote-class.html)
-, [BreakLine](https://pub.dev/documentation/rad/latest/widgets_html/BreakLine-class.html)
+, [LineBreak](https://pub.dev/documentation/rad/latest/widgets_html/LineBreak-class.html)
 , [Button](https://pub.dev/documentation/rad/latest/widgets_html/Button-class.html)
 , [Canvas](https://pub.dev/documentation/rad/latest/widgets_html/Canvas-class.html)
 , [Caption](https://pub.dev/documentation/rad/latest/widgets_html/Caption-class.html)

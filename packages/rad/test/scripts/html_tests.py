@@ -356,7 +356,7 @@ widgets_map = {
     'BidirectionalIsolate': 'bdi',
     'BidirectionalTextOverride': 'bdo',
     'BlockQuote': 'blockquote',
-    'BreakLine': 'br',
+    'LineBreak': 'br',
     'Button': 'button',
     'Canvas': 'canvas',
     'Caption': 'caption',

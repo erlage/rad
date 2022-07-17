@@ -10,8 +10,8 @@
 
 part of '../_index_html_test.dart';
 
-void html_break_line_test() {
-  group('HTML BreakLine tests:', () {
+void html_line_break_test() {
+  group('HTML LineBreak tests:', () {
     RT_AppRunner? app;
 
     setUp(() {
@@ -23,9 +23,9 @@ void html_break_line_test() {
     test('should set id', () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(key: Key('some-key-1'), id: 'some-id-1'),
-          BreakLine(key: Key('some-key-2'), id: 'some-id-2'),
-          BreakLine(key: Key('some-key-3'), id: 'some-id-3'),
+          LineBreak(key: Key('some-key-1'), id: 'some-id-1'),
+          LineBreak(key: Key('some-key-2'), id: 'some-id-2'),
+          LineBreak(key: Key('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -42,9 +42,9 @@ void html_break_line_test() {
     test('should reset and update id', () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(key: Key('some-key-1'), id: 'some-id-1'),
-          BreakLine(key: Key('some-key-2'), id: 'some-id-2'),
-          BreakLine(key: Key('some-key-3'), id: 'some-id-3'),
+          LineBreak(key: Key('some-key-1'), id: 'some-id-1'),
+          LineBreak(key: Key('some-key-2'), id: 'some-id-2'),
+          LineBreak(key: Key('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -59,15 +59,15 @@ void html_break_line_test() {
 
       await app!.updateChildren(
         widgets: [
-          BreakLine(
+          LineBreak(
             key: Key('some-key-1'),
             id: 'some-updated-id',
           ),
-          BreakLine(
+          LineBreak(
             key: Key('some-key-2'),
             id: 'some-local-updated-id',
           ),
-          BreakLine(
+          LineBreak(
             key: Key('some-key-3'),
             id: 'some-global-updated-id',
           ),
@@ -84,15 +84,15 @@ void html_break_line_test() {
     test('should set messy "id"', () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(
+          LineBreak(
             key: Key('widget-1'),
             id: 'some id',
           ),
-          BreakLine(
+          LineBreak(
             key: Key('widget-2'),
             id: 'some "messy" id',
           ),
-          BreakLine(
+          LineBreak(
             key: Key('widget-3'),
             id: "some 'messy' id",
           ),
@@ -123,13 +123,13 @@ void html_break_line_test() {
     test('should set children widgets', () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(
+          LineBreak(
             id: 'widget-1',
             children: [
-              BreakLine(
+              LineBreak(
                 id: 'widget-2',
               ),
-              BreakLine(
+              LineBreak(
                 id: 'widget-3',
               ),
             ],
@@ -150,9 +150,9 @@ void html_break_line_test() {
     test('should set child widget', () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(
+          LineBreak(
             id: 'widget-1',
-            child: BreakLine(
+            child: LineBreak(
               id: 'widget-2',
             ),
           ),
@@ -170,11 +170,11 @@ void html_break_line_test() {
     test('should set attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(
+          LineBreak(
             key: Key('el-1'),
             className: 'some-classes',
           ),
-          BreakLine(
+          LineBreak(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -192,11 +192,11 @@ void html_break_line_test() {
     test('should update attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(
+          LineBreak(
             key: Key('el-1'),
             className: 'some-classes',
           ),
-          BreakLine(
+          LineBreak(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -206,11 +206,11 @@ void html_break_line_test() {
 
       await app!.updateChildren(
         widgets: [
-          BreakLine(
+          LineBreak(
             key: Key('el-1'),
             className: 'updated-classes',
           ),
-          BreakLine(
+          LineBreak(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -229,8 +229,8 @@ void html_break_line_test() {
     test('should clear attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(key: Key('el-1')),
-          BreakLine(
+          LineBreak(key: Key('el-1')),
+          LineBreak(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -240,8 +240,8 @@ void html_break_line_test() {
 
       await app!.updateChildren(
         widgets: [
-          BreakLine(key: Key('el-1')),
-          BreakLine(key: Key('el-2')),
+          LineBreak(key: Key('el-1')),
+          LineBreak(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -257,7 +257,7 @@ void html_break_line_test() {
     test('should clear attribute "classes" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(
+          LineBreak(
             key: Key('el-1'),
             className: 'some-classes',
           ),
@@ -267,7 +267,7 @@ void html_break_line_test() {
 
       await app!.updateChildren(
         widgets: [
-          BreakLine(key: Key('el-1'), className: null),
+          LineBreak(key: Key('el-1'), className: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -282,7 +282,7 @@ void html_break_line_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(key: Key('el-1'), className: null),
+          LineBreak(key: Key('el-1'), className: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -295,15 +295,15 @@ void html_break_line_test() {
     test('should set messy "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(
+          LineBreak(
             key: Key('widget-1'),
             className: 'some classes',
           ),
-          BreakLine(
+          LineBreak(
             key: Key('widget-2'),
             className: 'some "messy" classes',
           ),
-          BreakLine(
+          LineBreak(
             key: Key('widget-3'),
             className: "some 'messy' classes",
           ),
@@ -334,9 +334,9 @@ void html_break_line_test() {
     test('should set attribute "hidden" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(key: Key('el-1'), hidden: false),
-          BreakLine(key: Key('el-2'), hidden: null),
-          BreakLine(key: Key('el-3'), hidden: true),
+          LineBreak(key: Key('el-1'), hidden: false),
+          LineBreak(key: Key('el-2'), hidden: null),
+          LineBreak(key: Key('el-3'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -354,20 +354,20 @@ void html_break_line_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(key: Key('el-1'), hidden: true),
-          BreakLine(key: Key('el-2'), hidden: true),
-          BreakLine(key: Key('el-3'), hidden: true),
-          BreakLine(key: Key('el-4'), hidden: true),
+          LineBreak(key: Key('el-1'), hidden: true),
+          LineBreak(key: Key('el-2'), hidden: true),
+          LineBreak(key: Key('el-3'), hidden: true),
+          LineBreak(key: Key('el-4'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          BreakLine(key: Key('el-1'), hidden: true),
-          BreakLine(key: Key('el-2'), hidden: false),
-          BreakLine(key: Key('el-3'), hidden: null),
-          BreakLine(key: Key('el-4')),
+          LineBreak(key: Key('el-1'), hidden: true),
+          LineBreak(key: Key('el-2'), hidden: false),
+          LineBreak(key: Key('el-3'), hidden: null),
+          LineBreak(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -387,7 +387,7 @@ void html_break_line_test() {
     test('should set inner text', () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(
+          LineBreak(
             key: Key('widget-1'),
             innerText: 'hello world',
           ),
@@ -410,11 +410,11 @@ void html_break_line_test() {
 
       await app!.buildChildren(
         widgets: [
-          BreakLine(
+          LineBreak(
             key: Key('el-1'),
             onClick: (event) => testStack.push('click-1'),
           ),
-          BreakLine(
+          LineBreak(
             key: Key('el-2'),
             onClick: (event) => testStack.push('click-2'),
           ),
@@ -437,9 +437,9 @@ void html_break_line_test() {
 
       await app!.buildChildren(
         widgets: [
-          BreakLine(key: Key('el-1')),
-          BreakLine(key: Key('el-2'), onClick: null),
-          BreakLine(key: Key('el-3'), onClick: listener),
+          LineBreak(key: Key('el-1')),
+          LineBreak(key: Key('el-2'), onClick: null),
+          LineBreak(key: Key('el-3'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -458,8 +458,8 @@ void html_break_line_test() {
 
       await app!.buildChildren(
         widgets: [
-          BreakLine(key: Key('el-1')),
-          BreakLine(key: Key('el-2'), onClick: listener),
+          LineBreak(key: Key('el-1')),
+          LineBreak(key: Key('el-2'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -474,8 +474,8 @@ void html_break_line_test() {
 
       await app!.updateChildren(
         widgets: [
-          BreakLine(key: Key('el-1')),
-          BreakLine(key: Key('el-2')),
+          LineBreak(key: Key('el-1')),
+          LineBreak(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -491,9 +491,9 @@ void html_break_line_test() {
     test('should set style', () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(key: Key('widget-1'), style: 'some style'),
-          BreakLine(key: Key('widget-2'), style: 'some "messy" style'),
-          BreakLine(key: Key('widget-3'), style: "some 'messy' style"),
+          LineBreak(key: Key('widget-1'), style: 'some style'),
+          LineBreak(key: Key('widget-2'), style: 'some "messy" style'),
+          LineBreak(key: Key('widget-3'), style: "some 'messy' style"),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -510,9 +510,9 @@ void html_break_line_test() {
     test('should set title', () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(key: Key('widget-1'), title: 'some title'),
-          BreakLine(key: Key('widget-2'), title: 'some "messy" title'),
-          BreakLine(key: Key('widget-3'), title: "some 'messy' title"),
+          LineBreak(key: Key('widget-1'), title: 'some title'),
+          LineBreak(key: Key('widget-2'), title: 'some "messy" title'),
+          LineBreak(key: Key('widget-3'), title: "some 'messy' title"),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -529,7 +529,7 @@ void html_break_line_test() {
     test('should set correct types and markup', () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(key: Key('some-key-3')),
+          LineBreak(key: Key('some-key-3')),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -569,7 +569,7 @@ void html_break_line_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(
+          LineBreak(
             key: Key('some-key-3'),
             additionalAttributes: {
               'id': 'some-id',
@@ -591,7 +591,7 @@ void html_break_line_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(
+          LineBreak(
             key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
@@ -616,7 +616,7 @@ void html_break_line_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(
+          LineBreak(
             key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
@@ -629,7 +629,7 @@ void html_break_line_test() {
 
       await app!.updateChildren(
         widgets: [
-          BreakLine(
+          LineBreak(
             key: Key('some-key-3'),
             id: 'updated-id',
             additionalAttributes: {
@@ -651,7 +651,7 @@ void html_break_line_test() {
     test('should set data attributes', () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(
+          LineBreak(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
@@ -671,7 +671,7 @@ void html_break_line_test() {
     test('should set aria/any attributes', () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(
+          LineBreak(
             key: Key('some-key-3'),
             additionalAttributes: {
               'aria-something': 'something okay',
@@ -692,7 +692,7 @@ void html_break_line_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(
+          LineBreak(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
@@ -704,7 +704,7 @@ void html_break_line_test() {
 
       await app!.updateChildren(
         widgets: [
-          BreakLine(
+          LineBreak(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something-new': 'something new',
@@ -724,7 +724,7 @@ void html_break_line_test() {
     });
 
     test('should have a short-tag alias', () async {
-      var widget = BreakLine();
+      var widget = LineBreak();
       var widgetShort = br();
 
       expect(
@@ -736,9 +736,9 @@ void html_break_line_test() {
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [
-          BreakLine(key: Key('some-key-1')),
-          BreakLine(key: Key('some-key-2')),
-          BreakLine(key: Key('some-key-3')),
+          LineBreak(key: Key('some-key-1')),
+          LineBreak(key: Key('some-key-2')),
+          LineBreak(key: Key('some-key-3')),
         ],
         parentRenderElement: app!.appRenderElement,
       );

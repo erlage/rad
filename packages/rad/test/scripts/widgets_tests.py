@@ -53,7 +53,7 @@ no_tests_for = [
     'BidirectionalIsolate',
     'BidirectionalTextOverride',
     'BlockQuote',
-    'BreakLine',
+    'LineBreak',
     'Button',
     'Canvas',
     'Caption',

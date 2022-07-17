@@ -8,10 +8,10 @@ import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-/// The BreakLine widget (HTML's `br` tag).
+/// The LineBreak widget (HTML's `br` tag).
 ///
-class BreakLine extends HTMLWidgetBase {
-  const BreakLine({
+class LineBreak extends HTMLWidgetBase {
+  const LineBreak({
     Key? key,
     String? id,
     String? title,
@@ -38,5 +38,5 @@ class BreakLine extends HTMLWidgetBase {
         );
 
   @override
-  DomTagType get correspondingTag => DomTagType.breakLine;
+  DomTagType get correspondingTag => DomTagType.lineBreak;
 }

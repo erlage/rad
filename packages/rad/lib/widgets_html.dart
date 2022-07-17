@@ -14,7 +14,6 @@ export 'src/widgets/html/bidirectional_isolate.dart' show BidirectionalIsolate;
 export 'src/widgets/html/bidirectional_text_override.dart'
     show BidirectionalTextOverride;
 export 'src/widgets/html/block_quote.dart' show BlockQuote;
-export 'src/widgets/html/break_line.dart' show BreakLine;
 export 'src/widgets/html/button.dart' show Button;
 export 'src/widgets/html/canvas.dart' show Canvas;
 export 'src/widgets/html/caption.dart' show Caption;
@@ -53,6 +52,7 @@ export 'src/widgets/html/keyboard_input.dart' show KeyboardInput;
 export 'src/widgets/html/label.dart' show Label;
 export 'src/widgets/html/legend.dart' show Legend;
 export 'src/widgets/html/line_break_opportunity.dart' show LineBreakOpportunity;
+export 'src/widgets/html/line_break.dart' show LineBreak;
 export 'src/widgets/html/list_item.dart' show ListItem;
 export 'src/widgets/html/mark_text.dart' show MarkText;
 export 'src/widgets/html/media_source.dart' show MediaSource;

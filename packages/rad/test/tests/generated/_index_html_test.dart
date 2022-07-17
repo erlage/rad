@@ -19,7 +19,7 @@ part 'html/html_audio_tests.generated.dart';
 part 'html/html_bidirectional_isolate_tests.generated.dart';
 part 'html/html_bidirectional_text_override_tests.generated.dart';
 part 'html/html_block_quote_tests.generated.dart';
-part 'html/html_break_line_tests.generated.dart';
+part 'html/html_line_break_tests.generated.dart';
 part 'html/html_button_tests.generated.dart';
 part 'html/html_canvas_tests.generated.dart';
 part 'html/html_caption_tests.generated.dart';
@@ -120,7 +120,7 @@ void main() {
   html_bidirectional_isolate_test();
   html_bidirectional_text_override_test();
   html_block_quote_test();
-  html_break_line_test();
+  html_line_break_test();
   html_button_test();
   html_canvas_test();
   html_caption_test();

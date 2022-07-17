@@ -316,7 +316,7 @@ enum DomTagType {
   bidirectionalIsolate('bdi'),
   bidirectionalTextOverride('bdo'),
   blockQuote('blockquote'),
-  breakLine('br'),
+  lineBreak('br'),
   button('button'),
   canvas('canvas'),
   caption('caption'),
