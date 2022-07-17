@@ -33,6 +33,7 @@ class BidirectionalIsolate extends HTMLBidirectionalBase {
           title: title,
           style: style,
           className: className,
+          hidden: hidden,
           innerText: innerText,
           child: child,
           children: children,
