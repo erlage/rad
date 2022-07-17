@@ -57,13 +57,19 @@ abstract class HTMLWidgetBase extends Widget {
 
   /// Element's inner text.
   ///
-  /// A widget can either have [innerText] or [children] list.
+  /// A widget can either have [innerText] or [child] or [children] list.
   ///
   final String? innerText;
 
-  /// Children tags.
+  /// Child widget.
   ///
-  /// A widget can either have [innerText] or [children] list.
+  /// A widget can either have [innerText] or [child] or [children] list.
+  ///
+  final Widget? child;
+
+  /// Multiple child widgets.
+  ///
+  /// A widget can either have [innerText] or [child] or [children] list.
   ///
   final List<Widget>? children;
 
@@ -86,12 +92,15 @@ abstract class HTMLWidgetBase extends Widget {
     this.draggable,
     this.contentEditable,
     this.innerText,
+    this.child,
     this.children,
     this.onClick,
     this.additionalAttributes,
   })  : assert(
-          null == children || null == innerText,
-          'A widget can have either innerText or children list.',
+          (null == child && null == children) ||
+              (null == innerText && null == child) ||
+              (null == innerText && null == children),
+          'A widget can have innerText or child or children list.',
         ),
         super(key: key);
 
@@ -145,7 +154,9 @@ class HTMLRenderElementBase extends RenderElement {
   )   :
         // prepare child widgets
 
-        _widgetChildren = widget.children ?? ccImmutableEmptyListOfWidgets,
+        _widgetChildren = null == widget.child
+            ? (widget.children ?? ccImmutableEmptyListOfWidgets)
+            : [widget.child!],
 
         // base
 
@@ -188,7 +199,9 @@ class HTMLRenderElementBase extends RenderElement {
     required covariant HTMLWidgetBase newWidget,
     required updateType,
   }) {
-    _widgetChildren = newWidget.children ?? ccImmutableEmptyListOfWidgets;
+    _widgetChildren = null == newWidget.child
+        ? (newWidget.children ?? ccImmutableEmptyListOfWidgets)
+        : [newWidget.child!];
   }
 
   @mustCallSuper
