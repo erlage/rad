@@ -114,18 +114,18 @@ class IFrameRenderObject extends HTMLRenderElementBase {
   render({
     required covariant IFrame widget,
   }) {
-    var domNodeDescription = super.render(
+    var domNodePatch = super.render(
       widget: widget,
     );
 
-    domNodeDescription.attributes.addAll(
+    domNodePatch.attributes.addAll(
       _prepareAttributes(
         widget: widget,
         oldWidget: null,
       ),
     );
 
-    return domNodeDescription;
+    return domNodePatch;
   }
 
   @override
@@ -134,20 +134,20 @@ class IFrameRenderObject extends HTMLRenderElementBase {
     required covariant IFrame oldWidget,
     required covariant IFrame newWidget,
   }) {
-    var domNodeDescription = super.update(
+    var domNodePatch = super.update(
       updateType: updateType,
       oldWidget: oldWidget,
       newWidget: newWidget,
     );
 
-    domNodeDescription.attributes.addAll(
+    domNodePatch.attributes.addAll(
       _prepareAttributes(
         widget: newWidget,
         oldWidget: oldWidget,
       ),
     );
 
-    return domNodeDescription;
+    return domNodePatch;
   }
 }
 

@@ -115,18 +115,18 @@ class MediaSourceRenderElement extends HTMLRenderElementBase {
   render({
     required covariant MediaSource widget,
   }) {
-    var domNodeDescription = super.render(
+    var domNodePatch = super.render(
       widget: widget,
     );
 
-    domNodeDescription.attributes.addAll(
+    domNodePatch.attributes.addAll(
       _prepareAttributes(
         widget: widget,
         oldWidget: null,
       ),
     );
 
-    return domNodeDescription;
+    return domNodePatch;
   }
 
   @override
@@ -135,20 +135,20 @@ class MediaSourceRenderElement extends HTMLRenderElementBase {
     required covariant MediaSource oldWidget,
     required covariant MediaSource newWidget,
   }) {
-    var domNodeDescription = super.update(
+    var domNodePatch = super.update(
       updateType: updateType,
       oldWidget: oldWidget,
       newWidget: newWidget,
     );
 
-    domNodeDescription.attributes.addAll(
+    domNodePatch.attributes.addAll(
       _prepareAttributes(
         widget: newWidget,
         oldWidget: oldWidget,
       ),
     );
 
-    return domNodeDescription;
+    return domNodePatch;
   }
 }
 

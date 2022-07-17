@@ -79,18 +79,18 @@ class FieldSetRenderElement extends HTMLRenderElementBase {
   render({
     required covariant FieldSet widget,
   }) {
-    var domNodeDescription = super.render(
+    var domNodePatch = super.render(
       widget: widget,
     );
 
-    domNodeDescription.attributes.addAll(
+    domNodePatch.attributes.addAll(
       _prepareAttributes(
         widget: widget,
         oldWidget: null,
       ),
     );
 
-    return domNodeDescription;
+    return domNodePatch;
   }
 
   @override
@@ -99,20 +99,20 @@ class FieldSetRenderElement extends HTMLRenderElementBase {
     required covariant FieldSet oldWidget,
     required covariant FieldSet newWidget,
   }) {
-    var domNodeDescription = super.update(
+    var domNodePatch = super.update(
       updateType: updateType,
       oldWidget: oldWidget,
       newWidget: newWidget,
     );
 
-    domNodeDescription.attributes.addAll(
+    domNodePatch.attributes.addAll(
       _prepareAttributes(
         widget: newWidget,
         oldWidget: oldWidget,
       ),
     );
 
-    return domNodeDescription;
+    return domNodePatch;
   }
 }
 

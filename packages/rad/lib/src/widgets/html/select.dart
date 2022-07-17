@@ -111,18 +111,18 @@ class SelectRenderElement extends HTMLRenderElementBase {
   render({
     required covariant Select widget,
   }) {
-    var domNodeDescription = super.render(
+    var domNodePatch = super.render(
       widget: widget,
     );
 
-    domNodeDescription.attributes.addAll(
+    domNodePatch.attributes.addAll(
       _prepareAttributes(
         widget: widget,
         oldWidget: null,
       ),
     );
 
-    return domNodeDescription;
+    return domNodePatch;
   }
 
   @override
@@ -131,20 +131,20 @@ class SelectRenderElement extends HTMLRenderElementBase {
     required covariant Select oldWidget,
     required covariant Select newWidget,
   }) {
-    var domNodeDescription = super.update(
+    var domNodePatch = super.update(
       updateType: updateType,
       oldWidget: oldWidget,
       newWidget: newWidget,
     );
 
-    domNodeDescription.attributes.addAll(
+    domNodePatch.attributes.addAll(
       _prepareAttributes(
         widget: newWidget,
         oldWidget: oldWidget,
       ),
     );
 
-    return domNodeDescription;
+    return domNodePatch;
   }
 }
 

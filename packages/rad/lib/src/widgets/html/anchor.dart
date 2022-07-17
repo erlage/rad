@@ -96,18 +96,18 @@ class AnchorRenderElement extends HTMLRenderElementBase {
   render({
     required covariant Anchor widget,
   }) {
-    var domNodeDescription = super.render(
+    var domNodePatch = super.render(
       widget: widget,
     );
 
-    domNodeDescription.attributes.addAll(
+    domNodePatch.attributes.addAll(
       _prepareAttributes(
         widget: widget,
         oldWidget: null,
       ),
     );
 
-    return domNodeDescription;
+    return domNodePatch;
   }
 
   @override
@@ -116,20 +116,20 @@ class AnchorRenderElement extends HTMLRenderElementBase {
     required covariant Anchor oldWidget,
     required covariant Anchor newWidget,
   }) {
-    var domNodeDescription = super.update(
+    var domNodePatch = super.update(
       updateType: updateType,
       oldWidget: oldWidget,
       newWidget: newWidget,
     );
 
-    domNodeDescription.attributes.addAll(
+    domNodePatch.attributes.addAll(
       _prepareAttributes(
         widget: newWidget,
         oldWidget: oldWidget,
       ),
     );
 
-    return domNodeDescription;
+    return domNodePatch;
   }
 }
 

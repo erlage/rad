@@ -234,9 +234,9 @@ class Renderer with ServicesResolver {
       jobQueue.addPostDispatchCallback(renderElement.frameworkAfterMount);
     }
 
-    var domNodeDescription = renderElement.frameworkRender(widget: widget);
-    if (null != domNode && null != domNodeDescription) {
-      applyDescription(domNode: domNode, description: domNodeDescription);
+    var domNodePatch = renderElement.frameworkRender(widget: widget);
+    if (null != domNode && null != domNodePatch) {
+      applyDomNodePatch(domNode: domNode, description: domNodePatch);
     }
 
     // Register event listeners
@@ -549,7 +549,7 @@ class Renderer with ServicesResolver {
       );
 
       if (null != domNodePatch && matchedRenderElement.hasDomNode) {
-        applyDescription(
+        applyDomNodePatch(
           jobQueue: jobQueue,
           description: domNodePatch,
           domNode: matchedRenderElement.domNode!,
@@ -803,7 +803,7 @@ class Renderer with ServicesResolver {
           ); // bit of mess ^ but required
 
           if (null != domPatch && renderElement.hasDomNode) {
-            applyDescription(
+            applyDomNodePatch(
               jobQueue: jobQueue,
               description: domPatch,
               domNode: renderElement.domNode!,
@@ -930,7 +930,7 @@ class Renderer with ServicesResolver {
     }
   }
 
-  void applyDescription({
+  void applyDomNodePatch({
     required Element domNode,
     required DomNodePatch description,
     JobQueue? jobQueue,

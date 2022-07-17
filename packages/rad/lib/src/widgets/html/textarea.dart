@@ -144,25 +144,25 @@ class TextAreaRenderElement extends HTMLRenderElementBase {
   render({
     required covariant TextArea widget,
   }) {
-    var domNodeDescription = super.render(
+    var domNodePatch = super.render(
       widget: widget,
     );
 
-    domNodeDescription.attributes.addAll(
+    domNodePatch.attributes.addAll(
       _prepareAttributes(
         widget: widget,
         oldWidget: null,
       ),
     );
 
-    domNodeDescription.properties.addAll(
+    domNodePatch.properties.addAll(
       _prepareProperties(
         widget: widget,
         oldWidget: null,
       ),
     );
 
-    return domNodeDescription;
+    return domNodePatch;
   }
 
   @override
@@ -171,27 +171,27 @@ class TextAreaRenderElement extends HTMLRenderElementBase {
     required covariant TextArea oldWidget,
     required covariant TextArea newWidget,
   }) {
-    var domNodeDescription = super.update(
+    var domNodePatch = super.update(
       updateType: updateType,
       oldWidget: oldWidget,
       newWidget: newWidget,
     );
 
-    domNodeDescription.attributes.addAll(
+    domNodePatch.attributes.addAll(
       _prepareAttributes(
         widget: newWidget,
         oldWidget: oldWidget,
       ),
     );
 
-    domNodeDescription.properties.addAll(
+    domNodePatch.properties.addAll(
       _prepareProperties(
         widget: newWidget,
         oldWidget: oldWidget,
       ),
     );
 
-    return domNodeDescription;
+    return domNodePatch;
   }
 }
 
