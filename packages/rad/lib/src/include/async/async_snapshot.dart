@@ -28,7 +28,6 @@
 // ignore_for_file: prefer_asserts_with_message
 
 import 'package:rad/src/include/async/connection_state.dart';
-import 'package:rad/src/include/foundation/hash_codes.dart';
 import 'package:rad/src/include/widgets/future_builder.dart';
 import 'package:rad/src/include/widgets/stream_builder.dart';
 
@@ -165,7 +164,7 @@ class AsyncSnapshot<T> {
   }
 
   @override
-  int get hashCode => hashValues(connectionState, data, error);
+  int get hashCode => Object.hash(connectionState, data, error);
 
   @override
   toString() => '$runtimeType($connectionState, $data, $error, $stackTrace)';
