@@ -14,11 +14,25 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// Group several controls as well as labels (<label>) within a web form.
 ///
 class FieldSet extends HTMLWidgetBase {
+  /// The name associated with the group.
+  ///
+  final String? name;
+
+  /// This attribute takes the value of the id attribute of a form element
+  /// you want the fieldset to be part of, even if it is not inside the form.
+  /// Please note that usage of this is confusing — if you want the input
+  /// elements inside the fieldset to be associated with the form, you need
+  /// to use the form attribute directly on those elements.
+  ///
+  final String? form;
+
   /// Whether field set is disabled.
   ///
   final bool? disabled;
 
   const FieldSet({
+    this.name,
+    this.form,
     this.disabled,
     Key? key,
     String? id,
@@ -50,7 +64,9 @@ class FieldSet extends HTMLWidgetBase {
 
   @override
   bool shouldUpdateWidget(covariant FieldSet oldWidget) {
-    return disabled != oldWidget.disabled ||
+    return name != oldWidget.name ||
+        form != oldWidget.form ||
+        disabled != oldWidget.disabled ||
         super.shouldUpdateWidget(oldWidget);
   }
 
@@ -119,6 +135,14 @@ void _extendAttributes({
   required FieldSet? oldWidget,
   required Map<String, String?> attributes,
 }) {
+  if (widget.name != oldWidget?.name) {
+    attributes[Attributes.name] = widget.name;
+  }
+
+  if (widget.form != oldWidget?.form) {
+    attributes[Attributes.form] = widget.form;
+  }
+
   if (widget.disabled != oldWidget?.disabled) {
     if (null == widget.disabled || false == widget.disabled) {
       attributes[Attributes.disabled] = null;

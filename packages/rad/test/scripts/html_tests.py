@@ -113,6 +113,8 @@ widget_specific_tests = {
         'html_attr_srclang',
     ],
     'FieldSet': [
+        'html_attr_name',
+        'html_attr_form',
         'html_attr_disabled',
     ],
     'Form': [
