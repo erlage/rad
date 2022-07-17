@@ -41,7 +41,6 @@ class Text extends Span {
           title: title,
           style: style,
           className: className,
-          hidden: hidden,
           onClick: onClick,
           innerText: text,
         );

@@ -26,28 +26,13 @@ abstract class HTMLWidgetBase extends Widget {
   ///
   final String? title;
 
-  /// The classes attribute specifies one or more class names for an dom node.
-  ///
-  final String? className;
-
   /// The style attribute for inline CSS.
   ///
   final String? style;
 
-  /// The tabindex attribute specifies the tab order of an
-  /// dom node (when the "tab" button is used for navigating).
+  /// The classes attribute specifies one or more class names for an dom node.
   ///
-  final int? tabIndex;
-
-  /// The draggable attribute specifies whether an dom node
-  /// is draggable or not.
-  ///
-  final bool? draggable;
-
-  /// The contentEditable attribute specifies whether the content of an
-  /// dom node is editable or not.
-  ///
-  final bool? contentEditable;
+  final String? className;
 
   /// The hidden attribute is a boolean attribute.
   /// When present, it specifies that an dom node is not yet, or
@@ -85,12 +70,9 @@ abstract class HTMLWidgetBase extends Widget {
     Key? key,
     this.id,
     this.title,
-    this.tabIndex,
     this.style,
     this.className,
     this.hidden,
-    this.draggable,
-    this.contentEditable,
     this.innerText,
     this.child,
     this.children,
@@ -121,12 +103,9 @@ abstract class HTMLWidgetBase extends Widget {
 
     return id != oldWidget.id ||
         title != oldWidget.title ||
-        tabIndex != oldWidget.tabIndex ||
         style != oldWidget.style ||
         className != oldWidget.className ||
         hidden != oldWidget.hidden ||
-        draggable != oldWidget.draggable ||
-        contentEditable != oldWidget.contentEditable ||
         innerText != oldWidget.innerText ||
         !fnIsKeyValueMapEqual(
           additionalAttributes,
@@ -279,43 +258,11 @@ Map<String, String?> _prepareAttributes({
     attributes[Attributes.className] = widget.className;
   }
 
-  if (widget.tabIndex != oldWidget?.tabIndex) {
-    if (null == widget.tabIndex) {
-      attributes[Attributes.tabIndex] = null;
-    } else {
-      attributes[Attributes.tabIndex] = '${widget.tabIndex}';
-    }
-  }
-
   if (widget.hidden != oldWidget?.hidden) {
     if (null == widget.hidden || false == widget.hidden) {
       attributes[Attributes.hidden] = null;
     } else {
       attributes[Attributes.hidden] = 'true';
-    }
-  }
-
-  if (widget.draggable != oldWidget?.draggable) {
-    if (null == widget.draggable) {
-      attributes[Attributes.draggable] = null;
-    } else {
-      if (true == widget.draggable) {
-        attributes[Attributes.draggable] = 'true';
-      } else {
-        attributes[Attributes.draggable] = 'false';
-      }
-    }
-  }
-
-  if (widget.contentEditable != oldWidget?.contentEditable) {
-    if (null == widget.contentEditable) {
-      attributes[Attributes.contentEditable] = null;
-    } else {
-      if (true == widget.contentEditable) {
-        attributes[Attributes.contentEditable] = 'true';
-      } else {
-        attributes[Attributes.contentEditable] = 'false';
-      }
     }
   }
 

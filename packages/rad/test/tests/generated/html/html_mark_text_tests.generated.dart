@@ -331,50 +331,6 @@ void html_mark_text_test() {
       );
     });
 
-    test('should set contentEditable', () async {
-      await app!.buildChildren(
-        widgets: [
-          MarkText(
-            key: Key('widget-1'),
-            contentEditable: false,
-          ),
-          MarkText(
-            key: Key('widget-2'),
-            contentEditable: true,
-          ),
-        ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
-      );
-
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
-
-      expect(domNode1.getAttribute('contentEditable'), equals('false'));
-      expect(domNode2.getAttribute('contentEditable'), equals('true'));
-    });
-
-    test('should set draggable', () async {
-      await app!.buildChildren(
-        widgets: [
-          MarkText(
-            key: Key('widget-1'),
-            draggable: false,
-          ),
-          MarkText(
-            key: Key('widget-2'),
-            draggable: true,
-          ),
-        ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
-      );
-
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
-
-      expect(domNode1.getAttribute('draggable'), equals('false'));
-      expect(domNode2.getAttribute('draggable'), equals('true'));
-    });
-
     test('should set attribute "hidden" only if its true', () async {
       await app!.buildChildren(
         widgets: [
@@ -547,34 +503,6 @@ void html_mark_text_test() {
       expect(domNode1.getAttribute('style'), equals('some style'));
       expect(domNode2.getAttribute('style'), equals('some "messy" style'));
       expect(domNode3.getAttribute('style'), equals("some 'messy' style"));
-    });
-
-    test('should set tab index', () async {
-      await app!.buildChildren(
-        widgets: [
-          MarkText(
-            key: Key('widget-1'),
-            tabIndex: 1,
-          ),
-          MarkText(
-            key: Key('widget-2'),
-            tabIndex: 2,
-          ),
-          MarkText(
-            key: Key('widget-3'),
-            tabIndex: 3,
-          ),
-        ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
-      );
-
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
-
-      expect(domNode1.getAttribute('tabindex'), equals('1'));
-      expect(domNode2.getAttribute('tabindex'), equals('2'));
-      expect(domNode3.getAttribute('tabindex'), equals('3'));
     });
 
     test('should set title', () async {

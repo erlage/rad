@@ -14,15 +14,12 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 ///
 class BidirectionalTextOverride extends HTMLBidirectionalBase {
   const BidirectionalTextOverride({
+    TextDirection? dir,
     Key? key,
     String? id,
     String? title,
     String? style,
     String? className,
-    TextDirection? dir,
-    int? tabIndex,
-    bool? draggable,
-    bool? contentEditable,
     bool? hidden,
     String? innerText,
     Widget? child,
@@ -30,15 +27,12 @@ class BidirectionalTextOverride extends HTMLBidirectionalBase {
     EventCallback? onClick,
     Map<String, String>? additionalAttributes,
   }) : super(
+          dir: dir,
           key: key,
           id: id,
           title: title,
           style: style,
           className: className,
-          dir: dir,
-          tabIndex: tabIndex,
-          draggable: draggable,
-          contentEditable: contentEditable,
           hidden: hidden,
           innerText: innerText,
           child: child,
