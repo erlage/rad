@@ -29,11 +29,54 @@ class Button extends HTMLWidgetBase {
   ///
   final bool? disabled;
 
+  /// The form element to associate the button with (its form owner).
+  /// The value of this attribute must be the id of a form in the same
+  /// document. (If this attribute is not set, the button is associated with
+  /// its ancestor form element, if any.).
+  ///
+  final String? form;
+
+  /// The URL that processes the information submitted by the button. Overrides
+  /// the action attribute of the button's form owner. Does nothing if there is
+  /// no form owner.
+  ///
+  final String? formAction;
+
+  /// If the button is a submit button (it's inside/associated with a form
+  /// and doesn't have type="button").
+  ///
+  final FormEncType? formEncType;
+
+  /// If the button is a submit button (it's inside/associated with a form and
+  /// doesn't have type="button"), this attribute specifies the HTTP method
+  /// used to submit the form.
+  ///
+  final FormMethodType? formMethod;
+
+  /// f the button is a submit button, this attribute is an author-defined
+  /// name or standardized, underscore-prefixed keyword indicating where to
+  /// display the response from submitting the form.
+  ///
+  final String? formTarget;
+
+  /// If the button is a submit button, this Boolean attribute specifies that
+  /// the form is not to be validated when it is submitted. If this attribute
+  /// is specified, it overrides the novalidate attribute of the button's form
+  /// owner.
+  ///
+  final bool? formNoValidate;
+
   const Button({
     this.name,
     this.value,
     this.type,
     this.disabled,
+    this.form,
+    this.formAction,
+    this.formEncType,
+    this.formMethod,
+    this.formTarget,
+    this.formNoValidate,
     Key? key,
     String? id,
     String? title,
@@ -68,6 +111,12 @@ class Button extends HTMLWidgetBase {
         value != oldWidget.value ||
         type != oldWidget.type ||
         disabled != oldWidget.disabled ||
+        form != oldWidget.form ||
+        formAction != oldWidget.formAction ||
+        formEncType != oldWidget.formEncType ||
+        formMethod != oldWidget.formMethod ||
+        formTarget != oldWidget.formTarget ||
+        formNoValidate != oldWidget.formNoValidate ||
         super.shouldUpdateWidget(oldWidget);
   }
 
@@ -153,6 +202,34 @@ void _extendAttributes({
       attributes[Attributes.disabled] = null;
     } else {
       attributes[Attributes.disabled] = 'true';
+    }
+  }
+
+  if (widget.form != oldWidget?.form) {
+    attributes[Attributes.form] = widget.form;
+  }
+
+  if (widget.formAction != oldWidget?.formAction) {
+    attributes[Attributes.formAction] = widget.formAction;
+  }
+
+  if (widget.formEncType != oldWidget?.formEncType) {
+    attributes[Attributes.formEncType] = widget.formEncType?.nativeName;
+  }
+
+  if (widget.formMethod != oldWidget?.formMethod) {
+    attributes[Attributes.formMethod] = widget.formMethod?.nativeName;
+  }
+
+  if (widget.formTarget != oldWidget?.formTarget) {
+    attributes[Attributes.formTarget] = widget.formTarget;
+  }
+
+  if (widget.formNoValidate != oldWidget?.formNoValidate) {
+    if (null == widget.formNoValidate || false == widget.formNoValidate) {
+      attributes[Attributes.formNoValidate] = null;
+    } else {
+      attributes[Attributes.formNoValidate] = 'true';
     }
   }
 }

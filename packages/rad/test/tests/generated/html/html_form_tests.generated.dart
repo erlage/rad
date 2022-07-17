@@ -1349,15 +1349,15 @@ void html_form_test() {
 
       expect(
         domNode1.getAttribute('enctype'),
-        equals(FormEncType.textPlain.nativeName),
+        equals('text/plain'),
       );
       expect(
         domNode2.getAttribute('enctype'),
-        equals(FormEncType.multipartFormData.nativeName),
+        equals('multipart/form-data'),
       );
       expect(
         domNode3.getAttribute('enctype'),
-        equals(FormEncType.applicationXwwwFormUrlEncoded.nativeName),
+        equals('application/x-www-form-urlencoded'),
       );
     });
 

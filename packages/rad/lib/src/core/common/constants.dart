@@ -143,6 +143,11 @@ class Attributes {
   static const media = 'media';
   static const open = 'open';
   static const form = 'form';
+  static const formAction = 'formaction';
+  static const formEncType = 'formenctype';
+  static const formMethod = 'formmethod';
+  static const formTarget = 'formtarget';
+  static const formNoValidate = 'formnovalidate';
 
   static const max = 'max';
   static const min = 'min';

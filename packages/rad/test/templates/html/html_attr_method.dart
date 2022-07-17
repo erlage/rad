@@ -1,8 +1,8 @@
-test('should set form attribute "formmethod"', () async {
+test('should set form attribute "method"', () async {
     await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: Key('el-1'), formMethod: FormMethodType.get),
-            __WidgetClass__(key: Key('el-2'), formMethod: FormMethodType.post),
+            __WidgetClass__(key: Key('el-1'), method: FormMethodType.get),
+            __WidgetClass__(key: Key('el-2'), method: FormMethodType.post),
         ],
         parentRenderElement: app!.appRenderElement,
     );
@@ -11,21 +11,21 @@ test('should set form attribute "formmethod"', () async {
     var domNode2 = app!.domNodeByKeyValue('el-2');
 
     expect(
-        domNode1.getAttribute('formmethod'),
+        domNode1.getAttribute('method'),
         equals(FormMethodType.get.nativeName),
     );
     expect(
-        domNode2.getAttribute('formmethod'),
+        domNode2.getAttribute('method'),
         equals(FormMethodType.post.nativeName),
     );
 });
 
-test('should update form attribute "formmethod"', () async {
+test('should update form attribute "method"', () async {
     await app!.buildChildren(
         widgets: [
-            __WidgetClass__(key: Key('el-1'), formMethod: FormMethodType.get),
-            __WidgetClass__(key: Key('el-2'), formMethod: FormMethodType.post),
-            __WidgetClass__(key: Key('el-3'), formMethod: FormMethodType.get),
+            __WidgetClass__(key: Key('el-1'), method: FormMethodType.get),
+            __WidgetClass__(key: Key('el-2'), method: FormMethodType.post),
+            __WidgetClass__(key: Key('el-3'), method: FormMethodType.get),
         ],
         parentRenderElement: app!.appRenderElement,
     );
@@ -33,8 +33,8 @@ test('should update form attribute "formmethod"', () async {
     await app!.updateChildren(
         widgets: [
             __WidgetClass__(key: Key('el-1')),
-            __WidgetClass__(key: Key('el-2'), formMethod: null),
-            __WidgetClass__(key: Key('el-3'), formMethod: FormMethodType.post),
+            __WidgetClass__(key: Key('el-2'), method: null),
+            __WidgetClass__(key: Key('el-3'), method: FormMethodType.post),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -45,15 +45,15 @@ test('should update form attribute "formmethod"', () async {
     var domNode3 = app!.domNodeByKeyValue('el-3');
 
     expect(
-        domNode1.getAttribute('formmethod'),
+        domNode1.getAttribute('method'),
         equals(null),
     );
     expect(
-        domNode2.getAttribute('formmethod'),
+        domNode2.getAttribute('method'),
         equals(null),
     );
     expect(
-        domNode3.getAttribute('formmethod'),
+        domNode3.getAttribute('method'),
         equals(FormMethodType.post.nativeName),
     );
 });

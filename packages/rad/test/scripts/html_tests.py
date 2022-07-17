@@ -75,6 +75,12 @@ widget_specific_tests = {
         'html_attr_value',
         'html_attr_disabled',
         'html_attr_button_type',
+        'html_attr_form',
+        'html_attr_form_action',
+        'html_attr_form_enctype',
+        'html_attr_form_method',
+        'html_attr_form_target',
+        'html_attr_form_no_validate',
     ],
     'Data': [
         'html_attr_value',
@@ -110,8 +116,8 @@ widget_specific_tests = {
         'html_attr_action',
         'html_attr_accept',
         'html_attr_target',
-        'html_attr_form_method',
-        'html_attr_form_enctype',
+        'html_attr_method',
+        'html_attr_enctype',
         'html_attr_on_submit',
     ],
     'IFrame': [
