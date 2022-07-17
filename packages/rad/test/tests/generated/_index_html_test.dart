@@ -24,7 +24,7 @@ part 'html/html_button_tests.generated.dart';
 part 'html/html_canvas_tests.generated.dart';
 part 'html/html_table_caption_tests.generated.dart';
 part 'html/html_citation_tests.generated.dart';
-part 'html/html_code_tests.generated.dart';
+part 'html/html_inline_code_tests.generated.dart';
 part 'html/html_data_tests.generated.dart';
 part 'html/html_data_list_tests.generated.dart';
 part 'html/html_definition_tests.generated.dart';
@@ -125,7 +125,7 @@ void main() {
   html_canvas_test();
   html_table_caption_test();
   html_citation_test();
-  html_code_test();
+  html_inline_code_test();
   html_data_test();
   html_data_list_test();
   html_definition_test();

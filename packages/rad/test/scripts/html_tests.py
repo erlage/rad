@@ -371,7 +371,7 @@ widgets_map = {
     'Canvas': 'canvas',
     'TableCaption': 'caption',
     'Citation': 'cite',
-    'Code': 'code',
+    'InlineCode': 'code',
     'Data': 'data',
     'DataList': 'datalist',
     'Definition': 'dfn',

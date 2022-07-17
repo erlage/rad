@@ -276,7 +276,7 @@ Similarity tags:
 , [Canvas](https://pub.dev/documentation/rad/latest/widgets_html/Canvas-class.html)
 , [TableCaption](https://pub.dev/documentation/rad/latest/widgets_html/TableCaption-class.html)
 , [Citation](https://pub.dev/documentation/rad/latest/widgets_html/Citation-class.html)
-, [Code](https://pub.dev/documentation/rad/latest/widgets_html/Code-class.html)
+, [InlineCode](https://pub.dev/documentation/rad/latest/widgets_html/InlineCode-class.html)
 , [TableColumn](https://pub.dev/documentation/rad/latest/widgets_html/TableColumn-class.html)
 , [TableColumnGroup](https://pub.dev/documentation/rad/latest/widgets_html/TableColumnGroup-class.html)
 , [Data](https://pub.dev/documentation/rad/latest/widgets_html/Data-class.html)

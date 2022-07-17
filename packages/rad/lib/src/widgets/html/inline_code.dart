@@ -8,10 +8,10 @@ import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-/// The Code widget (HTML's `code` tag).
+/// The InlineCode widget (HTML's `code` tag).
 ///
-class Code extends HTMLWidgetBase {
-  const Code({
+class InlineCode extends HTMLWidgetBase {
+  const InlineCode({
     Key? key,
     String? id,
     String? title,

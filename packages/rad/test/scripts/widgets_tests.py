@@ -58,7 +58,7 @@ no_tests_for = [
     'Canvas',
     'TableCaption',
     'Citation',
-    'Code',
+    'InlineCode',
     'Data',
     'DataList',
     'Definition',

@@ -18,7 +18,7 @@ export 'src/widgets/html/button.dart' show Button;
 export 'src/widgets/html/canvas.dart' show Canvas;
 export 'src/widgets/html/table_caption.dart' show TableCaption;
 export 'src/widgets/html/citation.dart' show Citation;
-export 'src/widgets/html/inline_code.dart' show Code;
+export 'src/widgets/html/inline_code.dart' show InlineCode;
 export 'src/widgets/html/data_list.dart' show DataList;
 export 'src/widgets/html/data.dart' show Data;
 export 'src/widgets/html/definition.dart' show Definition;
