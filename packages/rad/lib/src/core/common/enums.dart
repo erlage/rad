@@ -195,6 +195,43 @@ enum CrossOriginType {
   const CrossOriginType(this.nativeName);
 }
 
+/// Decoding type.
+///
+enum DecodingType {
+  /// Decode the image synchronously, for atomic presentation with other
+  /// content.
+  ///
+  sync('sync'),
+
+  /// Decode the image asynchronously, to reduce delay in presenting other
+  /// content.
+  ///
+  async('async'),
+
+  /// No preference for the decoding mode.
+  ///
+  auto('auto');
+
+  final String nativeName;
+  const DecodingType(this.nativeName);
+}
+
+enum LoadingType {
+  /// Loads the image immediately, regardless of whether or not the image is
+  /// currently within the visible viewport.
+  ///
+  eager('eager'),
+
+  /// Defers loading the image until it reaches a calculated distance from the
+  /// viewport.
+  ///
+  lazy('lazy'),
+  ;
+
+  final String nativeName;
+  const LoadingType(this.nativeName);
+}
+
 /// Preload type.
 ///
 enum PreloadType {
@@ -219,6 +256,8 @@ enum PreloadType {
   final String nativeName;
   const PreloadType(this.nativeName);
 }
+
+
 
 /// Provides a hint of the relative priority to use when fetching the resource.
 ///

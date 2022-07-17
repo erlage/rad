@@ -144,6 +144,12 @@ widget_specific_tests = {
     'Image': [
         'html_attr_src',
         'html_attr_alt',
+        'html_attr_cross_origin_type',
+        'html_attr_decoding',
+        'html_attr_fetch_priority',
+        'html_attr_loading',
+        'html_attr_referrer_policy',
+        'html_attr_src_set',
         'html_attr_width',
         'html_attr_height',
     ],

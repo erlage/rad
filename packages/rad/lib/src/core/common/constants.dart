@@ -153,6 +153,8 @@ class Attributes {
   static const acceptCharset = 'accept-charset';
   static const autoComplete = 'autocomplete';
   static const fetchPriority = 'fetchpriority';
+  static const decoding = 'decoding';
+  static const loading = 'loading';
 
   static const max = 'max';
   static const min = 'min';

@@ -322,6 +322,8 @@ def apply_commons(file_name, contents):
     contents = contents.replace('Attributes.acceptCharset', "'accept-charset'")
     contents = contents.replace('Attributes.autoComplete', "'autocomplete'")
     contents = contents.replace('Attributes.fetchPriority', "'fetchpriority'")
+    contents = contents.replace('Attributes.decoding', "'decoding'")
+    contents = contents.replace('Attributes.loading', "'loading'")
 
     contents = contents.replace('Properties.value', "'value'")
     contents = contents.replace('Properties.innerHtml', "'innerHtml'")

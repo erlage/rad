@@ -991,6 +991,491 @@ void html_image_test() {
       );
     });
 
+    test('should set form attribute "crossorigin"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Image(key: Key('el-1'), crossOrigin: CrossOriginType.anonymous),
+          Image(key: Key('el-2'), crossOrigin: CrossOriginType.useCredentials),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(
+        domNode1.getAttribute('crossorigin'),
+        equals(CrossOriginType.anonymous.nativeName),
+      );
+      expect(
+        domNode2.getAttribute('crossorigin'),
+        equals(CrossOriginType.useCredentials.nativeName),
+      );
+    });
+
+    test('should update form attribute "crossorigin"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Image(key: Key('el-1'), crossOrigin: CrossOriginType.anonymous),
+          Image(key: Key('el-2'), crossOrigin: CrossOriginType.useCredentials),
+          Image(key: Key('el-3'), crossOrigin: CrossOriginType.anonymous),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2'), crossOrigin: null),
+          Image(key: Key('el-3'), crossOrigin: CrossOriginType.useCredentials),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(
+        domNode1.getAttribute('crossorigin'),
+        equals(null),
+      );
+      expect(
+        domNode2.getAttribute('crossorigin'),
+        equals(null),
+      );
+      expect(
+        domNode3.getAttribute('crossorigin'),
+        equals(CrossOriginType.useCredentials.nativeName),
+      );
+    });
+
+    test('should set ordered list attribute "decoding"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Image(key: Key('el-1'), decoding: DecodingType.sync),
+          Image(key: Key('el-2'), decoding: DecodingType.async),
+          Image(key: Key('el-3'), decoding: DecodingType.auto),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(
+        domNode1.getAttribute('decoding'),
+        equals(DecodingType.sync.nativeName),
+      );
+      expect(
+        domNode2.getAttribute('decoding'),
+        equals(DecodingType.async.nativeName),
+      );
+      expect(
+        domNode3.getAttribute('decoding'),
+        equals(DecodingType.auto.nativeName),
+      );
+    });
+
+    test('should update ordered list attribute "decoding"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Image(key: Key('el-1'), decoding: DecodingType.sync),
+          Image(key: Key('el-2'), decoding: DecodingType.async),
+          Image(key: Key('el-3'), decoding: DecodingType.auto),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2'), decoding: null),
+          Image(key: Key('el-3'), decoding: DecodingType.sync),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(
+        domNode1.getAttribute('decoding'),
+        equals(null),
+      );
+      expect(
+        domNode2.getAttribute('decoding'),
+        equals(null),
+      );
+      expect(
+        domNode3.getAttribute('decoding'),
+        equals(DecodingType.sync.nativeName),
+      );
+    });
+
+    test('should set attribute "type"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Image(key: Key('el-1'), fetchPriority: FetchPriorityType.high),
+          Image(key: Key('el-2'), fetchPriority: FetchPriorityType.low),
+          Image(key: Key('el-3'), fetchPriority: FetchPriorityType.auto),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(domNode1.getAttribute('type'), equals('high'));
+      expect(domNode2.getAttribute('type'), equals('low'));
+      expect(domNode3.getAttribute('type'), equals('auto'));
+    });
+
+    test('should update attribute "type"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Image(key: Key('el-1'), fetchPriority: FetchPriorityType.high),
+          Image(key: Key('el-2'), fetchPriority: FetchPriorityType.low),
+          Image(key: Key('el-3'), fetchPriority: FetchPriorityType.auto),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2'), fetchPriority: null),
+          Image(key: Key('el-3'), fetchPriority: FetchPriorityType.high),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(domNode1.getAttribute('type'), equals(null));
+      expect(domNode2.getAttribute('type'), equals(null));
+      expect(domNode3.getAttribute('type'), equals('high'));
+    });
+
+    test('should set form attribute "loading"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Image(key: Key('el-1'), loading: LoadingType.eager),
+          Image(key: Key('el-2'), loading: LoadingType.lazy),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(
+        domNode1.getAttribute('loading'),
+        equals(LoadingType.eager.nativeName),
+      );
+      expect(
+        domNode2.getAttribute('loading'),
+        equals(LoadingType.lazy.nativeName),
+      );
+    });
+
+    test('should update form attribute "loading"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Image(key: Key('el-1'), loading: LoadingType.eager),
+          Image(key: Key('el-2'), loading: LoadingType.lazy),
+          Image(key: Key('el-3'), loading: LoadingType.eager),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2'), loading: null),
+          Image(key: Key('el-3'), loading: LoadingType.lazy),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(
+        domNode1.getAttribute('loading'),
+        equals(null),
+      );
+      expect(
+        domNode2.getAttribute('loading'),
+        equals(null),
+      );
+      expect(
+        domNode3.getAttribute('loading'),
+        equals(LoadingType.lazy.nativeName),
+      );
+    });
+
+    test('should set attribute "referrerpolicy"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Image(
+              key: Key('el-1'), referrerPolicy: ReferrerPolicyType.noReferrer),
+          Image(
+              key: Key('el-2'),
+              referrerPolicy: ReferrerPolicyType.noReferrerWhenDowngrade),
+          Image(key: Key('el-3'), referrerPolicy: ReferrerPolicyType.origin),
+          Image(
+              key: Key('el-4'),
+              referrerPolicy: ReferrerPolicyType.originWhenCrossOrigin),
+          Image(
+              key: Key('el-5'), referrerPolicy: ReferrerPolicyType.sameOrigin),
+          Image(
+              key: Key('el-6'),
+              referrerPolicy: ReferrerPolicyType.strictOrigin),
+          Image(
+              key: Key('el-7'),
+              referrerPolicy: ReferrerPolicyType.strictOriginWhenCrossOrigin),
+          Image(key: Key('el-8'), referrerPolicy: ReferrerPolicyType.unSafeUrl),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
+      var domNode5 = app!.domNodeByKeyValue('el-5');
+      var domNode6 = app!.domNodeByKeyValue('el-6');
+      var domNode7 = app!.domNodeByKeyValue('el-7');
+      var domNode8 = app!.domNodeByKeyValue('el-8');
+
+      expect(
+        domNode1.getAttribute('referrerpolicy'),
+        equals('no-referrer'),
+      );
+      expect(
+        domNode2.getAttribute('referrerpolicy'),
+        equals('no-referrer-when-downgrade'),
+      );
+      expect(
+        domNode3.getAttribute('referrerpolicy'),
+        equals('origin'),
+      );
+      expect(
+        domNode4.getAttribute('referrerpolicy'),
+        equals('origin-when-cross-origin'),
+      );
+      expect(
+        domNode5.getAttribute('referrerpolicy'),
+        equals('same-origin'),
+      );
+      expect(
+        domNode6.getAttribute('referrerpolicy'),
+        equals('strict-origin'),
+      );
+      expect(
+        domNode7.getAttribute('referrerpolicy'),
+        equals('strict-origin-when-cross-origin'),
+      );
+      expect(
+        domNode8.getAttribute('referrerpolicy'),
+        equals('unsafe-url'),
+      );
+    });
+
+    test('should update attribute "referrerpolicy"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Image(
+              key: Key('el-1'), referrerPolicy: ReferrerPolicyType.noReferrer),
+          Image(
+              key: Key('el-2'),
+              referrerPolicy: ReferrerPolicyType.noReferrerWhenDowngrade),
+          Image(key: Key('el-3'), referrerPolicy: ReferrerPolicyType.origin),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2'), referrerPolicy: null),
+          Image(
+              key: Key('el-3'),
+              referrerPolicy: ReferrerPolicyType.originWhenCrossOrigin),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(
+        domNode1.getAttribute('referrerpolicy'),
+        equals(null),
+      );
+      expect(
+        domNode2.getAttribute('referrerpolicy'),
+        equals(null),
+      );
+      expect(
+        domNode3.getAttribute('referrerpolicy'),
+        equals(ReferrerPolicyType.originWhenCrossOrigin.nativeName),
+      );
+    });
+
+    test('should set attribute "srcset"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Image(key: Key('el-1'), srcSet: 'some-srcset'),
+          Image(key: Key('el-2'), srcSet: 'another-srcset'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('srcset'), equals('some-srcset'));
+      expect(domNode2.getAttribute('srcset'), equals('another-srcset'));
+    });
+
+    test('should update attribute "srcset"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Image(key: Key('el-1'), srcSet: 'some-srcset'),
+          Image(key: Key('el-2'), srcSet: 'another-srcset'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Image(key: Key('el-1'), srcSet: 'updated-srcset'),
+          Image(key: Key('el-2'), srcSet: 'another-srcset'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('srcset'), equals('updated-srcset'));
+      expect(domNode2.getAttribute('srcset'), equals('another-srcset'));
+    });
+
+    test('should clear attribute "srcset"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2'), srcSet: 'another-srcset'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Image(key: Key('el-1')),
+          Image(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('srcset'), equals(null));
+      expect(domNode2.getAttribute('srcset'), equals(null));
+    });
+
+    test('should clear attribute "srcset" if updated value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          Image(key: Key('el-1'), srcSet: 'some-srcset'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Image(key: Key('el-1'), srcSet: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('srcset'), equals(null));
+    });
+
+    test('should not set attribute "srcset" if provided value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          Image(key: Key('el-1'), srcSet: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('srcset'), equals(null));
+    });
+
+    test('should set messy "srcset"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Image(
+            key: Key('widget-1'),
+            srcSet: 'some srcset',
+          ),
+          Image(
+            key: Key('widget-2'),
+            srcSet: 'some "messy" srcset',
+          ),
+          Image(
+            key: Key('widget-3'),
+            srcSet: "some 'messy' srcset",
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(
+        domNode1.getAttribute('srcset'),
+        equals('some srcset'),
+      );
+
+      expect(
+        domNode2.getAttribute('srcset'),
+        equals('some "messy" srcset'),
+      );
+
+      expect(
+        domNode3.getAttribute('srcset'),
+        equals("some 'messy' srcset"),
+      );
+    });
+
     test('should set attribute "width"', () async {
       await app!.buildChildren(
         widgets: [
