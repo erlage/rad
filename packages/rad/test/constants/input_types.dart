@@ -6,6 +6,7 @@
 
 class RT_InputTypes {
   static const implemented = [
+    'button',
     'text',
     'password',
     'file',

@@ -33,6 +33,7 @@ skipped_tests = {
 skipped_generation_for_class = {
     'html_short_tag': [
         'Variable',           # var is a reserved keyword in dart
+        'InputButton',
         'InputCheckBox',
         'InputFile',
         'InputRadio',
@@ -304,6 +305,14 @@ widget_specific_tests = {
 
     # additional
 
+    'InputButton': [
+        'html_attr_name',
+        'html_attr_value',
+        'html_attr_disabled',
+        'html_attr_on_key_press',
+        'html_attr_on_key_up',
+        'html_attr_on_key_down',
+    ],
     'InputText': [
         'html_attr_name',
         'html_attr_value',
@@ -468,6 +477,7 @@ widgets_map = {
 
     # additionals,
 
+    'InputButton': 'input',
     'InputCheckBox': 'input',
     'InputFile': 'input',
     'InputRadio': 'input',

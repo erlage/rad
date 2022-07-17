@@ -107,6 +107,7 @@ enum DirectionType {
 /// HTML Input type.
 ///
 enum InputType {
+  button('button'),
   text('text'),
   password('password'),
   file('file'),

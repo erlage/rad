@@ -98,6 +98,7 @@ export 'src/widgets/html/video.dart' show Video;
 
 // Additional widgets.
 
+export 'src/widgets/additional/input_button.dart' show InputButton;
 export 'src/widgets/additional/input_checkbox.dart' show InputCheckBox;
 export 'src/widgets/additional/input_file.dart' show InputFile;
 export 'src/widgets/additional/input_radio.dart' show InputRadio;
