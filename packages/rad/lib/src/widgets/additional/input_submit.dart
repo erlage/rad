@@ -5,19 +5,26 @@
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/widgets/abstract/html_input_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/html/input.dart';
 
 /// The InputSubmit widget (HTML's `input` tag with `type = 'submit'`).
 ///
-class InputSubmit extends Input {
+class InputSubmit extends HTMLInputBase {
   const InputSubmit({
+    String? formAction,
+    FormEncType? formEncType,
+    FormMethodType? formMethod,
+    String? formTarget,
+    bool? formNoValidate,
+    String? name,
+    bool? disabled,
+    String? form,
+    String? inputMode,
+    int? tabIndex,
+    String? value,
     Key? key,
     String? id,
-    String? name,
-    String? value,
-    bool? required,
-    bool? disabled,
     String? title,
     String? style,
     String? className,
@@ -28,13 +35,20 @@ class InputSubmit extends Input {
     EventCallback? onClick,
     Map<String, String>? additionalAttributes,
   }) : super(
+          formAction: formAction,
+          formEncType: formEncType,
+          formMethod: formMethod,
+          formTarget: formTarget,
+          formNoValidate: formNoValidate,
+          name: name,
+          form: form,
+          value: value,
+          tabIndex: tabIndex,
+          disabled: disabled,
+          inputMode: inputMode,
+          type: InputType.submit,
           key: key,
           id: id,
-          type: InputType.submit,
-          name: name,
-          disabled: disabled,
-          value: value,
-          required: required,
           title: title,
           style: style,
           className: className,

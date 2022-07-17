@@ -362,6 +362,7 @@ Similarity tags:
 , [InputCheckBox](https://pub.dev/documentation/rad/latest/widgets_html/InputCheckBox-class.html)
 , [InputFile](https://pub.dev/documentation/rad/latest/widgets_html/InputFile-class.html)
 , [InputImage](https://pub.dev/documentation/rad/latest/widgets_html/InputImage-class.html)
+, [InputSubmit](https://pub.dev/documentation/rad/latest/widgets_html/InputSubmit-class.html)
 
 ## Contributing
 For reporting bugs/queries, feel free to open issue. Read [contributing guide](https://github.com/erlage/rad/blob/main/CONTRIBUTING.md) for more.

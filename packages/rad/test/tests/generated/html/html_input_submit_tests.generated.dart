@@ -742,6 +742,432 @@ void html_input_submit_test() {
       expect(wO3.key?.frameworkValue, equals('some-key-3'));
     });
 
+    test('should set attribute "formaction"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), formAction: 'some-formaction'),
+          InputSubmit(key: Key('el-2'), formAction: 'another-formaction'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('formaction'), equals('some-formaction'));
+      expect(domNode2.getAttribute('formaction'), equals('another-formaction'));
+    });
+
+    test('should update attribute "formaction"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), formAction: 'some-formaction'),
+          InputSubmit(key: Key('el-2'), formAction: 'another-formaction'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), formAction: 'updated-formaction'),
+          InputSubmit(key: Key('el-2'), formAction: 'another-formaction'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('formaction'), equals('updated-formaction'));
+      expect(domNode2.getAttribute('formaction'), equals('another-formaction'));
+    });
+
+    test('should clear attribute "formaction"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1')),
+          InputSubmit(key: Key('el-2'), formAction: 'another-formaction'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1')),
+          InputSubmit(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('formaction'), equals(null));
+      expect(domNode2.getAttribute('formaction'), equals(null));
+    });
+
+    test('should clear attribute "formaction" if updated value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), formAction: 'some-formaction'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), formAction: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('formaction'), equals(null));
+    });
+
+    test('should not set attribute "formaction" if provided value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), formAction: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('formaction'), equals(null));
+    });
+
+    test('should set messy "formaction"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(
+            key: Key('widget-1'),
+            formAction: 'some formaction',
+          ),
+          InputSubmit(
+            key: Key('widget-2'),
+            formAction: 'some "messy" formaction',
+          ),
+          InputSubmit(
+            key: Key('widget-3'),
+            formAction: "some 'messy' formaction",
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(
+        domNode1.getAttribute('formaction'),
+        equals('some formaction'),
+      );
+
+      expect(
+        domNode2.getAttribute('formaction'),
+        equals('some "messy" formaction'),
+      );
+
+      expect(
+        domNode3.getAttribute('formaction'),
+        equals("some 'messy' formaction"),
+      );
+    });
+
+    test('should set form attribute "formenctype"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), formEncType: FormEncType.textPlain),
+          InputSubmit(
+              key: Key('el-2'), formEncType: FormEncType.multipartFormData),
+          InputSubmit(
+            key: Key('el-3'),
+            formEncType: FormEncType.applicationXwwwFormUrlEncoded,
+          ),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(
+        domNode1.getAttribute('formenctype'),
+        equals('text/plain'),
+      );
+      expect(
+        domNode2.getAttribute('formenctype'),
+        equals('multipart/form-data'),
+      );
+      expect(
+        domNode3.getAttribute('formenctype'),
+        equals('application/x-www-form-urlencoded'),
+      );
+    });
+
+    test('should update form attribute "formenctype"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), formEncType: FormEncType.textPlain),
+          InputSubmit(
+              key: Key('el-2'), formEncType: FormEncType.multipartFormData),
+          InputSubmit(
+            key: Key('el-3'),
+            formEncType: FormEncType.applicationXwwwFormUrlEncoded,
+          ),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1')),
+          InputSubmit(key: Key('el-2'), formEncType: null),
+          InputSubmit(
+              key: Key('el-3'), formEncType: FormEncType.multipartFormData),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(domNode1.getAttribute('formenctype'), equals(null));
+      expect(domNode2.getAttribute('formenctype'), equals(null));
+
+      expect(
+        domNode3.getAttribute('formenctype'),
+        equals(FormEncType.multipartFormData.nativeName),
+      );
+    });
+
+    test('should set form attribute "formmethod"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), formMethod: FormMethodType.get),
+          InputSubmit(key: Key('el-2'), formMethod: FormMethodType.post),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(
+        domNode1.getAttribute('formmethod'),
+        equals(FormMethodType.get.nativeName),
+      );
+      expect(
+        domNode2.getAttribute('formmethod'),
+        equals(FormMethodType.post.nativeName),
+      );
+    });
+
+    test('should update form attribute "formmethod"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), formMethod: FormMethodType.get),
+          InputSubmit(key: Key('el-2'), formMethod: FormMethodType.post),
+          InputSubmit(key: Key('el-3'), formMethod: FormMethodType.get),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1')),
+          InputSubmit(key: Key('el-2'), formMethod: null),
+          InputSubmit(key: Key('el-3'), formMethod: FormMethodType.post),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(
+        domNode1.getAttribute('formmethod'),
+        equals(null),
+      );
+      expect(
+        domNode2.getAttribute('formmethod'),
+        equals(null),
+      );
+      expect(
+        domNode3.getAttribute('formmethod'),
+        equals(FormMethodType.post.nativeName),
+      );
+    });
+
+    test('should set attribute "formtarget"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), formTarget: 'some-formtarget'),
+          InputSubmit(key: Key('el-2'), formTarget: 'another-formtarget'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('formtarget'), equals('some-formtarget'));
+      expect(domNode2.getAttribute('formtarget'), equals('another-formtarget'));
+    });
+
+    test('should update attribute "formtarget"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), formTarget: 'some-formtarget'),
+          InputSubmit(key: Key('el-2'), formTarget: 'another-formtarget'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), formTarget: 'updated-formtarget'),
+          InputSubmit(key: Key('el-2'), formTarget: 'another-formtarget'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('formtarget'), equals('updated-formtarget'));
+      expect(domNode2.getAttribute('formtarget'), equals('another-formtarget'));
+    });
+
+    test('should clear attribute "formtarget"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1')),
+          InputSubmit(key: Key('el-2'), formTarget: 'another-formtarget'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1')),
+          InputSubmit(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('formtarget'), equals(null));
+      expect(domNode2.getAttribute('formtarget'), equals(null));
+    });
+
+    test('should clear attribute "formtarget" if updated value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), formTarget: 'some-formtarget'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), formTarget: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('formtarget'), equals(null));
+    });
+
+    test('should not set attribute "formtarget" if provided value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), formTarget: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('formtarget'), equals(null));
+    });
+
+    test('should set attribute "formnovalidate" only if its true', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), formNoValidate: false),
+          InputSubmit(key: Key('el-2'), formNoValidate: null),
+          InputSubmit(key: Key('el-3'), formNoValidate: true),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(domNode1.getAttribute('formnovalidate'), equals(null));
+      expect(domNode2.getAttribute('formnovalidate'), equals(null));
+      expect(domNode3.getAttribute('formnovalidate'), equals('true'));
+    });
+
+    test('should clear attribute "formnovalidate" if updated value is not true',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), formNoValidate: true),
+          InputSubmit(key: Key('el-2'), formNoValidate: true),
+          InputSubmit(key: Key('el-3'), formNoValidate: true),
+          InputSubmit(key: Key('el-4'), formNoValidate: true),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), formNoValidate: true),
+          InputSubmit(key: Key('el-2'), formNoValidate: false),
+          InputSubmit(key: Key('el-3'), formNoValidate: null),
+          InputSubmit(key: Key('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
+
+      expect(domNode1.getAttribute('formnovalidate'), equals('true'));
+      expect(domNode2.getAttribute('formnovalidate'), equals(null));
+      expect(domNode3.getAttribute('formnovalidate'), equals(null));
+      expect(domNode4.getAttribute('formnovalidate'), equals(null));
+    });
+
     test('should set attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
@@ -881,6 +1307,367 @@ void html_input_submit_test() {
       );
     });
 
+    test('should set attribute "disabled" only if its true', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), disabled: false),
+          InputSubmit(key: Key('el-2'), disabled: null),
+          InputSubmit(key: Key('el-3'), disabled: true),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(domNode1.getAttribute('disabled'), equals(null));
+      expect(domNode2.getAttribute('disabled'), equals(null));
+      expect(domNode3.getAttribute('disabled'), equals('true'));
+    });
+
+    test('should clear attribute "disabled" if updated value is not true',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), disabled: true),
+          InputSubmit(key: Key('el-2'), disabled: true),
+          InputSubmit(key: Key('el-3'), disabled: true),
+          InputSubmit(key: Key('el-4'), disabled: true),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), disabled: true),
+          InputSubmit(key: Key('el-2'), disabled: false),
+          InputSubmit(key: Key('el-3'), disabled: null),
+          InputSubmit(key: Key('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
+
+      expect(domNode1.getAttribute('disabled'), equals('true'));
+      expect(domNode2.getAttribute('disabled'), equals(null));
+      expect(domNode3.getAttribute('disabled'), equals(null));
+      expect(domNode4.getAttribute('disabled'), equals(null));
+    });
+
+    test('should set attribute "form"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), form: 'some-form'),
+          InputSubmit(key: Key('el-2'), form: 'another-form'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('form'), equals('some-form'));
+      expect(domNode2.getAttribute('form'), equals('another-form'));
+    });
+
+    test('should update attribute "form"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), form: 'some-form'),
+          InputSubmit(key: Key('el-2'), form: 'another-form'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), form: 'updated-form'),
+          InputSubmit(key: Key('el-2'), form: 'another-form'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('form'), equals('updated-form'));
+      expect(domNode2.getAttribute('form'), equals('another-form'));
+    });
+
+    test('should clear attribute "form"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1')),
+          InputSubmit(key: Key('el-2'), form: 'another-form'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1')),
+          InputSubmit(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('form'), equals(null));
+      expect(domNode2.getAttribute('form'), equals(null));
+    });
+
+    test('should clear attribute "form" if updated value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), form: 'some-form'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), form: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('form'), equals(null));
+    });
+
+    test('should not set attribute "form" if provided value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), form: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('form'), equals(null));
+    });
+
+    test('should set messy "form"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(
+            key: Key('widget-1'),
+            form: 'some form',
+          ),
+          InputSubmit(
+            key: Key('widget-2'),
+            form: 'some "messy" form',
+          ),
+          InputSubmit(
+            key: Key('widget-3'),
+            form: "some 'messy' form",
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(
+        domNode1.getAttribute('form'),
+        equals('some form'),
+      );
+
+      expect(
+        domNode2.getAttribute('form'),
+        equals('some "messy" form'),
+      );
+
+      expect(
+        domNode3.getAttribute('form'),
+        equals("some 'messy' form"),
+      );
+    });
+
+    test('should set attribute "inputmode"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), inputMode: 'some-inputmode'),
+          InputSubmit(key: Key('el-2'), inputMode: 'another-inputmode'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('inputmode'), equals('some-inputmode'));
+      expect(domNode2.getAttribute('inputmode'), equals('another-inputmode'));
+    });
+
+    test('should update attribute "inputmode"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), inputMode: 'some-inputmode'),
+          InputSubmit(key: Key('el-2'), inputMode: 'another-inputmode'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), inputMode: 'updated-inputmode'),
+          InputSubmit(key: Key('el-2'), inputMode: 'another-inputmode'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('inputmode'), equals('updated-inputmode'));
+      expect(domNode2.getAttribute('inputmode'), equals('another-inputmode'));
+    });
+
+    test('should clear attribute "inputmode"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1')),
+          InputSubmit(key: Key('el-2'), inputMode: 'another-inputmode'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1')),
+          InputSubmit(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('inputmode'), equals(null));
+      expect(domNode2.getAttribute('inputmode'), equals(null));
+    });
+
+    test('should clear attribute "inputmode" if updated value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), inputMode: 'some-inputmode'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), inputMode: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('inputmode'), equals(null));
+    });
+
+    test('should not set attribute "inputmode" if provided value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(key: Key('el-1'), inputMode: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('inputmode'), equals(null));
+    });
+
+    test('should set messy "inputmode"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(
+            key: Key('widget-1'),
+            inputMode: 'some inputmode',
+          ),
+          InputSubmit(
+            key: Key('widget-2'),
+            inputMode: 'some "messy" inputmode',
+          ),
+          InputSubmit(
+            key: Key('widget-3'),
+            inputMode: "some 'messy' inputmode",
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(
+        domNode1.getAttribute('inputmode'),
+        equals('some inputmode'),
+      );
+
+      expect(
+        domNode2.getAttribute('inputmode'),
+        equals('some "messy" inputmode'),
+      );
+
+      expect(
+        domNode3.getAttribute('inputmode'),
+        equals("some 'messy' inputmode"),
+      );
+    });
+
+    test('should set tab index', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputSubmit(
+            key: Key('widget-1'),
+            tabIndex: 1,
+          ),
+          InputSubmit(
+            key: Key('widget-2'),
+            tabIndex: 2,
+          ),
+          InputSubmit(
+            key: Key('widget-3'),
+            tabIndex: 3,
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(domNode1.getAttribute('tabindex'), equals('1'));
+      expect(domNode2.getAttribute('tabindex'), equals('2'));
+      expect(domNode3.getAttribute('tabindex'), equals('3'));
+    });
+
     test('should set attribute "value"', () async {
       await app!.buildChildren(
         widgets: [
@@ -980,112 +1767,6 @@ void html_input_submit_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('value'), equals(null));
-    });
-
-    test('should set attribute "required" only if its true', () async {
-      await app!.buildChildren(
-        widgets: [
-          InputSubmit(key: Key('el-1'), required: false),
-          InputSubmit(key: Key('el-2'), required: null),
-          InputSubmit(key: Key('el-3'), required: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-
-      expect(domNode1.getAttribute('required'), equals(null));
-      expect(domNode2.getAttribute('required'), equals(null));
-      expect(domNode3.getAttribute('required'), equals('true'));
-    });
-
-    test('should clear attribute "required" if updated value is not true',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          InputSubmit(key: Key('el-1'), required: true),
-          InputSubmit(key: Key('el-2'), required: true),
-          InputSubmit(key: Key('el-3'), required: true),
-          InputSubmit(key: Key('el-4'), required: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          InputSubmit(key: Key('el-1'), required: true),
-          InputSubmit(key: Key('el-2'), required: false),
-          InputSubmit(key: Key('el-3'), required: null),
-          InputSubmit(key: Key('el-4')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-      var domNode4 = app!.domNodeByKeyValue('el-4');
-
-      expect(domNode1.getAttribute('required'), equals('true'));
-      expect(domNode2.getAttribute('required'), equals(null));
-      expect(domNode3.getAttribute('required'), equals(null));
-      expect(domNode4.getAttribute('required'), equals(null));
-    });
-
-    test('should set attribute "disabled" only if its true', () async {
-      await app!.buildChildren(
-        widgets: [
-          InputSubmit(key: Key('el-1'), disabled: false),
-          InputSubmit(key: Key('el-2'), disabled: null),
-          InputSubmit(key: Key('el-3'), disabled: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-
-      expect(domNode1.getAttribute('disabled'), equals(null));
-      expect(domNode2.getAttribute('disabled'), equals(null));
-      expect(domNode3.getAttribute('disabled'), equals('true'));
-    });
-
-    test('should clear attribute "disabled" if updated value is not true',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          InputSubmit(key: Key('el-1'), disabled: true),
-          InputSubmit(key: Key('el-2'), disabled: true),
-          InputSubmit(key: Key('el-3'), disabled: true),
-          InputSubmit(key: Key('el-4'), disabled: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          InputSubmit(key: Key('el-1'), disabled: true),
-          InputSubmit(key: Key('el-2'), disabled: false),
-          InputSubmit(key: Key('el-3'), disabled: null),
-          InputSubmit(key: Key('el-4')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-      var domNode4 = app!.domNodeByKeyValue('el-4');
-
-      expect(domNode1.getAttribute('disabled'), equals('true'));
-      expect(domNode2.getAttribute('disabled'), equals(null));
-      expect(domNode3.getAttribute('disabled'), equals(null));
-      expect(domNode4.getAttribute('disabled'), equals(null));
     });
   });
 }

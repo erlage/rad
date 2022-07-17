@@ -386,10 +386,18 @@ widget_specific_tests = {
         'html_attr_value',
     ],
     'InputSubmit': [
+        'html_attr_form_action',
+        'html_attr_form_enctype',
+        'html_attr_form_method',
+        'html_attr_form_target',
+        'html_attr_form_no_validate',
+
         'html_attr_name',
-        'html_attr_value',
-        'html_attr_required',
         'html_attr_disabled',
+        'html_attr_form',
+        'html_attr_input_mode',
+        'html_attr_tabindex',
+        'html_attr_value',
     ],
 }
 
