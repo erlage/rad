@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
@@ -75,14 +76,14 @@ class HTMLBidirectionalBaseRenderElement extends HTMLRenderElementBase {
 
   @mustCallSuper
   @override
-  render({
+  DomNodePatchFillable render({
     required covariant HTMLBidirectionalBase widget,
   }) {
     var domNodeDescription = super.render(
       widget: widget,
     );
 
-    domNodeDescription?.attributes?.addAll(
+    domNodeDescription.attributes.addAll(
       _prepareAttributes(
         widget: widget,
         oldWidget: null,
@@ -94,7 +95,7 @@ class HTMLBidirectionalBaseRenderElement extends HTMLRenderElementBase {
 
   @mustCallSuper
   @override
-  update({
+  DomNodePatchFillable update({
     required updateType,
     required covariant HTMLBidirectionalBase oldWidget,
     required covariant HTMLBidirectionalBase newWidget,
@@ -105,7 +106,7 @@ class HTMLBidirectionalBaseRenderElement extends HTMLRenderElementBase {
       newWidget: newWidget,
     );
 
-    domNodeDescription?.attributes?.addAll(
+    domNodeDescription.attributes.addAll(
       _prepareAttributes(
         widget: newWidget,
         oldWidget: oldWidget,

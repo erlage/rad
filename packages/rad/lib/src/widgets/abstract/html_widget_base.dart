@@ -153,7 +153,7 @@ class HTMLRenderElementBase extends RenderElement {
 
   @mustCallSuper
   @override
-  render({
+  DomNodePatchFillable render({
     required widget,
   }) {
     widget as HTMLWidgetBase;
@@ -168,7 +168,7 @@ class HTMLRenderElementBase extends RenderElement {
       oldWidget: null,
     );
 
-    return DomNodePatch(attributes: attributes, properties: properties);
+    return DomNodePatchFillable(attributes: attributes, properties: properties);
   }
 
   @mustCallSuper
@@ -185,7 +185,7 @@ class HTMLRenderElementBase extends RenderElement {
 
   @mustCallSuper
   @override
-  update({
+  DomNodePatchFillable update({
     required updateType,
     required oldWidget,
     required newWidget,
@@ -203,7 +203,7 @@ class HTMLRenderElementBase extends RenderElement {
       oldWidget: oldWidget,
     );
 
-    return DomNodePatch(attributes: attributes, properties: properties);
+    return DomNodePatchFillable(attributes: attributes, properties: properties);
   }
 }
 

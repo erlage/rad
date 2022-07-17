@@ -5,6 +5,7 @@
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_widget_base.dart';
@@ -73,14 +74,14 @@ class HTMLTableColumnBaseRenderElement extends HTMLRenderElementBase {
 
   @mustCallSuper
   @override
-  render({
+  DomNodePatchFillable render({
     required covariant HTMLTableColumnBase widget,
   }) {
     var domNodeDescription = super.render(
       widget: widget,
     );
 
-    domNodeDescription?.attributes?.addAll(
+    domNodeDescription.attributes.addAll(
       _prepareAttributes(
         widget: widget,
         oldWidget: null,
@@ -92,7 +93,7 @@ class HTMLTableColumnBaseRenderElement extends HTMLRenderElementBase {
 
   @mustCallSuper
   @override
-  update({
+  DomNodePatchFillable update({
     required updateType,
     required covariant HTMLTableColumnBase oldWidget,
     required covariant HTMLTableColumnBase newWidget,
@@ -103,7 +104,7 @@ class HTMLTableColumnBaseRenderElement extends HTMLRenderElementBase {
       newWidget: newWidget,
     );
 
-    domNodeDescription?.attributes?.addAll(
+    domNodeDescription.attributes.addAll(
       _prepareAttributes(
         widget: newWidget,
         oldWidget: oldWidget,

@@ -148,14 +148,14 @@ class TextAreaRenderElement extends HTMLRenderElementBase {
       widget: widget,
     );
 
-    domNodeDescription?.attributes?.addAll(
+    domNodeDescription.attributes.addAll(
       _prepareAttributes(
         widget: widget,
         oldWidget: null,
       ),
     );
 
-    domNodeDescription?.properties?.addAll(
+    domNodeDescription.properties.addAll(
       _prepareProperties(
         widget: widget,
         oldWidget: null,
@@ -177,14 +177,14 @@ class TextAreaRenderElement extends HTMLRenderElementBase {
       newWidget: newWidget,
     );
 
-    domNodeDescription?.attributes?.addAll(
+    domNodeDescription.attributes.addAll(
       _prepareAttributes(
         widget: newWidget,
         oldWidget: oldWidget,
       ),
     );
 
-    domNodeDescription?.properties?.addAll(
+    domNodeDescription.properties.addAll(
       _prepareProperties(
         widget: newWidget,
         oldWidget: oldWidget,

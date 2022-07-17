@@ -26,3 +26,22 @@ class DomNodePatch {
 
   const DomNodePatch({this.attributes, this.properties});
 }
+
+/// A fillable dom node patch.
+///
+class DomNodePatchFillable implements DomNodePatch {
+  /// Attributes patch.
+  ///
+  @override
+  final Map<String, String?> attributes;
+
+  /// Properties patch.
+  ///
+  @override
+  final Map<String, String?> properties;
+
+  const DomNodePatchFillable({
+    required this.attributes,
+    required this.properties,
+  });
+}

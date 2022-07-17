@@ -81,7 +81,7 @@ class DetailsRenderElement extends HTMLRenderElementBase {
       widget: widget,
     );
 
-    domNodeDescription?.attributes?.addAll(
+    domNodeDescription.attributes.addAll(
       _prepareAttributes(
         widget: widget,
         oldWidget: null,
@@ -103,7 +103,7 @@ class DetailsRenderElement extends HTMLRenderElementBase {
       newWidget: newWidget,
     );
 
-    domNodeDescription?.attributes?.addAll(
+    domNodeDescription.attributes.addAll(
       _prepareAttributes(
         widget: newWidget,
         oldWidget: oldWidget,
