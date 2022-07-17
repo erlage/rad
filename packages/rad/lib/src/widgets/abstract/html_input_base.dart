@@ -287,7 +287,7 @@ abstract class HTMLInputBase extends HTMLWidgetBase {
         DomEventType.keyDown: onKeyDown,
         DomEventType.keyPress: onKeyPress,
       };
-      
+
   @nonVirtual
   @override
   DomTagType? get correspondingTag => DomTagType.input;

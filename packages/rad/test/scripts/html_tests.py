@@ -308,6 +308,7 @@ widget_specific_tests = {
     'InputButton': [
         'html_attr_name',
         'html_attr_value',
+        'html_attr_form',
         'html_attr_disabled',
         'html_attr_on_key_press',
         'html_attr_on_key_up',

@@ -16,6 +16,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 class InputButton extends HTMLInputBase {
   const InputButton({
     bool? disabled,
+    String? form,
     String? name,
     String? value,
     Key? key,
@@ -35,6 +36,7 @@ class InputButton extends HTMLInputBase {
   }) : super(
           type: InputType.button,
           disabled: disabled,
+          form: form,
           name: name,
           value: value,
           key: key,
