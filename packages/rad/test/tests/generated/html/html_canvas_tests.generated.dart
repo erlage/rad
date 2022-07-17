@@ -749,5 +749,207 @@ void html_canvas_test() {
       expect(wO2.key?.frameworkValue, endsWith('some-key-2'));
       expect(wO3.key?.frameworkValue, equals('some-key-3'));
     });
+
+    test('should set attribute "height"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Canvas(key: Key('el-1'), height: 'some-height'),
+          Canvas(key: Key('el-2'), height: 'another-height'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('height'), equals('some-height'));
+      expect(domNode2.getAttribute('height'), equals('another-height'));
+    });
+
+    test('should update attribute "height"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Canvas(key: Key('el-1'), height: 'some-height'),
+          Canvas(key: Key('el-2'), height: 'another-height'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Canvas(key: Key('el-1'), height: 'updated-height'),
+          Canvas(key: Key('el-2'), height: 'another-height'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('height'), equals('updated-height'));
+      expect(domNode2.getAttribute('height'), equals('another-height'));
+    });
+
+    test('should clear attribute "height"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Canvas(key: Key('el-1')),
+          Canvas(key: Key('el-2'), height: 'another-height'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Canvas(key: Key('el-1')),
+          Canvas(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('height'), equals(null));
+      expect(domNode2.getAttribute('height'), equals(null));
+    });
+
+    test('should clear attribute "height" if updated value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          Canvas(key: Key('el-1'), height: 'some-height'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Canvas(key: Key('el-1'), height: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('height'), equals(null));
+    });
+
+    test('should not set attribute "height" if provided value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          Canvas(key: Key('el-1'), height: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('height'), equals(null));
+    });
+
+    test('should set attribute "width"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Canvas(key: Key('el-1'), width: 'some-width'),
+          Canvas(key: Key('el-2'), width: 'another-width'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('width'), equals('some-width'));
+      expect(domNode2.getAttribute('width'), equals('another-width'));
+    });
+
+    test('should update attribute "width"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Canvas(key: Key('el-1'), width: 'some-width'),
+          Canvas(key: Key('el-2'), width: 'another-width'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Canvas(key: Key('el-1'), width: 'updated-width'),
+          Canvas(key: Key('el-2'), width: 'another-width'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('width'), equals('updated-width'));
+      expect(domNode2.getAttribute('width'), equals('another-width'));
+    });
+
+    test('should clear attribute "width"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Canvas(key: Key('el-1')),
+          Canvas(key: Key('el-2'), width: 'another-width'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Canvas(key: Key('el-1')),
+          Canvas(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('width'), equals(null));
+      expect(domNode2.getAttribute('width'), equals(null));
+    });
+
+    test('should clear attribute "width" if updated value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          Canvas(key: Key('el-1'), width: 'some-width'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Canvas(key: Key('el-1'), width: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('width'), equals(null));
+    });
+
+    test('should not set attribute "width" if provided value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          Canvas(key: Key('el-1'), width: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('width'), equals(null));
+    });
   });
 }

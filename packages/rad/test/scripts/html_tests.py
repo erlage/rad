@@ -82,6 +82,10 @@ widget_specific_tests = {
         'html_attr_form_target',
         'html_attr_form_no_validate',
     ],
+    'Canvas': [
+        'html_attr_height',
+        'html_attr_width',
+    ],
     'Data': [
         'html_attr_value',
     ],
