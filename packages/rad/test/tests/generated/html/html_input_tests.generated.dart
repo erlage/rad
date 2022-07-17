@@ -891,6 +891,367 @@ void html_input_test() {
       );
     });
 
+    test('should set attribute "disabled" only if its true', () async {
+      await app!.buildChildren(
+        widgets: [
+          Input(key: Key('el-1'), disabled: false),
+          Input(key: Key('el-2'), disabled: null),
+          Input(key: Key('el-3'), disabled: true),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(domNode1.getAttribute('disabled'), equals(null));
+      expect(domNode2.getAttribute('disabled'), equals(null));
+      expect(domNode3.getAttribute('disabled'), equals('true'));
+    });
+
+    test('should clear attribute "disabled" if updated value is not true',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          Input(key: Key('el-1'), disabled: true),
+          Input(key: Key('el-2'), disabled: true),
+          Input(key: Key('el-3'), disabled: true),
+          Input(key: Key('el-4'), disabled: true),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Input(key: Key('el-1'), disabled: true),
+          Input(key: Key('el-2'), disabled: false),
+          Input(key: Key('el-3'), disabled: null),
+          Input(key: Key('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
+
+      expect(domNode1.getAttribute('disabled'), equals('true'));
+      expect(domNode2.getAttribute('disabled'), equals(null));
+      expect(domNode3.getAttribute('disabled'), equals(null));
+      expect(domNode4.getAttribute('disabled'), equals(null));
+    });
+
+    test('should set attribute "form"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Input(key: Key('el-1'), form: 'some-form'),
+          Input(key: Key('el-2'), form: 'another-form'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('form'), equals('some-form'));
+      expect(domNode2.getAttribute('form'), equals('another-form'));
+    });
+
+    test('should update attribute "form"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Input(key: Key('el-1'), form: 'some-form'),
+          Input(key: Key('el-2'), form: 'another-form'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Input(key: Key('el-1'), form: 'updated-form'),
+          Input(key: Key('el-2'), form: 'another-form'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('form'), equals('updated-form'));
+      expect(domNode2.getAttribute('form'), equals('another-form'));
+    });
+
+    test('should clear attribute "form"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Input(key: Key('el-1')),
+          Input(key: Key('el-2'), form: 'another-form'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Input(key: Key('el-1')),
+          Input(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('form'), equals(null));
+      expect(domNode2.getAttribute('form'), equals(null));
+    });
+
+    test('should clear attribute "form" if updated value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          Input(key: Key('el-1'), form: 'some-form'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Input(key: Key('el-1'), form: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('form'), equals(null));
+    });
+
+    test('should not set attribute "form" if provided value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          Input(key: Key('el-1'), form: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('form'), equals(null));
+    });
+
+    test('should set messy "form"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Input(
+            key: Key('widget-1'),
+            form: 'some form',
+          ),
+          Input(
+            key: Key('widget-2'),
+            form: 'some "messy" form',
+          ),
+          Input(
+            key: Key('widget-3'),
+            form: "some 'messy' form",
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(
+        domNode1.getAttribute('form'),
+        equals('some form'),
+      );
+
+      expect(
+        domNode2.getAttribute('form'),
+        equals('some "messy" form'),
+      );
+
+      expect(
+        domNode3.getAttribute('form'),
+        equals("some 'messy' form"),
+      );
+    });
+
+    test('should set attribute "inputmode"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Input(key: Key('el-1'), inputMode: 'some-inputmode'),
+          Input(key: Key('el-2'), inputMode: 'another-inputmode'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('inputmode'), equals('some-inputmode'));
+      expect(domNode2.getAttribute('inputmode'), equals('another-inputmode'));
+    });
+
+    test('should update attribute "inputmode"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Input(key: Key('el-1'), inputMode: 'some-inputmode'),
+          Input(key: Key('el-2'), inputMode: 'another-inputmode'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Input(key: Key('el-1'), inputMode: 'updated-inputmode'),
+          Input(key: Key('el-2'), inputMode: 'another-inputmode'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('inputmode'), equals('updated-inputmode'));
+      expect(domNode2.getAttribute('inputmode'), equals('another-inputmode'));
+    });
+
+    test('should clear attribute "inputmode"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Input(key: Key('el-1')),
+          Input(key: Key('el-2'), inputMode: 'another-inputmode'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Input(key: Key('el-1')),
+          Input(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('inputmode'), equals(null));
+      expect(domNode2.getAttribute('inputmode'), equals(null));
+    });
+
+    test('should clear attribute "inputmode" if updated value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          Input(key: Key('el-1'), inputMode: 'some-inputmode'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Input(key: Key('el-1'), inputMode: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('inputmode'), equals(null));
+    });
+
+    test('should not set attribute "inputmode" if provided value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          Input(key: Key('el-1'), inputMode: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('inputmode'), equals(null));
+    });
+
+    test('should set messy "inputmode"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Input(
+            key: Key('widget-1'),
+            inputMode: 'some inputmode',
+          ),
+          Input(
+            key: Key('widget-2'),
+            inputMode: 'some "messy" inputmode',
+          ),
+          Input(
+            key: Key('widget-3'),
+            inputMode: "some 'messy' inputmode",
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(
+        domNode1.getAttribute('inputmode'),
+        equals('some inputmode'),
+      );
+
+      expect(
+        domNode2.getAttribute('inputmode'),
+        equals('some "messy" inputmode'),
+      );
+
+      expect(
+        domNode3.getAttribute('inputmode'),
+        equals("some 'messy' inputmode"),
+      );
+    });
+
+    test('should set tab index', () async {
+      await app!.buildChildren(
+        widgets: [
+          Input(
+            key: Key('widget-1'),
+            tabIndex: 1,
+          ),
+          Input(
+            key: Key('widget-2'),
+            tabIndex: 2,
+          ),
+          Input(
+            key: Key('widget-3'),
+            tabIndex: 3,
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(domNode1.getAttribute('tabindex'), equals('1'));
+      expect(domNode2.getAttribute('tabindex'), equals('2'));
+      expect(domNode3.getAttribute('tabindex'), equals('3'));
+    });
+
     test('should set attribute "value"', () async {
       await app!.buildChildren(
         widgets: [
@@ -990,821 +1351,6 @@ void html_input_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('value'), equals(null));
-    });
-
-    test('should set attribute "accept"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), accept: 'some-accept'),
-          Input(key: Key('el-2'), accept: 'another-accept'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('accept'), equals('some-accept'));
-      expect(domNode2.getAttribute('accept'), equals('another-accept'));
-    });
-
-    test('should update attribute "accept"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), accept: 'some-accept'),
-          Input(key: Key('el-2'), accept: 'another-accept'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), accept: 'updated-accept'),
-          Input(key: Key('el-2'), accept: 'another-accept'),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('accept'), equals('updated-accept'));
-      expect(domNode2.getAttribute('accept'), equals('another-accept'));
-    });
-
-    test('should clear attribute "accept"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), accept: 'another-accept'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('accept'), equals(null));
-      expect(domNode2.getAttribute('accept'), equals(null));
-    });
-
-    test('should clear attribute "accept" if updated value is null', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), accept: 'some-accept'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), accept: null),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('accept'), equals(null));
-    });
-
-    test('should not set attribute "accept" if provided value is null',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), accept: null),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('accept'), equals(null));
-    });
-
-    test('should set messy "accept"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(
-            key: Key('widget-1'),
-            accept: 'some accept',
-          ),
-          Input(
-            key: Key('widget-2'),
-            accept: 'some "messy" accept',
-          ),
-          Input(
-            key: Key('widget-3'),
-            accept: "some 'messy' accept",
-          ),
-        ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
-      );
-
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
-
-      expect(
-        domNode1.getAttribute('accept'),
-        equals('some accept'),
-      );
-
-      expect(
-        domNode2.getAttribute('accept'),
-        equals('some "messy" accept'),
-      );
-
-      expect(
-        domNode3.getAttribute('accept'),
-        equals("some 'messy' accept"),
-      );
-    });
-
-    test('should set attribute "minLength"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), minLength: 10),
-          Input(key: Key('el-2'), minLength: 0),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('minlength'), equals('10'));
-      expect(domNode2.getAttribute('minlength'), equals('0'));
-    });
-
-    test('should update attribute "minLength"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), minLength: 10),
-          Input(key: Key('el-2'), minLength: 10),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), minLength: 20),
-          Input(key: Key('el-2'), minLength: 20),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('minlength'), equals('20'));
-      expect(domNode2.getAttribute('minlength'), equals('20'));
-    });
-
-    test('should clear attribute "minLength"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), minLength: 10),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('minlength'), equals(null));
-      expect(domNode2.getAttribute('minlength'), equals(null));
-    });
-
-    test('should clear attribute "minLength" if updated value is null',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), minLength: 10),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), minLength: null),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('minlength'), equals(null));
-    });
-
-    test('should not set attribute "minLength" if provided value is null',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), minLength: null),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('minlength'), equals(null));
-    });
-
-    test('should set attribute "maxLength"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), maxLength: 10),
-          Input(key: Key('el-2'), maxLength: 0),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('maxlength'), equals('10'));
-      expect(domNode2.getAttribute('maxlength'), equals('0'));
-    });
-
-    test('should update attribute "maxLength"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), maxLength: 10),
-          Input(key: Key('el-2'), maxLength: 10),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), maxLength: 20),
-          Input(key: Key('el-2'), maxLength: 20),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('maxlength'), equals('20'));
-      expect(domNode2.getAttribute('maxlength'), equals('20'));
-    });
-
-    test('should clear attribute "maxLength"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), maxLength: 10),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('maxlength'), equals(null));
-      expect(domNode2.getAttribute('maxlength'), equals(null));
-    });
-
-    test('should clear attribute "maxLength" if updated value is null',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), maxLength: 10),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), maxLength: null),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('maxlength'), equals(null));
-    });
-
-    test('should not set attribute "maxLength" if provided value is null',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), maxLength: null),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('maxlength'), equals(null));
-    });
-
-    test('should set attribute "pattern"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), pattern: 'some-pattern'),
-          Input(key: Key('el-2'), pattern: 'another-pattern'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('pattern'), equals('some-pattern'));
-      expect(domNode2.getAttribute('pattern'), equals('another-pattern'));
-    });
-
-    test('should update attribute "pattern"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), pattern: 'some-pattern'),
-          Input(key: Key('el-2'), pattern: 'another-pattern'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), pattern: 'updated-pattern'),
-          Input(key: Key('el-2'), pattern: 'another-pattern'),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('pattern'), equals('updated-pattern'));
-      expect(domNode2.getAttribute('pattern'), equals('another-pattern'));
-    });
-
-    test('should clear attribute "pattern"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), pattern: 'another-pattern'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('pattern'), equals(null));
-      expect(domNode2.getAttribute('pattern'), equals(null));
-    });
-
-    test('should clear attribute "pattern" if updated value is null', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), pattern: 'some-pattern'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), pattern: null),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('pattern'), equals(null));
-    });
-
-    test('should not set attribute "pattern" if provided value is null',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), pattern: null),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('pattern'), equals(null));
-    });
-
-    test('should set attribute "placeholder"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), placeholder: 'some-placeholder'),
-          Input(key: Key('el-2'), placeholder: 'another-placeholder'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('placeholder'), equals('some-placeholder'));
-      expect(
-          domNode2.getAttribute('placeholder'), equals('another-placeholder'));
-    });
-
-    test('should update attribute "placeholder"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), placeholder: 'some-placeholder'),
-          Input(key: Key('el-2'), placeholder: 'another-placeholder'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), placeholder: 'updated-placeholder'),
-          Input(key: Key('el-2'), placeholder: 'another-placeholder'),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(
-          domNode1.getAttribute('placeholder'), equals('updated-placeholder'));
-      expect(
-          domNode2.getAttribute('placeholder'), equals('another-placeholder'));
-    });
-
-    test('should clear attribute "placeholder"', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2'), placeholder: 'another-placeholder'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1')),
-          Input(key: Key('el-2')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('placeholder'), equals(null));
-      expect(domNode2.getAttribute('placeholder'), equals(null));
-    });
-
-    test('should clear attribute "placeholder" if updated value is null',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), placeholder: 'some-placeholder'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), placeholder: null),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('placeholder'), equals(null));
-    });
-
-    test('should not set attribute "placeholder" if provided value is null',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), placeholder: null),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('placeholder'), equals(null));
-    });
-
-    test('should set attribute "multiple" only if its true', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), multiple: false),
-          Input(key: Key('el-2'), multiple: null),
-          Input(key: Key('el-3'), multiple: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-
-      expect(domNode1.getAttribute('multiple'), equals(null));
-      expect(domNode2.getAttribute('multiple'), equals(null));
-      expect(domNode3.getAttribute('multiple'), equals('true'));
-    });
-
-    test('should clear attribute "multiple" if updated value is not true',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), multiple: true),
-          Input(key: Key('el-2'), multiple: true),
-          Input(key: Key('el-3'), multiple: true),
-          Input(key: Key('el-4'), multiple: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), multiple: true),
-          Input(key: Key('el-2'), multiple: false),
-          Input(key: Key('el-3'), multiple: null),
-          Input(key: Key('el-4')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-      var domNode4 = app!.domNodeByKeyValue('el-4');
-
-      expect(domNode1.getAttribute('multiple'), equals('true'));
-      expect(domNode2.getAttribute('multiple'), equals(null));
-      expect(domNode3.getAttribute('multiple'), equals(null));
-      expect(domNode4.getAttribute('multiple'), equals(null));
-    });
-
-    test('should set attribute "required" only if its true', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), required: false),
-          Input(key: Key('el-2'), required: null),
-          Input(key: Key('el-3'), required: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-
-      expect(domNode1.getAttribute('required'), equals(null));
-      expect(domNode2.getAttribute('required'), equals(null));
-      expect(domNode3.getAttribute('required'), equals('true'));
-    });
-
-    test('should clear attribute "required" if updated value is not true',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), required: true),
-          Input(key: Key('el-2'), required: true),
-          Input(key: Key('el-3'), required: true),
-          Input(key: Key('el-4'), required: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), required: true),
-          Input(key: Key('el-2'), required: false),
-          Input(key: Key('el-3'), required: null),
-          Input(key: Key('el-4')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-      var domNode4 = app!.domNodeByKeyValue('el-4');
-
-      expect(domNode1.getAttribute('required'), equals('true'));
-      expect(domNode2.getAttribute('required'), equals(null));
-      expect(domNode3.getAttribute('required'), equals(null));
-      expect(domNode4.getAttribute('required'), equals(null));
-    });
-
-    test('should set attribute "readonly" only if its true', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), readOnly: false),
-          Input(key: Key('el-2'), readOnly: null),
-          Input(key: Key('el-3'), readOnly: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-
-      expect(domNode1.getAttribute('readonly'), equals(null));
-      expect(domNode2.getAttribute('readonly'), equals(null));
-      expect(domNode3.getAttribute('readonly'), equals('true'));
-    });
-
-    test('should clear attribute "readonly" if updated value is not true',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), readOnly: true),
-          Input(key: Key('el-2'), readOnly: true),
-          Input(key: Key('el-3'), readOnly: true),
-          Input(key: Key('el-4'), readOnly: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), readOnly: true),
-          Input(key: Key('el-2'), readOnly: false),
-          Input(key: Key('el-3'), readOnly: null),
-          Input(key: Key('el-4')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-      var domNode4 = app!.domNodeByKeyValue('el-4');
-
-      expect(domNode1.getAttribute('readonly'), equals('true'));
-      expect(domNode2.getAttribute('readonly'), equals(null));
-      expect(domNode3.getAttribute('readonly'), equals(null));
-      expect(domNode4.getAttribute('readonly'), equals(null));
-    });
-
-    test('should set attribute "disabled" only if its true', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), disabled: false),
-          Input(key: Key('el-2'), disabled: null),
-          Input(key: Key('el-3'), disabled: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-
-      expect(domNode1.getAttribute('disabled'), equals(null));
-      expect(domNode2.getAttribute('disabled'), equals(null));
-      expect(domNode3.getAttribute('disabled'), equals('true'));
-    });
-
-    test('should clear attribute "disabled" if updated value is not true',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), disabled: true),
-          Input(key: Key('el-2'), disabled: true),
-          Input(key: Key('el-3'), disabled: true),
-          Input(key: Key('el-4'), disabled: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), disabled: true),
-          Input(key: Key('el-2'), disabled: false),
-          Input(key: Key('el-3'), disabled: null),
-          Input(key: Key('el-4')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-      var domNode4 = app!.domNodeByKeyValue('el-4');
-
-      expect(domNode1.getAttribute('disabled'), equals('true'));
-      expect(domNode2.getAttribute('disabled'), equals(null));
-      expect(domNode3.getAttribute('disabled'), equals(null));
-      expect(domNode4.getAttribute('disabled'), equals(null));
-    });
-
-    test('should set attribute "checked" only if its true', () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), checked: false),
-          Input(key: Key('el-2'), checked: null),
-          Input(key: Key('el-3'), checked: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-
-      expect(domNode1.getAttribute('checked'), equals(null));
-      expect(domNode2.getAttribute('checked'), equals(null));
-      expect(domNode3.getAttribute('checked'), equals('true'));
-    });
-
-    test('should clear attribute "checked" if updated value is not true',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          Input(key: Key('el-1'), checked: true),
-          Input(key: Key('el-2'), checked: true),
-          Input(key: Key('el-3'), checked: true),
-          Input(key: Key('el-4'), checked: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          Input(key: Key('el-1'), checked: true),
-          Input(key: Key('el-2'), checked: false),
-          Input(key: Key('el-3'), checked: null),
-          Input(key: Key('el-4')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-      var domNode4 = app!.domNodeByKeyValue('el-4');
-
-      expect(domNode1.getAttribute('checked'), equals('true'));
-      expect(domNode2.getAttribute('checked'), equals(null));
-      expect(domNode3.getAttribute('checked'), equals(null));
-      expect(domNode4.getAttribute('checked'), equals(null));
     });
 
     test('should set input attribute "type"', () async {
