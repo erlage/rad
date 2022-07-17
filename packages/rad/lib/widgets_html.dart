@@ -105,3 +105,4 @@ export 'src/widgets/additional/input_file.dart' show InputFile;
 export 'src/widgets/additional/input_radio.dart' show InputRadio;
 export 'src/widgets/additional/input_submit.dart' show InputSubmit;
 export 'src/widgets/additional/input_text.dart' show InputText;
+export 'src/widgets/additional/input_password.dart' show InputPassword;

@@ -111,6 +111,7 @@ part 'html/html_input_file_tests.generated.dart';
 part 'html/html_input_radio_tests.generated.dart';
 part 'html/html_input_submit_tests.generated.dart';
 part 'html/html_input_text_tests.generated.dart';
+part 'html/html_input_password_tests.generated.dart';
 
 void main() {
   html_abbreviation_test();
@@ -214,4 +215,5 @@ void main() {
   html_input_radio_test();
   html_input_submit_test();
   html_input_text_test();
+  html_input_password_test();
 }

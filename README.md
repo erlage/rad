@@ -365,6 +365,7 @@ Similarity tags:
 , [InputSubmit](https://pub.dev/documentation/rad/latest/widgets_html/InputSubmit-class.html)
 , [InputRadio](https://pub.dev/documentation/rad/latest/widgets_html/InputRadio-class.html)
 , [InputText](https://pub.dev/documentation/rad/latest/widgets_html/InputText-class.html)
+, [InputPassword](https://pub.dev/documentation/rad/latest/widgets_html/InputPassword-class.html)
 
 ## Contributing
 For reporting bugs/queries, feel free to open issue. Read [contributing guide](https://github.com/erlage/rad/blob/main/CONTRIBUTING.md) for more.

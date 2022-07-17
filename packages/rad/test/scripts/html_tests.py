@@ -40,6 +40,7 @@ skipped_generation_for_class = {
         'InputRadio',
         'InputSubmit',
         'InputText',
+        'InputPassword',
     ]
 }
 
@@ -351,6 +352,29 @@ widget_specific_tests = {
         'html_attr_tabindex',
         'html_attr_value', 
     ],
+    'InputPassword': [
+        'html_attr_dir_name',
+        'html_attr_maxlength',
+        'html_attr_minlength',
+        'html_attr_pattern',
+        'html_attr_placeholder',
+        'html_attr_readonly',
+        'html_attr_required',
+        'html_attr_size',
+
+        'html_attr_on_change',
+        'html_attr_on_input',
+        'html_attr_on_key_press',
+        'html_attr_on_key_up',
+        'html_attr_on_key_down',
+
+        'html_attr_name',
+        'html_attr_disabled',
+        'html_attr_form',
+        'html_attr_input_mode',
+        'html_attr_tabindex',
+        'html_attr_value', 
+    ],    
     'InputRadio': [
         'html_attr_checked',
         'html_attr_required',
@@ -535,6 +559,7 @@ widgets_map = {
     'InputRadio': 'input',
     'InputSubmit': 'input',
     'InputText': 'input',
+    'InputPassword': 'input',
 }
 
 
