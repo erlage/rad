@@ -108,6 +108,7 @@ enum DirectionType {
 ///
 enum InputType {
   button('button'),
+  image('image'),
   text('text'),
   password('password'),
   file('file'),
