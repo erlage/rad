@@ -17,6 +17,103 @@ void main() {
 
   tearDown(() => app!.stop());
 
+  group('GestureDetector update tests:', () {
+    test('should add event listeners on update', () async {
+      var testStack = RT_TestStack();
+
+      await app!.buildChildren(
+        widgets: [
+          GestureDetector(
+            onTap: () => testStack.push('clicked'),
+            child: Text('some', key: Key('text')),
+          )
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          GestureDetector(
+            onTap: () => testStack.push('clicked'),
+            onDoubleTap: () => testStack.push('dbl-clicked'),
+            child: Text('some', key: Key('text')),
+          )
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('dblclick'));
+
+      expect(testStack.popFromStart(), equals('clicked'));
+      expect(testStack.popFromStart(), equals('dbl-clicked'));
+      expect(testStack.canPop(), equals(false));
+    });
+
+    test('should update event listeners on update', () async {
+      var testStack = RT_TestStack();
+
+      await app!.buildChildren(
+        widgets: [
+          GestureDetector(
+            onTap: () => testStack.push('clicked'),
+            child: Text('some', key: Key('text')),
+          )
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          GestureDetector(
+            onTap: () => testStack.push('updated-clicked'),
+            child: Text('some', key: Key('text')),
+          )
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('click'));
+
+      expect(testStack.popFromStart(), equals('updated-clicked'));
+      expect(testStack.canPop(), equals(false));
+    });
+
+    test('should remove event listeners on update', () async {
+      var testStack = RT_TestStack();
+
+      await app!.buildChildren(
+        widgets: [
+          GestureDetector(
+            onTap: () => testStack.push('clicked'),
+            onDoubleTap: () => testStack.push('dbl-clicked'),
+            child: Text('some', key: Key('text')),
+          )
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          GestureDetector(
+            onTap: () => testStack.push('clicked'),
+            child: Text('some', key: Key('text')),
+          )
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('click'));
+      app!.domNodeByKeyValue('text').dispatchEvent(Event('dblclick'));
+
+      expect(testStack.popFromStart(), equals('clicked'));
+      expect(testStack.canPop(), equals(false));
+    });
+  });
+
   /*
   |--------------------------------------------------------------------------
   | Gesture Detector onTap tests
