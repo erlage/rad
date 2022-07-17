@@ -30,18 +30,6 @@ class RadApp extends SingleChildWidget {
 
 /*
 |--------------------------------------------------------------------------
-| description(never changes for rad app widget)
-|--------------------------------------------------------------------------
-*/
-
-const _description = DomNodePatch(
-  attributes: {
-    Attributes.className: Constants.classRadApp,
-  },
-);
-
-/*
-|--------------------------------------------------------------------------
 | render element
 |--------------------------------------------------------------------------
 */
@@ -55,5 +43,9 @@ class RadAppRenderElement extends SingleChildRenderElement {
   ) : super(widget, parent);
 
   @override
-  render({required widget}) => _description;
+  render({required widget}) => const DomNodePatch(
+        attributes: {
+          Attributes.className: Constants.classRadApp,
+        },
+      );
 }

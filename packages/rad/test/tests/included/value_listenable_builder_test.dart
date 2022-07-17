@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_types_on_closure_parameters, unawaited_futures
 
-import '../../test_imports.dart' hide Text, TextDirection;
+import '../../test_imports.dart' hide Text, DirectionType;
 import '../../mocks/test_framework.dart';
 
 // -----------------------------------------------------------------------

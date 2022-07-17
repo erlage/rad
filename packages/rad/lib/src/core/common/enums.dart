@@ -93,7 +93,7 @@ enum DomEventType {
 
 /// Text render direction.
 ///
-enum TextDirection {
+enum DirectionType {
   leftToRight('ltr'),
   rightToLeft('rtl'),
   auto('auto'),
@@ -101,7 +101,7 @@ enum TextDirection {
 
   final String nativeName;
 
-  const TextDirection(this.nativeName);
+  const DirectionType(this.nativeName);
 }
 
 /// HTML Input type.
@@ -135,7 +135,7 @@ enum FormEncType {
 
 /// Type of ordered list.
 ///
-enum OrderedListType {
+enum ListType {
   lowerCaseLetters('a'),
   upperCaseLetters('A'),
   lowerCaseRomanNumerals('i'),
@@ -146,7 +146,7 @@ enum OrderedListType {
 
   final String nativeName;
 
-  const OrderedListType(this.nativeName);
+  const ListType(this.nativeName);
 }
 
 /// HTML form's method type.

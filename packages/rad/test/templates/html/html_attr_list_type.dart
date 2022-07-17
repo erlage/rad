@@ -1,11 +1,11 @@
 test('should set ordered list attribute "type"', () async {
     await app!.buildChildren(
         widgets: [
-          __WidgetClass__(key: Key('el-1'), type: OrderedListType.lowerCaseLetters),
-          __WidgetClass__(key: Key('el-2'), type: OrderedListType.upperCaseLetters),
-          __WidgetClass__(key: Key('el-3'), type: OrderedListType.lowerCaseRomanNumerals),
-          __WidgetClass__(key: Key('el-4'), type: OrderedListType.upperCaseRomanNumerals),
-          __WidgetClass__(key: Key('el-5'), type: OrderedListType.numbers),
+          __WidgetClass__(key: Key('el-1'), type: ListType.lowerCaseLetters),
+          __WidgetClass__(key: Key('el-2'), type: ListType.upperCaseLetters),
+          __WidgetClass__(key: Key('el-3'), type: ListType.lowerCaseRomanNumerals),
+          __WidgetClass__(key: Key('el-4'), type: ListType.upperCaseRomanNumerals),
+          __WidgetClass__(key: Key('el-5'), type: ListType.numbers),
         ],
         parentRenderElement: app!.appRenderElement,
     );
@@ -18,32 +18,32 @@ test('should set ordered list attribute "type"', () async {
 
     expect(
       domNode1.getAttribute('type'),
-      equals(OrderedListType.lowerCaseLetters.nativeName),
+      equals(ListType.lowerCaseLetters.nativeName),
     );
     expect(
       domNode2.getAttribute('type'),
-      equals(OrderedListType.upperCaseLetters.nativeName),
+      equals(ListType.upperCaseLetters.nativeName),
     );
     expect(
       domNode3.getAttribute('type'),
-      equals(OrderedListType.lowerCaseRomanNumerals.nativeName),
+      equals(ListType.lowerCaseRomanNumerals.nativeName),
     );
     expect(
       domNode4.getAttribute('type'),
-      equals(OrderedListType.upperCaseRomanNumerals.nativeName),
+      equals(ListType.upperCaseRomanNumerals.nativeName),
     );
     expect(
       domNode5.getAttribute('type'),
-      equals(OrderedListType.numbers.nativeName),
+      equals(ListType.numbers.nativeName),
     );
 });
 
 test('should update ordered list attribute "type"', () async {
     await app!.buildChildren(
         widgets: [
-          __WidgetClass__(key: Key('el-1'), type: OrderedListType.lowerCaseLetters),
-          __WidgetClass__(key: Key('el-2'), type: OrderedListType.upperCaseLetters),
-          __WidgetClass__(key: Key('el-3'), type: OrderedListType.lowerCaseRomanNumerals),
+          __WidgetClass__(key: Key('el-1'), type: ListType.lowerCaseLetters),
+          __WidgetClass__(key: Key('el-2'), type: ListType.upperCaseLetters),
+          __WidgetClass__(key: Key('el-3'), type: ListType.lowerCaseRomanNumerals),
         ],
         parentRenderElement: app!.appRenderElement,
     );
@@ -52,7 +52,7 @@ test('should update ordered list attribute "type"', () async {
         widgets: [
           __WidgetClass__(key: Key('el-1')),
           __WidgetClass__(key: Key('el-2'), type: null),
-          __WidgetClass__(key: Key('el-3'), type: OrderedListType.upperCaseRomanNumerals),
+          __WidgetClass__(key: Key('el-3'), type: ListType.upperCaseRomanNumerals),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -72,6 +72,6 @@ test('should update ordered list attribute "type"', () async {
     );
     expect(
         domNode3.getAttribute('type'),
-        equals(OrderedListType.upperCaseRomanNumerals.nativeName),
+        equals(ListType.upperCaseRomanNumerals.nativeName),
     );
 });

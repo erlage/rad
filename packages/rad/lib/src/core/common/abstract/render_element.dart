@@ -54,31 +54,11 @@ abstract class RenderElement implements BuildContext {
   bool get hasDomNode => _hasDomNode;
   bool _hasDomNode = false;
 
-  /// @nodoc
-  @nonVirtual
-  @internal
-  bool get frameworkIsRoot => _isRoot;
-  final bool _isRoot;
-
-  /*
-  |--------------------------------------------------------------------------
-  | render element's inherited data
-  |--------------------------------------------------------------------------
-  */
-
   /// App's target id.
   ///
   @nonVirtual
   @override
   final String appTargetId;
-
-  /// Services instance.
-  ///
-  /// @nodoc
-  @internal
-  @nonVirtual
-  Services get frameworkServices => _services!;
-  Services? _services;
 
   /*
   |--------------------------------------------------------------------------
@@ -402,6 +382,20 @@ abstract class RenderElement implements BuildContext {
   |--------------------------------------------------------------------------
   */
 
+  /// @nodoc
+  @nonVirtual
+  @internal
+  bool get frameworkIsRoot => _isRoot;
+  final bool _isRoot;
+
+  /// Services instance.
+  ///
+  /// @nodoc
+  @internal
+  @nonVirtual
+  Services get frameworkServices => _services!;
+  Services? _services;
+
   /// Parent's element.
   ///
   /// @nodoc
@@ -596,5 +590,5 @@ abstract class RenderElement implements BuildContext {
   }
 
   @override
-  String toString() => 'RenderElement (instance)';
+  String toString() => '$runtimeType of $widgetRuntimeType(widget)';
 }

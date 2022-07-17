@@ -155,8 +155,7 @@ class StatefulRenderElement extends WatchfulRenderElement {
     state
       ..frameworkBindWidget(widget)
       ..frameworkBindRenderElement(this)
-      ..initState()
-      ..didChangeDependencies();
+      ..frameworkInit();
   }
 
   @override
@@ -165,9 +164,7 @@ class StatefulRenderElement extends WatchfulRenderElement {
     required covariant StatefulWidget newWidget,
     required covariant StatefulWidget oldWidget,
   }) {
-    state
-      ..frameworkRebindWidget(newWidget)
-      ..didUpdateWidget(oldWidget);
+    state.frameworkRebindWidget(newWidget: newWidget, oldWidget: oldWidget);
   }
 
   @override
@@ -176,9 +173,7 @@ class StatefulRenderElement extends WatchfulRenderElement {
     required oldWidget,
     required newWidget,
   }) {
-    if (UpdateType.dependencyChanged == updateType) {
-      state.didChangeDependencies();
-    }
+    state.frameworkUpdate(updateType);
 
     return null;
   }
@@ -413,9 +408,18 @@ abstract class State<T extends StatefulWidget> {
 
   /*
   |--------------------------------------------------------------------------
-  | for internal use
+  | framework reserved apis
   |--------------------------------------------------------------------------
   */
+
+  /// @nodoc
+  @internal
+  @nonVirtual
+  @protected
+  void frameworkInit() {
+    initState();
+    didChangeDependencies();
+  }
 
   /// @nodoc
   @internal
@@ -441,8 +445,23 @@ abstract class State<T extends StatefulWidget> {
   @internal
   @nonVirtual
   @protected
-  void frameworkRebindWidget(Widget newWidget) {
+  void frameworkRebindWidget({
+    required StatefulWidget newWidget,
+    required StatefulWidget oldWidget,
+  }) {
     _widget = newWidget as T;
+
+    didUpdateWidget(oldWidget as T);
+  }
+
+  /// @nodoc
+  @internal
+  @nonVirtual
+  @protected
+  void frameworkUpdate(UpdateType updateType) {
+    if (UpdateType.dependencyChanged == updateType) {
+      didChangeDependencies();
+    }
   }
 
   /// @nodoc

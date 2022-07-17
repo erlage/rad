@@ -18,7 +18,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 abstract class HTMLBidirectionalBase extends HTMLWidgetBase {
   /// The direction in which text should be rendered.
   ///
-  final TextDirection? dir;
+  final DirectionType? dir;
 
   const HTMLBidirectionalBase({
     this.dir,

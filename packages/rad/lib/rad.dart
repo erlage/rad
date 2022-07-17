@@ -21,19 +21,23 @@ export 'src/core/run_app.dart' show runApp, AppRunner;
 */
 
 export 'src/core/common/enums.dart' show Axis;
-export 'src/core/common/enums.dart' show ButtonType;
-export 'src/core/common/enums.dart' show CrossOriginType;
-export 'src/core/common/enums.dart' show DomEventType;
-export 'src/core/common/enums.dart' show DomTagType;
-export 'src/core/common/enums.dart' show EmbedTextTrackKindType;
+export 'src/core/common/enums.dart' show LayoutType;
+export 'src/core/common/enums.dart' show HitTestBehavior;
+
 export 'src/core/common/enums.dart' show FormEncType;
 export 'src/core/common/enums.dart' show FormMethodType;
-export 'src/core/common/enums.dart' show HitTestBehavior;
+export 'src/core/common/enums.dart' show CrossOriginType;
+export 'src/core/common/enums.dart' show EmbedTextTrackKindType;
+
 export 'src/core/common/enums.dart' show InputType;
-export 'src/core/common/enums.dart' show LayoutType;
-export 'src/core/common/enums.dart' show OrderedListType;
+export 'src/core/common/enums.dart' show ButtonType;
+export 'src/core/common/enums.dart' show ListType;
 export 'src/core/common/enums.dart' show PreloadType;
-export 'src/core/common/enums.dart' show TextDirection;
+export 'src/core/common/enums.dart' show DirectionType;
+
+export 'src/core/common/enums.dart' show DomEventType;
+export 'src/core/common/enums.dart' show DomTagType;
+
 export 'src/core/common/enums.dart' show UpdateType;
 
 /*

@@ -758,10 +758,10 @@ void html_bidirectional_isolate_test() {
       await app!.buildChildren(
         widgets: [
           BidirectionalIsolate(
-              key: Key('el-1'), dir: TextDirection.leftToRight),
+              key: Key('el-1'), dir: DirectionType.leftToRight),
           BidirectionalIsolate(
-              key: Key('el-2'), dir: TextDirection.rightToLeft),
-          BidirectionalIsolate(key: Key('el-3'), dir: TextDirection.auto),
+              key: Key('el-2'), dir: DirectionType.rightToLeft),
+          BidirectionalIsolate(key: Key('el-3'), dir: DirectionType.auto),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -772,15 +772,15 @@ void html_bidirectional_isolate_test() {
 
       expect(
         domNode1.getAttribute('dir'),
-        equals(TextDirection.leftToRight.nativeName),
+        equals(DirectionType.leftToRight.nativeName),
       );
       expect(
         domNode2.getAttribute('dir'),
-        equals(TextDirection.rightToLeft.nativeName),
+        equals(DirectionType.rightToLeft.nativeName),
       );
       expect(
         domNode3.getAttribute('dir'),
-        equals(TextDirection.auto.nativeName),
+        equals(DirectionType.auto.nativeName),
       );
     });
 
@@ -788,10 +788,10 @@ void html_bidirectional_isolate_test() {
       await app!.buildChildren(
         widgets: [
           BidirectionalIsolate(
-              key: Key('el-1'), dir: TextDirection.leftToRight),
+              key: Key('el-1'), dir: DirectionType.leftToRight),
           BidirectionalIsolate(
-              key: Key('el-2'), dir: TextDirection.rightToLeft),
-          BidirectionalIsolate(key: Key('el-3'), dir: TextDirection.auto),
+              key: Key('el-2'), dir: DirectionType.rightToLeft),
+          BidirectionalIsolate(key: Key('el-3'), dir: DirectionType.auto),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -801,7 +801,7 @@ void html_bidirectional_isolate_test() {
           BidirectionalIsolate(key: Key('el-1')),
           BidirectionalIsolate(key: Key('el-2'), dir: null),
           BidirectionalIsolate(
-              key: Key('el-3'), dir: TextDirection.leftToRight),
+              key: Key('el-3'), dir: DirectionType.leftToRight),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -821,7 +821,7 @@ void html_bidirectional_isolate_test() {
       );
       expect(
         domNode3.getAttribute('dir'),
-        equals(TextDirection.leftToRight.nativeName),
+        equals(DirectionType.leftToRight.nativeName),
       );
     });
   });

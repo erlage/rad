@@ -1,9 +1,9 @@
 test('should set attribute "dir"', () async {
     await app!.buildChildren(
         widgets: [
-          __WidgetClass__(key: Key('el-1'), dir: TextDirection.leftToRight),
-          __WidgetClass__(key: Key('el-2'), dir: TextDirection.rightToLeft),
-          __WidgetClass__(key: Key('el-3'), dir: TextDirection.auto),
+          __WidgetClass__(key: Key('el-1'), dir: DirectionType.leftToRight),
+          __WidgetClass__(key: Key('el-2'), dir: DirectionType.rightToLeft),
+          __WidgetClass__(key: Key('el-3'), dir: DirectionType.auto),
         ],
         parentRenderElement: app!.appRenderElement,
     );
@@ -14,24 +14,24 @@ test('should set attribute "dir"', () async {
 
     expect(
       domNode1.getAttribute('dir'),
-      equals(TextDirection.leftToRight.nativeName),
+      equals(DirectionType.leftToRight.nativeName),
     );
     expect(
       domNode2.getAttribute('dir'),
-      equals(TextDirection.rightToLeft.nativeName),
+      equals(DirectionType.rightToLeft.nativeName),
     );
     expect(
       domNode3.getAttribute('dir'),
-      equals(TextDirection.auto.nativeName),
+      equals(DirectionType.auto.nativeName),
     );
 });
 
 test('should update attribute "dir"', () async {
     await app!.buildChildren(
         widgets: [
-          __WidgetClass__(key: Key('el-1'), dir: TextDirection.leftToRight),
-          __WidgetClass__(key: Key('el-2'), dir: TextDirection.rightToLeft),
-          __WidgetClass__(key: Key('el-3'), dir: TextDirection.auto),
+          __WidgetClass__(key: Key('el-1'), dir: DirectionType.leftToRight),
+          __WidgetClass__(key: Key('el-2'), dir: DirectionType.rightToLeft),
+          __WidgetClass__(key: Key('el-3'), dir: DirectionType.auto),
         ],
         parentRenderElement: app!.appRenderElement,
     );
@@ -40,7 +40,7 @@ test('should update attribute "dir"', () async {
         widgets: [
           __WidgetClass__(key: Key('el-1')),
           __WidgetClass__(key: Key('el-2'), dir: null),
-          __WidgetClass__(key: Key('el-3'), dir: TextDirection.leftToRight),
+          __WidgetClass__(key: Key('el-3'), dir: DirectionType.leftToRight),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -60,6 +60,6 @@ test('should update attribute "dir"', () async {
     );
     expect(
         domNode3.getAttribute('dir'),
-        equals(TextDirection.leftToRight.nativeName),
+        equals(DirectionType.leftToRight.nativeName),
     );
 });

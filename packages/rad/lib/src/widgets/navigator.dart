@@ -484,25 +484,26 @@ class NavigatorRenderElement extends WatchfulRenderElement {
 /// State that each navigator creates and manage.
 ///
 class NavigatorState with ServicesResolver {
-  /// Resolve services reference.
+  /// Navigator widget's instance.
   ///
-  Services get _services => resolveServices(context);
+  final Navigator widget;
+
+  /// Navigator's render element
+  ///
+  NavigatorRenderElement? _renderElement;
+
+  /// Reference to function that trigger updates.
+  ///
+  VoidCallback? _updateProcedure;
 
   /// Routes that this Navigator instance handles.
   ///
   final routes = <Route>[];
 
-  /// Route name to route path map.
-  ///
-  /// @nodoc
-  @internal
-  final framworkNameToPathMap = <String, String>{};
+  // internal stack data
 
-  /// Route path to Route instance map.
-  ///
-  /// @nodoc
-  @internal
-  final frameworkPathToRouteMap = <String, Route>{};
+  final _pageStack = <String>[];
+  final _historyStack = <OpenHistoryEntry>[];
 
   /// Name of the active route. Route, that's currently on top of
   /// Navigator stack.
@@ -510,24 +511,17 @@ class NavigatorState with ServicesResolver {
   String get currentRouteName => _currentName;
   var _currentName = '_';
 
-  // internal stack data
-
-  final _pageStack = <String>[];
-  final _historyStack = <OpenHistoryEntry>[];
-
-  /// Navigator widget's instance.
-  ///
-  final Navigator widget;
-
   /// Navigator's context
   ///
   BuildContext get context => _context!;
   BuildContext? _context;
 
-  /// Navigator's render element
+  /// Resolve services reference.
   ///
-  NavigatorRenderElement? _renderElement;
+  Services get _services => resolveServices(context);
 
+  /// Create Navigator state object.
+  ///
   NavigatorState(this.widget);
 
   /*
@@ -712,13 +706,26 @@ class NavigatorState with ServicesResolver {
 
   /*
   |--------------------------------------------------------------------------
-  | internals
+  | framework reserved api
   |--------------------------------------------------------------------------
   */
 
-  VoidCallback? _updateProcedure;
+  /// Route name to route path map.
+  ///
+  /// @nodoc
+  @nonVirtual
+  @internal
+  final framworkNameToPathMap = <String, String>{};
+
+  /// Route path to Route instance map.
+  ///
+  /// @nodoc
+  @nonVirtual
+  @internal
+  final frameworkPathToRouteMap = <String, Route>{};
 
   /// @nodoc
+  @nonVirtual
   @internal
   @protected
   void frameworkBindContext(BuildContext context) {
@@ -726,6 +733,7 @@ class NavigatorState with ServicesResolver {
   }
 
   /// @nodoc
+  @nonVirtual
   @internal
   @protected
   void frameworkBindRenderElement(NavigatorRenderElement element) {
@@ -733,6 +741,7 @@ class NavigatorState with ServicesResolver {
   }
 
   /// @nodoc
+  @nonVirtual
   @internal
   @protected
   void frameworkBindUpdateProcedure(VoidCallback updateProcedure) {
@@ -740,6 +749,7 @@ class NavigatorState with ServicesResolver {
   }
 
   /// @nodoc
+  @nonVirtual
   @internal
   @protected
   void frameworkInitState() {
@@ -811,6 +821,7 @@ class NavigatorState with ServicesResolver {
   }
 
   /// @nodoc
+  @nonVirtual
   @internal
   @protected
   void frameworkRender() {
@@ -849,6 +860,7 @@ class NavigatorState with ServicesResolver {
   }
 
   /// @nodoc
+  @nonVirtual
   @internal
   @protected
   void frameworkUpdate(UpdateType updateType) {
@@ -878,6 +890,7 @@ class NavigatorState with ServicesResolver {
   }
 
   /// @nodoc
+  @nonVirtual
   @internal
   @protected
   void frameworkDispose() => _services.router.unRegister(_renderElement!);
@@ -885,6 +898,7 @@ class NavigatorState with ServicesResolver {
   /// Framework fires this when parent route changes.
   ///
   /// @nodoc
+  @nonVirtual
   @internal
   void frameworkOnParentRouteChange(String name) {
     var routeName = _services.router.getPath(_renderElement!);
@@ -905,6 +919,7 @@ class NavigatorState with ServicesResolver {
   }
 
   /// @nodoc
+  @nonVirtual
   @internal
   @protected
   void frameworkUpdateCurrentName(String name) {

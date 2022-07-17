@@ -25,7 +25,7 @@ class OrderedList extends HTMLWidgetBase {
 
   /// Type of ordered list.
   ///
-  final OrderedListType? type;
+  final ListType? type;
 
   const OrderedList({
     this.start,

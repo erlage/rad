@@ -12,7 +12,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 ///
 class BidirectionalTextOverride extends HTMLBidirectionalBase {
   const BidirectionalTextOverride({
-    TextDirection? dir,
+    DirectionType? dir,
     Key? key,
     String? id,
     String? title,

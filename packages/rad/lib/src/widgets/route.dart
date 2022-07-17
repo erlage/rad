@@ -59,18 +59,6 @@ class Route extends SingleChildWidget {
 
 /*
 |--------------------------------------------------------------------------
-| description(never changes for route widget)
-|--------------------------------------------------------------------------
-*/
-
-const _description = DomNodePatch(
-  attributes: {
-    Attributes.className: Constants.classRoute,
-  },
-);
-
-/*
-|--------------------------------------------------------------------------
 | render element
 |--------------------------------------------------------------------------
 */
@@ -81,5 +69,9 @@ class RouteRenderElement extends SingleChildRenderElement {
   RouteRenderElement(super.widget, super.parent);
 
   @override
-  render({required widget}) => _description;
+  render({required widget}) => const DomNodePatch(
+        attributes: {
+          Attributes.className: Constants.classRoute,
+        },
+      );
 }

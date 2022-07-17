@@ -129,7 +129,7 @@ class GestureDetectorRenderElement extends WatchfulRenderElement {
     state
       ..frameworkBindDomNode(domNode!)
       ..frameworkBindWidget(widget)
-      ..initState();
+      ..frameworkInitState();
   }
 
   @override
@@ -150,7 +150,7 @@ class GestureDetectorRenderElement extends WatchfulRenderElement {
   }
 
   @override
-  afterUnMount() => state.frameworkDispose();
+  afterUnMount() => state.frameworkAfterUnMount();
 }
 
 /// Gesture detector's state.
@@ -287,9 +287,15 @@ class _GestureDetectorState {
 
   /*
   |--------------------------------------------------------------------------
-  | for internal use
+  | framework reserved api
   |--------------------------------------------------------------------------
   */
+
+  @nonVirtual
+  @protected
+  void frameworkInitState() {
+    initState();
+  }
 
   @nonVirtual
   @protected
@@ -321,7 +327,7 @@ class _GestureDetectorState {
 
   @nonVirtual
   @protected
-  void frameworkDispose() {
+  void frameworkAfterUnMount() {
     dispose();
   }
 }

@@ -12,13 +12,6 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 ///
 @immutable
 class Key {
-  /// Value that was used while creating the key.
-  ///
-  /// @nodoc
-  @internal
-  String get frameworkValue => _value;
-  final String _value;
-
   /// Create key.
   ///
   const Key(this._value);
@@ -33,4 +26,17 @@ class Key {
 
   @override
   String toString() => 'key($_value)';
+
+  /*
+  |--------------------------------------------------------------------------
+  | framework reserved api
+  |--------------------------------------------------------------------------
+  */
+
+  /// Value that was used while creating the key.
+  ///
+  /// @nodoc
+  @internal
+  String get frameworkValue => _value;
+  final String _value;
 }

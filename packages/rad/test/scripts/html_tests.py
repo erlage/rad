@@ -193,7 +193,7 @@ widget_specific_tests = {
     'OrderedList': [
         'html_attr_start',
         'html_attr_reversed',
-        'html_attr_ordered_list_type',
+        'html_attr_list_type',
     ],
     'Option': [
         'html_attr_label',
