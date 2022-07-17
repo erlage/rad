@@ -1541,7 +1541,7 @@ void html_i_frame_test() {
       expect(domNode4.getAttribute('allowpaymentrequest'), equals(null));
     });
 
-    test('should set attribute "type"', () async {
+    test('should set attribute "fetchpriority"', () async {
       await app!.buildChildren(
         widgets: [
           IFrame(key: Key('el-1'), fetchPriority: FetchPriorityType.high),
@@ -1555,12 +1555,12 @@ void html_i_frame_test() {
       var domNode2 = app!.domNodeByKeyValue('el-2');
       var domNode3 = app!.domNodeByKeyValue('el-3');
 
-      expect(domNode1.getAttribute('type'), equals('high'));
-      expect(domNode2.getAttribute('type'), equals('low'));
-      expect(domNode3.getAttribute('type'), equals('auto'));
+      expect(domNode1.getAttribute('fetchpriority'), equals('high'));
+      expect(domNode2.getAttribute('fetchpriority'), equals('low'));
+      expect(domNode3.getAttribute('fetchpriority'), equals('auto'));
     });
 
-    test('should update attribute "type"', () async {
+    test('should update attribute "fetchpriority"', () async {
       await app!.buildChildren(
         widgets: [
           IFrame(key: Key('el-1'), fetchPriority: FetchPriorityType.high),
@@ -1584,9 +1584,9 @@ void html_i_frame_test() {
       var domNode2 = app!.domNodeByKeyValue('el-2');
       var domNode3 = app!.domNodeByKeyValue('el-3');
 
-      expect(domNode1.getAttribute('type'), equals(null));
-      expect(domNode2.getAttribute('type'), equals(null));
-      expect(domNode3.getAttribute('type'), equals('high'));
+      expect(domNode1.getAttribute('fetchpriority'), equals(null));
+      expect(domNode2.getAttribute('fetchpriority'), equals(null));
+      expect(domNode3.getAttribute('fetchpriority'), equals('high'));
     });
 
     test('should set attribute "referrerpolicy"', () async {
