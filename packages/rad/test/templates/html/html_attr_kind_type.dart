@@ -1,11 +1,11 @@
 test('should set attribute "kind"', () async {
     await app!.buildChildren(
         widgets: [
-          __WidgetClass__(key: Key('el-1'), kind: EmbedTextTrackKindType.subtitles),
-          __WidgetClass__(key: Key('el-2'), kind: EmbedTextTrackKindType.captions),
-          __WidgetClass__(key: Key('el-3'), kind: EmbedTextTrackKindType.descriptions),
-          __WidgetClass__(key: Key('el-4'), kind: EmbedTextTrackKindType.chapters),
-          __WidgetClass__(key: Key('el-5'), kind: EmbedTextTrackKindType.metadata),
+          __WidgetClass__(key: Key('el-1'), kind: KindType.subtitles),
+          __WidgetClass__(key: Key('el-2'), kind: KindType.captions),
+          __WidgetClass__(key: Key('el-3'), kind: KindType.descriptions),
+          __WidgetClass__(key: Key('el-4'), kind: KindType.chapters),
+          __WidgetClass__(key: Key('el-5'), kind: KindType.metadata),
         ],
         parentRenderElement: app!.appRenderElement,
     );
@@ -18,32 +18,32 @@ test('should set attribute "kind"', () async {
 
     expect(
       domNode1.getAttribute('kind'),
-      equals(EmbedTextTrackKindType.subtitles.nativeName),
+      equals(KindType.subtitles.nativeName),
     );
     expect(
       domNode2.getAttribute('kind'),
-      equals(EmbedTextTrackKindType.captions.nativeName),
+      equals(KindType.captions.nativeName),
     );
     expect(
       domNode3.getAttribute('kind'),
-      equals(EmbedTextTrackKindType.descriptions.nativeName),
+      equals(KindType.descriptions.nativeName),
     );
     expect(
       domNode4.getAttribute('kind'),
-      equals(EmbedTextTrackKindType.chapters.nativeName),
+      equals(KindType.chapters.nativeName),
     );
     expect(
       domNode5.getAttribute('kind'),
-      equals(EmbedTextTrackKindType.metadata.nativeName),
+      equals(KindType.metadata.nativeName),
     );
 });
 
 test('should update attribute "kind"', () async {
     await app!.buildChildren(
         widgets: [
-          __WidgetClass__(key: Key('el-1'), kind: EmbedTextTrackKindType.subtitles),
-          __WidgetClass__(key: Key('el-2'), kind: EmbedTextTrackKindType.captions),
-          __WidgetClass__(key: Key('el-3'), kind: EmbedTextTrackKindType.descriptions),
+          __WidgetClass__(key: Key('el-1'), kind: KindType.subtitles),
+          __WidgetClass__(key: Key('el-2'), kind: KindType.captions),
+          __WidgetClass__(key: Key('el-3'), kind: KindType.descriptions),
         ],
         parentRenderElement: app!.appRenderElement,
     );
@@ -52,7 +52,7 @@ test('should update attribute "kind"', () async {
         widgets: [
           __WidgetClass__(key: Key('el-1')),
           __WidgetClass__(key: Key('el-2'), kind: null),
-          __WidgetClass__(key: Key('el-3'), kind: EmbedTextTrackKindType.chapters),
+          __WidgetClass__(key: Key('el-3'), kind: KindType.chapters),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -72,6 +72,6 @@ test('should update attribute "kind"', () async {
     );
     expect(
         domNode3.getAttribute('kind'),
-        equals(EmbedTextTrackKindType.chapters.nativeName),
+        equals(KindType.chapters.nativeName),
     );
 });

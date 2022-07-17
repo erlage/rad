@@ -808,16 +808,11 @@ void html_embed_text_track_test() {
     test('should set attribute "kind"', () async {
       await app!.buildChildren(
         widgets: [
-          EmbedTextTrack(
-              key: Key('el-1'), kind: EmbedTextTrackKindType.subtitles),
-          EmbedTextTrack(
-              key: Key('el-2'), kind: EmbedTextTrackKindType.captions),
-          EmbedTextTrack(
-              key: Key('el-3'), kind: EmbedTextTrackKindType.descriptions),
-          EmbedTextTrack(
-              key: Key('el-4'), kind: EmbedTextTrackKindType.chapters),
-          EmbedTextTrack(
-              key: Key('el-5'), kind: EmbedTextTrackKindType.metadata),
+          EmbedTextTrack(key: Key('el-1'), kind: KindType.subtitles),
+          EmbedTextTrack(key: Key('el-2'), kind: KindType.captions),
+          EmbedTextTrack(key: Key('el-3'), kind: KindType.descriptions),
+          EmbedTextTrack(key: Key('el-4'), kind: KindType.chapters),
+          EmbedTextTrack(key: Key('el-5'), kind: KindType.metadata),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -830,35 +825,32 @@ void html_embed_text_track_test() {
 
       expect(
         domNode1.getAttribute('kind'),
-        equals(EmbedTextTrackKindType.subtitles.nativeName),
+        equals(KindType.subtitles.nativeName),
       );
       expect(
         domNode2.getAttribute('kind'),
-        equals(EmbedTextTrackKindType.captions.nativeName),
+        equals(KindType.captions.nativeName),
       );
       expect(
         domNode3.getAttribute('kind'),
-        equals(EmbedTextTrackKindType.descriptions.nativeName),
+        equals(KindType.descriptions.nativeName),
       );
       expect(
         domNode4.getAttribute('kind'),
-        equals(EmbedTextTrackKindType.chapters.nativeName),
+        equals(KindType.chapters.nativeName),
       );
       expect(
         domNode5.getAttribute('kind'),
-        equals(EmbedTextTrackKindType.metadata.nativeName),
+        equals(KindType.metadata.nativeName),
       );
     });
 
     test('should update attribute "kind"', () async {
       await app!.buildChildren(
         widgets: [
-          EmbedTextTrack(
-              key: Key('el-1'), kind: EmbedTextTrackKindType.subtitles),
-          EmbedTextTrack(
-              key: Key('el-2'), kind: EmbedTextTrackKindType.captions),
-          EmbedTextTrack(
-              key: Key('el-3'), kind: EmbedTextTrackKindType.descriptions),
+          EmbedTextTrack(key: Key('el-1'), kind: KindType.subtitles),
+          EmbedTextTrack(key: Key('el-2'), kind: KindType.captions),
+          EmbedTextTrack(key: Key('el-3'), kind: KindType.descriptions),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -867,8 +859,7 @@ void html_embed_text_track_test() {
         widgets: [
           EmbedTextTrack(key: Key('el-1')),
           EmbedTextTrack(key: Key('el-2'), kind: null),
-          EmbedTextTrack(
-              key: Key('el-3'), kind: EmbedTextTrackKindType.chapters),
+          EmbedTextTrack(key: Key('el-3'), kind: KindType.chapters),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -888,7 +879,7 @@ void html_embed_text_track_test() {
       );
       expect(
         domNode3.getAttribute('kind'),
-        equals(EmbedTextTrackKindType.chapters.nativeName),
+        equals(KindType.chapters.nativeName),
       );
     });
 

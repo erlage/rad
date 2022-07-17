@@ -107,7 +107,7 @@ widget_specific_tests = {
     ],
     'EmbedTextTrack': [
         'html_attr_default_attribute',
-        'html_attr_embed_text_track_kind_type',
+        'html_attr_kind_type',
         'html_attr_label',
         'html_attr_src',
         'html_attr_srclang',

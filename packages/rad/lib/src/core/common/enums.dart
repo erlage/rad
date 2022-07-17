@@ -220,7 +220,7 @@ enum PreloadType {
   const PreloadType(this.nativeName);
 }
 
-enum EmbedTextTrackKindType {
+enum KindType {
   /// Subtitles provide translation of content that cannot be understood by the
   /// viewer. For example speech or text that is not English in an English
   /// language film.
@@ -250,7 +250,7 @@ enum EmbedTextTrackKindType {
   ;
 
   final String nativeName;
-  const EmbedTextTrackKindType(this.nativeName);
+  const KindType(this.nativeName);
 }
 
 /// The Referrer-Policy HTTP header controls how much referrer information

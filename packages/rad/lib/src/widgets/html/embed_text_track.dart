@@ -23,7 +23,7 @@ class EmbedTextTrack extends HTMLWidgetBase {
   /// metadata (Versions of Chrome earlier than 52 treated an invalid value as
   /// subtitles).
   ///
-  final EmbedTextTrackKindType? kind;
+  final KindType? kind;
 
   /// A user-readable title of the text track which is used by the browser
   /// when listing available text tracks.
