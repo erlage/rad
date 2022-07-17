@@ -5,19 +5,22 @@
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/widgets/abstract/html_input_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/html/input.dart';
 
 /// The InputCheckBox widget (HTML's `input` tag with `type = 'checkbox'`).
 ///
-class InputCheckBox extends Input {
+class InputCheckBox extends HTMLInputBase {
   const InputCheckBox({
-    Key? key,
-    String? name,
-    String? value,
     bool? checked,
     bool? required,
+    String? name,
     bool? disabled,
+    String? form,
+    String? inputMode,
+    int? tabIndex,
+    String? value,
+    Key? key,
     String? id,
     String? title,
     String? style,
@@ -26,18 +29,21 @@ class InputCheckBox extends Input {
     String? innerText,
     Widget? child,
     List<Widget>? children,
-    EventCallback? onChange,
     EventCallback? onClick,
+    EventCallback? onChange,
     Map<String, String>? additionalAttributes,
   }) : super(
+          checked: checked,
+          required: required,
+          name: name,
+          form: form,
+          inputMode: inputMode,
+          tabIndex: tabIndex,
+          value: value,
+          disabled: disabled,
+          type: InputType.checkbox,
           key: key,
           id: id,
-          type: InputType.checkbox,
-          name: name,
-          value: value,
-          checked: checked,
-          disabled: disabled,
-          required: required,
           title: title,
           style: style,
           className: className,
@@ -45,8 +51,8 @@ class InputCheckBox extends Input {
           innerText: innerText,
           child: child,
           children: children,
-          onChange: onChange,
           onClick: onClick,
+          onChange: onChange,
           additionalAttributes: additionalAttributes,
         );
 }

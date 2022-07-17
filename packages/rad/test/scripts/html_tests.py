@@ -307,12 +307,23 @@ widget_specific_tests = {
 
     'InputButton': [
         'html_attr_name',
-        'html_attr_value',
-        'html_attr_form',
         'html_attr_disabled',
-        'html_attr_on_key_press',
-        'html_attr_on_key_up',
-        'html_attr_on_key_down',
+        'html_attr_form',
+        'html_attr_input_mode',
+        'html_attr_tabindex',
+        'html_attr_value',
+    ],
+    'InputCheckBox': [
+        'html_attr_checked',
+        'html_attr_required',
+        'html_attr_on_change',
+
+        'html_attr_name',
+        'html_attr_disabled',
+        'html_attr_form',
+        'html_attr_input_mode',
+        'html_attr_tabindex',
+        'html_attr_value',
     ],
     'InputText': [
         'html_attr_name',
@@ -330,14 +341,6 @@ widget_specific_tests = {
         'html_attr_on_key_press',
         'html_attr_on_key_up',
         'html_attr_on_key_down',
-    ],
-    'InputCheckBox': [
-        'html_attr_name',
-        'html_attr_value',
-        'html_attr_required',
-        'html_attr_disabled',
-        'html_attr_checked',
-        'html_attr_on_change',
     ],
     'InputRadio': [
         'html_attr_name',

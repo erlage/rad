@@ -10,15 +10,14 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// The InputButton widget (HTML's `input` tag with `type = 'button'`).
 ///
-/// A push button with no default behavior displaying the value of the value
-/// attribute, empty by default.
-///
 class InputButton extends HTMLInputBase {
   const InputButton({
-    bool? disabled,
-    String? form,
     String? name,
+    String? form,
     String? value,
+    int? tabIndex,
+    bool? disabled,
+    String? inputMode,
     Key? key,
     String? id,
     String? title,
@@ -29,16 +28,20 @@ class InputButton extends HTMLInputBase {
     Widget? child,
     List<Widget>? children,
     EventCallback? onClick,
+    EventCallback? onInput,
+    EventCallback? onChange,
     EventCallback? onKeyUp,
     EventCallback? onKeyDown,
     EventCallback? onKeyPress,
     Map<String, String>? additionalAttributes,
   }) : super(
-          type: InputType.button,
-          disabled: disabled,
-          form: form,
           name: name,
+          form: form,
           value: value,
+          tabIndex: tabIndex,
+          disabled: disabled,
+          inputMode: inputMode,
+          type: InputType.button,
           key: key,
           id: id,
           title: title,
@@ -49,6 +52,8 @@ class InputButton extends HTMLInputBase {
           child: child,
           children: children,
           onClick: onClick,
+          onInput: onInput,
+          onChange: onChange,
           onKeyUp: onKeyUp,
           onKeyDown: onKeyDown,
           onKeyPress: onKeyPress,
