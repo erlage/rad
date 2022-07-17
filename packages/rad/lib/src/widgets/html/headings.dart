@@ -2,8 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:meta/meta.dart';
-
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -39,10 +37,6 @@ class Heading1 extends HTMLWidgetBase {
           additionalAttributes: additionalAttributes,
         );
 
-  @nonVirtual
-  @override
-  String get widgetType => 'Heading1';
-
   @override
   DomTagType get correspondingTag => DomTagType.heading1;
 }
@@ -75,10 +69,6 @@ class Heading2 extends HTMLWidgetBase {
           onClick: onClick,
           additionalAttributes: additionalAttributes,
         );
-
-  @nonVirtual
-  @override
-  String get widgetType => 'Heading2';
 
   @override
   DomTagType get correspondingTag => DomTagType.heading2;
@@ -113,10 +103,6 @@ class Heading3 extends HTMLWidgetBase {
           additionalAttributes: additionalAttributes,
         );
 
-  @nonVirtual
-  @override
-  String get widgetType => 'Heading3';
-
   @override
   DomTagType get correspondingTag => DomTagType.heading3;
 }
@@ -149,10 +135,6 @@ class Heading4 extends HTMLWidgetBase {
           onClick: onClick,
           additionalAttributes: additionalAttributes,
         );
-
-  @nonVirtual
-  @override
-  String get widgetType => 'Heading4';
 
   @override
   DomTagType get correspondingTag => DomTagType.heading4;
@@ -187,10 +169,6 @@ class Heading5 extends HTMLWidgetBase {
           additionalAttributes: additionalAttributes,
         );
 
-  @nonVirtual
-  @override
-  String get widgetType => 'Heading5';
-
   @override
   DomTagType get correspondingTag => DomTagType.heading5;
 }
@@ -223,10 +201,6 @@ class Heading6 extends HTMLWidgetBase {
           onClick: onClick,
           additionalAttributes: additionalAttributes,
         );
-
-  @nonVirtual
-  @override
-  String get widgetType => 'Heading6';
 
   @override
   DomTagType get correspondingTag => DomTagType.heading6;

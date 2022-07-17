@@ -56,10 +56,6 @@ abstract class InheritedWidget extends Widget {
 
   @nonVirtual
   @override
-  String get widgetType => 'InheritedWidget';
-
-  @nonVirtual
-  @override
   DomTagType? get correspondingTag => null;
 
   @override

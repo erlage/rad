@@ -135,10 +135,6 @@ class Input extends HTMLWidgetBase {
   @override
   DomTagType get correspondingTag => DomTagType.input;
 
-  @nonVirtual
-  @override
-  String get widgetType => 'Input';
-
   @override
   Map<DomEventType, EventCallback?> get widgetEventListeners => {
         DomEventType.click: onClick,

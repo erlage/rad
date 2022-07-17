@@ -2,8 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:meta/meta.dart';
-
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
@@ -55,10 +53,6 @@ class Output extends HTMLWidgetBase {
           onClick: onClick,
           additionalAttributes: additionalAttributes,
         );
-
-  @nonVirtual
-  @override
-  String get widgetType => 'Output';
 
   @override
   DomTagType get correspondingTag => DomTagType.output;

@@ -39,11 +39,6 @@ abstract class RenderElement implements BuildContext {
 
   @nonVirtual
   @override
-  String get widgetType => _widgetType;
-  final String _widgetType;
-
-  @nonVirtual
-  @override
   String get widgetRuntimeType => _widgetRuntimeType;
   final String _widgetRuntimeType;
 
@@ -119,7 +114,6 @@ abstract class RenderElement implements BuildContext {
 
         _key = widget.key,
         _widget = widget,
-        _widgetType = widget.widgetType,
         _widgetRuntimeType = '${widget.runtimeType}',
 
         // inherit from parent
@@ -143,7 +137,6 @@ abstract class RenderElement implements BuildContext {
 
         _key = null,
         _widget = tempWidget,
-        _widgetType = tempWidget.widgetType,
         _widgetRuntimeType = '${tempWidget.runtimeType}',
 
         // bools
@@ -177,7 +170,6 @@ abstract class RenderElement implements BuildContext {
         _isRoot = true,
         _hasDomNode = true,
         _domNode = appTargetDomNode,
-        _widgetType = Constants.contextTypeBigBang,
         _widgetRuntimeType = Constants.contextTypeBigBang;
 
   /*
@@ -604,17 +596,5 @@ abstract class RenderElement implements BuildContext {
   }
 
   @override
-  String toString() {
-    if (DEBUG_BUILD) {
-      var wType = widgetType;
-      var rType = widgetRuntimeType;
-
-      var pType = wType != rType ? '$rType ($wType)' : rType;
-
-      return '$key type:$pType | parent:${_parent?.widgetRuntimeType} : '
-          '${_parent?.key}';
-    }
-
-    return 'RenderElement (instance)';
-  }
+  String toString() => 'RenderElement (instance)';
 }

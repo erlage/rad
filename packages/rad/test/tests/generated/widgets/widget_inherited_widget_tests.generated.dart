@@ -20,12 +20,6 @@ void widget_inherited_widget_test() {
 
     tearDown(() => app!.stop());
 
-    test('Inherited widget - widgetType override test', () {
-      var widget = RT_InheritedWidget(child: Text('hw'));
-
-      expect(widget.widgetType, equals('$InheritedWidget'));
-    });
-
     test('should return false from shouldUpdateWidgetChildren', () {
       var shouldUpdateWidgetChildren = false;
 

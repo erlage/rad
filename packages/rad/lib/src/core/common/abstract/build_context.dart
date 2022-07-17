@@ -27,10 +27,6 @@ abstract class BuildContext {
   ///
   Widget get widget;
 
-  /// Widget's concrete type.
-  ///
-  String get widgetType;
-
   /// Widget's runtime type.
   ///
   String get widgetRuntimeType;

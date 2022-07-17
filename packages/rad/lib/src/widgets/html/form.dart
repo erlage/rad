@@ -81,9 +81,6 @@ class Form extends HTMLWidgetBase {
   DomTagType get correspondingTag => DomTagType.form;
 
   @override
-  String get widgetType => 'Form';
-
-  @override
   Map<DomEventType, EventCallback?> get widgetEventListeners {
     if (null == onClick && null == onSubmit) {
       return ccImmutableEmptyMapOfEventListeners;

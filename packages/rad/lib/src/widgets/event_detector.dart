@@ -336,9 +336,6 @@ class EventDetector extends SingleChildWidget {
       };
 
   @override
-  String get widgetType => 'EventDetector';
-
-  @override
   DomTagType? get correspondingTag => null;
 
   @override

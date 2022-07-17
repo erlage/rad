@@ -19,9 +19,6 @@ class RadApp extends SingleChildWidget {
   }) : super(key: key, child: child);
 
   @override
-  String get widgetType => 'RadApp';
-
-  @override
   DomTagType get correspondingTag => DomTagType.division;
 
   @override

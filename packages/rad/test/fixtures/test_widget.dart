@@ -4,8 +4,6 @@
 
 // ignore_for_file: camel_case_types
 
-import 'package:meta/meta.dart';
-
 import '../test_imports.dart';
 
 /// A widget that allows hooking its internals.
@@ -78,10 +76,6 @@ class RT_TestWidget extends Widget {
     String? customHash,
   })  : hash = customHash ?? 'none',
         super(key: key);
-
-  @nonVirtual
-  @override
-  String get widgetType => 'RT_TestWidget';
 
   @override
   DomTagType get correspondingTag => DomTagType.division;

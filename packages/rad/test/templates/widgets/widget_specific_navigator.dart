@@ -1,13 +1,3 @@
-test('Navigator widget - widgetType override test', () {
-  var widget = Navigator(routes: []);
-
-  // for some reason, '$Navigator' returns Navigator0
-  // if we dont add this line xD
-  widget.runtimeType;
-
-  expect(widget.widgetType, equals('$Navigator'));
-});
-
 test('Navigator widget - description test', () async {
   var pap = app!;
 

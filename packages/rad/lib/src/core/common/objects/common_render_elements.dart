@@ -87,9 +87,6 @@ class _TemporaryWidget extends NoChildWidget {
   const _TemporaryWidget();
 
   @override
-  String get widgetType => '_DummyWidget';
-
-  @override
   DomTagType? get correspondingTag => null;
 
   @override

@@ -84,10 +84,6 @@ class ListView extends Widget {
 
   @nonVirtual
   @override
-  String get widgetType => 'ListView';
-
-  @nonVirtual
-  @override
   DomTagType get correspondingTag => DomTagType.division;
 
   @nonVirtual

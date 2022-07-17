@@ -20,12 +20,6 @@ void widget_gesture_detector_test() {
 
     tearDown(() => app!.stop());
 
-    test('GestureDetector widget - widgetType override test', () {
-      var widget = GestureDetector(child: Text('hw'));
-
-      expect(widget.widgetType, equals('$GestureDetector'));
-    });
-
     test('GestureDetector widget - description test', () async {
       var pap = app!;
 

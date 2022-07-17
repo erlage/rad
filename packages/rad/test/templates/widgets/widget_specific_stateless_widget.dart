@@ -1,9 +1,3 @@
-test('Stateless widget - widgetType override test', () {
-  var widget = RT_StatelessWidget();
-
-  expect(widget.widgetType,  equals('$StatelessWidget'));
-});
-
 test('should return false from shouldUpdateWidgetChildren', () {
   var shouldUpdateWidgetChildren = true;
   

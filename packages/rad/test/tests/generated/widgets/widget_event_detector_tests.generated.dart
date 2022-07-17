@@ -20,12 +20,6 @@ void widget_event_detector_test() {
 
     tearDown(() => app!.stop());
 
-    test('EventDetector widget - widgetType override test', () {
-      var widget = EventDetector(child: Text('hw'));
-
-      expect(widget.widgetType, equals('$EventDetector'));
-    });
-
     test('should return false from shouldUpdateWidgetChildren', () {
       var shouldUpdateWidgetChildren = false;
 

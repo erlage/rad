@@ -1,12 +1,3 @@
-test('Route widget - widgetType override test', () {
-  var widget = Route(
-    name: '',
-    page: Text('hw'),
-  );
-
-  expect(widget.widgetType,  equals('$Route'));
-});
-
 test('Route widget - description test', () async {
   var pap = app!;
 

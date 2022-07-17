@@ -29,12 +29,6 @@ abstract class Widget {
   ///
   final Key? key;
 
-  /// Type of widget.
-  ///
-  /// Note that a widget must not override this getter if already implemented.
-  ///
-  String get widgetType;
-
   /// Corresponding HTML tag to use to render this widget
   ///
   DomTagType? get correspondingTag;

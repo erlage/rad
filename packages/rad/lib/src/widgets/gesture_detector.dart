@@ -72,10 +72,6 @@ class GestureDetector extends SingleChildWidget {
   |--------------------------------------------------------------------------
   */
 
-  @nonVirtual
-  @override
-  String get widgetType => 'GestureDetector';
-
   // gesture detector creates a dom node(div) because it has to
   // register event listeners on a dom node.
 
