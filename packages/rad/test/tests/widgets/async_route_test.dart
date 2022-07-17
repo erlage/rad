@@ -342,6 +342,127 @@ void main() {
       expect(state.getValue('waiting-route'), equals('async-route'));
     });
 
+    test('should not update builder if keepInitialBuilder is true', () async {
+      await app!.buildChildren(
+        widgets: [
+          Navigator(
+            key: Key('navigator'),
+            routes: [
+              AsyncRoute(
+                name: 'async-route',
+                keepInitialBuilder: true,
+                page: () async {
+                  await Future.delayed(Duration(seconds: 1));
+                  return Text('loaded');
+                },
+              ),
+            ],
+          ),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          AsyncRoute(
+            name: 'async-route',
+            keepInitialBuilder: true,
+            page: () async {
+              return Text('from updated builder');
+            },
+          ),
+        ],
+        parentRenderElement: app!.renderElementByKeyValue('navigator')!,
+        updateType: UpdateType.setState,
+      );
+
+      await Future.delayed(Duration(seconds: 2));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('loaded'));
+    });
+
+    test('should update builder if keepInitialBuilder is false', () async {
+      await app!.buildChildren(
+        widgets: [
+          Navigator(
+            key: Key('navigator'),
+            routes: [
+              AsyncRoute(
+                name: 'async-route',
+                keepInitialBuilder: false,
+                page: () async {
+                  await Future.delayed(Duration(seconds: 1));
+                  return Text('loaded');
+                },
+              ),
+            ],
+          ),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          AsyncRoute(
+            name: 'async-route',
+            keepInitialBuilder: false,
+            page: () async {
+              return Text('from updated builder');
+            },
+          ),
+        ],
+        parentRenderElement: app!.renderElementByKeyValue('navigator')!,
+        updateType: UpdateType.setState,
+      );
+
+      await Future.delayed(Duration(seconds: 2));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('from updated builder'));
+    });
+
+    test('should not update builder if builder hasnt changed', () async {
+      var stack = RT_TestStack();
+
+      // ignore: prefer_function_declarations_over_variables
+      var builder = () async {
+        stack.push('called');
+        await Future.delayed(Duration(seconds: 1));
+        return Text('loaded');
+      };
+
+      await app!.buildChildren(
+        widgets: [
+          Navigator(
+            key: Key('navigator'),
+            routes: [
+              AsyncRoute(
+                name: 'async-route',
+                keepInitialBuilder: false,
+                page: builder,
+              ),
+            ],
+          ),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          AsyncRoute(
+            name: 'async-route',
+            keepInitialBuilder: false,
+            page: builder,
+          ),
+        ],
+        parentRenderElement: app!.renderElementByKeyValue('navigator')!,
+        updateType: UpdateType.setState,
+      );
+
+      await Future.delayed(Duration(seconds: 2));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('loaded'));
+
+      expect(stack.popFromStart(), equals('called'));
+      expect(stack.canPop(), equals(false));
+    });
+
     test('should retry build if failed and retry is enabled', () async {
       var testStack = RT_TestStack();
 
