@@ -10,8 +10,8 @@
 
 part of '../_index_html_test.dart';
 
-void html_caption_test() {
-  group('HTML Caption tests:', () {
+void html_table_caption_test() {
+  group('HTML TableCaption tests:', () {
     RT_AppRunner? app;
 
     setUp(() {
@@ -23,9 +23,9 @@ void html_caption_test() {
     test('should set id', () async {
       await app!.buildChildren(
         widgets: [
-          Caption(key: Key('some-key-1'), id: 'some-id-1'),
-          Caption(key: Key('some-key-2'), id: 'some-id-2'),
-          Caption(key: Key('some-key-3'), id: 'some-id-3'),
+          TableCaption(key: Key('some-key-1'), id: 'some-id-1'),
+          TableCaption(key: Key('some-key-2'), id: 'some-id-2'),
+          TableCaption(key: Key('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -42,9 +42,9 @@ void html_caption_test() {
     test('should reset and update id', () async {
       await app!.buildChildren(
         widgets: [
-          Caption(key: Key('some-key-1'), id: 'some-id-1'),
-          Caption(key: Key('some-key-2'), id: 'some-id-2'),
-          Caption(key: Key('some-key-3'), id: 'some-id-3'),
+          TableCaption(key: Key('some-key-1'), id: 'some-id-1'),
+          TableCaption(key: Key('some-key-2'), id: 'some-id-2'),
+          TableCaption(key: Key('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -59,15 +59,15 @@ void html_caption_test() {
 
       await app!.updateChildren(
         widgets: [
-          Caption(
+          TableCaption(
             key: Key('some-key-1'),
             id: 'some-updated-id',
           ),
-          Caption(
+          TableCaption(
             key: Key('some-key-2'),
             id: 'some-local-updated-id',
           ),
-          Caption(
+          TableCaption(
             key: Key('some-key-3'),
             id: 'some-global-updated-id',
           ),
@@ -84,15 +84,15 @@ void html_caption_test() {
     test('should set messy "id"', () async {
       await app!.buildChildren(
         widgets: [
-          Caption(
+          TableCaption(
             key: Key('widget-1'),
             id: 'some id',
           ),
-          Caption(
+          TableCaption(
             key: Key('widget-2'),
             id: 'some "messy" id',
           ),
-          Caption(
+          TableCaption(
             key: Key('widget-3'),
             id: "some 'messy' id",
           ),
@@ -123,13 +123,13 @@ void html_caption_test() {
     test('should set children widgets', () async {
       await app!.buildChildren(
         widgets: [
-          Caption(
+          TableCaption(
             id: 'widget-1',
             children: [
-              Caption(
+              TableCaption(
                 id: 'widget-2',
               ),
-              Caption(
+              TableCaption(
                 id: 'widget-3',
               ),
             ],
@@ -150,9 +150,9 @@ void html_caption_test() {
     test('should set child widget', () async {
       await app!.buildChildren(
         widgets: [
-          Caption(
+          TableCaption(
             id: 'widget-1',
-            child: Caption(
+            child: TableCaption(
               id: 'widget-2',
             ),
           ),
@@ -170,11 +170,11 @@ void html_caption_test() {
     test('should set attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          Caption(
+          TableCaption(
             key: Key('el-1'),
             className: 'some-classes',
           ),
-          Caption(
+          TableCaption(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -192,11 +192,11 @@ void html_caption_test() {
     test('should update attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          Caption(
+          TableCaption(
             key: Key('el-1'),
             className: 'some-classes',
           ),
-          Caption(
+          TableCaption(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -206,11 +206,11 @@ void html_caption_test() {
 
       await app!.updateChildren(
         widgets: [
-          Caption(
+          TableCaption(
             key: Key('el-1'),
             className: 'updated-classes',
           ),
-          Caption(
+          TableCaption(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -229,8 +229,8 @@ void html_caption_test() {
     test('should clear attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          Caption(key: Key('el-1')),
-          Caption(
+          TableCaption(key: Key('el-1')),
+          TableCaption(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -240,8 +240,8 @@ void html_caption_test() {
 
       await app!.updateChildren(
         widgets: [
-          Caption(key: Key('el-1')),
-          Caption(key: Key('el-2')),
+          TableCaption(key: Key('el-1')),
+          TableCaption(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -257,7 +257,7 @@ void html_caption_test() {
     test('should clear attribute "classes" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          Caption(
+          TableCaption(
             key: Key('el-1'),
             className: 'some-classes',
           ),
@@ -267,7 +267,7 @@ void html_caption_test() {
 
       await app!.updateChildren(
         widgets: [
-          Caption(key: Key('el-1'), className: null),
+          TableCaption(key: Key('el-1'), className: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -282,7 +282,7 @@ void html_caption_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Caption(key: Key('el-1'), className: null),
+          TableCaption(key: Key('el-1'), className: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -295,15 +295,15 @@ void html_caption_test() {
     test('should set messy "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          Caption(
+          TableCaption(
             key: Key('widget-1'),
             className: 'some classes',
           ),
-          Caption(
+          TableCaption(
             key: Key('widget-2'),
             className: 'some "messy" classes',
           ),
-          Caption(
+          TableCaption(
             key: Key('widget-3'),
             className: "some 'messy' classes",
           ),
@@ -334,9 +334,9 @@ void html_caption_test() {
     test('should set attribute "hidden" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          Caption(key: Key('el-1'), hidden: false),
-          Caption(key: Key('el-2'), hidden: null),
-          Caption(key: Key('el-3'), hidden: true),
+          TableCaption(key: Key('el-1'), hidden: false),
+          TableCaption(key: Key('el-2'), hidden: null),
+          TableCaption(key: Key('el-3'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -354,20 +354,20 @@ void html_caption_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Caption(key: Key('el-1'), hidden: true),
-          Caption(key: Key('el-2'), hidden: true),
-          Caption(key: Key('el-3'), hidden: true),
-          Caption(key: Key('el-4'), hidden: true),
+          TableCaption(key: Key('el-1'), hidden: true),
+          TableCaption(key: Key('el-2'), hidden: true),
+          TableCaption(key: Key('el-3'), hidden: true),
+          TableCaption(key: Key('el-4'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Caption(key: Key('el-1'), hidden: true),
-          Caption(key: Key('el-2'), hidden: false),
-          Caption(key: Key('el-3'), hidden: null),
-          Caption(key: Key('el-4')),
+          TableCaption(key: Key('el-1'), hidden: true),
+          TableCaption(key: Key('el-2'), hidden: false),
+          TableCaption(key: Key('el-3'), hidden: null),
+          TableCaption(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -387,7 +387,7 @@ void html_caption_test() {
     test('should set inner text', () async {
       await app!.buildChildren(
         widgets: [
-          Caption(
+          TableCaption(
             key: Key('widget-1'),
             innerText: 'hello world',
           ),
@@ -408,11 +408,11 @@ void html_caption_test() {
 
       await app!.buildChildren(
         widgets: [
-          Caption(
+          TableCaption(
             key: Key('el-1'),
             onClick: (event) => testStack.push('click-1'),
           ),
-          Caption(
+          TableCaption(
             key: Key('el-2'),
             onClick: (event) => testStack.push('click-2'),
           ),
@@ -435,9 +435,9 @@ void html_caption_test() {
 
       await app!.buildChildren(
         widgets: [
-          Caption(key: Key('el-1')),
-          Caption(key: Key('el-2'), onClick: null),
-          Caption(key: Key('el-3'), onClick: listener),
+          TableCaption(key: Key('el-1')),
+          TableCaption(key: Key('el-2'), onClick: null),
+          TableCaption(key: Key('el-3'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -456,8 +456,8 @@ void html_caption_test() {
 
       await app!.buildChildren(
         widgets: [
-          Caption(key: Key('el-1')),
-          Caption(key: Key('el-2'), onClick: listener),
+          TableCaption(key: Key('el-1')),
+          TableCaption(key: Key('el-2'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -472,8 +472,8 @@ void html_caption_test() {
 
       await app!.updateChildren(
         widgets: [
-          Caption(key: Key('el-1')),
-          Caption(key: Key('el-2')),
+          TableCaption(key: Key('el-1')),
+          TableCaption(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -489,9 +489,9 @@ void html_caption_test() {
     test('should set style', () async {
       await app!.buildChildren(
         widgets: [
-          Caption(key: Key('widget-1'), style: 'some style'),
-          Caption(key: Key('widget-2'), style: 'some "messy" style'),
-          Caption(key: Key('widget-3'), style: "some 'messy' style"),
+          TableCaption(key: Key('widget-1'), style: 'some style'),
+          TableCaption(key: Key('widget-2'), style: 'some "messy" style'),
+          TableCaption(key: Key('widget-3'), style: "some 'messy' style"),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -508,9 +508,9 @@ void html_caption_test() {
     test('should set title', () async {
       await app!.buildChildren(
         widgets: [
-          Caption(key: Key('widget-1'), title: 'some title'),
-          Caption(key: Key('widget-2'), title: 'some "messy" title'),
-          Caption(key: Key('widget-3'), title: "some 'messy' title"),
+          TableCaption(key: Key('widget-1'), title: 'some title'),
+          TableCaption(key: Key('widget-2'), title: 'some "messy" title'),
+          TableCaption(key: Key('widget-3'), title: "some 'messy' title"),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -527,7 +527,7 @@ void html_caption_test() {
     test('should set correct types and markup', () async {
       await app!.buildChildren(
         widgets: [
-          Caption(key: Key('some-key-3')),
+          TableCaption(key: Key('some-key-3')),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -567,7 +567,7 @@ void html_caption_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Caption(
+          TableCaption(
             key: Key('some-key-3'),
             additionalAttributes: {
               'id': 'some-id',
@@ -589,7 +589,7 @@ void html_caption_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Caption(
+          TableCaption(
             key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
@@ -614,7 +614,7 @@ void html_caption_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Caption(
+          TableCaption(
             key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
@@ -627,7 +627,7 @@ void html_caption_test() {
 
       await app!.updateChildren(
         widgets: [
-          Caption(
+          TableCaption(
             key: Key('some-key-3'),
             id: 'updated-id',
             additionalAttributes: {
@@ -649,7 +649,7 @@ void html_caption_test() {
     test('should set data attributes', () async {
       await app!.buildChildren(
         widgets: [
-          Caption(
+          TableCaption(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
@@ -669,7 +669,7 @@ void html_caption_test() {
     test('should set aria/any attributes', () async {
       await app!.buildChildren(
         widgets: [
-          Caption(
+          TableCaption(
             key: Key('some-key-3'),
             additionalAttributes: {
               'aria-something': 'something okay',
@@ -690,7 +690,7 @@ void html_caption_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Caption(
+          TableCaption(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
@@ -702,7 +702,7 @@ void html_caption_test() {
 
       await app!.updateChildren(
         widgets: [
-          Caption(
+          TableCaption(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something-new': 'something new',
@@ -722,7 +722,7 @@ void html_caption_test() {
     });
 
     test('should have a short-tag alias', () async {
-      var widget = Caption();
+      var widget = TableCaption();
       var widgetShort = caption();
 
       expect(
@@ -734,9 +734,9 @@ void html_caption_test() {
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [
-          Caption(key: Key('some-key-1')),
-          Caption(key: Key('some-key-2')),
-          Caption(key: Key('some-key-3')),
+          TableCaption(key: Key('some-key-1')),
+          TableCaption(key: Key('some-key-2')),
+          TableCaption(key: Key('some-key-3')),
         ],
         parentRenderElement: app!.appRenderElement,
       );

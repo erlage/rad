@@ -274,7 +274,7 @@ Similarity tags:
 , [LineBreak](https://pub.dev/documentation/rad/latest/widgets_html/LineBreak-class.html)
 , [Button](https://pub.dev/documentation/rad/latest/widgets_html/Button-class.html)
 , [Canvas](https://pub.dev/documentation/rad/latest/widgets_html/Canvas-class.html)
-, [Caption](https://pub.dev/documentation/rad/latest/widgets_html/Caption-class.html)
+, [TableCaption](https://pub.dev/documentation/rad/latest/widgets_html/TableCaption-class.html)
 , [Citation](https://pub.dev/documentation/rad/latest/widgets_html/Citation-class.html)
 , [Code](https://pub.dev/documentation/rad/latest/widgets_html/Code-class.html)
 , [TableColumn](https://pub.dev/documentation/rad/latest/widgets_html/TableColumn-class.html)

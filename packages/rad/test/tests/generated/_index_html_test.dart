@@ -22,7 +22,7 @@ part 'html/html_block_quote_tests.generated.dart';
 part 'html/html_line_break_tests.generated.dart';
 part 'html/html_button_tests.generated.dart';
 part 'html/html_canvas_tests.generated.dart';
-part 'html/html_caption_tests.generated.dart';
+part 'html/html_table_caption_tests.generated.dart';
 part 'html/html_citation_tests.generated.dart';
 part 'html/html_code_tests.generated.dart';
 part 'html/html_data_tests.generated.dart';
@@ -123,7 +123,7 @@ void main() {
   html_line_break_test();
   html_button_test();
   html_canvas_test();
-  html_caption_test();
+  html_table_caption_test();
   html_citation_test();
   html_code_test();
   html_data_test();

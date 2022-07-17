@@ -12,8 +12,8 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 ///
 /// This widget is usually used to specify the caption (or title) of a table.
 ///
-class Caption extends HTMLWidgetBase {
-  const Caption({
+class TableCaption extends HTMLWidgetBase {
+  const TableCaption({
     Key? key,
     String? id,
     String? title,

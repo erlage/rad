@@ -369,7 +369,7 @@ widgets_map = {
     'LineBreak': 'br',
     'Button': 'button',
     'Canvas': 'canvas',
-    'Caption': 'caption',
+    'TableCaption': 'caption',
     'Citation': 'cite',
     'Code': 'code',
     'Data': 'data',

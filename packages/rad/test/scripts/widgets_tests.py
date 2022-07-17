@@ -56,7 +56,7 @@ no_tests_for = [
     'LineBreak',
     'Button',
     'Canvas',
-    'Caption',
+    'TableCaption',
     'Citation',
     'Code',
     'Data',
