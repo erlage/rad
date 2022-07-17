@@ -317,6 +317,9 @@ def apply_commons(file_name, contents):
     contents = contents.replace('Attributes.formMethod', "'formmethod'")
     contents = contents.replace('Attributes.formTarget', "'formtarget'")
     contents = contents.replace('Attributes.formNoValidate', "'formnovalidate'")
+    contents = contents.replace('Attributes.noValidate', "'novalidate'")
+    contents = contents.replace('Attributes.acceptCharset', "'accept-charset'")
+    contents = contents.replace('Attributes.autoComplete', "'autocomplete'")
 
     contents = contents.replace('Properties.value', "'value'")
     contents = contents.replace('Properties.innerHtml', "'innerHtml'")

@@ -148,6 +148,9 @@ class Attributes {
   static const formMethod = 'formmethod';
   static const formTarget = 'formtarget';
   static const formNoValidate = 'formnovalidate';
+  static const noValidate = 'novalidate';
+  static const acceptCharset = 'accept-charset';
+  static const autoComplete = 'autocomplete';
 
   static const max = 'max';
   static const min = 'min';

@@ -1029,11 +1029,11 @@ void html_form_test() {
       );
     });
 
-    test('should set attribute "accept"', () async {
+    test('should set attribute "accept-charset"', () async {
       await app!.buildChildren(
         widgets: [
-          Form(key: Key('el-1'), accept: 'some-accept'),
-          Form(key: Key('el-2'), accept: 'another-accept'),
+          Form(key: Key('el-1'), acceptCharset: 'some-accept-charset'),
+          Form(key: Key('el-2'), acceptCharset: 'another-accept-charset'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1041,23 +1041,25 @@ void html_form_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('accept'), equals('some-accept'));
-      expect(domNode2.getAttribute('accept'), equals('another-accept'));
+      expect(domNode1.getAttribute('accept-charset'),
+          equals('some-accept-charset'));
+      expect(domNode2.getAttribute('accept-charset'),
+          equals('another-accept-charset'));
     });
 
-    test('should update attribute "accept"', () async {
+    test('should update attribute "accept-charset"', () async {
       await app!.buildChildren(
         widgets: [
-          Form(key: Key('el-1'), accept: 'some-accept'),
-          Form(key: Key('el-2'), accept: 'another-accept'),
+          Form(key: Key('el-1'), acceptCharset: 'some-accept-charset'),
+          Form(key: Key('el-2'), acceptCharset: 'another-accept-charset'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Form(key: Key('el-1'), accept: 'updated-accept'),
-          Form(key: Key('el-2'), accept: 'another-accept'),
+          Form(key: Key('el-1'), acceptCharset: 'updated-accept-charset'),
+          Form(key: Key('el-2'), acceptCharset: 'another-accept-charset'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1066,15 +1068,17 @@ void html_form_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('accept'), equals('updated-accept'));
-      expect(domNode2.getAttribute('accept'), equals('another-accept'));
+      expect(domNode1.getAttribute('accept-charset'),
+          equals('updated-accept-charset'));
+      expect(domNode2.getAttribute('accept-charset'),
+          equals('another-accept-charset'));
     });
 
-    test('should clear attribute "accept"', () async {
+    test('should clear attribute "accept-charset"', () async {
       await app!.buildChildren(
         widgets: [
           Form(key: Key('el-1')),
-          Form(key: Key('el-2'), accept: 'another-accept'),
+          Form(key: Key('el-2'), acceptCharset: 'another-accept-charset'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1091,21 +1095,22 @@ void html_form_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('accept'), equals(null));
-      expect(domNode2.getAttribute('accept'), equals(null));
+      expect(domNode1.getAttribute('accept-charset'), equals(null));
+      expect(domNode2.getAttribute('accept-charset'), equals(null));
     });
 
-    test('should clear attribute "accept" if updated value is null', () async {
+    test('should clear attribute "accept-charset" if updated value is null',
+        () async {
       await app!.buildChildren(
         widgets: [
-          Form(key: Key('el-1'), accept: 'some-accept'),
+          Form(key: Key('el-1'), acceptCharset: 'some-accept-charset'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          Form(key: Key('el-1'), accept: null),
+          Form(key: Key('el-1'), acceptCharset: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1113,37 +1118,37 @@ void html_form_test() {
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
-      expect(domNode1.getAttribute('accept'), equals(null));
+      expect(domNode1.getAttribute('accept-charset'), equals(null));
     });
 
-    test('should not set attribute "accept" if provided value is null',
+    test('should not set attribute "accept-charset" if provided value is null',
         () async {
       await app!.buildChildren(
         widgets: [
-          Form(key: Key('el-1'), accept: null),
+          Form(key: Key('el-1'), acceptCharset: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
-      expect(domNode1.getAttribute('accept'), equals(null));
+      expect(domNode1.getAttribute('accept-charset'), equals(null));
     });
 
-    test('should set messy "accept"', () async {
+    test('should set messy "accept-charset"', () async {
       await app!.buildChildren(
         widgets: [
           Form(
             key: Key('widget-1'),
-            accept: 'some accept',
+            acceptCharset: 'some accept',
           ),
           Form(
             key: Key('widget-2'),
-            accept: 'some "messy" accept',
+            acceptCharset: 'some "messy" accept',
           ),
           Form(
             key: Key('widget-3'),
-            accept: "some 'messy' accept",
+            acceptCharset: "some 'messy' accept",
           ),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
@@ -1154,19 +1159,227 @@ void html_form_test() {
       var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
 
       expect(
-        domNode1.getAttribute('accept'),
+        domNode1.getAttribute('accept-charset'),
         equals('some accept'),
       );
 
       expect(
-        domNode2.getAttribute('accept'),
+        domNode2.getAttribute('accept-charset'),
         equals('some "messy" accept'),
       );
 
       expect(
-        domNode3.getAttribute('accept'),
+        domNode3.getAttribute('accept-charset'),
         equals("some 'messy' accept"),
       );
+    });
+
+    test('should set attribute "autocomplete"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Form(key: Key('el-1'), autoComplete: 'some-autocomplete'),
+          Form(key: Key('el-2'), autoComplete: 'another-autocomplete'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(
+          domNode1.getAttribute('autocomplete'), equals('some-autocomplete'));
+      expect(domNode2.getAttribute('autocomplete'),
+          equals('another-autocomplete'));
+    });
+
+    test('should update attribute "autocomplete"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Form(key: Key('el-1'), autoComplete: 'some-autocomplete'),
+          Form(key: Key('el-2'), autoComplete: 'another-autocomplete'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Form(key: Key('el-1'), autoComplete: 'updated-autocomplete'),
+          Form(key: Key('el-2'), autoComplete: 'another-autocomplete'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('autocomplete'),
+          equals('updated-autocomplete'));
+      expect(domNode2.getAttribute('autocomplete'),
+          equals('another-autocomplete'));
+    });
+
+    test('should clear attribute "autocomplete"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Form(key: Key('el-1')),
+          Form(key: Key('el-2'), autoComplete: 'another-autocomplete'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Form(key: Key('el-1')),
+          Form(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('autocomplete'), equals(null));
+      expect(domNode2.getAttribute('autocomplete'), equals(null));
+    });
+
+    test(
+        'should clear attribute "autocomplete" if updated autocomplete is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          Form(key: Key('el-1'), autoComplete: 'some-autocomplete'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Form(key: Key('el-1'), autoComplete: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('autocomplete'), equals(null));
+    });
+
+    test(
+        'should not set attribute "autocomplete" if provided autocomplete is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          Form(key: Key('el-1'), autoComplete: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('autocomplete'), equals(null));
+    });
+
+    test('should set attribute "rel"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Form(key: Key('el-1'), rel: 'some-rel'),
+          Form(key: Key('el-2'), rel: 'another-rel'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('rel'), equals('some-rel'));
+      expect(domNode2.getAttribute('rel'), equals('another-rel'));
+    });
+
+    test('should update attribute "rel"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Form(key: Key('el-1'), rel: 'some-rel'),
+          Form(key: Key('el-2'), rel: 'another-rel'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Form(key: Key('el-1'), rel: 'updated-rel'),
+          Form(key: Key('el-2'), rel: 'another-rel'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('rel'), equals('updated-rel'));
+      expect(domNode2.getAttribute('rel'), equals('another-rel'));
+    });
+
+    test('should clear attribute "rel"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Form(key: Key('el-1')),
+          Form(key: Key('el-2'), rel: 'another-rel'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Form(key: Key('el-1')),
+          Form(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('rel'), equals(null));
+      expect(domNode2.getAttribute('rel'), equals(null));
+    });
+
+    test('should clear attribute "rel" if updated value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          Form(key: Key('el-1'), rel: 'some-rel'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Form(key: Key('el-1'), rel: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('rel'), equals(null));
+    });
+
+    test('should not set attribute "rel" if provided value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          Form(key: Key('el-1'), rel: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('rel'), equals(null));
     });
 
     test('should set attribute "target"', () async {
@@ -1395,6 +1608,59 @@ void html_form_test() {
         domNode3.getAttribute('enctype'),
         equals(FormEncType.multipartFormData.nativeName),
       );
+    });
+
+    test('should set attribute "novalidate" only if its true', () async {
+      await app!.buildChildren(
+        widgets: [
+          Form(key: Key('el-1'), noValidate: false),
+          Form(key: Key('el-2'), noValidate: null),
+          Form(key: Key('el-3'), noValidate: true),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(domNode1.getAttribute('novalidate'), equals(null));
+      expect(domNode2.getAttribute('novalidate'), equals(null));
+      expect(domNode3.getAttribute('novalidate'), equals('true'));
+    });
+
+    test('should clear attribute "novalidate" if updated value is not true',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          Form(key: Key('el-1'), noValidate: true),
+          Form(key: Key('el-2'), noValidate: true),
+          Form(key: Key('el-3'), noValidate: true),
+          Form(key: Key('el-4'), noValidate: true),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Form(key: Key('el-1'), noValidate: true),
+          Form(key: Key('el-2'), noValidate: false),
+          Form(key: Key('el-3'), noValidate: null),
+          Form(key: Key('el-4')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
+
+      expect(domNode1.getAttribute('novalidate'), equals('true'));
+      expect(domNode2.getAttribute('novalidate'), equals(null));
+      expect(domNode3.getAttribute('novalidate'), equals(null));
+      expect(domNode4.getAttribute('novalidate'), equals(null));
     });
 
     test('should set "submit" event listener', () async {

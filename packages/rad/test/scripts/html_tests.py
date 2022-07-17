@@ -120,10 +120,13 @@ widget_specific_tests = {
     'Form': [
         'html_attr_name',
         'html_attr_action',
-        'html_attr_accept',
+        'html_attr_accept_charset',
+        'html_attr_auto_complete',
+        'html_attr_rel',
         'html_attr_target',
         'html_attr_method',
         'html_attr_enctype',
+        'html_attr_no_validate',
         'html_attr_on_submit',
     ],
     'IFrame': [

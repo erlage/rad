@@ -19,13 +19,24 @@ class Form extends HTMLWidgetBase {
   ///
   final String? name;
 
+  /// Space-separated character encodings the server accepts. The browser uses
+  /// them in the order in which they are listed. The default value means the
+  /// same encoding as the page.
+  ///
+  final String? acceptCharset;
+
+  /// Indicates whether input elements can by default have their values
+  /// automatically completed by the browser.
+  ///
+  final String? autoComplete;
+
+  /// Creates a hyperlink or annotation depending on the value.
+  ///
+  final String? rel;
+
   /// The URL that processes the form submission.
   ///
   final String? action;
-
-  /// Comma-separated content types the server accepts.
-  ///
-  final String? accept;
 
   /// MIME type of the form submission.
   ///
@@ -34,6 +45,11 @@ class Form extends HTMLWidgetBase {
   /// The HTTP method to submit the form with.
   ///
   final FormMethodType? method;
+
+  /// This Boolean attribute indicates that the form shouldn't be validated
+  /// when submitted.
+  ///
+  final bool? noValidate;
 
   /// Indicates where to display the response after submitting the form.
   ///
@@ -45,11 +61,14 @@ class Form extends HTMLWidgetBase {
 
   const Form({
     this.name,
+    this.acceptCharset,
+    this.autoComplete,
+    this.rel,
     this.action,
-    this.accept,
-    this.enctype,
-    this.target,
     this.method,
+    this.enctype,
+    this.noValidate,
+    this.target,
     this.onSubmit,
     Key? key,
     String? id,
@@ -95,11 +114,14 @@ class Form extends HTMLWidgetBase {
   @override
   bool shouldUpdateWidget(covariant Form oldWidget) {
     return name != oldWidget.name ||
+        acceptCharset != oldWidget.acceptCharset ||
+        autoComplete != oldWidget.autoComplete ||
+        rel != oldWidget.rel ||
         action != oldWidget.action ||
-        accept != oldWidget.accept ||
-        target != oldWidget.target ||
         enctype != oldWidget.enctype ||
         method != oldWidget.method ||
+        noValidate != oldWidget.noValidate ||
+        target != oldWidget.target ||
         super.shouldUpdateWidget(oldWidget);
   }
 
@@ -172,23 +194,39 @@ void _extendAttributes({
     attributes[Attributes.name] = widget.name;
   }
 
+  if (widget.acceptCharset != oldWidget?.acceptCharset) {
+    attributes[Attributes.acceptCharset] = widget.acceptCharset;
+  }
+
+  if (widget.autoComplete != oldWidget?.autoComplete) {
+    attributes[Attributes.autoComplete] = widget.autoComplete;
+  }
+
+  if (widget.rel != oldWidget?.rel) {
+    attributes[Attributes.rel] = widget.rel;
+  }
+
   if (widget.action != oldWidget?.action) {
     attributes[Attributes.action] = widget.action;
   }
 
-  if (widget.accept != oldWidget?.accept) {
-    attributes[Attributes.accept] = widget.accept;
-  }
-
-  if (widget.target != oldWidget?.target) {
-    attributes[Attributes.target] = widget.target;
+  if (widget.enctype != oldWidget?.enctype) {
+    attributes[Attributes.enctype] = widget.enctype?.nativeName;
   }
 
   if (widget.method != oldWidget?.method) {
     attributes[Attributes.method] = widget.method?.nativeName;
   }
 
-  if (widget.enctype != oldWidget?.enctype) {
-    attributes[Attributes.enctype] = widget.enctype?.nativeName;
+  if (widget.noValidate != oldWidget?.noValidate) {
+    if (null == widget.noValidate || false == widget.noValidate) {
+      attributes[Attributes.noValidate] = null;
+    } else {
+      attributes[Attributes.noValidate] = 'true';
+    }
+  }
+
+  if (widget.target != oldWidget?.target) {
+    attributes[Attributes.target] = widget.target;
   }
 }
