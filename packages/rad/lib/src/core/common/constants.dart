@@ -155,6 +155,12 @@ class Attributes {
   static const fetchPriority = 'fetchpriority';
   static const decoding = 'decoding';
   static const loading = 'loading';
+  static const capture = 'capture';
+  static const dirName = 'dirname';
+  static const inputMode = 'inputmode';
+  static const list = 'list';
+  static const size = 'size';
+  static const step = 'step';
 
   static const max = 'max';
   static const min = 'min';

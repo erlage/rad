@@ -38,6 +38,7 @@ abstract_files = [
     'html_bidirectional_base.dart',
     'html_table_cell_base.dart',
     'html_table_column_base.dart',
+    'html_input_base.dart',
 ]
 
 rexp_core_import = re.compile("(import 'package:rad\/src\/)([^;]*);")
@@ -324,6 +325,12 @@ def apply_commons(file_name, contents):
     contents = contents.replace('Attributes.fetchPriority', "'fetchpriority'")
     contents = contents.replace('Attributes.decoding', "'decoding'")
     contents = contents.replace('Attributes.loading', "'loading'")
+    contents = contents.replace('Attributes.capture', "'capture'")
+    contents = contents.replace('Attributes.dirName', "'dirname'")
+    contents = contents.replace('Attributes.inputMode', "'inputmode'")
+    contents = contents.replace('Attributes.list', "'list'")
+    contents = contents.replace('Attributes.size', "'size'")
+    contents = contents.replace('Attributes.step', "'step'")
 
     contents = contents.replace('Properties.value', "'value'")
     contents = contents.replace('Properties.innerHtml', "'innerHtml'")
