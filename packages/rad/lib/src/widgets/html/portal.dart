@@ -15,7 +15,7 @@ class Portal extends HTMLWidgetBase {
   /// Sets the referrer policy to use when requesting the page at the URL given
   /// as the value of the src attribute.
   ///
-  final String? referrerPolicy;
+  final ReferrerPolicyType? referrerPolicy;
 
   /// The URL of the page to embed.
   ///
@@ -125,7 +125,7 @@ void _extendAttributes({
   required Map<String, String?> attributes,
 }) {
   if (widget.referrerPolicy != oldWidget?.referrerPolicy) {
-    attributes[Attributes.referrerPolicy] = widget.referrerPolicy;
+    attributes[Attributes.referrerPolicy] = widget.referrerPolicy?.nativeName;
   }
 
   if (widget.src != oldWidget?.src) {

@@ -1555,58 +1555,83 @@ void html_image_map_area_test() {
     test('should set attribute "referrerpolicy"', () async {
       await app!.buildChildren(
         widgets: [
-          ImageMapArea(key: Key('el-1'), referrerPolicy: 'some-referrerpolicy'),
           ImageMapArea(
-              key: Key('el-2'), referrerPolicy: 'another-referrerpolicy'),
+              key: Key('el-1'), referrerPolicy: ReferrerPolicyType.noReferrer),
+          ImageMapArea(
+              key: Key('el-2'),
+              referrerPolicy: ReferrerPolicyType.noReferrerWhenDowngrade),
+          ImageMapArea(
+              key: Key('el-3'), referrerPolicy: ReferrerPolicyType.origin),
+          ImageMapArea(
+              key: Key('el-4'),
+              referrerPolicy: ReferrerPolicyType.originWhenCrossOrigin),
+          ImageMapArea(
+              key: Key('el-5'), referrerPolicy: ReferrerPolicyType.sameOrigin),
+          ImageMapArea(
+              key: Key('el-6'),
+              referrerPolicy: ReferrerPolicyType.strictOrigin),
+          ImageMapArea(
+              key: Key('el-7'),
+              referrerPolicy: ReferrerPolicyType.strictOriginWhenCrossOrigin),
+          ImageMapArea(
+              key: Key('el-8'), referrerPolicy: ReferrerPolicyType.unSafeUrl),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
+      var domNode5 = app!.domNodeByKeyValue('el-5');
+      var domNode6 = app!.domNodeByKeyValue('el-6');
+      var domNode7 = app!.domNodeByKeyValue('el-7');
+      var domNode8 = app!.domNodeByKeyValue('el-8');
 
-      expect(domNode1.getAttribute('referrerpolicy'),
-          equals('some-referrerpolicy'));
-      expect(domNode2.getAttribute('referrerpolicy'),
-          equals('another-referrerpolicy'));
+      expect(
+        domNode1.getAttribute('referrerpolicy'),
+        equals('no-referrer'),
+      );
+      expect(
+        domNode2.getAttribute('referrerpolicy'),
+        equals('no-referrer-when-downgrade'),
+      );
+      expect(
+        domNode3.getAttribute('referrerpolicy'),
+        equals('origin'),
+      );
+      expect(
+        domNode4.getAttribute('referrerpolicy'),
+        equals('origin-when-cross-origin'),
+      );
+      expect(
+        domNode5.getAttribute('referrerpolicy'),
+        equals('same-origin'),
+      );
+      expect(
+        domNode6.getAttribute('referrerpolicy'),
+        equals('strict-origin'),
+      );
+      expect(
+        domNode7.getAttribute('referrerpolicy'),
+        equals('strict-origin-when-cross-origin'),
+      );
+      expect(
+        domNode8.getAttribute('referrerpolicy'),
+        equals('unsafe-url'),
+      );
     });
 
     test('should update attribute "referrerpolicy"', () async {
       await app!.buildChildren(
         widgets: [
-          ImageMapArea(key: Key('el-1'), referrerPolicy: 'some-referrerpolicy'),
           ImageMapArea(
-              key: Key('el-2'), referrerPolicy: 'another-referrerpolicy'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
+              key: Key('el-1'), referrerPolicy: ReferrerPolicyType.noReferrer),
           ImageMapArea(
-              key: Key('el-1'), referrerPolicy: 'updated-referrerpolicy'),
+              key: Key('el-2'),
+              referrerPolicy: ReferrerPolicyType.noReferrerWhenDowngrade),
           ImageMapArea(
-              key: Key('el-2'), referrerPolicy: 'another-referrerpolicy'),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('referrerpolicy'),
-          equals('updated-referrerpolicy'));
-      expect(domNode2.getAttribute('referrerpolicy'),
-          equals('another-referrerpolicy'));
-    });
-
-    test('should clear attribute "referrerpolicy"', () async {
-      await app!.buildChildren(
-        widgets: [
-          ImageMapArea(key: Key('el-1')),
-          ImageMapArea(
-              key: Key('el-2'), referrerPolicy: 'another-referrerpolicy'),
+              key: Key('el-3'), referrerPolicy: ReferrerPolicyType.origin),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1614,7 +1639,10 @@ void html_image_map_area_test() {
       await app!.updateChildren(
         widgets: [
           ImageMapArea(key: Key('el-1')),
-          ImageMapArea(key: Key('el-2')),
+          ImageMapArea(key: Key('el-2'), referrerPolicy: null),
+          ImageMapArea(
+              key: Key('el-3'),
+              referrerPolicy: ReferrerPolicyType.originWhenCrossOrigin),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1622,83 +1650,19 @@ void html_image_map_area_test() {
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('referrerpolicy'), equals(null));
-      expect(domNode2.getAttribute('referrerpolicy'), equals(null));
-    });
-
-    test('should clear attribute "referrerpolicy" if updated value is null',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          ImageMapArea(key: Key('el-1'), referrerPolicy: 'some-referrerpolicy'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          ImageMapArea(key: Key('el-1'), referrerPolicy: null),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('referrerpolicy'), equals(null));
-    });
-
-    test('should not set attribute "referrerpolicy" if provided value is null',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          ImageMapArea(key: Key('el-1'), referrerPolicy: null),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('referrerpolicy'), equals(null));
-    });
-
-    test('should set messy "referrerpolicy"', () async {
-      await app!.buildChildren(
-        widgets: [
-          ImageMapArea(
-            key: Key('widget-1'),
-            referrerPolicy: 'some referrerpolicy',
-          ),
-          ImageMapArea(
-            key: Key('widget-2'),
-            referrerPolicy: 'some "messy" referrerpolicy',
-          ),
-          ImageMapArea(
-            key: Key('widget-3'),
-            referrerPolicy: "some 'messy' referrerpolicy",
-          ),
-        ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
-      );
-
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+      var domNode3 = app!.domNodeByKeyValue('el-3');
 
       expect(
         domNode1.getAttribute('referrerpolicy'),
-        equals('some referrerpolicy'),
+        equals(null),
       );
-
       expect(
         domNode2.getAttribute('referrerpolicy'),
-        equals('some "messy" referrerpolicy'),
+        equals(null),
       );
-
       expect(
         domNode3.getAttribute('referrerpolicy'),
-        equals("some 'messy' referrerpolicy"),
+        equals(ReferrerPolicyType.originWhenCrossOrigin.nativeName),
       );
     });
 

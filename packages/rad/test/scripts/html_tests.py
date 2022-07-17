@@ -135,7 +135,7 @@ widget_specific_tests = {
         'html_attr_hreflang',
         'html_attr_download',
         'html_attr_ping',
-        'html_attr_referrerpolicy',
+        'html_attr_referrer_policy',
         'html_attr_rel',
         'html_attr_shape',
         'html_attr_target',
@@ -211,7 +211,7 @@ widget_specific_tests = {
         'html_attr_for_attribute',
     ],
     'Portal': [
-        'html_attr_referrerpolicy',
+        'html_attr_referrer_policy',
         'html_attr_src',
     ],
     'Progress': [

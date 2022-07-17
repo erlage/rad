@@ -38,9 +38,10 @@ class ImageMapArea extends HTMLWidgetBase {
   ///
   final String? ping;
 
-  /// A string indicating which referrer to use when fetching the resource.
+  /// A [ReferrerPolicyType] indicating which referrer to use when fetching the
+  /// resource.
   ///
-  final String? referrerPolicy;
+  final ReferrerPolicyType? referrerPolicy;
 
   /// For anchors containing the href attribute, this attribute specifies the
   /// relationship of the target object to the link object. The value is a
@@ -208,7 +209,7 @@ void _extendAttributes({
   }
 
   if (widget.referrerPolicy != oldWidget?.referrerPolicy) {
-    attributes[Attributes.referrerPolicy] = widget.referrerPolicy;
+    attributes[Attributes.referrerPolicy] = widget.referrerPolicy?.nativeName;
   }
 
   if (widget.shape != oldWidget?.shape) {

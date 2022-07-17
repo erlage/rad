@@ -27,6 +27,7 @@ export 'src/core/common/enums.dart' show HitTestBehavior;
 export 'src/core/common/enums.dart' show FormEncType;
 export 'src/core/common/enums.dart' show FormMethodType;
 export 'src/core/common/enums.dart' show CrossOriginType;
+export 'src/core/common/enums.dart' show ReferrerPolicyType;
 export 'src/core/common/enums.dart' show EmbedTextTrackKindType;
 
 export 'src/core/common/enums.dart' show InputType;
