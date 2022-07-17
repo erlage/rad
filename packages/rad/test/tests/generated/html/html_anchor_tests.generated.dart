@@ -889,6 +889,398 @@ void html_anchor_test() {
       );
     });
 
+    test('should set attribute "hreflang"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Anchor(key: Key('el-1'), hrefLang: 'some-hreflang'),
+          Anchor(key: Key('el-2'), hrefLang: 'another-hreflang'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('hreflang'), equals('some-hreflang'));
+      expect(domNode2.getAttribute('hreflang'), equals('another-hreflang'));
+    });
+
+    test('should update attribute "hreflang"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Anchor(key: Key('el-1'), hrefLang: 'some-hreflang'),
+          Anchor(key: Key('el-2'), hrefLang: 'another-hreflang'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Anchor(key: Key('el-1'), hrefLang: 'updated-hreflang'),
+          Anchor(key: Key('el-2'), hrefLang: 'another-hreflang'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('hreflang'), equals('updated-hreflang'));
+      expect(domNode2.getAttribute('hreflang'), equals('another-hreflang'));
+    });
+
+    test('should clear attribute "hreflang"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Anchor(key: Key('el-1')),
+          Anchor(key: Key('el-2'), hrefLang: 'another-hreflang'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Anchor(key: Key('el-1')),
+          Anchor(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('hreflang'), equals(null));
+      expect(domNode2.getAttribute('hreflang'), equals(null));
+    });
+
+    test('should clear attribute "hreflang" if updated value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          Anchor(key: Key('el-1'), hrefLang: 'some-hreflang'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Anchor(key: Key('el-1'), hrefLang: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('hreflang'), equals(null));
+    });
+
+    test('should not set attribute "hreflang" if provided value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          Anchor(key: Key('el-1'), hrefLang: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('hreflang'), equals(null));
+    });
+
+    test('should set messy "hreflang"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Anchor(
+            key: Key('widget-1'),
+            hrefLang: 'some hreflang',
+          ),
+          Anchor(
+            key: Key('widget-2'),
+            hrefLang: 'some "messy" hreflang',
+          ),
+          Anchor(
+            key: Key('widget-3'),
+            hrefLang: "some 'messy' hreflang",
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(
+        domNode1.getAttribute('hreflang'),
+        equals('some hreflang'),
+      );
+
+      expect(
+        domNode2.getAttribute('hreflang'),
+        equals('some "messy" hreflang'),
+      );
+
+      expect(
+        domNode3.getAttribute('hreflang'),
+        equals("some 'messy' hreflang"),
+      );
+    });
+
+    test('should set attribute "ping"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Anchor(key: Key('el-1'), ping: 'some-ping'),
+          Anchor(key: Key('el-2'), ping: 'another-ping'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('ping'), equals('some-ping'));
+      expect(domNode2.getAttribute('ping'), equals('another-ping'));
+    });
+
+    test('should update attribute "ping"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Anchor(key: Key('el-1'), ping: 'some-ping'),
+          Anchor(key: Key('el-2'), ping: 'another-ping'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Anchor(key: Key('el-1'), ping: 'updated-ping'),
+          Anchor(key: Key('el-2'), ping: 'another-ping'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('ping'), equals('updated-ping'));
+      expect(domNode2.getAttribute('ping'), equals('another-ping'));
+    });
+
+    test('should clear attribute "ping"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Anchor(key: Key('el-1')),
+          Anchor(key: Key('el-2'), ping: 'another-ping'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Anchor(key: Key('el-1')),
+          Anchor(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('ping'), equals(null));
+      expect(domNode2.getAttribute('ping'), equals(null));
+    });
+
+    test('should clear attribute "ping" if updated value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          Anchor(key: Key('el-1'), ping: 'some-ping'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Anchor(key: Key('el-1'), ping: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('ping'), equals(null));
+    });
+
+    test('should not set attribute "ping" if provided value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          Anchor(key: Key('el-1'), ping: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('ping'), equals(null));
+    });
+
+    test('should set messy "ping"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Anchor(
+            key: Key('widget-1'),
+            ping: 'some ping',
+          ),
+          Anchor(
+            key: Key('widget-2'),
+            ping: 'some "messy" ping',
+          ),
+          Anchor(
+            key: Key('widget-3'),
+            ping: "some 'messy' ping",
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(
+        domNode1.getAttribute('ping'),
+        equals('some ping'),
+      );
+
+      expect(
+        domNode2.getAttribute('ping'),
+        equals('some "messy" ping'),
+      );
+
+      expect(
+        domNode3.getAttribute('ping'),
+        equals("some 'messy' ping"),
+      );
+    });
+
+    test('should set attribute "referrerpolicy"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Anchor(
+              key: Key('el-1'), referrerPolicy: ReferrerPolicyType.noReferrer),
+          Anchor(
+              key: Key('el-2'),
+              referrerPolicy: ReferrerPolicyType.noReferrerWhenDowngrade),
+          Anchor(key: Key('el-3'), referrerPolicy: ReferrerPolicyType.origin),
+          Anchor(
+              key: Key('el-4'),
+              referrerPolicy: ReferrerPolicyType.originWhenCrossOrigin),
+          Anchor(
+              key: Key('el-5'), referrerPolicy: ReferrerPolicyType.sameOrigin),
+          Anchor(
+              key: Key('el-6'),
+              referrerPolicy: ReferrerPolicyType.strictOrigin),
+          Anchor(
+              key: Key('el-7'),
+              referrerPolicy: ReferrerPolicyType.strictOriginWhenCrossOrigin),
+          Anchor(
+              key: Key('el-8'), referrerPolicy: ReferrerPolicyType.unSafeUrl),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
+      var domNode5 = app!.domNodeByKeyValue('el-5');
+      var domNode6 = app!.domNodeByKeyValue('el-6');
+      var domNode7 = app!.domNodeByKeyValue('el-7');
+      var domNode8 = app!.domNodeByKeyValue('el-8');
+
+      expect(
+        domNode1.getAttribute('referrerpolicy'),
+        equals('no-referrer'),
+      );
+      expect(
+        domNode2.getAttribute('referrerpolicy'),
+        equals('no-referrer-when-downgrade'),
+      );
+      expect(
+        domNode3.getAttribute('referrerpolicy'),
+        equals('origin'),
+      );
+      expect(
+        domNode4.getAttribute('referrerpolicy'),
+        equals('origin-when-cross-origin'),
+      );
+      expect(
+        domNode5.getAttribute('referrerpolicy'),
+        equals('same-origin'),
+      );
+      expect(
+        domNode6.getAttribute('referrerpolicy'),
+        equals('strict-origin'),
+      );
+      expect(
+        domNode7.getAttribute('referrerpolicy'),
+        equals('strict-origin-when-cross-origin'),
+      );
+      expect(
+        domNode8.getAttribute('referrerpolicy'),
+        equals('unsafe-url'),
+      );
+    });
+
+    test('should update attribute "referrerpolicy"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Anchor(
+              key: Key('el-1'), referrerPolicy: ReferrerPolicyType.noReferrer),
+          Anchor(
+              key: Key('el-2'),
+              referrerPolicy: ReferrerPolicyType.noReferrerWhenDowngrade),
+          Anchor(key: Key('el-3'), referrerPolicy: ReferrerPolicyType.origin),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Anchor(key: Key('el-1')),
+          Anchor(key: Key('el-2'), referrerPolicy: null),
+          Anchor(
+              key: Key('el-3'),
+              referrerPolicy: ReferrerPolicyType.originWhenCrossOrigin),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(
+        domNode1.getAttribute('referrerpolicy'),
+        equals(null),
+      );
+      expect(
+        domNode2.getAttribute('referrerpolicy'),
+        equals(null),
+      );
+      expect(
+        domNode3.getAttribute('referrerpolicy'),
+        equals(ReferrerPolicyType.originWhenCrossOrigin.nativeName),
+      );
+    });
+
     test('should set attribute "rel"', () async {
       await app!.buildChildren(
         widgets: [
@@ -1229,6 +1621,106 @@ void html_anchor_test() {
         domNode3.getAttribute('download'),
         equals("some 'messy' download"),
       );
+    });
+
+    test('should set attribute "type"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Anchor(key: Key('el-1'), type: 'some-type'),
+          Anchor(key: Key('el-2'), type: 'another-type'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('type'), equals('some-type'));
+      expect(domNode2.getAttribute('type'), equals('another-type'));
+    });
+
+    test('should update attribute "type"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Anchor(key: Key('el-1'), type: 'some-type'),
+          Anchor(key: Key('el-2'), type: 'another-type'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Anchor(key: Key('el-1'), type: 'updated-type'),
+          Anchor(key: Key('el-2'), type: 'another-type'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('type'), equals('updated-type'));
+      expect(domNode2.getAttribute('type'), equals('another-type'));
+    });
+
+    test('should clear attribute "type"', () async {
+      await app!.buildChildren(
+        widgets: [
+          Anchor(key: Key('el-1')),
+          Anchor(key: Key('el-2'), type: 'another-type'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Anchor(key: Key('el-1')),
+          Anchor(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('type'), equals(null));
+      expect(domNode2.getAttribute('type'), equals(null));
+    });
+
+    test('should clear attribute "type" if updated type is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          Anchor(key: Key('el-1'), type: 'some-type'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          Anchor(key: Key('el-1'), type: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('type'), equals(null));
+    });
+
+    test('should not set attribute "type" if provided type is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          Anchor(key: Key('el-1'), type: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('type'), equals(null));
     });
   });
 }

@@ -44,9 +44,13 @@ skipped_generation_for_class = {
 widget_specific_tests = {
     'Anchor': [
         'html_attr_href',
+        'html_attr_hreflang',
+        'html_attr_ping',
+        'html_attr_referrer_policy',
         'html_attr_rel',
         'html_attr_target',
         'html_attr_download',
+        'html_attr_type_string',
     ],
     'Audio': [
         'html_attr_autoplay',

@@ -16,6 +16,19 @@ class Anchor extends HTMLWidgetBase {
   ///
   final String? href;
 
+  /// Hints at the human language of the linked URL.
+  ///
+  final String? hrefLang;
+
+  /// A space-separated list of URLs. When the link is followed, the browser
+  /// will send POST requests with the body PING to the URLs.
+  ///
+  final String? ping;
+
+  /// How much of the referrer to send when following the link.
+  ///
+  final ReferrerPolicyType? referrerPolicy;
+
   /// The relationship of the linked URL as space-separated link types.
   ///
   final String? rel;
@@ -29,12 +42,20 @@ class Anchor extends HTMLWidgetBase {
   ///
   final String? download;
 
+  /// Hints at the linked URL's format with a MIME type.
+  ///
+  final String? type;
+
   const Anchor({
     Key? key,
     this.href,
+    this.hrefLang,
+    this.ping,
+    this.referrerPolicy,
     this.rel,
     this.target,
     this.download,
+    this.type,
     String? id,
     String? title,
     String? style,
@@ -65,9 +86,13 @@ class Anchor extends HTMLWidgetBase {
   @override
   bool shouldUpdateWidget(covariant Anchor oldWidget) {
     return href != oldWidget.href ||
+        hrefLang != oldWidget.hrefLang ||
+        ping != oldWidget.ping ||
+        referrerPolicy != oldWidget.referrerPolicy ||
         rel != oldWidget.rel ||
         target != oldWidget.target ||
         download != oldWidget.download ||
+        type != oldWidget.type ||
         super.shouldUpdateWidget(oldWidget);
   }
 
@@ -140,6 +165,18 @@ void _extendAttributes({
     attributes[Attributes.href] = widget.href;
   }
 
+  if (widget.hrefLang != oldWidget?.hrefLang) {
+    attributes[Attributes.hrefLang] = widget.hrefLang;
+  }
+
+  if (widget.ping != oldWidget?.ping) {
+    attributes[Attributes.ping] = widget.ping;
+  }
+
+  if (widget.referrerPolicy != oldWidget?.referrerPolicy) {
+    attributes[Attributes.referrerPolicy] = widget.referrerPolicy?.nativeName;
+  }
+
   if (widget.download != oldWidget?.download) {
     attributes[Attributes.download] = widget.download;
   }
@@ -150,5 +187,9 @@ void _extendAttributes({
 
   if (widget.target != oldWidget?.target) {
     attributes[Attributes.target] = widget.target;
+  }
+
+  if (widget.type != oldWidget?.type) {
+    attributes[Attributes.type] = widget.type;
   }
 }
