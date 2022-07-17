@@ -257,8 +257,6 @@ enum PreloadType {
   const PreloadType(this.nativeName);
 }
 
-
-
 /// Provides a hint of the relative priority to use when fetching the resource.
 ///
 enum FetchPriorityType {
