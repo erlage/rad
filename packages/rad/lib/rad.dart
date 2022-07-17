@@ -33,6 +33,7 @@ export 'src/core/common/enums.dart' show ReferrerPolicyType;
 export 'src/core/common/enums.dart' show InputType;
 export 'src/core/common/enums.dart' show ButtonType;
 export 'src/core/common/enums.dart' show ListType;
+export 'src/core/common/enums.dart' show FetchPriorityType;
 export 'src/core/common/enums.dart' show PreloadType;
 export 'src/core/common/enums.dart' show DirectionType;
 

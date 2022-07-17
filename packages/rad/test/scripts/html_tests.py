@@ -133,10 +133,13 @@ widget_specific_tests = {
         'html_attr_name',
         'html_attr_allow',
         'html_attr_src',
+        'html_attr_src_doc',
         'html_attr_width',
         'html_attr_height',
         'html_attr_allowfullscreen',
         'html_attr_allowpaymentrequest',
+        'html_attr_fetch_priority',
+        'html_attr_referrer_policy',
     ],
     'Image': [
         'html_attr_src',

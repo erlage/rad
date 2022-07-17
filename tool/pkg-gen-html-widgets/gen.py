@@ -280,6 +280,7 @@ def apply_commons(file_name, contents):
     contents = contents.replace('Attributes.forAttribute', "'for'")
     contents = contents.replace('Attributes.pattern', "'pattern'")
     contents = contents.replace('Attributes.src', "'src'")
+    contents = contents.replace('Attributes.srcDoc', "'srcdoc'")
     contents = contents.replace('Attributes.alt', "'alt'")
     contents = contents.replace('Attributes.height', "'height'")
     contents = contents.replace('Attributes.width', "'width'")
@@ -320,6 +321,7 @@ def apply_commons(file_name, contents):
     contents = contents.replace('Attributes.noValidate', "'novalidate'")
     contents = contents.replace('Attributes.acceptCharset', "'accept-charset'")
     contents = contents.replace('Attributes.autoComplete', "'autocomplete'")
+    contents = contents.replace('Attributes.fetchPriority', "'fetchpriority'")
 
     contents = contents.replace('Properties.value', "'value'")
     contents = contents.replace('Properties.innerHtml', "'innerHtml'")

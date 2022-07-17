@@ -1090,6 +1090,146 @@ void html_i_frame_test() {
       expect(domNode1.getAttribute('src'), equals(null));
     });
 
+    test('should set attribute "srcdoc"', () async {
+      await app!.buildChildren(
+        widgets: [
+          IFrame(key: Key('el-1'), srcDoc: 'some-srcdoc'),
+          IFrame(key: Key('el-2'), srcDoc: 'another-srcdoc'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('srcdoc'), equals('some-srcdoc'));
+      expect(domNode2.getAttribute('srcdoc'), equals('another-srcdoc'));
+    });
+
+    test('should update attribute "srcdoc"', () async {
+      await app!.buildChildren(
+        widgets: [
+          IFrame(key: Key('el-1'), srcDoc: 'some-srcdoc'),
+          IFrame(key: Key('el-2'), srcDoc: 'another-srcdoc'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          IFrame(key: Key('el-1'), srcDoc: 'updated-srcdoc'),
+          IFrame(key: Key('el-2'), srcDoc: 'another-srcdoc'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('srcdoc'), equals('updated-srcdoc'));
+      expect(domNode2.getAttribute('srcdoc'), equals('another-srcdoc'));
+    });
+
+    test('should clear attribute "srcdoc"', () async {
+      await app!.buildChildren(
+        widgets: [
+          IFrame(key: Key('el-1')),
+          IFrame(key: Key('el-2'), srcDoc: 'another-srcdoc'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          IFrame(key: Key('el-1')),
+          IFrame(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('srcdoc'), equals(null));
+      expect(domNode2.getAttribute('srcdoc'), equals(null));
+    });
+
+    test('should clear attribute "srcdoc" if updated value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          IFrame(key: Key('el-1'), srcDoc: 'some-srcdoc'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          IFrame(key: Key('el-1'), srcDoc: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('srcdoc'), equals(null));
+    });
+
+    test('should not set attribute "srcdoc" if provided value is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          IFrame(key: Key('el-1'), srcDoc: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('srcdoc'), equals(null));
+    });
+
+    test('should set messy "srcdoc"', () async {
+      await app!.buildChildren(
+        widgets: [
+          IFrame(
+            key: Key('widget-1'),
+            srcDoc: 'some srcdoc',
+          ),
+          IFrame(
+            key: Key('widget-2'),
+            srcDoc: 'some "messy" srcdoc',
+          ),
+          IFrame(
+            key: Key('widget-3'),
+            srcDoc: "some 'messy' srcdoc",
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(
+        domNode1.getAttribute('srcdoc'),
+        equals('some srcdoc'),
+      );
+
+      expect(
+        domNode2.getAttribute('srcdoc'),
+        equals('some "messy" srcdoc'),
+      );
+
+      expect(
+        domNode3.getAttribute('srcdoc'),
+        equals("some 'messy' srcdoc"),
+      );
+    });
+
     test('should set attribute "width"', () async {
       await app!.buildChildren(
         widgets: [
@@ -1399,6 +1539,166 @@ void html_i_frame_test() {
       expect(domNode2.getAttribute('allowpaymentrequest'), equals(null));
       expect(domNode3.getAttribute('allowpaymentrequest'), equals(null));
       expect(domNode4.getAttribute('allowpaymentrequest'), equals(null));
+    });
+
+    test('should set attribute "type"', () async {
+      await app!.buildChildren(
+        widgets: [
+          IFrame(key: Key('el-1'), fetchPriority: FetchPriorityType.high),
+          IFrame(key: Key('el-2'), fetchPriority: FetchPriorityType.low),
+          IFrame(key: Key('el-3'), fetchPriority: FetchPriorityType.auto),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(domNode1.getAttribute('type'), equals('high'));
+      expect(domNode2.getAttribute('type'), equals('low'));
+      expect(domNode3.getAttribute('type'), equals('auto'));
+    });
+
+    test('should update attribute "type"', () async {
+      await app!.buildChildren(
+        widgets: [
+          IFrame(key: Key('el-1'), fetchPriority: FetchPriorityType.high),
+          IFrame(key: Key('el-2'), fetchPriority: FetchPriorityType.low),
+          IFrame(key: Key('el-3'), fetchPriority: FetchPriorityType.auto),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          IFrame(key: Key('el-1')),
+          IFrame(key: Key('el-2'), fetchPriority: null),
+          IFrame(key: Key('el-3'), fetchPriority: FetchPriorityType.high),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(domNode1.getAttribute('type'), equals(null));
+      expect(domNode2.getAttribute('type'), equals(null));
+      expect(domNode3.getAttribute('type'), equals('high'));
+    });
+
+    test('should set attribute "referrerpolicy"', () async {
+      await app!.buildChildren(
+        widgets: [
+          IFrame(
+              key: Key('el-1'), referrerPolicy: ReferrerPolicyType.noReferrer),
+          IFrame(
+              key: Key('el-2'),
+              referrerPolicy: ReferrerPolicyType.noReferrerWhenDowngrade),
+          IFrame(key: Key('el-3'), referrerPolicy: ReferrerPolicyType.origin),
+          IFrame(
+              key: Key('el-4'),
+              referrerPolicy: ReferrerPolicyType.originWhenCrossOrigin),
+          IFrame(
+              key: Key('el-5'), referrerPolicy: ReferrerPolicyType.sameOrigin),
+          IFrame(
+              key: Key('el-6'),
+              referrerPolicy: ReferrerPolicyType.strictOrigin),
+          IFrame(
+              key: Key('el-7'),
+              referrerPolicy: ReferrerPolicyType.strictOriginWhenCrossOrigin),
+          IFrame(
+              key: Key('el-8'), referrerPolicy: ReferrerPolicyType.unSafeUrl),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
+      var domNode5 = app!.domNodeByKeyValue('el-5');
+      var domNode6 = app!.domNodeByKeyValue('el-6');
+      var domNode7 = app!.domNodeByKeyValue('el-7');
+      var domNode8 = app!.domNodeByKeyValue('el-8');
+
+      expect(
+        domNode1.getAttribute('referrerpolicy'),
+        equals('no-referrer'),
+      );
+      expect(
+        domNode2.getAttribute('referrerpolicy'),
+        equals('no-referrer-when-downgrade'),
+      );
+      expect(
+        domNode3.getAttribute('referrerpolicy'),
+        equals('origin'),
+      );
+      expect(
+        domNode4.getAttribute('referrerpolicy'),
+        equals('origin-when-cross-origin'),
+      );
+      expect(
+        domNode5.getAttribute('referrerpolicy'),
+        equals('same-origin'),
+      );
+      expect(
+        domNode6.getAttribute('referrerpolicy'),
+        equals('strict-origin'),
+      );
+      expect(
+        domNode7.getAttribute('referrerpolicy'),
+        equals('strict-origin-when-cross-origin'),
+      );
+      expect(
+        domNode8.getAttribute('referrerpolicy'),
+        equals('unsafe-url'),
+      );
+    });
+
+    test('should update attribute "referrerpolicy"', () async {
+      await app!.buildChildren(
+        widgets: [
+          IFrame(
+              key: Key('el-1'), referrerPolicy: ReferrerPolicyType.noReferrer),
+          IFrame(
+              key: Key('el-2'),
+              referrerPolicy: ReferrerPolicyType.noReferrerWhenDowngrade),
+          IFrame(key: Key('el-3'), referrerPolicy: ReferrerPolicyType.origin),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          IFrame(key: Key('el-1')),
+          IFrame(key: Key('el-2'), referrerPolicy: null),
+          IFrame(
+              key: Key('el-3'),
+              referrerPolicy: ReferrerPolicyType.originWhenCrossOrigin),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(
+        domNode1.getAttribute('referrerpolicy'),
+        equals(null),
+      );
+      expect(
+        domNode2.getAttribute('referrerpolicy'),
+        equals(null),
+      );
+      expect(
+        domNode3.getAttribute('referrerpolicy'),
+        equals(ReferrerPolicyType.originWhenCrossOrigin.nativeName),
+      );
     });
   });
 }

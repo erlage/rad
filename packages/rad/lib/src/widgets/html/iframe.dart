@@ -16,6 +16,12 @@ class IFrame extends HTMLWidgetBase {
   ///
   final String? src;
 
+  /// Inline HTML to embed, overriding the src attribute. If a browser does not
+  /// support the srcdoc attribute, it will fall back to the URL in the src
+  /// attribute.
+  ///
+  final String? srcDoc;
+
   /// A targetable name for the embedded browsing context.
   ///
   final String? name;
@@ -33,22 +39,34 @@ class IFrame extends HTMLWidgetBase {
   ///
   final bool? allowPaymentRequest;
 
-  /// Width of [IFrame] container.
+  /// Provides a hint of the relative priority to use when fetching the iframe
+  /// document.
   ///
-  final String? width;
+  final FetchPriorityType? fetchPriority;
 
-  /// Height of [IFrame] container.
+  /// Height of [IFrame] container. Default is 150.
   ///
   final String? height;
 
+  /// Indicates which referrer to send when fetching the frame's resources
+  ///
+  final ReferrerPolicyType? referrerPolicy;
+
+  /// Width of [IFrame] container. Default is 300.
+  ///
+  final String? width;
+
   const IFrame({
     this.src,
+    this.srcDoc,
     this.name,
     this.allow,
     this.allowFullscreen,
     this.allowPaymentRequest,
-    this.width,
+    this.fetchPriority,
     this.height,
+    this.referrerPolicy,
+    this.width,
     Key? key,
     String? id,
     String? title,
@@ -80,12 +98,15 @@ class IFrame extends HTMLWidgetBase {
   @override
   bool shouldUpdateWidget(covariant IFrame oldWidget) {
     return src != oldWidget.src ||
+        srcDoc != oldWidget.srcDoc ||
         name != oldWidget.name ||
         allow != oldWidget.allow ||
         allowFullscreen != oldWidget.allowFullscreen ||
         allowPaymentRequest != oldWidget.allowPaymentRequest ||
-        width != oldWidget.width ||
+        fetchPriority != oldWidget.fetchPriority ||
         height != oldWidget.height ||
+        referrerPolicy != oldWidget.referrerPolicy ||
+        width != oldWidget.width ||
         super.shouldUpdateWidget(oldWidget);
   }
 
@@ -158,6 +179,10 @@ void _extendAttributes({
     attributes[Attributes.src] = widget.src;
   }
 
+  if (widget.srcDoc != oldWidget?.srcDoc) {
+    attributes[Attributes.srcDoc] = widget.srcDoc;
+  }
+
   if (widget.name != oldWidget?.name) {
     attributes[Attributes.name] = widget.name;
   }
@@ -190,5 +215,13 @@ void _extendAttributes({
     } else {
       attributes[Attributes.allowPaymentRequest] = 'true';
     }
+  }
+
+  if (widget.fetchPriority != oldWidget?.fetchPriority) {
+    attributes[Attributes.fetchPriority] = widget.fetchPriority?.nativeName;
+  }
+
+  if (widget.referrerPolicy != oldWidget?.referrerPolicy) {
+    attributes[Attributes.referrerPolicy] = widget.referrerPolicy?.nativeName;
   }
 }

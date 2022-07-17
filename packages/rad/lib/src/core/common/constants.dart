@@ -116,6 +116,7 @@ class Attributes {
   static const forAttribute = 'for';
   static const pattern = 'pattern';
   static const src = 'src';
+  static const srcDoc = 'srcdoc';
   static const alt = 'alt';
   static const height = 'height';
   static const width = 'width';
@@ -151,6 +152,7 @@ class Attributes {
   static const noValidate = 'novalidate';
   static const acceptCharset = 'accept-charset';
   static const autoComplete = 'autocomplete';
+  static const fetchPriority = 'fetchpriority';
 
   static const max = 'max';
   static const min = 'min';

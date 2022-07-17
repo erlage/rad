@@ -220,6 +220,27 @@ enum PreloadType {
   const PreloadType(this.nativeName);
 }
 
+/// Provides a hint of the relative priority to use when fetching the resource.
+///
+enum FetchPriorityType {
+  /// Signals a high-priority fetch relative to other resources of same type.
+  ///
+  high('high'),
+
+  /// Signals a low-priority fetch relative to other resources of same type.
+  ///
+  low('low'),
+
+  /// Signals automatic determination of fetch priority relative to other
+  /// resources of same type.
+  ///
+  auto('auto'),
+  ;
+
+  final String nativeName;
+  const FetchPriorityType(this.nativeName);
+}
+
 enum KindType {
   /// Subtitles provide translation of content that cannot be understood by the
   /// viewer. For example speech or text that is not English in an English
