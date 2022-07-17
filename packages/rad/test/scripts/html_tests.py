@@ -351,12 +351,20 @@ widget_specific_tests = {
         'html_attr_on_change',
     ],
     'InputFile': [
-        'html_attr_name',
         'html_attr_accept',
+        'html_attr_auto_complete',
+        'html_attr_capture',
+        'html_attr_list',
         'html_attr_multiple',
-        'html_attr_required',
-        'html_attr_disabled',
+        'html_attr_readonly',
         'html_attr_on_change',
+
+        'html_attr_name',
+        'html_attr_disabled',
+        'html_attr_form',
+        'html_attr_input_mode',
+        'html_attr_tabindex',
+        'html_attr_value',
     ],
     'InputSubmit': [
         'html_attr_name',

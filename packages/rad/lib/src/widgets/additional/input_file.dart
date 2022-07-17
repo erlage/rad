@@ -5,20 +5,27 @@
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
+import 'package:rad/src/widgets/abstract/html_input_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
-import 'package:rad/src/widgets/html/input.dart';
 
 /// The InputFile widget (HTML's `input` tag with `type = 'file'`).
 ///
-class InputFile extends Input {
+class InputFile extends HTMLInputBase {
   const InputFile({
+    String? accept,
+    String? autoComplete,
+    String? capture,
+    String? list,
+    bool? multiple,
+    bool? readOnly,
+    String? name,
+    bool? disabled,
+    String? form,
+    String? inputMode,
+    int? tabIndex,
+    String? value,
     Key? key,
     String? id,
-    String? name,
-    String? accept,
-    bool? multiple,
-    bool? required,
-    bool? disabled,
     String? title,
     String? style,
     String? className,
@@ -26,18 +33,25 @@ class InputFile extends Input {
     String? innerText,
     Widget? child,
     List<Widget>? children,
-    EventCallback? onChange,
     EventCallback? onClick,
+    EventCallback? onChange,
     Map<String, String>? additionalAttributes,
   }) : super(
+          accept: accept,
+          autoComplete: autoComplete,
+          capture: capture,
+          list: list,
+          multiple: multiple,
+          readOnly: readOnly,
+          name: name,
+          form: form,
+          value: value,
+          tabIndex: tabIndex,
+          disabled: disabled,
+          inputMode: inputMode,
+          type: InputType.file,
           key: key,
           id: id,
-          type: InputType.file,
-          name: name,
-          accept: accept,
-          multiple: multiple,
-          disabled: disabled,
-          required: required,
           title: title,
           style: style,
           className: className,
@@ -45,8 +59,8 @@ class InputFile extends Input {
           innerText: innerText,
           child: child,
           children: children,
-          onChange: onChange,
           onClick: onClick,
+          onChange: onChange,
           additionalAttributes: additionalAttributes,
         );
 }
