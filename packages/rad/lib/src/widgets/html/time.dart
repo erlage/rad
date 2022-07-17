@@ -82,11 +82,10 @@ class TimeRenderElement extends HTMLRenderElementBase {
       widget: widget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: widget,
-        oldWidget: null,
-      ),
+    _extendAttributes(
+      widget: widget,
+      oldWidget: null,
+      attributes: domNodePatch.attributes,
     );
 
     return domNodePatch;
@@ -104,11 +103,10 @@ class TimeRenderElement extends HTMLRenderElementBase {
       newWidget: newWidget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: newWidget,
-        oldWidget: oldWidget,
-      ),
+    _extendAttributes(
+      widget: newWidget,
+      oldWidget: oldWidget,
+      attributes: domNodePatch.attributes,
     );
 
     return domNodePatch;
@@ -117,19 +115,16 @@ class TimeRenderElement extends HTMLRenderElementBase {
 
 /*
 |--------------------------------------------------------------------------
-| props
+| patch
 |--------------------------------------------------------------------------
 */
 
-Map<String, String?> _prepareAttributes({
+void _extendAttributes({
   required Time widget,
   required Time? oldWidget,
+  required Map<String, String?> attributes,
 }) {
-  var attributes = <String, String?>{};
-
   if (widget.dateTime != oldWidget?.dateTime) {
     attributes[Attributes.dateTime] = widget.dateTime;
   }
-
-  return attributes;
 }

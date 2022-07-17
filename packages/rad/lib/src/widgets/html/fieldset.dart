@@ -83,11 +83,10 @@ class FieldSetRenderElement extends HTMLRenderElementBase {
       widget: widget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: widget,
-        oldWidget: null,
-      ),
+    _extendAttributes(
+      widget: widget,
+      oldWidget: null,
+      attributes: domNodePatch.attributes,
     );
 
     return domNodePatch;
@@ -105,11 +104,10 @@ class FieldSetRenderElement extends HTMLRenderElementBase {
       newWidget: newWidget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: newWidget,
-        oldWidget: oldWidget,
-      ),
+    _extendAttributes(
+      widget: newWidget,
+      oldWidget: oldWidget,
+      attributes: domNodePatch.attributes,
     );
 
     return domNodePatch;
@@ -118,16 +116,15 @@ class FieldSetRenderElement extends HTMLRenderElementBase {
 
 /*
 |--------------------------------------------------------------------------
-| props
+| patch
 |--------------------------------------------------------------------------
 */
 
-Map<String, String?> _prepareAttributes({
+void _extendAttributes({
   required FieldSet widget,
   required FieldSet? oldWidget,
+  required Map<String, String?> attributes,
 }) {
-  var attributes = <String, String?>{};
-
   if (widget.disabled != oldWidget?.disabled) {
     if (null == widget.disabled || false == widget.disabled) {
       attributes[Attributes.disabled] = null;
@@ -135,6 +132,4 @@ Map<String, String?> _prepareAttributes({
       attributes[Attributes.disabled] = 'true';
     }
   }
-
-  return attributes;
 }

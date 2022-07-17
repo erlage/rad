@@ -81,11 +81,10 @@ class HTMLTableColumnBaseRenderElement extends HTMLRenderElementBase {
       widget: widget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: widget,
-        oldWidget: null,
-      ),
+    _extendAttributes(
+      widget: widget,
+      oldWidget: null,
+      attributes: domNodePatch.attributes,
     );
 
     return domNodePatch;
@@ -104,11 +103,10 @@ class HTMLTableColumnBaseRenderElement extends HTMLRenderElementBase {
       newWidget: newWidget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: newWidget,
-        oldWidget: oldWidget,
-      ),
+    _extendAttributes(
+      widget: newWidget,
+      oldWidget: oldWidget,
+      attributes: domNodePatch.attributes,
     );
 
     return domNodePatch;
@@ -117,16 +115,15 @@ class HTMLTableColumnBaseRenderElement extends HTMLRenderElementBase {
 
 /*
 |--------------------------------------------------------------------------
-| props
+| patch
 |--------------------------------------------------------------------------
 */
 
-Map<String, String?> _prepareAttributes({
+void _extendAttributes({
   required HTMLTableColumnBase widget,
   required HTMLTableColumnBase? oldWidget,
+  required Map<String, String?> attributes,
 }) {
-  var attributes = <String, String?>{};
-
   if (widget.span != oldWidget?.span) {
     if (null == widget.span) {
       attributes[Attributes.span] = null;
@@ -134,6 +131,4 @@ Map<String, String?> _prepareAttributes({
       attributes[Attributes.span] = '${widget.span}';
     }
   }
-
-  return attributes;
 }

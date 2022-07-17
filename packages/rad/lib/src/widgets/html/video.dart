@@ -156,11 +156,10 @@ class VideoRenderElement extends HTMLRenderElementBase {
       widget: widget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: widget,
-        oldWidget: null,
-      ),
+    _extendAttributes(
+      widget: widget,
+      oldWidget: null,
+      attributes: domNodePatch.attributes,
     );
 
     return domNodePatch;
@@ -178,11 +177,10 @@ class VideoRenderElement extends HTMLRenderElementBase {
       newWidget: newWidget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: newWidget,
-        oldWidget: oldWidget,
-      ),
+    _extendAttributes(
+      widget: newWidget,
+      oldWidget: oldWidget,
+      attributes: domNodePatch.attributes,
     );
 
     return domNodePatch;
@@ -191,16 +189,15 @@ class VideoRenderElement extends HTMLRenderElementBase {
 
 /*
 |--------------------------------------------------------------------------
-| props
+| patch
 |--------------------------------------------------------------------------
 */
 
-Map<String, String?> _prepareAttributes({
+void _extendAttributes({
   required Video widget,
   required Video? oldWidget,
+  required Map<String, String?> attributes,
 }) {
-  var attributes = <String, String?>{};
-
   if (widget.autoPlay != oldWidget?.autoPlay) {
     if (null == widget.autoPlay || false == widget.autoPlay) {
       attributes[Attributes.autoPlay] = null;
@@ -264,6 +261,4 @@ Map<String, String?> _prepareAttributes({
   if (widget.width != oldWidget?.width) {
     attributes[Attributes.width] = widget.width;
   }
-
-  return attributes;
 }

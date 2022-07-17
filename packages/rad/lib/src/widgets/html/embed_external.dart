@@ -99,11 +99,10 @@ class EmbedExternalRenderElement extends HTMLRenderElementBase {
       widget: widget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: widget,
-        oldWidget: null,
-      ),
+    _extendAttributes(
+      widget: widget,
+      oldWidget: null,
+      attributes: domNodePatch.attributes,
     );
 
     return domNodePatch;
@@ -121,11 +120,10 @@ class EmbedExternalRenderElement extends HTMLRenderElementBase {
       newWidget: newWidget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: newWidget,
-        oldWidget: oldWidget,
-      ),
+    _extendAttributes(
+      widget: newWidget,
+      oldWidget: oldWidget,
+      attributes: domNodePatch.attributes,
     );
 
     return domNodePatch;
@@ -134,16 +132,15 @@ class EmbedExternalRenderElement extends HTMLRenderElementBase {
 
 /*
 |--------------------------------------------------------------------------
-| props
+| patch
 |--------------------------------------------------------------------------
 */
 
-Map<String, String?> _prepareAttributes({
+void _extendAttributes({
   required EmbedExternal widget,
   required EmbedExternal? oldWidget,
+  required Map<String, String?> attributes,
 }) {
-  var attributes = <String, String?>{};
-
   if (widget.height != oldWidget?.height) {
     attributes[Attributes.height] = widget.height;
   }
@@ -159,6 +156,4 @@ Map<String, String?> _prepareAttributes({
   if (widget.width != oldWidget?.width) {
     attributes[Attributes.width] = widget.width;
   }
-
-  return attributes;
 }

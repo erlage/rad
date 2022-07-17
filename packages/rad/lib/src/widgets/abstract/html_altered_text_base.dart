@@ -91,11 +91,10 @@ class HTMLAlteredTextBaseRenderElement extends HTMLRenderElementBase {
       widget: widget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: widget,
-        oldWidget: null,
-      ),
+    _extendAttributes(
+      widget: widget,
+      oldWidget: null,
+      attributes: domNodePatch.attributes,
     );
 
     return domNodePatch;
@@ -114,11 +113,10 @@ class HTMLAlteredTextBaseRenderElement extends HTMLRenderElementBase {
       newWidget: newWidget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: newWidget,
-        oldWidget: oldWidget,
-      ),
+    _extendAttributes(
+      widget: newWidget,
+      oldWidget: oldWidget,
+      attributes: domNodePatch.attributes,
     );
 
     return domNodePatch;
@@ -127,16 +125,15 @@ class HTMLAlteredTextBaseRenderElement extends HTMLRenderElementBase {
 
 /*
 |--------------------------------------------------------------------------
-| props
+| patch
 |--------------------------------------------------------------------------
 */
 
-Map<String, String?> _prepareAttributes({
+void _extendAttributes({
   required HTMLAlteredTextBase widget,
   required HTMLAlteredTextBase? oldWidget,
+  required Map<String, String?> attributes,
 }) {
-  var attributes = <String, String?>{};
-
   if (widget.cite != oldWidget?.cite) {
     attributes[Attributes.cite] = widget.cite;
   }
@@ -144,6 +141,4 @@ Map<String, String?> _prepareAttributes({
   if (widget.dateTime != oldWidget?.dateTime) {
     attributes[Attributes.dateTime] = widget.dateTime;
   }
-
-  return attributes;
 }

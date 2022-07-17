@@ -151,11 +151,10 @@ class ImageMapAreaRenderElement extends HTMLRenderElementBase {
       widget: widget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: widget,
-        oldWidget: null,
-      ),
+    _extendAttributes(
+      widget: widget,
+      oldWidget: null,
+      attributes: domNodePatch.attributes,
     );
 
     return domNodePatch;
@@ -173,11 +172,10 @@ class ImageMapAreaRenderElement extends HTMLRenderElementBase {
       newWidget: newWidget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: newWidget,
-        oldWidget: oldWidget,
-      ),
+    _extendAttributes(
+      widget: newWidget,
+      oldWidget: oldWidget,
+      attributes: domNodePatch.attributes,
     );
 
     return domNodePatch;
@@ -186,16 +184,15 @@ class ImageMapAreaRenderElement extends HTMLRenderElementBase {
 
 /*
 |--------------------------------------------------------------------------
-| props
+| patch
 |--------------------------------------------------------------------------
 */
 
-Map<String, String?> _prepareAttributes({
+void _extendAttributes({
   required ImageMapArea widget,
   required ImageMapArea? oldWidget,
+  required Map<String, String?> attributes,
 }) {
-  var attributes = <String, String?>{};
-
   if (widget.alt != oldWidget?.alt) {
     attributes[Attributes.alt] = widget.alt;
   }
@@ -235,6 +232,4 @@ Map<String, String?> _prepareAttributes({
   if (widget.target != oldWidget?.target) {
     attributes[Attributes.target] = widget.target;
   }
-
-  return attributes;
 }

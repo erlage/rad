@@ -88,11 +88,10 @@ class PortalRenderElement extends HTMLRenderElementBase {
       widget: widget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: widget,
-        oldWidget: null,
-      ),
+    _extendAttributes(
+      widget: widget,
+      oldWidget: null,
+      attributes: domNodePatch.attributes,
     );
 
     return domNodePatch;
@@ -110,11 +109,10 @@ class PortalRenderElement extends HTMLRenderElementBase {
       newWidget: newWidget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: newWidget,
-        oldWidget: oldWidget,
-      ),
+    _extendAttributes(
+      widget: newWidget,
+      oldWidget: oldWidget,
+      attributes: domNodePatch.attributes,
     );
 
     return domNodePatch;
@@ -123,16 +121,15 @@ class PortalRenderElement extends HTMLRenderElementBase {
 
 /*
 |--------------------------------------------------------------------------
-| props
+| patch
 |--------------------------------------------------------------------------
 */
 
-Map<String, String?> _prepareAttributes({
+void _extendAttributes({
   required Portal widget,
   required Portal? oldWidget,
+  required Map<String, String?> attributes,
 }) {
-  var attributes = <String, String?>{};
-
   if (widget.referrerPolicy != oldWidget?.referrerPolicy) {
     attributes[Attributes.referrerPolicy] = widget.referrerPolicy;
   }
@@ -140,6 +137,4 @@ Map<String, String?> _prepareAttributes({
   if (widget.src != oldWidget?.src) {
     attributes[Attributes.src] = widget.src;
   }
-
-  return attributes;
 }

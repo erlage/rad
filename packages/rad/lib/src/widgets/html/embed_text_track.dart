@@ -111,11 +111,10 @@ class EmbedTextTrackRenderElement extends HTMLRenderElementBase {
       widget: widget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: widget,
-        oldWidget: null,
-      ),
+    _extendAttributes(
+      widget: widget,
+      oldWidget: null,
+      attributes: domNodePatch.attributes,
     );
 
     return domNodePatch;
@@ -133,11 +132,10 @@ class EmbedTextTrackRenderElement extends HTMLRenderElementBase {
       newWidget: newWidget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: newWidget,
-        oldWidget: oldWidget,
-      ),
+    _extendAttributes(
+      widget: newWidget,
+      oldWidget: oldWidget,
+      attributes: domNodePatch.attributes,
     );
 
     return domNodePatch;
@@ -146,16 +144,15 @@ class EmbedTextTrackRenderElement extends HTMLRenderElementBase {
 
 /*
 |--------------------------------------------------------------------------
-| props
+| patch
 |--------------------------------------------------------------------------
 */
 
-Map<String, String?> _prepareAttributes({
+void _extendAttributes({
   required EmbedTextTrack widget,
   required EmbedTextTrack? oldWidget,
+  required Map<String, String?> attributes,
 }) {
-  var attributes = <String, String?>{};
-
   if (widget.defaultAttribute != oldWidget?.defaultAttribute) {
     if (null == widget.defaultAttribute || false == widget.defaultAttribute) {
       attributes[Attributes.defaultAttribute] = null;
@@ -179,6 +176,4 @@ Map<String, String?> _prepareAttributes({
   if (widget.srcLang != oldWidget?.srcLang) {
     attributes[Attributes.srcLang] = widget.srcLang;
   }
-
-  return attributes;
 }

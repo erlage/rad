@@ -148,11 +148,10 @@ class TextAreaRenderElement extends HTMLRenderElementBase {
       widget: widget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: widget,
-        oldWidget: null,
-      ),
+    _extendAttributes(
+      widget: widget,
+      oldWidget: null,
+      attributes: domNodePatch.attributes,
     );
 
     domNodePatch.properties.addAll(
@@ -177,11 +176,10 @@ class TextAreaRenderElement extends HTMLRenderElementBase {
       newWidget: newWidget,
     );
 
-    domNodePatch.attributes.addAll(
-      _prepareAttributes(
-        widget: newWidget,
-        oldWidget: oldWidget,
-      ),
+    _extendAttributes(
+      widget: newWidget,
+      oldWidget: oldWidget,
+      attributes: domNodePatch.attributes,
     );
 
     domNodePatch.properties.addAll(
@@ -197,16 +195,15 @@ class TextAreaRenderElement extends HTMLRenderElementBase {
 
 /*
 |--------------------------------------------------------------------------
-| props
+| patch
 |--------------------------------------------------------------------------
 */
 
-Map<String, String?> _prepareAttributes({
+void _extendAttributes({
   required TextArea widget,
   required TextArea? oldWidget,
+  required Map<String, String?> attributes,
 }) {
-  var attributes = <String, String?>{};
-
   if (widget.name != oldWidget?.name) {
     attributes[Attributes.name] = widget.name;
   }
@@ -270,8 +267,6 @@ Map<String, String?> _prepareAttributes({
       attributes[Attributes.disabled] = 'true';
     }
   }
-
-  return attributes;
 }
 
 Map<String, String?> _prepareProperties({

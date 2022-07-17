@@ -209,7 +209,7 @@ class HTMLRenderElementBase extends RenderElement {
 
 /*
 |--------------------------------------------------------------------------
-| props
+| patch
 |--------------------------------------------------------------------------
 */
 
@@ -217,9 +217,9 @@ Map<String, String?> _prepareAttributes({
   required HTMLWidgetBase widget,
   required HTMLWidgetBase? oldWidget,
 }) {
-  // prepare additional attributes
-
   var attributes = <String, String?>{};
+
+  // prepare additional attributes
 
   var additionalAttributes = widget.additionalAttributes;
   var oldAdditionalAttributes = oldWidget?.additionalAttributes;
