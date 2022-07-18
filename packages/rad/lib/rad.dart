@@ -111,6 +111,7 @@ export 'src/widgets/navigator.dart' show Navigator, NavigatorState;
 // functional
 
 export 'src/widgets/rad_app.dart' show RadApp;
+export 'src/widgets/text.dart' show Text;
 export 'src/widgets/list_view.dart' show ListView;
 export 'src/widgets/event_detector.dart' show EventDetector;
 
@@ -119,7 +120,3 @@ export 'src/widgets/event_detector.dart' show EventDetector;
 export 'src/widgets/raw_markup.dart' show RawMarkUp;
 export 'src/widgets/raw_event_detector.dart' show RawEventDetector;
 export 'src/widgets/gesture_detector.dart' show GestureDetector;
-
-// Additional widgets.
-
-export 'src/widgets/additional/text.dart' show Text;

@@ -2,14 +2,15 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/widgets/html/span.dart';
+import 'package:rad/src/widgets/abstract/html_widget_base.dart';
 import 'package:rad/src/widgets/raw_markup.dart';
 
 /// A utility widget to print text on screen.
 ///
-/// Note that [Text] widget wraps text in a [Span] widget i.e [Text] widget is
+/// Note that [Text] widget wraps text in a span tag i.e [Text] widget is
 /// not a pure HTML text-node.
 ///
 /// ```dart
@@ -27,7 +28,7 @@ import 'package:rad/src/widgets/raw_markup.dart';
 /// - [RawMarkUp] widget.
 /// - Or use innerText property on parent widget.
 ///
-class Text extends Span {
+class Text extends HTMLWidgetBase {
   /// Text's contents.
   ///
   final String text;
@@ -49,4 +50,7 @@ class Text extends Span {
           onClick: onClick,
           innerText: text,
         );
+
+  @override
+  DomTagType? get correspondingTag => DomTagType.span;
 }
