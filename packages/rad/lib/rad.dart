@@ -40,6 +40,7 @@ export 'src/core/common/enums.dart' show PreloadType;
 export 'src/core/common/enums.dart' show DirectionType;
 export 'src/core/common/enums.dart' show WrapType;
 export 'src/core/common/enums.dart' show SpellCheckType;
+export 'src/core/common/enums.dart' show ScopeType;
 
 export 'src/core/common/enums.dart' show DomEventType;
 export 'src/core/common/enums.dart' show DomTagType;

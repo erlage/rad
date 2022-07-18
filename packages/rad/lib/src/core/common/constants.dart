@@ -163,6 +163,8 @@ class Attributes {
   static const step = 'step';
   static const wrap = 'wrap';
   static const spellCheck = 'spellcheck';
+  static const abbr = 'abbr';
+  static const scope = 'scope';
 
   static const max = 'max';
   static const min = 'min';

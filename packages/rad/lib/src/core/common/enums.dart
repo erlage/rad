@@ -151,6 +151,31 @@ enum SpellCheckType {
   const SpellCheckType(this.nativeName);
 }
 
+/// This enumerated attribute defines the cells that the header (defined in the
+/// TableHeaderCell) element relates to.
+///
+enum ScopeType {
+  /// The header relates to all cells of the row it belongs to.
+  ///
+  row('row'),
+
+  /// The header relates to all cells of the column it belongs to.
+  ///
+  column('col'),
+
+  /// The header belongs to a rowgroup and relates to all of its cells.
+  ///
+  rowGroup('rowgroup'),
+
+  /// The header belongs to a colgroup and relates to all of its cells.
+  ///
+  columnGroup('colgroup'),
+  ;
+
+  final String nativeName;
+  const ScopeType(this.nativeName);
+}
+
 /// HTML Input type.
 ///
 enum InputType {

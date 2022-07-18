@@ -5,6 +5,7 @@
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
@@ -18,6 +19,12 @@ import 'package:rad/src/widgets/html/table_head.dart';
 ///
 @internal
 abstract class HTMLTableCellBase extends HTMLWidgetBase {
+  /// This attribute contains a short abbreviated description of the cell's
+  /// content. Some user-agents, such as speech readers, may present this
+  /// description before the content itself.
+  ///
+  final String? abbr;
+
   /// This attribute contains a non-negative integer value that indicates for
   /// how many rows the cell extends. Its default value is 1; if its value is
   /// set to 0, it extends until the end of the table section ([TableHead],
@@ -39,10 +46,17 @@ abstract class HTMLTableCellBase extends HTMLWidgetBase {
   ///
   final String? headers;
 
+  /// This enumerated attribute defines the cells that the header element
+  /// relates to.
+  ///
+  final ScopeType? scope;
+
   const HTMLTableCellBase({
+    this.abbr,
     this.rowSpan,
     this.colSpan,
     this.headers,
+    this.scope,
     Key? key,
     String? id,
     String? title,
@@ -74,9 +88,11 @@ abstract class HTMLTableCellBase extends HTMLWidgetBase {
   ) {
     oldWidget as HTMLTableCellBase;
 
-    return rowSpan != oldWidget.rowSpan ||
+    return abbr != oldWidget.abbr ||
+        rowSpan != oldWidget.rowSpan ||
         colSpan != oldWidget.colSpan ||
         headers != oldWidget.headers ||
+        scope != oldWidget.scope ||
         super.shouldUpdateWidget(oldWidget);
   }
 
@@ -148,6 +164,10 @@ void _extendAttributes({
   required HTMLTableCellBase? oldWidget,
   required Map<String, String?> attributes,
 }) {
+  if (widget.abbr != oldWidget?.abbr) {
+    attributes[Attributes.abbr] = widget.abbr;
+  }
+
   if (widget.headers != oldWidget?.headers) {
     attributes[Attributes.headers] = widget.headers;
   }
@@ -166,5 +186,9 @@ void _extendAttributes({
     } else {
       attributes[Attributes.colSpan] = '${widget.colSpan}';
     }
+  }
+
+  if (widget.scope != oldWidget?.scope) {
+    attributes[Attributes.scope] = widget.scope?.nativeName;
   }
 }

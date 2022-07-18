@@ -267,8 +267,10 @@ widget_specific_tests = {
         'html_attr_headers',
     ],
     'TableHeaderCell': [
+        'html_attr_abbr',
         'html_attr_rowspan',
         'html_attr_colspan',
+        'html_attr_scope',
         'html_attr_headers',
     ],
     'TextArea': [

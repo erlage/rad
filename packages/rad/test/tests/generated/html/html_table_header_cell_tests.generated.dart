@@ -750,6 +750,106 @@ void html_table_header_cell_test() {
       expect(wO3.key?.frameworkValue, equals('some-key-3'));
     });
 
+    test('should set attribute "abbr"', () async {
+      await app!.buildChildren(
+        widgets: [
+          TableHeaderCell(key: Key('el-1'), abbr: 'some-abbr'),
+          TableHeaderCell(key: Key('el-2'), abbr: 'another-abbr'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('abbr'), equals('some-abbr'));
+      expect(domNode2.getAttribute('abbr'), equals('another-abbr'));
+    });
+
+    test('should update attribute "abbr"', () async {
+      await app!.buildChildren(
+        widgets: [
+          TableHeaderCell(key: Key('el-1'), abbr: 'some-abbr'),
+          TableHeaderCell(key: Key('el-2'), abbr: 'another-abbr'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          TableHeaderCell(key: Key('el-1'), abbr: 'updated-abbr'),
+          TableHeaderCell(key: Key('el-2'), abbr: 'another-abbr'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('abbr'), equals('updated-abbr'));
+      expect(domNode2.getAttribute('abbr'), equals('another-abbr'));
+    });
+
+    test('should clear attribute "abbr"', () async {
+      await app!.buildChildren(
+        widgets: [
+          TableHeaderCell(key: Key('el-1')),
+          TableHeaderCell(key: Key('el-2'), abbr: 'another-abbr'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          TableHeaderCell(key: Key('el-1')),
+          TableHeaderCell(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('abbr'), equals(null));
+      expect(domNode2.getAttribute('abbr'), equals(null));
+    });
+
+    test('should clear attribute "abbr" if updated abbr is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          TableHeaderCell(key: Key('el-1'), abbr: 'some-abbr'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          TableHeaderCell(key: Key('el-1'), abbr: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('abbr'), equals(null));
+    });
+
+    test('should not set attribute "abbr" if provided abbr is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          TableHeaderCell(key: Key('el-1'), abbr: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('abbr'), equals(null));
+    });
+
     test('should set attribute "rowSpan"', () async {
       await app!.buildChildren(
         widgets: [
@@ -950,6 +1050,78 @@ void html_table_header_cell_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
       expect(domNode1.getAttribute('colspan'), equals(null));
+    });
+
+    test('should set ordered list attribute "scope"', () async {
+      await app!.buildChildren(
+        widgets: [
+          TableHeaderCell(key: Key('el-1'), scope: ScopeType.row),
+          TableHeaderCell(key: Key('el-2'), scope: ScopeType.column),
+          TableHeaderCell(key: Key('el-3'), scope: ScopeType.rowGroup),
+          TableHeaderCell(key: Key('el-4'), scope: ScopeType.columnGroup),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
+
+      expect(
+        domNode1.getAttribute('scope'),
+        equals('row'),
+      );
+      expect(
+        domNode2.getAttribute('scope'),
+        equals('col'),
+      );
+      expect(
+        domNode3.getAttribute('scope'),
+        equals('rowgroup'),
+      );
+      expect(
+        domNode4.getAttribute('scope'),
+        equals('colgroup'),
+      );
+    });
+
+    test('should update ordered list attribute "scope"', () async {
+      await app!.buildChildren(
+        widgets: [
+          TableHeaderCell(key: Key('el-1'), scope: ScopeType.row),
+          TableHeaderCell(key: Key('el-2'), scope: ScopeType.column),
+          TableHeaderCell(key: Key('el-3'), scope: ScopeType.rowGroup),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          TableHeaderCell(key: Key('el-1')),
+          TableHeaderCell(key: Key('el-2'), scope: null),
+          TableHeaderCell(key: Key('el-3'), scope: ScopeType.columnGroup),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+
+      expect(
+        domNode1.getAttribute('scope'),
+        equals(null),
+      );
+      expect(
+        domNode2.getAttribute('scope'),
+        equals(null),
+      );
+      expect(
+        domNode3.getAttribute('scope'),
+        equals('colgroup'),
+      );
     });
 
     test('should set attribute "headers"', () async {

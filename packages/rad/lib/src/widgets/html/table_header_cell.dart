@@ -12,9 +12,11 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 ///
 class TableHeaderCell extends HTMLTableCellBase {
   const TableHeaderCell({
+    String? abbr,
     int? rowSpan,
     int? colSpan,
     String? headers,
+    ScopeType? scope,
     Key? key,
     String? id,
     String? title,
@@ -29,9 +31,11 @@ class TableHeaderCell extends HTMLTableCellBase {
   }) : super(
           key: key,
           id: id,
+          abbr: abbr,
           rowSpan: rowSpan,
           colSpan: colSpan,
           headers: headers,
+          scope: scope,
           title: title,
           style: style,
           className: className,
