@@ -333,7 +333,7 @@ enum KindType {
 
   /// Tracks used by scripts. Not visible to the user.
   ///
-  metadata('metadata'),
+  metaData('metadata'),
   ;
 
   final String nativeValue;

@@ -34,7 +34,6 @@ class RT_DomEvents {
     'mouseover',
     'mouseout',
     'mouseup',
-    'mousewheel',
   ];
 
   static const available = [

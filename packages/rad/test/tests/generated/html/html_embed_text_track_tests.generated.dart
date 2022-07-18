@@ -812,7 +812,7 @@ void html_embed_text_track_test() {
           EmbedTextTrack(key: Key('el-2'), kind: KindType.captions),
           EmbedTextTrack(key: Key('el-3'), kind: KindType.descriptions),
           EmbedTextTrack(key: Key('el-4'), kind: KindType.chapters),
-          EmbedTextTrack(key: Key('el-5'), kind: KindType.metadata),
+          EmbedTextTrack(key: Key('el-5'), kind: KindType.metaData),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -841,7 +841,7 @@ void html_embed_text_track_test() {
       );
       expect(
         domNode5.getAttribute('kind'),
-        equals(KindType.metadata.nativeValue),
+        equals(KindType.metaData.nativeValue),
       );
     });
 

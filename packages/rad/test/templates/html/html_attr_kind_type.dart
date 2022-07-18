@@ -5,7 +5,7 @@ test('should set attribute "kind"', () async {
           __WidgetClass__(key: Key('el-2'), kind: KindType.captions),
           __WidgetClass__(key: Key('el-3'), kind: KindType.descriptions),
           __WidgetClass__(key: Key('el-4'), kind: KindType.chapters),
-          __WidgetClass__(key: Key('el-5'), kind: KindType.metadata),
+          __WidgetClass__(key: Key('el-5'), kind: KindType.metaData),
         ],
         parentRenderElement: app!.appRenderElement,
     );
@@ -34,7 +34,7 @@ test('should set attribute "kind"', () async {
     );
     expect(
       domNode5.getAttribute('kind'),
-      equals(KindType.metadata.nativeValue),
+      equals(KindType.metaData.nativeValue),
     );
 });
 
