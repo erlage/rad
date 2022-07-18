@@ -12,7 +12,7 @@ DomEventType? fnMapEventTypeToDomEventType(String eventType) {
   var typeMap = <String, DomEventType>{};
 
   for (final type in DomEventType.values) {
-    typeMap[type.nativeName] = type;
+    typeMap[type.nativeValue] = type;
   }
 
   return typeMap[eventType];

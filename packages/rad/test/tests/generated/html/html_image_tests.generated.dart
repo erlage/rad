@@ -1005,11 +1005,11 @@ void html_image_test() {
 
       expect(
         domNode1.getAttribute('crossorigin'),
-        equals(CrossOriginType.anonymous.nativeName),
+        equals(CrossOriginType.anonymous.nativeValue),
       );
       expect(
         domNode2.getAttribute('crossorigin'),
-        equals(CrossOriginType.useCredentials.nativeName),
+        equals(CrossOriginType.useCredentials.nativeValue),
       );
     });
 
@@ -1047,7 +1047,7 @@ void html_image_test() {
       );
       expect(
         domNode3.getAttribute('crossorigin'),
-        equals(CrossOriginType.useCredentials.nativeName),
+        equals(CrossOriginType.useCredentials.nativeValue),
       );
     });
 
@@ -1067,15 +1067,15 @@ void html_image_test() {
 
       expect(
         domNode1.getAttribute('decoding'),
-        equals(DecodingType.sync.nativeName),
+        equals(DecodingType.sync.nativeValue),
       );
       expect(
         domNode2.getAttribute('decoding'),
-        equals(DecodingType.async.nativeName),
+        equals(DecodingType.async.nativeValue),
       );
       expect(
         domNode3.getAttribute('decoding'),
-        equals(DecodingType.auto.nativeName),
+        equals(DecodingType.auto.nativeValue),
       );
     });
 
@@ -1113,7 +1113,7 @@ void html_image_test() {
       );
       expect(
         domNode3.getAttribute('decoding'),
-        equals(DecodingType.sync.nativeName),
+        equals(DecodingType.sync.nativeValue),
       );
     });
 
@@ -1179,11 +1179,11 @@ void html_image_test() {
 
       expect(
         domNode1.getAttribute('loading'),
-        equals(LoadingType.eager.nativeName),
+        equals(LoadingType.eager.nativeValue),
       );
       expect(
         domNode2.getAttribute('loading'),
-        equals(LoadingType.lazy.nativeName),
+        equals(LoadingType.lazy.nativeValue),
       );
     });
 
@@ -1221,7 +1221,7 @@ void html_image_test() {
       );
       expect(
         domNode3.getAttribute('loading'),
-        equals(LoadingType.lazy.nativeName),
+        equals(LoadingType.lazy.nativeValue),
       );
     });
 
@@ -1332,7 +1332,7 @@ void html_image_test() {
       );
       expect(
         domNode3.getAttribute('referrerpolicy'),
-        equals(ReferrerPolicyType.originWhenCrossOrigin.nativeName),
+        equals(ReferrerPolicyType.originWhenCrossOrigin.nativeValue),
       );
     });
 

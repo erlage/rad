@@ -61,6 +61,6 @@ test('should update form attribute "enctype"', () async {
 
     expect(
         domNode3.getAttribute('enctype'),
-        equals(FormEncType.multipartFormData.nativeName),
+        equals(FormEncType.multipartFormData.nativeValue),
     );
 });

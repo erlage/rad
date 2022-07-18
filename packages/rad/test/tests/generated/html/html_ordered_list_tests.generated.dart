@@ -924,23 +924,23 @@ void html_ordered_list_test() {
 
       expect(
         domNode1.getAttribute('type'),
-        equals(ListType.lowerCaseLetters.nativeName),
+        equals(ListType.lowerCaseLetters.nativeValue),
       );
       expect(
         domNode2.getAttribute('type'),
-        equals(ListType.upperCaseLetters.nativeName),
+        equals(ListType.upperCaseLetters.nativeValue),
       );
       expect(
         domNode3.getAttribute('type'),
-        equals(ListType.lowerCaseRomanNumerals.nativeName),
+        equals(ListType.lowerCaseRomanNumerals.nativeValue),
       );
       expect(
         domNode4.getAttribute('type'),
-        equals(ListType.upperCaseRomanNumerals.nativeName),
+        equals(ListType.upperCaseRomanNumerals.nativeValue),
       );
       expect(
         domNode5.getAttribute('type'),
-        equals(ListType.numbers.nativeName),
+        equals(ListType.numbers.nativeValue),
       );
     });
 
@@ -978,7 +978,7 @@ void html_ordered_list_test() {
       );
       expect(
         domNode3.getAttribute('type'),
-        equals(ListType.upperCaseRomanNumerals.nativeName),
+        equals(ListType.upperCaseRomanNumerals.nativeValue),
       );
     });
   });

@@ -156,7 +156,7 @@ void _extendAttributes({
   }
 
   if (widget.kind != oldWidget?.kind) {
-    attributes[Attributes.kind] = widget.kind?.nativeName;
+    attributes[Attributes.kind] = widget.kind?.nativeValue;
   }
 
   if (widget.label != oldWidget?.label) {

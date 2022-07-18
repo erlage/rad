@@ -173,23 +173,23 @@ void _extendAttributes({
   }
 
   if (widget.crossOrigin != oldWidget?.crossOrigin) {
-    attributes[Attributes.crossOrigin] = widget.crossOrigin?.nativeName;
+    attributes[Attributes.crossOrigin] = widget.crossOrigin?.nativeValue;
   }
 
   if (widget.decoding != oldWidget?.decoding) {
-    attributes[Attributes.decoding] = widget.decoding?.nativeName;
+    attributes[Attributes.decoding] = widget.decoding?.nativeValue;
   }
 
   if (widget.fetchPriority != oldWidget?.fetchPriority) {
-    attributes[Attributes.fetchPriority] = widget.fetchPriority?.nativeName;
+    attributes[Attributes.fetchPriority] = widget.fetchPriority?.nativeValue;
   }
 
   if (widget.loading != oldWidget?.loading) {
-    attributes[Attributes.loading] = widget.loading?.nativeName;
+    attributes[Attributes.loading] = widget.loading?.nativeValue;
   }
 
   if (widget.referrerPolicy != oldWidget?.referrerPolicy) {
-    attributes[Attributes.referrerPolicy] = widget.referrerPolicy?.nativeName;
+    attributes[Attributes.referrerPolicy] = widget.referrerPolicy?.nativeValue;
   }
 
   if (widget.src != oldWidget?.src) {

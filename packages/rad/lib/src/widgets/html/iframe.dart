@@ -218,10 +218,10 @@ void _extendAttributes({
   }
 
   if (widget.fetchPriority != oldWidget?.fetchPriority) {
-    attributes[Attributes.fetchPriority] = widget.fetchPriority?.nativeName;
+    attributes[Attributes.fetchPriority] = widget.fetchPriority?.nativeValue;
   }
 
   if (widget.referrerPolicy != oldWidget?.referrerPolicy) {
-    attributes[Attributes.referrerPolicy] = widget.referrerPolicy?.nativeName;
+    attributes[Attributes.referrerPolicy] = widget.referrerPolicy?.nativeValue;
   }
 }

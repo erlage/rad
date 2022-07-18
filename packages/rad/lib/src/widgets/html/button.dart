@@ -194,7 +194,7 @@ void _extendAttributes({
   }
 
   if (widget.type != oldWidget?.type) {
-    attributes[Attributes.type] = widget.type?.nativeName;
+    attributes[Attributes.type] = widget.type?.nativeValue;
   }
 
   if (widget.disabled != oldWidget?.disabled) {
@@ -214,11 +214,11 @@ void _extendAttributes({
   }
 
   if (widget.formEncType != oldWidget?.formEncType) {
-    attributes[Attributes.formEncType] = widget.formEncType?.nativeName;
+    attributes[Attributes.formEncType] = widget.formEncType?.nativeValue;
   }
 
   if (widget.formMethod != oldWidget?.formMethod) {
-    attributes[Attributes.formMethod] = widget.formMethod?.nativeName;
+    attributes[Attributes.formMethod] = widget.formMethod?.nativeValue;
   }
 
   if (widget.formTarget != oldWidget?.formTarget) {

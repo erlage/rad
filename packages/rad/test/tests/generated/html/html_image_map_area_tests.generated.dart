@@ -1662,7 +1662,7 @@ void html_image_map_area_test() {
       );
       expect(
         domNode3.getAttribute('referrerpolicy'),
-        equals(ReferrerPolicyType.originWhenCrossOrigin.nativeName),
+        equals(ReferrerPolicyType.originWhenCrossOrigin.nativeValue),
       );
     });
 

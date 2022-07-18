@@ -12,11 +12,11 @@ test('should set form attribute "crossorigin"', () async {
 
     expect(
         domNode1.getAttribute('crossorigin'),
-        equals(CrossOriginType.anonymous.nativeName),
+        equals(CrossOriginType.anonymous.nativeValue),
     );
     expect(
         domNode2.getAttribute('crossorigin'),
-        equals(CrossOriginType.useCredentials.nativeName),
+        equals(CrossOriginType.useCredentials.nativeValue),
     );
 });
 
@@ -54,6 +54,6 @@ test('should update form attribute "crossorigin"', () async {
     );
     expect(
         domNode3.getAttribute('crossorigin'),
-        equals(CrossOriginType.useCredentials.nativeName),
+        equals(CrossOriginType.useCredentials.nativeValue),
     );
 });

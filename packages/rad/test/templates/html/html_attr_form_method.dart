@@ -12,11 +12,11 @@ test('should set form attribute "formmethod"', () async {
 
     expect(
         domNode1.getAttribute('formmethod'),
-        equals(FormMethodType.get.nativeName),
+        equals(FormMethodType.get.nativeValue),
     );
     expect(
         domNode2.getAttribute('formmethod'),
-        equals(FormMethodType.post.nativeName),
+        equals(FormMethodType.post.nativeValue),
     );
 });
 
@@ -54,6 +54,6 @@ test('should update form attribute "formmethod"', () async {
     );
     expect(
         domNode3.getAttribute('formmethod'),
-        equals(FormMethodType.post.nativeName),
+        equals(FormMethodType.post.nativeValue),
     );
 });

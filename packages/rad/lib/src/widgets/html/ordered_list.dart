@@ -133,7 +133,7 @@ void _extendAttributes({
   required Map<String, String?> attributes,
 }) {
   if (widget.type != oldWidget?.type) {
-    attributes[Attributes.type] = widget.type?.nativeName;
+    attributes[Attributes.type] = widget.type?.nativeValue;
   }
 
   if (widget.start != oldWidget?.start) {

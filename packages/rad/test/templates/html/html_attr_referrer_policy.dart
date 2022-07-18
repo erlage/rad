@@ -90,6 +90,6 @@ test('should update attribute "referrerpolicy"', () async {
     );
     expect(
         domNode3.getAttribute('referrerpolicy'),
-        equals(ReferrerPolicyType.originWhenCrossOrigin.nativeName),
+        equals(ReferrerPolicyType.originWhenCrossOrigin.nativeValue),
     );
 });

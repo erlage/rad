@@ -127,6 +127,6 @@ void _extendAttributes({
   required Map<String, String?> attributes,
 }) {
   if (widget.dir != oldWidget?.dir) {
-    attributes[Attributes.dir] = widget.dir?.nativeName;
+    attributes[Attributes.dir] = widget.dir?.nativeValue;
   }
 }

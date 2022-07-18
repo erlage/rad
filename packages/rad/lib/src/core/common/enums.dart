@@ -61,8 +61,8 @@ enum DirectionType {
   auto('auto'),
   ;
 
-  final String nativeName;
-  const DirectionType(this.nativeName);
+  final String nativeValue;
+  const DirectionType(this.nativeValue);
 }
 
 /// Indicates how the control wraps text.
@@ -86,8 +86,8 @@ enum WrapType {
   off('off'),
   ;
 
-  final String nativeName;
-  const WrapType(this.nativeName);
+  final String nativeValue;
+  const WrapType(this.nativeValue);
 }
 
 /// Specifies whether the <textarea> is subject to spell checking by the
@@ -108,8 +108,8 @@ enum SpellCheckType {
   defaultValue('default'),
   ;
 
-  final String nativeName;
-  const SpellCheckType(this.nativeName);
+  final String nativeValue;
+  const SpellCheckType(this.nativeValue);
 }
 
 /// This enumerated attribute defines the cells that the header (defined in the
@@ -133,8 +133,8 @@ enum ScopeType {
   columnGroup('colgroup'),
   ;
 
-  final String nativeName;
-  const ScopeType(this.nativeName);
+  final String nativeValue;
+  const ScopeType(this.nativeValue);
 }
 
 /// HTML Input type.
@@ -150,8 +150,8 @@ enum InputType {
   submit('submit'),
   ;
 
-  final String nativeName;
-  const InputType(this.nativeName);
+  final String nativeValue;
+  const InputType(this.nativeValue);
 }
 
 /// HTML form's encoding type.
@@ -162,8 +162,8 @@ enum FormEncType {
   textPlain('text/plain'),
   ;
 
-  final String nativeName;
-  const FormEncType(this.nativeName);
+  final String nativeValue;
+  const FormEncType(this.nativeValue);
 }
 
 /// HTML form's method type.
@@ -173,8 +173,8 @@ enum FormMethodType {
   get('get'),
   ;
 
-  final String nativeName;
-  const FormMethodType(this.nativeName);
+  final String nativeValue;
+  const FormMethodType(this.nativeValue);
 }
 
 /// Type of Button.
@@ -187,8 +187,8 @@ enum ButtonType {
   reset('reset'),
   ;
 
-  final String nativeName;
-  const ButtonType(this.nativeName);
+  final String nativeValue;
+  const ButtonType(this.nativeValue);
 }
 
 /// Type of ordered list.
@@ -201,8 +201,8 @@ enum ListType {
   numbers('1'),
   ;
 
-  final String nativeName;
-  const ListType(this.nativeName);
+  final String nativeValue;
+  const ListType(this.nativeValue);
 }
 
 /// Cross origin request type.
@@ -220,8 +220,8 @@ enum CrossOriginType {
   ///
   useCredentials('use-credentials');
 
-  final String nativeName;
-  const CrossOriginType(this.nativeName);
+  final String nativeValue;
+  const CrossOriginType(this.nativeValue);
 }
 
 /// Decoding type.
@@ -241,8 +241,8 @@ enum DecodingType {
   ///
   auto('auto');
 
-  final String nativeName;
-  const DecodingType(this.nativeName);
+  final String nativeValue;
+  const DecodingType(this.nativeValue);
 }
 
 enum LoadingType {
@@ -257,8 +257,8 @@ enum LoadingType {
   lazy('lazy'),
   ;
 
-  final String nativeName;
-  const LoadingType(this.nativeName);
+  final String nativeValue;
+  const LoadingType(this.nativeValue);
 }
 
 /// Preload type.
@@ -282,8 +282,8 @@ enum PreloadType {
   empty(''),
   ;
 
-  final String nativeName;
-  const PreloadType(this.nativeName);
+  final String nativeValue;
+  const PreloadType(this.nativeValue);
 }
 
 /// Provides a hint of the relative priority to use when fetching the resource.
@@ -303,8 +303,8 @@ enum FetchPriorityType {
   auto('auto'),
   ;
 
-  final String nativeName;
-  const FetchPriorityType(this.nativeName);
+  final String nativeValue;
+  const FetchPriorityType(this.nativeValue);
 }
 
 enum KindType {
@@ -336,8 +336,8 @@ enum KindType {
   metadata('metadata'),
   ;
 
-  final String nativeName;
-  const KindType(this.nativeName);
+  final String nativeValue;
+  const KindType(this.nativeValue);
 }
 
 /// The Referrer-Policy HTTP header controls how much referrer information
@@ -387,8 +387,8 @@ enum ReferrerPolicyType {
   ///
   unSafeUrl('unsafe-url');
 
-  final String nativeName;
-  const ReferrerPolicyType(this.nativeName);
+  final String nativeValue;
+  const ReferrerPolicyType(this.nativeValue);
 }
 
 /// Type of DOM event.
@@ -424,8 +424,8 @@ enum DomEventType {
   mouseUp('mouseup'),
   ;
 
-  final String nativeName;
-  const DomEventType(this.nativeName);
+  final String nativeValue;
+  const DomEventType(this.nativeValue);
 }
 
 /// Widget's corresponding DOM tag.
@@ -527,8 +527,8 @@ enum DomTagType {
   video('video'),
   ;
 
-  final String nativeName;
-  const DomTagType(this.nativeName);
+  final String nativeValue;
+  const DomTagType(this.nativeValue);
 }
 
 /// Type of update event that's happend in parent tree.

@@ -14,15 +14,15 @@ test('should set attribute "dir"', () async {
 
     expect(
       domNode1.getAttribute('dir'),
-      equals(DirectionType.leftToRight.nativeName),
+      equals(DirectionType.leftToRight.nativeValue),
     );
     expect(
       domNode2.getAttribute('dir'),
-      equals(DirectionType.rightToLeft.nativeName),
+      equals(DirectionType.rightToLeft.nativeValue),
     );
     expect(
       domNode3.getAttribute('dir'),
-      equals(DirectionType.auto.nativeName),
+      equals(DirectionType.auto.nativeValue),
     );
 });
 
@@ -60,6 +60,6 @@ test('should update attribute "dir"', () async {
     );
     expect(
         domNode3.getAttribute('dir'),
-        equals(DirectionType.leftToRight.nativeName),
+        equals(DirectionType.leftToRight.nativeValue),
     );
 });

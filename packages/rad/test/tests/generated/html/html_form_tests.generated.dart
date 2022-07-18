@@ -1497,11 +1497,11 @@ void html_form_test() {
 
       expect(
         domNode1.getAttribute('method'),
-        equals(FormMethodType.get.nativeName),
+        equals(FormMethodType.get.nativeValue),
       );
       expect(
         domNode2.getAttribute('method'),
-        equals(FormMethodType.post.nativeName),
+        equals(FormMethodType.post.nativeValue),
       );
     });
 
@@ -1539,7 +1539,7 @@ void html_form_test() {
       );
       expect(
         domNode3.getAttribute('method'),
-        equals(FormMethodType.post.nativeName),
+        equals(FormMethodType.post.nativeValue),
       );
     });
 
@@ -1606,7 +1606,7 @@ void html_form_test() {
 
       expect(
         domNode3.getAttribute('enctype'),
-        equals(FormEncType.multipartFormData.nativeName),
+        equals(FormEncType.multipartFormData.nativeValue),
       );
     });
 

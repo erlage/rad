@@ -209,7 +209,7 @@ void _extendAttributes({
   }
 
   if (widget.crossOrigin != oldWidget?.crossOrigin) {
-    attributes[Attributes.crossOrigin] = widget.crossOrigin?.nativeName;
+    attributes[Attributes.crossOrigin] = widget.crossOrigin?.nativeValue;
   }
 
   if (widget.height != oldWidget?.height) {
@@ -245,7 +245,7 @@ void _extendAttributes({
   }
 
   if (widget.preload != oldWidget?.preload) {
-    attributes[Attributes.preload] = widget.preload?.nativeName;
+    attributes[Attributes.preload] = widget.preload?.nativeValue;
   }
 
   if (widget.src != oldWidget?.src) {

@@ -211,11 +211,11 @@ void _extendAttributes({
   }
 
   if (widget.enctype != oldWidget?.enctype) {
-    attributes[Attributes.enctype] = widget.enctype?.nativeName;
+    attributes[Attributes.enctype] = widget.enctype?.nativeValue;
   }
 
   if (widget.method != oldWidget?.method) {
-    attributes[Attributes.method] = widget.method?.nativeName;
+    attributes[Attributes.method] = widget.method?.nativeValue;
   }
 
   if (widget.noValidate != oldWidget?.noValidate) {

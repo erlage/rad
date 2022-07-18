@@ -16,19 +16,19 @@ test('should set ordered list attribute "preload"', () async {
 
     expect(
       domNode1.getAttribute('preload'),
-      equals(PreloadType.none.nativeName),
+      equals(PreloadType.none.nativeValue),
     );
     expect(
       domNode2.getAttribute('preload'),
-      equals(PreloadType.metaData.nativeName),
+      equals(PreloadType.metaData.nativeValue),
     );
     expect(
       domNode3.getAttribute('preload'),
-      equals(PreloadType.auto.nativeName),
+      equals(PreloadType.auto.nativeValue),
     );
     expect(
       domNode4.getAttribute('preload'),
-      equals(PreloadType.empty.nativeName),
+      equals(PreloadType.empty.nativeValue),
     );
 });
 
@@ -66,6 +66,6 @@ test('should update ordered list attribute "preload"', () async {
     );
     expect(
         domNode3.getAttribute('preload'),
-        equals(PreloadType.empty.nativeName),
+        equals(PreloadType.empty.nativeValue),
     );
 });

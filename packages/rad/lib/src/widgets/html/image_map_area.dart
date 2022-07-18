@@ -209,7 +209,7 @@ void _extendAttributes({
   }
 
   if (widget.referrerPolicy != oldWidget?.referrerPolicy) {
-    attributes[Attributes.referrerPolicy] = widget.referrerPolicy?.nativeName;
+    attributes[Attributes.referrerPolicy] = widget.referrerPolicy?.nativeValue;
   }
 
   if (widget.shape != oldWidget?.shape) {

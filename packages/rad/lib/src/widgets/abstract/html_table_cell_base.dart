@@ -189,6 +189,6 @@ void _extendAttributes({
   }
 
   if (widget.scope != oldWidget?.scope) {
-    attributes[Attributes.scope] = widget.scope?.nativeName;
+    attributes[Attributes.scope] = widget.scope?.nativeValue;
   }
 }

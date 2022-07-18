@@ -14,15 +14,15 @@ test('should set ordered list attribute "decoding"', () async {
 
     expect(
       domNode1.getAttribute('decoding'),
-      equals(DecodingType.sync.nativeName),
+      equals(DecodingType.sync.nativeValue),
     );
     expect(
       domNode2.getAttribute('decoding'),
-      equals(DecodingType.async.nativeName),
+      equals(DecodingType.async.nativeValue),
     );
     expect(
       domNode3.getAttribute('decoding'),
-      equals(DecodingType.auto.nativeName),
+      equals(DecodingType.auto.nativeValue),
     );
 });
 
@@ -60,6 +60,6 @@ test('should update ordered list attribute "decoding"', () async {
     );
     expect(
         domNode3.getAttribute('decoding'),
-        equals(DecodingType.sync.nativeName),
+        equals(DecodingType.sync.nativeValue),
     );
 });

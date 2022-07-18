@@ -949,7 +949,7 @@ void html_input_submit_test() {
 
       expect(
         domNode3.getAttribute('formenctype'),
-        equals(FormEncType.multipartFormData.nativeName),
+        equals(FormEncType.multipartFormData.nativeValue),
       );
     });
 
@@ -967,11 +967,11 @@ void html_input_submit_test() {
 
       expect(
         domNode1.getAttribute('formmethod'),
-        equals(FormMethodType.get.nativeName),
+        equals(FormMethodType.get.nativeValue),
       );
       expect(
         domNode2.getAttribute('formmethod'),
-        equals(FormMethodType.post.nativeName),
+        equals(FormMethodType.post.nativeValue),
       );
     });
 
@@ -1009,7 +1009,7 @@ void html_input_submit_test() {
       );
       expect(
         domNode3.getAttribute('formmethod'),
-        equals(FormMethodType.post.nativeName),
+        equals(FormMethodType.post.nativeValue),
       );
     });
 

@@ -12,11 +12,11 @@ test('should set form attribute "loading"', () async {
 
     expect(
         domNode1.getAttribute('loading'),
-        equals(LoadingType.eager.nativeName),
+        equals(LoadingType.eager.nativeValue),
     );
     expect(
         domNode2.getAttribute('loading'),
-        equals(LoadingType.lazy.nativeName),
+        equals(LoadingType.lazy.nativeValue),
     );
 });
 
@@ -54,6 +54,6 @@ test('should update form attribute "loading"', () async {
     );
     expect(
         domNode3.getAttribute('loading'),
-        equals(LoadingType.lazy.nativeName),
+        equals(LoadingType.lazy.nativeValue),
     );
 });

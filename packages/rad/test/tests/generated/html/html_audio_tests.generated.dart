@@ -870,11 +870,11 @@ void html_audio_test() {
 
       expect(
         domNode1.getAttribute('crossorigin'),
-        equals(CrossOriginType.anonymous.nativeName),
+        equals(CrossOriginType.anonymous.nativeValue),
       );
       expect(
         domNode2.getAttribute('crossorigin'),
-        equals(CrossOriginType.useCredentials.nativeName),
+        equals(CrossOriginType.useCredentials.nativeValue),
       );
     });
 
@@ -912,7 +912,7 @@ void html_audio_test() {
       );
       expect(
         domNode3.getAttribute('crossorigin'),
-        equals(CrossOriginType.useCredentials.nativeName),
+        equals(CrossOriginType.useCredentials.nativeValue),
       );
     });
 
@@ -1040,19 +1040,19 @@ void html_audio_test() {
 
       expect(
         domNode1.getAttribute('preload'),
-        equals(PreloadType.none.nativeName),
+        equals(PreloadType.none.nativeValue),
       );
       expect(
         domNode2.getAttribute('preload'),
-        equals(PreloadType.metaData.nativeName),
+        equals(PreloadType.metaData.nativeValue),
       );
       expect(
         domNode3.getAttribute('preload'),
-        equals(PreloadType.auto.nativeName),
+        equals(PreloadType.auto.nativeValue),
       );
       expect(
         domNode4.getAttribute('preload'),
-        equals(PreloadType.empty.nativeName),
+        equals(PreloadType.empty.nativeValue),
       );
     });
 
@@ -1090,7 +1090,7 @@ void html_audio_test() {
       );
       expect(
         domNode3.getAttribute('preload'),
-        equals(PreloadType.empty.nativeName),
+        equals(PreloadType.empty.nativeValue),
       );
     });
 

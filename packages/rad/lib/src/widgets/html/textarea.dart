@@ -291,11 +291,11 @@ void _extendAttributes({
   }
 
   if (widget.spellCheck != oldWidget?.spellCheck) {
-    attributes[Attributes.spellCheck] = widget.spellCheck?.nativeName;
+    attributes[Attributes.spellCheck] = widget.spellCheck?.nativeValue;
   }
 
   if (widget.wrap != oldWidget?.wrap) {
-    attributes[Attributes.wrap] = widget.wrap?.nativeName;
+    attributes[Attributes.wrap] = widget.wrap?.nativeValue;
   }
 }
 

@@ -220,14 +220,14 @@ class _GestureDetectorState {
   }
 
   void _addListener(DomEventType eventType) {
-    var nativeType = eventType.nativeName;
+    var nativeType = eventType.nativeValue;
     var useCapture = HitTestBehavior.opaque == widget.behaviour;
 
     domNode.addEventListener(nativeType, _handleNative, useCapture);
   }
 
   void _removeListener(DomEventType eventType) {
-    var nativeType = eventType.nativeName;
+    var nativeType = eventType.nativeValue;
 
     domNode.removeEventListener(nativeType, _handleNative);
   }

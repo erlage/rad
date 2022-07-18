@@ -221,7 +221,7 @@ class Renderer with ServicesResolver {
 
     Element? domNode;
 
-    var tagName = widget.correspondingTag?.nativeName;
+    var tagName = widget.correspondingTag?.nativeValue;
     if (null != tagName) {
       domNode = document.createElement(tagName);
 

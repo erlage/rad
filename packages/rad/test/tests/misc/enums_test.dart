@@ -9,7 +9,7 @@ void main() {
     test('should be available', () {
       for (final eventType in DirectionType.values) {
         expect(
-          eventType.nativeName,
+          eventType.nativeValue,
           RT_IsInKnownItems<String>(RT_DirectionTypes.available),
         );
       }
@@ -18,7 +18,7 @@ void main() {
     test('should be implemented', () {
       for (final eventType in DirectionType.values) {
         expect(
-          eventType.nativeName,
+          eventType.nativeValue,
           RT_IsInKnownItems<String>(RT_DirectionTypes.implemented),
         );
       }
@@ -26,7 +26,7 @@ void main() {
 
     test('should be lowercase', () {
       for (final eventType in DirectionType.values) {
-        expect(eventType.nativeName, RT_IsLowerCase());
+        expect(eventType.nativeValue, RT_IsLowerCase());
       }
     });
   });
@@ -35,7 +35,7 @@ void main() {
     test('should be available', () {
       for (final eventType in WrapType.values) {
         expect(
-          eventType.nativeName,
+          eventType.nativeValue,
           RT_IsInKnownItems<String>(RT_WrapTypes.available),
         );
       }
@@ -44,7 +44,7 @@ void main() {
     test('should be implemented', () {
       for (final eventType in WrapType.values) {
         expect(
-          eventType.nativeName,
+          eventType.nativeValue,
           RT_IsInKnownItems<String>(RT_WrapTypes.implemented),
         );
       }
@@ -52,7 +52,7 @@ void main() {
 
     test('should be lowercase', () {
       for (final eventType in WrapType.values) {
-        expect(eventType.nativeName, RT_IsLowerCase());
+        expect(eventType.nativeValue, RT_IsLowerCase());
       }
     });
   });
@@ -61,7 +61,7 @@ void main() {
     test('should be available', () {
       for (final eventType in SpellCheckType.values) {
         expect(
-          eventType.nativeName,
+          eventType.nativeValue,
           RT_IsInKnownItems<String>(RT_SpellCheckTypes.available),
         );
       }
@@ -70,7 +70,7 @@ void main() {
     test('should be implemented', () {
       for (final eventType in SpellCheckType.values) {
         expect(
-          eventType.nativeName,
+          eventType.nativeValue,
           RT_IsInKnownItems<String>(RT_SpellCheckTypes.implemented),
         );
       }
@@ -78,7 +78,7 @@ void main() {
 
     test('should be lowercase', () {
       for (final eventType in SpellCheckType.values) {
-        expect(eventType.nativeName, RT_IsLowerCase());
+        expect(eventType.nativeValue, RT_IsLowerCase());
       }
     });
   });
@@ -87,7 +87,7 @@ void main() {
     test('should be available', () {
       for (final eventType in ScopeType.values) {
         expect(
-          eventType.nativeName,
+          eventType.nativeValue,
           RT_IsInKnownItems<String>(RT_ScopeTypes.available),
         );
       }
@@ -96,7 +96,7 @@ void main() {
     test('should be implemented', () {
       for (final eventType in ScopeType.values) {
         expect(
-          eventType.nativeName,
+          eventType.nativeValue,
           RT_IsInKnownItems<String>(RT_ScopeTypes.implemented),
         );
       }
@@ -104,7 +104,7 @@ void main() {
 
     test('should be lowercase', () {
       for (final eventType in ScopeType.values) {
-        expect(eventType.nativeName, RT_IsLowerCase());
+        expect(eventType.nativeValue, RT_IsLowerCase());
       }
     });
   });
@@ -113,7 +113,7 @@ void main() {
     test('should be available', () {
       for (final inputType in InputType.values) {
         expect(
-          inputType.nativeName,
+          inputType.nativeValue,
           RT_IsInKnownItems<String>(RT_InputTypes.available),
         );
       }
@@ -122,7 +122,7 @@ void main() {
     test('should be implemented', () {
       for (final inputType in InputType.values) {
         expect(
-          inputType.nativeName,
+          inputType.nativeValue,
           RT_IsInKnownItems<String>(RT_InputTypes.implemented),
         );
       }
@@ -130,7 +130,7 @@ void main() {
 
     test('should be lowercase', () {
       for (final inputType in InputType.values) {
-        expect(inputType.nativeName, RT_IsLowerCase());
+        expect(inputType.nativeValue, RT_IsLowerCase());
       }
     });
   });
@@ -139,7 +139,7 @@ void main() {
     test('should be available', () {
       for (final enctype in FormEncType.values) {
         expect(
-          enctype.nativeName,
+          enctype.nativeValue,
           RT_IsInKnownItems<String>(RT_FormTypes.available),
         );
       }
@@ -148,7 +148,7 @@ void main() {
     test('should be implemented', () {
       for (final enctype in FormEncType.values) {
         expect(
-          enctype.nativeName,
+          enctype.nativeValue,
           RT_IsInKnownItems<String>(RT_FormTypes.implemented),
         );
       }
@@ -156,7 +156,7 @@ void main() {
 
     test('should be lowercase', () {
       for (final enctype in FormEncType.values) {
-        expect(enctype.nativeName, RT_IsLowerCase());
+        expect(enctype.nativeValue, RT_IsLowerCase());
       }
     });
   });
@@ -165,7 +165,7 @@ void main() {
     test('should be available', () {
       for (final method in FormMethodType.values) {
         expect(
-          method.nativeName,
+          method.nativeValue,
           RT_IsInKnownItems<String>(RT_FormMethods.available),
         );
       }
@@ -174,7 +174,7 @@ void main() {
     test('should be implemented', () {
       for (final method in FormMethodType.values) {
         expect(
-          method.nativeName,
+          method.nativeValue,
           RT_IsInKnownItems<String>(RT_FormMethods.implemented),
         );
       }
@@ -182,7 +182,7 @@ void main() {
 
     test('should be lowercase', () {
       for (final method in FormMethodType.values) {
-        expect(method.nativeName, RT_IsLowerCase());
+        expect(method.nativeValue, RT_IsLowerCase());
       }
     });
   });
@@ -191,7 +191,7 @@ void main() {
     test('should be available', () {
       for (final buttonType in ButtonType.values) {
         expect(
-          buttonType.nativeName,
+          buttonType.nativeValue,
           RT_IsInKnownItems<String>(RT_ButtonTypes.available),
         );
       }
@@ -200,7 +200,7 @@ void main() {
     test('should be implemented', () {
       for (final buttonType in ButtonType.values) {
         expect(
-          buttonType.nativeName,
+          buttonType.nativeValue,
           RT_IsInKnownItems<String>(RT_ButtonTypes.implemented),
         );
       }
@@ -208,7 +208,7 @@ void main() {
 
     test('should be lowercase', () {
       for (final buttonType in ButtonType.values) {
-        expect(buttonType.nativeName, RT_IsLowerCase());
+        expect(buttonType.nativeValue, RT_IsLowerCase());
       }
     });
   });
@@ -217,7 +217,7 @@ void main() {
     test('should be available', () {
       for (final buttonType in ListType.values) {
         expect(
-          buttonType.nativeName,
+          buttonType.nativeValue,
           RT_IsInKnownItems<String>(RT_ListTypes.available),
         );
       }
@@ -226,7 +226,7 @@ void main() {
     test('should be implemented', () {
       for (final buttonType in ListType.values) {
         expect(
-          buttonType.nativeName,
+          buttonType.nativeValue,
           RT_IsInKnownItems<String>(RT_ListTypes.implemented),
         );
       }
@@ -237,7 +237,7 @@ void main() {
     test('should be available', () {
       for (final buttonType in CrossOriginType.values) {
         expect(
-          buttonType.nativeName,
+          buttonType.nativeValue,
           RT_IsInKnownItems<String>(RT_CrossOriginTypes.available),
         );
       }
@@ -246,7 +246,7 @@ void main() {
     test('should be implemented', () {
       for (final buttonType in CrossOriginType.values) {
         expect(
-          buttonType.nativeName,
+          buttonType.nativeValue,
           RT_IsInKnownItems<String>(RT_CrossOriginTypes.implemented),
         );
       }
@@ -254,7 +254,7 @@ void main() {
 
     test('should be lowercase', () {
       for (final buttonType in CrossOriginType.values) {
-        expect(buttonType.nativeName, RT_IsLowerCase());
+        expect(buttonType.nativeValue, RT_IsLowerCase());
       }
     });
   });
@@ -263,7 +263,7 @@ void main() {
     test('should be available', () {
       for (final buttonType in DecodingType.values) {
         expect(
-          buttonType.nativeName,
+          buttonType.nativeValue,
           RT_IsInKnownItems<String>(RT_DecodingTypes.available),
         );
       }
@@ -272,7 +272,7 @@ void main() {
     test('should be implemented', () {
       for (final buttonType in DecodingType.values) {
         expect(
-          buttonType.nativeName,
+          buttonType.nativeValue,
           RT_IsInKnownItems<String>(RT_DecodingTypes.implemented),
         );
       }
@@ -280,7 +280,7 @@ void main() {
 
     test('should be lowercase', () {
       for (final buttonType in DecodingType.values) {
-        expect(buttonType.nativeName, RT_IsLowerCase());
+        expect(buttonType.nativeValue, RT_IsLowerCase());
       }
     });
   });
@@ -289,7 +289,7 @@ void main() {
     test('should be available', () {
       for (final buttonType in LoadingType.values) {
         expect(
-          buttonType.nativeName,
+          buttonType.nativeValue,
           RT_IsInKnownItems<String>(RT_LoadingTypes.available),
         );
       }
@@ -298,7 +298,7 @@ void main() {
     test('should be implemented', () {
       for (final buttonType in LoadingType.values) {
         expect(
-          buttonType.nativeName,
+          buttonType.nativeValue,
           RT_IsInKnownItems<String>(RT_LoadingTypes.implemented),
         );
       }
@@ -306,7 +306,7 @@ void main() {
 
     test('should be lowercase', () {
       for (final buttonType in LoadingType.values) {
-        expect(buttonType.nativeName, RT_IsLowerCase());
+        expect(buttonType.nativeValue, RT_IsLowerCase());
       }
     });
   });
@@ -315,7 +315,7 @@ void main() {
     test('should be available', () {
       for (final buttonType in PreloadType.values) {
         expect(
-          buttonType.nativeName,
+          buttonType.nativeValue,
           RT_IsInKnownItems<String>(RT_PreloadTypes.available),
         );
       }
@@ -324,7 +324,7 @@ void main() {
     test('should be implemented', () {
       for (final buttonType in PreloadType.values) {
         expect(
-          buttonType.nativeName,
+          buttonType.nativeValue,
           RT_IsInKnownItems<String>(RT_PreloadTypes.implemented),
         );
       }
@@ -332,7 +332,7 @@ void main() {
 
     test('should be lowercase', () {
       for (final buttonType in PreloadType.values) {
-        expect(buttonType.nativeName, RT_IsLowerCase());
+        expect(buttonType.nativeValue, RT_IsLowerCase());
       }
     });
   });
@@ -341,7 +341,7 @@ void main() {
     test('should be available', () {
       for (final buttonType in FetchPriorityType.values) {
         expect(
-          buttonType.nativeName,
+          buttonType.nativeValue,
           RT_IsInKnownItems<String>(RT_FetchPriorityTypes.available),
         );
       }
@@ -350,7 +350,7 @@ void main() {
     test('should be implemented', () {
       for (final buttonType in FetchPriorityType.values) {
         expect(
-          buttonType.nativeName,
+          buttonType.nativeValue,
           RT_IsInKnownItems<String>(RT_FetchPriorityTypes.implemented),
         );
       }
@@ -358,7 +358,7 @@ void main() {
 
     test('should be lowercase', () {
       for (final buttonType in FetchPriorityType.values) {
-        expect(buttonType.nativeName, RT_IsLowerCase());
+        expect(buttonType.nativeValue, RT_IsLowerCase());
       }
     });
   });
@@ -367,7 +367,7 @@ void main() {
     test('should be available', () {
       for (final buttonType in KindType.values) {
         expect(
-          buttonType.nativeName,
+          buttonType.nativeValue,
           RT_IsInKnownItems<String>(RT_KindTypes.available),
         );
       }
@@ -376,7 +376,7 @@ void main() {
     test('should be implemented', () {
       for (final buttonType in KindType.values) {
         expect(
-          buttonType.nativeName,
+          buttonType.nativeValue,
           RT_IsInKnownItems<String>(RT_KindTypes.implemented),
         );
       }
@@ -384,7 +384,7 @@ void main() {
 
     test('should be lowercase', () {
       for (final buttonType in KindType.values) {
-        expect(buttonType.nativeName, RT_IsLowerCase());
+        expect(buttonType.nativeValue, RT_IsLowerCase());
       }
     });
   });
@@ -393,7 +393,7 @@ void main() {
     test('should be available', () {
       for (final buttonType in ReferrerPolicyType.values) {
         expect(
-          buttonType.nativeName,
+          buttonType.nativeValue,
           RT_IsInKnownItems<String>(RT_ReferrerPolicyTypes.available),
         );
       }
@@ -402,7 +402,7 @@ void main() {
     test('should be implemented', () {
       for (final buttonType in ReferrerPolicyType.values) {
         expect(
-          buttonType.nativeName,
+          buttonType.nativeValue,
           RT_IsInKnownItems<String>(RT_ReferrerPolicyTypes.implemented),
         );
       }
@@ -410,7 +410,7 @@ void main() {
 
     test('should be lowercase', () {
       for (final buttonType in ReferrerPolicyType.values) {
-        expect(buttonType.nativeName, RT_IsLowerCase());
+        expect(buttonType.nativeValue, RT_IsLowerCase());
       }
     });
   });
@@ -419,7 +419,7 @@ void main() {
     test('should be available', () {
       for (final eventType in DomEventType.values) {
         expect(
-          eventType.nativeName,
+          eventType.nativeValue,
           RT_IsInKnownItems<String>(RT_DomEvents.available),
         );
       }
@@ -428,7 +428,7 @@ void main() {
     test('should be implemented', () {
       for (final eventType in DomEventType.values) {
         expect(
-          eventType.nativeName,
+          eventType.nativeValue,
           RT_IsInKnownItems<String>(RT_DomEvents.implemented),
         );
       }
@@ -436,7 +436,7 @@ void main() {
 
     test('should be lowercase', () {
       for (final eventType in DomEventType.values) {
-        expect(eventType.nativeName, RT_IsLowerCase());
+        expect(eventType.nativeValue, RT_IsLowerCase());
       }
     });
   });
@@ -445,7 +445,7 @@ void main() {
     test('should be available', () {
       for (final domTag in DomTagType.values) {
         expect(
-          domTag.nativeName,
+          domTag.nativeValue,
           RT_IsInKnownItems<String>(RT_DomTags.available),
         );
       }
@@ -454,7 +454,7 @@ void main() {
     test('should be implemented', () {
       for (final domNodeType in DomTagType.values) {
         expect(
-          domNodeType.nativeName,
+          domNodeType.nativeValue,
           RT_IsInKnownItems<String>(RT_DomTags.implemented),
         );
       }
@@ -462,13 +462,13 @@ void main() {
 
     test('should be lowercase', () {
       for (final domTag in DomTagType.values) {
-        expect(domTag.nativeName, RT_IsLowerCase());
+        expect(domTag.nativeValue, RT_IsLowerCase());
       }
     });
 
     test('should be without space', () {
       for (final domNodeType in DomTagType.values) {
-        expect(domNodeType.nativeName, RT_IsWithoutSpace());
+        expect(domNodeType.nativeValue, RT_IsWithoutSpace());
       }
     });
   });

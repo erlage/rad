@@ -825,23 +825,23 @@ void html_embed_text_track_test() {
 
       expect(
         domNode1.getAttribute('kind'),
-        equals(KindType.subtitles.nativeName),
+        equals(KindType.subtitles.nativeValue),
       );
       expect(
         domNode2.getAttribute('kind'),
-        equals(KindType.captions.nativeName),
+        equals(KindType.captions.nativeValue),
       );
       expect(
         domNode3.getAttribute('kind'),
-        equals(KindType.descriptions.nativeName),
+        equals(KindType.descriptions.nativeValue),
       );
       expect(
         domNode4.getAttribute('kind'),
-        equals(KindType.chapters.nativeName),
+        equals(KindType.chapters.nativeValue),
       );
       expect(
         domNode5.getAttribute('kind'),
-        equals(KindType.metadata.nativeName),
+        equals(KindType.metadata.nativeValue),
       );
     });
 
@@ -879,7 +879,7 @@ void html_embed_text_track_test() {
       );
       expect(
         domNode3.getAttribute('kind'),
-        equals(KindType.chapters.nativeName),
+        equals(KindType.chapters.nativeValue),
       );
     });
 

@@ -1277,7 +1277,7 @@ void html_anchor_test() {
       );
       expect(
         domNode3.getAttribute('referrerpolicy'),
-        equals(ReferrerPolicyType.originWhenCrossOrigin.nativeName),
+        equals(ReferrerPolicyType.originWhenCrossOrigin.nativeValue),
       );
     });
 
