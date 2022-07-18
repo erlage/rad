@@ -360,12 +360,25 @@ Similarity tags:
 
 [InputButton](https://pub.dev/documentation/rad/latest/widgets_html/InputButton-class.html)
 , [InputCheckBox](https://pub.dev/documentation/rad/latest/widgets_html/InputCheckBox-class.html)
+, [InputColor](https://pub.dev/documentation/rad/latest/widgets_html/InputColor-class.html)
+, [InputDateTimeLocal](https://pub.dev/documentation/rad/latest/widgets_html/InputDateTimeLocal-class.html)
+, [InputDate](https://pub.dev/documentation/rad/latest/widgets_html/InputDate-class.html)
+, [InputEmail](https://pub.dev/documentation/rad/latest/widgets_html/InputEmail-class.html)
 , [InputFile](https://pub.dev/documentation/rad/latest/widgets_html/InputFile-class.html)
 , [InputImage](https://pub.dev/documentation/rad/latest/widgets_html/InputImage-class.html)
-, [InputSubmit](https://pub.dev/documentation/rad/latest/widgets_html/InputSubmit-class.html)
-, [InputRadio](https://pub.dev/documentation/rad/latest/widgets_html/InputRadio-class.html)
-, [InputText](https://pub.dev/documentation/rad/latest/widgets_html/InputText-class.html)
+, [InputMonth](https://pub.dev/documentation/rad/latest/widgets_html/InputMonth-class.html)
+, [InputNumber](https://pub.dev/documentation/rad/latest/widgets_html/InputNumber-class.html)
 , [InputPassword](https://pub.dev/documentation/rad/latest/widgets_html/InputPassword-class.html)
+, [InputRadio](https://pub.dev/documentation/rad/latest/widgets_html/InputRadio-class.html)
+, [InputRange](https://pub.dev/documentation/rad/latest/widgets_html/InputRange-class.html)
+, [InputReset](https://pub.dev/documentation/rad/latest/widgets_html/InputReset-class.html)
+, [InputSearch](https://pub.dev/documentation/rad/latest/widgets_html/InputSearch-class.html)
+, [InputSubmit](https://pub.dev/documentation/rad/latest/widgets_html/InputSubmit-class.html)
+, [InputTelephone](https://pub.dev/documentation/rad/latest/widgets_html/InputTelephone-class.html)
+, [InputText](https://pub.dev/documentation/rad/latest/widgets_html/InputText-class.html)
+, [InputTime](https://pub.dev/documentation/rad/latest/widgets_html/InputTime-class.html)
+, [InputUrl](https://pub.dev/documentation/rad/latest/widgets_html/InputUrl-class.html)
+, [InputWeek](https://pub.dev/documentation/rad/latest/widgets_html/InputWeek-class.html)
 
 ## Contributing
 For reporting bugs/queries, feel free to open issue. Read [contributing guide](https://github.com/erlage/rad/blob/main/CONTRIBUTING.md) for more.

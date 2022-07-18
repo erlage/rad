@@ -8,17 +8,12 @@ import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_input_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-/// The InputPassword widget (HTML's `input` tag with `type = 'password'`).
+/// The InputColor widget (HTML's `input` tag with `type = 'color'`).
 ///
-class InputPassword extends HTMLInputBase {
-  const InputPassword({
-    int? maxLength,
-    int? minLength,
-    String? pattern,
-    String? placeholder,
-    bool? readOnly,
-    bool? required,
-    String? size,
+class InputColor extends HTMLInputBase {
+  const InputColor({
+    String? autoComplete,
+    String? list,
     String? name,
     bool? disabled,
     String? form,
@@ -37,25 +32,17 @@ class InputPassword extends HTMLInputBase {
     EventCallback? onClick,
     EventCallback? onInput,
     EventCallback? onChange,
-    EventCallback? onKeyUp,
-    EventCallback? onKeyDown,
-    EventCallback? onKeyPress,
     Map<String, String>? additionalAttributes,
   }) : super(
-          maxLength: maxLength,
-          minLength: minLength,
-          pattern: pattern,
-          placeholder: placeholder,
-          readOnly: readOnly,
-          required: required,
-          size: size,
+          autoComplete: autoComplete,
+          list: list,
           name: name,
           form: form,
           value: value,
           tabIndex: tabIndex,
           disabled: disabled,
           inputMode: inputMode,
-          type: InputType.password,
+          type: InputType.color,
           key: key,
           id: id,
           title: title,
@@ -68,9 +55,6 @@ class InputPassword extends HTMLInputBase {
           onClick: onClick,
           onInput: onInput,
           onChange: onChange,
-          onKeyUp: onKeyUp,
-          onKeyDown: onKeyDown,
-          onKeyPress: onKeyPress,
           additionalAttributes: additionalAttributes,
         );
 }

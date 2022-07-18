@@ -10,8 +10,8 @@
 
 part of '../_index_html_test.dart';
 
-void html_input_file_test() {
-  group('HTML InputFile tests:', () {
+void html_input_date_time_local_test() {
+  group('HTML InputDateTimeLocal tests:', () {
     RT_AppRunner? app;
 
     setUp(() {
@@ -23,9 +23,9 @@ void html_input_file_test() {
     test('should set id', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('some-key-1'), id: 'some-id-1'),
-          InputFile(key: Key('some-key-2'), id: 'some-id-2'),
-          InputFile(key: Key('some-key-3'), id: 'some-id-3'),
+          InputDateTimeLocal(key: Key('some-key-1'), id: 'some-id-1'),
+          InputDateTimeLocal(key: Key('some-key-2'), id: 'some-id-2'),
+          InputDateTimeLocal(key: Key('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -42,9 +42,9 @@ void html_input_file_test() {
     test('should reset and update id', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('some-key-1'), id: 'some-id-1'),
-          InputFile(key: Key('some-key-2'), id: 'some-id-2'),
-          InputFile(key: Key('some-key-3'), id: 'some-id-3'),
+          InputDateTimeLocal(key: Key('some-key-1'), id: 'some-id-1'),
+          InputDateTimeLocal(key: Key('some-key-2'), id: 'some-id-2'),
+          InputDateTimeLocal(key: Key('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -59,15 +59,15 @@ void html_input_file_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('some-key-1'),
             id: 'some-updated-id',
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('some-key-2'),
             id: 'some-local-updated-id',
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('some-key-3'),
             id: 'some-global-updated-id',
           ),
@@ -84,15 +84,15 @@ void html_input_file_test() {
     test('should set messy "id"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-1'),
             id: 'some id',
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-2'),
             id: 'some "messy" id',
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-3'),
             id: "some 'messy' id",
           ),
@@ -123,13 +123,13 @@ void html_input_file_test() {
     test('should set children widgets', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             id: 'widget-1',
             children: [
-              InputFile(
+              InputDateTimeLocal(
                 id: 'widget-2',
               ),
-              InputFile(
+              InputDateTimeLocal(
                 id: 'widget-3',
               ),
             ],
@@ -150,9 +150,9 @@ void html_input_file_test() {
     test('should set child widget', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             id: 'widget-1',
-            child: InputFile(
+            child: InputDateTimeLocal(
               id: 'widget-2',
             ),
           ),
@@ -170,11 +170,11 @@ void html_input_file_test() {
     test('should set attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('el-1'),
             className: 'some-classes',
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -192,11 +192,11 @@ void html_input_file_test() {
     test('should update attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('el-1'),
             className: 'some-classes',
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -206,11 +206,11 @@ void html_input_file_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('el-1'),
             className: 'updated-classes',
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -229,8 +229,8 @@ void html_input_file_test() {
     test('should clear attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -240,8 +240,8 @@ void html_input_file_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2')),
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -257,7 +257,7 @@ void html_input_file_test() {
     test('should clear attribute "classes" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('el-1'),
             className: 'some-classes',
           ),
@@ -267,7 +267,7 @@ void html_input_file_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), className: null),
+          InputDateTimeLocal(key: Key('el-1'), className: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -282,7 +282,7 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), className: null),
+          InputDateTimeLocal(key: Key('el-1'), className: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -295,15 +295,15 @@ void html_input_file_test() {
     test('should set messy "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-1'),
             className: 'some classes',
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-2'),
             className: 'some "messy" classes',
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-3'),
             className: "some 'messy' classes",
           ),
@@ -334,9 +334,9 @@ void html_input_file_test() {
     test('should set attribute "hidden" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), hidden: false),
-          InputFile(key: Key('el-2'), hidden: null),
-          InputFile(key: Key('el-3'), hidden: true),
+          InputDateTimeLocal(key: Key('el-1'), hidden: false),
+          InputDateTimeLocal(key: Key('el-2'), hidden: null),
+          InputDateTimeLocal(key: Key('el-3'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -354,20 +354,20 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), hidden: true),
-          InputFile(key: Key('el-2'), hidden: true),
-          InputFile(key: Key('el-3'), hidden: true),
-          InputFile(key: Key('el-4'), hidden: true),
+          InputDateTimeLocal(key: Key('el-1'), hidden: true),
+          InputDateTimeLocal(key: Key('el-2'), hidden: true),
+          InputDateTimeLocal(key: Key('el-3'), hidden: true),
+          InputDateTimeLocal(key: Key('el-4'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), hidden: true),
-          InputFile(key: Key('el-2'), hidden: false),
-          InputFile(key: Key('el-3'), hidden: null),
-          InputFile(key: Key('el-4')),
+          InputDateTimeLocal(key: Key('el-1'), hidden: true),
+          InputDateTimeLocal(key: Key('el-2'), hidden: false),
+          InputDateTimeLocal(key: Key('el-3'), hidden: null),
+          InputDateTimeLocal(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -387,7 +387,7 @@ void html_input_file_test() {
     test('should set inner text', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-1'),
             innerText: 'hello world',
           ),
@@ -410,11 +410,11 @@ void html_input_file_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('el-1'),
             onClick: (event) => testStack.push('click-1'),
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('el-2'),
             onClick: (event) => testStack.push('click-2'),
           ),
@@ -437,9 +437,9 @@ void html_input_file_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), onClick: null),
-          InputFile(key: Key('el-3'), onClick: listener),
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2'), onClick: null),
+          InputDateTimeLocal(key: Key('el-3'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -458,8 +458,8 @@ void html_input_file_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), onClick: listener),
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -474,8 +474,8 @@ void html_input_file_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2')),
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -491,9 +491,9 @@ void html_input_file_test() {
     test('should set style', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('widget-1'), style: 'some style'),
-          InputFile(key: Key('widget-2'), style: 'some "messy" style'),
-          InputFile(key: Key('widget-3'), style: "some 'messy' style"),
+          InputDateTimeLocal(key: Key('widget-1'), style: 'some style'),
+          InputDateTimeLocal(key: Key('widget-2'), style: 'some "messy" style'),
+          InputDateTimeLocal(key: Key('widget-3'), style: "some 'messy' style"),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -510,9 +510,9 @@ void html_input_file_test() {
     test('should set title', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('widget-1'), title: 'some title'),
-          InputFile(key: Key('widget-2'), title: 'some "messy" title'),
-          InputFile(key: Key('widget-3'), title: "some 'messy' title"),
+          InputDateTimeLocal(key: Key('widget-1'), title: 'some title'),
+          InputDateTimeLocal(key: Key('widget-2'), title: 'some "messy" title'),
+          InputDateTimeLocal(key: Key('widget-3'), title: "some 'messy' title"),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -529,7 +529,7 @@ void html_input_file_test() {
     test('should set correct types and markup', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('some-key-3')),
+          InputDateTimeLocal(key: Key('some-key-3')),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -569,7 +569,7 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('some-key-3'),
             additionalAttributes: {
               'id': 'some-id',
@@ -591,7 +591,7 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
@@ -616,7 +616,7 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
@@ -629,7 +629,7 @@ void html_input_file_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('some-key-3'),
             id: 'updated-id',
             additionalAttributes: {
@@ -651,7 +651,7 @@ void html_input_file_test() {
     test('should set data attributes', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
@@ -671,7 +671,7 @@ void html_input_file_test() {
     test('should set aria/any attributes', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('some-key-3'),
             additionalAttributes: {
               'aria-something': 'something okay',
@@ -692,7 +692,7 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
@@ -704,7 +704,7 @@ void html_input_file_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something-new': 'something new',
@@ -726,9 +726,9 @@ void html_input_file_test() {
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('some-key-1')),
-          InputFile(key: Key('some-key-2')),
-          InputFile(key: Key('some-key-3')),
+          InputDateTimeLocal(key: Key('some-key-1')),
+          InputDateTimeLocal(key: Key('some-key-2')),
+          InputDateTimeLocal(key: Key('some-key-3')),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -742,11 +742,13 @@ void html_input_file_test() {
       expect(wO3.key?.frameworkValue, equals('some-key-3'));
     });
 
-    test('should set attribute "accept"', () async {
+    test('should set attribute "autocomplete"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), accept: 'some-accept'),
-          InputFile(key: Key('el-2'), accept: 'another-accept'),
+          InputDateTimeLocal(
+              key: Key('el-1'), autoComplete: 'some-autocomplete'),
+          InputDateTimeLocal(
+              key: Key('el-2'), autoComplete: 'another-autocomplete'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -754,23 +756,29 @@ void html_input_file_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('accept'), equals('some-accept'));
-      expect(domNode2.getAttribute('accept'), equals('another-accept'));
+      expect(
+          domNode1.getAttribute('autocomplete'), equals('some-autocomplete'));
+      expect(domNode2.getAttribute('autocomplete'),
+          equals('another-autocomplete'));
     });
 
-    test('should update attribute "accept"', () async {
+    test('should update attribute "autocomplete"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), accept: 'some-accept'),
-          InputFile(key: Key('el-2'), accept: 'another-accept'),
+          InputDateTimeLocal(
+              key: Key('el-1'), autoComplete: 'some-autocomplete'),
+          InputDateTimeLocal(
+              key: Key('el-2'), autoComplete: 'another-autocomplete'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), accept: 'updated-accept'),
-          InputFile(key: Key('el-2'), accept: 'another-accept'),
+          InputDateTimeLocal(
+              key: Key('el-1'), autoComplete: 'updated-autocomplete'),
+          InputDateTimeLocal(
+              key: Key('el-2'), autoComplete: 'another-autocomplete'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -779,23 +787,26 @@ void html_input_file_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('accept'), equals('updated-accept'));
-      expect(domNode2.getAttribute('accept'), equals('another-accept'));
+      expect(domNode1.getAttribute('autocomplete'),
+          equals('updated-autocomplete'));
+      expect(domNode2.getAttribute('autocomplete'),
+          equals('another-autocomplete'));
     });
 
-    test('should clear attribute "accept"', () async {
+    test('should clear attribute "autocomplete"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), accept: 'another-accept'),
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(
+              key: Key('el-2'), autoComplete: 'another-autocomplete'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2')),
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -804,59 +815,163 @@ void html_input_file_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('accept'), equals(null));
-      expect(domNode2.getAttribute('accept'), equals(null));
+      expect(domNode1.getAttribute('autocomplete'), equals(null));
+      expect(domNode2.getAttribute('autocomplete'), equals(null));
     });
 
-    test('should clear attribute "accept" if updated value is null', () async {
-      await app!.buildChildren(
-        widgets: [
-          InputFile(key: Key('el-1'), accept: 'some-accept'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          InputFile(key: Key('el-1'), accept: null),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('accept'), equals(null));
-    });
-
-    test('should not set attribute "accept" if provided value is null',
+    test(
+        'should clear attribute "autocomplete" if updated autocomplete is null',
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), accept: null),
+          InputDateTimeLocal(
+              key: Key('el-1'), autoComplete: 'some-autocomplete'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1'), autoComplete: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('autocomplete'), equals(null));
+    });
+
+    test(
+        'should not set attribute "autocomplete" if provided autocomplete is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1'), autoComplete: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
-      expect(domNode1.getAttribute('accept'), equals(null));
+      expect(domNode1.getAttribute('autocomplete'), equals(null));
     });
 
-    test('should set messy "accept"', () async {
+    test('should set attribute "list"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(key: Key('el-1'), list: 'some-list'),
+          InputDateTimeLocal(key: Key('el-2'), list: 'another-list'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('list'), equals('some-list'));
+      expect(domNode2.getAttribute('list'), equals('another-list'));
+    });
+
+    test('should update attribute "list"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1'), list: 'some-list'),
+          InputDateTimeLocal(key: Key('el-2'), list: 'another-list'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1'), list: 'updated-list'),
+          InputDateTimeLocal(key: Key('el-2'), list: 'another-list'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('list'), equals('updated-list'));
+      expect(domNode2.getAttribute('list'), equals('another-list'));
+    });
+
+    test('should clear attribute "list"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2'), list: 'another-list'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('list'), equals(null));
+      expect(domNode2.getAttribute('list'), equals(null));
+    });
+
+    test('should clear attribute "list" if updated value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1'), list: 'some-list'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1'), list: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('list'), equals(null));
+    });
+
+    test('should not set attribute "list" if provided value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1'), list: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('list'), equals(null));
+    });
+
+    test('should set messy "list"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputDateTimeLocal(
             key: Key('widget-1'),
-            accept: 'some accept',
+            list: 'some list',
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-2'),
-            accept: 'some "messy" accept',
+            list: 'some "messy" list',
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-3'),
-            accept: "some 'messy' accept",
+            list: "some 'messy' list",
           ),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
@@ -867,26 +982,26 @@ void html_input_file_test() {
       var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
 
       expect(
-        domNode1.getAttribute('accept'),
-        equals('some accept'),
+        domNode1.getAttribute('list'),
+        equals('some list'),
       );
 
       expect(
-        domNode2.getAttribute('accept'),
-        equals('some "messy" accept'),
+        domNode2.getAttribute('list'),
+        equals('some "messy" list'),
       );
 
       expect(
-        domNode3.getAttribute('accept'),
-        equals("some 'messy' accept"),
+        domNode3.getAttribute('list'),
+        equals("some 'messy' list"),
       );
     });
 
-    test('should set attribute "capture"', () async {
+    test('should set attribute "max"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), capture: 'some-capture'),
-          InputFile(key: Key('el-2'), capture: 'another-capture'),
+          InputDateTimeLocal(key: Key('el-1'), max: 'some-max'),
+          InputDateTimeLocal(key: Key('el-2'), max: 'another-max'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -894,23 +1009,23 @@ void html_input_file_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('capture'), equals('some-capture'));
-      expect(domNode2.getAttribute('capture'), equals('another-capture'));
+      expect(domNode1.getAttribute('max'), equals('some-max'));
+      expect(domNode2.getAttribute('max'), equals('another-max'));
     });
 
-    test('should update attribute "capture"', () async {
+    test('should update attribute "max"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), capture: 'some-capture'),
-          InputFile(key: Key('el-2'), capture: 'another-capture'),
+          InputDateTimeLocal(key: Key('el-1'), max: 'some-max'),
+          InputDateTimeLocal(key: Key('el-2'), max: 'another-max'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), capture: 'updated-capture'),
-          InputFile(key: Key('el-2'), capture: 'another-capture'),
+          InputDateTimeLocal(key: Key('el-1'), max: 'updated-max'),
+          InputDateTimeLocal(key: Key('el-2'), max: 'another-max'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -919,23 +1034,23 @@ void html_input_file_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('capture'), equals('updated-capture'));
-      expect(domNode2.getAttribute('capture'), equals('another-capture'));
+      expect(domNode1.getAttribute('max'), equals('updated-max'));
+      expect(domNode2.getAttribute('max'), equals('another-max'));
     });
 
-    test('should clear attribute "capture"', () async {
+    test('should clear attribute "max"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), capture: 'another-capture'),
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2'), max: 'another-max'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2')),
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -944,21 +1059,21 @@ void html_input_file_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('capture'), equals(null));
-      expect(domNode2.getAttribute('capture'), equals(null));
+      expect(domNode1.getAttribute('max'), equals(null));
+      expect(domNode2.getAttribute('max'), equals(null));
     });
 
-    test('should clear attribute "capture" if updated value is null', () async {
+    test('should clear attribute "max" if updated max is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), capture: 'some-capture'),
+          InputDateTimeLocal(key: Key('el-1'), max: 'some-max'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), capture: null),
+          InputDateTimeLocal(key: Key('el-1'), max: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -966,68 +1081,128 @@ void html_input_file_test() {
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
-      expect(domNode1.getAttribute('capture'), equals(null));
+      expect(domNode1.getAttribute('max'), equals(null));
     });
 
-    test('should not set attribute "capture" if provided value is null',
-        () async {
+    test('should not set attribute "max" if provided max is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), capture: null),
+          InputDateTimeLocal(key: Key('el-1'), max: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
-      expect(domNode1.getAttribute('capture'), equals(null));
+      expect(domNode1.getAttribute('max'), equals(null));
     });
 
-    test('should set messy "capture"', () async {
+    test('should set attribute "min"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
-            key: Key('widget-1'),
-            capture: 'some capture',
-          ),
-          InputFile(
-            key: Key('widget-2'),
-            capture: 'some "messy" capture',
-          ),
-          InputFile(
-            key: Key('widget-3'),
-            capture: "some 'messy' capture",
-          ),
+          InputDateTimeLocal(key: Key('el-1'), min: 'some-min'),
+          InputDateTimeLocal(key: Key('el-2'), min: 'another-min'),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(
-        domNode1.getAttribute('capture'),
-        equals('some capture'),
-      );
-
-      expect(
-        domNode2.getAttribute('capture'),
-        equals('some "messy" capture'),
-      );
-
-      expect(
-        domNode3.getAttribute('capture'),
-        equals("some 'messy' capture"),
-      );
+      expect(domNode1.getAttribute('min'), equals('some-min'));
+      expect(domNode2.getAttribute('min'), equals('another-min'));
     });
 
-    test('should set attribute "multiple" only if its true', () async {
+    test('should update attribute "min"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), multiple: false),
-          InputFile(key: Key('el-2'), multiple: null),
-          InputFile(key: Key('el-3'), multiple: true),
+          InputDateTimeLocal(key: Key('el-1'), min: 'some-min'),
+          InputDateTimeLocal(key: Key('el-2'), min: 'another-min'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1'), min: 'updated-min'),
+          InputDateTimeLocal(key: Key('el-2'), min: 'another-min'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('min'), equals('updated-min'));
+      expect(domNode2.getAttribute('min'), equals('another-min'));
+    });
+
+    test('should clear attribute "min"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2'), min: 'another-min'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('min'), equals(null));
+      expect(domNode2.getAttribute('min'), equals(null));
+    });
+
+    test('should clear attribute "min" if updated min is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1'), min: 'some-min'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1'), min: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('min'), equals(null));
+    });
+
+    test('should not set attribute "min" if provided min is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1'), min: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('min'), equals(null));
+    });
+
+    test('should set attribute "readonly" only if its true', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1'), readOnly: false),
+          InputDateTimeLocal(key: Key('el-2'), readOnly: null),
+          InputDateTimeLocal(key: Key('el-3'), readOnly: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1036,29 +1211,29 @@ void html_input_file_test() {
       var domNode2 = app!.domNodeByKeyValue('el-2');
       var domNode3 = app!.domNodeByKeyValue('el-3');
 
-      expect(domNode1.getAttribute('multiple'), equals(null));
-      expect(domNode2.getAttribute('multiple'), equals(null));
-      expect(domNode3.getAttribute('multiple'), equals('true'));
+      expect(domNode1.getAttribute('readonly'), equals(null));
+      expect(domNode2.getAttribute('readonly'), equals(null));
+      expect(domNode3.getAttribute('readonly'), equals('true'));
     });
 
-    test('should clear attribute "multiple" if updated value is not true',
+    test('should clear attribute "readonly" if updated value is not true',
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), multiple: true),
-          InputFile(key: Key('el-2'), multiple: true),
-          InputFile(key: Key('el-3'), multiple: true),
-          InputFile(key: Key('el-4'), multiple: true),
+          InputDateTimeLocal(key: Key('el-1'), readOnly: true),
+          InputDateTimeLocal(key: Key('el-2'), readOnly: true),
+          InputDateTimeLocal(key: Key('el-3'), readOnly: true),
+          InputDateTimeLocal(key: Key('el-4'), readOnly: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), multiple: true),
-          InputFile(key: Key('el-2'), multiple: false),
-          InputFile(key: Key('el-3'), multiple: null),
-          InputFile(key: Key('el-4')),
+          InputDateTimeLocal(key: Key('el-1'), readOnly: true),
+          InputDateTimeLocal(key: Key('el-2'), readOnly: false),
+          InputDateTimeLocal(key: Key('el-3'), readOnly: null),
+          InputDateTimeLocal(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1069,100 +1244,209 @@ void html_input_file_test() {
       var domNode3 = app!.domNodeByKeyValue('el-3');
       var domNode4 = app!.domNodeByKeyValue('el-4');
 
-      expect(domNode1.getAttribute('multiple'), equals('true'));
-      expect(domNode2.getAttribute('multiple'), equals(null));
-      expect(domNode3.getAttribute('multiple'), equals(null));
-      expect(domNode4.getAttribute('multiple'), equals(null));
+      expect(domNode1.getAttribute('readonly'), equals('true'));
+      expect(domNode2.getAttribute('readonly'), equals(null));
+      expect(domNode3.getAttribute('readonly'), equals(null));
+      expect(domNode4.getAttribute('readonly'), equals(null));
     });
 
-    test('should set "change" event listener', () async {
-      var testStack = RT_TestStack();
-
+    test('should set attribute "required" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
-            key: Key('el-1'),
-            onChange: (event) => testStack.push('change-1'),
-          ),
-          InputFile(
-            key: Key('el-2'),
-            onChange: (event) => testStack.push('change-2'),
-          ),
+          InputDateTimeLocal(key: Key('el-1'), required: false),
+          InputDateTimeLocal(key: Key('el-2'), required: null),
+          InputDateTimeLocal(key: Key('el-3'), required: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('change'));
-      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('change'));
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
 
-      await Future.delayed(Duration.zero, () {
-        expect(testStack.popFromStart(), equals('change-1'));
-        expect(testStack.popFromStart(), equals('change-2'));
-        expect(testStack.canPop(), equals(false));
-      });
+      expect(domNode1.getAttribute('required'), equals(null));
+      expect(domNode2.getAttribute('required'), equals(null));
+      expect(domNode3.getAttribute('required'), equals('true'));
     });
 
-    test('should set "change" event listener only if provided', () async {
-      void listener(event) => {};
-
+    test('should clear attribute "required" if updated value is not true',
+        () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), onChange: null),
-          InputFile(key: Key('el-3'), onChange: listener),
+          InputDateTimeLocal(key: Key('el-1'), required: true),
+          InputDateTimeLocal(key: Key('el-2'), required: true),
+          InputDateTimeLocal(key: Key('el-3'), required: true),
+          InputDateTimeLocal(key: Key('el-4'), required: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
-
-      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
-
-      expect(listeners1[DomEventType.change], equals(null));
-      expect(listeners2[DomEventType.change], equals(null));
-      expect(listeners3[DomEventType.change], equals(listener));
-    });
-
-    test('should clear "change" event listner', () async {
-      void listener(event) => {};
-
-      await app!.buildChildren(
-        widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), onChange: listener),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-
-      expect(listeners1[DomEventType.change], equals(null));
-      expect(listeners2[DomEventType.change], equals(listener));
-
-      // update
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2')),
+          InputDateTimeLocal(key: Key('el-1'), required: true),
+          InputDateTimeLocal(key: Key('el-2'), required: false),
+          InputDateTimeLocal(key: Key('el-3'), required: null),
+          InputDateTimeLocal(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
 
-      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+      var domNode3 = app!.domNodeByKeyValue('el-3');
+      var domNode4 = app!.domNodeByKeyValue('el-4');
 
-      expect(listeners1[DomEventType.change], equals(null));
-      expect(listeners2[DomEventType.change], equals(null));
+      expect(domNode1.getAttribute('required'), equals('true'));
+      expect(domNode2.getAttribute('required'), equals(null));
+      expect(domNode3.getAttribute('required'), equals(null));
+      expect(domNode4.getAttribute('required'), equals(null));
+    });
+
+    test('should set attribute "step"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1'), step: 'some-step'),
+          InputDateTimeLocal(key: Key('el-2'), step: 'another-step'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('step'), equals('some-step'));
+      expect(domNode2.getAttribute('step'), equals('another-step'));
+    });
+
+    test('should update attribute "step"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1'), step: 'some-step'),
+          InputDateTimeLocal(key: Key('el-2'), step: 'another-step'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1'), step: 'updated-step'),
+          InputDateTimeLocal(key: Key('el-2'), step: 'another-step'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('step'), equals('updated-step'));
+      expect(domNode2.getAttribute('step'), equals('another-step'));
+    });
+
+    test('should clear attribute "step"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2'), step: 'another-step'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('step'), equals(null));
+      expect(domNode2.getAttribute('step'), equals(null));
+    });
+
+    test('should clear attribute "step" if updated value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1'), step: 'some-step'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1'), step: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('step'), equals(null));
+    });
+
+    test('should not set attribute "step" if provided value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputDateTimeLocal(key: Key('el-1'), step: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('step'), equals(null));
+    });
+
+    test('should set messy "step"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputDateTimeLocal(
+            key: Key('widget-1'),
+            step: 'some step',
+          ),
+          InputDateTimeLocal(
+            key: Key('widget-2'),
+            step: 'some "messy" step',
+          ),
+          InputDateTimeLocal(
+            key: Key('widget-3'),
+            step: "some 'messy' step",
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(
+        domNode1.getAttribute('step'),
+        equals('some step'),
+      );
+
+      expect(
+        domNode2.getAttribute('step'),
+        equals('some "messy" step'),
+      );
+
+      expect(
+        domNode3.getAttribute('step'),
+        equals("some 'messy' step"),
+      );
     });
 
     test('should set attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), name: 'some-name'),
-          InputFile(key: Key('el-2'), name: 'another-name'),
+          InputDateTimeLocal(key: Key('el-1'), name: 'some-name'),
+          InputDateTimeLocal(key: Key('el-2'), name: 'another-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1177,16 +1461,16 @@ void html_input_file_test() {
     test('should update attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), name: 'some-name'),
-          InputFile(key: Key('el-2'), name: 'another-name'),
+          InputDateTimeLocal(key: Key('el-1'), name: 'some-name'),
+          InputDateTimeLocal(key: Key('el-2'), name: 'another-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), name: 'updated-name'),
-          InputFile(key: Key('el-2'), name: 'another-name'),
+          InputDateTimeLocal(key: Key('el-1'), name: 'updated-name'),
+          InputDateTimeLocal(key: Key('el-2'), name: 'another-name'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1202,16 +1486,16 @@ void html_input_file_test() {
     test('should clear attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), name: 'another-name'),
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2'), name: 'another-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2')),
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1227,14 +1511,14 @@ void html_input_file_test() {
     test('should clear attribute "name" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), name: 'some-name'),
+          InputDateTimeLocal(key: Key('el-1'), name: 'some-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), name: null),
+          InputDateTimeLocal(key: Key('el-1'), name: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1248,7 +1532,7 @@ void html_input_file_test() {
     test('should not set attribute "name" if provided value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), name: null),
+          InputDateTimeLocal(key: Key('el-1'), name: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1261,15 +1545,15 @@ void html_input_file_test() {
     test('should set messy "name"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-1'),
             name: 'some name',
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-2'),
             name: 'some "messy" name',
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-3'),
             name: "some 'messy' name",
           ),
@@ -1300,9 +1584,9 @@ void html_input_file_test() {
     test('should set attribute "disabled" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), disabled: false),
-          InputFile(key: Key('el-2'), disabled: null),
-          InputFile(key: Key('el-3'), disabled: true),
+          InputDateTimeLocal(key: Key('el-1'), disabled: false),
+          InputDateTimeLocal(key: Key('el-2'), disabled: null),
+          InputDateTimeLocal(key: Key('el-3'), disabled: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1320,20 +1604,20 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), disabled: true),
-          InputFile(key: Key('el-2'), disabled: true),
-          InputFile(key: Key('el-3'), disabled: true),
-          InputFile(key: Key('el-4'), disabled: true),
+          InputDateTimeLocal(key: Key('el-1'), disabled: true),
+          InputDateTimeLocal(key: Key('el-2'), disabled: true),
+          InputDateTimeLocal(key: Key('el-3'), disabled: true),
+          InputDateTimeLocal(key: Key('el-4'), disabled: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), disabled: true),
-          InputFile(key: Key('el-2'), disabled: false),
-          InputFile(key: Key('el-3'), disabled: null),
-          InputFile(key: Key('el-4')),
+          InputDateTimeLocal(key: Key('el-1'), disabled: true),
+          InputDateTimeLocal(key: Key('el-2'), disabled: false),
+          InputDateTimeLocal(key: Key('el-3'), disabled: null),
+          InputDateTimeLocal(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1353,8 +1637,8 @@ void html_input_file_test() {
     test('should set attribute "form"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), form: 'some-form'),
-          InputFile(key: Key('el-2'), form: 'another-form'),
+          InputDateTimeLocal(key: Key('el-1'), form: 'some-form'),
+          InputDateTimeLocal(key: Key('el-2'), form: 'another-form'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1369,16 +1653,16 @@ void html_input_file_test() {
     test('should update attribute "form"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), form: 'some-form'),
-          InputFile(key: Key('el-2'), form: 'another-form'),
+          InputDateTimeLocal(key: Key('el-1'), form: 'some-form'),
+          InputDateTimeLocal(key: Key('el-2'), form: 'another-form'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), form: 'updated-form'),
-          InputFile(key: Key('el-2'), form: 'another-form'),
+          InputDateTimeLocal(key: Key('el-1'), form: 'updated-form'),
+          InputDateTimeLocal(key: Key('el-2'), form: 'another-form'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1394,16 +1678,16 @@ void html_input_file_test() {
     test('should clear attribute "form"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), form: 'another-form'),
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2'), form: 'another-form'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2')),
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1419,14 +1703,14 @@ void html_input_file_test() {
     test('should clear attribute "form" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), form: 'some-form'),
+          InputDateTimeLocal(key: Key('el-1'), form: 'some-form'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), form: null),
+          InputDateTimeLocal(key: Key('el-1'), form: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1440,7 +1724,7 @@ void html_input_file_test() {
     test('should not set attribute "form" if provided value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), form: null),
+          InputDateTimeLocal(key: Key('el-1'), form: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1453,15 +1737,15 @@ void html_input_file_test() {
     test('should set messy "form"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-1'),
             form: 'some form',
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-2'),
             form: 'some "messy" form',
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-3'),
             form: "some 'messy' form",
           ),
@@ -1492,8 +1776,8 @@ void html_input_file_test() {
     test('should set attribute "inputmode"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), inputMode: 'some-inputmode'),
-          InputFile(key: Key('el-2'), inputMode: 'another-inputmode'),
+          InputDateTimeLocal(key: Key('el-1'), inputMode: 'some-inputmode'),
+          InputDateTimeLocal(key: Key('el-2'), inputMode: 'another-inputmode'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1508,16 +1792,16 @@ void html_input_file_test() {
     test('should update attribute "inputmode"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), inputMode: 'some-inputmode'),
-          InputFile(key: Key('el-2'), inputMode: 'another-inputmode'),
+          InputDateTimeLocal(key: Key('el-1'), inputMode: 'some-inputmode'),
+          InputDateTimeLocal(key: Key('el-2'), inputMode: 'another-inputmode'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), inputMode: 'updated-inputmode'),
-          InputFile(key: Key('el-2'), inputMode: 'another-inputmode'),
+          InputDateTimeLocal(key: Key('el-1'), inputMode: 'updated-inputmode'),
+          InputDateTimeLocal(key: Key('el-2'), inputMode: 'another-inputmode'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1533,16 +1817,16 @@ void html_input_file_test() {
     test('should clear attribute "inputmode"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), inputMode: 'another-inputmode'),
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2'), inputMode: 'another-inputmode'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2')),
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1559,14 +1843,14 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), inputMode: 'some-inputmode'),
+          InputDateTimeLocal(key: Key('el-1'), inputMode: 'some-inputmode'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), inputMode: null),
+          InputDateTimeLocal(key: Key('el-1'), inputMode: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1581,7 +1865,7 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), inputMode: null),
+          InputDateTimeLocal(key: Key('el-1'), inputMode: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1594,15 +1878,15 @@ void html_input_file_test() {
     test('should set messy "inputmode"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-1'),
             inputMode: 'some inputmode',
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-2'),
             inputMode: 'some "messy" inputmode',
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-3'),
             inputMode: "some 'messy' inputmode",
           ),
@@ -1633,15 +1917,15 @@ void html_input_file_test() {
     test('should set tab index', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-1'),
             tabIndex: 1,
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-2'),
             tabIndex: 2,
           ),
-          InputFile(
+          InputDateTimeLocal(
             key: Key('widget-3'),
             tabIndex: 3,
           ),
@@ -1661,8 +1945,8 @@ void html_input_file_test() {
     test('should set attribute "value"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), value: 'some-value'),
-          InputFile(key: Key('el-2'), value: 'another-value'),
+          InputDateTimeLocal(key: Key('el-1'), value: 'some-value'),
+          InputDateTimeLocal(key: Key('el-2'), value: 'another-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1677,16 +1961,16 @@ void html_input_file_test() {
     test('should update attribute "value"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), value: 'some-value'),
-          InputFile(key: Key('el-2'), value: 'another-value'),
+          InputDateTimeLocal(key: Key('el-1'), value: 'some-value'),
+          InputDateTimeLocal(key: Key('el-2'), value: 'another-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), value: 'updated-value'),
-          InputFile(key: Key('el-2'), value: 'another-value'),
+          InputDateTimeLocal(key: Key('el-1'), value: 'updated-value'),
+          InputDateTimeLocal(key: Key('el-2'), value: 'another-value'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1702,16 +1986,16 @@ void html_input_file_test() {
     test('should clear attribute "value"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), value: 'another-value'),
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2'), value: 'another-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2')),
+          InputDateTimeLocal(key: Key('el-1')),
+          InputDateTimeLocal(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1727,14 +2011,14 @@ void html_input_file_test() {
     test('should clear attribute "value" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), value: 'some-value'),
+          InputDateTimeLocal(key: Key('el-1'), value: 'some-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), value: null),
+          InputDateTimeLocal(key: Key('el-1'), value: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1749,7 +2033,7 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), value: null),
+          InputDateTimeLocal(key: Key('el-1'), value: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );

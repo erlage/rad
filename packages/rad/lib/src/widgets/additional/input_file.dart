@@ -13,11 +13,8 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 class InputFile extends HTMLInputBase {
   const InputFile({
     String? accept,
-    String? autoComplete,
     String? capture,
-    String? list,
     bool? multiple,
-    bool? readOnly,
     String? name,
     bool? disabled,
     String? form,
@@ -38,11 +35,8 @@ class InputFile extends HTMLInputBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           accept: accept,
-          autoComplete: autoComplete,
           capture: capture,
-          list: list,
           multiple: multiple,
-          readOnly: readOnly,
           name: name,
           form: form,
           value: value,

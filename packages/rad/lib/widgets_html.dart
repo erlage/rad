@@ -100,9 +100,23 @@ export 'src/widgets/html/video.dart' show Video;
 
 export 'src/widgets/additional/input_button.dart' show InputButton;
 export 'src/widgets/additional/input_checkbox.dart' show InputCheckBox;
-export 'src/widgets/additional/input_image.dart' show InputImage;
+export 'src/widgets/additional/input_color.dart' show InputColor;
+export 'src/widgets/additional/input_date_time_local.dart'
+    show InputDateTimeLocal;
+export 'src/widgets/additional/input_date.dart' show InputDate;
+export 'src/widgets/additional/input_email.dart' show InputEmail;
 export 'src/widgets/additional/input_file.dart' show InputFile;
-export 'src/widgets/additional/input_radio.dart' show InputRadio;
-export 'src/widgets/additional/input_submit.dart' show InputSubmit;
-export 'src/widgets/additional/input_text.dart' show InputText;
+export 'src/widgets/additional/input_image.dart' show InputImage;
+export 'src/widgets/additional/input_month.dart' show InputMonth;
+export 'src/widgets/additional/input_number.dart' show InputNumber;
 export 'src/widgets/additional/input_password.dart' show InputPassword;
+export 'src/widgets/additional/input_radio.dart' show InputRadio;
+export 'src/widgets/additional/input_range.dart' show InputRange;
+export 'src/widgets/additional/input_reset.dart' show InputReset;
+export 'src/widgets/additional/input_search.dart' show InputSearch;
+export 'src/widgets/additional/input_submit.dart' show InputSubmit;
+export 'src/widgets/additional/input_telephone.dart' show InputTelephone;
+export 'src/widgets/additional/input_text.dart' show InputText;
+export 'src/widgets/additional/input_time.dart' show InputTime;
+export 'src/widgets/additional/input_url.dart' show InputUrl;
+export 'src/widgets/additional/input_week.dart' show InputWeek;

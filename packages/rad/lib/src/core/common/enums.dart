@@ -141,13 +141,26 @@ enum ScopeType {
 ///
 enum InputType {
   button('button'),
-  image('image'),
-  text('text'),
-  password('password'),
-  file('file'),
-  radio('radio'),
   checkbox('checkbox'),
+  color('color'),
+  date('date'),
+  dateTimeLocal('datetime-local'),
+  email('email'),
+  file('file'),
+  image('image'),
+  month('month'),
+  number('number'),
+  password('password'),
+  radio('radio'),
+  range('range'),
+  reset('reset'),
+  search('search'),
   submit('submit'),
+  telephone('tel'),
+  text('text'),
+  time('time'),
+  url('url'),
+  week('week'),
   ;
 
   final String nativeValue;

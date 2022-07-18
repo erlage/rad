@@ -10,8 +10,8 @@
 
 part of '../_index_html_test.dart';
 
-void html_input_file_test() {
-  group('HTML InputFile tests:', () {
+void html_input_reset_test() {
+  group('HTML InputReset tests:', () {
     RT_AppRunner? app;
 
     setUp(() {
@@ -23,9 +23,9 @@ void html_input_file_test() {
     test('should set id', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('some-key-1'), id: 'some-id-1'),
-          InputFile(key: Key('some-key-2'), id: 'some-id-2'),
-          InputFile(key: Key('some-key-3'), id: 'some-id-3'),
+          InputReset(key: Key('some-key-1'), id: 'some-id-1'),
+          InputReset(key: Key('some-key-2'), id: 'some-id-2'),
+          InputReset(key: Key('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -42,9 +42,9 @@ void html_input_file_test() {
     test('should reset and update id', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('some-key-1'), id: 'some-id-1'),
-          InputFile(key: Key('some-key-2'), id: 'some-id-2'),
-          InputFile(key: Key('some-key-3'), id: 'some-id-3'),
+          InputReset(key: Key('some-key-1'), id: 'some-id-1'),
+          InputReset(key: Key('some-key-2'), id: 'some-id-2'),
+          InputReset(key: Key('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -59,15 +59,15 @@ void html_input_file_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('some-key-1'),
             id: 'some-updated-id',
           ),
-          InputFile(
+          InputReset(
             key: Key('some-key-2'),
             id: 'some-local-updated-id',
           ),
-          InputFile(
+          InputReset(
             key: Key('some-key-3'),
             id: 'some-global-updated-id',
           ),
@@ -84,15 +84,15 @@ void html_input_file_test() {
     test('should set messy "id"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('widget-1'),
             id: 'some id',
           ),
-          InputFile(
+          InputReset(
             key: Key('widget-2'),
             id: 'some "messy" id',
           ),
-          InputFile(
+          InputReset(
             key: Key('widget-3'),
             id: "some 'messy' id",
           ),
@@ -123,13 +123,13 @@ void html_input_file_test() {
     test('should set children widgets', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputReset(
             id: 'widget-1',
             children: [
-              InputFile(
+              InputReset(
                 id: 'widget-2',
               ),
-              InputFile(
+              InputReset(
                 id: 'widget-3',
               ),
             ],
@@ -150,9 +150,9 @@ void html_input_file_test() {
     test('should set child widget', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputReset(
             id: 'widget-1',
-            child: InputFile(
+            child: InputReset(
               id: 'widget-2',
             ),
           ),
@@ -170,11 +170,11 @@ void html_input_file_test() {
     test('should set attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('el-1'),
             className: 'some-classes',
           ),
-          InputFile(
+          InputReset(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -192,11 +192,11 @@ void html_input_file_test() {
     test('should update attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('el-1'),
             className: 'some-classes',
           ),
-          InputFile(
+          InputReset(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -206,11 +206,11 @@ void html_input_file_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('el-1'),
             className: 'updated-classes',
           ),
-          InputFile(
+          InputReset(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -229,8 +229,8 @@ void html_input_file_test() {
     test('should clear attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(
+          InputReset(key: Key('el-1')),
+          InputReset(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -240,8 +240,8 @@ void html_input_file_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2')),
+          InputReset(key: Key('el-1')),
+          InputReset(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -257,7 +257,7 @@ void html_input_file_test() {
     test('should clear attribute "classes" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('el-1'),
             className: 'some-classes',
           ),
@@ -267,7 +267,7 @@ void html_input_file_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), className: null),
+          InputReset(key: Key('el-1'), className: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -282,7 +282,7 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), className: null),
+          InputReset(key: Key('el-1'), className: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -295,15 +295,15 @@ void html_input_file_test() {
     test('should set messy "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('widget-1'),
             className: 'some classes',
           ),
-          InputFile(
+          InputReset(
             key: Key('widget-2'),
             className: 'some "messy" classes',
           ),
-          InputFile(
+          InputReset(
             key: Key('widget-3'),
             className: "some 'messy' classes",
           ),
@@ -334,9 +334,9 @@ void html_input_file_test() {
     test('should set attribute "hidden" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), hidden: false),
-          InputFile(key: Key('el-2'), hidden: null),
-          InputFile(key: Key('el-3'), hidden: true),
+          InputReset(key: Key('el-1'), hidden: false),
+          InputReset(key: Key('el-2'), hidden: null),
+          InputReset(key: Key('el-3'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -354,20 +354,20 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), hidden: true),
-          InputFile(key: Key('el-2'), hidden: true),
-          InputFile(key: Key('el-3'), hidden: true),
-          InputFile(key: Key('el-4'), hidden: true),
+          InputReset(key: Key('el-1'), hidden: true),
+          InputReset(key: Key('el-2'), hidden: true),
+          InputReset(key: Key('el-3'), hidden: true),
+          InputReset(key: Key('el-4'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), hidden: true),
-          InputFile(key: Key('el-2'), hidden: false),
-          InputFile(key: Key('el-3'), hidden: null),
-          InputFile(key: Key('el-4')),
+          InputReset(key: Key('el-1'), hidden: true),
+          InputReset(key: Key('el-2'), hidden: false),
+          InputReset(key: Key('el-3'), hidden: null),
+          InputReset(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -387,7 +387,7 @@ void html_input_file_test() {
     test('should set inner text', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('widget-1'),
             innerText: 'hello world',
           ),
@@ -410,11 +410,11 @@ void html_input_file_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('el-1'),
             onClick: (event) => testStack.push('click-1'),
           ),
-          InputFile(
+          InputReset(
             key: Key('el-2'),
             onClick: (event) => testStack.push('click-2'),
           ),
@@ -437,9 +437,9 @@ void html_input_file_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), onClick: null),
-          InputFile(key: Key('el-3'), onClick: listener),
+          InputReset(key: Key('el-1')),
+          InputReset(key: Key('el-2'), onClick: null),
+          InputReset(key: Key('el-3'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -458,8 +458,8 @@ void html_input_file_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), onClick: listener),
+          InputReset(key: Key('el-1')),
+          InputReset(key: Key('el-2'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -474,8 +474,8 @@ void html_input_file_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2')),
+          InputReset(key: Key('el-1')),
+          InputReset(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -491,9 +491,9 @@ void html_input_file_test() {
     test('should set style', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('widget-1'), style: 'some style'),
-          InputFile(key: Key('widget-2'), style: 'some "messy" style'),
-          InputFile(key: Key('widget-3'), style: "some 'messy' style"),
+          InputReset(key: Key('widget-1'), style: 'some style'),
+          InputReset(key: Key('widget-2'), style: 'some "messy" style'),
+          InputReset(key: Key('widget-3'), style: "some 'messy' style"),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -510,9 +510,9 @@ void html_input_file_test() {
     test('should set title', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('widget-1'), title: 'some title'),
-          InputFile(key: Key('widget-2'), title: 'some "messy" title'),
-          InputFile(key: Key('widget-3'), title: "some 'messy' title"),
+          InputReset(key: Key('widget-1'), title: 'some title'),
+          InputReset(key: Key('widget-2'), title: 'some "messy" title'),
+          InputReset(key: Key('widget-3'), title: "some 'messy' title"),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -529,7 +529,7 @@ void html_input_file_test() {
     test('should set correct types and markup', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('some-key-3')),
+          InputReset(key: Key('some-key-3')),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -569,7 +569,7 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('some-key-3'),
             additionalAttributes: {
               'id': 'some-id',
@@ -591,7 +591,7 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
@@ -616,7 +616,7 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
@@ -629,7 +629,7 @@ void html_input_file_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('some-key-3'),
             id: 'updated-id',
             additionalAttributes: {
@@ -651,7 +651,7 @@ void html_input_file_test() {
     test('should set data attributes', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
@@ -671,7 +671,7 @@ void html_input_file_test() {
     test('should set aria/any attributes', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('some-key-3'),
             additionalAttributes: {
               'aria-something': 'something okay',
@@ -692,7 +692,7 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
@@ -704,7 +704,7 @@ void html_input_file_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something-new': 'something new',
@@ -726,9 +726,9 @@ void html_input_file_test() {
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('some-key-1')),
-          InputFile(key: Key('some-key-2')),
-          InputFile(key: Key('some-key-3')),
+          InputReset(key: Key('some-key-1')),
+          InputReset(key: Key('some-key-2')),
+          InputReset(key: Key('some-key-3')),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -742,427 +742,11 @@ void html_input_file_test() {
       expect(wO3.key?.frameworkValue, equals('some-key-3'));
     });
 
-    test('should set attribute "accept"', () async {
-      await app!.buildChildren(
-        widgets: [
-          InputFile(key: Key('el-1'), accept: 'some-accept'),
-          InputFile(key: Key('el-2'), accept: 'another-accept'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('accept'), equals('some-accept'));
-      expect(domNode2.getAttribute('accept'), equals('another-accept'));
-    });
-
-    test('should update attribute "accept"', () async {
-      await app!.buildChildren(
-        widgets: [
-          InputFile(key: Key('el-1'), accept: 'some-accept'),
-          InputFile(key: Key('el-2'), accept: 'another-accept'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          InputFile(key: Key('el-1'), accept: 'updated-accept'),
-          InputFile(key: Key('el-2'), accept: 'another-accept'),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('accept'), equals('updated-accept'));
-      expect(domNode2.getAttribute('accept'), equals('another-accept'));
-    });
-
-    test('should clear attribute "accept"', () async {
-      await app!.buildChildren(
-        widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), accept: 'another-accept'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('accept'), equals(null));
-      expect(domNode2.getAttribute('accept'), equals(null));
-    });
-
-    test('should clear attribute "accept" if updated value is null', () async {
-      await app!.buildChildren(
-        widgets: [
-          InputFile(key: Key('el-1'), accept: 'some-accept'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          InputFile(key: Key('el-1'), accept: null),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('accept'), equals(null));
-    });
-
-    test('should not set attribute "accept" if provided value is null',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          InputFile(key: Key('el-1'), accept: null),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('accept'), equals(null));
-    });
-
-    test('should set messy "accept"', () async {
-      await app!.buildChildren(
-        widgets: [
-          InputFile(
-            key: Key('widget-1'),
-            accept: 'some accept',
-          ),
-          InputFile(
-            key: Key('widget-2'),
-            accept: 'some "messy" accept',
-          ),
-          InputFile(
-            key: Key('widget-3'),
-            accept: "some 'messy' accept",
-          ),
-        ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
-      );
-
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
-
-      expect(
-        domNode1.getAttribute('accept'),
-        equals('some accept'),
-      );
-
-      expect(
-        domNode2.getAttribute('accept'),
-        equals('some "messy" accept'),
-      );
-
-      expect(
-        domNode3.getAttribute('accept'),
-        equals("some 'messy' accept"),
-      );
-    });
-
-    test('should set attribute "capture"', () async {
-      await app!.buildChildren(
-        widgets: [
-          InputFile(key: Key('el-1'), capture: 'some-capture'),
-          InputFile(key: Key('el-2'), capture: 'another-capture'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('capture'), equals('some-capture'));
-      expect(domNode2.getAttribute('capture'), equals('another-capture'));
-    });
-
-    test('should update attribute "capture"', () async {
-      await app!.buildChildren(
-        widgets: [
-          InputFile(key: Key('el-1'), capture: 'some-capture'),
-          InputFile(key: Key('el-2'), capture: 'another-capture'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          InputFile(key: Key('el-1'), capture: 'updated-capture'),
-          InputFile(key: Key('el-2'), capture: 'another-capture'),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('capture'), equals('updated-capture'));
-      expect(domNode2.getAttribute('capture'), equals('another-capture'));
-    });
-
-    test('should clear attribute "capture"', () async {
-      await app!.buildChildren(
-        widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), capture: 'another-capture'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-
-      expect(domNode1.getAttribute('capture'), equals(null));
-      expect(domNode2.getAttribute('capture'), equals(null));
-    });
-
-    test('should clear attribute "capture" if updated value is null', () async {
-      await app!.buildChildren(
-        widgets: [
-          InputFile(key: Key('el-1'), capture: 'some-capture'),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          InputFile(key: Key('el-1'), capture: null),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('capture'), equals(null));
-    });
-
-    test('should not set attribute "capture" if provided value is null',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          InputFile(key: Key('el-1'), capture: null),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-
-      expect(domNode1.getAttribute('capture'), equals(null));
-    });
-
-    test('should set messy "capture"', () async {
-      await app!.buildChildren(
-        widgets: [
-          InputFile(
-            key: Key('widget-1'),
-            capture: 'some capture',
-          ),
-          InputFile(
-            key: Key('widget-2'),
-            capture: 'some "messy" capture',
-          ),
-          InputFile(
-            key: Key('widget-3'),
-            capture: "some 'messy' capture",
-          ),
-        ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
-      );
-
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
-
-      expect(
-        domNode1.getAttribute('capture'),
-        equals('some capture'),
-      );
-
-      expect(
-        domNode2.getAttribute('capture'),
-        equals('some "messy" capture'),
-      );
-
-      expect(
-        domNode3.getAttribute('capture'),
-        equals("some 'messy' capture"),
-      );
-    });
-
-    test('should set attribute "multiple" only if its true', () async {
-      await app!.buildChildren(
-        widgets: [
-          InputFile(key: Key('el-1'), multiple: false),
-          InputFile(key: Key('el-2'), multiple: null),
-          InputFile(key: Key('el-3'), multiple: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-
-      expect(domNode1.getAttribute('multiple'), equals(null));
-      expect(domNode2.getAttribute('multiple'), equals(null));
-      expect(domNode3.getAttribute('multiple'), equals('true'));
-    });
-
-    test('should clear attribute "multiple" if updated value is not true',
-        () async {
-      await app!.buildChildren(
-        widgets: [
-          InputFile(key: Key('el-1'), multiple: true),
-          InputFile(key: Key('el-2'), multiple: true),
-          InputFile(key: Key('el-3'), multiple: true),
-          InputFile(key: Key('el-4'), multiple: true),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      await app!.updateChildren(
-        widgets: [
-          InputFile(key: Key('el-1'), multiple: true),
-          InputFile(key: Key('el-2'), multiple: false),
-          InputFile(key: Key('el-3'), multiple: null),
-          InputFile(key: Key('el-4')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var domNode1 = app!.domNodeByKeyValue('el-1');
-      var domNode2 = app!.domNodeByKeyValue('el-2');
-      var domNode3 = app!.domNodeByKeyValue('el-3');
-      var domNode4 = app!.domNodeByKeyValue('el-4');
-
-      expect(domNode1.getAttribute('multiple'), equals('true'));
-      expect(domNode2.getAttribute('multiple'), equals(null));
-      expect(domNode3.getAttribute('multiple'), equals(null));
-      expect(domNode4.getAttribute('multiple'), equals(null));
-    });
-
-    test('should set "change" event listener', () async {
-      var testStack = RT_TestStack();
-
-      await app!.buildChildren(
-        widgets: [
-          InputFile(
-            key: Key('el-1'),
-            onChange: (event) => testStack.push('change-1'),
-          ),
-          InputFile(
-            key: Key('el-2'),
-            onChange: (event) => testStack.push('change-2'),
-          ),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('change'));
-      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('change'));
-
-      await Future.delayed(Duration.zero, () {
-        expect(testStack.popFromStart(), equals('change-1'));
-        expect(testStack.popFromStart(), equals('change-2'));
-        expect(testStack.canPop(), equals(false));
-      });
-    });
-
-    test('should set "change" event listener only if provided', () async {
-      void listener(event) => {};
-
-      await app!.buildChildren(
-        widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), onChange: null),
-          InputFile(key: Key('el-3'), onChange: listener),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
-
-      expect(listeners1[DomEventType.change], equals(null));
-      expect(listeners2[DomEventType.change], equals(null));
-      expect(listeners3[DomEventType.change], equals(listener));
-    });
-
-    test('should clear "change" event listner', () async {
-      void listener(event) => {};
-
-      await app!.buildChildren(
-        widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), onChange: listener),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-
-      expect(listeners1[DomEventType.change], equals(null));
-      expect(listeners2[DomEventType.change], equals(listener));
-
-      // update
-
-      await app!.updateChildren(
-        widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-
-      expect(listeners1[DomEventType.change], equals(null));
-      expect(listeners2[DomEventType.change], equals(null));
-    });
-
     test('should set attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), name: 'some-name'),
-          InputFile(key: Key('el-2'), name: 'another-name'),
+          InputReset(key: Key('el-1'), name: 'some-name'),
+          InputReset(key: Key('el-2'), name: 'another-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1177,16 +761,16 @@ void html_input_file_test() {
     test('should update attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), name: 'some-name'),
-          InputFile(key: Key('el-2'), name: 'another-name'),
+          InputReset(key: Key('el-1'), name: 'some-name'),
+          InputReset(key: Key('el-2'), name: 'another-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), name: 'updated-name'),
-          InputFile(key: Key('el-2'), name: 'another-name'),
+          InputReset(key: Key('el-1'), name: 'updated-name'),
+          InputReset(key: Key('el-2'), name: 'another-name'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1202,16 +786,16 @@ void html_input_file_test() {
     test('should clear attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), name: 'another-name'),
+          InputReset(key: Key('el-1')),
+          InputReset(key: Key('el-2'), name: 'another-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2')),
+          InputReset(key: Key('el-1')),
+          InputReset(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1227,14 +811,14 @@ void html_input_file_test() {
     test('should clear attribute "name" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), name: 'some-name'),
+          InputReset(key: Key('el-1'), name: 'some-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), name: null),
+          InputReset(key: Key('el-1'), name: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1248,7 +832,7 @@ void html_input_file_test() {
     test('should not set attribute "name" if provided value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), name: null),
+          InputReset(key: Key('el-1'), name: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1261,15 +845,15 @@ void html_input_file_test() {
     test('should set messy "name"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('widget-1'),
             name: 'some name',
           ),
-          InputFile(
+          InputReset(
             key: Key('widget-2'),
             name: 'some "messy" name',
           ),
-          InputFile(
+          InputReset(
             key: Key('widget-3'),
             name: "some 'messy' name",
           ),
@@ -1300,9 +884,9 @@ void html_input_file_test() {
     test('should set attribute "disabled" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), disabled: false),
-          InputFile(key: Key('el-2'), disabled: null),
-          InputFile(key: Key('el-3'), disabled: true),
+          InputReset(key: Key('el-1'), disabled: false),
+          InputReset(key: Key('el-2'), disabled: null),
+          InputReset(key: Key('el-3'), disabled: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1320,20 +904,20 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), disabled: true),
-          InputFile(key: Key('el-2'), disabled: true),
-          InputFile(key: Key('el-3'), disabled: true),
-          InputFile(key: Key('el-4'), disabled: true),
+          InputReset(key: Key('el-1'), disabled: true),
+          InputReset(key: Key('el-2'), disabled: true),
+          InputReset(key: Key('el-3'), disabled: true),
+          InputReset(key: Key('el-4'), disabled: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), disabled: true),
-          InputFile(key: Key('el-2'), disabled: false),
-          InputFile(key: Key('el-3'), disabled: null),
-          InputFile(key: Key('el-4')),
+          InputReset(key: Key('el-1'), disabled: true),
+          InputReset(key: Key('el-2'), disabled: false),
+          InputReset(key: Key('el-3'), disabled: null),
+          InputReset(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1353,8 +937,8 @@ void html_input_file_test() {
     test('should set attribute "form"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), form: 'some-form'),
-          InputFile(key: Key('el-2'), form: 'another-form'),
+          InputReset(key: Key('el-1'), form: 'some-form'),
+          InputReset(key: Key('el-2'), form: 'another-form'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1369,16 +953,16 @@ void html_input_file_test() {
     test('should update attribute "form"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), form: 'some-form'),
-          InputFile(key: Key('el-2'), form: 'another-form'),
+          InputReset(key: Key('el-1'), form: 'some-form'),
+          InputReset(key: Key('el-2'), form: 'another-form'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), form: 'updated-form'),
-          InputFile(key: Key('el-2'), form: 'another-form'),
+          InputReset(key: Key('el-1'), form: 'updated-form'),
+          InputReset(key: Key('el-2'), form: 'another-form'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1394,16 +978,16 @@ void html_input_file_test() {
     test('should clear attribute "form"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), form: 'another-form'),
+          InputReset(key: Key('el-1')),
+          InputReset(key: Key('el-2'), form: 'another-form'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2')),
+          InputReset(key: Key('el-1')),
+          InputReset(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1419,14 +1003,14 @@ void html_input_file_test() {
     test('should clear attribute "form" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), form: 'some-form'),
+          InputReset(key: Key('el-1'), form: 'some-form'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), form: null),
+          InputReset(key: Key('el-1'), form: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1440,7 +1024,7 @@ void html_input_file_test() {
     test('should not set attribute "form" if provided value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), form: null),
+          InputReset(key: Key('el-1'), form: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1453,15 +1037,15 @@ void html_input_file_test() {
     test('should set messy "form"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('widget-1'),
             form: 'some form',
           ),
-          InputFile(
+          InputReset(
             key: Key('widget-2'),
             form: 'some "messy" form',
           ),
-          InputFile(
+          InputReset(
             key: Key('widget-3'),
             form: "some 'messy' form",
           ),
@@ -1492,8 +1076,8 @@ void html_input_file_test() {
     test('should set attribute "inputmode"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), inputMode: 'some-inputmode'),
-          InputFile(key: Key('el-2'), inputMode: 'another-inputmode'),
+          InputReset(key: Key('el-1'), inputMode: 'some-inputmode'),
+          InputReset(key: Key('el-2'), inputMode: 'another-inputmode'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1508,16 +1092,16 @@ void html_input_file_test() {
     test('should update attribute "inputmode"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), inputMode: 'some-inputmode'),
-          InputFile(key: Key('el-2'), inputMode: 'another-inputmode'),
+          InputReset(key: Key('el-1'), inputMode: 'some-inputmode'),
+          InputReset(key: Key('el-2'), inputMode: 'another-inputmode'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), inputMode: 'updated-inputmode'),
-          InputFile(key: Key('el-2'), inputMode: 'another-inputmode'),
+          InputReset(key: Key('el-1'), inputMode: 'updated-inputmode'),
+          InputReset(key: Key('el-2'), inputMode: 'another-inputmode'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1533,16 +1117,16 @@ void html_input_file_test() {
     test('should clear attribute "inputmode"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), inputMode: 'another-inputmode'),
+          InputReset(key: Key('el-1')),
+          InputReset(key: Key('el-2'), inputMode: 'another-inputmode'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2')),
+          InputReset(key: Key('el-1')),
+          InputReset(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1559,14 +1143,14 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), inputMode: 'some-inputmode'),
+          InputReset(key: Key('el-1'), inputMode: 'some-inputmode'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), inputMode: null),
+          InputReset(key: Key('el-1'), inputMode: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1581,7 +1165,7 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), inputMode: null),
+          InputReset(key: Key('el-1'), inputMode: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1594,15 +1178,15 @@ void html_input_file_test() {
     test('should set messy "inputmode"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('widget-1'),
             inputMode: 'some inputmode',
           ),
-          InputFile(
+          InputReset(
             key: Key('widget-2'),
             inputMode: 'some "messy" inputmode',
           ),
-          InputFile(
+          InputReset(
             key: Key('widget-3'),
             inputMode: "some 'messy' inputmode",
           ),
@@ -1633,15 +1217,15 @@ void html_input_file_test() {
     test('should set tab index', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(
+          InputReset(
             key: Key('widget-1'),
             tabIndex: 1,
           ),
-          InputFile(
+          InputReset(
             key: Key('widget-2'),
             tabIndex: 2,
           ),
-          InputFile(
+          InputReset(
             key: Key('widget-3'),
             tabIndex: 3,
           ),
@@ -1661,8 +1245,8 @@ void html_input_file_test() {
     test('should set attribute "value"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), value: 'some-value'),
-          InputFile(key: Key('el-2'), value: 'another-value'),
+          InputReset(key: Key('el-1'), value: 'some-value'),
+          InputReset(key: Key('el-2'), value: 'another-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1677,16 +1261,16 @@ void html_input_file_test() {
     test('should update attribute "value"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), value: 'some-value'),
-          InputFile(key: Key('el-2'), value: 'another-value'),
+          InputReset(key: Key('el-1'), value: 'some-value'),
+          InputReset(key: Key('el-2'), value: 'another-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), value: 'updated-value'),
-          InputFile(key: Key('el-2'), value: 'another-value'),
+          InputReset(key: Key('el-1'), value: 'updated-value'),
+          InputReset(key: Key('el-2'), value: 'another-value'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1702,16 +1286,16 @@ void html_input_file_test() {
     test('should clear attribute "value"', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2'), value: 'another-value'),
+          InputReset(key: Key('el-1')),
+          InputReset(key: Key('el-2'), value: 'another-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1')),
-          InputFile(key: Key('el-2')),
+          InputReset(key: Key('el-1')),
+          InputReset(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1727,14 +1311,14 @@ void html_input_file_test() {
     test('should clear attribute "value" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), value: 'some-value'),
+          InputReset(key: Key('el-1'), value: 'some-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputFile(key: Key('el-1'), value: null),
+          InputReset(key: Key('el-1'), value: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1749,7 +1333,7 @@ void html_input_file_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputFile(key: Key('el-1'), value: null),
+          InputReset(key: Key('el-1'), value: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );

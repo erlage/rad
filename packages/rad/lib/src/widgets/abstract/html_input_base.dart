@@ -112,7 +112,7 @@ abstract class HTMLInputBase extends HTMLWidgetBase {
 
   /// Max number of characters.
   ///
-  final int? max;
+  final String? max;
 
   /// Max length of input.
   ///
@@ -120,7 +120,7 @@ abstract class HTMLInputBase extends HTMLWidgetBase {
 
   /// Min number of characters.
   ///
-  final int? min;
+  final String? min;
 
   /// Min length of input.
   ///
@@ -477,11 +477,7 @@ void _extendAttributes({
   }
 
   if (widget.max != oldWidget?.max) {
-    if (null == widget.max) {
-      attributes[Attributes.max] = null;
-    } else {
-      attributes[Attributes.max] = '${widget.max}';
-    }
+    attributes[Attributes.max] = widget.max;
   }
 
   if (widget.maxLength != oldWidget?.maxLength) {
@@ -493,11 +489,7 @@ void _extendAttributes({
   }
 
   if (widget.min != oldWidget?.min) {
-    if (null == widget.min) {
-      attributes[Attributes.min] = null;
-    } else {
-      attributes[Attributes.min] = '${widget.min}';
-    }
+    attributes[Attributes.min] = widget.min;
   }
 
   if (widget.minLength != oldWidget?.minLength) {

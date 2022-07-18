@@ -28,11 +28,6 @@ class InputButton extends HTMLInputBase {
     Widget? child,
     List<Widget>? children,
     EventCallback? onClick,
-    EventCallback? onInput,
-    EventCallback? onChange,
-    EventCallback? onKeyUp,
-    EventCallback? onKeyDown,
-    EventCallback? onKeyPress,
     Map<String, String>? additionalAttributes,
   }) : super(
           name: name,
@@ -52,11 +47,6 @@ class InputButton extends HTMLInputBase {
           child: child,
           children: children,
           onClick: onClick,
-          onInput: onInput,
-          onChange: onChange,
-          onKeyUp: onKeyUp,
-          onKeyDown: onKeyDown,
-          onKeyPress: onKeyPress,
           additionalAttributes: additionalAttributes,
         );
 }

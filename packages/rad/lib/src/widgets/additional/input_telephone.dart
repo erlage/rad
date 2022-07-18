@@ -8,10 +8,12 @@ import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_input_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-/// The InputPassword widget (HTML's `input` tag with `type = 'password'`).
+/// The InputTelephone widget (HTML's `input` tag with `type = 'tel'`).
 ///
-class InputPassword extends HTMLInputBase {
-  const InputPassword({
+class InputTelephone extends HTMLInputBase {
+  const InputTelephone({
+    String? autoComplete,
+    String? list,
     int? maxLength,
     int? minLength,
     String? pattern,
@@ -42,6 +44,8 @@ class InputPassword extends HTMLInputBase {
     EventCallback? onKeyPress,
     Map<String, String>? additionalAttributes,
   }) : super(
+          autoComplete: autoComplete,
+          list: list,
           maxLength: maxLength,
           minLength: minLength,
           pattern: pattern,
@@ -55,7 +59,7 @@ class InputPassword extends HTMLInputBase {
           tabIndex: tabIndex,
           disabled: disabled,
           inputMode: inputMode,
-          type: InputType.password,
+          type: InputType.telephone,
           key: key,
           id: id,
           title: title,

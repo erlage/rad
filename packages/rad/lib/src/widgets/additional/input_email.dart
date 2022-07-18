@@ -8,12 +8,15 @@ import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_input_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-/// The InputPassword widget (HTML's `input` tag with `type = 'password'`).
+/// The InputEmail widget (HTML's `input` tag with `type = 'email'`).
 ///
-class InputPassword extends HTMLInputBase {
-  const InputPassword({
+class InputEmail extends HTMLInputBase {
+  const InputEmail({
+    String? autoComplete,
+    String? list,
     int? maxLength,
     int? minLength,
+    bool? multiple,
     String? pattern,
     String? placeholder,
     bool? readOnly,
@@ -42,8 +45,11 @@ class InputPassword extends HTMLInputBase {
     EventCallback? onKeyPress,
     Map<String, String>? additionalAttributes,
   }) : super(
+          autoComplete: autoComplete,
+          list: list,
           maxLength: maxLength,
           minLength: minLength,
+          multiple: multiple,
           pattern: pattern,
           placeholder: placeholder,
           readOnly: readOnly,
@@ -55,7 +61,7 @@ class InputPassword extends HTMLInputBase {
           tabIndex: tabIndex,
           disabled: disabled,
           inputMode: inputMode,
-          type: InputType.password,
+          type: InputType.email,
           key: key,
           id: id,
           title: title,

@@ -10,8 +10,8 @@
 
 part of '../_index_html_test.dart';
 
-void html_input_password_test() {
-  group('HTML InputPassword tests:', () {
+void html_input_telephone_test() {
+  group('HTML InputTelephone tests:', () {
     RT_AppRunner? app;
 
     setUp(() {
@@ -23,9 +23,9 @@ void html_input_password_test() {
     test('should set id', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('some-key-1'), id: 'some-id-1'),
-          InputPassword(key: Key('some-key-2'), id: 'some-id-2'),
-          InputPassword(key: Key('some-key-3'), id: 'some-id-3'),
+          InputTelephone(key: Key('some-key-1'), id: 'some-id-1'),
+          InputTelephone(key: Key('some-key-2'), id: 'some-id-2'),
+          InputTelephone(key: Key('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -42,9 +42,9 @@ void html_input_password_test() {
     test('should reset and update id', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('some-key-1'), id: 'some-id-1'),
-          InputPassword(key: Key('some-key-2'), id: 'some-id-2'),
-          InputPassword(key: Key('some-key-3'), id: 'some-id-3'),
+          InputTelephone(key: Key('some-key-1'), id: 'some-id-1'),
+          InputTelephone(key: Key('some-key-2'), id: 'some-id-2'),
+          InputTelephone(key: Key('some-key-3'), id: 'some-id-3'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -59,15 +59,15 @@ void html_input_password_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('some-key-1'),
             id: 'some-updated-id',
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('some-key-2'),
             id: 'some-local-updated-id',
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('some-key-3'),
             id: 'some-global-updated-id',
           ),
@@ -84,15 +84,15 @@ void html_input_password_test() {
     test('should set messy "id"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('widget-1'),
             id: 'some id',
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('widget-2'),
             id: 'some "messy" id',
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('widget-3'),
             id: "some 'messy' id",
           ),
@@ -123,13 +123,13 @@ void html_input_password_test() {
     test('should set children widgets', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             id: 'widget-1',
             children: [
-              InputPassword(
+              InputTelephone(
                 id: 'widget-2',
               ),
-              InputPassword(
+              InputTelephone(
                 id: 'widget-3',
               ),
             ],
@@ -150,9 +150,9 @@ void html_input_password_test() {
     test('should set child widget', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             id: 'widget-1',
-            child: InputPassword(
+            child: InputTelephone(
               id: 'widget-2',
             ),
           ),
@@ -170,11 +170,11 @@ void html_input_password_test() {
     test('should set attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('el-1'),
             className: 'some-classes',
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -192,11 +192,11 @@ void html_input_password_test() {
     test('should update attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('el-1'),
             className: 'some-classes',
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -206,11 +206,11 @@ void html_input_password_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('el-1'),
             className: 'updated-classes',
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -229,8 +229,8 @@ void html_input_password_test() {
     test('should clear attribute "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(
             key: Key('el-2'),
             className: 'another-classes',
           ),
@@ -240,8 +240,8 @@ void html_input_password_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2')),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -257,7 +257,7 @@ void html_input_password_test() {
     test('should clear attribute "classes" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('el-1'),
             className: 'some-classes',
           ),
@@ -267,7 +267,7 @@ void html_input_password_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), className: null),
+          InputTelephone(key: Key('el-1'), className: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -282,7 +282,7 @@ void html_input_password_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), className: null),
+          InputTelephone(key: Key('el-1'), className: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -295,15 +295,15 @@ void html_input_password_test() {
     test('should set messy "classes"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('widget-1'),
             className: 'some classes',
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('widget-2'),
             className: 'some "messy" classes',
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('widget-3'),
             className: "some 'messy' classes",
           ),
@@ -334,9 +334,9 @@ void html_input_password_test() {
     test('should set attribute "hidden" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), hidden: false),
-          InputPassword(key: Key('el-2'), hidden: null),
-          InputPassword(key: Key('el-3'), hidden: true),
+          InputTelephone(key: Key('el-1'), hidden: false),
+          InputTelephone(key: Key('el-2'), hidden: null),
+          InputTelephone(key: Key('el-3'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -354,20 +354,20 @@ void html_input_password_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), hidden: true),
-          InputPassword(key: Key('el-2'), hidden: true),
-          InputPassword(key: Key('el-3'), hidden: true),
-          InputPassword(key: Key('el-4'), hidden: true),
+          InputTelephone(key: Key('el-1'), hidden: true),
+          InputTelephone(key: Key('el-2'), hidden: true),
+          InputTelephone(key: Key('el-3'), hidden: true),
+          InputTelephone(key: Key('el-4'), hidden: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), hidden: true),
-          InputPassword(key: Key('el-2'), hidden: false),
-          InputPassword(key: Key('el-3'), hidden: null),
-          InputPassword(key: Key('el-4')),
+          InputTelephone(key: Key('el-1'), hidden: true),
+          InputTelephone(key: Key('el-2'), hidden: false),
+          InputTelephone(key: Key('el-3'), hidden: null),
+          InputTelephone(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -387,7 +387,7 @@ void html_input_password_test() {
     test('should set inner text', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('widget-1'),
             innerText: 'hello world',
           ),
@@ -410,11 +410,11 @@ void html_input_password_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('el-1'),
             onClick: (event) => testStack.push('click-1'),
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('el-2'),
             onClick: (event) => testStack.push('click-2'),
           ),
@@ -437,9 +437,9 @@ void html_input_password_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), onClick: null),
-          InputPassword(key: Key('el-3'), onClick: listener),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), onClick: null),
+          InputTelephone(key: Key('el-3'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -458,8 +458,8 @@ void html_input_password_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), onClick: listener),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), onClick: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -474,8 +474,8 @@ void html_input_password_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2')),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -491,9 +491,9 @@ void html_input_password_test() {
     test('should set style', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('widget-1'), style: 'some style'),
-          InputPassword(key: Key('widget-2'), style: 'some "messy" style'),
-          InputPassword(key: Key('widget-3'), style: "some 'messy' style"),
+          InputTelephone(key: Key('widget-1'), style: 'some style'),
+          InputTelephone(key: Key('widget-2'), style: 'some "messy" style'),
+          InputTelephone(key: Key('widget-3'), style: "some 'messy' style"),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -510,9 +510,9 @@ void html_input_password_test() {
     test('should set title', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('widget-1'), title: 'some title'),
-          InputPassword(key: Key('widget-2'), title: 'some "messy" title'),
-          InputPassword(key: Key('widget-3'), title: "some 'messy' title"),
+          InputTelephone(key: Key('widget-1'), title: 'some title'),
+          InputTelephone(key: Key('widget-2'), title: 'some "messy" title'),
+          InputTelephone(key: Key('widget-3'), title: "some 'messy' title"),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -529,7 +529,7 @@ void html_input_password_test() {
     test('should set correct types and markup', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('some-key-3')),
+          InputTelephone(key: Key('some-key-3')),
         ],
         parentRenderElement: RT_TestBed.rootRenderElement,
       );
@@ -569,7 +569,7 @@ void html_input_password_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('some-key-3'),
             additionalAttributes: {
               'id': 'some-id',
@@ -591,7 +591,7 @@ void html_input_password_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
@@ -616,7 +616,7 @@ void html_input_password_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('some-key-3'),
             id: 'some-id',
             additionalAttributes: {
@@ -629,7 +629,7 @@ void html_input_password_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('some-key-3'),
             id: 'updated-id',
             additionalAttributes: {
@@ -651,7 +651,7 @@ void html_input_password_test() {
     test('should set data attributes', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
@@ -671,7 +671,7 @@ void html_input_password_test() {
     test('should set aria/any attributes', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('some-key-3'),
             additionalAttributes: {
               'aria-something': 'something okay',
@@ -692,7 +692,7 @@ void html_input_password_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something': 'something okay',
@@ -704,7 +704,7 @@ void html_input_password_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('some-key-3'),
             additionalAttributes: {
               'data-something-new': 'something new',
@@ -726,9 +726,9 @@ void html_input_password_test() {
     test('should set key', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('some-key-1')),
-          InputPassword(key: Key('some-key-2')),
-          InputPassword(key: Key('some-key-3')),
+          InputTelephone(key: Key('some-key-1')),
+          InputTelephone(key: Key('some-key-2')),
+          InputTelephone(key: Key('some-key-3')),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -742,11 +742,263 @@ void html_input_password_test() {
       expect(wO3.key?.frameworkValue, equals('some-key-3'));
     });
 
+    test('should set attribute "autocomplete"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputTelephone(key: Key('el-1'), autoComplete: 'some-autocomplete'),
+          InputTelephone(
+              key: Key('el-2'), autoComplete: 'another-autocomplete'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(
+          domNode1.getAttribute('autocomplete'), equals('some-autocomplete'));
+      expect(domNode2.getAttribute('autocomplete'),
+          equals('another-autocomplete'));
+    });
+
+    test('should update attribute "autocomplete"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputTelephone(key: Key('el-1'), autoComplete: 'some-autocomplete'),
+          InputTelephone(
+              key: Key('el-2'), autoComplete: 'another-autocomplete'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputTelephone(
+              key: Key('el-1'), autoComplete: 'updated-autocomplete'),
+          InputTelephone(
+              key: Key('el-2'), autoComplete: 'another-autocomplete'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('autocomplete'),
+          equals('updated-autocomplete'));
+      expect(domNode2.getAttribute('autocomplete'),
+          equals('another-autocomplete'));
+    });
+
+    test('should clear attribute "autocomplete"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(
+              key: Key('el-2'), autoComplete: 'another-autocomplete'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('autocomplete'), equals(null));
+      expect(domNode2.getAttribute('autocomplete'), equals(null));
+    });
+
+    test(
+        'should clear attribute "autocomplete" if updated autocomplete is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          InputTelephone(key: Key('el-1'), autoComplete: 'some-autocomplete'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputTelephone(key: Key('el-1'), autoComplete: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('autocomplete'), equals(null));
+    });
+
+    test(
+        'should not set attribute "autocomplete" if provided autocomplete is null',
+        () async {
+      await app!.buildChildren(
+        widgets: [
+          InputTelephone(key: Key('el-1'), autoComplete: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('autocomplete'), equals(null));
+    });
+
+    test('should set attribute "list"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputTelephone(key: Key('el-1'), list: 'some-list'),
+          InputTelephone(key: Key('el-2'), list: 'another-list'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('list'), equals('some-list'));
+      expect(domNode2.getAttribute('list'), equals('another-list'));
+    });
+
+    test('should update attribute "list"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputTelephone(key: Key('el-1'), list: 'some-list'),
+          InputTelephone(key: Key('el-2'), list: 'another-list'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputTelephone(key: Key('el-1'), list: 'updated-list'),
+          InputTelephone(key: Key('el-2'), list: 'another-list'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('list'), equals('updated-list'));
+      expect(domNode2.getAttribute('list'), equals('another-list'));
+    });
+
+    test('should clear attribute "list"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), list: 'another-list'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+      var domNode2 = app!.domNodeByKeyValue('el-2');
+
+      expect(domNode1.getAttribute('list'), equals(null));
+      expect(domNode2.getAttribute('list'), equals(null));
+    });
+
+    test('should clear attribute "list" if updated value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputTelephone(key: Key('el-1'), list: 'some-list'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          InputTelephone(key: Key('el-1'), list: null),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('list'), equals(null));
+    });
+
+    test('should not set attribute "list" if provided value is null', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputTelephone(key: Key('el-1'), list: null),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var domNode1 = app!.domNodeByKeyValue('el-1');
+
+      expect(domNode1.getAttribute('list'), equals(null));
+    });
+
+    test('should set messy "list"', () async {
+      await app!.buildChildren(
+        widgets: [
+          InputTelephone(
+            key: Key('widget-1'),
+            list: 'some list',
+          ),
+          InputTelephone(
+            key: Key('widget-2'),
+            list: 'some "messy" list',
+          ),
+          InputTelephone(
+            key: Key('widget-3'),
+            list: "some 'messy' list",
+          ),
+        ],
+        parentRenderElement: RT_TestBed.rootRenderElement,
+      );
+
+      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+
+      expect(
+        domNode1.getAttribute('list'),
+        equals('some list'),
+      );
+
+      expect(
+        domNode2.getAttribute('list'),
+        equals('some "messy" list'),
+      );
+
+      expect(
+        domNode3.getAttribute('list'),
+        equals("some 'messy' list"),
+      );
+    });
+
     test('should set attribute "maxLength"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), maxLength: 10),
-          InputPassword(key: Key('el-2'), maxLength: 0),
+          InputTelephone(key: Key('el-1'), maxLength: 10),
+          InputTelephone(key: Key('el-2'), maxLength: 0),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -761,16 +1013,16 @@ void html_input_password_test() {
     test('should update attribute "maxLength"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), maxLength: 10),
-          InputPassword(key: Key('el-2'), maxLength: 10),
+          InputTelephone(key: Key('el-1'), maxLength: 10),
+          InputTelephone(key: Key('el-2'), maxLength: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), maxLength: 20),
-          InputPassword(key: Key('el-2'), maxLength: 20),
+          InputTelephone(key: Key('el-1'), maxLength: 20),
+          InputTelephone(key: Key('el-2'), maxLength: 20),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -786,16 +1038,16 @@ void html_input_password_test() {
     test('should clear attribute "maxLength"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), maxLength: 10),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), maxLength: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2')),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -812,14 +1064,14 @@ void html_input_password_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), maxLength: 10),
+          InputTelephone(key: Key('el-1'), maxLength: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), maxLength: null),
+          InputTelephone(key: Key('el-1'), maxLength: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -834,7 +1086,7 @@ void html_input_password_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), maxLength: null),
+          InputTelephone(key: Key('el-1'), maxLength: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -847,8 +1099,8 @@ void html_input_password_test() {
     test('should set attribute "minLength"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), minLength: 10),
-          InputPassword(key: Key('el-2'), minLength: 0),
+          InputTelephone(key: Key('el-1'), minLength: 10),
+          InputTelephone(key: Key('el-2'), minLength: 0),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -863,16 +1115,16 @@ void html_input_password_test() {
     test('should update attribute "minLength"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), minLength: 10),
-          InputPassword(key: Key('el-2'), minLength: 10),
+          InputTelephone(key: Key('el-1'), minLength: 10),
+          InputTelephone(key: Key('el-2'), minLength: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), minLength: 20),
-          InputPassword(key: Key('el-2'), minLength: 20),
+          InputTelephone(key: Key('el-1'), minLength: 20),
+          InputTelephone(key: Key('el-2'), minLength: 20),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -888,16 +1140,16 @@ void html_input_password_test() {
     test('should clear attribute "minLength"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), minLength: 10),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), minLength: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2')),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -914,14 +1166,14 @@ void html_input_password_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), minLength: 10),
+          InputTelephone(key: Key('el-1'), minLength: 10),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), minLength: null),
+          InputTelephone(key: Key('el-1'), minLength: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -936,7 +1188,7 @@ void html_input_password_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), minLength: null),
+          InputTelephone(key: Key('el-1'), minLength: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -949,8 +1201,8 @@ void html_input_password_test() {
     test('should set attribute "pattern"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), pattern: 'some-pattern'),
-          InputPassword(key: Key('el-2'), pattern: 'another-pattern'),
+          InputTelephone(key: Key('el-1'), pattern: 'some-pattern'),
+          InputTelephone(key: Key('el-2'), pattern: 'another-pattern'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -965,16 +1217,16 @@ void html_input_password_test() {
     test('should update attribute "pattern"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), pattern: 'some-pattern'),
-          InputPassword(key: Key('el-2'), pattern: 'another-pattern'),
+          InputTelephone(key: Key('el-1'), pattern: 'some-pattern'),
+          InputTelephone(key: Key('el-2'), pattern: 'another-pattern'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), pattern: 'updated-pattern'),
-          InputPassword(key: Key('el-2'), pattern: 'another-pattern'),
+          InputTelephone(key: Key('el-1'), pattern: 'updated-pattern'),
+          InputTelephone(key: Key('el-2'), pattern: 'another-pattern'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -990,16 +1242,16 @@ void html_input_password_test() {
     test('should clear attribute "pattern"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), pattern: 'another-pattern'),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), pattern: 'another-pattern'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2')),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1015,14 +1267,14 @@ void html_input_password_test() {
     test('should clear attribute "pattern" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), pattern: 'some-pattern'),
+          InputTelephone(key: Key('el-1'), pattern: 'some-pattern'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), pattern: null),
+          InputTelephone(key: Key('el-1'), pattern: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1037,7 +1289,7 @@ void html_input_password_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), pattern: null),
+          InputTelephone(key: Key('el-1'), pattern: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1050,8 +1302,8 @@ void html_input_password_test() {
     test('should set attribute "placeholder"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), placeholder: 'some-placeholder'),
-          InputPassword(key: Key('el-2'), placeholder: 'another-placeholder'),
+          InputTelephone(key: Key('el-1'), placeholder: 'some-placeholder'),
+          InputTelephone(key: Key('el-2'), placeholder: 'another-placeholder'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1067,16 +1319,16 @@ void html_input_password_test() {
     test('should update attribute "placeholder"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), placeholder: 'some-placeholder'),
-          InputPassword(key: Key('el-2'), placeholder: 'another-placeholder'),
+          InputTelephone(key: Key('el-1'), placeholder: 'some-placeholder'),
+          InputTelephone(key: Key('el-2'), placeholder: 'another-placeholder'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), placeholder: 'updated-placeholder'),
-          InputPassword(key: Key('el-2'), placeholder: 'another-placeholder'),
+          InputTelephone(key: Key('el-1'), placeholder: 'updated-placeholder'),
+          InputTelephone(key: Key('el-2'), placeholder: 'another-placeholder'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1094,16 +1346,16 @@ void html_input_password_test() {
     test('should clear attribute "placeholder"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), placeholder: 'another-placeholder'),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), placeholder: 'another-placeholder'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2')),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1120,14 +1372,14 @@ void html_input_password_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), placeholder: 'some-placeholder'),
+          InputTelephone(key: Key('el-1'), placeholder: 'some-placeholder'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), placeholder: null),
+          InputTelephone(key: Key('el-1'), placeholder: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1142,7 +1394,7 @@ void html_input_password_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), placeholder: null),
+          InputTelephone(key: Key('el-1'), placeholder: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1155,9 +1407,9 @@ void html_input_password_test() {
     test('should set attribute "readonly" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), readOnly: false),
-          InputPassword(key: Key('el-2'), readOnly: null),
-          InputPassword(key: Key('el-3'), readOnly: true),
+          InputTelephone(key: Key('el-1'), readOnly: false),
+          InputTelephone(key: Key('el-2'), readOnly: null),
+          InputTelephone(key: Key('el-3'), readOnly: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1175,20 +1427,20 @@ void html_input_password_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), readOnly: true),
-          InputPassword(key: Key('el-2'), readOnly: true),
-          InputPassword(key: Key('el-3'), readOnly: true),
-          InputPassword(key: Key('el-4'), readOnly: true),
+          InputTelephone(key: Key('el-1'), readOnly: true),
+          InputTelephone(key: Key('el-2'), readOnly: true),
+          InputTelephone(key: Key('el-3'), readOnly: true),
+          InputTelephone(key: Key('el-4'), readOnly: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), readOnly: true),
-          InputPassword(key: Key('el-2'), readOnly: false),
-          InputPassword(key: Key('el-3'), readOnly: null),
-          InputPassword(key: Key('el-4')),
+          InputTelephone(key: Key('el-1'), readOnly: true),
+          InputTelephone(key: Key('el-2'), readOnly: false),
+          InputTelephone(key: Key('el-3'), readOnly: null),
+          InputTelephone(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1208,9 +1460,9 @@ void html_input_password_test() {
     test('should set attribute "required" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), required: false),
-          InputPassword(key: Key('el-2'), required: null),
-          InputPassword(key: Key('el-3'), required: true),
+          InputTelephone(key: Key('el-1'), required: false),
+          InputTelephone(key: Key('el-2'), required: null),
+          InputTelephone(key: Key('el-3'), required: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1228,20 +1480,20 @@ void html_input_password_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), required: true),
-          InputPassword(key: Key('el-2'), required: true),
-          InputPassword(key: Key('el-3'), required: true),
-          InputPassword(key: Key('el-4'), required: true),
+          InputTelephone(key: Key('el-1'), required: true),
+          InputTelephone(key: Key('el-2'), required: true),
+          InputTelephone(key: Key('el-3'), required: true),
+          InputTelephone(key: Key('el-4'), required: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), required: true),
-          InputPassword(key: Key('el-2'), required: false),
-          InputPassword(key: Key('el-3'), required: null),
-          InputPassword(key: Key('el-4')),
+          InputTelephone(key: Key('el-1'), required: true),
+          InputTelephone(key: Key('el-2'), required: false),
+          InputTelephone(key: Key('el-3'), required: null),
+          InputTelephone(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1261,8 +1513,8 @@ void html_input_password_test() {
     test('should set attribute "size"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), size: 'some-size'),
-          InputPassword(key: Key('el-2'), size: 'another-size'),
+          InputTelephone(key: Key('el-1'), size: 'some-size'),
+          InputTelephone(key: Key('el-2'), size: 'another-size'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1277,16 +1529,16 @@ void html_input_password_test() {
     test('should update attribute "size"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), size: 'some-size'),
-          InputPassword(key: Key('el-2'), size: 'another-size'),
+          InputTelephone(key: Key('el-1'), size: 'some-size'),
+          InputTelephone(key: Key('el-2'), size: 'another-size'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), size: 'updated-size'),
-          InputPassword(key: Key('el-2'), size: 'another-size'),
+          InputTelephone(key: Key('el-1'), size: 'updated-size'),
+          InputTelephone(key: Key('el-2'), size: 'another-size'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1302,16 +1554,16 @@ void html_input_password_test() {
     test('should clear attribute "size"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), size: 'another-size'),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), size: 'another-size'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2')),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1327,14 +1579,14 @@ void html_input_password_test() {
     test('should clear attribute "size" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), size: 'some-size'),
+          InputTelephone(key: Key('el-1'), size: 'some-size'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), size: null),
+          InputTelephone(key: Key('el-1'), size: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1348,7 +1600,7 @@ void html_input_password_test() {
     test('should not set attribute "size" if provided value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), size: null),
+          InputTelephone(key: Key('el-1'), size: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1361,15 +1613,15 @@ void html_input_password_test() {
     test('should set messy "size"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('widget-1'),
             size: 'some size',
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('widget-2'),
             size: 'some "messy" size',
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('widget-3'),
             size: "some 'messy' size",
           ),
@@ -1397,99 +1649,16 @@ void html_input_password_test() {
       );
     });
 
-    test('should set "change" event listener', () async {
-      var testStack = RT_TestStack();
-
-      await app!.buildChildren(
-        widgets: [
-          InputPassword(
-            key: Key('el-1'),
-            onChange: (event) => testStack.push('change-1'),
-          ),
-          InputPassword(
-            key: Key('el-2'),
-            onChange: (event) => testStack.push('change-2'),
-          ),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('change'));
-      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('change'));
-
-      await Future.delayed(Duration.zero, () {
-        expect(testStack.popFromStart(), equals('change-1'));
-        expect(testStack.popFromStart(), equals('change-2'));
-        expect(testStack.canPop(), equals(false));
-      });
-    });
-
-    test('should set "change" event listener only if provided', () async {
-      void listener(event) => {};
-
-      await app!.buildChildren(
-        widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), onChange: null),
-          InputPassword(key: Key('el-3'), onChange: listener),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
-
-      expect(listeners1[DomEventType.change], equals(null));
-      expect(listeners2[DomEventType.change], equals(null));
-      expect(listeners3[DomEventType.change], equals(listener));
-    });
-
-    test('should clear "change" event listner', () async {
-      void listener(event) => {};
-
-      await app!.buildChildren(
-        widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), onChange: listener),
-        ],
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-
-      expect(listeners1[DomEventType.change], equals(null));
-      expect(listeners2[DomEventType.change], equals(listener));
-
-      // update
-
-      await app!.updateChildren(
-        widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2')),
-        ],
-        updateType: UpdateType.setState,
-        parentRenderElement: app!.appRenderElement,
-      );
-
-      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
-      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
-
-      expect(listeners1[DomEventType.change], equals(null));
-      expect(listeners2[DomEventType.change], equals(null));
-    });
-
     test('should set "input" event listener', () async {
       var testStack = RT_TestStack();
 
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('el-1'),
             onInput: (event) => testStack.push('input-1'),
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('el-2'),
             onInput: (event) => testStack.push('input-2'),
           ),
@@ -1512,9 +1681,9 @@ void html_input_password_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), onInput: null),
-          InputPassword(key: Key('el-3'), onInput: listener),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), onInput: null),
+          InputTelephone(key: Key('el-3'), onInput: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1533,8 +1702,8 @@ void html_input_password_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), onInput: listener),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), onInput: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1549,8 +1718,8 @@ void html_input_password_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2')),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1563,16 +1732,99 @@ void html_input_password_test() {
       expect(listeners2[DomEventType.input], equals(null));
     });
 
+    test('should set "change" event listener', () async {
+      var testStack = RT_TestStack();
+
+      await app!.buildChildren(
+        widgets: [
+          InputTelephone(
+            key: Key('el-1'),
+            onChange: (event) => testStack.push('change-1'),
+          ),
+          InputTelephone(
+            key: Key('el-2'),
+            onChange: (event) => testStack.push('change-2'),
+          ),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      app!.domNodeByKeyValue('el-1').dispatchEvent(Event('change'));
+      app!.domNodeByKeyValue('el-2').dispatchEvent(Event('change'));
+
+      await Future.delayed(Duration.zero, () {
+        expect(testStack.popFromStart(), equals('change-1'));
+        expect(testStack.popFromStart(), equals('change-2'));
+        expect(testStack.canPop(), equals(false));
+      });
+    });
+
+    test('should set "change" event listener only if provided', () async {
+      void listener(event) => {};
+
+      await app!.buildChildren(
+        widgets: [
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), onChange: null),
+          InputTelephone(key: Key('el-3'), onChange: listener),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
+      var listeners3 = app!.widgetByKey('el-3').widgetEventListeners;
+
+      expect(listeners1[DomEventType.change], equals(null));
+      expect(listeners2[DomEventType.change], equals(null));
+      expect(listeners3[DomEventType.change], equals(listener));
+    });
+
+    test('should clear "change" event listner', () async {
+      void listener(event) => {};
+
+      await app!.buildChildren(
+        widgets: [
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), onChange: listener),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      var listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
+
+      expect(listeners1[DomEventType.change], equals(null));
+      expect(listeners2[DomEventType.change], equals(listener));
+
+      // update
+
+      await app!.updateChildren(
+        widgets: [
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2')),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      listeners1 = app!.widgetByKey('el-1').widgetEventListeners;
+      listeners2 = app!.widgetByKey('el-2').widgetEventListeners;
+
+      expect(listeners1[DomEventType.change], equals(null));
+      expect(listeners2[DomEventType.change], equals(null));
+    });
+
     test('should set "KeyPress" event listener', () async {
       var testStack = RT_TestStack();
 
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('el-1'),
             onKeyPress: (event) => testStack.push('keypress-1'),
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('el-2'),
             onKeyPress: (event) => testStack.push('keypress-2'),
           ),
@@ -1595,9 +1847,9 @@ void html_input_password_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), onKeyPress: null),
-          InputPassword(key: Key('el-3'), onKeyPress: listener),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), onKeyPress: null),
+          InputTelephone(key: Key('el-3'), onKeyPress: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1616,8 +1868,8 @@ void html_input_password_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), onKeyPress: listener),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), onKeyPress: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1632,8 +1884,8 @@ void html_input_password_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2')),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1651,11 +1903,11 @@ void html_input_password_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('el-1'),
             onKeyUp: (event) => testStack.push('keyup-1'),
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('el-2'),
             onKeyUp: (event) => testStack.push('keyup-2'),
           ),
@@ -1678,9 +1930,9 @@ void html_input_password_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), onKeyUp: null),
-          InputPassword(key: Key('el-3'), onKeyUp: listener),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), onKeyUp: null),
+          InputTelephone(key: Key('el-3'), onKeyUp: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1699,8 +1951,8 @@ void html_input_password_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), onKeyUp: listener),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), onKeyUp: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1715,8 +1967,8 @@ void html_input_password_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2')),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1734,11 +1986,11 @@ void html_input_password_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('el-1'),
             onKeyDown: (event) => testStack.push('keydown-1'),
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('el-2'),
             onKeyDown: (event) => testStack.push('keydown-2'),
           ),
@@ -1761,9 +2013,9 @@ void html_input_password_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), onKeyDown: null),
-          InputPassword(key: Key('el-3'), onKeyDown: listener),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), onKeyDown: null),
+          InputTelephone(key: Key('el-3'), onKeyDown: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1782,8 +2034,8 @@ void html_input_password_test() {
 
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), onKeyDown: listener),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), onKeyDown: listener),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1798,8 +2050,8 @@ void html_input_password_test() {
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2')),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1815,8 +2067,8 @@ void html_input_password_test() {
     test('should set attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), name: 'some-name'),
-          InputPassword(key: Key('el-2'), name: 'another-name'),
+          InputTelephone(key: Key('el-1'), name: 'some-name'),
+          InputTelephone(key: Key('el-2'), name: 'another-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1831,16 +2083,16 @@ void html_input_password_test() {
     test('should update attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), name: 'some-name'),
-          InputPassword(key: Key('el-2'), name: 'another-name'),
+          InputTelephone(key: Key('el-1'), name: 'some-name'),
+          InputTelephone(key: Key('el-2'), name: 'another-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), name: 'updated-name'),
-          InputPassword(key: Key('el-2'), name: 'another-name'),
+          InputTelephone(key: Key('el-1'), name: 'updated-name'),
+          InputTelephone(key: Key('el-2'), name: 'another-name'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1856,16 +2108,16 @@ void html_input_password_test() {
     test('should clear attribute "name"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), name: 'another-name'),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), name: 'another-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2')),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1881,14 +2133,14 @@ void html_input_password_test() {
     test('should clear attribute "name" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), name: 'some-name'),
+          InputTelephone(key: Key('el-1'), name: 'some-name'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), name: null),
+          InputTelephone(key: Key('el-1'), name: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1902,7 +2154,7 @@ void html_input_password_test() {
     test('should not set attribute "name" if provided value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), name: null),
+          InputTelephone(key: Key('el-1'), name: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1915,15 +2167,15 @@ void html_input_password_test() {
     test('should set messy "name"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('widget-1'),
             name: 'some name',
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('widget-2'),
             name: 'some "messy" name',
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('widget-3'),
             name: "some 'messy' name",
           ),
@@ -1954,9 +2206,9 @@ void html_input_password_test() {
     test('should set attribute "disabled" only if its true', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), disabled: false),
-          InputPassword(key: Key('el-2'), disabled: null),
-          InputPassword(key: Key('el-3'), disabled: true),
+          InputTelephone(key: Key('el-1'), disabled: false),
+          InputTelephone(key: Key('el-2'), disabled: null),
+          InputTelephone(key: Key('el-3'), disabled: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1974,20 +2226,20 @@ void html_input_password_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), disabled: true),
-          InputPassword(key: Key('el-2'), disabled: true),
-          InputPassword(key: Key('el-3'), disabled: true),
-          InputPassword(key: Key('el-4'), disabled: true),
+          InputTelephone(key: Key('el-1'), disabled: true),
+          InputTelephone(key: Key('el-2'), disabled: true),
+          InputTelephone(key: Key('el-3'), disabled: true),
+          InputTelephone(key: Key('el-4'), disabled: true),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), disabled: true),
-          InputPassword(key: Key('el-2'), disabled: false),
-          InputPassword(key: Key('el-3'), disabled: null),
-          InputPassword(key: Key('el-4')),
+          InputTelephone(key: Key('el-1'), disabled: true),
+          InputTelephone(key: Key('el-2'), disabled: false),
+          InputTelephone(key: Key('el-3'), disabled: null),
+          InputTelephone(key: Key('el-4')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -2007,8 +2259,8 @@ void html_input_password_test() {
     test('should set attribute "form"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), form: 'some-form'),
-          InputPassword(key: Key('el-2'), form: 'another-form'),
+          InputTelephone(key: Key('el-1'), form: 'some-form'),
+          InputTelephone(key: Key('el-2'), form: 'another-form'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -2023,16 +2275,16 @@ void html_input_password_test() {
     test('should update attribute "form"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), form: 'some-form'),
-          InputPassword(key: Key('el-2'), form: 'another-form'),
+          InputTelephone(key: Key('el-1'), form: 'some-form'),
+          InputTelephone(key: Key('el-2'), form: 'another-form'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), form: 'updated-form'),
-          InputPassword(key: Key('el-2'), form: 'another-form'),
+          InputTelephone(key: Key('el-1'), form: 'updated-form'),
+          InputTelephone(key: Key('el-2'), form: 'another-form'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -2048,16 +2300,16 @@ void html_input_password_test() {
     test('should clear attribute "form"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), form: 'another-form'),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), form: 'another-form'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2')),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -2073,14 +2325,14 @@ void html_input_password_test() {
     test('should clear attribute "form" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), form: 'some-form'),
+          InputTelephone(key: Key('el-1'), form: 'some-form'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), form: null),
+          InputTelephone(key: Key('el-1'), form: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -2094,7 +2346,7 @@ void html_input_password_test() {
     test('should not set attribute "form" if provided value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), form: null),
+          InputTelephone(key: Key('el-1'), form: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -2107,15 +2359,15 @@ void html_input_password_test() {
     test('should set messy "form"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('widget-1'),
             form: 'some form',
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('widget-2'),
             form: 'some "messy" form',
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('widget-3'),
             form: "some 'messy' form",
           ),
@@ -2146,8 +2398,8 @@ void html_input_password_test() {
     test('should set attribute "inputmode"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), inputMode: 'some-inputmode'),
-          InputPassword(key: Key('el-2'), inputMode: 'another-inputmode'),
+          InputTelephone(key: Key('el-1'), inputMode: 'some-inputmode'),
+          InputTelephone(key: Key('el-2'), inputMode: 'another-inputmode'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -2162,16 +2414,16 @@ void html_input_password_test() {
     test('should update attribute "inputmode"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), inputMode: 'some-inputmode'),
-          InputPassword(key: Key('el-2'), inputMode: 'another-inputmode'),
+          InputTelephone(key: Key('el-1'), inputMode: 'some-inputmode'),
+          InputTelephone(key: Key('el-2'), inputMode: 'another-inputmode'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), inputMode: 'updated-inputmode'),
-          InputPassword(key: Key('el-2'), inputMode: 'another-inputmode'),
+          InputTelephone(key: Key('el-1'), inputMode: 'updated-inputmode'),
+          InputTelephone(key: Key('el-2'), inputMode: 'another-inputmode'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -2187,16 +2439,16 @@ void html_input_password_test() {
     test('should clear attribute "inputmode"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), inputMode: 'another-inputmode'),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), inputMode: 'another-inputmode'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2')),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -2213,14 +2465,14 @@ void html_input_password_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), inputMode: 'some-inputmode'),
+          InputTelephone(key: Key('el-1'), inputMode: 'some-inputmode'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), inputMode: null),
+          InputTelephone(key: Key('el-1'), inputMode: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -2235,7 +2487,7 @@ void html_input_password_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), inputMode: null),
+          InputTelephone(key: Key('el-1'), inputMode: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -2248,15 +2500,15 @@ void html_input_password_test() {
     test('should set messy "inputmode"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('widget-1'),
             inputMode: 'some inputmode',
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('widget-2'),
             inputMode: 'some "messy" inputmode',
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('widget-3'),
             inputMode: "some 'messy' inputmode",
           ),
@@ -2287,15 +2539,15 @@ void html_input_password_test() {
     test('should set tab index', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(
+          InputTelephone(
             key: Key('widget-1'),
             tabIndex: 1,
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('widget-2'),
             tabIndex: 2,
           ),
-          InputPassword(
+          InputTelephone(
             key: Key('widget-3'),
             tabIndex: 3,
           ),
@@ -2315,8 +2567,8 @@ void html_input_password_test() {
     test('should set attribute "value"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), value: 'some-value'),
-          InputPassword(key: Key('el-2'), value: 'another-value'),
+          InputTelephone(key: Key('el-1'), value: 'some-value'),
+          InputTelephone(key: Key('el-2'), value: 'another-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -2331,16 +2583,16 @@ void html_input_password_test() {
     test('should update attribute "value"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), value: 'some-value'),
-          InputPassword(key: Key('el-2'), value: 'another-value'),
+          InputTelephone(key: Key('el-1'), value: 'some-value'),
+          InputTelephone(key: Key('el-2'), value: 'another-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), value: 'updated-value'),
-          InputPassword(key: Key('el-2'), value: 'another-value'),
+          InputTelephone(key: Key('el-1'), value: 'updated-value'),
+          InputTelephone(key: Key('el-2'), value: 'another-value'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -2356,16 +2608,16 @@ void html_input_password_test() {
     test('should clear attribute "value"', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2'), value: 'another-value'),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2'), value: 'another-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1')),
-          InputPassword(key: Key('el-2')),
+          InputTelephone(key: Key('el-1')),
+          InputTelephone(key: Key('el-2')),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -2381,14 +2633,14 @@ void html_input_password_test() {
     test('should clear attribute "value" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), value: 'some-value'),
+          InputTelephone(key: Key('el-1'), value: 'some-value'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), value: null),
+          InputTelephone(key: Key('el-1'), value: null),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -2403,7 +2655,7 @@ void html_input_password_test() {
         () async {
       await app!.buildChildren(
         widgets: [
-          InputPassword(key: Key('el-1'), value: null),
+          InputTelephone(key: Key('el-1'), value: null),
         ],
         parentRenderElement: app!.appRenderElement,
       );

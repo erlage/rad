@@ -161,13 +161,26 @@ void main() {
 
     test('should map to the correct native value', () {
       expect(InputType.button.nativeValue, equals('button'));
-      expect(InputType.image.nativeValue, equals('image'));
-      expect(InputType.text.nativeValue, equals('text'));
-      expect(InputType.password.nativeValue, equals('password'));
-      expect(InputType.file.nativeValue, equals('file'));
-      expect(InputType.radio.nativeValue, equals('radio'));
       expect(InputType.checkbox.nativeValue, equals('checkbox'));
+      expect(InputType.color.nativeValue, equals('color'));
+      expect(InputType.date.nativeValue, equals('date'));
+      expect(InputType.dateTimeLocal.nativeValue, equals('datetime-local'));
+      expect(InputType.email.nativeValue, equals('email'));
+      expect(InputType.file.nativeValue, equals('file'));
+      expect(InputType.image.nativeValue, equals('image'));
+      expect(InputType.month.nativeValue, equals('month'));
+      expect(InputType.number.nativeValue, equals('number'));
+      expect(InputType.password.nativeValue, equals('password'));
+      expect(InputType.radio.nativeValue, equals('radio'));
+      expect(InputType.range.nativeValue, equals('range'));
+      expect(InputType.reset.nativeValue, equals('reset'));
+      expect(InputType.search.nativeValue, equals('search'));
       expect(InputType.submit.nativeValue, equals('submit'));
+      expect(InputType.telephone.nativeValue, equals('tel'));
+      expect(InputType.text.nativeValue, equals('text'));
+      expect(InputType.time.nativeValue, equals('time'));
+      expect(InputType.url.nativeValue, equals('url'));
+      expect(InputType.week.nativeValue, equals('week'));
     });
   });
 

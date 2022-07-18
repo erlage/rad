@@ -8,17 +8,10 @@ import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/abstract/html_input_base.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
-/// The InputPassword widget (HTML's `input` tag with `type = 'password'`).
+/// The InputHidden widget (HTML's `input` tag with `type = 'hidden'`).
 ///
-class InputPassword extends HTMLInputBase {
-  const InputPassword({
-    int? maxLength,
-    int? minLength,
-    String? pattern,
-    String? placeholder,
-    bool? readOnly,
-    bool? required,
-    String? size,
+class InputHidden extends HTMLInputBase {
+  const InputHidden({
     String? name,
     bool? disabled,
     String? form,
@@ -35,27 +28,15 @@ class InputPassword extends HTMLInputBase {
     Widget? child,
     List<Widget>? children,
     EventCallback? onClick,
-    EventCallback? onInput,
-    EventCallback? onChange,
-    EventCallback? onKeyUp,
-    EventCallback? onKeyDown,
-    EventCallback? onKeyPress,
     Map<String, String>? additionalAttributes,
   }) : super(
-          maxLength: maxLength,
-          minLength: minLength,
-          pattern: pattern,
-          placeholder: placeholder,
-          readOnly: readOnly,
-          required: required,
-          size: size,
           name: name,
           form: form,
           value: value,
           tabIndex: tabIndex,
           disabled: disabled,
           inputMode: inputMode,
-          type: InputType.password,
+          type: InputType.button,
           key: key,
           id: id,
           title: title,
@@ -66,11 +47,6 @@ class InputPassword extends HTMLInputBase {
           child: child,
           children: children,
           onClick: onClick,
-          onInput: onInput,
-          onChange: onChange,
-          onKeyUp: onKeyUp,
-          onKeyDown: onKeyDown,
-          onKeyPress: onKeyPress,
           additionalAttributes: additionalAttributes,
         );
 }
