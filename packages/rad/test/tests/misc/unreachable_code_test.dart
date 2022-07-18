@@ -4,11 +4,43 @@
 
 // ignore_for_file: avoid_relative_lib_imports
 
-import '../../test_imports.dart';
+import '../../test_imports.dart' hide RootRenderElement;
+import '../../../lib/src/core/common/objects/common_render_elements.dart';
 
 // these tests are mere to cover unreachable code
 
 void main() {
+  RT_AppRunner? app;
+
+  setUp(() {
+    app = createTestApp()..start();
+  });
+
+  tearDown(() => app!.stop());
+
+  group('RootRenderElement', () {
+    test('should throw on accessing children list', () {
+      expect(
+          () => RootRenderElement(
+                appTargetId: RT_TestBed.rootTargetId,
+                appTargetDomNode:
+                    document.getElementById(RT_TestBed.rootTargetId)!,
+              ).widgetChildren,
+          throwsA((e) => e.toString().toLowerCase().contains('access')));
+    });
+  });
+
+  group('TemporaryRenderElement', () {
+    test('should throw on accessing children list', () {
+      expect(
+          () => TemporaryElement.create(
+                possibleParent: app!.appRenderElement,
+                services: app!.frameworkServices,
+              ).widgetChildren,
+          throwsA((e) => e.toString().toLowerCase().contains('access')));
+    });
+  });
+
   group('Component', () {
     test('should insert styles if head is present', () {
       var component = _TestComponent();

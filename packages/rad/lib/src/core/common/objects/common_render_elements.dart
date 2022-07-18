@@ -7,7 +7,6 @@ import 'dart:html';
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/abstract/render_element.dart';
-import 'package:rad/src/core/common/objects/cache.dart';
 import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/text.dart';
@@ -28,7 +27,7 @@ class RootRenderElement extends RenderElement {
         );
 
   @override
-  List<Widget> get widgetChildren => ccImmutableEmptyListOfWidgets;
+  List<Widget> get widgetChildren => throw Exception('Access invalid');
 }
 
 /// A temporary element.
@@ -71,7 +70,5 @@ class TemporaryElement extends RenderElement {
         );
 
   @override
-  List<Widget> get widgetChildren => throw Exception(
-        'Temporary render element',
-      );
+  List<Widget> get widgetChildren => throw Exception('Access invalid');
 }
