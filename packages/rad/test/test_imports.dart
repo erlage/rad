@@ -18,6 +18,8 @@ export 'package:rad/src/core/common/objects/options/router_options.dart';
 export 'package:rad/src/core/interface/window/abstract.dart';
 export 'package:rad/src/core/interface/window/window.dart';
 export 'package:rad/src/core/interface/window/delegates/browser_window.dart';
+export 'package:rad/src/core/interface/components/abstract.dart';
+export 'package:rad/src/core/interface/components/components.dart';
 
 export 'package:rad/src/core/framework.dart';
 export 'package:rad/src/core/services/debug/debug_service.dart';

@@ -1,0 +1,80 @@
+// Copyright (c) 2022, Rad developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// ignore_for_file: avoid_relative_lib_imports
+
+import '../../test_imports.dart';
+
+// these tests are mere to cover unreachable code
+
+void main() {
+  group('Component', () {
+    test('should insert styles if head is present', () {
+      var component = _TestComponent();
+      Components.instance.injectStyleComponent(component);
+
+      var matches = document.getElementsByTagName('style');
+      var found = false;
+      for (var i = 0; i < matches.length; i++) {
+        if (component.styleSheetContents == matches[i].text) {
+          found = true;
+          break;
+        }
+      }
+
+      expect(found, equals(true));
+    });
+
+    test('should insert styles if head is not present but body is', () {
+      document.head?.remove();
+
+      var component = _TestComponent();
+      Components.instance.injectStyleComponent(component);
+
+      var matches = document.getElementsByTagName('style');
+      var found = false;
+      for (var i = 0; i < matches.length; i++) {
+        if (component.styleSheetContents == matches[i].text) {
+          found = true;
+          break;
+        }
+      }
+
+      expect(found, equals(true));
+    });
+
+    test('should throw if neither head nor body is present', () {
+      document.head?.remove();
+      document.body?.remove();
+
+      var component = _TestComponent();
+
+      expect(
+        () => Components.instance.injectStyleComponent(
+          component,
+        ),
+        throwsA((e) => e.toString().contains('head tag')),
+      );
+    });
+  });
+}
+
+var _idCount = 1;
+
+class _TestComponent extends StyleComponent {
+  final String id;
+  _TestComponent() : id = '${_idCount++}';
+
+  @override
+  String get name => 'testing-$id';
+
+  @override
+  String get author => 'rad-core-$id';
+
+  @override
+  String get version => '0.0.0-$id';
+
+  @override
+  String? get styleSheetContents => 'contents-$id';
+}
