@@ -8,3 +8,10 @@ coverage:
     patch:
       default:
         target: 80%
+
+ignore:
+  # - see enums_test.dart
+  - "packages/rad/lib/src/core/common/enums.dart"
+  
+  # - see browser_window_test.dart
+  - "packages/rad/lib/src/core/interface/window/delegates/browser_window.dart"
