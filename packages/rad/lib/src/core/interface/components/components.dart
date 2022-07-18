@@ -86,7 +86,7 @@ class Components {
     if (null != document.head) {
       document.head!.append(domNode);
     } else if (null != document.body) {
-      document.head!.append(domNode);
+      document.body!.append(domNode);
     } else {
       if (DEBUG_BUILD) {
         throw Exception(
