@@ -7,11 +7,10 @@ import 'dart:html';
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/abstract/render_element.dart';
-import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/cache.dart';
 import 'package:rad/src/core/services/services.dart';
-import 'package:rad/src/widgets/abstract/no_child_widget.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/widgets/text.dart';
 
 /// Root render element.
 ///
@@ -67,7 +66,7 @@ class TemporaryElement extends RenderElement {
   ) : super.frameworkTemporary(
           services: services,
           possibleParent: possibleParent,
-          tempWidget: const _TemporaryWidget(),
+          tempWidget: const Text(''),
           tempDomNode: document.createElement('div'),
         );
 
@@ -75,23 +74,4 @@ class TemporaryElement extends RenderElement {
   List<Widget> get widgetChildren => throw Exception(
         'Temporary render element',
       );
-}
-
-// ----------------------------------------------------------------------
-//  Private
-// ----------------------------------------------------------------------
-
-/// A temporary widget.
-///
-class _TemporaryWidget extends NoChildWidget {
-  const _TemporaryWidget();
-
-  @override
-  DomTagType? get correspondingTag => null;
-
-  @override
-  bool shouldUpdateWidget(oldWidget) => false;
-
-  @override
-  bool shouldUpdateWidgetChildren(oldWidget, shouldUpdateWidget) => false;
 }
