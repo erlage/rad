@@ -14,9 +14,7 @@ Rad is a frontend framework for creating fast and interactive web apps using Dar
 - [Repository @ github.com](https://github.com/erlage/rad)
 - [Benchmarks @ github.com](https://github.com/erlage/rad-benchmarks)
 
-## Let's start
-
-Below is a hello world in Rad:
+## Example
 
 ```dart
 void main() {
@@ -27,7 +25,9 @@ void main() {
 }
 ```
 
-Function `runApp` finds a element having id equals to `appTargetId` in your HTML page, create a Rad app with it, and then displays "Text" widget inside of it. Similar to Flutter, widgets are the central class hierarchy in the Rad framework. Let's see one more example,
+Function `runApp` will finds a element having id equals to `appTargetId` in your HTML page, create a Rad app with it, and then displays "Text" widget inside of it. 
+
+Let's see one more example,
 
 ```dart
 class HomePage extends StatelessWidget
@@ -46,15 +46,13 @@ void main() {
 }
 ```
 
-Internally, Rad has some differences that might not be apparent from the examples so let's discuss them first.
+If you're familiar with Flutter it don't even need an explanation. Internally, Rad has some differences that might not be apparent from the examples so let's discuss them first.
 
 ## Differences
 
-1. First off, we don't use a rendering engine to render a widget or anything like that. Widgets are mapped to HTML tags and composed together the way you describe them.
+1. We don't use a rendering engine to render a widget. Widgets are mapped to HTML tags and composed together the way you describe them.
 
-2. Second, you can use use CSS for adding animations without ever thinking about how browsers carries them out.
-
-3. And lastly, for layouts, you've to use HTML. And guess what? there are widgets for that.
+2. For layouts, you've to use HTML. And guess what? there are widgets for that.
   
     Let's take this HTML snippet:
     ```html
