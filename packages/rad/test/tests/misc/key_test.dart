@@ -10,13 +10,24 @@ void main() {
   });
 
   test('should stringify value', () {
+    var key = Key('some-value');
+
+    expect('$key', contains('some-value'));
     expect(Key('some-value').toString(), contains('some-value'));
+  });
+
+  test('should use underlying values hashcode', () {
+    var value = 'some-value';
+    var key = Key(value);
+
+    expect(key.hashCode, equals(value.hashCode));
   });
 
   test('should be equal to a key generated with same value', () {
     var generated = Key('some-value');
 
     expect(Key('some-value') == generated, equals(true));
+    expect(Key('some-value') == Key('some-value'), equals(true));
   });
 
   test(
@@ -26,6 +37,7 @@ void main() {
       var generated = _KeySubType('some-value');
 
       expect(Key('some-value') == generated, equals(true));
+      expect(Key('some-value') == Key('some-value'), equals(true));
     },
   );
 }
