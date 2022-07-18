@@ -33,7 +33,4 @@ abstract class StyleComponent extends AppComponent {
   /// CSS contents to inject in DOM
   ///
   String? get styleSheetContents;
-
-  @override
-  toString() => '$name (v$version by $author)';
 }
