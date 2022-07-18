@@ -9,9 +9,18 @@ coverage:
       default:
         target: 80%
 
+# coverage exclusions
+# 
+# all exclusions are explicit and listed here. we're not 
+# using directives like coverage:ignore-start/end/file.
+#
+
 ignore:
   # - see enums_test.dart
   - "packages/rad/lib/src/core/common/enums.dart"
   
   # - see browser_window_test.dart
   - "packages/rad/lib/src/core/interface/window/delegates/browser_window.dart"
+
+  # - tests not added for listview widget yet
+  - "packages/rad/lib/src/widgets/list_view.dart"

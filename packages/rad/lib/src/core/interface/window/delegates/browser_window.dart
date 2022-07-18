@@ -3,8 +3,6 @@
 // found in the LICENSE file.
 
 // !WARN: manually run browser_window_test.dart after updating this file.
-// ?info: see browser_window_test.dart
-// coverage:ignore-file
 
 import 'dart:html';
 

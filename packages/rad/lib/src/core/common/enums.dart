@@ -2,9 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// ?info: see enums_test.dart
-// coverage:ignore-file
-
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/widgets/gesture_detector.dart';
