@@ -24,5 +24,5 @@ For more please checkout [examples here](https://github.com/erlage/rad/tree/main
 
 ### License
 
-Source is governed by a BSD-style license that can be found in LICENSE file. Parts of source code in this library are borrowed from flutter testing library which are also governed by a BSD-style license that can be found [here](https://github.com/flutter/flutter/blob/master/LICENSE).
+Source is governed by a BSD-style license that can be found in LICENSE file. Parts of source code in this library are borrowed from flutter-testing library which are also governed by a BSD-style license that can be found [here](https://github.com/flutter/flutter/blob/master/LICENSE).
 

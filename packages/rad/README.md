@@ -26,7 +26,9 @@ void main() {
   );
 }
 ```
-Let's see another example,
+
+Function `runApp` finds a element having id equals to `appTargetId` in your HTML page, create a Rad app with it, and then displays "Text" widget inside of it. Similar to Flutter, widgets are the central class hierarchy in the Rad framework. Let's see one more example,
+
 ```dart
 class HomePage extends StatelessWidget
 {
@@ -43,7 +45,8 @@ void main() {
   );
 }
 ```
-If you're familiar with Flutter it don't even need an explanation. Internally, Rad has some differences that might not be apparent from the examples above so let's discuss them first.
+
+Internally, Rad has some differences that might not be apparent from the examples so let's discuss them first.
 
 ## Differences
 
@@ -259,7 +262,7 @@ Similarity tags:
 , [video](https://pub.dev/documentation/rad/latest/widgets_short_tags/video.html)
 , [wbr](https://pub.dev/documentation/rad/latest/widgets_short_tags/wbr.html)
 
-### HTML Widgets (complete-reference)
+### HTML Widgets (full-syntax)
 
 [Anchor](https://pub.dev/documentation/rad/latest/widgets_html/Anchor-class.html)
 , [Abbreviation](https://pub.dev/documentation/rad/latest/widgets_html/Abbreviation-class.html)
