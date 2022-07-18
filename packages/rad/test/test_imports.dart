@@ -63,6 +63,7 @@ export 'constants/form_methods.dart';
 export 'constants/ordered_list_types.dart';
 export 'constants/form_types.dart';
 export 'constants/input_types.dart';
+export 'constants/misc_types.dart';
 
 export 'fixtures/test_app.dart';
 export 'fixtures/test_bed.dart';

@@ -53,44 +53,6 @@ enum HitTestBehavior {
   translucent,
 }
 
-/// Type of DOM event.
-///
-enum DomEventType {
-  click('click'),
-  doubleClick('dblclick'),
-  change('change'),
-  input('input'),
-  submit('submit'),
-  keyUp('keyup'),
-  keyDown('keydown'),
-  keyPress('keypress'),
-
-  // drag
-
-  drag('drag'),
-  dragEnd('dragend'),
-  dragEnter('dragenter'),
-  dragLeave('dragleave'),
-  dragOver('dragover'),
-  dragStart('dragstart'),
-  drop('drop'),
-
-  // mouse events
-
-  mouseDown('mousedown'),
-  mouseEnter('mouseenter'),
-  mouseLeave('mouseleave'),
-  mouseMove('mousemove'),
-  mouseOver('mouseover'),
-  mouseOut('mouseout'),
-  mouseUp('mouseup'),
-  ;
-
-  final String nativeName;
-
-  const DomEventType(this.nativeName);
-}
-
 /// Text render direction.
 ///
 enum DirectionType {
@@ -100,7 +62,6 @@ enum DirectionType {
   ;
 
   final String nativeName;
-
   const DirectionType(this.nativeName);
 }
 
@@ -190,7 +151,6 @@ enum InputType {
   ;
 
   final String nativeName;
-
   const InputType(this.nativeName);
 }
 
@@ -203,24 +163,7 @@ enum FormEncType {
   ;
 
   final String nativeName;
-
   const FormEncType(this.nativeName);
-}
-
-/// Type of ordered list.
-///
-enum ListType {
-  lowerCaseLetters('a'),
-  upperCaseLetters('A'),
-  lowerCaseRomanNumerals('i'),
-  upperCaseRomanNumerals('I'),
-  numbers('1'),
-  get('get'),
-  ;
-
-  final String nativeName;
-
-  const ListType(this.nativeName);
 }
 
 /// HTML form's method type.
@@ -231,7 +174,6 @@ enum FormMethodType {
   ;
 
   final String nativeName;
-
   const FormMethodType(this.nativeName);
 }
 
@@ -246,8 +188,22 @@ enum ButtonType {
   ;
 
   final String nativeName;
-
   const ButtonType(this.nativeName);
+}
+
+/// Type of ordered list.
+///
+enum ListType {
+  lowerCaseLetters('a'),
+  upperCaseLetters('A'),
+  lowerCaseRomanNumerals('i'),
+  upperCaseRomanNumerals('I'),
+  numbers('1'),
+  get('get'),
+  ;
+
+  final String nativeName;
+  const ListType(this.nativeName);
 }
 
 /// Cross origin request type.
@@ -436,6 +392,45 @@ enum ReferrerPolicyType {
   const ReferrerPolicyType(this.nativeName);
 }
 
+
+/// Type of DOM event.
+///
+enum DomEventType {
+  click('click'),
+  doubleClick('dblclick'),
+  change('change'),
+  input('input'),
+  submit('submit'),
+  keyUp('keyup'),
+  keyDown('keydown'),
+  keyPress('keypress'),
+
+  // drag
+
+  drag('drag'),
+  dragEnd('dragend'),
+  dragEnter('dragenter'),
+  dragLeave('dragleave'),
+  dragOver('dragover'),
+  dragStart('dragstart'),
+  drop('drop'),
+
+  // mouse events
+
+  mouseDown('mousedown'),
+  mouseEnter('mouseenter'),
+  mouseLeave('mouseleave'),
+  mouseMove('mousemove'),
+  mouseOver('mouseover'),
+  mouseOut('mouseout'),
+  mouseUp('mouseup'),
+  ;
+
+  final String nativeName;
+  const DomEventType(this.nativeName);
+}
+
+
 /// Widget's corresponding DOM tag.
 ///
 enum DomTagType {
@@ -536,7 +531,6 @@ enum DomTagType {
   ;
 
   final String nativeName;
-
   const DomTagType(this.nativeName);
 }
 
