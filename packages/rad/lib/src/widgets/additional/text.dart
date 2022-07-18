@@ -2,15 +2,15 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:meta/meta.dart';
-
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/widgets/html/span.dart';
+import 'package:rad/src/widgets/raw_markup.dart';
 
 /// A utility widget to print text on screen.
 ///
-/// Note that [Text] widget wraps text in a [Span] widget.
+/// Note that [Text] widget wraps text in a [Span] widget i.e [Text] widget is
+/// not a pure HTML text-node.
 ///
 /// ```dart
 /// Text('some text');
@@ -20,22 +20,26 @@ import 'package:rad/src/widgets/html/span.dart';
 /// Span(innerText: 'some text');
 /// ```
 ///
+/// This wrapper makes it easy to implement properties such as [style],
+/// [className] on [Text] widget. It's very rare that you might run into need
+/// of pure-text node, but if you do, you've two options:
+///
+/// - [RawMarkUp] widget.
+/// - Or use innerText property on parent widget.
+///
 class Text extends Span {
+  /// Text's contents.
+  ///
   final String text;
 
   const Text(
     this.text, {
     Key? key,
-
-    // all these properties are marked experimental because we might
-    // implement text nodes in future and text nodes cannot have these
-    // properties
-
-    @experimental String? title,
-    @experimental String? style,
-    @experimental String? className,
-    @experimental bool? hidden,
-    @experimental EventCallback? onClick,
+    String? title,
+    String? style,
+    String? className,
+    bool? hidden,
+    EventCallback? onClick,
   }) : super(
           key: key,
           title: title,
