@@ -16,7 +16,10 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 /// text, for example a comment on a review or feedback form.
 ///
 class TextArea extends HTMLWidgetBase {
+  final String? autoComplete;
+
   final String? name;
+  final String? form;
 
   final String? value;
   final String? placeholder;
@@ -29,6 +32,15 @@ class TextArea extends HTMLWidgetBase {
   final bool? required;
   final bool? readOnly;
   final bool? disabled;
+
+  /// Specifies whether the <textarea> is subject to spell checking by the
+  /// underlying browser/OS.
+  ///
+  final SpellCheckType? spellCheck;
+
+  /// Indicates how the control wraps text.
+  ///
+  final WrapType? wrap;
 
   /// On input event listener.
   ///
@@ -51,7 +63,9 @@ class TextArea extends HTMLWidgetBase {
   final EventCallback? onKeyPress;
 
   const TextArea({
+    this.autoComplete,
     this.name,
+    this.form,
     this.value,
     this.placeholder,
     this.rows,
@@ -61,6 +75,8 @@ class TextArea extends HTMLWidgetBase {
     this.required,
     this.readOnly,
     this.disabled,
+    this.spellCheck,
+    this.wrap,
     this.onChange,
     this.onInput,
     this.onKeyUp,
@@ -106,7 +122,9 @@ class TextArea extends HTMLWidgetBase {
 
   @override
   bool shouldUpdateWidget(covariant TextArea oldWidget) {
-    return name != oldWidget.name ||
+    return autoComplete != oldWidget.autoComplete ||
+        name != oldWidget.name ||
+        form != oldWidget.form ||
         value != oldWidget.value ||
         placeholder != oldWidget.placeholder ||
         rows != oldWidget.rows ||
@@ -116,6 +134,8 @@ class TextArea extends HTMLWidgetBase {
         required != oldWidget.required ||
         readOnly != oldWidget.readOnly ||
         disabled != oldWidget.disabled ||
+        spellCheck != oldWidget.spellCheck ||
+        wrap != oldWidget.wrap ||
         super.shouldUpdateWidget(oldWidget);
   }
 
@@ -198,8 +218,16 @@ void _extendAttributes({
   required TextArea? oldWidget,
   required Map<String, String?> attributes,
 }) {
+  if (widget.autoComplete != oldWidget?.autoComplete) {
+    attributes[Attributes.autoComplete] = widget.autoComplete;
+  }
+
   if (widget.name != oldWidget?.name) {
     attributes[Attributes.name] = widget.name;
+  }
+
+  if (widget.form != oldWidget?.form) {
+    attributes[Attributes.form] = widget.form;
   }
 
   if (widget.placeholder != oldWidget?.placeholder) {
@@ -260,6 +288,14 @@ void _extendAttributes({
     } else {
       attributes[Attributes.disabled] = 'true';
     }
+  }
+
+  if (widget.spellCheck != oldWidget?.spellCheck) {
+    attributes[Attributes.spellCheck] = widget.spellCheck?.nativeName;
+  }
+
+  if (widget.wrap != oldWidget?.wrap) {
+    attributes[Attributes.wrap] = widget.wrap?.nativeName;
   }
 }
 

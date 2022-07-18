@@ -161,6 +161,8 @@ class Attributes {
   static const list = 'list';
   static const size = 'size';
   static const step = 'step';
+  static const wrap = 'wrap';
+  static const spellCheck = 'spellcheck';
 
   static const max = 'max';
   static const min = 'min';

@@ -104,6 +104,53 @@ enum DirectionType {
   const DirectionType(this.nativeName);
 }
 
+/// Indicates how the control wraps text.
+///
+enum WrapType {
+  /// The browser automatically inserts line breaks (CR+LF) so that each line
+  /// has no more than the width of the control; the cols attribute must also
+  /// be specified for this to take effect.
+  ///
+  hard('hard'),
+
+  /// The browser ensures that all line breaks in the value consist of a CR+LF
+  /// pair, but does not insert any additional line breaks.
+  ///
+  soft('soft'),
+
+  /// Non-Standard : Like soft but changes appearance to white-space: pre so
+  /// line segments exceeding cols are not wrapped and the textarea becomes
+  /// horizontally scrollable.
+  ///
+  off('off'),
+  ;
+
+  final String nativeName;
+  const WrapType(this.nativeName);
+}
+
+/// Specifies whether the <textarea> is subject to spell checking by the
+/// underlying browser/OS.
+///
+enum SpellCheckType {
+  /// Indicates that the element needs to have its spelling and grammar checked.
+  ///
+  trueValue('true'),
+
+  /// Indicates that the element should not be spell checked.
+  ///
+  falseValue('false'),
+
+  /// Indicates that the element is to act according to a default behavior,
+  /// possibly based on the parent element's own spellcheck value.
+  ///
+  defaultValue('default'),
+  ;
+
+  final String nativeName;
+  const SpellCheckType(this.nativeName);
+}
+
 /// HTML Input type.
 ///
 enum InputType {

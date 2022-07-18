@@ -272,6 +272,11 @@ widget_specific_tests = {
         'html_attr_headers',
     ],
     'TextArea': [
+        'html_attr_auto_complete',
+        'html_attr_form',
+        'html_attr_spell_check',
+        'html_attr_wrap',
+
         'html_attr_name',
         'html_attr_placeholder',
         'html_attr_rows',
@@ -281,6 +286,7 @@ widget_specific_tests = {
         'html_attr_required',
         'html_attr_readonly',
         'html_attr_disabled',
+
         'html_attr_on_change',
         'html_attr_on_input',
         'html_attr_on_key_press',

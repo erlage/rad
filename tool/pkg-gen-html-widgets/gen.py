@@ -331,6 +331,8 @@ def apply_commons(file_name, contents):
     contents = contents.replace('Attributes.list', "'list'")
     contents = contents.replace('Attributes.size', "'size'")
     contents = contents.replace('Attributes.step', "'step'")
+    contents = contents.replace('Attributes.spellCheck', "'spellcheck'")
+    contents = contents.replace('Attributes.wrap', "'wrap'")
 
     contents = contents.replace('Properties.value', "'value'")
     contents = contents.replace('Properties.innerHtml', "'innerHtml'")
