@@ -199,7 +199,6 @@ enum ListType {
   lowerCaseRomanNumerals('i'),
   upperCaseRomanNumerals('I'),
   numbers('1'),
-  get('get'),
   ;
 
   final String nativeName;
@@ -280,7 +279,7 @@ enum PreloadType {
 
   /// A synonym of the auto value.
   ///
-  empty('auto'),
+  empty(''),
   ;
 
   final String nativeName;
@@ -392,7 +391,6 @@ enum ReferrerPolicyType {
   const ReferrerPolicyType(this.nativeName);
 }
 
-
 /// Type of DOM event.
 ///
 enum DomEventType {
@@ -429,7 +427,6 @@ enum DomEventType {
   final String nativeName;
   const DomEventType(this.nativeName);
 }
-
 
 /// Widget's corresponding DOM tag.
 ///
