@@ -12,6 +12,16 @@ const DEBUG_BUILD = bool.fromEnvironment(
   defaultValue: true,
 );
 
+/// Element properties.
+///
+@internal
+class Properties {
+  static const value = 'value';
+
+  static const innerText = 'innerText';
+  static const innerHtml = 'innerHtml';
+}
+
 /// Class containing framework specific attributes and constants.
 ///
 @internal
@@ -47,144 +57,104 @@ class Constants {
 ///
 @internal
 class Attributes {
-  // global
-
-  static const id = 'id';
-  static const title = 'title';
-  static const style = 'style';
-  static const className = 'class';
-  static const dir = 'dir';
-  static const hidden = 'hidden';
-  static const tabIndex = 'tabindex';
-  static const draggable = 'draggable';
-  static const contentEditable = 'contentEditable';
-
-  // input
-
-  static const type = 'type';
-  static const name = 'name';
-  static const value = 'value';
+  static const abbr = 'abbr';
   static const accept = 'accept';
-  static const multiple = 'multiple';
-  static const disabled = 'disabled';
-  static const required = 'required';
-  static const checked = 'checked';
-  static const placeholder = 'placeholder';
-  static const readOnly = 'readonly';
-
-  // table
-
-  static const rowSpan = 'rowspan';
-  static const colSpan = 'colspan';
-  static const headers = 'headers';
-  static const span = 'span';
-
-  // anchor
-
-  static const rel = 'rel';
-  static const target = 'target';
-  static const href = 'href';
-  static const download = 'download';
-
-  // blockquote
-
-  static const cite = 'cite';
-
-  // form
-
+  static const acceptCharset = 'accept-charset';
   static const action = 'action';
-  static const method = 'method';
-  static const enctype = 'enctype';
-
-  // textarea
-
-  static const rows = 'rows';
-  static const cols = 'cols';
-  static const minLength = 'minlength';
-  static const maxLength = 'maxlength';
-
-  // iframe
-
   static const allow = 'allow';
   static const allowFullscreen = 'allowfullscreen';
   static const allowPaymentRequest = 'allowpaymentrequest';
-
-  // mixed
-
-  static const label = 'label';
-  static const selected = 'selected';
-  static const forAttribute = 'for';
-  static const pattern = 'pattern';
-  static const src = 'src';
-  static const srcDoc = 'srcdoc';
   static const alt = 'alt';
-  static const height = 'height';
-  static const width = 'width';
-  static const start = 'start';
-  static const reversed = 'reversed';
-  static const dateTime = 'datetime';
-  static const coords = 'coords';
-  static const hrefLang = 'hreflang';
-  static const ping = 'ping';
-  static const referrerPolicy = 'referrerpolicy';
-  static const shape = 'shape';
+  static const autoComplete = 'autocomplete';
   static const autoPlay = 'autoplay';
+  static const capture = 'capture';
+  static const charset = 'charset';
+  static const checked = 'checked';
+  static const cite = 'cite';
+  static const className = 'class';
+  static const cols = 'cols';
+  static const colSpan = 'colspan';
+  static const content = 'content';
+  static const contentEditable = 'contentEditable';
   static const controls = 'controls';
+  static const coords = 'coords';
   static const crossOrigin = 'crossorigin';
-  static const loop = 'loop';
-  static const muted = 'muted';
-  static const preload = 'preload';
+  static const dateTime = 'datetime';
+  static const decoding = 'decoding';
   static const defaultAttribute = 'default';
-  static const kind = 'kind';
-  static const srcLang = 'srclang';
-  static const playsInline = 'playsinline';
-  static const poster = 'poster';
-  static const srcSet = 'srcset';
-  static const sizes = 'sizes';
-  static const media = 'media';
-  static const open = 'open';
+  static const dir = 'dir';
+  static const dirName = 'dirname';
+  static const disabled = 'disabled';
+  static const download = 'download';
+  static const draggable = 'draggable';
+  static const enctype = 'enctype';
+  static const fetchPriority = 'fetchpriority';
+  static const forAttribute = 'for';
   static const form = 'form';
   static const formAction = 'formaction';
   static const formEncType = 'formenctype';
   static const formMethod = 'formmethod';
-  static const formTarget = 'formtarget';
   static const formNoValidate = 'formnovalidate';
-  static const noValidate = 'novalidate';
-  static const acceptCharset = 'accept-charset';
-  static const autoComplete = 'autocomplete';
-  static const fetchPriority = 'fetchpriority';
-  static const decoding = 'decoding';
-  static const loading = 'loading';
-  static const capture = 'capture';
-  static const dirName = 'dirname';
-  static const inputMode = 'inputmode';
-  static const list = 'list';
-  static const size = 'size';
-  static const step = 'step';
-  static const wrap = 'wrap';
-  static const spellCheck = 'spellcheck';
-  static const abbr = 'abbr';
-  static const scope = 'scope';
-
-  static const max = 'max';
-  static const min = 'min';
+  static const formTarget = 'formtarget';
+  static const headers = 'headers';
+  static const height = 'height';
+  static const hidden = 'hidden';
   static const high = 'high';
-  static const low = 'low';
-  static const optimum = 'optimum';
-
-  // meta
-
-  static const content = 'content';
-  static const charset = 'charset';
+  static const href = 'href';
+  static const hrefLang = 'hreflang';
   static const httpEquiv = 'http-equiv';
-}
-
-/// Element properties.
-///
-@internal
-class Properties {
+  static const id = 'id';
+  static const inputMode = 'inputmode';
+  static const kind = 'kind';
+  static const label = 'label';
+  static const list = 'list';
+  static const loading = 'loading';
+  static const loop = 'loop';
+  static const low = 'low';
+  static const max = 'max';
+  static const maxLength = 'maxlength';
+  static const media = 'media';
+  static const method = 'method';
+  static const min = 'min';
+  static const minLength = 'minlength';
+  static const multiple = 'multiple';
+  static const muted = 'muted';
+  static const name = 'name';
+  static const noValidate = 'novalidate';
+  static const open = 'open';
+  static const optimum = 'optimum';
+  static const pattern = 'pattern';
+  static const ping = 'ping';
+  static const placeholder = 'placeholder';
+  static const playsInline = 'playsinline';
+  static const poster = 'poster';
+  static const preload = 'preload';
+  static const readOnly = 'readonly';
+  static const referrerPolicy = 'referrerpolicy';
+  static const rel = 'rel';
+  static const required = 'required';
+  static const reversed = 'reversed';
+  static const rows = 'rows';
+  static const rowSpan = 'rowspan';
+  static const scope = 'scope';
+  static const selected = 'selected';
+  static const shape = 'shape';
+  static const size = 'size';
+  static const sizes = 'sizes';
+  static const span = 'span';
+  static const spellCheck = 'spellcheck';
+  static const src = 'src';
+  static const srcDoc = 'srcdoc';
+  static const srcLang = 'srclang';
+  static const srcSet = 'srcset';
+  static const start = 'start';
+  static const step = 'step';
+  static const style = 'style';
+  static const tabIndex = 'tabindex';
+  static const target = 'target';
+  static const title = 'title';
+  static const type = 'type';
   static const value = 'value';
-
-  static const innerText = 'innerText';
-  static const innerHtml = 'innerHtml';
+  static const width = 'width';
+  static const wrap = 'wrap';
 }
