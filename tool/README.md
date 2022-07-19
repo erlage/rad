@@ -24,10 +24,10 @@ Run `py gen.py` to generate a package.
 ```sh
 py gen.py \
     --name=my_new_package \
-    --className:retype=set  \ # will change type signature of className from String to Set<String>
-    --className:rename=classes # will rename className to classes
+    --className:retype=set  \
+    --className:rename=classes
 
-cd my_new_package
+cd out
 dart pub get
 dart format .
 ```

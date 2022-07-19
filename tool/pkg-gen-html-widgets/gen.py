@@ -152,6 +152,39 @@ def finalize_package(out_dir):
     setup_dir(new_dir_for_widgets)
     setup_dir(new_dir_for_html_widgets)
 
+    # write domnodepatchfillable
+
+    dom_node_patch_file = os.path.join(out_dir, 'abstract', 'dom_node_patch.dart')
+
+    fh = open(dom_node_patch_file, 'w')
+    fh.write('''
+    // Copyright (c) 2022, Rad developers. All rights reserved.
+    // Use of this source code is governed by a BSD-style license that can be
+    // found in the LICENSE file.
+
+    import 'package:rad/rad.dart';
+
+    /// A fillable dom node patch.
+    ///
+    class DomNodePatchFillable implements DomNodePatch {
+        /// Attributes patch.
+        ///
+        @override
+        final Map<String, String?> attributes;
+
+        /// Properties patch.
+        ///
+        @override
+        final Map<String, String?> properties;
+
+        const DomNodePatchFillable({
+            required this.attributes,
+            required this.properties,
+        });
+    }
+    ''')
+    fh.close()
+
     # add html widgets
 
     html_widget_files = os.listdir(out_dir)
@@ -231,7 +264,11 @@ def apply_package_properties(contents):
 def apply_commons_widget_file(file_name, contents):
     return apply_commons(file_name, contents)
 def apply_commons_base_file(file_name, contents):
-    return apply_commons(file_name, contents)
+    contents = apply_commons(file_name, contents)
+    
+    contents = contents.replace("import 'package:rad/rad.dart';", "import 'package:rad/rad.dart';import 'package:"+__package_name__+"/src/widgets/abstract/dom_node_patch.dart';")
+    
+    return contents
 
 def apply_commons(file_name, contents):
     contents = contents.replace('ccImmutableEmptyListOfWidgets', "const []")
@@ -242,12 +279,12 @@ def apply_commons(file_name, contents):
     contents = contents.replace('Properties.innerText', "'innerText'")
 
     contents = contents.replace('Attributes.abbr', "'abbr'")
-    contents = contents.replace('Attributes.accept', "'accept'")
     contents = contents.replace('Attributes.acceptCharset', "'accept-charset'")
+    contents = contents.replace('Attributes.accept', "'accept'")
     contents = contents.replace('Attributes.action', "'action'")
-    contents = contents.replace('Attributes.allow', "'allow'")
     contents = contents.replace('Attributes.allowFullscreen', "'allowfullscreen'")
     contents = contents.replace('Attributes.allowPaymentRequest', "'allowpaymentrequest'")
+    contents = contents.replace('Attributes.allow', "'allow'")
     contents = contents.replace('Attributes.alt', "'alt'")
     contents = contents.replace('Attributes.autoComplete', "'autocomplete'")
     contents = contents.replace('Attributes.autoPlay', "'autoplay'")
@@ -266,26 +303,26 @@ def apply_commons(file_name, contents):
     contents = contents.replace('Attributes.dateTime', "'datetime'")
     contents = contents.replace('Attributes.decoding', "'decoding'")
     contents = contents.replace('Attributes.defaultAttribute', "'default'")
-    contents = contents.replace('Attributes.dir', "'dir'")
     contents = contents.replace('Attributes.dirName', "'dirname'")
+    contents = contents.replace('Attributes.dir', "'dir'")
     contents = contents.replace('Attributes.disabled', "'disabled'")
     contents = contents.replace('Attributes.download', "'download'")
     contents = contents.replace('Attributes.draggable', "'draggable'")
     contents = contents.replace('Attributes.enctype', "'enctype'")
     contents = contents.replace('Attributes.fetchPriority', "'fetchpriority'")
     contents = contents.replace('Attributes.forAttribute', "'for'")
-    contents = contents.replace('Attributes.form', "'form'")
     contents = contents.replace('Attributes.formAction', "'formaction'")
     contents = contents.replace('Attributes.formEncType', "'formenctype'")
     contents = contents.replace('Attributes.formMethod', "'formmethod'")
     contents = contents.replace('Attributes.formNoValidate', "'formnovalidate'")
     contents = contents.replace('Attributes.formTarget', "'formtarget'")
+    contents = contents.replace('Attributes.form', "'form'")
     contents = contents.replace('Attributes.headers', "'headers'")
     contents = contents.replace('Attributes.height', "'height'")
     contents = contents.replace('Attributes.hidden', "'hidden'")
     contents = contents.replace('Attributes.high', "'high'")
-    contents = contents.replace('Attributes.href', "'href'")
     contents = contents.replace('Attributes.hrefLang', "'hreflang'")
+    contents = contents.replace('Attributes.href', "'href'")
     contents = contents.replace('Attributes.httpEquiv', "'http-equiv'")
     contents = contents.replace('Attributes.id', "'id'")
     contents = contents.replace('Attributes.inputMode', "'inputmode'")
@@ -295,12 +332,12 @@ def apply_commons(file_name, contents):
     contents = contents.replace('Attributes.loading', "'loading'")
     contents = contents.replace('Attributes.loop', "'loop'")
     contents = contents.replace('Attributes.low', "'low'")
-    contents = contents.replace('Attributes.max', "'max'")
     contents = contents.replace('Attributes.maxLength', "'maxlength'")
+    contents = contents.replace('Attributes.max', "'max'")
     contents = contents.replace('Attributes.media', "'media'")
     contents = contents.replace('Attributes.method', "'method'")
-    contents = contents.replace('Attributes.min', "'min'")
     contents = contents.replace('Attributes.minLength', "'minlength'")
+    contents = contents.replace('Attributes.min', "'min'")
     contents = contents.replace('Attributes.multiple', "'multiple'")
     contents = contents.replace('Attributes.muted', "'muted'")
     contents = contents.replace('Attributes.name', "'name'")
@@ -323,14 +360,14 @@ def apply_commons(file_name, contents):
     contents = contents.replace('Attributes.scope', "'scope'")
     contents = contents.replace('Attributes.selected', "'selected'")
     contents = contents.replace('Attributes.shape', "'shape'")
-    contents = contents.replace('Attributes.size', "'size'")
     contents = contents.replace('Attributes.sizes', "'sizes'")
+    contents = contents.replace('Attributes.size', "'size'")
     contents = contents.replace('Attributes.span', "'span'")
     contents = contents.replace('Attributes.spellCheck', "'spellcheck'")
-    contents = contents.replace('Attributes.src', "'src'")
     contents = contents.replace('Attributes.srcDoc', "'srcdoc'")
     contents = contents.replace('Attributes.srcLang', "'srclang'")
     contents = contents.replace('Attributes.srcSet', "'srcset'")
+    contents = contents.replace('Attributes.src', "'src'")
     contents = contents.replace('Attributes.start', "'start'")
     contents = contents.replace('Attributes.step', "'step'")
     contents = contents.replace('Attributes.style', "'style'")
@@ -345,8 +382,6 @@ def apply_commons(file_name, contents):
     for base_file_name in abstract_files:
         contents = contents.replace("import 'package:rad/src/widgets/abstract/"+base_file_name+"';", "import 'package:"+__package_name__+"/src/widgets/abstract/"+base_file_name+"';")
      
-    # fix imports
-
     core_import_count = len(rexp_core_import.findall(contents))
     if core_import_count > 0:
         contents = rexp_core_import.sub('', contents, core_import_count - 1)
