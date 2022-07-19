@@ -1,3 +1,7 @@
+## 0.5.0
+
+- Update dependency: Rad `0.10.0` ~> `1.x`.
+
 ## 0.4.0
 
 ### Changes

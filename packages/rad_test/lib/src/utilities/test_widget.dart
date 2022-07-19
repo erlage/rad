@@ -5,8 +5,6 @@
 // ignore_for_file: inference_failure_on_function_return_type
 // ignore_for_file: invalid_use_of_internal_member
 
-import 'package:meta/meta.dart';
-
 import 'package:rad_test/src/imports.dart';
 
 /// A widget that allows hooking its internals.
@@ -76,10 +74,6 @@ class TestWidget extends Widget {
     String? customHash,
   })  : hash = customHash ?? 'none',
         super(key: key);
-
-  @nonVirtual
-  @override
-  String get widgetType => 'TestWidget';
 
   @override
   DomTagType get correspondingTag => DomTagType.division;
