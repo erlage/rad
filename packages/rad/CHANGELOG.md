@@ -1,3 +1,16 @@
+## 1.0.1
+
+- Stable release.
+
+# Pre-stable changes
+
+## 1.0.1-rc.2
+
+This release was not published.
+
+- Re-added child property from all HTML widgets.
+- Removed tabIndex, contentEditable & draggable property from global attributes.
+
 ## 1.0.1-rc.1
 
 - Stable release candidate
