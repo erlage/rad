@@ -1,5 +1,16 @@
 # Contributing
-When contributing to Rad, make sure that the changes you wish to make are in line with the project direction. If you are not sure about this, open an issue first, so we can discuss it.
+
+Thank you for your interest in contributing to Rad!
+
+## Project philosophy
+
+Before getting to the issues and pull requests, it is important to understand what the framework is trying to do.
+
+Rad's stated goal is really simple - create a frontend framework, that is great for building web apps. 
+
+- The most important thing here is building a framework that also **works very well**, and that should always be the top priority.
+
+- We take the **stability** and **performance** seriously. Ideally, that means no performance issues and just consistently good execution. Updates are thoroughly reviewed for [performance impacts](https://github.com/erlage/rad-benchmarks) before being released, and we have a [comprehensive test suite](https://github.com/erlage/rad/tree/main/packages/rad/test). 
 
 ## Opening Issues
 
@@ -7,6 +18,7 @@ While opening issue, please keep in mind following things:
 
 - One issue per bug. Putting multiple things in the same issue makes both discussion and completion unnecessarily complicated.
 - When raising an issue, please be as thorough as possible. For possible bugs, reproducible code is always a great sign.
+- Feature requests are welcome. However, please make sure that the feature you are requesting falls under the scope of the project.
 
 ## Opening Pull Requests
 
