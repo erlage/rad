@@ -50,9 +50,11 @@ If you're familiar with Flutter it don't even need an explanation. Internally, R
 
 ## Differences
 
-1. We don't use a rendering engine to render a widget. Widgets are mapped to HTML tags and composed together the way you describe them.
+1. First off, we don't use a rendering engine to render a widget or anything like that. Widgets are mapped to HTML tags and composed together the way you describe them.
 
-2. For layouts, you've to use HTML. And guess what? there are widgets for that.
+2. Second, you can use use CSS for adding animations without ever thinking about how browsers carries them out.
+
+3. And lastly, for layouts, you've to use HTML. And guess what? there are widgets for that.
   
     Let's take this HTML snippet:
     ```html
@@ -123,13 +125,13 @@ In above example, a Span widget is containing a ListView widget. Further, that L
 
 ## Widgets Index
 
-Below is the list of available widgets in this framework. Some widgets are named after Flutter widgets because they either works exactly same or can be used to acheive same things but in a different way(more or less). All those widgets are tagged according to their similarity level.
+Below is the list of available widgets in this framework. Some widgets are named after Flutter widgets because they either works exactly same or can be used to acheive same things but in a different way(more or less). All those widgets are tagged accordingly.
 
-Similarity tags:
-  - *exact*: Exact syntax, similar semantics.
-  - *same*: Exact syntax with few exceptions, similar semantics.
-  - *different*: Different syntax, different semantics.
-  - *experimental*: --
+Tags:
+  - (`6 widget[s]`) ***exact***: Exact syntax, similar semantics.
+  - (`3 widget[s]`) ***same***: Exact syntax with few exceptions, similar semantics.
+  - (`3 widget[s]`) ***different***: Different syntax, different semantics.
+  - (`1 widget[s]`) ***untested***: --
 
 ### Abstract
 
@@ -148,20 +150,46 @@ Similarity tags:
 - [FutureBuilder](https://pub.dev/documentation/rad/latest/widgets_async/FutureBuilder-class.html) \[*exact*\]
 - [StreamBuilder](https://pub.dev/documentation/rad/latest/widgets_async/StreamBuilder-class.html) \[*exact*\]
 - [ValueListenableBuilder](https://pub.dev/documentation/rad/latest/widgets_async/ValueListenableBuilder-class.html) \[*exact*\]
-- [ListView.builder](https://pub.dev/documentation/rad/latest/rad/ListView/ListView.builder.html) \[*same*, *experimental*\]
+- [ListView.builder](https://pub.dev/documentation/rad/latest/rad/ListView/ListView.builder.html) \[*same*, *untested*\]
 
 ### Functional
 
 - [RadApp](https://pub.dev/documentation/rad/latest/rad/RadApp-class.html)
 - [Text](https://pub.dev/documentation/rad/latest/rad/Text-class.html) \[*different*\]
-- [ListView](https://pub.dev/documentation/rad/latest/rad/ListView-class.html) \[*same*, *experimental*\]
+- [ListView](https://pub.dev/documentation/rad/latest/rad/ListView-class.html) \[*same*\]
 - [EventDetector](https://pub.dev/documentation/rad/latest/rad/EventDetector-class.html)
 
 ### Misc
 
 - [RawMarkUp](https://pub.dev/documentation/rad/latest/rad/RawMarkUp-class.html)
 - [RawEventDetector](https://pub.dev/documentation/rad/latest/rad/RawEventDetector-class.html)
-- [GestureDetector](https://pub.dev/documentation/rad/latest/rad/GestureDetector-class.html) \[*experimental*\]
+- [GestureDetector](https://pub.dev/documentation/rad/latest/rad/GestureDetector-class.html) \[*same*\]
+
+
+### HTML Widgets (additional)
+
+[InputButton](https://pub.dev/documentation/rad/latest/widgets_html/InputButton-class.html)
+, [InputCheckBox](https://pub.dev/documentation/rad/latest/widgets_html/InputCheckBox-class.html)
+, [InputColor](https://pub.dev/documentation/rad/latest/widgets_html/InputColor-class.html)
+, [InputDateTimeLocal](https://pub.dev/documentation/rad/latest/widgets_html/InputDateTimeLocal-class.html)
+, [InputDate](https://pub.dev/documentation/rad/latest/widgets_html/InputDate-class.html)
+, [InputEmail](https://pub.dev/documentation/rad/latest/widgets_html/InputEmail-class.html)
+, [InputFile](https://pub.dev/documentation/rad/latest/widgets_html/InputFile-class.html)
+, [InputImage](https://pub.dev/documentation/rad/latest/widgets_html/InputImage-class.html)
+, [InputMonth](https://pub.dev/documentation/rad/latest/widgets_html/InputMonth-class.html)
+, [InputNumber](https://pub.dev/documentation/rad/latest/widgets_html/InputNumber-class.html)
+, [InputPassword](https://pub.dev/documentation/rad/latest/widgets_html/InputPassword-class.html)
+, [InputRadio](https://pub.dev/documentation/rad/latest/widgets_html/InputRadio-class.html)
+, [InputRange](https://pub.dev/documentation/rad/latest/widgets_html/InputRange-class.html)
+, [InputReset](https://pub.dev/documentation/rad/latest/widgets_html/InputReset-class.html)
+, [InputSearch](https://pub.dev/documentation/rad/latest/widgets_html/InputSearch-class.html)
+, [InputSubmit](https://pub.dev/documentation/rad/latest/widgets_html/InputSubmit-class.html)
+, [InputTelephone](https://pub.dev/documentation/rad/latest/widgets_html/InputTelephone-class.html)
+, [InputText](https://pub.dev/documentation/rad/latest/widgets_html/InputText-class.html)
+, [InputTime](https://pub.dev/documentation/rad/latest/widgets_html/InputTime-class.html)
+, [InputUrl](https://pub.dev/documentation/rad/latest/widgets_html/InputUrl-class.html)
+, [InputWeek](https://pub.dev/documentation/rad/latest/widgets_html/InputWeek-class.html)
+
 
 ### HTML Widgets (short-syntax)
 
@@ -356,30 +384,6 @@ Similarity tags:
 , [Variable](https://pub.dev/documentation/rad/latest/widgets_html/Variable-class.html)
 , [Video](https://pub.dev/documentation/rad/latest/widgets_html/Video-class.html)
 , [LineBreakOpportunity](https://pub.dev/documentation/rad/latest/widgets_html/LineBreakOpportunity-class.html)
-
-### HTML Widgets (additional)
-
-[InputButton](https://pub.dev/documentation/rad/latest/widgets_html/InputButton-class.html)
-, [InputCheckBox](https://pub.dev/documentation/rad/latest/widgets_html/InputCheckBox-class.html)
-, [InputColor](https://pub.dev/documentation/rad/latest/widgets_html/InputColor-class.html)
-, [InputDateTimeLocal](https://pub.dev/documentation/rad/latest/widgets_html/InputDateTimeLocal-class.html)
-, [InputDate](https://pub.dev/documentation/rad/latest/widgets_html/InputDate-class.html)
-, [InputEmail](https://pub.dev/documentation/rad/latest/widgets_html/InputEmail-class.html)
-, [InputFile](https://pub.dev/documentation/rad/latest/widgets_html/InputFile-class.html)
-, [InputImage](https://pub.dev/documentation/rad/latest/widgets_html/InputImage-class.html)
-, [InputMonth](https://pub.dev/documentation/rad/latest/widgets_html/InputMonth-class.html)
-, [InputNumber](https://pub.dev/documentation/rad/latest/widgets_html/InputNumber-class.html)
-, [InputPassword](https://pub.dev/documentation/rad/latest/widgets_html/InputPassword-class.html)
-, [InputRadio](https://pub.dev/documentation/rad/latest/widgets_html/InputRadio-class.html)
-, [InputRange](https://pub.dev/documentation/rad/latest/widgets_html/InputRange-class.html)
-, [InputReset](https://pub.dev/documentation/rad/latest/widgets_html/InputReset-class.html)
-, [InputSearch](https://pub.dev/documentation/rad/latest/widgets_html/InputSearch-class.html)
-, [InputSubmit](https://pub.dev/documentation/rad/latest/widgets_html/InputSubmit-class.html)
-, [InputTelephone](https://pub.dev/documentation/rad/latest/widgets_html/InputTelephone-class.html)
-, [InputText](https://pub.dev/documentation/rad/latest/widgets_html/InputText-class.html)
-, [InputTime](https://pub.dev/documentation/rad/latest/widgets_html/InputTime-class.html)
-, [InputUrl](https://pub.dev/documentation/rad/latest/widgets_html/InputUrl-class.html)
-, [InputWeek](https://pub.dev/documentation/rad/latest/widgets_html/InputWeek-class.html)
 
 ## Contributing
 For reporting bugs/queries, feel free to open issue. Read [contributing guide](https://github.com/erlage/rad/blob/main/CONTRIBUTING.md) for more.

@@ -31,7 +31,6 @@
 
 // ignore_for_file: prefer_asserts_with_message
 
-import 'package:meta/meta.dart';
 import 'package:test/expect.dart';
 
 import 'package:rad_test/src/imports.dart';
@@ -141,7 +140,6 @@ const Matcher domNodeHasNotFocus = _DomNodeHasFocus(negate: true);
 
 /// Asserts that a watchful render element is mounted.
 ///
-@experimental
 const Matcher isWatchfulMounted = _WatchfulRenderElementsAreMounted(
   negate: false,
   isMultiple: false,
@@ -149,7 +147,6 @@ const Matcher isWatchfulMounted = _WatchfulRenderElementsAreMounted(
 
 /// Asserts that a watchful render element is not mounted.
 ///
-@experimental
 const Matcher isWatchfulNotMounted = _WatchfulRenderElementsAreMounted(
   negate: true,
   isMultiple: false,
@@ -158,7 +155,6 @@ const Matcher isWatchfulNotMounted = _WatchfulRenderElementsAreMounted(
 /// Asserts that list of widgets(only that has watchful render elements) are
 /// mounted.
 ///
-@experimental
 const Matcher areWatchfulMounted = _WatchfulRenderElementsAreMounted(
   negate: false,
   isMultiple: true,
@@ -167,7 +163,6 @@ const Matcher areWatchfulMounted = _WatchfulRenderElementsAreMounted(
 /// Asserts that list of widgets(only that has watchful render elements) are not
 /// mounted.
 ///
-@experimental
 const Matcher areWatchfulNotMounted = _WatchfulRenderElementsAreMounted(
   negate: true,
   isMultiple: true,

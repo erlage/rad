@@ -30,7 +30,7 @@ import 'package:rad/src/widgets/rad_app.dart';
 ///
 /// - [appTargetId] - id of dom node where you want the app to mount.
 ///
-/// - [beforeMount] - Callback that'll be fired before app mount.
+/// - [beforeMount] - Callback that'll be fired before app is mount on screen.
 ///
 /// - [debugOptions] - See [DebugOptions].
 ///

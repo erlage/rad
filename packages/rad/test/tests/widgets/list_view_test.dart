@@ -2,9 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// ignore_for_file: prefer_function_declarations_over_variables
-
 import '../../test_imports.dart';
+
+// commited by mistake, file is not complete.
 
 void main() {
   RT_AppRunner? app;

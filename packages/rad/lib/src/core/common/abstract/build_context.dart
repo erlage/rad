@@ -33,6 +33,9 @@ abstract class BuildContext {
 
   /// App's target id.
   ///
+  /// It is the value of id attribute of dom node inside which app is currently
+  /// mounted.
+  ///
   String get appTargetId;
 
   /// Returns dom node that's associated with the current context.
