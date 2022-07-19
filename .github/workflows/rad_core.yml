@@ -1,4 +1,4 @@
-name: Rad(core)
+name: Build, lint and test
 
 on:
   workflow_dispatch:
