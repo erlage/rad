@@ -23,12 +23,6 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 ///
 @internal
 class Reconciler {
-  /// Compatibility hasher instances that are available for reuse.
-  ///
-  /// (used by Rad's algorithm)
-  ///
-  final _availableHashers = <_CompatibilityHashGenerator>[];
-
   /// Prepare widget updates.
   ///
   Iterable<WidgetUpdateObject> prepareUpdates({
@@ -330,8 +324,8 @@ class Reconciler {
     //  Hash mode
     // =======================================================================
 
-    var hasherForOldNodes = createCompatibilityHashGenerator();
-    var hasherForNewNodes = createCompatibilityHashGenerator();
+    var hasherForOldNodes = _CompatibilityHashGenerator();
+    var hasherForNewNodes = _CompatibilityHashGenerator();
 
     // ----------------------------------------------------------------------
     //  Phase-1 | Collect data from new nodes
@@ -530,30 +524,7 @@ class Reconciler {
 
     // -------------------------
 
-    disposeHashGenerator(hasherForOldNodes);
-    disposeHashGenerator(hasherForNewNodes);
-
-    // -------------------------
-
     return preparedUpdates;
-  }
-
-  /// Create compatibility hash generator.
-  ///
-  _CompatibilityHashGenerator createCompatibilityHashGenerator() {
-    if (_availableHashers.isNotEmpty) {
-      return _availableHashers.removeLast();
-    }
-
-    return _CompatibilityHashGenerator();
-  }
-
-  /// Dispose hasher instance so it can be reused.
-  ///
-  void disposeHashGenerator(_CompatibilityHashGenerator generator) {
-    generator._revive();
-
-    _availableHashers.add(generator);
   }
 }
 
@@ -584,11 +555,5 @@ class _CompatibilityHashGenerator {
     _counters[type] = count + 1;
 
     return count;
-  }
-
-  /// Clear hasher state so that instance can be re-used.
-  ///
-  void _revive() {
-    _counters.clear();
   }
 }
