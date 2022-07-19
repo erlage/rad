@@ -24,3 +24,6 @@ ignore:
 
   # - tests not added for listview widget yet
   - "packages/rad/lib/src/widgets/list_view.dart"
+
+  # - see workflow reconciler.yml
+  - "packages/rad/lib/src/core/renderer/reconciler.dart"
