@@ -68,7 +68,4 @@ class EmittedEvent {
 
     _rawEvent.stopImmediatePropagation();
   }
-
-  @override
-  String toString() => _rawEvent.toString();
 }
