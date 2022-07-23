@@ -37,14 +37,8 @@ class JobQueue {
         job();
       }
     } finally {
-      _jobs.clear();
-
-      try {
-        for (final callback in _postJobCallbacks) {
-          callback();
-        }
-      } finally {
-        _postJobCallbacks.clear();
+      for (final callback in _postJobCallbacks) {
+        callback();
       }
     }
   }
