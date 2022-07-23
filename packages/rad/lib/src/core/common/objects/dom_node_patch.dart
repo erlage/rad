@@ -29,6 +29,7 @@ class DomNodePatch {
 
 /// A fillable dom node patch.
 ///
+@internal
 class DomNodePatchFillable implements DomNodePatch {
   /// Attributes patch.
   ///
