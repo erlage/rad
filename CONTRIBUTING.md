@@ -10,7 +10,7 @@ Rad's stated goal is really simple - create a frontend framework, that is great 
 
 - The most important thing here is building a framework that also **works very well**, and that should always be the top priority.
 
-- We take the **stability** and **performance** seriously. Ideally, that means no performance issues and just consistently good execution. Updates are thoroughly reviewed for [performance impacts](https://github.com/erlage/rad-benchmarks) before being released, and we have a [comprehensive test suite](https://github.com/erlage/rad/tree/main/packages/rad/test). 
+- We take the **stability** and **performance** seriously. Updates are thoroughly reviewed for [performance impacts](https://github.com/erlage/rad-benchmarks) before being released, and we have a [comprehensive test suite](https://github.com/erlage/rad/tree/main/packages/rad/test). Ideally, that means no performance issues and just consistently good execution. 
 
 ## Opening Issues
 
