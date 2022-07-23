@@ -12,16 +12,6 @@ const DEBUG_BUILD = bool.fromEnvironment(
   defaultValue: true,
 );
 
-/// Element properties.
-///
-@internal
-class Properties {
-  static const value = 'value';
-
-  static const innerText = 'innerText';
-  static const innerHtml = 'innerHtml';
-}
-
 /// Class containing framework specific attributes and constants.
 ///
 @internal
@@ -51,6 +41,16 @@ class Constants {
   static const classListViewVeritcal = 'rad-list-view-vertical';
   static const classListViewHorizontal = 'rad-list-view-horizontal';
   static const classListViewItemContainer = 'rad-list-view-item-container';
+}
+
+/// Element properties.
+///
+@internal
+class Properties {
+  static const value = 'value';
+
+  static const innerText = 'innerText';
+  static const innerHtml = 'innerHtml';
 }
 
 /// Element attributes.
