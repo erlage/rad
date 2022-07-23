@@ -549,11 +549,12 @@ class Renderer with ServicesResolver {
       );
 
       if (null != domNodePatch && matchedRenderElement.hasDomNode) {
-        applyDomNodePatch(
-          jobQueue: jobQueue,
-          description: domNodePatch,
-          domNode: matchedRenderElement.domNode!,
-        );
+        jobQueue.addJob(() {
+          applyDomNodePatch(
+            description: domNodePatch,
+            domNode: matchedRenderElement.domNode!,
+          );
+        });
       }
     } else {
       if (DEBUG_BUILD) {
@@ -803,11 +804,12 @@ class Renderer with ServicesResolver {
           ); // bit of mess ^ but required
 
           if (null != domPatch && renderElement.hasDomNode) {
-            applyDomNodePatch(
-              jobQueue: jobQueue,
-              description: domPatch,
-              domNode: renderElement.domNode!,
-            );
+            jobQueue.addJob(() {
+              applyDomNodePatch(
+                description: domPatch,
+                domNode: renderElement.domNode!,
+              );
+            });
           }
 
           // call update on child widgets
@@ -933,55 +935,46 @@ class Renderer with ServicesResolver {
   void applyDomNodePatch({
     required Element domNode,
     required DomNodePatch description,
-    JobQueue? jobQueue,
   }) {
-    void job() {
-      var attributes = description.attributes;
-      var properties = description.properties;
+    var attributes = description.attributes;
+    var properties = description.properties;
 
-      if (null != attributes) {
-        if (attributes.isNotEmpty) {
-          attributes.forEach((key, value) {
-            if (null != value) {
-              domNode.setAttribute(key, value);
-            } else {
-              domNode.removeAttribute(key);
-            }
-          });
-        }
-      }
-
-      if (null != properties && properties.isNotEmpty) {
-        properties.forEach((key, value) {
-          switch (key) {
-            case Properties.value:
-
-              // implemented only for textarea
-
-              if (domNode is TextAreaElement) {
-                domNode.value = value ?? '';
-              }
-
-              break;
-
-            case Properties.innerText:
-              domNode.innerText = value ?? '';
-
-              break;
-
-            case Properties.innerHtml:
-              domNode.setInnerHtml(value, validator: const DumbNodeValidator());
-
-              break;
+    if (null != attributes) {
+      if (attributes.isNotEmpty) {
+        attributes.forEach((key, value) {
+          if (null != value) {
+            domNode.setAttribute(key, value);
+          } else {
+            domNode.removeAttribute(key);
           }
         });
       }
     }
 
-    if (null != jobQueue) {
-      jobQueue.addJob(job);
-    } else {
-      job();
+    if (null != properties && properties.isNotEmpty) {
+      properties.forEach((key, value) {
+        switch (key) {
+          case Properties.value:
+
+            // implemented only for textarea
+
+            if (domNode is TextAreaElement) {
+              domNode.value = value ?? '';
+            }
+
+            break;
+
+          case Properties.innerText:
+            domNode.innerText = value ?? '';
+
+            break;
+
+          case Properties.innerHtml:
+            domNode.setInnerHtml(value, validator: const DumbNodeValidator());
+
+            break;
+        }
+      });
     }
   }
 }
