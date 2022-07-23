@@ -34,7 +34,7 @@ void main() {
     test('should throw on accessing children list', () {
       expect(
           () => TemporaryElement.create(
-                possibleParent: app!.appRenderElement,
+                futureParentRenderElement: app!.appRenderElement,
                 services: app!.frameworkServices,
               ).widgetChildren,
           throwsA((e) => e.toString().toLowerCase().contains('access')));
