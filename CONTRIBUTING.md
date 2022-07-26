@@ -43,11 +43,6 @@ Nobody is perfect, and sometimes we mess things up. That said, here are some goo
     dart format $(find . -name "*.dart" -not -path "*/templates/*" -not -path '*/.*')
     ```
 
-**Avoid**:
-
-- Making big pull requests as they are difficult to review.
-- Fixing multiple issues in a single pull request(deliberately).
-
 **Don't**:
 
 - Include commented-out code.
