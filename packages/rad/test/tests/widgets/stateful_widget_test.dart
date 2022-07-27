@@ -88,13 +88,13 @@ void main() {
     );
 
     test(
-      'should call didMountWidget after widget is built',
+      'should call afterMount after widget is built',
       () async {
         var testStack = RT_TestStack();
 
         runApp(
           app: RT_StatefulTestWidget(
-            stateEventDidMountWidget: () => testStack.push('did mount'),
+            stateEventAfterMount: () => testStack.push('after mount'),
             stateEventBuild: () => testStack.push('build'),
           ),
           appTargetId: RT_TestBed.rootTargetId,
@@ -103,17 +103,16 @@ void main() {
         await Future.delayed(Duration(milliseconds: 200));
 
         expect(testStack.popFromStart(), equals('build'));
-        expect(testStack.popFromStart(), equals('did mount'));
+        expect(testStack.popFromStart(), equals('after mount'));
         expect(testStack.canPop(), equals(false));
       },
     );
 
-    test('should call didMountWidget after widget is mounted on screen',
-        () async {
+    test('should call afterMount after widget is mounted on screen', () async {
       runApp(
         app: RT_StatefulTestWidget(
           children: [Text('hello world')],
-          stateEventDidMountWidget: () {
+          stateEventAfterMount: () {
             expect(RT_TestBed.rootDomNode, RT_hasContents('hello world'));
           },
         ),
@@ -123,12 +122,12 @@ void main() {
       await Future.delayed(Duration(milliseconds: 200));
     });
 
-    test('should call didMountWidget exactly once', () async {
+    test('should call afterMount exactly once', () async {
       var testStack = RT_TestStack();
 
       var runner = runApp(
         app: RT_StatefulTestWidget(
-          stateEventDidMountWidget: () => testStack.push('did mount'),
+          stateEventAfterMount: () => testStack.push('after mount'),
         ),
         appTargetId: RT_TestBed.rootTargetId,
       );
@@ -138,7 +137,7 @@ void main() {
       await Future.delayed(Duration(milliseconds: 100));
       expect(RT_TestBed.rootDomNode, RT_hasContents(''));
 
-      expect(testStack.popFromStart(), equals('did mount'));
+      expect(testStack.popFromStart(), equals('after mount'));
       expect(testStack.canPop(), equals(false));
     });
 
