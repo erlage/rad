@@ -215,8 +215,11 @@ class StatefulRenderElement extends WatchfulRenderElement {
 /// its state.
 ///
 ///
-/// Apart from three main hooks, [State] has two additional hooks that
-/// implementations can override when needed. These are,
+/// Apart from these three, [State] has some additional lifecycle methods
+/// that implementations can override:
+///
+///
+/// [State.didMountWidget] - Called after widget finishes mounting on screen.
 ///
 ///
 /// [State.didUpdateWidget] - Called whenever the widget configuration changes.
@@ -338,6 +341,13 @@ abstract class State<T extends StatefulWidget> {
 
   @protected
   void dispose() {}
+
+  /// Called after widget finishes mounting on screen.
+  ///
+  /// This method is called after the widget has been rendered to the DOM.
+  ///
+  @protected
+  void didMountWidget() {}
 
   /// Called whenever the widget configuration changes.
   ///
@@ -469,7 +479,7 @@ abstract class State<T extends StatefulWidget> {
   @nonVirtual
   @protected
   void frameworkAfterMount() {
-    // do nothing
+    didMountWidget();
   }
 
   /// @nodoc

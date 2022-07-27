@@ -87,6 +87,61 @@ void main() {
       },
     );
 
+    test(
+      'should call didMountWidget after widget is built',
+      () async {
+        var testStack = RT_TestStack();
+
+        runApp(
+          app: RT_StatefulTestWidget(
+            stateEventDidMountWidget: () => testStack.push('did mount'),
+            stateEventBuild: () => testStack.push('build'),
+          ),
+          appTargetId: RT_TestBed.rootTargetId,
+        );
+
+        await Future.delayed(Duration(milliseconds: 200));
+
+        expect(testStack.popFromStart(), equals('build'));
+        expect(testStack.popFromStart(), equals('did mount'));
+        expect(testStack.canPop(), equals(false));
+      },
+    );
+
+    test('should call didMountWidget after widget is mounted on screen',
+        () async {
+      runApp(
+        app: RT_StatefulTestWidget(
+          children: [Text('hello world')],
+          stateEventDidMountWidget: () {
+            expect(RT_TestBed.rootDomNode, RT_hasContents('hello world'));
+          },
+        ),
+        appTargetId: RT_TestBed.rootTargetId,
+      );
+
+      await Future.delayed(Duration(milliseconds: 200));
+    });
+
+    test('should call didMountWidget exactly once', () async {
+      var testStack = RT_TestStack();
+
+      var runner = runApp(
+        app: RT_StatefulTestWidget(
+          stateEventDidMountWidget: () => testStack.push('did mount'),
+        ),
+        appTargetId: RT_TestBed.rootTargetId,
+      );
+
+      await Future.delayed(Duration(milliseconds: 100));
+      runner.stop();
+      await Future.delayed(Duration(milliseconds: 100));
+      expect(RT_TestBed.rootDomNode, RT_hasContents(''));
+
+      expect(testStack.popFromStart(), equals('did mount'));
+      expect(testStack.canPop(), equals(false));
+    });
+
     test('should call did change dependencies after initState', () async {
       var testStack = RT_TestStack();
 
