@@ -10,7 +10,7 @@ import '../test_imports.dart';
 ///
 class RT_StatefulTestWidget extends StatefulWidget {
   final VoidCallback? stateEventInitState;
-  final VoidCallback? stateEventDidMountWidget;
+  final VoidCallback? stateEventAfterMount;
   final VoidCallback? stateEventDidChangeDependencies;
   final VoidCallback? stateEventDidUpdateWidget;
   final VoidCallback? stateEventBuild;
@@ -41,7 +41,7 @@ class RT_StatefulTestWidget extends StatefulWidget {
   const RT_StatefulTestWidget({
     Key? key,
     this.stateEventInitState,
-    this.stateEventDidMountWidget,
+    this.stateEventAfterMount,
     this.stateEventDidChangeDependencies,
     this.stateEventDidUpdateWidget,
     this.stateEventBuild,
@@ -66,7 +66,7 @@ class RT_StatefulTestWidget extends StatefulWidget {
 
 class RT_StatefulTestWidget_State extends State<RT_StatefulTestWidget> {
   VoidCallback? _stateEventInitState;
-  VoidCallback? _stateEventDidMountWidget;
+  VoidCallback? _stateEventAfterMount;
   VoidCallback? _stateEventDidChangeDependencies;
   VoidCallback? _stateEventDidUpdateWidget;
   VoidCallback? _stateEventBuild;
@@ -112,9 +112,9 @@ class RT_StatefulTestWidget_State extends State<RT_StatefulTestWidget> {
   }
 
   @override
-  didMountWidget() {
-    if (null != _stateEventDidMountWidget) {
-      _stateEventDidMountWidget!();
+  afterMount() {
+    if (null != _stateEventAfterMount) {
+      _stateEventAfterMount!();
     }
   }
 
@@ -165,8 +165,8 @@ class RT_StatefulTestWidget_State extends State<RT_StatefulTestWidget> {
       _stateEventInitState = widget.stateEventInitState;
     }
 
-    if (null != widget.stateEventDidMountWidget) {
-      _stateEventDidMountWidget = widget.stateEventDidMountWidget;
+    if (null != widget.stateEventAfterMount) {
+      _stateEventAfterMount = widget.stateEventAfterMount;
     }
 
     if (null != widget.stateEventDidChangeDependencies) {
@@ -209,7 +209,7 @@ class RT_StatefulTestWidget_State extends State<RT_StatefulTestWidget> {
 ///
 class RT_AnotherStatefulWidget extends StatefulWidget {
   final VoidCallback? stateEventInitState;
-  final VoidCallback? stateEventDidMountWidget;
+  final VoidCallback? stateEventAfterMount;
   final VoidCallback? stateEventDidChangeDependencies;
   final VoidCallback? stateEventDidUpdateWidget;
   final VoidCallback? stateEventBuild;
@@ -240,7 +240,7 @@ class RT_AnotherStatefulWidget extends StatefulWidget {
   const RT_AnotherStatefulWidget({
     Key? key,
     this.stateEventInitState,
-    this.stateEventDidMountWidget,
+    this.stateEventAfterMount,
     this.stateEventDidChangeDependencies,
     this.stateEventDidUpdateWidget,
     this.stateEventBuild,
@@ -266,7 +266,7 @@ class RT_AnotherStatefulWidget extends StatefulWidget {
 
 class RT_AnotherStatefulWidget_State extends State<RT_AnotherStatefulWidget> {
   VoidCallback? _stateEventInitState;
-  VoidCallback? _stateEventDidMountWidget;
+  VoidCallback? _stateEventAfterMount;
   VoidCallback? _stateEventDidChangeDependencies;
   VoidCallback? _stateEventDidUpdateWidget;
   VoidCallback? _stateEventBuild;
@@ -312,9 +312,9 @@ class RT_AnotherStatefulWidget_State extends State<RT_AnotherStatefulWidget> {
   }
 
   @override
-  didMountWidget() {
-    if (null != _stateEventDidMountWidget) {
-      _stateEventDidMountWidget!();
+  afterMount() {
+    if (null != _stateEventAfterMount) {
+      _stateEventAfterMount!();
     }
   }
 
@@ -365,8 +365,8 @@ class RT_AnotherStatefulWidget_State extends State<RT_AnotherStatefulWidget> {
       _stateEventInitState = widget.stateEventInitState;
     }
 
-    if (null != widget.stateEventDidMountWidget) {
-      _stateEventDidMountWidget = widget.stateEventDidMountWidget;
+    if (null != widget.stateEventAfterMount) {
+      _stateEventAfterMount = widget.stateEventAfterMount;
     }
 
     if (null != widget.stateEventDidChangeDependencies) {

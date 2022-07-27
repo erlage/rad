@@ -219,7 +219,7 @@ class StatefulRenderElement extends WatchfulRenderElement {
 /// that implementations can override:
 ///
 ///
-/// [State.didMountWidget] - Called after widget finishes mounting on screen.
+/// [State.afterMount] - Called after widget finishes mounting on screen.
 ///
 ///
 /// [State.didUpdateWidget] - Called whenever the widget configuration changes.
@@ -347,7 +347,7 @@ abstract class State<T extends StatefulWidget> {
   /// This method is called after the widget has been rendered to the DOM.
   ///
   @protected
-  void didMountWidget() {}
+  void afterMount() {}
 
   /// Called whenever the widget configuration changes.
   ///
@@ -479,7 +479,7 @@ abstract class State<T extends StatefulWidget> {
   @nonVirtual
   @protected
   void frameworkAfterMount() {
-    didMountWidget();
+    afterMount();
   }
 
   /// @nodoc
