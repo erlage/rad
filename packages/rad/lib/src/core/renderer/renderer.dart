@@ -556,6 +556,10 @@ class Renderer with ServicesResolver {
           );
         });
       }
+
+      if (matchedRenderElement is WatchfulRenderElement) {
+        jobQueue.addPostDispatchCallback(matchedRenderElement.afterUpdate);
+      }
     } else {
       if (DEBUG_BUILD) {
         if (services.debug.widgetLogs) {
@@ -810,6 +814,10 @@ class Renderer with ServicesResolver {
                 domNode: renderElement.domNode!,
               );
             });
+          }
+
+          if (renderElement is WatchfulRenderElement) {
+            jobQueue.addPostDispatchCallback(renderElement.afterUpdate);
           }
 
           // call update on child widgets
