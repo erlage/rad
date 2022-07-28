@@ -16,6 +16,7 @@ class RT_StatefulTestWidget extends StatefulWidget {
   final VoidCallback? stateEventDidUpdateWidget;
   final VoidCallback? stateEventBuild;
   final VoidCallback? stateEventDispose;
+  final VoidCallback? stateEventAfterUnMount;
   final VoidCallback? stateEventCreateState;
 
   final Function(RT_StatefulTestWidget_State state)? stateHookInitState;
@@ -48,6 +49,7 @@ class RT_StatefulTestWidget extends StatefulWidget {
     this.stateEventDidUpdateWidget,
     this.stateEventBuild,
     this.stateEventDispose,
+    this.stateEventAfterUnMount,
     this.stateEventCreateState,
     this.stateHookCreateState,
     this.stateHookInitState,
@@ -74,6 +76,7 @@ class RT_StatefulTestWidget_State extends State<RT_StatefulTestWidget> {
   VoidCallback? _stateEventDidUpdateWidget;
   VoidCallback? _stateEventBuild;
   VoidCallback? _stateEventDispose;
+  VoidCallback? _stateEventAfterUnMount;
 
   Function(RT_StatefulTestWidget_State state)? _stateHookInitState;
 
@@ -129,6 +132,13 @@ class RT_StatefulTestWidget_State extends State<RT_StatefulTestWidget> {
   }
 
   @override
+  afterUnMount() {
+    if (null != _stateEventAfterUnMount) {
+      _stateEventAfterUnMount!();
+    }
+  }
+
+  @override
   didChangeDependencies() {
     if (null != _stateEventDidChangeDependencies) {
       _stateEventDidChangeDependencies!();
@@ -199,6 +209,10 @@ class RT_StatefulTestWidget_State extends State<RT_StatefulTestWidget> {
       _stateEventDispose = widget.stateEventDispose;
     }
 
+    if (null != widget.stateEventAfterUnMount) {
+      _stateEventAfterUnMount = widget.stateEventAfterUnMount;
+    }
+
     if (null != widget.stateHookInitState) {
       _stateHookInitState = widget.stateHookInitState;
     }
@@ -229,6 +243,7 @@ class RT_AnotherStatefulWidget extends StatefulWidget {
   final VoidCallback? stateEventDidUpdateWidget;
   final VoidCallback? stateEventBuild;
   final VoidCallback? stateEventDispose;
+  final VoidCallback? stateEventAfterUnMount;
   final VoidCallback? stateEventCreateState;
 
   final Function(RT_AnotherStatefulWidget_State state)? stateHookInitState;
@@ -261,6 +276,7 @@ class RT_AnotherStatefulWidget extends StatefulWidget {
     this.stateEventDidUpdateWidget,
     this.stateEventBuild,
     this.stateEventDispose,
+    this.stateEventAfterUnMount,
     this.stateEventCreateState,
     this.stateHookCreateState,
     this.stateHookInitState,
@@ -288,6 +304,7 @@ class RT_AnotherStatefulWidget_State extends State<RT_AnotherStatefulWidget> {
   VoidCallback? _stateEventDidUpdateWidget;
   VoidCallback? _stateEventBuild;
   VoidCallback? _stateEventDispose;
+  VoidCallback? _stateEventAfterUnMount;
 
   Function(RT_AnotherStatefulWidget_State state)? _stateHookInitState;
 
@@ -343,6 +360,13 @@ class RT_AnotherStatefulWidget_State extends State<RT_AnotherStatefulWidget> {
   }
 
   @override
+  afterUnMount() {
+    if (null != _stateEventAfterUnMount) {
+      _stateEventAfterUnMount!();
+    }
+  }
+
+  @override
   didChangeDependencies() {
     if (null != _stateEventDidChangeDependencies) {
       _stateEventDidChangeDependencies!();
@@ -413,12 +437,16 @@ class RT_AnotherStatefulWidget_State extends State<RT_AnotherStatefulWidget> {
       _stateEventDispose = widget.stateEventDispose;
     }
 
-    if (null != widget.stateHookInitState) {
-      _stateHookInitState = widget.stateHookInitState;
+    if (null != widget.stateEventAfterUnMount) {
+      _stateEventAfterUnMount = widget.stateEventAfterUnMount;
     }
 
     if (null != widget.stateHookInitState) {
       _stateHookInitState = widget.stateHookInitState;
+    }
+
+    if (null != widget.stateHookBuild) {
+      _stateHookBuild = widget.stateHookBuild;
     }
 
     if (null != widget.stateHookDidUpdateWidget) {
