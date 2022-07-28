@@ -10,8 +10,8 @@ test('should set property "value"', () async {
   var domNode1 = app!.domNodeByKeyValue('el-1');
   var domNode2 = app!.domNodeByKeyValue('el-2');
 
-  expect((domNode1 as InputElement).value, equals('some-value'));
-  expect((domNode2 as InputElement).value, equals('another-value'));
+  expect((domNode1 as __WidgetClass__Element).value, equals('some-value'));
+  expect((domNode2 as __WidgetClass__Element).value, equals('another-value'));
 });
 
 test('should update property "value"', () async {
@@ -35,8 +35,8 @@ test('should update property "value"', () async {
   var domNode1 = app!.domNodeByKeyValue('el-1');
   var domNode2 = app!.domNodeByKeyValue('el-2');
 
-  expect((domNode1 as InputElement).value, equals('updated-value'));
-  expect((domNode2 as InputElement).value, equals('another-value'));
+  expect((domNode1 as __WidgetClass__Element).value, equals('updated-value'));
+  expect((domNode2 as __WidgetClass__Element).value, equals('another-value'));
 });
 
 test('should clear property "value"', () async {
@@ -60,8 +60,8 @@ test('should clear property "value"', () async {
   var domNode1 = app!.domNodeByKeyValue('el-1');
   var domNode2 = app!.domNodeByKeyValue('el-2');
 
-  expect((domNode1 as InputElement).value, equals(''));
-  expect((domNode2 as InputElement).value, equals(''));
+  expect((domNode1 as __WidgetClass__Element).value, equals(''));
+  expect((domNode2 as __WidgetClass__Element).value, equals(''));
 });
 
 test('should clear property "value" if updated value is null', () async {
@@ -82,7 +82,7 @@ test('should clear property "value" if updated value is null', () async {
 
   var domNode1 = app!.domNodeByKeyValue('el-1');
 
-  expect((domNode1 as InputElement).value, equals(''));
+  expect((domNode1 as __WidgetClass__Element).value, equals(''));
 });
 
 test('should not set property "value" if provided value is null', () async {
@@ -95,5 +95,5 @@ test('should not set property "value" if provided value is null', () async {
 
   var domNode1 = app!.domNodeByKeyValue('el-1');
 
-  expect((domNode1 as InputElement).value, equals(''));
+  expect((domNode1 as __WidgetClass__Element).value, equals(''));
 });
