@@ -11,6 +11,8 @@ coverage:
         target: 80%
         informational: true
 
+comment: false
+
 # coverage exclusions
 # 
 # all exclusions are explicit and listed here. we're not 
