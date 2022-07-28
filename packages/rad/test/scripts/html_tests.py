@@ -539,7 +539,7 @@ widget_specific_tests = {
         'html_attr_form',
         'html_attr_input_mode',
         'html_attr_tabindex',
-        'html_attr_value', 
+        'html_prop_value_range', 
     ],
     'InputReset': [
         'html_attr_name',
