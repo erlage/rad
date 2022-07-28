@@ -194,6 +194,10 @@ abstract class HTMLInputBase extends HTMLWidgetBase {
   ///
   final String? width;
 
+  /// The input control's value property.
+  ///
+  final String? valueProperty;
+
   /// On input event listener.
   ///
   final EventCallback? onInput;
@@ -248,6 +252,7 @@ abstract class HTMLInputBase extends HTMLWidgetBase {
     this.type,
     this.value,
     this.width,
+    this.valueProperty,
     this.onInput,
     this.onChange,
     this.onKeyUp,
@@ -329,6 +334,7 @@ abstract class HTMLInputBase extends HTMLWidgetBase {
         type != oldWidget.type ||
         value != oldWidget.value ||
         width != oldWidget.width ||
+        valueProperty != oldWidget.valueProperty ||
         super.shouldUpdateWidget(oldWidget);
   }
 
@@ -363,6 +369,12 @@ class HTMLInputBaseRenderElement extends HTMLRenderElementBase {
       attributes: domNodePatch.attributes,
     );
 
+    _extendProperties(
+      widget: widget,
+      oldWidget: null,
+      properties: domNodePatch.properties,
+    );
+
     return domNodePatch;
   }
 
@@ -383,6 +395,12 @@ class HTMLInputBaseRenderElement extends HTMLRenderElementBase {
       widget: newWidget,
       oldWidget: oldWidget,
       attributes: domNodePatch.attributes,
+    );
+
+    _extendProperties(
+      widget: newWidget,
+      oldWidget: oldWidget,
+      properties: domNodePatch.properties,
     );
 
     return domNodePatch;
@@ -566,5 +584,15 @@ void _extendAttributes({
 
   if (widget.width != oldWidget?.width) {
     attributes[Attributes.width] = widget.width;
+  }
+}
+
+void _extendProperties({
+  required HTMLInputBase widget,
+  required HTMLInputBase? oldWidget,
+  required Map<String, String?> properties,
+}) {
+  if (widget.valueProperty != oldWidget?.valueProperty) {
+    properties[Properties.value] = widget.valueProperty;
   }
 }

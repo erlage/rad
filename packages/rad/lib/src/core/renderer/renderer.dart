@@ -978,7 +978,15 @@ class Renderer with ServicesResolver {
         switch (key) {
           case Properties.value:
 
-            // implemented only for textarea
+            // implemented only for
+            // - Input elements
+            // - TextArea elements
+
+            if (domNode is InputElement) {
+              domNode.value = value ?? '';
+
+              break;
+            }
 
             if (domNode is TextAreaElement) {
               domNode.value = value ?? '';
