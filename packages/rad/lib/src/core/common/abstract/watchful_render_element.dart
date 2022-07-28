@@ -48,6 +48,12 @@ abstract class WatchfulRenderElement extends RenderElement {
   ///
   void afterMount() {}
 
+  /// After update hook.
+  ///
+  /// This hook gets called after widget has been re-rendered to the DOM.
+  ///
+  void afterUpdate() {}
+
   /// Dispose hook.
   ///
   /// This hook gets called when framework is about to remove widget from
@@ -84,6 +90,13 @@ abstract class WatchfulRenderElement extends RenderElement {
     _isMounted = true;
 
     afterMount();
+  }
+
+  /// @nodoc
+  @internal
+  @nonVirtual
+  void frameworkAfterUpdate() {
+    afterUpdate();
   }
 
   /// @nodoc
