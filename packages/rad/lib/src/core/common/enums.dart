@@ -147,6 +147,7 @@ enum InputType {
   dateTimeLocal('datetime-local'),
   email('email'),
   file('file'),
+  hidden('hidden'),
   image('image'),
   month('month'),
   number('number'),

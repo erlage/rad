@@ -36,7 +36,7 @@ class InputHidden extends HTMLInputBase {
           tabIndex: tabIndex,
           disabled: disabled,
           inputMode: inputMode,
-          type: InputType.button,
+          type: InputType.hidden,
           key: key,
           id: id,
           title: title,
