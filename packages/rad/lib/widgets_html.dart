@@ -106,6 +106,7 @@ export 'src/widgets/additional/input_date_time_local.dart'
 export 'src/widgets/additional/input_date.dart' show InputDate;
 export 'src/widgets/additional/input_email.dart' show InputEmail;
 export 'src/widgets/additional/input_file.dart' show InputFile;
+export 'src/widgets/additional/input_hidden.dart' show InputHidden;
 export 'src/widgets/additional/input_image.dart' show InputImage;
 export 'src/widgets/additional/input_month.dart' show InputMonth;
 export 'src/widgets/additional/input_number.dart' show InputNumber;
