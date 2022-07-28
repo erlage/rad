@@ -167,6 +167,7 @@ void main() {
       expect(InputType.dateTimeLocal.nativeValue, equals('datetime-local'));
       expect(InputType.email.nativeValue, equals('email'));
       expect(InputType.file.nativeValue, equals('file'));
+      expect(InputType.hidden.nativeValue, equals('hidden'));
       expect(InputType.image.nativeValue, equals('image'));
       expect(InputType.month.nativeValue, equals('month'));
       expect(InputType.number.nativeValue, equals('number'));
