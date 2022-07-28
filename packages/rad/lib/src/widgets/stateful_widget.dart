@@ -182,6 +182,9 @@ class StatefulRenderElement extends WatchfulRenderElement {
   void afterMount() => state.frameworkAfterMount();
 
   @override
+  void dispose() => state.frameworkDispose();
+
+  @override
   void afterUnMount() => state.frameworkAfterUnMount();
 }
 
@@ -211,8 +214,8 @@ class StatefulRenderElement extends WatchfulRenderElement {
 /// widget's interface description.
 ///
 ///
-/// 3. [State.dispose] - is called when framework is about to dispose widget and
-/// its state.
+/// 3. [State.dispose] - is called when framework is about to remove widget
+/// from the screen.
 ///
 ///
 /// Apart from these three, [State] has some additional lifecycle methods
@@ -486,7 +489,15 @@ abstract class State<T extends StatefulWidget> {
   @internal
   @nonVirtual
   @protected
-  void frameworkAfterUnMount() {
+  void frameworkDispose() {
     dispose();
+  }
+
+  /// @nodoc
+  @internal
+  @nonVirtual
+  @protected
+  void frameworkAfterUnMount() {
+    // do nothing
   }
 }
