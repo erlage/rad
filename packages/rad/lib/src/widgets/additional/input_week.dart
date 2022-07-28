@@ -46,7 +46,7 @@ class InputWeek extends HTMLInputBase {
           step: step,
           name: name,
           form: form,
-          value: value,
+          valueProperty: value,
           tabIndex: tabIndex,
           disabled: disabled,
           inputMode: inputMode,
