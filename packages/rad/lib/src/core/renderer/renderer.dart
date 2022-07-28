@@ -905,6 +905,7 @@ class Renderer with ServicesResolver {
 
     if (renderElement is WatchfulRenderElement) {
       renderElement.frameworkAfterUnMount();
+      renderElement.frameworkDispose();
     }
 
     if (DEBUG_BUILD) {
@@ -923,6 +924,7 @@ class Renderer with ServicesResolver {
 
     if (renderElement is WatchfulRenderElement) {
       renderElement.frameworkAfterUnMount();
+      renderElement.frameworkDispose();
     }
 
     if (DEBUG_BUILD) {

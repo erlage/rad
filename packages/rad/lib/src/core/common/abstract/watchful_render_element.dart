@@ -48,6 +48,13 @@ abstract class WatchfulRenderElement extends RenderElement {
   ///
   void afterMount() {}
 
+  /// Dispose hook.
+  ///
+  /// This hook gets called when framework is about to remove widget from
+  /// screen, called exactly one time during lifetime of an element.
+  ///
+  void dispose() {}
+
   /// After unMount hook.
   ///
   /// This hook gets called after widget has been removed from the screen,
@@ -77,6 +84,13 @@ abstract class WatchfulRenderElement extends RenderElement {
     _isMounted = true;
 
     afterMount();
+  }
+
+  /// @nodoc
+  @internal
+  @nonVirtual
+  void frameworkDispose() {
+    dispose();
   }
 
   /// @nodoc
