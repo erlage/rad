@@ -11,6 +11,7 @@ import '../test_imports.dart';
 class RT_StatefulTestWidget extends StatefulWidget {
   final VoidCallback? stateEventInitState;
   final VoidCallback? stateEventAfterMount;
+  final VoidCallback? stateEventAfterUpdate;
   final VoidCallback? stateEventDidChangeDependencies;
   final VoidCallback? stateEventDidUpdateWidget;
   final VoidCallback? stateEventBuild;
@@ -42,6 +43,7 @@ class RT_StatefulTestWidget extends StatefulWidget {
     Key? key,
     this.stateEventInitState,
     this.stateEventAfterMount,
+    this.stateEventAfterUpdate,
     this.stateEventDidChangeDependencies,
     this.stateEventDidUpdateWidget,
     this.stateEventBuild,
@@ -67,6 +69,7 @@ class RT_StatefulTestWidget extends StatefulWidget {
 class RT_StatefulTestWidget_State extends State<RT_StatefulTestWidget> {
   VoidCallback? _stateEventInitState;
   VoidCallback? _stateEventAfterMount;
+  VoidCallback? _stateEventAfterUpdate;
   VoidCallback? _stateEventDidChangeDependencies;
   VoidCallback? _stateEventDidUpdateWidget;
   VoidCallback? _stateEventBuild;
@@ -119,6 +122,13 @@ class RT_StatefulTestWidget_State extends State<RT_StatefulTestWidget> {
   }
 
   @override
+  afterUpdate() {
+    if (null != _stateEventAfterUpdate) {
+      _stateEventAfterUpdate!();
+    }
+  }
+
+  @override
   didChangeDependencies() {
     if (null != _stateEventDidChangeDependencies) {
       _stateEventDidChangeDependencies!();
@@ -169,6 +179,10 @@ class RT_StatefulTestWidget_State extends State<RT_StatefulTestWidget> {
       _stateEventAfterMount = widget.stateEventAfterMount;
     }
 
+    if (null != widget.stateEventAfterUpdate) {
+      _stateEventAfterUpdate = widget.stateEventAfterUpdate;
+    }
+
     if (null != widget.stateEventDidChangeDependencies) {
       _stateEventDidChangeDependencies = widget.stateEventDidChangeDependencies;
     }
@@ -210,6 +224,7 @@ class RT_StatefulTestWidget_State extends State<RT_StatefulTestWidget> {
 class RT_AnotherStatefulWidget extends StatefulWidget {
   final VoidCallback? stateEventInitState;
   final VoidCallback? stateEventAfterMount;
+  final VoidCallback? stateEventAfterUpdate;
   final VoidCallback? stateEventDidChangeDependencies;
   final VoidCallback? stateEventDidUpdateWidget;
   final VoidCallback? stateEventBuild;
@@ -241,6 +256,7 @@ class RT_AnotherStatefulWidget extends StatefulWidget {
     Key? key,
     this.stateEventInitState,
     this.stateEventAfterMount,
+    this.stateEventAfterUpdate,
     this.stateEventDidChangeDependencies,
     this.stateEventDidUpdateWidget,
     this.stateEventBuild,
@@ -267,6 +283,7 @@ class RT_AnotherStatefulWidget extends StatefulWidget {
 class RT_AnotherStatefulWidget_State extends State<RT_AnotherStatefulWidget> {
   VoidCallback? _stateEventInitState;
   VoidCallback? _stateEventAfterMount;
+  VoidCallback? _stateEventAfterUpdate;
   VoidCallback? _stateEventDidChangeDependencies;
   VoidCallback? _stateEventDidUpdateWidget;
   VoidCallback? _stateEventBuild;
@@ -319,6 +336,13 @@ class RT_AnotherStatefulWidget_State extends State<RT_AnotherStatefulWidget> {
   }
 
   @override
+  afterUpdate() {
+    if (null != _stateEventAfterUpdate) {
+      _stateEventAfterUpdate!();
+    }
+  }
+
+  @override
   didChangeDependencies() {
     if (null != _stateEventDidChangeDependencies) {
       _stateEventDidChangeDependencies!();
@@ -367,6 +391,10 @@ class RT_AnotherStatefulWidget_State extends State<RT_AnotherStatefulWidget> {
 
     if (null != widget.stateEventAfterMount) {
       _stateEventAfterMount = widget.stateEventAfterMount;
+    }
+
+    if (null != widget.stateEventAfterUpdate) {
+      _stateEventAfterUpdate = widget.stateEventAfterUpdate;
     }
 
     if (null != widget.stateEventDidChangeDependencies) {

@@ -182,6 +182,9 @@ class StatefulRenderElement extends WatchfulRenderElement {
   void afterMount() => state.frameworkAfterMount();
 
   @override
+  void afterUpdate() => state.frameworkAfterUpdate();
+
+  @override
   void dispose() => state.frameworkDispose();
 
   @override
@@ -352,6 +355,11 @@ abstract class State<T extends StatefulWidget> {
   @protected
   void afterMount() {}
 
+  /// Called after widget finishes re-rendering to the DOM.
+  ///
+  @protected
+  void afterUpdate() {}
+
   /// Called whenever the widget configuration changes.
   ///
   /// If the parent widget rebuilds and request that this location in the tree
@@ -483,6 +491,14 @@ abstract class State<T extends StatefulWidget> {
   @protected
   void frameworkAfterMount() {
     afterMount();
+  }
+
+  /// @nodoc
+  @internal
+  @nonVirtual
+  @protected
+  void frameworkAfterUpdate() {
+    afterUpdate();
   }
 
   /// @nodoc

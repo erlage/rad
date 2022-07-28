@@ -141,6 +141,83 @@ void main() {
       expect(testStack.canPop(), equals(false));
     });
 
+    test('should call afterUpdate after build', () async {
+      var app = createTestApp()..start();
+      var testStack = RT_TestStack();
+
+      await app.buildChildren(
+        widgets: [
+          RT_StatefulTestWidget(
+            stateEventBuild: () => testStack.push('build'),
+            stateEventAfterUpdate: () => testStack.push('after update'),
+          ),
+        ],
+        parentRenderElement: app.appRenderElement,
+      );
+
+      await app.updateChildren(
+        widgets: [
+          RT_StatefulTestWidget(
+            stateEventBuild: () => testStack.push('build'),
+            stateEventAfterUpdate: () => testStack.push('after update'),
+          )
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app.appRenderElement,
+      );
+
+      await app.updateChildren(
+        widgets: [
+          RT_StatefulTestWidget(
+            stateEventBuild: () => testStack.push('build'),
+            stateEventAfterUpdate: () => testStack.push('after update'),
+          )
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app.appRenderElement,
+      );
+
+      expect(testStack.popFromStart(), equals('build'));
+      expect(testStack.popFromStart(), equals('build'));
+      expect(testStack.popFromStart(), equals('after update'));
+      expect(testStack.popFromStart(), equals('build'));
+      expect(testStack.popFromStart(), equals('after update'));
+      expect(testStack.canPop(), equals(false));
+    });
+
+    test('should call afterUpdate after dom updates are flushed', () async {
+      var app = createTestApp()..start();
+      var testStack = RT_TestStack();
+
+      await app.buildChildren(
+        widgets: [
+          RT_StatefulTestWidget(
+            children: [Text('initial contents')],
+            stateEventAfterUpdate: () => testStack.push('after update'),
+          )
+        ],
+        parentRenderElement: app.appRenderElement,
+      );
+
+      await app.updateChildren(
+        widgets: [
+          RT_StatefulTestWidget(
+            children: [Text('updated contents')],
+            stateEventAfterUpdate: () {
+              testStack.push('after update');
+
+              expect(app.appDomNode, RT_hasContents('updated contents'));
+            },
+          )
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app.appRenderElement,
+      );
+
+      expect(testStack.popFromStart(), equals('after update'));
+      expect(testStack.canPop(), equals(false));
+    });
+
     test('should call did change dependencies after initState', () async {
       var testStack = RT_TestStack();
 
