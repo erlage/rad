@@ -218,6 +218,28 @@ void main() {
       expect(testStack.canPop(), equals(false));
     });
 
+    test('should call afterUnMount after actual unmount', () async {
+      var stack = RT_TestStack();
+
+      var runner = runApp(
+        app: RT_StatefulTestWidget(
+          children: [Text('hello world', style: 'font-weight: bold;')],
+          stateEventAfterUnMount: () {
+            stack.push('after unmount');
+            expect(RT_TestBed.rootDomNode, RT_hasContents(''));
+          },
+        ),
+        appTargetId: RT_TestBed.rootTargetId,
+      );
+
+      await Future.delayed(Duration(milliseconds: 100));
+      runner.stop();
+      await Future.delayed(Duration(milliseconds: 100));
+
+      expect(stack.popFromStart(), equals('after unmount'));
+      expect(stack.canPop(), equals(false));
+    });
+
     test('should call did change dependencies after initState', () async {
       var testStack = RT_TestStack();
 

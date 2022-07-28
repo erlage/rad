@@ -360,6 +360,13 @@ abstract class State<T extends StatefulWidget> {
   @protected
   void afterUpdate() {}
 
+  /// After unMount hook.
+  ///
+  /// This method is called after widget has been removed from the screen.
+  ///
+  @protected
+  void afterUnMount() {}
+
   /// Called whenever the widget configuration changes.
   ///
   /// If the parent widget rebuilds and request that this location in the tree
@@ -514,6 +521,6 @@ abstract class State<T extends StatefulWidget> {
   @nonVirtual
   @protected
   void frameworkAfterUnMount() {
-    // do nothing
+    afterUnMount();
   }
 }
