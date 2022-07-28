@@ -470,7 +470,7 @@ widget_specific_tests = {
         'html_attr_form',
         'html_attr_input_mode',
         'html_attr_tabindex',
-        'html_attr_value', 
+        'html_prop_value_month', 
     ],
     'InputNumber': [
         'html_attr_auto_complete',
@@ -490,7 +490,7 @@ widget_specific_tests = {
         'html_attr_form',
         'html_attr_input_mode',
         'html_attr_tabindex',
-        'html_attr_value', 
+        'html_prop_value_number', 
     ],
     'InputPassword': [
         'html_attr_maxlength',
