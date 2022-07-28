@@ -38,7 +38,7 @@ class InputColor extends HTMLInputBase {
           list: list,
           name: name,
           form: form,
-          value: value,
+          valueProperty: value,
           tabIndex: tabIndex,
           disabled: disabled,
           inputMode: inputMode,
