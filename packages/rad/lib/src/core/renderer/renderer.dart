@@ -865,7 +865,10 @@ class Renderer with ServicesResolver {
       var childElements = renderElement.frameworkEjectChildRenderElements();
 
       for (final childElement in childElements) {
-        disposeDetachedRenderElement(childElement);
+        disposeDetachedRenderElement(
+          renderElement: childElement,
+          jobQueue: jobQueue,
+        );
       }
     }
   }
@@ -893,7 +896,10 @@ class Renderer with ServicesResolver {
       var childElements = renderElement.frameworkEjectChildRenderElements();
 
       for (final renderElement in childElements) {
-        disposeDetachedRenderElement(renderElement);
+        disposeDetachedRenderElement(
+          renderElement: renderElement,
+          jobQueue: jobQueue,
+        );
       }
     }
 
@@ -904,8 +910,8 @@ class Renderer with ServicesResolver {
     // Call lifecycle hooks
 
     if (renderElement is WatchfulRenderElement) {
-      renderElement.frameworkAfterUnMount();
       renderElement.frameworkDispose();
+      jobQueue.addPostDispatchCallback(renderElement.frameworkAfterUnMount);
     }
 
     if (DEBUG_BUILD) {
@@ -917,14 +923,20 @@ class Renderer with ServicesResolver {
 
   /// Dispose a detached render element.
   ///
-  void disposeDetachedRenderElement(RenderElement renderElement) {
+  void disposeDetachedRenderElement({
+    required RenderElement renderElement,
+    required JobQueue jobQueue,
+  }) {
     for (final childElement in renderElement.frameworkChildElements) {
-      disposeDetachedRenderElement(childElement);
+      disposeDetachedRenderElement(
+        renderElement: childElement,
+        jobQueue: jobQueue,
+      );
     }
 
     if (renderElement is WatchfulRenderElement) {
-      renderElement.frameworkAfterUnMount();
       renderElement.frameworkDispose();
+      jobQueue.addPostDispatchCallback(renderElement.frameworkAfterUnMount);
     }
 
     if (DEBUG_BUILD) {
