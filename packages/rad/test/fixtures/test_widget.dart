@@ -22,9 +22,9 @@ class RT_TestWidget extends Widget {
   final VoidCallback? roEventInit;
   final VoidCallback? roEventRender;
   final VoidCallback? roEventUpdate;
-  final VoidCallback? roEventBeforeMount;
   final VoidCallback? roEventAfterMount;
   final VoidCallback? roEventAfterWidgetRebind;
+  final VoidCallback? roEventDispose;
   final VoidCallback? roEventAfterUnMount;
 
   // data hooks
@@ -52,9 +52,9 @@ class RT_TestWidget extends Widget {
     this.roEventInit,
     this.roEventRender,
     this.roEventUpdate,
-    this.roEventBeforeMount,
     this.roEventAfterMount,
     this.roEventAfterWidgetRebind,
+    this.roEventDispose,
     this.roEventAfterUnMount,
 
     // widget events
@@ -128,6 +128,7 @@ class RT_TestWidget extends Widget {
       roEventUpdate: roEventUpdate,
       roEventAfterMount: roEventAfterMount,
       roEventAfterWidgetRebind: roEventAfterWidgetRebind,
+      roEventDispose: roEventDispose,
       roEventAfterUnMount: roEventAfterUnMount,
       roHookUpdate: roHookUpdate,
     );
@@ -148,6 +149,7 @@ class RT_TestRenderElement extends WatchfulRenderElement {
   final VoidCallback? roEventUpdate;
   final VoidCallback? roEventAfterMount;
   final VoidCallback? roEventAfterWidgetRebind;
+  final VoidCallback? roEventDispose;
   final VoidCallback? roEventAfterUnMount;
 
   final Function(UpdateType)? roHookUpdate;
@@ -160,6 +162,7 @@ class RT_TestRenderElement extends WatchfulRenderElement {
     this.roEventUpdate,
     this.roEventAfterMount,
     this.roEventAfterWidgetRebind,
+    this.roEventDispose,
     this.roEventAfterUnMount,
     this.roHookUpdate,
   }) : super(widget, parent);
@@ -219,6 +222,13 @@ class RT_TestRenderElement extends WatchfulRenderElement {
   }
 
   @override
+  dispose() {
+    if (null != roEventDispose) {
+      roEventDispose!();
+    }
+  }
+
+  @override
   afterUnMount() {
     if (null != roEventAfterUnMount) {
       roEventAfterUnMount!();
@@ -236,6 +246,7 @@ class RT_AnotherTestWidget extends RT_TestWidget {
     VoidCallback? roEventUpdate,
     VoidCallback? roEventAfterMount,
     VoidCallback? roEventAfterWidgetRebind,
+    VoidCallback? roEventDispose,
     VoidCallback? roEventAfterUnMount,
     VoidCallback? wEventCreateRenderObject,
 
@@ -253,6 +264,7 @@ class RT_AnotherTestWidget extends RT_TestWidget {
           roEventUpdate: roEventUpdate,
           roEventAfterMount: roEventAfterMount,
           roEventAfterWidgetRebind: roEventAfterWidgetRebind,
+          roEventDispose: roEventDispose,
           roEventAfterUnMount: roEventAfterUnMount,
           wEventCreateRenderObject: wEventCreateRenderObject,
 
