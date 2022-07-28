@@ -1942,11 +1942,11 @@ void html_input_date_time_local_test() {
       expect(domNode3.getAttribute('tabindex'), equals('3'));
     });
 
-    test('should set attribute "value"', () async {
+    test('should set property "value"', () async {
       await app!.buildChildren(
         widgets: [
-          InputDateTimeLocal(key: Key('el-1'), value: 'some-value'),
-          InputDateTimeLocal(key: Key('el-2'), value: 'another-value'),
+          InputDateTimeLocal(key: Key('el-1'), value: '2022-07-13T02:23'),
+          InputDateTimeLocal(key: Key('el-2'), value: '2022-07-13T02:25'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -1954,23 +1954,23 @@ void html_input_date_time_local_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('value'), equals('some-value'));
-      expect(domNode2.getAttribute('value'), equals('another-value'));
+      expect((domNode1 as InputElement).value, equals('2022-07-13T02:23'));
+      expect((domNode2 as InputElement).value, equals('2022-07-13T02:25'));
     });
 
-    test('should update attribute "value"', () async {
+    test('should update property "value"', () async {
       await app!.buildChildren(
         widgets: [
-          InputDateTimeLocal(key: Key('el-1'), value: 'some-value'),
-          InputDateTimeLocal(key: Key('el-2'), value: 'another-value'),
+          InputDateTimeLocal(key: Key('el-1'), value: '2022-07-13T02:23'),
+          InputDateTimeLocal(key: Key('el-2'), value: '2022-07-13T02:25'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
       await app!.updateChildren(
         widgets: [
-          InputDateTimeLocal(key: Key('el-1'), value: 'updated-value'),
-          InputDateTimeLocal(key: Key('el-2'), value: 'another-value'),
+          InputDateTimeLocal(key: Key('el-1'), value: '2022-07-13T02:28'),
+          InputDateTimeLocal(key: Key('el-2'), value: '2022-07-13T02:25'),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -1979,15 +1979,15 @@ void html_input_date_time_local_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('value'), equals('updated-value'));
-      expect(domNode2.getAttribute('value'), equals('another-value'));
+      expect((domNode1 as InputElement).value, equals('2022-07-13T02:28'));
+      expect((domNode2 as InputElement).value, equals('2022-07-13T02:25'));
     });
 
-    test('should clear attribute "value"', () async {
+    test('should clear property "value"', () async {
       await app!.buildChildren(
         widgets: [
           InputDateTimeLocal(key: Key('el-1')),
-          InputDateTimeLocal(key: Key('el-2'), value: 'another-value'),
+          InputDateTimeLocal(key: Key('el-2'), value: '2022-07-13T02:25'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -2004,14 +2004,14 @@ void html_input_date_time_local_test() {
       var domNode1 = app!.domNodeByKeyValue('el-1');
       var domNode2 = app!.domNodeByKeyValue('el-2');
 
-      expect(domNode1.getAttribute('value'), equals(null));
-      expect(domNode2.getAttribute('value'), equals(null));
+      expect((domNode1 as InputElement).value, equals(''));
+      expect((domNode2 as InputElement).value, equals(''));
     });
 
-    test('should clear attribute "value" if updated value is null', () async {
+    test('should clear property "value" if updated value is null', () async {
       await app!.buildChildren(
         widgets: [
-          InputDateTimeLocal(key: Key('el-1'), value: 'some-value'),
+          InputDateTimeLocal(key: Key('el-1'), value: '2022-07-13T02:23'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -2026,11 +2026,10 @@ void html_input_date_time_local_test() {
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
-      expect(domNode1.getAttribute('value'), equals(null));
+      expect((domNode1 as InputElement).value, equals(''));
     });
 
-    test('should not set attribute "value" if provided value is null',
-        () async {
+    test('should not set property "value" if provided value is null', () async {
       await app!.buildChildren(
         widgets: [
           InputDateTimeLocal(key: Key('el-1'), value: null),
@@ -2040,7 +2039,7 @@ void html_input_date_time_local_test() {
 
       var domNode1 = app!.domNodeByKeyValue('el-1');
 
-      expect(domNode1.getAttribute('value'), equals(null));
+      expect((domNode1 as InputElement).value, equals(''));
     });
   });
 }
