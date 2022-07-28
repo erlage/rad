@@ -75,6 +75,7 @@ export 'fixtures/test_widget_stateful.dart';
 export 'fixtures/test_widget_eventful.dart';
 export 'fixtures/test_widget_stateless.dart';
 export 'fixtures/test_widget_inherited.dart';
+export 'fixtures/test_widget_watchful.dart';
 
 export 'mocks/test_window.dart';
 export 'mocks/test_pop_state_listener.dart';
