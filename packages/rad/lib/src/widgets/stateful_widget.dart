@@ -228,6 +228,12 @@ class StatefulRenderElement extends WatchfulRenderElement {
 /// [State.afterMount] - Called after widget finishes mounting on screen.
 ///
 ///
+/// [State.afterUpdate] - Called after widget finishes re-rendering on screen.
+///
+///
+/// [State.afterUnMount] - Called after widget has been removed from screen.
+///
+///
 /// [State.didUpdateWidget] - Called whenever the widget configuration changes.
 ///
 ///
