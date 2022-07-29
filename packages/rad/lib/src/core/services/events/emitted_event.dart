@@ -9,12 +9,12 @@ import 'dart:html';
 class EmittedEvent {
   /// Native event instance.
   ///
-  Event get nativeEvent => _rawEvent;
-  final Event _rawEvent;
+  Event get nativeEvent => _nativeEvent;
+  final Event _nativeEvent;
 
   /// Create emitted event from native-event.
   ///
-  EmittedEvent.fromNativeEvent(this._rawEvent);
+  EmittedEvent.fromNativeEvent(this._nativeEvent);
 
   // framework specific api(s)
 
@@ -32,41 +32,41 @@ class EmittedEvent {
 
   // native api(s)
 
-  String get type => _rawEvent.type;
+  String get type => _nativeEvent.type;
 
-  bool? get bubbles => _rawEvent.bubbles;
+  bool? get bubbles => _nativeEvent.bubbles;
 
-  bool? get composed => _rawEvent.composed;
+  bool? get composed => _nativeEvent.composed;
 
-  num? get timeStamp => _rawEvent.timeStamp;
+  num? get timeStamp => _nativeEvent.timeStamp;
 
-  int get eventPhase => _rawEvent.eventPhase;
+  int get eventPhase => _nativeEvent.eventPhase;
 
-  bool? get isTrusted => _rawEvent.isTrusted;
+  bool? get isTrusted => _nativeEvent.isTrusted;
 
-  bool? get cancelable => _rawEvent.cancelable;
+  bool? get cancelable => _nativeEvent.cancelable;
 
-  bool get defaultPrevented => _rawEvent.defaultPrevented;
+  bool get defaultPrevented => _nativeEvent.defaultPrevented;
 
-  List<EventTarget> get path => _rawEvent.path;
+  List<EventTarget> get path => _nativeEvent.path;
 
-  EventTarget? get target => _rawEvent.target;
+  EventTarget? get target => _nativeEvent.target;
 
-  EventTarget? get currentTarget => _rawEvent.currentTarget;
+  EventTarget? get currentTarget => _nativeEvent.currentTarget;
 
-  void preventDefault() => _rawEvent.preventDefault();
+  void preventDefault() => _nativeEvent.preventDefault();
 
-  List<EventTarget> composedPath() => _rawEvent.composedPath();
+  List<EventTarget> composedPath() => _nativeEvent.composedPath();
 
   void stopPropagation() {
     _isPropagationStopped = true;
 
-    _rawEvent.stopPropagation();
+    _nativeEvent.stopPropagation();
   }
 
   void stopImmediatePropagation() {
     _isPropagationStopped = true;
 
-    _rawEvent.stopImmediatePropagation();
+    _nativeEvent.stopImmediatePropagation();
   }
 }
