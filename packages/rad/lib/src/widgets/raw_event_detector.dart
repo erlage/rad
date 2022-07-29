@@ -8,7 +8,6 @@ import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/common/objects/cache.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/core/services/scheduler/tasks/stimulate_listener_task.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 
@@ -40,20 +39,16 @@ class RawEventDetector extends StatefulWidget {
 
 class _RawEventDetectorState extends State<RawEventDetector> {
   Element? _domNode;
+  RawEventDetector? _oldWidget;
 
   @override
-  void initState() {
-    _addPostRenderTask(() {
-      _updateEventListeners(newWidget: widget, oldWidget: null);
-    });
-  }
+  void afterMount() => _updateEventListeners();
 
   @override
-  void didUpdateWidget(RawEventDetector oldWidget) {
-    _addPostRenderTask(() {
-      _updateEventListeners(newWidget: widget, oldWidget: oldWidget);
-    });
-  }
+  void afterUpdate() => _updateEventListeners();
+
+  @override
+  void didUpdateWidget(oldWidget) => _oldWidget = oldWidget;
 
   @override
   Widget build(BuildContext context) => widget.child;
@@ -69,24 +64,6 @@ class _RawEventDetectorState extends State<RawEventDetector> {
         oldWidget: widget,
       );
     }
-  }
-
-  /// Add a task to run after current render task is over.
-  ///
-  /// [RawEventDetector] don't have a dom node of it's own, instead it
-  /// adds event listeners on its child tree but child tree is always
-  /// built/updated after current widget finishes rendering(build method).
-  ///
-  /// This method allows running callbacks in a separate task(which scheduler
-  /// will run after current task is over) so that event detector can operate on
-  /// correct/updated dom nodes in descendants.
-  ///
-  void _addPostRenderTask(VoidCallback taskToRun) {
-    var renderElement = context as StatefulRenderElement;
-
-    renderElement.frameworkServices.scheduler.addTask(
-      StimulateListenerTask(afterTaskCallback: taskToRun),
-    );
   }
 
   void _handleEvent({
@@ -118,10 +95,12 @@ class _RawEventDetectorState extends State<RawEventDetector> {
     _handleEvent(event: event, inCapturePhase: true);
   }
 
-  void _updateEventListeners({
-    required RawEventDetector? newWidget,
-    required RawEventDetector? oldWidget,
-  }) {
+  /// Refersh event listeners.
+  ///
+  void _updateEventListeners() {
+    var newWidget = widget;
+    var oldWidget = _oldWidget;
+
     var oldDomNode = _domNode;
     var newDomNode = context.findClosestDomNode();
 
