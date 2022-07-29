@@ -5,7 +5,7 @@ Rad is a frontend framework for creating fast and interactive web apps using Dar
 [![Rad(core)](https://github.com/erlage/rad/actions/workflows/rad_core.yml/badge.svg)](https://github.com/erlage/rad/actions/workflows/rad_core.yml)
 [![Reconciler](https://github.com/erlage/rad/actions/workflows/reconciler.yml/badge.svg)](https://github.com/erlage/rad/actions/workflows/reconciler.yml)
 [![codecov](https://codecov.io/gh/erlage/rad/branch/main/graph/badge.svg?token=PbTQU0aSDn)](https://codecov.io/gh/erlage/rad)
-[![pub version](https://img.shields.io/pub/v/rad)](https://pub.dev/packages/rad)
+[![pub version](https://img.shields.io/pub/v/rad?color=6CB4EE)](https://pub.dev/packages/rad)
 
 ## Quick links
 
