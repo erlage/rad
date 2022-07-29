@@ -381,9 +381,6 @@ abstract class State<T extends StatefulWidget> {
   /// The framework always calls [build] after calling [didUpdateWidget], which
   /// means any calls to [setState] in [didUpdateWidget] are redundant.
   ///
-  /// The framework always calls [build] after calling [didUpdateWidget], which
-  /// means any calls to [setState] in [didUpdateWidget] are redundant.
-  ///
   @protected
   void didUpdateWidget(T oldWidget) {}
 

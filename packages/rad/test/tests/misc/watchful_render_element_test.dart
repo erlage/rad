@@ -6,8 +6,6 @@
 
 import '../../test_imports.dart' hide RootRenderElement;
 
-// these tests are mere to cover unreachable code
-
 void main() {
   test(
     'should call init '
