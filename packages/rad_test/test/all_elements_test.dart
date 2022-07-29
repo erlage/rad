@@ -55,7 +55,7 @@ void main() {
         ),
       );
 
-      var renderElement = tester.getrenderElementByKeyValue(key)!;
+      var renderElement = tester.getRenderElementByKeyValue(key)!;
 
       final rElements = collectAllWidgetObjectsFrom(
         renderElement,

@@ -344,13 +344,20 @@ class WidgetTester {
 
   /// Find widget by global key under app context.
   ///
-  Widget? getWidgetByKey(Key key) => getrenderElementByKeyValue(
+  Widget? getWidgetByKey(Key key) => getRenderElementByKeyValue(
         key,
       )?.widget;
 
   /// Find render element by global key under app context.
   ///
+  @Deprecated('Use getRenderElementByKeyValue instead')
   RenderElement? getrenderElementByKeyValue(Key key) {
+    return getRenderElementByKeyValue(key);
+  }
+
+  /// Find render element by global key under app context.
+  ///
+  RenderElement? getRenderElementByKeyValue(Key key) {
     var elements = collectAllWidgetObjectsFrom(
       app.rootElement,
       skipOffstage: false,
@@ -368,7 +375,7 @@ class WidgetTester {
   /// Find dom node by global key under app context.
   ///
   Element? getdomNodeByKey(Key key) {
-    return getrenderElementByKeyValue(key)?.domNode;
+    return getRenderElementByKeyValue(key)?.domNode;
   }
 
   /// Update a dependent build context.
