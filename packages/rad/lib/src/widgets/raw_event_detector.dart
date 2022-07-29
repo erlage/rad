@@ -95,7 +95,7 @@ class _RawEventDetectorState extends State<RawEventDetector> {
     _handleEvent(event: event, inCapturePhase: true);
   }
 
-  /// Refersh event listeners.
+  /// Refresh event listeners.
   ///
   void _updateEventListeners() {
     var newWidget = widget;
