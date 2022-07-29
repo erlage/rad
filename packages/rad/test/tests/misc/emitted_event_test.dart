@@ -15,6 +15,10 @@ void main() {
     event = EmittedEvent.fromNativeEvent(nativeEvent!);
   });
 
+  test('should return native event', () {
+    expect(event?.nativeEvent, equals(nativeEvent));
+  });
+
   test("should forward getter 'type'", () {
     expect(event?.type, equals(nativeEvent?.type));
   });

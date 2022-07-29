@@ -9,6 +9,7 @@ import 'dart:html';
 class EmittedEvent {
   /// Native event instance.
   ///
+  Event get nativeEvent => _rawEvent;
   final Event _rawEvent;
 
   /// Create emitted event from native-event.
