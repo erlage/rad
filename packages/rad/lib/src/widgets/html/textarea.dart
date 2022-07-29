@@ -168,11 +168,10 @@ class TextAreaRenderElement extends HTMLRenderElementBase {
       attributes: domNodePatch.attributes,
     );
 
-    domNodePatch.properties.addAll(
-      _prepareProperties(
-        widget: widget,
-        oldWidget: null,
-      ),
+    _extendProperties(
+      widget: widget,
+      oldWidget: null,
+      properties: domNodePatch.properties,
     );
 
     return domNodePatch;
@@ -196,11 +195,10 @@ class TextAreaRenderElement extends HTMLRenderElementBase {
       attributes: domNodePatch.attributes,
     );
 
-    domNodePatch.properties.addAll(
-      _prepareProperties(
-        widget: newWidget,
-        oldWidget: oldWidget,
-      ),
+    _extendProperties(
+      widget: newWidget,
+      oldWidget: oldWidget,
+      properties: domNodePatch.properties,
     );
 
     return domNodePatch;
@@ -299,15 +297,12 @@ void _extendAttributes({
   }
 }
 
-Map<String, String?> _prepareProperties({
+void _extendProperties({
   required TextArea widget,
   required TextArea? oldWidget,
+  required Map<String, String?> properties,
 }) {
-  var properties = <String, String?>{};
-
   if (widget.value != oldWidget?.value) {
     properties[Properties.value] = widget.value;
   }
-
-  return properties;
 }
