@@ -39,6 +39,7 @@ abstract class WatchfulRenderElement extends RenderElement {
   /// This hook gets before rendering widget on the screen, happens exactly one
   /// time during lifetime of an element.
   ///
+  @protected
   void init() {}
 
   /// After mount hook.
@@ -46,12 +47,14 @@ abstract class WatchfulRenderElement extends RenderElement {
   /// This hook gets called after widget is mounted on the screen, happens
   /// exactly one time during lifetime of an element.
   ///
+  @protected
   void afterMount() {}
 
   /// After update hook.
   ///
   /// This hook gets called after widget has been re-rendered to the DOM.
   ///
+  @protected
   void afterUpdate() {}
 
   /// Dispose hook.
@@ -59,6 +62,7 @@ abstract class WatchfulRenderElement extends RenderElement {
   /// This hook gets called when framework is about to remove widget from
   /// screen, called exactly one time during lifetime of an element.
   ///
+  @protected
   void dispose() {}
 
   /// After unMount hook.
@@ -66,6 +70,7 @@ abstract class WatchfulRenderElement extends RenderElement {
   /// This hook gets called after widget has been removed from the screen,
   /// happens exactly one time during lifetime of an element.
   ///
+  @protected
   void afterUnMount() {}
 
   /*

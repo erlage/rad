@@ -164,6 +164,7 @@ abstract class RenderElement implements BuildContext {
   /// hook can optionally return a patch which will be applied on dom node
   /// associated with the current element(if there's any).
   ///
+  @protected
   DomNodePatch? render({required Widget widget}) => null;
 
   /// Update hook.
@@ -172,6 +173,7 @@ abstract class RenderElement implements BuildContext {
   /// hook can optionally return a patch which will be applied on dom node
   /// associated with the current element(if there's any).
   ///
+  @protected
   DomNodePatch? update({
     required UpdateType updateType,
     required Widget oldWidget,
@@ -185,6 +187,7 @@ abstract class RenderElement implements BuildContext {
   /// This hook gets called everytime a state change happens in the parent
   /// context of current widget.
   ///
+  @protected
   void afterWidgetRebind({
     required Widget oldWidget,
     required Widget newWidget,
