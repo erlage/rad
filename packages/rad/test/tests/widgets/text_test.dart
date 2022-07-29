@@ -260,7 +260,7 @@ void main() {
       expect(listeners3[DomEventType.click], equals(listener));
     });
 
-    test('should clear "click" event listner', () async {
+    test('should clear "click" event listener', () async {
       void listener(event) => {};
 
       await app!.buildChildren(

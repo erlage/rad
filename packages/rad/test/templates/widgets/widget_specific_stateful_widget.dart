@@ -9,4 +9,4 @@ test('should return false from shouldUpdateWidgetChildren', () {
 
   shouldUpdateWidgetChildren = newWidget.shouldUpdateWidgetChildren(oldWidget, true,);
   expect(shouldUpdateWidgetChildren,  equals(false));
-}, skip: 'Core is now responsible for building/updating childs');
+}, skip: 'Core is now responsible for building/updating child widgets');

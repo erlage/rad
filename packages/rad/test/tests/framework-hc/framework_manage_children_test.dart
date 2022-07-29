@@ -25,7 +25,7 @@ void main() {
     tearDown(() => app!.stop());
 
     test(
-      'should iterate over all childs in insertion order if '
+      'should iterate over all child widgets in insertion order if '
       'flagIterateInReverseOrder is not set',
       () async {
         var testStack = RT_TestStack();
@@ -62,7 +62,7 @@ void main() {
     );
 
     test(
-      'should iterate over all childs in insertion order if '
+      'should iterate over all child widgets in insertion order if '
       'flagIterateInReverseOrder: false',
       () async {
         var testStack = RT_TestStack();
@@ -100,7 +100,7 @@ void main() {
     );
 
     test(
-      'should iterate over all childs in reverse order if '
+      'should iterate over all child widgets in reverse order if '
       'flagIterateInReverseOrder: true',
       () async {
         var testStack = RT_TestStack();
@@ -138,7 +138,7 @@ void main() {
     );
 
     test(
-      'should iterate over only childs at one level',
+      'should iterate over child widgets that are at same depth',
       () async {
         var testStack = RT_TestStack();
 
@@ -180,7 +180,7 @@ void main() {
     );
 
     test(
-      'should short circuite further iterations when encounters skip',
+      'should short circuit further iterations when encounters skip',
       () async {
         var testStack = RT_TestStack();
 
@@ -421,9 +421,9 @@ void main() {
     );
 
     test(
-      'should be able to run update on tree containing non-direct childs '
-      'direct childs are the childs that widget provides in widget constructor '
-      'non-direct childs are the childs that are rendered by the state of widget it-self',
+      'should be able to run update on tree containing non-direct child widgets '
+      'direct child widgets are the child widgets that widget provides in widget constructor '
+      'non-direct child widgets are the child widgets that are rendered by the state of widget it-self',
       () async {
         var pap = app!;
 

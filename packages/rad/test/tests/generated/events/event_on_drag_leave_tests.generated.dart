@@ -200,8 +200,8 @@ void event_on_drag_leave_test() {
     );
 
 // framework stop propagation of 'dragleave' events
-// when they reachs a matching target(that is listening for those type of
-// events). to test capturing for dragleave events, we artifically
+// when they reaches a matching target(that is listening for those type of
+// events). to test capturing for dragleave events, we artificially
 // restart propagation using restartPropagationIfStopped()
 
     test('should capture event', () async {

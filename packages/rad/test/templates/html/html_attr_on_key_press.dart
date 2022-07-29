@@ -46,7 +46,7 @@ test('should set "KeyPress" event listener only if provided', () async {
     expect(listeners3[DomEventType.keyPress], equals(listener));
 });
 
-test('should clear "KeyPress" event listner', () async {
+test('should clear "KeyPress" event listener', () async {
     void listener(event) => {};
 
     await app!.buildChildren(

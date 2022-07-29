@@ -451,7 +451,7 @@ void html_figure_test() {
       expect(listeners3[DomEventType.click], equals(listener));
     });
 
-    test('should clear "click" event listner', () async {
+    test('should clear "click" event listener', () async {
       void listener(event) => {};
 
       await app!.buildChildren(
@@ -553,7 +553,7 @@ void html_figure_test() {
               ? [
                   'input',
                 ].contains('figure')
-                  // becuase system set attributes for some tags
+                  // because system set attributes for some tags
                   // e.g type="something" for input tag
                   ? '<figure'
                   : '<figure>'
@@ -686,7 +686,7 @@ void html_figure_test() {
       expect(domNode1.getAttribute('any-another'), equals('another okay'));
     });
 
-    test('should remove obsolute and add new data attributes on update',
+    test('should remove obsolete and add new data attributes on update',
         () async {
       await app!.buildChildren(
         widgets: [

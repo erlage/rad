@@ -1,7 +1,7 @@
 ## Getting started
 
 1. Create a demo web app:
-    - `dart create -t web-simple myapp`
+    - `dart create -t web-simple my-app`
   
     Having troubles? learn more [from official guide](https://dart.dev/tutorials/web/get-started)
     

@@ -199,7 +199,6 @@ class ChangeNotifier implements Listenable {
   /// This surprising behavior can be unexpectedly observed when registering a
   /// listener on two separate objects which are both forwarding all
   /// registrations to a common upstream object.
-  /// {@endtemplate}
   ///
   /// See also:
   ///
@@ -345,7 +344,7 @@ class ChangeNotifier implements Listenable {
       try {
         _listeners[i]?.call();
       } catch (exception, stack) {
-        throw Exception('Error occurred while dispatching notificaitons');
+        throw Exception('Error occurred while dispatching notifications');
       }
     }
 

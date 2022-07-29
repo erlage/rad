@@ -17,7 +17,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Division(
       className: 'horizontal-header-content',
       children: [
-        _settingsPageVeritcalNav(),
+        _settingsPageVerticalNav(),
         Division(
           style: 'flex: 1',
           children: [
@@ -41,7 +41,7 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Widget _settingsPageVeritcalNav() {
+  Widget _settingsPageVerticalNav() {
     return Division(
       className: 'vertical-header',
       children: [
@@ -65,7 +65,7 @@ class _SettingsPageState extends State<SettingsPage> {
         _navigatorState?.open(name: routeName);
       },
       child: Division(
-        style: 'widht: 100%;',
+        style: 'width: 100%;',
         className: _activeRoute == routeName ? 'active' : '',
         children: [
           Division(

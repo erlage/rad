@@ -624,7 +624,7 @@ void main() {
 
     tearDown(() => app!.stop());
 
-    test('should return empty string if value isnt set', () async {
+    test('should return empty string if value is not set', () async {
       await app!.buildChildren(
         widgets: [
           Navigator(

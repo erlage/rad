@@ -34,7 +34,7 @@ class ServicesRegistry {
     _services.remove(context.appTargetId);
   }
 
-  /// Get services object assocaited with app instance to which [context]
+  /// Get services object associated with app instance to which [context]
   /// belongs.
   ///
   Services getServices(BuildContext context) {

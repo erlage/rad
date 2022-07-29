@@ -581,7 +581,7 @@ void main() {
       // test flags
 
       test(
-        'should dispose obsolute widgets',
+        'should dispose obsolete widgets',
         () async {
           var testStack = RT_TestStack();
 
@@ -1301,7 +1301,7 @@ void main() {
       // test flags
 
       test(
-        'should dispose obsolute widgets',
+        'should dispose obsolete widgets',
         () async {
           var testStack = RT_TestStack();
 
@@ -1351,10 +1351,10 @@ void main() {
         },
       );
 
-      // flag tests under multiple childs
+      // flag tests under multiple child widgets
 
       test(
-        'should dispose obsolute widgets',
+        'should dispose obsolete widgets',
         () async {
           var testStack = RT_TestStack();
 

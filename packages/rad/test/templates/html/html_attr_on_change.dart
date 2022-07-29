@@ -46,7 +46,7 @@ test('should set "change" event listener only if provided', () async {
     expect(listeners3[DomEventType.change], equals(listener));
 });
 
-test('should clear "change" event listner', () async {
+test('should clear "change" event listener', () async {
     void listener(event) => {};
 
     await app!.buildChildren(

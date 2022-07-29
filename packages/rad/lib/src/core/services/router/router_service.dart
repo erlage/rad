@@ -35,7 +35,7 @@ class RouterService extends Service {
 
   /// Router request stream.
   ///
-  /// Router services uses this stream, internally, to linearlize all calls
+  /// Router services uses this stream, internally, to linearize all calls
   /// made to pushState, pushReplacements methods.
   ///
   StreamController<RouterRequest>? _routerRequestsStream;
@@ -51,7 +51,7 @@ class RouterService extends Service {
     );
 
     _routerRequestsStream = StreamController<RouterRequest>();
-    _routerRequestsStream?.stream.listen(_proccessRouterRequest);
+    _routerRequestsStream?.stream.listen(_processRouterRequest);
   }
 
   @override
@@ -120,7 +120,7 @@ class RouterService extends Service {
     );
   }
 
-  /// Mannually dispatch a back action.
+  /// Manually dispatch a back action.
   ///
   void dispatchBackAction() {
     Window.delegate.historyBack(rootElement: rootElement);
@@ -239,7 +239,7 @@ class RouterService extends Service {
   /// [navigator] can't change.
   ///
   /// Note that, navigator still can access **some parts** of protected
-  /// segements using [accessibleSegments]
+  /// segments using [accessibleSegments]
   ///
   List<String> protectedSegments(NavigatorRenderElement navigator) {
     var stateObject = navigator.state;
@@ -255,7 +255,7 @@ class RouterService extends Service {
 
     var matcher = '';
 
-    var matchRoutes = stateObject.framworkNameToPathMap.values.join(r'|\/');
+    var matchRoutes = stateObject.frameworkNameToPathMap.values.join(r'|\/');
 
     if (navigatorLink.segments.length < 3) {
       matcher = r'(^\/*.*' +
@@ -320,7 +320,7 @@ class RouterService extends Service {
 
         if (DEBUG_BUILD) {
           if (services.debug.routerLogs) {
-            print('Router: onPopState: entry doesnt exists: $entry');
+            print("Router: onPopState: entry doesn't exists: $entry");
           }
         }
 
@@ -419,7 +419,7 @@ class RouterService extends Service {
     return preparedSegs;
   }
 
-  void _proccessRouterRequest(RouterRequest request) {
+  void _processRouterRequest(RouterRequest request) {
     var name = request.name;
     var values = request.values;
     var navigator = request.navigator;

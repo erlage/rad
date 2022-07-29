@@ -23,7 +23,7 @@ void main() {
           name: 'some name',
           content: 'some content',
           charset: 'some charset',
-          httpEquiv: 'some httpequiv',
+          httpEquiv: 'some http-equiv',
         ),
       );
 
@@ -32,10 +32,10 @@ void main() {
       expect(domNode.getAttribute('name'), equals('some name'));
       expect(domNode.getAttribute('content'), equals('some content'));
       expect(domNode.getAttribute('charset'), equals('some charset'));
-      expect(domNode.getAttribute('http-equiv'), equals('some httpequiv'));
+      expect(domNode.getAttribute('http-equiv'), equals('some http-equiv'));
     });
 
-    test('should set only non-null attributs from information', () {
+    test('should set only non-null attributes from information', () {
       var context = app!.rootElement;
 
       context.setMetaInformation(
@@ -55,7 +55,7 @@ void main() {
       expect(domNode.getAttribute('http-equiv'), equals(null));
     });
 
-    test('should overrite existing information if exists', () {
+    test('should override existing information if exists', () {
       var context = app!.rootElement;
 
       context.setMetaInformation(
@@ -64,7 +64,7 @@ void main() {
           name: 'some name',
           content: 'some content',
           charset: 'some charset',
-          httpEquiv: 'some httpequiv',
+          httpEquiv: 'some http-equiv',
         ),
       );
 
@@ -74,7 +74,7 @@ void main() {
           name: 'some updated name',
           content: 'some updated content',
           charset: 'some updated charset',
-          httpEquiv: 'some updated httpequiv',
+          httpEquiv: 'some updated http-equiv',
         ),
       );
 
@@ -85,7 +85,7 @@ void main() {
       expect(domNode.getAttribute('charset'), equals('some updated charset'));
       expect(
         domNode.getAttribute('http-equiv'),
-        equals('some updated httpequiv'),
+        equals('some updated http-equiv'),
       );
     });
 
@@ -145,7 +145,7 @@ void main() {
     });
 
     test(
-      'should clear obsolute parts of existing information while updating',
+      'should clear obsolete parts of existing information while updating',
       () {
         var context = app!.rootElement;
 
@@ -155,7 +155,7 @@ void main() {
             name: 'some name',
             content: 'some content',
             charset: 'some charset',
-            httpEquiv: 'some httpequiv',
+            httpEquiv: 'some http-equiv',
           ),
         );
 
@@ -163,7 +163,7 @@ void main() {
           informationId: 'a',
           information: MetaInformation(
             content: 'some updated content',
-            httpEquiv: 'some updated httpequiv',
+            httpEquiv: 'some updated http-equiv',
           ),
         );
 
@@ -174,7 +174,7 @@ void main() {
         expect(domNode.getAttribute('charset'), equals(null));
         expect(
           domNode.getAttribute('http-equiv'),
-          equals('some updated httpequiv'),
+          equals('some updated http-equiv'),
         );
       },
     );

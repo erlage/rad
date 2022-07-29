@@ -10,7 +10,7 @@ import 'package:rad/src/widgets/route.dart';
 /// Navigator link object.
 ///
 /// This object holds information that helps carrying out ops which spans
-/// accross multiple navigators in parent/child of a navigator.
+/// across multiple navigators in parent/child of a navigator.
 ///
 @internal
 class NavigatorLink {

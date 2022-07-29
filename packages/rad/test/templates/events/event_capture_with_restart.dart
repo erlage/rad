@@ -1,6 +1,6 @@
 // framework stop propagation of '__EventNativeName__' events 
-// when they reachs a matching target(that is listening for those type of 
-// events). to test capturing for __EventNativeName__ events, we artifically 
+// when they reaches a matching target(that is listening for those type of 
+// events). to test capturing for __EventNativeName__ events, we artificially 
 // restart propagation using restartPropagationIfStopped()
 
 test('should capture event', () async {

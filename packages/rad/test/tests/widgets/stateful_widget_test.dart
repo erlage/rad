@@ -464,7 +464,7 @@ void main() {
     //
   });
 
-  group('Widget building proccess :', () {
+  group('Widget building process :', () {
     RT_AppRunner? app;
 
     setUp(() {
@@ -586,10 +586,10 @@ void main() {
       expect(testStack.canPop(), equals(false));
     });
 
-    test('should build alternating childs', () async {
+    test('should build alternating child widgets', () async {
       await app!.updateChildren(
         widgets: [
-          _AlternatingChildsWidget(),
+          _AlternatingChildrenWidget(),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -599,7 +599,7 @@ void main() {
 
       await app!.updateChildren(
         widgets: [
-          _AlternatingChildsWidget(),
+          _AlternatingChildrenWidget(),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -609,7 +609,7 @@ void main() {
 
       await app!.updateChildren(
         widgets: [
-          _AlternatingChildsWidget(),
+          _AlternatingChildrenWidget(),
         ],
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
@@ -620,15 +620,16 @@ void main() {
   });
 }
 
-class _AlternatingChildsWidget extends StatefulWidget {
-  _AlternatingChildsWidget({Key? key}) : super(key: key);
+class _AlternatingChildrenWidget extends StatefulWidget {
+  _AlternatingChildrenWidget({Key? key}) : super(key: key);
 
   @override
-  _AlternatingChildsWidgetState createState() =>
-      _AlternatingChildsWidgetState();
+  _AlternatingChildrenWidgetState createState() =>
+      _AlternatingChildrenWidgetState();
 }
 
-class _AlternatingChildsWidgetState extends State<_AlternatingChildsWidget> {
+class _AlternatingChildrenWidgetState
+    extends State<_AlternatingChildrenWidget> {
   final Widget _child1 = Span(innerText: 'child 1');
   final Widget _child2 = Division(innerText: 'child 2');
 

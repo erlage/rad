@@ -34,11 +34,11 @@ class DebugService extends Service {
   startService() {
     var suppressExceptions = options.suppressExceptions;
 
-    _onException = suppressExceptions ? supressException : presentException;
+    _onException = suppressExceptions ? suppressException : presentException;
   }
 
   @override
-  stopService() => _onException = supressException;
+  stopService() => _onException = suppressException;
 
   /// Set custom exception handler for app.
   ///
@@ -50,7 +50,7 @@ class DebugService extends Service {
     onException(Exception(message));
   }
 
-  void supressException(Exception exception) {}
+  void suppressException(Exception exception) {}
 
   void presentException(Exception exception) {
     throw exception;

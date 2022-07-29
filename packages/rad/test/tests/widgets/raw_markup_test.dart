@@ -57,12 +57,12 @@ void main() {
     test('should update raw markup', () async {
       await app!.buildChildren(
         widgets: [
-          RawMarkUp('<div id="raw">nuffin</div>'),
+          RawMarkUp('<div id="raw">nothing</div>'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
 
-      expect(app!.domNodeById('raw').innerHtml, equals('nuffin'));
+      expect(app!.domNodeById('raw').innerHtml, equals('nothing'));
 
       await app!.updateChildren(
         widgets: [

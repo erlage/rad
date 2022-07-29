@@ -16,7 +16,7 @@ templates_folder = os.path.abspath(
     os.path.join(main.test_dir, 'templates', 'html'))
 
 skipped_tests = {
-    'html_attr_innertext': {
+    'html_attr_inner_text': {
         'area':     ['chrome'], 
         'img':      ['chrome'],  
         'col':      ['chrome'],  
@@ -701,7 +701,7 @@ global_tests = [
     'html_attr_child',
     'html_attr_class_name',
     'html_attr_hidden',
-    'html_attr_innertext',
+    'html_attr_inner_text',
     'html_attr_on_click',
     'html_attr_style',
     'html_attr_title',
@@ -808,7 +808,7 @@ widgets_map = {
     'Variable': 'var',
     'Video': 'video',
 
-    # additionals,
+    # additional,
 
     'InputButton': 'input',
     'InputCheckBox': 'input',
@@ -835,7 +835,7 @@ widgets_map = {
 
 
 def generate():
-    invokations = ''
+    invocations = ''
     part_of_directives = ''
     runner_file = os.path.abspath(os.path.join(
         main.test_dir, 'tests', 'generated', '_index_html_test.dart'))
@@ -852,7 +852,7 @@ def generate():
 
         utils.clean_file(out_file)
 
-        invokations += 'html_' + widget_class_name_camel_case + '_test();'
+        invocations += 'html_' + widget_class_name_camel_case + '_test();'
 
         part_of_directives += "part 'html/html_" + \
             widget_class_name_camel_case + "_tests.generated.dart';"
@@ -886,8 +886,8 @@ def generate():
         for test in global_tests:
             
             if test in skipped_generation_for_class:
-                skipable_for = skipped_generation_for_class[test]
-                if widget_class_name in skipable_for:
+                skip_able_for = skipped_generation_for_class[test]
+                if widget_class_name in skip_able_for:
                     continue
 
             generated += '\n\n'
@@ -897,7 +897,7 @@ def generate():
                 ('__WidgetTag__', widget_tag),
             ]
 
-            test_tmpl = os.path.abspath(os.path.join(
+            test_tpl = os.path.abspath(os.path.join(
                 templates_folder, test + '.dart'))
 
             skip_context = ''
@@ -913,7 +913,7 @@ def generate():
                 replacements.append(('__Skip__', skip_context))
 
             generated += utils.parse_test_from_template(
-                test_tmpl, replacements)
+                test_tpl, replacements)
 
         # generate widget specific tests
 
@@ -921,11 +921,11 @@ def generate():
             for test in widget_specific_tests[widget_class_name]:
                 generated += '\n\n'
 
-                test_tmpl = os.path.abspath(os.path.join(
+                test_tpl = os.path.abspath(os.path.join(
                     templates_folder, test + '.dart'))
 
                 generated += utils.parse_test_from_template(
-                    test_tmpl, replacements)
+                    test_tpl, replacements)
 
         generated += '}); \n\n }'
 
@@ -952,7 +952,7 @@ def generate():
 
         void main() {
 
-            ''' + invokations + '''
+            ''' + invocations + '''
 
         }
         '''

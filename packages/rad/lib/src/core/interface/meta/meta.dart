@@ -45,7 +45,7 @@ class Meta {
     _getStore(context).unsetMetaInformation(informationId);
   }
 
-  /// Clean all meta information assocaited with context.
+  /// Clean all meta information associated with context.
   ///
   void cleanAppAssociatedMetaInformation({
     required BuildContext context,

@@ -23,7 +23,7 @@ void main() {
       expect(tester.getAppDomNode, domNodeHasContents('hello world'));
     });
 
-    testWidgets('should build multiple childs', (tester) async {
+    testWidgets('should build multiple child widgets', (tester) async {
       await tester.pumpMultipleWidgets([
         Text('child1'),
         Text('child2'),
@@ -33,7 +33,7 @@ void main() {
       expect(tester.getAppDomNode, domNodeHasContents('child1|child2'));
     });
 
-    testWidgets('should build nested childs', (tester) async {
+    testWidgets('should build nested child widgets', (tester) async {
       await tester.pumpWidget(
         Division(
           children: [
@@ -50,7 +50,7 @@ void main() {
       expect(tester.getAppDomNode, domNodeHasContents('child1|child2|child3'));
     });
 
-    testWidgets('should build mixed and nested childs', (tester) async {
+    testWidgets('should build mixed and nested child widgets', (tester) async {
       await tester.pumpWidget(
         Division(
           children: [
@@ -113,7 +113,7 @@ void main() {
 
     testWidgets(
       'should build widgets in order. mixed widgets test: '
-      'widgets that have no corresponding dom tags and has direct childs',
+      'widgets that have no corresponding dom tags and has direct child widgets',
       (tester) async {
         await tester.pumpMultipleWidgets([
           Text('widget 1'),
@@ -139,7 +139,7 @@ void main() {
 
     testWidgets(
       'should build widgets in order. mixed widgets test: '
-      'widgets that has no corresponding dom tags and has non-direct childs',
+      'widgets that has no corresponding dom tags and has non-direct child widgets',
       (tester) async {
         await tester.pumpMultipleWidgets([
           Text('widget 1'),
@@ -278,14 +278,14 @@ void main() {
       'should not dispose existing widgets when provided empty widget list',
       (tester) async {
         await tester.pumpMultipleWidgets([
-          Text('this should presist'),
+          Text('this should persist'),
         ]);
 
         // try building, and provide no widgets to build
 
         await tester.pumpMultipleWidgets([]);
 
-        expect(tester.getAppDomNode, domNodeHasContents('this should presist'));
+        expect(tester.getAppDomNode, domNodeHasContents('this should persist'));
       },
     );
 
@@ -448,7 +448,7 @@ void main() {
     });
 
     testWidgets(
-      'should mount at start if there are no exisiting widgets',
+      'should mount at start if there are no existing widgets',
       (tester) async {
         await tester.pumpMultipleWidgets([]);
 
@@ -463,7 +463,7 @@ void main() {
     );
 
     testWidgets(
-      'should mount at start if no exisiting widgets and index is OOBs',
+      'should mount at start if no existing widgets and index is OOBs',
       (tester) async {
         await tester.pumpMultipleWidgets([]);
 

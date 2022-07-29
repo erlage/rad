@@ -366,7 +366,7 @@ void main() {
     test('should set routing path', () async {
       var app = createTestApp(
         routerOptions: RouterOptions(
-          path: '/somepath',
+          path: '/some-path',
           enableHashBasedRouting: false,
         ),
       )..start();
@@ -382,7 +382,7 @@ void main() {
         parentRenderElement: app.appRenderElement,
       );
 
-      app.assertMatchPath('somepath/test');
+      app.assertMatchPath('some-path/test');
     });
 
     test(
@@ -390,7 +390,7 @@ void main() {
       () async {
         var app = createTestApp(
           routerOptions: RouterOptions(
-            path: '/somepath',
+            path: '/some-path',
             enableHashBasedRouting: true,
           ),
         )..start();
@@ -406,7 +406,7 @@ void main() {
           parentRenderElement: app.appRenderElement,
         );
 
-        app.assertMatchFullPath('somepath/#/test');
+        app.assertMatchFullPath('some-path/#/test');
       },
     );
   });

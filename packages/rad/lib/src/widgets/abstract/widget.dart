@@ -23,7 +23,7 @@ abstract class Widget {
   ///
   /// Keys must be unique amongst the [RenderElement]s with the same parent.
   ///
-  /// Unlike flutter, keys only make sense in the context of the sorrounding
+  /// Unlike flutter, keys only make sense in the context of the surrounding
   /// array of widgets. Keys should be given to the widgets inside the array to
   /// give the widgets a stable identity.
   ///
@@ -67,23 +67,23 @@ abstract class Widget {
   /// contain the logic to compare new widget with old.
   ///
   ///
-  /// Diffing proccess will always call [shouldUpdateWidget] on child widgets
+  /// Diffing process will always call [shouldUpdateWidget] on child widgets
   /// of current widget even if [shouldUpdateWidget] return false. This means
   /// whatever diffing logic is present in this method, its scope should be
   /// limited to checking just the current widget. If a widget want to
-  /// short-circuit diffing proccess(i.e no [shouldUpdateWidget] on child
+  /// short-circuit diffing process(i.e no [shouldUpdateWidget] on child
   /// widgets) then it can override [shouldUpdateWidgetChildren] method.
   ///
   bool shouldUpdateWidget(Widget oldWidget);
 
   /// Whether to update current widget's children.
   ///
-  /// Framwork will always call this method after calling [shouldUpdateWidget]
+  /// Framework will always call this method after calling [shouldUpdateWidget]
   /// along with results of call to [shouldUpdateWidget] on current widget.
   ///
   /// If current widget knows in advance whether widgets below it
   /// doesn't need to update then it can override this method and return
-  /// false which will short-circuit the diffing proccess.
+  /// false which will short-circuit the diffing process.
   ///
   bool shouldUpdateWidgetChildren(Widget oldWidget, bool shouldUpdateWidget) {
     return true;
@@ -99,7 +99,7 @@ abstract class Widget {
   ///
   /// Framework will call this method when it inflates current widget for the
   /// first time at specific position in widget tree. Each [RenderElement]
-  /// inherits number of properties from its parent, therefore framewok will
+  /// inherits number of properties from its parent, therefore framework will
   /// call this method and pass it a reference to [parent] element of this
   /// widget.
   ///

@@ -72,7 +72,7 @@ abstract class HTMLBidirectionalBase extends HTMLWidgetBase {
 ///
 @internal
 class HTMLBidirectionalBaseRenderElement extends HTMLRenderElementBase {
-  HTMLBidirectionalBaseRenderElement(super.wudget, super.parent);
+  HTMLBidirectionalBaseRenderElement(super.widget, super.parent);
 
   @mustCallSuper
   @override

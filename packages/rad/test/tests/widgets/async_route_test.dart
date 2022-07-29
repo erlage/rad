@@ -277,8 +277,8 @@ void main() {
 
       var state = app!.navigatorState('navigator');
 
-      // this value tells on which route failure occured so that app can
-      // rreopen that route if it want
+      // this value tells on which route failure occurred so that app can
+      // re-open that route if it want
       expect(state.getValue('error-route'), equals('async-route'));
     });
 
@@ -418,7 +418,7 @@ void main() {
       expect(RT_TestBed.rootDomNode, RT_hasContents('from updated builder'));
     });
 
-    test('should not update builder if builder hasnt changed', () async {
+    test('should not update builder if builder has not changed', () async {
       var stack = RT_TestStack();
 
       // ignore: prefer_function_declarations_over_variables

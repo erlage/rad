@@ -16,10 +16,10 @@ __package_version__ = '0.1.0'
 __package_name__ = 'rad_custom_html_widgets'
 __package_description__ = 'Custom HTML widgets for using with Rad'
 
-# This file is kept in sync with main repo so it may not be compaitable with
+# This file is kept in sync with main repo so it may not be compatible with
 # published version of rad.
 #
-# For generating compaitable HTML widgets: 
+# For generating compatible HTML widgets: 
 # 
 # - git checkout ab08947e327dabec7dcbc91f9a39ed97556df002 for Rad v1.x
 # - git checkout 35958c12f1abac32f299df85f1294d61abdd553e for Rad v.0.10.0
@@ -153,7 +153,7 @@ def finalize_package(out_dir):
     setup_dir(new_dir_for_widgets)
     setup_dir(new_dir_for_html_widgets)
 
-    # write domnodepatchfillable
+    # write DomNodePatchFillable
 
     dom_node_patch_file = os.path.join(out_dir, 'abstract', 'dom_node_patch.dart')
 

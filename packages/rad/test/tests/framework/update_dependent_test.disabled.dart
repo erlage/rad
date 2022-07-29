@@ -18,7 +18,7 @@ void main() {
         ),
       );
 
-      var wo = tester.getrenderElementByKeyValue(gkey)!;
+      var wo = tester.getRenderElementByKeyValue(gkey)!;
 
       await tester.updateRenderElementAsIfDependant(wo);
       await tester.updateRenderElementAsIfDependant(wo);
@@ -39,7 +39,7 @@ void main() {
         ),
       );
 
-      var wo = tester.getrenderElementByKeyValue(gkey)!;
+      var wo = tester.getRenderElementByKeyValue(gkey)!;
 
       await tester.updateRenderElementAsIfDependant(wo);
       await tester.updateRenderElementAsIfDependant(wo);

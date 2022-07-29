@@ -46,7 +46,7 @@ test('should set "submit" event listener only if provided', () async {
     expect(listeners3[DomEventType.submit], equals(listener));
 });
 
-test('should clear "submit" event listner', () async {
+test('should clear "submit" event listener', () async {
     void listener(event) => {};
 
     await app!.buildChildren(

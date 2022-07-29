@@ -24,7 +24,7 @@ void main() {
       ]);
 
       await tester.disposeWidget(
-        renderElement: tester.getrenderElementByKeyValue(gkey),
+        renderElement: tester.getRenderElementByKeyValue(gkey),
         flagPreserveTarget: false,
       );
 
@@ -72,7 +72,7 @@ void main() {
       );
 
       await tester.disposeWidget(
-        renderElement: tester.getrenderElementByKeyValue(gkey),
+        renderElement: tester.getRenderElementByKeyValue(gkey),
         flagPreserveTarget: false,
       );
 
@@ -106,12 +106,12 @@ void main() {
       );
 
       await tester.disposeWidget(
-        renderElement: tester.getrenderElementByKeyValue(gkey1),
+        renderElement: tester.getRenderElementByKeyValue(gkey1),
         flagPreserveTarget: false,
       );
 
       await tester.disposeWidget(
-        renderElement: tester.getrenderElementByKeyValue(gkey2),
+        renderElement: tester.getRenderElementByKeyValue(gkey2),
         flagPreserveTarget: false,
       );
 
@@ -144,7 +144,7 @@ void main() {
       );
 
       await tester.disposeWidget(
-        renderElement: tester.getrenderElementByKeyValue(gkey),
+        renderElement: tester.getRenderElementByKeyValue(gkey),
         flagPreserveTarget: false,
       );
 
@@ -162,19 +162,19 @@ void main() {
       expect(tester.find.byType(RT_TestWidget), findsOneWidget);
 
       await tester.disposeWidget(
-        renderElement: tester.getrenderElementByKeyValue(gkey),
+        renderElement: tester.getRenderElementByKeyValue(gkey),
         flagPreserveTarget: false,
       );
 
       expect(tester.find.byType(RT_TestWidget), findsNothing);
 
       await tester.disposeWidget(
-        renderElement: tester.getrenderElementByKeyValue(gkey),
+        renderElement: tester.getRenderElementByKeyValue(gkey),
         flagPreserveTarget: false,
       );
 
       await tester.disposeWidget(
-        renderElement: tester.getrenderElementByKeyValue(gkey),
+        renderElement: tester.getRenderElementByKeyValue(gkey),
         flagPreserveTarget: false,
       );
 
@@ -205,7 +205,7 @@ void main() {
       );
 
       await tester.disposeWidget(
-        renderElement: tester.getrenderElementByKeyValue(gkey),
+        renderElement: tester.getRenderElementByKeyValue(gkey),
         flagPreserveTarget: true,
       );
 
@@ -277,7 +277,7 @@ void main() {
         //
 
         await tester.disposeWidget(
-          renderElement: tester.getrenderElementByKeyValue(gkey),
+          renderElement: tester.getRenderElementByKeyValue(gkey),
           flagPreserveTarget: true,
         );
 

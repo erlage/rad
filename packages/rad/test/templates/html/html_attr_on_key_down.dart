@@ -46,7 +46,7 @@ test('should set "KeyDown" event listener only if provided', () async {
     expect(listeners3[DomEventType.keyDown], equals(listener));
 });
 
-test('should clear "KeyDown" event listner', () async {
+test('should clear "KeyDown" event listener', () async {
     void listener(event) => {};
 
     await app!.buildChildren(

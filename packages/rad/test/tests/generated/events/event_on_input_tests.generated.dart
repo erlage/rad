@@ -200,8 +200,8 @@ void event_on_input_test() {
     );
 
 // framework stop propagation of 'input' events
-// when they reachs a matching target(that is listening for those type of
-// events). to test capturing for input events, we artifically
+// when they reaches a matching target(that is listening for those type of
+// events). to test capturing for input events, we artificially
 // restart propagation using restartPropagationIfStopped()
 
     test('should capture event', () async {

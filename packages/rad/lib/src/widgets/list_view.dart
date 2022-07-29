@@ -251,7 +251,7 @@ class _ListViewBuilderState with ServicesResolver {
 
   BuildContext get context => _element!;
 
-  int _renderableUptoIndex = 3;
+  int _renderAbleUpToIndex = 3;
 
   HtmlElement? _observerTarget;
 
@@ -275,14 +275,14 @@ class _ListViewBuilderState with ServicesResolver {
 
   LayoutType _layoutType = LayoutType.contain;
 
-  int get renderUptoIndex {
+  int get renderUpToIndex {
     var itemCount = widget.itemCount;
 
-    if (null != itemCount && _renderableUptoIndex > itemCount) {
+    if (null != itemCount && _renderAbleUpToIndex > itemCount) {
       return itemCount;
     }
 
-    return _renderableUptoIndex;
+    return _renderAbleUpToIndex;
   }
 
   /*
@@ -309,11 +309,11 @@ class _ListViewBuilderState with ServicesResolver {
       entry as IntersectionObserverEntry;
 
       if (entry.isIntersecting ?? false) {
-        var currentIndex = _renderableUptoIndex;
+        var currentIndex = _renderAbleUpToIndex;
 
-        _renderableUptoIndex += 3;
+        _renderAbleUpToIndex += 3;
 
-        var itemsToGenerate = renderUptoIndex - currentIndex;
+        var itemsToGenerate = renderUpToIndex - currentIndex;
 
         if (itemsToGenerate > 0) {
           services.scheduler.addTask(
@@ -388,7 +388,7 @@ class _ListViewBuilderState with ServicesResolver {
       WidgetsBuildTask(
         parentRenderElement: _element!,
         widgets: List.generate(
-          renderUptoIndex,
+          renderUpToIndex,
           (i) => Division(
             key: Key('lv_item_${i}_${context.key}'),
             className: Constants.classListViewItemContainer,
@@ -408,7 +408,7 @@ class _ListViewBuilderState with ServicesResolver {
         parentRenderElement: _element!,
         updateType: updateType,
         widgets: List.generate(
-          renderUptoIndex,
+          renderUpToIndex,
           (i) => Division(
             key: Key('lv_item_${i}_${context.key}'),
             className: Constants.classListViewItemContainer,
@@ -483,7 +483,7 @@ Map<String, String?> _prepareAttributes({
   }
 
   if (Axis.vertical == widget.scrollDirection) {
-    classAttribute += ' ${Constants.classListViewVeritcal}';
+    classAttribute += ' ${Constants.classListViewVertical}';
   }
 
   attributes[Attributes.className] = classAttribute;

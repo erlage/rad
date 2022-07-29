@@ -16,7 +16,7 @@ void main() {
     expect(Key('some-value').toString(), contains('some-value'));
   });
 
-  test('should use underlying values hashcode', () {
+  test('should use underlying values hash code', () {
     var value = 'some-value';
     var key = Key(value);
 

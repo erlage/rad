@@ -15,7 +15,7 @@ import '../../test_imports.dart';
 void main() {
   group('manage children tests:', () {
     testWidgets(
-      'should iterate over all childs in insertion order if '
+      'should iterate over all child widgets in insertion order if '
       'flagIterateInReverseOrder is not set',
       (tester) async {
         await tester.pumpMultipleWidgets([
@@ -51,7 +51,7 @@ void main() {
     );
 
     testWidgets(
-      'should iterate over all childs in insertion order if '
+      'should iterate over all child widgets in insertion order if '
       'flagIterateInReverseOrder: false',
       (tester) async {
         await tester.pumpMultipleWidgets([
@@ -88,7 +88,7 @@ void main() {
     );
 
     testWidgets(
-      'should iterate over all childs in reverse order if '
+      'should iterate over all child widgets in reverse order if '
       'flagIterateInReverseOrder: true',
       (tester) async {
         await tester.pumpMultipleWidgets([
@@ -125,7 +125,7 @@ void main() {
     );
 
     testWidgets(
-      'should iterate over only childs at one level',
+      'should iterate over only child widgets at one level',
       (tester) async {
         await tester.pumpMultipleWidgets([
           RT_TestWidget(customHash: 'widget-1'),
@@ -163,7 +163,7 @@ void main() {
     );
 
     testWidgets(
-      'should short circuite further iterations when encounters skip',
+      'should short circuit further iterations when encounters skip',
       (tester) async {
         await tester.pumpMultipleWidgets([
           RT_TestWidget(customHash: 'widget-1'),
@@ -326,19 +326,19 @@ void main() {
         );
 
         var node1 = tester
-            .getrenderElementByKeyValue(Key(
+            .getRenderElementByKeyValue(Key(
               '1',
             ))!
             .findClosestDomNode();
 
         var node2 = tester
-            .getrenderElementByKeyValue(Key(
+            .getRenderElementByKeyValue(Key(
               '2',
             ))!
             .findClosestDomNode();
 
         var node3 = tester
-            .getrenderElementByKeyValue(Key(
+            .getRenderElementByKeyValue(Key(
               '3',
             ))!
             .findClosestDomNode();
@@ -377,19 +377,19 @@ void main() {
         );
 
         var node1 = tester
-            .getrenderElementByKeyValue(Key(
+            .getRenderElementByKeyValue(Key(
               '1',
             ))!
             .findClosestDomNode();
 
         var node2 = tester
-            .getrenderElementByKeyValue(Key(
+            .getRenderElementByKeyValue(Key(
               '2',
             ))!
             .findClosestDomNode();
 
         var node3 = tester
-            .getrenderElementByKeyValue(Key(
+            .getRenderElementByKeyValue(Key(
               '3',
             ))!
             .findClosestDomNode();
@@ -478,13 +478,13 @@ void main() {
         );
 
         var node1 = tester
-            .getrenderElementByKeyValue(Key(
+            .getRenderElementByKeyValue(Key(
               '1',
             ))!
             .findClosestDomNode();
 
         var node3 = tester
-            .getrenderElementByKeyValue(Key(
+            .getRenderElementByKeyValue(Key(
               '3',
             ))!
             .findClosestDomNode();

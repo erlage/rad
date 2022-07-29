@@ -39,7 +39,7 @@ void main() {
       expect(RT_TestBed.rootDomNode, RT_hasContents('hello world'));
     });
 
-    test('should build multiple childs', () async {
+    test('should build multiple child widgets', () async {
       await app!.buildChildren(
         widgets: [
           Text('child1'),
@@ -51,7 +51,7 @@ void main() {
       expect(RT_TestBed.rootDomNode, RT_hasContents('child1|child2'));
     });
 
-    test('should build nested childs', () async {
+    test('should build nested child widgets', () async {
       await app!.buildChildren(
         widgets: [
           Division(
@@ -67,7 +67,7 @@ void main() {
       expect(RT_TestBed.rootDomNode, RT_hasContents('child1|child2'));
     });
 
-    test('should build mixed and nested childs', () async {
+    test('should build mixed and nested child widgets', () async {
       await app!.buildChildren(
         widgets: [
           Division(
@@ -171,7 +171,7 @@ void main() {
 
     test(
       'should build widgets in order. mixed widgets test: '
-      'widgets that has no corresponding dom tags but has direct childs',
+      'widgets that has no corresponding dom tags but has direct child widgets',
       () async {
         await app!.buildChildren(
           widgets: [
@@ -198,7 +198,7 @@ void main() {
 
     test(
       'should build widgets in order. mixed widgets test: '
-      'widgets that has no corresponding dom tags but has non-direct childs',
+      'widgets that has no corresponding dom tags but has non-direct child widgets',
       () async {
         await app!.buildChildren(
           widgets: [
@@ -258,12 +258,12 @@ void main() {
             roEventRender: () => testStack.push('render'),
 
             // should not call this
-            wEventshouldUpdateWidget: () => testStack.push(
+            wEventShouldUpdateWidget: () => testStack.push(
               'shouldUpdateWidget',
             ),
 
             // should not call this
-            wEventshouldUpdateWidgetChildren: () => testStack.push(
+            wEventShouldUpdateWidgetChildren: () => testStack.push(
               'shouldUpdateWidgetChildren',
             ),
 
@@ -377,7 +377,7 @@ void main() {
         () async {
       await app!.buildChildren(
         widgets: [
-          Text('this should presist'),
+          Text('this should persist'),
         ],
         parentRenderElement: app!.appRenderElement,
       );
@@ -389,7 +389,7 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootDomNode, RT_hasContents('this should presist'));
+      expect(RT_TestBed.rootDomNode, RT_hasContents('this should persist'));
     });
 
     test('should dispose existing widgets when provided non-empty widgets list',
@@ -402,7 +402,7 @@ void main() {
           //
           // this is test app widget. we don't expect it to be disposed.
           //
-          // we always assume that there are no exisiting widgets in document while building
+          // we always assume that there are no existing widgets in document while building
           // a app widget and therefore user can have only one root widget in entire app.
           //
           RT_TestWidget(
@@ -480,7 +480,7 @@ void main() {
       );
 
       // build new child widgets under app widget. we expect this operation to
-      // dispose off exisiting child widgets of app widget.
+      // dispose off existing child widgets of app widget.
 
       await app!.buildChildren(
         widgets: [
@@ -644,7 +644,7 @@ void main() {
       expect(RT_TestBed.rootDomNode, RT_hasContents('0|insert at end'));
     });
 
-    test('should mount at start if there are no exisiting widgets', () async {
+    test('should mount at start if there are no existing widgets', () async {
       await app!.buildChildren(
         widgets: [],
         parentRenderElement: app!.appRenderElement,
@@ -662,7 +662,7 @@ void main() {
       expect(RT_TestBed.rootDomNode, RT_hasContents('insert at start'));
     });
 
-    test('should mount at start if no exisiting widgets and index is OOBs',
+    test('should mount at start if no existing widgets and index is OOBs',
         () async {
       await app!.buildChildren(
         widgets: [],

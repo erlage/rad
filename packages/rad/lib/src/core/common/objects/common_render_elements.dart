@@ -45,10 +45,10 @@ class TemporaryElement extends RenderElement {
   /// memory and mount them all in single operation.
   ///
   /// We setup parent pointers on temporary render element to point to future
-  /// parent(actual parent) of childs being built in order to allow new widgets
-  /// use methods that requires traversing ancestors during build. for example,
-  /// this enables users to call dependeOnInher* inside build or even inside
-  /// initState method of a stateful widget.
+  /// parent(actual parent) of child widgets being built in order to allow new
+  /// widgets use methods that requires traversing ancestors during build. for
+  /// example, this enables users to call dependOnInheritedWidget inside build
+  /// or even inside initState method of a stateful widget.
   ///
   factory TemporaryElement.create({
     required Services services,

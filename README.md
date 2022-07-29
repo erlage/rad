@@ -61,7 +61,7 @@ If you're familiar with Flutter it don't even need an explanation. Internally, R
     ```html
     <span class="heading big">
       <strong>
-        hellow
+        hello world
       </strong>
     </span>
     ```
@@ -70,7 +70,7 @@ If you're familiar with Flutter it don't even need an explanation. Internally, R
     Span(
       classAttribute: 'heading big',
       children: [
-        Strong(innerText: 'hellow'),
+        Strong(innerText: 'hello world'),
       ],
     );
     ```
@@ -126,7 +126,7 @@ In above example, a Span widget is containing a ListView widget. Further, that L
 
 ## Widgets Index
 
-Below is the list of available widgets in this framework. Some widgets are named after Flutter widgets because they either works exactly same or can be used to acheive same things but in a different way(more or less). All those widgets are tagged accordingly.
+Below is the list of available widgets in this framework. Some widgets are named after Flutter widgets because they either works exactly same or can be used to achieve same things but in a different way(more or less). All those widgets are tagged accordingly.
 
 Tags:
   - (`6 widget[s]`) ***exact***: Exact syntax, similar semantics.

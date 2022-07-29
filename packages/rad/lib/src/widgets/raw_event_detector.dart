@@ -191,7 +191,7 @@ class _RawEventDetectorState extends State<RawEventDetector> {
       }
     }
 
-    // remove obsolute event listeners
+    // remove obsolete event listeners
 
     for (final eventType in oldEventListenersInCapturePhase.keys) {
       if (!newEventListenersInCapturePhase.containsKey(eventType)) {

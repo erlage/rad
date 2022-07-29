@@ -437,7 +437,7 @@ void main() {
       expect(testStack.canPop(), equals(false));
     });
 
-    test('shsould stop after stopImmediatePropagation() is called', () async {
+    test('should stop after stopImmediatePropagation() is called', () async {
       var testStack = RT_TestStack();
 
       await app!.buildChildren(
@@ -601,7 +601,7 @@ void main() {
       expect(testStack.canPop(), equals(false));
     });
 
-    test('shsould stop after stopImmediatePropagation() is called', () async {
+    test('should stop after stopImmediatePropagation() is called', () async {
       var testStack = RT_TestStack();
 
       await app!.buildChildren(

@@ -105,15 +105,15 @@ void main() {
       'should cause context(dependents) to build '
       'if context inherits using dependOnInheritedWidgetOfExactType',
       (tester) async {
-        // inherited widgets are effecient only when there is a short-circuit
+        // inherited widgets are efficient only when there is a short-circuit
         // at any node between inherited widget and dependent. to test inherited
-        // widget we have to mannualy create a short-circuit in tree.
+        // widget we have to manually create a short-circuit in tree.
 
         var shortCircuitableSubTree = RT_TestWidget(
           children: [
             RT_StatefulTestWidget(
               stateHookBuild: (state) {
-                tester.push('call-dependOnInhe..-1a');
+                tester.push('call-dependOnIn..-1a');
 
                 state.context
                     .dependOnInheritedWidgetOfExactType<RT_InheritedWidget>();
@@ -170,7 +170,7 @@ void main() {
           // build phase
 
           'build-stateful-1a',
-          'call-dependOnInhe..-1a',
+          'call-dependOnIn..-1a',
 
           'mount-container-1a',
 
@@ -178,7 +178,7 @@ void main() {
 
           'notify-2a',
           'build-stateful-1a',
-          'call-dependOnInhe..-1a',
+          'call-dependOnIn..-1a',
 
           // update phase when updateShouldNotify return false
 
@@ -188,7 +188,7 @@ void main() {
 
           'notify-3a',
           'build-stateful-1a',
-          'call-dependOnInhe..-1a',
+          'call-dependOnIn..-1a',
         ]);
       },
     );
@@ -201,7 +201,7 @@ void main() {
           children: [
             RT_StatefulTestWidget(
               stateHookBuild: (state) {
-                tester.push('call-findAnces..-1a');
+                tester.push('call-findAncestor..-1a');
 
                 state.context
                     .findAncestorWidgetOfExactType<RT_InheritedWidget>();
@@ -258,7 +258,7 @@ void main() {
           // build phase
 
           'build-stateful-1a',
-          'call-findAnces..-1a',
+          'call-findAncestor..-1a',
 
           'mount-container-1a',
 

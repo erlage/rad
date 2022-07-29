@@ -46,11 +46,11 @@ abstract class BuildContext {
   ///
   Element findClosestDomNode();
 
-  /// Retruns the nearest dom node in ancestors.
+  /// Returns the nearest dom node in ancestors.
   ///
   Element? findClosestDomNodeInAncestors();
 
-  /// Retruns the nearest dom node in descendants.
+  /// Returns the nearest dom node in descendants.
   ///
   Element? findClosestDomNodeInDescendants();
 

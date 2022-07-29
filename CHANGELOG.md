@@ -80,7 +80,7 @@ Previously every `Widget` was creating a `BuildContext` and a `RenderObject`. Th
 
 Unlike Elements in Flutter, RenderElements are not responsible for mounting or rendering actual DOM nodes. Instead RenderElements can tell the framework about the desired description of dom node that they want. How framework renders DOM and apply those descriptions is totally out of scope for render elements. A RenderElement can know its parent child relationships but how those child/parents are populated and linked to it are controlled by the framework. This way framework can optimise rendering behind the scenes without breaking APIs.
 
-Second change is to Widget's Key property. I've decided to diverge from Flutter's Key model a bit. Unlike flutter, keys now only make sense in the context of the sorrounding array of widgets and there are only two types of keys.
+Second change is to Widget's Key property. I've decided to diverge from Flutter's Key model a bit. Unlike flutter, keys now only make sense in the context of the surrounding array of widgets and there are only two types of keys.
 
 - Normal key: `Key('requires string value to create key')`
 
@@ -92,7 +92,7 @@ Widgets with global key are registered in walker service and a global key can be
 
 ### Core
 
-- Core now generates noise-free markup. Previously every widget had a corresponding element in DOM. Now widgets can exists on their own in tree without ever creating a corresponding dom node. As a exception, Text widget is allowed to have a corresponding dom node(not a text node) because we allow styling and adding event listerners to contents of a text widget.
+- Core now generates noise-free markup. Previously every widget had a corresponding element in DOM. Now widgets can exists on their own in tree without ever creating a corresponding dom node. As a exception, Text widget is allowed to have a corresponding dom node(not a text node) because we allow styling and adding event listeners to contents of a text widget.
 
 - There are number of changes to Public API but most of them are relevant to external packages that depend on core.
 
@@ -122,7 +122,7 @@ Widgets with global key are registered in walker service and a global key can be
     - `onInputEventListener` is renamed to `onInput`
     - `onChangeEventListener` is renamed to `onChange`
     - `onSubmitEventListener` is renamed to `onSubmit`
-    - Signature for all `on*` callbacks has been changed to `void Function(EmittedEvent)`, previously it was `void Function (Event)`. `EmittedEvent` is a new type, compaitble with `Event`. 
+    - Signature for all `on*` callbacks has been changed to `void Function(EmittedEvent)`, previously it was `void Function (Event)`. `EmittedEvent` is a new type, compatible with `Event`. 
 
 - Minor changes to imports:
     - `import/rad/rad.dart` - Main library
@@ -180,7 +180,7 @@ Widgets with global key are registered in walker service and a global key can be
 
 - Core is now able short-circuit widget rebuilds. This makes Rad a blazingly fast frontend framework.
 - Now keys can be used to distinguish between correct widgets while rebuilding. Something like that: https://www.youtube.com/watch?v=kn0EOS-ZiIc
-- From now, `const` contructors can drastically improves performance. Try to use them where possible.
+- From now, `const` constructors can drastically improves performance. Try to use them where possible.
     To get linter help on this, use following rules in your `analysis_options.yaml`
     ```yaml
     linter:
@@ -197,7 +197,7 @@ Widgets with global key are registered in walker service and a global key can be
 
 ## 0.5.2
 
-- Added innertText, onClick and onClickEventHanlder property for HTML tags.
+- Added innerText, onClick and onClickEventHandler property for HTML tags.
 
 ## 0.5.1
 
@@ -352,7 +352,7 @@ This hook helps a lot when you've a StatefulWidget in a Navigator's page, and yo
 ### Changes
 
 - `sizingUnit` is renamed to `sizeUnit`
-- `positioninUnit` is renamed to `positionUnit`
+- `positioningUnit` is renamed to `positionUnit`
 
 ### Core update
 
@@ -390,7 +390,7 @@ This hook helps a lot when you've a StatefulWidget in a Navigator's page, and yo
 
 ### Core update
 
-- Sub-tree rebuilds are now removed. Previously, `setState` forces all childs widgets to dispose and rebuild themselves. From now, only widgets that requires update, will update only parts of their interface that that might be affected by state change in their parent.
+- Sub-tree rebuilds are now removed. Previously, `setState` forces all child widgets to dispose and rebuild themselves. From now, only widgets that requires update, will update only parts of their interface that that might be affected by state change in their parent.
 
 - Framework now allow Stateful widgets nested inside other stateful widgets to preserve their state even when their parent state has changed.
 

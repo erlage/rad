@@ -4,7 +4,7 @@
 
 /// Test Stack.
 ///
-/// Can be used for logging order in which particular events occured, or a
+/// Can be used for logging order in which particular events occurred, or a
 /// procedure order, or any detail that requires some sort of state so that
 /// can be verified later.
 ///

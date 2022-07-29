@@ -122,7 +122,7 @@ test('should set aria/any attributes', () async {
 }__Skip__);
 
 
-test('should remove obsolute and add new data attributes on update', () async {
+test('should remove obsolete and add new data attributes on update', () async {
     await app!.buildChildren(
         widgets: [
             __WidgetClass__(

@@ -485,17 +485,17 @@ class Renderer with ServicesResolver {
     |------------------------------------------------------------------------
     */
 
-    // if it's a inherited widget update, we allow immediate childs
+    // if it's a inherited widget update, we allow immediate child widgets
     // to build without checking whether they are const or not.
     //
     // or
     //
-    // if it's a update from widget visitor, we allow immediate childs
+    // if it's a update from widget visitor, we allow immediate child widgets
     // to build without checking whether they are const or not.
 
     // but if they further have child widgets of their owns, we want
     // the framework to short-circuit rebuild if possible, this can be
-    // acheived by resetting update type to something else
+    // achieved by resetting update type to something else
 
     var updateTypeForChildWidgets = updateType;
 
@@ -597,7 +597,7 @@ class Renderer with ServicesResolver {
   /// Mount widgets.
   ///
   /// This process mount both the elements and HTML dom nodes on element tree
-  /// and DOM respectively. Updates on element tree are synchoronous while DOM
+  /// and DOM respectively. Updates on element tree are synchronous while DOM
   /// updates are queued and dispatched in a batch.
   ///
   void mountWidgets({
@@ -637,12 +637,12 @@ class Renderer with ServicesResolver {
 
     if (!currentParentRenderElement.hasDomNode) {
       // if parent has no dom node and mountAtIndex is null then its a
-      // widgetbuildtask for in-direct child widgets.
+      // WidgetBuildTask for in-direct child widgets.
       //
-      // e.g a stateful widget doesn't have direct childs but issue a build
-      // widgets task for in-direct childs. those indirect childs has to be
-      // mounted on a specific position in parent's dom node when changed or
-      // added
+      // e.g a stateful widget doesn't have direct child widgets but issue a
+      // build widgets task for in-direct child widgets. those indirect child
+      // widgets has to be mounted on a specific position in parent's dom node
+      // when changed or added
       var requiresMountAtSpecificPosition = null == mountAtIndex;
 
       // a render node in path between parent render node(that has dom

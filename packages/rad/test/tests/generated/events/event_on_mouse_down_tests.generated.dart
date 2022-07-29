@@ -200,8 +200,8 @@ void event_on_mouse_down_test() {
     );
 
 // framework stop propagation of 'mousedown' events
-// when they reachs a matching target(that is listening for those type of
-// events). to test capturing for mousedown events, we artifically
+// when they reaches a matching target(that is listening for those type of
+// events). to test capturing for mousedown events, we artificially
 // restart propagation using restartPropagationIfStopped()
 
     test('should capture event', () async {

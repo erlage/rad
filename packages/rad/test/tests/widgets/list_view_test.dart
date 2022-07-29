@@ -4,7 +4,7 @@
 
 import '../../test_imports.dart';
 
-// commited by mistake, file is not complete.
+// committed by mistake, file is not complete.
 
 void main() {
   RT_AppRunner? app;
@@ -58,7 +58,8 @@ void main() {
       expect(app!.appDomNode, RT_hasContents('w1|w3|w2'));
     });
 
-    test('should removed if removed from updated list of childs', () async {
+    test('should removed if removed from updated list of child widgets',
+        () async {
       await app!.buildChildren(
         widgets: [
           ListView(children: [
@@ -83,7 +84,7 @@ void main() {
       expect(app!.appDomNode, RT_hasContents('w1'));
     });
 
-    test('should add if added to updated list of childs', () async {
+    test('should add if added to updated list of child widgets', () async {
       await app!.buildChildren(
         widgets: [
           ListView(children: [

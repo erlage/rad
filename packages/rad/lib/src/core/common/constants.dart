@@ -38,7 +38,7 @@ class Constants {
   static const classListView = 'rad-list-view';
   static const classListViewContained = 'rad-list-view-layout-contained';
   static const classListViewExpanded = 'rad-list-view-layout-expanded';
-  static const classListViewVeritcal = 'rad-list-view-vertical';
+  static const classListViewVertical = 'rad-list-view-vertical';
   static const classListViewHorizontal = 'rad-list-view-horizontal';
   static const classListViewItemContainer = 'rad-list-view-item-container';
 }

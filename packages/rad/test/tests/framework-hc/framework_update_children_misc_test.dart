@@ -37,10 +37,10 @@ void main() {
                 roEventRender: () => testStack.push('render 1a'),
                 roEventUpdate: () => testStack.push('update 1a'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a'),
-                wEventshouldUpdateWidget: () => testStack.push(
+                wEventShouldUpdateWidget: () => testStack.push(
                   'is changed 1a',
                 ),
-                wEventshouldUpdateWidgetChildren: () => testStack.push(
+                wEventShouldUpdateWidgetChildren: () => testStack.push(
                   'is changed child 1a',
                 ),
                 wOverrideShouldUpdateWidget: () => true,
@@ -55,10 +55,10 @@ void main() {
                 roEventRender: () => testStack.push('render 2a'),
                 roEventUpdate: () => testStack.push('update 2a'),
                 roEventAfterUnMount: () => testStack.push('dispose 2a'),
-                wEventshouldUpdateWidget: () => testStack.push(
+                wEventShouldUpdateWidget: () => testStack.push(
                   'is changed 2a',
                 ),
-                wEventshouldUpdateWidgetChildren: () => testStack.push(
+                wEventShouldUpdateWidgetChildren: () => testStack.push(
                   'is changed child 2a',
                 ),
                 wOverrideShouldUpdateWidget: () => true,
@@ -74,10 +74,10 @@ void main() {
                 roEventRender: () => testStack.push('render 3a'),
                 roEventUpdate: () => testStack.push('update 3a'),
                 roEventAfterUnMount: () => testStack.push('dispose 3a'),
-                wEventshouldUpdateWidget: () => testStack.push(
+                wEventShouldUpdateWidget: () => testStack.push(
                   'is changed 3a',
                 ),
-                wEventshouldUpdateWidgetChildren: () => testStack.push(
+                wEventShouldUpdateWidgetChildren: () => testStack.push(
                   'is changed child 3a',
                 ),
                 wOverrideShouldUpdateWidget: () => true,
@@ -93,10 +93,10 @@ void main() {
                 roEventRender: () => testStack.push('render 4a'),
                 roEventUpdate: () => testStack.push('update 4a'),
                 roEventAfterUnMount: () => testStack.push('dispose 4a'),
-                wEventshouldUpdateWidget: () => testStack.push(
+                wEventShouldUpdateWidget: () => testStack.push(
                   'is changed 4a',
                 ),
-                wEventshouldUpdateWidgetChildren: () => testStack.push(
+                wEventShouldUpdateWidgetChildren: () => testStack.push(
                   'is changed child 4a',
                 ),
                 wOverrideShouldUpdateWidget: () => false,
@@ -135,10 +135,10 @@ void main() {
                 roEventRender: () => testStack.push('render 1a'),
                 roEventUpdate: () => testStack.push('update 1a'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a'),
-                wEventshouldUpdateWidget: () => testStack.push(
+                wEventShouldUpdateWidget: () => testStack.push(
                   'is changed 1a',
                 ),
-                wEventshouldUpdateWidgetChildren: () => testStack.push(
+                wEventShouldUpdateWidgetChildren: () => testStack.push(
                   'is changed child 1a',
                 ),
                 roEventAfterWidgetRebind: () => testStack.push(
@@ -156,10 +156,10 @@ void main() {
                 roEventRender: () => testStack.push('render 2a'),
                 roEventUpdate: () => testStack.push('update 2a'),
                 roEventAfterUnMount: () => testStack.push('dispose 2a'),
-                wEventshouldUpdateWidget: () => testStack.push(
+                wEventShouldUpdateWidget: () => testStack.push(
                   'is changed 2a',
                 ),
-                wEventshouldUpdateWidgetChildren: () => testStack.push(
+                wEventShouldUpdateWidgetChildren: () => testStack.push(
                   'is changed child 2a',
                 ),
                 roEventAfterWidgetRebind: () => testStack.push(
@@ -198,10 +198,10 @@ void main() {
                 roEventRender: () => testStack.push('render 1a'),
                 roEventUpdate: () => testStack.push('update 1a'),
                 roEventAfterUnMount: () => testStack.push('dispose 1a'),
-                wEventshouldUpdateWidget: () => testStack.push(
+                wEventShouldUpdateWidget: () => testStack.push(
                   'is changed 1a',
                 ),
-                wEventshouldUpdateWidgetChildren: () => testStack.push(
+                wEventShouldUpdateWidgetChildren: () => testStack.push(
                   'is changed child 1a',
                 ),
                 roEventAfterWidgetRebind: () {
@@ -235,10 +235,10 @@ void main() {
                 roEventRender: () => testStack.push('render 2a'),
                 roEventUpdate: () => testStack.push('update 2a'),
                 roEventAfterUnMount: () => testStack.push('dispose 2a'),
-                wEventshouldUpdateWidget: () => testStack.push(
+                wEventShouldUpdateWidget: () => testStack.push(
                   'is changed 2a',
                 ),
-                wEventshouldUpdateWidgetChildren: () => testStack.push(
+                wEventShouldUpdateWidgetChildren: () => testStack.push(
                   'is changed child 2a',
                 ),
                 roEventAfterWidgetRebind: () => testStack.push(
@@ -263,7 +263,8 @@ void main() {
         },
       );
 
-      test('should check childs if parent configuration is changed', () async {
+      test('should check child widgets if parent configuration is changed',
+          () async {
         var testStack = RT_TestStack();
 
         await app!.buildChildren(
@@ -310,7 +311,7 @@ void main() {
       });
 
       test(
-        'should check childs even if parent configuration is not changed',
+        'should check child widgets even if parent configuration is not changed',
         () async {
           var testStack = RT_TestStack();
 
@@ -357,7 +358,7 @@ void main() {
         },
       );
 
-      test('should skip childs on short-circuit', () async {
+      test('should skip child widgets on short-circuit', () async {
         var testStack = RT_TestStack();
 
         var constantWidget = RT_TestWidget(
@@ -390,7 +391,7 @@ void main() {
       });
 
       test(
-        'should add/dispose childs depending on updated children list',
+        'should add/dispose child widgets depending on updated children list',
         () async {
           await app!.buildChildren(
             widgets: [
@@ -490,7 +491,7 @@ void main() {
         'should rebind widget instance even if configuration has not changed',
         () async {
           // Rebinding isn't required if both(old and new) instances of widget
-          // are same, e.g in const costructors. But in all other cases
+          // are same, e.g in const constructors. But in all other cases
           // framework must update widget instance, even if widget's
           // configuration hasn't changed. This is because some properties of
           // widget are not part of widget's configuration such as
@@ -812,7 +813,7 @@ void main() {
       );
 
       test(
-        'should dispose mismatch and append new childs in the end',
+        'should dispose mismatch and append new child widgets in the end',
         () async {
           var testStack = RT_TestStack();
 
@@ -887,9 +888,9 @@ void main() {
       );
 
       test(
-        'should be able to run update on tree containing non-direct childs '
-        'direct childs are the childs that widget provides in widget constructor '
-        'non-direct childs are the childs that are rendered by the state of widget it-self',
+        'should be able to run update on tree containing non-direct child widgets '
+        'direct child widgets are the child widgets that widget provides in widget constructor '
+        'non-direct child widgets are the child widgets that are rendered by the state of widget it-self',
         () async {
           var pap = app!;
 
@@ -932,7 +933,7 @@ void main() {
       );
 
       test(
-        'should be able to run update on tree containing non-direct childs '
+        'should be able to run update on tree containing non-direct child widgets '
         'stateful widget test',
         () async {
           var pap = app!;
@@ -962,7 +963,7 @@ void main() {
       );
 
       test(
-        'should be able to run update on tree containing non-direct childs '
+        'should be able to run update on tree containing non-direct child widgets '
         'stateless widget test',
         () async {
           var pap = app!;
@@ -996,7 +997,7 @@ void main() {
       );
 
       test(
-        'should be able to run update on tree containing direct childs '
+        'should be able to run update on tree containing direct child widgets '
         'inherited widget test',
         () async {
           var pap = app!;
@@ -1026,7 +1027,7 @@ void main() {
       );
 
       test(
-        'should be able to run update on tree containing non-direct childs '
+        'should be able to run update on tree containing non-direct child widgets '
         'event detector widget test',
         () async {
           var pap = app!;
@@ -1056,7 +1057,7 @@ void main() {
       );
 
       test(
-        'should call shouldUpdateWidgetChild with previous result of shouldupdate',
+        'should call shouldUpdateWidgetChild with previous result of shouldUpdate',
         () async {
           var testStack = RT_TestStack();
 
@@ -1112,7 +1113,8 @@ void main() {
       );
 
       test(
-        'should skip mismatch and reuse existing widget(prevent loosing state when childs are added optionally)',
+        'should skip mismatch and reuse existing widget(prevent loosing state '
+        'when child widgets are added optionally)',
         () async {
           var testStack = RT_TestStack();
 
@@ -1194,7 +1196,7 @@ void main() {
         () async {
           var testStack = RT_TestStack();
 
-          // render childs
+          // render child widgets
           // ----------------expected
           // render 1a-1, render 1a-2, render 1a-3, render 1a-4
 
@@ -1303,7 +1305,7 @@ void main() {
             updateType: UpdateType.undefined,
           );
 
-          // change last two childs
+          // change last two child widgets
           // ----------------expected
           // dispose 1a-3, dispose 1a-4
           // update 1b-1, update 1b-2, render 1b-3, render 1b-4

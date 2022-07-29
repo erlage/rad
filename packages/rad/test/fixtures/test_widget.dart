@@ -12,8 +12,8 @@ class RT_TestWidget extends Widget {
   // widget events
 
   final VoidCallback? wEventCreateRenderObject;
-  final VoidCallback? wEventshouldUpdateWidget;
-  final VoidCallback? wEventshouldUpdateWidgetChildren;
+  final VoidCallback? wEventShouldUpdateWidget;
+  final VoidCallback? wEventShouldUpdateWidgetChildren;
 
   final Function(RenderElement)? wHookCreateRenderElement;
 
@@ -60,15 +60,15 @@ class RT_TestWidget extends Widget {
     // widget events
 
     this.wEventCreateRenderObject,
-    this.wEventshouldUpdateWidget,
-    this.wEventshouldUpdateWidgetChildren,
+    this.wEventShouldUpdateWidget,
+    this.wEventShouldUpdateWidgetChildren,
 
     // overrides
 
     this.wOverrideShouldUpdateWidget,
     this.wOverrideShouldUpdateWidgetChildren,
 
-    // data hokks
+    // data hooks
 
     this.roHookUpdate,
     this.wHookShouldUpdateWidget,
@@ -82,8 +82,8 @@ class RT_TestWidget extends Widget {
 
   @override
   bool shouldUpdateWidget(oldWidget) {
-    if (null != wEventshouldUpdateWidget) {
-      wEventshouldUpdateWidget!();
+    if (null != wEventShouldUpdateWidget) {
+      wEventShouldUpdateWidget!();
     }
 
     if (null != wHookShouldUpdateWidget) {
@@ -99,8 +99,8 @@ class RT_TestWidget extends Widget {
 
   @override
   bool shouldUpdateWidgetChildren(oldWidget, shouldUpdateWidget) {
-    if (null != wEventshouldUpdateWidgetChildren) {
-      wEventshouldUpdateWidgetChildren!();
+    if (null != wEventShouldUpdateWidgetChildren) {
+      wEventShouldUpdateWidgetChildren!();
     }
 
     if (null != wHookShouldUpdateWidgetChildren) {
@@ -252,8 +252,8 @@ class RT_AnotherTestWidget extends RT_TestWidget {
 
     // should update
 
-    VoidCallback? wEventshouldUpdateWidget,
-    VoidCallback? wEventshouldUpdateWidgetChildren,
+    VoidCallback? wEventShouldUpdateWidget,
+    VoidCallback? wEventShouldUpdateWidgetChildren,
     bool Function()? wOverrideShouldUpdateWidget,
     bool Function()? wOverrideShouldUpdateWidgetChildren,
     String? customHash,
@@ -270,8 +270,8 @@ class RT_AnotherTestWidget extends RT_TestWidget {
 
           // should update
 
-          wEventshouldUpdateWidget: wEventshouldUpdateWidget,
-          wEventshouldUpdateWidgetChildren: wEventshouldUpdateWidgetChildren,
+          wEventShouldUpdateWidget: wEventShouldUpdateWidget,
+          wEventShouldUpdateWidgetChildren: wEventShouldUpdateWidgetChildren,
           wOverrideShouldUpdateWidget: wOverrideShouldUpdateWidget,
           wOverrideShouldUpdateWidgetChildren:
               wOverrideShouldUpdateWidgetChildren,

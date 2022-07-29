@@ -13,7 +13,7 @@ abstract class AppComponent {
   ///
   String get name;
 
-  /// Auther name.
+  /// Author name.
   ///
   String get author;
 

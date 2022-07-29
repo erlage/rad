@@ -46,7 +46,7 @@ test('should set "input" event listener only if provided', () async {
     expect(listeners3[DomEventType.input], equals(listener));
 });
 
-test('should clear "input" event listner', () async {
+test('should clear "input" event listener', () async {
     void listener(event) => {};
 
     await app!.buildChildren(

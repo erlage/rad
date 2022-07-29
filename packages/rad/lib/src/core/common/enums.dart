@@ -363,7 +363,7 @@ enum ReferrerPolicyType {
   ///
   noReferrer('no-referrer'),
 
-  /// Send the origin, path, and querystring in Referer when the protocol
+  /// Send the origin, path, and query-string in Referer when the protocol
   /// security level stays the same or improves (HTTP→HTTP, HTTP→HTTPS,
   /// HTTPS→HTTPS). Don't send the Referer header for requests to less secure
   /// destinations (HTTPS→HTTP, HTTPS→file).
@@ -391,7 +391,7 @@ enum ReferrerPolicyType {
   ///
   strictOrigin('strict-origin'),
 
-  /// Send the origin, path, and querystring when performing a same-origin
+  /// Send the origin, path, and query-string when performing a same-origin
   /// request.
   ///
   strictOriginWhenCrossOrigin('strict-origin-when-cross-origin'),
@@ -545,7 +545,7 @@ enum DomTagType {
   const DomTagType(this.nativeValue);
 }
 
-/// Type of update event that's happend in parent tree.
+/// Type of update event that's happened in parent tree.
 ///
 /// Widgets can act according to type of update events.
 ///

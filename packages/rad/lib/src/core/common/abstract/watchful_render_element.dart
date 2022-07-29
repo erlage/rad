@@ -36,7 +36,7 @@ abstract class WatchfulRenderElement extends RenderElement {
 
   /// Init hook.
   ///
-  /// This hook gets before rendring widget on the screen, happens exactly one
+  /// This hook gets before rendering widget on the screen, happens exactly one
   /// time during lifetime of an element.
   ///
   void init() {}

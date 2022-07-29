@@ -328,7 +328,7 @@ void main() {
           widgets: [
             RT_StatefulTestWidget(
               stateHookBuild: (state) {
-                // because childs widgets will be built after first build
+                // because child widgets will be built after first build
                 if (isFirstBuild) {
                   isFirstBuild = false;
 
@@ -416,7 +416,7 @@ void main() {
           widgets: [
             RT_StatefulTestWidget(
               stateHookBuild: (state) {
-                // because childs widgets will be built after first build
+                // because child widgets will be built after first build
                 if (isFirstBuild) {
                   isFirstBuild = false;
 

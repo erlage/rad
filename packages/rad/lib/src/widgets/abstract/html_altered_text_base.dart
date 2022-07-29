@@ -80,7 +80,7 @@ abstract class HTMLAlteredTextBase extends HTMLWidgetBase {
 ///
 @internal
 class HTMLAlteredTextBaseRenderElement extends HTMLRenderElementBase {
-  HTMLAlteredTextBaseRenderElement(super.wudget, super.parent);
+  HTMLAlteredTextBaseRenderElement(super.widget, super.parent);
 
   @mustCallSuper
   @override

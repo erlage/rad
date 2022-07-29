@@ -200,8 +200,8 @@ void event_on_key_down_test() {
     );
 
 // framework stop propagation of 'keydown' events
-// when they reachs a matching target(that is listening for those type of
-// events). to test capturing for keydown events, we artifically
+// when they reaches a matching target(that is listening for those type of
+// events). to test capturing for keydown events, we artificially
 // restart propagation using restartPropagationIfStopped()
 
     test('should capture event', () async {

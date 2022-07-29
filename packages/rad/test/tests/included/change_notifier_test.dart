@@ -3,7 +3,7 @@
 import '../../test_imports.dart' hide Text;
 
 // -----------------------------------------------------------------------
-// Mannually edited file
+// Manually edited file
 // -----------------------------------------------------------------------
 
 // Copyright 2014 The Flutter Authors. All rights reserved.

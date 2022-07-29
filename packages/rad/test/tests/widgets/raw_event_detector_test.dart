@@ -186,7 +186,7 @@ void main() {
     });
 
     test(
-      'should adjust event listeners if immediate childs has changed',
+      'should adjust event listeners if immediate child widgets has changed',
       () async {
         var pap = app!;
 
@@ -238,7 +238,8 @@ void main() {
       },
     );
 
-    test('should adjust event listeners if deep childs has changed', () async {
+    test('should adjust event listeners if deep child widgets has changed',
+        () async {
       var pap = app!;
 
       await pap.buildChildren(

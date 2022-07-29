@@ -174,7 +174,7 @@ events_map = {
 
 
 def generate():
-    invokations = ''
+    invocations = ''
     part_of_directives = ''
     runner_file = os.path.abspath(os.path.join(
         main.test_dir, 'tests', 'generated', '_index_events_test.dart'))
@@ -191,7 +191,7 @@ def generate():
 
         utils.clean_file(out_file)
 
-        invokations += 'event_' + event_attr_name_camel_case + '_test();'
+        invocations += 'event_' + event_attr_name_camel_case + '_test();'
 
         part_of_directives += "part 'events/event_" + \
             event_attr_name_camel_case + "_tests.generated.dart';"
@@ -230,7 +230,7 @@ def generate():
                 ('__EventNativeName__', event_native_name),
             ]
 
-            test_tmpl = os.path.abspath(os.path.join(
+            test_tpl = os.path.abspath(os.path.join(
                 templates_folder, test + '.dart'))
 
             skip_context = ''
@@ -246,7 +246,7 @@ def generate():
                 replacements.append(('__Skip__', skip_context))
 
             generated += utils.parse_test_from_template(
-                test_tmpl, replacements)
+                test_tpl, replacements)
 
         # generate widget specific tests
 
@@ -254,11 +254,11 @@ def generate():
             for test in event_specific_tests[event_attr_name]:
                 generated += '\n\n'
 
-                test_tmpl = os.path.abspath(os.path.join(
+                test_tpl = os.path.abspath(os.path.join(
                     templates_folder, test + '.dart'))
 
                 generated += utils.parse_test_from_template(
-                    test_tmpl, replacements)
+                    test_tpl, replacements)
 
         generated += '}); \n\n }'
 
@@ -285,7 +285,7 @@ def generate():
 
         void main() {
 
-            ''' + invokations + '''
+            ''' + invocations + '''
 
         }
         '''

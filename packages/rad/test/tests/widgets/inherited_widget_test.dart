@@ -128,15 +128,15 @@ void main() {
       () async {
         var testStack = RT_TestStack();
 
-        // inherited widgets are effecient only when there is a short-circuit
+        // inherited widgets are efficient only when there is a short-circuit
         // at any node between inherited widget and dependent. to test inherited
-        // widget we have to mannualy create a short-circuit in tree.
+        // widget we have to manually create a short-circuit in tree.
 
         var shortCircuitableSubTree = RT_TestWidget(
           children: [
             RT_StatefulTestWidget(
               stateHookBuild: (state) {
-                testStack.push('call-dependOnInhe..-1a');
+                testStack.push('call-dependOnIn..-1a');
 
                 state.context
                     .dependOnInheritedWidgetOfExactType<RT_InheritedWidget>();
@@ -207,7 +207,7 @@ void main() {
         // build phase
 
         expect(testStack.popFromStart(), equals('build-stateful-1a'));
-        expect(testStack.popFromStart(), equals('call-dependOnInhe..-1a'));
+        expect(testStack.popFromStart(), equals('call-dependOnIn..-1a'));
 
         expect(testStack.popFromStart(), equals('mount-container-1a'));
 
@@ -215,7 +215,7 @@ void main() {
 
         expect(testStack.popFromStart(), equals('notify-2a'));
         expect(testStack.popFromStart(), equals('build-stateful-1a'));
-        expect(testStack.popFromStart(), equals('call-dependOnInhe..-1a'));
+        expect(testStack.popFromStart(), equals('call-dependOnIn..-1a'));
 
         // update phase when updateShouldNotify return false
 
@@ -225,7 +225,7 @@ void main() {
 
         expect(testStack.popFromStart(), equals('notify-3a'));
         expect(testStack.popFromStart(), equals('build-stateful-1a'));
-        expect(testStack.popFromStart(), equals('call-dependOnInhe..-1a'));
+        expect(testStack.popFromStart(), equals('call-dependOnIn..-1a'));
 
         expect(testStack.canPop(), equals(false));
       },
@@ -241,7 +241,7 @@ void main() {
           children: [
             RT_StatefulTestWidget(
               stateHookBuild: (state) {
-                testStack.push('call-findAnces..-1a');
+                testStack.push('call-findAncestor..-1a');
 
                 state.context
                     .findAncestorWidgetOfExactType<RT_InheritedWidget>();
@@ -312,7 +312,7 @@ void main() {
         // build phase
 
         expect(testStack.popFromStart(), equals('build-stateful-1a'));
-        expect(testStack.popFromStart(), equals('call-findAnces..-1a'));
+        expect(testStack.popFromStart(), equals('call-findAncestor..-1a'));
 
         expect(testStack.popFromStart(), equals('mount-container-1a'));
 

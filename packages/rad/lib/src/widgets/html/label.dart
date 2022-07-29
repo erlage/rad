@@ -13,7 +13,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 ///
 class Label extends HTMLWidgetBase {
   /// The value of the [forAttribute] attribute must be a single key for a
-  /// labelable form-related dom node in the same document as the <label> dom
+  /// label-able form-related dom node in the same document as the <label> dom
   /// node
   ///
   final String? forAttribute;

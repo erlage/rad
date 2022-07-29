@@ -173,7 +173,7 @@ def checkWidgets():
 def generate():
     checkWidgets()
 
-    invokations = ''
+    invocations = ''
     part_of_directives = ''
 
     runner_file = os.path.abspath(os.path.join(
@@ -194,7 +194,7 @@ def generate():
 
         utils.clean_file(out_file)
 
-        invokations += 'widget_' + widget_class_name_camel_case + '_test();'
+        invocations += 'widget_' + widget_class_name_camel_case + '_test();'
 
         part_of_directives += "part 'widgets/widget_" + \
             widget_class_name_camel_case + "_tests.generated.dart';"
@@ -232,11 +232,11 @@ def generate():
                 ('__WidgetClass__', widget_class_name),
             ]
 
-            test_tmpl = os.path.abspath(os.path.join(
+            test_tpl = os.path.abspath(os.path.join(
                 templates_folder, test + '.dart'))
 
             generated += utils.parse_test_from_template(
-                test_tmpl, replacements)
+                test_tpl, replacements)
 
         generated += '}); \n\n }'
 
@@ -263,7 +263,7 @@ def generate():
 
         void main() {
 
-            ''' + invokations + '''
+            ''' + invocations + '''
 
         }
         '''

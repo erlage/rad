@@ -110,7 +110,7 @@ abstract class HTMLTableCellBase extends HTMLWidgetBase {
 ///
 @internal
 class HTMLTableCellBaseRenderElement extends HTMLRenderElementBase {
-  HTMLTableCellBaseRenderElement(super.wudget, super.parent);
+  HTMLTableCellBaseRenderElement(super.widget, super.parent);
 
   @mustCallSuper
   @override

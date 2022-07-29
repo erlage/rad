@@ -200,8 +200,8 @@ void event_on_mouse_up_test() {
     );
 
 // framework stop propagation of 'mouseup' events
-// when they reachs a matching target(that is listening for those type of
-// events). to test capturing for mouseup events, we artifically
+// when they reaches a matching target(that is listening for those type of
+// events). to test capturing for mouseup events, we artificially
 // restart propagation using restartPropagationIfStopped()
 
     test('should capture event', () async {

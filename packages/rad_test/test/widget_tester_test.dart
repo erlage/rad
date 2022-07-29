@@ -53,7 +53,7 @@ void main() {
       expect(tester.stack.canPop(), equals(false));
     });
 
-    testWidgets('should repump multiple widgets', (tester) async {
+    testWidgets('should re-pump multiple widgets', (tester) async {
       await tester.pumpMultipleWidgets([
         TestWidget(
           roEventUpdate: () => tester.stack.push('update 1'),
@@ -74,7 +74,7 @@ void main() {
       expect(tester.stack.canPop(), equals(false));
     });
 
-    testWidgets('should repump multiple widgets over pump', (tester) async {
+    testWidgets('should re-pump multiple widgets over pump', (tester) async {
       await tester.pumpWidget(
         TestWidget(
           roEventUpdate: () => tester.stack.push('update 1'),

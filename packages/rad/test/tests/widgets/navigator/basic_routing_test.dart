@@ -139,7 +139,7 @@ void main() {
       expect(RT_TestBed.rootDomNode, RT_hasContents('route-1'));
     });
 
-    test('should open matched child route with intre.values', () async {
+    test('should open matched child route ignoring values in path', () async {
       //
       await app!.setPath('something/route-1/something/value');
 

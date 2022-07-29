@@ -19,7 +19,7 @@ void main() {
   group('update widgets basic tests:', () {
     // build tests
 
-    testWidgets('should build new widget if runtime type are differnt',
+    testWidgets('should build new widget if runtime type are different',
         (tester) async {
       await tester.pumpWidget(
         RT_TestWidget(
@@ -250,7 +250,7 @@ void main() {
 
         await tester.rePumpWidget(
           RT_TestWidget(
-            key: Key('key-orginal'),
+            key: Key('key-original'),
             roEventRender: () => tester.push('render 1c'),
             roEventUpdate: () => tester.push('update 1c'),
             roEventAfterUnMount: () => tester.push('dispose 1c'),
@@ -316,7 +316,7 @@ void main() {
     // update tests
 
     testWidgets(
-      'should update exisitng widget when runtime types are matched '
+      'should update existing widget when runtime types are matched '
       'and keys are not set',
       (tester) async {
         await tester.pumpWidget(
@@ -354,7 +354,7 @@ void main() {
     );
 
     testWidgets(
-      'should update exisitng widget when both runtime types and keys are matched ',
+      'should update existing widget when both runtime types and keys are matched ',
       (tester) async {
         await tester.pumpWidget(
           RT_TestWidget(
@@ -394,7 +394,7 @@ void main() {
     );
 
     testWidgets(
-      'should update exisitng widget when bot runtime types and local keys are matched ',
+      'should update existing widget when bot runtime types and local keys are matched ',
       (tester) async {
         await tester.pumpWidget(
           RT_TestWidget(
@@ -434,7 +434,7 @@ void main() {
     );
 
     testWidgets(
-      'should update exisitng widget when bot runtime types and global keys are matched ',
+      'should update existing widget when bot runtime types and global keys are matched ',
       (tester) async {
         await tester.pumpWidget(
           RT_TestWidget(
@@ -473,7 +473,7 @@ void main() {
       },
     );
 
-    // flag tests under multiple childs
+    // flag tests under multiple child widgets
 
     testWidgets(
       'should not add new widget if flagAddIfNotFound: false',

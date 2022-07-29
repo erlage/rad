@@ -22,7 +22,7 @@ While opening issue, please keep in mind following things:
 
 ## Opening Pull Requests
 
-Nobody is perfect, and sometimes we mess things up. That said, here are some good dos & dont's to try and stick to:
+Nobody is perfect, and sometimes we mess things up. That said, here are some good do(s) & don't(s) to try and stick to:
 
 **Do**:
 
@@ -48,7 +48,7 @@ Nobody is perfect, and sometimes we mess things up. That said, here are some goo
 - Include commented-out code.
 - Add any dependency to framework.
 - Attempt large architectural changes.
-- Submit code that's incompatible with the framework licence.
+- Submit code that's incompatible with the framework license.
 - Touch anything outside the stated scope of the pull request.
 
 ### What are some things you can work on?

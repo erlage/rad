@@ -71,11 +71,11 @@ abstract class RenderElement implements BuildContext {
   /// Framework will call this getter on two occasions:
   ///
   /// 1) When it finishes building current widget and as part of completing the
-  /// proccess, it'll check whether widget has children to build and build them
+  /// process, it'll check whether widget has children to build and build them
   /// if so.
   ///
   /// 2) When it finishes updating current widget and as part of completing the
-  /// proccess, it'll check whether widget has children to update and update
+  /// process, it'll check whether widget has children to update and update
   /// them if so. Note that framework will not check children if widget returns
   /// false from [Widget.shouldUpdateWidgetChildren].
   ///
@@ -304,17 +304,17 @@ abstract class RenderElement implements BuildContext {
 
   @override
   Element? findClosestDomNodeInDescendants() {
-    var childs = _childElements;
+    var childElements = _childElements;
 
-    while (childs.isNotEmpty && !childs.first.hasDomNode) {
-      childs = childs.first._childElements;
+    while (childElements.isNotEmpty && !childElements.first.hasDomNode) {
+      childElements = childElements.first._childElements;
     }
 
-    if (childs.isEmpty) {
+    if (childElements.isEmpty) {
       return null;
     }
 
-    return childs.first.domNode;
+    return childElements.first.domNode;
   }
 
   @override
@@ -485,7 +485,7 @@ abstract class RenderElement implements BuildContext {
 
   /*
   |--------------------------------------------------------------------------
-  | framework rerserved | tree api
+  | framework reserved | tree api
   |--------------------------------------------------------------------------
   */
 

@@ -21,7 +21,7 @@ class EmittedEvent {
 
   bool get isPropagationStopped => _isPropagationStopped;
 
-  /// Events such as 'change' are immediatly stopped after they reach a target
+  /// Events such as 'change' are immediately stopped after they reach a target
   /// that is listening for those events. Calling this method on event will
   /// force the framework to re-start propagation of that event.
   ///

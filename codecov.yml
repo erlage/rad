@@ -26,5 +26,5 @@ ignore:
   # - see browser_window_test.dart
   - "packages/rad/lib/src/core/interface/window/delegates/browser_window.dart"
 
-  # - tests not added for listview widget yet
+  # - tests not added for ListView widget yet
   - "packages/rad/lib/src/widgets/list_view.dart"

@@ -9,7 +9,7 @@ import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
 
 /// A task that tells listener that scheduler state has changed.
-/// For example, probably new tasks are added to queue and if listner
+/// For example, probably new tasks are added to queue and if listener
 /// wants to restart processing tasks then it can.
 ///
 @internal

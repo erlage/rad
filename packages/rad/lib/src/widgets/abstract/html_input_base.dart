@@ -176,7 +176,7 @@ abstract class HTMLInputBase extends HTMLWidgetBase {
   final String? step;
 
   /// An integer attribute indicating if the element can take input focus
-  /// (is focusable), if it should participate to sequential keyboard
+  /// (is focus-able), if it should participate to sequential keyboard
   /// navigation.
   ///
   final int? tabIndex;

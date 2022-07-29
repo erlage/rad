@@ -9,10 +9,10 @@ import '../../test_imports.dart';
 void main() {
   // Route widget is not concerned with its sibling routes.
 
-  // A navigator or any other widget can add constraints over its childs which
-  // means some parts of the behavior tested below might not work as expected
-  // when a route widget is used under a navigator widget. Tests below are just
-  // to ensure that widget properties are set and updated correctly.
+  // A navigator or any other widget can add constraints over its child widgets
+  // which means some parts of the behavior tested below might not work as
+  // expected when a route widget is used under a navigator widget. Tests below
+  // are just to ensure that widget properties are set and updated correctly.
 
   group('Route widget tests:', () {
     RT_AppRunner? app;

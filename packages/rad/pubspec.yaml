@@ -21,7 +21,7 @@ dependencies:
   #
   # why we're using this package?
   #
-  # package meta provides useful annontations/hints that 
+  # package meta provides useful annotations/hints that 
   # improve static analysis during development which inturn 
   # helps developers write better code. 'meta' package contains 
   # couple of files(< 200 loc) which will be stripped 

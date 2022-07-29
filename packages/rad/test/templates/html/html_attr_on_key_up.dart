@@ -46,7 +46,7 @@ test('should set "KeyUp" event listener only if provided', () async {
     expect(listeners3[DomEventType.keyUp], equals(listener));
 });
 
-test('should clear "KeyUp" event listner', () async {
+test('should clear "KeyUp" event listener', () async {
     void listener(event) => {};
 
     await app!.buildChildren(

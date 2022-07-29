@@ -115,7 +115,7 @@ class AppRunner {
       ..stopServices();
   }
 
-  /// Setuo root render element.
+  /// Setup root render element.
   ///
   void setupRootRenderElement() {
     _rootElement = RootRenderElement(
@@ -182,7 +182,7 @@ class AppRunner {
     );
   }
 
-  /// Schedulr initial build in sync.
+  /// Scheduler initial build in sync.
   ///
   void schedulerInitialBuildSync() {
     _framework?.processTask(

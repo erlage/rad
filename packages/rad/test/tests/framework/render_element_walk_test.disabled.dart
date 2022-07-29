@@ -40,7 +40,7 @@ void main() {
           ],
         );
 
-        var element = tester.getrenderElementByKeyValue(Key('widget'))!;
+        var element = tester.getRenderElementByKeyValue(Key('widget'))!;
 
         var widget = element.findAncestorWidgetOfExactType<RT_TestWidget>();
 
@@ -68,7 +68,7 @@ void main() {
           ],
         );
 
-        var element = tester.getrenderElementByKeyValue(Key('widget'))!;
+        var element = tester.getRenderElementByKeyValue(Key('widget'))!;
 
         var widget = element.findAncestorWidgetOfExactType<RT_TestWidget>();
 
@@ -97,7 +97,7 @@ void main() {
           ],
         );
 
-        var el = tester.getrenderElementByKeyValue(Key('widget'))!;
+        var el = tester.getRenderElementByKeyValue(Key('widget'))!;
 
         var widget = el.findAncestorWidgetOfExactType<RT_AnotherTestWidget>();
 
@@ -124,7 +124,7 @@ void main() {
           ],
         );
 
-        var el = tester.getrenderElementByKeyValue(Key('widget'))!;
+        var el = tester.getRenderElementByKeyValue(Key('widget'))!;
 
         var widget = el.findAncestorWidgetOfExactType<RT_AnotherTestWidget>();
 
@@ -161,7 +161,7 @@ void main() {
         ],
       );
 
-      var el = tester.getrenderElementByKeyValue(Key('widget'))!;
+      var el = tester.getRenderElementByKeyValue(Key('widget'))!;
 
       var state = el.findAncestorStateOfType<RT_StatefulTestWidget_State>()!;
 
@@ -187,7 +187,7 @@ void main() {
         ],
       );
 
-      var el = tester.getrenderElementByKeyValue(Key('widget'))!;
+      var el = tester.getRenderElementByKeyValue(Key('widget'))!;
 
       var state = el.findAncestorStateOfType<RT_StatefulTestWidget_State>()!;
 
@@ -212,7 +212,7 @@ void main() {
         ],
       );
 
-      var el = tester.getrenderElementByKeyValue(Key('widget'))!;
+      var el = tester.getRenderElementByKeyValue(Key('widget'))!;
 
       var state = el.findAncestorStateOfType<RT_AnotherStatefulWidget_State>();
 
@@ -286,7 +286,7 @@ void main() {
         await tester.pumpWidget(
           RT_StatefulTestWidget(
             stateHookBuild: (state) {
-              // because childs widgets will be built after first build
+              // because child widgets will be built after first build
               if (isFirstBuild) {
                 isFirstBuild = false;
 
@@ -361,7 +361,7 @@ void main() {
         await tester.pumpWidget(
           RT_StatefulTestWidget(
             stateHookBuild: (state) {
-              // because childs widgets will be built after first build
+              // because child widgets will be built after first build
               if (isFirstBuild) {
                 isFirstBuild = false;
 

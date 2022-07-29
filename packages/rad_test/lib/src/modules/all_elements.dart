@@ -29,7 +29,7 @@
 
 import 'package:rad_test/src/common/functions.dart';
 import 'package:rad_test/src/imports.dart';
-import 'package:rad_test/src/modules/cached_interable.dart';
+import 'package:rad_test/src/modules/cached_iterable.dart';
 
 /// Provides an iterable that efficiently returns all the elements
 /// rooted at the given element. See [CachingIterable] for details.

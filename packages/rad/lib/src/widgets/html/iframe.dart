@@ -22,7 +22,7 @@ class IFrame extends HTMLWidgetBase {
   ///
   final String? srcDoc;
 
-  /// A targetable name for the embedded browsing context.
+  /// A target-able name for the embedded browsing context.
   ///
   final String? name;
 

@@ -53,7 +53,7 @@
 
 
 /**
-   * Make sure flex do not shrink/grow for ListView's childs
+   * Make sure flex do not shrink/grow for ListView's child widgets
    */
 
 .rad-list-view>*,

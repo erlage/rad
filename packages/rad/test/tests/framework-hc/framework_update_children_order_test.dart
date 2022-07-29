@@ -154,7 +154,7 @@ void main() {
       );
 
       test(
-        'should respect order in which new widgets are recieved',
+        'should respect order in which new widgets are received',
         () async {
           await app!.updateChildren(
             widgets: [
@@ -178,7 +178,7 @@ void main() {
         },
       );
 
-      test('should respect order in which new keyed widgets are recieved',
+      test('should respect order in which new keyed widgets are received',
           () async {
         await app!.updateChildren(
           widgets: [
@@ -202,7 +202,7 @@ void main() {
       });
 
       test(
-        'should respect order in which new non-keyed widgets are recieved '
+        'should respect order in which new non-keyed widgets are received '
         '(widgets without corresponding dom domNodes)',
         () async {
           await app!.updateChildren(
@@ -244,7 +244,7 @@ void main() {
       );
 
       test(
-        'should respect order in which new keyed widgets are recieved '
+        'should respect order in which new keyed widgets are received '
         '(widgets without corresponding dom domNodes)',
         () async {
           await app!.updateChildren(
@@ -286,7 +286,7 @@ void main() {
       );
 
       test(
-        'should respect order in which new non-keyed widgets are recieved '
+        'should respect order in which new non-keyed widgets are received '
         '(mixed widgets, re-order mixed widget)',
         () async {
           await app!.updateChildren(
@@ -330,7 +330,7 @@ void main() {
       );
 
       test(
-        'should respect order in which new keyed widgets are recieved '
+        'should respect order in which new keyed widgets are received '
         '(mixed widgets, re-order mixed widget)',
         () async {
           await app!.updateChildren(
@@ -374,7 +374,7 @@ void main() {
       );
 
       test(
-        'should respect order in which new keyed widgets are recieved '
+        'should respect order in which new keyed widgets are received '
         '(mixed widgets, order change at multiple levels)',
         () async {
           await app!.updateChildren(
@@ -619,7 +619,8 @@ void main() {
         expect(RT_TestBed.rootDomNode, RT_hasContents('1'));
       });
 
-      test('should respect widgets order(non-keyed revrse removals)', () async {
+      test('should respect widgets order(non-keyed reverse removals)',
+          () async {
         await app!.updateChildren(
           widgets: [
             Text('3'),
@@ -751,7 +752,7 @@ void main() {
         expect(RT_TestBed.rootDomNode, RT_hasContents('1'));
       });
 
-      test('should respect widgets order(keyed revrse removals)', () async {
+      test('should respect widgets order(keyed reverse removals)', () async {
         await app!.updateChildren(
           widgets: [
             Text('3', key: Key('3')),

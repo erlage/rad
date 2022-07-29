@@ -12,7 +12,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Rad's reconciler.
 ///
-/// Reconciler tries to match new widgets with exisiting widgets and prepare
+/// Reconciler tries to match new widgets with existing widgets and prepare
 /// list of dom operations that are required to bring DOM into desired state.
 ///
 /// Every reconciler method is on hot-path and optimized for performance. While
@@ -74,7 +74,7 @@ class Reconciler {
     required RenderElement parentRenderElement,
     required bool flagAddIfNotFound,
   }) {
-    // if there are no old childs to dispose
+    // if there are no old child widgets to dispose
     if (parentRenderElement.frameworkChildElements.isEmpty) {
       return ccImmutableEmptyListOfWidgetUpdates;
     }
@@ -104,7 +104,7 @@ class Reconciler {
   ///
   ///
   /// Direct mode basically act as a compliment to the hash mode in number of
-  /// cases. Algorithn used in hash mode is quite heavy weight and it's not
+  /// cases. Algorithm used in hash mode is quite heavy weight and it's not
   /// quite suited to reconcile lists that are small or doesn't really contain
   /// moving parts. Direct mode is helpful even if it fails to reconcile all
   /// nodes as it narrows down the size of lists that hash mode has to
@@ -352,7 +352,7 @@ class Reconciler {
     }
 
     // ----------------------------------------------------------------------
-    //  Phase-2 | Collect data from old nodes and remove obsolute nodes
+    //  Phase-2 | Collect data from old nodes and remove obsolete nodes
     // ----------------------------------------------------------------------
 
     var oldNodeHashToNodeMap = <String, RenderElement>{};
@@ -360,7 +360,7 @@ class Reconciler {
 
     // expected position of old node
 
-    var obsoluteNodesCount = 0;
+    var obsoleteNodesCount = 0;
 
     while (oldTopPoint <= oldBottomPoint) {
       var oldNode = oldNodes[oldTopPoint];
@@ -370,24 +370,24 @@ class Reconciler {
         widgetRuntimeType: oldNode.widgetRuntimeType,
       );
 
-      oldNodeHashToPositionMap[oldNodeHash] = oldTopPoint - obsoluteNodesCount;
+      oldNodeHashToPositionMap[oldNodeHash] = oldTopPoint - obsoleteNodesCount;
       oldNodeHashToNodeMap[oldNodeHash] = oldNode;
 
       //// TEST__COMMENTABLE_MUTATION_START
 
-      // Optimization: Loose positions of obsolute nodes
+      // Optimization: Loose positions of obsolete nodes
 
-      // this optimization creats a illusion that there are no obsolute nodes
-      // in the old list. this will prevents unneccessary re-mounts of nodes
-      // that are not obsolute.
+      // this optimization creates a illusion that there are no obsolete nodes
+      // in the old list. this will prevents unnecessary re-mounts of nodes
+      // that are not obsolete.
 
-      // a node is considered obsolute if it's not present in the new node list.
-      // note that we still hash obsolute nodes and they'll point to a position
-      // which will be occupied by a non-obsolute node. this will helps us find
-      // these obsolutes nodes either for easy dispose or maybe re-use.
+      // a node is considered obsolete if it's not present in the new node list.
+      // note that we still hash obsolete nodes and they'll point to a position
+      // which will be occupied by a non-obsolete node. this will helps us find
+      // these obsolete nodes either for easy dispose or maybe re-use.
 
       if (null == newNodeHashToNodeMap[oldNodeHash]) {
-        obsoluteNodesCount++;
+        obsoleteNodesCount++;
       }
 
       //// TEST__COMMENTABLE_MUTATION_END
@@ -399,9 +399,9 @@ class Reconciler {
     //  Phase-Minor-1 | Check if we can directly add new nodes
     // ----------------------------------------------------------------------
 
-    // If all old nodes are obsolute, then directly add new nodes
+    // If all old nodes are obsolete, then directly add new nodes
 
-    if (obsoluteNodesCount == oldNodeHashToNodeMap.length) {
+    if (obsoleteNodesCount == oldNodeHashToNodeMap.length) {
       if (preparedUpdates.isEmpty && preparedUpdatesInReverse.isEmpty) {
         if (flagAddIfNotFound) {
           return [
@@ -486,7 +486,7 @@ class Reconciler {
         if (expectedOldPosition != newPositionY) {
           mountAtIndex = newPositionY;
 
-          // cuplrit 2)
+          // culprit 2)
           slippedInNodesCount++;
         }
       }
@@ -502,7 +502,7 @@ class Reconciler {
     }
 
     // ----------------------------------------------------------------------
-    //  Phase-3 | Deal with obsolute nodes
+    //  Phase-3 | Deal with obsolete nodes
     // ----------------------------------------------------------------------
 
     if (oldNodeHashToNodeMap.isNotEmpty) {

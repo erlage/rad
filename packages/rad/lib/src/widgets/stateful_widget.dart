@@ -36,7 +36,7 @@ import 'package:rad/src/widgets/stateless_widget.dart';
 ///
 /// * Push the state to the leaves.
 ///   Having state at top level of application is acceptable as well but it's
-///   worth noting that having less childs to update means updates can be
+///   worth noting that having less child widgets to update means updates can be
 ///   dispatched and processed faster.
 ///
 ///
@@ -52,10 +52,10 @@ import 'package:rad/src/widgets/stateless_widget.dart';
 ///
 ///
 /// * In worst case, framework rebuild widgets from scratch. Complete rebuild
-///   involves disposing off current childs and rebuilding new ones with new
-///   state. Usually happens when child that framework is looking for is not
+///   involves disposing off current child widgets and rebuilding new ones with
+///   new state. Usually happens when child that framework is looking for is not
 ///   there anymore because of state change in parent. Rebuilds might be bad if
-///   Rad has to render pixel multiple times a second. Luckly in Rad, building
+///   Rad has to render pixel multiple times a second. Luckily in Rad, building
 ///   and updating interface is a one-step process. Framework handles the
 ///   description of widgets and building process is carried out by the browser.
 ///   We can rely on browsers for building big parts of tree when needed.

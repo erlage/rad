@@ -97,11 +97,12 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///
 /// Since Navigator's route is basically a widget that have a name attached to
 /// it, those routes will be treated as child widgets of Navigator just like
-/// Span can have its childs. Difference being, Navigator's childs(Route
-/// widgets) are built in a lazy fashion(only when requested). This also means
-/// that Navigator do not stack duplicate pages. All Route widgets are built
-/// only once. That is when you open a route, if route widget doesn't exists,
-/// it'll create it else it'll use the Route widget that's already built.
+/// Span can have its child widgets. Difference being, Navigator's child
+/// widgets(Route widgets) are built in a lazy fashion(only when requested).
+/// This also means that Navigator do not stack duplicate pages. All Route
+/// widgets are built only once. That is when you open a route, if route widget
+/// doesn't exists, it'll create it else it'll use the Route widget that's
+/// already built.
 ///
 /// ### NavigatorState
 ///
@@ -210,7 +211,7 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///
 /// ```dart
 /// Navigator.of(context).open(
-///   name: "home", values: {"id": "123", "username" : "adamback"}
+///   name: "home", values: {"id": "123", "username" : "adam back"}
 /// );
 /// ```
 ///
@@ -218,14 +219,14 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///
 /// ```dart
 /// var id = Navigator.of(context).getValue("id"); // -> "123"
-/// var username = Navigator.of(context).getValue("username"); // -> "adamback"
+/// var username = Navigator.of(context).getValue("username"); // -> "adam back"
 /// ```
 ///
-/// Cool thing about Navigator is that values passed to a route will presist
+/// Cool thing about Navigator is that values passed to a route will persist
 /// during browser reloads. If you've pushed some values while opening a route,
-/// those will presist in browser history too.
+/// those will persist in browser history too.
 ///
-/// ## Mangaging state in Routes:
+/// ## Managing state in Routes:
 ///
 /// Since Navigator do not duplicate pages, you don't have to parameterize
 /// your page content, instead pass values on `open`:
@@ -258,7 +259,7 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///
 ///   @override
 ///   void initState() {
-///     // intialize here, all things that don't depend on Navigator
+///     // initialize here, all things that don't depend on Navigator
 ///   }
 ///
 ///   @override
@@ -374,8 +375,8 @@ class Navigator extends Widget {
   bool shouldUpdateWidget(oldWidget) => true;
 
   /// Overriding this method on [Navigator] can result in unexpected
-  /// behavior as [Navigator] build its childs from its state. If you don't
-  /// want the [Navigator] to update its child widgets, override
+  /// behavior as [Navigator] build its child widgets from its state. If you
+  /// don't want the [Navigator] to update its child widgets, override
   /// [shouldUpdateWidget] instead.
   ///
   @nonVirtual
@@ -556,7 +557,7 @@ class NavigatorState with ServicesResolver {
 
     // if current navigator doesn't have a matching '$name' route
 
-    if (!framworkNameToPathMap.containsKey(name)) {
+    if (!frameworkNameToPathMap.containsKey(name)) {
       if (DEBUG_BUILD) {
         _services.debug.exception(
           "Navigator: Route '$name' is not declared.",
@@ -616,7 +617,7 @@ class NavigatorState with ServicesResolver {
       //
       // else build the route
 
-      var page = frameworkPathToRouteMap[framworkNameToPathMap[name]];
+      var page = frameworkPathToRouteMap[frameworkNameToPathMap[name]];
 
       assert(null != page, 'Navigator has gone wild');
       page as Route;
@@ -715,7 +716,7 @@ class NavigatorState with ServicesResolver {
   /// @nodoc
   @nonVirtual
   @internal
-  final framworkNameToPathMap = <String, String>{};
+  final frameworkNameToPathMap = <String, String>{};
 
   /// Route path to Route instance map.
   ///
@@ -799,7 +800,7 @@ class NavigatorState with ServicesResolver {
             );
           }
 
-          var isDuplicate = framworkNameToPathMap.containsKey(route.name) ||
+          var isDuplicate = frameworkNameToPathMap.containsKey(route.name) ||
               frameworkPathToRouteMap.containsKey(route.path);
 
           if (isDuplicate) {
@@ -812,7 +813,7 @@ class NavigatorState with ServicesResolver {
         }
       }
 
-      framworkNameToPathMap[route.name] = route.path;
+      frameworkNameToPathMap[route.name] = route.path;
 
       frameworkPathToRouteMap[route.path] = route;
     }

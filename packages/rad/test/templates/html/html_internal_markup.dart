@@ -28,7 +28,7 @@ test('should set correct types and markup', () async {
             ? [
                 'input',
               ].contains('__WidgetTag__')
-                // becuase system set attributes for some tags 
+                // because system set attributes for some tags 
                 // e.g type="something" for input tag
                 ? '<__WidgetTag__' 
                 : '<__WidgetTag__>'
