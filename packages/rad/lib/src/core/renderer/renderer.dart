@@ -558,7 +558,9 @@ class Renderer with ServicesResolver {
       }
 
       if (matchedRenderElement is WatchfulRenderElement) {
-        jobQueue.addPostDispatchCallback(matchedRenderElement.afterUpdate);
+        jobQueue.addPostDispatchCallback(
+          matchedRenderElement.frameworkAfterUpdate,
+        );
       }
     } else {
       if (DEBUG_BUILD) {
@@ -801,7 +803,7 @@ class Renderer with ServicesResolver {
 
           // call update and stop result as this call can return dom patch
 
-          var domPatch = renderElement.update(
+          var domPatch = renderElement.frameworkUpdate(
             updateType: updateType,
             newWidget: widget,
             oldWidget: widget,
@@ -817,7 +819,9 @@ class Renderer with ServicesResolver {
           }
 
           if (renderElement is WatchfulRenderElement) {
-            jobQueue.addPostDispatchCallback(renderElement.afterUpdate);
+            jobQueue.addPostDispatchCallback(
+              renderElement.frameworkAfterUpdate,
+            );
           }
 
           // call update on child widgets
