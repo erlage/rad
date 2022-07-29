@@ -374,7 +374,9 @@ class WidgetTester {
 
   /// Find dom node by global key under app context.
   ///
-  Element? getdomNodeByKey(Key key) {
+  Element? getdomNodeByKey(Key key) => getDomNodeByKey(key);
+
+  Element? getDomNodeByKey(Key key) {
     return getRenderElementByKeyValue(key)?.domNode;
   }
 
