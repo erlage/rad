@@ -1,0 +1,22 @@
+name: Spellcheck
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches: [ main ]
+  
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  spellcheck:
+    runs-on: ubuntu-latest
+    name: Spellcheck
+    steps:
+      - uses: actions/checkout@v3
+      - uses: streetsidesoftware/cspell-action@v1
+        with:
+          config: '.'
+          strict: true
+          incremental_files_only: true
