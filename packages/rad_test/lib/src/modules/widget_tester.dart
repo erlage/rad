@@ -447,9 +447,13 @@ class WidgetTester {
 
   /// Assert current path(if using window mock)
   ///
-  void assertMatchPath(String toMatch, {bool addHashIfMising = true}) {
+  void assertMatchPath(
+    String toMatch, {
+    bool addHashIfMissing = true,
+    @Deprecated('Use addHashIfMissing instead') bool? addHashIfMising,
+  }) {
     if (app.frameworkServices.router.options.enableHashBasedRouting) {
-      if (addHashIfMising) {
+      if (addHashIfMising ?? addHashIfMissing) {
         toMatch = '#$toMatch';
       }
 

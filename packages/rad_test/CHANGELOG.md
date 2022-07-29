@@ -2,6 +2,7 @@
 
 - WidgetTester.getdomNodeByKey is deprecated. Use get**D**omNodeByKey instead.
 - WidgetTester.getrenderElementByKeyValue is deprecated. Use get**R**enderElementByKeyValue instead.
+- Argument addHashIfMising of assertMatchPath is deprecated. Use addHashIfMis**s**ing instead.
 
 ## 0.5.0
 
