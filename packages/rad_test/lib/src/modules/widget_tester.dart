@@ -374,6 +374,7 @@ class WidgetTester {
 
   /// Find dom node by global key under app context.
   ///
+  @Deprecated('Use getDomNodeByKey instead')
   Element? getdomNodeByKey(Key key) => getDomNodeByKey(key);
 
   Element? getDomNodeByKey(Key key) {

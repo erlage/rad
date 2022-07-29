@@ -20,7 +20,7 @@ void main() {
       await tester.enterText(tester.find.byType(Input), 'hello world');
 
       expect(
-        tester.getdomNodeByKey(gkey),
+        tester.getDomNodeByKey(gkey),
         domNodeHasValue('hello world'),
       );
     });
@@ -33,12 +33,12 @@ void main() {
       );
 
       expect(
-        tester.getdomNodeByKey(gkey),
+        tester.getDomNodeByKey(gkey),
         domNodeHasValue('some text'),
       );
 
       await tester.enterText(tester.find.byType(Input), '');
-      expect(tester.getdomNodeByKey(gkey), domNodeHasValue(''));
+      expect(tester.getDomNodeByKey(gkey), domNodeHasValue(''));
     });
   });
 
@@ -50,7 +50,7 @@ void main() {
         const Input(key: gkey),
       );
 
-      expect(tester.getdomNodeByKey(gkey), domNodeHasNotFocus);
+      expect(tester.getDomNodeByKey(gkey), domNodeHasNotFocus);
     });
 
     testWidgets('should focus', (tester) async {
@@ -62,7 +62,7 @@ void main() {
 
       await tester.focus(tester.find.byType(Input));
 
-      expect(tester.getdomNodeByKey(gkey), domNodeHasFocus);
+      expect(tester.getDomNodeByKey(gkey), domNodeHasFocus);
     });
   });
 }

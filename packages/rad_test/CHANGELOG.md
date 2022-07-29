@@ -1,5 +1,6 @@
 ## 0.6.0
 
+- WidgetTester.getdomNodeByKey is deprecated. Use get**D**omNodeByKey instead.
 - WidgetTester.getrenderElementByKeyValue is deprecated. Use get**R**enderElementByKeyValue instead.
 
 ## 0.5.0
