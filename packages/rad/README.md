@@ -68,7 +68,7 @@ If you're familiar with Flutter it don't even need an explanation. Internally, R
     Here's how its equivalent will be written using widgets:
     ```dart
     Span(
-      classAttribute: 'heading big',
+      className: 'heading big',
       children: [
         Strong(innerText: 'hello world'),
       ],
