@@ -120,11 +120,11 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var gparent = app!.navigatorState('g-parent');
+      var gParent = app!.navigatorState('g-parent');
       var parent = app!.navigatorState('parent');
       var child = app!.navigatorState('child');
 
-      expect(gparent.currentRouteName, 'g-p-route-1');
+      expect(gParent.currentRouteName, 'g-p-route-1');
       expect(parent.currentRouteName, 'p-route-1');
       expect(child.currentRouteName, 'c-route-1');
     });
@@ -178,11 +178,11 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var gparent = app!.navigatorState('g-parent');
+        var gParent = app!.navigatorState('g-parent');
         var parent = app!.navigatorState('parent');
         var child = app!.navigatorState('child');
 
-        expect(gparent.currentRouteName, 'g-p-route-1');
+        expect(gParent.currentRouteName, 'g-p-route-1');
         expect(parent.currentRouteName, 'p-route-1');
         expect(child.currentRouteName, 'c-route-1');
       },
@@ -295,8 +295,8 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var gparent = app!.navigatorState('g-parent');
-        expect(gparent.currentRouteName, 'g-p-route-1');
+        var gParent = app!.navigatorState('g-parent');
+        expect(gParent.currentRouteName, 'g-p-route-1');
 
         var parent = app!.navigatorState('parent');
         expect(parent.currentRouteName, 'p-route-1');
@@ -344,8 +344,8 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var gparent = app!.navigatorState('g-parent');
-        expect(gparent.currentRouteName, 'g-p-route-1');
+        var gParent = app!.navigatorState('g-parent');
+        expect(gParent.currentRouteName, 'g-p-route-1');
 
         var parent = app!.navigatorState('parent');
         expect(parent.currentRouteName, 'p-route-1');
@@ -599,8 +599,8 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var gparent = app!.navigatorState('g-parent');
-      expect(gparent.currentRouteName, 'g-p-route-2');
+      var gParent = app!.navigatorState('g-parent');
+      expect(gParent.currentRouteName, 'g-p-route-2');
 
       var parent = app!.navigatorState('parent');
       expect(parent.currentRouteName, 'p-route-1');
@@ -646,8 +646,8 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var gparent = app!.navigatorState('g-parent');
-        expect(gparent.currentRouteName, 'g-p-route-2');
+        var gParent = app!.navigatorState('g-parent');
+        expect(gParent.currentRouteName, 'g-p-route-2');
 
         var parent = app!.navigatorState('parent');
         expect(parent.currentRouteName, 'p-route-1');
@@ -713,8 +713,8 @@ void main() {
     test('should open default in parent', () async {
       for (final path in [
         '/',
-        '/p-afdkjf',
-        'p-afdkjf/',
+        '/p-something',
+        'p-something/',
         '///',
         '//p-route-1/',
       ]) {
@@ -729,8 +729,8 @@ void main() {
         '/p-route-1',
         'p-route-1/',
         '/p-route-1/',
-        '/p-route-1/asdasd',
-        'p-route-1/asdas',
+        '/p-route-1/cat',
+        'p-route-1/bird',
         '/p-route-1/c-p1-route-1',
         '/p-route-1/c-p1-route-2',
         '/p-route-1/c-p2-route-2',
@@ -745,8 +745,8 @@ void main() {
         '/p-route-2',
         'p-route-2/',
         '/p-route-2/',
-        '/p-route-2/asdasd',
-        'p-route-2/asdas',
+        '/p-route-2/cat',
+        'p-route-2/bird',
         '/p-route-2/c-p2-route-1',
         '/p-route-2/c-p2-route-2',
         '/p-route-2/c-p1-route-2',
@@ -760,10 +760,10 @@ void main() {
     test('should open default child', () async {
       for (final path in [
         '/p-route-1/',
-        '/p-route-1/p-afdkjf',
-        '/p-route-1/p-afdkjf/',
+        '/p-route-1/p-something',
+        '/p-route-1/p-something/',
         '/p-route-1///',
-        '/p-route-1//asd/',
+        '/p-route-1//butterfly/',
         '/p-route-1//c-p1-route-1/',
       ]) {
         await build(path);
@@ -772,10 +772,10 @@ void main() {
 
       for (final path in [
         '/p-route-2/',
-        '/p-route-2/p-afdkjf',
-        '/p-route-2/p-afdkjf/',
+        '/p-route-2/p-something',
+        '/p-route-2/p-something/',
         '/p-route-2///',
-        '/p-route-2//asd/',
+        '/p-route-2//butterfly/',
         '/p-route-2//c-p1-route-1/',
         '/p-route-2//c-p2-route-1/',
       ]) {
@@ -789,10 +789,10 @@ void main() {
         '/p-route-1/c-p1-route-2',
         '/p-route-1/c-p1-route-2/',
         '/p-route-1///c-p1-route-2/',
-        '/p-route-1/asdas/c-p1-route-2/',
-        '/p-route-1/c-p1-route-2/asdasd/',
-        '/p-route-1///c-p1-route-2/asdasd',
-        '/p-route-1///c-p1-route-2/asdasd/',
+        '/p-route-1/bird/c-p1-route-2/',
+        '/p-route-1/c-p1-route-2/cat/',
+        '/p-route-1///c-p1-route-2/cat',
+        '/p-route-1///c-p1-route-2/cat/',
       ]) {
         await build(path);
         expect(state('child-p1').currentRouteName, 'c-p1-route-2');
@@ -802,10 +802,10 @@ void main() {
         '/p-route-2/c-p2-route-2',
         '/p-route-2/c-p2-route-2/',
         '/p-route-2///c-p2-route-2/',
-        '/p-route-2/asdas//c-p2-route-2/',
-        '/p-route-2/c-p2-route-2/asdasd/',
-        '/p-route-2///c-p2-route-2/asdasd',
-        '/p-route-2///c-p2-route-2/asdasd/',
+        '/p-route-2/bird//c-p2-route-2/',
+        '/p-route-2/c-p2-route-2/cat/',
+        '/p-route-2///c-p2-route-2/cat',
+        '/p-route-2///c-p2-route-2/cat/',
       ]) {
         await build(path);
         expect(state('child-p2').currentRouteName, 'c-p2-route-2');

@@ -48,11 +48,11 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var gparent = app!.domNodeByKeyValue('el-g-parent');
+      var gParent = app!.domNodeByKeyValue('el-g-parent');
       var parent = app!.domNodeByKeyValue('el-parent');
       var child = app!.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('click')); // first
+      gParent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second
       child.dispatchEvent(Event('click')); // third
 
@@ -103,11 +103,11 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var gparent = app!.domNodeByKeyValue('el-g-parent');
+      var gParent = app!.domNodeByKeyValue('el-g-parent');
       var parent = app!.domNodeByKeyValue('el-parent');
       var child = app!.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('click')); // first
+      gParent.dispatchEvent(Event('click')); // first
       parent.dispatchEvent(Event('click')); // second
       child.dispatchEvent(Event('click')); // third
 
@@ -158,11 +158,11 @@ void main() {
           parentRenderElement: app!.appRenderElement,
         );
 
-        var gparent = app!.domNodeByKeyValue('el-g-parent');
+        var gParent = app!.domNodeByKeyValue('el-g-parent');
         var parent = app!.domNodeByKeyValue('el-parent');
         var child = app!.domNodeByKeyValue('el-child');
 
-        gparent.dispatchEvent(Event('click')); // first
+        gParent.dispatchEvent(Event('click')); // first
         parent.dispatchEvent(Event('click')); // second
         child.dispatchEvent(Event('click')); // third
 
@@ -298,11 +298,11 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var gparent = app!.domNodeByKeyValue('el-g-parent');
+      var gParent = app!.domNodeByKeyValue('el-g-parent');
       var parent = app!.domNodeByKeyValue('el-parent');
       var child = app!.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('input')); // first
+      gParent.dispatchEvent(Event('input')); // first
       parent.dispatchEvent(Event('input')); // second
       child.dispatchEvent(Event('input')); // third
 
@@ -436,11 +436,11 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var gparent = app!.domNodeByKeyValue('el-g-parent');
+      var gParent = app!.domNodeByKeyValue('el-g-parent');
       var parent = app!.domNodeByKeyValue('el-parent');
       var child = app!.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('change')); // first
+      gParent.dispatchEvent(Event('change')); // first
       parent.dispatchEvent(Event('change')); // second
       child.dispatchEvent(Event('change')); // third
 
@@ -574,11 +574,11 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var gparent = app!.domNodeByKeyValue('el-g-parent');
+      var gParent = app!.domNodeByKeyValue('el-g-parent');
       var parent = app!.domNodeByKeyValue('el-parent');
       var child = app!.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('submit')); // first
+      gParent.dispatchEvent(Event('submit')); // first
       parent.dispatchEvent(Event('submit')); // second
       child.dispatchEvent(Event('submit')); // third
 
@@ -712,11 +712,11 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var gparent = app!.domNodeByKeyValue('el-g-parent');
+      var gParent = app!.domNodeByKeyValue('el-g-parent');
       var parent = app!.domNodeByKeyValue('el-parent');
       var child = app!.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('keyup')); // first
+      gParent.dispatchEvent(Event('keyup')); // first
       parent.dispatchEvent(Event('keyup')); // second
       child.dispatchEvent(Event('keyup')); // third
 
@@ -850,11 +850,11 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var gparent = app!.domNodeByKeyValue('el-g-parent');
+      var gParent = app!.domNodeByKeyValue('el-g-parent');
       var parent = app!.domNodeByKeyValue('el-parent');
       var child = app!.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('keydown')); // first
+      gParent.dispatchEvent(Event('keydown')); // first
       parent.dispatchEvent(Event('keydown')); // second
       child.dispatchEvent(Event('keydown')); // third
 
@@ -988,11 +988,11 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var gparent = app!.domNodeByKeyValue('el-g-parent');
+      var gParent = app!.domNodeByKeyValue('el-g-parent');
       var parent = app!.domNodeByKeyValue('el-parent');
       var child = app!.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('keypress')); // first
+      gParent.dispatchEvent(Event('keypress')); // first
       parent.dispatchEvent(Event('keypress')); // second
       child.dispatchEvent(Event('keypress')); // third
 

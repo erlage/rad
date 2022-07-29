@@ -88,11 +88,11 @@ void event_on_mouse_enter_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var gParent = pap.domNodeByKeyValue('el-g-parent');
       var parent = pap.domNodeByKeyValue('el-parent');
       var child = pap.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('mouseenter')); // first
+      gParent.dispatchEvent(Event('mouseenter')); // first
       parent.dispatchEvent(Event('mouseenter')); // second
       child.dispatchEvent(Event('mouseenter')); // third
       await Future.delayed(Duration(milliseconds: 50));
@@ -241,11 +241,11 @@ void event_on_mouse_enter_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var gParent = pap.domNodeByKeyValue('el-g-parent');
       var parent = pap.domNodeByKeyValue('el-parent');
       var child = pap.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('mouseenter')); // first
+      gParent.dispatchEvent(Event('mouseenter')); // first
       parent.dispatchEvent(Event('mouseenter')); // second
       child.dispatchEvent(Event('mouseenter')); // third
       await Future.delayed(Duration(milliseconds: 50));
@@ -302,11 +302,11 @@ void event_on_mouse_enter_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var gParent = pap.domNodeByKeyValue('el-g-parent');
       var parent = pap.domNodeByKeyValue('el-parent');
       var child = pap.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('mouseenter')); // first
+      gParent.dispatchEvent(Event('mouseenter')); // first
       parent.dispatchEvent(Event('mouseenter')); // second
       child.dispatchEvent(Event('mouseenter')); // third
       await Future.delayed(Duration(milliseconds: 50));

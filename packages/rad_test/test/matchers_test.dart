@@ -147,8 +147,8 @@ void main() {
         ' │ size: (400x200)\n',
         ' ╘═╦══ text ═══\n',
         '   ║ TextSpan:\n',
-        '   ║   "I polished up that handle so carefullee\n',
-        '   ║   That now I am the Ruler of the Queen\'s Navee!"\n',
+        '   ║   "I polished up that handle so carefully\n',
+        '   ║   That now I am the Ruler of the Queen\'s Navy!"\n',
         '   ╚═══════════\n'
       ]),
       hasAGoodToStringDeep,
@@ -161,8 +161,8 @@ void main() {
         ' │ size: (400x200)\n',
         ' ╘═╦══ text ═══\n',
         '   ║ TextSpan:\n',
-        '   ║   "I polished up that handle so carefullee\nThat now I am the '
-            'Ruler of the Queen\'s Navee!"\n',
+        '   ║   "I polished up that handle so carefully\nThat now I am the '
+            'Ruler of the Queen\'s Navy!"\n',
         '   ╚═══════════\n'
       ]),
       isNot(hasAGoodToStringDeep),

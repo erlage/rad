@@ -88,11 +88,11 @@ void event_on_drag_end_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var gParent = pap.domNodeByKeyValue('el-g-parent');
       var parent = pap.domNodeByKeyValue('el-parent');
       var child = pap.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('dragend')); // first
+      gParent.dispatchEvent(Event('dragend')); // first
       parent.dispatchEvent(Event('dragend')); // second
       child.dispatchEvent(Event('dragend')); // third
       await Future.delayed(Duration(milliseconds: 50));
@@ -241,11 +241,11 @@ void event_on_drag_end_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var gParent = pap.domNodeByKeyValue('el-g-parent');
       var parent = pap.domNodeByKeyValue('el-parent');
       var child = pap.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('dragend')); // first
+      gParent.dispatchEvent(Event('dragend')); // first
       parent.dispatchEvent(Event('dragend')); // second
       child.dispatchEvent(Event('dragend')); // third
       await Future.delayed(Duration(milliseconds: 50));
@@ -302,11 +302,11 @@ void event_on_drag_end_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var gParent = pap.domNodeByKeyValue('el-g-parent');
       var parent = pap.domNodeByKeyValue('el-parent');
       var child = pap.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('dragend')); // first
+      gParent.dispatchEvent(Event('dragend')); // first
       parent.dispatchEvent(Event('dragend')); // second
       child.dispatchEvent(Event('dragend')); // third
       await Future.delayed(Duration(milliseconds: 50));

@@ -88,11 +88,11 @@ void event_on_change_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var gParent = pap.domNodeByKeyValue('el-g-parent');
       var parent = pap.domNodeByKeyValue('el-parent');
       var child = pap.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('change')); // first
+      gParent.dispatchEvent(Event('change')); // first
       parent.dispatchEvent(Event('change')); // second
       child.dispatchEvent(Event('change')); // third
       await Future.delayed(Duration(milliseconds: 50));
@@ -241,11 +241,11 @@ void event_on_change_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var gParent = pap.domNodeByKeyValue('el-g-parent');
       var parent = pap.domNodeByKeyValue('el-parent');
       var child = pap.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('change')); // first
+      gParent.dispatchEvent(Event('change')); // first
       parent.dispatchEvent(Event('change')); // second
       child.dispatchEvent(Event('change')); // third
       await Future.delayed(Duration(milliseconds: 50));
@@ -302,11 +302,11 @@ void event_on_change_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var gParent = pap.domNodeByKeyValue('el-g-parent');
       var parent = pap.domNodeByKeyValue('el-parent');
       var child = pap.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('change')); // first
+      gParent.dispatchEvent(Event('change')); // first
       parent.dispatchEvent(Event('change')); // second
       child.dispatchEvent(Event('change')); // third
       await Future.delayed(Duration(milliseconds: 50));

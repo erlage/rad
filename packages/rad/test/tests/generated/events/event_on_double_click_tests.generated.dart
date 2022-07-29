@@ -91,11 +91,11 @@ void event_on_double_click_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var gParent = pap.domNodeByKeyValue('el-g-parent');
       var parent = pap.domNodeByKeyValue('el-parent');
       var child = pap.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('dblclick')); // first
+      gParent.dispatchEvent(Event('dblclick')); // first
       parent.dispatchEvent(Event('dblclick')); // second
       child.dispatchEvent(Event('dblclick')); // third
       await Future.delayed(Duration(milliseconds: 50));
@@ -147,11 +147,11 @@ void event_on_double_click_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var gParent = pap.domNodeByKeyValue('el-g-parent');
       var parent = pap.domNodeByKeyValue('el-parent');
       var child = pap.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('dblclick')); // first
+      gParent.dispatchEvent(Event('dblclick')); // first
       parent.dispatchEvent(Event('dblclick')); // second
       child.dispatchEvent(Event('dblclick')); // third
       await Future.delayed(Duration(milliseconds: 50));
@@ -201,11 +201,11 @@ void event_on_double_click_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var gParent = pap.domNodeByKeyValue('el-g-parent');
       var parent = pap.domNodeByKeyValue('el-parent');
       var child = pap.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('dblclick')); // first
+      gParent.dispatchEvent(Event('dblclick')); // first
       parent.dispatchEvent(Event('dblclick')); // second
       child.dispatchEvent(Event('dblclick')); // third
       await Future.delayed(Duration(milliseconds: 50));
@@ -255,11 +255,11 @@ void event_on_double_click_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var gParent = pap.domNodeByKeyValue('el-g-parent');
       var parent = pap.domNodeByKeyValue('el-parent');
       var child = pap.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('dblclick')); // first
+      gParent.dispatchEvent(Event('dblclick')); // first
       parent.dispatchEvent(Event('dblclick')); // second
       child.dispatchEvent(Event('dblclick')); // third
       await Future.delayed(Duration(milliseconds: 50));
@@ -308,11 +308,11 @@ void event_on_double_click_test() {
         parentRenderElement: pap.appRenderElement,
       );
 
-      var gparent = pap.domNodeByKeyValue('el-g-parent');
+      var gParent = pap.domNodeByKeyValue('el-g-parent');
       var parent = pap.domNodeByKeyValue('el-parent');
       var child = pap.domNodeByKeyValue('el-child');
 
-      gparent.dispatchEvent(Event('dblclick')); // first
+      gParent.dispatchEvent(Event('dblclick')); // first
       parent.dispatchEvent(Event('dblclick')); // second
       child.dispatchEvent(Event('dblclick')); // third
       await Future.delayed(Duration(milliseconds: 50));

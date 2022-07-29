@@ -27,11 +27,11 @@ test('should capture event', () async {
     parentRenderElement: pap.appRenderElement,
   );
 
-  var gparent = pap.domNodeByKeyValue('el-g-parent');
+  var gParent = pap.domNodeByKeyValue('el-g-parent');
   var parent = pap.domNodeByKeyValue('el-parent');
   var child = pap.domNodeByKeyValue('el-child');
 
-  gparent.dispatchEvent(Event('__EventNativeName__')); // first
+  gParent.dispatchEvent(Event('__EventNativeName__')); // first
   parent.dispatchEvent(Event('__EventNativeName__'));  // second
   child.dispatchEvent(Event('__EventNativeName__'));   // third
   await Future.delayed(Duration(milliseconds: 50));
@@ -80,11 +80,11 @@ test('should capture event(with multiple capture listeners)', () async {
     parentRenderElement: pap.appRenderElement,
   );
 
-  var gparent = pap.domNodeByKeyValue('el-g-parent');
+  var gParent = pap.domNodeByKeyValue('el-g-parent');
   var parent = pap.domNodeByKeyValue('el-parent');
   var child = pap.domNodeByKeyValue('el-child');
 
-  gparent.dispatchEvent(Event('__EventNativeName__')); // first
+  gParent.dispatchEvent(Event('__EventNativeName__')); // first
   parent.dispatchEvent(Event('__EventNativeName__'));  // second
   child.dispatchEvent(Event('__EventNativeName__'));   // third
   await Future.delayed(Duration(milliseconds: 50));

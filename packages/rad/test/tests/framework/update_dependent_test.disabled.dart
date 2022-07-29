@@ -9,16 +9,16 @@ import '../../test_imports.dart';
 void main() {
   group('update dependent tests:', () {
     testWidgets('should call update on dependent', (tester) async {
-      var gkey = Key('gkey');
+      var gKey = Key('gKey');
 
       await tester.pumpWidget(
         RT_TestWidget(
-          key: gkey,
+          key: gKey,
           roEventUpdate: () => tester.push('update'),
         ),
       );
 
-      var wo = tester.getRenderElementByKeyValue(gkey)!;
+      var wo = tester.getRenderElementByKeyValue(gKey)!;
 
       await tester.updateRenderElementAsIfDependant(wo);
       await tester.updateRenderElementAsIfDependant(wo);
@@ -30,16 +30,16 @@ void main() {
     });
 
     testWidgets('should set update type to dependencyChanged', (tester) async {
-      var gkey = Key('gkey');
+      var gKey = Key('gKey');
 
       await tester.pumpWidget(
         RT_TestWidget(
-          key: gkey,
+          key: gKey,
           roHookUpdate: (type) => tester.push(type.name),
         ),
       );
 
-      var wo = tester.getRenderElementByKeyValue(gkey)!;
+      var wo = tester.getRenderElementByKeyValue(gKey)!;
 
       await tester.updateRenderElementAsIfDependant(wo);
       await tester.updateRenderElementAsIfDependant(wo);
