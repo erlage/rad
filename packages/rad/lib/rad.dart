@@ -58,6 +58,7 @@ export 'src/core/common/types.dart' show VoidCallback;
 export 'src/core/common/types.dart' show EventCallback;
 export 'src/core/common/types.dart' show NativeEventCallback;
 export 'src/core/common/types.dart' show ExceptionCallback;
+export 'src/core/common/types.dart' show NullableElementCallback;
 export 'src/core/common/types.dart' show PopStateEventCallback;
 export 'src/core/common/types.dart' show NavigatorStateCallback;
 export 'src/core/common/types.dart' show NavigatorRouteChangeCallback;
