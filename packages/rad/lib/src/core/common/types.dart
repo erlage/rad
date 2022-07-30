@@ -26,6 +26,8 @@ typedef RenderEventCallback = void Function(RenderEvent event);
 
 typedef ExceptionCallback = void Function(Exception event);
 
+typedef NullableElementCallback = void Function(Element? element);
+
 typedef PopStateEventCallback = void Function(PopStateEvent event);
 
 typedef NavigatorStateCallback = void Function(NavigatorState state);
