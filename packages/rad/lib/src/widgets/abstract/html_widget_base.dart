@@ -18,6 +18,13 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 ///
 @internal
 abstract class HTMLWidgetBase extends Widget {
+  /// Reference callback.
+  ///
+  /// Rad will call the ref callback with the DOM element before widget renders,
+  /// and call it with null before it unmounts.
+  ///
+  final NullableElementCallback? ref;
+
   /// ID of dom node.
   ///
   final String? id;
@@ -68,6 +75,7 @@ abstract class HTMLWidgetBase extends Widget {
 
   const HTMLWidgetBase({
     Key? key,
+    this.ref,
     this.id,
     this.title,
     this.style,
@@ -150,6 +158,23 @@ class HTMLRenderElementBase extends RenderElement {
   | lifecycle hooks
   |-------------------------------------------------------------------------
   */
+
+  @mustCallSuper
+  @override
+  void register() {
+    assert(null != domNode, 'DomNode is not bound yet');
+
+    var refCallback = (widget as HTMLWidgetBase).ref;
+    if (null != refCallback) {
+      refCallback(domNode);
+
+      addRenderEventListeners({
+        RenderEventType.willUnMount: (_) {
+          refCallback(null);
+        }
+      });
+    }
+  }
 
   @mustCallSuper
   @override
