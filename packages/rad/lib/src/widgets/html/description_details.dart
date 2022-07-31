@@ -13,6 +13,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 class DescriptionDetails extends HTMLWidgetBase {
   const DescriptionDetails({
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -25,6 +26,7 @@ class DescriptionDetails extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

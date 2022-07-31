@@ -19,9 +19,10 @@ class Label extends HTMLWidgetBase {
   final String? forAttribute;
 
   const Label({
-    Key? key,
-    String? id,
     this.forAttribute,
+    Key? key,
+    NullableElementCallback? ref,
+    String? id,
     String? title,
     String? style,
     String? className,
@@ -33,6 +34,7 @@ class Label extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

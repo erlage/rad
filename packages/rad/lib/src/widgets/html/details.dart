@@ -18,8 +18,9 @@ class Details extends HTMLWidgetBase {
   final bool? open;
 
   const Details({
-    Key? key,
     this.open,
+    Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -32,6 +33,7 @@ class Details extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

@@ -13,6 +13,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 class Emphasis extends HTMLWidgetBase {
   const Emphasis({
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -25,6 +26,7 @@ class Emphasis extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

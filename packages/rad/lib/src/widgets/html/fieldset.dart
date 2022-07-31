@@ -35,6 +35,7 @@ class FieldSet extends HTMLWidgetBase {
     this.form,
     this.disabled,
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -47,6 +48,7 @@ class FieldSet extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

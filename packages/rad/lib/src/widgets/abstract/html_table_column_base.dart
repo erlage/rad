@@ -24,6 +24,7 @@ abstract class HTMLTableColumnBase extends HTMLWidgetBase {
   const HTMLTableColumnBase({
     this.span,
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -36,6 +37,7 @@ abstract class HTMLTableColumnBase extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

@@ -26,6 +26,7 @@ class Progress extends HTMLWidgetBase {
     this.value,
     this.max,
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -38,6 +39,7 @@ class Progress extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

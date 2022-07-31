@@ -14,6 +14,7 @@ class BidirectionalIsolate extends HTMLBidirectionalBase {
   const BidirectionalIsolate({
     DirectionType? dir,
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -27,6 +28,7 @@ class BidirectionalIsolate extends HTMLBidirectionalBase {
   }) : super(
           dir: dir,
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

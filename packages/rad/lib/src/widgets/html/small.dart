@@ -16,6 +16,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 class Small extends HTMLWidgetBase {
   const Small({
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -28,6 +29,7 @@ class Small extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

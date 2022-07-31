@@ -20,6 +20,7 @@ class Time extends HTMLWidgetBase {
   const Time({
     this.dateTime,
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -32,6 +33,7 @@ class Time extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

@@ -13,6 +13,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 class Heading1 extends HTMLWidgetBase {
   const Heading1({
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -25,6 +26,7 @@ class Heading1 extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,
@@ -46,6 +48,7 @@ class Heading1 extends HTMLWidgetBase {
 class Heading2 extends HTMLWidgetBase {
   const Heading2({
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -58,6 +61,7 @@ class Heading2 extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,
@@ -79,6 +83,7 @@ class Heading2 extends HTMLWidgetBase {
 class Heading3 extends HTMLWidgetBase {
   const Heading3({
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -91,6 +96,7 @@ class Heading3 extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,
@@ -112,6 +118,7 @@ class Heading3 extends HTMLWidgetBase {
 class Heading4 extends HTMLWidgetBase {
   const Heading4({
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -124,6 +131,7 @@ class Heading4 extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,
@@ -145,6 +153,7 @@ class Heading4 extends HTMLWidgetBase {
 class Heading5 extends HTMLWidgetBase {
   const Heading5({
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -157,6 +166,7 @@ class Heading5 extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,
@@ -178,6 +188,7 @@ class Heading5 extends HTMLWidgetBase {
 class Heading6 extends HTMLWidgetBase {
   const Heading6({
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -190,6 +201,7 @@ class Heading6 extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

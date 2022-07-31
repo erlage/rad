@@ -70,7 +70,6 @@ class ImageMapArea extends HTMLWidgetBase {
   final String? download;
 
   const ImageMapArea({
-    Key? key,
     this.alt,
     this.coords,
     this.href,
@@ -81,6 +80,8 @@ class ImageMapArea extends HTMLWidgetBase {
     this.shape,
     this.target,
     this.download,
+    Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -93,6 +94,7 @@ class ImageMapArea extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

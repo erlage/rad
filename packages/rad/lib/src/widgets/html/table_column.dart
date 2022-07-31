@@ -12,9 +12,10 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 ///
 class TableColumn extends HTMLTableColumnBase {
   const TableColumn({
-    Key? key,
-    String? id,
     int? span,
+    Key? key,
+    NullableElementCallback? ref,
+    String? id,
     String? title,
     String? style,
     String? className,
@@ -25,9 +26,10 @@ class TableColumn extends HTMLTableColumnBase {
     EventCallback? onClick,
     Map<String, String>? additionalAttributes,
   }) : super(
-          key: key,
-          id: id,
           span: span,
+          key: key,
+          ref: ref,
+          id: id,
           title: title,
           style: style,
           className: className,

@@ -62,6 +62,7 @@ class Select extends HTMLWidgetBase {
     this.disabled,
     this.onChange,
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -74,6 +75,7 @@ class Select extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

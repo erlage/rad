@@ -43,7 +43,6 @@ class MediaSource extends HTMLWidgetBase {
   final String? width;
 
   const MediaSource({
-    Key? key,
     this.type,
     this.src,
     this.srcSet,
@@ -51,6 +50,8 @@ class MediaSource extends HTMLWidgetBase {
     this.media,
     this.height,
     this.width,
+    Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -63,6 +64,7 @@ class MediaSource extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

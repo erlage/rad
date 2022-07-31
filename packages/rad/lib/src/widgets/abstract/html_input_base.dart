@@ -259,6 +259,7 @@ abstract class HTMLInputBase extends HTMLWidgetBase {
     this.onKeyDown,
     this.onKeyPress,
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -271,6 +272,7 @@ abstract class HTMLInputBase extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

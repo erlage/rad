@@ -39,12 +39,13 @@ class EmbedTextTrack extends HTMLWidgetBase {
   final String? srcLang;
 
   const EmbedTextTrack({
-    Key? key,
     this.defaultAttribute,
     this.kind,
     this.label,
     this.src,
     this.srcLang,
+    Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -57,6 +58,7 @@ class EmbedTextTrack extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

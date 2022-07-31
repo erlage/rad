@@ -61,6 +61,7 @@ class Image extends HTMLWidgetBase {
     this.width,
     this.height,
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -73,6 +74,7 @@ class Image extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,
