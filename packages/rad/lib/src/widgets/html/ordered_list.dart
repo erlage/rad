@@ -32,6 +32,7 @@ class OrderedList extends HTMLWidgetBase {
     this.reversed,
     this.type,
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -44,6 +45,7 @@ class OrderedList extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

@@ -47,7 +47,6 @@ class Anchor extends HTMLWidgetBase {
   final String? type;
 
   const Anchor({
-    Key? key,
     this.href,
     this.hrefLang,
     this.ping,
@@ -56,6 +55,8 @@ class Anchor extends HTMLWidgetBase {
     this.target,
     this.download,
     this.type,
+    Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -68,6 +69,7 @@ class Anchor extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

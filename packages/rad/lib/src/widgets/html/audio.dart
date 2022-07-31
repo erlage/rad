@@ -51,7 +51,6 @@ class Audio extends HTMLWidgetBase {
   final String? src;
 
   const Audio({
-    Key? key,
     this.autoPlay,
     this.controls,
     this.crossOrigin,
@@ -59,6 +58,8 @@ class Audio extends HTMLWidgetBase {
     this.muted,
     this.preload,
     this.src,
+    Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -71,6 +72,7 @@ class Audio extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

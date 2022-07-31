@@ -58,6 +58,7 @@ abstract class HTMLTableCellBase extends HTMLWidgetBase {
     this.headers,
     this.scope,
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -70,6 +71,7 @@ abstract class HTMLTableCellBase extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

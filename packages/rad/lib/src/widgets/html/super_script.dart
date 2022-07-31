@@ -17,6 +17,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 class SuperScript extends HTMLWidgetBase {
   const SuperScript({
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -29,6 +30,7 @@ class SuperScript extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

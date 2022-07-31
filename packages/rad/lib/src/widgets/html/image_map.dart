@@ -17,8 +17,9 @@ class ImageMap extends HTMLWidgetBase {
   final String? name;
 
   const ImageMap({
-    Key? key,
     this.name,
+    Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -31,6 +32,7 @@ class ImageMap extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

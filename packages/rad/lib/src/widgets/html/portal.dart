@@ -22,9 +22,10 @@ class Portal extends HTMLWidgetBase {
   final String? src;
 
   const Portal({
-    Key? key,
     this.referrerPolicy,
     this.src,
+    Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -37,6 +38,7 @@ class Portal extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

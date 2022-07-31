@@ -31,6 +31,7 @@ abstract class HTMLAlteredTextBase extends HTMLWidgetBase {
     this.cite,
     this.dateTime,
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -43,6 +44,7 @@ abstract class HTMLAlteredTextBase extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

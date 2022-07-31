@@ -13,6 +13,7 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 class LineBreakOpportunity extends HTMLWidgetBase {
   const LineBreakOpportunity({
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -25,6 +26,7 @@ class LineBreakOpportunity extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

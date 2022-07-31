@@ -18,8 +18,9 @@ class BlockQuote extends HTMLWidgetBase {
   final String? cite;
 
   const BlockQuote({
-    Key? key,
     this.cite,
+    Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -32,6 +33,7 @@ class BlockQuote extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

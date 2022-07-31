@@ -72,7 +72,6 @@ class Video extends HTMLWidgetBase {
   final String? width;
 
   const Video({
-    Key? key,
     this.autoPlay,
     this.controls,
     this.crossOrigin,
@@ -84,6 +83,8 @@ class Video extends HTMLWidgetBase {
     this.preload,
     this.src,
     this.width,
+    Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -96,6 +97,7 @@ class Video extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

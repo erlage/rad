@@ -71,6 +71,7 @@ class Form extends HTMLWidgetBase {
     this.target,
     this.onSubmit,
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -83,6 +84,7 @@ class Form extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

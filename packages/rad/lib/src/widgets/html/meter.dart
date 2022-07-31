@@ -44,6 +44,7 @@ class Meter extends HTMLWidgetBase {
     this.low,
     this.optimum,
     Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -56,6 +57,7 @@ class Meter extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,

@@ -29,11 +29,12 @@ class EmbedExternal extends HTMLWidgetBase {
   final String? width;
 
   const EmbedExternal({
-    Key? key,
     this.height,
     this.src,
     this.type,
     this.width,
+    Key? key,
+    NullableElementCallback? ref,
     String? id,
     String? title,
     String? style,
@@ -46,6 +47,7 @@ class EmbedExternal extends HTMLWidgetBase {
     Map<String, String>? additionalAttributes,
   }) : super(
           key: key,
+          ref: ref,
           id: id,
           title: title,
           style: style,
