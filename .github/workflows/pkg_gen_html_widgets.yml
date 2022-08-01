@@ -1,0 +1,35 @@
+name: 'Package generator: Custom HTML widgets'
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches: [ main ]
+    paths:
+      - 'packages/rad/lib/src/widgets/abstract/**'
+      - 'packages/rad/lib/src/widgets/html/**'
+      - 'tool/**'
+  
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'packages/rad/lib/src/widgets/abstract/**'
+      - 'packages/rad/lib/src/widgets/html/**'
+      - 'tool/**'
+
+jobs:
+  build: 
+    runs-on: ubuntu-latest
+    name: Build
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+          
+      - name: Run build
+        run: |
+          cd tool/pkg-gen-html-widgets
+          bash test_build.sh
