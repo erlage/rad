@@ -3,8 +3,10 @@
 analyze() {
     dart pub get
     dart format .
-    OUTPUT="$(dart analyze --fatal-infos)"
     
+    # https://gist.github.com/cubuspl42/ad277079f2cbc3c0bddb10f63ba1a3d2
+    
+    OUTPUT="$(dart analyze --fatal-infos)"
     echo "$OUTPUT"
 
     if grep -q "error" <<< "$OUTPUT"; then
