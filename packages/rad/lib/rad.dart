@@ -42,8 +42,9 @@ export 'src/core/common/enums.dart' show WrapType;
 export 'src/core/common/enums.dart' show SpellCheckType;
 export 'src/core/common/enums.dart' show ScopeType;
 
-export 'src/core/common/enums.dart' show DomEventType;
 export 'src/core/common/enums.dart' show DomTagType;
+export 'src/core/common/enums.dart' show DomEventType;
+export 'src/core/common/enums.dart' show RenderEventType;
 
 export 'src/core/common/enums.dart' show UpdateType;
 
@@ -80,6 +81,7 @@ export 'src/core/interface/window/abstract.dart' show WindowDelegate;
 export 'src/core/common/objects/key.dart' show Key;
 export 'src/widgets/abstract/widget.dart' show Widget;
 export 'src/core/services/events/emitted_event.dart' show EmittedEvent;
+export 'src/core/common/objects/render_event.dart' show RenderEvent;
 export 'src/core/common/abstract/build_context.dart' show BuildContext;
 export 'src/core/common/abstract/render_element.dart' show RenderElement;
 export 'src/core/common/objects/common_render_elements.dart'
