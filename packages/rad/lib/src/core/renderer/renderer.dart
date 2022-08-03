@@ -8,7 +8,6 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/common/abstract/render_element.dart';
-import 'package:rad/src/core/common/abstract/watchful_render_element.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/common_render_elements.dart';
@@ -230,16 +229,26 @@ class Renderer with ServicesResolver {
 
     renderElement.frameworkInitRenderElement();
 
-    if (renderElement is WatchfulRenderElement) {
-      jobQueue.addPostDispatchCallback(renderElement.frameworkAfterMount);
-    }
+    // -----------------------------
 
     var domNodePatch = renderElement.frameworkRender(widget: widget);
     if (null != domNode && null != domNodePatch) {
       applyDomNodePatch(domNode: domNode, description: domNodePatch);
     }
 
-    // Register event listeners
+    if (renderElement.frameworkHasEventListenerOfType(
+      RenderEventType.afterRenderEffect,
+    )) {
+      jobQueue.addPostDispatchCallback(
+        () => renderElement.frameworkDispatchRenderEvent(
+          RenderEventType.afterRenderEffect,
+        ),
+      );
+    }
+
+    // -----------------------------
+
+    // Register DOM event listeners
 
     var bubbleEventListeners = widget.widgetEventListeners;
     var captureEventListeners = widget.widgetCaptureEventListeners;
@@ -557,9 +566,13 @@ class Renderer with ServicesResolver {
         });
       }
 
-      if (matchedRenderElement is WatchfulRenderElement) {
+      if (matchedRenderElement.frameworkHasEventListenerOfType(
+        RenderEventType.afterUpdateEffect,
+      )) {
         jobQueue.addPostDispatchCallback(
-          matchedRenderElement.frameworkAfterUpdate,
+          () => matchedRenderElement.frameworkDispatchRenderEvent(
+            RenderEventType.afterUpdateEffect,
+          ),
         );
       }
     } else {
@@ -818,9 +831,13 @@ class Renderer with ServicesResolver {
             });
           }
 
-          if (renderElement is WatchfulRenderElement) {
+          if (renderElement.frameworkHasEventListenerOfType(
+            RenderEventType.afterUpdateEffect,
+          )) {
             jobQueue.addPostDispatchCallback(
-              renderElement.frameworkAfterUpdate,
+              () => renderElement.frameworkDispatchRenderEvent(
+                RenderEventType.afterUpdateEffect,
+              ),
             );
           }
 
@@ -902,7 +919,7 @@ class Renderer with ServicesResolver {
       domNode?.remove();
     });
 
-    // Detach child elements and add a job to clean child elements
+    // Detach child elements
 
     if (renderElement.frameworkChildElements.isNotEmpty) {
       var childElements = renderElement.frameworkEjectChildRenderElements();
@@ -921,9 +938,18 @@ class Renderer with ServicesResolver {
 
     // Call lifecycle hooks
 
-    if (renderElement is WatchfulRenderElement) {
-      renderElement.frameworkDispose();
-      jobQueue.addPostDispatchCallback(renderElement.frameworkAfterUnMount);
+    renderElement.frameworkDispatchRenderEvent(
+      RenderEventType.beforeUnMountEffect,
+    );
+
+    if (renderElement.frameworkHasEventListenerOfType(
+      RenderEventType.afterUnMountEffect,
+    )) {
+      jobQueue.addPostDispatchCallback(
+        () => renderElement.frameworkDispatchRenderEvent(
+          RenderEventType.afterUnMountEffect,
+        ),
+      );
     }
 
     if (DEBUG_BUILD) {
@@ -946,9 +972,18 @@ class Renderer with ServicesResolver {
       );
     }
 
-    if (renderElement is WatchfulRenderElement) {
-      renderElement.frameworkDispose();
-      jobQueue.addPostDispatchCallback(renderElement.frameworkAfterUnMount);
+    renderElement.frameworkDispatchRenderEvent(
+      RenderEventType.beforeUnMountEffect,
+    );
+
+    if (renderElement.frameworkHasEventListenerOfType(
+      RenderEventType.afterUnMountEffect,
+    )) {
+      jobQueue.addPostDispatchCallback(
+        () => renderElement.frameworkDispatchRenderEvent(
+          RenderEventType.afterUnMountEffect,
+        ),
+      );
     }
 
     if (DEBUG_BUILD) {
