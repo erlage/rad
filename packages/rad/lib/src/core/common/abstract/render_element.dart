@@ -404,6 +404,11 @@ abstract class RenderElement implements BuildContext {
 
     _eventListeners = listeners;
 
+    if (_eventListeners.containsKey(RenderEventType.afterUnMountEffect) ||
+        _eventListeners.containsKey(RenderEventType.beforeUnMountEffect)) {
+      _announceUnMountListeners();
+    }
+
     _isEventsRegistered = true;
   }
 
@@ -488,6 +493,33 @@ abstract class RenderElement implements BuildContext {
     if (null != listener) {
       listener(const RenderEvent());
     }
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | framework reserved | event announce APIs
+  |--------------------------------------------------------------------------
+  */
+
+  /// Whether this part of tree contains any un-mount event listener.
+  ///
+  /// @nodoc
+  @internal
+  @nonVirtual
+  bool get frameworkContainsUnMountListeners => _containsUnMountListeners;
+  var _containsUnMountListeners = false;
+
+  /// @nodoc
+  @nonVirtual
+  void _announceUnMountListeners() {
+    visitAncestorElements((renderElement) {
+      if (renderElement.frameworkContainsUnMountListeners) {
+        return false;
+      }
+
+      renderElement._containsUnMountListeners = true;
+      return true;
+    });
   }
 
   /*

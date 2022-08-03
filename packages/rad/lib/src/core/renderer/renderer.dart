@@ -924,11 +924,13 @@ class Renderer with ServicesResolver {
     if (renderElement.frameworkChildElements.isNotEmpty) {
       var childElements = renderElement.frameworkEjectChildRenderElements();
 
-      for (final renderElement in childElements) {
-        disposeDetachedRenderElement(
-          renderElement: renderElement,
-          jobQueue: jobQueue,
-        );
+      if (renderElement.frameworkContainsUnMountListeners) {
+        for (final renderElement in childElements) {
+          disposeDetachedRenderElement(
+            renderElement: renderElement,
+            jobQueue: jobQueue,
+          );
+        }
       }
     }
 
@@ -965,11 +967,13 @@ class Renderer with ServicesResolver {
     required RenderElement renderElement,
     required JobQueue jobQueue,
   }) {
-    for (final childElement in renderElement.frameworkChildElements) {
-      disposeDetachedRenderElement(
-        renderElement: childElement,
-        jobQueue: jobQueue,
-      );
+    if (renderElement.frameworkContainsUnMountListeners) {
+      for (final childElement in renderElement.frameworkChildElements) {
+        disposeDetachedRenderElement(
+          renderElement: childElement,
+          jobQueue: jobQueue,
+        );
+      }
     }
 
     renderElement.frameworkDispatchRenderEvent(
