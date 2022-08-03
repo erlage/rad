@@ -12,6 +12,8 @@ import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/meta_information.dart';
+import 'package:rad/src/core/common/objects/render_event.dart';
+import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/interface/meta/meta.dart';
 import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
@@ -159,6 +161,10 @@ abstract class RenderElement implements BuildContext {
   */
 
   /// Register hook.
+  ///
+  /// This is the first method that framework calls as part of rendering
+  /// this widget on screen. It's safe to register event callbacks in this
+  /// method using [addRenderEventListeners].
   ///
   @protected
   void register() {}
@@ -381,6 +387,26 @@ abstract class RenderElement implements BuildContext {
     );
   }
 
+  /// Register RenderEvent listeners.
+  ///
+  @protected
+  void addRenderEventListeners(
+    Map<RenderEventType, RenderEventCallback> listeners,
+  ) {
+    assert(
+      _isInRegistrationPhase,
+      'addRenderEventListeners should be called in register()',
+    );
+    assert(
+      !_isEventsRegistered,
+      'addRenderEventListeners should be called exactly once',
+    );
+
+    _eventListeners = listeners;
+
+    _isEventsRegistered = true;
+  }
+
   /*
   |--------------------------------------------------------------------------
   | Below are framework reserved objects & APIs.
@@ -393,6 +419,10 @@ abstract class RenderElement implements BuildContext {
   /// Whether execution of [RenderElement.register] is pending.
   ///
   var _isInRegistrationPhase = true;
+
+  /// Whether addRenderEventListeners has been called.
+  ///
+  var _isEventsRegistered = false;
 
   /// @nodoc
   @nonVirtual
@@ -423,6 +453,42 @@ abstract class RenderElement implements BuildContext {
   @nonVirtual
   List<RenderElement> get frameworkChildElements => _childElements;
   final _childElements = <RenderElement>[];
+
+  /*
+  |--------------------------------------------------------------------------
+  | framework reserved | RenderEvents APIs
+  |--------------------------------------------------------------------------
+  */
+
+  var _eventListeners = const <RenderEventType, RenderEventCallback>{};
+
+  /// @nodoc
+  @internal
+  @nonVirtual
+  Map<RenderEventType, RenderEventCallback> get frameworkRenderEventListeners {
+    return _eventListeners;
+  }
+
+  /// @nodoc
+  @internal
+  @nonVirtual
+  bool frameworkHasEventListenerOfType(RenderEventType type) {
+    return _eventListeners.containsKey(type);
+  }
+
+  /// @nodoc
+  @internal
+  @nonVirtual
+  void frameworkDispatchRenderEvent(RenderEventType renderEventType) {
+    if (_eventListeners.isEmpty) {
+      return;
+    }
+
+    var listener = _eventListeners[renderEventType];
+    if (null != listener) {
+      listener(const RenderEvent());
+    }
+  }
 
   /*
   |--------------------------------------------------------------------------

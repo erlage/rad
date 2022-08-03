@@ -5,13 +5,14 @@
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/abstract/render_element.dart';
+import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/render_event.dart';
 
-/// Base class for render elements that are watching their position in the tree.
+/// A render element show casing lifecycle events.
 ///
-/// Watchful elements differs from other render elements in that framework
-/// consider them alive in tree and framework will let them know when it
-/// mounts or un-mounts them from tree so that these elements can take
-/// appropriate actions.
+/// This class serves as an example that shows additional functionality
+/// (such as lifecycle events) provided by [RenderElement]s. It can be used
+/// as-it-is as well.
 ///
 abstract class WatchfulRenderElement extends RenderElement {
   WatchfulRenderElement(super.widget, super.parent);
@@ -32,6 +33,13 @@ abstract class WatchfulRenderElement extends RenderElement {
   @nonVirtual
   @override
   void register() {
+    addRenderEventListeners({
+      RenderEventType.afterRenderEffect: frameworkAfterMount,
+      RenderEventType.afterUpdateEffect: frameworkAfterUpdate,
+      RenderEventType.beforeUnMountEffect: frameworkBeforeUnMount,
+      RenderEventType.afterUnMountEffect: frameworkAfterUnMount,
+    });
+
     init();
   }
 
@@ -89,7 +97,7 @@ abstract class WatchfulRenderElement extends RenderElement {
   /// @nodoc
   @internal
   @nonVirtual
-  void frameworkAfterMount() {
+  void frameworkAfterMount(RenderEvent event) {
     assert(!isMounted, 'Widget is already mounted');
 
     _isMounted = true;
@@ -100,21 +108,21 @@ abstract class WatchfulRenderElement extends RenderElement {
   /// @nodoc
   @internal
   @nonVirtual
-  void frameworkAfterUpdate() {
+  void frameworkAfterUpdate(RenderEvent event) {
     afterUpdate();
   }
 
   /// @nodoc
   @internal
   @nonVirtual
-  void frameworkDispose() {
+  void frameworkBeforeUnMount(RenderEvent event) {
     dispose();
   }
 
   /// @nodoc
   @internal
   @nonVirtual
-  void frameworkAfterUnMount() {
+  void frameworkAfterUnMount(RenderEvent event) {
     assert(isMounted, 'Widget is not mounted yet');
 
     _isMounted = false;
