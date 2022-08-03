@@ -234,9 +234,9 @@ class Renderer with ServicesResolver {
       renderElement.frameworkBindDomNode(domNode: domNode);
     }
 
-    if (renderElement is WatchfulRenderElement) {
-      renderElement.frameworkInit();
+    renderElement.frameworkInitRenderElement();
 
+    if (renderElement is WatchfulRenderElement) {
       jobQueue.addPostDispatchCallback(renderElement.frameworkAfterMount);
     }
 
