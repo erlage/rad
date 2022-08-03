@@ -158,6 +158,11 @@ abstract class RenderElement implements BuildContext {
   |--------------------------------------------------------------------------
   */
 
+  /// Register hook.
+  ///
+  @protected
+  void register() {}
+
   /// Render hook.
   ///
   /// This hook gets called exactly once during lifetime of an element. This
@@ -385,6 +390,10 @@ abstract class RenderElement implements BuildContext {
   |--------------------------------------------------------------------------
   */
 
+  /// Whether execution of [RenderElement.register] is pending.
+  ///
+  var _isInRegistrationPhase = true;
+
   /// @nodoc
   @nonVirtual
   @internal
@@ -445,6 +454,16 @@ abstract class RenderElement implements BuildContext {
     if (null != _domNode) {
       _hasDomNode = true;
     }
+  }
+
+  /// @nodoc
+  @internal
+  @nonVirtual
+  void frameworkInitRenderElement() {
+    assert(_isInRegistrationPhase, 'RenderElement already registered');
+
+    register();
+    _isInRegistrationPhase = false;
   }
 
   /// @nodoc

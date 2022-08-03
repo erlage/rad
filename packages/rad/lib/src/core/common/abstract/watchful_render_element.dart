@@ -28,6 +28,13 @@ abstract class WatchfulRenderElement extends RenderElement {
   bool get isMounted => _isMounted;
   bool _isMounted = false;
 
+  /// @nodoc
+  @nonVirtual
+  @override
+  void register() {
+    init();
+  }
+
   /*
   |--------------------------------------------------------------------------
   | lifecycle hooks
@@ -78,13 +85,6 @@ abstract class WatchfulRenderElement extends RenderElement {
   | framework reserved | lifecycle api
   |--------------------------------------------------------------------------
   */
-
-  /// @nodoc
-  @internal
-  @nonVirtual
-  void frameworkInit() {
-    init();
-  }
 
   /// @nodoc
   @internal
