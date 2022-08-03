@@ -355,13 +355,35 @@ class Renderer with ServicesResolver {
   }) {
     for (final updateObject in updates) {
       switch (updateObject.widgetUpdateType) {
-        case WidgetUpdateType.dispose:
-          updateObject as WidgetUpdateObjectActionDispose;
+        case WidgetUpdateType.addAllWithoutClean:
+          updateObject as WidgetUpdateObjectActionAddAllWithoutClean;
 
-          disposeWidget(
+          render(
+            mountAtIndex: null,
+            widgets: updateObject.widgets,
+            parentRenderElement: parentRenderElement,
+            flagCleanParentContents: false,
             jobQueue: jobQueue,
-            flagPreserveTarget: false,
-            renderElement: updateObject.existingElement,
+          );
+
+          break;
+
+        case WidgetUpdateType.update:
+          processWidgetUpdateObjectActionUpdate(
+            jobQueue: jobQueue,
+            updateType: updateType,
+            flagAddIfNotFound: flagAddIfNotFound,
+            updateObject: updateObject as WidgetUpdateObjectActionUpdate,
+          );
+
+          break;
+
+        case WidgetUpdateType.cleanParent:
+          updateObject as WidgetUpdateObjectActionCleanParent;
+
+          cleanRenderElement(
+            renderElement: parentRenderElement,
+            jobQueue: jobQueue,
           );
 
           break;
@@ -378,16 +400,6 @@ class Renderer with ServicesResolver {
               renderElement: renderElement,
             );
           }
-
-          break;
-
-        case WidgetUpdateType.cleanParent:
-          updateObject as WidgetUpdateObjectActionCleanParent;
-
-          cleanRenderElement(
-            renderElement: parentRenderElement,
-            jobQueue: jobQueue,
-          );
 
           break;
 
@@ -413,25 +425,13 @@ class Renderer with ServicesResolver {
 
           break;
 
-        case WidgetUpdateType.addAllWithoutClean:
-          updateObject as WidgetUpdateObjectActionAddAllWithoutClean;
+        case WidgetUpdateType.dispose:
+          updateObject as WidgetUpdateObjectActionDispose;
 
-          render(
-            mountAtIndex: null,
-            widgets: updateObject.widgets,
-            parentRenderElement: parentRenderElement,
-            flagCleanParentContents: false,
+          disposeWidget(
             jobQueue: jobQueue,
-          );
-
-          break;
-
-        case WidgetUpdateType.update:
-          processWidgetUpdateObjectActionUpdate(
-            jobQueue: jobQueue,
-            updateType: updateType,
-            flagAddIfNotFound: flagAddIfNotFound,
-            updateObject: updateObject as WidgetUpdateObjectActionUpdate,
+            flagPreserveTarget: false,
+            renderElement: updateObject.existingElement,
           );
 
           break;
