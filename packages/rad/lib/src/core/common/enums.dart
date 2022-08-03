@@ -4,6 +4,7 @@
 
 import 'package:meta/meta.dart';
 
+import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/widgets/gesture_detector.dart';
 
 /// The two cardinal directions in two dimensions.
@@ -403,6 +404,30 @@ enum ReferrerPolicyType {
 
   final String nativeValue;
   const ReferrerPolicyType(this.nativeValue);
+}
+
+/// Type of Render event.
+///
+enum RenderEventType {
+  /// A event that's fired after framework finishes rendering the output
+  /// of [RenderElement.render] to the DOM.
+  ///
+  afterRenderEffect,
+
+  /// A event that's fired after framework finishes rendering the output
+  /// of [RenderElement.update] to the DOM.
+  ///
+  afterUpdateEffect,
+
+  /// A event that's fired when framework is about to remove the widget from
+  /// the DOM.
+  ///
+  beforeUnMountEffect,
+
+  /// A event that's fired after framework finishes removing the widget from
+  /// the DOM.
+  ///
+  afterUnMountEffect,
 }
 
 /// Type of DOM event.
