@@ -2,6 +2,17 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
+# This file is kept in sync with main repo so it may not be compatible with
+# published version of rad. So you've to checkout to a particular point for generating
+# compatible widgets: 
+#
+# - git checkout tags/v1.2.0 -b new-branch | for widgets compatible with Rad v1.2 & above
+# - git checkout tags/v1.1.0 -b new-branch | for widgets compatible with Rad v1.1 & above
+# 
+# - git checkout ab08947e327dabec7dcbc91f9a39ed97556df002 for widgets compatible with Rad v1.x
+# - git checkout 35958c12f1abac32f299df85f1294d61abdd553e for widgets compatible with Rad v.0.10.0
+#
+
 #!/usr/bin/env python3
 
 from fileinput import filename
@@ -16,14 +27,6 @@ __package_version__ = '0.1.0'
 __package_name__ = 'rad_custom_html_widgets'
 __package_description__ = 'Custom HTML widgets for using with Rad'
 
-# This file is kept in sync with main repo so it may not be compatible with
-# published version of rad.
-#
-# For generating compatible HTML widgets: 
-# 
-# - git checkout ab08947e327dabec7dcbc91f9a39ed97556df002 for Rad v1.x
-# - git checkout 35958c12f1abac32f299df85f1294d61abdd553e for Rad v.0.10.0
-# 
 
 generator_dir = os.path.abspath(os.path.dirname(__file__))
 tool_dir = os.path.abspath(os.path.join(generator_dir, os.path.pardir))

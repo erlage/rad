@@ -1,3 +1,30 @@
+## 1.2.0
+
+**RenderEvents**, *a event system for RenderElements*.
+
+RenderEvents are the events that framework will emit when it interacts with a RenderElement. Just like we can add event listeners for user interactions on DOM elements, we can now add event listeners for framework interactions on RenderElements. Similar to DOM events, we've different types of RenderEvents for different types of interactions which are listed below:
+
+- `didRender` is a event that's emitted after framework finishes rendering the output of [render](https://pub.dev/documentation/rad/latest/rad/RenderElement/render.html) to the DOM.
+- `didUpdate` is a event that's emitted after framework finishes rendering the output of [update](https://pub.dev/documentation/rad/latest/rad/RenderElement/update.html) to the DOM.
+- `willUnMount` is a event that's emitted when framework is about to remove the widget from the DOM.
+- `didUnMount` is a event that's emitted after framework finishes removing the widget from the DOM.
+
+RenderElements can decide to listen to a particular or all render events by adding event listeners. 
+
+Comparing RenderEvents with DOM events, there are few differences & restrictions:
+
+- RenderEvents do not have capture/bubble phase.
+- RenderEvents are meant to be listened internally inside RenderElements.
+- Listeners for RenderEvents can be attached only during initial render, and cannot be updated.
+
+These restrictions are temporary and we'll lift them when needed. 
+
+RenderEvents are meant to solve the problem of limited control over lifecycle in RenderElements. Previously we were providing a sub-class `WatchfulRenderElement` with hardcoded lifecycle. Now, using the new RenderEvents API, you can add as much or as little lifecycle as you want, to any RenderElement(widget). This new API effectively makes `WatchfulRenderElement` obsolete but we'll keep it for backward compatibility at zero-cost(it's also using the new RenderEvents API from now on).
+
+#### Bug fixes
+
+- (Fixed) Renderer reconciling all sibling widgets on dependent updates(sometime disposing siblings because of that).
+
 ## 1.1.0
 
 #### Added following lifecycle methods to [`State`](https://pub.dev/documentation/rad/latest/rad/State-class.html):
