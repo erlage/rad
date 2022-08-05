@@ -705,6 +705,7 @@ global_tests = [
     'html_attr_on_click',
     'html_attr_style',
     'html_attr_title',
+    'html_ref_callback',
     'html_internal_markup',
     'html_attr_additional_attributes',
     'html_short_tag',

@@ -23,6 +23,9 @@ abstract class HTMLWidgetBase extends Widget {
   /// Rad will call the ref callback with the DOM element before widget renders,
   /// and call it with null before it unmounts.
   ///
+  /// Please note, similar to other event listeners, callback has to be present
+  /// on the initial render.
+  ///
   final NullableElementCallback? ref;
 
   /// ID of dom node.
