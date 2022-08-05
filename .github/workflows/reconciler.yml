@@ -6,6 +6,7 @@ on:
   push:
     branches: [ main ]
     paths:
+      - 'packages/rad/pubspec.yaml'
       - 'packages/rad/lib/src/core/renderer/reconciler.dart'
   
   pull_request:

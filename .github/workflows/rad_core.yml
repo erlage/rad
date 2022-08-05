@@ -7,7 +7,7 @@ on:
     branches: [ main ]
     paths:
       - 'packages/rad/**'
-  
+
   pull_request:
     branches: [ main ]
     paths:

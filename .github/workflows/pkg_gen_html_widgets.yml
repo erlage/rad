@@ -6,6 +6,7 @@ on:
   push:
     branches: [ main ]
     paths:
+      - 'packages/rad/pubspec.yaml'
       - 'packages/rad/lib/src/widgets/abstract/**'
       - 'packages/rad/lib/src/widgets/html/**'
       - 'tool/**'
