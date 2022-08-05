@@ -134,12 +134,18 @@ class Renderer with ServicesResolver {
   }) {
     var queue = jobQueue ?? JobQueue();
 
-    updateWidgetsUnderContext(
-      jobQueue: queue,
-      widgets: [renderElement.widget],
+    var update = WidgetUpdateObjectActionUpdate(
+      widget: renderElement.widget,
+      widgetPositionIndex: 0, // not-known
+      existingRenderElement: renderElement,
+      newMountAtIndex: null,
+    );
+
+    processWidgetUpdateObjectActionUpdate(
+      updateObject: update,
       updateType: UpdateType.dependencyChanged,
-      parentRenderElement: renderElement.frameworkParent!,
       flagAddIfNotFound: true,
+      jobQueue: queue,
     );
 
     if (null == jobQueue) {

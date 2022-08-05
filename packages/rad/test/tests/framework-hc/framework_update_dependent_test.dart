@@ -63,5 +63,45 @@ void main() {
       expect(pap.stack.popFromStart(), equals(expectedName));
       expect(pap.stack.canPop(), equals(false));
     });
+
+    test('should call update only on dependent widget', () async {
+      var pap = app!;
+
+      await app!.buildChildren(
+        widgets: [
+          RT_TestWidget(
+            key: Key('widget-1'),
+            roEventUpdate: () => pap.stack.push('update-1'),
+          ),
+          RT_TestWidget(
+            key: Key('widget-2'),
+            roEventUpdate: () => pap.stack.push('update-2'),
+          ),
+          RT_TestWidget(
+            key: Key('widget-3'),
+            roEventUpdate: () => pap.stack.push('update-3'),
+          ),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var element1 = pap.renderElementByKeyValue('widget-1')!;
+      var element2 = pap.renderElementByKeyValue('widget-2')!;
+      var element3 = pap.renderElementByKeyValue('widget-3')!;
+
+      await pap.updateDependent(element1);
+      await pap.updateDependent(element3);
+      expect(pap.stack.popFromStart(), equals('update-1'));
+      expect(pap.stack.popFromStart(), equals('update-3'));
+      expect(pap.stack.canPop(), equals(false));
+
+      await pap.updateDependent(element2);
+      expect(pap.stack.popFromStart(), equals('update-2'));
+      expect(pap.stack.canPop(), equals(false));
+
+      await pap.updateDependent(element3);
+      expect(pap.stack.popFromStart(), equals('update-3'));
+      expect(pap.stack.canPop(), equals(false));
+    });
   });
 }
