@@ -243,11 +243,11 @@ class Renderer with ServicesResolver {
     }
 
     if (renderElement.frameworkHasEventListenerOfType(
-      RenderEventType.afterRenderEffect,
+      RenderEventType.didRender,
     )) {
       jobQueue.addPostDispatchCallback(
         () => renderElement.frameworkDispatchRenderEvent(
-          RenderEventType.afterRenderEffect,
+          RenderEventType.didRender,
         ),
       );
     }
@@ -573,11 +573,11 @@ class Renderer with ServicesResolver {
       }
 
       if (matchedRenderElement.frameworkHasEventListenerOfType(
-        RenderEventType.afterUpdateEffect,
+        RenderEventType.didUpdate,
       )) {
         jobQueue.addPostDispatchCallback(
           () => matchedRenderElement.frameworkDispatchRenderEvent(
-            RenderEventType.afterUpdateEffect,
+            RenderEventType.didUpdate,
           ),
         );
       }
@@ -838,11 +838,11 @@ class Renderer with ServicesResolver {
           }
 
           if (renderElement.frameworkHasEventListenerOfType(
-            RenderEventType.afterUpdateEffect,
+            RenderEventType.didUpdate,
           )) {
             jobQueue.addPostDispatchCallback(
               () => renderElement.frameworkDispatchRenderEvent(
-                RenderEventType.afterUpdateEffect,
+                RenderEventType.didUpdate,
               ),
             );
           }
@@ -947,15 +947,15 @@ class Renderer with ServicesResolver {
     // Call lifecycle hooks
 
     renderElement.frameworkDispatchRenderEvent(
-      RenderEventType.beforeUnMountEffect,
+      RenderEventType.willUnMount,
     );
 
     if (renderElement.frameworkHasEventListenerOfType(
-      RenderEventType.afterUnMountEffect,
+      RenderEventType.didUnMount,
     )) {
       jobQueue.addPostDispatchCallback(
         () => renderElement.frameworkDispatchRenderEvent(
-          RenderEventType.afterUnMountEffect,
+          RenderEventType.didUnMount,
         ),
       );
     }
@@ -983,15 +983,15 @@ class Renderer with ServicesResolver {
     }
 
     renderElement.frameworkDispatchRenderEvent(
-      RenderEventType.beforeUnMountEffect,
+      RenderEventType.willUnMount,
     );
 
     if (renderElement.frameworkHasEventListenerOfType(
-      RenderEventType.afterUnMountEffect,
+      RenderEventType.didUnMount,
     )) {
       jobQueue.addPostDispatchCallback(
         () => renderElement.frameworkDispatchRenderEvent(
-          RenderEventType.afterUnMountEffect,
+          RenderEventType.didUnMount,
         ),
       );
     }

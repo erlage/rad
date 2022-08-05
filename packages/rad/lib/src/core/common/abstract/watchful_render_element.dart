@@ -34,10 +34,10 @@ abstract class WatchfulRenderElement extends RenderElement {
   @override
   void register() {
     addRenderEventListeners({
-      RenderEventType.afterRenderEffect: frameworkAfterMount,
-      RenderEventType.afterUpdateEffect: frameworkAfterUpdate,
-      RenderEventType.beforeUnMountEffect: frameworkBeforeUnMount,
-      RenderEventType.afterUnMountEffect: frameworkAfterUnMount,
+      RenderEventType.didRender: frameworkDidRender,
+      RenderEventType.didUpdate: frameworkDidUpdate,
+      RenderEventType.willUnMount: frameworkWillUnMount,
+      RenderEventType.didUnMount: frameworkDidUnMount,
     });
 
     init();
@@ -97,7 +97,7 @@ abstract class WatchfulRenderElement extends RenderElement {
   /// @nodoc
   @internal
   @nonVirtual
-  void frameworkAfterMount(RenderEvent event) {
+  void frameworkDidRender(RenderEvent event) {
     assert(!isMounted, 'Widget is already mounted');
 
     _isMounted = true;
@@ -108,21 +108,21 @@ abstract class WatchfulRenderElement extends RenderElement {
   /// @nodoc
   @internal
   @nonVirtual
-  void frameworkAfterUpdate(RenderEvent event) {
+  void frameworkDidUpdate(RenderEvent event) {
     afterUpdate();
   }
 
   /// @nodoc
   @internal
   @nonVirtual
-  void frameworkBeforeUnMount(RenderEvent event) {
+  void frameworkWillUnMount(RenderEvent event) {
     dispose();
   }
 
   /// @nodoc
   @internal
   @nonVirtual
-  void frameworkAfterUnMount(RenderEvent event) {
+  void frameworkDidUnMount(RenderEvent event) {
     assert(isMounted, 'Widget is not mounted yet');
 
     _isMounted = false;

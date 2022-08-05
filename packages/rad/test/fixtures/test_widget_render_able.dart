@@ -13,10 +13,10 @@ class RT_RenderAbleWidget extends Widget {
   final VoidCallback? eventRender;
   final VoidCallback? eventUpdate;
 
-  final RenderEventCallback? eventAfterRenderEffect;
-  final RenderEventCallback? eventAfterUpdateEffect;
-  final RenderEventCallback? eventBeforeUnMountEffect;
-  final RenderEventCallback? eventAfterUnMountEffect;
+  final RenderEventCallback? eventDidRender;
+  final RenderEventCallback? eventDidUpdate;
+  final RenderEventCallback? eventWillUnMount;
+  final RenderEventCallback? eventDidUnMount;
 
   final List<Widget>? children;
 
@@ -25,10 +25,10 @@ class RT_RenderAbleWidget extends Widget {
     this.eventRegister,
     this.eventRender,
     this.eventUpdate,
-    this.eventAfterRenderEffect,
-    this.eventAfterUpdateEffect,
-    this.eventBeforeUnMountEffect,
-    this.eventAfterUnMountEffect,
+    this.eventDidRender,
+    this.eventDidUpdate,
+    this.eventWillUnMount,
+    this.eventDidUnMount,
     this.children,
   }) : super(key: key);
 
@@ -69,25 +69,25 @@ class _RenderAbleElement extends RenderElement {
 
     var eventListeners = <RenderEventType, RenderEventCallback>{};
 
-    var afterRenderEffect = currentWidget.eventAfterRenderEffect;
-    var afterUpdateEffect = currentWidget.eventAfterUpdateEffect;
-    var beforeUnMountEffect = currentWidget.eventBeforeUnMountEffect;
-    var afterUnMountEffect = currentWidget.eventAfterUnMountEffect;
+    var afterRender = currentWidget.eventDidRender;
+    var afterUpdate = currentWidget.eventDidUpdate;
+    var beforeUnMount = currentWidget.eventWillUnMount;
+    var afterUnMount = currentWidget.eventDidUnMount;
 
-    if (null != afterRenderEffect) {
-      eventListeners[RenderEventType.afterRenderEffect] = afterRenderEffect;
+    if (null != afterRender) {
+      eventListeners[RenderEventType.didRender] = afterRender;
     }
 
-    if (null != afterUpdateEffect) {
-      eventListeners[RenderEventType.afterUpdateEffect] = afterUpdateEffect;
+    if (null != afterUpdate) {
+      eventListeners[RenderEventType.didUpdate] = afterUpdate;
     }
 
-    if (null != beforeUnMountEffect) {
-      eventListeners[RenderEventType.beforeUnMountEffect] = beforeUnMountEffect;
+    if (null != beforeUnMount) {
+      eventListeners[RenderEventType.willUnMount] = beforeUnMount;
     }
 
-    if (null != afterUnMountEffect) {
-      eventListeners[RenderEventType.afterUnMountEffect] = afterUnMountEffect;
+    if (null != afterUnMount) {
+      eventListeners[RenderEventType.didUnMount] = afterUnMount;
     }
 
     addRenderEventListeners(eventListeners);

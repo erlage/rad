@@ -404,8 +404,8 @@ abstract class RenderElement implements BuildContext {
 
     _eventListeners = listeners;
 
-    if (_eventListeners.containsKey(RenderEventType.afterUnMountEffect) ||
-        _eventListeners.containsKey(RenderEventType.beforeUnMountEffect)) {
+    if (_eventListeners.containsKey(RenderEventType.didUnMount) ||
+        _eventListeners.containsKey(RenderEventType.willUnMount)) {
       _announceUnMountListeners();
     }
 

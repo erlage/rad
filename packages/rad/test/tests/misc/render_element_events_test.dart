@@ -36,19 +36,19 @@ void main() {
     test('should add event listeners ', () async {
       var pap = app!;
 
-      var afterRender = (e) => {};
-      var afterUpdate = (e) => {};
-      var beforeUnMount = (e) => {};
-      var afterUnMount = (e) => {};
+      var didRender = (e) => {};
+      var didUpdate = (e) => {};
+      var willUnMount = (e) => {};
+      var didUnMount = (e) => {};
 
       await pap.buildChildren(
         widgets: [
           RT_RenderAbleWidget(
             key: Key('widget'),
-            eventAfterRenderEffect: afterRender,
-            eventAfterUpdateEffect: afterUpdate,
-            eventBeforeUnMountEffect: beforeUnMount,
-            eventAfterUnMountEffect: afterUnMount,
+            eventDidRender: didRender,
+            eventDidUpdate: didUpdate,
+            eventWillUnMount: willUnMount,
+            eventDidUnMount: didUnMount,
           ),
         ],
         parentRenderElement: pap.appRenderElement,
@@ -57,20 +57,20 @@ void main() {
       var eventListeners = renderElement.frameworkRenderEventListeners;
 
       expect(
-        eventListeners[RenderEventType.afterRenderEffect],
-        equals(afterRender),
+        eventListeners[RenderEventType.didRender],
+        equals(didRender),
       );
       expect(
-        eventListeners[RenderEventType.afterUpdateEffect],
-        equals(afterUpdate),
+        eventListeners[RenderEventType.didUpdate],
+        equals(didUpdate),
       );
       expect(
-        eventListeners[RenderEventType.afterUnMountEffect],
-        equals(afterUnMount),
+        eventListeners[RenderEventType.didUnMount],
+        equals(didUnMount),
       );
       expect(
-        eventListeners[RenderEventType.beforeUnMountEffect],
-        equals(beforeUnMount),
+        eventListeners[RenderEventType.willUnMount],
+        equals(willUnMount),
       );
     });
   });
@@ -102,7 +102,7 @@ void main() {
       'should call render '
       ', exactly once '
       ', after register '
-      ', before afterRender ',
+      ', before didRender ',
       () async {
         var app = createTestApp()..start();
         var stack = RT_TestStack();
@@ -112,7 +112,7 @@ void main() {
             RT_RenderAbleWidget(
               eventRegister: () => stack.push('register'),
               eventRender: () => stack.push('render'),
-              eventAfterRenderEffect: (e) => stack.push('after render'),
+              eventDidRender: (e) => stack.push('after render'),
             ),
           ],
           parentRenderElement: app.appRenderElement,
@@ -123,7 +123,7 @@ void main() {
             RT_RenderAbleWidget(
               eventRegister: () => stack.push('register'),
               eventRender: () => stack.push('render'),
-              eventAfterRenderEffect: (e) => stack.push('after render'),
+              eventDidRender: (e) => stack.push('after render'),
             ),
           ],
           updateType: UpdateType.setState,
@@ -175,13 +175,13 @@ void main() {
       expect(stack.canPop(), equals(false));
     });
 
-    test('should call beforeUnMount before actual un-mount', () async {
+    test('should call willUnMount before actual un-mount', () async {
       var stack = RT_TestStack();
 
       var runner = runApp(
         app: RT_RenderAbleWidget(
           children: [Text('hello world')],
-          eventBeforeUnMountEffect: (e) {
+          eventWillUnMount: (e) {
             stack.push('before un-mount');
             expect(RT_TestBed.rootDomNode, RT_hasContents('hello world'));
           },
@@ -198,7 +198,7 @@ void main() {
     });
 
     test(
-      'should call afterRender '
+      'should call didRender '
       ', exactly once '
       ', after render ',
       () async {
@@ -210,7 +210,7 @@ void main() {
             RT_RenderAbleWidget(
               children: [Text('hello world')],
               eventRender: () => stack.push('render'),
-              eventAfterRenderEffect: (e) {
+              eventDidRender: (e) {
                 stack.push('after render');
 
                 expect(app.appDomNode, RT_hasContents('hello world'));
@@ -229,7 +229,7 @@ void main() {
       },
     );
 
-    test('should call afterUpdate after dom updates', () async {
+    test('should call didUpdate after dom updates', () async {
       var app = createTestApp()..start();
       var stack = RT_TestStack();
 
@@ -238,7 +238,7 @@ void main() {
           RT_RenderAbleWidget(
             children: [Text('initial contents')],
             eventUpdate: () => stack.push('update'),
-            eventAfterUpdateEffect: (e) {
+            eventDidUpdate: (e) {
               stack.push('after update');
               expect(app.appDomNode, RT_hasContents('updated contents'));
             },
@@ -252,7 +252,7 @@ void main() {
           RT_RenderAbleWidget(
             children: [Text('updated contents')],
             eventUpdate: () => stack.push('update'),
-            eventAfterUpdateEffect: (e) {
+            eventDidUpdate: (e) {
               stack.push('after update');
               expect(app.appDomNode, RT_hasContents('updated contents'));
             },
@@ -270,13 +270,13 @@ void main() {
       expect(stack.canPop(), equals(false));
     });
 
-    test('should call afterUnMount after actual un-mount', () async {
+    test('should call didUnMount after actual un-mount', () async {
       var stack = RT_TestStack();
 
       var runner = runApp(
         app: RT_RenderAbleWidget(
           children: [Text('hello world')],
-          eventAfterUnMountEffect: (e) {
+          eventDidUnMount: (e) {
             stack.push('after unmount');
             expect(RT_TestBed.rootDomNode, RT_hasContents(''));
           },
