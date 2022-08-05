@@ -412,22 +412,22 @@ enum RenderEventType {
   /// A event that's fired after framework finishes rendering the output
   /// of [RenderElement.render] to the DOM.
   ///
-  afterRenderEffect,
+  didRender,
 
   /// A event that's fired after framework finishes rendering the output
   /// of [RenderElement.update] to the DOM.
   ///
-  afterUpdateEffect,
+  didUpdate,
 
   /// A event that's fired when framework is about to remove the widget from
   /// the DOM.
   ///
-  beforeUnMountEffect,
+  willUnMount,
 
   /// A event that's fired after framework finishes removing the widget from
   /// the DOM.
   ///
-  afterUnMountEffect,
+  didUnMount,
 }
 
 /// Type of DOM event.
