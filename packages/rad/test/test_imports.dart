@@ -69,6 +69,7 @@ export 'constants/misc_types.dart';
 
 export 'fixtures/test_app.dart';
 export 'fixtures/test_bed.dart';
+export 'fixtures/test_hook.dart';
 export 'fixtures/test_stack.dart';
 export 'fixtures/test_widget.dart';
 export 'fixtures/test_widget_stateful.dart';
