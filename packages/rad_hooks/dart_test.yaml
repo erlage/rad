@@ -1,0 +1,6 @@
+platforms:
+  - chrome
+
+tags:
+  browser:
+    test_on: browser
