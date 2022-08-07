@@ -94,6 +94,24 @@ export 'src/core/common/objects/meta_information.dart' show MetaInformation;
 
 /*
 |--------------------------------------------------------------------------
+| hooks API
+|--------------------------------------------------------------------------
+*/
+
+export 'src/core/common/abstract/hook.dart' show Hook;
+export 'src/core/interface/hooks/types.dart' show HookScope;
+export 'src/core/interface/hooks/types.dart' show HookEvent;
+export 'src/core/interface/hooks/types.dart' show HookEventType;
+export 'src/core/interface/hooks/types.dart' show HookEventCallback;
+export 'src/core/interface/hooks/dispatcher.dart' show useHook, setupHook;
+
+// framework provided hooks
+
+export 'src/hooks/use_context.dart' show useContext;
+export 'src/hooks/use_navigator.dart' show useNavigator;
+
+/*
+|--------------------------------------------------------------------------
 | widgets
 |--------------------------------------------------------------------------
 */
