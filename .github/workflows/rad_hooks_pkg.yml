@@ -1,0 +1,45 @@
+name: Rad(hooks-pkg)
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches: [ main ]
+    paths:
+      - 'packages/rad/pubspec.yaml'
+      - 'packages/rad_hooks/**'
+  
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'packages/rad_hooks/**'
+  
+jobs:
+  analyze: 
+    runs-on: ubuntu-latest
+    name: Analyze
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Run analyze
+        run: |
+          cd packages/rad_hooks
+          dart pub get
+          dart format --output=none --set-exit-if-changed .
+          dart analyze --fatal-infos
+
+  tests:
+    runs-on: ubuntu-latest
+    name: Run tests
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
+      
+      - name: Run tests
+        run: |
+          cd packages/rad_hooks
+          dart pub get
+          dart test
