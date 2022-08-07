@@ -9,3 +9,4 @@ library rad_hooks;
 */
 
 export 'src/use_state.dart' show useState, UseStateHook;
+export 'src/use_ref.dart' show useRef, UseRefHook;
