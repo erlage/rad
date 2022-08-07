@@ -11,6 +11,7 @@ import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/render_event.dart';
+import 'package:rad/src/core/common/objects/scope_event.dart';
 import 'package:rad/src/core/services/events/emitted_event.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
@@ -41,6 +42,9 @@ typedef IndexedWidgetBuilder = Widget Function(BuildContext context, int index);
 typedef RenderElementVisitor = bool Function(RenderElement renderElement);
 
 typedef RenderElementCallback = void Function(RenderElement renderElement);
+
+@internal
+typedef ScopeEventCallback = void Function(ScopeEvent event);
 
 @internal
 typedef SchedulerTaskCallback = void Function(SchedulerTask task);

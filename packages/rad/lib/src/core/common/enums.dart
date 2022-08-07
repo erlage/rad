@@ -642,3 +642,42 @@ enum SchedulerTaskType {
 enum SchedulerEventType {
   sendNextTask,
 }
+
+/// Scope event type.
+///
+@internal
+enum ScopeEventType {
+  /// A event that's fired before building scoped widgets for the first time.
+  ///
+  willBuildScope,
+
+  /// A event that's fired after building scoped widgets for the first time.
+  ///
+  didBuildScope,
+
+  /// A event that's fired after DOM updates from build phase are flushed to
+  /// the DOM.
+  ///
+  didRenderScope,
+
+  /// A event that's fired before rebuilding scoped widgets.
+  ///
+  willRebuildScope,
+
+  /// A event that's fired after rebuilding scoped widgets.
+  ///
+  didRebuildScope,
+
+  /// A event that's fired after DOM updates from rebuild phase are flushed to
+  /// the DOM.
+  ///
+  didUpdateScope,
+
+  /// A event that's fired before framework un-mount scope from the DOM.
+  ///
+  willUnMountScope,
+
+  /// A event that's fired after scope has been removed from the DOM.
+  ///
+  didUnMountScope,
+}
