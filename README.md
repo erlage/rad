@@ -1,6 +1,6 @@
 # Rad
 
-Rad is a frontend framework for creating fast and interactive web apps using Dart. It's inspired from Flutter and shares same programming paradigm. It has all the best bits of Flutter(StatefulWidgets, Builders) and allows you to use web technologies(HTML and CSS) in your app.
+Rad is a frontend framework for creating fast and interactive web apps using Dart. It has all the best bits of Flutter(StatefulWidgets, Builders) and React(Hooks, Performance), and allows you to use web technologies(HTML and CSS) in your app.
 
 [![Rad(core)](https://github.com/erlage/rad/actions/workflows/rad_core.yml/badge.svg)](https://github.com/erlage/rad/actions/workflows/rad_core.yml)
 [![Reconciler](https://github.com/erlage/rad/actions/workflows/reconciler.yml/badge.svg)](https://github.com/erlage/rad/actions/workflows/reconciler.yml)
@@ -26,54 +26,7 @@ void main() {
 }
 ```
 
-Function `runApp` will finds a element having id equals to `appTargetId` in your HTML page, create a Rad app with it, and then displays "Text" widget inside of it. 
-
-Let's see one more example,
-
-```dart
-class HomePage extends StatelessWidget
-{
-  @override
-  Widget build(BuildContext context) {
-    return Text('hello world');
-  }
-}
-
-void main() {
-  runApp(
-    app: HomePage(),
-    appTargetId: 'output',
-  );
-}
-```
-
-If you're familiar with Flutter it don't even need an explanation. Internally, Rad has some differences that might not be apparent from the examples so let's discuss them first.
-
-## Differences
-
-1. First off, we don't use a rendering engine to render a widget or anything like that. Widgets are mapped to HTML tags and composed together the way you describe them.
-
-2. Second, you can use use CSS for adding animations without ever thinking about how browsers carries them out.
-
-3. And lastly, for layouts, you've to use HTML. And guess what? there are widgets for that.
-  
-    Let's take this HTML snippet:
-    ```html
-    <span class="heading big">
-      <strong>
-        hello world
-      </strong>
-    </span>
-    ```
-    Here's how its equivalent will be written using widgets:
-    ```dart
-    Span(
-      className: 'heading big',
-      children: [
-        Strong(innerText: 'hello world'),
-      ],
-    );
-    ```
+Function `runApp` will finds a element having `id=output` in your HTML page, create a Rad app with it, and then displays "hello world" inside of it. As you might have guessed it, `Text('hello world')` is a widget, a special purpose widget provided by the framework that we're using to display desired text on the screen. Rad provides number of widgets that you can use and best thing about widgets is that you can compose them together to create more widgets and build complex layouts.
 
 ## Flutter widgets
 
@@ -84,15 +37,46 @@ Following widgets in Rad are inspired from Flutter:
 
 These widgets has same syntax as their Flutter's counterparts. Not just syntax, they also works exactly same as if they would in Flutter. Which means you don't have to learn anything new to be able to use them.
 
+## React hooks
+
+Similar to React, we have number of hooks that you can use to power-up your widget functions.
+
+Let's see a basic example with useState:
+
+```dart
+Widget widgetFunction() => HookScope(() {
+  // create a stateful value
+  var state = useState(0);
+
+  return Span(
+    child: Text('You clicked me ${state.value} time!'),
+    onClick: (_) => state.value++, // will cause a re-render
+  ); 
+});
+
+runApp(app: widgetFunction(), ...);
+```
+
+While using hooks please keep in mind following things,
+
+2. Avoid calling Hooks inside loops, conditions, or nested functions.
+1. Always wrap body of your Widget-functions with a HookScope widget.
+3. Always use Hooks at the top level of your functions, before any widget/or early return.
+
 ## HTML widgets
 
-Let's take a look at another markup example:
+Similar to JSX, you can write HTML in your Dart code. Dart's syntax is much more safe than JSX and doesn't force you to go through a separate build step but writing plain HTML using Dart is not very ideal so Rad provides you with more than 100 widgets that are dedicated to help you write HTML within your Dart code as easily as possible.
+
+Let's look at this markup example:
+
 ```html
 <div>
   <p>Hey there!</p>
 </div>
 ```
-Here's how we'll write this using widgets:
+
+Here's how we'll write this using HTML widgets:
+
 ```dart
 Division(
   children: [
@@ -100,7 +84,9 @@ Division(
   ]
 )
 ```
-There's also an alternative syntax for HTML widgets:
+
+There's also an alternative syntax for all HTML widgets:
+
 ```dart
 div(
   children: [
@@ -122,17 +108,18 @@ Span(
   ),
 );
 ```
+
 In above example, a Span widget is containing a ListView widget. Further, that ListView is containing a StatefulWidget and a Span widget. The point we're trying to make is that HTML widgets won't restrict you to 'just HTML'.
 
-## Widgets Index
+## Reference
 
-Below is the list of available widgets in this framework. Some widgets are named after Flutter widgets because they either works exactly same or can be used to achieve same things but in a different way(more or less). All those widgets are tagged accordingly.
+Below is the list of available widgets and hooks in Rad. Some widgets are named after Flutter widgets because they either works exactly same or can be used to achieve same things but in a different way(more or less). All those widgets are tagged accordingly.
 
 Tags:
-  - (`6 widget[s]`) ***exact***: Exact syntax, similar semantics.
-  - (`3 widget[s]`) ***same***: Exact syntax with few exceptions, similar semantics.
-  - (`3 widget[s]`) ***different***: Different syntax, different semantics.
-  - (`1 widget[s]`) ***untested***: --
+  - ***exact***: Exact syntax, similar semantics.
+  - ***same***: Exact syntax with few exceptions, similar semantics.
+  - ***different***: Different syntax, different semantics.
+  - ***untested***: --
 
 ### Abstract
 
@@ -158,14 +145,25 @@ Tags:
 - [RadApp](https://pub.dev/documentation/rad/latest/rad/RadApp-class.html)
 - [Text](https://pub.dev/documentation/rad/latest/rad/Text-class.html) \[*different*\]
 - [ListView](https://pub.dev/documentation/rad/latest/rad/ListView-class.html) \[*same*\]
+- [HookScope](https://pub.dev/documentation/rad/latest/rad/HookScope-class.html)
 - [EventDetector](https://pub.dev/documentation/rad/latest/rad/EventDetector-class.html)
+- [GestureDetector](https://pub.dev/documentation/rad/latest/rad/GestureDetector-class.html) \[*same*\]
 
 ### Misc
 
 - [RawMarkUp](https://pub.dev/documentation/rad/latest/rad/RawMarkUp-class.html)
 - [RawEventDetector](https://pub.dev/documentation/rad/latest/rad/RawEventDetector-class.html)
-- [GestureDetector](https://pub.dev/documentation/rad/latest/rad/GestureDetector-class.html) \[*same*\]
 
+### Hooks
+
+[useContext](https://pub.dev/documentation/rad/latest/rad/useContext.html)
+, [useNavigator](https://pub.dev/documentation/rad/latest/rad/useNavigator.html)
+, [useRef](https://pub.dev/documentation/rad_hooks/latest/rad_hooks/useRef.html)
+, [useState](https://pub.dev/documentation/rad_hooks/latest/rad_hooks/useState.html)
+, [useMemo](https://pub.dev/documentation/rad_hooks/latest/rad_hooks/useMemo.html)
+, [useCallback](https://pub.dev/documentation/rad_hooks/latest/rad_hooks/useCallback.html)
+, [useEffect](https://pub.dev/documentation/rad_hooks/latest/rad_hooks/useEffect.html)
+, [useLayoutEffect](https://pub.dev/documentation/rad_hooks/latest/rad_hooks/useLayoutEffect.html)
 
 ### HTML Widgets (additional)
 
