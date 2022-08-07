@@ -6,6 +6,7 @@
 - tests/**framework-hc** - Core's widget building/updating tests (hard-coded).
 - tests/**patched** - Test cases of discovered issues.
 - tests/**services** - Various services's tests.
+- tests/**hooks** - Tests related to hooks.
 - tests/**widgets** - Widget's specific tests.
 - tests/**misc** - Some miscellaneous tests.
 
