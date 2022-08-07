@@ -13,3 +13,4 @@ export 'src/use_ref.dart' show useRef, UseRefHook;
 export 'src/use_effect.dart' show useEffect;
 export 'src/use_layout_effect.dart' show useLayoutEffect;
 export 'src/use_memo.dart' show useMemo;
+export 'src/use_callback.dart' show useCallback;
