@@ -4,6 +4,8 @@
 
 // ignore_for_file: camel_case_types
 
+import '../test_imports.dart';
+
 /// Test Stack.
 ///
 /// Used by tests for logging 'order in which particular event occurs',
@@ -23,4 +25,18 @@ class RT_TestStack {
   bool canPop() => _entries.isNotEmpty;
 
   void clearState() => _entries.clear();
+
+  /// Assert match stack entries
+  ///
+  void assertMatch(List<String> expectedStack, {bool inversed = true}) {
+    for (final entry in expectedStack) {
+      if (inversed) {
+        expect(popFromStart(), entry);
+      } else {
+        expect(pop(), entry);
+      }
+    }
+
+    expect(canPop(), equals(false));
+  }
 }
