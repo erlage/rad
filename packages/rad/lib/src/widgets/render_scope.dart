@@ -69,28 +69,30 @@ class RenderScopeRenderElement extends RenderElement
   /// @nodoc
   @override
   List<Widget> get widgetChildren {
-    if (_isInitialBuild) {
-      _dispatchEvent(ScopeEventType.willBuildScope);
-    } else {
-      _dispatchEvent(ScopeEventType.willRebuildScope);
-    }
+    return scope_unit.runScopedTask(this, () {
+      if (_isInitialBuild) {
+        _dispatchEvent(ScopeEventType.willBuildScope);
+      } else {
+        _dispatchEvent(ScopeEventType.willRebuildScope);
+      }
 
-    _isInBuildingPhase = true;
-    var widgetChildren = [(widget as RenderScope).builder()];
-    _isInBuildingPhase = false;
+      _isInBuildingPhase = true;
+      var widgetChildren = [(widget as RenderScope).builder()];
+      _isInBuildingPhase = false;
 
-    if (_isInitialBuild) {
-      _dispatchEvent(ScopeEventType.didBuildScope);
-      _isInitialBuild = false;
-    } else {
-      _dispatchEvent(ScopeEventType.didRebuildScope);
-    }
+      if (_isInitialBuild) {
+        _dispatchEvent(ScopeEventType.didBuildScope);
+        _isInitialBuild = false;
+      } else {
+        _dispatchEvent(ScopeEventType.didRebuildScope);
+      }
 
-    if (_isRebuildRequestPending) {
-      Future.delayed(Duration.zero, () => performRebuild());
-    }
+      if (_isRebuildRequestPending) {
+        Future.delayed(Duration.zero, () => performRebuild());
+      }
 
-    return widgetChildren;
+      return widgetChildren;
+    });
   }
 
   @override
@@ -117,11 +119,7 @@ class RenderScopeRenderElement extends RenderElement
     }
 
     _services.scheduler.addTask(
-      WidgetsUpdateDependentTask(
-        dependentRenderElement: this,
-        beforeTaskCallback: _setScope,
-        afterTaskCallback: _setScope,
-      ),
+      WidgetsUpdateDependentTask(dependentRenderElement: this),
     );
 
     _isRebuildRequestPending = false;
@@ -145,24 +143,6 @@ class RenderScopeRenderElement extends RenderElement
             ScopeEventType.didUnMountScope,
           ),
     });
-  }
-
-  /// @nodoc
-  @protected
-  @override
-  render({required widget}) {
-    _setScope();
-
-    return null;
-  }
-
-  /// @nodoc
-  @protected
-  @override
-  update({required updateType, required oldWidget, required newWidget}) {
-    _setScope();
-
-    return null;
   }
 
   // ----------------------------------------------------------------------
@@ -189,11 +169,7 @@ class RenderScopeRenderElement extends RenderElement
   ///
   Services get _services => resolveServices(this);
 
-  void _setScope() => scope_unit.setScope(this);
-
   void _dispatchEvent(ScopeEventType eventType) {
-    _setScope();
-
     var listenersForType = _listeners[eventType];
     if (null != listenersForType) {
       var event = ScopeEvent(eventType);
