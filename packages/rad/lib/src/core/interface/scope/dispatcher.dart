@@ -11,8 +11,18 @@ import 'package:rad/src/core/interface/scope/abstract.dart';
 @internal
 Scope? getScope() => _currentScope;
 
+/// Run a task under a provided scope interface.
+///
 @internal
-void setScope(Scope? scope) => _currentScope = scope;
+T runScopedTask<T>(Scope scope, T Function() task) {
+  var previousScope = _currentScope;
+  _currentScope = scope;
+
+  var results = task();
+
+  _currentScope = previousScope;
+  return results;
+}
 
 // -----------------------------------------------------------
 
