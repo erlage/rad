@@ -32,7 +32,6 @@ abstract class Hook {
   ///   depend on the expected results of re-render request.
   ///
   /// - A call to [performRebuild] before or inside [register] is an error.
-  /// so hooks should not depend on results of rebuild.
   ///
   @protected
   @nonVirtual
