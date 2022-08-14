@@ -6,6 +6,7 @@
 # published version of rad. So you've to checkout to a particular point for generating
 # compatible widgets: 
 #
+# - git checkout tags/v1.3.0 -b new-branch | for widgets compatible with Rad v1.3 & above
 # - git checkout tags/v1.2.0 -b new-branch | for widgets compatible with Rad v1.2 & above
 # - git checkout tags/v1.1.0 -b new-branch | for widgets compatible with Rad v1.1 & above
 # 

@@ -1,3 +1,9 @@
+## 1.3.0
+
+**Hooks**, *use features such as state inside widget-functions*.
+
+Hooks(inspired by React's Hooks) lets you use state and other features without writing classes(such as StatefulWidget). This release includes few ready-to-use hooks and a easy yet powerful Hooks API that you can use to create your own custom hooks. We've also released a hooks package containing implementations of commonly used React Hooks(see [rad_hooks](https://pub.dev/packages/rad_hooks)).
+
 ## 1.2.0
 
 **RenderEvents**, *a event system for RenderElements*.
