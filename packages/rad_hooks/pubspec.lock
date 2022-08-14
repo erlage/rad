@@ -186,10 +186,10 @@ packages:
   rad:
     dependency: "direct main"
     description:
-      path: "../rad"
-      relative: true
-    source: path
-    version: "1.2.0"
+      name: rad
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.3.0"
   rad_test:
     dependency: "direct dev"
     description:
