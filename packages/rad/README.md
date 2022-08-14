@@ -59,8 +59,8 @@ runApp(app: widgetFunction(), ...);
 
 While using hooks please keep in mind following things,
 
-2. Avoid calling Hooks inside loops, conditions, or nested functions.
-1. Always wrap body of your Widget-functions with a HookScope widget.
+1. Avoid calling Hooks inside loops, conditions, or nested functions.
+2. Always wrap body of your Widget-functions with a HookScope widget.
 3. Always use Hooks at the top level of your functions, before any widget/or early return.
 
 ## HTML widgets
