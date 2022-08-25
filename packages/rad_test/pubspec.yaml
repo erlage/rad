@@ -3,7 +3,9 @@ version: 0.6.0
 description: A testing library for testing applications that are written using Rad.
 
 homepage: https://github.com/erlage/rad
-documentation: https://github.com/erlage#readme
+documentation: https://github.com/erlage/rad#readme
+repository: https://github.com/erlage/rad
+issue_tracker: https://github.com/erlage/rad/issues
 
 environment:
   sdk: '>=2.17.0 <3.0.0'
