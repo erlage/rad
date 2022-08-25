@@ -1,3 +1,9 @@
+## 1.4.0
+
+**Refs**, *an easy and predictable way for accessing DOM nodes*.
+
+Inspired from Callback-Refs in React, Refs in Rad provides an easy and predictable way to access DOM elements that are associated with Rad widgets. Normally Rad takes cares of creating and updating DOM for you but there are many reasons why you would want to access the actual DOM elements. Common use-cases are managing focus (critical for accessibility) and triggering imperative animations.
+
 ## 1.3.0
 
 **Hooks**, *use features such as state inside widget-functions*.
