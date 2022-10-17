@@ -29,7 +29,14 @@ void main() {
 
 ## Available Hooks
 
-For complete reference of available hooks, please refer: https://github.com/erlage/rad/edit/main/README.md#hooks
+[useRef](https://pub.dev/documentation/rad_hooks/latest/rad_hooks/useRef.html)
+, [useState](https://pub.dev/documentation/rad_hooks/latest/rad_hooks/useState.html)
+, [useMemo](https://pub.dev/documentation/rad_hooks/latest/rad_hooks/useMemo.html)
+, [useCallback](https://pub.dev/documentation/rad_hooks/latest/rad_hooks/useCallback.html)
+, [useEffect](https://pub.dev/documentation/rad_hooks/latest/rad_hooks/useEffect.html)
+, [useLayoutEffect](https://pub.dev/documentation/rad_hooks/latest/rad_hooks/useLayoutEffect.html)
+
+For complete reference of available hooks, please refer to [index page](https://github.com/erlage/rad/blob/main/README.md).
 
 ## Creating custom hooks
 
