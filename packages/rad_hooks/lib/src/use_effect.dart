@@ -35,11 +35,11 @@ void useEffect<T>(
   List<T>? dependencies,
 ]) {
   var useEffectHook = useHook();
-  useEffectHook ??= setupHook(UseEffectHook<T>());
+  useEffectHook ??= setupHook(_UseEffectHook<T>());
 
-  if (useEffectHook is! UseEffectHook) {
+  if (useEffectHook is! _UseEffectHook) {
     throw Exception(
-      'Expecting hook of type: $UseEffectHook '
+      'Expecting hook of type: $_UseEffectHook '
       'but got: ${useEffectHook.runtimeType}. '
       'Please make sure your hooks call order is not dynamic.',
     );
@@ -52,8 +52,7 @@ void useEffect<T>(
 
 /// A hook for doing side effects.
 ///
-@internal
-class UseEffectHook<T> extends DependenciesDrivenHook<T> {
+class _UseEffectHook<T> extends DependenciesDrivenHook<T> {
   @nonVirtual
   @protected
   VoidCallback? _cleanUpCallback;

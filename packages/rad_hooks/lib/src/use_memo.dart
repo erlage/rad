@@ -27,11 +27,11 @@ T useMemo<T, V>(
   List<V>? dependencies,
 ]) {
   var useMemoHook = useHook();
-  useMemoHook ??= setupHook(UseMemoHook<T, V>());
+  useMemoHook ??= setupHook(_UseMemoHook<T, V>());
 
-  if (useMemoHook is! UseMemoHook) {
+  if (useMemoHook is! _UseMemoHook) {
     throw Exception(
-      'Expecting hook of type: $UseMemoHook '
+      'Expecting hook of type: $_UseMemoHook '
       'but got: ${useMemoHook.runtimeType}. '
       'Please make sure your hooks call order is not dynamic.',
     );
@@ -44,8 +44,7 @@ T useMemo<T, V>(
   return useMemoHook.computationResult;
 }
 
-@internal
-class UseMemoHook<T, V> extends DependenciesDrivenHook<V> {
+class _UseMemoHook<T, V> extends DependenciesDrivenHook<V> {
   @nonVirtual
   @protected
   T get computationResult => _computationResult!;

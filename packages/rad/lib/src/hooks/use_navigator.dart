@@ -2,8 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:meta/meta.dart';
-
 import 'package:rad/src/core/common/abstract/hook.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/interface/hooks/dispatcher.dart';
@@ -15,11 +13,11 @@ import 'package:rad/src/widgets/navigator.dart';
 ///
 NavigatorState useNavigator({Key? byKey}) {
   var useNavigatorHook = useHook();
-  useNavigatorHook ??= setupHook(UseNavigatorHook(byKey));
+  useNavigatorHook ??= setupHook(_UseNavigatorHook(byKey));
 
-  if (useNavigatorHook is! UseNavigatorHook) {
+  if (useNavigatorHook is! _UseNavigatorHook) {
     throw Exception(
-      'Expecting hook of type: $UseNavigatorHook '
+      'Expecting hook of type: $_UseNavigatorHook '
       'but got: ${useNavigatorHook.runtimeType}. '
       'Please make sure your hooks call order is not dynamic.',
     );
@@ -30,8 +28,7 @@ NavigatorState useNavigator({Key? byKey}) {
 
 /// A hook for getting navigator state.
 ///
-@internal
-class UseNavigatorHook extends Hook {
+class _UseNavigatorHook extends Hook {
   /// Match with key(if provided).
   ///
   final Key? byKey;
@@ -42,7 +39,7 @@ class UseNavigatorHook extends Hook {
 
   /// Create navigator hook.
   ///
-  UseNavigatorHook(this.byKey);
+  _UseNavigatorHook(this.byKey);
 
   @override
   void register() {

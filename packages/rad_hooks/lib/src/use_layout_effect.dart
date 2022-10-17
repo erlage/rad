@@ -18,11 +18,11 @@ void useLayoutEffect<T>(
   List<T>? dependencies,
 ]) {
   var useLayoutEffectHook = useHook();
-  useLayoutEffectHook ??= setupHook(UseLayoutEffectHook<T>());
+  useLayoutEffectHook ??= setupHook(_UseLayoutEffectHook<T>());
 
-  if (useLayoutEffectHook is! UseLayoutEffectHook) {
+  if (useLayoutEffectHook is! _UseLayoutEffectHook) {
     throw Exception(
-      'Expecting hook of type: $UseLayoutEffectHook '
+      'Expecting hook of type: $_UseLayoutEffectHook '
       'but got: ${useLayoutEffectHook.runtimeType}. '
       'Please make sure your hooks call order is not dynamic.',
     );
@@ -35,8 +35,7 @@ void useLayoutEffect<T>(
 
 /// A hook for doing side effects.
 ///
-@internal
-class UseLayoutEffectHook<T> extends DependenciesDrivenHook<T> {
+class _UseLayoutEffectHook<T> extends DependenciesDrivenHook<T> {
   @nonVirtual
   @protected
   VoidCallback? _cleanUpCallback;
