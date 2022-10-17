@@ -6,6 +6,8 @@ cd ../rad
 dart pub get
 cd ../rad_test
 dart pub get
+cd ../rad_hooks
+dart pub get
 
 cd ../../example/multi_app_example
 
