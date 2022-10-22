@@ -420,13 +420,7 @@ def apply_commons(file_name, contents):
         '''
 
     # =======================================================================
-    # patch (1) | Can be removed when NullableElementCallback is available.
-
-    if 'NullableElementCallback?' in contents:
-        contents = contents.replace('NullableElementCallback?', 'void Function(Element? element)?')
-
-        if "import 'dart:html';" not in contents:
-            contents = contents.replace("import 'package:rad/rad.dart';", "import 'dart:html';import 'package:rad/rad.dart';")
+    # patch work
 
     # =======================================================================
 
