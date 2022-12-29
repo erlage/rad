@@ -816,7 +816,7 @@ class NavigatorState with ServicesResolver {
             if (route.name.isEmpty) {
               return _services.debug.exception(
                 "Navigator's Route's name can't be empty."
-                '\n Route: ${route.name} -> ${route.name} is not allowed',
+                '\n Route: ${route.name} -> ${route.path} is not allowed',
               );
             }
 
