@@ -557,7 +557,7 @@ class NavigatorState with ServicesResolver {
 
     // if current navigator doesn't have a matching '$name' route
 
-    if (!frameworkNameToPathMap.containsKey(name)) {
+    if (!frameworkIsRouteNameExists(name: name)) {
       if (DEBUG_BUILD) {
         _services.debug.exception(
           "Navigator: Route '$name' is not declared.",
@@ -617,10 +617,7 @@ class NavigatorState with ServicesResolver {
       //
       // else build the route
 
-      var page = frameworkPathToRouteMap[frameworkNameToPathMap[name]];
-
-      assert(null != page, 'Navigator has gone wild');
-      page as Route;
+      var page = frameworkGetRouteFromName(name: name);
 
       _pageStack.add(name);
 
@@ -715,15 +712,19 @@ class NavigatorState with ServicesResolver {
   ///
   /// @nodoc
   @nonVirtual
-  @internal
-  final frameworkNameToPathMap = <String, String>{};
+  final _frameworkNameToPathMap = <String, String>{};
 
-  /// Route path to Route instance map.
+  /// Route path to route name map.
   ///
   /// @nodoc
   @nonVirtual
-  @internal
-  final frameworkPathToRouteMap = <String, Route>{};
+  final _frameworkPathToNameMap = <String, String>{};
+
+  /// Route name to Route instance map.
+  ///
+  /// @nodoc
+  @nonVirtual
+  final _frameworkNameToRouteMap = <String, Route>{};
 
   /// @nodoc
   @nonVirtual
@@ -747,6 +748,46 @@ class NavigatorState with ServicesResolver {
   @protected
   void frameworkBindUpdateProcedure(VoidCallback updateProcedure) {
     _updateProcedure = updateProcedure;
+  }
+
+  /// @nodoc
+  @nonVirtual
+  @internal
+  bool frameworkIsRouteNameExists({required String name}) {
+    return _frameworkNameToPathMap.containsKey(name);
+  }
+
+  /// @nodoc
+  @nonVirtual
+  @internal
+  bool frameworkIsRoutePathExists({required String path}) {
+    return _frameworkPathToNameMap.containsKey(path);
+  }
+
+  /// @nodoc
+  @nonVirtual
+  @internal
+  String frameworkGetPathFromName({required String name}) {
+    return _frameworkNameToPathMap[name] ?? '';
+  }
+
+  /// @nodoc
+  @nonVirtual
+  @internal
+  String frameworkGetNameFromPath({required String path}) {
+    return _frameworkPathToNameMap[path] ?? '';
+  }
+
+  /// @nodoc
+  @nonVirtual
+  @internal
+  Route frameworkGetRouteFromName({required String name}) {
+    assert(
+      _frameworkNameToRouteMap.containsKey(name),
+      'Navigator has gone wild',
+    );
+
+    return _frameworkNameToRouteMap[name]!;
   }
 
   /// @nodoc
@@ -800,10 +841,10 @@ class NavigatorState with ServicesResolver {
             );
           }
 
-          var isDuplicate = frameworkNameToPathMap.containsKey(route.name) ||
-              frameworkPathToRouteMap.containsKey(route.path);
+          var isRouteNameExists = frameworkIsRouteNameExists(name: route.name);
+          var isRoutePathExists = frameworkIsRoutePathExists(path: route.path);
 
-          if (isDuplicate) {
+          if (isRouteNameExists || isRoutePathExists) {
             return _services.debug.exception(
               'Please remove Duplicate routes from your Navigator. '
               "Part of your route, name: '${route.name}' => path: "
@@ -813,9 +854,10 @@ class NavigatorState with ServicesResolver {
         }
       }
 
-      frameworkNameToPathMap[route.name] = route.path;
+      _frameworkNameToPathMap[route.name] = route.path;
+      _frameworkPathToNameMap[route.path] = route.name;
 
-      frameworkPathToRouteMap[route.path] = route;
+      _frameworkNameToRouteMap[route.name] = route;
     }
 
     _services.router.register(_renderElement!);
