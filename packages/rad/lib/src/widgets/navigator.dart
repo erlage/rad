@@ -768,14 +768,24 @@ class NavigatorState with ServicesResolver {
   @nonVirtual
   @internal
   String frameworkGetPathFromName({required String name}) {
-    return _frameworkNameToPathMap[name] ?? '';
+    assert(
+      _frameworkNameToPathMap.containsKey(name),
+      'Navigator has gone wild',
+    );
+
+    return _frameworkNameToPathMap[name]!;
   }
 
   /// @nodoc
   @nonVirtual
   @internal
   String frameworkGetNameFromPath({required String path}) {
-    return _frameworkPathToNameMap[path] ?? '';
+    assert(
+      _frameworkPathToNameMap.containsKey(path),
+      'Navigator has gone wild',
+    );
+
+    return _frameworkPathToNameMap[path]!;
   }
 
   /// @nodoc
