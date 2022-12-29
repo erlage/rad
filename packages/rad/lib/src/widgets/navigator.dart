@@ -844,11 +844,17 @@ class NavigatorState with ServicesResolver {
           var isRouteNameExists = frameworkIsRouteNameExists(name: route.name);
           var isRoutePathExists = frameworkIsRoutePathExists(path: route.path);
 
-          if (isRouteNameExists || isRoutePathExists) {
+          if (isRouteNameExists) {
             return _services.debug.exception(
-              'Please remove Duplicate routes from your Navigator. '
-              "Part of your route, name: '${route.name}' => path: "
-              "'${route.path}', already exists",
+              'Please remove duplicate routes from your Navigator. '
+              "Route's name: '${route.name}' already exists",
+            );
+          }
+
+          if (isRoutePathExists) {
+            return _services.debug.exception(
+              'Please remove duplicate routes from your Navigator. '
+              "Route's path: '${route.path}' already exists",
             );
           }
         }

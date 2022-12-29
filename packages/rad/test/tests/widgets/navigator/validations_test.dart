@@ -167,7 +167,7 @@ void main() {
         )..start(),
         throwsA(
           predicate(
-            (e) => '$e'.startsWith('Exception: Please remove Duplicate'),
+            (e) => '$e'.startsWith('Exception: Please remove duplicate'),
           ),
         ),
       );
@@ -185,7 +185,7 @@ void main() {
         )..start(),
         throwsA(
           predicate(
-            (e) => '$e'.startsWith('Exception: Please remove Duplicate'),
+            (e) => '$e'.startsWith('Exception: Please remove duplicate'),
           ),
         ),
       );
@@ -207,7 +207,7 @@ void main() {
         )..start(),
         throwsA(
           predicate(
-            (e) => '$e'.startsWith('Exception: Please remove Duplicate'),
+            (e) => '$e'.startsWith('Exception: Please remove duplicate'),
           ),
         ),
       );
