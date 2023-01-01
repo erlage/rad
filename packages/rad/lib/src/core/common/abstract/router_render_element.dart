@@ -11,6 +11,7 @@ import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/cache.dart';
 import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/services/router/open_history_entry.dart';
+import 'package:rad/src/core/services/scheduler/tasks/aggregate_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_manage_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
@@ -398,21 +399,21 @@ abstract class RouterRenderElement extends WatchfulRenderElement
       // hide all existing widgets
 
       _services.scheduler.addTask(
-        WidgetsManageTask(
-          parentRenderElement: this,
-          flagIterateInReverseOrder: true,
-          widgetActionCallback: (widgetObject) {
-            return [WidgetAction.hideWidget];
-          },
-          afterTaskCallback: () {
-            _services.scheduler.addTask(
-              WidgetsBuildTask(
-                widgets: [route],
-                parentRenderElement: this,
-                flagCleanParentContents: 1 == _openedHistoryStack.length,
-              ),
-            );
-          },
+        AggregateTask(
+          tasksToProcess: [
+            WidgetsManageTask(
+              parentRenderElement: this,
+              flagIterateInReverseOrder: true,
+              widgetActionCallback: (widgetObject) {
+                return [WidgetAction.hideWidget];
+              },
+            ),
+            WidgetsBuildTask(
+              widgets: [route],
+              parentRenderElement: this,
+              flagCleanParentContents: 1 == _openedHistoryStack.length,
+            ),
+          ],
         ),
       );
     }
