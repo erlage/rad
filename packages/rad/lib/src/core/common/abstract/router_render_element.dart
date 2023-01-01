@@ -46,11 +46,11 @@ abstract class RouterRenderElement extends WatchfulRenderElement
   ///
   final _pathToNameMap = <String, String>{};
 
-  /// Route name to Route instance map.
+  /// Path name to Route instance map.
   ///
-  final _nameToRouteMap = <String, Route>{};
+  final _pathToRouteMap = <String, Route>{};
 
-  final _openedRouteNameStack = <String>[];
+  final _openedRoutePathStack = <String>[];
   final _openedHistoryStack = <OpenHistoryEntry>[];
 
   var _currentName = '_';
@@ -144,7 +144,7 @@ abstract class RouterRenderElement extends WatchfulRenderElement
       _nameToPathMap[route.name] = route.path;
       _pathToNameMap[route.path] = route.name;
 
-      _nameToRouteMap[route.name] = route;
+      _pathToRouteMap[route.path] = route;
     }
 
     _services.router.register(this);
@@ -261,14 +261,14 @@ abstract class RouterRenderElement extends WatchfulRenderElement
   }
 
   @nonVirtual
-  bool isRouteNameInOpenedStack({required String name}) {
-    return _openedRouteNameStack.contains(name);
+  bool isRoutePathInOpenedStack({required String path}) {
+    return _openedRoutePathStack.contains(path);
   }
 
   @nonVirtual
   String getPathFromName({required String name}) {
     if (DEBUG_BUILD) {
-      if (!_nameToRouteMap.containsKey(name)) {
+      if (!_nameToPathMap.containsKey(name)) {
         throw Exception("Router: Route with name: '$name' is not declared");
       }
     }
@@ -288,13 +288,13 @@ abstract class RouterRenderElement extends WatchfulRenderElement
   }
 
   @nonVirtual
-  Route getRouteFromName({required String name}) {
+  Route getRouteFromPath({required String path}) {
     assert(
-      _nameToPathMap.containsKey(name),
+      _pathToRouteMap.containsKey(path),
       'Router has gone wild',
     );
 
-    return _nameToRouteMap[name]!;
+    return _pathToRouteMap[path]!;
   }
 
   @nonVirtual
@@ -331,24 +331,11 @@ abstract class RouterRenderElement extends WatchfulRenderElement
       }
     }
 
-    // if current navigator doesn't have a matching '$path' route
-
-    var name = getNameFromPath(path: path);
-
+    // check if a route with given path exists
     if (!isRoutePathExists(path: path)) {
       if (DEBUG_BUILD) {
         _services.debug.exception(
           "Navigator: Route with path: '$path' is not declared.",
-        );
-      }
-
-      return;
-    }
-
-    if (!isRouteNameExists(name: name)) {
-      if (DEBUG_BUILD) {
-        _services.debug.exception(
-          "Navigator: Route with name: '$name' is not declared.",
         );
       }
 
@@ -364,7 +351,7 @@ abstract class RouterRenderElement extends WatchfulRenderElement
     if (updateHistory) {
       if (DEBUG_BUILD) {
         if (_services.debug.routerLogs) {
-          print('$this: Push entry: $name => $path');
+          print('$this: Push entry: ${getNameFromPath(path: path)} => $path');
         }
       }
 
@@ -376,11 +363,11 @@ abstract class RouterRenderElement extends WatchfulRenderElement
       );
     }
 
-    _openedHistoryStack.add(OpenHistoryEntry(name, values));
+    _openedHistoryStack.add(OpenHistoryEntry(path, values));
 
     // if route is already in stack, bring it to the top of stack
 
-    if (isRouteNameInOpenedStack(name: name)) {
+    if (isRoutePathInOpenedStack(path: path)) {
       _services.scheduler.addTask(
         WidgetsManageTask(
           parentRenderElement: this,
@@ -389,9 +376,9 @@ abstract class RouterRenderElement extends WatchfulRenderElement
             var widget = widgetObject.widget;
 
             if (widget is Route) {
-              var routeName = widget.name;
+              var routePath = widget.path;
 
-              if (name == routeName) {
+              if (path == routePath) {
                 return [WidgetAction.showWidget];
               }
             }
@@ -405,8 +392,8 @@ abstract class RouterRenderElement extends WatchfulRenderElement
       //
       // else build the route
 
-      var route = getRouteFromName(name: name);
-      _openedRouteNameStack.add(name);
+      var route = getRouteFromPath(path: path);
+      _openedRoutePathStack.add(path);
 
       // hide all existing widgets
 
