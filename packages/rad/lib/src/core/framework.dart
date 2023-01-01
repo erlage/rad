@@ -8,6 +8,7 @@ import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/renderer/renderer.dart';
 import 'package:rad/src/core/services/scheduler/abstract.dart';
+import 'package:rad/src/core/services/scheduler/tasks/aggregate_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_dispose_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_manage_task.dart';
@@ -130,6 +131,17 @@ class Framework {
         _renderer.reRenderContext(
           renderElement: task.dependentRenderElement,
         );
+
+        break;
+
+      // misc tasks
+
+      case SchedulerTaskType.aggregate:
+        task as AggregateTask;
+
+        for (final taskItem in task.tasksToProcess) {
+          processTask(taskItem);
+        }
 
         break;
 
