@@ -635,6 +635,7 @@ enum SchedulerTaskType {
   manage,
   dispose,
   updateDependent,
+  aggregate,
   stimulateListener,
 }
 
