@@ -4,17 +4,19 @@
 
 import 'package:meta/meta.dart';
 
-/// A NavigatorState.open() call representation.
+import 'package:rad/src/core/common/abstract/router_render_element.dart';
+
+/// A [RouterRenderElement.openPath] call.
 ///
 @internal
 class OpenHistoryEntry {
-  /// Name of the route opened.
+  /// Path of the route opened.
   ///
-  String name;
+  String path;
 
   /// Values passed during route open.
   ///
   Map<String, String> values;
 
-  OpenHistoryEntry(this.name, this.values);
+  OpenHistoryEntry(this.path, this.values);
 }

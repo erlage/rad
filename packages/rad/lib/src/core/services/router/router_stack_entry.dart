@@ -4,15 +4,15 @@
 
 import 'package:meta/meta.dart';
 
-import 'package:rad/src/widgets/navigator.dart';
+import 'package:rad/src/core/common/abstract/router_render_element.dart';
 
 /// A entry on Router stack.
 ///
 @internal
 class RouterStackEntry {
-  /// Route name.
+  /// Route path.
   ///
-  final String name;
+  final String path;
 
   /// Values pushed.
   ///
@@ -22,14 +22,14 @@ class RouterStackEntry {
   ///
   final String location;
 
-  /// Navigator that pushed the entry.
+  /// [RouterRenderElement] that pushed the entry.
   ///
-  final NavigatorRenderElement navigator;
+  final RouterRenderElement routerElement;
 
   RouterStackEntry({
-    required this.name,
+    required this.path,
     required this.values,
-    required this.navigator,
+    required this.routerElement,
     required this.location,
   });
 }

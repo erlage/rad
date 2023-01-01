@@ -2,27 +2,16 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'dart:collection';
-
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/common/abstract/render_element.dart';
-import 'package:rad/src/core/common/abstract/watchful_render_element.dart';
+import 'package:rad/src/core/common/abstract/router_render_element.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/functions.dart';
-import 'package:rad/src/core/common/objects/cache.dart';
-import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/types.dart';
-import 'package:rad/src/core/services/router/open_history_entry.dart';
-import 'package:rad/src/core/services/scheduler/tasks/widgets_build_task.dart';
-import 'package:rad/src/core/services/scheduler/tasks/widgets_manage_task.dart';
-import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
-import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/core/services/services_registry.dart';
-import 'package:rad/src/core/services/services_resolver.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/async_route.dart';
 import 'package:rad/src/widgets/route.dart';
@@ -389,89 +378,49 @@ class Navigator extends Widget {
 
 /*
 |--------------------------------------------------------------------------
-| description(never changes for navigator widget)
-|--------------------------------------------------------------------------
-*/
-
-const _description = DomNodePatch(
-  attributes: {
-    Attributes.className: Constants.classNavigator,
-  },
-);
-
-/*
-|--------------------------------------------------------------------------
 | render object
 |--------------------------------------------------------------------------
 */
 
-class NavigatorRenderElement extends WatchfulRenderElement {
+@internal
+class NavigatorRenderElement extends RouterRenderElement {
   final NavigatorState state;
-
-  /// currentPage => {widgetKey => widgetContext}
-  ///
-  final dependents = <String, HashSet<RenderElement>>{};
 
   NavigatorRenderElement(
     Navigator widget,
     RenderElement parent,
   )   : state = NavigatorState(widget),
-        super(widget, parent);
+        super(widget: widget, parent: parent, routes: widget.routes);
+
+  /*
+  |--------------------------------------------------------------------------
+  | Router Render Element's APIs
+  |--------------------------------------------------------------------------
+  */
 
   @override
-  List<Widget> get widgetChildren => ccImmutableEmptyListOfWidgets;
-
-  @override
-  render({required widget}) => _description;
-
-  @override
-  afterMount() {
-    state
-      ..frameworkBindContext(this)
-      ..frameworkBindRenderElement(this)
-      ..frameworkBindUpdateProcedure(updateProcedure)
-      ..frameworkInitState()
-      ..frameworkRender();
+  void willInit() {
+    state.frameworkBindRenderElement(this);
   }
 
   @override
-  update({
-    required updateType,
-    required oldWidget,
-    required newWidget,
-  }) {
-    state.frameworkUpdate(updateType);
-
-    // Navigator's dom node's description never changes
-    return null;
-  }
-
-  @override
-  afterUnMount() => state.frameworkDispose();
-
-  void addDependent(BuildContext dependentContext) {
-    dependentContext as RenderElement;
-
-    var dependentsOnCurrentPage = dependents[state.currentRouteName];
-
-    if (null == dependentsOnCurrentPage) {
-      dependents[state.currentRouteName] = HashSet()..add(dependentContext);
-
-      return;
+  void didInit() {
+    var onInitCallback = (widget as Navigator).onInit;
+    if (null != onInitCallback) {
+      onInitCallback(state);
     }
-
-    dependentsOnCurrentPage.add(dependentContext);
   }
 
-  void updateProcedure() {
-    var dependentsOnCurrentPage = dependents[state.currentRouteName];
+  @override
+  void didChangedPath({
+    required String previousPath,
+    required String currentPath,
+  }) {
+    var routeChangeCallback = (widget as Navigator).onRouteChange;
+    if (null != routeChangeCallback) {
+      var routeName = getNameFromPath(path: currentPath);
 
-    if (null != dependentsOnCurrentPage) {
-      for (final dependant in dependentsOnCurrentPage) {
-        frameworkServices.scheduler.addTask(
-          WidgetsUpdateDependentTask(dependentRenderElement: dependant),
-        );
-      }
+      routeChangeCallback(routeName);
     }
   }
 }
@@ -482,9 +431,7 @@ class NavigatorRenderElement extends WatchfulRenderElement {
 |--------------------------------------------------------------------------
 */
 
-/// State that each navigator creates and manage.
-///
-class NavigatorState with ServicesResolver {
+class NavigatorState {
   /// Navigator widget's instance.
   ///
   final Navigator widget;
@@ -493,43 +440,20 @@ class NavigatorState with ServicesResolver {
   ///
   NavigatorRenderElement? _renderElement;
 
-  /// Reference to function that trigger updates.
-  ///
-  VoidCallback? _updateProcedure;
-
   /// Routes that this Navigator instance handles.
   ///
-  final routes = <Route>[];
+  final List<Route> routes;
 
-  // internal stack data
-
-  final _pageStack = <String>[];
-  final _historyStack = <OpenHistoryEntry>[];
+  /// Navigator's context.
+  ///
+  BuildContext get context => _renderElement!;
 
   /// Name of the active route. Route, that's currently on top of
   /// Navigator stack.
   ///
-  String get currentRouteName => _currentName;
-  var _currentName = '_';
+  String get currentRouteName => _renderElement!.getCurrentRouteName();
 
-  /// Navigator's context
-  ///
-  BuildContext get context => _context!;
-  BuildContext? _context;
-
-  /// Resolve services reference.
-  ///
-  Services get _services => resolveServices(context);
-
-  /// Create Navigator state object.
-  ///
-  NavigatorState(this.widget);
-
-  /*
-  |--------------------------------------------------------------------------
-  | Methods available on Navigator's state
-  |--------------------------------------------------------------------------
-  */
+  NavigatorState(this.widget) : routes = widget.routes;
 
   /// Open a page on Navigator's stack.
   ///
@@ -544,120 +468,13 @@ class NavigatorState with ServicesResolver {
     Map<String, String> values = const {},
     bool updateHistory = true,
   }) {
-    // if already on same page
-    if (_historyStack.isNotEmpty) {
-      var lastOpened = _historyStack.last;
+    var path = _renderElement!.getPathFromName(name: name);
 
-      if (lastOpened.name == name) {
-        if (fnIsKeyValueMapEqual(lastOpened.values, values)) {
-          return;
-        }
-      }
-    }
-
-    // if current navigator doesn't have a matching '$name' route
-
-    if (!frameworkIsRouteNameExists(name: name)) {
-      if (DEBUG_BUILD) {
-        _services.debug.exception(
-          "Navigator: Route '$name' is not declared.",
-        );
-      }
-
-      return;
-    }
-
-    // callbacks
-
-    frameworkUpdateCurrentName(name);
-
-    // update global state
-
-    if (updateHistory) {
-      if (DEBUG_BUILD) {
-        if (_services.debug.routerLogs) {
-          print('$context: Push entry: $name');
-        }
-      }
-
-      _services.router.pushEntry(
-        name: name,
-        values: values,
-        navigator: _renderElement!,
-        updateHistory: updateHistory,
-      );
-    }
-
-    _historyStack.add(OpenHistoryEntry(name, values));
-
-    // if route is already in stack, bring it to the top of stack
-
-    if (_isPageStacked(name: name)) {
-      _services.scheduler.addTask(
-        WidgetsManageTask(
-          parentRenderElement: _renderElement!,
-          flagIterateInReverseOrder: true,
-          widgetActionCallback: (widgetObject) {
-            var widget = widgetObject.widget;
-
-            if (widget is Route) {
-              var routeName = widget.name;
-
-              if (name == routeName) {
-                return [WidgetAction.showWidget];
-              }
-            }
-
-            return [WidgetAction.hideWidget];
-          },
-          afterTaskCallback: _updateProcedure,
-        ),
-      );
-    } else {
-      //
-      // else build the route
-
-      var page = frameworkGetRouteFromName(name: name);
-
-      _pageStack.add(name);
-
-      // hide all existing widgets
-
-      _services.scheduler.addTask(
-        WidgetsManageTask(
-          parentRenderElement: _renderElement!,
-          flagIterateInReverseOrder: true,
-          widgetActionCallback: (widgetObject) {
-            return [WidgetAction.hideWidget];
-          },
-          afterTaskCallback: () {
-            _services.scheduler.addTask(
-              WidgetsBuildTask(
-                widgets: [page],
-                parentRenderElement: _renderElement!,
-                flagCleanParentContents: 1 == _historyStack.length,
-              ),
-            );
-          },
-        ),
-      );
-    }
-  }
-
-  /// Go back.
-  ///
-  void back() {
-    if (canGoBack()) {
-      _historyStack.removeLast();
-
-      frameworkUpdateCurrentName(_historyStack.last.name);
-
-      _services.router.dispatchBackAction();
-    } else {
-      if (DEBUG_BUILD) {
-        _services.debug.exception('Navigator: No previous route to go back.');
-      }
-    }
+    _renderElement!.openPath(
+      path: path,
+      values: values,
+      updateHistory: updateHistory,
+    );
   }
 
   /// Get value from URL following the provided segment.
@@ -689,50 +506,15 @@ class NavigatorState with ServicesResolver {
   /// // because current navigator is registered on posts page
   /// ```
   ///
-  String getValue(String segment) => _services.router.getValue(
-        _renderElement!,
-        segment,
-      );
+  String getValue(String segment) => _renderElement!.getValue(segment);
+
+  /// Go back.
+  ///
+  void back() => _renderElement!.openPreviousPath();
 
   /// Whether navigator can go back to a page.
   ///
-  bool canGoBack() => _historyStack.length > 1;
-
-  /// Whether current active stack contains a route with matching [name].
-  ///
-  bool _isPageStacked({required String name}) => _pageStack.contains(name);
-
-  /*
-  |--------------------------------------------------------------------------
-  | framework reserved api
-  |--------------------------------------------------------------------------
-  */
-
-  /// Route name to route path map.
-  ///
-  /// @nodoc
-  @nonVirtual
-  final _frameworkNameToPathMap = <String, String>{};
-
-  /// Route path to route name map.
-  ///
-  /// @nodoc
-  @nonVirtual
-  final _frameworkPathToNameMap = <String, String>{};
-
-  /// Route name to Route instance map.
-  ///
-  /// @nodoc
-  @nonVirtual
-  final _frameworkNameToRouteMap = <String, Route>{};
-
-  /// @nodoc
-  @nonVirtual
-  @internal
-  @protected
-  void frameworkBindContext(BuildContext context) {
-    _context = context;
-  }
+  bool canGoBack() => _renderElement!.canOpenPreviousPath();
 
   /// @nodoc
   @nonVirtual
@@ -740,254 +522,5 @@ class NavigatorState with ServicesResolver {
   @protected
   void frameworkBindRenderElement(NavigatorRenderElement element) {
     _renderElement = element;
-  }
-
-  /// @nodoc
-  @nonVirtual
-  @internal
-  @protected
-  void frameworkBindUpdateProcedure(VoidCallback updateProcedure) {
-    _updateProcedure = updateProcedure;
-  }
-
-  /// @nodoc
-  @nonVirtual
-  @internal
-  bool frameworkIsRouteNameExists({required String name}) {
-    return _frameworkNameToPathMap.containsKey(name);
-  }
-
-  /// @nodoc
-  @nonVirtual
-  @internal
-  bool frameworkIsRoutePathExists({required String path}) {
-    return _frameworkPathToNameMap.containsKey(path);
-  }
-
-  /// @nodoc
-  @nonVirtual
-  @internal
-  String frameworkGetPathFromName({required String name}) {
-    assert(
-      _frameworkNameToPathMap.containsKey(name),
-      'Navigator has gone wild',
-    );
-
-    return _frameworkNameToPathMap[name]!;
-  }
-
-  /// @nodoc
-  @nonVirtual
-  @internal
-  String frameworkGetNameFromPath({required String path}) {
-    assert(
-      _frameworkPathToNameMap.containsKey(path),
-      'Navigator has gone wild',
-    );
-
-    return _frameworkPathToNameMap[path]!;
-  }
-
-  /// @nodoc
-  @nonVirtual
-  @internal
-  Route frameworkGetRouteFromName({required String name}) {
-    assert(
-      _frameworkNameToRouteMap.containsKey(name),
-      'Navigator has gone wild',
-    );
-
-    return _frameworkNameToRouteMap[name]!;
-  }
-
-  /// @nodoc
-  @nonVirtual
-  @internal
-  @protected
-  void frameworkInitState() {
-    if (widget.routes.isEmpty) {
-      if (DEBUG_BUILD) {
-        if (_services.debug.additionalChecks) {
-          _services.debug.exception(
-            'Navigator instance must have at least one route.',
-          );
-        }
-      }
-
-      return;
-    }
-
-    routes.addAll(widget.routes);
-
-    for (final route in routes) {
-      if (DEBUG_BUILD) {
-        if (_services.debug.additionalChecks) {
-          if (RegExp(r'^ *$').hasMatch(route.name)) {
-            if (route.name.isEmpty) {
-              return _services.debug.exception(
-                "Navigator's Route's name can't be empty."
-                '\n Route: ${route.name} -> ${route.path} is not allowed',
-              );
-            }
-
-            return _services.debug.exception(
-              "Navigator's Route's name cannot contain empty spaces."
-              '\n Route: ${route.name} -> ${route.path} is not allowed',
-            );
-          }
-
-          if (!RegExp(r'^[a-zA-Z0-9_\-]+$').hasMatch(route.path)) {
-            if (route.path.isEmpty) {
-              return _services.debug.exception(
-                "Navigator's Route's path can't be empty."
-                '\n Route: ${route.name} -> ${route.path} is not allowed',
-              );
-            }
-
-            return _services.debug.exception(
-              "Navigator's Route can contains only alphanumeric characters "
-              ', underscores(_) and hyphens(-)'
-              '\n Route: ${route.name} -> ${route.path} is not allowed',
-            );
-          }
-
-          var isRouteNameExists = frameworkIsRouteNameExists(name: route.name);
-          var isRoutePathExists = frameworkIsRoutePathExists(path: route.path);
-
-          if (isRouteNameExists) {
-            return _services.debug.exception(
-              'Please remove duplicate routes from your Navigator. '
-              "Route's name: '${route.name}' already exists",
-            );
-          }
-
-          if (isRoutePathExists) {
-            return _services.debug.exception(
-              'Please remove duplicate routes from your Navigator. '
-              "Route's path: '${route.path}' already exists",
-            );
-          }
-        }
-      }
-
-      _frameworkNameToPathMap[route.name] = route.path;
-      _frameworkPathToNameMap[route.path] = route.name;
-
-      _frameworkNameToRouteMap[route.name] = route;
-    }
-
-    _services.router.register(_renderElement!);
-  }
-
-  /// @nodoc
-  @nonVirtual
-  @internal
-  @protected
-  void frameworkRender() {
-    if (widget.routes.isEmpty) {
-      return;
-    }
-
-    var name = _services.router.getPath(_renderElement!);
-
-    var needsReplacement = name.isEmpty;
-
-    if (name.isEmpty) {
-      name = widget.routes.first.name;
-    }
-
-    var onInitCallback = widget.onInit;
-    if (null != onInitCallback) {
-      onInitCallback(this);
-    }
-
-    if (needsReplacement && name.isNotEmpty) {
-      if (DEBUG_BUILD) {
-        if (_services.debug.routerLogs) {
-          print('$context: Push replacement: $name');
-        }
-      }
-
-      _services.router.pushReplacement(
-        name: name,
-        values: {},
-        navigator: _renderElement!,
-      );
-    }
-
-    open(name: name, updateHistory: false);
-  }
-
-  /// @nodoc
-  @nonVirtual
-  @internal
-  @protected
-  void frameworkUpdate(UpdateType updateType) {
-    if (widget.routes.isEmpty) {
-      return;
-    }
-
-    _services.scheduler.addTask(
-      WidgetsManageTask(
-        parentRenderElement: _renderElement!,
-        flagIterateInReverseOrder: true,
-        widgetActionCallback: (widgetObject) {
-          var widget = widgetObject.widget;
-
-          if (widget is Route) {
-            var routeName = widget.name;
-
-            if (currentRouteName == routeName) {
-              return [WidgetAction.updateWidget];
-            }
-          }
-
-          return [];
-        },
-      ),
-    );
-  }
-
-  /// @nodoc
-  @nonVirtual
-  @internal
-  @protected
-  void frameworkDispose() => _services.router.unRegister(_renderElement!);
-
-  /// Framework fires this when parent route changes.
-  ///
-  /// @nodoc
-  @nonVirtual
-  @internal
-  void frameworkOnParentRouteChange(String name) {
-    var routeName = _services.router.getPath(_renderElement!);
-
-    if (routeName != currentRouteName) {
-      if (DEBUG_BUILD) {
-        if (_services.debug.routerLogs) {
-          print('$context: Push replacement: $routeName');
-        }
-      }
-
-      _services.router.pushReplacement(
-        name: currentRouteName,
-        values: {},
-        navigator: _renderElement!,
-      );
-    }
-  }
-
-  /// @nodoc
-  @nonVirtual
-  @internal
-  @protected
-  void frameworkUpdateCurrentName(String name) {
-    _currentName = name;
-
-    var onRouteChangeCallback = widget.onRouteChange;
-
-    if (null != onRouteChangeCallback) {
-      onRouteChangeCallback(_currentName);
-    }
   }
 }

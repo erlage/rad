@@ -14,7 +14,7 @@
    */
 
 .rad-route,
-.rad-navigator,
+.rad-router-element,
 .rad-gesture-detector {
     display: contents;
 }
