@@ -4,8 +4,8 @@
 
 import 'package:meta/meta.dart';
 
+import 'package:rad/src/core/common/abstract/router_render_element.dart';
 import 'package:rad/src/core/services/router/router_stack_entry.dart';
-import 'package:rad/src/widgets/navigator.dart';
 
 /// Router stack.
 ///
@@ -21,12 +21,12 @@ class RouterStack {
 
   void push(RouterStackEntry entry) => entries[entry.location] = entry;
 
-  RouterStackEntry? get(String location) => entries[location];
+  RouterStackEntry? find(String location) => entries[location];
 
   /// Clean all entries of a specific Navigator.
   ///
-  void remove(NavigatorRenderElement navigator) {
-    entries.removeWhere((pageId, entry) => entry.navigator == navigator);
+  void remove(RouterRenderElement routerElement) {
+    entries.removeWhere((loc, entry) => entry.routerElement == routerElement);
   }
 
   void clear() => entries.clear();

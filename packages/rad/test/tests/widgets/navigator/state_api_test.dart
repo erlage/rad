@@ -40,7 +40,7 @@ void main() {
         throwsA(
           predicate(
             (e) => '$e'.startsWith(
-              "Exception: Navigator: Route 'other-route' is not declared",
+              "Exception: Router: Route with name: 'other-route' is not declared",
             ),
           ),
         ),
@@ -377,7 +377,7 @@ void main() {
         throwsA(
           predicate(
             (e) => '$e'.startsWith(
-              'Exception: Navigator: No previous route to go back',
+              'Exception: Router: No previous route to go back',
             ),
           ),
         ),

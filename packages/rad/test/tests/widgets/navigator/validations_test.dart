@@ -34,7 +34,7 @@ void main() {
         throwsA(
           predicate(
             (e) => '$e'.startsWith(
-              'Exception: Navigator instance must have at least one route',
+              'Exception: Router Elements must have at least one route',
             ),
           ),
         ),

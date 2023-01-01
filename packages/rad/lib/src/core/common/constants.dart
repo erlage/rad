@@ -30,7 +30,7 @@ class Constants {
 
   static const classRadApp = 'rad-app';
   static const classRoute = 'rad-route';
-  static const classNavigator = 'rad-navigator';
+  static const classRouterElement = 'rad-router-element';
   static const classGestureDetector = 'rad-gesture-detector';
 
   // list view related

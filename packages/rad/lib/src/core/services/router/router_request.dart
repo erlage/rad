@@ -4,15 +4,15 @@
 
 import 'package:meta/meta.dart';
 
-import 'package:rad/src/widgets/navigator.dart';
+import 'package:rad/src/core/common/abstract/router_render_element.dart';
 
 /// Router request.
 ///
 @internal
 class RouterRequest {
-  /// Route name.
+  /// Route path.
   ///
-  final String name;
+  final String path;
 
   /// Values to push.
   ///
@@ -26,14 +26,14 @@ class RouterRequest {
   ///
   final bool isReplacement;
 
-  /// From navigator.
+  /// From [RouterRenderElement].
   ///
-  final NavigatorRenderElement navigator;
+  final RouterRenderElement routerElement;
 
   RouterRequest({
-    required this.name,
+    required this.path,
     required this.values,
-    required this.navigator,
+    required this.routerElement,
     required this.updateHistory,
     required this.isReplacement,
   });

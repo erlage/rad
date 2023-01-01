@@ -7,17 +7,18 @@ import 'dart:html';
 
 import 'package:meta/meta.dart';
 
+import 'package:rad/src/core/common/abstract/render_element.dart';
+import 'package:rad/src/core/common/abstract/router_render_element.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/common_render_elements.dart';
 import 'package:rad/src/core/common/objects/options/router_options.dart';
 import 'package:rad/src/core/interface/window/window.dart';
 import 'package:rad/src/core/services/abstract.dart';
-import 'package:rad/src/core/services/router/navigator_link.dart';
+import 'package:rad/src/core/services/router/router_link.dart';
 import 'package:rad/src/core/services/router/router_request.dart';
 import 'package:rad/src/core/services/router/router_stack.dart';
 import 'package:rad/src/core/services/router/router_stack_entry.dart';
-import 'package:rad/src/widgets/navigator.dart';
 
 /// Router service.
 ///
@@ -25,13 +26,13 @@ import 'package:rad/src/widgets/navigator.dart';
 class RouterService extends Service {
   final RouterOptions options;
 
-  /// Registered navigators.
-  ///
-  /// navigator render element: navigator link information
-  ///
-  final _navigatorLinks = <NavigatorRenderElement, NavigatorLink>{};
-
   final _routerStack = RouterStack();
+
+  /// Registered [RouterRenderElement]s.
+  ///
+  /// [RouterRenderElement]: [RouterLink]
+  ///
+  final _routerElements = <RouterRenderElement, RouterLink>{};
 
   /// Router request stream.
   ///
@@ -58,42 +59,42 @@ class RouterService extends Service {
   stopService() {
     _routerRequestsStream?.close();
 
-    _navigatorLinks.clear();
+    _routerElements.clear();
     _routerStack.clear();
 
     Window.delegate.removePopStateListener(rootElement);
   }
 
-  /// Register navigator's state.
+  /// Register [RouterRenderElement].
   ///
-  void register(NavigatorRenderElement navigator) {
+  void register(RouterRenderElement routerElement) {
     assert(
-      !_navigatorLinks.containsKey(navigator),
-      'Navigator is already registered',
+      !_routerElements.containsKey(routerElement),
+      'Node: $routerElement is already registered',
     );
 
-    _register(navigator);
+    _register(routerElement);
   }
 
-  void unRegister(NavigatorRenderElement navigator) {
-    _navigatorLinks.remove(navigator)?.disband();
+  void unRegister(RouterRenderElement routerElement) {
+    _routerElements.remove(routerElement)?.disbandLink();
 
-    _routerStack.remove(navigator);
+    _routerStack.remove(routerElement);
   }
 
   /// Push page entry.
   ///
   void pushEntry({
-    required String name,
+    required String path,
     required Map<String, String> values,
-    required NavigatorRenderElement navigator,
+    required RouterRenderElement routerElement,
     required bool updateHistory,
   }) {
     _routerRequestsStream?.sink.add(
       RouterRequest(
-        name: name,
+        path: path,
         values: values,
-        navigator: navigator,
+        routerElement: routerElement,
         updateHistory: updateHistory,
         isReplacement: false,
       ),
@@ -102,18 +103,18 @@ class RouterService extends Service {
 
   /// Push page entry as replacement.
   ///
-  /// This allows nested navigators to do initial linking.
+  /// This allows nested [RouterRenderElement] to do initial linking.
   ///
   void pushReplacement({
-    required String name,
+    required String path,
     required Map<String, String> values,
-    required NavigatorRenderElement navigator,
+    required RouterRenderElement routerElement,
   }) {
     _routerRequestsStream?.sink.add(
       RouterRequest(
-        name: name,
+        path: path,
         values: values,
-        navigator: navigator,
+        routerElement: routerElement,
         isReplacement: true,
         updateHistory: true, // irrelevant if is replacement
       ),
@@ -126,29 +127,26 @@ class RouterService extends Service {
     Window.delegate.historyBack(rootElement: rootElement);
   }
 
-  /// Get navigator link object.
+  /// Get [RouterLink] object.
   ///
-  NavigatorLink getNavigatorLink(NavigatorRenderElement navigator) {
-    var linkObject = _navigatorLinks[navigator];
+  RouterLink getRouterLink(RouterRenderElement routerElement) {
+    var linkObject = _routerElements[routerElement];
 
     assert(null != linkObject, 'Router has gone wild');
-    return linkObject as NavigatorLink;
+    return linkObject as RouterLink;
   }
 
-  /// Get current path based on Navigator's access.
+  /// Get current path based on [RouterRenderElement]'s access.
   ///
-  /// Returns empty string, if matches nothing. Navigators should display
-  /// default page when [getPath] returns empty string.
+  /// Returns empty string, if matches nothing. [RouterRenderElement]s should
+  /// display default page when [getCurrentPath] returns empty string.
   ///
-  String getPath(NavigatorRenderElement navigator) {
-    var stateObject = navigator.state;
-
-    var segments = accessibleSegments(navigator);
+  String getCurrentPath(RouterRenderElement routerElement) {
+    var segments = accessibleSegments(routerElement);
 
     var matchedPathSegment = '';
-
     for (final segment in segments) {
-      if (stateObject.frameworkIsRoutePathExists(path: segment)) {
+      if (routerElement.isRoutePathExists(path: segment)) {
         matchedPathSegment = segment;
 
         break;
@@ -158,7 +156,7 @@ class RouterService extends Service {
     if (DEBUG_BUILD) {
       if (services.debug.routerLogs) {
         print(
-          'Navigator(#$navigator) matched: '
+          'Router Element(#$routerElement) matched: '
           "'$matchedPathSegment' from '${segments.join("/")} < "
           " (${_getCurrentSegments()})'",
         );
@@ -170,10 +168,10 @@ class RouterService extends Service {
 
   /// Get value following the provided segment in URL.
   ///
-  String getValue(NavigatorRenderElement navigator, String segment) {
+  String getValue(RouterRenderElement routerElement, String segment) {
     var encodedSegment = fnEncodeValue(segment);
 
-    var path = accessibleSegments(navigator).join('/');
+    var path = accessibleSegments(routerElement).join('/');
 
     // try to find a value that's following the provided segment in path
 
@@ -182,43 +180,46 @@ class RouterService extends Service {
     return (null == match) ? '' : fnDecodeValue(match.group(1) ?? '');
   }
 
-  void ensureNavigatorIsVisible(NavigatorLink linkObject) {
+  void ensureRouterElementIsVisible(RouterLink linkObject) {
     var parentLinkObject = linkObject.parentLink;
 
     if (null != parentLinkObject) {
-      ensureNavigatorIsVisible(parentLinkObject);
+      ensureRouterElementIsVisible(parentLinkObject);
 
-      var parentState = parentLinkObject.navigator.state;
-      var parentRouteNameToOpen = linkObject.segments.last;
+      var parentRouterElement = parentLinkObject.routerElement;
+      var parentRoutePathToOpen = linkObject.segments.last;
 
-      parentState.open(name: parentRouteNameToOpen, updateHistory: false);
+      parentRouterElement.openPath(
+        path: parentRoutePathToOpen,
+        updateHistory: false,
+      );
     }
   }
 
-  /// Part of path(Window.delegate.locationPathName) that navigator with
-  /// [navigator] can access.
+  /// Part of path(Window.delegate.locationPathName) that current
+  /// [RouterRenderElement] can access.
   ///
-  List<String> accessibleSegments(NavigatorRenderElement navigator) {
-    var navigatorLink = getNavigatorLink(navigator);
+  List<String> accessibleSegments(RouterRenderElement routerElement) {
+    var routerLink = getRouterLink(routerElement);
     var currentSegments = _getCurrentSegments();
 
-    // if root navigator, all segments are available
+    // if root RouterRenderElement, all segments are available
 
-    if (null == navigatorLink.parentLink) {
+    if (null == routerLink.parentLink) {
       return currentSegments;
     }
 
-    // else limit part of path that's visible to current navigator
+    // else limit part of path that's visible to current RouterRenderElement
 
     var matcher = '';
 
-    if (navigatorLink.segments.length < 3) {
-      matcher = r'^\/*.*(' + navigatorLink.segments.last + r'.*)';
+    if (routerLink.segments.length < 3) {
+      matcher = r'^\/*.*(' + routerLink.segments.last + r'.*)';
     } else {
       matcher = r'^\/*' +
-          navigatorLink.segments[1] +
+          routerLink.segments[1] +
           r'.*(' +
-          navigatorLink.segments.last +
+          routerLink.segments.last +
           r'.*)';
     }
 
@@ -235,19 +236,18 @@ class RouterService extends Service {
     return group.split('/');
   }
 
-  /// Part of path(Window.delegate.locationPathName) that navigator with
-  /// [navigator] can't change.
+  /// Part of path(Window.delegate.locationPathName) that current
+  /// [RouterRenderElement] can't change.
   ///
-  /// Note that, navigator still can access **some parts** of protected
-  /// segments using [accessibleSegments]
+  /// Note that, [RouterRenderElement] still can access **some parts** of
+  /// protected segments using [accessibleSegments]
   ///
-  List<String> protectedSegments(NavigatorRenderElement navigator) {
-    var stateObject = navigator.state;
-    var navigatorLink = getNavigatorLink(navigator);
+  List<String> protectedSegments(RouterRenderElement routerElement) {
+    var routerLink = getRouterLink(routerElement);
 
-    // if root navigator, no segments are protected
+    // if root, no segments are protected
 
-    if (null == navigatorLink.parentLink) {
+    if (null == routerLink.parentLink) {
       return _getRoutingPath().split('/');
     }
 
@@ -255,19 +255,19 @@ class RouterService extends Service {
 
     var matcher = '';
 
-    var matchRoutes = stateObject.routes.map((r) => r.path).join(r'|\/');
+    var matchRoutes = routerElement.getPathList().join(r'|\/');
 
-    if (navigatorLink.segments.length < 3) {
+    if (routerLink.segments.length < 3) {
       matcher = r'(^\/*.*' +
-          navigatorLink.segments.last +
+          routerLink.segments.last +
           r'.*(?=\/' +
           matchRoutes +
           r'))';
     } else {
       matcher = r'(^\/*' +
-          navigatorLink.segments[1] +
+          routerLink.segments[1] +
           r'.*' +
-          navigatorLink.segments.last +
+          routerLink.segments.last +
           r'.*(?=\/' +
           matchRoutes +
           r'))';
@@ -306,7 +306,7 @@ class RouterService extends Service {
 
       // find or manage user history entry
 
-      var entry = _routerStack.get(location);
+      var entry = _routerStack.find(location);
 
       // user is traversing passive history.
 
@@ -329,19 +329,19 @@ class RouterService extends Service {
         // for active history, our implementation is ready, see below.
 
       } else {
-        var navigatorState = entry.navigator.state;
-        var navigatorLink = getNavigatorLink(entry.navigator);
+        var routerElement = entry.routerElement;
+        var routerLink = getRouterLink(routerElement);
 
-        ensureNavigatorIsVisible(navigatorLink);
+        ensureRouterElementIsVisible(routerLink);
 
         if (DEBUG_BUILD) {
           if (services.debug.routerLogs) {
-            print('Router: onPopState: open: ${entry.name}');
+            print('Router: onPopState: open: ${entry.path}');
           }
         }
 
-        navigatorState.open(
-          name: entry.name,
+        routerElement.openPath(
+          path: entry.path,
           values: entry.values,
           updateHistory: false,
         );
@@ -353,13 +353,13 @@ class RouterService extends Service {
     }
   }
 
-  /// Associated navigator with a navigator link object.
+  /// Associated [RouterRenderElement] with a [RouterLink] object.
   ///
-  void _setNavigatorLink({
-    required NavigatorRenderElement navigator,
-    required NavigatorLink navigatorLink,
+  void _setRouterLink({
+    required RouterRenderElement routerElement,
+    required RouterLink routerLink,
   }) {
-    _navigatorLinks[navigator] = navigatorLink;
+    _routerElements[routerElement] = routerLink;
   }
 
   /// Get routing path.
@@ -420,9 +420,9 @@ class RouterService extends Service {
   }
 
   void _processRouterRequest(RouterRequest request) {
-    var name = request.name;
+    var path = request.path;
     var values = request.values;
-    var navigator = request.navigator;
+    var routerElement = request.routerElement;
     var updateHistory = request.updateHistory;
 
     if (request.isReplacement) {
@@ -430,14 +430,14 @@ class RouterService extends Service {
 
       _routerStack.entries.remove(currentLocation);
 
-      var preparedSegs = _prepareSegments(protectedSegments(navigator));
+      var preparedSegs = _prepareSegments(protectedSegments(routerElement));
 
       var encodedValues = fnEncodeKeyValueMap(values);
       if (encodedValues.isNotEmpty) {
         encodedValues = '/$encodedValues';
       }
 
-      var historyEntry = "${preparedSegs.join("/")}/$name$encodedValues";
+      var historyEntry = "${preparedSegs.join("/")}/$path$encodedValues";
 
       var currentPath = _getCurrentPath();
 
@@ -454,23 +454,23 @@ class RouterService extends Service {
       );
 
       var entry = RouterStackEntry(
-        name: name,
+        path: path,
         values: values,
-        navigator: navigator,
+        routerElement: routerElement,
         location: Window.delegate.locationHref,
       );
 
       _routerStack.push(entry);
     } else {
       if (updateHistory) {
-        var preparedSegs = _prepareSegments(protectedSegments(navigator));
+        var preparedSegs = _prepareSegments(protectedSegments(routerElement));
 
         var encodedValues = fnEncodeKeyValueMap(values);
         if (encodedValues.isNotEmpty) {
           encodedValues = '/$encodedValues';
         }
 
-        var historyEntry = "${preparedSegs.join("/")}/$name$encodedValues";
+        var historyEntry = "${preparedSegs.join("/")}/$path$encodedValues";
 
         var currentPath = _getCurrentPath();
 
@@ -486,23 +486,23 @@ class RouterService extends Service {
           rootElement: rootElement,
         );
 
-        var state = navigator.state;
-        var navigatorLink = getNavigatorLink(navigator);
-        var childRouteObject = navigatorLink.childLinkedOnCurrentRoute;
+        var routerLink = getRouterLink(routerElement);
+        var childRouteObject = routerLink.getChildLinkedOnCurrentRoutePath();
 
         if (null != childRouteObject) {
-          if (state.currentRouteName == childRouteObject.segments.last) {
-            var childState = childRouteObject.navigator.state;
+          var childRouterCurrentPath = routerElement.getCurrentRoutePath();
+          if (childRouterCurrentPath == childRouteObject.segments.last) {
+            var childRouterElement = childRouteObject.routerElement;
 
-            childState.frameworkOnParentRouteChange(name);
+            childRouterElement.frameworkOnParentPathChange(path);
           }
         }
       }
 
       var entry = RouterStackEntry(
-        name: name,
+        path: path,
         values: values,
-        navigator: navigator,
+        routerElement: routerElement,
         location: Window.delegate.locationHref,
       );
 
@@ -512,20 +512,27 @@ class RouterService extends Service {
 
   /// Register logic, actual.
   ///
-  void _register(NavigatorRenderElement navigator) {
-    var routes = (navigator.widget as Navigator).routes;
+  void _register(RouterRenderElement routerElement) {
+    // try finding a router element in ancestors
 
-    var parentNavigator = navigator
-        .findAncestorRenderElementOfExactType<NavigatorRenderElement>();
+    RenderElement? parentElement;
+    routerElement.visitAncestorElements((element) {
+      if (element is RouterRenderElement) {
+        parentElement = element;
 
-    // if no Navigator in ancestors i.e we're dealing with a root navigator
+        return false;
+      }
 
-    if (null == parentNavigator) {
-      _setNavigatorLink(
-        navigator: navigator,
-        navigatorLink: NavigatorLink(
-          navigator: navigator,
-          routes: routes,
+      return true;
+    });
+
+    // if no element in ancestors i.e we're dealing with a root
+
+    if (null == parentElement) {
+      _setRouterLink(
+        routerElement: routerElement,
+        routerLink: RouterLink(
+          routerElement: routerElement,
           segments: [_getRoutingPath()],
         ),
       );
@@ -533,7 +540,9 @@ class RouterService extends Service {
       if (DEBUG_BUILD) {
         if (services.debug.routerLogs) {
           print(
-            'Navigator Registered: #$navigator at ${[_getRoutingPath()]}',
+            '$RouterRenderElement Registered: #$routerElement at ${[
+              _getRoutingPath()
+            ]}',
           );
         }
       }
@@ -541,33 +550,36 @@ class RouterService extends Service {
       return;
     }
 
-    // else it's nested navigator
+    // else it's nested router element
 
-    var parentState = parentNavigator.state;
-    var parentLinkObject = getNavigatorLink(parentNavigator);
+    var parentRouterElement = parentElement as RouterRenderElement;
 
-    var segments = [...parentLinkObject.segments, parentState.currentRouteName];
+    var parentLinkObject = getRouterLink(parentRouterElement);
+    var parentCurrentRoutePath = parentRouterElement.getCurrentRoutePath();
+
+    var segments = [...parentLinkObject.segments, parentCurrentRoutePath];
 
     // create a link object
 
-    var navigatorLink = NavigatorLink(
-      navigator: navigator,
-      routes: routes,
+    var routerLink = RouterLink(
+      routerElement: routerElement,
       segments: segments,
       parentLink: parentLinkObject,
     );
 
     // register link object
 
-    _setNavigatorLink(navigator: navigator, navigatorLink: navigatorLink);
+    _setRouterLink(routerElement: routerElement, routerLink: routerLink);
 
     // establish link with parent
 
-    parentLinkObject.establishChildLink(navigatorLink);
+    parentLinkObject.setChildLinkOnCurrentRoutePath(routerLink);
 
     if (DEBUG_BUILD) {
       if (services.debug.routerLogs) {
-        print('Navigator Registered: #$navigator at $segments');
+        print(
+          '$RouterRenderElement Registered: #$routerElement at $segments',
+        );
       }
     }
   }
