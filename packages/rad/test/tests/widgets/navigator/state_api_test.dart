@@ -611,6 +611,73 @@ void main() {
 
   /*
   |--------------------------------------------------------------------------
+  | State API | onInit tests
+  |--------------------------------------------------------------------------
+  */
+
+  group('Navigator, onInit tests:', () {
+    RT_AppRunner? app;
+
+    setUp(() {
+      app = createTestApp()..start();
+    });
+
+    tearDown(() => app!.stop());
+
+    Future<void> build(Function(NavigatorState) onInitCallback) async {
+      await app!.buildChildren(
+        widgets: [
+          Navigator(
+            key: Key('navigator'),
+            onInit: onInitCallback,
+            routes: [
+              Route(name: 'p1', page: Text('page one')),
+              Route(name: 'p2', page: Text('page two')),
+              Route(name: 'p3', page: Text('page three')),
+            ],
+          ),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+    }
+
+    test('should have current route information available', () async {
+      await build((state) {
+        expect(state.currentRouteName, equals('p1'));
+      });
+    });
+
+    test('should get called before rendering default route', () async {
+      await build((_) {
+        expect(app!.appDomNode, RT_hasContents(''));
+      });
+
+      expect(app!.appDomNode, RT_hasContents('page one'));
+    });
+
+    test('should handle .open inside onInit', () async {
+      await build((state) {
+        state.open(name: 'p3');
+      });
+
+      expect(app!.navigatorState('navigator').currentRouteName, equals('p3'));
+    });
+
+    test('should handle multiple .open inside onInit', () async {
+      await build((state) {
+        state.open(name: 'p2');
+        state.open(name: 'p1');
+        state.open(name: 'p3');
+      });
+
+      var routesSel = '.${Constants.classRoute}:not(.${Constants.classHidden})';
+      var routeNodes = document.querySelectorAll(routesSel);
+      expect(routeNodes.map((n) => n.text).join('|'), equals('page three'));
+    });
+  });
+
+  /*
+  |--------------------------------------------------------------------------
   | State API | Getting value tests
   |--------------------------------------------------------------------------
   */
