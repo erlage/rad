@@ -95,7 +95,6 @@ class EventsService extends Service {
     var isEventAbsorbable = false;
 
     switch (eventType) {
-
       // we should forwarding below type of events to next nodes
       // in propagation chain even if a valid listener has already got called
 
@@ -141,7 +140,6 @@ class EventsService extends Service {
       // these restrictions are purely framework-sided
       // we can promote below events to bubbling events anytime we want
       // maybe just to be more spec complaint
-
     }
 
     for (final listener in listeners) {

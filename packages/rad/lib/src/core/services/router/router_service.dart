@@ -327,7 +327,6 @@ class RouterService extends Service {
         Window.delegate.locationReload();
 
         // for active history, our implementation is ready, see below.
-
       } else {
         var navigatorState = entry.navigator.state;
         var navigatorLink = getNavigatorLink(entry.navigator);
