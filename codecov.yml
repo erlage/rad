@@ -20,6 +20,8 @@ comment: false
 #
 
 ignore:
+  - "**/example/"
+
   # - see enums_test.dart
   - "packages/rad/lib/src/core/common/enums.dart"
   
