@@ -21,7 +21,6 @@ export 'package:rad/src/core/interface/window/delegates/browser_window.dart';
 export 'package:rad/src/core/interface/components/abstract.dart';
 export 'package:rad/src/core/interface/components/components.dart';
 
-export 'package:rad/src/core/framework.dart';
 export 'package:rad/src/core/services/debug/debug_service.dart';
 export 'package:rad/src/core/services/router/router_service.dart';
 export 'package:rad/src/core/services/events/events_service.dart';
