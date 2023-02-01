@@ -43,10 +43,11 @@ jobs:
           dart pub get
           dart pub run test --coverage="coverage"
           dart pub global activate coverage
-          $HOME/.pub-cache/bin/format_coverage --lcov --in=coverage --out=coverage.lcov --report-on=lib
-          mv coverage.lcov ../../coverage.lcov
+          $HOME/.pub-cache/bin/format_coverage --lcov --in=coverage --out=rad.lcov --report-on=lib
+          mv rad.lcov ../../rad.lcov
 
-      - uses: codecov/codecov-action@v2
+      - name: Publish to Codecov
+        uses: codecov/codecov-action@v2
         with:
-          files: coverage.lcov
+          files: rad.lcov
           verbose: true

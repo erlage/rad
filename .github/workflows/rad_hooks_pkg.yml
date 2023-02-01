@@ -37,4 +37,13 @@ jobs:
         run: |
           cd packages/rad_hooks
           dart pub get
-          dart test
+          dart pub run test --coverage="coverage"
+          dart pub global activate coverage
+          $HOME/.pub-cache/bin/format_coverage --lcov --in=coverage --out=rad_hooks.lcov --report-on=lib
+          mv rad_hooks.lcov ../../rad_hooks.lcov
+
+      - name: Publish to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          files: rad_hooks.lcov
+          verbose: true
