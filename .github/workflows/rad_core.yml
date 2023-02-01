@@ -5,13 +5,9 @@ on:
 
   push:
     branches: [ main ]
-    paths:
-      - 'packages/rad/**'
 
   pull_request:
     branches: [ main ]
-    paths:
-      - 'packages/rad/**'
   
 jobs:
   analyze: 

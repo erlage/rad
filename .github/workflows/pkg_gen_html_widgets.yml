@@ -5,18 +5,9 @@ on:
 
   push:
     branches: [ main ]
-    paths:
-      - 'packages/rad/pubspec.yaml'
-      - 'packages/rad/lib/src/widgets/abstract/**'
-      - 'packages/rad/lib/src/widgets/html/**'
-      - 'tool/**'
   
   pull_request:
     branches: [ main ]
-    paths:
-      - 'packages/rad/lib/src/widgets/abstract/**'
-      - 'packages/rad/lib/src/widgets/html/**'
-      - 'tool/**'
 
 jobs:
   build: 
