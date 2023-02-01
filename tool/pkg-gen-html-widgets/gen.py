@@ -245,6 +245,21 @@ def finalize_package(out_dir):
         fh.write(contents)
         fh.close()
 
+    # add short library file
+
+    html_widgets_lib_file = os.path.join(rad_pkg_dir, 'lib', 'widgets_short_html.dart')
+    new_lib_file_path = os.path.join(out_dir, 'lib', __package_name__ + '_short.dart')
+    
+    with open(html_widgets_lib_file, 'r') as file:
+        contents = file.read()
+
+        contents = contents.replace('library widgets_html_short', 'library ' + __package_name__ + '_short')
+        contents = contents.replace("package:rad/src", "package:" + __package_name__ + "/src")
+
+        fh = open(new_lib_file_path, 'w+')
+        fh.write(contents)
+        fh.close()
+
     # add license
 
     src = os.path.join(root_dir, 'LICENSE')
