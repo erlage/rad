@@ -4,7 +4,7 @@
 
 import { Lexer } from "./lexer";
 import { SyntaxToken, SyntaxTokenType } from "./syntax_token";
-import { constAttributeMappings, constEventMappings, constLongTagToShortTagMappings, constShortTagToLongTagMappings } from "../constants";
+import { constRadToNativeAttributeNameMappings, constRadToNativeEventNameMappings, constLongTagToShortTagMappings, constShortTagToLongTagMappings } from "../constants";
 import { HTMLWidgetCallAttributeExpression, CustomDelimitedExpression, HTMLWidgetCallExpression, Expression, ExpressionType, OtherExpression, HTMLWidgetCallNamedChildrenAttributeExpression, HTMLWidgetCallNamedChildAttributeExpression, HTMLWidgetCallPositionalChildrenAttributeExpression, HTMLWidgetCallChildTreeBaseExpression } from "./expressions";
 
 const constEmptyExpression = new OtherExpression([]);
@@ -349,7 +349,7 @@ export class Parser {
 
             // add:config:tryRecognizingArbitraryAttributes
             if (!true) {
-                if (!constAttributeMappings.has(currentToken.text) && !constEventMappings.has(currentToken.text)) {
+                if (!constRadToNativeAttributeNameMappings.has(currentToken.text) && !constRadToNativeEventNameMappings.has(currentToken.text)) {
                     return null;
                 }
             }
