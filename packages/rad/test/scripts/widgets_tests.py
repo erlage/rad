@@ -32,6 +32,7 @@ no_tests_for = [
     'StreamBuilder',
     'ValueListenableBuilder',
     'RawEventDetector',
+    'RenderScope',
     'Text',
     
     # html additional
