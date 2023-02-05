@@ -1,0 +1,56 @@
+name: Rad(html-vscode-pkg)
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches: [ main ]
+  
+  pull_request:
+    branches: [ main ]
+  
+jobs:
+  analyze: 
+    runs-on: ubuntu-latest
+    name: Analyze
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Run analyze
+        run: |
+          cd packages/rad_test
+          dart pub get
+          dart format --output=none --set-exit-if-changed .
+          dart analyze --fatal-infos
+
+  tests:
+    runs-on: ubuntu-latest
+    name: Run tests
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+          
+      - name: Generate tests
+        run: |
+          python3 test/gen.py
+
+      - name: Run tests
+        run: |
+          cd packages/rad_test
+          dart pub get
+          dart pub run test --coverage="coverage"
+          dart pub global activate coverage
+          $HOME/.pub-cache/bin/format_coverage --lcov --in=coverage --out=rad_html_vscode.lcov --report-on=lib
+          mv rad_html_vscode.lcov ../../rad_html_vscode.lcov
+
+      - name: Publish to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          files: rad_html_vscode.lcov
+          verbose: true
