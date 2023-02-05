@@ -1,0 +1,90 @@
+{
+  "name": "rad",
+  "version": "0.1.0",
+  "displayName": "Rad framework [Dart]",
+  "description": "Rad framework support and utilities for Dart",
+  "author": {
+    "name": "H. Singh",
+    "email": "hamsbrar@gmail.com"
+  },
+  "publisher": "erlage",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "repository": {
+    "url": "https://github.com/erlage/rad"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:dart",
+    "workspaceContains:*.dart",
+    "workspaceContains:*/*.dart",
+    "workspaceContains:*/*/*.dart"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "rad.jsxToggle",
+        "title": "Visual-JSX: Toggle Visualization"
+      },
+      {
+        "command": "rad.jsxTogglePrettyMode",
+        "title": "Visual-JSX: Toggle Pretty Mode"
+      },
+      {
+        "command": "rad.jsxToggleExperimentParsingOfficialSyntax",
+        "title": "Visual-JSX: Toggle Experimental Parsing Of Offical Syntax"
+      }
+    ],
+    "configuration": [
+      {
+        "title": "Rad",
+        "order": 1,
+        "properties": {
+          "rad.jsxEnable": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Whether to enable Visual-JSX.",
+            "scope": "window"
+          },
+          "rad.jsxEnablePrettyMode": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Whether to enable pretty mode(focused on readers).",
+            "scope": "window"
+          },
+          "rad.jsxEnableExperimentParsingOfficialSyntax": {
+            "type": "boolean",
+            "default": false,
+            "markdownDescription": "Whether to enable JSX visualising for official HTML widgets.",
+            "scope": "window"
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.75.0",
+    "@types/glob": "^8.0.1",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.49.0",
+    "@typescript-eslint/parser": "^5.49.0",
+    "eslint": "^8.33.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.1.0",
+    "typescript": "^4.9.4",
+    "@vscode/test-electron": "^2.2.2"
+  }
+}
