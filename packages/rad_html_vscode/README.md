@@ -21,6 +21,8 @@ The HTML widgets provided by this package differ from the official HTML widgets 
 div([]),
 ```
 
+- No `innerText` argument: Use Text widget.
+
 - No Named `child`/`children` argument: Child widgets can be passed as a list anywhere, but it is preferred to pass them as the last argument.
 
 - No Descriptive Aliases: Unlike the official HTML widgets, this package does not provide full name aliases for the widgets. Instead, this package provides only short syntax that matches the HTML tags.
