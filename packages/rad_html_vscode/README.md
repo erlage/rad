@@ -4,9 +4,15 @@
 
 This package provides a set of HTML widgets that integrate seamlessly with the Visual-JSX feature of the Rad framework's VSCode extension. The widgets are designed to be simple, easy to use, and make it possible to write HTML in Dart with minimal effort, while taking advantage of the powerful Visual-JSX syntax helpers.
 
-## vs Rad's HTML widgets
+## Differences from Rad's HTML widgets
 
-The HTML widgets provided by this package differ from the official HTML widgets provided by the Rad framework:
+- No `innerText` argument: Use Text widget.
+
+- No Named `child`/`children` argument: Child widgets can be passed as a list anywhere, but it is preferred to pass them as the last argument.
+
+- No Descriptive Aliases: Unlike the official HTML widgets, this package does not provide full name aliases for the widgets. Instead, this package provides only short syntax that matches the HTML tags.
+
+In nutshell,
 
 ```dart
 // instead of
@@ -20,12 +26,6 @@ The HTML widgets provided by this package differ from the official HTML widgets 
 // we've only this
 div([]),
 ```
-
-- No `innerText` argument: Use Text widget.
-
-- No Named `child`/`children` argument: Child widgets can be passed as a list anywhere, but it is preferred to pass them as the last argument.
-
-- No Descriptive Aliases: Unlike the official HTML widgets, this package does not provide full name aliases for the widgets. Instead, this package provides only short syntax that matches the HTML tags.
 
 ## Contributing
 
