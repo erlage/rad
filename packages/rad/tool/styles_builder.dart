@@ -1,4 +1,4 @@
-// Copyright (c) 2022, Rad developers. All rights reserved.
+// Copyright (c) 2022-2023, H. Singh <hamsbrar@gmail.com>. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -145,7 +145,7 @@ class StylesBuilder implements Builder {
       importStatements = "${importsForCurrentAsset.join("\n")}\n\n";
     }
 
-    genContents = '// Copyright (c) 2022, Rad developers. '
+    genContents = '// Copyright (c) 2022-2023, H. Singh <hamsbrar@gmail.com>. '
         'All rights reserved.\n'
         '// Use of this source code is governed by a BSD-style license that '
         'can be\n// found in the LICENSE file.\n\n'
