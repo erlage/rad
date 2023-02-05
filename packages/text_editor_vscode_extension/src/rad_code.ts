@@ -68,7 +68,7 @@ export class RadCode {
             return;
         }
 
-        if (activeEditor.document.languageId.toLowerCase() !== 'dart') {
+        if (activeEditor.document.languageId !== 'dart') {
             return;
         }
 
