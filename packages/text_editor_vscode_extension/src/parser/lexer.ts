@@ -95,14 +95,18 @@ export class Lexer {
             case ']':
                 return new SyntaxToken(SyntaxTokenType.closeBracketCharacter, this.seekCurrentPosition(1), 1, "]");
 
+            case '{':
+                return new SyntaxToken(SyntaxTokenType.openBraceCharacter, this.seekCurrentPosition(1), 1, ";");
+
+            case '}':
+                return new SyntaxToken(SyntaxTokenType.closeBraceCharacter, this.seekCurrentPosition(1), 1, ";");
+
             case ':':
                 return new SyntaxToken(SyntaxTokenType.doubleColonCharacter, this.seekCurrentPosition(1), 1, ":");
 
             case ';':
                 return new SyntaxToken(SyntaxTokenType.semiColonCharacter, this.seekCurrentPosition(1), 1, ";");
 
-            case '{':
-            case '}':
             case '~':
             case '.':
             case '+':
