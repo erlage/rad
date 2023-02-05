@@ -9,6 +9,9 @@ dart pub get
 cd ../rad_hooks
 dart pub get
 
+cd ../rad_html_vscode
+dart pub get
+
 cd ../../example/multi_app_example
 
 cd ../multi_app_example
