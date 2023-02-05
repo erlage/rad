@@ -213,10 +213,10 @@ packages:
     dependency: "direct main"
     description:
       name: rad
-      sha256: "43ab6c6d8b6f46e0da2c30988ffbedc139074a9d8c29a31f44daa6185b947f7e"
+      sha256: babd5feefd9e356e2ca85630f859fade6a548280ece908fa753a22535cbca32c
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.0"
+    version: "1.2.0"
   rad_test:
     dependency: "direct dev"
     description:
