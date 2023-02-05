@@ -20,6 +20,7 @@ export enum SyntaxTokenType {
 
     openParenthesisCharacter, closeParenthesisCharacter,
     openBracketCharacter, closeBracketCharacter,
+    openBraceCharacter, closeBraceCharacter,
 
     doubleColonCharacter, semiColonCharacter,
 }

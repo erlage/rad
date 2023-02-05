@@ -4,7 +4,7 @@
 
 import { Lexer } from "./lexer";
 import { SyntaxToken, SyntaxTokenType } from "./syntax_token";
-import { constAttributeMappings, constEventMappings, constLongTagToShortTagMappings, constShortTagToLongTagMappings } from "./constants";
+import { constAttributeMappings, constEventMappings, constLongTagToShortTagMappings, constShortTagToLongTagMappings } from "../constants";
 import { HTMLWidgetCallAttributeExpression, CustomDelimitedExpression, HTMLWidgetCallExpression, Expression, ExpressionType, OtherExpression, HTMLWidgetCallNamedChildrenAttributeExpression, HTMLWidgetCallNamedChildAttributeExpression, HTMLWidgetCallPositionalChildrenAttributeExpression, HTMLWidgetCallChildTreeBaseExpression } from "./expressions";
 
 const constEmptyExpression = new OtherExpression([]);
@@ -119,6 +119,9 @@ export class Parser {
                 case SyntaxTokenType.endOfInputCharacter:
                     return null;
 
+                case SyntaxTokenType.openBraceCharacter:
+                    return this.parseBraceExpression(); // block expression
+
                 case SyntaxTokenType.openBracketCharacter:
                     return this.parseBracketExpression();
 
@@ -153,6 +156,13 @@ export class Parser {
 
             return constEmptyExpression;
         }
+    }
+
+    private parseBraceExpression(): Expression {
+        return this.parseCustomDelimitedExpression({
+            startTokenType: SyntaxTokenType.openBraceCharacter,
+            stopTokenType: SyntaxTokenType.closeBraceCharacter,
+        });
     }
 
     private parseBracketExpression(): Expression {
