@@ -35,8 +35,8 @@
         "title": "Visual-JSX: Toggle Pretty Mode"
       },
       {
-        "command": "rad.jsxToggleExperimentParsingOfficialSyntax",
-        "title": "Visual-JSX: Toggle Experimental Parsing Of Official Syntax"
+        "command": "rad.jsxToggleExperimentParsingOriginalSyntax",
+        "title": "Visual-JSX: Toggle Experimental Parsing Of Original Syntax"
       },
       {
         "command": "rad.html2Rad",
@@ -60,10 +60,10 @@
             "markdownDescription": "Whether to enable pretty mode(focused on readers).",
             "scope": "window"
           },
-          "rad.jsxEnableExperimentParsingOfficialSyntax": {
+          "rad.jsxEnableExperimentParsingOriginalSyntax": {
             "type": "boolean",
             "default": false,
-            "markdownDescription": "Whether to enable JSX visualizing for official HTML widgets.",
+            "markdownDescription": "Whether to enable JSX visualizing for Original HTML widgets.",
             "scope": "window"
           },
           "rad.html2RadOutputSyntax": {

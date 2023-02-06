@@ -25,7 +25,7 @@ class Config {
 
     get jsxEnable(): boolean { return this.get<boolean>("jsxEnable", true); }
     get jsxEnablePrettyMode(): boolean { return this.get<boolean>("jsxEnablePrettyMode", false); }
-    get jsxEnableExperimentParsingOfficialSyntax(): boolean { return this.get<boolean>("jsxEnableExperimentParsingOfficialSyntax", false); }
+    get jsxEnableExperimentParsingOriginalSyntax(): boolean { return this.get<boolean>("jsxEnableExperimentParsingOriginalSyntax", false); }
     get html2RadOutputSyntax(): string { return this.get<string>("html2RadOutputSyntax", "rad_html_vscode"); }
 
     public setJsxEnable(value: boolean) {
@@ -36,8 +36,8 @@ class Config {
         this.set("jsxEnablePrettyMode", value, vscode.ConfigurationTarget.Global);
     }
 
-    public setJsxEnableExperimentParsingOfficialSyntax(value: boolean) {
-        this.set("jsxEnableExperimentParsingOfficialSyntax", value, vscode.ConfigurationTarget.Global);
+    public setJsxEnableExperimentParsingOriginalSyntax(value: boolean) {
+        this.set("jsxEnableExperimentParsingOriginalSyntax", value, vscode.ConfigurationTarget.Global);
     }
 }
 

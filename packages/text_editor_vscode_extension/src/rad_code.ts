@@ -24,8 +24,8 @@ export class RadCode {
             this.triggerRun();
         }));
 
-        context.subscriptions.push(vscode.commands.registerCommand('rad.jsxToggleExperimentParsingOfficialSyntax', () => {
-            config.setJsxEnableExperimentParsingOfficialSyntax(!config.jsxEnableExperimentParsingOfficialSyntax);
+        context.subscriptions.push(vscode.commands.registerCommand('rad.jsxToggleExperimentParsingOriginalSyntax', () => {
+            config.setJsxEnableExperimentParsingOriginalSyntax(!config.jsxEnableExperimentParsingOriginalSyntax);
             this.triggerRun();
         }));
 
