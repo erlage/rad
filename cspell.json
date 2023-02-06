@@ -5,6 +5,7 @@
 
     "ignorePaths": [
         "**/.packages",
+        "**/node_modules",
         "**/.vscode",
         "**/.idea",
         "**/.dart_tool",
