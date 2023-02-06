@@ -213,18 +213,10 @@ packages:
     dependency: "direct main"
     description:
       name: rad
-      sha256: babd5feefd9e356e2ca85630f859fade6a548280ece908fa753a22535cbca32c
+      sha256: "43ab6c6d8b6f46e0da2c30988ffbedc139074a9d8c29a31f44daa6185b947f7e"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0"
-  rad_test:
-    dependency: "direct dev"
-    description:
-      name: rad_test
-      sha256: "075f5742c2f93e0581231f940d67c97fd60377c79ef8ab9a8b14f89d16c3a671"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.6.1"
+    version: "1.4.0"
   shelf:
     dependency: transitive
     description:
@@ -314,7 +306,7 @@ packages:
     source: hosted
     version: "1.2.1"
   test:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: test
       sha256: b54d427664c00f2013ffb87797a698883c46aee9288e027a50b46eaee7486fa2
