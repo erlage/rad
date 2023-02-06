@@ -20,7 +20,7 @@ jobs:
 
       - name: Run analyze
         run: |
-          cd packages/rad_test
+          cd packages/rad_html_vscode
           dart pub get
           dart format --output=none --set-exit-if-changed .
           dart analyze --fatal-infos
@@ -43,11 +43,10 @@ jobs:
         run: |
           cd packages/rad_html_vscode
           python3 test/gen.py
-          cd ../../
 
       - name: Run tests
         run: |
-          cd packages/rad_test
+          cd packages/rad_html_vscode
           dart pub get
           dart pub run test --coverage="coverage"
           dart pub global activate coverage
