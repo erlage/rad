@@ -38,7 +38,9 @@ jobs:
           
       - name: Generate tests
         run: |
+          cd packages/rad_html_vscode
           python3 test/gen.py
+          cd ../../
 
       - name: Run tests
         run: |
