@@ -225,7 +225,7 @@ export class Parser {
 
         let callCloseParenthesisToken = this.matchToken(SyntaxTokenType.closeParenthesisCharacter);
 
-        let optionalCallEndingCommanToken = this.tryMatchToken(SyntaxTokenType.commaCharacter);
+        let optionalCallEndingCommaToken = this.tryMatchToken(SyntaxTokenType.commaCharacter);
         let optionalCallEndingSemiColonToken = this.tryMatchToken(SyntaxTokenType.semiColonCharacter);
 
         return new HTMLWidgetCallExpression({
@@ -237,7 +237,7 @@ export class Parser {
             callAttributeExpressions: callAttributeExpressions,
             optionalCallChildTreeExpression: optionalCallChildTreeExpression,
 
-            optionalCallEndingCommaToken: optionalCallEndingCommanToken,
+            optionalCallEndingCommaToken: optionalCallEndingCommaToken,
             optionalCallEndingSemiColonToken: optionalCallEndingSemiColonToken,
         });
     }
@@ -301,7 +301,7 @@ export class Parser {
 
     private parseHTMLWidgetCallNamedChildrenAttributeExpression(): HTMLWidgetCallNamedChildrenAttributeExpression {
         let childrenAttributeNameToken = this.matchToken(SyntaxTokenType.identifierLiteral);
-        let childrenAttributeDubleColonToken = this.matchToken(SyntaxTokenType.doubleColonCharacter);
+        let childrenAttributeDoubleColonToken = this.matchToken(SyntaxTokenType.doubleColonCharacter);
 
         let optionalChildrenAttributeNullValueToken: SyntaxToken | null = null;
         let optionalChildrenAttributeListValueExpression: CustomDelimitedExpression | null = null;
@@ -320,7 +320,7 @@ export class Parser {
 
         return new HTMLWidgetCallNamedChildrenAttributeExpression({
             childrenAttributeNameToken: childrenAttributeNameToken,
-            childrenAttributeDoubleColonToken: childrenAttributeDubleColonToken,
+            childrenAttributeDoubleColonToken: childrenAttributeDoubleColonToken,
 
             optionalChildrenAttributeNullValueToken: optionalChildrenAttributeNullValueToken,
             optionalChildrenAttributeListValueExpression: optionalChildrenAttributeListValueExpression,

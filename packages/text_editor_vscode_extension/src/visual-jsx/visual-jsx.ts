@@ -192,7 +192,7 @@ export class VisualJSX {
 	}
 
 	// [Experimental] 
-	// visualising of official(but unpleasant) syntax.
+	// visualization of official(but unpleasant) syntax.
 
 	private decorateCallWithoutChildWidgets(expression: HTMLWidgetCallExpression): void {
 		let optionalLastAttributeEndingComma: SyntaxToken | null = null;
