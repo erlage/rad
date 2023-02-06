@@ -32,6 +32,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 2.19.0
       
       - name: Run tests
         run: |
