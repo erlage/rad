@@ -5,6 +5,7 @@
 import * as vscode from 'vscode';
 import { config } from './config';
 import { Parser } from './parser/parser';
+import { HTML2Rad } from './transpiler/html2rad';
 import { VisualJSX } from './visual-jsx/visual-jsx';
 
 export class RadCode {
@@ -26,6 +27,10 @@ export class RadCode {
         context.subscriptions.push(vscode.commands.registerCommand('rad.jsxToggleExperimentParsingOfficialSyntax', () => {
             config.setJsxEnableExperimentParsingOfficialSyntax(!config.jsxEnableExperimentParsingOfficialSyntax);
             this.triggerRun();
+        }));
+
+        context.subscriptions.push(vscode.commands.registerCommand('rad.html2Rad', () => {
+            this.runHTML2Rad();
         }));
 
         vscode.workspace.onDidChangeConfiguration((_) => {
@@ -73,5 +78,26 @@ export class RadCode {
 
         const visualJSX = new VisualJSX(parser, activeEditor);
         visualJSX.run();
+    }
+
+    private runHTML2Rad() {
+        let editor = vscode.window.activeTextEditor;
+        if (!editor) {
+            return;
+        }
+
+        let selection = editor.selection;
+        let htmlText = editor.document.getText(selection);
+
+        let h2Rad = new HTML2Rad();
+        let radOutput = h2Rad.transpile(htmlText);
+
+        if (null !== radOutput) {
+            let nonNullRadOutput = radOutput;
+
+            editor.edit(editBuilder => {
+                editBuilder.replace(selection, nonNullRadOutput);
+            });
+        }
     }
 }

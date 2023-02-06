@@ -36,7 +36,11 @@
       },
       {
         "command": "rad.jsxToggleExperimentParsingOfficialSyntax",
-        "title": "Visual-JSX: Toggle Experimental Parsing Of Offical Syntax"
+        "title": "Visual-JSX: Toggle Experimental Parsing Of Official Syntax"
+      },
+      {
+        "command": "rad.html2Rad",
+        "title": "Rad: Convert HTML to Widgets"
       }
     ],
     "configuration": [
@@ -59,7 +63,22 @@
           "rad.jsxEnableExperimentParsingOfficialSyntax": {
             "type": "boolean",
             "default": false,
-            "markdownDescription": "Whether to enable JSX visualising for official HTML widgets.",
+            "markdownDescription": "Whether to enable JSX visualizing for official HTML widgets.",
+            "scope": "window"
+          },
+          "rad.html2RadOutputSyntax": {
+            "enum": [
+              "rad",
+              "rad__long",
+              "rad_html_vscode"
+            ],
+            "enumDescriptions": [
+              "HTML Widgets from Rad framework package",
+              "HTML Widgets from Rad framework package(descriptive names)",
+              "HTML Widgets from rad_html_vscode"
+            ],
+            "default": "rad_html_vscode",
+            "markdownDescription": "HTML2Rad's output syntax of HTML widgets",
             "scope": "window"
           }
         }
@@ -74,17 +93,20 @@
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js"
   },
+  "dependencies": {
+    "node-html-parser": "^6.1.4"
+  },
   "devDependencies": {
-    "@types/vscode": "^1.75.0",
     "@types/glob": "^8.0.1",
     "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
+    "@types/vscode": "^1.75.0",
     "@typescript-eslint/eslint-plugin": "^5.49.0",
     "@typescript-eslint/parser": "^5.49.0",
+    "@vscode/test-electron": "^2.2.2",
     "eslint": "^8.33.0",
     "glob": "^8.1.0",
     "mocha": "^10.1.0",
-    "typescript": "^4.9.4",
-    "@vscode/test-electron": "^2.2.2"
+    "typescript": "^4.9.4"
   }
 }
