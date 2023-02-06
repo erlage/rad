@@ -26,6 +26,7 @@ class Config {
     get jsxEnable(): boolean { return this.get<boolean>("jsxEnable", true); }
     get jsxEnablePrettyMode(): boolean { return this.get<boolean>("jsxEnablePrettyMode", false); }
     get jsxEnableExperimentParsingOfficialSyntax(): boolean { return this.get<boolean>("jsxEnableExperimentParsingOfficialSyntax", false); }
+    get html2RadOutputSyntax(): string { return this.get<string>("html2RadOutputSyntax", "rad_html_vscode"); }
 
     public setJsxEnable(value: boolean) {
         this.set("jsxEnable", value, vscode.ConfigurationTarget.Global);
