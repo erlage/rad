@@ -68,10 +68,6 @@ export class RadCode {
             return;
         }
 
-        if (activeEditor.document.languageId !== 'dart') {
-            return;
-        }
-
         const documentText = activeEditor.document.getText();
         const parser = new Parser(documentText);
 
