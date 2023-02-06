@@ -32,7 +32,7 @@ export class VisualJSX {
 
 	private setDecorations() {
 
-		let isExperimentParsingOfficialSyntaxEnabled = config.jsxEnableExperimentParsingOfficialSyntax;
+		let isExperimentParsingOriginalSyntaxEnabled = config.jsxEnableExperimentParsingOriginalSyntax;
 
 		for (const expression of this.parser.extractedHTMLWidgetCallExpressions) {
 
@@ -43,7 +43,7 @@ export class VisualJSX {
 				continue;
 			}
 
-			if (isExperimentParsingOfficialSyntaxEnabled) {
+			if (isExperimentParsingOriginalSyntaxEnabled) {
 				if (null === treeExpression) {
 					this.decorateCallWithoutChildWidgets(expression);
 					continue;
@@ -192,7 +192,7 @@ export class VisualJSX {
 	}
 
 	// [Experimental] 
-	// visualization of official(but unpleasant) syntax.
+	// visualization of Original(but unpleasant) syntax.
 
 	private decorateCallWithoutChildWidgets(expression: HTMLWidgetCallExpression): void {
 		let optionalLastAttributeEndingComma: SyntaxToken | null = null;
