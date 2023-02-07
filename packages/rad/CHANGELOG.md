@@ -1,3 +1,34 @@
+## 1.5.0
+
+**Visual-JSX**, *a Dart to JSX Visualizer*.
+
+Visual-JSX is a feature designed to make managing HTML code written in Dart easier. It transforms HTML widgets into a visually appealing, JSX-like syntax, making it easier to understand and maintain your HTML widgets. You'll find it extremely helpful as a visual aid when working with HTML widgets inside the Dart code.
+<br>
+
+**HTML2Rad**, *a streamlined method for importing HTML templates into Rad*.
+
+No more manual porting of HTML templates to HTML widgets! HTML2Rad allows you to convert HTML markup directly into Rad's HTML widgets with few clicks. Both Visual-JSX and HTML2 enhances development experience for developers working with the Rad Framework so we decided to bundle them together in one extension that users can install in Visual Studio Code(text editor).
+<br>
+
+#### Bug fixes
+
+- (Fixed): Router incorrectly pushing the Route.name to the address bar instead of the Route.path.
+- (Fixed): Calling `NavigatorState.open` inside `onInit`, results in multiple routes being left open.
+
+### Previews
+
+-   <details>
+    <summary>Click to See Visual-JSX's Preview</summary>
+        
+    ![Visual-JSX Preview](https://photogram.erlage.com/tmp/rad_vscode_peek1.gif)
+    </details>
+
+-   <details>
+    <summary>Click to See HTML2Rad's Preview</summary>
+        
+    ![HTML2Rad Preview](https://photogram.erlage.com/tmp/rad_vscode_peek2.gif)
+    </details>
+
 ## 1.4.0
 
 **Refs**, *an easy and predictable way for accessing DOM nodes*.
