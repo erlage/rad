@@ -2,7 +2,7 @@
 
 [![Rad(rad-html-vscode-pkg)](https://github.com/erlage/rad/actions/workflows/rad_html_vscode_pkg.yml/badge.svg)](https://github.com/erlage/rad/actions/workflows/rad_html_vscode_pkg.yml)
 
-This package provides a set of HTML widgets that integrate seamlessly with the Visual-JSX feature of the Rad framework's VSCode extension. The widgets are designed to be simple, easy to use, and make it possible to write HTML in Dart with minimal effort, while taking advantage of the powerful Visual-JSX syntax helpers.
+This package provides a set of HTML widgets that integrate seamlessly with the Visual-JSX feature of the [Rad framework's VSCode extension](https://marketplace.visualstudio.com/items?itemName=erlage.rad). The widgets are designed to be simple, easy to use, and make it possible to write HTML in Dart with minimal effort, while taking advantage of the powerful Visual-JSX syntax helpers.
 
 ## Differences from Rad's HTML widgets
 
