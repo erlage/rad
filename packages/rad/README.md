@@ -114,11 +114,11 @@ In above example, a Span widget is containing a ListView widget. Further, that L
 
 ## Additional Packages/Tools
 
-### [Rad Test](https://github.com/erlage/rad) (package)
+### [Rad Test](https://pub.dev/packages/rad_test) (package)
 
 A testing library for Rad applications, heavily inspired from [flutter_test](https://api.flutter.dev/flutter/flutter_test/flutter_test-library.html).
 
-### [Rad Hooks](https://github.com/erlage/rad) (package)
+### [Rad Hooks](https://pub.dev/packages/rad_hooks) (package)
 
 A set of commonly used hooks for using in your Rad applications.
 
