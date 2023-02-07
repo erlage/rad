@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import { Lexer } from "./lexer";
+import { config } from "../config";
 import { SyntaxToken, SyntaxTokenType } from "./syntax_token";
 import { constRadToNativeAttributeNameMappings, constRadToNativeEventNameMappings, constLongTagToShortTagMappings, constShortTagToLongTagMappings } from "../constants";
 import { HTMLWidgetCallAttributeExpression, CustomDelimitedExpression, HTMLWidgetCallExpression, Expression, ExpressionType, OtherExpression, HTMLWidgetCallNamedChildrenAttributeExpression, HTMLWidgetCallNamedChildAttributeExpression, HTMLWidgetCallPositionalChildrenAttributeExpression, HTMLWidgetCallChildTreeBaseExpression } from "./expressions";
@@ -144,7 +145,10 @@ export class Parser {
                     return constEmptyExpression;
 
                 default:
-                    console.log(`Unrecognized token with text: ${this.currentToken().text}`);
+                    if (config.devEnableLogs) {
+                        console.log(`Unrecognized token with text: ${this.currentToken().text}`);
+                    }
+
                     this.seekCurrentPosition(1);
 
                     return this.tryParseExpression();
@@ -152,7 +156,9 @@ export class Parser {
         }
         catch (e) {
             // parsing one of the above expressions failed(maybe expression isn't well formed)
-            console.log(e);
+            if (config.devEnableLogs) {
+                console.log(e);
+            }
 
             return constEmptyExpression;
         }

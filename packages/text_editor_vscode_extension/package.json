@@ -1,6 +1,6 @@
 {
   "name": "rad",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "displayName": "Rad framework [Dart]",
   "description": "Rad framework support and utilities for Dart",
   "icon": "art/128x128.png",
@@ -80,6 +80,12 @@
             ],
             "default": "rad_html_vscode",
             "markdownDescription": "HTML2Rad's output syntax of HTML widgets",
+            "scope": "window"
+          },
+          "rad.devEnableLogs": {
+            "type": "boolean",
+            "default": false,
+            "markdownDescription": "Whether to enable developer logs. Intended to be used by the extension's developers.",
             "scope": "window"
           }
         }
