@@ -1,4 +1,4 @@
-## Rad Hooks
+## Rad HTML Widgets(Visual-JSX Ready)
 
 [![Rad(rad-html-vscode-pkg)](https://github.com/erlage/rad/actions/workflows/rad_html_vscode_pkg.yml/badge.svg)](https://github.com/erlage/rad/actions/workflows/rad_html_vscode_pkg.yml)
 
