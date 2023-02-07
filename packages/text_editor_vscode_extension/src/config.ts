@@ -23,6 +23,8 @@ class Config {
         await this.config.update(key, value, target);
     }
 
+    get devEnableLogs(): boolean { return this.get<boolean>("devEnableLogs", false); }
+
     get jsxEnable(): boolean { return this.get<boolean>("jsxEnable", true); }
     get jsxEnablePrettyMode(): boolean { return this.get<boolean>("jsxEnablePrettyMode", false); }
     get jsxEnableExperimentParsingOriginalSyntax(): boolean { return this.get<boolean>("jsxEnableExperimentParsingOriginalSyntax", false); }
