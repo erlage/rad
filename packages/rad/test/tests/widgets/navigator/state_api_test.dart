@@ -249,7 +249,38 @@ void main() {
       app!.assertMatchPath('/route-2');
     });
 
-    test('should add values to history', () async {
+    test('should add route.path to history', () async {
+      await app!.buildChildren(
+        widgets: [
+          Navigator(
+            key: Key('navigator'),
+            routes: [
+              Route(
+                  name: 'route-1', path: 'route-path-1', page: Text('route-1')),
+              Route(
+                  name: 'route-2', path: 'route-path-2', page: Text('route-2')),
+            ],
+          ),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      var state = app!.navigatorState('navigator');
+
+      state.open(name: 'route-2');
+      await Future.delayed(Duration(milliseconds: 100));
+      app!.assertMatchPath('/route-path-2');
+
+      state.open(name: 'route-1');
+      await Future.delayed(Duration(milliseconds: 100));
+      app!.assertMatchPath('/route-path-1');
+
+      state.open(name: 'route-2');
+      await Future.delayed(Duration(milliseconds: 100));
+      app!.assertMatchPath('/route-path-2');
+    });
+
+    test('should add route.path(implicitly from name) to history', () async {
       await app!.buildChildren(
         widgets: [
           Navigator(
