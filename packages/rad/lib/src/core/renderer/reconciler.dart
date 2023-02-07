@@ -358,8 +358,6 @@ class Reconciler {
     var oldNodeHashToNodeMap = <String, RenderElement>{};
     var oldNodeHashToPositionMap = <String, int>{};
 
-    // expected position of old node
-
     var obsoleteNodesCount = 0;
 
     while (oldTopPoint <= oldBottomPoint) {
