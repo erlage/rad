@@ -14,6 +14,7 @@ Rad is a frontend framework for creating fast and interactive web apps using Dar
 - [API reference @ pub.dev](https://pub.dev/documentation/rad/latest/rad/rad-library.html)
 - [Repository @ github.com](https://github.com/erlage/rad)
 - [Benchmarks @ github.com](https://github.com/erlage/rad-benchmarks)
+- [Additional Packages & Tools](#additional-packagestools)
 
 ## Example
 
@@ -65,7 +66,7 @@ While using hooks please keep in mind following things,
 
 ## HTML widgets
 
-Similar to JSX, you can write HTML in your Dart code. Dart's syntax is much more safe than JSX and doesn't force you to go through a separate build step but writing plain HTML using Dart is not very ideal so Rad provides you with more than 100 widgets that are dedicated to help you write HTML within your Dart code as easily as possible.
+Rad provides you with more than 100 widgets that are dedicated to help you write HTML within your Dart code as easily as possible.
 
 Let's look at this markup example:
 
@@ -110,6 +111,34 @@ Span(
 ```
 
 In above example, a Span widget is containing a ListView widget. Further, that ListView is containing a StatefulWidget and a Span widget. The point we're trying to make is that HTML widgets won't restrict you to 'just HTML'.
+
+## Additional Packages/Tools
+
+### [Rad Test](https://github.com/erlage/rad) (package)
+
+A testing library for Rad applications, heavily inspired from [flutter_test](https://api.flutter.dev/flutter/flutter_test/flutter_test-library.html).
+
+### [Rad Hooks](https://github.com/erlage/rad) (package)
+
+A set of commonly used hooks for using in your Rad applications.
+
+### [Rad Extension](https://marketplace.visualstudio.com/items?itemName=erlage.rad) (Extension for VSCode)
+
+Provides an enhanced development experience for developers working with the Rad Framework. With its powerful features, this extension makes it easier for developers to write and manage code, saving time and increasing productivity. Extension's top features are:
+
+  - **Visual JSX**: Transforms your HTML widgets into a visually appealing, JSX-like syntax.
+    <details>
+      <summary>Click to See Preview</summary>
+      
+      ![Visual-JSX Preview](https://photogram.erlage.com/tmp/rad_vscode_peek1.gif)
+    </details>
+
+  - **HTML2Rad**: Converts your HTML markup directly into Rad's HTML widgets.
+    <details>
+      <summary>Click to See Preview</summary>
+      
+      ![HTML2Rad Preview](https://photogram.erlage.com/tmp/rad_vscode_peek2.gif)
+    </details>
 
 ## Reference
 

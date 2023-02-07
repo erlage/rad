@@ -11,7 +11,7 @@ This extension provides an enhanced development experience for developers workin
 
 - Open Visual Studio Code
 - Click on the Extensions button on the left side of the window
-- Search for "Rad framework"
+- Search for "erlage.rad" or "Rad framework"
 - Click the Install button to install the extension
 - Click the Reload button to reload Visual Studio Code after the extension has been installed
 
