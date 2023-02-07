@@ -353,7 +353,7 @@ class RouterService extends Service {
     }
   }
 
-  /// Associated [RouterRenderElement] with a [RouterLink] object.
+  /// Associate [RouterRenderElement] with a [RouterLink] object.
   ///
   void _setRouterLink({
     required RouterRenderElement routerElement,
