@@ -1,7 +1,7 @@
 import { AttributeValueType } from "./attribute_value_types";
 
 export const constSupportedGlobalAttributes = new Map([
-    ['Id', AttributeValueType._stringType],
+    ['id', AttributeValueType._stringType],
     ['className', AttributeValueType._stringType],
     ['hidden', AttributeValueType._boolType],
     ['style', AttributeValueType._stringType],
