@@ -237,8 +237,8 @@ export class HTML2Rad {
 
     private escapeString(input: string): string {
         return input
-            .replace("'", "\\'")
-            .replace("$", "\\$")
+            .replaceAll("'", "\\'")
+            .replaceAll("$", "\\$")
             ;
     }
 
