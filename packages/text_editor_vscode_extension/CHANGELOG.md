@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.1.4
+
+- Fixed: Trimming custom elements(web-components) from the output.
+- Fixed: Removing whitespace from the content.
+
 ## 0.1.3
 
 - Fixed: Not escaping multiple quotes.
