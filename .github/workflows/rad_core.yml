@@ -51,5 +51,6 @@ jobs:
       - name: Publish to Codecov
         uses: codecov/codecov-action@v2
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: rad.lcov
           verbose: true
