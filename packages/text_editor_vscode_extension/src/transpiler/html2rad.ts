@@ -243,6 +243,6 @@ export class HTML2Rad {
     }
 
     private trimWhitespace(input: string): string {
-        return input.replace(/\s/g, '');
+        return input.trim();
     }
 }
