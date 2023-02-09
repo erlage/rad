@@ -78,9 +78,13 @@ export class HTML2Rad {
     }
 
     private elementToString(node: HTMLElement, indent: string, suffix: string): string {
+        if ('' === node.rawTagName || null === node.rawTagName) {
+            return this.allChildNodesToString(node.childNodes, indent, suffix);
+        }
+
         let tagRadName = constNativeToRadTagMappings.get(node.rawTagName);
         if (undefined === tagRadName) {
-            return this.allChildNodesToString(node.childNodes, indent, suffix);
+            return this.toRawMarkUp(node.outerHTML, indent, suffix);
         }
 
         let buffer = `${this.getTagNameString(tagRadName)}(`;
@@ -90,6 +94,10 @@ export class HTML2Rad {
         buffer += this.getChildrenAttribute(node, indent, suffix);
 
         return buffer;
+    }
+
+    private toRawMarkUp(content: string, indent: string, suffix: string): string {
+        return `${indent}RawMarkUp('''${this.escapeString(content)}''')${suffix}`;
     }
 
     private allChildNodesToString(childNodes: Node[], indent: string, suffix: string) {
