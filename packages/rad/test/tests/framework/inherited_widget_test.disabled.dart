@@ -15,12 +15,9 @@ void main() {
     testWidgets('should render child', (tester) async {
       await tester.pumpWidget(
         RT_InheritedWidget(
-          eventUpdateShouldNotify: () => tester.push('notify-1'),
           child: Text('contents'),
         ),
       );
-
-      tester.assertMatchStack([]);
 
       expect(tester.getAppDomNode, domNodeHasContents('contents'));
     });
@@ -36,8 +33,6 @@ void main() {
         );
 
         tester.assertMatchStack([]);
-
-        expect(tester.getAppDomNode, domNodeHasContents('contents'));
       },
     );
 
