@@ -862,8 +862,6 @@ class Renderer with ServicesResolver {
               flagAddIfNotFound: true,
               widgets: renderElement.widgetChildren,
             );
-
-            break;
           }
       }
     }
