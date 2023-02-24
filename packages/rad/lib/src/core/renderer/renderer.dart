@@ -242,16 +242,6 @@ class Renderer with ServicesResolver {
       applyDomNodePatch(domNode: domNode, description: domNodePatch);
     }
 
-    if (renderElement.frameworkHasEventListenerOfType(
-      RenderEventType.didRender,
-    )) {
-      jobQueue.addPostDispatchCallback(
-        () => renderElement.frameworkDispatchRenderEvent(
-          RenderEventType.didRender,
-        ),
-      );
-    }
-
     // -----------------------------
 
     // Register DOM event listeners
@@ -315,6 +305,18 @@ class Renderer with ServicesResolver {
           parentDomNode: currentDomNode ?? parentDomNode,
           parentRenderElement: renderElement,
           jobQueue: jobQueue,
+        );
+      }
+
+      // 5. RenderEvent callback for didRender
+
+      if (renderElement.frameworkHasEventListenerOfType(
+        RenderEventType.didRender,
+      )) {
+        jobQueue.addPostDispatchCallback(
+          () => renderElement.frameworkDispatchRenderEvent(
+            RenderEventType.didRender,
+          ),
         );
       }
     }
@@ -571,16 +573,6 @@ class Renderer with ServicesResolver {
           );
         });
       }
-
-      if (matchedRenderElement.frameworkHasEventListenerOfType(
-        RenderEventType.didUpdate,
-      )) {
-        jobQueue.addPostDispatchCallback(
-          () => matchedRenderElement.frameworkDispatchRenderEvent(
-            RenderEventType.didUpdate,
-          ),
-        );
-      }
     } else {
       if (DEBUG_BUILD) {
         if (services.debug.widgetLogs) {
@@ -612,6 +604,24 @@ class Renderer with ServicesResolver {
         flagAddIfNotFound: flagAddIfNotFound,
         widgets: matchedRenderElement.widgetChildren,
       );
+    }
+
+    /*
+    |------------------------------------------------------------------------
+    | RenderEvent callback
+    |------------------------------------------------------------------------
+    */
+
+    if (shouldUpdateWidget) {
+      if (matchedRenderElement.frameworkHasEventListenerOfType(
+        RenderEventType.didUpdate,
+      )) {
+        jobQueue.addPostDispatchCallback(
+          () => matchedRenderElement.frameworkDispatchRenderEvent(
+            RenderEventType.didUpdate,
+          ),
+        );
+      }
     }
   }
 
@@ -837,16 +847,6 @@ class Renderer with ServicesResolver {
             });
           }
 
-          if (renderElement.frameworkHasEventListenerOfType(
-            RenderEventType.didUpdate,
-          )) {
-            jobQueue.addPostDispatchCallback(
-              () => renderElement.frameworkDispatchRenderEvent(
-                RenderEventType.didUpdate,
-              ),
-            );
-          }
-
           // call update on child widgets
 
           var shouldUpdateWidgetChild = widget.shouldUpdateWidgetChildren(
@@ -861,6 +861,18 @@ class Renderer with ServicesResolver {
               parentRenderElement: renderElement,
               flagAddIfNotFound: true,
               widgets: renderElement.widgetChildren,
+            );
+          }
+
+          // -------------------------------------------------
+
+          if (renderElement.frameworkHasEventListenerOfType(
+            RenderEventType.didUpdate,
+          )) {
+            jobQueue.addPostDispatchCallback(
+              () => renderElement.frameworkDispatchRenderEvent(
+                RenderEventType.didUpdate,
+              ),
             );
           }
       }
