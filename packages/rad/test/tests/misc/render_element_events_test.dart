@@ -140,6 +140,37 @@ void main() {
       },
     );
 
+    test('should call didRender in order for nested children', () async {
+      var app = createTestApp()..start();
+      var stack = RT_TestStack();
+
+      await app.buildChildren(
+        widgets: [
+          RT_RenderAbleWidget(
+            children: [
+              RT_RenderAbleWidget(
+                children: [Text('inner contents')],
+                eventRender: () => stack.push('inner render'),
+                eventDidRender: (_) => stack.push('inner after render'),
+              )
+            ],
+            eventRender: () => stack.push('outer render'),
+            eventDidRender: (_) => stack.push('outer after render'),
+          ),
+        ],
+        parentRenderElement: app.appRenderElement,
+      );
+
+      app.stop();
+      await Future.delayed(Duration(milliseconds: 100));
+
+      expect(stack.popFromStart(), equals('outer render'));
+      expect(stack.popFromStart(), equals('inner render'));
+      expect(stack.popFromStart(), equals('inner after render'));
+      expect(stack.popFromStart(), equals('outer after render'));
+      expect(stack.canPop(), equals(false));
+    });
+
     test('should call update after render', () async {
       var app = createTestApp()..start();
       var stack = RT_TestStack();
@@ -270,6 +301,55 @@ void main() {
       expect(stack.canPop(), equals(false));
     });
 
+    test('should call didUpdate in order for nested children', () async {
+      var app = createTestApp()..start();
+      var stack = RT_TestStack();
+
+      await app.buildChildren(
+        widgets: [
+          RT_RenderAbleWidget(
+            children: [
+              RT_RenderAbleWidget(
+                children: [Text('inner contents')],
+                eventUpdate: () => stack.push('inner update'),
+                eventDidUpdate: (_) => stack.push('inner after update'),
+              )
+            ],
+            eventUpdate: () => stack.push('outer update'),
+            eventDidUpdate: (_) => stack.push('outer after update'),
+          ),
+        ],
+        parentRenderElement: app.appRenderElement,
+      );
+
+      await app.updateChildren(
+        widgets: [
+          RT_RenderAbleWidget(
+            children: [
+              RT_RenderAbleWidget(
+                children: [Text('updated inner contents')],
+                eventUpdate: () => stack.push('inner update'),
+                eventDidUpdate: (_) => stack.push('inner after update'),
+              )
+            ],
+            eventUpdate: () => stack.push('outer update'),
+            eventDidUpdate: (_) => stack.push('outer after update'),
+          ),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app.appRenderElement,
+      );
+
+      app.stop();
+      await Future.delayed(Duration(milliseconds: 100));
+
+      expect(stack.popFromStart(), equals('outer update'));
+      expect(stack.popFromStart(), equals('inner update'));
+      expect(stack.popFromStart(), equals('inner after update'));
+      expect(stack.popFromStart(), equals('outer after update'));
+      expect(stack.canPop(), equals(false));
+    });
+
     test('should call didUnMount after actual un-mount', () async {
       var stack = RT_TestStack();
 
@@ -289,6 +369,310 @@ void main() {
       await Future.delayed(Duration(milliseconds: 100));
 
       expect(stack.popFromStart(), equals('after unmount'));
+      expect(stack.canPop(), equals(false));
+    });
+
+    test('should call didUnMount in order for nested children', () async {
+      var app = createTestApp()..start();
+      var stack = RT_TestStack();
+
+      await app.buildChildren(
+        widgets: [
+          RT_RenderAbleWidget(
+            children: [
+              RT_RenderAbleWidget(
+                children: [Text('inner contents')],
+                eventRender: () => stack.push('inner render'),
+                eventDidUnMount: (_) => stack.push('inner after un-mount'),
+              )
+            ],
+            eventRender: () => stack.push('outer render'),
+            eventDidUnMount: (_) => stack.push('outer after un-mount'),
+          ),
+        ],
+        parentRenderElement: app.appRenderElement,
+      );
+
+      app.stop();
+      await Future.delayed(Duration(milliseconds: 100));
+
+      expect(stack.popFromStart(), equals('outer render'));
+      expect(stack.popFromStart(), equals('inner render'));
+      expect(stack.popFromStart(), equals('inner after un-mount'));
+      expect(stack.popFromStart(), equals('outer after un-mount'));
+      expect(stack.canPop(), equals(false));
+    });
+
+    // more hardcoded ones ...
+
+    test('should call didRender in order for nested children(both-ways)',
+        () async {
+      var app = createTestApp()..start();
+      var stack = RT_TestStack();
+
+      await app.buildChildren(
+        widgets: [
+          RT_RenderAbleWidget(
+            children: [
+              RT_RenderAbleWidget(
+                children: [
+                  RT_RenderAbleWidget(
+                    children: [Text('a1')],
+                    eventRender: () => stack.push('inner render a1'),
+                    eventDidRender: (_) => stack.push('inner after render a1'),
+                  ),
+                  RT_RenderAbleWidget(
+                    children: [Text('a2')],
+                    eventRender: () => stack.push('inner render a2'),
+                    eventDidRender: (_) => stack.push('inner after render a2'),
+                  )
+                ],
+                eventRender: () => stack.push('outer render a'),
+                eventDidRender: (_) => stack.push('outer after render a'),
+              ),
+              RT_RenderAbleWidget(
+                children: [
+                  RT_RenderAbleWidget(
+                    children: [Text('b1')],
+                    eventRender: () => stack.push('inner render b1'),
+                    eventDidRender: (_) => stack.push('inner after render b1'),
+                  ),
+                  RT_RenderAbleWidget(
+                    children: [Text('b2')],
+                    eventRender: () => stack.push('inner render b2'),
+                    eventDidRender: (_) => stack.push('inner after render b2'),
+                  )
+                ],
+                eventRender: () => stack.push('outer render b'),
+                eventDidRender: (_) => stack.push('outer after render b'),
+              ),
+            ],
+            eventRender: () => stack.push('root render'),
+            eventDidRender: (_) => stack.push('root after render'),
+          )
+        ],
+        parentRenderElement: app.appRenderElement,
+      );
+
+      app.stop();
+      await Future.delayed(Duration(milliseconds: 100));
+
+      expect(stack.popFromStart(), equals('root render'));
+
+      expect(stack.popFromStart(), equals('outer render a'));
+      expect(stack.popFromStart(), equals('inner render a1'));
+      expect(stack.popFromStart(), equals('inner render a2'));
+
+      expect(stack.popFromStart(), equals('outer render b'));
+      expect(stack.popFromStart(), equals('inner render b1'));
+      expect(stack.popFromStart(), equals('inner render b2'));
+
+      expect(stack.popFromStart(), equals('inner after render a1'));
+      expect(stack.popFromStart(), equals('inner after render a2'));
+      expect(stack.popFromStart(), equals('outer after render a'));
+
+      expect(stack.popFromStart(), equals('inner after render b1'));
+      expect(stack.popFromStart(), equals('inner after render b2'));
+      expect(stack.popFromStart(), equals('outer after render b'));
+
+      expect(stack.popFromStart(), equals('root after render'));
+      expect(stack.canPop(), equals(false));
+    });
+
+    test('should call didUpdate in order for nested children(both-ways)',
+        () async {
+      var app = createTestApp()..start();
+      var stack = RT_TestStack();
+
+      await app.buildChildren(
+        widgets: [
+          RT_RenderAbleWidget(
+            children: [
+              RT_RenderAbleWidget(
+                children: [
+                  RT_RenderAbleWidget(
+                    children: [Text('a1')],
+                    eventUpdate: () => stack.push('inner update a1'),
+                    eventDidUpdate: (_) => stack.push('inner after update a1'),
+                  ),
+                  RT_RenderAbleWidget(
+                    children: [Text('a2')],
+                    eventUpdate: () => stack.push('inner update a2'),
+                    eventDidUpdate: (_) => stack.push('inner after update a2'),
+                  )
+                ],
+                eventUpdate: () => stack.push('outer update a'),
+                eventDidUpdate: (_) => stack.push('outer after update a'),
+              ),
+              RT_RenderAbleWidget(
+                children: [
+                  RT_RenderAbleWidget(
+                    children: [Text('b1')],
+                    eventUpdate: () => stack.push('inner update b1'),
+                    eventDidUpdate: (_) => stack.push('inner after update b1'),
+                  ),
+                  RT_RenderAbleWidget(
+                    children: [Text('b2')],
+                    eventUpdate: () => stack.push('inner update b2'),
+                    eventDidUpdate: (_) => stack.push('inner after update b2'),
+                  )
+                ],
+                eventUpdate: () => stack.push('outer update b'),
+                eventDidUpdate: (_) => stack.push('outer after update b'),
+              ),
+            ],
+            eventUpdate: () => stack.push('root update'),
+            eventDidUpdate: (_) => stack.push('root after update'),
+          )
+        ],
+        parentRenderElement: app.appRenderElement,
+      );
+
+      await app.updateChildren(
+        widgets: [
+          RT_RenderAbleWidget(
+            children: [
+              RT_RenderAbleWidget(
+                children: [
+                  RT_RenderAbleWidget(
+                    children: [Text('updated a1')],
+                    eventUpdate: () => stack.push('inner update a1'),
+                    eventDidUpdate: (_) => stack.push('inner after update a1'),
+                  ),
+                  RT_RenderAbleWidget(
+                    children: [Text('updated a2')],
+                    eventUpdate: () => stack.push('inner update a2'),
+                    eventDidUpdate: (_) => stack.push('inner after update a2'),
+                  )
+                ],
+                eventUpdate: () => stack.push('outer update a'),
+                eventDidUpdate: (_) => stack.push('outer after update a'),
+              ),
+              RT_RenderAbleWidget(
+                children: [
+                  RT_RenderAbleWidget(
+                    children: [Text('updated b1')],
+                    eventUpdate: () => stack.push('inner update b1'),
+                    eventDidUpdate: (_) => stack.push('inner after update b1'),
+                  ),
+                  RT_RenderAbleWidget(
+                    children: [Text('updated b2')],
+                    eventUpdate: () => stack.push('inner update b2'),
+                    eventDidUpdate: (_) => stack.push('inner after update b2'),
+                  )
+                ],
+                eventUpdate: () => stack.push('outer update b'),
+                eventDidUpdate: (_) => stack.push('outer after update b'),
+              ),
+            ],
+            eventUpdate: () => stack.push('root update'),
+            eventDidUpdate: (_) => stack.push('root after update'),
+          )
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app.appRenderElement,
+      );
+
+      app.stop();
+      await Future.delayed(Duration(milliseconds: 100));
+
+      expect(stack.popFromStart(), equals('root update'));
+
+      expect(stack.popFromStart(), equals('outer update a'));
+      expect(stack.popFromStart(), equals('inner update a1'));
+      expect(stack.popFromStart(), equals('inner update a2'));
+
+      expect(stack.popFromStart(), equals('outer update b'));
+      expect(stack.popFromStart(), equals('inner update b1'));
+      expect(stack.popFromStart(), equals('inner update b2'));
+
+      expect(stack.popFromStart(), equals('inner after update a1'));
+      expect(stack.popFromStart(), equals('inner after update a2'));
+      expect(stack.popFromStart(), equals('outer after update a'));
+
+      expect(stack.popFromStart(), equals('inner after update b1'));
+      expect(stack.popFromStart(), equals('inner after update b2'));
+      expect(stack.popFromStart(), equals('outer after update b'));
+
+      expect(stack.popFromStart(), equals('root after update'));
+      expect(stack.canPop(), equals(false));
+    });
+
+    test('should call didUnMount in order for nested children(both-ways)',
+        () async {
+      var app = createTestApp()..start();
+      var stack = RT_TestStack();
+
+      await app.buildChildren(
+        widgets: [
+          RT_RenderAbleWidget(
+            children: [
+              RT_RenderAbleWidget(
+                children: [
+                  RT_RenderAbleWidget(
+                    children: [Text('a1')],
+                    eventRender: () => stack.push('inner render a1'),
+                    eventDidUnMount: (_) =>
+                        stack.push('inner after un-mount a1'),
+                  ),
+                  RT_RenderAbleWidget(
+                    children: [Text('a2')],
+                    eventRender: () => stack.push('inner render a2'),
+                    eventDidUnMount: (_) =>
+                        stack.push('inner after un-mount a2'),
+                  )
+                ],
+                eventRender: () => stack.push('outer render a'),
+                eventDidUnMount: (_) => stack.push('outer after un-mount a'),
+              ),
+              RT_RenderAbleWidget(
+                children: [
+                  RT_RenderAbleWidget(
+                    children: [Text('b1')],
+                    eventRender: () => stack.push('inner render b1'),
+                    eventDidUnMount: (_) =>
+                        stack.push('inner after un-mount b1'),
+                  ),
+                  RT_RenderAbleWidget(
+                    children: [Text('b2')],
+                    eventRender: () => stack.push('inner render b2'),
+                    eventDidUnMount: (_) =>
+                        stack.push('inner after un-mount b2'),
+                  )
+                ],
+                eventRender: () => stack.push('outer render b'),
+                eventDidUnMount: (_) => stack.push('outer after un-mount b'),
+              ),
+            ],
+            eventRender: () => stack.push('root render'),
+            eventDidUnMount: (_) => stack.push('root after un-mount'),
+          )
+        ],
+        parentRenderElement: app.appRenderElement,
+      );
+
+      app.stop();
+      await Future.delayed(Duration(milliseconds: 100));
+
+      expect(stack.popFromStart(), equals('root render'));
+
+      expect(stack.popFromStart(), equals('outer render a'));
+      expect(stack.popFromStart(), equals('inner render a1'));
+      expect(stack.popFromStart(), equals('inner render a2'));
+
+      expect(stack.popFromStart(), equals('outer render b'));
+      expect(stack.popFromStart(), equals('inner render b1'));
+      expect(stack.popFromStart(), equals('inner render b2'));
+
+      expect(stack.popFromStart(), equals('inner after un-mount a1'));
+      expect(stack.popFromStart(), equals('inner after un-mount a2'));
+      expect(stack.popFromStart(), equals('outer after un-mount a'));
+
+      expect(stack.popFromStart(), equals('inner after un-mount b1'));
+      expect(stack.popFromStart(), equals('inner after un-mount b2'));
+      expect(stack.popFromStart(), equals('outer after un-mount b'));
+
+      expect(stack.popFromStart(), equals('root after un-mount'));
       expect(stack.canPop(), equals(false));
     });
   });
