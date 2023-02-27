@@ -87,7 +87,6 @@ class BrowserWindow extends WindowDelegate {
       var appTargetId = event.state;
 
       var listener = _psListeners[appTargetId];
-
       if (null != listener) {
         listener(event);
       }
