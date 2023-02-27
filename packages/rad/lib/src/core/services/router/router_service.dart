@@ -108,6 +108,7 @@ class RouterService extends Service {
   void pushReplacement({
     required String path,
     required Map<String, String> values,
+    required bool updateHistory,
     required RouterRenderElement routerElement,
   }) {
     _routerRequestsStream?.sink.add(
@@ -116,7 +117,7 @@ class RouterService extends Service {
         values: values,
         routerElement: routerElement,
         isReplacement: true,
-        updateHistory: true, // irrelevant if is replacement
+        updateHistory: updateHistory,
       ),
     );
   }
@@ -434,28 +435,28 @@ class RouterService extends Service {
 
       _routerStack.entries.remove(currentLocation);
 
-      var preparedSegs = _prepareSegments(protectedSegments(routerElement));
+      if (updateHistory) {
+        var preparedSegs = _prepareSegments(protectedSegments(routerElement));
 
-      var encodedValues = fnEncodeKeyValueMap(values);
-      if (encodedValues.isNotEmpty) {
-        encodedValues = '/$encodedValues';
-      }
-
-      var historyEntry = "${preparedSegs.join("/")}/$path$encodedValues";
-
-      var currentPath = _getCurrentPath();
-
-      if (currentPath.isNotEmpty) {
-        if (!historyEntry.startsWith('/')) {
-          historyEntry = '/$historyEntry';
+        var encodedValues = fnEncodeKeyValueMap(values);
+        if (encodedValues.isNotEmpty) {
+          encodedValues = '/$encodedValues';
         }
-      }
 
-      Window.delegate.historyReplaceState(
-        title: '',
-        url: historyEntry,
-        rootElement: rootElement,
-      );
+        var historyEntry = "${preparedSegs.join("/")}/$path$encodedValues";
+        var currentPath = _getCurrentPath();
+        if (currentPath.isNotEmpty) {
+          if (!historyEntry.startsWith('/')) {
+            historyEntry = '/$historyEntry';
+          }
+        }
+
+        Window.delegate.historyReplaceState(
+          title: '',
+          url: historyEntry,
+          rootElement: rootElement,
+        );
+      }
 
       var entry = RouterStackEntry(
         path: path,
