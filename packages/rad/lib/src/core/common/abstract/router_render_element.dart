@@ -186,6 +186,7 @@ abstract class RouterRenderElement extends WatchfulRenderElement
         path: currentPath,
         values: {},
         routerElement: this,
+        updateHistory: true,
       );
     }
 
@@ -522,6 +523,7 @@ abstract class RouterRenderElement extends WatchfulRenderElement
         path: getCurrentRoutePath(),
         values: {},
         routerElement: this,
+        updateHistory: true,
       );
     }
   }
