@@ -346,8 +346,13 @@ class RouterService extends Service {
         );
       }
     } catch (e) {
-      // reload window if anything goes wrong
+      if (DEBUG_BUILD) {
+        if (services.debug.routerLogs) {
+          print(e);
+        }
+      }
 
+      // reload window if anything goes wrong
       Window.delegate.locationReload();
     }
   }
