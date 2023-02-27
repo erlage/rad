@@ -188,6 +188,26 @@ abstract class RouterRenderElement extends WatchfulRenderElement
         routerElement: this,
         updateHistory: true,
       );
+    } else {
+      // workaround: handles browser-back btn for the very first open() pop
+      //
+      // internally history-stack starts empty and landing(initial) location
+      // isn't associated with any navigator instance if route matches are fine.
+      // so first pop-event(or depth-wise 'last' pop-event) fails to locate any
+      // associated navigator instance which leads to page reload(as a fallback)
+      //
+      // to fix this, we associate landing location to the navigator instance
+      // that's last to render during initial render. note: it's not a perfect
+      // solution but it works for most of the cases. a much better way would
+      // require some refactoring in the Router service and a new mechanism that
+      // allows running callbacks after initial-render.
+
+      _services.router.pushReplacement(
+        path: currentPath,
+        values: {},
+        routerElement: this,
+        updateHistory: false,
+      );
     }
 
     openPath(path: currentPath, updateHistory: false);
