@@ -82,6 +82,66 @@ void main() {
         expect(state.currentRouteName, 'route-1');
       },
     );
+
+    test(
+      'should open previously visited route '
+      'edge-case: when matched a default route on landing',
+      () async {
+        await app!.setPath('/route-1');
+        await app!.buildChildren(
+          widgets: [
+            Navigator(
+              key: Key('navigator'),
+              routes: [
+                Route(name: 'route-1', page: Text('route-1')),
+                Route(name: 'route-2', page: Text('route-2')),
+                Route(name: 'route-3', page: Text('route-3')),
+              ],
+            )
+          ],
+          parentRenderElement: app!.appRenderElement,
+        );
+
+        var state = app!.navigatorState('navigator');
+
+        state.open(name: 'route-3');
+        await Future.delayed(Duration(milliseconds: 100));
+
+        app!.window.dispatchBackAction();
+        await Future.delayed(Duration(milliseconds: 100));
+        expect(state.currentRouteName, 'route-1');
+      },
+    );
+
+    test(
+      'should open previously visited route '
+      'edge-case: when matched a route on landing',
+      () async {
+        await app!.setPath('/route-2');
+        await app!.buildChildren(
+          widgets: [
+            Navigator(
+              key: Key('navigator'),
+              routes: [
+                Route(name: 'route-1', page: Text('route-1')),
+                Route(name: 'route-2', page: Text('route-2')),
+                Route(name: 'route-3', page: Text('route-3')),
+              ],
+            )
+          ],
+          parentRenderElement: app!.appRenderElement,
+        );
+
+        var state = app!.navigatorState('navigator');
+
+        state.open(name: 'route-3');
+        await Future.delayed(Duration(milliseconds: 100));
+
+        app!.window.dispatchBackAction();
+        await Future.delayed(Duration(milliseconds: 100));
+        expect(state.currentRouteName, 'route-2');
+      },
+    );
   });
 
   group('Navigator, forward action tests:', () {
