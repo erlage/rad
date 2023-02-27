@@ -53,8 +53,34 @@ class RT_TestWindow extends WindowDelegate {
   String get locationHost => _host;
 
   void setHref(String toSet) => _updateLocation('/$toSet');
-  void setHash(String toSet) => _updateLocation('/#/$toSet');
-  void setPath(String toSet) => _updateLocation('/$toSet');
+
+  void setHash(String toSet) {
+    toSet = '/#/$toSet';
+
+    var historyEntry = _HistoryEntry(
+      url: toSet,
+      title: '',
+      data: RT_TestBed.rootTargetId,
+    );
+
+    _setHistoryEntry(historyEntry);
+    _history.add(historyEntry);
+    _updateLocation(toSet);
+  }
+
+  void setPath(String toSet) {
+    toSet = '/$toSet';
+
+    var historyEntry = _HistoryEntry(
+      url: toSet,
+      title: '',
+      data: RT_TestBed.rootTargetId,
+    );
+
+    _setHistoryEntry(historyEntry);
+    _history.add(historyEntry);
+    _updateLocation(toSet);
+  }
 
   @override
   locationReload() => throw UnimplementedError();
