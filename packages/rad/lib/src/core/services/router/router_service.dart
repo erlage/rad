@@ -217,7 +217,7 @@ class RouterService extends Service {
     if (routerLink.segments.length < 3) {
       matcher = r'^\/*.*(' + routerLink.segments.last + r'.*)';
     } else {
-      matcher = r'^\/*' +
+      matcher = r'^\/*.*' +
           routerLink.segments[1] +
           r'.*(' +
           routerLink.segments.last +
@@ -454,6 +454,13 @@ class RouterService extends Service {
         Window.delegate.historyReplaceState(
           title: '',
           url: historyEntry,
+          rootElement: rootElement,
+        );
+      } else {
+        // for attaching current root element with initial pop-event
+        Window.delegate.historyReplaceState(
+          title: '',
+          url: Window.delegate.locationHref,
           rootElement: rootElement,
         );
       }
