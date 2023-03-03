@@ -812,4 +812,84 @@ void main() {
       }
     });
   });
+
+  group('Navigator, path change tests', () {
+    RT_AppRunner? app;
+
+    setUp(() {
+      app = createTestApp()..start();
+    });
+
+    tearDown(() => app!.stop());
+
+    Future<void> buildPath(String path) async {
+      await app!.setPath(path);
+      await app!.buildChildren(
+        widgets: [
+          Navigator(
+            key: Key('g-parent'),
+            routes: [
+              Route(name: 'g-p-route-1', page: Text('g-p-route-1')),
+              Route(
+                name: 'g-p-route-2',
+                page: Navigator(
+                  key: Key('parent'),
+                  routes: [
+                    Route(
+                      name: 'p-route-1',
+                      page: Navigator(
+                        key: Key('child'),
+                        routes: [
+                          Route(name: 'c-route-1', page: Text('c-route-1')),
+                          Route(name: 'c-route-2', page: Text('c-route-2')),
+                        ],
+                      ),
+                    ),
+                    Route(name: 'p-route-2', page: Text('p-route-2')),
+                  ],
+                ),
+              ),
+              Route(
+                name: 'g-p-route-3',
+                page: Navigator(
+                  routes: [
+                    Route(name: 'p-route-1', page: Text('p-route-1')),
+                    Route(name: 'p-route-2', page: Text('p-route-2')),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+    }
+
+    // these tests fails on in actual browser environment(window obj).
+    // for now, we've fixed the issue. but it seems our router needs a
+    // re-write(just internals + unit tests).
+
+    test('should not change path if matched', () async {
+      await buildPath('/g-p-route-1');
+      app!.assertMatchPath('/g-p-route-1');
+
+      await buildPath('/g-p-route-1/som/val');
+      app!.assertMatchPath('/g-p-route-1/som/val');
+
+      await buildPath('/g-p-route-3/p-route-1');
+      app!.assertMatchPath('/g-p-route-3/p-route-1');
+
+      await buildPath('/g-p-route-3/p-route-2');
+      app!.assertMatchPath('/g-p-route-3/p-route-2');
+
+      await buildPath('/g-p-route-3/som/val/p-route-2');
+      app!.assertMatchPath('/g-p-route-3/som/val/p-route-2');
+
+      await buildPath('/g-p-route-2/p-route-1/c-route-2/s/');
+      app!.assertMatchPath('/g-p-route-2/p-route-1/c-route-2/s/');
+
+      await buildPath('/g-p-route-2/some/val/p-route-1/s/c-route-2/s/');
+      app!.assertMatchPath('/g-p-route-2/some/val/p-route-1/s/c-route-2/s/');
+    });
+  });
 }
