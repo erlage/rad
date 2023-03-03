@@ -9,78 +9,36 @@ import '../test_imports.dart';
 /// Browser's window mock.
 ///
 class RT_TestWindow extends WindowDelegate {
-  final _psListeners = <String, PopStateEventCallback>{};
-
-  var _locationHash = '';
-  var _locationPathname = '';
-  var _locationHref = window.location.host;
-  var _host = window.location.host;
   final logs = <String>[];
-  final hashStack = <String>[];
-  final pathStack = <String>[];
-  final hrefStack = <String>[];
+  final locationHistory = <Uri>[];
 
   final _history = <_HistoryEntry>[];
   final _forwardAbleHistory = <_HistoryEntry>[];
 
+  var _location = Uri.parse(window.location.href);
+  Uri get location => _location;
+
+  final _psListeners = <String, PopStateEventCallback>{};
+
   void clearState() {
-    window.history.pushState('', '/', '/');
-
-    _host = window.location.href;
-
-    _locationHash = '';
-    _locationPathname = '';
-    _locationHref = window.location.href;
+    logs.clear();
+    locationHistory.clear();
 
     _history.clear();
     _forwardAbleHistory.clear();
 
-    logs.clear();
-    hashStack.clear();
-    pathStack.clear();
-    hrefStack.clear();
+    window.history.pushState('', '/', '/');
+    _location = Uri.parse(window.location.href);
   }
 
   @override
-  String get locationHref => _locationHref;
+  String get locationHref => _location.toString();
 
   @override
-  String get locationHash => _locationHash;
+  String get locationHash => _location.fragment;
 
   @override
-  String get locationPathName => _locationPathname;
-
-  String get locationHost => _host;
-
-  void setHref(String toSet) => _updateLocation('/$toSet');
-
-  void setHash(String toSet) {
-    toSet = '/#/$toSet';
-
-    var historyEntry = _HistoryEntry(
-      url: toSet,
-      title: '',
-      data: RT_TestBed.rootTargetId,
-    );
-
-    _setHistoryEntry(historyEntry);
-    _history.add(historyEntry);
-    _updateLocation(toSet);
-  }
-
-  void setPath(String toSet) {
-    toSet = '/$toSet';
-
-    var historyEntry = _HistoryEntry(
-      url: toSet,
-      title: '',
-      data: RT_TestBed.rootTargetId,
-    );
-
-    _setHistoryEntry(historyEntry);
-    _history.add(historyEntry);
-    _updateLocation(toSet);
-  }
+  String get locationPathName => _location.path;
 
   @override
   locationReload() => throw UnimplementedError();
@@ -109,16 +67,7 @@ class RT_TestWindow extends WindowDelegate {
     required rootElement,
   }) {
     _forwardAbleHistory.clear();
-
-    var entry = _HistoryEntry(
-      url: url,
-      title: title,
-      data: rootElement.appTargetId,
-    );
-
-    _setHistoryEntry(entry);
-
-    _history.add(entry);
+    setLocation(url);
   }
 
   @override
@@ -128,24 +77,7 @@ class RT_TestWindow extends WindowDelegate {
     required rootElement,
   }) {
     _forwardAbleHistory.clear();
-
-    if (_history.isNotEmpty) {
-      _history.removeLast();
-
-      hashStack.removeLast();
-      pathStack.removeLast();
-      hrefStack.removeLast();
-    }
-
-    var entry = _HistoryEntry(
-      url: url,
-      title: title,
-      data: rootElement.appTargetId,
-    );
-
-    _setHistoryEntry(entry);
-
-    _history.add(entry);
+    setLocation(url, replace: true);
   }
 
   @override
@@ -158,12 +90,7 @@ class RT_TestWindow extends WindowDelegate {
 
     _forwardAbleHistory.add(_history.removeLast());
 
-    hashStack.removeLast();
-    pathStack.removeLast();
-    hrefStack.removeLast();
-
-    _setHistoryEntry(_history.last);
-
+    setLocation(_history.last.url, replace: true);
     _psOnPopState(_history.last.data);
   }
 
@@ -178,8 +105,7 @@ class RT_TestWindow extends WindowDelegate {
 
     _history.add(_forwardAbleHistory.removeLast());
 
-    _setHistoryEntry(_history.last);
-
+    setLocation(_history.last.url, replace: true);
     _psOnPopState(_history.last.data);
   }
 
@@ -196,36 +122,46 @@ class RT_TestWindow extends WindowDelegate {
     }
   }
 
-  void _setHistoryEntry(_HistoryEntry entry) {
-    _updateLocation(entry.url);
+  void setLocation(String location, {bool replace = false}) {
+    var prevLocation = _location;
+    var nextLocation = Uri.parse(location);
+
+    if (nextLocation.isAbsolute) {
+      _location = nextLocation;
+    } else {
+      _location = Uri(
+        scheme: prevLocation.scheme,
+        userInfo: prevLocation.userInfo,
+        host: prevLocation.host,
+        port: prevLocation.port,
+        path: nextLocation.path,
+        query: nextLocation.query,
+        fragment: nextLocation.fragment,
+      );
+    }
+
+    var historyEntry = _HistoryEntry(
+      url: location,
+      title: '',
+      data: RT_TestBed.rootTargetId,
+    );
+
+    if (replace) {
+      if (_history.isNotEmpty) {
+        _history.removeLast();
+      }
+
+      if (locationHistory.isNotEmpty) {
+        locationHistory.removeLast();
+      }
+    }
+
+    _history.add(historyEntry);
+    locationHistory.add(nextLocation);
 
     logs.add(
       'Set href: $locationHref, hash: $locationHash, path: $locationPathName',
     );
-
-    hrefStack.add(locationHref);
-    hashStack.add(locationHash);
-    pathStack.add(locationPathName);
-  }
-
-  void _updateLocation(String location) {
-    var pathWithHash = location.replaceAll(RegExp(r'\/\/+'), '/');
-
-    _locationHref = '$_host/$pathWithHash'.replaceAll(RegExp(r'\/\/+'), '/');
-
-    var split = pathWithHash.split('#');
-
-    if (split.isNotEmpty) {
-      _locationPathname = split[0];
-    } else {
-      _locationPathname = '';
-    }
-
-    if (split.length > 1) {
-      _locationHash = '#${split[1]}';
-    } else {
-      _locationHash = '';
-    }
   }
 }
 

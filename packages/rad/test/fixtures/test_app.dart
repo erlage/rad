@@ -200,41 +200,60 @@ class RT_AppRunner extends AppRunner {
 
   Future<void> setPath(String toSet) async {
     if (frameworkServices.router.options.enableHashBasedRouting) {
-      window.setHash(toSet);
+      window.setLocation('#${_normalize(toSet)}');
     } else {
-      window.setPath(toSet);
+      window.setLocation(_normalize(toSet));
     }
 
     await Future.delayed(Duration(milliseconds: 100));
   }
 
+  String _normalize(String path) {
+    path = path.replaceAll(RegExp(r'\/\/+'), '/');
+
+    while (path.startsWith('#')) {
+      path = path.substring(1);
+    }
+
+    while (path.startsWith('/')) {
+      path = path.substring(1);
+    }
+
+    while (path.endsWith('/')) {
+      path = path.substring(0, path.length - 1);
+    }
+
+    return path;
+  }
+
   void assertMatchPath(String toMatch) {
     if (frameworkServices.router.options.enableHashBasedRouting) {
-      expect(window.locationHash, '#$toMatch');
+      expect(_normalize(window.locationHash), equals(_normalize(toMatch)));
     } else {
-      expect(window.locationPathName, toMatch);
+      expect(_normalize(window.locationPathName), equals(_normalize(toMatch)));
     }
   }
 
   void assertMatchFullPath(String toMatch) {
-    expect('${window.locationPathName}${window.locationHash}', toMatch);
+    var fullPath = '${window.locationPathName}#${window.locationHash}';
+    expect(_normalize(fullPath), equals(_normalize(toMatch)));
   }
 
   void assertMatchPathStack(List<String> toMatch) {
     var stack = <String>[];
 
     if (frameworkServices.router.options.enableHashBasedRouting) {
-      stack.addAll(window.hashStack.reversed);
+      stack.addAll(
+        window.locationHistory.map((e) => e.fragment).toList().reversed,
+      );
     } else {
-      stack.addAll(window.pathStack.reversed);
+      stack.addAll(
+        window.locationHistory.map((e) => e.path).toList().reversed,
+      );
     }
 
-    for (final entry in toMatch) {
-      if (frameworkServices.router.options.enableHashBasedRouting) {
-        expect(stack.removeLast(), '#$entry');
-      } else {
-        expect(stack.removeLast(), entry);
-      }
+    for (final expectedEntry in toMatch) {
+      expect(_normalize(stack.removeLast()), equals(_normalize(expectedEntry)));
     }
 
     expect(stack.isEmpty, equals(true));
