@@ -18,6 +18,9 @@ class MountOptions {
   ///
   /// CSS: https://raw.githubusercontent.com/erlage/rad/main/packages/rad/lib/src/css/main.css
   ///
+  /// Please note, instead of directly using the above URL, you should download
+  /// CSS contents from above URL and bundle them with your other CSS files.
+  ///
   final bool injectInlineStyles;
 
   const MountOptions({
