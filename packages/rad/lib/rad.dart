@@ -90,6 +90,7 @@ export 'src/core/common/objects/common_render_elements.dart'
 export 'src/core/common/abstract/watchful_render_element.dart';
 export 'src/core/common/objects/dom_node_patch.dart' show DomNodePatch;
 export 'src/core/common/objects/options/debug_options.dart' show DebugOptions;
+export 'src/core/common/objects/options/mount_options.dart' show MountOptions;
 export 'src/core/common/objects/options/router_options.dart' show RouterOptions;
 export 'src/core/common/objects/meta_information.dart' show MetaInformation;
 

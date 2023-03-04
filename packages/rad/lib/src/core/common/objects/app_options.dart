@@ -5,12 +5,14 @@
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/objects/options/debug_options.dart';
+import 'package:rad/src/core/common/objects/options/mount_options.dart';
 import 'package:rad/src/core/common/objects/options/router_options.dart';
 
 @internal
 class AppOptions {
   final DebugOptions debugOptions;
   final RouterOptions routerOptions;
+  final MountOptions mountOptions;
   final KeyGenOptions keyGenOptions;
   final WalkerOptions walkerOptions;
   final EventsOptions eventsOptions;
@@ -18,6 +20,7 @@ class AppOptions {
 
   const AppOptions({
     required this.debugOptions,
+    required this.mountOptions,
     required this.routerOptions,
   })  : walkerOptions = WalkerOptions.defaultMode,
         eventsOptions = EventsOptions.defaultMode,

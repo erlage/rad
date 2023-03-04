@@ -9,6 +9,7 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/common/objects/common_render_elements.dart';
 import 'package:rad/src/core/common/objects/options/debug_options.dart';
+import 'package:rad/src/core/common/objects/options/mount_options.dart';
 import 'package:rad/src/core/common/objects/options/router_options.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/framework.dart';
@@ -34,12 +35,15 @@ import 'package:rad/src/widgets/rad_app.dart';
 ///
 /// - [debugOptions] - See [DebugOptions].
 ///
+/// - [mountOptions] - See [MountOptions].
+///
 /// - [routerOptions] - See [RouterOptions].
 ///
 AppRunner runApp({
   required Widget app,
   required String appTargetId,
   VoidCallback? beforeMount,
+  MountOptions? mountOptions,
   RouterOptions? routerOptions,
   DebugOptions? debugOptions,
 }) {
@@ -49,6 +53,7 @@ AppRunner runApp({
     beforeMount: beforeMount,
     routerOptions: routerOptions,
     debugOptions: debugOptions,
+    mountOptions: mountOptions,
   )
     ..start()
     ..scheduleInitialBuild();
@@ -64,6 +69,7 @@ class AppRunner {
 
   final VoidCallback? _beforeMount;
   final DebugOptions? _debugOptions;
+  final MountOptions? _mountOptions;
   final RouterOptions? _routerOptions;
 
   RootRenderElement? _rootElement;
@@ -88,9 +94,11 @@ class AppRunner {
     required this.appTargetId,
     VoidCallback? beforeMount,
     RouterOptions? routerOptions,
+    MountOptions? mountOptions,
     DebugOptions? debugOptions,
   })  : _beforeMount = beforeMount,
         _routerOptions = routerOptions,
+        _mountOptions = mountOptions,
         _debugOptions = debugOptions;
 
   /// Run app and services associated.
@@ -130,6 +138,7 @@ class AppRunner {
     _appOptions = AppOptions(
       routerOptions: _routerOptions ?? RouterOptions.defaultMode,
       debugOptions: _debugOptions ?? DebugOptions.defaultMode,
+      mountOptions: _mountOptions ?? MountOptions.defaultMode,
     );
   }
 
@@ -207,7 +216,9 @@ class AppRunner {
   /// Run pre-mount tasks.
   ///
   void runPreMountTasks() {
-    Components.instance.injectStyleComponent(RadStylesComponent());
+    if (frameworkAppOptions.mountOptions.injectInlineStyles) {
+      Components.instance.injectStyleComponent(RadStylesComponent());
+    }
   }
 
   /// Additional clean up tasks.
