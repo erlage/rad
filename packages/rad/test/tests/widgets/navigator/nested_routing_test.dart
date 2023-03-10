@@ -656,6 +656,56 @@ void main() {
         expect(child.currentRouteName, 'c-route-2');
       },
     );
+
+    test(
+      'should open matched child route with values similar to paths',
+      () async {
+        //
+        await app!.setPath(
+          '/g-p-route-2/p-route-1-val/p-route-1/p-route-1-val-2/c-route-2/val-p-route-1-val-2/s/',
+        );
+
+        await app!.buildChildren(
+          widgets: [
+            Navigator(
+              key: Key('g-parent'),
+              routes: [
+                Route(name: 'g-p-route-1', page: Text('g-p-route-2')),
+                Route(
+                  name: 'g-p-route-2',
+                  page: Navigator(
+                    key: Key('parent'),
+                    routes: [
+                      Route(
+                        name: 'p-route-1',
+                        page: Navigator(
+                          key: Key('child'),
+                          routes: [
+                            Route(name: 'c-route-1', page: Text('c-route-1')),
+                            Route(name: 'c-route-2', page: Text('c-route-2')),
+                          ],
+                        ),
+                      ),
+                      Route(name: 'p-route-2', page: Text('p-route-2')),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+          parentRenderElement: app!.appRenderElement,
+        );
+
+        var gParent = app!.navigatorState('g-parent');
+        expect(gParent.currentRouteName, 'g-p-route-2');
+
+        var parent = app!.navigatorState('parent');
+        expect(parent.currentRouteName, 'p-route-1');
+
+        var child = app!.navigatorState('child');
+        expect(child.currentRouteName, 'c-route-2');
+      },
+    );
   });
 
   /*
