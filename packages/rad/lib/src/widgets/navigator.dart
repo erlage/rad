@@ -289,6 +289,10 @@ class Navigator extends Widget {
   ///
   final NavigatorStateCallback? onInit;
 
+  /// Called when Navigator state is disposed.
+  ///
+  final NavigatorStateCallback? onDispose;
+
   /// Called when Navigator's route changes.
   ///
   final NavigatorRouteChangeCallback? onRouteChange;
@@ -296,6 +300,7 @@ class Navigator extends Widget {
   const Navigator({
     required this.routes,
     this.onInit,
+    this.onDispose,
     this.onRouteChange,
     Key? key,
   }) : super(key: key);
@@ -423,6 +428,16 @@ class NavigatorRenderElement extends RouterRenderElement {
       routeChangeCallback(routeName);
     }
   }
+
+  @override
+  void didDispose() {
+    state.frameworkMarkDisposed();
+
+    var onDisposeCallback = (widget as Navigator).onDispose;
+    if (null != onDisposeCallback) {
+      onDisposeCallback(state);
+    }
+  }
 }
 
 /*
@@ -453,6 +468,10 @@ class NavigatorState {
   ///
   String get currentRouteName => _renderElement!.getCurrentRouteName();
 
+  /// Whether Navigator's state is disposed.
+  ///
+  bool _isDisposed = false;
+
   NavigatorState(this.widget) : routes = widget.routes;
 
   /// Open a page on Navigator's stack.
@@ -468,6 +487,10 @@ class NavigatorState {
     Map<String, String> values = const {},
     bool updateHistory = true,
   }) {
+    if (_isDisposed) {
+      throw Exception('Cannot call open() after state is disposed off.');
+    }
+
     var path = _renderElement!.getPathFromName(name: name);
 
     _renderElement!.openPath(
@@ -506,15 +529,33 @@ class NavigatorState {
   /// // because current navigator is registered on posts page
   /// ```
   ///
-  String getValue(String segment) => _renderElement!.getValue(segment);
+  String getValue(String segment) {
+    if (_isDisposed) {
+      throw Exception('Cannot call getValue() after state is disposed off.');
+    }
+
+    return _renderElement!.getValue(segment);
+  }
 
   /// Go back.
   ///
-  void back() => _renderElement!.openPreviousPath();
+  void back() {
+    if (_isDisposed) {
+      throw Exception('Cannot call back() after state is disposed off.');
+    }
+
+    _renderElement!.openPreviousPath();
+  }
 
   /// Whether navigator can go back to a page.
   ///
-  bool canGoBack() => _renderElement!.canOpenPreviousPath();
+  bool canGoBack() {
+    if (_isDisposed) {
+      throw Exception('Cannot call canGoBack() after state is disposed off.');
+    }
+
+    return _renderElement!.canOpenPreviousPath();
+  }
 
   /// @nodoc
   @nonVirtual
@@ -522,5 +563,13 @@ class NavigatorState {
   @protected
   void frameworkBindRenderElement(NavigatorRenderElement element) {
     _renderElement = element;
+  }
+
+  /// @nodoc
+  @nonVirtual
+  @internal
+  @protected
+  void frameworkMarkDisposed() {
+    _isDisposed = true;
   }
 }
