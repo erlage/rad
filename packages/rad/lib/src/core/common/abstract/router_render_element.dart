@@ -247,8 +247,14 @@ abstract class RouterRenderElement extends WatchfulRenderElement
   /// @nodoc
   @nonVirtual
   @override
+  void dispose() => willDispose();
+
+  /// @nodoc
+  @nonVirtual
+  @override
   void afterUnMount() {
     _services.router.unRegister(this);
+    didDispose();
   }
 
   /*
@@ -485,6 +491,15 @@ abstract class RouterRenderElement extends WatchfulRenderElement
     required String previousPath,
     required String currentPath,
   });
+
+  /// Called when router element is about to be disposed.
+  ///
+  void willDispose() {}
+
+  /// Called when router element is disposed and is no more registered in the
+  /// the router service.
+  ///
+  void didDispose() {}
 
   /*
   |--------------------------------------------------------------------------

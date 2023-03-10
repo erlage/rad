@@ -709,6 +709,168 @@ void main() {
 
   /*
   |--------------------------------------------------------------------------
+  | State API | onDispose tests
+  |--------------------------------------------------------------------------
+  */
+
+  group('Navigator, onDispose tests:', () {
+    RT_AppRunner? app;
+
+    setUp(() {
+      app = createTestApp()..start();
+    });
+
+    tearDown(() => app!.stop());
+
+    Future<void> build(Function(NavigatorState) onDisposeCallback) async {
+      await app!.buildChildren(
+        widgets: [
+          Navigator(
+            key: Key('navigator'),
+            onDispose: onDisposeCallback,
+            routes: [
+              Route(name: 'p1', page: Text('page 1')),
+              Route(name: 'p2', page: Text('page 2')),
+              Route(name: 'p3', page: Text('page 3')),
+              Route(name: 'p4', page: Text('page 4')),
+            ],
+          ),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+    }
+
+    Future<void> update(Function(NavigatorState) onDisposeCallback) async {
+      await app!.updateChildren(
+        widgets: [
+          Navigator(
+            key: Key('navigator'),
+            onDispose: onDisposeCallback,
+            routes: [
+              Route(name: 'p1', page: Text('page 1')),
+              Route(name: 'p2', page: Text('page 2')),
+              Route(name: 'p3', page: Text('page 3')),
+              Route(name: 'p4', page: Text('page 4')),
+            ],
+          ),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+    }
+
+    Future<void> dispose() async {
+      await app!.updateChildren(
+        widgets: [],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+    }
+
+    test('should have current route information available', () async {
+      await build((state) {
+        expect(state.currentRouteName, equals('p1'));
+      });
+
+      await dispose();
+    });
+
+    test('should get called after actual dispose', () async {
+      await build((_) {
+        expect(app!.appDomNode, RT_hasContents(''));
+      });
+
+      await dispose();
+      expect(app!.appDomNode, RT_hasContents(''));
+    });
+
+    test('should call latest callback exactly once', () async {
+      var testStack = RT_TestStack();
+
+      await build((_) => testStack.push('0'));
+
+      await update((_) => testStack.push('1'));
+      await update((_) => testStack.push('2'));
+      await update((_) => testStack.push('3'));
+      await update((_) => testStack.push('4'));
+
+      await dispose();
+
+      expect(testStack.popFromStart(), equals('4'));
+      expect(testStack.canPop(), equals(false));
+    });
+
+    test('should throw, open() inside onDispose', () async {
+      await build((state) {
+        expect(
+          () => state.open(name: 'p2'),
+          throwsA(
+            predicate(
+              (e) => '$e'.startsWith(
+                'Exception: Cannot call open() after state is disposed off.',
+              ),
+            ),
+          ),
+        );
+      });
+
+      await dispose();
+    });
+
+    test('should throw, back() inside onDispose', () async {
+      await build((state) {
+        expect(
+          () => state.back(),
+          throwsA(
+            predicate(
+              (e) => '$e'.startsWith(
+                'Exception: Cannot call back() after state is disposed off.',
+              ),
+            ),
+          ),
+        );
+      });
+
+      await dispose();
+    });
+
+    test('should throw, canGoBack() inside onDispose', () async {
+      await build((state) {
+        expect(
+          () => state.canGoBack(),
+          throwsA(
+            predicate(
+              (e) => '$e'.startsWith(
+                'Exception: Cannot call canGoBack() after state is disposed off.',
+              ),
+            ),
+          ),
+        );
+      });
+
+      await dispose();
+    });
+
+    test('should throw, getValue() inside onDispose', () async {
+      await build((state) {
+        expect(
+          () => state.getValue('some-key'),
+          throwsA(
+            predicate(
+              (e) => '$e'.startsWith(
+                'Exception: Cannot call getValue() after state is disposed off.',
+              ),
+            ),
+          ),
+        );
+      });
+
+      await dispose();
+    });
+  });
+
+  /*
+  |--------------------------------------------------------------------------
   | State API | Getting value tests
   |--------------------------------------------------------------------------
   */
