@@ -246,39 +246,24 @@ class RouterService extends Service {
 
     // else find protected part
 
-    var matcher = '';
-
-    var matchRoutes = routerElement.getPathList().join(r'|\/');
-
-    if (routerLink.segments.length < 3) {
-      matcher = r'(^\/*.*' +
-          routerLink.segments.last +
-          r'.*(?=\/' +
-          matchRoutes +
-          r'))';
-    } else {
-      matcher = r'(^\/*' +
-          routerLink.segments[1] +
-          r'.*' +
-          routerLink.segments.last +
-          r'.*(?=\/' +
-          matchRoutes +
-          r'))';
-    }
-
     var currentSegments = _getCurrentSegments();
 
-    var path = currentSegments.join('/');
+    var protectedSegments = <String>[];
+    var protectedUptoSegments = List<String>.from(routerLink.segments.reversed);
 
-    var match = RegExp(matcher).firstMatch(path);
+    for (final segment in currentSegments) {
+      if (protectedUptoSegments.isEmpty) {
+        break;
+      }
 
-    if (null == match) return currentSegments;
+      if (segment == protectedUptoSegments.last) {
+        protectedUptoSegments.removeLast();
+      }
 
-    var group = match.group(1);
+      protectedSegments.add(segment);
+    }
 
-    if (null == group) return currentSegments;
-
-    return group.split('/');
+    return protectedSegments;
   }
 
   /*
