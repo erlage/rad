@@ -212,29 +212,21 @@ class RouterService extends Service {
 
     // else limit part of path that's visible to current RouterRenderElement
 
-    var matcher = '';
+    var accessibleSegments = <String>[];
+    var skipUptoSegments = List<String>.from(routerLink.segments.reversed);
 
-    if (routerLink.segments.length < 3) {
-      matcher = r'^\/*.*(' + routerLink.segments.last + r'.*)';
-    } else {
-      matcher = r'^\/*.*' +
-          routerLink.segments[1] +
-          r'.*(' +
-          routerLink.segments.last +
-          r'.*)';
+    for (final segment in currentSegments) {
+      if (skipUptoSegments.isEmpty) {
+        accessibleSegments.add(segment);
+        continue;
+      }
+
+      if (segment == skipUptoSegments.last) {
+        skipUptoSegments.removeLast();
+      }
     }
 
-    var path = currentSegments.join('/');
-
-    var match = RegExp(matcher).firstMatch(path);
-
-    if (null == match) return [];
-
-    var group = match.group(1);
-
-    if (null == group) return [];
-
-    return group.split('/');
+    return accessibleSegments;
   }
 
   /// Part of path(Window.delegate.locationPathName) that current
@@ -541,20 +533,21 @@ class RouterService extends Service {
     // if no element in ancestors i.e we're dealing with a root
 
     if (null == parentElement) {
+      var registeredAtSegments = _getRoutingPath().split('/')
+        ..removeWhere((element) => element.isEmpty);
       _setRouterLink(
         routerElement: routerElement,
         routerLink: RouterLink(
           routerElement: routerElement,
-          segments: [_getRoutingPath()],
+          segments: registeredAtSegments,
         ),
       );
 
       if (DEBUG_BUILD) {
         if (services.debug.routerLogs) {
           print(
-            '$RouterRenderElement Registered: #$routerElement at ${[
-              _getRoutingPath()
-            ]}',
+            '$RouterRenderElement Registered: #$routerElement @ '
+            '$registeredAtSegments',
           );
         }
       }
