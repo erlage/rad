@@ -916,8 +916,54 @@ void main() {
     }
 
     // these tests fails on in actual browser environment(window obj).
-    // for now, we've fixed the issue. but it seems our router needs a
-    // re-write(just internals + unit tests).
+    // for now, we've fixed these issue. but it seems our router needs a
+    // re-write(just internals + requires unit tests).
+
+    test(
+      'should change only the inner path if open called on inner navigator',
+      () async {
+        //
+        await app!.setPath('/p-route-1/c-page-1/');
+
+        await app!.buildChildren(
+          widgets: [
+            Navigator(
+              key: Key('parent'),
+              routes: [
+                Route(
+                  name: 'p-route-1',
+                  page: Navigator(
+                    key: Key('child'),
+                    routes: [
+                      Route(name: 'c-page-1', page: Text('page-1')),
+                      Route(name: 'c-page-2', page: Text('page-2')),
+                      Route(name: 'c-page-3', page: Text('page-3')),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+          parentRenderElement: app!.appRenderElement,
+        );
+
+        var child = app!.navigatorState('child');
+
+        app!.assertMatchPath('/p-route-1/c-page-1');
+
+        child.open(name: 'c-page-2');
+        await Future.delayed(Duration(milliseconds: 100));
+        app!.assertMatchPath('/p-route-1/c-page-2');
+
+        child.open(name: 'c-page-3', values: {'some-var': 'some-value'});
+        await Future.delayed(Duration(milliseconds: 100));
+        app!.assertMatchPath('/p-route-1/c-page-3/some-var/some-value');
+
+        child.open(name: 'c-page-1');
+        await Future.delayed(Duration(milliseconds: 100));
+        app!.assertMatchPath('/p-route-1/c-page-1');
+      },
+    );
 
     test('should not change path if matched', () async {
       await buildPath('/g-p-route-1');
