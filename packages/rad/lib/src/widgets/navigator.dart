@@ -46,9 +46,13 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 ///     ],
 ///
 ///
-///     // both are optional
+///     // optional callbacks
 ///
 ///     onInit: (NavigatorState state) {
+///
+///     }
+///
+///     onDispose: (NavigatorState state) {
 ///
 ///     }
 ///
@@ -133,6 +137,26 @@ import 'package:rad/src/widgets/stateful_widget.dart';
 /// Navigator.of(context, byKey: Key('my-navigator');
 ///
 /// ```
+/// ### onDispose hook:
+///
+/// This hooks gets called when Navigator state is disposed off. This hook
+/// can be used to do perform clean up operations in case you've set up
+/// some resources in the onInit callback.
+///
+/// ```dart
+/// Navigator(
+///     onDispose: (state) => print("do clean-up");
+///     ...
+/// );
+/// ```
+/// Please note that the `state` object passed to the `onDispose` callback is
+/// not meant for consumption. It is provided only for reference purposes and
+/// should not be used in the same way as the state object in the `onInit`
+/// callback. Attempting to call any methods on state within the `onDispose`
+/// callback, such as `state.open()`, will result in an error being thrown.
+/// The purpose of the `onDispose` callback is to provide a cleanup mechanism
+/// for resources created during the `onInit` callback, not to manipulate the
+/// `state` object in any way.
 ///
 /// ### onRouteChange hook:
 ///
@@ -290,6 +314,15 @@ class Navigator extends Widget {
   final NavigatorStateCallback? onInit;
 
   /// Called when Navigator state is disposed.
+  ///
+  /// Please note that the `state` object passed to the `onDispose` callback is
+  /// not meant for consumption. It is provided only for reference purposes and
+  /// should not be used in the same way as the state object in the `onInit`
+  /// callback. Attempting to call any methods on state within the `onDispose`
+  /// callback, such as `state.open()`, will result in an error being thrown.
+  /// The purpose of the `onDispose` callback is to provide a cleanup mechanism
+  /// for resources created during the `onInit` callback, not to manipulate the
+  /// `state` object in any way.
   ///
   final NavigatorStateCallback? onDispose;
 
