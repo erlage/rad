@@ -58,16 +58,13 @@ class _Dispatcher {
       ..frameworkInitHook();
 
     var listeners = hook.frameworkHookEventListeners;
+    listeners.forEach(_scope.addScopeEventListener);
 
-    HookEventCallback? willBuildListener;
-    if (listeners.isNotEmpty) {
-      willBuildListener = listeners.remove(HookEventType.willBuildScope);
-    }
+    // We've to manually fire willBuildScope event for hooks as call to
+    // createHook is dispatched inside RenderScope's body, body that starts
+    // executing after RenderScope's willBuildScope is already fired.
 
-    listeners.forEach((eventType, callback) {
-      _scope.addScopeEventListener(eventType, callback);
-    });
-
+    var willBuildListener = listeners[HookEventType.willBuildScope];
     if (null != willBuildListener) {
       willBuildListener(const HookEvent(HookEventType.willBuildScope));
     }
