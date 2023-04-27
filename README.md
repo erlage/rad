@@ -174,7 +174,7 @@ Tags:
 - [RadApp](https://pub.dev/documentation/rad/latest/rad/RadApp-class.html)
 - [Text](https://pub.dev/documentation/rad/latest/rad/Text-class.html) \[*different*\]
 - [ListView](https://pub.dev/documentation/rad/latest/rad/ListView-class.html) \[*same*\]
-- [HookScope](https://pub.dev/documentation/rad/latest/rad/HookScope-class.html)
+- [HookScope](https://pub.dev/documentation/rad/latest/rad/HookScope.html)
 - [EventDetector](https://pub.dev/documentation/rad/latest/rad/EventDetector-class.html)
 - [GestureDetector](https://pub.dev/documentation/rad/latest/rad/GestureDetector-class.html) \[*same*\]
 
