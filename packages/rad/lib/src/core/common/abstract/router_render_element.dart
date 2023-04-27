@@ -269,7 +269,7 @@ abstract class RouterRenderElement extends WatchfulRenderElement
   @nonVirtual
   List<String> getNameList() => _nameList;
 
-  // @nonVirtual
+  @nonVirtual
   String getCurrentRouteName() => _currentName;
 
   @nonVirtual
