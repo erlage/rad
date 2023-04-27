@@ -406,7 +406,7 @@ abstract class RenderElement implements BuildContext {
 
     if (_eventListeners.containsKey(RenderEventType.didUnMount) ||
         _eventListeners.containsKey(RenderEventType.willUnMount)) {
-      _announceUnMountListeners();
+      frameworkAnnounceUnMountListeners();
     }
 
     _isEventsRegistered = true;
@@ -510,8 +510,9 @@ abstract class RenderElement implements BuildContext {
   var _containsUnMountListeners = false;
 
   /// @nodoc
+  @internal
   @nonVirtual
-  void _announceUnMountListeners() {
+  void frameworkAnnounceUnMountListeners() {
     visitAncestorElements((renderElement) {
       if (renderElement.frameworkContainsUnMountListeners) {
         return false;
