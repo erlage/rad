@@ -402,12 +402,7 @@ abstract class RenderElement implements BuildContext {
       'addRenderEventListeners should be called exactly once',
     );
 
-    _eventListeners = listeners;
-
-    if (_eventListeners.containsKey(RenderEventType.didUnMount) ||
-        _eventListeners.containsKey(RenderEventType.willUnMount)) {
-      frameworkAnnounceUnMountListeners();
-    }
+    frameworkAddRenderEventListeners(listeners);
 
     _isEventsRegistered = true;
   }
@@ -479,6 +474,20 @@ abstract class RenderElement implements BuildContext {
   @nonVirtual
   bool frameworkHasEventListenerOfType(RenderEventType type) {
     return _eventListeners.containsKey(type);
+  }
+
+  /// @nodoc
+  @internal
+  @nonVirtual
+  void frameworkAddRenderEventListeners(
+    Map<RenderEventType, RenderEventCallback> listeners,
+  ) {
+    _eventListeners = listeners;
+
+    if (_eventListeners.containsKey(RenderEventType.didUnMount) ||
+        _eventListeners.containsKey(RenderEventType.willUnMount)) {
+      frameworkAnnounceUnMountListeners();
+    }
   }
 
   /// @nodoc
