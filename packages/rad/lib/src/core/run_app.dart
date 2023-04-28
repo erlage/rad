@@ -130,6 +130,8 @@ class AppRunner {
       appTargetId: appTargetId,
       appTargetDomNode: document.getElementById(appTargetId)!,
     );
+
+    _framework = Framework(rootElement);
   }
 
   /// Prepare options for app instance.
@@ -153,6 +155,7 @@ class AppRunner {
   void startServices() {
     _services = Services(
       appOptions: frameworkAppOptions,
+      framework: _framework!,
       rootElement: rootElement,
     );
 
@@ -170,7 +173,7 @@ class AppRunner {
   /// Setup instance of framework.
   ///
   void setupFrameworkInstance() {
-    _framework = Framework(rootElement)..initState();
+    _framework!.initState();
   }
 
   /// Dispose framework instance.

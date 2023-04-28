@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/objects/app_options.dart';
 import 'package:rad/src/core/common/objects/common_render_elements.dart';
+import 'package:rad/src/core/framework.dart';
 import 'package:rad/src/core/services/abstract.dart';
 import 'package:rad/src/core/services/debug/debug_service.dart';
 import 'package:rad/src/core/services/events/events_service.dart';
@@ -20,6 +21,10 @@ class Services {
   /// App options.
   ///
   final AppOptions appOptions;
+
+  /// Framework instance.
+  ///
+  final Framework framework;
 
   /// Root element.
   ///
@@ -38,6 +43,7 @@ class Services {
   Services({
     required this.appOptions,
     required this.rootElement,
+    required this.framework,
   })  : _debug = DebugService(rootElement, appOptions.debugOptions),
         _events = EventsService(rootElement, appOptions.eventsOptions),
         _router = RouterService(rootElement, appOptions.routerOptions),
