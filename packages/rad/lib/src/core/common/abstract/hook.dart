@@ -50,7 +50,7 @@ abstract class Hook {
     );
     _isInRegisterPhase = false;
 
-    _eventListeners = listeners;
+    frameworkAddHookEventListeners(listeners);
   }
 
   /*
@@ -76,6 +76,15 @@ abstract class Hook {
   @nonVirtual
   Map<HookEventType, HookEventCallback> get frameworkHookEventListeners {
     return _eventListeners;
+  }
+
+  /// @nodoc
+  @internal
+  @nonVirtual
+  void frameworkAddHookEventListeners(
+    Map<HookEventType, HookEventCallback> listeners,
+  ) {
+    _eventListeners = listeners;
   }
 
   /// @nodoc
