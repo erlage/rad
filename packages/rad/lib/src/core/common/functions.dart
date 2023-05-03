@@ -5,17 +5,11 @@
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/objects/cache.dart';
 
 @internal
 DomEventType? fnMapEventTypeToDomEventType(String eventType) {
-  // could cache this map or maybe we can hardcode it.
-  var typeMap = <String, DomEventType>{};
-
-  for (final type in DomEventType.values) {
-    typeMap[type.nativeValue] = type;
-  }
-
-  return typeMap[eventType];
+  return ccImmutableReverseMapOfDomEventTypes[eventType];
 }
 
 @internal

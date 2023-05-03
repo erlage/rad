@@ -2,7 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'package:rad/src/core/common/objects/cache.dart';
+
 import '../../test_imports.dart';
+import '../../utils.dart';
 
 void main() {
   group('DirectionType', () {
@@ -619,6 +622,16 @@ void main() {
       expect(DomEventType.mouseOver.nativeValue, equals('mouseover'));
       expect(DomEventType.mouseOut.nativeValue, equals('mouseout'));
       expect(DomEventType.mouseUp.nativeValue, equals('mouseup'));
+    });
+
+    test('should match cached reverse map', () {
+      var actual = ccImmutableReverseMapOfDomEventTypes;
+      var expected = Map.fromEntries(
+        DomEventType.values.map((e) => MapEntry(e.nativeValue, e)),
+      );
+
+      var matched = isKeyValueMapEqual<String, DomEventType>(actual, expected);
+      expect(matched, equals(true));
     });
   });
 

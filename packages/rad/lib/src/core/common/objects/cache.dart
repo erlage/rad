@@ -33,3 +33,31 @@ const ccImmutableEmptyListOfWidgetUpdates = <WidgetUpdateObject>[];
 ///
 @internal
 const ccImmutableEmptyMapOfRawEventListeners = <String, NativeEventCallback>{};
+
+/// Immutable native-dom-event-value to [DomEventType] mappings.
+///
+@internal
+const ccImmutableReverseMapOfDomEventTypes = {
+  'click': DomEventType.click,
+  'dblclick': DomEventType.doubleClick,
+  'change': DomEventType.change,
+  'input': DomEventType.input,
+  'submit': DomEventType.submit,
+  'keyup': DomEventType.keyUp,
+  'keydown': DomEventType.keyDown,
+  'keypress': DomEventType.keyPress,
+  'drag': DomEventType.drag,
+  'dragend': DomEventType.dragEnd,
+  'dragenter': DomEventType.dragEnter,
+  'dragleave': DomEventType.dragLeave,
+  'dragover': DomEventType.dragOver,
+  'dragstart': DomEventType.dragStart,
+  'drop': DomEventType.drop,
+  'mousedown': DomEventType.mouseDown,
+  'mouseenter': DomEventType.mouseEnter,
+  'mouseleave': DomEventType.mouseLeave,
+  'mousemove': DomEventType.mouseMove,
+  'mouseover': DomEventType.mouseOver,
+  'mouseout': DomEventType.mouseOut,
+  'mouseup': DomEventType.mouseUp,
+};
