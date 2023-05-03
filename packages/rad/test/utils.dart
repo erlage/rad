@@ -10,6 +10,23 @@ Iterable<RenderElement> collectRenderElements(
   return _DepthFirstChildIterator(rootElement);
 }
 
+bool isKeyValueMapEqual<K, V>(
+  Map<K, V>? mapOne,
+  Map<K, V>? mapTwo,
+) {
+  if (mapOne == mapTwo) return true;
+
+  if (null == mapOne || null == mapTwo) return false;
+
+  if (mapOne.length != mapTwo.length) return false;
+
+  for (final key in mapOne.keys) {
+    if (mapOne[key] != mapTwo[key]) return false;
+  }
+
+  return true;
+}
+
 class _DepthFirstChildIterator extends Iterable<RenderElement>
     implements Iterator<RenderElement> {
   _DepthFirstChildIterator(RenderElement rootElement) {
