@@ -136,6 +136,7 @@ abstract class StatefulWidget extends Widget {
 
 /// StatefulWidget's render element.
 ///
+@internal
 class StatefulRenderElement extends WatchfulRenderElement {
   /// Associated state of stateful widget.
   ///

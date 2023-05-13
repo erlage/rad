@@ -107,6 +107,7 @@ const _description = DomNodePatch(
 
 /// Gesture detector's render element.
 ///
+@internal
 class GestureDetectorRenderElement extends WatchfulRenderElement {
   /// Associated state.
   ///

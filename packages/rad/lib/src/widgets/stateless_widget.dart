@@ -46,6 +46,7 @@ abstract class StatelessWidget extends Widget {
 
 /// StatelessWidget render element.
 ///
+@internal
 class StatelessRenderElement extends RenderElement {
   StatelessRenderElement(super.widget, super.parent);
 
