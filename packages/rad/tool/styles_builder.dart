@@ -70,7 +70,7 @@ class StylesBuilder implements Builder {
   |--------------------------------------------------------------------------
   */
 
-  final allowedLiteralExceptions = [];
+  final allowedLiteralExceptions = <String>[];
 
   // gets cleared for each asset
   final importsForCurrentAsset = <String>{};
