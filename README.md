@@ -33,7 +33,7 @@ Function `runApp` will finds a element having `id=output` in your HTML page, cre
 
 Following widgets in Rad are inspired from Flutter:
 
-- [InheritedWidget](https://pub.dev/documentation/rad/latest/rad/InheritedWidget-class.html), [StatelessWidget](https://pub.dev/documentation/rad/latest/rad/StatelessWidget-class.html), [StatefulWidget](https://pub.dev/documentation/rad/latest/rad/StatefulWidget-class.html).
+- [InheritedWidget](https://pub.dev/documentation/rad/latest/rad/InheritedWidget-class.html), [StatelessWidget](https://pub.dev/documentation/rad/latest/rad/StatelessWidget-class.html) and [StatefulWidget](https://pub.dev/documentation/rad/latest/rad/StatefulWidget-class.html).
 - [FutureBuilder](https://pub.dev/documentation/rad/latest/widgets_async/FutureBuilder-class.html), [StreamBuilder](https://pub.dev/documentation/rad/latest/widgets_async/StreamBuilder-class.html) and [ValueListenableBuilder](https://pub.dev/documentation/rad/latest/widgets_async/ValueListenableBuilder-class.html).
 
 These widgets has same syntax as their Flutter's counterparts. Not just syntax, they also works exactly same as if they would in Flutter. Which means you don't have to learn anything new to be able to use them.
@@ -42,7 +42,7 @@ These widgets has same syntax as their Flutter's counterparts. Not just syntax, 
 
 Similar to React, we have number of hooks that you can use to power-up your widget functions.
 
-Let's see a basic example with useState:
+Let's see a basic example with [useState](https://pub.dev/documentation/rad_hooks/latest/rad_hooks/useState.html):
 
 ```dart
 Widget widgetFunction() => HookScope(() {
@@ -110,7 +110,7 @@ Span(
 );
 ```
 
-In above example, a Span widget is containing a [ListView](https://pub.dev/documentation/rad/latest/rad/ListView-class.html) widget. Further, that [ListView](https://pub.dev/documentation/rad/latest/rad/ListView-class.html) is containing a [StatefulWidget](https://pub.dev/documentation/rad/latest/rad/StatefulWidget-class.html) and a [Span](https://pub.dev/documentation/rad/latest/widgets_html/Span-class.html) widget. The point we're trying to make is that HTML widgets won't restrict you to 'just HTML'.
+In above example, a [Span](https://pub.dev/documentation/rad/latest/widgets_html/Span-class.html) widget is containing a [ListView](https://pub.dev/documentation/rad/latest/rad/ListView-class.html) widget. Further, that [ListView](https://pub.dev/documentation/rad/latest/rad/ListView-class.html) is containing a [StatefulWidget](https://pub.dev/documentation/rad/latest/rad/StatefulWidget-class.html) and a [Span](https://pub.dev/documentation/rad/latest/widgets_html/Span-class.html) widget. The point we're trying to make is that HTML widgets won't restrict you to 'just HTML'.
 
 ## Additional Packages/Tools
 
