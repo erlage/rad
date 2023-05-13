@@ -74,6 +74,7 @@ abstract class InheritedWidget extends Widget {
 
 /// Inherited widget's render element.
 ///
+@internal
 class InheritedRenderElement extends RenderElement {
   /// List of dependents.
   ///

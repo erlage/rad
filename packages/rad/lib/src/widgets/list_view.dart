@@ -163,6 +163,7 @@ class ListViewRenderElement extends RenderElement {
 
 /// List view render element for builder version.
 ///
+@internal
 class ListViewBuilderRenderElement extends WatchfulRenderElement {
   /// List view builder state.
   ///
