@@ -359,7 +359,9 @@ abstract class RenderElement implements BuildContext {
     RenderElement? ancestor = _parent;
 
     while (null != ancestor && !ancestor.frameworkIsRoot) {
-      callback(ancestor);
+      if (ancestor is! TemporaryElement) {
+        callback(ancestor);
+      }
 
       ancestor = ancestor._parent;
     }
