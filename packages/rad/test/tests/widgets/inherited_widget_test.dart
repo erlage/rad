@@ -547,5 +547,86 @@ void main() {
 
       expect(testStack.canPop(), equals(false));
     });
+
+    test(
+      'should clean orphan dependents after render cycle',
+      () async {
+        var testStack = RT_TestStack();
+
+        await app!.buildChildren(
+          widgets: [
+            RT_InheritedWidget(
+              eventUpdateShouldNotify: () => testStack.push('notify-1'),
+              child: RT_TestWidget(
+                roEventAfterMount: () => testStack.push('mount-container-1'),
+                children: [
+                  RT_TestWidget(
+                    children: [
+                      RT_StatefulTestWidget(
+                        stateHookBuild: (state) {
+                          testStack.push('call-dependOnIn..-1a');
+
+                          state.context.dependOnInheritedWidgetOfExactType<
+                              RT_InheritedWidget>();
+                        },
+                        stateEventBuild: () =>
+                            testStack.push('build-stateful-1a'),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ],
+          parentRenderElement: app!.appRenderElement,
+        );
+
+        await app!.updateChildren(
+          widgets: [
+            RT_InheritedWidget(
+              overrideUpdateShouldNotify: () => true,
+              eventUpdateShouldNotify: () => testStack.push('notify-2'),
+              child: RT_TestWidget(
+                roEventAfterMount: () => testStack.push('mount-container-2'),
+                children: [],
+              ),
+            ),
+          ],
+          updateType: UpdateType.setState,
+          parentRenderElement: app!.appRenderElement,
+        );
+
+        await app!.updateChildren(
+          widgets: [
+            RT_InheritedWidget(
+              overrideUpdateShouldNotify: () => true,
+              eventUpdateShouldNotify: () => testStack.push('notify-3'),
+              child: RT_TestWidget(
+                roEventAfterMount: () => testStack.push('mount-container-3'),
+                children: [],
+              ),
+            ),
+          ],
+          updateType: UpdateType.setState,
+          parentRenderElement: app!.appRenderElement,
+        );
+
+        expect(testStack.popFromStart(), equals('build-stateful-1a'));
+        expect(testStack.popFromStart(), equals('call-dependOnIn..-1a'));
+
+        expect(testStack.popFromStart(), equals('mount-container-1'));
+
+        expect(testStack.popFromStart(), equals('notify-2'));
+        // this cycle tear down dependents but will receive updates as removals
+        // are part of the current render cycle
+        expect(testStack.popFromStart(), equals('build-stateful-1a'));
+        expect(testStack.popFromStart(), equals('call-dependOnIn..-1a'));
+
+        expect(testStack.popFromStart(), equals('notify-3'));
+        // but not after widgets are tear down.
+
+        expect(testStack.canPop(), equals(false));
+      },
+    );
   });
 }
