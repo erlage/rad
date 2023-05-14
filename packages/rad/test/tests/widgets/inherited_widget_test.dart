@@ -232,6 +232,142 @@ void main() {
     );
 
     test(
+      'should cause context(dependents) to build(lifo-order)',
+      () async {
+        var testStack = RT_TestStack();
+
+        var shortCircuitableSubTree = RT_TestWidget(
+          children: [
+            RT_StatefulTestWidget(
+              stateHookBuild: (state) {
+                testStack.push('call-dependOnIn..-1a');
+
+                state.context
+                    .dependOnInheritedWidgetOfExactType<RT_InheritedWidget>();
+              },
+              stateEventBuild: () => testStack.push('build-stateful-1a'),
+            ),
+            RT_StatefulTestWidget(
+              stateHookBuild: (state) {
+                testStack.push('call-dependOnIn..-2a');
+
+                state.context
+                    .dependOnInheritedWidgetOfExactType<RT_InheritedWidget>();
+              },
+              stateEventBuild: () => testStack.push('build-stateful-2a'),
+              children: [
+                RT_StatefulTestWidget(
+                  stateHookBuild: (state) {
+                    testStack.push('call-dependOnIn..-3a');
+
+                    state.context.dependOnInheritedWidgetOfExactType<
+                        RT_InheritedWidget>();
+                  },
+                  stateEventBuild: () => testStack.push('build-stateful-3a'),
+                ),
+              ],
+            ),
+          ],
+        );
+
+        await app!.buildChildren(
+          widgets: [
+            RT_InheritedWidget(
+              eventUpdateShouldNotify: () => testStack.push('notify-1'),
+              child: RT_TestWidget(
+                roEventAfterMount: () => testStack.push('mount-container-1'),
+                children: [shortCircuitableSubTree],
+              ),
+            ),
+          ],
+          parentRenderElement: app!.appRenderElement,
+        );
+
+        await app!.updateChildren(
+          widgets: [
+            RT_InheritedWidget(
+              overrideUpdateShouldNotify: () => true,
+              eventUpdateShouldNotify: () => testStack.push('notify-2'),
+              child: RT_TestWidget(
+                roEventAfterMount: () => testStack.push('mount-container-2'),
+                children: [shortCircuitableSubTree],
+              ),
+            ),
+          ],
+          updateType: UpdateType.setState,
+          parentRenderElement: app!.appRenderElement,
+        );
+
+        await app!.updateChildren(
+          widgets: [
+            RT_InheritedWidget(
+              overrideUpdateShouldNotify: () => false,
+              eventUpdateShouldNotify: () => testStack.push('notify-2'),
+              child: RT_TestWidget(
+                roEventAfterMount: () => testStack.push('mount-container-2'),
+                children: [shortCircuitableSubTree],
+              ),
+            ),
+          ],
+          updateType: UpdateType.setState,
+          parentRenderElement: app!.appRenderElement,
+        );
+
+        await app!.updateChildren(
+          widgets: [
+            RT_InheritedWidget(
+              overrideUpdateShouldNotify: () => true,
+              eventUpdateShouldNotify: () => testStack.push('notify-3'),
+              child: RT_TestWidget(
+                roEventAfterMount: () => testStack.push('mount-container-3'),
+                children: [shortCircuitableSubTree],
+              ),
+            ),
+          ],
+          updateType: UpdateType.setState,
+          parentRenderElement: app!.appRenderElement,
+        );
+
+        // build phase
+
+        expect(testStack.popFromStart(), equals('build-stateful-1a'));
+        expect(testStack.popFromStart(), equals('call-dependOnIn..-1a'));
+        expect(testStack.popFromStart(), equals('build-stateful-2a'));
+        expect(testStack.popFromStart(), equals('call-dependOnIn..-2a'));
+        expect(testStack.popFromStart(), equals('build-stateful-3a'));
+        expect(testStack.popFromStart(), equals('call-dependOnIn..-3a'));
+
+        expect(testStack.popFromStart(), equals('mount-container-1'));
+
+        // update phase when updateShouldNotify return true
+
+        expect(testStack.popFromStart(), equals('notify-2'));
+        expect(testStack.popFromStart(), equals('build-stateful-3a'));
+        expect(testStack.popFromStart(), equals('call-dependOnIn..-3a'));
+        expect(testStack.popFromStart(), equals('build-stateful-2a'));
+        expect(testStack.popFromStart(), equals('call-dependOnIn..-2a'));
+        expect(testStack.popFromStart(), equals('build-stateful-1a'));
+        expect(testStack.popFromStart(), equals('call-dependOnIn..-1a'));
+
+        // update phase when updateShouldNotify return false
+
+        expect(testStack.popFromStart(), equals('notify-2'));
+
+        // update phase when updateShouldNotify return true
+
+        expect(testStack.popFromStart(), equals('notify-3'));
+        expect(testStack.popFromStart(), equals('build-stateful-3a'));
+        expect(testStack.popFromStart(), equals('call-dependOnIn..-3a'));
+        expect(testStack.popFromStart(), equals('build-stateful-2a'));
+        expect(testStack.popFromStart(), equals('call-dependOnIn..-2a'));
+        expect(testStack.popFromStart(), equals('build-stateful-1a'));
+        expect(testStack.popFromStart(), equals('call-dependOnIn..-1a'));
+
+        expect(testStack.canPop(), equals(false));
+      },
+    );
+
+    test(
       'should not cause context to build '
       'if context inherits using findAncestorWidgetOfExactType',
       () async {
