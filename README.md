@@ -122,7 +122,7 @@ A testing library for Rad applications, heavily inspired from [flutter_test](htt
 
 A set of commonly used hooks for using in your Rad applications.
 
-### [Rad Extension](https://marketplace.visualstudio.com/items?itemName=erlage.rad) (Extension for VSCode)
+### [Rad Extension](https://marketplace.visualstudio.com/items?itemName=erlage.rad) (for VSCode)
 
 Provides an enhanced development experience for developers working with the Rad Framework. With its powerful features, this extension makes it easier for developers to write and manage code, saving time and increasing productivity. Extension's top features are:
 
