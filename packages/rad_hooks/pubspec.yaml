@@ -1,5 +1,5 @@
 name: rad_hooks
-version: 0.2.1
+version: 0.2.2
 description: A set of commonly used hooks for using in your Rad applications.
 
 homepage: https://github.com/erlage/rad
