@@ -3,12 +3,10 @@
 **Visual-JSX**, *a Dart to JSX Visualizer*.
 
 Visual-JSX is a feature designed to make managing HTML code written in Dart easier. It transforms HTML widgets into a visually appealing, JSX-like syntax, making it easier to understand and maintain your HTML widgets. You'll find it extremely helpful as a visual aid when working with HTML inside the Dart code.
-<br>
 
 **HTML2Rad**, *a streamlined method for importing HTML templates into Rad*.
 
-No more manual porting of HTML templates to HTML widgets! HTML2Rad allows you to convert HTML markup directly into Rad's HTML widgets with few clicks. Both Visual-JSX and HTML2 enhances development experience for developers working with the Rad Framework so we decided to bundle them together in one extension that users can install in Visual Studio Code(text editor).
-<br>
+No more manual porting of HTML templates to HTML widgets! HTML2Rad allows you to convert HTML markup directly into Rad's HTML widgets with few clicks. Both Visual-JSX and HTML2 are aimed at enhancing development experience and increasing productivity. These two features are published together as [an extension](https://marketplace.visualstudio.com/items?itemName=erlage.rad) that's available for install only on Visual Studio Code(for now). Please refer to [this document](https://github.com/erlage/rad/tree/main/packages/text_editor_vscode_extension#readme) for usage details. 
 
 #### Bug fixes
 
