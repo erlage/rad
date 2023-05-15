@@ -8,7 +8,7 @@ repository: __package_repo__
 issue_tracker: __package_repo__/issues
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: '>=2.17.0 <4.0.0'
 
 platforms:
   web:
