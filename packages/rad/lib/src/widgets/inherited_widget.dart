@@ -78,7 +78,7 @@ abstract class InheritedWidget extends Widget {
 class InheritedRenderElement extends RenderElement {
   /// List of dependents.
   ///
-  final dependents = HashSet<RenderElement>();
+  final _dependents = HashSet<RenderElement>();
 
   InheritedRenderElement(super.widget, super.parent);
 
@@ -88,7 +88,9 @@ class InheritedRenderElement extends RenderElement {
   void addDependent(BuildContext dependentContext) {
     dependentContext as RenderElement;
 
-    dependents.add(dependentContext);
+    if (!_dependents.contains(dependentContext)) {
+      _dependents.add(dependentContext);
+    }
   }
 
   @override
@@ -102,7 +104,7 @@ class InheritedRenderElement extends RenderElement {
     if (updateShouldNotify) {
       var schedulerService = frameworkServices.scheduler;
 
-      for (final dependent in dependents) {
+      for (final dependent in _dependents) {
         schedulerService.addTask(
           WidgetsUpdateDependentTask(dependentRenderElement: dependent),
         );
