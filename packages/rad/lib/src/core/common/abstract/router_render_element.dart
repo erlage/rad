@@ -1,11 +1,10 @@
-import 'dart:collection';
-
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/abstract/watchful_render_element.dart';
 import 'package:rad/src/core/common/constants.dart';
+import 'package:rad/src/core/common/ds/reverse_set.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/extensions.dart';
 import 'package:rad/src/core/common/functions.dart';
@@ -60,7 +59,7 @@ abstract class RouterRenderElement extends WatchfulRenderElement
 
   /// currentPage => {widgetKey => widgetContext}
   ///
-  final _dependents = <String, HashSet<RenderElement>>{};
+  final _dependents = <String, ReverseSet<RenderElement>>{};
 
   Services get _services => resolveServices(this);
 
@@ -342,7 +341,7 @@ abstract class RouterRenderElement extends WatchfulRenderElement
     var dependentsOnCurrentRouteName = _dependents[getCurrentRoutePath()];
 
     if (null == dependentsOnCurrentRouteName) {
-      _dependents[getCurrentRoutePath()] = HashSet()..add(dependentContext);
+      _dependents[getCurrentRoutePath()] = ReverseSet()..add(dependentContext);
 
       return;
     }
@@ -541,7 +540,7 @@ abstract class RouterRenderElement extends WatchfulRenderElement
     var dependentsOnCurrentPage = _dependents[getCurrentRoutePath()];
 
     if (null != dependentsOnCurrentPage) {
-      for (final dependant in dependentsOnCurrentPage) {
+      for (final dependant in dependentsOnCurrentPage.toIterable()) {
         frameworkServices.scheduler.addTask(
           WidgetsUpdateDependentTask(dependentRenderElement: dependant),
         );
