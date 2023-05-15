@@ -7,6 +7,7 @@ import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/abstract/watchful_render_element.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/extensions.dart';
 import 'package:rad/src/core/common/functions.dart';
 import 'package:rad/src/core/common/objects/cache.dart';
 import 'package:rad/src/core/common/objects/dom_node_patch.dart';
@@ -248,6 +249,15 @@ abstract class RouterRenderElement extends WatchfulRenderElement
   @nonVirtual
   @override
   void dispose() => willDispose();
+
+  /// @nodoc
+  @nonVirtual
+  @override
+  void afterUpdate() {
+    for (final dependents in _dependents.values) {
+      dependents.removeWhere((element) => element.frameworkIsDetached);
+    }
+  }
 
   /// @nodoc
   @nonVirtual
