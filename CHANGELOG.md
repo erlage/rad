@@ -20,13 +20,13 @@ No more manual porting of HTML templates to HTML widgets! HTML2Rad allows you to
 -   <details>
     <summary>Click to See Visual-JSX's Preview</summary>
         
-    ![Visual-JSX Preview](https://photogram.erlage.com/tmp/rad_vscode_peek1.gif)
+    ![Visual-JSX Preview](https://github.com/erlage/rad/blob/47591df594be5d993d5a813667ef9d372ec80f10/packages/text_editor_vscode_extension/art/peek1.gif?raw=true)
     </details>
 
 -   <details>
     <summary>Click to See HTML2Rad's Preview</summary>
         
-    ![HTML2Rad Preview](https://photogram.erlage.com/tmp/rad_vscode_peek2.gif)
+    ![HTML2Rad Preview](https://github.com/erlage/rad/blob/47591df594be5d993d5a813667ef9d372ec80f10/packages/text_editor_vscode_extension/art/peek2.gif?raw=true)
     </details>
 
 ## 1.4.0

@@ -130,14 +130,14 @@ Provides an enhanced development experience for developers working with the Rad 
   <details>
     <summary>Click to See Preview</summary>
     
-    ![Visual-JSX Preview](https://photogram.erlage.com/tmp/rad_vscode_peek1.gif)
+    ![Visual-JSX Preview](https://github.com/erlage/rad/blob/47591df594be5d993d5a813667ef9d372ec80f10/packages/text_editor_vscode_extension/art/peek1.gif?raw=true)
   </details>
 
 - **HTML2Rad**: Converts your HTML markup directly into Rad's HTML widgets.
   <details>
     <summary>Click to See Preview</summary>
     
-    ![HTML2Rad Preview](https://photogram.erlage.com/tmp/rad_vscode_peek2.gif)
+    ![HTML2Rad Preview](https://github.com/erlage/rad/blob/47591df594be5d993d5a813667ef9d372ec80f10/packages/text_editor_vscode_extension/art/peek2.gif?raw=true)
   </details>
 
 ## Reference

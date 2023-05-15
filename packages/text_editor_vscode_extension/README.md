@@ -19,7 +19,7 @@ This extension provides an enhanced development experience for developers workin
 
 Visual-JSX is a feature designed to make managing HTML code written in Dart easier. It transforms HTML widgets into a visually appealing, JSX-like syntax, making it easier to understand and maintain your HTML widgets.
 
-![Visual-JSX Preview](https://photogram.erlage.com/tmp/rad_vscode_peek1.gif)
+![Visual-JSX Preview](https://github.com/erlage/rad/blob/47591df594be5d993d5a813667ef9d372ec80f10/packages/text_editor_vscode_extension/art/peek1.gif?raw=true)
 
 **Note**: Visual-JSX does not parse or visualize original HTML widgets(that are included in Rad's framework package). By default, Visual-JSX only works with HTML widgets from the [rad_html_vscode](https://pub.dev/packages/rad_html_vscode) package, so it is recommended to use it for the best experience. If you wish to visualize original HTML widgets, you can turn on the experimental parsing feature by setting `rad.jsxEnableExperimentParsingOriginalSyntax` to true in your `settings.json` file.
 
@@ -49,7 +49,7 @@ For getting better visualization:
 
 This feature allows you to convert HTML markup directly into Rad's HTML widgets.
 
-![Transpiler Preview](https://photogram.erlage.com/tmp/rad_vscode_peek2.gif)
+![Transpiler Preview](https://github.com/erlage/rad/blob/47591df594be5d993d5a813667ef9d372ec80f10/packages/text_editor_vscode_extension/art/peek2.gif?raw=true)
 
 **Note**: By default, HTML2Rad outputs syntax that matches with HTML widgets of the package [rad_html_vscode](https://pub.dev/packages/rad_html_vscode) package. If you wish to output different set of HTML widgets, such as HTML widgets from Rad's framework package, please configure `rad.html2RadOutputSyntax` in your `settings.json` file.
 
