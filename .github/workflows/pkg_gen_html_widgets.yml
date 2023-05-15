@@ -13,10 +13,16 @@ jobs:
   build: 
     runs-on: ubuntu-latest
     name: Build
+    strategy:
+      matrix:
+        dart-sdk-version: [2.17.0, 3.0.0]
 
     steps:
       - uses: actions/checkout@v3
       - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ matrix.dart-sdk-version }}
+
       - uses: actions/setup-python@v4
         with:
           python-version: '3.8'

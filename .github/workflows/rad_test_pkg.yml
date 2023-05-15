@@ -13,10 +13,15 @@ jobs:
   analyze: 
     runs-on: ubuntu-latest
     name: Analyze
+    strategy:
+      matrix:
+        dart-sdk-version: [2.17.0, 3.0.0]
 
     steps:
       - uses: actions/checkout@v3
       - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ matrix.dart-sdk-version }}
 
       - name: Run analyze
         run: |
@@ -28,12 +33,15 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     name: Run tests
+    strategy:
+      matrix:
+        dart-sdk-version: [2.17.0, 3.0.0]
 
     steps:
       - uses: actions/checkout@v3
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: 2.19.0
+          sdk: ${{ matrix.dart-sdk-version }}
       
       - name: Run tests
         run: |
@@ -42,11 +50,11 @@ jobs:
           dart pub run test --coverage="coverage"
           dart pub global activate coverage
           $HOME/.pub-cache/bin/format_coverage --lcov --in=coverage --out=rad_test.lcov --report-on=lib
-          mv rad_test.lcov ../../rad_test.lcov
+          mv rad_test.lcov ../../rad_test.dart.${{ matrix.dart-sdk-version }}.lcov
 
       - name: Publish to Codecov
         uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: rad_test.lcov
+          files: rad_test.dart.${{ matrix.dart-sdk-version }}.lcov
           verbose: true
