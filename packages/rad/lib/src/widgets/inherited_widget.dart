@@ -8,6 +8,7 @@ import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/ds/reverse_set.dart';
 import 'package:rad/src/core/common/enums.dart';
+import 'package:rad/src/core/common/extensions.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
@@ -83,6 +84,17 @@ class InheritedRenderElement extends RenderElement {
 
   @override
   List<Widget> get widgetChildren => [(widget as InheritedWidget).child];
+
+  @override
+  void register() {
+    addRenderEventListeners({
+      RenderEventType.didUpdate: _cleanUp,
+    });
+  }
+
+  void _cleanUp(_) {
+    _dependents.removeWhere((e) => e.frameworkIsDetached);
+  }
 
   void addDependent(BuildContext dependentContext) {
     dependentContext as RenderElement;
