@@ -1,0 +1,11 @@
+**/.packages
+**/packages
+**/example
+**/.dart_tool
+**/.vscode
+**/.idea
+**/build
+**/out
+**/tmp
+**/node_modules
+**/__pycache__
