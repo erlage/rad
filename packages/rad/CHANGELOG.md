@@ -1,3 +1,22 @@
+## 1.6.0
+
+#### New
+
+- (Added): Navigator.onDispose callback.
+- (Added): MountOptions to runApp(for controlling inline-styles etc).
+
+#### Bug Fixes
+
+- (Fixed): Router matching non-exact parts.
+- (Fixed): Router pushing incorrect paths(window.location).
+- (Fixed): Router ignoring initial on-pop event.
+- (Fixed): InheritedWidget: Orphan dependents are not getting cleaned up.
+- (Fixed): InheritedWidget: Dispatch order of update notifications is undefined(now LIFO).
+- (Fixed): RenderElement: visitAncestorElements() traversing temporary elements.
+- (Fixed): RenderElement: traverseAncestorElements() traversing temporary elements.
+- (Fixed): RenderElement: Call order of didRender & didUpdate is undefined for nested elements.
+- (Fixed): RouterRenderElement: Orphan dependents are not getting cleaned up.
+
 ## 1.5.0
 
 **Visual-JSX**, *a Dart to JSX Visualizer*.
