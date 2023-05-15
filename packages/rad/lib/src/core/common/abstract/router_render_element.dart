@@ -59,7 +59,7 @@ abstract class RouterRenderElement extends WatchfulRenderElement
 
   /// currentPage => {widgetKey => widgetContext}
   ///
-  final dependents = <String, HashSet<RenderElement>>{};
+  final _dependents = <String, HashSet<RenderElement>>{};
 
   Services get _services => resolveServices(this);
 
@@ -329,10 +329,10 @@ abstract class RouterRenderElement extends WatchfulRenderElement
   void addDependent(BuildContext dependentContext) {
     dependentContext as RenderElement;
 
-    var dependentsOnCurrentRouteName = dependents[getCurrentRoutePath()];
+    var dependentsOnCurrentRouteName = _dependents[getCurrentRoutePath()];
 
     if (null == dependentsOnCurrentRouteName) {
-      dependents[getCurrentRoutePath()] = HashSet()..add(dependentContext);
+      _dependents[getCurrentRoutePath()] = HashSet()..add(dependentContext);
 
       return;
     }
@@ -528,7 +528,7 @@ abstract class RouterRenderElement extends WatchfulRenderElement
   @internal
   @protected
   void frameworkUpdateProcedure() {
-    var dependentsOnCurrentPage = dependents[getCurrentRoutePath()];
+    var dependentsOnCurrentPage = _dependents[getCurrentRoutePath()];
 
     if (null != dependentsOnCurrentPage) {
       for (final dependant in dependentsOnCurrentPage) {
