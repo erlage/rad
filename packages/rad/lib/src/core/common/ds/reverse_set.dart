@@ -20,7 +20,7 @@ class ReverseSet<T> {
   }
 
   T elementAt(int index) {
-    return _cachedList.reversed.elementAt(index);
+    return _cachedList.elementAt(_cachedList.length - 1 - index);
   }
 
   void add(T element) {
