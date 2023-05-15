@@ -51,8 +51,8 @@ Widget widgetFunction() => HookScope(() {
 
   return Span(
     child: Text('You clicked me ${state.value} time!'),
-    onClick: (_) => state.value++, // will cause a re-render
-  ); 
+    onClick: (_) => state.value++,
+  );
 });
 
 runApp(app: widgetFunction(), ...);
@@ -81,7 +81,7 @@ Here's how we'll write this using HTML widgets:
 ```dart
 Division(
   children: [
-    Paragraph(innerText: 'Hey there!'),  
+    Paragraph(innerText: 'Hey there!'),
   ]
 )
 ```
@@ -126,57 +126,58 @@ A set of commonly used hooks for using in your Rad applications.
 
 Provides an enhanced development experience for developers working with the Rad Framework. With its powerful features, this extension makes it easier for developers to write and manage code, saving time and increasing productivity. Extension's top features are:
 
-  - **Visual JSX**: Transforms your HTML widgets into a visually appealing, JSX-like syntax.
-    <details>
-      <summary>Click to See Preview</summary>
-      
-      ![Visual-JSX Preview](https://photogram.erlage.com/tmp/rad_vscode_peek1.gif)
-    </details>
+- **Visual JSX**: Transforms your HTML widgets into a visually appealing, JSX-like syntax.
+  <details>
+    <summary>Click to See Preview</summary>
+    
+    ![Visual-JSX Preview](https://photogram.erlage.com/tmp/rad_vscode_peek1.gif)
+  </details>
 
-  - **HTML2Rad**: Converts your HTML markup directly into Rad's HTML widgets.
-    <details>
-      <summary>Click to See Preview</summary>
-      
-      ![HTML2Rad Preview](https://photogram.erlage.com/tmp/rad_vscode_peek2.gif)
-    </details>
+- **HTML2Rad**: Converts your HTML markup directly into Rad's HTML widgets.
+  <details>
+    <summary>Click to See Preview</summary>
+    
+    ![HTML2Rad Preview](https://photogram.erlage.com/tmp/rad_vscode_peek2.gif)
+  </details>
 
 ## Reference
 
 Below is the list of available widgets and hooks in Rad. Some widgets are named after Flutter widgets because they either works exactly same or can be used to achieve same things but in a different way(more or less). All those widgets are tagged accordingly.
 
 Tags:
-  - ***exact***: Exact syntax, similar semantics.
-  - ***same***: Exact syntax with few exceptions, similar semantics.
-  - ***different***: Different syntax, different semantics.
-  - ***untested***: --
+
+- **_exact_**: Exact syntax, similar semantics.
+- **_same_**: Exact syntax with few exceptions, similar semantics.
+- **_different_**: Different syntax, different semantics.
+- **_untested_**: --
 
 ### Abstract
 
-- [InheritedWidget](https://pub.dev/documentation/rad/latest/rad/InheritedWidget-class.html) \[*similar*\]
-- [StatelessWidget](https://pub.dev/documentation/rad/latest/rad/StatelessWidget-class.html) \[*similar*\]
-- [StatefulWidget](https://pub.dev/documentation/rad/latest/rad/StatefulWidget-class.html) \[*similar*\]
+- [InheritedWidget](https://pub.dev/documentation/rad/latest/rad/InheritedWidget-class.html) \[_similar_\]
+- [StatelessWidget](https://pub.dev/documentation/rad/latest/rad/StatelessWidget-class.html) \[_similar_\]
+- [StatefulWidget](https://pub.dev/documentation/rad/latest/rad/StatefulWidget-class.html) \[_similar_\]
 
 ### Navigator/Routing
 
-- [Navigator](https://pub.dev/documentation/rad/latest/rad/Navigator-class.html) \[*different*\]
-- [Route](https://pub.dev/documentation/rad/latest/rad/Route-class.html) \[*different*\]
+- [Navigator](https://pub.dev/documentation/rad/latest/rad/Navigator-class.html) \[_different_\]
+- [Route](https://pub.dev/documentation/rad/latest/rad/Route-class.html) \[_different_\]
 - [AsyncRoute](https://pub.dev/documentation/rad/latest/rad/AsyncRoute-class.html)
 
 ### Builders
 
-- [FutureBuilder](https://pub.dev/documentation/rad/latest/widgets_async/FutureBuilder-class.html) \[*exact*\]
-- [StreamBuilder](https://pub.dev/documentation/rad/latest/widgets_async/StreamBuilder-class.html) \[*exact*\]
-- [ValueListenableBuilder](https://pub.dev/documentation/rad/latest/widgets_async/ValueListenableBuilder-class.html) \[*exact*\]
-- [ListView.builder](https://pub.dev/documentation/rad/latest/rad/ListView/ListView.builder.html) \[*same*, *untested*\]
+- [FutureBuilder](https://pub.dev/documentation/rad/latest/widgets_async/FutureBuilder-class.html) \[_exact_\]
+- [StreamBuilder](https://pub.dev/documentation/rad/latest/widgets_async/StreamBuilder-class.html) \[_exact_\]
+- [ValueListenableBuilder](https://pub.dev/documentation/rad/latest/widgets_async/ValueListenableBuilder-class.html) \[_exact_\]
+- [ListView.builder](https://pub.dev/documentation/rad/latest/rad/ListView/ListView.builder.html) \[_same_, _untested_\]
 
 ### Functional
 
 - [RadApp](https://pub.dev/documentation/rad/latest/rad/RadApp-class.html)
-- [Text](https://pub.dev/documentation/rad/latest/rad/Text-class.html) \[*different*\]
-- [ListView](https://pub.dev/documentation/rad/latest/rad/ListView-class.html) \[*same*\]
+- [Text](https://pub.dev/documentation/rad/latest/rad/Text-class.html) \[_different_\]
+- [ListView](https://pub.dev/documentation/rad/latest/rad/ListView-class.html) \[_same_\]
 - [HookScope](https://pub.dev/documentation/rad/latest/rad/HookScope.html)
 - [EventDetector](https://pub.dev/documentation/rad/latest/rad/EventDetector-class.html)
-- [GestureDetector](https://pub.dev/documentation/rad/latest/rad/GestureDetector-class.html) \[*same*\]
+- [GestureDetector](https://pub.dev/documentation/rad/latest/rad/GestureDetector-class.html) \[_same_\]
 
 ### Misc
 
@@ -217,7 +218,6 @@ Tags:
 , [InputTime](https://pub.dev/documentation/rad/latest/widgets_html/InputTime-class.html)
 , [InputUrl](https://pub.dev/documentation/rad/latest/widgets_html/InputUrl-class.html)
 , [InputWeek](https://pub.dev/documentation/rad/latest/widgets_html/InputWeek-class.html)
-
 
 ### HTML Widgets (short-syntax)
 
