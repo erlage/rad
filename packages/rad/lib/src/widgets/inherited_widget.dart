@@ -2,12 +2,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'dart:collection';
-
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/common/abstract/render_element.dart';
+import 'package:rad/src/core/common/ds/reverse_set.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
@@ -78,7 +77,7 @@ abstract class InheritedWidget extends Widget {
 class InheritedRenderElement extends RenderElement {
   /// List of dependents.
   ///
-  final _dependents = HashSet<RenderElement>();
+  final _dependents = ReverseSet<RenderElement>();
 
   InheritedRenderElement(super.widget, super.parent);
 
@@ -104,7 +103,7 @@ class InheritedRenderElement extends RenderElement {
     if (updateShouldNotify) {
       var schedulerService = frameworkServices.scheduler;
 
-      for (final dependent in _dependents) {
+      for (final dependent in _dependents.toIterable()) {
         schedulerService.addTask(
           WidgetsUpdateDependentTask(dependentRenderElement: dependent),
         );
