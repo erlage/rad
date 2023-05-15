@@ -26,21 +26,14 @@ Nobody is perfect, and sometimes we mess things up. That said, here are some goo
 
 **Do**:
 
-- Add description on what has been fixed/improved/added.
-- Before commit:
+1. Run pre-commit tasks:
     ```sh
-    # Run build runner with default settings
-    dart run build_runner build
-    
-    # Order imports with default settings
-    dart pub run import_sorter:main
+    sh scripts/run_pre_commit_tasks.sh
+    ```
 
-    # Format updated files with default settings
-    dart format updated_file_1 updated_file_2
-
-    # or
-
-    dart format $(find . -name "*.dart" -not -path "*/templates/*" -not -path '*/.*')
+2. Run tests:
+    ```sh
+    sh scripts/run_tests.sh
     ```
 
 **Don't**:
