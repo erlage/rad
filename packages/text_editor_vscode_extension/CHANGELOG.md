@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.1.5
+
+- Minor changes to readme.
+
 ## 0.1.4
 
 - Fixed: Trimming custom elements(web-components) from the output.
