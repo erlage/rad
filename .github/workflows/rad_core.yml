@@ -13,10 +13,15 @@ jobs:
   analyze: 
     runs-on: ubuntu-latest
     name: Analyze
+    strategy:
+      matrix:
+        dart-sdk-version: [2.17.0, 2.19.0, 3.0.0]
 
     steps:
       - uses: actions/checkout@v3
       - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ matrix.dart-sdk-version }}
 
       - name: Run analyze
         run: |
