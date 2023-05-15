@@ -1,3 +1,12 @@
+## 0.6.2
+
+- Updated SDK version constraint to include Dart 3.x.
+- Tested and verified compatibility with Dart 3.0 SDK.
+
+## 0.6.1
+
+- Minor corrections in pubspec.yaml.
+
 ## 0.6.0
 
 - WidgetTester.getdomNodeByKey is deprecated. Use get**D**omNodeByKey instead.

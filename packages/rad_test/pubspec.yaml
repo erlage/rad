@@ -1,5 +1,5 @@
 name: rad_test
-version: 0.6.0
+version: 0.6.2
 description: A testing library for testing applications that are written using Rad.
 
 homepage: https://github.com/erlage/rad
