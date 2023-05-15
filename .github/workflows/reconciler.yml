@@ -18,12 +18,15 @@ jobs:
   tests_w_wo_optimizations:
     runs-on: ubuntu-latest
     name: Run tests both w/ & w/o optimizations
+    strategy:
+      matrix:
+        dart-sdk-version: [latest]
 
     steps:
       - uses: actions/checkout@v3
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: 2.19.0
+          sdk: ${{ matrix.dart-sdk-version }}
       
       - name: Run tests
         run: |
