@@ -12,6 +12,7 @@
         "**/__pycache__",
         "**/out",
         "**/tmp",
+        "**/dist",
         "**/build"
     ],
 
