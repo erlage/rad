@@ -103,8 +103,9 @@ class RT_DomTags {
     // root
 
     'html',
+    'body',
 
-    // main
+    // document meta data
 
     'base',
     'head',
@@ -112,23 +113,25 @@ class RT_DomTags {
     'meta',
     'style',
     'title',
+
+    // sectioning root
+
     'body',
 
-    // content
+    // content sectioning
 
     'address',
     'article',
     'aside',
     'footer',
     'header',
-    'h1',
+    'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+    'hgroup',
     'main',
     'nav',
     'section',
 
-    'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-
-    // text contents
+    // text content
 
     'blockquote',
     'dd',
@@ -145,7 +148,7 @@ class RT_DomTags {
     'pre',
     'ul',
 
-    // inline
+    // inline text semantics
 
     'a',
     'abbr',
@@ -177,7 +180,7 @@ class RT_DomTags {
     'var',
     'wbr',
 
-    // multimedia
+    // image and multimedia
 
     'area',
     'audio',
@@ -186,17 +189,16 @@ class RT_DomTags {
     'track',
     'video',
 
-    // embeds
+    // embedded content
 
     'embed',
     'iframe',
     'object',
-    'param',
     'picture',
     'portal',
     'source',
 
-    // svg, math
+    // SVG and MathML
 
     'svg',
     'math',
@@ -207,12 +209,12 @@ class RT_DomTags {
     'noscript',
     'script',
 
-    // misc
+    // demarcating edits
 
     'del',
     'ins',
 
-    // table
+    // table content
 
     'caption',
     'col',
@@ -242,7 +244,7 @@ class RT_DomTags {
     'select',
     'textarea',
 
-    // interactive
+    // interactive elements
 
     'details',
     'dialog',
