@@ -78,6 +78,7 @@ export class Lexer {
 
             case "'":
             case '"':
+                // Lexing strings doesn't work well with interpolation so we should start parsing them in future. 
                 return this.lexStringLiteralToken();
 
             case ',':
