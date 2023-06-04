@@ -459,7 +459,7 @@ typedef track = EmbedTextTrack;
 ///
 typedef ul = UnOrderedList;
 
-/// HTML's vartag tag([Variable]).
+/// HTML's var tag([Variable]).
 ///
 typedef vartag = Variable;
 
