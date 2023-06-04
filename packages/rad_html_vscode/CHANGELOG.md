@@ -1,3 +1,7 @@
+## 0.2.0
+
+- (Added): HTML's Section widget.
+
 ## 0.1.3
 
 - (Updated): SDK version constraint to include Dart 3.x.
