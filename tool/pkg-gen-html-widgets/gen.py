@@ -6,6 +6,7 @@
 # published version of rad. So you've to checkout to a particular point for generating
 # compatible widgets: 
 #
+# - git checkout tags/v1.7.0 -b new-branch | for widgets compatible with Rad v1.7 & above
 # - git checkout tags/v1.6.0 -b new-branch | for widgets compatible with Rad v1.6 & above
 # - git checkout tags/v1.5.0 -b new-branch | for widgets compatible with Rad v1.5 & above
 # - git checkout tags/v1.4.0 -b new-branch | for widgets compatible with Rad v1.4 & above
@@ -438,13 +439,6 @@ def apply_commons(file_name, contents):
 
     # =======================================================================
     # patch work
-
-    # =======================================================================
-
-    # =======================================================================
-    # patch (1) | Can be removed when Rad 1.7 is available.
-
-    contents = contents.replace('DomTagType.section', 'DomTagType.division')
 
     # =======================================================================
 
