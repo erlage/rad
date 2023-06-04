@@ -4,6 +4,9 @@
 ///
 library widgets_html;
 
+// base for all HTML widgets
+export 'src/widgets/abstract/html_widget_base.dart' show HTMLWidgetBase;
+
 export 'src/widgets/html/abbreviation.dart' show Abbreviation;
 export 'src/widgets/html/address.dart' show Address;
 export 'src/widgets/html/anchor.dart' show Anchor;
