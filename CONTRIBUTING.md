@@ -47,11 +47,13 @@ Nobody is perfect, and sometimes we mess things up. That said, here are some goo
 ### What are some things you can work on?
 
 - Anything from pending [bugs](https://github.com/erlage/rad/labels/bug), [enhancements](https://github.com/erlage/rad/labels/enhancement), [feature requests](https://github.com/erlage/rad/labels/feature).
-- Anything that fixes something in existing code.
-- Anything that improves or add something to existing documentation/readme(s).
-- Anything that add/improve tests.
+- Anything that adds or improves tests.
+- Anything that fixes something in the existing code.
+- Anything that improves or adds something to the existing documentation/readme(s).
 
-If you want to work on something that's not in opened issues, just open an issue for it! and wait for someone to add label to your issue. Please do not take this the wrong way. This lets us avoid working on the same thing, or worse, someone putting in a lot of work for a pull request that does not fit into the scope of the project.
+If you want to work on something that's not in opened issues, just open an issue for it! and wait for someone to add a label to your issue. Please do not take this the wrong way. This lets us avoid working on the same thing, or worse, someone putting in a lot of work for a pull request that does not fit into the scope of the project.
+
+When opening such issues and expressing your intent to work on them, please mention it clearly in the issue description or comments. For example, you can state your intention to work on the issue by saying "I would like to take up this task," "I am planning to work on this issue," or "I might be able to work on this." This helps to prevent others from inadvertently starting work on the same task.
 
 ## License
 Any contribution you make will fall under the license being used by the framework.
