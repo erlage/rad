@@ -16,7 +16,6 @@ import 'package:rad/src/widgets/abstract/widget.dart';
 
 /// Base class for HTML widgets that support global attributes.
 ///
-@internal
 abstract class HTMLWidgetBase extends Widget {
   /// Reference callback.
   ///
