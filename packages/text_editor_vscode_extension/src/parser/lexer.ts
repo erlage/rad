@@ -297,6 +297,10 @@ export class Lexer {
                 quoteCount--;
             }
 
+            if ('\0' === this.currentCharacter()) {
+                return new SyntaxToken(SyntaxTokenType.endOfInputCharacter, start, 1, '\0');
+            }
+            
             this.seekCurrentPosition(1);
         }
 
