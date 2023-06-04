@@ -549,7 +549,7 @@ void main() {
     });
 
     test(
-      'should clean orphan dependents after render cycle',
+      'should not notify detached dependents',
       () async {
         var testStack = RT_TestStack();
 
@@ -617,13 +617,7 @@ void main() {
         expect(testStack.popFromStart(), equals('mount-container-1'));
 
         expect(testStack.popFromStart(), equals('notify-2'));
-        // this cycle tear down dependents but will receive updates as removals
-        // are part of the current render cycle
-        expect(testStack.popFromStart(), equals('build-stateful-1a'));
-        expect(testStack.popFromStart(), equals('call-dependOnIn..-1a'));
-
         expect(testStack.popFromStart(), equals('notify-3'));
-        // but not after widgets are tear down.
 
         expect(testStack.canPop(), equals(false));
       },
