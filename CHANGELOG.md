@@ -27,11 +27,6 @@ Visual-JSX is a feature designed to make managing HTML code written in Dart easi
 
 No more manual porting of HTML templates to HTML widgets! HTML2Rad allows you to convert HTML markup directly into Rad's HTML widgets with few clicks. Both Visual-JSX and HTML2 are aimed at enhancing development experience and increasing productivity. These two features are published together as [an extension](https://marketplace.visualstudio.com/items?itemName=erlage.rad) that's available for install only on Visual Studio Code(for now). Please refer to [this document](https://github.com/erlage/rad/tree/main/packages/text_editor_vscode_extension#readme) for usage details. 
 
-#### Bug fixes
-
-- (Fixed): Router incorrectly pushing the Route.name to the address bar instead of the Route.path.
-- (Fixed): Calling `NavigatorState.open` inside `onInit`, results in multiple routes being left open.
-
 ### Previews
 
 -   <details>
@@ -45,6 +40,11 @@ No more manual porting of HTML templates to HTML widgets! HTML2Rad allows you to
         
     ![HTML2Rad Preview](https://github.com/erlage/rad/blob/47591df594be5d993d5a813667ef9d372ec80f10/packages/text_editor_vscode_extension/art/peek2.gif?raw=true)
     </details>
+
+#### Bug fixes
+
+- (Fixed): Router incorrectly pushing the Route.name to the address bar instead of the Route.path.
+- (Fixed): Calling `NavigatorState.open` inside `onInit`, results in multiple routes being left open.
 
 ## 1.4.0
 
@@ -83,34 +83,32 @@ RenderEvents are meant to solve the problem of limited control over lifecycle in
 
 #### Bug fixes
 
-- (Fixed) Renderer reconciling all sibling widgets on dependent updates(sometime disposing siblings because of that).
+- (Fixed): Renderer reconciling all sibling widgets on dependent updates(sometime disposing siblings because of that).
 
 ## 1.1.0
 
-#### Added following lifecycle methods to [`State`](https://pub.dev/documentation/rad/latest/rad/State-class.html):
+#### New
 
-- `afterMount`: Gets called after framework finishes rendering widget to DOM. 
-- `afterUpdate`: Gets called after framework finishes re-rendering widget to DOM. 
-- `afterUnMount`: Gets called after framework finishes removing widget from DOM.
-
-#### Added following lifecycle methods to [`WatchfulRenderElement`](https://pub.dev/documentation/rad/latest/rad/WatchfulRenderElement-class.html):
-
-- `afterUpdate`: Gets called after framework finishes re-rendering widget to DOM.
-- `dispose`: Gets called after framework finishes removing widget from render tree and is about to remove it from DOM.
-
-#### Others
-
-- Added a public getter [`EmittedEvent.nativeEvent`](https://pub.dev/documentation/rad/latest/rad/EmittedEvent/nativeEvent.html) that returns underlying native event(wrappee object).
+- (Added): `State.afterMount`: Gets called after framework finishes rendering widget to DOM. 
+- (Added): `State.afterUpdate`: Gets called after framework finishes re-rendering widget to DOM. 
+- (Added): `State.afterUnMount`: Gets called after framework finishes removing widget from DOM.
+- (Added): `State.afterMount`: Gets called after framework finishes rendering widget to DOM. 
+- (Added): `State.afterUpdate`: Gets called after framework finishes re-rendering widget to DOM. 
+- (Added): `State.afterUnMount`: Gets called after framework finishes removing widget from DOM.
+- (Added): `WatchfulRenderElement.afterUpdate`: Gets called after framework finishes re-rendering widget to DOM.
+- (Added): `WatchfulRenderElement.dispose`: Gets called after framework is about to remove it from DOM.
+- (Added): [`EmittedEvent.nativeEvent`](https://pub.dev/documentation/rad/latest/rad/EmittedEvent/nativeEvent.html) that returns underlying native event.
 
 #### Bug fixes
 
-- (Fixed) `WatchfulRenderElement.afterUnMount` getting called before framework finishes removing widget from DOM(while it should get called after the complete removal of widget)
+- (Fixed): `WatchfulRenderElement.afterUnMount` getting called before framework finishes removing widget from DOM(while it should get called after the complete removal of widget)
 
 ## 1.0.2
 
-- (Fixed) Value not setting/updating correctly on following Input widgets: InputUrl, InputTime, InputTelephone, InputSearch, InputRange, InputPassword, InputNumber, InputMonth, InputEmail, InputText, InputDateTimeLocal, InputDate and InputColor.
+#### Bug fixes
 
-- (Fixed) InputHidden missing from public API.
+- (Fixed): Value not setting/updating correctly on following Input widgets: InputUrl, InputTime, InputTelephone, InputSearch, InputRange, InputPassword, InputNumber, InputMonth, InputEmail, InputText, InputDateTimeLocal, InputDate and InputColor.
+- (Fixed): InputHidden missing from public API.
 
 ## 1.0.1
 
