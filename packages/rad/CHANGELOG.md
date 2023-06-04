@@ -1,3 +1,15 @@
+## 1.7.0
+
+#### New
+
+- (Added): HTML's Section widget.
+- (Added): HTMLWidgetBase to public API.
+- (Added): Entries for all the remaining tags in the DomTagType enum.
+
+#### Bug fixes
+
+- (Fixed): InheritedWidget: Detached elements getting notified just before getting cleaned.
+
 ## 1.6.0
 
 #### New
