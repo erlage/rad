@@ -173,7 +173,7 @@ This release was not published.
 ### Core - Benchmarks
 
 For the past couple of weeks, core has been subjected to extensive benchmark tests. These tests helped us a lot in discovering bottlenecks in the core. Both the benchmark results and the benchmarking tools are available in public:
-- [See latest benchmark results](https://erlage.github.io/)
+- [See latest benchmark results](https://erlage.github.io/rad/benchmark-results/)
 - [Or Run benchmarks on your machine](https://github.com/erlage/rad-benchmarks#running-benchmarks)
 
 ### Core - Architecture
