@@ -82,6 +82,7 @@ part 'html/html_ruby_annotation_tests.generated.dart';
 part 'html/html_ruby_fallback_parenthesis_tests.generated.dart';
 part 'html/html_ruby_text_tests.generated.dart';
 part 'html/html_sample_output_tests.generated.dart';
+part 'html/html_section_tests.generated.dart';
 part 'html/html_select_tests.generated.dart';
 part 'html/html_small_tests.generated.dart';
 part 'html/html_span_tests.generated.dart';
@@ -199,6 +200,7 @@ void main() {
   html_ruby_fallback_parenthesis_test();
   html_ruby_text_test();
   html_sample_output_test();
+  html_section_test();
   html_select_test();
   html_small_test();
   html_span_test();

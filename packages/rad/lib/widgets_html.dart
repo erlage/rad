@@ -78,6 +78,7 @@ export 'src/widgets/html/ruby_fallback_parenthesis.dart'
     show RubyFallbackParenthesis;
 export 'src/widgets/html/ruby_text.dart' show RubyText;
 export 'src/widgets/html/sample_output.dart' show SampleOutput;
+export 'src/widgets/html/section.dart' show Section;
 export 'src/widgets/html/select.dart' show Select;
 export 'src/widgets/html/small.dart' show Small;
 export 'src/widgets/html/span.dart' show Span;

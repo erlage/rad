@@ -117,6 +117,7 @@ no_tests_for = [
     'RubyFallbackParenthesis',
     'RubyText',
     'SampleOutput',
+    'Section',
     'Select',
     'Small',
     'Span',
