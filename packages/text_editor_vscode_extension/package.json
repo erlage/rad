@@ -1,6 +1,6 @@
 {
   "name": "rad",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "displayName": "Rad framework [Dart]",
   "description": "Rad framework support and utilities for Dart",
   "icon": "art/128x128.png",

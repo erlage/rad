@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.2.0
+
+- Added support for parsing HTML's Section widget.
+
 ## 0.1.5
 
 - Minor changes to readme.
