@@ -10,6 +10,7 @@ import 'package:rad/src/core/common/ds/reverse_set.dart';
 import 'package:rad/src/core/common/enums.dart';
 import 'package:rad/src/core/common/extensions.dart';
 import 'package:rad/src/core/common/objects/key.dart';
+import 'package:rad/src/core/services/scheduler/tasks/aggregate_task.dart';
 import 'package:rad/src/core/services/scheduler/tasks/widgets_update_dependent_task.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 
@@ -88,20 +89,31 @@ class InheritedRenderElement extends RenderElement {
   @override
   void register() {
     addRenderEventListeners({
-      RenderEventType.didUpdate: _cleanUp,
+      RenderEventType.didUpdate: _didUpdateHandler,
     });
   }
 
-  void _cleanUp(_) {
+  var _previousUpdateShouldNotify = false;
+  void _didUpdateHandler(_) {
     _dependents.removeWhere((e) => e.frameworkIsDetached);
+
+    if (_previousUpdateShouldNotify) {
+      var widgetUpdateDependentTasks = <WidgetsUpdateDependentTask>[];
+      for (final dependent in _dependents.toIterable()) {
+        widgetUpdateDependentTasks.add(
+          WidgetsUpdateDependentTask(dependentRenderElement: dependent),
+        );
+      }
+
+      var frameworkInstance = frameworkServices.framework;
+      var task = AggregateTask(tasksToProcess: widgetUpdateDependentTasks);
+      frameworkInstance.processTask(task);
+    }
   }
 
   void addDependent(BuildContext dependentContext) {
     dependentContext as RenderElement;
-
-    if (!_dependents.contains(dependentContext)) {
-      _dependents.add(dependentContext);
-    }
+    _dependents.add(dependentContext);
   }
 
   @override
@@ -110,18 +122,7 @@ class InheritedRenderElement extends RenderElement {
     required covariant InheritedWidget oldWidget,
     required covariant InheritedWidget newWidget,
   }) {
-    var updateShouldNotify = newWidget.updateShouldNotify(oldWidget);
-
-    if (updateShouldNotify) {
-      var schedulerService = frameworkServices.scheduler;
-
-      for (final dependent in _dependents.toIterable()) {
-        schedulerService.addTask(
-          WidgetsUpdateDependentTask(dependentRenderElement: dependent),
-        );
-      }
-    }
-
+    _previousUpdateShouldNotify = newWidget.updateShouldNotify(oldWidget);
     return null;
   }
 }
