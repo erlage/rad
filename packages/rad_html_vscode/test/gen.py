@@ -376,6 +376,7 @@ widgets_map = {
     'rp': 'RubyFallbackParenthesis',
     'rt': 'RubyText',
     'samp': 'SampleOutput',
+    'section': 'Section',
     'select': 'Select',
     'small': 'Small',
     'span': 'Span',

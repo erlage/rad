@@ -71,6 +71,7 @@ import 'package:rad_html_vscode/src/html/ruby_annotation.dart';
 import 'package:rad_html_vscode/src/html/ruby_fallback_parenthesis.dart';
 import 'package:rad_html_vscode/src/html/ruby_text.dart';
 import 'package:rad_html_vscode/src/html/sample_output.dart';
+import 'package:rad_html_vscode/src/html/section.dart';
 import 'package:rad_html_vscode/src/html/select.dart';
 import 'package:rad_html_vscode/src/html/small.dart';
 import 'package:rad_html_vscode/src/html/span.dart';
@@ -382,6 +383,10 @@ typedef s = StrikeThrough;
 /// HTML's samp tag([SampleOutput]).
 ///
 typedef samp = SampleOutput;
+
+/// HTML's section tag([Section]).
+///
+typedef section = Section;
 
 /// HTML's select tag([Select]).
 ///
