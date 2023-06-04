@@ -75,6 +75,7 @@ class RT_DomTags {
     'ruby',
     's',
     'samp',
+    'section',
     'select',
     'small',
     'source',
