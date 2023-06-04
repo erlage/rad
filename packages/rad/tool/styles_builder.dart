@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:build/build.dart';
@@ -39,7 +40,8 @@ class StylesBuilder implements Builder {
       'lib/widgets_async.dart',
       'lib/widgets_html.dart',
     ]) {
-      File(file).readAsStringSync().split('\n').forEach(addToAvailableImports);
+      var contents = File(file).readAsStringSync();
+      LineSplitter.split(contents).forEach(addToAvailableImports);
     }
   }
 
@@ -135,7 +137,7 @@ class StylesBuilder implements Builder {
 
     importsForCurrentAsset.clear();
 
-    for (final line in cssContents.split('\n')) {
+    for (final line in LineSplitter.split(cssContents)) {
       genContents += '\n    " ${parseLine(line)} "';
     }
 
