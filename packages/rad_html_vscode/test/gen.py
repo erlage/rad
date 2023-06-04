@@ -488,6 +488,15 @@ def generate():
     if os.path.exists(os.path.abspath(os.path.join(out_dir, 'fixtures/test_widget_eventful.dart'))):
         os.unlink(os.path.abspath(os.path.join(out_dir, 'fixtures/test_widget_eventful.dart')))
 
+    fixtures_file = os.path.abspath(os.path.join(out_dir, 'fixtures/test_app.dart'))
+    if os.path.isfile(fixtures_file):
+        with open(fixtures_file, 'r') as file:
+            contents = file.read()
+        new_line = "// ignore_for_file: invalid_use_of_internal_member\n\n"
+        contents = new_line + contents
+        with open(fixtures_file, 'w') as file:
+            file.write(contents)
+
     invocations = ''
     part_of_directives = ''
     runner_file = os.path.abspath(os.path.join(out_dir, 'tests', 'generated', '_index_html_test.dart'))
@@ -515,7 +524,7 @@ def generate():
             //
             // Sources of these tests can be found in /test/templates folder
 
-            // ignore_for_file: non_constant_identifier_names
+            // ignore_for_file: non_constant_identifier_names, invalid_use_of_internal_member
 
             part of '../_index_html_test.dart';
 
