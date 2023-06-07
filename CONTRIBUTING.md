@@ -26,14 +26,19 @@ Nobody is perfect, and sometimes we mess things up. That said, here are some goo
 
 **Do**:
 
-1. Run pre-commit tasks:
+1. Generate tests:
     ```sh
-    sh scripts/run_pre_commit_tasks.sh
+    sh scripts/run_gen_tests.sh
     ```
 
 2. Run tests:
     ```sh
     sh scripts/run_tests.sh
+    ```
+
+3. Run pre-commit tasks:
+    ```sh
+    sh scripts/run_pre_commit_tasks.sh
     ```
 
 **Don't**:
