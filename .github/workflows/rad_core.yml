@@ -47,6 +47,15 @@ jobs:
         with:
           sdk: ${{ matrix.dart-sdk-version }}
 
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+          
+      - name: Generate tests
+        run: |
+          cd packages/rad/test
+          python3 scripts/main.py gen
+
       - name: Run tests
         run: |
           cd packages/rad
