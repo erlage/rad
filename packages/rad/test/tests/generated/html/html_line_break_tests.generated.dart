@@ -97,12 +97,12 @@ void html_line_break_test() {
             id: "some 'messy' id",
           ),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+      var domNode1 = app!.appDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = app!.appDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = app!.appDomNode.childNodes[2] as HtmlElement;
 
       expect(
         domNode1.getAttribute('id'),
@@ -135,10 +135,10 @@ void html_line_break_test() {
             ],
           ),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode1 = app!.appDomNode.childNodes[0] as HtmlElement;
       var domNode2 = domNode1.childNodes[0] as HtmlElement;
       var domNode3 = domNode1.childNodes[1] as HtmlElement;
 
@@ -157,10 +157,10 @@ void html_line_break_test() {
             ),
           ),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode1 = app!.appDomNode.childNodes[0] as HtmlElement;
       var domNode2 = domNode1.childNodes[0] as HtmlElement;
 
       expect(domNode1.id, equals('widget-1'));
@@ -308,12 +308,12 @@ void html_line_break_test() {
             className: "some 'messy' classes",
           ),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+      var domNode1 = app!.appDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = app!.appDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = app!.appDomNode.childNodes[2] as HtmlElement;
 
       expect(
         domNode1.getAttribute('class'),
@@ -392,10 +392,10 @@ void html_line_break_test() {
             innerText: 'hello world',
           ),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode1 = app!.appDomNode.childNodes[0] as HtmlElement;
 
       // we are using innerHtml as inner text is not accessible
       // or returns empty string for some node(e.g progress)
@@ -495,12 +495,12 @@ void html_line_break_test() {
           LineBreak(key: Key('widget-2'), style: 'some "messy" style'),
           LineBreak(key: Key('widget-3'), style: "some 'messy' style"),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+      var domNode1 = app!.appDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = app!.appDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = app!.appDomNode.childNodes[2] as HtmlElement;
 
       expect(domNode1.getAttribute('style'), equals('some style'));
       expect(domNode2.getAttribute('style'), equals('some "messy" style'));
@@ -514,12 +514,12 @@ void html_line_break_test() {
           LineBreak(key: Key('widget-2'), title: 'some "messy" title'),
           LineBreak(key: Key('widget-3'), title: "some 'messy' title"),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
-      var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
-      var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+      var domNode1 = app!.appDomNode.childNodes[0] as HtmlElement;
+      var domNode2 = app!.appDomNode.childNodes[1] as HtmlElement;
+      var domNode3 = app!.appDomNode.childNodes[2] as HtmlElement;
 
       expect(domNode1.getAttribute('title'), equals('some title'));
       expect(domNode2.getAttribute('title'), equals('some "messy" title'));
@@ -625,11 +625,11 @@ void html_line_break_test() {
         widgets: [
           LineBreak(key: Key('some-key-3')),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
       expect(
-        RT_TestBed.rootDomNode.innerHtml,
+        app!.appDomNode.innerHtml,
         startsWith(
           //
           // some tags might don't have a closing tag
@@ -673,7 +673,7 @@ void html_line_break_test() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0].childNodes[0];
+      var domNode1 = app!.appDomNode.childNodes[0];
 
       domNode1 as HtmlElement;
 
@@ -697,7 +697,7 @@ void html_line_break_test() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0].childNodes[0];
+      var domNode1 = app!.appDomNode.childNodes[0];
 
       domNode1 as HtmlElement;
 
@@ -735,7 +735,7 @@ void html_line_break_test() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0].childNodes[0];
+      var domNode1 = app!.appDomNode.childNodes[0];
 
       domNode1 as HtmlElement;
 
@@ -753,10 +753,10 @@ void html_line_break_test() {
             },
           ),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode1 = app!.appDomNode.childNodes[0] as HtmlElement;
 
       expect(domNode1.dataset['something'], equals('something okay'));
       expect(domNode1.dataset['another'], equals('another okay'));
@@ -773,10 +773,10 @@ void html_line_break_test() {
             },
           ),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+      var domNode1 = app!.appDomNode.childNodes[0] as HtmlElement;
 
       expect(domNode1.getAttribute('aria-something'), equals('something okay'));
       expect(domNode1.getAttribute('any-another'), equals('another okay'));
@@ -809,7 +809,7 @@ void html_line_break_test() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      var domNode1 = RT_TestBed.rootDomNode.childNodes[0].childNodes[0];
+      var domNode1 = app!.appDomNode.childNodes[0];
 
       domNode1 as HtmlElement;
 

@@ -10,12 +10,12 @@ test('should set draggable', () async {
         draggable: true,
       ),
     ],
-            parentRenderElement: RT_TestBed.rootRenderElement,
+            parentRenderElement: app!.appRenderElement,
 
   );
 
-  var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
-  var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
+  var domNode1 = app!.appDomNode.childNodes[0] as HtmlElement;
+  var domNode2 = app!.appDomNode.childNodes[1] as HtmlElement;
 
   expect(domNode1.getAttribute('draggable'), equals('false'));
   expect(domNode2.getAttribute('draggable'), equals('true'));

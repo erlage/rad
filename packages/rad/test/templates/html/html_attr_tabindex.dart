@@ -14,13 +14,13 @@ test('should set tab index', () async {
         tabIndex: 3,
       ),
     ],
-            parentRenderElement: RT_TestBed.rootRenderElement,
+            parentRenderElement: app!.appRenderElement,
 
   );
 
-  var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
-  var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
-  var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+  var domNode1 = app!.appDomNode.childNodes[0] as HtmlElement;
+  var domNode2 = app!.appDomNode.childNodes[1] as HtmlElement;
+  var domNode3 = app!.appDomNode.childNodes[2] as HtmlElement;
 
   expect(domNode1.getAttribute('tabindex'), equals('1'));
   expect(domNode2.getAttribute('tabindex'), equals('2'));

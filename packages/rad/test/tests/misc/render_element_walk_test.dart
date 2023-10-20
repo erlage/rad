@@ -280,13 +280,18 @@ void main() {
           widgets: [
             RT_StatefulTestWidget(
               stateHookBuild: (state) {
-                var element = state.context as RenderElement;
+                var element = state.context;
 
-                expect(
-                  // because test widget wraps widgets in a app widget
-                  element.frameworkParent?.findClosestDomNodeInAncestors(),
-                  equals(pap.appDomNode),
-                );
+                var rootDomNode = pap.appDomNode;
+                var ancestorDomNode = element.findClosestDomNodeInAncestors();
+
+                expect(rootDomNode, equals(rootDomNode));
+
+                rootDomNode.id = '123';
+                expect(ancestorDomNode?.id, equals('123'));
+
+                ancestorDomNode?.id = '321';
+                expect(rootDomNode.id, equals('321'));
               },
             ),
           ],

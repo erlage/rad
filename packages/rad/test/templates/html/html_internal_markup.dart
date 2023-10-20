@@ -3,12 +3,12 @@ test('should set correct types and markup', () async {
     widgets: [
       __WidgetClass__(key: Key('some-key-3')),
     ],
-            parentRenderElement: RT_TestBed.rootRenderElement,
+            parentRenderElement: app!.appRenderElement,
 
   );
 
   expect(
-    RT_TestBed.rootDomNode.innerHtml,
+    app!.appDomNode.innerHtml,
     startsWith(
       //
       // some tags might don't have a closing tag
