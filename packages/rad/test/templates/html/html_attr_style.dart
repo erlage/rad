@@ -5,13 +5,13 @@ test('should set style', () async {
       __WidgetClass__(key: Key('widget-2'), style: 'some "messy" style'),
       __WidgetClass__(key: Key('widget-3'), style: "some 'messy' style"),
     ],
-            parentRenderElement: RT_TestBed.rootRenderElement,
+            parentRenderElement: app!.appRenderElement,
 
   );
 
-  var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
-  var domNode2 = RT_TestBed.rootDomNode.childNodes[1] as HtmlElement;
-  var domNode3 = RT_TestBed.rootDomNode.childNodes[2] as HtmlElement;
+  var domNode1 = app!.appDomNode.childNodes[0] as HtmlElement;
+  var domNode2 = app!.appDomNode.childNodes[1] as HtmlElement;
+  var domNode3 = app!.appDomNode.childNodes[2] as HtmlElement;
 
   expect(domNode1.getAttribute('style'), equals('some style'));
   expect(domNode2.getAttribute('style'), equals('some "messy" style'));

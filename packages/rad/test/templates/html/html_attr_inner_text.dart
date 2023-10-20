@@ -6,11 +6,11 @@ test('should set inner text', () async {
         innerText: 'hello world',
       ),
     ],
-            parentRenderElement: RT_TestBed.rootRenderElement,
+            parentRenderElement: app!.appRenderElement,
 
   );
 
-  var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+  var domNode1 = app!.appDomNode.childNodes[0] as HtmlElement;
 
   
   // we are using innerHtml as inner text is not accessible 

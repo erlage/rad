@@ -13,7 +13,7 @@ test('should allow widget attributes to be set through additional attributes', (
     );
 
 
-    var domNode1 = RT_TestBed.rootDomNode.childNodes[0].childNodes[0];
+    var domNode1 = app!.appDomNode.childNodes[0];
 
     domNode1 as HtmlElement;
 
@@ -36,7 +36,7 @@ test('should ignore additional attribute if already set in widget constructor', 
     );
 
 
-    var domNode1 = RT_TestBed.rootDomNode.childNodes[0].childNodes[0];
+    var domNode1 = app!.appDomNode.childNodes[0];
 
     domNode1 as HtmlElement;
 
@@ -73,7 +73,7 @@ test('should ignore additional attribute if already set in widget constructor, d
     );
 
 
-    var domNode1 = RT_TestBed.rootDomNode.childNodes[0].childNodes[0];
+    var domNode1 = app!.appDomNode.childNodes[0];
 
     domNode1 as HtmlElement;
 
@@ -91,11 +91,11 @@ test('should set data attributes', () async {
                 },
             ),
         ],
-                parentRenderElement: RT_TestBed.rootRenderElement,
+                parentRenderElement: app!.appRenderElement,
 
     );
 
-    var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+    var domNode1 = app!.appDomNode.childNodes[0] as HtmlElement;
 
     expect(domNode1.dataset['something'], equals('something okay'));
     expect(domNode1.dataset['another'], equals('another okay'));
@@ -112,10 +112,10 @@ test('should set aria/any attributes', () async {
                 },
             ),
         ],
-        parentRenderElement: RT_TestBed.rootRenderElement,
+        parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+    var domNode1 = app!.appDomNode.childNodes[0] as HtmlElement;
 
     expect(domNode1.getAttribute('aria-something'), equals('something okay'));
     expect(domNode1.getAttribute('any-another'), equals('another okay'));
@@ -148,7 +148,7 @@ test('should remove obsolete and add new data attributes on update', () async {
         parentRenderElement: app!.appRenderElement,
     );
 
-    var domNode1 = RT_TestBed.rootDomNode.childNodes[0].childNodes[0];
+    var domNode1 = app!.appDomNode.childNodes[0];
 
     domNode1 as HtmlElement;
 

@@ -10,11 +10,11 @@ test('should set children widgets', () async {
         ),
       ],),
     ],
-            parentRenderElement: RT_TestBed.rootRenderElement,
+            parentRenderElement: app!.appRenderElement,
 
   );
 
-  var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+  var domNode1 = app!.appDomNode.childNodes[0] as HtmlElement;
   var domNode2 = domNode1.childNodes[0] as HtmlElement;
   var domNode3 = domNode1.childNodes[1] as HtmlElement;
 

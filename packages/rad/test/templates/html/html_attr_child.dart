@@ -8,11 +8,11 @@ test('should set child widget', () async {
         ),
       ),
     ],
-            parentRenderElement: RT_TestBed.rootRenderElement,
+            parentRenderElement: app!.appRenderElement,
 
   );
 
-  var domNode1 = RT_TestBed.rootDomNode.childNodes[0] as HtmlElement;
+  var domNode1 = app!.appDomNode.childNodes[0] as HtmlElement;
   var domNode2 = domNode1.childNodes[0] as HtmlElement;
 
   expect(domNode1.id, equals('widget-1'));
