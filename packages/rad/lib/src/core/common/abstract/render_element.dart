@@ -574,6 +574,8 @@ abstract class RenderElement implements BuildContext {
   void frameworkAnnounceDomNode() {
     assert(null != _domNode, 'No domNode to be announced');
 
+    if (_parent?.hasDomNode ?? false) return;
+
     var ancestor = _parent;
     while (null != ancestor) {
       if (ancestor.hasDomNode) {
@@ -590,6 +592,8 @@ abstract class RenderElement implements BuildContext {
   @nonVirtual
   void frameworkWithdrawDomNode() {
     assert(null != _domNode, 'No domNode to be withdrawn');
+
+    if (_parent?.hasDomNode ?? false) return;
 
     var ancestor = _parent;
     while (null != ancestor) {
