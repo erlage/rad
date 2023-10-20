@@ -521,7 +521,7 @@ abstract class RenderElement implements BuildContext {
   /// @nodoc
   @internal
   @nonVirtual
-  bool get framworkContainsVirtualDomNodes => 0 < _virtualDomNodesCount;
+  bool get frameworkContainsVirtualDomNodes => 0 < _virtualDomNodesCount;
 
   /// The number of virtual dom nodes mounted at the location of this
   /// [RenderElement].
