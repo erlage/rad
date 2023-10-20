@@ -953,6 +953,7 @@ class Renderer with ServicesResolver {
 
     // Detach itself
 
+    renderElement.frameworkDisposeRenderElement();
     renderElement.frameworkDetach();
 
     // Call lifecycle hooks
@@ -992,6 +993,8 @@ class Renderer with ServicesResolver {
         );
       }
     }
+
+    renderElement.frameworkDisposeRenderElement();
 
     renderElement.frameworkDispatchRenderEvent(
       RenderEventType.willUnMount,
