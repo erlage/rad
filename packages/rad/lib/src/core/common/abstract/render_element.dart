@@ -628,10 +628,8 @@ abstract class RenderElement implements BuildContext {
     assert(null == _domNode, 'DomNode is already bound');
 
     _domNode = domNode;
-
-    if (null != _domNode) {
-      _hasDomNode = true;
-    }
+    _hasDomNode = true;
+    frameworkAnnounceDomNode();
   }
 
   /// @nodoc
@@ -647,7 +645,11 @@ abstract class RenderElement implements BuildContext {
   /// @nodoc
   @internal
   @nonVirtual
-  void frameworkDisposeRenderElement() {}
+  void frameworkDisposeRenderElement() {
+    if (hasDomNode) {
+      framworkWithdrawDomNode();
+    }
+  }
 
   /// @nodoc
   @internal
