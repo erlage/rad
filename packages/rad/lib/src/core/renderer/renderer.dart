@@ -201,6 +201,8 @@ class Renderer with ServicesResolver {
     } else {
       disposeRenderElement(
         renderElement: renderElement,
+        flagDetachRenderElement: true,
+        flagRemoveDomNode: true,
         jobQueue: queue,
       );
     }
@@ -893,9 +895,10 @@ class Renderer with ServicesResolver {
 
       if (hasUnMountListeners || hasVirtualDomNodes) {
         for (final childElement in childElements) {
-          disposeDetachedRenderElement(
+          disposeRenderElement(
             renderElement: childElement,
             flagRemoveDomNode: hasVirtualDomNodes,
+            flagDetachRenderElement: false,
             jobQueue: jobQueue,
           );
         }
@@ -907,83 +910,39 @@ class Renderer with ServicesResolver {
   ///
   void disposeRenderElement({
     required RenderElement renderElement,
+    required bool flagRemoveDomNode,
+    required bool flagDetachRenderElement,
     required JobQueue jobQueue,
   }) {
     var domNode = renderElement.domNode;
-    if (null != domNode) jobQueue.addJob(domNode.remove);
+    var childElements = renderElement.frameworkChildElements;
 
     // Dispose child elements
 
-    var childElements = renderElement.frameworkChildElements;
     if (childElements.isNotEmpty) {
       var hasUnMountListeners = renderElement.frameworkContainsUnMountListeners;
       var hasVirtualDomNodes = renderElement.frameworkContainsVirtualDomNodes;
 
       if (hasUnMountListeners || hasVirtualDomNodes) {
+        var childFlagRemoveDomNode = flagRemoveDomNode && hasVirtualDomNodes;
+
         for (final renderElement in childElements) {
-          disposeDetachedRenderElement(
+          disposeRenderElement(
             renderElement: renderElement,
-            flagRemoveDomNode: hasVirtualDomNodes,
+            flagRemoveDomNode: childFlagRemoveDomNode,
+            flagDetachRenderElement: false,
             jobQueue: jobQueue,
           );
         }
       }
     }
 
-    // Detach itself
+    // Dispose itself
+
+    if (flagRemoveDomNode && null != domNode) jobQueue.addJob(domNode.remove);
 
     renderElement.frameworkDisposeRenderElement();
-    renderElement.frameworkDetach();
-
-    // Call lifecycle hooks
-
-    renderElement.frameworkDispatchRenderEvent(
-      RenderEventType.willUnMount,
-    );
-
-    if (renderElement.frameworkHasEventListenerOfType(
-      RenderEventType.didUnMount,
-    )) {
-      jobQueue.addPostDispatchCallback(
-        () => renderElement.frameworkDispatchRenderEvent(
-          RenderEventType.didUnMount,
-        ),
-      );
-    }
-
-    if (DEBUG_BUILD) {
-      if (services.debug.widgetLogs) {
-        print('Dispose: $renderElement');
-      }
-    }
-  }
-
-  /// Dispose a detached render element.
-  ///
-  void disposeDetachedRenderElement({
-    required RenderElement renderElement,
-    required bool flagRemoveDomNode,
-    required JobQueue jobQueue,
-  }) {
-    if (flagRemoveDomNode) {
-      var domNode = renderElement.domNode;
-      if (null != domNode) jobQueue.addJob(domNode.remove);
-    }
-
-    var hasUnMountListeners = renderElement.frameworkContainsUnMountListeners;
-    var hasVirtualDomNodes = renderElement.frameworkContainsVirtualDomNodes;
-
-    if (hasUnMountListeners || hasVirtualDomNodes) {
-      for (final childElement in renderElement.frameworkChildElements) {
-        disposeDetachedRenderElement(
-          renderElement: childElement,
-          flagRemoveDomNode: hasVirtualDomNodes,
-          jobQueue: jobQueue,
-        );
-      }
-    }
-
-    renderElement.frameworkDisposeRenderElement();
+    if (flagDetachRenderElement) renderElement.frameworkDetach();
 
     renderElement.frameworkDispatchRenderEvent(
       RenderEventType.willUnMount,
