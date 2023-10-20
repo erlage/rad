@@ -588,7 +588,7 @@ abstract class RenderElement implements BuildContext {
   /// @nodoc
   @internal
   @nonVirtual
-  void framworkWithdrawDomNode() {
+  void frameworkWithdrawDomNode() {
     assert(null != _domNode, 'No domNode to be withdrawn');
 
     var ancestor = _parent;
@@ -647,7 +647,7 @@ abstract class RenderElement implements BuildContext {
   @nonVirtual
   void frameworkDisposeRenderElement() {
     if (hasDomNode) {
-      framworkWithdrawDomNode();
+      frameworkWithdrawDomNode();
     }
   }
 
