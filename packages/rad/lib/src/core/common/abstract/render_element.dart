@@ -4,6 +4,7 @@
 
 import 'dart:html';
 
+import 'package:meta/dart2js.dart';
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/abstract/build_context.dart';
@@ -716,9 +717,13 @@ abstract class RenderElement implements BuildContext {
   /// @nodoc
   @internal
   @nonVirtual
+  @tryInline
   Iterable<RenderElement> frameworkEjectChildRenderElements() {
-    var ejectedRenderElements = <RenderElement>[];
+    if (_childElements.isEmpty) {
+      return const [];
+    }
 
+    var ejectedRenderElements = <RenderElement>[];
     while (_childElements.isNotEmpty) {
       ejectedRenderElements.add(_childElements.removeLast().._parent = null);
     }
