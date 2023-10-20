@@ -658,7 +658,7 @@ class Renderer with ServicesResolver {
     var frameworkChildElements = parentRenderElement.frameworkChildElements;
 
     // ----------------------------------------------------------------------
-    //  Optimisation: see if we can return early
+    //  see if we can return early
     // ----------------------------------------------------------------------
 
     var parentDomNode = parentRenderElement.domNode;
@@ -903,7 +903,7 @@ class Renderer with ServicesResolver {
     var childElements = renderElement.frameworkEjectChildRenderElements();
     if (childElements.isNotEmpty) {
       var hasUnMountListeners = renderElement.frameworkContainsUnMountListeners;
-      var hasVirtualDomNodes = renderElement.framworkContainsVirtualDomNodes;
+      var hasVirtualDomNodes = renderElement.frameworkContainsVirtualDomNodes;
 
       if (hasUnMountListeners || hasVirtualDomNodes) {
         for (final childElement in childElements) {
@@ -938,7 +938,7 @@ class Renderer with ServicesResolver {
     var childElements = renderElement.frameworkChildElements;
     if (childElements.isNotEmpty) {
       var hasUnMountListeners = renderElement.frameworkContainsUnMountListeners;
-      var hasVirtualDomNodes = renderElement.framworkContainsVirtualDomNodes;
+      var hasVirtualDomNodes = renderElement.frameworkContainsVirtualDomNodes;
 
       if (hasUnMountListeners || hasVirtualDomNodes) {
         for (final renderElement in childElements) {
@@ -985,7 +985,7 @@ class Renderer with ServicesResolver {
     required JobQueue jobQueue,
   }) {
     var hasUnMountListeners = renderElement.frameworkContainsUnMountListeners;
-    var hasVirtualDomNodes = renderElement.framworkContainsVirtualDomNodes;
+    var hasVirtualDomNodes = renderElement.frameworkContainsVirtualDomNodes;
 
     if (hasUnMountListeners || hasVirtualDomNodes) {
       for (final childElement in renderElement.frameworkChildElements) {
