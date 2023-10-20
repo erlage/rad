@@ -4,8 +4,6 @@
 
 import '../../test_imports.dart';
 
-import 'package:rad/src/core/common/objects/common_render_elements.dart';
-
 void main() {
   /*
   |--------------------------------------------------------------------------
@@ -455,67 +453,6 @@ void main() {
               ],
             ),
           ],
-          updateType: UpdateType.setState,
-          parentRenderElement: pap.appRenderElement,
-        );
-      },
-    );
-  });
-
-  group('traverseAncestorElements()', () {
-    test(
-      'should skip temp elements',
-      () async {
-        var pap = app!;
-
-        await pap.buildChildren(
-          widgets: [
-            RT_TestWidget(children: [
-              RT_RenderAbleWidget(children: [
-                RT_TestWidget(wHookCreateRenderElement: (renderElement) {
-                  renderElement.traverseAncestorElements((element) {
-                    expect(element.runtimeType, isNot(TemporaryElement));
-                  });
-                })
-              ])
-            ]),
-          ],
-          parentRenderElement: pap.appRenderElement,
-        );
-
-        await pap.updateChildren(
-          widgets: [],
-          updateType: UpdateType.setState,
-          parentRenderElement: pap.appRenderElement,
-        );
-      },
-    );
-  });
-
-  group('visitAncestorElements()', () {
-    test(
-      'should skip temp elements',
-      () async {
-        var pap = app!;
-
-        await pap.buildChildren(
-          widgets: [
-            RT_TestWidget(children: [
-              RT_RenderAbleWidget(children: [
-                RT_TestWidget(wHookCreateRenderElement: (renderElement) {
-                  renderElement.visitAncestorElements((element) {
-                    expect(element.runtimeType, isNot(TemporaryElement));
-                    return true;
-                  });
-                })
-              ])
-            ]),
-          ],
-          parentRenderElement: pap.appRenderElement,
-        );
-
-        await pap.updateChildren(
-          widgets: [],
           updateType: UpdateType.setState,
           parentRenderElement: pap.appRenderElement,
         );

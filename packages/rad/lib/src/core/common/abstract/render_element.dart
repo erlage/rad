@@ -10,7 +10,6 @@ import 'package:meta/meta.dart';
 import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/common_render_elements.dart';
 import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/objects/key.dart';
 import 'package:rad/src/core/common/objects/meta_information.dart';
@@ -106,37 +105,6 @@ abstract class RenderElement implements BuildContext {
         _parent = parent,
         _services = parent.frameworkServices,
         appTargetId = parent.appTargetId;
-
-  /// Create a temporary render element.
-  ///
-  /// @nodoc
-  @internal
-  RenderElement.frameworkTemporary({
-    required Services services,
-    required Widget tempWidget,
-    required Element tempDomNode,
-    required RenderElement possibleParent,
-  })  :
-        // widget properties
-
-        _key = null,
-        _widget = tempWidget,
-        _widgetRuntimeType = '${tempWidget.runtimeType}',
-
-        // bools
-
-        _isRoot = false,
-        _hasDomNode = true,
-
-        // bind instances
-
-        _services = services,
-        _domNode = tempDomNode,
-        _parent = possibleParent,
-
-        // from parent
-
-        appTargetId = possibleParent.appTargetId;
 
   /// Create root's element.
   ///
@@ -338,9 +306,7 @@ abstract class RenderElement implements BuildContext {
     RenderElement? ancestor = _parent;
 
     while (null != ancestor && !ancestor.frameworkIsRoot) {
-      if (ancestor is! TemporaryElement) {
-        if (!visitor(ancestor)) break;
-      }
+      if (!visitor(ancestor)) break;
 
       ancestor = ancestor._parent;
     }
@@ -360,9 +326,7 @@ abstract class RenderElement implements BuildContext {
     RenderElement? ancestor = _parent;
 
     while (null != ancestor && !ancestor.frameworkIsRoot) {
-      if (ancestor is! TemporaryElement) {
-        callback(ancestor);
-      }
+      callback(ancestor);
 
       ancestor = ancestor._parent;
     }

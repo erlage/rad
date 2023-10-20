@@ -30,17 +30,6 @@ void main() {
     });
   });
 
-  group('TemporaryRenderElement', () {
-    test('should throw on accessing children list', () {
-      expect(
-          () => TemporaryElement.create(
-                futureParentRenderElement: app!.appRenderElement,
-                services: app!.frameworkServices,
-              ).widgetChildren,
-          throwsA((e) => e.toString().toLowerCase().contains('access')));
-    });
-  });
-
   group('Component', () {
     test('should insert styles if head is present', () {
       var component = _TestComponent();
