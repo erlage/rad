@@ -250,14 +250,15 @@ class RouterService extends Service {
 
     var protectedSegments = <String>[];
     var protectedUptoSegments = List<String>.from(routerLink.segments.reversed);
+    var routePaths = routerLink.routerElement.getPathList().toSet();
 
     for (final segment in currentSegments) {
       if (protectedUptoSegments.isEmpty) {
-        break;
-      }
-
-      if (segment == protectedUptoSegments.last) {
-        protectedUptoSegments.removeLast();
+        if (routePaths.contains(segment)) break;
+      } else {
+        if (segment == protectedUptoSegments.last) {
+          protectedUptoSegments.removeLast();
+        }
       }
 
       protectedSegments.add(segment);
@@ -408,6 +409,7 @@ class RouterService extends Service {
     var updateHistory = request.updateHistory;
 
     if (request.isReplacement) {
+      String? historyEntry;
       var currentLocation = Window.delegate.locationHref;
 
       _routerStack.entries.remove(currentLocation);
@@ -420,7 +422,7 @@ class RouterService extends Service {
           encodedValues = '/$encodedValues';
         }
 
-        var historyEntry = "${preparedSegs.join("/")}/$path$encodedValues";
+        historyEntry = "${preparedSegs.join("/")}/$path$encodedValues";
         var currentPath = _getCurrentPath();
         if (currentPath.isNotEmpty) {
           if (!historyEntry.startsWith('/')) {
@@ -428,11 +430,14 @@ class RouterService extends Service {
           }
         }
 
-        Window.delegate.historyReplaceState(
-          title: '',
-          url: historyEntry,
-          rootElement: rootElement,
-        );
+        var isDuplicate = _routerStack.last?.historyEntry == historyEntry;
+        if (!isDuplicate) {
+          Window.delegate.historyReplaceState(
+            title: '',
+            url: historyEntry,
+            rootElement: rootElement,
+          );
+        }
       } else {
         // for attaching current root element with initial pop-event
         Window.delegate.historyReplaceState(
@@ -446,11 +451,13 @@ class RouterService extends Service {
         path: path,
         values: values,
         routerElement: routerElement,
+        historyEntry: historyEntry,
         location: Window.delegate.locationHref,
       );
 
       _routerStack.push(entry);
     } else {
+      String? historyEntry;
       if (updateHistory) {
         var preparedSegs = _prepareSegments(protectedSegments(routerElement));
 
@@ -459,7 +466,7 @@ class RouterService extends Service {
           encodedValues = '/$encodedValues';
         }
 
-        var historyEntry = "${preparedSegs.join("/")}/$path$encodedValues";
+        historyEntry = "${preparedSegs.join("/")}/$path$encodedValues";
 
         var currentPath = _getCurrentPath();
 
@@ -469,11 +476,14 @@ class RouterService extends Service {
           }
         }
 
-        Window.delegate.historyPushState(
-          title: '',
-          url: historyEntry,
-          rootElement: rootElement,
-        );
+        var isDuplicate = _routerStack.last?.historyEntry == historyEntry;
+        if (!isDuplicate) {
+          Window.delegate.historyPushState(
+            title: '',
+            url: historyEntry,
+            rootElement: rootElement,
+          );
+        }
 
         var routerLink = getRouterLink(routerElement);
         var childRouteObject = routerLink.getChildLinkedOnCurrentRoutePath();
@@ -493,6 +503,7 @@ class RouterService extends Service {
         values: values,
         routerElement: routerElement,
         location: Window.delegate.locationHref,
+        historyEntry: historyEntry,
       );
 
       _routerStack.push(entry);

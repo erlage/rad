@@ -19,7 +19,13 @@ class RouterStack {
   ///
   final entries = <String, RouterStackEntry>{};
 
-  void push(RouterStackEntry entry) => entries[entry.location] = entry;
+  RouterStackEntry? get last => _last;
+  RouterStackEntry? _last;
+
+  void push(RouterStackEntry entry) {
+    _last = entry;
+    entries[entry.location] = entry;
+  }
 
   RouterStackEntry? find(String location) => entries[location];
 

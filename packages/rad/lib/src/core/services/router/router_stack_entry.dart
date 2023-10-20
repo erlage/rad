@@ -22,6 +22,10 @@ class RouterStackEntry {
   ///
   final String location;
 
+  /// Literal value used to push/replace history.
+  ///
+  final String? historyEntry;
+
   /// [RouterRenderElement] that pushed the entry.
   ///
   final RouterRenderElement routerElement;
@@ -30,6 +34,7 @@ class RouterStackEntry {
     required this.path,
     required this.values,
     required this.routerElement,
+    required this.historyEntry,
     required this.location,
   });
 }
