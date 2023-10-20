@@ -711,6 +711,14 @@ abstract class RenderElement implements BuildContext {
     element._parent = this;
   }
 
+  /// @nodoc
+  @internal
+  @nonVirtual
+  void frameworkInsertAtFreshUnsafeFastPath(RenderElement element, int index) {
+    _childElements.insert(index, element);
+    element._parent = this;
+  }
+
   /// Detach render element from its parent(if any).
   ///
   /// @nodoc
