@@ -548,6 +548,62 @@ abstract class RenderElement implements BuildContext {
 
   /*
   |--------------------------------------------------------------------------
+  | framework reserved | dom node APIs
+  |--------------------------------------------------------------------------
+  */
+
+  /// Whether this [RenderElement] has any virtual dom nodes.
+  ///
+  /// @nodoc
+  @internal
+  @nonVirtual
+  bool get framworkContainsVirtualDomNodes => 0 < _virtualDomNodesCount;
+
+  /// The number of virtual dom nodes mounted at the location of this
+  /// [RenderElement].
+  ///
+  /// @nodoc
+  @internal
+  @nonVirtual
+  int get frameworkVirtualDomNodesCount => _virtualDomNodesCount;
+  var _virtualDomNodesCount = 0;
+
+  /// @nodoc
+  @internal
+  @nonVirtual
+  void frameworkAnnounceDomNode() {
+    assert(null != _domNode, 'No domNode to be announced');
+
+    var ancestor = _parent;
+    while (null != ancestor) {
+      if (ancestor.hasDomNode) {
+        return;
+      }
+
+      ancestor._virtualDomNodesCount++;
+      ancestor = ancestor._parent;
+    }
+  }
+
+  /// @nodoc
+  @internal
+  @nonVirtual
+  void framworkWithdrawDomNode() {
+    assert(null != _domNode, 'No domNode to be withdrawn');
+
+    var ancestor = _parent;
+    while (null != ancestor) {
+      if (ancestor.hasDomNode) {
+        return;
+      }
+
+      ancestor._virtualDomNodesCount--;
+      ancestor = ancestor._parent;
+    }
+  }
+
+  /*
+  |--------------------------------------------------------------------------
   | framework reserved | lifecycle api
   |--------------------------------------------------------------------------
   */
