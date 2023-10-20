@@ -103,12 +103,6 @@ class WidgetUpdateObjectActionDisposeMultiple extends WidgetUpdateObject {
 
 @internal
 class WidgetUpdateObjectActionCleanParent extends WidgetUpdateObject {
-  static const _cached = WidgetUpdateObjectActionCleanParent._();
-
-  factory WidgetUpdateObjectActionCleanParent() => _cached;
-
-  const WidgetUpdateObjectActionCleanParent._()
-      : super(
-          WidgetUpdateType.cleanParent,
-        );
+  const WidgetUpdateObjectActionCleanParent()
+      : super(WidgetUpdateType.cleanParent);
 }
