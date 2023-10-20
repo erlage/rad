@@ -18,6 +18,7 @@ import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/interface/meta/meta.dart';
 import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
+import 'package:rad/src/widgets/html/span.dart';
 import 'package:rad/src/widgets/inherited_widget.dart';
 import 'package:rad/src/widgets/stateful_widget.dart';
 
@@ -518,6 +519,18 @@ abstract class RenderElement implements BuildContext {
 
   /// Whether this [RenderElement] has any virtual dom nodes.
   ///
+  /// Please note, virtual node in Rad are different from React's.
+  ///
+  /// A Virtual Dom Node in Rad is a node that is mounted at the location of
+  /// this [RenderElement] but is created and controlled by one of widgets in
+  /// the descendants of this [RenderElement].
+  ///
+  /// For example, a [StatefulWidget] doesn't have a corresponding dom node
+  /// but you can return a [Span] widget(that has a corresponding dom node)
+  /// from [State.build] and framwork will mount it at [StatefulWidget]'s
+  /// location. In this example, [StatefulWidget] has one virtual dom
+  /// node which currently is filled by the [Span] widget.
+  ///
   /// @nodoc
   @internal
   @nonVirtual
@@ -525,6 +538,8 @@ abstract class RenderElement implements BuildContext {
 
   /// The number of virtual dom nodes mounted at the location of this
   /// [RenderElement].
+  ///
+  /// See [RenderElement.frameworkContainsVirtualDomNodes].
   ///
   /// @nodoc
   @internal
