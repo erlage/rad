@@ -532,8 +532,8 @@ abstract class RenderElement implements BuildContext {
   void frameworkAnnounceUnMountListeners() {
     // we aren't using traverseAncestors here because
     // it doesn't traverse the root element(the big bang one)
-    // a root element however can have widgets listening for
-    // unmount events.
+    // but a root element can have descendants widgets that are
+    // listening for unmount events.
 
     var ancestor = _parent;
     while (null != ancestor) {
