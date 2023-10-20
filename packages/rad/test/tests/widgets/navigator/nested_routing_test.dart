@@ -915,6 +915,52 @@ void main() {
       );
     }
 
+    test(
+      'should keep value segments intact during child ops',
+      () async {
+        //
+        await app!.setPath('/p-route-1/some-val/c-page-1/');
+
+        await app!.buildChildren(
+          widgets: [
+            Navigator(
+              key: Key('parent'),
+              routes: [
+                Route(
+                  name: 'p-route-1',
+                  page: Navigator(
+                    key: Key('child'),
+                    routes: [
+                      Route(name: 'c-page-1', page: Text('page-1')),
+                      Route(name: 'c-page-2', page: Text('page-2')),
+                      Route(name: 'c-page-3', page: Text('page-3')),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+          parentRenderElement: app!.appRenderElement,
+        );
+
+        var child = app!.navigatorState('child');
+
+        app!.assertMatchPath('/p-route-1/some-val/c-page-1');
+
+        child.open(name: 'c-page-2');
+        await Future.delayed(Duration(milliseconds: 100));
+        app!.assertMatchPath('/p-route-1/some-val/c-page-2');
+
+        child.open(name: 'c-page-1', values: {'some-var': 'some-val'});
+        await Future.delayed(Duration(milliseconds: 100));
+        app!.assertMatchPath('/p-route-1/some-val/c-page-1/some-var/some-val');
+
+        child.open(name: 'c-page-2');
+        await Future.delayed(Duration(milliseconds: 100));
+        app!.assertMatchPath('/p-route-1/some-val/c-page-2');
+      },
+    );
+
     // these tests fails on in actual browser environment(window obj).
     // for now, we've fixed these issue. but it seems our router needs a
     // re-write(just internals + requires unit tests).
