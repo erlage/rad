@@ -10,7 +10,6 @@ import 'package:rad/src/core/common/abstract/build_context.dart';
 import 'package:rad/src/core/common/abstract/render_element.dart';
 import 'package:rad/src/core/common/constants.dart';
 import 'package:rad/src/core/common/enums.dart';
-import 'package:rad/src/core/common/objects/common_render_elements.dart';
 import 'package:rad/src/core/common/objects/dom_node_patch.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/renderer/dumb_node_validator.dart';
@@ -69,28 +68,30 @@ class Renderer with ServicesResolver {
       );
     }
 
-    // create temp space for holding new widgets
+    var frameworkChildElements = parentRenderElement.frameworkChildElements;
+    var oldRenderElementsCount = frameworkChildElements.length;
 
-    var temporaryRenderElement = TemporaryElement.create(
-      services: services,
-      futureParentRenderElement: parentRenderElement,
-    );
+    // create temp space for holding new dom nodes
+
+    var temporaryParentDomNode = document.createDocumentFragment();
 
     // build widgets under temp space
 
     buildWidgetsUnderContext(
       widgets: widgets,
-      parentDomNode: temporaryRenderElement.domNode!,
-      parentRenderElement: temporaryRenderElement,
+      temporaryParentDomNode: temporaryParentDomNode,
+      parentRenderElement: parentRenderElement,
+      mountAtIndexForChildRenderElements: mountAtIndex,
       jobQueue: queue,
     );
 
-    // mount widgets from temp space
+    // mount widgets(should be renamed to mount temp dom nodes)
 
     mountWidgets(
+      newDomNodesFragment: temporaryParentDomNode,
       parentRenderElement: parentRenderElement,
-      mountAtIndex: mountAtIndex,
-      temporaryRenderElement: temporaryRenderElement,
+      parentRenderElementPreviousChildElementsLength: oldRenderElementsCount,
+      mountedAtIndexForChildRenderElements: mountAtIndex,
       jobQueue: queue,
     );
 
@@ -270,10 +271,19 @@ class Renderer with ServicesResolver {
   ///
   void buildWidgetsUnderContext({
     required List<Widget> widgets,
-    required Element parentDomNode,
+    required Node temporaryParentDomNode,
     required RenderElement parentRenderElement,
+    required int? mountAtIndexForChildRenderElements,
     required JobQueue jobQueue,
   }) {
+    var mountAtIndex = mountAtIndexForChildRenderElements;
+    if (null != mountAtIndex) {
+      var childElements = parentRenderElement.frameworkChildElements;
+      if (childElements.length <= mountAtIndex || mountAtIndex < 0) {
+        mountAtIndex = null;
+      }
+    }
+
     for (final widget in widgets) {
       // 1. Create render element
 
@@ -285,25 +295,31 @@ class Renderer with ServicesResolver {
 
       // 2. Add render element to element tree
 
-      parentRenderElement.frameworkAppendFresh(renderElement);
+      if (null == mountAtIndex) {
+        parentRenderElement.frameworkAppendFresh(renderElement);
+      } else {
+        parentRenderElement.frameworkInsertAtFreshUnsafeFastPath(
+          renderElement,
+          mountAtIndex++,
+        );
+      }
 
-      // 3. Add dom node to dom tree(if current widget has)
+      // 3. Add dom node to temporary dom tree(if current widget has it)
 
-      var currentDomNode = renderElement.domNode;
-
-      if (null != currentDomNode) {
-        parentDomNode.append(renderElement.domNode!);
+      var newDomNode = renderElement.domNode;
+      if (null != newDomNode) {
+        temporaryParentDomNode.append(newDomNode);
       }
 
       // 4. Build child widgets
 
       var widgetChildren = renderElement.widgetChildren;
-
       if (widgetChildren.isNotEmpty) {
         buildWidgetsUnderContext(
           widgets: widgetChildren,
-          parentDomNode: currentDomNode ?? parentDomNode,
+          temporaryParentDomNode: newDomNode ?? temporaryParentDomNode,
           parentRenderElement: renderElement,
+          mountAtIndexForChildRenderElements: null,
           jobQueue: jobQueue,
         );
       }
@@ -632,125 +648,103 @@ class Renderer with ServicesResolver {
   /// updates are queued and dispatched in a batch.
   ///
   void mountWidgets({
-    required TemporaryElement temporaryRenderElement,
+    required DocumentFragment newDomNodesFragment,
     required RenderElement parentRenderElement,
-    required int? mountAtIndex,
+    required int parentRenderElementPreviousChildElementsLength,
+    required int? mountedAtIndexForChildRenderElements,
     required JobQueue jobQueue,
   }) {
-    /*
-    |--------------------------------------------------------------------------
-    | Prepare
-    |--------------------------------------------------------------------------
-    */
+    var oldRenderElementsCount = parentRenderElementPreviousChildElementsLength;
+    var frameworkChildElements = parentRenderElement.frameworkChildElements;
 
-    var renderElements = temporaryRenderElement.frameworkChildElements;
+    // ----------------------------------------------------------------------
+    //  Optimisation: see if we can return early
+    // ----------------------------------------------------------------------
 
-    var firstRenderElementInNewWidgets = renderElements.first;
-
-    /*
-    |--------------------------------------------------------------------------
-    | Add nodes to element tree
-    |--------------------------------------------------------------------------
-    */
-
-    if (null == mountAtIndex) {
-      parentRenderElement.frameworkAppendAllFresh(renderElements);
-    } else {
-      parentRenderElement.frameworkInsertAllFreshAt(
-        renderElements,
-        mountAtIndex,
-      );
-    }
-
-    // 2. Find closest widget that has an dom node in dom and get mount location
-
-    var currentParentRenderElement = parentRenderElement;
-
-    if (!currentParentRenderElement.hasDomNode) {
-      // if parent has no dom node and mountAtIndex is null then its a
-      // WidgetBuildTask for in-direct child widgets.
-      //
-      // e.g a stateful widget doesn't have direct child widgets but issue a
-      // build widgets task for in-direct child widgets. those indirect child
-      // widgets has to be mounted on a specific position in parent's dom node
-      // when changed or added
-      var requiresMountAtSpecificPosition = null == mountAtIndex;
-
-      // a render node in path between parent render node(that has dom
-      // node) and the widget that we're going to mount. this render node is
-      // immediate to parent render node.
-      var immediateRenderElement = firstRenderElementInNewWidgets;
-
-      while (true) {
-        if (currentParentRenderElement.hasDomNode) {
-          break;
-        }
-
-        immediateRenderElement = currentParentRenderElement;
-
-        var parent = currentParentRenderElement.frameworkParent;
-
-        if (null == parent) {
-          break;
-        }
-
-        currentParentRenderElement = parent;
-      }
-
-      if (requiresMountAtSpecificPosition) {
-        mountAtIndex =
-            currentParentRenderElement.frameworkChildElements.indexOf(
-          immediateRenderElement,
-        );
-      }
-    }
-
-    // 3. Get dom node for mounting
-
-    var mountTargetDomNode = currentParentRenderElement.domNode;
-
-    if (null == mountTargetDomNode) {
-      if (DEBUG_BUILD) {
-        services.debug.exception(
-          'Unable to locate target dom node #$currentParentRenderElement in '
-          'HTML document',
-        );
-      }
-
+    var parentDomNode = parentRenderElement.domNode;
+    if (null != parentDomNode && 1 > oldRenderElementsCount) {
+      jobQueue.addJob(() => parentDomNode.append(newDomNodesFragment));
       return;
     }
 
-    // 4. Prepare new dom nodes for mounting
+    // =======================================================================
+    //  else switch to running full computation
+    // =======================================================================
 
-    var documentFragment = DocumentFragment();
+    RenderElement mountedRenderElement;
+    var mountedRenderElementIndex = mountedAtIndexForChildRenderElements;
+    mountedRenderElementIndex ??= oldRenderElementsCount;
 
-    for (final node in temporaryRenderElement.domNode!.children) {
-      documentFragment.append(node);
+    var isInvalid = mountedRenderElementIndex >= frameworkChildElements.length;
+    if (isInvalid || 0 > mountedRenderElementIndex) {
+      mountedRenderElement = frameworkChildElements.last;
+    } else {
+      mountedRenderElement = frameworkChildElements[mountedRenderElementIndex];
     }
 
-    // 5. Add a mount job
+    // ----------------------------------------------------------------------
+    //  Compute dom node mount at index
+    // ----------------------------------------------------------------------
 
-    jobQueue.addJob(() {
-      // if mount is requested at a specific index
-      //
-      if (null != mountAtIndex && mountAtIndex >= 0) {
-        //
-        // if index is available
-        //
-        if (mountTargetDomNode.children.length > mountAtIndex) {
-          //
-          // mount at specific index
-          //
-          mountTargetDomNode.insertBefore(
-            documentFragment,
-            mountTargetDomNode.children[mountAtIndex],
-          );
+    var mountAtIndexForDomNode = 0;
+    var mountInsideDomNode = parentRenderElement.domNode;
 
-          return;
+    var mountInsideRenderElement = parentRenderElement;
+    var mountBeforeRenderElement = mountedRenderElement;
+
+    do {
+      var childElements = mountInsideRenderElement.frameworkChildElements;
+      for (final childElement in childElements) {
+        if (childElement == mountBeforeRenderElement) break;
+        if (childElement.hasDomNode) {
+          mountAtIndexForDomNode += 1;
+        } else {
+          mountAtIndexForDomNode += childElement.frameworkVirtualDomNodesCount;
         }
       }
 
-      mountTargetDomNode.append(documentFragment);
+      // ----------------------------------------------------------------------
+      //  See if we've a dom node to mount on. else move to ancestor.
+      // ----------------------------------------------------------------------
+
+      if (null != mountInsideDomNode) break;
+
+      var ancestor = mountInsideRenderElement.frameworkParent;
+      if (null == ancestor) {
+        if (DEBUG_BUILD) {
+          services.debug.exception(
+            'Unable to locate target dom node #$parentRenderElement in '
+            'HTML document',
+          );
+        }
+
+        return;
+      }
+
+      mountBeforeRenderElement = mountInsideRenderElement;
+      mountInsideRenderElement = ancestor;
+      mountInsideDomNode = ancestor.domNode;
+    } while (true);
+
+    // ----------------------------------------------------------------------
+    //  Mount dom node mount at index
+    // ----------------------------------------------------------------------
+
+    jobQueue.addJob(() {
+      mountInsideDomNode as Element;
+      var isNotNegative = -1 < mountAtIndexForDomNode;
+      var availableChildLength = mountInsideDomNode.children.length;
+
+      if (isNotNegative && mountAtIndexForDomNode < availableChildLength) {
+        mountInsideDomNode.insertBefore(
+          newDomNodesFragment,
+          mountInsideDomNode.children[mountAtIndexForDomNode],
+        );
+
+        return;
+      }
+
+      mountInsideDomNode.append(newDomNodesFragment);
     });
   }
 
@@ -909,7 +903,9 @@ class Renderer with ServicesResolver {
     var childElements = renderElement.frameworkEjectChildRenderElements();
     if (childElements.isNotEmpty) {
       var hasUnMountListeners = renderElement.frameworkContainsUnMountListeners;
-      if (hasUnMountListeners) {
+      var hasVirtualDomNodes = renderElement.framworkContainsVirtualDomNodes;
+
+      if (hasUnMountListeners || hasVirtualDomNodes) {
         for (final childElement in childElements) {
           disposeDetachedRenderElement(
             renderElement: childElement,
@@ -941,7 +937,10 @@ class Renderer with ServicesResolver {
 
     var childElements = renderElement.frameworkChildElements;
     if (childElements.isNotEmpty) {
-      if (renderElement.frameworkContainsUnMountListeners) {
+      var hasUnMountListeners = renderElement.frameworkContainsUnMountListeners;
+      var hasVirtualDomNodes = renderElement.framworkContainsVirtualDomNodes;
+
+      if (hasUnMountListeners || hasVirtualDomNodes) {
         for (final renderElement in childElements) {
           disposeDetachedRenderElement(
             renderElement: renderElement,
@@ -985,7 +984,10 @@ class Renderer with ServicesResolver {
     required RenderElement renderElement,
     required JobQueue jobQueue,
   }) {
-    if (renderElement.frameworkContainsUnMountListeners) {
+    var hasUnMountListeners = renderElement.frameworkContainsUnMountListeners;
+    var hasVirtualDomNodes = renderElement.framworkContainsVirtualDomNodes;
+
+    if (hasUnMountListeners || hasVirtualDomNodes) {
       for (final childElement in renderElement.frameworkChildElements) {
         disposeDetachedRenderElement(
           renderElement: childElement,
