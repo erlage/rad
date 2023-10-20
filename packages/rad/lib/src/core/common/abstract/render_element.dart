@@ -530,14 +530,20 @@ abstract class RenderElement implements BuildContext {
   @internal
   @nonVirtual
   void frameworkAnnounceUnMountListeners() {
-    visitAncestorElements((renderElement) {
-      if (renderElement.frameworkContainsUnMountListeners) {
-        return false;
+    // we aren't using traverseAncestors here because
+    // it doesn't traverse the root element(the big bang one)
+    // a root element however can have widgets listening for
+    // unmount events.
+
+    var ancestor = _parent;
+    while (null != ancestor) {
+      if (ancestor.frameworkContainsUnMountListeners) {
+        return;
       }
 
-      renderElement._containsUnMountListeners = true;
-      return true;
-    });
+      ancestor._containsUnMountListeners = true;
+      ancestor = ancestor._parent;
+    }
   }
 
   /*
