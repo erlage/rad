@@ -450,7 +450,7 @@ class NavigatorRenderElement extends RouterRenderElement {
   }
 
   @override
-  void didChangedPath({
+  void didChangePath({
     required String previousPath,
     required String currentPath,
   }) {
