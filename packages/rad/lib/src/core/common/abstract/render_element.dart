@@ -527,7 +527,7 @@ abstract class RenderElement implements BuildContext {
   ///
   /// For example, a [StatefulWidget] doesn't have a corresponding dom node
   /// but you can return a [Span] widget(that has a corresponding dom node)
-  /// from [State.build] and framwork will mount it at [StatefulWidget]'s
+  /// from [State.build] and framework will mount it at [StatefulWidget]'s
   /// location. In this example, [StatefulWidget] has one virtual dom
   /// node which currently is filled by the [Span] widget.
   ///
