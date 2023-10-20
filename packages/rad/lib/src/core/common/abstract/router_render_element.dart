@@ -496,7 +496,7 @@ abstract class RouterRenderElement extends WatchfulRenderElement
 
   /// Called by router service when it opens a route.
   ///
-  void didChangedPath({
+  void didChangePath({
     required String previousPath,
     required String currentPath,
   });
@@ -526,7 +526,7 @@ abstract class RouterRenderElement extends WatchfulRenderElement
     _currentPath = path;
     _currentName = getNameFromPath(path: path);
 
-    didChangedPath(
+    didChangePath(
       previousPath: previousPath,
       currentPath: getCurrentRoutePath(),
     );
