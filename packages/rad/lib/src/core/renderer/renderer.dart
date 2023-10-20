@@ -939,9 +939,8 @@ class Renderer with ServicesResolver {
 
     // Detach child elements
 
-    if (renderElement.frameworkChildElements.isNotEmpty) {
-      var childElements = renderElement.frameworkEjectChildRenderElements();
-
+    var childElements = renderElement.frameworkChildElements;
+    if (childElements.isNotEmpty) {
       if (renderElement.frameworkContainsUnMountListeners) {
         for (final renderElement in childElements) {
           disposeDetachedRenderElement(
