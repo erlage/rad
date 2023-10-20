@@ -908,12 +908,14 @@ class Renderer with ServicesResolver {
 
     if (renderElement.frameworkChildElements.isNotEmpty) {
       var childElements = renderElement.frameworkEjectChildRenderElements();
-
-      for (final childElement in childElements) {
-        disposeDetachedRenderElement(
-          renderElement: childElement,
-          jobQueue: jobQueue,
-        );
+      var hasUnMountListeners = renderElement.frameworkContainsUnMountListeners;
+      if (hasUnMountListeners) {
+        for (final childElement in childElements) {
+          disposeDetachedRenderElement(
+            renderElement: childElement,
+            jobQueue: jobQueue,
+          );
+        }
       }
     }
   }
