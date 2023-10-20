@@ -173,6 +173,8 @@ void main() {
   });
 }
 
+/// A simple widget that can have virtual dom nodes.
+///
 /// See [RenderElement.frameworkContainsVirtualDomNodes] for more information.
 ///
 class _V extends Widget {
@@ -190,11 +192,11 @@ class _V extends Widget {
       true;
 
   @override
-  createRenderElement(parent) => _Velement(this, parent);
+  createRenderElement(parent) => _SampleRenderElement(this, parent);
 }
 
-class _Velement extends RenderElement {
-  _Velement(super.widget, super.parent);
+class _SampleRenderElement extends RenderElement {
+  _SampleRenderElement(super.widget, super.parent);
 
   @override
   List<Widget> get widgetChildren => (widget as _V).children;
