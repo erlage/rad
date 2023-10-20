@@ -647,6 +647,11 @@ abstract class RenderElement implements BuildContext {
   /// @nodoc
   @internal
   @nonVirtual
+  void frameworkDisposeRenderElement() {}
+
+  /// @nodoc
+  @internal
+  @nonVirtual
   DomNodePatch? frameworkRender({required Widget widget}) {
     return render(widget: widget);
   }
