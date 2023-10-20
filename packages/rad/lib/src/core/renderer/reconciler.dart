@@ -79,7 +79,7 @@ class Reconciler {
       return ccImmutableEmptyListOfWidgetUpdates;
     }
 
-    return [WidgetUpdateObjectActionCleanParent()];
+    return const [WidgetUpdateObjectActionCleanParent()];
   }
 
   /// Prepare list of widget updates using Rad's algorithm.
@@ -403,7 +403,7 @@ class Reconciler {
       if (preparedUpdates.isEmpty && preparedUpdatesInReverse.isEmpty) {
         if (flagAddIfNotFound) {
           return [
-            WidgetUpdateObjectActionCleanParent(),
+            const WidgetUpdateObjectActionCleanParent(),
             WidgetUpdateObjectActionAdd(
               widgets: newNodes,
               mountAtIndex: null,
