@@ -6,6 +6,9 @@
 
 import '../../test_imports.dart';
 
+// some misc mount cases
+// previous algorithm wasn't able to handle some of the cases below
+
 void main() {
   RT_AppRunner? app;
 
@@ -17,15 +20,6 @@ void main() {
 
   group('sync render and dom tree', () {
     test('build', () async {
-      /*
-      .
-      └── Target
-        ├── V
-        │   └── V
-        │       └── 'a'
-        └── 'b'
-      */
-
       await app!.buildChildren(
         widgets: [
           _V([
@@ -37,6 +31,15 @@ void main() {
         ],
         parentRenderElement: app!.appRenderElement,
       );
+
+      /*
+      .
+      └── Target
+        ├── V
+        │   └── V
+        │       └── 'a'
+        └── 'b'
+      */
 
       expect(RT_TestBed.rootDomNode, RT_hasContents('a|b'));
     });
@@ -54,22 +57,10 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootDomNode, RT_hasContents('a|b'));
-
-      /*
-      .
-      └── Target
-          ├── V
-          │   ├── 'added'
-          │   └── V
-          │       └── 'a'
-          └── 'b'
-      */
-
       await app!.updateChildren(
         widgets: [
           _V([
-            Text('added'),
+            Text('added above'),
             _V([
               Text('a'),
             ]),
@@ -80,7 +71,17 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootDomNode, RT_hasContents('added|a|b'));
+      /*
+      .
+      └── Target
+          ├── V
+          │   ├── 'added above'
+          │   └── V
+          │       └── 'a'
+          └── 'b'
+      */
+
+      expect(RT_TestBed.rootDomNode, RT_hasContents('added above|a|b'));
     });
 
     test('add below a', () async {
@@ -96,25 +97,13 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootDomNode, RT_hasContents('a|b'));
-
-      /*
-      .
-      └── Target
-          ├── V
-          │   ├── V
-          │   │   └── 'a'
-          │   └── 'added'
-          └── 'b'
-      */
-
       await app!.updateChildren(
         widgets: [
           _V([
             _V([
               Text('a'),
             ]),
-            Text('added'),
+            Text('added below'),
           ]),
           Text('b'),
         ],
@@ -122,14 +111,23 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootDomNode, RT_hasContents('a|added|b'));
+      /*
+      .
+      └── Target
+          ├── V
+          │   ├── V
+          │   │   └── 'a'
+          │   └── 'added below'
+          └── 'b'
+      */
+
+      expect(RT_TestBed.rootDomNode, RT_hasContents('a|added below|b'));
     });
 
     test('add above and below a', () async {
       await app!.buildChildren(
         widgets: [
           _V([
-            Text('added above'),
             _V([
               Text('a'),
             ])
@@ -139,18 +137,31 @@ void main() {
         parentRenderElement: app!.appRenderElement,
       );
 
-      expect(RT_TestBed.rootDomNode, RT_hasContents('added above|a|b'));
+      await app!.updateChildren(
+        widgets: [
+          _V([
+            Text('added above'),
+            _V([
+              Text('a'),
+            ])
+          ]),
+          Text('b'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
 
       /*
       .
       └── Target
           ├── V
           │   ├── 'added above'
-          │   ├── V
-          │   │   └── 'a'
-          │   └── 'added below'
+          │   └── V
+          │       └── 'a'
           └── 'b'
       */
+
+      expect(RT_TestBed.rootDomNode, RT_hasContents('added above|a|b'));
 
       await app!.updateChildren(
         widgets: [
@@ -166,6 +177,85 @@ void main() {
         updateType: UpdateType.setState,
         parentRenderElement: app!.appRenderElement,
       );
+
+      /*
+      .
+      └── Target
+          ├── V
+          │   ├── 'added above'
+          │   ├── V
+          │   │   └── 'a'
+          │   └── 'added below'
+          └── 'b'
+      */
+
+      expect(RT_TestBed.rootDomNode,
+          RT_hasContents('added above|a|added below|b'));
+    });
+
+    test('add below and above a', () async {
+      await app!.buildChildren(
+        widgets: [
+          _V([
+            _V([
+              Text('a'),
+            ])
+          ]),
+          Text('b'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      await app!.updateChildren(
+        widgets: [
+          _V([
+            _V([
+              Text('a'),
+            ]),
+            Text('added below'),
+          ]),
+          Text('b'),
+        ],
+        updateType: UpdateType.setState,
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      /*
+      .
+      └── Target
+          ├── V
+          │   ├── V
+          │   │   └── 'a'
+          │   └── 'added below'
+          └── 'b'
+      */
+
+      expect(RT_TestBed.rootDomNode, RT_hasContents('a|added below|b'));
+
+      await app!.buildChildren(
+        widgets: [
+          _V([
+            Text('added above'),
+            _V([
+              Text('a'),
+            ]),
+            Text('added below'),
+          ]),
+          Text('b'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      /*
+      .
+      └── Target
+          ├── V
+          │   ├── 'added above'
+          │   ├── V
+          │   │   └── 'a'
+          │   └── 'added below'
+          └── 'b'
+      */
 
       expect(RT_TestBed.rootDomNode,
           RT_hasContents('added above|a|added below|b'));
