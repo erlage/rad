@@ -645,9 +645,8 @@ class Renderer with ServicesResolver {
 
   /// Mount widgets.
   ///
-  /// This process mount both the elements and HTML dom nodes on element tree
-  /// and DOM respectively. Updates on element tree are synchronous while DOM
-  /// updates are queued and dispatched in a batch.
+  /// This process mount HTML nodes of the newly mounted render elements on
+  /// the DOM. Updates to DOM are queued and dispatched in a batch.
   ///
   void mountWidgets({
     required DocumentFragment newDomNodesFragment,
