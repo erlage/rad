@@ -944,6 +944,8 @@ class Renderer with ServicesResolver {
     renderElement.frameworkDisposeRenderElement();
     if (flagDetachRenderElement) renderElement.frameworkDetach();
 
+    // this probably has more uses cases if called before dispose/detach
+    // current behavior isn't well defined, so we might be able to change it
     renderElement.frameworkDispatchRenderEvent(
       RenderEventType.willUnMount,
     );
