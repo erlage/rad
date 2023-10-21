@@ -16,6 +16,7 @@ import 'package:rad/src/core/common/objects/meta_information.dart';
 import 'package:rad/src/core/common/objects/render_event.dart';
 import 'package:rad/src/core/common/types.dart';
 import 'package:rad/src/core/interface/meta/meta.dart';
+import 'package:rad/src/core/renderer/renderer.dart';
 import 'package:rad/src/core/services/services.dart';
 import 'package:rad/src/widgets/abstract/widget.dart';
 import 'package:rad/src/widgets/html/span.dart';
@@ -625,6 +626,14 @@ abstract class RenderElement implements BuildContext {
     _isInRegistrationPhase = false;
   }
 
+  /// The framework calls this method before detaching this [RenderElement].
+  ///
+  /// Please note, this method gets called at most one time, not exactly one
+  /// time. The framework might decide not to call this method when this
+  /// [RenderElement] has child nodes that doesn't require any disposals.
+  ///
+  /// See [Renderer.disposeRenderElement] for more information.
+  ///
   /// @nodoc
   @internal
   @nonVirtual
