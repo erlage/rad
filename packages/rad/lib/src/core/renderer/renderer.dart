@@ -710,13 +710,14 @@ class Renderer with ServicesResolver {
     required int? mountedAtIndexForChildRenderElements,
     required JobQueue jobQueue,
   }) {
-    var oldRenderElementsCount = parentRenderElementPreviousChildElementsLength;
-    var frameworkChildElements = parentRenderElement.frameworkChildElements;
-
     // ----------------------------------------------------------------------
     //  see if we can return early
     // ----------------------------------------------------------------------
 
+    var parentChildElements = parentRenderElement.frameworkChildElements;
+    if (parentChildElements.isEmpty) return;
+
+    var oldRenderElementsCount = parentRenderElementPreviousChildElementsLength;
     var parentDomNode = parentRenderElement.domNode;
     if (null != parentDomNode && 1 > oldRenderElementsCount) {
       jobQueue.addJob(() => parentDomNode.append(newDomNodesFragment));
@@ -727,19 +728,12 @@ class Renderer with ServicesResolver {
     //  else switch to running full computation
     // =======================================================================
 
-    RenderElement mountedRenderElement;
     var mountedRenderElementIndex = mountedAtIndexForChildRenderElements;
     mountedRenderElementIndex ??= oldRenderElementsCount;
-
-    var isInvalid = mountedRenderElementIndex >= frameworkChildElements.length;
-    if (isInvalid || 0 > mountedRenderElementIndex) {
-      mountedRenderElement = frameworkChildElements.last;
-    } else {
-      mountedRenderElement = frameworkChildElements[mountedRenderElementIndex];
-    }
+    var mountedRenderElement = parentChildElements[mountedRenderElementIndex];
 
     // ----------------------------------------------------------------------
-    //  Compute dom node mount at index
+    //  Compute mountAtIndex for dom node
     // ----------------------------------------------------------------------
 
     var mountAtIndexForDomNode = 0;
