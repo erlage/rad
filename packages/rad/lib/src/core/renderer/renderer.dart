@@ -68,22 +68,37 @@ class Renderer with ServicesResolver {
       );
     }
 
+    // check/prepare mountAtIndex
+
     var frameworkChildElements = parentRenderElement.frameworkChildElements;
     var oldRenderElementsCount = frameworkChildElements.length;
+
+    if (null != mountAtIndex) {
+      if (frameworkChildElements.length <= mountAtIndex || mountAtIndex < 0) {
+        mountAtIndex = null;
+      }
+    }
 
     // create temp space for holding new dom nodes
 
     var temporaryParentDomNode = document.createDocumentFragment();
 
-    // build widgets under temp space
-
-    buildWidgetsUnderContext(
-      widgets: widgets,
-      temporaryParentDomNode: temporaryParentDomNode,
-      parentRenderElement: parentRenderElement,
-      mountAtIndexForChildRenderElements: mountAtIndex,
-      jobQueue: queue,
-    );
+    if (null == mountAtIndex) {
+      buildWidgetsAppendOnlyFastPath(
+        widgets: widgets,
+        temporaryParentDomNode: temporaryParentDomNode,
+        parentRenderElement: parentRenderElement,
+        jobQueue: queue,
+      );
+    } else {
+      buildWidgetsUnderContext(
+        widgets: widgets,
+        temporaryParentDomNode: temporaryParentDomNode,
+        parentRenderElement: parentRenderElement,
+        mountAtIndexForChildRenderElements: mountAtIndex,
+        jobQueue: queue,
+      );
+    }
 
     // mount widgets(should be renamed to mount temp dom nodes)
 
@@ -269,6 +284,13 @@ class Renderer with ServicesResolver {
     return renderElement;
   }
 
+  /*
+  |--------------------------------------------------------------------------
+  | Building widgets
+  | Duplication here is on purpose
+  |--------------------------------------------------------------------------
+  */
+
   /// Build widgets under a available parent dom node and parent render element.
   ///
   void buildWidgetsUnderContext({
@@ -339,6 +361,54 @@ class Renderer with ServicesResolver {
       }
     }
   }
+
+  /// Fast path for building widgets.
+  ///
+  void buildWidgetsAppendOnlyFastPath({
+    required List<Widget> widgets,
+    required Node temporaryParentDomNode,
+    required RenderElement parentRenderElement,
+    required JobQueue jobQueue,
+  }) {
+    for (final widget in widgets) {
+      var renderElement = createRenderElement(
+        widget: widget,
+        parentRenderElement: parentRenderElement,
+        jobQueue: jobQueue,
+      );
+
+      parentRenderElement.frameworkAppendFresh(renderElement);
+
+      var newDomNode = renderElement.domNode;
+      if (null != newDomNode) {
+        temporaryParentDomNode.append(newDomNode);
+      }
+
+      var widgetChildren = renderElement.widgetChildren;
+      if (widgetChildren.isNotEmpty) {
+        buildWidgetsAppendOnlyFastPath(
+          widgets: widgetChildren,
+          temporaryParentDomNode: newDomNode ?? temporaryParentDomNode,
+          parentRenderElement: renderElement,
+          jobQueue: jobQueue,
+        );
+      }
+
+      if (renderElement.frameworkHasEventListenerOfType(
+        RenderEventType.didRender,
+      )) {
+        jobQueue.addPostDispatchCallback(
+          () => renderElement.frameworkDispatchRenderEvent(
+            RenderEventType.didRender,
+          ),
+        );
+      }
+    }
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  */
 
   /// Update widgets.
   ///
