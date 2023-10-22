@@ -297,17 +297,9 @@ class Renderer with ServicesResolver {
     required List<Widget> widgets,
     required Node temporaryParentDomNode,
     required RenderElement parentRenderElement,
-    required int? mountAtIndexForChildRenderElements,
+    required int mountAtIndexForChildRenderElements,
     required JobQueue jobQueue,
   }) {
-    var mountAtIndex = mountAtIndexForChildRenderElements;
-    if (null != mountAtIndex) {
-      var childElements = parentRenderElement.frameworkChildElements;
-      if (childElements.length <= mountAtIndex || mountAtIndex < 0) {
-        mountAtIndex = null;
-      }
-    }
-
     for (final widget in widgets) {
       // 1. Create render element
 
@@ -319,14 +311,10 @@ class Renderer with ServicesResolver {
 
       // 2. Add render element to element tree
 
-      if (null == mountAtIndex) {
-        parentRenderElement.frameworkAppendFresh(renderElement);
-      } else {
-        parentRenderElement.frameworkInsertAtFreshUnsafeFastPath(
-          renderElement,
-          mountAtIndex++,
-        );
-      }
+      parentRenderElement.frameworkInsertAtFreshUnsafeFastPath(
+        renderElement,
+        mountAtIndexForChildRenderElements++,
+      );
 
       // 3. Add dom node to temporary dom tree(if current widget has it)
 
