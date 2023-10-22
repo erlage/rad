@@ -918,20 +918,20 @@ void main() {
 
         expect(RT_TestBed.rootDomNode, RT_hasContents('0|1|2|3'));
 
-        var childs = app!.appRenderElement.frameworkChildElements;
-        expect(childs.length, equals(4));
+        var childElements = app!.appRenderElement.frameworkChildElements;
+        expect(childElements.length, equals(4));
 
-        expect(childs[0].widget.runtimeType, equals(Span));
-        expect((childs[0].widget as Span).innerText, equals('0'));
+        expect(childElements[0].widget.runtimeType, equals(Span));
+        expect((childElements[0].widget as Span).innerText, equals('0'));
 
-        expect(childs[1].widget.runtimeType, equals(Division));
-        expect((childs[1].widget as Division).innerText, equals('1'));
+        expect(childElements[1].widget.runtimeType, equals(Division));
+        expect((childElements[1].widget as Division).innerText, equals('1'));
 
-        expect(childs[2].widget.runtimeType, equals(Span));
-        expect((childs[2].widget as Span).innerText, equals('2'));
+        expect(childElements[2].widget.runtimeType, equals(Span));
+        expect((childElements[2].widget as Span).innerText, equals('2'));
 
-        expect(childs[3].widget.runtimeType, equals(Division));
-        expect((childs[3].widget as Division).innerText, equals('3'));
+        expect(childElements[3].widget.runtimeType, equals(Division));
+        expect((childElements[3].widget as Division).innerText, equals('3'));
       });
       //
     },
