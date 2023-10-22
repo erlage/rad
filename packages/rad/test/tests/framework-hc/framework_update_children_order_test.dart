@@ -895,6 +895,44 @@ void main() {
         expect(RT_TestBed.rootDomNode, RT_hasContents('1|2'));
       });
 
+      test('should respect order render tree(keyed insertions)', () async {
+        await app!.updateChildren(
+          widgets: [
+            Span(key: Key('0'), innerText: '0'),
+            Division(key: Key('3'), innerText: '3'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        await app!.updateChildren(
+          widgets: [
+            Span(key: Key('0'), innerText: '0'),
+            Division(key: Key('1'), innerText: '1'),
+            Span(key: Key('2'), innerText: '2'),
+            Division(key: Key('3'), innerText: '3'),
+          ],
+          parentRenderElement: app!.appRenderElement,
+          updateType: UpdateType.undefined,
+        );
+
+        expect(RT_TestBed.rootDomNode, RT_hasContents('0|1|2|3'));
+
+        var childs = app!.appRenderElement.frameworkChildElements;
+        expect(childs.length, equals(4));
+
+        expect(childs[0].widget.runtimeType, equals(Span));
+        expect((childs[0].widget as Span).innerText, equals('0'));
+
+        expect(childs[1].widget.runtimeType, equals(Division));
+        expect((childs[1].widget as Division).innerText, equals('1'));
+
+        expect(childs[2].widget.runtimeType, equals(Span));
+        expect((childs[2].widget as Span).innerText, equals('2'));
+
+        expect(childs[3].widget.runtimeType, equals(Division));
+        expect((childs[3].widget as Division).innerText, equals('3'));
+      });
       //
     },
   );
