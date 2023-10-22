@@ -100,9 +100,7 @@ class Renderer with ServicesResolver {
       );
     }
 
-    // mount widgets(should be renamed to mount temp dom nodes)
-
-    mountWidgets(
+    mountDomNodes(
       newDomNodesFragment: temporaryParentDomNode,
       parentRenderElement: parentRenderElement,
       parentRenderElementPreviousChildElementsLength: oldRenderElementsCount,
@@ -705,7 +703,7 @@ class Renderer with ServicesResolver {
   /// This process mount HTML nodes of the newly mounted render elements on
   /// the DOM. Updates to DOM are queued and dispatched in a batch.
   ///
-  void mountWidgets({
+  void mountDomNodes({
     required DocumentFragment newDomNodesFragment,
     required RenderElement parentRenderElement,
     required int parentRenderElementPreviousChildElementsLength,
