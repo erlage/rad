@@ -4,6 +4,7 @@
 
 import 'dart:html';
 
+import 'package:meta/dart2js.dart';
 import 'package:meta/meta.dart';
 
 import 'package:rad/src/core/common/abstract/build_context.dart';
@@ -100,6 +101,7 @@ class Renderer with ServicesResolver {
       );
     }
 
+    // todo: if compiler is not inlining it, inline it
     mountDomNodes(
       newDomNodesFragment: temporaryParentDomNode,
       parentRenderElement: parentRenderElement,
@@ -703,6 +705,7 @@ class Renderer with ServicesResolver {
   /// This process mount HTML nodes of the newly mounted render elements on
   /// the DOM. Updates to DOM are queued and dispatched in a batch.
   ///
+  @tryInline
   void mountDomNodes({
     required DocumentFragment newDomNodesFragment,
     required RenderElement parentRenderElement,
