@@ -733,10 +733,10 @@ class Renderer with ServicesResolver {
 
     jobQueue.addJob(() {
       mountInsideDomNode as Element;
-      var isNotNegative = -1 < mountAtIndexForDomNode;
-      var availableChildLength = mountInsideDomNode.children.length;
+      assert(-1 < mountAtIndexForDomNode, 'Negative mountAtIndexForDomNode');
 
-      if (isNotNegative && mountAtIndexForDomNode < availableChildLength) {
+      var availableChildLength = mountInsideDomNode.children.length;
+      if (mountAtIndexForDomNode < availableChildLength) {
         mountInsideDomNode.insertBefore(
           newDomNodesFragment,
           mountInsideDomNode.children[mountAtIndexForDomNode],
