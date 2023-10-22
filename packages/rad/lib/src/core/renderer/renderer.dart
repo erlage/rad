@@ -91,7 +91,7 @@ class Renderer with ServicesResolver {
         jobQueue: queue,
       );
     } else {
-      buildWidgetsUnderContext(
+      buildWidgetsAtIndex(
         widgets: widgets,
         temporaryParentDomNode: temporaryParentDomNode,
         parentRenderElement: parentRenderElement,
@@ -293,7 +293,7 @@ class Renderer with ServicesResolver {
 
   /// Build widgets under a available parent dom node and parent render element.
   ///
-  void buildWidgetsUnderContext({
+  void buildWidgetsAtIndex({
     required List<Widget> widgets,
     required Node temporaryParentDomNode,
     required RenderElement parentRenderElement,
