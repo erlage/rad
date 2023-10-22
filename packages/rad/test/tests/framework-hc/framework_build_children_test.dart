@@ -626,6 +626,58 @@ void main() {
       expect(RT_TestBed.rootDomNode, RT_hasContents('insert at start|0'));
     });
 
+    test('should mount multiple at index', () async {
+      await app!.buildChildren(
+        widgets: [
+          Text('0'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+      );
+
+      // 0
+
+      await app!.buildChildren(
+        widgets: [
+          Text('1'),
+          Text('3'),
+        ],
+        parentRenderElement: app!.appRenderElement,
+        mountAtIndex: 1,
+        flagCleanParentContents: false,
+      );
+
+      // 0 1 3
+
+      await app!.buildChildren(
+        widgets: [Text('-2')],
+        parentRenderElement: app!.appRenderElement,
+        mountAtIndex: 0,
+        flagCleanParentContents: false,
+      );
+
+      // -2 0 1 3
+
+      await app!.buildChildren(
+        widgets: [Text('-1')],
+        parentRenderElement: app!.appRenderElement,
+        mountAtIndex: 1,
+        flagCleanParentContents: false,
+      );
+
+      // -2 -1 0 1 3
+
+      await app!.buildChildren(
+        widgets: [Text('2')],
+        parentRenderElement: app!.appRenderElement,
+        mountAtIndex: 4,
+        flagCleanParentContents: false,
+      );
+
+      // -2 -1 0 1 2 3
+
+      expect(RT_TestBed.rootDomNode, RT_hasContents('-2|-1|0|1|2|3'));
+    });
+
     test('should mount at end', () async {
       await app!.buildChildren(
         widgets: [
