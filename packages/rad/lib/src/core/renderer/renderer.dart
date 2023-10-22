@@ -339,11 +339,10 @@ class Renderer with ServicesResolver {
 
       var widgetChildren = renderElement.widgetChildren;
       if (widgetChildren.isNotEmpty) {
-        buildWidgetsUnderContext(
+        buildWidgetsAppendOnlyFastPath(
           widgets: widgetChildren,
           temporaryParentDomNode: newDomNode ?? temporaryParentDomNode,
           parentRenderElement: renderElement,
-          mountAtIndexForChildRenderElements: null,
           jobQueue: jobQueue,
         );
       }
