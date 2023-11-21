@@ -285,7 +285,7 @@ void main() {
                 var rootDomNode = pap.appDomNode;
                 var ancestorDomNode = element.findClosestDomNodeInAncestors();
 
-                expect(rootDomNode, equals(rootDomNode));
+                expect(rootDomNode, equals(ancestorDomNode));
 
                 rootDomNode.id = '123';
                 expect(ancestorDomNode?.id, equals('123'));
