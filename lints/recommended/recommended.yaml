@@ -58,5 +58,6 @@ linter:
     - unnecessary_string_escapes
     - unnecessary_string_interpolations
     - unnecessary_this
+    - unnecessary_to_list_in_spreads
     - use_function_type_syntax_for_parameters
     - use_rethrow_when_possible
