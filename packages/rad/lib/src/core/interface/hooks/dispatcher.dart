@@ -109,7 +109,7 @@ class _Dispatcher {
       );
 
       scope.addScopeEventListener(ScopeEventType.didUnMountScope, (_) {
-        _dispatchers.remove(newDispatcher);
+        _dispatchers.remove(scope);
       });
 
       dispatcherToReturn = newDispatcher;
