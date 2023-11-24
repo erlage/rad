@@ -9,7 +9,7 @@
     - Open `pubspec.yaml` in newly created app folder and add `rad` to your dependencies:
       ```yaml
       dependencies:
-        rad: '>=1.7.0 <2.0.0'
+        rad: '>=1.8.0 <2.0.0'
       ```
 
 3. Run `dart pub get`.

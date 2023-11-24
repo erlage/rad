@@ -1,3 +1,17 @@
+## 1.8.0
+
+#### New
+
+- (Added): A new widget mounting mechanism that renders more correct markup.
+- (Added): A new widget building mechanism that is fast and consume less memory.
+- (Added): A new set of cleaning optimisations that make widget disposing more fast.
+
+#### Bug fixes
+
+- (Fixed): Rendering incorrect markup(rare cases).
+- (Fixed): Hook dispatcher not getting cleaned up on scope unmount.
+- (Fixed): Router altering value segments when operating on child navigators.
+
 ## 1.7.0
 
 #### New
