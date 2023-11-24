@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023, H. Singh <hamsbrar@gmail.com>. All rights reserved.
+# Copyright (c) 2022, H. Singh <hamsbrar@gmail.com>. All rights reserved.
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
@@ -167,7 +167,7 @@ def finalize_package(out_dir):
 
     fh = open(dom_node_patch_file, 'w')
     fh.write('''
-    // Copyright (c) 2022-2023, H. Singh <hamsbrar@gmail.com>. All rights reserved.
+    // Copyright (c) 2022, H. Singh <hamsbrar@gmail.com>. All rights reserved.
     // Use of this source code is governed by a BSD-style license that can be
     // found in the LICENSE file.
 
