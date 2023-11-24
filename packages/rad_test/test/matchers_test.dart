@@ -149,7 +149,7 @@ void main() {
         '   ║ TextSpan:\n',
         '   ║   "I polished up that handle so carefully\n',
         '   ║   That now I am the Ruler of the Queen\'s Navy!"\n',
-        '   ╚═══════════\n'
+        '   ╚═══════════\n',
       ]),
       hasAGoodToStringDeep,
     );
@@ -163,7 +163,7 @@ void main() {
         '   ║ TextSpan:\n',
         '   ║   "I polished up that handle so carefully\nThat now I am the '
             'Ruler of the Queen\'s Navy!"\n',
-        '   ╚═══════════\n'
+        '   ╚═══════════\n',
       ]),
       isNot(hasAGoodToStringDeep),
     );

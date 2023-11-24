@@ -66,7 +66,7 @@ class Reconciler {
     return [
       WidgetUpdateObjectActionAddAllWithoutClean(
         widgets: widgets,
-      )
+      ),
     ];
   }
 

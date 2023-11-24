@@ -144,7 +144,7 @@ class HTMLRenderElementBase extends RenderElement {
       addRenderEventListeners({
         RenderEventType.willUnMount: (_) {
           refCallback(null);
-        }
+        },
       });
     }
   }
