@@ -12,12 +12,14 @@
         rad: '>=1.7.0 <2.0.0'
       ```
 
-3. Import Rad widgets in your `main.dart`
+3. Run `dart pub get`.
+
+4. Import Rad widgets in your `main.dart`:
     ```dart
     import 'package:rad/rad.dart';
     ```
 
-3. Create App
+5. Create App:
     ```dart
     void main() {
       runApp(
@@ -34,7 +36,7 @@
     }
     ```
 
-3. Run `webdev serve` and follow on-screen instructions
+6. Run `webdev serve` and follow on-screen instructions.
 
 ### Debugging
 
