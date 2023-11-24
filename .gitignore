@@ -5,6 +5,7 @@
 **/build
 **/out
 **/tmp
+**/generated
 **/node_modules
 **/pubspec.lock
 **/__pycache__
