@@ -111,7 +111,7 @@ class StylesBuilder implements Builder {
 
   @override
   final buildExtensions = const {
-    '.css': ['.generated.dart']
+    '.css': ['.generated.dart'],
   };
 
   @override
