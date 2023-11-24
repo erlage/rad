@@ -20,7 +20,7 @@ jobs:
     name: Run tests both w/ & w/o optimizations
     strategy:
       matrix:
-        dart-sdk-version: [latest]
+        dart-sdk-version: [2.17.0, 3.0.0]
 
     steps:
       - uses: actions/checkout@v3
